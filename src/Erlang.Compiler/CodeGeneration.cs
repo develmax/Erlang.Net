@@ -73,7 +73,7 @@ public static class CodeGeneration
 
     private static string Optional(Expr? expression) => expression is null ? "null" : ExpressionCode(expression);
 
-    private static string BitSegmentCode(BitSegment s) => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + "," + (s.Signed ? "true" : "false") + ")";
+    private static string BitSegmentCode(BitSegment s) => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + "," + (s.Signed ? "true" : "false") + "," + (s.IsStringLiteral ? "true" : "false") + ")";
 
     public static string ExpressionCode(Expr expression) => expression switch
     {

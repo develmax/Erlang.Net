@@ -10,6 +10,10 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!value.Equals(Term.I(42))) throw new InvalidOperationException("Map module generation failed");
     var picked = await runtime.Modules.Call(erlangProcess, "map_source", "pick", new MapTerm([new(Term.A("value"), Term.Tuple(Term.I(21), Term.I(21)))]));
     if (!picked.Equals(Term.I(21))) throw new InvalidOperationException("Map function pattern generation failed");
+    var stringValue = await runtime.Modules.Call(erlangProcess, "map_source", "string_check");
+    if (!stringValue.Equals(new BitString([97,0,98,0,42]))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.StringModule);
+    var hybridString = case ok of ok -> <<"AB":16/float>> end.
+    if (!hybridString.Equals(new BitString([84,16,84,32]))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.StringHybrid);
     var bitValue = await runtime.Modules.Call(erlangProcess, "map_source", "bits");
     if (!bitValue.Equals(new BitString([52,18,177,128],25))) throw new InvalidOperationException("Bit segment module generation failed");
     var guarded = await runtime.Modules.Call(erlangProcess, "map_source", "bit_guard", bitValue);

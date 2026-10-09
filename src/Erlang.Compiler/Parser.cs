@@ -431,7 +431,15 @@ public sealed class Parser
                     segments.Add(new(new Expr.Literal(item), null));
             }
             else if (value is Expr.Literal { Value: Cons or Nil })
-                throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.StringSegmentModifiers, Current.Start);
+                segments.Add(new(
+                    value,
+                    size,
+                    type,
+                    unit ?? defaultUnit,
+                    endian,
+                    signed,
+                    IsStringLiteral: true
+                ));
             else
                 segments.Add(new(
                     value,

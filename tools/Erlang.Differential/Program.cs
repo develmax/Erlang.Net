@@ -171,6 +171,30 @@ try
         hugeInteger+"*0.0",
         "0.0/"+hugeInteger,
         "case "+hugeInteger+" of X when 0.0/X =:= 0.0 -> wrong; _ -> ok end"];
+    cases = [..cases,
+        "<<\"ab\":16/little>>",
+        "<<\"AB\":2/unit:8>>",
+        "<<1:1,\"AB\":4,3:2>>",
+        "<<\"Ā😀\"/integer>>",
+        "<<\"AB\":16/float>>",
+        "<<\"A\":32/float-little>>",
+        "<<\"A\"/float>>",
+        "case ok of ok -> put(counter,0),B = <<\"ab\":(put(counter,get(counter)+1))>>, {B,get(counter)} end",
+        "case ok of ok -> B = <<\"ab\":(S = 8)>>,{B,S} end",
+        "<<\"\":16/little,\"\":32/float,42>>",
+        "<<\"\":(error(boom))>>",
+        "<<\"abc\":0,42>>",
+        "<<\"ab\":(-1)>>",
+        "<<\"\":(-1)>>",
+        "<<\"\":all>>",
+        "<<\"ab\":1.0>>",
+        "<<\"\":1/float>>",
+        "<<\"ab\":0/float>>",
+        "<<\"a\"/binary>>",
+        "<<\"\"/binary>>",
+        "<<[65,66]:8>>",
+        "<<[]:8>>",
+        "case #{<<\"ab\":16/little>> => 42} of #{<<\"ab\":16/little>> := X} when <<\"A\":16/float>> =:= <<84,16>> -> X end"];
     planned = cases.Length;
     foreach (string source in cases)
     {

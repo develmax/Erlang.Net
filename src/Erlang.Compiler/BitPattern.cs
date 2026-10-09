@@ -10,6 +10,8 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
         for (int i = 0; i < bits.Segments.Count; i++)
         {
             var segment = bits.Segments[i];
+            if (segment.IsStringLiteral)
+                throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.StringModifiers, 0);
             bool whole = segment.Type == BitSegmentTypes.Binary && (segment.Size is null || segment.Size is Expr.Literal { Value: Atom { Name: "all" } });
             if (whole && i != bits.Segments.Count - 1)
                 throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedBinaryNotLast, 0);

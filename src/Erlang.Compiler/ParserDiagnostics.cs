@@ -14,7 +14,6 @@ internal static class ParserDiagnostics
     public const string InvalidBitUnit = "Bit segment unit must be an integer from 1 through 256";
     public const string NumericUnitRequiresSize = "An explicit numeric segment unit requires a size";
     public const string UtfSizeOrUnit = "UTF segments must not specify a size or unit";
-    public const string StringSegmentModifiers = "String segment modifiers are not supported yet";
     public const string ExpectedMapFieldOperator = "Expected '=>' or ':=' in map field";
     public const string InvalidPattern = "Invalid or unsupported pattern";
 

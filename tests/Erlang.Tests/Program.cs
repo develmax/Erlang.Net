@@ -2339,13 +2339,69 @@ Test(
  }
 );
 Test(
-    "compiler/bits-string-modifier-pending-diagnostic",
+    "compiler/bits-string-little-per-codepoint",
+    async () => Equal(await Eval("<<\"ab\":16/little>>"), new BitString([97, 0, 98, 0]))
+);
+Test("compiler/bits-string-unit-per-codepoint", async () => Equal(await Eval("<<\"AB\":2/unit:8>>"), new BitString([0, 65, 0, 66])));
+Test("compiler/bits-string-unaligned", async () => Equal(await Eval("<<1:1,\"AB\":4,3:2>>"), new BitString([137, 96], 11)));
+Test("compiler/bits-string-unicode-integer-truncation", async () => Equal(await Eval("<<\"Ā😀\"/integer>>"), new BitString([0, 0])));
+Test("compiler/bits-string-float-half", async () => Equal(await Eval("<<\"AB\":16/float>>"), new BitString([84, 16, 84, 32])));
+Test(
+    "compiler/bits-string-float-single-little",
+    async () => Equal(await Eval("<<\"A\":32/float-little>>"), new BitString([0, 0, 130, 66]))
+);
+Test("compiler/bits-string-float-default", async () => Equal(await Eval("<<\"A\"/float>>"), new BitString([64, 80, 64, 0, 0, 0, 0, 0])));
+Test(
+    "compiler/bits-string-size-evaluated-once",
+    async () => Equal(
+        await Eval("case ok of ok -> put(counter,0),B = <<\"ab\":(put(counter,get(counter)+1))>>, {B,get(counter)} end"),
+        Term.Tuple(new BitString([], 0), Term.I(1))
+    )
+);
+Test(
+    "compiler/bits-string-size-binding",
+    async () => Equal(await Eval("case ok of ok -> B = <<\"ab\":(S = 8)>>,{B,S} end"), Term.Tuple(new BitString([97, 98]), Term.I(8)))
+);
+Test(
+    "compiler/bits-empty-string-valid-modifiers",
+    async () => Equal(await Eval("<<\"\":16/little,\"\":32/float,42>>"), new BitString([42]))
+);
+Test("compiler/bits-empty-string-size-evaluation", async () => Equal(await MapError("<<\"\":(error(boom))>>"), Term.A("boom")));
+Test("compiler/bits-string-zero-width", async () => Equal(await Eval("<<\"abc\":0,42>>"), new BitString([42])));
+Test(
+    "compiler/bits-string-invalid-sizes",
+    async () =>
+{
+    foreach (string source in new[] { "<<\"ab\":(-1)>>", "<<\"\":(-1)>>", "<<\"\":all>>", "<<\"ab\":1.0>>", "<<\"\":1/float>>", "<<\"ab\":0/float>>", "<<\"a\"/binary>>", "<<\"\"/binary>>", "<<[65,66]:8>>", "<<[]:8>>" })
+        Equal(await MapError(source), Term.A("badarg"));
+}
+);
+Test(
+    "compiler/bits-string-modifier-pattern-diagnostic",
     () =>
- {
-     Throws<CompileException>(() => new Parser("<<\"ab\":16/little>>").ParseExpression());
+{
+    foreach (string source in new[] { "case <<0,97>> of <<\"a\":16>> -> yes end", "case <<97>> of <<\"a\"/integer>> -> yes end", "case <<>> of <<\"\":0>> -> yes end", "fun(<<\"a\"/float>>) -> ok end" })
+    {
+        try
+        {
+            new Parser(source).ParseExpression();
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == "ERL004");
+        }
+    }
 
-     return Task.CompletedTask;
- }
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/bits-string-guard-and-map-key",
+    async () => Equal(
+        await Eval("case #{<<\"ab\":16/little>> => 42} of #{<<\"ab\":16/little>> := X} when <<\"A\":16/float>> =:= <<84,16>> -> X end"),
+        Term.I(42)
+    )
 );
 Test(
     "compiler/bits-identical-specifiers",

@@ -35,3 +35,4 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | ETS/DETS/hot code/ports/NIF/release services | Not started | No runtime implementation |
 | Full OTP suite compatibility | Not started | Reference suites have not run |
 | Performance measurements | Implemented | Exploratory benchmark harness, separate report; no BEAM comparison or general throughput claim |
+| Literal-string bit construction | Partially compatible | compiler/bits-string-*: independent integer/float bytes, one size evaluation, empty validation and pattern diagnostics; 313 local tests/full integration; 183-case oracle pending; full ordering/resources/stacks/reference suites pending |

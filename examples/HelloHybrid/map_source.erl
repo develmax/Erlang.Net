@@ -1,5 +1,5 @@
 -module(map_source).
--export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0]).
+-export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0, string_check/0]).
 run() ->
     M = #{1 => int, 1.0 => float, value => 40},
     N = M#{value := 42, extra => ok},
@@ -24,3 +24,5 @@ float_check() ->
 utf_check() ->
     <<1:3,X/utf16-little,T:3>> = <<1:3,128512/utf16-little,5:3>>,
     {X,T}.
+
+string_check() -> <<"ab":16/little,"":32/float,42>>.

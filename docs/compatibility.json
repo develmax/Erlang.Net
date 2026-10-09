@@ -134,7 +134,7 @@
         "compiler/bits-identical-specifiers",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary/float/UTF and UTF strings; non-UTF string size modifiers/full diagnostics/applicable reference suites pending"
+      "limits": "Integer/binary/float/UTF and literal strings with per-codepoint integer/float sizes; full diagnostics/error ordering/resources/reference suites pending"
     },
     {
       "name": "Bitstring source patterns",
@@ -149,7 +149,7 @@
         "compiler/bits-pattern-forward-size-diagnostic",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary/float/UTF and UTF strings with guard sizes/prior-segment bindings; remaining strings/full scopes/reference suites pending"
+      "limits": "Integer/binary/float/UTF and default/unsized UTF strings; modified non-UTF strings rejected by pinned lint contract; full scopes/reference suites pending"
     },
     {
       "name": "Bitstring guard BIFs",
@@ -290,6 +290,36 @@
         "validation/part-017/differential.json"
       ],
       "limits": "Shared finite nearest-even conversion for arithmetic/float segments/literals. Six selected arithmetic cases match within complete 160/160 at 666c4b5; full input/error/stack contracts unverified."
+    },
+    {
+      "name": "Literal-string bit construction",
+      "status": "Partially compatible",
+      "evidence": [
+        "compiler/bits-string-literal",
+        "compiler/bits-bitstring-interpolation",
+        "compiler/bits-utf-string-construction",
+        "compiler/bits-utf-string-pattern",
+        "compiler/bits-pattern-string-prefix",
+        "compiler/bits-string-little-per-codepoint",
+        "compiler/bits-string-unit-per-codepoint",
+        "compiler/bits-string-unaligned",
+        "compiler/bits-string-unicode-integer-truncation",
+        "compiler/bits-string-float-half",
+        "compiler/bits-string-float-single-little",
+        "compiler/bits-string-float-default",
+        "compiler/bits-string-size-evaluated-once",
+        "compiler/bits-string-size-binding",
+        "compiler/bits-empty-string-valid-modifiers",
+        "compiler/bits-empty-string-size-evaluation",
+        "compiler/bits-string-zero-width",
+        "compiler/bits-string-invalid-sizes",
+        "compiler/bits-string-modifier-pattern-diagnostic",
+        "compiler/bits-string-guard-and-map-key",
+        "validation/part-024/tests.json",
+        "validation/part-024/integration-results.json",
+        "validation/part-024/reference-audit.json"
+      ],
+      "limits": "Integer/float per-codepoint size/unit/endian, size evaluated once, empty validation. Modified non-UTF strings forbidden in patterns. 23 oracle additions planned in 183-case corpus; not yet executed. Full scope/error ordering/resources/stacks/reference suites pending."
     }
   ]
 }

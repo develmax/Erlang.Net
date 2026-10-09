@@ -6,6 +6,29 @@ internal static class BitConstruction
 {
     public static BitString Create(IReadOnlyList<(Term Value, Term? Size, BitSegment Segment)> segments)
     {
+        var expanded = new List<(Term Value, Term? Size, BitSegment Segment)>();
+        var validationOnly = new HashSet<int>();
+        foreach (var (value, size, segment) in segments)
+        {
+            if (!segment.IsStringLiteral)
+            {
+                expanded.Add((value, size, segment));
+                continue;
+            }
+
+            var scalar = segment with { IsStringLiteral = false };
+            int start = expanded.Count;
+            foreach (var character in Cons.Items(value))
+                expanded.Add((character, size, scalar));
+            if (expanded.Count == start)
+            {
+                // OTP validates an empty string using scalar zero, without emitting it.
+                validationOnly.Add(expanded.Count);
+                expanded.Add((Term.I(0), size, scalar));
+            }
+        }
+        segments = expanded;
+
         var sizes = new int[segments.Count];
         var encoded = new byte[]?[segments.Count];
         long total = 0;
@@ -44,6 +67,8 @@ internal static class BitConstruction
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (binary && (count > ((BitString)value).BitLength || whole && count % segment.Unit != 0))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
+            if (validationOnly.Contains(i))
+                continue;
             total += count;
             if (total > int.MaxValue - BitStorageLayout.ByteRoundingOffset)
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
@@ -62,6 +87,8 @@ internal static class BitConstruction
 
         for (int i = 0; i < segments.Count; i++)
         {
+            if (validationOnly.Contains(i))
+                continue;
             var (value, _, segment) = segments[i];
             int size = sizes[i];
             if (segment.Type == BitSegmentTypes.Integer && value is Integer integer)

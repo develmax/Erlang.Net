@@ -1,0 +1,13 @@
+{
+  "Failed": 2,
+  "Passed": 311,
+  "FailedCases": [
+    {
+      "Name": "compiler/bits-string-size-evaluated-once"
+    },
+    {
+      "Name": "compiler/bits-string-size-binding"
+    }
+  ],
+  "Cause": "Two new fixtures used a top-level comma sequence unsupported by ParseExpression; wrapped the sequences in a case clause without changing implementation"
+}

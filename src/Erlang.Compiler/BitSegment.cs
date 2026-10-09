@@ -10,5 +10,6 @@ public sealed record BitSegment(
     string Type = BitSegmentTypes.Integer,
     int Unit = BitSyntaxDefaults.NumericUnit,
     string Endian = BitByteOrders.Big,
-    bool Signed = false
+    bool Signed = false,
+    bool IsStringLiteral = false
 );
