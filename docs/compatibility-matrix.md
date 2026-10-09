@@ -25,7 +25,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Mixed C#/Erlang | Partially compatible | hybrid/* and HelloHybrid integration; async receive/case/fun blocks at selected boundaries; arbitrary inline syntax/sync contexts pending |
 | MSBuild/local package | Partially compatible | tools/validate.ps1: output, incrementality, negative preprocessing, clean/rebuild, local consumer/tool; SDK/TFM/design-time expansion pending |
 | Source diagnostics/maps | Partially compatible | ERL001-008 parser/semantic errors, #line and line preservation; AST columns/full debugger/IDE mapping pending |
-| Differential verification | Implemented | Exact local oracle absent; remote run 37938184184 built successfully and matched 16/57 planned cases at dc91e8c before an invalid Unicode source abort; 4a8c379 repeated 16/62 and saved JSON. Part 009 corrects U+FFFF corpus/lexer; complete current 90-case run pending |
+| Differential verification | Implemented | Exact OTP-29.1.1 run 37943457369 matched 93/93 value/error cases at c139b45; report validation/part-012/differential.json. Stacks/signals/side effects/full reference suites pending |
 | Full expanded source inventory | Investigated | 1,289 source modules / 38,622 explicit exports / 524 BIF entries; expansion/contracts incomplete |
 | gen_statem/gen_event/application/SASL | Not started | Not implemented |
 | Distribution/remote links/monitors/RPC | Not started | No real-node interop claim |

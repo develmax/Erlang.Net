@@ -1,5 +1,7 @@
 # Compatibility checkpoint
 
+Current reference evidence (part 012): run 37943457369 at c139b45 matched **93/93** value/error cases against exact OTP-29.1.1. This includes the existing maps, bit construction/patterns, bit-size BIFs and fun-capture regressions. All broad features/MFAs remain Partially compatible; full inputs/stacks/signals/side effects/reference suites are not verified. The earlier part paragraphs below describe historical checkpoints, superseded by this current result. Original report: validation/part-012/differential.json.
+
 Target: OTP-29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The implementation is incomplete. [Matrix](compatibility-matrix.md), [semantic boundaries](semantic-differences.md), [source inventory](otp-inventory.md) and [direct MFA tests](supported-mfas.json) define the current evidence.
 
 Local regression results cover a language/runtime subset, not every OTP export. The independent production execution path is C#/.NET; BEAM is used only by the optional development differential runner. No reference runtime is installed on this host. OTP reference suites and real-node interoperability have not run.
