@@ -284,7 +284,13 @@ Test("compiler/bits-bitstring-interpolation", async () => Equal(await Eval("<<1:
 Test("compiler/bits-binary-unit-one", async () => Equal(await Eval("<<(<<1:1>>)/binary-unit:1>>"),new BitString([128],1)));
 Test("compiler/bits-zero-size", async () => Equal(await Eval("<<-123:0,42:8>>"),new BitString([42])));
 Test("compiler/bits-bad-value", async () => Equal(await MapError("<<atom>>"),Term.A("badarg")));
-Test("compiler/bits-negative-size", async () => Equal(await MapError("<<1:-1>>"),Term.A("badarg")));
+Test("compiler/bits-negative-size", async () => Equal(await MapError("<<1:(-1)>>"),Term.A("badarg")));
+Test("compiler/bits-size-prefix-requires-parentheses", async () =>
+{
+    foreach (string source in new[] { "<<1:-1>>", "<<1:+8>>", "<<1:bnot 1>>", "<<1:not true>>" }) Throws<CompileException>(() => new Parser(source).ParseExpression());
+    Equal(await Eval("<<1:(+8)>>"),new BitString([1]));
+    Equal(await Eval("<<-1>>"),new BitString([255]));
+});
 Test("compiler/bits-float-size", async () => Equal(await MapError("<<1:1.0>>"),Term.A("badarg")));
 Test("compiler/bits-short-binary", async () => Equal(await MapError("<<(<<1>>):2/binary>>"),Term.A("badarg")));
 Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<(<<1:1>>)/binary>>"),Term.A("badarg")));
@@ -312,7 +318,7 @@ Test("compiler/bits-pattern-binary-prefix", async () => Equal(await Eval("case <
 Test("compiler/bits-pattern-unaligned-prefix", async () => Equal(await Eval("case <<1:1,5:3>> of <<_:1,B:3/bitstring>> -> B end"), new BitString([160],3)));
 Test("compiler/bits-pattern-unit", async () => Equal(await Eval("case <<1,2>> of <<X:2/unit:8>> -> X end"), Term.I(258)));
 Test("compiler/bits-pattern-rest-unit-mismatch", async () => Equal(await Eval("case <<1:1>> of <<B/binary>> -> wrong; _ -> ok end"), Term.A("ok")));
-Test("compiler/bits-pattern-invalid-size-alternative", async () => { foreach (string size in new[] { "-1", "atom", "1.0", "999999999999999999999999", "(hd(atom))" }) Equal(await Eval("case <<1>> of <<X:" + size + ">> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-pattern-invalid-size-alternative", async () => { foreach (string size in new[] { "(-1)", "atom", "1.0", "999999999999999999999999", "(hd(atom))" }) Equal(await Eval("case <<1>> of <<X:" + size + ">> -> wrong; _ -> ok end"), Term.A("ok")); });
 Test("compiler/bits-pattern-string-prefix", async () => Equal(await Eval("case <<\"OK\",42>> of <<\"OK\",X>> -> X end"), Term.I(42)));
 Test("compiler/bits-pattern-literal-no-truncation", async () => Equal(await Eval("case <<0>> of <<256>> -> wrong; _ -> ok end"), Term.A("ok")));
 Test("compiler/bits-pattern-signed-literal", async () => Equal(await Eval("case <<255>> of <<-1:8/signed>> -> ok; _ -> no end"), Term.A("ok")));

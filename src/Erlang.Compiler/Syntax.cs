@@ -205,7 +205,11 @@ public sealed class Parser
         do
         {
             var value = Primary(true); Expr? size = null;
-            if (Take(":")) size = Primary(true);
+            if (Take(":"))
+            {
+                if (Current.Text is "+" or "-" or "not" or "bnot") throw Error("Unary bit segment sizes must be parenthesized");
+                size = Primary(true);
+            }
             string type = "integer", endian = "big"; int? unit = null; bool signed = false;
             var categories = new Dictionary<string, string>();
             void Merge(string category, string setting)

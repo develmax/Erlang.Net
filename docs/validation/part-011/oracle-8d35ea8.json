@@ -1,0 +1,377 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "VersionVerified": true,
+  "Complete": false,
+  "Planned": 90,
+  "Executed": 52,
+  "Passed": 52,
+  "Failed": 0,
+  "AbortedSource": "\u003C\u003C1:-1\u003E\u003E",
+  "InfrastructureError": "Oracle exited 1: Error! Failed to eval: {ok,OracleTokens,_}=erl_scan:string(unicode:characters_to_list(base64:decode(\u0022dHJ5ICg8PDE6LTE\u002BPikgb2YgT3JhY2xlVmFsdWUgLT4ge29rLE9yYWNsZVZhbHVlfSBjYXRjaCBPcmFjbGVDbGFzczpPcmFjbGVSZWFzb24gLT4ge2Vycm9yLE9yYWNsZUNsYXNzLE9yYWNsZVJlYXNvbn0gZW5kLg==\u0022))),{ok,OracleExpressions}=erl_parse:parse_exprs(OracleTokens),{value,OracleResult,_}=erl_eval:exprs(OracleExpressions,erl_eval:new_bindings()),io:format(\u0022~s\u0022,[base64:encode(term_to_binary(OracleResult))]),halt().\r\n\r\nRuntime terminating during boot ({{badmatch,{error,{1,erl_parse,[\u0022syntax error before: \u0022,\u0022\u0027-\u0027\u0022]}}},[{erl_eval,expr,6,[{file,\u0022erl_eval.erl\u0022},{line,796}]},{erl_eval,exprs,6,[{file,\u0022erl_eval.erl\u0022},{line,276}]},{init,start_it,1,[]},{init,start_em,1,[]},{init,do_boot,3,[]}]})\r\n\r\nCrash dump is being written to: erl_crash.dump...done\r\n ",
+  "Results": [
+    {
+      "Source": "1 \u002B 2 * 3",
+      "Expected": "{ok,7}",
+      "Actual": "{ok,7}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{1 == 1.0, 1 =:= 1.0}",
+      "Expected": "{ok,{true,false}}",
+      "Actual": "{ok,{true,false}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{0.0 == -0.0, 0.0 =:= -0.0}",
+      "Expected": "{ok,{true,false}}",
+      "Actual": "{ok,{true,false}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "9007199254740993 \u003E 9007199254740992.0",
+      "Expected": "{ok,true}",
+      "Actual": "{ok,true}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{a, [1,2|tail]}",
+      "Expected": "{ok,{a,[1,2|tail]}}",
+      "Actual": "{ok,{a,[1,2|tail]}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:member(1, [1.0])",
+      "Expected": "{ok,false}",
+      "Actual": "{ok,false}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:reverse([1,2,3])",
+      "Expected": "{ok,[3,2,1]}",
+      "Actual": "{ok,[3,2,1]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:sum([1,2,3])",
+      "Expected": "{ok,6}",
+      "Actual": "{ok,6}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "[1,2] \u002B\u002B [3]",
+      "Expected": "{ok,[1,2,3]}",
+      "Actual": "{ok,[1,2,3]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "[1,2,1] -- [1]",
+      "Expected": "{ok,[2,1]}",
+      "Actual": "{ok,[2,1]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "-7 div 3",
+      "Expected": "{ok,-2}",
+      "Actual": "{ok,-2}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "-7 rem 3",
+      "Expected": "{ok,-1}",
+      "Actual": "{ok,-1}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case {1,1} of {X,X} -\u003E X; _ -\u003E no end",
+      "Expected": "{ok,1}",
+      "Actual": "{ok,1}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case a of X when hd(X) == 1; is_atom(X) -\u003E ok end",
+      "Expected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "receive {hello, X} -\u003E X after 0 -\u003E timeout end",
+      "Expected": "{ok,timeout}",
+      "Actual": "{ok,timeout}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:map(fun(X) -\u003E X * 2 end, [1,2,3])",
+      "Expected": "{ok,[2,4,6]}",
+      "Actual": "{ok,[2,4,6]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u0027\uD800\uDC00\u0027 \u003E \u0027\uFFFD\u0027",
+      "Expected": "{ok,true}",
+      "Actual": "{ok,true}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{length([1,2]), hd([ok]), tl([1,2])}",
+      "Expected": "{ok,{2,ok,[2]}}",
+      "Actual": "{ok,{2,ok,[2]}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "maps:get(a, #{a =\u003E 1, a =\u003E 42})",
+      "Expected": "{ok,42}",
+      "Actual": "{ok,42}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case #{1 =\u003E integer, 1.0 =\u003E float} of #{1 := A, 1.0 := B} -\u003E {A,B} end",
+      "Expected": "{ok,{integer,float}}",
+      "Actual": "{ok,{integer,float}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "maps:get(a, #{}#{a =\u003E 1, a := 2})",
+      "Expected": "{ok,2}",
+      "Actual": "{ok,2}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case #{a =\u003E {7,7}} of #{a := {X,X}} -\u003E X end",
+      "Expected": "{ok,7}",
+      "Actual": "{ok,7}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case 1 of K -\u003E case #{2 =\u003E 42} of #{K \u002B 1 := V} -\u003E V end end",
+      "Expected": "{ok,42}",
+      "Actual": "{ok,42}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case #{a =\u003E 1} of #{hd(atom) := X} -\u003E wrong; _ -\u003E ok end",
+      "Expected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case a of K -\u003E F = fun(#{K := K}) -\u003E K end, F(#{a =\u003E 42}) end",
+      "Expected": "{ok,42}",
+      "Actual": "{ok,42}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case #{} of M when M#{a := 1} =:= #{} -\u003E wrong; _ -\u003E ok end",
+      "Expected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{is_map(#{}),is_map([]),map_size(#{a =\u003E 1}),is_map_key(a,#{a =\u003E 42}),map_get(a,#{a =\u003E 42})}",
+      "Expected": "{ok,{true,false,1,true,42}}",
+      "Actual": "{ok,{true,false,1,true,42}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "map_get(1.0,#{1 =\u003E value})",
+      "Expected": "{error,error,{badkey,1.0}}",
+      "Actual": "{error,error,{badkey,1.0}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "map_get(key,not_map)",
+      "Expected": "{error,error,{badmap,not_map}}",
+      "Actual": "{error,error,{badmap,not_map}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "map_size([])",
+      "Expected": "{error,error,{badmap,[]}}",
+      "Actual": "{error,error,{badmap,[]}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "is_map_key(key,42)",
+      "Expected": "{error,error,{badmap,42}}",
+      "Actual": "{error,error,{badmap,42}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -\u003E ok; _ -\u003E no end",
+      "Expected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "#{}#{missing := 1}",
+      "Expected": "{error,error,{badkey,missing}}",
+      "Actual": "{error,error,{badkey,missing}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "atom#{a := error(blurf)}",
+      "Expected": "{error,error,blurf}",
+      "Actual": "{error,error,blurf}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "error(boom)",
+      "Expected": "{error,error,boom}",
+      "Actual": "{error,error,boom}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "throw(reason)",
+      "Expected": "{error,throw,reason}",
+      "Actual": "{error,throw,reason}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "exit(reason)",
+      "Expected": "{error,exit,reason}",
+      "Actual": "{error,exit,reason}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C1,2,255\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C1,2,255\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C1,2,255\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C511,-1,16:4,31:4\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C255,255,15\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C255,255,15\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C5:3,17:5,3:2\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C177,3:2\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C177,3:2\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C4660:16/big\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C18,52\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C18,52\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C4660:16/little\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C52,18\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C52,18\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C291:12/little\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C35,1:4\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C35,1:4\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C4660:2/unit:8\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C18,52\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C18,52\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C-1:16/signed-little\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C255,255\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C255,255\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case 4 of S -\u003E \u003C\u003C(2\u002B3):(S\u002B1)\u003E\u003E end",
+      "Expected": "{ok,\u003C\u003C5:5\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C5:5\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C(\u003C\u003C1,2,3\u003E\u003E):2/binary\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C1,2\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C1,2\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C1:1,(\u003C\u003C2:2\u003E\u003E)/bitstring,3:2\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C27:5\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C27:5\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C(\u003C\u003C1:1\u003E\u003E)/binary-unit:1\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C1:1\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C1:1\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003C-123:0,42:8\u003E\u003E",
+      "Expected": "{ok,\u003C\u003C42\u003E\u003E}",
+      "Actual": "{ok,\u003C\u003C42\u003E\u003E}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "\u003C\u003Catom\u003E\u003E",
+      "Expected": "{error,error,badarg}",
+      "Actual": "{error,error,badarg}",
+      "ExitReason": "normal",
+      "Passed": true
+    }
+  ]
+}

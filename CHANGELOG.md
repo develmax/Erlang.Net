@@ -439,3 +439,37 @@ Inspected the pinned expressions.md Fun Expressions contract and existing clause
 Named/external fun forms, complete scope combinations, bit float/UTF/string modifiers and all earlier runtime/OTP/distribution boundaries remain pending. No benchmark rerun or broad compatibility promotion. Current progress, compatibility and next steps updated; immutable local reports saved.
 
 Commit title: `Preserve captured variables independently in anonymous fun clauses`. Publish the tested fix; inspect the already running 90-case oracle's actual report, resolve any mismatches, then run all current 93 cases and record that separate head/result. Next language work remains complete bit-pattern scopes and remaining segment types.
+
+## Part 011 — 2026-10-09 — Bit-size grammar and 52 real OTP comparisons
+
+**Status:** completed for the grammar correction and recorded evidence; overall Partially compatible. Complete current corpus comparison remains pending. Full assignment remains approximately 5% by the coarse estimate.
+
+### Actual oracle result and diagnosed discrepancy
+
+[Run 37941798273](https://github.com/develmax/Erlang.Net/actions/runs/37941798273), implementation head 8d35ea8bf4b684be1c6226f447ae4ce01b85f845, built the exact pinned OTP-29.1.1 reference and matched **52 of 90 planned comparisons**, with zero observed semantic mismatches. It reached maps, exact numeric map keys, map construction/updates/pattern scopes, map guard predicates/access/errors, error/throw/exit class and reason, valid Unicode ordering and integer/binary construction with sizes/units/byte order/truncation/prefixes and badarg.
+
+The run then aborted at source <<1:-1>> because OTP's parser rejected the unparenthesized prefix operator in the size. Pinned lib/stdlib/src/erl_parse.yrl distinguishes bit_expr (prefix_op expr_max allowed for the value) from bit_size_expr (expr_max only). The corpus intended to test a runtime negative-size error and must use <<1:(-1)>>. Our parser incorrectly accepted the original spelling; this was a real source-grammar discrepancy in addition to an invalid oracle fixture.
+
+The original [JSON report](docs/validation/part-011/oracle-8d35ea8.json) and [run/head/artifact metadata](docs/validation/part-011/remote-checkpoint.json) preserve exact partial results. Downloaded ZIP SHA256 matched GitHub digest 37fe2e5f6ca26db9002a29b08ed8ee0f31640018f2d8dc667b2bac7bb20ab525. The remaining **38** cases at that head were not executed; all bit patterns and bit-size BIF cases are after the abort. The three newer part 010 capture cases were not in that run. No complete 90/93-case or full-feature compatibility claim.
+
+### Changes and regression protection
+
+[Syntax.cs](src/Erlang.Compiler/Syntax.cs) now rejects unparenthesized +, -, not and bnot in segment sizes; parenthesized unary sizes use existing semantic validation, and unary segment values remain accepted. Updated the negative construction fixture/corpus to <<1:(-1)>> and the invalid pattern-size alternative fixture to a parenthesized size.
+
+Added a permanent [grammar regression](tests/Erlang.Tests/Program.cs) rejecting all four unparenthesized forms, accepting a parenthesized positive size and preserving <<-1>> construction. Registry remains **49 MFAs**; differential corpus remains **93**, with corrected source. Reused the existing parser/diagnostic path without new dependencies or copied grammar source; [audit](docs/dependency-decisions.md). Reference checkout and production BEAM independence are preserved.
+
+### Executed validation
+
+| Check | Exact command / evidence | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-011/tests.json) | **244 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| .erl/hybrid/incremental/negative/clean/packages/consumer/local CLI | Same script; [integration](docs/validation/part-011/integration-results.json) | Passed; exact Hello World; expected disabled-preprocessing and unavailable-oracle failures |
+| Remote comparison at 8d35ea8 | Run 37941798273 / real report | 52 matched, source-grammar abort; 38 unexecuted cases |
+| Predecessor Windows CI | [074babb run 37942660273](https://github.com/develmax/Erlang.Net/actions/runs/37942660273) | Success; predecessor evidence only |
+| Evidence/hygiene | JSON/test-evidence checks, artifact digest, local report paths, git diff --check, reference status | Checked before commit; reference unchanged |
+
+### Limits and continuation
+
+Updated progress, compatibility and next steps to distinguish the real 52-case evidence from unexecuted patterns, size BIFs and new captures. All features/MFAs retain partial status. Full stacks/signals/side effects, complete scopes, float/UTF/string modifiers, runtime/OTP/distribution services and all previous boundaries remain pending. No benchmark rerun or performance claim.
+
+Commit title: `Enforce bit-size primary grammar and record OTP comparison evidence`. Publish this tested checkpoint and dispatch the corrected current **93-case** oracle run. Save its actual head/report and resolve failures before broadening the language subset. English historical entries and immutable earlier reports are retained.

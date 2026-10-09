@@ -4,6 +4,8 @@ All current compatibility entries are implemented or partially compatible, not g
 
 Anonymous fun matching now shadows captured values separately per clause, preserving a capture in fallback clauses whose own head does not bind that name. Three regressions cover tuple-head mismatch, guard failure and bit-pattern fallback. Named/external fun forms and full scope combinations remain pending.
 
+Latest exact-version evidence is 52 matched cases at 8d35ea8 in run 37941798273, including maps/guard BIFs/error reasons and integer/binary construction. That 90-case run aborted on <<1:-1>>: pinned bit-size grammar requires a primary expression, so unary sizes need parentheses. Part 011 corrects the corpus and parser. The remaining 38 cases and three new captures (current 93 total) remain unverified; no full feature/MFA promotion.
+
 The first successfully built remote oracle matched 16 cases at dc91e8c, then erl_scan rejected U+FFFF in the corpus before maps/bitstrings were reached. A follow-up run at 4a8c379 confirmed the same rejection after explicit UTF-8 decoding; the earlier transport diagnosis is corrected in part 009. Part 008 repairs transport through explicit UTF-8 decoding and writes partial reports on infrastructure failure. Run 37940002401 at 4a8c379 saved 16/62 matches and an incomplete source-error report. Current 90-case pattern results, stacktrace fidelity, signals and side effects remain pending; no feature is globally verified by these 16 comparisons.
 
 - Scheduling uses CLR continuation execution with expression reductions; arbitrary C# callbacks cannot be preempted. Local process completion denotes logical death and signal publication, not guaranteed completion of arbitrary host callback cleanup. No BEAM scheduler fairness guarantee.

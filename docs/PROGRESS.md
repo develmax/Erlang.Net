@@ -1,6 +1,6 @@
 # Progress checkpoint — 2026-10-09
 
-Detailed history: [CHANGELOG, parts 001–010](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
+Detailed history: [CHANGELOG, parts 001–011](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
 
 **The full work.md assignment is not complete.** This checkpoint delivers a working, independently executable C#/.NET foundation and an early compiler/runtime/build vertical slice. Implementation work is in this repository; the sibling official OTP checkout has no local changes.
 
@@ -25,7 +25,7 @@ Source inventory contains **1,289 source modules, 38,622 explicit source exports
 
 ## Executed validation
 
-- **243/243 local regression tests passed**, including one direct case for each of the 49 registered MFAs and two source-transport regressions.
+- **244/244 local regression tests passed**, including one direct case for each of the 49 registered MFAs and two source-transport regressions.
 - Exact-version remote oracle run 37938184184 built successfully and matched the first 16 cases at dc91e8c. The remaining 41 of its 57 cases were not executed because erl_scan rejected the Unicode test source. Follow-up run 37940002401 at 4a8c379 also matched 16/62 before the same source error; its real JSON was saved. The confirmed cause is prohibited U+FFFF in the corpus, not proven transport corruption. Part 009 replaces it with U+FFFD and aligns quoted-literal scanner validation; the current 90-case run is pending. No general compatibility promotion.
 - Validation checks an unavailable oracle returns code 2 and writes an incomplete infrastructure-error report with zero executed cases.
 - Full solution build passed with zero warnings/errors. Ordinary `dotnet build` was verified outside sandbox worker-process restrictions; `-m:1` works inside the sandbox.
@@ -55,3 +55,6 @@ Part 007 adds is_bitstring/1, bit_size/1 and byte_size/1, including rounded-up b
 
 
 Part 010 fixes clause-local anonymous fun shadowing and adds three regressions, total 243. The current differential corpus contains 93 cases; run 37941798273 is at 8d35ea8 with 90, excluding the new capture cases. Windows CI for 8d35ea8 succeeded in run 37941788800. Immutable local reports are under docs/validation/part-010.
+
+
+Part 011: exact-version remote run 37941798273 matched 52/90 planned cases at 8d35ea8, including maps, map guard errors and bit construction, then aborted on invalid unparenthesized negative size source. The parser/corpus are corrected to the pinned grammar; 38 remaining cases and the three new fun cases require a current 93-case rerun. Local validation passed 244/244 and full integration; original reports/metadata are preserved under docs/validation/part-011. Windows CI for 074babb succeeded in run 37942660273. Overall estimate remains approximately 5%.
