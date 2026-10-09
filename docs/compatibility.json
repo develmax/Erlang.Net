@@ -132,7 +132,10 @@
         "compiler/bits-binary-unit-alignment",
         "compiler/bits-guard-and-map-key",
         "compiler/bits-identical-specifiers",
-        "validation/part-012/differential.json"
+        "validation/part-012/differential.json",
+        "validation/part-026/differential.json",
+        "validation/part-026/remote-checkpoint.json",
+        "validation/part-026/corpus-audit.json"
       ],
       "limits": "Integer/binary/float/UTF and literal strings with per-codepoint integer/float sizes; full diagnostics/error ordering/resources/reference suites pending"
     },
@@ -211,9 +214,12 @@
         "validation/part-012/differential.json",
         "validation/part-014/float-differential.json",
         "validation/part-016/utf-partial.json",
-        "validation/part-017/differential.json"
+        "validation/part-017/differential.json",
+        "validation/part-026/differential.json",
+        "validation/part-026/remote-checkpoint.json",
+        "validation/part-026/corpus-audit.json"
       ],
-      "limits": "Exact OTP-29.1.1 160/160 at 666c4b5, run 37955525454, including float/UTF/arithmetic-coercion cases. erl_eval values/class/reason only; full applicable inputs/compiled-reference/optimizer/stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion."
+      "limits": "Exact OTP-29.1.1 183/183 at 3990623, run 37999487360; previous 160 preserved plus 23 literal-string additions. Complete/version verified/zero mismatches and aborts; same-head Windows CI 314/314 with full integration. erl_eval values/class/reason only; full inputs/compiled-reference/optimizer/stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion."
     },
     {
       "name": "Complete expanded inventory",
@@ -322,9 +328,12 @@
         "validation/part-025/tests.json",
         "validation/part-025/initial-differential.json",
         "validation/part-025/initial-remote-checkpoint.json",
-        "validation/part-025/reference-audit.json"
+        "validation/part-025/reference-audit.json",
+        "validation/part-026/differential.json",
+        "validation/part-026/remote-checkpoint.json",
+        "validation/part-026/corpus-audit.json"
       ],
-      "limits": "Integer/float string modifiers and empty validation; non-binary static all is a compile error, dynamic all is a runtime check. Initial exact-version run 37998319734 at badb643 matched 174 then aborted on illegal static-all fixture; incomplete. Corrected 183-case run pending. Full ordering/resources/stacks/reference suites remain partial."
+      "limits": "Integer/float per-codepoint size/unit/endian, size evaluated once, empty validation; 23 selected new cases match within complete 183/183 at 3990623. Static non-binary all is a compile error, dynamic all reaches runtime checks; modified non-UTF strings forbidden in patterns. Initial incomplete run preserved in part-025. Full ordering/resources/stacks/reference suites remain partial."
     }
   ]
 }

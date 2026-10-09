@@ -1,0 +1,33 @@
+{
+  "HistoricalCases": 160,
+  "AddedCases": 23,
+  "Executed": 183,
+  "HistoricalSourcesPreserved": true,
+  "AddedSourcesMatchCurrentCorpus": true,
+  "AddedSources": [
+    "\u003C\u003C\u0022ab\u0022:16/little\u003E\u003E",
+    "\u003C\u003C\u0022AB\u0022:2/unit:8\u003E\u003E",
+    "\u003C\u003C1:1,\u0022AB\u0022:4,3:2\u003E\u003E",
+    "\u003C\u003C\u0022\u0100\uD83D\uDE00\u0022/integer\u003E\u003E",
+    "\u003C\u003C\u0022AB\u0022:16/float\u003E\u003E",
+    "\u003C\u003C\u0022A\u0022:32/float-little\u003E\u003E",
+    "\u003C\u003C\u0022A\u0022/float\u003E\u003E",
+    "case ok of ok -\u003E put(counter,0),B = \u003C\u003C\u0022ab\u0022:(put(counter,get(counter)\u002B1))\u003E\u003E, {B,get(counter)} end",
+    "case ok of ok -\u003E B = \u003C\u003C\u0022ab\u0022:(S = 8)\u003E\u003E,{B,S} end",
+    "\u003C\u003C\u0022\u0022:16/little,\u0022\u0022:32/float,42\u003E\u003E",
+    "\u003C\u003C\u0022\u0022:(error(boom))\u003E\u003E",
+    "\u003C\u003C\u0022abc\u0022:0,42\u003E\u003E",
+    "\u003C\u003C\u0022ab\u0022:(-1)\u003E\u003E",
+    "\u003C\u003C\u0022\u0022:(-1)\u003E\u003E",
+    "case all of S -\u003E \u003C\u003C\u0022\u0022:S\u003E\u003E end",
+    "\u003C\u003C\u0022ab\u0022:1.0\u003E\u003E",
+    "\u003C\u003C\u0022\u0022:1/float\u003E\u003E",
+    "\u003C\u003C\u0022ab\u0022:0/float\u003E\u003E",
+    "\u003C\u003C\u0022a\u0022/binary\u003E\u003E",
+    "\u003C\u003C\u0022\u0022/binary\u003E\u003E",
+    "\u003C\u003C[65,66]:8\u003E\u003E",
+    "\u003C\u003C[]:8\u003E\u003E",
+    "case #{\u003C\u003C\u0022ab\u0022:16/little\u003E\u003E =\u003E 42} of #{\u003C\u003C\u0022ab\u0022:16/little\u003E\u003E := X} when \u003C\u003C\u0022A\u0022:16/float\u003E\u003E =:= \u003C\u003C84,16\u003E\u003E -\u003E X end"
+  ],
+  "Limit": "Values/exception class/reason using erl_eval only; full compiled-module/optimizer, stacks, signals and side effects remain incomplete"
+}
