@@ -8,6 +8,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Tuples/lists/improper lists/maps | Partially compatible | terms/tuple-arity-first, improper-list, map-exact-keys, map-integer-before-all-floats, structural-hash |
 | Binaries/bitstrings | Partially compatible | terms/immutable-binary, etf/roundtrip-all-supported-kinds; full bit operations/source syntax pending |
 | PID/reference/port/fun values | Partially compatible | terms/type-order, ETF roundtrip, compiler/list-fun-map; exact distributed ordering/wide refs/external funs pending |
+| Integer-to-float coercion | Partially compatible | terms/integer-double-*, compiler/numeric-*; nearest-even/finite operand conversion in runtime and float segments; six new 160-corpus cases pending |
 | Pattern bindings | Partially compatible | patterns/repeated-variable, already-bound, list-tail; compiler binding/single-assignment/unsafe-variable tests |
 | Selective receive | Partially compatible | mailbox/later-match-preserves-order, zero-timeout-retains, timeout, concurrent-arrival, cancel, sender-order-stress; compiler clause/guard tests |
 | Local processes/links/monitors/exits | Partially compatible | runtime/registration-cleanup, monitor-down, monitor-noproc-and-flush, link-trap-exit, link-propagation, normal-link-exit-ignored, kill-untrappable |

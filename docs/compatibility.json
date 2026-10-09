@@ -211,7 +211,7 @@
         "validation/part-012/differential.json",
         "validation/part-014/float-differential.json"
       ],
-      "limits": "Exact OTP-29.1.1 123/123 matched at 19774f9 in run 37952290309, including 30 float cases. Current corpus 154 has 31 new UTF cases pending. Values/class/reason only; full stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion."
+      "limits": "Exact OTP-29.1.1 123/123 matched at 19774f9 in run 37952290309, including 30 float cases. Current corpus 154 has 31 new UTF cases pending. Values/class/reason only; full stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion. Current source corpus is 160; six arithmetic-coercion additions need a newer tested-head run."
     },
     {
       "name": "Complete expanded inventory",
@@ -269,6 +269,20 @@
         "validation/part-014/integration-results.json"
       ],
       "limits": "Strict UTF8/16/32 scalar construction/matching and UTF string sugar. New UTF oracle cases pending; complete scopes/error/diagnostics/resource boundaries/reference suites incomplete."
+    },
+    {
+      "name": "Integer-to-float coercion",
+      "status": "Partially compatible",
+      "evidence": [
+        "terms/integer-double-nearest-even",
+        "terms/integer-double-overflow",
+        "compiler/numeric-mixed-nearest-even",
+        "compiler/numeric-integer-division-rounding",
+        "compiler/numeric-conversion-overflow-badarith",
+        "compiler/numeric-conversion-guard-failure",
+        "validation/part-015/tests.json"
+      ],
+      "limits": "Shared finite nearest-even conversion for arithmetic/float segments/literals. Six new 160-corpus cases pending; full arithmetic input/error/stack contracts unverified."
     }
   ]
 }

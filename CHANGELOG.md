@@ -560,3 +560,37 @@ Local oracle remains absent. New 154-case UTF comparison will run after publicat
 ### Handoff
 
 Updated current progress/compatibility/matrix/JSON/semantic boundaries/next steps to distinguish 123 confirmed predecessor cases from 31 pending UTF additions. Commit title: `Implement strict UTF bit segments and record float oracle results`. Publish this validated part, dispatch the 154-case pinned run, preserve exact-head evidence and fix any discrepancies. Next language unit is non-UTF literal-string size modifiers with source/error contracts. No public NuGet publication.
+
+## Part 015 — 2026-10-09 — Shared nearest-even numeric coercion
+
+**Part status:** completed for the repaired local numeric subset; new arithmetic oracle cases pending. Full assignment remains approximately **5%**, a coarse estimate.
+**Objective and scope:** remove the raw BigInteger casts still used by runtime arithmetic after the part 013 float-segment fix. Preserve per-operation error contracts while using one audited conversion.
+
+### Changes and defect
+
+- [Integer.TryToDouble](src/Erlang.Terms/Term.cs) now owns finite nearest-even conversion, including ties/sticky bits, mantissa carry and the maximum-double overflow boundary. False indicates conversion failure; no nonfinite FloatTerm is created.
+- [CoreModules.Arithmetic](src/Erlang.Runtime/Modules.cs) uses it for mixed integer/float operands and integer `/`. Previously `9007199254740995+0.0` truncated to 9007199254740994 instead of rounding to 9007199254740996. A huge denominator could become infinity and incorrectly return zero; reference arithmetic rejects a nonrepresentable operand before evaluation with badarith. Added per-operand checks, preserving guard failure rather than a successful zero result.
+- [BitFloat.cs](src/Erlang.Compiler/BitFloat.cs)/[BitPattern.cs](src/Erlang.Compiler/BitPattern.cs) reuse the same conversion for construction/integer literals. Construction retains badarg and out-of-range pattern literals retain a compile diagnostic. Exact numeric term comparison still uses rational comparison and is unchanged.
+- **Six new permanent tests** cover direct nearest-even/overflow boundaries, mixed operators/left-right coercion/cancellation, integer division, huge operand badarith and guard rejection. [Tests](tests/Erlang.Tests/Program.cs). Added six source/class/reason oracle cases, for **160 planned cases**. No new MFA: **49** remain registered.
+- Rewrote current PROGRESS/COMPATIBILITY to remove superseded historical pending/count statements; detailed numbered history and immutable reports remain in CHANGELOG. Current source scope, local counts, tested heads and pending additions are distinct.
+
+### Decisions and compatibility
+
+Before implementation inspected pinned OTP-29.1.1 erl_arith.c mixed plus/minus/times/division and big.c big_to_double. Reused the already audited part 013 rounding implementation and BCL BigInteger/Math.ScaleB; no package, copied source or new license. [Audit](docs/dependency-decisions.md). This fixes the selected conversion gap, not full arithmetic errors/stacks or all numeric contracts. Broad features/MFAs remain Partially compatible. No benchmark rerun/performance claim; official sibling checkout unchanged and production remains BEAM-independent.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-015/tests.json) | **299 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| .erl/hybrid/incremental/negative/clean/packages/consumer/local CLI | Same script; [integration](docs/validation/part-015/integration-results.json) | Passed, including existing exhaustive float/UTF and generated assertions |
+| Published UTF predecessor Windows CI | [67ac674 run 37953727459](https://github.com/develmax/Erlang.Net/actions/runs/37953727459) | Confirmed success, 293 tests/full integration; excludes this repair |
+| Historical float oracle | [123-case report](docs/validation/part-014/float-differential.json), run 37952290309 at 19774f9 | Complete match; six new arithmetic cases are excluded |
+| UTF predecessor oracle | Run 37953748714 at 67ac674 | Exact-reference build in progress when this implementation checkpoint was recorded; no result claimed |
+| Evidence/hygiene | JSON/test counts/evidence/path checks, git diff --check, reference status | Checked before commit |
+
+Local Erlang executable remains absent. The 160-case new-head comparison must run after publication; full suites/stacks/signals/side effects/performance remain unrun.
+
+### Handoff
+
+Commit title: `Share exact integer float coercion across runtime and compiler`. Publish the validated repair, dispatch 160-case oracle, save actual reports for both the 154-case UTF predecessor and this head, and resolve mismatches. Current progress/compatibility/matrix/JSON/semantic differences/next steps updated. Non-UTF string size modifiers follow reference verification; remaining runtime/OTP/distribution/IDE work is unchanged. No public NuGet publication.

@@ -82,10 +82,15 @@ public static class CoreModules
         if (a is Integer x && b is Integer y)
         {
             if (op == "/" && y.Value == 0 || op is "div" or "rem" && y.Value == 0) throw new ErlangException("badarith");
-            return op switch { "+" => new Integer(x.Value + y.Value), "-" => new Integer(x.Value - y.Value), "*" => new Integer(x.Value * y.Value), "div" => new Integer(x.Value / y.Value), "rem" => new Integer(x.Value % y.Value), "/" => new FloatTerm((double)x.Value / (double)y.Value), _ => throw new ErlangException("badarith") };
+            if (op == "/")
+            {
+                if (!x.TryToDouble(out double numerator) || !y.TryToDouble(out double denominator)) throw new ErlangException("badarith");
+                return new FloatTerm(numerator / denominator);
+            }
+            return op switch { "+" => new Integer(x.Value + y.Value), "-" => new Integer(x.Value - y.Value), "*" => new Integer(x.Value * y.Value), "div" => new Integer(x.Value / y.Value), "rem" => new Integer(x.Value % y.Value), _ => throw new ErlangException("badarith") };
         }
-        double left = a switch { Integer i => (double)i.Value, FloatTerm f => f.Value, _ => throw new ErlangException("badarith") };
-        double right = b switch { Integer i => (double)i.Value, FloatTerm f => f.Value, _ => throw new ErlangException("badarith") };
+        double left = a switch { Integer i when i.TryToDouble(out double converted) => converted, FloatTerm f => f.Value, _ => throw new ErlangException("badarith") };
+        double right = b switch { Integer i when i.TryToDouble(out double converted) => converted, FloatTerm f => f.Value, _ => throw new ErlangException("badarith") };
         return new FloatTerm(op switch { "+" => left + right, "-" => left - right, "*" => left * right, "/" => left / right, _ => throw new ErlangException("badarith") });
     }
 }

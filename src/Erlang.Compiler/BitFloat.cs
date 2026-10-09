@@ -1,27 +1,12 @@
 using System.Buffers.Binary;
-using System.Numerics;
 
 namespace Erlang.Compiler;
 
 internal static class BitFloat
 {
-    internal static double IntegerToDouble(BigInteger value)
-    {
-        BigInteger magnitude = BigInteger.Abs(value);
-        long width = magnitude.GetBitLength();
-        if (width <= 53) return (double)value;
-        if (width > 1024) return value.Sign < 0 ? double.NegativeInfinity : double.PositiveInfinity;
-        int shift = (int)width - 53;
-        BigInteger significant = magnitude >> shift;
-        BigInteger remainder = magnitude - (significant << shift), halfway = BigInteger.One << (shift - 1);
-        if (remainder > halfway || remainder == halfway && !significant.IsEven) significant++;
-        double result = Math.ScaleB((double)significant, shift);
-        return value.Sign < 0 ? -result : result;
-    }
-
     public static byte[] Encode(Term value, int width, string endian)
     {
-        double number = value switch { FloatTerm f => f.Value, Integer i => IntegerToDouble(i.Value), _ => throw new ErlangException("badarg") };
+        double number = value switch { FloatTerm f => f.Value, Integer i when i.TryToDouble(out double converted) => converted, _ => throw new ErlangException("badarg") };
         if (!double.IsFinite(number) || width is not (16 or 32 or 64)) throw new ErlangException("badarg");
         var bytes = new byte[width / 8];
         ulong bits = width switch

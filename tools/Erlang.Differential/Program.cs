@@ -127,6 +127,14 @@ try
         "<<\"A😀\"/utf8,\"A😀\"/utf16-little,\"\"/utf32>>",
         "case <<\"A😀\"/utf8,42>> of <<\"A😀\"/utf8,X>> -> X end",
         "case #{<<128512/utf8>> => 42} of #{<<128512/utf8>> := X} when <<65/utf8>> =:= <<65>> -> X end"];
+    string hugeInteger = (System.Numerics.BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture);
+    cases = [..cases,
+        "{9007199254740995+0.0,0.0+9007199254740995,9007199254740995*1.0,9007199254740995-9007199254740996.0}",
+        "{9007199254740995/1,1/9007199254740995}",
+        "1/"+hugeInteger,
+        hugeInteger+"*0.0",
+        "0.0/"+hugeInteger,
+        "case "+hugeInteger+" of X when 0.0/X =:= 0.0 -> wrong; _ -> ok end"];
     planned = cases.Length;
     foreach (string source in cases)
     {

@@ -17,8 +17,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
             var value = Parser.ToPattern(segment.Value);
             if (segment.Type == "float" && value is Pattern.Literal { Value: Integer integer })
             {
-                double number = BitFloat.IntegerToDouble(integer.Value);
-                if (!double.IsFinite(number)) throw new CompileException("ERL004", "Float pattern literal is outside the finite double range", 0);
+                if (!integer.TryToDouble(out double number)) throw new CompileException("ERL004", "Float pattern literal is outside the finite double range", 0);
                 value = new Pattern.Literal(new FloatTerm(number));
             }
             if (value is not Pattern.Variable && !((segment.Type == "integer" || BitUnicode.IsUtf(segment.Type)) && value is Pattern.Literal { Value: Integer }) && !(segment.Type == "float" && value is Pattern.Literal { Value: FloatTerm }))
