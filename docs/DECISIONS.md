@@ -70,3 +70,7 @@ Complete oracle and Windows CI results are attributed to the same implementation
 ## Part 029 — Preserve native key-search distinction
 
 Reuse existing term/numeric infrastructure in iterative C#; preserve the pinned native small-integer/float fast path rather than substituting global numeric equality for every key. Keep architecture-bound small integer limits in ListKeySearchLimits and result atoms in ListKeySearchAtoms, each in its own file. Repair reverse/1 clause selection; arbitrary reverse/2 tails remain valid. Readiness delta now uses part-028 as its explicit preceding feature baseline (+3 MFAs). Source/reuse audits and permanent boundary tests precede publication; live 249-case reference comparison follows on the published head.
+
+## Part 030 — Preserve scoped module progress
+
+Store complete 249-case and same-head 344-test CI artifacts with source 219+30 provenance and verified ZIP hashes. Retain part-028 as the explicit comparison baseline so the last feature increment remains visible (+3), even though this evidence-only checkpoint adds no MFA. Keep rounded key-search comparison, exact membership/map keys and 64-bit reference scope separate. Next implement a separate compiled-reference-module oracle track using the existing compiler/runtime and development-only pinned reference; it remains unrun here.

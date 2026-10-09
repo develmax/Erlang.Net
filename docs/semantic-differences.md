@@ -49,3 +49,7 @@ All 36 selected lists values/class/reason cases now match within a complete **21
 ## Part 029 — Key-search architecture scope
 
 Key-search position and small-key fast path model the pinned 64-bit reference small integer representation. 32-bit BEAM position boundaries are not verified. The small integer/float element rounded-double comparison is deliberately local to key search; global numeric equality, exact member/2 and map keys are unchanged. Reverse/1 now distinguishes short-clause function_clause from reverse/2 badarg on longer improper lists. Value/class/reason regressions pass locally; full stacks/resources/reductions remain unverified.
+
+## Part 030 — Selected reference confirmation
+
+All 30 added key-search/reverse cases match within complete 249/249 at 85bd19f, superseding the part-029 pending status for those cases only. Position architecture scope, full stacks/resources/reductions and compiled-reference-module boundary remain. No runtime/compiler semantics changed in this evidence checkpoint.

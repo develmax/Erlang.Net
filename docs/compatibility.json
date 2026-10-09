@@ -363,9 +363,12 @@
         "lists/keysearch-small-integer-rounded-float",
         "lists/keysearch-float-key-exact-rational",
         "validation/part-029/tests.json",
-        "validation/part-029/reference-audit.json"
+        "validation/part-029/reference-audit.json",
+        "validation/part-030/differential.json",
+        "validation/part-030/remote-checkpoint.json",
+        "validation/part-030/corpus-audit.json"
       ],
-      "limits": "First matching tuple and short reverse clause errors; pinned 64-bit small-integer positions and numeric fast path. Thirty new oracle cases pending; full inputs, stacks, resources and reductions incomplete."
+      "limits": "First matching tuple and short reverse clause errors; thirty cases match within complete 249/249 at 85bd19f. Pinned 64-bit positions/small numeric fast path; complete inputs, stacks, resources, reductions and 32-bit reference remain unverified."
     }
   ],
   "moduleReadiness": "module-readiness.json"
