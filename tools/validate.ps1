@@ -10,6 +10,13 @@ try {
     }
     Invoke-DotNet @('build', '-m:1', '--nologo')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
+    $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
+    if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }
+    $oracleFailureOutput = & dotnet run --project tools/Erlang.Differential --no-build -- $missingOracle artifacts/oracle-unavailable.json 2>&1
+    if ($LASTEXITCODE -ne 2) { throw 'Unavailable oracle did not return infrastructure exit code 2' }
+    $oracleFailureOutput | Set-Content artifacts/oracle-unavailable.log
+    $oracleFailure = Get-Content artifacts/oracle-unavailable.json -Raw | ConvertFrom-Json
+    if ($oracleFailure.Complete -or $oracleFailure.VersionVerified -or $oracleFailure.Executed -ne 0 -or -not $oracleFailure.InfrastructureError) { throw 'Unavailable oracle evidence is incomplete or incorrectly marked successful' }
     $validationOutput = & dotnet run --project examples/HelloHybrid --no-build
     if ($LASTEXITCODE -ne 0 -or (($validationOutput -join "`n").Trim() -ne 'Hello World')) { throw 'Hybrid example output mismatch' }
     $generatedFiles = @(Get-ChildItem examples/HelloHybrid/obj/Debug/net10.0/erlang -Recurse -Filter '*.g.cs')
@@ -54,6 +61,6 @@ try {
         & artifacts/local-tool/erlang.exe compile examples/HelloHybrid/map_source.erl artifacts/tool-map_source.g.cs
         if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI map compilation failed' }
     }
-    @{ Build='Passed'; Tests='Passed'; HybridOutput='Hello World'; Incremental='Passed'; DisabledPreprocessing='Expected failure'; CleanRebuild='Passed'; PackageConsumer= $(if ($SkipPackage) {'Skipped'} else {'Passed'}); LocalTool= $(if ($SkipPackage) {'Skipped'} else {'Passed'}) } | ConvertTo-Json | Set-Content artifacts/integration-results.json
+    @{ Build='Passed'; Tests='Passed'; OracleUnavailableReport='Expected failure recorded'; HybridOutput='Hello World'; Incremental='Passed'; DisabledPreprocessing='Expected failure'; CleanRebuild='Passed'; PackageConsumer= $(if ($SkipPackage) {'Skipped'} else {'Passed'}); LocalTool= $(if ($SkipPackage) {'Skipped'} else {'Passed'}) } | ConvertTo-Json | Set-Content artifacts/integration-results.json
     Write-Output 'Validation passed'
 } finally { Pop-Location }

@@ -2,6 +2,8 @@
 
 All current compatibility entries are implemented or partially compatible, not globally verified compatible. Source-driven regressions do not replace running OTP 29.1.1.
 
+The first successfully built remote oracle matched 16 cases at dc91e8c, then source transport failed on Unicode before maps/bitstrings were reached. Part 008 repairs transport through explicit UTF-8 decoding and writes partial reports on infrastructure failure. Full current 62-case results, stacktrace fidelity, signals and side effects remain pending; no feature is globally verified by these 16 comparisons.
+
 - Scheduling uses CLR continuation execution with expression reductions; arbitrary C# callbacks cannot be preempted. Local process completion denotes logical death and signal publication, not guaranteed completion of arbitrary host callback cleanup. No BEAM scheduler fairness guarantee.
 - Local links/monitors and mailbox delivery are lock-serialized. Atomic local spawn_monitor and iterative link-failure propagation are implemented. Full Erlang signal queues, priority messages, aliases, spawn_request, distributed identity and monitor option variants are pending.
 - PID/port/reference identities currently have 64-bit IDs. Wider reference ID vectors, exact distributed identity ordering and external fun terms are incomplete.

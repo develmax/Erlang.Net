@@ -10,6 +10,25 @@ void Test(string name, Func<Task> body) => tests.Add((name, body));
 void Check(bool value, string message = "Assertion failed") { if (!value) throw new InvalidOperationException(message); }
 void Equal(Term a, Term b) => Check(a.Equals(b), $"Expected {b}, got {a}");
 void Throws<T>(Action action) where T : Exception { try { action(); } catch (T) { return; } throw new InvalidOperationException("Expected " + typeof(T).Name); }
+Test("oracle/unicode-source-ascii-transport", () =>
+{
+    string source = "try ('𐀀' > '\uffff') of X -> {ok,X} end";
+    string command = Erlang.Differential.OracleProtocol.EvaluationCommand(source);
+    Check(command.All(c => c <= 127));
+    string encoded = command.Split("base64:decode(\"", StringSplitOptions.None)[1].Split('"')[0];
+    Check(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encoded)) == source + ".");
+    Check(command.Contains("unicode:characters_to_list") && command.Contains("erl_scan:string") && command.Contains("erl_eval:exprs"));
+    return Task.CompletedTask;
+});
+Test("oracle/source-quoting-roundtrip", () =>
+{
+    string source = "{\"quote\\\" slash\\\\\", 'Привет 🌍',\n42}";
+    string command = Erlang.Differential.OracleProtocol.EvaluationCommand(source);
+    Check(command.All(c => c <= 127) && !command.Contains('\n'));
+    string encoded = command.Split("base64:decode(\"", StringSplitOptions.None)[1].Split('"')[0];
+    Check(System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encoded)) == source + ".");
+    return Task.CompletedTask;
+});
 async Task<Term> Eval(string source)
 {
     await using var runtime = new ProcessRuntime(); Term? result = null; var e = new Parser(source).ParseExpression(); Semantics.Validate(e);

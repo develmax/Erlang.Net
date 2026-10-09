@@ -332,3 +332,38 @@ Inspected exact OTP-29.1.1 erl_bif_guard.c bit_size_1/byte_size_1, erl_bif_op.c 
 Current bit lengths remain int-sized; larger BEAM/resource limits and full error stacks are unverified. Binary patterns, float/UTF segments, string modifiers, complete library coverage and the other prior gaps remain. No new benchmark or performance claim.
 
 Commit title: `Add bitstring predicates and size guard BIFs`. Publish the checkpoint, inspect the repaired oracle run's actual result and artifact, fix discrepancies and record the tested head precisely. Continue bitstring patterns with guard size expressions and prior-segment binding rules. Current-state and immutable per-part reports have been updated.
+
+## Part 008 — 2026-10-09 — Unicode oracle transport and partial evidence
+
+**Status:** completed for the runner repair and local validation; complete reference comparison pending. Full assignment remains unfinished, approximately 5% by the existing coarse engineering estimate.
+
+### Findings and changes
+
+[Remote run 37938184184](https://github.com/develmax/Erlang.Net/actions/runs/37938184184) successfully built OTP-29.1.1 at the exact pinned reference SHA. At implementation head dc91e8c9e63bb2b4cf97ea6961d5113f2333d2fb, its first **16 comparisons passed**, including arithmetic, exact/numeric and signed-zero equality, large numeric comparison, lists, repeated-variable patterns, guard alternatives, zero-timeout receive and anonymous functions. Comparison then aborted on the supplementary Unicode atom case: the native -eval argument was decoded incorrectly and erl_scan rejected an illegal character. Maps/bitstrings were not reached. The old runner emitted no JSON after an infrastructure failure. [Saved evidence](docs/validation/part-008/remote-oracle-attempt.json) explicitly identifies these results as log-derived, incomplete, and from the earlier 57-case head; no semantic failure was observed in those 16 cases.
+
+Added [OracleProtocol.cs](tools/Erlang.Differential/OracleProtocol.cs): source is encoded as Base64 UTF-8, the native command remains ASCII, and the oracle explicitly converts decoded bytes to Unicode codepoints before erl_scan/erl_parse/erl_eval. This preserves quotes, backslashes, newlines and supplementary characters independently of native argument decoding. Result transfer remains ETF/Base64.
+
+[The runner](tools/Erlang.Differential/Program.cs) now writes evidence after every completed case and on infrastructure exceptions. Reports include exact-version verification, planned/executed/pass/fail counts, completion flag, aborted source and infrastructure error. Infrastructure failures return 2, semantic mismatches return 1, and a complete match returns 0; zero mismatches in an incomplete report never imply success.
+
+Two permanent tests compile the same protocol source into [the regression harness](tests/Erlang.Tests/Program.cs), checking ASCII transport and UTF-8 roundtrips for supplementary/BMP Unicode, quoting and newlines. [validate.ps1](tools/validate.ps1) additionally verifies an unavailable executable returns 2 and preserves an incomplete report with zero executed cases. No production code or MFA was added; registry remains 49.
+
+### Reference and reuse audit
+
+Inspected pinned init.erl argument decoding and unicode.erl/erl_scan/erl_parse/erl_eval public contracts. Reused BCL UTF-8/Base64 and development oracle APIs, with no new dependency or copied source; [dependency decision](docs/dependency-decisions.md). The official sibling checkout remains unchanged, baseline unchanged, and production execution requires no BEAM runtime.
+
+### Validation
+
+| Check | Command / evidence | Actual result |
+| --- | --- | --- |
+| Full solution and permanent regression harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-008/tests.json) | **208 passed, 0 failed**, 49 direct MFA cases; build 0 warnings/errors |
+| Generated .erl/hybrid, incremental, disabled preprocessing, clean rebuild, local packages/consumer/tool | Same script; [integration](docs/validation/part-008/integration-results.json) | Passed; exact Hello World and expected disabled-preprocessing failure |
+| Missing oracle infrastructure reporting | Same script; [negative report](docs/validation/part-008/oracle-unavailable.json) | Expected exit 2; incomplete, version not verified, 0 executed cases, error saved |
+| Prior remote reference build and comparison | Run 37938184184 / saved evidence | Build succeeded; 16 passes, then infrastructure abort; 41 planned cases unexecuted |
+| Predecessor Windows CI | [5a1e5cc run 37938840512](https://github.com/develmax/Erlang.Net/actions/runs/37938840512) | Success; predecessor evidence only |
+| Hygiene | git diff --check, machine-readable evidence and reference status | Checked before commit; official reference unchanged |
+
+### Limits and next step
+
+The repaired Unicode command has local protocol evidence but still needs actual OTP execution. Current corpus has 62 cases; this part does not claim they passed. Stack traces, signals, side effects, bitstring patterns/remaining segment types and the wider runtime/OTP/distribution gaps remain pending. No benchmark rerun or new performance claim. Updated current progress/compatibility/semantic boundaries and preserved immutable reports.
+
+Commit title: `Repair Unicode oracle transport and preserve partial differential reports`. Publish to origin/main, dispatch the existing pinned oracle workflow on the new head, inspect every result and fix genuine mismatches before continuing binary patterns. Record new-head CI and oracle outcomes in the next English work-part entry.

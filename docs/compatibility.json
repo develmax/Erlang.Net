@@ -20,7 +20,7 @@
     {"name":"supervisor","status":"Partially compatible","evidence":["otp/supervisor-OneForOne","otp/supervisor-OneForAll","otp/supervisor-RestForOne","otp/supervisor-restart-intensity"]},
     {"name":"Hybrid syntax and MSBuild","status":"Partially compatible","evidence":["hybrid/nullable-context","hybrid/csharp-switch-and-erlang-case","validation/integration-results.json"]},
     {"name":"Local package and CLI","status":"Implemented","evidence":["validation/integration-results.json"]},
-    {"name":"Differential execution","status":"Implemented","evidence":[],"limits":"Exact-version oracle absent locally; first remote build failed on wx-dependent debugger; repaired remote run 37938184184 at dc91e8c is in progress with 57 cases; no successful comparison yet"},
+    {"name":"Differential execution","status":"Implemented","evidence":["oracle/unicode-source-ascii-transport","oracle/source-quoting-roundtrip","validation/part-008/remote-oracle-attempt.json"],"limits":"Remote exact-version build succeeded; 16/57 planned cases matched at dc91e8c before Unicode transport abort. ASCII UTF-8 transport and partial reports repaired; complete current 62-case run pending; no broad compatibility promotion"},
     {"name":"Complete expanded inventory","status":"Investigated","evidence":["otp-inventory.json"],"limits":"Macro/conditional/NIF/generated/platform contracts incomplete"},
     {"name":"Distribution","status":"Not started","evidence":[]},
     {"name":"Remaining OTP and advanced services","status":"Not started","evidence":[]},
