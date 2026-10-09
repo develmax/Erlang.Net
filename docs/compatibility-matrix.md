@@ -8,7 +8,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Tuples/lists/improper lists/maps | Partially compatible | terms/tuple-arity-first, improper-list, map-exact-keys, map-integer-before-all-floats, structural-hash |
 | Binaries/bitstrings | Partially compatible | terms/immutable-binary, etf/roundtrip-all-supported-kinds; full bit operations/source syntax pending |
 | PID/reference/port/fun values | Partially compatible | terms/type-order, ETF roundtrip, compiler/list-fun-map; exact distributed ordering/wide refs/external funs pending |
-| Integer-to-float coercion | Partially compatible | terms/integer-double-*, compiler/numeric-*; nearest-even/finite operand conversion in runtime and float segments; six new 160-corpus cases pending |
+| Integer-to-float coercion | Partially compatible | terms/integer-double-*, compiler/numeric-*; nearest-even/finite operand conversion in runtime and float segments; six selected oracle cases matched within 160/160; full arithmetic scope pending |
 | Pattern bindings | Partially compatible | patterns/repeated-variable, already-bound, list-tail; compiler binding/single-assignment/unsafe-variable tests |
 | Selective receive | Partially compatible | mailbox/later-match-preserves-order, zero-timeout-retains, timeout, concurrent-arrival, cancel, sender-order-stress; compiler clause/guard tests |
 | Local processes/links/monitors/exits | Partially compatible | runtime/registration-cleanup, monitor-down, monitor-noproc-and-flush, link-trap-exit, link-propagation, normal-link-exit-ignored, kill-untrappable |
@@ -19,7 +19,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
 | Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary/float16/32/64 segments, direct rounding and integer coercion; UTF8/16/32 and UTF strings now exist; remaining string modifiers/new oracle/full suites pending |
 | Float bit segments | Partially compatible | compiler/bits-float-*; 27 new tests including 63,488 finite binary16 roundtrips and generated .erl/hybrid/consumer checks; 123/123 matched at 19774f9; full applicable inputs/reference suites pending |
-| UTF bit segments and strings | Partially compatible | compiler/bits-utf-*; malformed/scalar/endian/unaligned/string/rollback checks and 1,280 deterministic roundtrips; 132/154 matched at 67ac674, explicit undefined-size source abort; 22 unexecuted. Corrected 160-case run pending |
+| UTF bit segments and strings | Partially compatible | compiler/bits-utf-*; malformed/scalar/endian/unaligned/string/rollback checks and 1,280 deterministic roundtrips; 31 selected UTF cases matched within complete 160/160 at 666c4b5; full applicable suite pending |
 | Bitstring source patterns | Partially compatible | compiler/bits-pattern-* plus generated unpack/1 and hybrid/PackageReference checks; signed/unsigned integer extraction, binary slices/rest, guard sizes and prior-segment bindings; full scope/segment/oracle evidence pending |
 | is_bitstring/bit_size/byte_size | Partially compatible | Three direct MFA cases plus compiler/bit-size-byte-rounding, predicate/size/error/guard/pattern-key regressions; oracle/resource-limit fidelity pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |
@@ -28,7 +28,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Mixed C#/Erlang | Partially compatible | hybrid/* and HelloHybrid integration; async receive/case/fun blocks at selected boundaries; arbitrary inline syntax/sync contexts pending |
 | MSBuild/local package | Partially compatible | tools/validate.ps1: output, incrementality, negative preprocessing, clean/rebuild, local consumer/tool; SDK/TFM/design-time expansion pending |
 | Source diagnostics/maps | Partially compatible | ERL001-008 parser/semantic errors, #line and line preservation; AST columns/full debugger/IDE mapping pending |
-| Differential verification | Implemented | Exact OTP-29.1.1 run 37952290309 matched 123/123 value/error cases at 19774f9; report validation/part-014/float-differential.json. New UTF 132/154 matched at 67ac674, explicit undefined-size source abort; 22 unexecuted. Corrected 160-case run pending. Stacks/signals/side effects/full reference suites pending |
+| Differential verification | Implemented | Exact OTP-29.1.1 run 37952290309 matched 123/123 value/error cases at 19774f9; report validation/part-014/float-differential.json. New UTF 31 selected UTF cases matched within complete 160/160 at 666c4b5; full applicable suite pending. Stacks/signals/side effects/full reference suites pending |
 | Full expanded source inventory | Investigated | 1,289 source modules / 38,622 explicit exports / 524 BIF entries; expansion/contracts incomplete |
 | gen_statem/gen_event/application/SASL | Not started | Not implemented |
 | Distribution/remote links/monitors/RPC | Not started | No real-node interop claim |

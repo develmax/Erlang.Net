@@ -210,9 +210,10 @@
         "compiler/bits-size-prefix-requires-parentheses",
         "validation/part-012/differential.json",
         "validation/part-014/float-differential.json",
-        "validation/part-016/utf-partial.json"
+        "validation/part-016/utf-partial.json",
+        "validation/part-017/differential.json"
       ],
-      "limits": "Complete 123/123 at 19774f9 includes float. Partial 132/154 at 67ac674 adds 9 UTF construction cases, then aborts at explicit undefined size; 22 UTF cases unexecuted. Corrected 160-case run required. Full stacks/signals/side effects/reference suites unverified."
+      "limits": "Exact OTP-29.1.1 160/160 at 666c4b5, run 37955525454, including float/UTF/arithmetic-coercion cases. erl_eval values/class/reason only; full applicable inputs/compiled-reference/optimizer/stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion."
     },
     {
       "name": "Complete expanded inventory",
@@ -250,7 +251,8 @@
         "compiler/bits-float-signed-zero",
         "validation/part-013/tests.json",
         "validation/part-013/integration-results.json",
-        "validation/part-014/float-differential.json"
+        "validation/part-014/float-differential.json",
+        "validation/part-017/differential.json"
       ],
       "limits": "16/32/64 construction and finite matching, zero-width float patterns/endian/unit/numeric conversion. Selected 30 float oracle cases matched within 123/123 at 19774f9; full diagnostics/scope/error/reference suites pending."
     },
@@ -269,9 +271,10 @@
         "validation/part-014/tests.json",
         "validation/part-014/integration-results.json",
         "compiler/bits-utf-undefined-size-diagnostic",
-        "validation/part-016/utf-partial.json"
+        "validation/part-016/utf-partial.json",
+        "validation/part-017/differential.json"
       ],
-      "limits": "Strict UTF8/16/32 and UTF strings. Explicit undefined size rejected after erl_lint audit. 9 UTF construction cases matched within partial 132/154 at 67ac674; remaining 22 UTF cases unexecuted. Corrected 160-case run required; full reference suites incomplete."
+      "limits": "Strict UTF8/16/32 and UTF strings; all explicit sizes/units rejected. 31 selected UTF cases match within complete 160/160 at 666c4b5. Full scopes/error/diagnostics/resource/reference suites incomplete."
     },
     {
       "name": "Integer-to-float coercion",
@@ -283,9 +286,10 @@
         "compiler/numeric-integer-division-rounding",
         "compiler/numeric-conversion-overflow-badarith",
         "compiler/numeric-conversion-guard-failure",
-        "validation/part-015/tests.json"
+        "validation/part-015/tests.json",
+        "validation/part-017/differential.json"
       ],
-      "limits": "Shared finite nearest-even conversion for arithmetic/float segments/literals. Six new 160-corpus cases pending; full arithmetic input/error/stack contracts unverified."
+      "limits": "Shared finite nearest-even conversion for arithmetic/float segments/literals. Six selected arithmetic cases match within complete 160/160 at 666c4b5; full input/error/stack contracts unverified."
     }
   ]
 }

@@ -627,3 +627,26 @@ Full stacks/signals/side effects/reference suites/performance remain unrun; no b
 ### Handoff
 
 Updated current PROGRESS/COMPATIBILITY/JSON/semantic differences/NEXT_STEPS with partial tested scope and the correction. Commit title: `Reject explicit UTF sizes and correct oracle fixture`. Publish the repaired checkpoint, dispatch the corrected 160-case comparison, preserve its actual report and fix remaining discrepancies before extending source syntax. No public NuGet publication.
+
+## Part 017 — 2026-10-09 — Complete 160-case pinned oracle checkpoint
+
+**Part status:** completed for this development corpus. Full assignment remains approximately **5%** by a coarse engineering estimate; no whole-feature/MFA promotion.
+**Objective and scope:** finish exact-head reference validation of float/UTF/numeric-coercion work and preserve the complete report after the explicit UTF-size repair.
+
+[Run 37955525454](https://github.com/develmax/Erlang.Net/actions/runs/37955525454) at **666c4b5060110068aba4ad043fec7d0ac3388168** built exact OTP-29.1.1 (**ad05823719d77c8faee87348ea39513d4e2f99c5**) and matched **160/160 cases**. The [original JSON](docs/validation/part-017/differential.json) records VersionVerified=true, Complete=true, Planned=Executed=Passed=160, Failed=0 and no aborted source/infrastructure error. [Metadata](docs/validation/part-017/remote-checkpoint.json) preserves the exact head/reference/job/artifact IDs and verified artifact ZIP SHA256 **a16760ea047792287fbdb4fa8a2bd9d35b65637cb51b67aa8f21f2e15e65b2d0**.
+
+The corpus contains the previous 93 expressions, 30 float, 31 UTF and six arithmetic-coercion additions. It now reaches and matches UTF patterns/strings, malformed/overlong/surrogate/short/range-invalid matching, unaligned/endian/scalar/noncharacter cases, prior bindings/rollback and numeric nearest-even/overflow/guard outcomes. This confirms the selected values and exception class/reason cases after the repair. The earlier 132/154 report/invalid-source diagnosis remains immutable in part 016. Cancelled superseded run 37954818924 is not evidence for arithmetic correctness; the new complete run is.
+
+Same-head [Windows CI run 37955516789](https://github.com/develmax/Erlang.Net/actions/runs/37955516789), job 113904905652, passed **299/299 tests** and the full tools/validate.ps1 pipeline. Actual job-log lines confirmed 299/299 passed, zero warnings/errors and Validation passed. This includes generated .erl/hybrid assertions, incremental/disabled/clean builds and real local-package consumer/CLI. Local part 016 [tests](docs/validation/part-016/tests.json)/[integration](docs/validation/part-016/integration-results.json) remain the earlier local snapshots; no local runtime tests were rerun for this evidence/documentation-only part.
+
+### Changes, scope and validation
+
+Updated PROGRESS, COMPATIBILITY, machine-readable feature evidence, matrix, semantic boundaries and NEXT_STEPS around the **complete current 160-case result**, removing superseded pending claims from current state while retaining historical journal entries. Registry remains **49 MFAs**, all Partially compatible. No runtime/compiler change, new dependency/copied source/license decision, production BEAM dependency or benchmark/performance claim. Official reference checkout remains unchanged.
+
+Remote commands are those in differential.yml: pinned configure/make/make install, dotnet build tools/Erlang.Differential -m:1, dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json. Windows CI runs pwsh -File tools/validate.ps1. Retrieved original reports/log evidence, checked artifact SHA256, JSON completeness/counts, registered feature test identifiers/report paths and git diff --check before commit.
+
+Reference expressions are evaluated through **erl_eval:exprs**, not a full compiled-reference-module/optimizer test suite. Complete applicable inputs/errors, compiled-reference modules, stacks, asynchronous signals, side effects, full OTP reference suites and BEAM performance comparisons remain unverified. No full module/MFA is marked Verified compatible from the selected corpus.
+
+### Handoff
+
+Commit title: `Record complete float UTF and numeric oracle comparison`. Publish this evidence checkpoint to origin/main. Next executable language unit: construction-only non-UTF literal-string size/type modifiers, including empty-string validation, with patterns restricted according to pinned erl_lint good_string_size_type (default or unsized UTF). Add a separate compiled-reference-module comparison track; continue broader runtime/OTP/distribution/IDE work afterwards. Detailed English entries and immutable reports continue per part. No public NuGet publication.
