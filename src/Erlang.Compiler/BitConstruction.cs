@@ -53,7 +53,7 @@ internal static class BitConstruction
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
             BigInteger bits;
-            bool whole = size is null || binary && size is Atom { Name: "all" };
+            bool whole = size is null || binary && size is Atom { Name: BitSizeAtoms.All };
             if (whole)
                 bits = integer ? BitSyntaxDefaults.IntegerWidth * segment.Unit : floating ? BitSyntaxDefaults.FloatWidth * segment.Unit : ((BitString)value).BitLength;
             else if (size is Integer number && number.Value >= 0)

@@ -1,11 +1,11 @@
 {
-  "Passed": 314,
-  "Failed": 0,
+  "Passed": 313,
+  "Failed": 1,
   "Tests": [
     {
       "Name": "oracle/unicode-source-ascii-transport",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "oracle/source-quoting-roundtrip",
@@ -15,12 +15,12 @@
     {
       "Name": "terms/exact-numeric-equality",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 3
     },
     {
       "Name": "terms/large-integer-double-comparison",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "terms/integer-double-nearest-even",
@@ -35,7 +35,7 @@
     {
       "Name": "compiler/numeric-mixed-nearest-even",
       "Status": "Passed",
-      "Milliseconds": 22
+      "Milliseconds": 136
     },
     {
       "Name": "compiler/numeric-integer-division-rounding",
@@ -45,7 +45,7 @@
     {
       "Name": "compiler/numeric-conversion-overflow-badarith",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "compiler/numeric-conversion-guard-failure",
@@ -70,7 +70,7 @@
     {
       "Name": "terms/improper-list",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/map-exact-keys",
@@ -85,7 +85,7 @@
     {
       "Name": "terms/signed-zero-otp29",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 28
     },
     {
       "Name": "terms/atom-codepoint-order",
@@ -105,7 +105,7 @@
     {
       "Name": "terms/structural-hash",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "terms/unicode-list",
@@ -145,7 +145,7 @@
     {
       "Name": "mailbox/timeout",
       "Status": "Passed",
-      "Milliseconds": 29
+      "Milliseconds": 26
     },
     {
       "Name": "mailbox/concurrent-arrival",
@@ -160,7 +160,7 @@
     {
       "Name": "mailbox/sender-order-stress",
       "Status": "Passed",
-      "Milliseconds": 6
+      "Milliseconds": 4
     },
     {
       "Name": "runtime/process-self-and-dictionary",
@@ -205,7 +205,7 @@
     {
       "Name": "runtime/1000-waiting-processes",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 6
     },
     {
       "Name": "compiler/arithmetic-precedence",
@@ -220,7 +220,7 @@
     {
       "Name": "compiler/case-pattern-guard",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/guard-error-rejects",
@@ -230,12 +230,12 @@
     {
       "Name": "compiler/guard-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/list-fun-map",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "compiler/receive-after-zero",
@@ -250,7 +250,7 @@
     {
       "Name": "compiler/single-assignment-mismatch",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/unbound-diagnostic",
@@ -275,7 +275,7 @@
     {
       "Name": "compiler/module-clauses-private-function",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/spawn-fun-child-self",
@@ -290,7 +290,7 @@
     {
       "Name": "hybrid/csharp-strings-comments-raw-preserved",
       "Status": "Passed",
-      "Milliseconds": 28
+      "Milliseconds": 29
     },
     {
       "Name": "hybrid/source-map-and-lowering",
@@ -335,7 +335,7 @@
     {
       "Name": "compiler/tail-recursion-50000",
       "Status": "Passed",
-      "Milliseconds": 729
+      "Milliseconds": 756
     },
     {
       "Name": "hybrid/ordinary-fun-call",
@@ -355,12 +355,12 @@
     {
       "Name": "compiler/signed-zero-pattern",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "otp/gen-server-call-cast-info-stop",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 6
     },
     {
       "Name": "otp/gen-server-crash-monitor",
@@ -370,7 +370,7 @@
     {
       "Name": "otp/gen-server-timeout",
       "Status": "Passed",
-      "Milliseconds": 25
+      "Milliseconds": 23
     },
     {
       "Name": "otp/gen-server-init-error",
@@ -380,7 +380,7 @@
     {
       "Name": "otp/supervisor-OneForOne",
       "Status": "Passed",
-      "Milliseconds": 10
+      "Milliseconds": 16
     },
     {
       "Name": "otp/supervisor-OneForAll",
@@ -390,27 +390,27 @@
     {
       "Name": "otp/supervisor-RestForOne",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 13
     },
     {
       "Name": "otp/supervisor-transient-temporary-normal",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 15
     },
     {
       "Name": "otp/supervisor-restart-intensity",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "otp/supervisor-temporary-abnormal-no-restart",
       "Status": "Passed",
-      "Milliseconds": 14
+      "Milliseconds": 13
     },
     {
       "Name": "runtime/link-cascade-10000",
       "Status": "Passed",
-      "Milliseconds": 227
+      "Milliseconds": 226
     },
     {
       "Name": "runtime/spawn-monitor-immediate-exit-atomic",
@@ -425,7 +425,7 @@
     {
       "Name": "compiler/large-literal-codegeneration",
       "Status": "Passed",
-      "Milliseconds": 18
+      "Milliseconds": 20
     },
     {
       "Name": "compiler/reserved-keywords-rejected",
@@ -825,7 +825,7 @@
     {
       "Name": "hybrid/map-case-directive-trivia",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 6
     },
     {
       "Name": "compiler/map-closure-captured-key",
@@ -900,7 +900,7 @@
     {
       "Name": "compiler/map-pattern-key-map-get",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-pattern-key-map-get-failure",
@@ -1044,8 +1044,9 @@
     },
     {
       "Name": "compiler/bits-float-bad-size",
-      "Status": "Passed",
-      "Milliseconds": 0
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: The literal all size is allowed only for binary segments\r\n   at Erlang.Compiler.Parser.ParseBits() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 417\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 259\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 193\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 47\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__MapError|0_91(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 1414\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__MapError|0_91(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 1433\r\n   at Program.\u003C\u003Ec.\u003C\u003C\u003CMain\u003E$\u003Eb__0_162\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 1791\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 2494",
+      "Milliseconds": 17
     },
     {
       "Name": "compiler/bits-float-bad-value",
@@ -1145,7 +1146,7 @@
     {
       "Name": "compiler/bits-float16-all-finite-roundtrip",
       "Status": "Passed",
-      "Milliseconds": 197
+      "Milliseconds": 206
     },
     {
       "Name": "compiler/bits-duplicate-spec-diagnostic",
@@ -1205,7 +1206,7 @@
     {
       "Name": "compiler/bits-utf8-invalid-sequences",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf16-invalid-sequences",
@@ -1260,7 +1261,7 @@
     {
       "Name": "compiler/bits-utf-deterministic-roundtrips",
       "Status": "Passed",
-      "Milliseconds": 15
+      "Milliseconds": 16
     },
     {
       "Name": "compiler/bits-pattern-default",

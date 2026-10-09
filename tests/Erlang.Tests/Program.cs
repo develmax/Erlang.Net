@@ -1787,7 +1787,7 @@ Test(
     "compiler/bits-float-bad-size",
     async () =>
  {
-     foreach (string source in new[] { "<<1.0:0/float>>", "<<1.0:8/float>>", "<<1.0:128/float>>", "<<1.0:all/float>>" })
+     foreach (string source in new[] { "<<1.0:0/float>>", "<<1.0:8/float>>", "<<1.0:128/float>>" })
          Equal(await MapError(source), Term.A("badarg"));
  }
 );
@@ -2372,7 +2372,7 @@ Test(
     "compiler/bits-string-invalid-sizes",
     async () =>
 {
-    foreach (string source in new[] { "<<\"ab\":(-1)>>", "<<\"\":(-1)>>", "<<\"\":all>>", "<<\"ab\":1.0>>", "<<\"\":1/float>>", "<<\"ab\":0/float>>", "<<\"a\"/binary>>", "<<\"\"/binary>>", "<<[65,66]:8>>", "<<[]:8>>" })
+    foreach (string source in new[] { "<<\"ab\":(-1)>>", "<<\"\":(-1)>>", "case all of S -> <<\"\":S>> end", "<<\"ab\":1.0>>", "<<\"\":1/float>>", "<<\"ab\":0/float>>", "<<\"a\"/binary>>", "<<\"\"/binary>>", "<<[65,66]:8>>", "<<[]:8>>" })
         Equal(await MapError(source), Term.A("badarg"));
 }
 );
@@ -2402,6 +2402,26 @@ Test(
         await Eval("case #{<<\"ab\":16/little>> => 42} of #{<<\"ab\":16/little>> := X} when <<\"A\":16/float>> =:= <<84,16>> -> X end"),
         Term.I(42)
     )
+);
+Test(
+    "compiler/bits-numeric-literal-all-diagnostic",
+    () =>
+{
+    foreach (string source in new[] { "<<\"\":all>>", "<<\"ab\":all>>", "<<1:all>>", "<<1:all/float>>", "<<1.0:all/float>>", "<<\"\":(all)/float>>" })
+    {
+        try
+        {
+            new Parser(source).ParseExpression();
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == "ERL002");
+        }
+    }
+
+    return Task.CompletedTask;
+}
 );
 Test(
     "compiler/bits-identical-specifiers",

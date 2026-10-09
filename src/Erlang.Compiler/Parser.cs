@@ -413,6 +413,8 @@ public sealed class Parser
                 throw Error(ParserDiagnostics.NumericUnitRequiresSize);
             if (BitUnicode.IsUtf(type) && (size is not null || unit is not null))
                 throw Error(ParserDiagnostics.UtfSizeOrUnit);
+            if (size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } } && type != BitSegmentTypes.Binary)
+                throw Error(ParserDiagnostics.NonBinaryAllSize);
             if (value is Expr.Literal { Value: Cons or Nil } && BitUnicode.IsUtf(type))
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value))

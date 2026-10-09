@@ -12,7 +12,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
             var segment = bits.Segments[i];
             if (segment.IsStringLiteral)
                 throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.StringModifiers, 0);
-            bool whole = segment.Type == BitSegmentTypes.Binary && (segment.Size is null || segment.Size is Expr.Literal { Value: Atom { Name: "all" } });
+            bool whole = segment.Type == BitSegmentTypes.Binary && (segment.Size is null || segment.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } });
             if (whole && i != bits.Segments.Count - 1)
                 throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedBinaryNotLast, 0);
             var value = Parser.ToPattern(segment.Value);
@@ -95,7 +95,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
             {
                 return false;
             }
-            bool whole = spec.Type == BitSegmentTypes.Binary && (size is null || size is Atom { Name: "all" });
+            bool whole = spec.Type == BitSegmentTypes.Binary && (size is null || size is Atom { Name: BitSizeAtoms.All });
             BigInteger length;
             if (whole)
                 length = input.BitLength - position;

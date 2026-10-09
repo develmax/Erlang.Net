@@ -317,9 +317,14 @@
         "compiler/bits-string-guard-and-map-key",
         "validation/part-024/tests.json",
         "validation/part-024/integration-results.json",
-        "validation/part-024/reference-audit.json"
+        "validation/part-024/reference-audit.json",
+        "compiler/bits-numeric-literal-all-diagnostic",
+        "validation/part-025/tests.json",
+        "validation/part-025/initial-differential.json",
+        "validation/part-025/initial-remote-checkpoint.json",
+        "validation/part-025/reference-audit.json"
       ],
-      "limits": "Integer/float per-codepoint size/unit/endian, size evaluated once, empty validation. Modified non-UTF strings forbidden in patterns. 23 oracle additions planned in 183-case corpus; not yet executed. Full scope/error ordering/resources/stacks/reference suites pending."
+      "limits": "Integer/float string modifiers and empty validation; non-binary static all is a compile error, dynamic all is a runtime check. Initial exact-version run 37998319734 at badb643 matched 174 then aborted on illegal static-all fixture; incomplete. Corrected 183-case run pending. Full ordering/resources/stacks/reference suites remain partial."
     }
   ]
 }
