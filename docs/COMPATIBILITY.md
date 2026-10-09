@@ -1,8 +1,8 @@
-# Compatibility checkpoint — 2026-10-09
+# Compatibility checkpoint — 2026-10-10
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **299/299 tests**, 49 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 022](validation/part-022/tests.json), [integration](validation/part-022/integration-results.json).
+Current local evidence is **299/299 tests**, 49 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 023](validation/part-023/tests.json), [integration](validation/part-023/integration-results.json).
 
 Exact-version oracle run [37955525454](https://github.com/develmax/Erlang.Net/actions/runs/37955525454) matched **160/160** selected values/exception class/reason cases at **666c4b5**: the prior 93 cases, 30 float, 31 UTF and 6 arithmetic-coercion additions. Version confirmed; complete report; zero mismatches/aborts. [Original report](validation/part-017/differential.json), [verified artifact/head metadata](validation/part-017/remote-checkpoint.json). Same-head Windows CI [37955516789](https://github.com/develmax/Erlang.Net/actions/runs/37955516789) passed 299 tests and full integration. Reference expressions run through erl_eval; compiled-reference-module/optimizer comparison is a separate unfinished track.
 
@@ -30,4 +30,8 @@ All broad language/runtime/OTP features and all 49 MFAs remain **Partially compa
 
 [compatibility.json](compatibility.json) tracks feature evidence; [supported-mfas.json](supported-mfas.json) is the implemented-MFA overlay. The [source inventory](otp-inventory.md) has 1,289 source modules, 38,622 explicit exports and 524 BIF declarations before macro/conditional/NIF/generated/platform expansion. These are not an effective API coverage denominator.
 
-Historical failed runs, fixture corrections, old counts and checkpoint-specific boundaries are preserved in [CHANGELOG](../CHANGELOG.md), parts 001–022, and immutable validation/part-NNN reports. Current-state documents do not repeat superseded pending-oracle claims.
+Historical failed runs, fixture corrections, old counts and checkpoint-specific boundaries are preserved in [CHANGELOG](../CHANGELOG.md), parts 001–023, and immutable validation/part-NNN reports. Current-state documents do not repeat superseded pending-oracle claims.
+
+## Part 023 — Readable switch expressions
+
+Switch expressions place the opening brace, each arm and the closing brace on separate lines. The SDK-backed style tool enforces this throughout ordinary C# sources and full validation checks it. TermOrder.Rank, Parser.Precedence and Semantics.Variables preserve their exact non-trivia token streams, values and pattern order. The independent guarded-pattern probe rejects compact layout, repairs it and passes a second check while preserving a string containing switch-like text. No new Erlang feature, MFA, compatibility promotion or dependency. Current 299-test/full integration reports are saved in validation/part-023; the 160-case oracle evidence remains historical at 666c4b5 and was not rerun.

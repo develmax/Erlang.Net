@@ -82,6 +82,14 @@ internal static class SourceLayout
             }
         }
 
+        foreach (var expression in root.DescendantNodes().OfType<SwitchExpressionSyntax>())
+        {
+            BreakBefore(expression.OpenBraceToken, 1);
+            foreach (var arm in expression.Arms)
+                BreakBefore(arm.GetFirstToken(), 1);
+            BreakBefore(expression.CloseBraceToken, 1);
+        }
+
         foreach (var type in root.DescendantNodes().OfType<TypeDeclarationSyntax>())
         {
             for (int index = 1; index < type.Members.Count; index++)

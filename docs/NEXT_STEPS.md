@@ -30,3 +30,6 @@ Part 020 file organization: put every namespace-level class/record/struct/interf
 Part 021 conventions are enforced by tools/Erlang.Style in the full validation pipeline. Before committing source changes, run its --write command and validate; preserve domain-owned process/OTP constants and exception diagnostics. Read root CHANGELOG.md plus only the latest journal volume for current handoff. Append detailed English entries to that last volume; create the next before 32 KiB or 400 lines and update the index. The semantic feature sequence above is unchanged.
 
 Part 022: use EtfTags and the separate ETF layout/limit/tuning types when extending serialization. Keep wire values distinct from implementation caps and equal numeric values distinct by contract; preserve independent literal ETF reference fixtures. The implementation-only nesting/byte/reference limits remain narrower than full OTP coverage. Continue the prior semantic feature sequence after this refactor.
+
+
+Part 023 checkpoint: readable switch expressions are enforced by Erlang.Style and validate.ps1. Preserve one arm per line during the next planned language/runtime increment; current tests/integration are in validation/part-023. Full-assignment estimate remains approximately 5%.

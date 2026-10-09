@@ -175,7 +175,18 @@ public sealed class Parser
         return result;
     }
 
-    private static int Precedence(string op) => op switch { "=" => 1, "!" => 2, "orelse" => 3, "andalso" => 4, "==" or "/=" or "=:=" or "=/=" or "<" or ">" or "=<" or ">=" => 5, "++" or "--" => 6, "+" or "-" => 7, "*" or "/" or "div" or "rem" => 8, _ => 0 };
+    private static int Precedence(string op) => op switch
+    {
+        "=" => 1,
+        "!" => 2,
+        "orelse" => 3,
+        "andalso" => 4,
+        "==" or "/=" or "=:=" or "=/=" or "<" or ">" or "=<" or ">=" => 5,
+        "++" or "--" => 6,
+        "+" or "-" => 7,
+        "*" or "/" or "div" or "rem" => 8,
+        _ => 0
+    };
 
     private Expr Expression(int minimum = 1)
     {

@@ -6,7 +6,21 @@ namespace Erlang;
 
 public static class TermOrder
 {
-    private static int Rank(Term t) => t switch { Integer or FloatTerm => 0, Atom => 1, ReferenceTerm => 2, FunctionTerm => 3, PortTerm => 4, Pid => 5, TupleTerm => 6, MapTerm => 7, Nil => 8, Cons => 9, BitString => 10, _ => throw new NotSupportedException() };
+    private static int Rank(Term t) => t switch
+    {
+        Integer or FloatTerm => 0,
+        Atom => 1,
+        ReferenceTerm => 2,
+        FunctionTerm => 3,
+        PortTerm => 4,
+        Pid => 5,
+        TupleTerm => 6,
+        MapTerm => 7,
+        Nil => 8,
+        Cons => 9,
+        BitString => 10,
+        _ => throw new NotSupportedException()
+    };
 
     public static int Compare(Term a, Term b, bool exact = false)
     {

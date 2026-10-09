@@ -18,7 +18,15 @@ public static class Semantics
 
     public static void Validate(Expr expression) => Walk(expression, [], false);
 
-    internal static IEnumerable<string> Variables(Pattern p) => p switch { BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)), MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)), Pattern.Variable v when v.Name != "_" => [v.Name], Pattern.Tuple t => t.Items.SelectMany(Variables), Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)), _ => [] };
+    internal static IEnumerable<string> Variables(Pattern p) => p switch
+    {
+        BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)),
+        MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)),
+        Pattern.Variable v when v.Name != "_" => [v.Name],
+        Pattern.Tuple t => t.Items.SelectMany(Variables),
+        Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)),
+        _ => []
+    };
 
     private static void PatternKeys(Pattern pattern, HashSet<string> bound)
     {
