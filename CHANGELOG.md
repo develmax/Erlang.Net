@@ -230,3 +230,35 @@ The first map build exposed hybrid # directive handling; an inline regression th
 Map comprehensions, complete map BIF/guard coverage, full-language guard expressions, binary source syntax, optimized map storage and real oracle verification remain pending. Error stacktrace fidelity and all other previously documented runtime/OTP gaps remain open. Benchmarks were not rerun because this part makes no new performance claim.
 
 Next: obtain exact OTP oracle evidence and expand map guard BIFs, then implement bit syntax with source-backed tests. Keep [NEXT_STEPS](docs/NEXT_STEPS.md) as the executable queue. The completed map checkpoint is committed under `Add Erlang map source syntax and preserve checkpoint evidence` and published to origin/main; obtain its hash from Git history instead of embedding its own hash in the commit contents.
+
+## Part 005 — 2026-10-09 — Map guard BIFs and differential error outcomes
+
+**Status:** completed for this scope; Partially compatible overall. No new full-project completion claim.
+
+### Objective and changes
+
+Continue the map contracts from part 004 by implementing erlang:is_map/1, map_size/1, map_get/2 and is_map_key/2. Added all four to [runtime dispatch](src/Erlang.Runtime/Modules.cs) and the [guard whitelist](src/Erlang.Compiler/Semantics.cs), using existing immutable MapTerm exact-key operations. The registry now contains **46 MFAs**, all with direct permanent tests.
+
+[Tests](tests/Erlang.Tests/Program.cs) add four direct MFA cases and twelve semantic regressions: positive/negative type tests, cardinality, missing/exact keys, invalid map error reasons, signed zeros, qualified erlang guards, failure and alternatives, map_get in pattern keys, and rejection of maps:get in guards. The [generated example](examples/HelloHybrid/map_source.erl) invokes all four functions in a function-clause guard and runs in both project and PackageReference consumer validation.
+
+The [differential runner](tools/Erlang.Differential/Program.cs) now compares tagged outcomes: {ok,Value} or {error,Class,Reason}, using an Erlang try/catch wrapper for the oracle and catching ErlangException in the C# evaluator. Added eleven cases, bringing the corpus to **37**, including badmap/badkey/update errors, error/throw/exit classes and guard alternatives. This does not compare stack traces or asynchronous signal effects.
+
+### Reference and reuse decisions
+
+Inspected OTP-29.1.1 erts/emulator/beam/erl_map.c: map_size_1, maps_get_2/map_get_2 and maps_is_key_2/is_map_key_2; also lib/stdlib/src/erl_internal.erl for guard/type-test declarations. These establish badmap/badkey reason payloads and guard legality. Reused MapTerm.Get/TryGet/Entries and CoreModules.Boolean; no external dependency or copied implementation. See [dependency decisions](docs/dependency-decisions.md).
+
+### Executed validation
+
+| Check | Command and evidence | Result |
+| --- | --- | --- |
+| Full solution, regression harness | pwsh -File tools/validate.ps1, which executes dotnet build -m:1 and the harness; [tests](docs/validation/part-005/tests.json) | **169 passed, 0 failed**, including all 46 direct MFA cases; build 0 warnings/errors |
+| Examples, incremental/negative/clean builds, packages and local CLI | Same script; [integration](docs/validation/part-005/integration-results.json) | All checks Passed; expected failure with preprocessing disabled; exact Hello World output |
+| Prior published CI checkpoints | Read-only GitHub Actions API | 3860695 and f428c9f both succeeded; [f428c9f run](https://github.com/develmax/Erlang.Net/actions/runs/37933537842). This is predecessor evidence, not CI evidence for this new commit |
+| Differential oracle | 37-case runner builds; exact local oracle absent | Not run at this checkpoint; no oracle result invented |
+| Documentation/evidence/reference hygiene | Local links and test IDs checked, git diff --check, reference checkout status | Checked before checkpoint commit; reference checkout unchanged |
+
+### Limitations and handoff
+
+Complete map module coverage, binary syntax, full guard set, faithful exception stack traces and live oracle results remain pending. Performance measurements were not rerun and no new performance claim is made. Updated PROGRESS, NEXT_STEPS, compatibility JSON/matrix and semantic differences; immutable reports preserve previous parts.
+
+Commit title: `Add map guard BIFs and differential error comparisons`. Publish to origin/main, then attempt the existing manual pinned-OTP differential workflow and record actual results in the next part. Continue binary source syntax after oracle discrepancies are resolved.

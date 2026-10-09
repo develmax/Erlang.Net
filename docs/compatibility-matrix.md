@@ -15,6 +15,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | ETF subset | Partially compatible | etf/reference-vectors, roundtrip-all-supported-kinds, malformed-input-limits, random-integer-property; fun tags/wide reference vectors pending |
 | Erlang parser/analyzer/emitter | Partially compatible | compiler/*; lexer/Pratt AST, scopes/guards/module exports, generated AST C#; full grammar/IR/native lowering pending |
 | Map source construction/updates/patterns | Partially compatible | compiler/map-*, patterns/map-rollback, hybrid/map-*, generated map_source.erl and PackageReference integration; full guard/BIF set/comprehensions/oracle pending |
+| is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |
 | gen_server | Partially compatible | otp/gen-server-call-cast-info-stop, crash-monitor, timeout, init-error; aliases/sys/full callback protocol pending |
 | supervisor | Partially compatible | otp/supervisor-OneForOne, OneForAll, RestForOne, transient-temporary-normal, temporary-abnormal-no-restart, restart-intensity; dynamic children/full childspecs pending |

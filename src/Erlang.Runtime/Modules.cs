@@ -30,6 +30,10 @@ public static class CoreModules
         Add("erlang", "is_binary", 1, (c, a) => Boolean(a[0] is BitString b && b.IsBinary));
         Add("erlang", "is_list", 1, (c, a) => Boolean(a[0] is Cons or Nil));
         Add("erlang", "is_pid", 1, (c, a) => Boolean(a[0] is Pid));
+        Add("erlang", "is_map", 1, (c, a) => Boolean(a[0] is MapTerm));
+        Add("erlang", "map_size", 1, (c, a) => a[0] is MapTerm m ? Term.I(m.Entries.Count) : throw new ErlangException(Term.Tuple(Term.A("badmap"), a[0])));
+        Add("erlang", "map_get", 2, (c, a) => a[1] is MapTerm m ? m.Get(a[0]) : throw new ErlangException(Term.Tuple(Term.A("badmap"), a[1])));
+        Add("erlang", "is_map_key", 2, (c, a) => a[1] is MapTerm m ? Boolean(m.TryGet(a[0], out _)) : throw new ErlangException(Term.Tuple(Term.A("badmap"), a[1])));
         Add("erlang", "make_ref", 0, (c, a) => new ReferenceTerm(c.Runtime.Node, (ulong)Interlocked.Increment(ref nextRef)));
         Add("erlang", "register", 2, (c, a) => { c.Runtime.Register(AtomName(a[0]), PidValue(a[1])); return Term.A("true"); });
         Add("erlang", "whereis", 1, (c, a) => c.Runtime.WhereIs(AtomName(a[0])));

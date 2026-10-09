@@ -134,6 +134,10 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("erlang", "is_binary", 1) => ([new BitString([128], 1)], Term.A("false")),
                 ("erlang", "is_list", 1) => ([new Cons(Term.I(1), Term.A("tail"))], Term.A("true")),
                 ("erlang", "is_pid", 1) => ([c.Self], Term.A("true")),
+                ("erlang", "is_map", 1) => ([new MapTerm([])], Term.A("true")),
+                ("erlang", "map_size", 1) => ([new MapTerm([new(Term.A("a"), Term.I(1))])], Term.I(1)),
+                ("erlang", "map_get", 2) => ([Term.A("a"), new MapTerm([new(Term.A("a"), Term.I(42))])], Term.I(42)),
+                ("erlang", "is_map_key", 2) => ([Term.I(1), new MapTerm([new(new FloatTerm(1), Term.A("float"))])], Term.A("false")),
                 ("lists", "reverse", 1) => ([Term.List(Term.I(1), Term.I(2))], Term.List(Term.I(2), Term.I(1))),
                 ("lists", "reverse", 2) => ([Term.List(Term.I(1), Term.I(2)), Term.A("tail")], new Cons(Term.I(2), new Cons(Term.I(1), Term.A("tail")))),
                 ("lists", "append", 2) => ([Term.List(Term.I(1)), Term.A("tail")], new Cons(Term.I(1), Term.A("tail"))),
@@ -226,6 +230,18 @@ Test("compiler/map-closure-key-value-shadow", async () => Equal(await Eval("case
 Test("compiler/map-context-guard-key", async () => Equal(await Eval("case #{self() => 42} of #{self() := V} -> V end"), Term.I(42)));
 Test("hybrid/map-inline-receive", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = receive #{a := X} -> X end. } }", "m.cs"); Check(generated.Contains("MapPatternField")); return Task.CompletedTask; });
 Test("hybrid/map-case-remote-call", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = case maps:get(a,#{a => 42}) of X -> X end. } }", "m.cs"); Check(generated.Contains("Expr.Case")); Check(generated.Contains("Expr.Map")); return Task.CompletedTask; });
+Test("compiler/map-bifs-positive-negative-types", async () => Equal(await Eval("{is_map(#{}),is_map([]),map_size(#{a => 1,b => 2}),is_map_key(a,#{a => 1}),is_map_key(b,#{a => 1})}"), Term.Tuple(Term.A("true"),Term.A("false"),Term.I(2),Term.A("true"),Term.A("false"))));
+Test("compiler/map-get-exact-key-badkey", async () => Equal(await MapError("map_get(1.0,#{1 => value})"), Term.Tuple(Term.A("badkey"),new FloatTerm(1))));
+Test("compiler/map-get-badmap", async () => Equal(await MapError("map_get(key,not_map)"), Term.Tuple(Term.A("badmap"),Term.A("not_map"))));
+Test("compiler/map-size-badmap", async () => Equal(await MapError("map_size([])"), Term.Tuple(Term.A("badmap"),Nil.Value)));
+Test("compiler/is-map-key-badmap", async () => Equal(await MapError("is_map_key(key,42)"), Term.Tuple(Term.A("badmap"),Term.I(42))));
+Test("compiler/map-key-signed-zero", async () => Equal(await Eval("{is_map_key(-0.0,#{0.0 => a}),is_map_key(0.0,#{0.0 => a}),map_get(-0.0,#{-0.0 => b})}"), Term.Tuple(Term.A("false"),Term.A("true"),Term.A("b"))));
+Test("compiler/map-guard-bifs-qualified", async () => Equal(await Eval("case #{a => 42} of M when erlang:is_map(M), erlang:map_size(M) =:= 1, erlang:is_map_key(a,M), erlang:map_get(a,M) =:= 42 -> ok; _ -> no end"),Term.A("ok")));
+Test("compiler/map-guard-missing-key-alternative", async () => Equal(await Eval("case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -> ok; _ -> no end"),Term.A("ok")));
+Test("compiler/map-guard-nonmap-rejection", async () => Equal(await Eval("case atom of M when map_size(M) =:= 0; is_map_key(a,M); map_get(a,M) =:= 1 -> no; _ -> ok end"),Term.A("ok")));
+Test("compiler/map-pattern-key-map-get", async () => Equal(await Eval("case #{a => key} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> Value end end"),Term.I(42)));
+Test("compiler/map-pattern-key-map-get-failure", async () => Equal(await Eval("case #{} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> no; _ -> ok end end"),Term.A("ok")));
+Test("compiler/maps-module-not-guard-legal", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case #{} of M when maps:get(a,M) =:= 42 -> ok end").ParseExpression())); return Task.CompletedTask; });
 var results = new List<object>();
 int failed = 0;
 foreach (var test in tests)
