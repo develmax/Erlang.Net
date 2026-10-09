@@ -10,6 +10,8 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!value.Equals(Term.I(42))) throw new InvalidOperationException("Map module generation failed");
     var picked = await runtime.Modules.Call(erlangProcess, "map_source", "pick", new MapTerm([new(Term.A("value"), Term.Tuple(Term.I(21), Term.I(21)))]));
     if (!picked.Equals(Term.I(21))) throw new InvalidOperationException("Map function pattern generation failed");
+    var listValue = await runtime.Modules.Call(erlangProcess, "map_source", "lists_check");
+    if (!listValue.Equals(Term.Tuple(Term.A("b"),Term.A("tail"),Term.List(Term.I(5),Term.I(3),Term.I(1))))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.ListModule);
     var stringValue = await runtime.Modules.Call(erlangProcess, "map_source", "string_check");
     if (!stringValue.Equals(new BitString([97,0,98,0,42]))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.StringModule);
     var hybridString = case ok of ok -> <<"AB":16/float>> end.

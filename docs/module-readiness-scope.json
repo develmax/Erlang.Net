@@ -1,0 +1,208 @@
+{
+  "ComparisonTestReport": "validation/part-026/ci-tests.json",
+  "Components": [
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Terms",
+      "Remaining": [
+        "full atom/resource limits and distributed identity"
+      ],
+      "Implemented": [
+        "immutable terms and exact/numeric equality",
+        "codepoint ordering and integer/float coercion"
+      ],
+      "Id": "Terms",
+      "TestPrefixes": [
+        "terms/",
+        "patterns/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Serialization",
+      "Remaining": [
+        "external functions and wide identities",
+        "full vectors/resource boundaries"
+      ],
+      "Implemented": [
+        "common bounded ETF tags and compressed input"
+      ],
+      "Id": "Serialization",
+      "TestPrefixes": [
+        "etf/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Runtime",
+      "Remaining": [
+        "signal races, scheduler fairness and resources",
+        "distribution, ETS/DETS, ports/NIF/code loading"
+      ],
+      "Implemented": [
+        "selective receive and local links/monitors",
+        "registered core MFAs"
+      ],
+      "Id": "Runtime",
+      "TestPrefixes": [
+        "runtime/",
+        "mailbox/",
+        "mfa/erlang:"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Compiler",
+      "Remaining": [
+        "records/macros/comprehensions/try and full grammar",
+        "complete source spans/debug mappings"
+      ],
+      "Implemented": [
+        "clauses, closures, scopes, maps and bit syntax",
+        "generated C# AST and tail-call trampoline"
+      ],
+      "Id": "Compiler",
+      "TestPrefixes": [
+        "compiler/",
+        "patterns/",
+        "modules/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Runtime/CoreModules.cs",
+      "Remaining": [
+        "remaining reference MFAs and full input/error contracts"
+      ],
+      "Implemented": [
+        "erlang/lists/maps/io registered subset",
+        "nth/nthtail/seq addition in this part"
+      ],
+      "Id": "Core library modules",
+      "TestPrefixes": [
+        "mfa/",
+        "lists/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Otp.Behaviours",
+      "Remaining": [
+        "Erlang callback adapters/exports",
+        "sys, aliases, timeouts/continue and upgrades"
+      ],
+      "Implemented": [
+        "C# callbacks, call/cast/info/stop and monitor replies"
+      ],
+      "Id": "gen_server host facade",
+      "TestPrefixes": [
+        "otp/gen-server"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.Otp.Behaviours",
+      "Remaining": [
+        "Erlang exports/callback adapters",
+        "dynamic specs and shutdown edge cases"
+      ],
+      "Implemented": [
+        "strategies, policies, intensity and ordered shutdown"
+      ],
+      "Id": "supervisor host facade",
+      "TestPrefixes": [
+        "otp/supervisor"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "src/Erlang.CSharp.MSBuild",
+      "Remaining": [
+        "cross-block bindings, full diagnostics and IDE debugging"
+      ],
+      "Implemented": [
+        "native Erlang blocks and .erl generation",
+        "incremental/clean/disabled-preprocessing/package consumer"
+      ],
+      "Id": "Hybrid and MSBuild",
+      "TestPrefixes": [
+        "hybrid/"
+      ]
+    },
+    {
+      "Status": "Implemented",
+      "Project": "tools/Erlang.Tool",
+      "Remaining": [
+        "stable public release contract; no NuGet publication yet"
+      ],
+      "Implemented": [
+        "local CLI/compiler/preprocessor/inventory",
+        "regenerated module readiness report"
+      ],
+      "Id": "Tooling and packages",
+      "TestPrefixes": [
+        "modules/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "tools/Erlang.Differential",
+      "Remaining": [
+        "current lists corpus reference run",
+        "compiled-reference-module/optimizer/stacks/signals"
+      ],
+      "Implemented": [
+        "pinned expr value/class/reason comparator",
+        "183 historical exact-version cases"
+      ],
+      "Id": "Differential validation",
+      "TestPrefixes": [
+        "oracle/"
+      ]
+    },
+    {
+      "Status": "Implemented",
+      "Project": "tools/Erlang.Style",
+      "Remaining": [
+        "broader SDK matrix"
+      ],
+      "Implemented": [
+        "SDK syntax-aware layout and validation gate"
+      ],
+      "Id": "Style checks",
+      "TestPrefixes": []
+    },
+    {
+      "Status": "Partially compatible",
+      "Project": "benchmarks/Erlang.Benchmarks",
+      "Remaining": [
+        "representative workloads and BEAM comparison"
+      ],
+      "Implemented": [
+        "exploratory local harness"
+      ],
+      "Id": "Benchmarks",
+      "TestPrefixes": []
+    }
+  ],
+  "FocusModules": [
+    "erlang",
+    "lists",
+    "maps",
+    "io",
+    "gen_server",
+    "supervisor",
+    "gen_statem",
+    "gen_event",
+    "application",
+    "ets",
+    "dets",
+    "rpc",
+    "code",
+    "timer",
+    "file",
+    "binary",
+    "unicode",
+    "string"
+  ]
+}

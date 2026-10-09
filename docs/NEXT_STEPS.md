@@ -33,3 +33,7 @@ Part 022: use EtfTags and the separate ETF layout/limit/tuning types when extend
 
 
 Part 023 checkpoint: readable switch expressions are enforced by Erlang.Style and validate.ps1. Preserve one arm per line during the next planned language/runtime increment; current tests/integration are in validation/part-023. Full-assignment estimate remains approximately 5%.
+
+## Part 027 checkpoint
+
+Next execute the **219-case** exact-version workflow against the published lists/readiness head and preserve complete same-head oracle/Windows CI artifacts. Do not infer the new lists contracts from historical 183/183. Retain the existing compiled-reference-module/error-ordering/signal/OTP adapter tasks above. For the next standard-library increment, inspect lists reverse/2 and key-search contracts before implementation. Regenerate MODULE_READINESS.md/module-readiness.json at every checkpoint, update delivered/remaining scope, and choose the previous immutable snapshot explicitly for meaningful deltas. Current local tests: **329**, registry: **53**, lists: **10 (+4)**. Full assignment remains approximately 5%.

@@ -1,5 +1,5 @@
 -module(map_source).
--export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0, string_check/0]).
+-export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0, string_check/0, lists_check/0]).
 run() ->
     M = #{1 => int, 1.0 => float, value => 40},
     N = M#{value := 42, extra => ok},
@@ -26,3 +26,5 @@ utf_check() ->
     {X,T}.
 
 string_check() -> <<"ab":16/little,"":32/float,42>>.
+
+lists_check() -> {lists:nth(2,[a,b,c]),lists:nthtail(2,[a,b|tail]),lists:seq(5,1,-2)}.

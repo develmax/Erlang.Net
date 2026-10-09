@@ -36,3 +36,6 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Full OTP suite compatibility | Not started | Reference suites have not run |
 | Performance measurements | Implemented | Exploratory benchmark harness, separate report; no BEAM comparison or general throughput claim |
 | Literal-string bit construction | Partially compatible | compiler/bits-string-*: independent integer/float bytes, one size evaluation, empty validation and pattern diagnostics; 314 local/same-head CI tests and full integration; static all rejected for non-binary segments; corrected 183/183 selected oracle cases match at 3990623; initial abort preserved in part-025; full ordering/resources/stacks/reference suites pending |
+
+| lists:nth/2, nthtail/2, seq/2,3 | Partially compatible | Four direct MFA tests, eleven boundary regressions, BigInteger/improper prefixes/step errors; 36 new pending oracle cases; seq length int.MaxValue local limit |
+| Module readiness CLI | Implemented local tooling | Actual registry/pinned export+BIF union/current passed tests; wrong evidence and stale reports fail, stable JSON and packaged CLI pass; API declaration ratio is not semantic completion |

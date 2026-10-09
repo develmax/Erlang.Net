@@ -4,6 +4,14 @@ An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned t
 
 The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, initial OTP behaviours and a mixed C#/Erlang MSBuild preprocessor.
 
+[Module readiness](docs/MODULE_READINESS.md) reports delivered/remaining component milestones, tested registered MFAs and changes from the previous checkpoint. Its API-presence percentages measure declarations, not complete compatibility. The full inventory is in [module-readiness.json](docs/module-readiness.json).
+
+Regenerate the report from the current successful test report and actual runtime registry:
+
+```powershell
+dotnet run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/tests.json docs
+```
+
 The source subset includes map construction, associative/exact updates and map patterns with supported guard-expression keys, plus integer/binary bitstring construction and patterns with signed extraction, byte order and prior-segment size bindings. Overall project completion is estimated at roughly 5%; this is an engineering estimate, not verified compatibility coverage. See progress and the changelog for evidence and remaining scope.
 
 ```powershell

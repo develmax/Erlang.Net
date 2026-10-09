@@ -1247,6 +1247,10 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("erlang", "map_size", 1) => ([new MapTerm([new(Term.A("a"), Term.I(1))])], Term.I(1)),
                 ("erlang", "map_get", 2) => ([Term.A("a"), new MapTerm([new(Term.A("a"), Term.I(42))])], Term.I(42)),
                 ("erlang", "is_map_key", 2) => ([Term.I(1), new MapTerm([new(new FloatTerm(1), Term.A("float"))])], Term.A("false")),
+                ("lists", "nth", 2) => ([Term.I(2), Term.List(Term.A("a"), Term.A("b"))], Term.A("b")),
+                ("lists", "nthtail", 2) => ([Term.I(1), new Cons(Term.A("a"), Term.A("tail"))], Term.A("tail")),
+                ("lists", "seq", 2) => ([Term.I(1), Term.I(3)], Term.List(Term.I(1), Term.I(2), Term.I(3))),
+                ("lists", "seq", 3) => ([Term.I(5), Term.I(1), Term.I(-2)], Term.List(Term.I(5), Term.I(3), Term.I(1))),
                 ("lists", "reverse", 1) => ([Term.List(Term.I(1), Term.I(2))], Term.List(Term.I(2), Term.I(1))),
                 ("lists", "reverse", 2) => ([Term.List(Term.I(1), Term.I(2)), Term.A("tail")], new Cons(Term.I(2), new Cons(Term.I(1), Term.A("tail")))),
                 ("lists", "append", 2) => ([Term.List(Term.I(1)), Term.A("tail")], new Cons(Term.I(1), Term.A("tail"))),
@@ -2485,6 +2489,87 @@ Test(
     async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"), Term.I(42))
 );
 var results = new List<object>();
+Test(
+    "lists/nth-improper-prefix",
+    async () => Equal(await Eval("{lists:nth(1,[a|tail]),lists:nth(2,[a,b|tail])}"), Term.Tuple(Term.A("a"), Term.A("b")))
+);
+Test(
+    "lists/nth-invalid-function-clause",
+    async () =>
+{
+    foreach (string source in new[] { "lists:nth(0,[a])", "lists:nth(-1,[a])", "lists:nth(1.0,[a])", "lists:nth(2,[a|tail])", "lists:nth(1,[])", "lists:nth(1,atom)", "lists:nth(999999999999999999999999,[a])" })
+        Equal(await MapError(source), Term.A("function_clause"));
+}
+);
+Test(
+    "lists/nthtail-empty-and-improper",
+    async () => Equal(
+        await Eval("{lists:nthtail(0,[]),lists:nthtail(0,[a|tail]),lists:nthtail(2,[a,b|tail])}"),
+        Term.Tuple(Nil.Value, new Cons(Term.A("a"), Term.A("tail")), Term.A("tail"))
+    )
+);
+Test(
+    "lists/nthtail-invalid-function-clause",
+    async () =>
+{
+    foreach (string source in new[] { "lists:nthtail(0,atom)", "lists:nthtail(-1,[a])", "lists:nthtail(1.0,[a])", "lists:nthtail(3,[a,b|tail])", "lists:nthtail(1,[])" })
+        Equal(await MapError(source), Term.A("function_clause"));
+}
+);
+Test(
+    "lists/seq-default-empty-and-negative",
+    async () => Equal(
+        await Eval("{lists:seq(2,1),lists:seq(-2,1)}"),
+        Term.Tuple(Nil.Value, Term.List(
+            Term.I(-2),
+            Term.I(-1),
+            Term.I(0),
+            Term.I(1)
+        ))
+    )
+);
+Test(
+    "lists/seq-two-arg-error-contract",
+    async () =>
+{
+    foreach (string source in new[] { "lists:seq(3,1)", "lists:seq(1.0,3)", "lists:seq(1,atom)" })
+        Equal(await MapError(source), Term.A("function_clause"));
+}
+);
+Test(
+    "lists/seq-step-boundaries",
+    async () => Equal(
+        await Eval("{lists:seq(1,6,2),lists:seq(6,1,-2),lists:seq(3,1,2),lists:seq(3,5,-2)}"),
+        Term.Tuple(
+            Term.List(Term.I(1), Term.I(3), Term.I(5)),
+            Term.List(Term.I(6), Term.I(4), Term.I(2)),
+            Nil.Value,
+            Nil.Value
+        )
+    )
+);
+Test("lists/seq-zero-step", async () => Equal(await Eval("lists:seq(7,7,0)"), Term.List(Term.I(7))));
+Test(
+    "lists/seq-three-arg-error-contract",
+    async () =>
+{
+    foreach (string source in new[] { "lists:seq(1,2,0)", "lists:seq(4,1,2)", "lists:seq(3,6,-2)", "lists:seq(1,3,1.0)", "lists:seq(1.0,3,1)", "lists:seq(1,atom,1)" })
+        Equal(await MapError(source), Term.A("badarg"));
+}
+);
+Test(
+    "lists/seq-big-integer-values",
+    async () => Equal(
+        await Eval("lists:seq(9223372036854775808,9223372036854775812,2)"),
+        Term.List(
+            new Integer(BigInteger.Parse("9223372036854775808")),
+            new Integer(BigInteger.Parse("9223372036854775810")),
+            new Integer(BigInteger.Parse("9223372036854775812"))
+        )
+    )
+);
+Test("lists/seq-length-system-limit", async () => Equal(await MapError("lists:seq(0,2147483647)"), Term.A("system_limit")));
+
 int failed = 0;
 foreach (var test in tests)
 {

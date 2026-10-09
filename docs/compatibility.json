@@ -334,6 +334,21 @@
         "validation/part-026/corpus-audit.json"
       ],
       "limits": "Integer/float per-codepoint size/unit/endian, size evaluated once, empty validation; 23 selected new cases match within complete 183/183 at 3990623. Static non-binary all is a compile error, dynamic all reaches runtime checks; modified non-UTF strings forbidden in patterns. Initial incomplete run preserved in part-025. Full ordering/resources/stacks/reference suites remain partial."
+    },
+    {
+      "name": "Lists indexing and integer sequences",
+      "status": "Partially compatible",
+      "evidence": [
+        "mfa/lists:nth/2",
+        "mfa/lists:nthtail/2",
+        "mfa/lists:seq/2",
+        "mfa/lists:seq/3",
+        "lists/nth-improper-prefix",
+        "lists/seq-big-integer-values",
+        "validation/part-027/tests.json"
+      ],
+      "limits": "Four MFAs plus boundary tests; seq length > int.MaxValue raises system_limit. 36 new oracle cases pending; historical 183-case result does not establish these contracts."
     }
-  ]
+  ],
+  "moduleReadiness": "module-readiness.json"
 }

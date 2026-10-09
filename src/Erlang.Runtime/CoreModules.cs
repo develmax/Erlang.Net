@@ -320,6 +320,30 @@ public static class CoreModules
             1,
             (c, a) => Cons.Items(a[0]).Aggregate((Term)Term.I(0), (x, y) => Arithmetic("+", x, y))
         );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Nth,
+            2,
+            (c, a) => ListOperations.Nth(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.NthTail,
+            2,
+            (c, a) => ListOperations.NthTail(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Sequence,
+            2,
+            (c, a) => ListOperations.Sequence(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Sequence,
+            3,
+            (c, a) => ListOperations.Sequence(a[0], a[1], a[2])
+        );
         r.Register(
             "lists",
             "map",

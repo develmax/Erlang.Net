@@ -37,3 +37,7 @@ Part 022 only names existing ETF numbers. Nesting depth 256, default byte limit 
 ## Part 023 — Readable switch expressions
 
 Switch expressions place the opening brace, each arm and the closing brace on separate lines. The SDK-backed style tool enforces this throughout ordinary C# sources and full validation checks it. TermOrder.Rank, Parser.Precedence and Semantics.Variables preserve their exact non-trivia token streams, values and pattern order. The independent guarded-pattern probe rejects compact layout, repairs it and passes a second check while preserving a string containing switch-like text. No new Erlang feature, MFA, compatibility promotion or dependency. Current 299-test/full integration reports are saved in validation/part-023; the 160-case oracle evidence remains historical at 666c4b5 and was not rerun.
+
+## Part 027 — List sequence resource boundary
+
+lists:nth/2 and nthtail/2 use iterative Cons traversal, including valid improper prefixes. Sequence values/count calculations use BigInteger. Materialized seq/2,3 results exceeding int.MaxValue elements raise system_limit before allocation; this is an implementation bound, not claimed OTP behavior. Smaller allocations may still exhaust host resources. Selected function_clause/badarg/value contracts have permanent local tests and 36 pending oracle cases; complete stacks/resources/applicable inputs remain unverified. Readiness declaration percentages do not quantify semantic compatibility.

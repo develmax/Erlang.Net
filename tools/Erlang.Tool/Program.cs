@@ -18,6 +18,14 @@ try
 
         return 0;
     }
+    if (args[0] == ReadinessText.Command)
+    {
+        if (args.Length != 4)
+            throw new ArgumentException(ToolDiagnostics.ReadinessArguments);
+        await Readiness.Generate(args[1], args[2], args[3]);
+
+        return 0;
+    }
     if (args.Length is < 3 or > 4)
         throw new ArgumentException(ToolDiagnostics.InputOutputPaths);
     sourcePath = Path.GetFullPath(args[1]);

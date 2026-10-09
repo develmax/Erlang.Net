@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–026.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–027.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 49 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 53 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
 | Hybrid/build | Native receive/case/fun in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 49 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 53 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -32,8 +32,8 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-- **314/314 local tests passed**, including 49 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-025/tests.json).
-- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-025/integration-results.json).
+- **329/329 local tests passed**, including 53 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-027/tests.json).
+- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-027/integration-results.json).
 - An unavailable local oracle returns code 2 with an incomplete infrastructure-error report and zero executed cases. No reference runtime is installed on this host.
 - Remote exact-version run **37999487360 at 3990623** matched **183/183** selected values/exception class/reason cases, including the prior 160 and 23 literal-string additions. Version verified, complete report, zero mismatches/aborts; actual artifact digest verified. [Report and metadata](validation/part-026/remote-checkpoint.json). Reference expressions use erl_eval; compiled-reference-module/optimizer equivalence remains unverified.
 - Same-head Windows CI **37999472859 at 3990623** passed **314/314 tests** and full build/integration/package validation. [Remote tests](validation/part-026/ci-tests.json), [integration](validation/part-026/ci-integration-results.json). Part 026 preserves remote evidence; its changes are documentation only.
@@ -67,3 +67,9 @@ Pinned erl_lint bit_size/bit_size_check permits static all only for binary segme
 ## Part 026 — Complete pinned 183-case evidence
 
 Run 37999487360 at **399062314cb5ff609e66b82a4cb923fcd2840a94** built the pinned OTP source and completed **183/183** value/exception class/reason comparisons with version verified, zero mismatches and zero aborts. Source audit confirms all previous 160 expressions are unchanged and the 23 additions exactly match the current corpus. Same-head Windows CI 37999472859 passes **314/314** and full generated .erl/hybrid/PackageReference/CLI integration. Immutable raw reports, artifact IDs/ZIP hashes, tested heads/jobs, corpus audit and 117-type layout inventory are in validation/part-026. Initial abort remains preserved in part-025. This checkpoint changes documentation only; full local validation was run in part-025, not repeated here. No new dependency, MFA, baseline or broad compatibility promotion. Full compiled-reference-module/optimizer, stacks/signals/side effects/resources/reference suites remain incomplete; full assignment remains approximately 5%.
+
+## Part 027 — Lists increment and module readiness
+
+[Module readiness](MODULE_READINESS.md) now separates 12 C# component milestones from the Erlang API registry, with a full machine-readable inventory in module-readiness.json. Counts are derived from the actual runtime registry, direct successful MFA tests and the pinned union of explicit exports/BIFs. Current API presence: erlang **40/351 (11.4%)**, lists **10/91 (11.0%, +4)**, maps **2/34 (5.9%)**, io **1/53 (1.9%)**. gen_server/supervisor have partial C# facades and **zero registered Erlang exports**. These are declaration ratios, not semantic readiness percentages; the overall estimate remains approximately 5%.
+
+Added lists:nth/2, nthtail/2 and seq/2,3 with iterative improper-prefix traversal, BigInteger values, ascending/descending/zero-step sequences and separate function_clause/badarg contracts. Sequence length above int.MaxValue raises system_limit, an implementation resource bound. **329/329** tests and full validation pass, including generated .erl/native hybrid and local PackageReference/installed CLI readiness. Wrong direct-test evidence and stale reports are rejected; repeated JSON is identical. There are **219 planned oracle cases** (previous 183 preserved plus 36 lists cases); a live comparison on the new head is pending. Historical 183/183 at 3990623 remains distinct. [Immutable local evidence](validation/part-027/tests.json), [readiness](validation/part-027/MODULE_READINESS.md).

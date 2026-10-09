@@ -11,6 +11,7 @@ try {
     Invoke-DotNet @('build', '-m:1', '--nologo')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
+    Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }
     $oracleFailureOutput = & dotnet run --project tools/Erlang.Differential --no-build -- $missingOracle artifacts/oracle-unavailable.json 2>&1
@@ -60,7 +61,9 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI failed' }
         & artifacts/local-tool/erlang.exe compile examples/HelloHybrid/map_source.erl artifacts/tool-map_source.g.cs
         if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI map compilation failed' }
+        & artifacts/local-tool/erlang.exe readiness docs artifacts/tests.json artifacts/tool-readiness
+        if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI readiness failed' }
     }
-    @{ Build='Passed'; Tests='Passed'; OracleUnavailableReport='Expected failure recorded'; HybridOutput='Hello World'; Incremental='Passed'; DisabledPreprocessing='Expected failure'; CleanRebuild='Passed'; PackageConsumer= $(if ($SkipPackage) {'Skipped'} else {'Passed'}); LocalTool= $(if ($SkipPackage) {'Skipped'} else {'Passed'}) } | ConvertTo-Json | Set-Content artifacts/integration-results.json
+    @{ Readiness='Passed'; PackagedReadiness= $(if ($SkipPackage) {'Skipped'} else {'Passed'}); Build='Passed'; Tests='Passed'; OracleUnavailableReport='Expected failure recorded'; HybridOutput='Hello World'; Incremental='Passed'; DisabledPreprocessing='Expected failure'; CleanRebuild='Passed'; PackageConsumer= $(if ($SkipPackage) {'Skipped'} else {'Passed'}); LocalTool= $(if ($SkipPackage) {'Skipped'} else {'Passed'}) } | ConvertTo-Json | Set-Content artifacts/integration-results.json
     Write-Output 'Validation passed'
 } finally { Pop-Location }
