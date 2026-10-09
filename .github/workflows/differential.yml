@@ -1,0 +1,34 @@
+name: Pinned OTP differential oracle
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build development oracle from the exact reference commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp-source
+          test "$(git -C artifacts/otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          cd artifacts/otp-source
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/otp-oracle" --without-javac --without-wx --without-odbc
+          make -j2
+          make install
+      - name: Compare the supported language corpus
+        shell: bash
+        run: |
+          dotnet build tools/Erlang.Differential -m:1
+          dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: differential
+          path: artifacts/differential.json

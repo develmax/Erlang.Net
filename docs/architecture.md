@@ -1,0 +1,19 @@
+# Architecture
+
+Dependency direction: Terms -> Runtime -> Compiler; Serialization -> Terms; OTP behaviours -> Runtime; Tool -> Compiler; MSBuild package bundles these components. Tests depend on all execution components. There are no circular references.
+
+`Erlang.Terms` owns immutable values, exact equality/hashing, numeric ordering and patterns' value contracts. Arrays are copied, exposed through read-only wrappers; binary buffers are cloned. Lists are cons cells with explicit tails. Map keys use exact equality and exact ordering. .NET object/null/string equality does not define Erlang equality.
+
+`Erlang.Runtime` owns local process identities, lifecycle, dictionaries, name registration, links, monitors, exit signals and mailboxes. A runtime lock serializes lifecycle and signal transitions; each mailbox has its own lock and ordered linked list. Selective receive scans in message order, tests clauses in order and removes only the matching message. A versioned asynchronous signal avoids lost wakeups. Absolute timeout accounting avoids extending a timeout on each wakeup. This is an initial local signal model, not full OTP signal-queue semantics.
+
+Processes are explicit `ProcessContext` instances; Tasks drive their async continuations on the CLR thread pool. They are not equated with Erlang processes and do not allocate an OS thread each. The evaluator charges an execution budget and yields after 2,000 expression reductions. Tail calls within a compiled module use a trampoline. Dedicated schedulers, work stealing, measurable fairness and a complete continuation representation are pending. Host C# code must cooperate with cancellation; it cannot be safely preempted by the CLR.
+
+`Erlang.Compiler` provides a character lexer, recursive-descent/Pratt parser, typed expression AST, scope/guard analysis and generated C# construction of ASTs and module definitions. The async evaluator executes this checked representation against the runtime. .erl sources are parsed at build time; generated applications do not parse the original Erlang text or launch BEAM. This is an interpreter-backed compiler subset. Native CLR lowering and a distinct optimized IR remain future work.
+
+Hybrid preprocessing uses Roslyn lexical token boundaries for C#, including comments and quoted/raw string text. At supported boundaries, an Erlang parser reads a receive/case/fun block ending in `end.`. It produces an awaited evaluator call in an async C# context with a named `erlangProcess` variable. Existing public signatures are not changed. #line maps generated source to the original path and preserves original line counts; expression-level column maps and debugger stepping inside lowered operations are incomplete.
+
+MSBuild collects ordinary Compile items automatically, generates files under obj using a stable full-path hash, replaces the original inputs, and adds generated files to FileWrites. Inputs include all compiler tool DLLs and the targets file. .erl modules use ErlangSource items. The local package carries its buildTransitive target and tool/runtime assemblies. It has no public publication or broad SDK compatibility claim.
+
+`Erlang.Otp.Behaviours` implements a C# callback surface for a subset of gen_server and supervisors. gen_server receives OTP-style call/cast tuples, replies by reference and observes DOWN messages. Supervisors start children in order, stop in reverse order, and implement three restart strategies, policies and intensity windows. Erlang callback-module adapters, process aliases, system protocol and the rest of OTP are pending.
+
+The source inventory tool reads a Git archive of the pinned commit. It never changes the reference checkout. Metadata extraction uses limited attribute regexes after masking comments/prose; regex is not used for language compilation. Source inventory and expanded compatibility coverage are separate artifacts.

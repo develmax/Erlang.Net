@@ -1,0 +1,16 @@
+# Dependency and compatibility decisions
+
+Audit date: 2026-10-09. Reuse is accepted for specific primitives, never as an assertion that a CLR library reproduces the entire Erlang contract.
+
+| Candidate | Source/license evidence | Decision and validation |
+|---|---|---|
+| BigInteger | [runtime source](https://github.com/dotnet/runtime/blob/v10.0.0/src/libraries/System.Runtime.Numerics/src/System/Numerics/BigInteger.cs), .NET MIT license | Reuse arbitrary precision arithmetic, explicit sign/endianness for ETF. Local boundary and 200 deterministic integer roundtrip cases. Numeric comparison has an Erlang-specific rational implementation. |
+| CLR async/Tasks | SDK/runtime APIs, installed .NET license/third-party notices | Reuse continuation scheduling and wakeups; explicit ProcessContext models lifecycle. 1,000 suspended processes tested. No assertion of BEAM fairness or preemptive execution. |
+| Channels | [official API](https://learn.microsoft.com/dotnet/api/system.threading.channels) | FIFO consumption does not implement selective receive. Not used as mailbox storage. Custom scanning and preservation are tested. |
+| Roslyn | Pinned SDK's Roslyn/bincore assemblies, product 5.9.0-1.26379.115; [upstream MIT license](https://github.com/dotnet/roslyn/blob/main/License.txt), installed SDK library license/notices | Reuse C# lexical boundaries. Erlang grammar and semantics use dedicated C# parser/analyzer. Tested raw strings, comments, ordinary fun calls and C# switch coexistence. SDK direct references are provisional until independently versioned compiler packaging. |
+| Akka.NET | [ActorCell source](https://github.com/akkadotnet/akka.net/blob/dev/src/core/Akka/Actor/ActorCell.cs), [mailbox docs](https://github.com/akkadotnet/akka.net/blob/dev/docs/articles/actors/mailboxes.md), [Apache-2.0 notice](https://github.com/akkadotnet/akka.net/blob/dev/LICENSE) | Not adopted as Erlang runtime. Default mailbox/unhandled-message and parental-supervision contracts do not establish Erlang selective receive, links or monitors. Inspected upstream material; no pinned adaptation or differential compatibility evidence. |
+| saleyn/otp.net | [upstream repository](https://github.com/saleyn/otp.net) | Investigated as transport/term candidate. README says it is being phased out toward NFX.Erlang. Exact source/license retrieval was incomplete; modern OTP 29 protocol and signed-zero/map contracts not verified. No code copied; retain as a candidate for distribution audit. |
+| takayuki/Erlang.NET | [upstream repository](https://github.com/takayuki/Erlang.NET) | Historical jinterface-derived implementation; repository has EPLICENSE and no published release visible in inspected snapshot. Source/maintenance/OTP29 contract audit incomplete. Not imported; do not infer current compatibility from historical README. |
+| Orleans, Pipelines, Immutable collections | No component-level audit yet | Not adopted. Investigate only when an applicable component is next, then record source/license and behavioural tests. |
+
+No third-party actor or ETF code was incorporated. New implementations were written against the observable contracts of the pinned reference. Existing candidates still need a deeper source and maintenance audit before future reuse. There is no live differential verification of any candidate at this checkpoint.

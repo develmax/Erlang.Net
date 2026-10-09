@@ -1,0 +1,611 @@
+{
+  "Passed": 121,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "terms/exact-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "terms/large-integer-double-comparison",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "terms/negative-fraction-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/type-order",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "terms/tuple-arity-first",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/improper-list",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "terms/map-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/map-integer-before-all-floats",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/signed-zero-otp29",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "terms/atom-codepoint-order",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/structural-hash",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/unicode-list",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/immutable-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/repeated-variable",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "patterns/already-bound",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/list-tail",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/later-match-preserves-order",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mailbox/zero-timeout-retains",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/timeout",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "mailbox/concurrent-arrival",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mailbox/cancel",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/sender-order-stress",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/process-self-and-dictionary",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/registration-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/monitor-down",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/monitor-noproc-and-flush",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/link-trap-exit",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/link-propagation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/normal-link-exit-ignored",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/kill-untrappable",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/1000-waiting-processes",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/arithmetic-precedence",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "compiler/exact-equality",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/case-pattern-guard",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/guard-error-rejects",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/guard-alternative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/list-fun-map",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/receive-after-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/binding-and-repeat",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/single-assignment-mismatch",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/unbound-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/unsafe-variable-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/illegal-guard-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-keyword-atom",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/module-clauses-private-function",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/spawn-fun-child-self",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/selective-receive-clause-order",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "hybrid/csharp-strings-comments-raw-preserved",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "hybrid/source-map-and-lowering",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "hybrid/nested-case-and-fun",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "etf/reference-vectors",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "etf/roundtrip-all-supported-kinds",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "etf/malformed-input-limits",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "etf/random-integer-property",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "modules/lists-member-exact",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "modules/lists-and-maps",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/tail-recursion-50000",
+      "Status": "Passed",
+      "Milliseconds": 723
+    },
+    {
+      "Name": "hybrid/ordinary-fun-call",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/csharp-switch-and-erlang-case",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/unsafe-variable-rebinding-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/signed-zero-pattern",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "otp/gen-server-call-cast-info-stop",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "otp/gen-server-crash-monitor",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "otp/gen-server-timeout",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "otp/gen-server-init-error",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "otp/supervisor-OneForOne",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "otp/supervisor-OneForAll",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "otp/supervisor-RestForOne",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "otp/supervisor-transient-temporary-normal",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "otp/supervisor-restart-intensity",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "otp/supervisor-temporary-abnormal-no-restart",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "runtime/link-cascade-10000",
+      "Status": "Passed",
+      "Milliseconds": 216
+    },
+    {
+      "Name": "runtime/spawn-monitor-immediate-exit-atomic",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/bitstring-format",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/large-literal-codegeneration",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "compiler/reserved-keywords-rejected",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/unsupported-escape-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-operator-atom",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/nullable-context",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:demonitor/1",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/erlang:element/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:erase/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:error/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:exit/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:exit/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:get/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:hd/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_atom/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_binary/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_float/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_integer/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_list/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_number/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_pid/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_tuple/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:length/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:link/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:make_ref/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:monitor/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:process_flag/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:put/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:register/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:self/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn_link/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn_monitor/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:throw/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:tl/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:tuple_size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:unlink/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:unregister/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:whereis/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/io:format/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:append/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:map/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:member/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:reverse/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:reverse/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:sum/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:get/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    }
+  ]
+}

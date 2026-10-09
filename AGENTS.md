@@ -1,0 +1,17 @@
+# Durable project instructions
+
+Work only in this repository. The sibling `../otp` is the official reference checkout and must remain unchanged. Read `CHANGELOG.md`, `docs/PROGRESS.md`, `docs/NEXT_STEPS.md`, `docs/COMPATIBILITY.md`, `docs/DECISIONS.md` and `reference-baseline.json` before implementing the next work unit.
+
+Baseline: OTP-29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5. Read reference files using `git -C ../otp show OTP-29.1.1:PATH`; its checked-out HEAD is newer. Never silently upgrade the baseline.
+
+Implement runtime, compiler, tooling and OTP components in C#. Do not introduce a production BEAM dependency. PowerShell validation is test infrastructure only. Preserve Erlang semantics: immutable terms, exact versus numeric equality, signed floating zero, codepoint atom order, exact map keys, single assignment, selective mailbox scanning, signal ordering and fault propagation. Do not substitute actor-framework default semantics without a source/contract audit.
+
+Before each component, inspect candidate .NET implementations and record source, license, evidence and reuse decisions in `docs/dependency-decisions.md`. New runtime/compiler semantics need meaningful permanent tests and reference comparisons when the development oracle is available. A passing local regression test does not establish full compatibility.
+
+Commands: `dotnet build -m:1`; `dotnet run --project tests/Erlang.Tests --no-build -- artifacts/tests.json`; `pwsh -File tools/validate.ps1`. The harness deliberately does not depend on external test packages. Ordinary `dotnet build` also works outside sandbox worker-process restrictions. Validate generated examples and test failure when preprocessing is disabled.
+
+Update progress, compatibility, semantic differences and next executable tasks at each checkpoint. Keep machine-readable statuses and tests consistent with human documentation. Never mark an entire OTP module verified when only some MFAs exist. Use the status vocabulary from the assignment. No completion claims until the full definition of done is satisfied. Do not fabricate oracle results or performance comparisons.
+
+The user requires a detailed English changelog for every work part. Before starting a new part, ensure the previous work is recorded in root `CHANGELOG.md`. At every checkpoint, including unfinished or blocked parts, append a sequentially numbered, dated English entry using `docs/changelog-entry-template.md`. Record the concrete objective, changed behavior and files, fixes and permanent tests, reference/reuse/license decisions, compatibility scope, exact validation commands and report links, actual results, unrun checks, limitations/blockers and the next executable step. Distinguish historical evidence from checks run in that part. Keep earlier entries as history; factual corrections must be dated and explain their reason. Update current-state documents alongside the journal. Completing a part never implies completing the full assignment.
+
+The public license for original code has not been chosen by the owner. Preserve third-party notices; never publish packages as part of local validation. The user has authorized local commits of completed work parts: after appropriate validation and documentation updates, commit only the completed part and report its hash. Do not push or publish unless separately requested. Do not overwrite or include unrelated work.

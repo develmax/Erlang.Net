@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../tools/Erlang.Tool/Erlang.Tool.csproj" ReferenceOutputAssembly="false" />
+    <ErlangHybrid Include="Program.cs" />
+    <ErlangSource Include="arithmetic.erl" />
+  </ItemGroup>
+  <Import Project="../../build/Erlang.Net.targets" />
+</Project>

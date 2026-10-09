@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <ErlangToolPath Condition="'$(ErlangToolPath)' == '' and Exists('$(MSBuildThisFileDirectory)../tools/net10.0/Erlang.Tool.dll')">$(MSBuildThisFileDirectory)../tools/net10.0/Erlang.Tool.dll</ErlangToolPath>
+    <ErlangToolPath Condition="'$(ErlangToolPath)' == ''">$(MSBuildThisFileDirectory)../tools/Erlang.Tool/bin/$(Configuration)/net10.0/Erlang.Tool.dll</ErlangToolPath>
+    <ErlangPreprocessEnabled Condition="'$(ErlangPreprocessEnabled)' == ''">true</ErlangPreprocessEnabled>
+  </PropertyGroup>
+  <Target Name="ErlangCollect" Condition="'$(ErlangPreprocessEnabled)' == 'true'">
+    <ItemGroup>
+      <ErlangHybrid Include="@(Compile)" Exclude="@(ErlangHybrid)" Condition="'$(ErlangExplicitHybridOnly)' != 'true'" />
+      <_ErlangToolDependency Include="$([System.IO.Path]::GetDirectoryName('$(ErlangToolPath)'))/*.dll" />
+      <_ErlangInput Include="@(ErlangHybrid)"><GeneratedFile>$(IntermediateOutputPath)erlang/$([MSBuild]::StableStringHash('%(FullPath)'))/%(Filename).g.cs</GeneratedFile></_ErlangInput>
+      <_ErlangModule Include="@(ErlangSource)"><GeneratedFile>$(IntermediateOutputPath)erlang/$([MSBuild]::StableStringHash('%(FullPath)'))/%(Filename).erl.g.cs</GeneratedFile></_ErlangModule>
+    </ItemGroup>
+  </Target>
+  <Target Name="ErlangPrepare" BeforeTargets="_GenerateCompileDependencyCache;CoreCompile" DependsOnTargets="ResolveProjectReferences;ErlangCollect;ErlangPreprocess;ErlangCompileModules" Condition="'$(ErlangPreprocessEnabled)' == 'true'">
+    <ItemGroup>
+      <Compile Remove="@(ErlangHybrid)" />
+      <Compile Include="@(_ErlangInput->'%(GeneratedFile)');@(_ErlangModule->'%(GeneratedFile)')" />
+      <FileWrites Include="@(_ErlangInput->'%(GeneratedFile)');@(_ErlangModule->'%(GeneratedFile)')" />
+    </ItemGroup>
+  </Target>
+  <Target Name="ErlangPreprocess" Inputs="%(_ErlangInput.FullPath);@(_ErlangToolDependency);$(MSBuildThisFileFullPath)" Outputs="%(_ErlangInput.GeneratedFile)" Condition="'$(ErlangPreprocessEnabled)' == 'true'">
+    <Exec Command="dotnet &quot;$(ErlangToolPath)&quot; preprocess &quot;%(_ErlangInput.FullPath)&quot; &quot;%(_ErlangInput.GeneratedFile)&quot; &quot;$(Nullable)&quot;" />
+  </Target>
+  <Target Name="ErlangCompileModules" Inputs="%(_ErlangModule.FullPath);@(_ErlangToolDependency);$(MSBuildThisFileFullPath)" Outputs="%(_ErlangModule.GeneratedFile)" Condition="'$(ErlangPreprocessEnabled)' == 'true'">
+    <Exec Command="dotnet &quot;$(ErlangToolPath)&quot; compile &quot;%(_ErlangModule.FullPath)&quot; &quot;%(_ErlangModule.GeneratedFile)&quot;" />
+  </Target>
+</Project>

@@ -1,0 +1,25 @@
+{
+  "baseline": {"tag":"OTP-29.1.1","commit":"ad05823719d77c8faee87348ea39513d4e2f99c5"},
+  "complete": false,
+  "mfaRegistry": "supported-mfas.json",
+  "sourceInventory": "otp-inventory.json",
+  "testReport": "validation/tests.json",
+  "features": [
+    {"name":"Term model","status":"Partially compatible","evidence":["terms/exact-numeric-equality","terms/signed-zero-otp29","terms/map-integer-before-all-floats","terms/atom-codepoint-order"]},
+    {"name":"Patterns and binding","status":"Partially compatible","evidence":["patterns/repeated-variable","patterns/already-bound","compiler/unsafe-variable-rebinding-diagnostic"]},
+    {"name":"Selective receive","status":"Partially compatible","evidence":["mailbox/later-match-preserves-order","mailbox/zero-timeout-retains","mailbox/sender-order-stress","compiler/selective-receive-clause-order"]},
+    {"name":"Local processes and signals","status":"Partially compatible","evidence":["runtime/link-cascade-10000","runtime/kill-untrappable","runtime/spawn-monitor-immediate-exit-atomic","runtime/monitor-down"]},
+    {"name":"Scheduler foundation","status":"Implemented","evidence":["runtime/1000-waiting-processes","compiler/tail-recursion-50000"],"limits":"No verified BEAM fairness or preemptive C# callback execution"},
+    {"name":"ETF subset","status":"Partially compatible","evidence":["etf/reference-vectors","etf/roundtrip-all-supported-kinds","etf/malformed-input-limits","etf/random-integer-property"]},
+    {"name":"Erlang compiler subset","status":"Partially compatible","evidence":["compiler/module-clauses-private-function","compiler/illegal-guard-diagnostic","compiler/guard-alternative","compiler/quoted-operator-atom"],"limits":"Generated AST construction with C# evaluator; full grammar/native lowering incomplete"},
+    {"name":"gen_server","status":"Partially compatible","evidence":["otp/gen-server-call-cast-info-stop","otp/gen-server-timeout","otp/gen-server-init-error"]},
+    {"name":"supervisor","status":"Partially compatible","evidence":["otp/supervisor-OneForOne","otp/supervisor-OneForAll","otp/supervisor-RestForOne","otp/supervisor-restart-intensity"]},
+    {"name":"Hybrid syntax and MSBuild","status":"Partially compatible","evidence":["hybrid/nullable-context","hybrid/csharp-switch-and-erlang-case","validation/integration-results.json"]},
+    {"name":"Local package and CLI","status":"Implemented","evidence":["validation/integration-results.json"]},
+    {"name":"Differential execution","status":"Blocked","evidence":[],"limits":"Exact-version Erlang oracle executable absent locally; manual workflow not executed"},
+    {"name":"Complete expanded inventory","status":"Investigated","evidence":["otp-inventory.json"],"limits":"Macro/conditional/NIF/generated/platform contracts incomplete"},
+    {"name":"Distribution","status":"Not started","evidence":[]},
+    {"name":"Remaining OTP and advanced services","status":"Not started","evidence":[]},
+    {"name":"Full reference suites","status":"Not started","evidence":[]}
+  ]
+}

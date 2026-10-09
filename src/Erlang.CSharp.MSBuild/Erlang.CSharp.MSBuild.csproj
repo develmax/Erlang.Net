@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><PackageId>Erlang.Net.CSharp</PackageId><Version>0.1.0</Version><Description>Experimental C#-native Erlang runtime, compiler and MSBuild preprocessor.</Description><IncludeBuildOutput>false</IncludeBuildOutput><PackageReadmeFile>README.md</PackageReadmeFile></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../tools/Erlang.Tool/Erlang.Tool.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <ProjectReference Include="../Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <ProjectReference Include="../Erlang.Serialization/Erlang.Serialization.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../docs/ROSLYN-LICENSE.txt;../../docs/DOTNET-LICENSE.txt;../../docs/DOTNET-ThirdPartyNotices.txt;../../docs/OTP-LICENSE.txt" Pack="true" PackagePath="licenses/" />
+    <None Include="../../build/Erlang.Net.targets" Pack="true" PackagePath="buildTransitive/Erlang.Net.CSharp.targets" />
+    <None Include="../../tools/Erlang.Tool/bin/$(Configuration)/net10.0/*.dll;../../tools/Erlang.Tool/bin/$(Configuration)/net10.0/*.json" Pack="true" PackagePath="tools/net10.0/" />
+    <None Include="../Erlang.Terms/bin/$(Configuration)/net10.0/Erlang.Terms.dll;../Erlang.Runtime/bin/$(Configuration)/net10.0/Erlang.Runtime.dll;../Erlang.Compiler/bin/$(Configuration)/net10.0/Erlang.Compiler.dll;../Erlang.Otp.Behaviours/bin/$(Configuration)/net10.0/Erlang.Otp.Behaviours.dll;../Erlang.Serialization/bin/$(Configuration)/net10.0/Erlang.Serialization.dll" Pack="true" PackagePath="lib/net10.0/" />
+  </ItemGroup>
+</Project>

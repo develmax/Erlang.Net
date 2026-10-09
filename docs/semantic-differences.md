@@ -1,0 +1,19 @@
+# Known semantic boundaries
+
+All current compatibility entries are implemented or partially compatible, not globally verified compatible. Source-driven regressions do not replace running OTP 29.1.1.
+
+- Scheduling uses CLR continuation execution with expression reductions; arbitrary C# callbacks cannot be preempted. Local process completion denotes logical death and signal publication, not guaranteed completion of arbitrary host callback cleanup. No BEAM scheduler fairness guarantee.
+- Local links/monitors and mailbox delivery are lock-serialized. Atomic local spawn_monitor and iterative link-failure propagation are implemented. Full Erlang signal queues, priority messages, aliases, spawn_request, distributed identity and monitor option variants are pending.
+- PID/port/reference identities currently have 64-bit IDs. Wider reference ID vectors, exact distributed identity ordering and external fun terms are incomplete.
+- Signed zeros are distinct under exact equality for OTP 29.1.1. Numeric equality ignores the sign. Map key ordering puts integer types before float types. Atom ordering compares Unicode codepoints. Float nonfinite values are rejected. Atom interning/table limits and complete Unicode literal escapes are pending.
+- Maps and binaries exist as runtime values, but map/bit syntax in source, records, includes/macros, comprehensions, try/catch/after, if, types/specs, external/named fun references and dynamic module calls are not implemented. Unsupported syntax produces diagnostics rather than a language rewrite approximation.
+- Local module tail calls through sequences/case/receive are trampolined. Anonymous/named fun tail calls and all other compiled continuation forms are not complete; deeply nested non-tail calls may exhaust CLR stack.
+- Error stack frames are currently placeholder empty lists. Complete Erlang exception shapes, stacktrace capture, badfun/badarity/undef argument details and arithmetic overflow conversion errors need differential hardening.
+- gen_server has call/cast/info/stop, C# callbacks and reference-monitor replies. It lacks alias-based late-reply suppression, full OTP exception context, callback module adaptation, sys protocol, hibernation, continue/timeouts, name variants and hot upgrades. Late replies after timed-out calls can remain in the caller mailbox.
+- Supervisor strategies/policies/intensity and ordered shutdown exist. Dynamic child APIs, auto_shutdown/significant children, complete childspec validation, restart retries, complete startup-failure contracts and nested-supervisor shutdown contracts are pending. Child factories must return a live, long-running process.
+- io:format supports only ~s, ~p, ~w, ~n and ~~; many formatting directives, devices and Unicode/iodata variants are absent. BIF/MFA error compatibility is only partial.
+- Hybrid blocks are recognized at selected C# boundaries and require async context with `erlangProcess`. There is no implicit C# local conversion. Each block has a fresh Erlang binding scope. Synchronous receive, arbitrary inline tuples/calls/operators in C#, cross-block bindings, diagnostics column maps and debugger stepping are pending.
+- Compiler output currently constructs an AST executed by the C# evaluator. Direct operation lowering/optimized IR is pending. Module AST collections are trusted compiler structures and not a hostile-input sandbox.
+- The package supports the pinned SDK/net10.0 prototype. Other SDKs/TFMs, design-time IDE builds and publish/trimming/AOT compatibility are unverified.
+- Inventory exports are extracted before conditional/macro expansion. Source modules, explicit exports and BIF declarations do not establish complete effective public-contract coverage.
+- Distributed Erlang, ETS/DETS, code loading/upgrades, NIF/ports execution, applications, gen_statem/gen_event and the remaining OTP libraries are Not started.
