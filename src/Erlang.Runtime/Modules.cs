@@ -28,6 +28,9 @@ public static class CoreModules
         Add("erlang", "is_number", 1, (c, a) => Boolean(a[0] is Integer or FloatTerm));
         Add("erlang", "is_tuple", 1, (c, a) => Boolean(a[0] is TupleTerm));
         Add("erlang", "is_binary", 1, (c, a) => Boolean(a[0] is BitString b && b.IsBinary));
+        Add("erlang", "is_bitstring", 1, (c, a) => Boolean(a[0] is BitString));
+        Add("erlang", "bit_size", 1, (c, a) => a[0] is BitString b ? Term.I(b.BitLength) : throw new ErlangException("badarg"));
+        Add("erlang", "byte_size", 1, (c, a) => a[0] is BitString b ? Term.I((b.BitLength + 7L) / 8) : throw new ErlangException("badarg"));
         Add("erlang", "is_list", 1, (c, a) => Boolean(a[0] is Cons or Nil));
         Add("erlang", "is_pid", 1, (c, a) => Boolean(a[0] is Pid));
         Add("erlang", "is_map", 1, (c, a) => Boolean(a[0] is MapTerm));

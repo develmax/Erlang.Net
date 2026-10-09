@@ -132,6 +132,9 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("erlang", "is_number", 1) => ([Term.I(1)], Term.A("true")),
                 ("erlang", "is_tuple", 1) => ([Term.Tuple()], Term.A("true")),
                 ("erlang", "is_binary", 1) => ([new BitString([128], 1)], Term.A("false")),
+                ("erlang", "is_bitstring", 1) => ([new BitString([128], 1)], Term.A("true")),
+                ("erlang", "bit_size", 1) => ([new BitString([128,128], 9)], Term.I(9)),
+                ("erlang", "byte_size", 1) => ([new BitString([128,128], 9)], Term.I(2)),
                 ("erlang", "is_list", 1) => ([new Cons(Term.I(1), Term.A("tail"))], Term.A("true")),
                 ("erlang", "is_pid", 1) => ([c.Self], Term.A("true")),
                 ("erlang", "is_map", 1) => ([new MapTerm([])], Term.A("true")),
@@ -269,6 +272,13 @@ Test("compiler/bits-string-modifier-pending-diagnostic", () => { Throws<CompileE
 Test("compiler/bits-identical-specifiers", async () => Equal(await Eval("<<1:8/integer-integer-big-big-unit:1-unit:1>>"),new BitString([1])));
 Test("compiler/bits-alias-specifier-unit-conflict", () => { Throws<CompileException>(() => new Parser("<<(<<1>>)/bytes-unit:1>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<(<<1>>)/unit:8-bits>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-explicit-all-binary", async () => Equal(await Eval("<<(<<1,2>>):all/binary>>"),new BitString([1,2])));
+Test("compiler/bit-size-byte-rounding", async () => Equal(await Eval("{bit_size(<<>>),byte_size(<<>>),bit_size(<<1:1>>),byte_size(<<1:1>>),bit_size(<<1:8>>),byte_size(<<1:8>>),bit_size(<<1:9>>),byte_size(<<1:9>>)}"), Term.Tuple(Term.I(0),Term.I(0),Term.I(1),Term.I(1),Term.I(8),Term.I(1),Term.I(9),Term.I(2))));
+Test("compiler/bitstring-predicate-distinction", async () => Equal(await Eval("{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}"), Term.Tuple(Term.A("true"),Term.A("true"),Term.A("true"),Term.A("false"),Term.A("false"))));
+Test("compiler/bit-size-invalid-badarg", async () => Equal(await MapError("bit_size(atom)"),Term.A("badarg")));
+Test("compiler/byte-size-invalid-badarg", async () => Equal(await MapError("byte_size([1,2])"),Term.A("badarg")));
+Test("compiler/bit-bifs-qualified-guard", async () => Equal(await Eval("case <<1:9>> of Bits when erlang:is_bitstring(Bits), erlang:bit_size(Bits) =:= 9, erlang:byte_size(Bits) =:= 2 -> ok; _ -> no end"),Term.A("ok")));
+Test("compiler/bit-bif-guard-failure-alternative", async () => Equal(await Eval("case atom of X when bit_size(X) =:= 0; byte_size(X) =:= 0; is_atom(X) -> ok end"),Term.A("ok")));
+Test("compiler/bit-bif-map-pattern-key", async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"),Term.I(42)));
 var results = new List<object>();
 int failed = 0;
 foreach (var test in tests)

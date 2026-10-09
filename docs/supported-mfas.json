@@ -97,6 +97,30 @@
   },
   {
     "Module": "erlang",
+    "Function": "is_bitstring",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_bitstring/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "bit_size",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bit_size/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "byte_size",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:byte_size/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
     "Function": "is_list",
     "Arity": 1,
     "Status": "Partially compatible",

@@ -2,7 +2,7 @@ namespace Erlang.Compiler;
 
 public static class Semantics
 {
-    internal static readonly HashSet<(string, int)> GuardBifs = [("is_atom", 1), ("is_integer", 1), ("is_float", 1), ("is_number", 1), ("is_tuple", 1), ("is_binary", 1), ("is_list", 1), ("is_pid", 1), ("is_map", 1), ("map_size", 1), ("map_get", 2), ("is_map_key", 2), ("length", 1), ("hd", 1), ("tl", 1), ("element", 2), ("tuple_size", 1), ("self", 0)];
+    internal static readonly HashSet<(string, int)> GuardBifs = [("is_atom", 1), ("is_integer", 1), ("is_float", 1), ("is_number", 1), ("is_tuple", 1), ("is_binary", 1), ("is_bitstring", 1), ("bit_size", 1), ("byte_size", 1), ("is_list", 1), ("is_pid", 1), ("is_map", 1), ("map_size", 1), ("map_get", 2), ("is_map_key", 2), ("length", 1), ("hd", 1), ("tl", 1), ("element", 2), ("tuple_size", 1), ("self", 0)];
     public static void Validate(ModuleDefinition module)
     {
         if (module.Functions.Select(f => (f.Name, f.Arity)).Distinct().Count() != module.Functions.Count) throw new CompileException("ERL005", "Duplicate function definition", 0);

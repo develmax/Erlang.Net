@@ -17,13 +17,14 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Map source construction/updates/patterns | Partially compatible | compiler/map-*, patterns/map-rollback, hybrid/map-*, generated map_source.erl and PackageReference integration; full guard/BIF set/comprehensions/oracle pending |
 | is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
 | Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary segments only, patterns/float/UTF/string modifiers/oracle pending |
+| is_bitstring/bit_size/byte_size | Partially compatible | Three direct MFA cases plus compiler/bit-size-byte-rounding, predicate/size/error/guard/pattern-key regressions; oracle/resource-limit fidelity pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |
 | gen_server | Partially compatible | otp/gen-server-call-cast-info-stop, crash-monitor, timeout, init-error; aliases/sys/full callback protocol pending |
 | supervisor | Partially compatible | otp/supervisor-OneForOne, OneForAll, RestForOne, transient-temporary-normal, temporary-abnormal-no-restart, restart-intensity; dynamic children/full childspecs pending |
 | Mixed C#/Erlang | Partially compatible | hybrid/* and HelloHybrid integration; async receive/case/fun blocks at selected boundaries; arbitrary inline syntax/sync contexts pending |
 | MSBuild/local package | Partially compatible | tools/validate.ps1: output, incrementality, negative preprocessing, clean/rebuild, local consumer/tool; SDK/TFM/design-time expansion pending |
 | Source diagnostics/maps | Partially compatible | ERL001-008 parser/semantic errors, #line and line preservation; AST columns/full debugger/IDE mapping pending |
-| Differential verification | Blocked | Runner implemented, exact OTP 29.1.1 executable absent; no live oracle results claimed |
+| Differential verification | Implemented | Exact local oracle absent; first remote build failed, repaired remote run 37938184184 in progress at dc91e8c; no successful comparison claimed yet |
 | Full expanded source inventory | Investigated | 1,289 source modules / 38,622 explicit exports / 524 BIF entries; expansion/contracts incomplete |
 | gen_statem/gen_event/application/SASL | Not started | Not implemented |
 | Distribution/remote links/monitors/RPC | Not started | No real-node interop claim |

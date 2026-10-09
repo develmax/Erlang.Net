@@ -300,3 +300,35 @@ Updated [.github/workflows/differential.yml](.github/workflows/differential.yml)
 Binary patterns, float/UTF segments, string modifiers, complete segment evaluation/error precedence, full source spans and optimized storage remain pending. Integer assembly currently uses BigInteger shifts per bit; no performance claim or benchmark rerun. Current representation/resource limits are not proven equivalent to BEAM system limits. Previous runtime/OTP/distribution gaps remain.
 
 Updated compatibility JSON/matrix, semantic differences, progress and next steps; part reports are immutable. Commit title: `Add integer and binary bitstring construction and repair headless oracle`. Publish this checkpoint, rerun the pinned oracle workflow and resolve discrepancies before broad compatibility promotion. Next language unit: bitstring patterns and segment-size binding rules.
+
+## Part 007 — 2026-10-09 — Bitstring predicates and size guards
+
+**Status:** completed for the three BIF contracts; Partially compatible pending oracle/full resource and stacktrace evidence.
+
+### Objective and changes
+
+Added erlang:is_bitstring/1, bit_size/1 and byte_size/1 to [CoreModules](src/Erlang.Runtime/Modules.cs) and the [guard whitelist](src/Erlang.Compiler/Semantics.cs). is_bitstring accepts binaries and non-octet bitstrings; bit_size returns the number of bits; byte_size returns the rounded-up storage byte count even for partial bytes. Invalid size operands raise badarg. A long intermediate prevents rounding overflow within the current representation.
+
+Added three direct MFA cases and seven semantic tests in [the harness](tests/Erlang.Tests/Program.cs): empty/1/8/9-bit sizes, predicate distinctions, badarg cases, qualified guards, guard-error alternatives and a byte_size-derived map pattern key. [map_source.erl](examples/HelloHybrid/map_source.erl) and [the example](examples/HelloHybrid/Program.cs) exercise all three in a generated-module guard, also executed by the PackageReference consumer. Registered MFAs now total **49**.
+
+Added five value/error cases to [the differential runner](tools/Erlang.Differential/Program.cs); its current corpus contains **62 cases**. The already running oracle workflow uses the earlier dc91e8c head with **57**, so it does not verify these new BIFs until a later run.
+
+### Reference and reuse
+
+Inspected exact OTP-29.1.1 erl_bif_guard.c bit_size_1/byte_size_1, erl_bif_op.c is_bitstring_1 and erl_internal guard/type-test declarations. Source confirms that byte_size accepts any bitstring and rounds through NBYTES. Reused BitString identity/BitLength and existing Boolean/Integer terms. No new package or copied code; [audit](docs/dependency-decisions.md) updated.
+
+### Validation
+
+| Check | Command / saved report | Result |
+| --- | --- | --- |
+| Solution and permanent tests | pwsh -File tools/validate.ps1; [tests](docs/validation/part-007/tests.json) | **206 passed, 0 failed**; all 49 direct MFA cases; 0 build warnings/errors |
+| .erl/hybrid/incremental/disabled/clean/package/CLI | Same script; [integration](docs/validation/part-007/integration-results.json) | Passed; expected failure without preprocessing; exact Hello World |
+| Predecessor remote CI | [dc91e8c Windows run](https://github.com/develmax/Erlang.Net/actions/runs/37938137851) | Confirmed success; this does not attest the new head |
+| Repaired oracle attempt | [run 37938184184](https://github.com/develmax/Erlang.Net/actions/runs/37938184184); [observed checkpoint](docs/validation/part-007/remote-checkpoint.json) | Source build in progress at dc91e8c; comparison pending, no oracle results claimed |
+| Evidence/hygiene | Local links/test IDs and git diff --check; reference checkout status | Checked before commit; reference unchanged |
+
+### Limitations and handoff
+
+Current bit lengths remain int-sized; larger BEAM/resource limits and full error stacks are unverified. Binary patterns, float/UTF segments, string modifiers, complete library coverage and the other prior gaps remain. No new benchmark or performance claim.
+
+Commit title: `Add bitstring predicates and size guard BIFs`. Publish the checkpoint, inspect the repaired oracle run's actual result and artifact, fix discrepancies and record the tested head precisely. Continue bitstring patterns with guard size expressions and prior-segment binding rules. Current-state and immutable per-part reports have been updated.
