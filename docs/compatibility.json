@@ -209,9 +209,10 @@
         "compiler/quoted-unicode-illegal-character",
         "compiler/bits-size-prefix-requires-parentheses",
         "validation/part-012/differential.json",
-        "validation/part-014/float-differential.json"
+        "validation/part-014/float-differential.json",
+        "validation/part-016/utf-partial.json"
       ],
-      "limits": "Exact OTP-29.1.1 123/123 matched at 19774f9 in run 37952290309, including 30 float cases. Current corpus 154 has 31 new UTF cases pending. Values/class/reason only; full stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion. Current source corpus is 160; six arithmetic-coercion additions need a newer tested-head run."
+      "limits": "Complete 123/123 at 19774f9 includes float. Partial 132/154 at 67ac674 adds 9 UTF construction cases, then aborts at explicit undefined size; 22 UTF cases unexecuted. Corrected 160-case run required. Full stacks/signals/side effects/reference suites unverified."
     },
     {
       "name": "Complete expanded inventory",
@@ -266,9 +267,11 @@
         "compiler/bits-utf-string-pattern",
         "compiler/bits-utf-deterministic-roundtrips",
         "validation/part-014/tests.json",
-        "validation/part-014/integration-results.json"
+        "validation/part-014/integration-results.json",
+        "compiler/bits-utf-undefined-size-diagnostic",
+        "validation/part-016/utf-partial.json"
       ],
-      "limits": "Strict UTF8/16/32 scalar construction/matching and UTF string sugar. New UTF oracle cases pending; complete scopes/error/diagnostics/resource boundaries/reference suites incomplete."
+      "limits": "Strict UTF8/16/32 and UTF strings. Explicit undefined size rejected after erl_lint audit. 9 UTF construction cases matched within partial 132/154 at 67ac674; remaining 22 UTF cases unexecuted. Corrected 160-case run required; full reference suites incomplete."
     },
     {
       "name": "Integer-to-float coercion",

@@ -594,3 +594,36 @@ Local Erlang executable remains absent. The 160-case new-head comparison must ru
 ### Handoff
 
 Commit title: `Share exact integer float coercion across runtime and compiler`. Publish the validated repair, dispatch 160-case oracle, save actual reports for both the 154-case UTF predecessor and this head, and resolve mismatches. Current progress/compatibility/matrix/JSON/semantic differences/next steps updated. Non-UTF string size modifiers follow reference verification; remaining runtime/OTP/distribution/IDE work is unchanged. No public NuGet publication.
+
+## Part 016 — 2026-10-09 — Reject explicit UTF sizes and preserve partial evidence
+
+**Part status:** completed for the source-grammar/fixture repair; corrected 160-case remote run pending. Full assignment remains approximately **5%**.
+**Objective and scope:** resolve the first actual UTF oracle abort, preserving the original partial report and correcting the earlier source-contract interpretation.
+
+### Evidence and dated correction
+
+[Run 37953748714](https://github.com/develmax/Erlang.Net/actions/runs/37953748714) at **67ac67453dd99b4db6c1970aab7f565858072c3b** built pinned OTP-29.1.1 and matched **132 comparisons**, zero mismatches, then aborted at `<<65:undefined/utf8,65:undefined/utf16>>`. These are the complete preceding 123 cases plus **9 UTF construction cases**: boundaries, UTF16/32 endian/native, UTF8 ignored endian and invalid scalar/value badarg. The remaining **22 UTF cases** (patterns, strings, malformed inputs, binding scopes) were not executed. No complete 154-case or UTF compatibility claim.
+
+[Original report](docs/validation/part-016/utf-partial.json) and [metadata](docs/validation/part-016/utf-remote-checkpoint.json) preserve the abort, exact heads/IDs and actual counts. Artifact ZIP SHA256 verified against GitHub: **99ffac878a4caa8ad472bd664cc142e3e75b90caeb7e74ba7582eb75c4b52413**. Part 014 incorrectly treated erl_bits helper acceptance of undefined as a source-language default spelling. Pinned **erl_lint.erl bit_size/pat_bit_size**, **erl_eval.erl check_command** and **erl_bits.erl check_size_unit_1** show that explicit noninteger sizes become unknown in linting and are rejected; accepted undefined representations are internal defaults. This is a real parser discrepancy plus an invalid oracle fixture, not transport failure.
+
+### Changes and protection
+
+[Syntax.cs](src/Erlang.Compiler/Syntax.cs) no longer normalizes explicit undefined UTF size to omitted size; all explicit sizes/units are rejected. The former positive test is replaced by permanent construction/pattern diagnostics for UTF8/16/32. [Runner](tools/Erlang.Differential/Program.cs) replaces the invalid source with an omitted-size case; planned count stays **160**. Registry stays **49 MFAs**, permanent count **299**. No dependency/copied implementation; [audit correction](docs/dependency-decisions.md).
+
+Part 015 was committed/pushed as **eb621ec0795bbfd4774d57ec3cee7f59e8f3483a**. Its run **37954818924** was cancelled during reference build once this shared invalid fixture was confirmed; it did not test the six new arithmetic cases. The corrected head replaces it. Earlier numbered reports are immutable and earlier claims are corrected here rather than rewritten.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-016/tests.json) | **299 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| Generated .erl/hybrid/incremental/negative/clean/packages/consumer/local CLI | Same script; [integration](docs/validation/part-016/integration-results.json) | Passed; expected unavailable-oracle/disabled-preprocessing failures |
+| UTF predecessor exact reference | Run 37953748714 / original partial report | 132 matched, explicit-size lint abort; 22 unexecuted |
+| UTF predecessor Windows CI | Run 37953727459 at 67ac674 | Success, 293 tests/full integration; predecessor evidence |
+| Evidence/hygiene | Report/digest/count/evidence/path checks, git diff --check, reference status | Checked before commit; reference unchanged |
+
+Full stacks/signals/side effects/reference suites/performance remain unrun; no broad feature/MFA promotion. Local reference executable remains absent.
+
+### Handoff
+
+Updated current PROGRESS/COMPATIBILITY/JSON/semantic differences/NEXT_STEPS with partial tested scope and the correction. Commit title: `Reject explicit UTF sizes and correct oracle fixture`. Publish the repaired checkpoint, dispatch the corrected 160-case comparison, preserve its actual report and fix remaining discrepancies before extending source syntax. No public NuGet publication.

@@ -239,7 +239,6 @@ public sealed class Parser
             }
             int defaultUnit = type is "binary" or "bytes" ? 8 : 1;
             if ((type is "integer" or "float") && size is null && unit is not null) throw Error("An explicit numeric segment unit requires a size");
-            if (BitUnicode.IsUtf(type) && size is Expr.Literal { Value: Atom { Name: "undefined" } }) size = null;
             if (BitUnicode.IsUtf(type) && (size is not null || unit is not null)) throw Error("UTF segments must not specify a size or unit");
             if (value is Expr.Literal { Value: Cons or Nil } && BitUnicode.IsUtf(type))
             {

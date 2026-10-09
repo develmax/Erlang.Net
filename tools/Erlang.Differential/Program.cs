@@ -105,7 +105,7 @@ try
         "<<55296/utf16>>",
         "<<1114112/utf32>>",
         "<<1.0/utf8>>",
-        "<<65:undefined/utf8,65:undefined/utf16>>",
+        "<<65/utf8,65/utf16>>",
         "case <<65534/utf8,65535/utf16>> of <<A/utf8,B/utf16>> -> {A,B} end",
         "case <<240,159,152,128,42>> of <<X/utf8,Rest/binary>> -> {X,Rest} end",
         "case <<216,61,222,0>> of <<X/utf16>> -> X end",
