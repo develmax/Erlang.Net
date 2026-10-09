@@ -10,6 +10,8 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!value.Equals(Term.I(42))) throw new InvalidOperationException("Map module generation failed");
     var picked = await runtime.Modules.Call(erlangProcess, "map_source", "pick", new MapTerm([new(Term.A("value"), Term.Tuple(Term.I(21), Term.I(21)))]));
     if (!picked.Equals(Term.I(21))) throw new InvalidOperationException("Map function pattern generation failed");
+    var keysValue = await runtime.Modules.Call(erlangProcess, "map_source", "keys_check");
+    if (!keysValue.Equals(Term.Tuple(Term.Tuple(Term.A("value"),Term.Tuple(Term.A("a"),Term.A("found"))),Term.A("true"),new Cons(Term.A("b"),new Cons(Term.A("a"),Term.A("tail")))))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.ListKeys);
     var listValue = await runtime.Modules.Call(erlangProcess, "map_source", "lists_check");
     if (!listValue.Equals(Term.Tuple(Term.A("b"),Term.A("tail"),Term.List(Term.I(5),Term.I(3),Term.I(1))))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.ListModule);
     var stringValue = await runtime.Modules.Call(erlangProcess, "map_source", "string_check");

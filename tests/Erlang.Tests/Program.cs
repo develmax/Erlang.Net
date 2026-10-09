@@ -1247,6 +1247,9 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("erlang", "map_size", 1) => ([new MapTerm([new(Term.A("a"), Term.I(1))])], Term.I(1)),
                 ("erlang", "map_get", 2) => ([Term.A("a"), new MapTerm([new(Term.A("a"), Term.I(42))])], Term.I(42)),
                 ("erlang", "is_map_key", 2) => ([Term.I(1), new MapTerm([new(new FloatTerm(1), Term.A("float"))])], Term.A("false")),
+                ("lists", "keyfind", 3) => ([Term.I(1), Term.I(1), Term.List(Term.Tuple(new FloatTerm(1), Term.A("found")))], Term.Tuple(new FloatTerm(1), Term.A("found"))),
+                ("lists", "keymember", 3) => ([Term.A("a"), Term.I(1), Term.List(Term.Tuple(Term.A("a")))], Term.A("true")),
+                ("lists", "keysearch", 3) => ([Term.A("a"), Term.I(1), Term.List(Term.Tuple(Term.A("a")))], Term.Tuple(Term.A("value"), Term.Tuple(Term.A("a")))),
                 ("lists", "nth", 2) => ([Term.I(2), Term.List(Term.A("a"), Term.A("b"))], Term.A("b")),
                 ("lists", "nthtail", 2) => ([Term.I(1), new Cons(Term.A("a"), Term.A("tail"))], Term.A("tail")),
                 ("lists", "seq", 2) => ([Term.I(1), Term.I(3)], Term.List(Term.I(1), Term.I(2), Term.I(3))),
@@ -2569,6 +2572,86 @@ Test(
     )
 );
 Test("lists/seq-length-system-limit", async () => Equal(await MapError("lists:seq(0,2147483647)"), Term.A("system_limit")));
+
+Test(
+    "lists/reverse-short-error-contract",
+    async () =>
+ {
+     foreach (string source in new[] { "lists:reverse(atom)", "lists:reverse([a|tail])" }) Equal(await MapError(source), Term.A("function_clause"));
+ }
+);
+Test(
+    "lists/reverse-long-improper-badarg",
+    async () =>
+ {
+     foreach (string source in new[] { "lists:reverse([a,b|tail])", "lists:reverse([a,b,c|tail])", "lists:reverse(atom,tail)", "lists:reverse([a|tail],[])" }) Equal(await MapError(source), Term.A("badarg"));
+ }
+);
+Test(
+    "lists/reverse-tail-and-empty",
+    async () =>
+ {
+     Equal(await Eval("lists:reverse([],tail)"), Term.A("tail"));
+     Equal(await Eval("lists:reverse([a,b],tail)"), new Cons(Term.A("b"), new Cons(Term.A("a"), Term.A("tail"))));
+ }
+);
+Test(
+    "lists/keyfind-skip-and-first",
+    async () => Equal(
+        await Eval("lists:keyfind(a,2,[atom,{}, {a},{x,a,first},{y,a,second}])"),
+        Term.Tuple(Term.A("x"), Term.A("a"), Term.A("first"))
+    )
+);
+Test(
+    "lists/keyfind-improper-prefix",
+    async () => Equal(await Eval("lists:keyfind(a,1,[{a,found}|tail])"), Term.Tuple(Term.A("a"), Term.A("found")))
+);
+Test(
+    "lists/keysearch-missing",
+    async () =>
+ {
+     foreach (string source in new[] { "lists:keyfind(a,2,[{},atom,{a}])", "lists:keymember(a,1,[])", "lists:keysearch(a,1,[{b}])" }) Equal(await Eval(source), Term.A("false"));
+ }
+);
+Test(
+    "lists/keysearch-invalid-position",
+    async () =>
+ {
+     foreach (string source in new[] { "lists:keyfind(a,0,[])", "lists:keymember(a,-1,[{a}])", "lists:keysearch(a,1.0,[])", "lists:keyfind(a,576460752303423488,[])" }) Equal(await MapError(source), Term.A("badarg"));
+ }
+);
+Test(
+    "lists/keysearch-improper-missing",
+    async () =>
+ {
+     foreach (string source in new[] { "lists:keyfind(a,1,[{b}|tail])", "lists:keymember(a,1,atom)", "lists:keysearch(a,1,[atom|tail])" }) Equal(await MapError(source), Term.A("badarg"));
+ }
+);
+Test(
+    "lists/keysearch-large-position",
+    async () => Equal(await Eval("lists:keyfind(a,576460752303423487,[{a}])"), Term.A("false"))
+);
+Test(
+    "lists/keysearch-small-integer-rounded-float",
+    async () => Equal(await Eval("lists:keyfind(9007199254740993,1,[{9007199254740992.0}])"), Term.Tuple(new FloatTerm(9007199254740992d)))
+);
+Test(
+    "lists/keysearch-float-key-exact-rational",
+    async () => Equal(await Eval("lists:keyfind(9007199254740992.0,1,[{9007199254740993}])"), Term.A("false"))
+);
+Test(
+    "lists/keysearch-nested-numeric-key",
+    async () => Equal(
+        await Eval("lists:keysearch({[1],#{a=>2}},1,[{{[1.0],#{a=>2.0}},found}])"),
+        Term.Tuple(
+            Term.A("value"),
+            Term.Tuple(
+                Term.Tuple(Term.List(new FloatTerm(1)), new MapTerm(new[] { new KeyValuePair<Term, Term>(Term.A("a"), new FloatTerm(2)) })),
+                Term.A("found")
+            )
+        )
+    )
+);
 
 int failed = 0;
 foreach (var test in tests)

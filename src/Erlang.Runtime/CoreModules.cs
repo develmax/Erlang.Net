@@ -291,34 +291,52 @@ public static class CoreModules
  }
         );
         Add(
-            "lists",
-            "reverse",
+            ListModuleNames.Module,
+            ListModuleNames.Reverse,
             1,
-            (c, a) => Cons.From(Cons.Items(a[0]).Reverse())
+            (c, a) => ListOperations.Reverse(a[0])
         );
         Add(
-            "lists",
-            "reverse",
+            ListModuleNames.Module,
+            ListModuleNames.Reverse,
             2,
-            (c, a) => Cons.From(Cons.Items(a[0]).Reverse(), a[1])
+            (c, a) => ListOperations.Reverse(a[0], a[1])
         );
         Add(
-            "lists",
+            ListModuleNames.Module,
             "append",
             2,
             (c, a) => Cons.From(Cons.Items(a[0]), a[1])
         );
         Add(
-            "lists",
+            ListModuleNames.Module,
             "member",
             2,
             (c, a) => Boolean(Cons.Items(a[1]).Any(x => x.Equals(a[0])))
         );
         Add(
-            "lists",
+            ListModuleNames.Module,
             "sum",
             1,
             (c, a) => Cons.Items(a[0]).Aggregate((Term)Term.I(0), (x, y) => Arithmetic("+", x, y))
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.KeyFind,
+            3,
+            (c, a) => ListOperations.KeyFind(a[0], a[1], a[2])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.KeyMember,
+            3,
+            (c, a) => ListOperations.KeyMember(a[0], a[1], a[2])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.KeySearch,
+            3,
+            (c, a) => ListOperations.KeySearch(a[0], a[1], a[2])
         );
         Add(
             ListModuleNames.Module,
@@ -345,7 +363,7 @@ public static class CoreModules
             (c, a) => ListOperations.Sequence(a[0], a[1], a[2])
         );
         r.Register(
-            "lists",
+            ListModuleNames.Module,
             "map",
             2,
             async (c, a) =>

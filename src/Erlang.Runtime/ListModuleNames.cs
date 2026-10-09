@@ -6,4 +6,8 @@ internal static class ListModuleNames
     public const string Nth = "nth";
     public const string NthTail = "nthtail";
     public const string Sequence = "seq";
+    public const string Reverse = "reverse";
+    public const string KeyFind = "keyfind";
+    public const string KeyMember = "keymember";
+    public const string KeySearch = "keysearch";
 }

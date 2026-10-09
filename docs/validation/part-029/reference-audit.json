@@ -1,0 +1,28 @@
+{
+  "Architecture": "Pinned 64-bit small integer range -2^59 through 2^59-1; 32-bit oracle unverified",
+  "Sources": [
+    {
+      "Blob": "2713caac82ae8a058bdc0421bf81524f4d37c5b5",
+      "Path": "lib/stdlib/src/lists.erl"
+    },
+    {
+      "Blob": "6641655b33de08b900cbccb168a293113b884b6a",
+      "Path": "erts/emulator/beam/erl_bif_lists.c"
+    },
+    {
+      "Blob": "8263706dc3942ec4f45f3ed9df77b0bc3ca476bd",
+      "Path": "erts/emulator/beam/erl_term.h"
+    }
+  ],
+  "Baseline": "OTP-29.1.1",
+  "AddedCases": 30,
+  "PlannedCases": 249,
+  "Reuse": "Immutable Cons/TupleTerm, Integer.TryToDouble and numeric comparator; original iterative C#; no new library or copied OTP implementation",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Contracts": [
+    "reverse/1 short invalid inputs function_clause; two-cell improper prefix reaches reverse/2 badarg",
+    "reverse/2 validates proper first list, leaves arbitrary tail untouched",
+    "key search positive small position first; skip nontuples/short tuples; first match before improper tail",
+    "small integer key/float element rounded double path; other numeric comparison retains exact rational behavior"
+  ]
+}

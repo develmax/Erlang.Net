@@ -41,3 +41,7 @@ Next execute the **219-case** exact-version workflow against the published lists
 ## Part 028 checkpoint
 
 The 219-case oracle and same-head Windows CI are complete and preserved. Next: a separate compiled-reference-module comparison track and the audited lists reverse/2/key-search increment; keep all 219 expression cases. Continue signal races and Erlang OTP callback adapters as separate substantive work units. Current module report remains 53 MFAs, lists10 (+4 versus part-026), local/CI tests329; resource/stacks/full suites and the broad assignment remain unfinished.
+
+## Part 029 checkpoint
+
+Publish the locally validated key-search/reverse increment and dispatch the complete **249-case** oracle on that exact head. Preserve raw same-head oracle/Windows CI results and corpus 219+30 provenance before claiming selected contracts verified. Current tests 344; registry 56; lists 13/91 (+3 versus part-028). Then add the separate compiled-reference-module track and audit further lists contracts; full signal/OTP callback/grammar tasks remain.

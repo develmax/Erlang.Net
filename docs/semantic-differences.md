@@ -45,3 +45,7 @@ lists:nth/2 and nthtail/2 use iterative Cons traversal, including valid improper
 ## Part 028 — Evidence update
 
 All 36 selected lists values/class/reason cases now match within a complete **219/219** exact-version result at 6f34dc9. This supersedes part-027's pending reference status only for those selected cases. The sequence count resource bound and full stack/input/side-effect limitations remain. No new runtime/compiler semantics or dependency in this part.
+
+## Part 029 — Key-search architecture scope
+
+Key-search position and small-key fast path model the pinned 64-bit reference small integer representation. 32-bit BEAM position boundaries are not verified. The small integer/float element rounded-double comparison is deliberately local to key search; global numeric equality, exact member/2 and map keys are unchanged. Reverse/1 now distinguishes short-clause function_clause from reverse/2 badarg on longer improper lists. Value/class/reason regressions pass locally; full stacks/resources/reductions remain unverified.

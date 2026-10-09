@@ -66,3 +66,7 @@ Report actual registered and directly tested MFAs against the pinned union of ex
 ## Part 028 — Preserve tested-head provenance
 
 Complete oracle and Windows CI results are attributed to the same implementation head **6f34dc9**, with raw artifacts, ZIP hashes and 183+36 corpus provenance in validation/part-028. Refresh readiness milestone evidence without inventing a percentage promotion. Keep the delta baseline at part-026 so this evidence-only checkpoint does not erase the last feature increment (+4). Local full validation was run in part-027; no executable source changed here. Full compiled-reference-module and resource/input contracts remain separate tasks.
+
+## Part 029 — Preserve native key-search distinction
+
+Reuse existing term/numeric infrastructure in iterative C#; preserve the pinned native small-integer/float fast path rather than substituting global numeric equality for every key. Keep architecture-bound small integer limits in ListKeySearchLimits and result atoms in ListKeySearchAtoms, each in its own file. Repair reverse/1 clause selection; arbitrary reverse/2 tails remain valid. Readiness delta now uses part-028 as its explicit preceding feature baseline (+3 MFAs). Source/reuse audits and permanent boundary tests precede publication; live 249-case reference comparison follows on the published head.

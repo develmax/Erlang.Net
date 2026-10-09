@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–028.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–029.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 53 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 56 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
 | Hybrid/build | Native receive/case/fun in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 53 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 56 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -32,11 +32,11 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Latest same-head evidence: **219/219** exact-version oracle cases and **329/329** Windows CI tests at **6f34dc9**; [part-028 metadata](validation/part-028/remote-checkpoint.json). Full local validation is preserved in part-027. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
+Latest completed historical same-head evidence: **219/219** exact-version oracle cases and **329/329** Windows CI tests at **6f34dc9**; [part-028 metadata](validation/part-028/remote-checkpoint.json). Full local validation is preserved in part-027. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
 
 
-- **329/329 local tests passed**, including 53 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-027/tests.json).
-- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF/lists assertions; current and packaged readiness generation passed. [Integration](validation/part-027/integration-results.json).
+- **344/344 local tests passed**, including 56 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-029/tests.json).
+- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF/lists assertions; current and packaged readiness generation passed. [Integration](validation/part-029/integration-results.json).
 - An unavailable local oracle returns code 2 with an incomplete infrastructure-error report and zero executed cases. No reference runtime is installed on this host.
 - Historical part-026 exact-version run **37999487360 at 3990623** matched **183/183** selected values/exception class/reason cases, including the prior 160 and 23 literal-string additions. Version verified, complete report, zero mismatches/aborts; actual artifact digest verified. [Report and metadata](validation/part-026/remote-checkpoint.json). Reference expressions use erl_eval; compiled-reference-module/optimizer equivalence remains unverified.
 - Historical part-026 same-head Windows CI **37999472859 at 3990623** passed **314/314 tests** and full build/integration/package validation. [Remote tests](validation/part-026/ci-tests.json), [integration](validation/part-026/ci-integration-results.json). Part 026 preserves remote evidence; its changes are documentation only.
@@ -80,3 +80,9 @@ Added lists:nth/2, nthtail/2 and seq/2,3 with iterative improper-prefix traversa
 ## Part 028 — Complete 219-case reference evidence
 
 Exact-version run **38001923894** at **6f34dc9** completed **219/219** with version verified, zero mismatches/aborts and complete report. All **183** earlier source expressions are unchanged; **36** appended lists cases match the current C# corpus. Same-head Windows CI **38001910136** passed **329/329** and full build/integration/package/CLI/readiness validation. [Verified metadata](validation/part-028/remote-checkpoint.json), [raw oracle](validation/part-028/differential.json), [corpus audit](validation/part-028/corpus-audit.json). The readiness report was refreshed without new MFAs; its **+4** delta remains explicitly relative to part-026, the preceding feature snapshot. This documentation/evidence checkpoint does not rerun full local validation or promote any complete module. Compiled-reference-module/optimizer, full stacks/signals/side effects/resources/reference suites remain unfinished.
+
+## Part 029 — Key-search and reverse error contracts
+
+Added lists:keyfind/3, keymember/3, keysearch/3; registry **53 → 56**, lists **10 → 13/91 (14.3%, +3)** relative to part-028. Corrected reverse/1 short invalid inputs to function_clause while longer improper lists still raise badarg via reverse/2. Reverse now traverses iteratively without LINQ materialization. Key search skips nontuples/short tuples, validates positions first and returns the first match without visiting an improper suffix. Small integer Key/float element preserves the native rounded-double path separately from the general numeric comparator and exact member/map-key contracts. Positive positions follow the pinned 64-bit small integer bound; 32-bit reference behavior remains unverified.
+
+**344/344** local tests and full generated/hybrid/local-package/CLI/readiness pipeline pass. **249 planned oracle cases** preserve previous 219 and append 30; live comparison pending. Historical 219/219 at 6f34dc9 is not evidence for the new cases. [Module readiness](MODULE_READINESS.md), [local tests](validation/part-029/tests.json), [source audit](validation/part-029/reference-audit.json). Full assignment remains approximately 5%; no entire module promoted.

@@ -4,6 +4,68 @@ namespace Erlang;
 
 internal static class ListOperations
 {
+    public static Term Reverse(Term list)
+    {
+        if (list is Nil || list is Cons { Tail: Nil })
+            return list;
+        if (list is not Cons { Tail: Cons second } first)
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        return Reverse(second.Tail, new Cons(second.Head, new Cons(first.Head, Nil.Value)));
+    }
+
+    public static Term Reverse(Term list, Term tail)
+    {
+        while (list is Cons cell)
+        {
+            tail = new Cons(cell.Head, tail);
+            list = cell.Tail;
+        }
+        if (list is not Nil)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        return tail;
+    }
+
+    public static Term KeyFind(Term key, Term position, Term list)
+    {
+        if (position is not Integer index || index.Value < 1 || index.Value > ListKeySearchLimits.MaximumSmallInteger)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        while (list is Cons cell)
+        {
+            if (cell.Head is TupleTerm tuple && index.Value <= tuple.Items.Count && KeyEquals(key, tuple.Items[(int)index.Value - 1]))
+                return tuple;
+            list = cell.Tail;
+        }
+        if (list is not Nil)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        return Term.A(ListKeySearchAtoms.NotFound);
+    }
+
+    public static Term KeyMember(Term key, Term position, Term list) =>
+        Term.A(KeyFind(key, position, list) is TupleTerm ? ListKeySearchAtoms.Found : ListKeySearchAtoms.NotFound);
+
+    public static Term KeySearch(Term key, Term position, Term list)
+    {
+        Term result = KeyFind(key, position, list);
+
+        return result is TupleTerm ? Term.Tuple(Term.A(ListKeySearchAtoms.Value), result) : result;
+    }
+
+    private static bool KeyEquals(Term key, Term element)
+    {
+        if (key is Integer number && number.Value >= ListKeySearchLimits.MinimumSmallInteger && number.Value <= ListKeySearchLimits.MaximumSmallInteger && element is FloatTerm floating)
+        {
+            number.TryToDouble(out double rounded);
+
+            return rounded == floating.Value;
+        }
+
+        return key.NumericEquals(element);
+    }
+
     public static Term Nth(Term index, Term list)
     {
         if (index is not Integer number || number.Value <= 0)
