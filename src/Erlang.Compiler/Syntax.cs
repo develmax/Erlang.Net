@@ -27,7 +27,14 @@ public static class Lexer
                 var value = new StringBuilder(); bool closed = false;
                 while (i < text.Length) { char ch = text[i++]; if (ch == c) { closed = true; break; } if (ch == '\\') { if (i == text.Length) break; ch = text[i++]; if (ch is 'x' or '^' || char.IsDigit(ch)) throw new CompileException("ERL003", "Hex, control and octal escapes are not implemented yet", i - 2); ch = ch switch { 'n' => '\n', 'r' => '\r', 't' => '\t', 'b' => '\b', 'f' => '\f', 'v' => '\v', 'e' => '\x1b', 's' => ' ', _ => ch }; } value.Append(ch); }
                 if (!closed) throw new CompileException("ERL001", "Unterminated quoted literal", start);
-                tokens.Add(new(c == '\'' ? "quoted_atom" : "string", value.ToString(), start, i)); continue;
+                string literal = value.ToString();
+                for (int offset = 0; offset < literal.Length;)
+                {
+                    if (!Rune.TryGetRuneAt(literal, offset, out var rune) || rune.Value is 0xfffe or 0xffff)
+                        throw new CompileException("ERL001", "Illegal Unicode character in quoted literal", start);
+                    offset += rune.Utf16SequenceLength;
+                }
+                tokens.Add(new(c == '\'' ? "quoted_atom" : "string", literal, start, i)); continue;
             }
             if (char.IsLetter(c) || c == '_')
             { while (i < text.Length && (char.IsLetterOrDigit(text[i]) || text[i] is '_' or '@')) i++; string name = text[start..i]; tokens.Add(new(char.IsUpper(c) || c == '_' ? "variable" : Keywords.Contains(name) ? "keyword" : "atom", name, start, i)); if (blockPrefix) { if (name is "receive" or "case" or "fun") depth++; else if (name == "end" && --depth == 0) break; } continue; }
@@ -66,7 +73,7 @@ public abstract record Expr
     public sealed record GuardAlternatives(IReadOnlyList<Expr> Items) : Expr;
 }
 public sealed record MapField(Expr Key, Expr Value, bool Exact);
-public sealed record BitSegment(Expr Value, Expr? Size, string Type = "integer", int Unit = 1, string Endian = "big");
+public sealed record BitSegment(Expr Value, Expr? Size, string Type = "integer", int Unit = 1, string Endian = "big", bool Signed = false);
 public sealed record MapPatternField(Expr Key, Pattern Value);
 public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern
 {
@@ -199,7 +206,7 @@ public sealed class Parser
         {
             var value = Primary(true); Expr? size = null;
             if (Take(":")) size = Primary(true);
-            string type = "integer", endian = "big"; int? unit = null;
+            string type = "integer", endian = "big"; int? unit = null; bool signed = false;
             var categories = new Dictionary<string, string>();
             void Merge(string category, string setting)
             { if (categories.TryGetValue(category, out var previous) && previous != setting) throw Error($"Conflicting bit segment {category} specifiers"); categories[category] = setting; }
@@ -216,7 +223,7 @@ public sealed class Parser
                             category = "type"; type = "binary"; int aliasUnit = spec == "bytes" ? 8 : 1;
                             Merge("unit", aliasUnit.ToString(CultureInfo.InvariantCulture)); unit = aliasUnit; break;
                         case "big": case "little": case "native": category = "endian"; endian = spec; break;
-                        case "signed": case "unsigned": category = "sign"; break; // Construction uses low bits for either sign.
+                        case "signed": case "unsigned": category = "sign"; signed = spec == "signed"; break;
                         case "unit":
                             category = "unit"; Expect(":");
                             if (Current.Kind != "integer" || !int.TryParse(Current.Text, out var parsed) || parsed is < 1 or > 256) throw Error("Bit segment unit must be an integer from 1 through 256");
@@ -233,7 +240,7 @@ public sealed class Parser
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value)) segments.Add(new(new Expr.Literal(item), null));
             }
             else if (value is Expr.Literal { Value: Cons or Nil }) throw new CompileException("ERL003", "String segment modifiers are not supported yet", Current.Start);
-            else segments.Add(new(value, size, type, unit ?? defaultUnit, endian));
+            else segments.Add(new(value, size, type, unit ?? defaultUnit, endian, signed));
         } while (Take(","));
         Expect(">>"); return new Expr.Bits(segments);
     }
@@ -256,5 +263,5 @@ public sealed class Parser
     }
     private List<Expr> Arguments() { var args = new List<Expr>(); if (!Take(")")) { do { args.Add(Expression()); } while (Take(",")); Expect(")"); } return args; }
     public static Pattern ToPattern(Expr e) => e switch
-    { Expr.Map { Base: null } m when m.Fields.All(f => f.Exact) => new MapPattern(m.Fields.Select(f => new MapPatternField(f.Key, ToPattern(f.Value))).ToArray()), Expr.Literal l => new Pattern.Literal(l.Value), Expr.Variable v => new Pattern.Variable(v.Name), Expr.Tuple t => new Pattern.Tuple(t.Items.Select(ToPattern).ToArray()), Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)), _ => throw new CompileException("ERL004", "Invalid or unsupported pattern", 0) };
+    { Expr.Bits bits => BitPattern.FromExpression(bits), Expr.Map { Base: null } m when m.Fields.All(f => f.Exact) => new MapPattern(m.Fields.Select(f => new MapPatternField(f.Key, ToPattern(f.Value))).ToArray()), Expr.Literal l => new Pattern.Literal(l.Value), Expr.Variable v => new Pattern.Variable(v.Name), Expr.Tuple t => new Pattern.Tuple(t.Items.Select(ToPattern).ToArray()), Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)), _ => throw new CompileException("ERL004", "Invalid or unsupported pattern", 0) };
 }

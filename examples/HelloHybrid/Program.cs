@@ -14,8 +14,11 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!bitValue.Equals(new BitString([52,18,177,128],25))) throw new InvalidOperationException("Bit segment module generation failed");
     var guarded = await runtime.Modules.Call(erlangProcess, "map_source", "bit_guard", bitValue);
     if (!guarded.Equals(Term.A("ok"))) throw new InvalidOperationException("Bit guard module generation failed");
-    var hybridBits = case <<1:3,2:5>> of X -> X end.
+    var hybridBits = case <<1:3,2:5>> of <<A:3,B:5>> -> <<A:3,B:5>> end.
     if (!hybridBits.Equals(new BitString([34]))) throw new InvalidOperationException("Hybrid bit construction failed");
+    var packed = case <<3,-257:16/little,5:3,2:2>> of P -> P end.
+    var unpacked = await runtime.Modules.Call(erlangProcess, "map_source", "unpack", packed);
+    if (!unpacked.Equals(Term.Tuple(Term.I(-257),new BitString([160],3),new BitString([128],2)))) throw new InvalidOperationException("Bit pattern module generation failed");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

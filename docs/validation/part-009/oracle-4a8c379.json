@@ -1,0 +1,125 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "VersionVerified": true,
+  "Complete": false,
+  "Planned": 62,
+  "Executed": 16,
+  "Passed": 16,
+  "Failed": 0,
+  "AbortedSource": "\u0027\uD800\uDC00\u0027 \u003E \u0027\uFFFF\u0027",
+  "InfrastructureError": "Oracle exited 1: Error! Failed to eval: {ok,OracleTokens,_}=erl_scan:string(unicode:characters_to_list(base64:decode(\u0022dHJ5ICgn8JCAgCcgPiAn77\u002B/Jykgb2YgT3JhY2xlVmFsdWUgLT4ge29rLE9yYWNsZVZhbHVlfSBjYXRjaCBPcmFjbGVDbGFzczpPcmFjbGVSZWFzb24gLT4ge2Vycm9yLE9yYWNsZUNsYXNzLE9yYWNsZVJlYXNvbn0gZW5kLg==\u0022))),{ok,OracleExpressions}=erl_parse:parse_exprs(OracleTokens),{value,OracleResult,_}=erl_eval:exprs(OracleExpressions,erl_eval:new_bindings()),io:format(\u0022~s\u0022,[base64:encode(term_to_binary(OracleResult))]),halt().\r\n\r\nRuntime terminating during boot ({{badmatch,{error,{1,erl_scan,{illegal,character}},1}},[{erl_eval,expr,6,[{file,\u0022erl_eval.erl\u0022},{line,796}]},{erl_eval,exprs,6,[{file,\u0022erl_eval.erl\u0022},{line,276}]},{init,start_it,1,[]},{init,start_em,1,[]},{init,do_boot,3,[]}]})\r\n\r\nCrash dump is being written to: erl_crash.dump...done\r\n ",
+  "Results": [
+    {
+      "Source": "1 \u002B 2 * 3",
+      "Expected": "{ok,7}",
+      "Actual": "{ok,7}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{1 == 1.0, 1 =:= 1.0}",
+      "Expected": "{ok,{true,false}}",
+      "Actual": "{ok,{true,false}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{0.0 == -0.0, 0.0 =:= -0.0}",
+      "Expected": "{ok,{true,false}}",
+      "Actual": "{ok,{true,false}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "9007199254740993 \u003E 9007199254740992.0",
+      "Expected": "{ok,true}",
+      "Actual": "{ok,true}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "{a, [1,2|tail]}",
+      "Expected": "{ok,{a,[1,2|tail]}}",
+      "Actual": "{ok,{a,[1,2|tail]}}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:member(1, [1.0])",
+      "Expected": "{ok,false}",
+      "Actual": "{ok,false}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:reverse([1,2,3])",
+      "Expected": "{ok,[3,2,1]}",
+      "Actual": "{ok,[3,2,1]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:sum([1,2,3])",
+      "Expected": "{ok,6}",
+      "Actual": "{ok,6}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "[1,2] \u002B\u002B [3]",
+      "Expected": "{ok,[1,2,3]}",
+      "Actual": "{ok,[1,2,3]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "[1,2,1] -- [1]",
+      "Expected": "{ok,[2,1]}",
+      "Actual": "{ok,[2,1]}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "-7 div 3",
+      "Expected": "{ok,-2}",
+      "Actual": "{ok,-2}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "-7 rem 3",
+      "Expected": "{ok,-1}",
+      "Actual": "{ok,-1}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case {1,1} of {X,X} -\u003E X; _ -\u003E no end",
+      "Expected": "{ok,1}",
+      "Actual": "{ok,1}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "case a of X when hd(X) == 1; is_atom(X) -\u003E ok end",
+      "Expected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "receive {hello, X} -\u003E X after 0 -\u003E timeout end",
+      "Expected": "{ok,timeout}",
+      "Actual": "{ok,timeout}",
+      "ExitReason": "normal",
+      "Passed": true
+    },
+    {
+      "Source": "lists:map(fun(X) -\u003E X * 2 end, [1,2,3])",
+      "Expected": "{ok,[2,4,6]}",
+      "Actual": "{ok,[2,4,6]}",
+      "ExitReason": "normal",
+      "Passed": true
+    }
+  ]
+}

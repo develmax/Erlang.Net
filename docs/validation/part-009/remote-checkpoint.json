@@ -1,0 +1,23 @@
+{
+  "RunId": 37940002401,
+  "JobId": 113851665551,
+  "Url": "https://github.com/develmax/Erlang.Net/actions/runs/37940002401",
+  "TestedHead": "4a8c379b7fed318af3122f1b5e089c2abcf73534",
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBuild": "success",
+  "Comparison": "incomplete source error",
+  "Planned": 62,
+  "Executed": 16,
+  "Passed": 16,
+  "Failed": 0,
+  "ArtifactId": 11620948323,
+  "ArtifactZipSha256": "ac9c979e880a0d400a1dbdbe6bcc3175224b725828197f002d6233dd5883787b",
+  "ArtifactReport": "oracle-4a8c379.json",
+  "Diagnosis": "The corpus includes U+FFFF, excluded by pinned erl_scan UNICODE macro. Explicit UTF-8 decoding reproduced rejection. Prior transport-cause claim is corrected in part 009.",
+  "PredecessorWindowsCI": {
+    "RunId": 37939962905,
+    "Head": "4a8c379b7fed318af3122f1b5e089c2abcf73534",
+    "Conclusion": "success"
+  }
+}

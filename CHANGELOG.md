@@ -367,3 +367,45 @@ Inspected pinned init.erl argument decoding and unicode.erl/erl_scan/erl_parse/e
 The repaired Unicode command has local protocol evidence but still needs actual OTP execution. Current corpus has 62 cases; this part does not claim they passed. Stack traces, signals, side effects, bitstring patterns/remaining segment types and the wider runtime/OTP/distribution gaps remain pending. No benchmark rerun or new performance claim. Updated current progress/compatibility/semantic boundaries and preserved immutable reports.
 
 Commit title: `Repair Unicode oracle transport and preserve partial differential reports`. Publish to origin/main, dispatch the existing pinned oracle workflow on the new head, inspect every result and fix genuine mismatches before continuing binary patterns. Record new-head CI and oracle outcomes in the next English work-part entry.
+
+## Part 009 — 2026-10-09 — Bitstring matching and corrected Unicode diagnosis
+
+**Status:** completed for the documented integer/binary pattern subset and quoted-literal fix; Partially compatible. Full assignment remains unfinished, approximately 5% by the existing coarse estimate.
+
+### Language changes
+
+Added [BitPattern.cs](src/Erlang.Compiler/BitPattern.cs), integrated with [parser](src/Erlang.Compiler/Syntax.cs), [scope/guard analysis](src/Erlang.Compiler/Semantics.cs) and [generated C# AST emission](src/Erlang.Compiler/CodeGeneration.cs). Patterns now extract signed/unsigned integers in big/little/native order, including partial octets and zero width. They extract binary prefixes/tails at unaligned bit offsets, enforce sizes/units, match exact integer literals without construction truncation, and support strings expanded to byte literals.
+
+Size expressions use the guard subset and bindings from preceding segments. A fun head can read a captured size in its first segment, then use the newly extracted shadowing variable in later sizes, as in fun(<<L:L,B:L>>) with outer L=8 and extracted L=16. Forward/unbound size variables and nonguard calls are diagnosed. An unsized binary segment must be last. Nested segment patterns remain diagnosed as unsupported. Existing transactional Pattern.Match prevents bindings from leaking when a later segment fails; selective receive retains earlier nonmatching messages.
+
+BitSegment now retains signedness and generated code preserves it; construction still uses low-bit truncation. The parser translates source bit syntax to dedicated patterns. [map_source.erl](examples/HelloHybrid/map_source.erl) adds unpack/1 with prior-segment width, signed little-endian extraction and partial tails; [the hybrid example](examples/HelloHybrid/Program.cs) matches bits and exercises unpack/1, also through the real PackageReference consumer.
+
+There are **31 permanent pattern tests** (one replaces the previous pending-pattern diagnostic), covering all listed boundaries, captured size shadow/repeated bindings, invalid sizes, exact literals, nested map values, badmatch reasons, transactional rollback and ordered selective receive. Two additional lexer tests bring the net increase to **32**, total **240**. The differential corpus adds **28 pattern/value/error cases**, total **90**; these new cases have not yet run against OTP.
+
+### Dated correction to part 008 and actual remote evidence
+
+Part 008's inference that native argument decoding caused the Unicode failure was not established. [Run 37940002401](https://github.com/develmax/Erlang.Net/actions/runs/37940002401), at 4a8c379b7fed318af3122f1b5e089c2abcf73534, again built the exact reference, matched **16 of 62 planned cases**, and stopped on the same Unicode test even with explicit UTF-8 decoding. Pinned erl_scan.erl's UNICODE macro excludes U+FFFE and U+FFFF. The corpus contained a literal U+FFFF; this is the confirmed source error. Earlier entries and immutable reports are retained as history, with this correction superseding their causal diagnosis.
+
+Replaced that corpus literal with valid U+FFFD, retaining the supplementary-versus-BMP ordering boundary. Our quoted-literal scanner now rejects U+FFFE/U+FFFF and malformed surrogate sequences, matching the audited reference range; direct term values remain separate from source literal legality. The ASCII UTF-8 transport is retained for deterministic source transfer. Unicode validation outside quoted literals and full escape support remain pending.
+
+The repaired runner did preserve a real incomplete JSON artifact this time: [original report](docs/validation/part-009/oracle-4a8c379.json), [head/run/artifact metadata](docs/validation/part-009/remote-checkpoint.json). Downloaded artifact ZIP SHA256 matched GitHub's digest ac9c979e880a0d400a1dbdbe6bcc3175224b725828197f002d6233dd5883787b. This verifies partial-report persistence and 16 actual matches, not a complete corpus match; maps/bitstrings were still not reached.
+
+### Reference, reuse and validation
+
+Inspected pinned expressions.md matching/guard-size/binary-unit contracts, compiler bs_match_SUITE.erl size_shadow_1/2/3, and erl_scan.erl UNICODE. Reused BitString, BigInteger, transactional patterns and guard evaluation. No package or copied reference implementation; [audit](docs/dependency-decisions.md). Production remains independent of BEAM and the reference checkout remains unchanged.
+
+| Check | Exact command / saved evidence | Result |
+| --- | --- | --- |
+| Full solution and permanent regressions | pwsh -File tools/validate.ps1; [tests](docs/validation/part-009/tests.json) | **240 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| Generated .erl/hybrid/incremental/disabled/clean/package consumer/local CLI | Same script; [integration](docs/validation/part-009/integration-results.json) | Passed, exact Hello World; disabled preprocessing and missing oracle failed as expected |
+| Predecessor Windows CI | [4a8c379 run 37939962905](https://github.com/develmax/Erlang.Net/actions/runs/37939962905) | Success; predecessor only |
+| Remote oracle at earlier 4a8c379 head | Run 37940002401 / real artifact | 16 matches, 0 observed semantic mismatches, source-error abort; 46 cases unexecuted |
+| Hygiene | git diff --check, JSON/test-evidence/link checks, reference status | Checked before commit; official checkout unchanged |
+
+Initial validation failures were corrected before this checkpoint: new fixtures used comma sequences at a top-level single-expression entry point and an error fixture used the success-only helper. Fixtures now use case bodies or the existing captured-error helper. The generated example was changed to native hybrid syntax for its packed value. Final full validation passed.
+
+### Boundaries and next work
+
+Current representation lengths remain int-sized. Extraction shifts per bit and binary slices copy; no performance or resource-limit equivalence claim. Float/UTF segments, string modifiers, complete pattern-scope combinations, escapes/diagnostic spans and the wider runtime/OTP/distribution scope remain pending. No benchmark rerun. All 49 MFAs/features retain their prior partial status; no broad promotion from 16 matches.
+
+Updated progress, compatibility, semantic boundaries, next steps and README; immutable reports preserve both local results and the actual failed oracle attempt. Commit title: `Add bitstring patterns and align quoted Unicode source validation`. Publish this tested part and dispatch the corrected 90-case corpus on its exact head; inspect all comparisons, fix mismatches, then add remaining segment types and pattern-scope cases.

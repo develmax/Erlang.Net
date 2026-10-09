@@ -34,12 +34,14 @@ public static class CodeGeneration
         Pattern.Tuple t => "new " + P + "Tuple(" + Array(t.Items, PatternCode, "global::Erlang.Pattern") + ")",
         Pattern.List l => "new " + P + "List(" + Array(l.Items, PatternCode, "global::Erlang.Pattern") + "," + (l.Tail is null ? "null" : PatternCode(l.Tail)) + ")",
         MapPattern m => "new global::Erlang.Compiler.MapPattern(" + Array(m.Fields, f => "new global::Erlang.Compiler.MapPatternField(" + ExpressionCode(f.Key) + "," + PatternCode(f.Value) + ")", "global::Erlang.Compiler.MapPatternField") + ")",
+        BitPattern bits => "new global::Erlang.Compiler.BitPattern(" + Array(bits.Segments, s => "new global::Erlang.Compiler.BitPatternSegment(" + PatternCode(s.Value) + "," + BitSegmentCode(s.Specification) + ")", "global::Erlang.Compiler.BitPatternSegment") + ")",
         _ => throw new NotSupportedException()
     };
     private static string ClauseCode(Clause c) => "new global::Erlang.Compiler.Clause(" + Array(c.Patterns, PatternCode, "global::Erlang.Pattern") + "," + Optional(c.Guard) + "," + ExpressionCode(c.Body) + ")";
     private static string Clauses(IReadOnlyList<Clause> clauses) => Array(clauses, ClauseCode, "global::Erlang.Compiler.Clause");
     private static string Expressions(IReadOnlyList<Expr> expressions) => Array(expressions, ExpressionCode, "global::Erlang.Compiler.Expr");
     private static string Optional(Expr? expression) => expression is null ? "null" : ExpressionCode(expression);
+    private static string BitSegmentCode(BitSegment s) => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + "," + (s.Signed ? "true" : "false") + ")";
     public static string ExpressionCode(Expr expression) => expression switch
     {
         Expr.Literal l => "new " + E + "Literal(" + TermCode(l.Value) + ")",
@@ -47,7 +49,7 @@ public static class CodeGeneration
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
         Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(m.Fields, f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")", "global::Erlang.Compiler.MapField") + ")",
-        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, s => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + ")", "global::Erlang.Compiler.BitSegment") + ")",
+        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
         Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + ")",

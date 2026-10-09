@@ -45,6 +45,13 @@ Test("terms/map-exact-keys", () => { var m = new MapTerm([new(Term.I(1), Term.A(
 Test("terms/map-integer-before-all-floats", () => { var m = new MapTerm([new(new FloatTerm(-100), Term.A("float")), new(Term.I(100), Term.A("integer"))]); Check(m.Entries[0].Key is Integer); return Task.CompletedTask; });
 Test("terms/signed-zero-otp29", () => { Term positive = new FloatTerm(0.0), negative = new FloatTerm(-0.0); Check(!positive.Equals(negative)); Check(positive.NumericEquals(negative)); Equal(ExternalTermFormat.Decode(ExternalTermFormat.Encode(negative)), negative); return Task.CompletedTask; });
 Test("terms/atom-codepoint-order", () => { Check(Term.A("\U00010000").CompareTo(Term.A("\uffff")) > 0); return Task.CompletedTask; });
+Test("compiler/quoted-unicode-valid-codepoint-order", async () => Equal(await Eval("'𐀀' > '\ufffd'"), Term.A("true")));
+Test("compiler/quoted-unicode-illegal-character", () =>
+{
+    foreach (string invalid in new[] { "\ufffe", "\uffff", "\ud800", "\udfff" })
+        foreach (string quote in new[] { "'", "\"" }) Throws<CompileException>(() => new Parser(quote + invalid + quote).ParseExpression());
+    return Task.CompletedTask;
+});
 Test("terms/structural-hash", () => { Term[] a = [Term.Tuple(Term.I(1), Term.List(Term.A("a"))), new FloatTerm(-0.0), new BitString([255], 3), new MapTerm([new(Term.A("x"), Term.I(2))])]; foreach (var t in a) Check(t.GetHashCode() == ExternalTermFormat.Decode(ExternalTermFormat.Encode(t)).GetHashCode()); return Task.CompletedTask; });
 Test("terms/unicode-list", () => { string s = "Привет 🌍"; Check(Term.Text(Term.String(s)) == s); return Task.CompletedTask; });
 Test("terms/immutable-binary", () => { byte[] bytes = [255]; var b = new BitString(bytes, 3); bytes[0] = 0; Check(b.ToArray()[0] == 224); var copy = b.ToArray(); copy[0] = 0; Check(b.ToArray()[0] == 224); return Task.CompletedTask; });
@@ -284,7 +291,50 @@ Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<
 Test("compiler/bits-invalid-unit-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/unit:0>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<1:8/unit:257>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-unsupported-float-utf-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1.0/float>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<65/utf8>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-duplicate-spec-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/big-little>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-pattern-pending-diagnostic", () => { Throws<CompileException>(() => new Parser("case <<1>> of <<X>> -> X end").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-pattern-default", async () => Equal(await Eval("case <<42>> of <<X>> -> X end"), Term.I(42)));
+Test("compiler/bits-pattern-signed", async () => Equal(await Eval("case <<255>> of <<X:8/signed>> -> X end"), Term.I(-1)));
+Test("compiler/bits-pattern-unsigned", async () => Equal(await Eval("case <<255>> of <<X:8/unsigned>> -> X end"), Term.I(255)));
+Test("compiler/bits-pattern-signed-little", async () => Equal(await Eval("case <<-257:16/little>> of <<X:16/signed-little>> -> X end"), Term.I(-257)));
+Test("compiler/bits-pattern-little-partial", async () => Equal(await Eval("case <<291:12/little>> of <<X:12/little>> -> X end"), Term.I(291)));
+Test("compiler/bits-pattern-native", async () => Equal(await Eval("case <<4660:16/native>> of <<X:16/native>> -> X end"), Term.I(4660)));
+Test("compiler/bits-pattern-prior-size", async () => Equal(await Eval("case <<3,5:3,2:2>> of <<N, X:N, Rest/bitstring>> -> {X,Rest} end"), Term.Tuple(Term.I(5), new BitString([128],2))));
+Test("compiler/bits-pattern-bound-size-expression", async () => Equal(await Eval("case 3 of N -> case <<17:5>> of <<X:(N+2)>> -> X end end"), Term.I(17)));
+Test("compiler/bits-pattern-shadow-size", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L>>) -> B end, F(<<16:8,7:16>>) end"), Term.I(7)));
+Test("compiler/bits-pattern-shadow-repeat", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L,L:L>>) -> B; (_) -> no end, F(<<16:8,7:16,16:16>>) end"), Term.I(7)));
+Test("compiler/bits-pattern-repeat-mismatch", async () => Equal(await Eval("case <<1,2>> of <<X,X>> -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/bits-pattern-bound-value", async () => Equal(await Eval("case 42 of X -> case <<42>> of <<X>> -> ok; _ -> no end end"), Term.A("ok")));
+Test("compiler/bits-pattern-short-extra-nonbits", async () => { foreach (string source in new[] { "<<1:7>>", "<<1,2>>", "atom" }) Equal(await Eval("case " + source + " of <<X:8>> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-pattern-zero-signed", async () => Equal(await Eval("case <<>> of <<X:0/signed>> -> X end"), Term.I(0)));
+Test("compiler/bits-pattern-binary-prefix", async () => Equal(await Eval("case <<1,2,3>> of <<B:2/binary,T/binary>> -> {B,T} end"), Term.Tuple(new BitString([1,2]),new BitString([3]))));
+Test("compiler/bits-pattern-unaligned-prefix", async () => Equal(await Eval("case <<1:1,5:3>> of <<_:1,B:3/bitstring>> -> B end"), new BitString([160],3)));
+Test("compiler/bits-pattern-unit", async () => Equal(await Eval("case <<1,2>> of <<X:2/unit:8>> -> X end"), Term.I(258)));
+Test("compiler/bits-pattern-rest-unit-mismatch", async () => Equal(await Eval("case <<1:1>> of <<B/binary>> -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/bits-pattern-invalid-size-alternative", async () => { foreach (string size in new[] { "-1", "atom", "1.0", "999999999999999999999999", "(hd(atom))" }) Equal(await Eval("case <<1>> of <<X:" + size + ">> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-pattern-string-prefix", async () => Equal(await Eval("case <<\"OK\",42>> of <<\"OK\",X>> -> X end"), Term.I(42)));
+Test("compiler/bits-pattern-literal-no-truncation", async () => Equal(await Eval("case <<0>> of <<256>> -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/bits-pattern-signed-literal", async () => Equal(await Eval("case <<255>> of <<-1:8/signed>> -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/bits-pattern-empty", async () => Equal(await Eval("case <<>> of <<>> -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/bits-pattern-rollback", () => { var p = Parser.ToPattern(new Parser("<<N,1>>").ParseExpression()); var b = new Dictionary<string,Term>(); Check(!p.Match(new BitString([42,2]),b)); Check(b.Count == 0); return Task.CompletedTask; });
+Test("compiler/bits-pattern-forward-size-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case <<1>> of <<X:N,N>> -> X end").ParseExpression())); return Task.CompletedTask; });
+Test("compiler/bits-pattern-nonlast-rest-diagnostic", () => { Throws<CompileException>(() => new Parser("case <<1>> of <<B/binary,X>> -> X end").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-pattern-size-call-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case <<1>> of <<X:(lists:sum([8]))>> -> X end").ParseExpression())); return Task.CompletedTask; });
+Test("compiler/bits-pattern-nested-diagnostic", () => { Throws<CompileException>(() => new Parser("case <<1>> of <<(<<X>>)/binary>> -> X end").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-pattern-map-value", async () => Equal(await Eval("case #{a => <<3,5:3>>} of #{a := <<N,X:N>>} -> X end"), Term.I(5)));
+Test("compiler/bits-pattern-match-badmatch", async () => Equal(await MapError("<<X:16>> = <<1>>"),Term.Tuple(Term.A("badmatch"),new BitString([1]))));
+Test("compiler/bits-pattern-receive-preserves-unmatched", async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    var process = runtime.Spawn(async ctx =>
+    {
+        ctx.Mailbox.Send(Term.A("earlier")); ctx.Mailbox.Send(new BitString([2,42])); ctx.Mailbox.Send(new BitString([1,7]));
+        var expression = new Parser("receive <<1,X>> -> X after 0 -> no end").ParseExpression(); Semantics.Validate(expression);
+        Equal(await Execution.EvaluateAsync(expression,ctx), Term.I(7));
+        Equal((await ctx.ReceiveAsync(t => t,TimeSpan.Zero))!,Term.A("earlier"));
+        Equal((await ctx.ReceiveAsync(t => t,TimeSpan.Zero))!,new BitString([2,42]));
+        return Term.A("ok");
+    });
+    Equal(await process.Completion,Term.A("normal"));
+});
 Test("compiler/bits-guard-and-map-key", async () => Equal(await Eval("case #{<<1,2>> => 42} of #{<<1,2>> := V} when <<1:3>> =:= <<1:3>> -> V end"),Term.I(42)));
 Test("compiler/bits-unit-without-size-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1/unit:8>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-string-modifier-pending-diagnostic", () => { Throws<CompileException>(() => new Parser("<<\"ab\":16/little>>").ParseExpression()); return Task.CompletedTask; });

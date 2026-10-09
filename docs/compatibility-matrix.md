@@ -16,7 +16,8 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Erlang parser/analyzer/emitter | Partially compatible | compiler/*; lexer/Pratt AST, scopes/guards/module exports, generated AST C#; full grammar/IR/native lowering pending |
 | Map source construction/updates/patterns | Partially compatible | compiler/map-*, patterns/map-rollback, hybrid/map-*, generated map_source.erl and PackageReference integration; full guard/BIF set/comprehensions/oracle pending |
 | is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
-| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary segments only, patterns/float/UTF/string modifiers/oracle pending |
+| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary segments only, float/UTF/string modifiers/oracle pending |
+| Bitstring source patterns | Partially compatible | compiler/bits-pattern-* plus generated unpack/1 and hybrid/PackageReference checks; signed/unsigned integer extraction, binary slices/rest, guard sizes and prior-segment bindings; full scope/segment/oracle evidence pending |
 | is_bitstring/bit_size/byte_size | Partially compatible | Three direct MFA cases plus compiler/bit-size-byte-rounding, predicate/size/error/guard/pattern-key regressions; oracle/resource-limit fidelity pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |
 | gen_server | Partially compatible | otp/gen-server-call-cast-info-stop, crash-monitor, timeout, init-error; aliases/sys/full callback protocol pending |
@@ -24,7 +25,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Mixed C#/Erlang | Partially compatible | hybrid/* and HelloHybrid integration; async receive/case/fun blocks at selected boundaries; arbitrary inline syntax/sync contexts pending |
 | MSBuild/local package | Partially compatible | tools/validate.ps1: output, incrementality, negative preprocessing, clean/rebuild, local consumer/tool; SDK/TFM/design-time expansion pending |
 | Source diagnostics/maps | Partially compatible | ERL001-008 parser/semantic errors, #line and line preservation; AST columns/full debugger/IDE mapping pending |
-| Differential verification | Implemented | Exact local oracle absent; remote run 37938184184 built successfully and matched 16/57 planned cases at dc91e8c before a Unicode transport abort. Part 008 repairs transport and preserves partial reports; full current 62-case run pending |
+| Differential verification | Implemented | Exact local oracle absent; remote run 37938184184 built successfully and matched 16/57 planned cases at dc91e8c before an invalid Unicode source abort; 4a8c379 repeated 16/62 and saved JSON. Part 009 corrects U+FFFF corpus/lexer; complete current 90-case run pending |
 | Full expanded source inventory | Investigated | 1,289 source modules / 38,622 explicit exports / 524 BIF entries; expansion/contracts incomplete |
 | gen_statem/gen_event/application/SASL | Not started | Not implemented |
 | Distribution/remote links/monitors/RPC | Not started | No real-node interop claim |
