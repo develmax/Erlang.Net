@@ -62,3 +62,7 @@ Run 37999487360 at **399062314cb5ff609e66b82a4cb923fcd2840a94** built the pinned
 ## Part 027 — Reproducible per-module progress
 
 Report actual registered and directly tested MFAs against the pinned union of explicit exports/BIF declarations, plus deltas from the explicitly selected immutable prior report. Keep partial C# component milestones and remaining tasks separate; never invent weighted semantic percentages. Fail readiness generation on baseline mismatch, registry mismatch, failed/stale tests or incorrect direct-test evidence. Full zero-registration rows live in JSON, focused rows in Markdown. lists nth/nthtail/seq reuse immutable Cons and BigInteger after pinned source audit; no Enumerable index/range shortcut, copied OTP implementation or new dependency. Retain the int.MaxValue sequence resource difference explicitly. [Reuse audit](dependency-decisions.md), [readiness](MODULE_READINESS.md).
+
+## Part 028 — Preserve tested-head provenance
+
+Complete oracle and Windows CI results are attributed to the same implementation head **6f34dc9**, with raw artifacts, ZIP hashes and 183+36 corpus provenance in validation/part-028. Refresh readiness milestone evidence without inventing a percentage promotion. Keep the delta baseline at part-026 so this evidence-only checkpoint does not erase the last feature increment (+4). Local full validation was run in part-027; no executable source changed here. Full compiled-reference-module and resource/input contracts remain separate tasks.

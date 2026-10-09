@@ -41,3 +41,7 @@ Switch expressions place the opening brace, each arm and the closing brace on se
 ## Part 027 — List sequence resource boundary
 
 lists:nth/2 and nthtail/2 use iterative Cons traversal, including valid improper prefixes. Sequence values/count calculations use BigInteger. Materialized seq/2,3 results exceeding int.MaxValue elements raise system_limit before allocation; this is an implementation bound, not claimed OTP behavior. Smaller allocations may still exhaust host resources. Selected function_clause/badarg/value contracts have permanent local tests and 36 pending oracle cases; complete stacks/resources/applicable inputs remain unverified. Readiness declaration percentages do not quantify semantic compatibility.
+
+## Part 028 — Evidence update
+
+All 36 selected lists values/class/reason cases now match within a complete **219/219** exact-version result at 6f34dc9. This supersedes part-027's pending reference status only for those selected cases. The sequence count resource bound and full stack/input/side-effect limitations remain. No new runtime/compiler semantics or dependency in this part.
