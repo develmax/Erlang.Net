@@ -134,7 +134,7 @@
         "compiler/bits-identical-specifiers",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary construction subset; float/UTF/string modifiers/complete diagnostics and full applicable oracle coverage pending"
+      "limits": "Integer/binary/float16/32/64 subset; UTF/string modifiers/complete diagnostics and full applicable oracle coverage pending"
     },
     {
       "name": "Bitstring source patterns",
@@ -149,7 +149,7 @@
         "compiler/bits-pattern-forward-size-diagnostic",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary segments with guard sizes and prior-segment bindings; float/UTF/string modifiers/full scope interactions and full applicable oracle coverage pending"
+      "limits": "Integer/binary/float segments with guard sizes and prior-segment bindings; UTF/string modifiers/full scopes/reference suites pending"
     },
     {
       "name": "Bitstring guard BIFs",
@@ -210,7 +210,7 @@
         "compiler/bits-size-prefix-requires-parentheses",
         "validation/part-012/differential.json"
       ],
-      "limits": "Exact OTP-29.1.1 93/93 corpus matched at c139b45 in run 37943457369. Values and exception class/reason only; full stacks/signals/side effects/reference suites remain unverified; no broad feature/MFA promotion."
+      "limits": "Exact OTP-29.1.1 93/93 corpus matched at c139b45 in run 37943457369. Values and exception class/reason only; full stacks/signals/side effects/reference suites remain unverified; no broad feature/MFA promotion. Current corpus has 123 cases, including 30 new float cases awaiting a tested-head remote run."
     },
     {
       "name": "Complete expanded inventory",
@@ -234,6 +234,22 @@
       "name": "Full reference suites",
       "status": "Not started",
       "evidence": []
+    },
+    {
+      "name": "Float bit segments",
+      "status": "Partially compatible",
+      "evidence": [
+        "compiler/bits-float16-round-once",
+        "compiler/bits-float16-all-finite-roundtrip",
+        "compiler/bits-float-integer-rounding",
+        "compiler/bits-float-integer-max-boundary",
+        "compiler/bits-float-pattern-nonfinite-reject",
+        "compiler/bits-float-pattern-unaligned",
+        "compiler/bits-float-signed-zero",
+        "validation/part-013/tests.json",
+        "validation/part-013/integration-results.json"
+      ],
+      "limits": "16/32/64 construction and finite matching, zero-width float patterns, endian/unit/numeric conversion. New float oracle cases pending; UTF/string modifiers/full diagnostics/scope/suites incomplete."
     }
   ]
 }

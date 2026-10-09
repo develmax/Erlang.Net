@@ -16,7 +16,8 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Erlang parser/analyzer/emitter | Partially compatible | compiler/*; lexer/Pratt AST, scopes/guards/module exports, generated AST C#; full grammar/IR/native lowering pending |
 | Map source construction/updates/patterns | Partially compatible | compiler/map-*, patterns/map-rollback, hybrid/map-*, generated map_source.erl and PackageReference integration; full guard/BIF set/comprehensions/oracle pending |
 | is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
-| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary segments only, float/UTF/string modifiers/oracle pending |
+| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary/float16/32/64 segments, direct rounding and integer coercion; UTF/string modifiers/new float oracle/full suites pending |
+| Float bit segments | Partially compatible | compiler/bits-float-*; 27 new tests including 63,488 finite binary16 roundtrips and generated .erl/hybrid/consumer checks; 123-case corpus pending |
 | Bitstring source patterns | Partially compatible | compiler/bits-pattern-* plus generated unpack/1 and hybrid/PackageReference checks; signed/unsigned integer extraction, binary slices/rest, guard sizes and prior-segment bindings; full scope/segment/oracle evidence pending |
 | is_bitstring/bit_size/byte_size | Partially compatible | Three direct MFA cases plus compiler/bit-size-byte-rounding, predicate/size/error/guard/pattern-key regressions; oracle/resource-limit fidelity pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |

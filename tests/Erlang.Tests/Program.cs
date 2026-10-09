@@ -295,7 +295,62 @@ Test("compiler/bits-float-size", async () => Equal(await MapError("<<1:1.0>>"),T
 Test("compiler/bits-short-binary", async () => Equal(await MapError("<<(<<1>>):2/binary>>"),Term.A("badarg")));
 Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<(<<1:1>>)/binary>>"),Term.A("badarg")));
 Test("compiler/bits-invalid-unit-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/unit:0>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<1:8/unit:257>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-unsupported-float-utf-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1.0/float>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<65/utf8>>").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-unsupported-utf-diagnostic", () => { Throws<CompileException>(() => new Parser("<<65/utf8>>").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-float16-vector", async () => Equal(await Eval("<<1.5:16/float>>"),new BitString([62,0])));
+Test("compiler/bits-float32-vector", async () => Equal(await Eval("<<1.5:32/float>>"),new BitString([63,192,0,0])));
+Test("compiler/bits-float64-default", async () => Equal(await Eval("<<1.5/float>>"),new BitString([63,248,0,0,0,0,0,0])));
+Test("compiler/bits-float-little-native", async () => { Equal(await Eval("<<1.5:16/float-little,1.5:32/float-little>>"),new BitString([0,62,0,0,192,63])); Equal(await Eval("<<1.5:16/float-native>>"),new BitString(BitConverter.IsLittleEndian ? [0,62] : [62,0])); });
+Test("compiler/bits-float-integer-coercion", async () => Equal(await Eval("<<1:16/float,2:32/float>>"),new BitString([60,0,64,0,0,0])));
+Test("compiler/bits-float-unit", async () => Equal(await Eval("<<1.5:2/float-unit:8>>"),new BitString([62,0])));
+Test("compiler/bits-float-bad-size", async () => { foreach (string source in new[] { "<<1.0:0/float>>", "<<1.0:8/float>>", "<<1.0:128/float>>", "<<1.0:all/float>>" }) Equal(await MapError(source),Term.A("badarg")); });
+Test("compiler/bits-float-bad-value", async () => { Equal(await MapError("<<atom/float>>"),Term.A("badarg")); Equal(await MapError("<<"+(BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture)+"/float>>"),Term.A("badarg")); });
+Test("compiler/bits-float16-round-once", async () => { Equal(await Eval("<<1.00048828125:16/float>>"),new BitString([60,0])); Equal(await Eval("<<1.000488282181322574615478515625:16/float>>"),new BitString([60,1])); Equal(await Eval("<<1.00048840045928955078125:16/float>>"),new BitString([60,1])); });
+Test("compiler/bits-float16-subnormal-vectors", async () => { Equal(await Eval("<<3.039836883544921875e-6:16/float>>"),new BitString([0,51])); Equal(await Eval("<<2.98023223876953125e-7:16/float>>"),new BitString([0,5])); Equal(await Eval("<<3.0517578125e-5:16/float>>"),new BitString([2,0])); });
+Test("compiler/bits-float-narrow-overflow", async () => { Equal(await Eval("<<1000000000:16/float>>"),new BitString([124,0])); Equal(await Eval("<<1.0e100:32/float>>"),new BitString([127,128,0,0])); });
+Test("compiler/bits-float-pattern16-rounded", async () => Equal(await Eval("case <<0.1:16/float>> of <<F:16/float>> -> F end"),new FloatTerm(0.0999755859375)));
+Test("compiler/bits-float-integer-rounding", async () =>
+{
+    Equal(await Eval("case <<9007199254740995/float,-9007199254740995/float,9007199254740993/float>> of <<A/float,B/float,C/float>> -> {A,B,C} end"),Term.Tuple(new FloatTerm(9007199254740996.0),new FloatTerm(-9007199254740996.0),new FloatTerm(9007199254740992.0)));
+    Equal(await Eval("case <<9007199254740995/float>> of <<9007199254740995/float>> -> ok; _ -> no end"),Term.A("ok"));
+    BigInteger anchor=BigInteger.One<<100;
+    Equal(await Eval("case <<"+(anchor+(BigInteger.One<<47)+1)+"/float>> of <<F/float>> -> F end"),new FloatTerm(Math.ScaleB(1.0,100)+Math.ScaleB(1.0,48)));
+});
+Test("compiler/bits-float-integer-max-boundary", async () =>
+{
+    BigInteger max=(BigInteger.One<<1024)-(BigInteger.One<<971),halfway=max+(BigInteger.One<<970);
+    Equal(await Eval("case <<"+(halfway-1)+"/float>> of <<F/float>> -> F end"),new FloatTerm(double.MaxValue));
+    Equal(await MapError("<<"+halfway+"/float>>"),Term.A("badarg"));
+});
+Test("compiler/bits-float-pattern32", async () => Equal(await Eval("case <<1.5:32/float>> of <<F:32/float>> -> F end"),new FloatTerm(1.5)));
+Test("compiler/bits-float-pattern64-default", async () => Equal(await Eval("case <<1.5/float>> of <<F/float>> -> F end"),new FloatTerm(1.5)));
+Test("compiler/bits-float-pattern-unaligned", async () => Equal(await Eval("case <<1:1,1.5:16/float-little,5:3>> of <<_:1,F:16/float-little,T:3>> -> {F,T} end"),Term.Tuple(new FloatTerm(1.5),Term.I(5))));
+Test("compiler/bits-float-pattern-zero", async () => Equal(await Eval("case <<>> of <<F:0/float>> -> F end"),new FloatTerm(0.0)));
+Test("compiler/bits-float-pattern-nonfinite-reject", async () => { foreach (string bits in new[] { "<<31744:16>>", "<<32256:16>>", "<<2139095040:32>>", "<<2143289344:32>>", "<<9218868437227405312:64>>", "<<9221120237041090560:64>>" }) { int size=bits.Contains(":16")?16:bits.Contains(":32")?32:64; Equal(await Eval("case "+bits+" of <<F:"+size+"/float>> -> wrong; _ -> ok end"),Term.A("ok")); } });
+Test("compiler/bits-float-pattern-invalid-short", async () => { Equal(await Eval("case <<0:8>> of <<F:8/float>> -> wrong; _ -> ok end"),Term.A("ok")); Equal(await Eval("case <<0:8>> of <<F:16/float>> -> wrong; _ -> ok end"),Term.A("ok")); });
+Test("compiler/bits-float-pattern-numeric-literal", async () => Equal(await Eval("case <<1:32/float>> of <<1:32/float>> -> ok; _ -> no end"),Term.A("ok")));
+Test("compiler/bits-float-pattern-bound-integer", async () => Equal(await Eval("case 1 of X -> case <<1:32/float>> of <<X:32/float>> -> wrong; _ -> ok end end"),Term.A("ok")));
+Test("compiler/bits-float-signed-zero", async () => { Equal(await Eval("<<-0.0:16/float>>"),new BitString([128,0])); Equal(await Eval("case <<-0.0:32/float>> of <<F:32/float>> -> F end"),new FloatTerm(-0.0)); Equal(await Eval("case <<-0.0:16/float>> of <<0.0:16/float>> -> wrong; <<-0.0:16/float>> -> ok end"),Term.A("ok")); });
+Test("compiler/bits-float-pattern-prior-width", async () => Equal(await Eval("case <<16,1.5:16/float>> of <<N,F:N/float>> -> F end"),new FloatTerm(1.5)));
+Test("compiler/bits-float-guard-and-map-key", async () => Equal(await Eval("case #{<<1.5:16/float>> => 42} of #{<<1.5:16/float>> := X} when <<1:16/float>> =:= <<1.0:16/float>> -> X end"),Term.I(42)));
+Test("compiler/bits-float-unit-without-size-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1.0/float-unit:8>>").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-float16-all-finite-roundtrip", async () =>
+{
+    var pattern=Parser.ToPattern(new Parser("<<F:16/float>>").ParseExpression());
+    await using var runtime=new ProcessRuntime();
+    var process=runtime.Spawn(async ctx =>
+    {
+        for (int bits=0;bits<=ushort.MaxValue;bits++)
+        {
+            if ((bits & 0x7c00)==0x7c00) continue;
+            var input=new BitString([(byte)(bits>>8),(byte)bits]); var bindings=new Dictionary<string,Term>();
+            Check(pattern.Match(input,bindings,ctx));
+            var expression=new Expr.Bits([new BitSegment(new Expr.Literal(bindings["F"]),new Expr.Literal(Term.I(16)),"float")]);
+            Equal(await Execution.EvaluateAsync(expression,ctx),input);
+        }
+        return Term.A("ok");
+    });
+    Equal(await process.Completion,Term.A("normal"));
+});
 Test("compiler/bits-duplicate-spec-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/big-little>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-pattern-default", async () => Equal(await Eval("case <<42>> of <<X>> -> X end"), Term.I(42)));
 Test("compiler/bits-pattern-signed", async () => Equal(await Eval("case <<255>> of <<X:8/signed>> -> X end"), Term.I(-1)));

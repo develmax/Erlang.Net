@@ -10,16 +10,17 @@ internal static class BitConstruction
         for (int i = 0; i < sizes.Length; i++)
         {
             var (value, size, segment) = segments[i];
-            bool integer = segment.Type == "integer";
-            if (integer ? value is not Integer : value is not BitString) throw new ErlangException("badarg");
+            bool integer = segment.Type == "integer", floating = segment.Type == "float", binary = segment.Type == "binary";
+            if (integer ? value is not Integer : floating ? value is not (Integer or FloatTerm) : value is not BitString) throw new ErlangException("badarg");
             BigInteger bits;
-            bool whole = size is null || !integer && size is Atom { Name: "all" };
-            if (whole) bits = integer ? 8 * segment.Unit : ((BitString)value).BitLength;
+            bool whole = size is null || binary && size is Atom { Name: "all" };
+            if (whole) bits = integer ? 8 * segment.Unit : floating ? 64 * segment.Unit : ((BitString)value).BitLength;
             else if (size is Integer number && number.Value >= 0) bits = number.Value * segment.Unit;
             else throw new ErlangException("badarg");
             if (bits > int.MaxValue) throw new ErlangException("system_limit");
             int count = (int)bits;
-            if (!integer && (count > ((BitString)value).BitLength || whole && count % segment.Unit != 0)) throw new ErlangException("badarg");
+            if (floating && count is not (16 or 32 or 64)) throw new ErlangException("badarg");
+            if (binary && (count > ((BitString)value).BitLength || whole && count % segment.Unit != 0)) throw new ErlangException("badarg");
             total += count; if (total > int.MaxValue - 7) throw new ErlangException("system_limit");
             sizes[i] = count;
         }
@@ -28,7 +29,7 @@ internal static class BitConstruction
         for (int i = 0; i < segments.Count; i++)
         {
             var (value, _, segment) = segments[i]; int size = sizes[i];
-            if (value is Integer integer)
+            if (segment.Type == "integer" && value is Integer integer)
             {
                 bool little = segment.Endian == "little" || segment.Endian == "native" && BitConverter.IsLittleEndian;
                 if (!little)
@@ -39,7 +40,7 @@ internal static class BitConstruction
             }
             else
             {
-                byte[] source = ((BitString)value).ToArray();
+                byte[] source = segment.Type == "float" ? BitFloat.Encode(value, size, segment.Endian) : ((BitString)value).ToArray();
                 for (int bit = 0; bit < size; bit++) Append((source[bit / 8] >> (7 - bit % 8)) & 1);
             }
         }

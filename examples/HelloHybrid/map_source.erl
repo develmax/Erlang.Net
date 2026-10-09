@@ -1,5 +1,5 @@
 -module(map_source).
--export([run/0, pick/1, bits/0, bit_guard/1, unpack/1]).
+-export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0]).
 run() ->
     M = #{1 => int, 1.0 => float, value => 40},
     N = M#{value := 42, extra => ok},
@@ -16,3 +16,7 @@ bit_guard(_) -> no.
 
 unpack(<<N:8, X:16/signed-little, B:N/bitstring, T/bitstring>>) -> {X,B,T};
 unpack(_) -> no.
+
+float_check() ->
+    <<1:1,F:16/float-little,T:3>> = <<1:1,1.5:16/float-little,5:3>>,
+    {F,T}.

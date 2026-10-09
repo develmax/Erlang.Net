@@ -19,6 +19,10 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     var packed = case <<3,-257:16/little,5:3,2:2>> of P -> P end.
     var unpacked = await runtime.Modules.Call(erlangProcess, "map_source", "unpack", packed);
     if (!unpacked.Equals(Term.Tuple(Term.I(-257),new BitString([160],3),new BitString([128],2)))) throw new InvalidOperationException("Bit pattern module generation failed");
+    var floatCheck = await runtime.Modules.Call(erlangProcess, "map_source", "float_check");
+    if (!floatCheck.Equals(Term.Tuple(new FloatTerm(1.5),Term.I(5)))) throw new InvalidOperationException("Float segment module generation failed");
+    var floatZero = case <<-0.0:32/float>> of <<F:32/float>> -> F end.
+    if (!floatZero.Equals(new FloatTerm(-0.0))) throw new InvalidOperationException("Hybrid float zero changed sign");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

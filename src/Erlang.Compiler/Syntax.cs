@@ -221,7 +221,7 @@ public sealed class Parser
                     string spec = Name(); string category;
                     switch (spec)
                     {
-                        case "integer": case "binary":
+                        case "integer": case "binary": case "float":
                             category = "type"; type = spec; break;
                         case "bytes": case "bitstring": case "bits":
                             category = "type"; type = "binary"; int aliasUnit = spec == "bytes" ? 8 : 1;
@@ -238,7 +238,7 @@ public sealed class Parser
                 } while (Take("-"));
             }
             int defaultUnit = type is "binary" or "bytes" ? 8 : 1;
-            if (type == "integer" && size is null && unit is not null) throw Error("An explicit integer segment unit requires a size");
+            if ((type is "integer" or "float") && size is null && unit is not null) throw Error("An explicit numeric segment unit requires a size");
             if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value)) segments.Add(new(new Expr.Literal(item), null));

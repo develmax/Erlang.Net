@@ -487,3 +487,38 @@ The same head passed [Windows CI run 37943449681](https://github.com/develmax/Er
 Updated current progress, compatibility JSON and semantic boundaries to point to the complete corpus and retain full-scope limitations. The actual oracle was development-only; production remains independent of BEAM, baseline unchanged, official sibling checkout unchanged. JSON/count/artifact-digest/evidence and git diff --check checks performed before commit. No runtime regression rerun was necessary for evidence-only documentation changes.
 
 Full stack traces, asynchronous signals, side effects, complete applicable inputs and OTP reference suites remain unverified. No full feature/module is promoted to Verified compatible solely from selected corpus cases. Next executable unit: float bit segments with 16/32/64 sizes, endianness, finite-value/error handling and generated .erl/hybrid tests, followed by UTF/string modifiers and broader scope contracts. Commit title: `Record complete pinned OTP differential corpus results`; publish the evidence checkpoint before the next implementation part.
+
+## Part 013 — 2026-10-09 — Float bit construction and patterns
+
+**Part status:** completed for the implemented local subset; remote float comparison pending. Full assignment remains approximately **5%**, a coarse engineering estimate rather than measured compatibility.
+**Objective and scope:** replace the unsupported float-segment diagnostic with C# construction and matching for binary16/32/64, preserving byte order, numeric conversion and finite-term semantics through source compilation and hybrid/package integration.
+
+### Changes
+
+- [Syntax.cs](src/Erlang.Compiler/Syntax.cs) accepts float specifiers/default 64 bits and diagnoses a numeric unit without an explicit size. [BitConstruction.cs](src/Erlang.Compiler/BitConstruction.cs), [BitPattern.cs](src/Erlang.Compiler/BitPattern.cs) and new [BitFloat.cs](src/Erlang.Compiler/BitFloat.cs) implement 16/32/64-bit big/little/native construction, unaligned extraction, finite-only decoding, prior-segment sizes, units, numeric literals and signed zero. Zero-width float patterns bind positive zero; zero-width construction raises badarg.
+- Reuse of a raw BigInteger-to-double cast initially truncated values (9007199254740995 became 9007199254740994). Added explicit nearest-even rounding with sticky-bit handling, carry and finite-double overflow boundaries for construction and integer pattern literals. Half conversion rounds directly from double, avoiding the single-precision intermediate trap.
+- Narrowing finite double values can produce infinity bit encodings, which remain binary data. Matching infinity/NaN fails without creating an invalid FloatTerm. Other clauses can still match the input.
+- Added **27 permanent tests**, including all **63,488 finite half encodings**, subnormal/direct-rounding vectors, signed zero, integer ties/sticky bits/max-double boundary, numeric literal versus bound integer matching, nonfinite/short/invalid segments and guard/map-key usage. Replaced the old combined float/UTF unsupported test with the remaining UTF diagnostic. One new test fixture used unsupported bsl; replaced it with an explicit BigInteger literal before final validation.
+- [map_source.erl](examples/HelloHybrid/map_source.erl) and [Program.cs](examples/HelloHybrid/Program.cs) exercise generated unaligned float matching and hybrid signed-zero matching, including the real PackageReference consumer and installed local CLI. Added **30 float cases** to the development differential runner: **123 planned cases** total. No new MFA: registry remains **49**.
+
+### Decisions and compatibility
+
+Pinned OTP-29.1.1 sources inspected: expressions manual, erl_bits.erl, erl_bits.c get/put/FP16 helpers, big.c big_to_double, v3_core.erl integer pattern coercion, bs_construct_SUITE.erl fp16/coerce_to_float and bs_match_misc_SUITE.erl. Reused audited .NET Half, BitConverter, BinaryPrimitives, BigInteger and Math.ScaleB; no new dependency or copied implementation. [Dependency/license audit](docs/dependency-decisions.md) records direct double-to-half source evidence and why raw BigInteger conversion is unsuitable.
+
+Float segments remain **Partially compatible**: local/source evidence does not establish the entire bit-syntax contract. UTF/string modifiers, full size/scope/error precedence, complete diagnostics/reference suites and int-sized representation/resource boundaries remain open. No BEAM production dependency, benchmark rerun or performance equivalence claim. Official sibling checkout unchanged. The historical 93-case oracle report at c139b45 excludes this new implementation and must not be used as float verification.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-013/tests.json) | **271 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| Generated .erl/hybrid, incremental/negative/clean, local packages/consumer/CLI | Same script; [integration](docs/validation/part-013/integration-results.json) | Passed; exact Hello World, float assertions executed, expected disabled-preprocessing and unavailable-oracle failures |
+| Historical exact-version corpus | [Part 012 report](docs/validation/part-012/differential.json), run 37943457369 | 93/93 at c139b45; excludes floats, not rerun in this part |
+| Predecessor Windows CI | [d25bfe2 run 37950629019](https://github.com/develmax/Erlang.Net/actions/runs/37950629019) | Confirmed success; predecessor evidence only |
+| Evidence/hygiene | JSON counts/evidence identifiers, git diff --check, reference status | Checked before commit |
+
+The final full validation followed the rounding fix. Earlier 268/269 fixture failure and intermediate 269/269 pass are diagnostic history, not final checkpoint evidence. Local Erlang executable is absent; the new remote 123-case comparison will run after publication. Full reference suites, stacks/signals/side effects and performance comparison remain unrun.
+
+### Handoff
+
+Updated PROGRESS, COMPATIBILITY, compatibility JSON/matrix, semantic differences and NEXT_STEPS. Commit title: `Implement float bit segments with exact numeric rounding`. Publish the validated checkpoint to authorized origin/main, dispatch the 123-case pinned oracle run, preserve the actual tested-head report and resolve any mismatches before extending UTF/string syntax. Public NuGet publication remains deferred. Publication hashes and subsequent remote evidence are obtained from Git history and the next numbered evidence entry.
