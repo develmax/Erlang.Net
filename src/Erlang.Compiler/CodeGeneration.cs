@@ -21,6 +21,7 @@ public static class CodeGeneration
         Cons c => ListLiteral(c),
         TupleTerm t => "new global::Erlang.TupleTerm(" + Array(t.Items, TermCode, "global::Erlang.Term") + ")",
         MapTerm m => "new global::Erlang.MapTerm(" + Array(m.Entries, f => "new global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>(" + TermCode(f.Key) + "," + TermCode(f.Value) + ")", "global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>") + ")",
+        BitString bits => "new global::Erlang.BitString(new byte[]{" + string.Join(',', bits.ToArray()) + "}," + bits.BitLength + ")",
         _ => throw new NotSupportedException("Literal emission is not supported for " + term.GetType().Name)
     };
     private static string ListLiteral(Cons c)
@@ -46,6 +47,7 @@ public static class CodeGeneration
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
         Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(m.Fields, f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")", "global::Erlang.Compiler.MapField") + ")",
+        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, s => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + ")", "global::Erlang.Compiler.BitSegment") + ")",
         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
         Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + ")",

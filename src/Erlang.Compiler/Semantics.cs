@@ -49,6 +49,7 @@ public static class Semantics
                 else if (m.Fields.Any(f => f.Exact)) throw new CompileException("ERL004", "Map construction requires '=>' fields; ':=' is for updates or patterns", 0);
                 foreach (var field in m.Fields) { Walk(field.Key, bound, guard); Walk(field.Value, bound, guard); }
                 break;
+            case Expr.Bits bits: foreach (var segment in bits.Segments) { Walk(segment.Value, bound, guard); if (segment.Size is not null) Walk(segment.Size, bound, guard); } break;
             case Expr.Sequence s: foreach (var x in s.Items) Walk(x, bound, guard); break;
             case Expr.GuardAlternatives s: foreach (var x in s.Items) Walk(x, bound, true); break;
             case Expr.Unary u: Walk(u.Operand, bound, guard); break;

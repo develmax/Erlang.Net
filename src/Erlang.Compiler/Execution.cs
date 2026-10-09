@@ -36,6 +36,7 @@ public static class Execution
         Expr.Tuple t => new TupleTerm(t.Items.Select(x => GuardValue(x, b, ctx))),
         Expr.List l => Cons.From(l.Items.Select(x => GuardValue(x, b, ctx)), l.Tail is null ? null : GuardValue(l.Tail, b, ctx)),
         Expr.Map m => EvaluateMap(m.Base is null ? new MapTerm([]) : GuardValue(m.Base, b, ctx), m.Fields.Select(f => (GuardValue(f.Key, b, ctx), GuardValue(f.Value, b, ctx), f.Exact)).ToArray()),
+        Expr.Bits bits => BitConstruction.Create(bits.Segments.Select(s => (GuardValue(s.Value, b, ctx), s.Size is null ? null : GuardValue(s.Size, b, ctx), s)).ToArray()),
         Expr.Unary u => Unary(u.Operator, GuardValue(u.Operand, b, ctx)),
         Expr.Binary { Operator: "andalso" } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? GuardValue(x.Right, b, ctx) : Term.A("false"),
         Expr.Binary { Operator: "orelse" } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? Term.A("true") : GuardValue(x.Right, b, ctx),
@@ -63,6 +64,12 @@ public static class Execution
                     for (int i = 0; i < fields.Length; i++) fields[i] = (await Evaluate(m.Fields[i].Key, ctx, b, module), await Evaluate(m.Fields[i].Value, ctx, b, module), m.Fields[i].Exact);
                     // Evaluate expressions before map type/key checks, as required by reference error cases.
                     return EvaluateMap(mapBase, fields);
+                }
+            case Expr.Bits bits:
+                {
+                    var segments = new (Term Value, Term? Size, BitSegment Segment)[bits.Segments.Count];
+                    for (int i = 0; i < segments.Length; i++) { var segment = bits.Segments[i]; segments[i] = (await Evaluate(segment.Value, ctx, b, module), segment.Size is null ? null : await Evaluate(segment.Size, ctx, b, module), segment); }
+                    return BitConstruction.Create(segments);
                 }
             case Expr.Sequence s: { Term result = Term.A("ok"); for (int i = 0; i < s.Items.Count; i++) result = await Evaluate(s.Items[i], ctx, b, module, tail && i == s.Items.Count - 1); return result; }
             case Expr.Match m: { var value = await Evaluate(m.Value, ctx, b, module); if (!m.Pattern.Match(value, b, ctx)) throw new ErlangException(Term.Tuple(Term.A("badmatch"), value)); return value; }

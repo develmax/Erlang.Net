@@ -11,3 +11,5 @@ Machine-readable source defaults are Not started. `supported-mfas.json` is the o
 Part 004 adds source map construction, associative/exact updates and subset patterns with guard-expression keys, duplicate/repeated bindings and badmap/badkey checks. These remain Partially compatible; permanent local and generated-source tests establish only their tested boundaries. Map comprehensions and the complete map BIF/guard set are pending.
 
 Part 005 adds erlang:is_map/1, map_size/1, map_get/2 and is_map_key/2 to runtime dispatch and the guard whitelist. Local tests cover exact keys, badmap/badkey reasons, guard failure and alternatives, qualified erlang calls and map-pattern keys. Registered MFAs total 46; the functions remain Partially compatible pending oracle and complete stacktrace evidence.
+
+Part 006 adds bitstring source construction with integer/binary segments, sizes/units and endianness; patterns, float/UTF and string modifiers remain absent. The first remote OTP build failed on a wx-dependent GUI application before comparison. Headless configuration has been repaired; no successful differential result is claimed yet.

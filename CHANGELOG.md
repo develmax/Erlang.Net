@@ -262,3 +262,41 @@ Inspected OTP-29.1.1 erts/emulator/beam/erl_map.c: map_size_1, maps_get_2/map_ge
 Complete map module coverage, binary syntax, full guard set, faithful exception stack traces and live oracle results remain pending. Performance measurements were not rerun and no new performance claim is made. Updated PROGRESS, NEXT_STEPS, compatibility JSON/matrix and semantic differences; immutable reports preserve previous parts.
 
 Commit title: `Add map guard BIFs and differential error comparisons`. Publish to origin/main, then attempt the existing manual pinned-OTP differential workflow and record actual results in the next part. Continue binary source syntax after oracle discrepancies are resolved.
+
+## Part 006 — 2026-10-09 — Bitstring construction and headless oracle repair
+
+**Status:** completed for the documented construction subset; Partially compatible. Full Erlang/OTP scope remains unfinished.
+
+### Changes and decisions
+
+Added Expr.Bits/BitSegment and a segment parser in [Syntax.cs](src/Erlang.Compiler/Syntax.cs), scope/guard traversal in [Semantics.cs](src/Erlang.Compiler/Semantics.cs), synchronous guard and asynchronous evaluation in [Execution.cs](src/Erlang.Compiler/Execution.cs), and AST/literal emission in [CodeGeneration.cs](src/Erlang.Compiler/CodeGeneration.cs).
+
+[BitConstruction.cs](src/Erlang.Compiler/BitConstruction.cs) implements immutable bit assembly for integer and binary segments: default sizes, explicit sizes/units, low-bit truncation including negative integers, big/little/native byte order, non-octet tails, whole/prefix binary interpolation and bitstring aliases. Native order follows the CLR host CPU. Explicit all is supported for binary sizes. A zero-sized integer contributes no bits. Whole binary interpolation must satisfy the segment unit; explicit prefixes cannot exceed the source bit length. Invalid values/sizes produce badarg; representation sizes exceeding the current int capacity produce system_limit.
+
+The parser preserves identical repeated specifiers and rejects conflicting ones. bytes implies binary unit 8, while bits/bitstring imply binary unit 1. Explicit integer units require a size, as established by erl_bits defaults. Bare string literals expand to 8-bit integer segments; string modifiers, float/UTF segments and bitstring patterns remain explicitly diagnosed as unsupported. Nontrivial segment values/sizes are supported through parenthesized expressions.
+
+Added **27 permanent tests**, plus compiled .erl and hybrid cases in [map_source.erl](examples/HelloHybrid/map_source.erl) and [Program.cs](examples/HelloHybrid/Program.cs). Tests exercise truncation, signed values, little-endian partial octets, native order, sizes/units, string literals, binary prefixes/interpolation/all, malformed operands, conflicting/default specifiers, pending forms and guard/map-key construction. The differential runner now contains **57 cases**, including twenty new bit construction values/errors; it has not yet produced reference results.
+
+Reuse audit: existing immutable BitString, BCL BigInteger and the dedicated compiler pipeline; no new dependency or copied implementation. Inspected pinned Bit Syntax Expressions, lib/stdlib/src/erl_bits.erl and HOWTO/INSTALL.md. See [dependency decisions](docs/dependency-decisions.md).
+
+### Remote oracle diagnosis and repair
+
+Dispatched the development-only oracle workflow at b15da2f. [Run 37936825719](https://github.com/develmax/Erlang.Net/actions/runs/37936825719) failed before differential comparison: debugger's dbg_wx_filedialog_win.erl declared wx_object, but wx had been disabled; OTP treats the resulting warning as an error. Source/install guidance confirms that skipped applications' dependencies are not automatically handled.
+
+Updated [.github/workflows/differential.yml](.github/workflows/differential.yml) to exclude debugger, observer and et alongside wx, based on pinned wx_object declarations. The reference source SHA/version is unchanged; GUI components are excluded only from the development oracle, not from the final product scope. No warnings-as-errors bypass was introduced. [Failure record](docs/validation/part-006/oracle-build-attempt.json) preserves the attempted head and cause. A repaired run is required before claiming differential results.
+
+### Validation
+
+| Check | Command / saved evidence | Result |
+| --- | --- | --- |
+| Full solution and permanent regressions | pwsh -File tools/validate.ps1; [tests](docs/validation/part-006/tests.json) | **196 passed, 0 failed**; 46 direct MFA cases; build 0 warnings/errors |
+| .erl/hybrid/incremental/negative/clean/package/tool | Same script; [integration](docs/validation/part-006/integration-results.json) | All checks Passed; disabled preprocessing failed as expected; output remained Hello World |
+| Predecessor remote CI | [b15da2f Windows run](https://github.com/develmax/Erlang.Net/actions/runs/37936812771) | Confirmed successful, not evidence for this new head |
+| First real oracle attempt | Run 37936825719 / saved failure record | Build failure; comparison skipped; no compatibility result |
+| Hygiene | git diff --check, local links/test evidence, unchanged reference checkout | Checked before commit |
+
+### Limitations and next steps
+
+Binary patterns, float/UTF segments, string modifiers, complete segment evaluation/error precedence, full source spans and optimized storage remain pending. Integer assembly currently uses BigInteger shifts per bit; no performance claim or benchmark rerun. Current representation/resource limits are not proven equivalent to BEAM system limits. Previous runtime/OTP/distribution gaps remain.
+
+Updated compatibility JSON/matrix, semantic differences, progress and next steps; part reports are immutable. Commit title: `Add integer and binary bitstring construction and repair headless oracle`. Publish this checkpoint, rerun the pinned oracle workflow and resolve discrepancies before broad compatibility promotion. Next language unit: bitstring patterns and segment-size binding rules.

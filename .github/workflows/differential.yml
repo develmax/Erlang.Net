@@ -19,7 +19,8 @@ jobs:
           git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp-source
           test "$(git -C artifacts/otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
           cd artifacts/otp-source
-          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/otp-oracle" --without-javac --without-wx --without-odbc
+          # GUI applications depend on wx_object even when wx itself is disabled.
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/otp-oracle" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
           make -j2
           make install
       - name: Compare the supported language corpus

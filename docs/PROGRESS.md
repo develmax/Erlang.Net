@@ -1,6 +1,6 @@
 # Progress checkpoint — 2026-10-09
 
-Detailed history: [CHANGELOG, parts 001–005](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
+Detailed history: [CHANGELOG, parts 001–006](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
 
 **The full work.md assignment is not complete.** This checkpoint delivers a working, independently executable C#/.NET foundation and an early compiler/runtime/build vertical slice. Implementation work is in this repository; the sibling official OTP checkout has no local changes.
 
@@ -13,7 +13,7 @@ Reference: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`). SDK: 10.0.40
 | Discovery/bootstrap | 11-project solution, pinned baseline/SDK, generated source inventory and durable documentation | Partially compatible |
 | Term foundation | Atoms, arbitrary integers, floats/signed zero, PID/port/ref/fun values, tuples, cons/improper lists, maps, binary/bitstring values; explicit equality/order/hash | Partially compatible |
 | Runtime | Local process contexts/dictionaries/registry, ordered selective receive, timeouts/cancellation, links/monitors/exit signals, atomic spawn_monitor, iterative exit cascades | Partially compatible |
-| Compiler | Lexer/Pratt parser, AST, scope/guard analysis, function clauses/private/exported resolution, closure capture, case/receive, map construction/updates/patterns, generated C# AST construction and evaluator, module-local tail-call trampoline | Partially compatible |
+| Compiler | Lexer/Pratt parser, AST, scope/guard analysis, function clauses/private/exported resolution, closure capture, case/receive, map construction/updates/patterns, integer/binary bitstring construction, generated C# AST construction and evaluator, module-local tail-call trampoline | Partially compatible |
 | Core modules | 46 registered MFAs across erlang/lists/maps/io, each with a direct permanent contract case | Partially compatible |
 | OTP foundation | C# gen_server callbacks for call/cast/info/stop; supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
 | Serialization | Common ETF tags, bounded malformed input handling, compressed input, identity/bitstring/map/list roundtrips | Partially compatible |
@@ -25,7 +25,7 @@ Source inventory contains **1,289 source modules, 38,622 explicit source exports
 
 ## Executed validation
 
-- **169/169 local regression tests passed**, including one direct case for each of the 46 registered MFAs.
+- **196/196 local regression tests passed**, including one direct case for each of the 46 registered MFAs.
 - Full solution build passed with zero warnings/errors. Ordinary `dotnet build` was verified outside sandbox worker-process restrictions; `-m:1` works inside the sandbox.
 - HelloHybrid built through MSBuild and printed exactly **Hello World**. It checked map_source .erl construction/update/function patterns and a hybrid map case, plus `.erl` double/1, signed floating zero emission and signed-zero clause matching, plus ordinary C# records/generics/nullable/raw/interpolated strings/switch/async semantics.
 - Disabling preprocessing caused the expected source syntax errors even after an earlier successful build. The preprocessor runs before the compile dependency cache, preventing a stale successful build from masking disabled preprocessing.
@@ -35,15 +35,15 @@ Source inventory contains **1,289 source modules, 38,622 explicit source exports
 - Supervisor tests exercised all three strategies, transient/temporary policies and restart intensity. gen_server tests exercised state updates, stop, crashes, timeout and init errors.
 - Release exploratory benchmarks completed; see benchmarks.md and validation/benchmarks.json. No BEAM comparison, latency-percentile or universal scalability claim.
 
-Executable checkpoint reports are in `docs/validation`. Full transient logs, packages, consumers and generated sources are under ignored `artifacts`, bin and obj. Checkpoint 3860695 was committed and pushed to origin/main following user authorization. Part 004 is recorded in the changelog and committed after validation. No public NuGet package publication occurred. Remote Windows CI for checkpoints 3860695 and f428c9f was confirmed successful through GitHub Actions; new-head CI must be checked after publication. Historical reports are preserved under docs/validation/part-001; part-004 reports preserve the map checkpoint and part-005 reports preserve the four new map guard BIFs.
+Executable checkpoint reports are in `docs/validation`. Full transient logs, packages, consumers and generated sources are under ignored `artifacts`, bin and obj. Checkpoint 3860695 was committed and pushed to origin/main following user authorization. Part 004 is recorded in the changelog and committed after validation. No public NuGet package publication occurred. Remote Windows CI for checkpoints 3860695 and f428c9f was confirmed successful through GitHub Actions; new-head CI must be checked after publication. Historical reports are preserved under docs/validation/part-001; part-004 reports preserve the map checkpoint part-005 reports preserve the four new map guard BIFs and part-006 reports preserve bit construction plus the failed oracle build diagnosis.
 
 ## Open compatibility gaps and regressions
 
 No known failing local regression at this checkpoint. Known unsupported or partial semantics are listed in semantic-differences.md; absence of a failing test does not establish their compatibility.
 
-The language grammar, scheduling/signal guarantees, standard modules, OTP callback/service contracts, distribution, advanced runtime, IDE/debugger integration and full reference suites remain incomplete. Local OTP 29.1.1 oracle execution is blocked by a missing executable. The manual differential CI definition builds the exact pinned source but has not run.
+The language grammar, scheduling/signal guarantees, standard modules, OTP callback/service contracts, distribution, advanced runtime, IDE/debugger integration and full reference suites remain incomplete. Local OTP 29.1.1 oracle execution is blocked by a missing executable. The first manual differential run attempted the pinned source build but failed because debugger required disabled wx. The headless workflow now also excludes debugger/observer/et; comparison results remain unavailable until a successful rerun.
 
-Map expression/pattern/update syntax is implemented for the current subset. Map guards is_map/map_size/map_get/is_map_key are now registered and tested. Next: exact-version oracle evidence and binary syntax. NEXT_STEPS contains precise continuation tasks and commands. Do not report this repository as a complete Erlang/OTP reimplementation.
+Map expression/pattern/update syntax is implemented for the current subset. Map guards is_map/map_size/map_get/is_map_key are now registered and tested. Next: rerun the repaired exact-version oracle workflow, then add bitstring patterns and remaining segment types. NEXT_STEPS contains precise continuation tasks and commands. Do not report this repository as a complete Erlang/OTP reimplementation.
 
 ## Overall completion estimate
 

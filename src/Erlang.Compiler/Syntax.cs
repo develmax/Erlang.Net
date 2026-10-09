@@ -53,6 +53,7 @@ public abstract record Expr
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
     public sealed record List(IReadOnlyList<Expr> Items, Expr? Tail = null) : Expr;
     public sealed record Map(Expr? Base, IReadOnlyList<MapField> Fields) : Expr;
+    public sealed record Bits(IReadOnlyList<BitSegment> Segments) : Expr;
     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr;
     public sealed record Apply(Expr Function, IReadOnlyList<Expr> Arguments) : Expr;
     public sealed record Unary(string Operator, Expr Operand) : Expr;
@@ -65,6 +66,7 @@ public abstract record Expr
     public sealed record GuardAlternatives(IReadOnlyList<Expr> Items) : Expr;
 }
 public sealed record MapField(Expr Key, Expr Value, bool Exact);
+public sealed record BitSegment(Expr Value, Expr? Size, string Type = "integer", int Unit = 1, string Endian = "big");
 public sealed record MapPatternField(Expr Key, Pattern Value);
 public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern
 {
@@ -157,7 +159,7 @@ public sealed class Parser
         }
         return left;
     }
-    private Expr Primary()
+    private Expr Primary(bool bitSegment = false)
     {
         Expr result;
         if (Take("receive"))
@@ -165,8 +167,9 @@ public sealed class Parser
         if (Take("case")) { var value = Expression(); Expect("of"); var clauses = Clauses(); if (clauses.Count == 0) throw Error("case needs a clause"); Expect("end"); return new Expr.Case(value, clauses); }
         if (Take("fun"))
         { var clauses = new List<Clause>(); do { Expect("("); clauses.Add(ParseClause(PatternArguments())); } while (Take(";")); Expect("end"); return new Expr.Fun(clauses); }
-        if (Current.Kind != "quoted_atom" && Current.Text is "+" or "-" or "not") { string op = tokens[position++].Text; return new Expr.Unary(op, Expression(9)); }
+        if (Current.Kind != "quoted_atom" && Current.Text is "+" or "-" or "not") { string op = tokens[position++].Text; return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(9)); }
         if (Take("(")) { result = Expression(); Expect(")"); }
+        else if (Take("<<")) result = ParseBits();
         else if (Take("#")) result = ParseMap(null);
         else if (Take("{")) { var items = new List<Expr>(); if (!Take("}")) { do { items.Add(Expression()); } while (Take(",")); Expect("}"); } result = new Expr.Tuple(items); }
         else if (Take("["))
@@ -178,6 +181,7 @@ public sealed class Parser
         }
         while (true)
         {
+            if (bitSegment) break;
             if (Take("#")) result = ParseMap(result);
             else if (Take(":"))
             { if (result is not Expr.Literal { Value: Atom module }) throw Error("Dynamic module calls are not supported yet"); string name = Name(); Expect("("); result = new Expr.Call(module.Name, name, Arguments()); }
@@ -186,6 +190,52 @@ public sealed class Parser
             else break;
         }
         return result;
+    }
+    private Expr ParseBits()
+    {
+        var segments = new List<BitSegment>();
+        if (Take(">>")) return new Expr.Bits(segments);
+        do
+        {
+            var value = Primary(true); Expr? size = null;
+            if (Take(":")) size = Primary(true);
+            string type = "integer", endian = "big"; int? unit = null;
+            var categories = new Dictionary<string, string>();
+            void Merge(string category, string setting)
+            { if (categories.TryGetValue(category, out var previous) && previous != setting) throw Error($"Conflicting bit segment {category} specifiers"); categories[category] = setting; }
+            if (Take("/"))
+            {
+                do
+                {
+                    string spec = Name(); string category;
+                    switch (spec)
+                    {
+                        case "integer": case "binary":
+                            category = "type"; type = spec; break;
+                        case "bytes": case "bitstring": case "bits":
+                            category = "type"; type = "binary"; int aliasUnit = spec == "bytes" ? 8 : 1;
+                            Merge("unit", aliasUnit.ToString(CultureInfo.InvariantCulture)); unit = aliasUnit; break;
+                        case "big": case "little": case "native": category = "endian"; endian = spec; break;
+                        case "signed": case "unsigned": category = "sign"; break; // Construction uses low bits for either sign.
+                        case "unit":
+                            category = "unit"; Expect(":");
+                            if (Current.Kind != "integer" || !int.TryParse(Current.Text, out var parsed) || parsed is < 1 or > 256) throw Error("Bit segment unit must be an integer from 1 through 256");
+                            unit = parsed; position++; break;
+                        default: throw new CompileException("ERL003", $"Bit segment specifier '{spec}' is not supported yet", Current.Start);
+                    }
+                    Merge(category, category == "type" ? type : category == "unit" ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec);
+                } while (Take("-"));
+            }
+            int defaultUnit = type is "binary" or "bytes" ? 8 : 1;
+            if (type == "integer" && size is null && unit is not null) throw Error("An explicit integer segment unit requires a size");
+            if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
+            {
+                foreach (var item in Cons.Items(((Expr.Literal)value).Value)) segments.Add(new(new Expr.Literal(item), null));
+            }
+            else if (value is Expr.Literal { Value: Cons or Nil }) throw new CompileException("ERL003", "String segment modifiers are not supported yet", Current.Start);
+            else segments.Add(new(value, size, type, unit ?? defaultUnit, endian));
+        } while (Take(","));
+        Expect(">>"); return new Expr.Bits(segments);
     }
     private Expr ParseMap(Expr? mapBase)
     {
