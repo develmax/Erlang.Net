@@ -1,1 +1,1 @@
-# ErlangNet
+# Erlang.Net
