@@ -1,14 +1,6 @@
-namespace HelloHybrid;
 
-public interface IBox<out T>
-{
-    T Value
-    {
-        get;
-    }
-}
-public sealed record Box<T>(T Value) : IBox<T>;
-public readonly record struct Coordinate(int X, int Y);
+
+namespace HelloHybrid;
 
 public static class CSharpFeatures
 {

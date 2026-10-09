@@ -1,15 +1,7 @@
+
+
 namespace Erlang.Otp;
 
-public sealed record ServerFrom(Pid Pid, ReferenceTerm Reference);
-public sealed record ServerResult(Term State, Term? Reply = null, Term? StopReason = null);
-public interface IGenServer
-{
-    ValueTask<Term> Init(ProcessContext context, Term arguments);
-    ValueTask<ServerResult> HandleCall(ProcessContext context, Term request, ServerFrom from, Term state);
-    ValueTask<ServerResult> HandleCast(ProcessContext context, Term request, Term state);
-    ValueTask<ServerResult> HandleInfo(ProcessContext context, Term message, Term state);
-    ValueTask Terminate(ProcessContext context, Term reason, Term state) => ValueTask.CompletedTask;
-}
 public static class GenServer
 {
     public static async ValueTask<ProcessHandle> Start(ProcessRuntime runtime, IGenServer callback, Term arguments, ProcessContext? parent = null, bool link = false)

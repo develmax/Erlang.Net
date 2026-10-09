@@ -2,8 +2,6 @@ using System.Numerics;
 
 namespace Erlang.Compiler;
 
-public sealed record BitPatternSegment(Pattern Value, BitSegment Specification);
-
 public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pattern
 {
     internal static BitPattern FromExpression(Expr.Bits bits)

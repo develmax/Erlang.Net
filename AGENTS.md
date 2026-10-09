@@ -2,6 +2,8 @@
 
 Code readability: put each statement on its own line, expand nontrivial control-flow blocks and separate logical stages with blank lines. Keep .editorconfig formatting consistent. Extract semantic values into files owned by their domain; choose names by meaning, not just literal value. Equal strings/numbers can represent different contracts and must remain separate (for example lexer token kinds versus bit segment types, BIF names versus exception classes, or default integer width versus bits per byte). Do not globally merge literals by text equality. Keep source-language test fixtures near their use. Compiler diagnostic codes and messages belong in the domain diagnostic catalog, including one-off messages; use named builders for dynamic messages and preserve text, formatting and offsets. Review each replacement in context.
 
+Each namespace-level type (class, record, struct, interface, enum or delegate) must live in its own matching TypeName.cs file. Keep genuinely nested types inside their owning type. Top-level executable statements stay in Program.cs; helper types belong in separate files. Compiler diagnostic groups are separate types/files, not multiple classes in a shared catalog file.
+
 Work only in this repository. The sibling `../otp` is the official reference checkout and must remain unchanged. Read `CHANGELOG.md`, `docs/PROGRESS.md`, `docs/NEXT_STEPS.md`, `docs/COMPATIBILITY.md`, `docs/DECISIONS.md` and `reference-baseline.json` before implementing the next work unit.
 
 Baseline: OTP-29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5. Read reference files using `git -C ../otp show OTP-29.1.1:PATH`; its checked-out HEAD is newer. Never silently upgrade the baseline.

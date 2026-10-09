@@ -2,22 +2,6 @@ using System.Diagnostics;
 
 namespace Erlang.Otp;
 
-public enum RestartStrategy
-{
-    OneForOne, OneForAll, RestForOne
-}
-public enum RestartPolicy
-{
-    Permanent, Transient, Temporary
-}
-public sealed record ChildSpec(Term Id, Func<ProcessContext, ValueTask<ProcessHandle>> Start, RestartPolicy Restart = RestartPolicy.Permanent, TimeSpan? Shutdown = null);
-public sealed class SupervisorHandle
-{
-    private (Term Id, Pid Pid)[] children = [];
-    public ProcessHandle Process { get; internal set; } = null!;
-    public IReadOnlyList<(Term Id, Pid Pid)> Children => Array.AsReadOnly(Volatile.Read(ref children));
-    internal void Publish(IEnumerable<(Term Id, Pid Pid)> current) => Volatile.Write(ref children, current.ToArray());
-}
 public static class Supervisor
 {
     private sealed record Child(ChildSpec Spec, ProcessHandle Process);

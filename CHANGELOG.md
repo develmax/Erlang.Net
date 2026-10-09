@@ -718,3 +718,44 @@ Historical **160/160** oracle and same-head Windows CI remain at **666c4b5060110
 ### Handoff
 
 Updated PROGRESS/COMPATIBILITY/DECISIONS/semantic differences/NEXT_STEPS and immutable part-019 snapshots; current report pointers remain consistent. Commit title: `Catalog compiler diagnostics and bit specifier constants`. Publish the completed part to origin/main. Continue the previously planned non-UTF construction-only string modifier feature with these ownership/readability rules and detailed English per-part history.
+
+## Part 020 — 2026-10-09 — One namespace-level type per file
+
+**Part status:** completed for repository source-file organization. Full assignment remains approximately **5%**, a coarse estimate; no new semantic feature/MFA.
+**Objective and scope:** satisfy the user's requirement that separate types directly in a namespace live in separate files. Part 019 was recorded, committed and published as **b9c840747964d9c7f006c08208ddaa0bf9686bd3** before this part.
+
+### Changes
+
+Reorganized **13 original C# files**, with **68 type placements** recorded in the [manifest](docs/validation/part-020/layout-audit.json). All **80 namespace-level types** under src/tools/tests/benchmarks/examples now live in matching TypeName.cs files. This includes classes, records, structs, interfaces, enums and the ErlangFunction delegate. Nested Expr/Pattern declarations remain inside their owners, as requested; top-level statements remain in Program.cs.
+
+- Compiler: Syntax.cs becomes CompileException.cs, Token.cs, Lexer.cs, Expr.cs, map/bit/clause/function/module records and Parser.cs. BitPatternSegment has its own file. BitSyntaxConstants.cs becomes ten individually named constant-group files. CompilerDiagnostics.cs becomes six individually named code/domain diagnostic files.
+- Terms: Term.cs keeps Term; Atom/Integer/FloatTerm/Nil/Cons/TupleTerm/MapTerm/BitString/Pid/ReferenceTerm/PortTerm/ITermExecutionContext/FunctionTerm/ErlangException/TermOrder each move into matching files.
+- Runtime: Modules.cs becomes ModuleRegistry.cs, CoreModules.cs and ErlangFunction.cs; Patterns.cs becomes Pattern.cs; ProcessHandle and ProcessContext separate from ProcessRuntime.
+- OTP: ServerFrom/ServerResult/IGenServer separate from GenServer; RestartStrategy/RestartPolicy/ChildSpec/SupervisorHandle separate from Supervisor.
+- Test/tool/example helpers: CounterServer and Inventory leave executable Program.cs files. IBox/Box/Coordinate separate from CSharpFeatures. tools/validate.ps1 copies all root HelloHybrid C# files into the local PackageReference consumer instead of only the former two composite files.
+
+Preserved namespaces, type names/visibility, generic parameters, attributes, nested declarations, member tokens, literals and executable statement tokens. Copied original using directives so name resolution stays the same. Source-file/debug line locations naturally change. AGENTS.md now requires one namespace-level type per matching file in every future part. No permanent tests mirror the mechanical split; existing independent contract tests remain unchanged.
+
+### Decisions and compatibility
+
+Used the installed SDK Roslyn syntax tree to split declarations and verify tokens. No new dependency, copied implementation, license change or public API change. [Reuse and tooling audit](docs/dependency-decisions.md). A transient same-file collision guard initially mishandled slash/backslash equality, stopped without changing the original helper file, and was corrected to normalized absolute paths before rerunning. No user work was discarded.
+
+OTP-29.1.1 baseline/reference checkout remain unchanged; no grammar or runtime algorithm changed. All 49 MFAs remain Partially compatible. Approximately 5% assignment estimate is unchanged. Source generation and hybrid preprocessing are validated after the file move, not presumed compatible merely from token preservation.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full build/permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-020/tests.json) | **299 passed, 0 failed**, 49 direct MFAs; zero warnings/errors |
+| Generated .erl/hybrid/incremental/disabled/clean/packages/consumer/local CLI | Same script; [integration](docs/validation/part-020/integration-results.json) | Passed; expected negative paths retained |
+| Formatter verification | dotnet format whitespace . --folder --include ordinary repository C# files --verify-no-changes --verbosity quiet | Passed; native-Erlang Program.cs excluded |
+| Final namespace/type/global-token/layout audit | Transient SDK Roslyn tool in --verify mode against **b9c840747964d9c7f006c08208ddaa0bf9686bd3**; [manifest](docs/validation/part-020/layout-audit.json) | **80 before / 80 after**, zero type-token mismatches, zero executable-token mismatches, zero multiple-type/filename violations; verified after formatting |
+| Report/hygiene checks | JSON counts; git diff --check; sibling reference status | Checked before commit; reference unchanged |
+
+The audit reparses tracked baseline and current files, compares declaration-token SHA256 by directory/namespace/type and the remaining executable statement files, and scans current ordinary source for file-layout violations. It excludes generated bin/obj and the native-Erlang hybrid Program.cs, which contains no namespace-level type and is tested through its real build pipeline. This establishes declaration preservation and layout, not full runtime/reference equivalence.
+
+Historical **160/160** oracle and same-head CI remain at **666c4b5060110068aba4ad043fec7d0ac3388168**, recorded in part 017. No new oracle/benchmark run for file reorganization. Full compiler/reference suites, stack/signal/side-effect coverage and broader assignment work remain unfinished. No public NuGet publication.
+
+### Handoff
+
+Updated PROGRESS/COMPATIBILITY/DECISIONS/semantic differences/NEXT_STEPS, instructions and immutable part-020 reports. Historical changelog/report filenames remain historical evidence; current guidance uses separate diagnostic files. Commit title: `Place each namespace-level type in its own file`. Publish this completed checkpoint to origin/main. Continue the planned non-UTF string modifier feature using matching type files, domain constants, logical spacing and English per-part history.

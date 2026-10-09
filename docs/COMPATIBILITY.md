@@ -2,13 +2,15 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **299/299 tests**, 49 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 019](validation/part-019/tests.json), [integration](validation/part-019/integration-results.json).
+Current local evidence is **299/299 tests**, 49 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 020](validation/part-020/tests.json), [integration](validation/part-020/integration-results.json).
 
 Exact-version oracle run [37955525454](https://github.com/develmax/Erlang.Net/actions/runs/37955525454) matched **160/160** selected values/exception class/reason cases at **666c4b5**: the prior 93 cases, 30 float, 31 UTF and 6 arithmetic-coercion additions. Version confirmed; complete report; zero mismatches/aborts. [Original report](validation/part-017/differential.json), [verified artifact/head metadata](validation/part-017/remote-checkpoint.json). Same-head Windows CI [37955516789](https://github.com/develmax/Erlang.Net/actions/runs/37955516789) passed 299 tests and full integration. Reference expressions run through erl_eval; compiled-reference-module/optimizer comparison is a separate unfinished track.
 
 Part 018 changes code organization and whitespace only. Domain constants preserve literal values; the [token audit](validation/part-018/source-token-audit.json) compares 21 existing C# files to the preceding head. Local validation was rerun; the historical 160-case oracle was not rerun and no compatibility status is promoted.
 
 Part 019 completes compiler diagnostic/category/token extraction. Text, code, formatting and offsets are preserved; [token audit](validation/part-019/source-token-audit.json) plus the rerun local pipeline provide refactor evidence. No language/MFA status change or new oracle run.
+
+Part 020 moves namespace-level declarations into their matching individual files. All 80 type declarations/namespaces and executable statement token streams are preserved; [layout report](validation/part-020/layout-audit.json) and the rerun full pipeline validate the move. Public APIs, grammar and compatibility statuses are unchanged. Source file locations and C# debug line locations necessarily change.
 
 | Implemented source subset | Evidence and remaining scope |
 | --- | --- |
@@ -24,4 +26,4 @@ All broad language/runtime/OTP features and all 49 MFAs remain **Partially compa
 
 [compatibility.json](compatibility.json) tracks feature evidence; [supported-mfas.json](supported-mfas.json) is the implemented-MFA overlay. The [source inventory](otp-inventory.md) has 1,289 source modules, 38,622 explicit exports and 524 BIF declarations before macro/conditional/NIF/generated/platform expansion. These are not an effective API coverage denominator.
 
-Historical failed runs, fixture corrections, old counts and checkpoint-specific boundaries are preserved in [CHANGELOG](../CHANGELOG.md), parts 001–019, and immutable validation/part-NNN reports. Current-state documents do not repeat superseded pending-oracle claims.
+Historical failed runs, fixture corrections, old counts and checkpoint-specific boundaries are preserved in [CHANGELOG](../CHANGELOG.md), parts 001–020, and immutable validation/part-NNN reports. Current-state documents do not repeat superseded pending-oracle claims.

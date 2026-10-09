@@ -624,21 +624,3 @@ string? report = args.FirstOrDefault();
 if (report is not null) { Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(report))!); await File.WriteAllTextAsync(report, JsonSerializer.Serialize(new { Passed = tests.Count - failed, Failed = failed, Tests = results }, new JsonSerializerOptions { WriteIndented = true })); }
 if (failed == 0 && args.Length > 1) await File.WriteAllTextAsync(args[1], JsonSerializer.Serialize(exportRegistry.Exports.Select(e => new { e.Module, e.Function, e.Arity, Status = "Partially compatible", Evidence = $"mfa/{e.Module}:{e.Function}/{e.Arity}", Limits = "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending" }), new JsonSerializerOptions { WriteIndented = true }));
 return failed == 0 ? 0 : 1;
-
-internal sealed class CounterServer : IGenServer
-{
-    public bool Terminated
-    {
-        get; private set;
-    }
-    public ValueTask<Term> Init(ProcessContext context, Term arguments) => arguments.Equals(Term.A("fail")) ? throw new ErlangException("init_failed") : ValueTask.FromResult(arguments);
-    public ValueTask<ServerResult> HandleCall(ProcessContext context, Term request, ServerFrom from, Term state)
-        => request.Equals(Term.A("crash")) ? throw new ErlangException("boom") : ValueTask.FromResult(request.Equals(Term.A("stop")) ? new ServerResult(state, Term.A("ok"), Term.A("normal")) : new ServerResult(state, request.Equals(Term.A("noreply")) ? null : state));
-    public ValueTask<ServerResult> HandleCast(ProcessContext context, Term request, Term state) => ValueTask.FromResult(new ServerResult(CoreModules.Arithmetic("+", state, request)));
-    public ValueTask<ServerResult> HandleInfo(ProcessContext context, Term message, Term state) => ValueTask.FromResult(new ServerResult(CoreModules.Arithmetic("+", state, message)));
-    public ValueTask Terminate(ProcessContext context, Term reason, Term state)
-    {
-        Terminated = true;
-        return ValueTask.CompletedTask;
-    }
-}

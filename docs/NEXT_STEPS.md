@@ -23,4 +23,6 @@ The validation script installs its tool only under artifacts/local-tool and writ
 
 Carry part 018 readability forward: use domain-owned constants only when meaning is shared, retain distinct constants for equal values with different contracts, and separate logical stages with blank lines. Preserve source-language fixtures verbatim when formatting C#. The feature sequence above is unchanged.
 
-Part 019 clarification: put compiler diagnostic codes and all messages, including one-off texts, in CompilerDiagnostics.cs; use domain builders for interpolated messages. Continue LexerTokenKinds and bit-specific groups without merging equal strings across meaning. Keep independent literal expectations in test fixtures.
+Part 019 clarification: put compiler diagnostic codes and all messages, including one-off texts, in their corresponding diagnostic type files; use domain builders for interpolated messages. Continue LexerTokenKinds and bit-specific groups without merging equal strings across meaning. Keep independent literal expectations in test fixtures.
+
+Part 020 file organization: put every namespace-level class/record/struct/interface/enum/delegate in its own matching TypeName.cs file. Keep nested declarations inside their owner and top-level executable statements in Program.cs. Preserve all HelloHybrid root C# files when building its external package consumer. Earlier composite compiler files have been replaced by Parser.cs, Lexer.cs, Expr.cs, CompilerDiagnosticCodes.cs and separate domain diagnostic/constant files.

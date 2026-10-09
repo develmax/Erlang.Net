@@ -41,8 +41,7 @@ try {
         @'
 <Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" /><ErlangSource Include="arithmetic.erl;map_source.erl" /></ItemGroup></Project>
 '@ | Set-Content (Join-Path $consumerRoot 'Consumer.csproj')
-        Copy-Item -LiteralPath examples/HelloHybrid/Program.cs -Destination $consumerRoot
-        Copy-Item -LiteralPath examples/HelloHybrid/CSharpFeatures.cs -Destination $consumerRoot
+        Copy-Item -LiteralPath (Get-ChildItem -LiteralPath examples/HelloHybrid -Filter '*.cs' -File).FullName -Destination $consumerRoot
         Copy-Item -LiteralPath examples/HelloHybrid/arithmetic.erl -Destination $consumerRoot
         Copy-Item -LiteralPath examples/HelloHybrid/map_source.erl -Destination $consumerRoot
         $feedPath = [System.Security.SecurityElement]::Escape((Join-Path $validationRoot 'artifacts/packages'))

@@ -27,3 +27,5 @@ Anonymous fun matching now shadows captured values separately per clause, preser
 Reference comparison currently evaluates expressions with erl_eval. Compiled-reference-module/optimizer equivalence and full reference compiler suites are separate unfinished tracks.
 
 Parts 018–019 are code-organization refactors. Domain constants and compiler diagnostic builders preserve the existing literal values, diagnostic texts/codes/offsets and grammar. Local validation was rerun; reference results remain attributed to their historical tested heads. These parts add no semantic compatibility claim or new boundary.
+
+Part 020 changes source-file organization only: namespace-level types now each have a matching file, with nested declarations preserved. Source/C# debug file and line locations change; no grammar, term, API or runtime algorithm changes. The local full pipeline and type-token/layout audit pass; no new reference-suite coverage is claimed.
