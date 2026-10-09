@@ -60,7 +60,10 @@ try
         "case <<255>> of <<-1:8/signed>> -> ok; _ -> no end",
         "case <<>> of <<>> -> ok; _ -> no end",
         "case #{a => <<3,5:3>>} of #{a := <<N,X:N>>} -> X end",
-        "<<X:16>> = <<1>>"];
+        "<<X:16>> = <<1>>",
+        "case 42 of X -> F = fun({X}) -> X; (_) -> X end, F(atom) end",
+        "case 42 of X -> F = fun(X) when is_integer(X) -> X; (_) -> X end, F(atom) end",
+        "case {8,42} of {L,B} -> F = fun(<<L:L,B:L>>) -> {L,B}; (_) -> {L,B} end, F(atom) end"];
     planned = cases.Length;
     foreach (string source in cases)
     {

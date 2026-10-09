@@ -7,6 +7,7 @@
   "features": [
     {"name":"Term model","status":"Partially compatible","evidence":["terms/exact-numeric-equality","terms/signed-zero-otp29","terms/map-integer-before-all-floats","terms/atom-codepoint-order"]},
     {"name":"Patterns and binding","status":"Partially compatible","evidence":["patterns/repeated-variable","patterns/already-bound","compiler/unsafe-variable-rebinding-diagnostic"]},
+    {"name":"Anonymous fun clause capture","status":"Partially compatible","evidence":["compiler/fun-clause-local-shadow-capture","compiler/fun-guard-fallback-capture","compiler/fun-bit-clause-fallback-capture"],"limits":"Clause-local shadowing regressions pass; named/external fun forms and complete oracle scope evidence pending"},
     {"name":"Selective receive","status":"Partially compatible","evidence":["mailbox/later-match-preserves-order","mailbox/zero-timeout-retains","mailbox/sender-order-stress","compiler/selective-receive-clause-order"]},
     {"name":"Local processes and signals","status":"Partially compatible","evidence":["runtime/link-cascade-10000","runtime/kill-untrappable","runtime/spawn-monitor-immediate-exit-atomic","runtime/monitor-down"]},
     {"name":"Scheduler foundation","status":"Implemented","evidence":["runtime/1000-waiting-processes","compiler/tail-recursion-50000"],"limits":"No verified BEAM fairness or preemptive C# callback execution"},

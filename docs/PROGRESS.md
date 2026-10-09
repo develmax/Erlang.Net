@@ -1,6 +1,6 @@
 # Progress checkpoint — 2026-10-09
 
-Detailed history: [CHANGELOG, parts 001–009](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
+Detailed history: [CHANGELOG, parts 001–010](../CHANGELOG.md). This file records the current state; every subsequent work part must also receive its own English changelog entry and a local commit when completed and validated.
 
 **The full work.md assignment is not complete.** This checkpoint delivers a working, independently executable C#/.NET foundation and an early compiler/runtime/build vertical slice. Implementation work is in this repository; the sibling official OTP checkout has no local changes.
 
@@ -25,7 +25,7 @@ Source inventory contains **1,289 source modules, 38,622 explicit source exports
 
 ## Executed validation
 
-- **240/240 local regression tests passed**, including one direct case for each of the 49 registered MFAs and two source-transport regressions.
+- **243/243 local regression tests passed**, including one direct case for each of the 49 registered MFAs and two source-transport regressions.
 - Exact-version remote oracle run 37938184184 built successfully and matched the first 16 cases at dc91e8c. The remaining 41 of its 57 cases were not executed because erl_scan rejected the Unicode test source. Follow-up run 37940002401 at 4a8c379 also matched 16/62 before the same source error; its real JSON was saved. The confirmed cause is prohibited U+FFFF in the corpus, not proven transport corruption. Part 009 replaces it with U+FFFD and aligns quoted-literal scanner validation; the current 90-case run is pending. No general compatibility promotion.
 - Validation checks an unavailable oracle returns code 2 and writes an incomplete infrastructure-error report with zero executed cases.
 - Full solution build passed with zero warnings/errors. Ordinary `dotnet build` was verified outside sandbox worker-process restrictions; `-m:1` works inside the sandbox.
@@ -52,3 +52,6 @@ Map expression/pattern/update syntax is implemented for the current subset. Map 
 Approximately **5% of the full assignment**, a coarse engineering estimate as of 2026-10-09, not measured semantic compatibility or a test-pass percentage. The vertical slice is executable and map syntax has been added, but most OTP exports, distribution, advanced services, full language/IDE support and reference-suite hardening remain unfinished. No exact weighted contract denominator is available. The 49 partially compatible MFAs and 38,622 source exports describe scope; they must not be treated as a complete or directly comparable API coverage denominator.
 
 Part 007 adds is_bitstring/1, bit_size/1 and byte_size/1, including rounded-up byte counts for non-octet bitstrings and guard/pattern-key use. Part 008 repairs UTF-8 source transport and incomplete differential reporting. Reports are preserved under docs/validation/part-007 and part-008. Windows CI for 5a1e5cc and 4a8c379 was confirmed successful; the new-head CI and full differential run must be inspected after publication.
+
+
+Part 010 fixes clause-local anonymous fun shadowing and adds three regressions, total 243. The current differential corpus contains 93 cases; run 37941798273 is at 8d35ea8 with 90, excluding the new capture cases. Windows CI for 8d35ea8 succeeded in run 37941788800. Immutable local reports are under docs/validation/part-010.

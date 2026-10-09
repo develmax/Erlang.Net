@@ -409,3 +409,33 @@ Initial validation failures were corrected before this checkpoint: new fixtures 
 Current representation lengths remain int-sized. Extraction shifts per bit and binary slices copy; no performance or resource-limit equivalence claim. Float/UTF segments, string modifiers, complete pattern-scope combinations, escapes/diagnostic spans and the wider runtime/OTP/distribution scope remain pending. No benchmark rerun. All 49 MFAs/features retain their prior partial status; no broad promotion from 16 matches.
 
 Updated progress, compatibility, semantic boundaries, next steps and README; immutable reports preserve both local results and the actual failed oracle attempt. Commit title: `Add bitstring patterns and align quoted Unicode source validation`. Publish this tested part and dispatch the corrected 90-case corpus on its exact head; inspect all comparisons, fix mismatches, then add remaining segment types and pattern-scope cases.
+
+## Part 010 — 2026-10-09 — Clause-local anonymous fun capture
+
+**Status:** completed for the capture fix and local validation; Partially compatible. Full project remains unfinished, approximately 5% by the existing coarse estimate.
+
+### Defect and fix
+
+Auditing the new binary fun-head cases exposed an existing closure bug: [Execution.cs](src/Erlang.Compiler/Execution.cs) collected head names from every fun clause and removed them from the captured scope before trying any clause. A name bound only in a different clause therefore lost its outer captured value. For example, with outer X=42, fun({X}) -> X; (_) -> X end could not return captured 42 after the tuple head failed.
+
+Each attempted clause now starts with a fresh copy of the captures and removes only that clause's own head names. Pattern matching and guard selection continue through the existing transactional selector; captured key/bit-size scope remains separately available. Clause order and function_clause on exhaustion are preserved. No new MFA or external dependency.
+
+Added three permanent [regressions](tests/Erlang.Tests/Program.cs): capture after tuple-head mismatch, after a shadowing clause's guard failure, and after a binary head with two shadowing names fails. All pass. [Differential corpus](tools/Erlang.Differential/Program.cs) grows from 90 to **93** with the corresponding cases.
+
+### Audit and validation
+
+Inspected the pinned expressions.md Fun Expressions contract and existing clause analysis/selection/capture code. Reused C# dictionaries, transactional matching and guard evaluation; no copied source or package. See [dependency decisions](docs/dependency-decisions.md). Official reference checkout and baseline remain unchanged.
+
+| Check | Command / saved evidence | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-010/tests.json) | **243 passed, 0 failed**, 49 direct MFAs; build 0 warnings/errors |
+| Generated examples, incremental/negative/clean, PackageReference consumer and local CLI | Same script; [integration](docs/validation/part-010/integration-results.json) | Passed; exact Hello World; expected disabled-preprocessing and unavailable-oracle failures |
+| Predecessor Windows CI | [8d35ea8 run 37941788800](https://github.com/develmax/Erlang.Net/actions/runs/37941788800) | Confirmed success; predecessor evidence only |
+| Corrected remote 90-case oracle | [run 37941798273](https://github.com/develmax/Erlang.Net/actions/runs/37941798273), head 8d35ea8bf4b684be1c6226f447ae4ce01b85f845 | Build in progress when this checkpoint was prepared; excludes the three new cases, no new result claimed |
+| Hygiene | JSON/evidence checks, git diff --check and reference status | Checked before commit; official checkout unchanged |
+
+### Limits and next step
+
+Named/external fun forms, complete scope combinations, bit float/UTF/string modifiers and all earlier runtime/OTP/distribution boundaries remain pending. No benchmark rerun or broad compatibility promotion. Current progress, compatibility and next steps updated; immutable local reports saved.
+
+Commit title: `Preserve captured variables independently in anonymous fun clauses`. Publish the tested fix; inspect the already running 90-case oracle's actual report, resolve any mismatches, then run all current 93 cases and record that separate head/result. Next language work remains complete bit-pattern scopes and remaining segment types.

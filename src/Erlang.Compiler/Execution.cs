@@ -91,9 +91,18 @@ public static class Execution
             case Expr.Fun f:
                 {
                     var capture = new Dictionary<string, Term>(b, StringComparer.Ordinal);
-                    var headNames = f.Clauses.SelectMany(c => c.Patterns.SelectMany(Semantics.Variables)).Distinct().ToArray();
                     return new FunctionTerm(f.Clauses[0].Patterns.Count, async (context, args) =>
-                    { var process = (ProcessContext)context; var scope = new Dictionary<string, Term>(capture); foreach (var n in headNames) scope.Remove(n); var selection = Select(f.Clauses, args, scope, process, capture) ?? throw new ErlangException("function_clause"); return await Evaluate(selection.Clause.Body, process, selection.Bindings, module); });
+                    {
+                        var process = (ProcessContext)context;
+                        foreach (var clause in f.Clauses)
+                        {
+                            var scope = new Dictionary<string, Term>(capture, StringComparer.Ordinal);
+                            foreach (string name in clause.Patterns.SelectMany(Semantics.Variables)) scope.Remove(name);
+                            var selection = Select([clause], args, scope, process, capture);
+                            if (selection is not null) return await Evaluate(selection.Clause.Body, process, selection.Bindings, module);
+                        }
+                        throw new ErlangException("function_clause");
+                    });
                 }
             default: throw new NotSupportedException();
         }

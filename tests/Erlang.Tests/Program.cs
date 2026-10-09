@@ -301,6 +301,9 @@ Test("compiler/bits-pattern-prior-size", async () => Equal(await Eval("case <<3,
 Test("compiler/bits-pattern-bound-size-expression", async () => Equal(await Eval("case 3 of N -> case <<17:5>> of <<X:(N+2)>> -> X end end"), Term.I(17)));
 Test("compiler/bits-pattern-shadow-size", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L>>) -> B end, F(<<16:8,7:16>>) end"), Term.I(7)));
 Test("compiler/bits-pattern-shadow-repeat", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L,L:L>>) -> B; (_) -> no end, F(<<16:8,7:16,16:16>>) end"), Term.I(7)));
+Test("compiler/fun-clause-local-shadow-capture", async () => Equal(await Eval("case 42 of X -> F = fun({X}) -> X; (_) -> X end, F(atom) end"), Term.I(42)));
+Test("compiler/fun-guard-fallback-capture", async () => Equal(await Eval("case 42 of X -> F = fun(X) when is_integer(X) -> X; (_) -> X end, F(atom) end"), Term.I(42)));
+Test("compiler/fun-bit-clause-fallback-capture", async () => Equal(await Eval("case {8,42} of {L,B} -> F = fun(<<L:L,B:L>>) -> {L,B}; (_) -> {L,B} end, F(atom) end"), Term.Tuple(Term.I(8),Term.I(42))));
 Test("compiler/bits-pattern-repeat-mismatch", async () => Equal(await Eval("case <<1,2>> of <<X,X>> -> wrong; _ -> ok end"), Term.A("ok")));
 Test("compiler/bits-pattern-bound-value", async () => Equal(await Eval("case 42 of X -> case <<42>> of <<X>> -> ok; _ -> no end end"), Term.A("ok")));
 Test("compiler/bits-pattern-short-extra-nonbits", async () => { foreach (string source in new[] { "<<1:7>>", "<<1,2>>", "atom" }) Equal(await Eval("case " + source + " of <<X:8>> -> wrong; _ -> ok end"), Term.A("ok")); });
