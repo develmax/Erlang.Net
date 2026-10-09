@@ -31,3 +31,5 @@ Parts 018–019 are code-organization refactors. Domain constants and compiler d
 Part 020 changes source-file organization only: namespace-level types now each have a matching file, with nested declarations preserved. Source/C# debug file and line locations change; no grammar, term, API or runtime algorithm changes. The local full pipeline and type-token/layout audit pass; no new reference-suite coverage is claimed.
 
 Part 021 is a style/constant/journal refactor, with a development-only SDK Roslyn checker. Existing code tokens and literal values match after domain-constant/message-builder expansion; no grammar/runtime/MFA change is claimed. C# source/debug line positions and journal locations change. Historical reference results remain attached to their actual head. The style utility's SDK dependency is not a production BEAM or runtime dependency.
+
+Part 022 only names existing ETF numbers. Nesting depth 256, default byte limit and support for at most two reference ID words remain implementation bounds. Numeric tags, field/header sizes, thresholds and compression buffer behavior are unchanged; no ETF compatibility expansion or new pinned-oracle case is claimed.

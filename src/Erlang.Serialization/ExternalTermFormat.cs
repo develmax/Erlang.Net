@@ -13,7 +13,7 @@ public static class ExternalTermFormat
     public static byte[] Encode(Term term)
     {
         using var stream = new MemoryStream();
-        stream.WriteByte(131);
+        stream.WriteByte(EtfHeaderLayout.Version);
         Write(stream, term, 0);
 
         return stream.ToArray();
@@ -21,21 +21,21 @@ public static class ExternalTermFormat
 
     public static Term Decode(ReadOnlySpan<byte> data, int maxBytes = DefaultMaxBytes)
     {
-        if (data.Length > maxBytes || data.Length < 2 || data[0] != 131)
+        if (data.Length > maxBytes || data.Length < EtfHeaderLayout.MinimumPacketBytes || data[EtfHeaderLayout.VersionOffset] != EtfHeaderLayout.Version)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         try
         {
-            if (data[1] == 80)
+            if (data[EtfHeaderLayout.TagOffset] == EtfTags.Compressed)
             {
-                if (data.Length < 6)
+                if (data.Length < EtfHeaderLayout.MinimumCompressedPacketBytes)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
-                uint expected = BinaryPrimitives.ReadUInt32BigEndian(data[2..]);
+                uint expected = BinaryPrimitives.ReadUInt32BigEndian(data[EtfHeaderLayout.CompressedSizeOffset..]);
                 if (expected > maxBytes)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
-                using var input = new MemoryStream(data[6..].ToArray());
+                using var input = new MemoryStream(data[EtfHeaderLayout.CompressedPayloadOffset..].ToArray());
                 using var z = new ZLibStream(input, CompressionMode.Decompress);
                 using var output = new MemoryStream();
-                byte[] buffer = new byte[4096];
+                byte[] buffer = new byte[EtfCompression.BufferBytes];
                 int n;
                 while ((n = z.Read(buffer)) != 0)
                 {
@@ -53,7 +53,7 @@ public static class ExternalTermFormat
 
                 return result;
             }
-            var reader = new Reader(data[1..], maxBytes);
+            var reader = new Reader(data[EtfHeaderLayout.PlainPayloadOffset..], maxBytes);
             var term = reader.Read(0);
             if (!reader.AtEnd)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -68,79 +68,79 @@ public static class ExternalTermFormat
 
     private static void U16(Stream s, int value)
     {
-        Span<byte> b = stackalloc byte[2];
+        Span<byte> b = stackalloc byte[EtfFieldWidths.UInt16Bytes];
         BinaryPrimitives.WriteUInt16BigEndian(b, checked((ushort)value));
         s.Write(b);
     }
 
     private static void U32(Stream s, uint value)
     {
-        Span<byte> b = stackalloc byte[4];
+        Span<byte> b = stackalloc byte[EtfFieldWidths.UInt32Bytes];
         BinaryPrimitives.WriteUInt32BigEndian(b, value);
         s.Write(b);
     }
 
     private static void Write(Stream s, Term term, int depth)
     {
-        if (depth > 256)
+        if (depth > EtfResourceLimits.MaximumNestingDepth)
             throw new ErlangException(ErlangErrorReasons.SystemLimit);
         switch (term)
         {
             case Atom a:
                 {
                     byte[] b = Encoding.UTF8.GetBytes(a.Name);
-                    if (a.Name.EnumerateRunes().Count() > 255)
+                    if (a.Name.EnumerateRunes().Count() > EtfAtomLimits.MaximumCodePoints)
                         throw new ErlangException(ErlangErrorReasons.SystemLimit);
-                    s.WriteByte(118);
+                    s.WriteByte(EtfTags.Utf8Atom);
                     U16(s, b.Length);
                     s.Write(b);
                     break;
                 }
-            case Integer i when i.Value >= 0 && i.Value <= 255:
-                s.WriteByte(97);
+            case Integer i when i.Value >= 0 && i.Value <= EtfIntegerLayout.SmallIntegerMaximum:
+                s.WriteByte(EtfTags.SmallInteger);
                 s.WriteByte((byte)i.Value);
                 break;
             case Integer i when i.Value >= int.MinValue && i.Value <= int.MaxValue:
-                s.WriteByte(98);
+                s.WriteByte(EtfTags.Integer);
                 U32(s, unchecked((uint)(int)i.Value));
                 break;
             case Integer i:
                 {
                     byte[] b = BigInteger.Abs(i.Value).ToByteArray(true, false);
-                    if (b.Length < 256)
+                    if (b.Length < EtfIntegerLayout.LargeBigMinimumDigits)
                     {
-                        s.WriteByte(110);
+                        s.WriteByte(EtfTags.SmallBig);
                         s.WriteByte((byte)b.Length);
                     }
                     else
                     {
-                        s.WriteByte(111);
+                        s.WriteByte(EtfTags.LargeBig);
                         U32(s, (uint)b.Length);
                     }
-                    s.WriteByte((byte)(i.Value.Sign < 0 ? 1 : 0));
+                    s.WriteByte((byte)(i.Value.Sign < 0 ? EtfIntegerLayout.NegativeSign : EtfIntegerLayout.NonNegativeSign));
                     s.Write(b);
                     break;
                 }
             case FloatTerm f:
                 {
-                    s.WriteByte(70);
-                    Span<byte> b = stackalloc byte[8];
+                    s.WriteByte(EtfTags.NewFloat);
+                    Span<byte> b = stackalloc byte[EtfFloatLayout.Binary64Bytes];
                     BinaryPrimitives.WriteInt64BigEndian(b, BitConverter.DoubleToInt64Bits(f.Value));
                     s.Write(b);
                     break;
                 }
             case Nil:
-                s.WriteByte(106);
+                s.WriteByte(EtfTags.Nil);
                 break;
             case TupleTerm t:
-                if (t.Items.Count < 256)
+                if (t.Items.Count < EtfTupleLayout.LargeTupleMinimumArity)
                 {
-                    s.WriteByte(104);
+                    s.WriteByte(EtfTags.SmallTuple);
                     s.WriteByte((byte)t.Items.Count);
                 }
                 else
                 {
-                    s.WriteByte(105);
+                    s.WriteByte(EtfTags.LargeTuple);
                     U32(s, (uint)t.Items.Count);
                 }
                 foreach (var item in t.Items)
@@ -155,7 +155,7 @@ public static class ExternalTermFormat
                         items.Add(c.Head);
                         tail = c.Tail;
                     }
-                    s.WriteByte(108);
+                    s.WriteByte(EtfTags.List);
                     U32(s, (uint)items.Count);
                     foreach (var item in items)
                         Write(s, item, depth + 1);
@@ -163,7 +163,7 @@ public static class ExternalTermFormat
                     break;
                 }
             case MapTerm m:
-                s.WriteByte(116);
+                s.WriteByte(EtfTags.Map);
                 U32(s, (uint)m.Entries.Count);
                 foreach (var e in m.Entries)
                 {
@@ -172,36 +172,36 @@ public static class ExternalTermFormat
                 }
                 break;
             case BitString b:
-                s.WriteByte((byte)(b.IsBinary ? 109 : 77));
+                s.WriteByte((byte)(b.IsBinary ? EtfTags.Binary : EtfTags.BitBinary));
                 byte[] data = b.ToArray();
                 U32(s, (uint)data.Length);
                 if (!b.IsBinary)
-                    s.WriteByte((byte)(b.BitLength % 8));
+                    s.WriteByte((byte)(b.BitLength % EtfBitBinaryLayout.BitsPerByte));
                 s.Write(data);
                 break;
             case Pid p:
-                s.WriteByte(88);
+                s.WriteByte(EtfTags.NewPid);
                 Write(s, Term.A(p.Node), depth + 1);
                 U32(s, (uint)p.Id);
-                U32(s, (uint)(p.Id >> 32));
+                U32(s, (uint)(p.Id >> EtfPidLayout.SerialBitShift));
                 U32(s, p.Creation);
                 break;
             case PortTerm p:
-                s.WriteByte(120);
+                s.WriteByte(EtfTags.V4Port);
                 Write(s, Term.A(p.Node), depth + 1);
-                Span<byte> id = stackalloc byte[8];
+                Span<byte> id = stackalloc byte[EtfFieldWidths.UInt64Bytes];
                 BinaryPrimitives.WriteUInt64BigEndian(id, p.Id);
                 s.Write(id);
                 U32(s, p.Creation);
                 break;
             case ReferenceTerm r:
-                s.WriteByte(90);
-                U16(s, r.Id > uint.MaxValue ? 2 : 1);
+                s.WriteByte(EtfTags.NewerReference);
+                U16(s, r.Id > uint.MaxValue ? EtfReferenceLayout.DoubleIdWords : EtfReferenceLayout.SingleIdWord);
                 Write(s, Term.A(r.Node), depth + 1);
                 U32(s, r.Creation);
                 U32(s, (uint)r.Id);
                 if (r.Id > uint.MaxValue)
-                    U32(s, (uint)(r.Id >> 32));
+                    U32(s, (uint)(r.Id >> EtfReferenceLayout.IdWordBitShift));
                 break;
             default:
                 throw new NotSupportedException(EtfDiagnostics.UnsupportedEncoding(term.GetType().Name));
@@ -231,9 +231,9 @@ public static class ExternalTermFormat
             return b;
         }
 
-        private int U16() => BinaryPrimitives.ReadUInt16BigEndian(Bytes(2));
+        private int U16() => BinaryPrimitives.ReadUInt16BigEndian(Bytes(EtfFieldWidths.UInt16Bytes));
 
-        private uint U32() => BinaryPrimitives.ReadUInt32BigEndian(Bytes(4));
+        private uint U32() => BinaryPrimitives.ReadUInt32BigEndian(Bytes(EtfFieldWidths.UInt32Bytes));
 
         private int Count(uint n, int minimum = 1)
         {
@@ -247,50 +247,50 @@ public static class ExternalTermFormat
 
         public Term Read(int depth)
         {
-            if (depth > 256)
+            if (depth > EtfResourceLimits.MaximumNestingDepth)
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
             int tag = Byte();
             switch (tag)
             {
-                case 97:
+                case EtfTags.SmallInteger:
                     return Term.I(Byte());
-                case 98:
+                case EtfTags.Integer:
                     return Term.I(unchecked((int)U32()));
-                case 70:
-                    return new FloatTerm(BitConverter.Int64BitsToDouble(BinaryPrimitives.ReadInt64BigEndian(Bytes(8))));
-                case 99:
-                    return new FloatTerm(double.Parse(Encoding.ASCII.GetString(Bytes(31)).TrimEnd('\0'), CultureInfo.InvariantCulture));
-                case 100:
-                case 115:
-                case 118:
-                case 119:
+                case EtfTags.NewFloat:
+                    return new FloatTerm(BitConverter.Int64BitsToDouble(BinaryPrimitives.ReadInt64BigEndian(Bytes(EtfFloatLayout.Binary64Bytes))));
+                case EtfTags.LegacyFloat:
+                    return new FloatTerm(double.Parse(Encoding.ASCII.GetString(Bytes(EtfFloatLayout.LegacyTextBytes)).TrimEnd('\0'), CultureInfo.InvariantCulture));
+                case EtfTags.Latin1Atom:
+                case EtfTags.SmallLatin1Atom:
+                case EtfTags.Utf8Atom:
+                case EtfTags.SmallUtf8Atom:
                     {
-                        int n = tag is 115 or 119 ? Byte() : U16();
-                        string name = tag is 118 or 119 ? new UTF8Encoding(false, true).GetString(Bytes(n)) : Encoding.Latin1.GetString(Bytes(n));
-                        if (name.EnumerateRunes().Count() > 255)
+                        int n = tag is EtfTags.SmallLatin1Atom or EtfTags.SmallUtf8Atom ? Byte() : U16();
+                        string name = tag is EtfTags.Utf8Atom or EtfTags.SmallUtf8Atom ? new UTF8Encoding(false, true).GetString(Bytes(n)) : Encoding.Latin1.GetString(Bytes(n));
+                        if (name.EnumerateRunes().Count() > EtfAtomLimits.MaximumCodePoints)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
                         return Term.A(name);
                     }
-                case 106:
+                case EtfTags.Nil:
                     return Nil.Value;
-                case 104:
-                case 105:
+                case EtfTags.SmallTuple:
+                case EtfTags.LargeTuple:
                     {
-                        int n = Count(tag == 104 ? Byte() : U32());
+                        int n = Count(tag == EtfTags.SmallTuple ? Byte() : U32());
                         var items = new Term[n];
                         for (int i = 0; i < n; i++)
                             items[i] = Read(depth + 1);
 
                         return new TupleTerm(items);
                     }
-                case 107:
+                case EtfTags.String:
                     {
                         int n = U16();
 
                         return Cons.From(Bytes(n).ToArray().Select(b => (Term)Term.I(b)));
                     }
-                case 108:
+                case EtfTags.List:
                     {
                         int n = Count(U32());
                         var items = new Term[n];
@@ -299,74 +299,74 @@ public static class ExternalTermFormat
 
                         return Cons.From(items, Read(depth + 1));
                     }
-                case 109:
+                case EtfTags.Binary:
                     {
                         int n = Count(U32());
 
                         return new BitString(Bytes(n));
                     }
-                case 77:
+                case EtfTags.BitBinary:
                     {
                         int n = Count(U32());
                         int bits = Byte();
-                        if (n == 0 || bits is < 1 or > 8)
+                        if (n == 0 || bits is < EtfBitBinaryLayout.MinimumTailBits or > EtfBitBinaryLayout.MaximumTailBits)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                        return new BitString(Bytes(n), (n - 1) * 8 + bits);
+                        return new BitString(Bytes(n), (n - 1) * EtfBitBinaryLayout.BitsPerByte + bits);
                     }
-                case 110:
-                case 111:
+                case EtfTags.SmallBig:
+                case EtfTags.LargeBig:
                     {
-                        int n = Count(tag == 110 ? Byte() : U32());
+                        int n = Count(tag == EtfTags.SmallBig ? Byte() : U32());
                         int sign = Byte();
-                        if (sign > 1)
+                        if (sign > EtfIntegerLayout.NegativeSign)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var value = new BigInteger(Bytes(n), true, false);
 
-                        return new Integer(sign == 1 ? -value : value);
+                        return new Integer(sign == EtfIntegerLayout.NegativeSign ? -value : value);
                     }
-                case 116:
+                case EtfTags.Map:
                     {
-                        int n = Count(U32(), 2);
+                        int n = Count(U32(), EtfMapLayout.TermsPerEntry);
                         var items = new KeyValuePair<Term, Term>[n];
                         for (int i = 0; i < n; i++)
                             items[i] = new(Read(depth + 1), Read(depth + 1));
 
                         return new MapTerm(items);
                     }
-                case 88:
-                case 103:
+                case EtfTags.NewPid:
+                case EtfTags.Pid:
                     {
                         string node = Node(depth + 1);
-                        uint id = U32(), serial = U32(), creation = tag == 88 ? U32() : Byte();
+                        uint id = U32(), serial = U32(), creation = tag == EtfTags.NewPid ? U32() : Byte();
 
-                        return new Pid(node, id | ((ulong)serial << 32), creation);
+                        return new Pid(node, id | ((ulong)serial << EtfPidLayout.SerialBitShift), creation);
                     }
-                case 120:
-                case 89:
-                case 102:
+                case EtfTags.V4Port:
+                case EtfTags.NewPort:
+                case EtfTags.Port:
                     {
                         string node = Node(depth + 1);
-                        ulong id = tag == 120 ? BinaryPrimitives.ReadUInt64BigEndian(Bytes(8)) : U32();
-                        uint creation = tag == 102 ? Byte() : U32();
+                        ulong id = tag == EtfTags.V4Port ? BinaryPrimitives.ReadUInt64BigEndian(Bytes(EtfFieldWidths.UInt64Bytes)) : U32();
+                        uint creation = tag == EtfTags.Port ? Byte() : U32();
 
                         return new PortTerm(node, id, creation);
                     }
-                case 90:
-                case 114:
+                case EtfTags.NewerReference:
+                case EtfTags.NewReference:
                     {
                         int n = U16();
                         string node = Node(depth + 1);
-                        uint creation = tag == 90 ? U32() : Byte();
-                        if (n is < 1 or > 2)
+                        uint creation = tag == EtfTags.NewerReference ? U32() : Byte();
+                        if (n is < EtfReferenceLayout.MinimumSupportedWords or > EtfReferenceLayout.MaximumSupportedWords)
                             throw new NotSupportedException(EtfDiagnostics.LongReferenceId);
                         ulong id = U32();
-                        if (n == 2)
-                            id |= (ulong)U32() << 32;
+                        if (n == EtfReferenceLayout.DoubleIdWords)
+                            id |= (ulong)U32() << EtfReferenceLayout.IdWordBitShift;
 
                         return new ReferenceTerm(node, id, creation);
                     }
-                case 101:
+                case EtfTags.Reference:
                     {
                         string node = Node(depth + 1);
                         uint id = U32();
