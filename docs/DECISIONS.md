@@ -18,3 +18,7 @@
 ## Part 018 — Semantic constants and readable code
 
 Group reusable constants by semantic ownership, never by literal equality alone. Error reasons and exception classes are separate term-domain files; compiler bit segment names, byte orders, syntax defaults, floating widths, storage layout and Unicode limits have distinct groups. Lexer token kinds are not bit segment types; BIF names are not exception classes; integer default width is not bits per byte; UTF32 length is not maximum UTF encoding length. Keep source-language fixture text and one-off diagnostic messages near their use unless an actual shared contract exists. Use .editorconfig and logical blank-line separation for future changes; the hybrid source remains subject to its own preprocessing pipeline.
+
+## Part 019 — Compiler diagnostic catalog clarification
+
+The user's screenshot follow-up includes one-off compiler diagnostic strings, not just repeated values. This supersedes the earlier decision to keep such compiler messages inline: all CompileException codes and texts now belong to CompilerDiagnostics.cs, grouped by lexer/parser/semantics/bit-pattern/hybrid ownership. Ten named builders retain original interpolation for dynamic diagnostics. Source-language fixtures stay local and independent. LexerTokenKinds.Integer/Float remain separate from BitSegmentTypes.Integer/Float. BitSpecifierCategories.Unit (conflict key) and BitUnitSpecifier.Name (source spelling) remain separate despite both being unit. Limits of a source unit are distinct from default units with equal values.

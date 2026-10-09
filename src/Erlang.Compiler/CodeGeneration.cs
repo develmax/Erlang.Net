@@ -131,7 +131,7 @@ public static class CodeGeneration
                 for (int n = 1; n < probe.Count; n++)
                 {
                     string text = probe[n].Text;
-                    if (probe[n].Kind is "quoted_atom" or "string")
+                    if (probe[n].Kind is LexerTokenKinds.QuotedAtom or LexerTokenKinds.String)
                         continue;
                     if (depth == 0 && text is ";" or "}" or "->")
                         break;
@@ -161,7 +161,7 @@ public static class CodeGeneration
             while (end < source.Length && char.IsWhiteSpace(source[end]))
                 end++;
             if (end >= source.Length || source[end] != '.')
-                throw new CompileException("ERL008", "Embedded Erlang expressions must end with 'end.'", end);
+                throw new CompileException(CompilerDiagnosticCodes.EmbeddedExpression, HybridDiagnostics.MissingExpressionTerminator, end);
             end++;
             result.Append(source[copied..start]);
             result.Append("await global::Erlang.Compiler.Execution.EvaluateAsync(").Append(ExpressionCode(expression)).Append(", erlangProcess)");

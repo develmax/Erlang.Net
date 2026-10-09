@@ -25,3 +25,5 @@ Anonymous fun matching now shadows captured values separately per clause, preser
 - Distributed Erlang, ETS/DETS, code loading/upgrades, NIF/ports execution, applications, gen_statem/gen_event and the remaining OTP libraries are Not started.
 
 Reference comparison currently evaluates expressions with erl_eval. Compiled-reference-module/optimizer equivalence and full reference compiler suites are separate unfinished tracks.
+
+Parts 018–019 are code-organization refactors. Domain constants and compiler diagnostic builders preserve the existing literal values, diagnostic texts/codes/offsets and grammar. Local validation was rerun; reference results remain attributed to their historical tested heads. These parts add no semantic compatibility claim or new boundary.

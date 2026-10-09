@@ -18,6 +18,35 @@ internal static class BitByteOrders
     public const string Native = "native";
 }
 
+// Category keys describe conflict detection, not the source specifier values.
+internal static class BitSpecifierCategories
+{
+    public const string Type = "type";
+    public const string Endian = "endian";
+    public const string Sign = "sign";
+    public const string Unit = "unit";
+}
+
+internal static class BitSegmentAliases
+{
+    public const string Bytes = "bytes";
+    public const string Bitstring = "bitstring";
+    public const string Bits = "bits";
+}
+
+internal static class BitSignSpecifiers
+{
+    public const string Signed = "signed";
+    public const string Unsigned = "unsigned";
+}
+
+internal static class BitUnitSpecifier
+{
+    public const string Name = "unit";
+    public const int Minimum = 1;
+    public const int Maximum = 256;
+}
+
 internal static class BitSyntaxDefaults
 {
     // Default integer width and the number of bits in a byte happen to be equal.

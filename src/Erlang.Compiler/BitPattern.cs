@@ -14,16 +14,16 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
             var segment = bits.Segments[i];
             bool whole = segment.Type == BitSegmentTypes.Binary && (segment.Size is null || segment.Size is Expr.Literal { Value: Atom { Name: "all" } });
             if (whole && i != bits.Segments.Count - 1)
-                throw new CompileException("ERL004", "Unsized binary pattern segment must be last", 0);
+                throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedBinaryNotLast, 0);
             var value = Parser.ToPattern(segment.Value);
             if (segment.Type == BitSegmentTypes.Float && value is Pattern.Literal { Value: Integer integer })
             {
                 if (!integer.TryToDouble(out double number))
-                    throw new CompileException("ERL004", "Float pattern literal is outside the finite double range", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.FloatLiteralOutOfRange, 0);
                 value = new Pattern.Literal(new FloatTerm(number));
             }
             if (value is not Pattern.Variable && !((segment.Type == BitSegmentTypes.Integer || BitUnicode.IsUtf(segment.Type)) && value is Pattern.Literal { Value: Integer }) && !(segment.Type == BitSegmentTypes.Float && value is Pattern.Literal { Value: FloatTerm }))
-                throw new CompileException("ERL004", "Bit pattern segments support variables and numeric literals only", 0);
+                throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsupportedSegmentValue, 0);
             segments.Add(new(value, segment));
         }
         return new(segments);

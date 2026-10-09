@@ -6,10 +6,10 @@ public static class Semantics
     public static void Validate(ModuleDefinition module)
     {
         if (module.Functions.Select(f => (f.Name, f.Arity)).Distinct().Count() != module.Functions.Count)
-            throw new CompileException("ERL005", "Duplicate function definition", 0);
+            throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.DuplicateFunction, 0);
         foreach (var export in module.Exports)
             if (!module.Functions.Any(f => f.Name == export.Name && f.Arity == export.Arity))
-                throw new CompileException("ERL005", $"Undefined export {export.Name}/{export.Arity}", 0);
+                throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.UndefinedExport(export.Name, export.Arity), 0);
         foreach (var f in module.Functions)
             foreach (var clause in f.Clauses)
                 ValidateClause(clause, [], false);
@@ -60,7 +60,7 @@ public static class Semantics
                 if (shadow)
                     scope.Remove("!unsafe:" + name);
                 else if (scope.Contains("!unsafe:" + name))
-                    throw new CompileException("ERL006", $"Unsafe pattern variable '{name}'", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnsafePatternVariable(name), 0);
                 scope.Add(name);
             }
         }
@@ -97,7 +97,7 @@ public static class Semantics
                 break;
             case Expr.Variable v:
                 if (v.Name == "_" || !bound.Contains(v.Name))
-                    throw new CompileException("ERL006", $"Unbound or unsafe variable '{v.Name}'", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
                 break;
             case Expr.Tuple t:
                 foreach (var x in t.Items)
@@ -113,7 +113,7 @@ public static class Semantics
                 if (m.Base is not null)
                     Walk(m.Base, bound, guard);
                 else if (m.Fields.Any(f => f.Exact))
-                    throw new CompileException("ERL004", "Map construction requires '=>' fields; ':=' is for updates or patterns", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, SemanticDiagnostics.MapConstructionOperator, 0);
                 foreach (var field in m.Fields)
                 {
                     Walk(field.Key, bound, guard);
@@ -141,7 +141,7 @@ public static class Semantics
                 break;
             case Expr.Binary b:
                 if (guard && b.Operator is "!" or "++" or "--")
-                    throw new CompileException("ERL007", "Operator is not legal in a guard", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardOperator, 0);
                 Walk(b.Left, bound, guard);
                 if (b.Operator is "andalso" or "orelse")
                 {
@@ -153,46 +153,46 @@ public static class Semantics
                 break;
             case Expr.Call call:
                 if (guard && (call.Module is not null and not "erlang" || !GuardBifs.Contains((call.Function, call.Arguments.Count))))
-                    throw new CompileException("ERL007", $"Illegal guard call '{call.Function}/{call.Arguments.Count}'", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.IllegalGuardCall(call.Function, call.Arguments.Count), 0);
                 foreach (var x in call.Arguments)
                     Walk(x, bound, guard);
                 break;
             case Expr.Match m:
                 if (guard)
-                    throw new CompileException("ERL007", "Match is not legal in a guard", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardMatch, 0);
                 Walk(m.Value, bound, false);
                 PatternKeys(m.Pattern, bound);
                 foreach (string name in Variables(m.Pattern))
                 {
                     if (bound.Contains("!unsafe:" + name))
-                        throw new CompileException("ERL006", $"Unsafe match variable '{name}'", 0);
+                        throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnsafeMatchVariable(name), 0);
                     bound.Add(name);
                 }
                 break;
             case Expr.Case c:
                 if (guard)
-                    throw new CompileException("ERL007", "case is not legal in a guard", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardCase, 0);
                 Walk(c.Value, bound, false);
                 Branches(c.Clauses, bound);
                 break;
             case Expr.Receive r:
                 if (guard)
-                    throw new CompileException("ERL007", "receive is not legal in a guard", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardReceive, 0);
                 if (r.Timeout is not null)
                     Walk(r.Timeout, bound, false);
                 Branches(r.Clauses, bound, r.After);
                 break;
             case Expr.Fun f:
                 if (guard)
-                    throw new CompileException("ERL007", "fun is not legal in a guard", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardFun, 0);
                 foreach (var c in f.Clauses)
                     ValidateClause(c, bound, true);
                 if (f.Clauses.Select(c => c.Patterns.Count).Distinct().Count() != 1)
-                    throw new CompileException("ERL005", "fun clauses must have equal arity", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.FunClauseArityMismatch, 0);
                 break;
             case Expr.Apply a:
                 if (guard)
-                    throw new CompileException("ERL007", "Dynamic calls are not legal in guards", 0);
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardDynamicCall, 0);
                 Walk(a.Function, bound, false);
                 foreach (var x in a.Arguments)
                     Walk(x, bound, false);

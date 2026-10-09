@@ -683,3 +683,38 @@ The prior **160/160** OTP oracle and same-head CI remain historical evidence at 
 ### Handoff
 
 Updated current PROGRESS/COMPATIBILITY/DECISIONS/NEXT_STEPS and immutable part-018 reports. Commit title: `Extract domain constants and improve code readability`. Publish this completed part to origin/main. Continue the existing feature sequence with construction-only non-UTF literal-string modifiers and empty-string validation, preserving pattern restrictions and these semantic ownership/readability conventions. Detailed English changelog continues per part.
+
+## Part 019 — 2026-10-09 — Complete compiler diagnostic and category constants
+
+**Part status:** completed for compiler diagnostic/token/bit-specifier extraction. Full assignment remains approximately **5%**, a coarse estimate; no new language feature/MFA.
+**Objective and scope:** resolve the remaining category and diagnostic literals shown in the user's screenshots, extending the part-018 refactor while preserving semantic ownership. Part 018 is recorded and published as **1aba73d7bfe529309cbe313f207a5e073d8d9784** before this part.
+
+### Changes
+
+[CompilerDiagnostics.cs](src/Erlang.Compiler/CompilerDiagnostics.cs) now owns all eight CompileException codes, 31 fixed diagnostic messages and ten dynamic message builders, grouped by lexer/parser/semantic/bit-pattern/hybrid domain. Syntax.cs, Semantics.cs, BitPattern.cs and CodeGeneration.cs use the catalog. For example, the screenshot message becomes **ParserDiagnostics.NumericUnitRequiresSize**. Dynamic messages retain their original interpolation; call sites retain the same arguments and diagnostic offsets. Source fixtures and independent literal expectations are unchanged.
+
+[BitSyntaxConstants.cs](src/Erlang.Compiler/BitSyntaxConstants.cs) adds modifier conflict categories, binary aliases, sign specifiers and source-unit spelling/limits. The screenshot category becomes **BitSpecifierCategories.Endian**. Category Unit and source specifier Name both contain unit but remain distinct contracts. Alias bits/bitstring/bytes values and parsed unit range 1..256 stay unchanged. Added [LexerTokenKinds.cs](src/Erlang.Compiler/LexerTokenKinds.cs); lexer Integer/Float categories remain independent from bit-segment Integer/Float types despite equal strings.
+
+AGENTS.md and DECISIONS clarify the user's requirement: compiler diagnostic texts are cataloged even when used once, superseding the earlier local-message guideline for this domain. Source-language fixtures remain local. Added no permanent tests that merely mirror constants; the existing independent expectations exercise the original semantics and diagnostics.
+
+### Decisions and compatibility
+
+Inspected existing compiler call sites and fixture expectations; used installed SDK Roslyn and existing C# const/interpolation facilities. No dependency, copied implementation, new public API or license change. [Reuse audit](docs/dependency-decisions.md). Pinned OTP-29.1.1 and reference checkout are unchanged; this refactor does not change grammar/runtime/OTP contracts. All 49 MFAs remain Partially compatible. Source-language keyword/operator spellings and generated-source fragments are outside this compiler diagnostic/token/bit-specifier extraction; this part does not claim every repository literal is extracted.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full build/permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-019/tests.json) | **299 passed, 0 failed**, 49 direct MFAs; zero warnings/errors |
+| Generated .erl/hybrid/incremental/disabled/clean/packages/consumer/CLI | Same script; [integration](docs/validation/part-019/integration-results.json) | Passed; expected negative paths retained |
+| Formatter verification | dotnet format whitespace . --folder --include src/Erlang.Compiler --verify-no-changes --verbosity quiet | Passed |
+| Token/literal preservation | Transient SDK Roslyn audit against **1aba73d7bfe529309cbe313f207a5e073d8d9784**; [report](docs/validation/part-019/source-token-audit.json) | Four existing implementation files; **103 additional constant references**, **10 builders inlined**, **0 mismatches** |
+| Hygiene and report checks | git diff --check; JSON counts; compiler literal scan; sibling reference status | Checked before commit; reference unchanged |
+
+Audit expands actual compiled const fields on both sides (55 references before, 158 after), substitutes original invocation arguments into the diagnostic builders and compares token streams/literal text while ignoring trivia. New catalogs and additions to BitSyntaxConstants are reviewed separately, explicitly outside the implementation-token comparison. No full semantic compatibility proof is inferred. Diagnostic offsets/control flow and interpolation expressions are preserved.
+
+Historical **160/160** oracle and same-head Windows CI remain at **666c4b5060110068aba4ad043fec7d0ac3388168** from part 017. No new oracle or benchmark run for this organization-only change. Full compiled-reference-module/stack/signal/side-effect/reference-suite coverage remains unfinished. Local package validation does not publish NuGet packages.
+
+### Handoff
+
+Updated PROGRESS/COMPATIBILITY/DECISIONS/semantic differences/NEXT_STEPS and immutable part-019 snapshots; current report pointers remain consistent. Commit title: `Catalog compiler diagnostics and bit specifier constants`. Publish the completed part to origin/main. Continue the previously planned non-UTF construction-only string modifier feature with these ownership/readability rules and detailed English per-part history.

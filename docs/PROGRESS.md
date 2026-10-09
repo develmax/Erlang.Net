@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–018.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–019.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -22,10 +22,12 @@ Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF dec
 
 Part 018 extracts reusable reason atoms, exception classes and bit-syntax values into domain-owned files, with separate names for equal literals that represent different contracts. It formats 21 existing C# files and separates logical stages in bit helpers/numeric conversion. .editorconfig and AGENTS.md preserve the convention for future parts. The source-token/value audit is in [part 018](validation/part-018/source-token-audit.json); this refactor adds no language feature or MFA and does not change the approximately 5% estimate. The 160-case reference result below remains evidence from its stated historical head; the oracle was not rerun for this refactor.
 
+Part 019 completes compiler diagnostic extraction, including one-off texts and ten dynamic message builders, and adds separate lexer-kind, bit-category, alias/sign/unit constants. All CompileException codes/texts are owned by CompilerDiagnostics.cs; literal test expectations remain independent. The [part-019 token audit](validation/part-019/source-token-audit.json) records 103 additional constant references and ten inlined builders with zero mismatches across four existing implementation files. Constant catalog definitions were reviewed separately. This continues the refactor without new semantic features.
+
 ## Current validation
 
-- **299/299 local tests passed**, including 49 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-018/tests.json).
-- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-018/integration-results.json).
+- **299/299 local tests passed**, including 49 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-019/tests.json).
+- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-019/integration-results.json).
 - An unavailable local oracle returns code 2 with an incomplete infrastructure-error report and zero executed cases. No reference runtime is installed on this host.
 - Remote exact-version run **37955525454 at 666c4b5** matched **160/160** values/exception class/reason cases: prior 93, float 30, UTF 31 and arithmetic-coercion 6. Version confirmed, complete report, zero failures/aborts; actual artifact digest verified. [Report and metadata](validation/part-017/remote-checkpoint.json). Reference expressions use erl_eval; compiled-reference-module/optimizer equivalence remains unverified.
 - Same-head Windows CI **37955516789 at 666c4b5** passed **299/299 tests** and full build/integration/package validation. Its actual log confirms zero warnings/errors and Validation passed. Part 017 observes this remote evidence; no new runtime changes or local test rerun.

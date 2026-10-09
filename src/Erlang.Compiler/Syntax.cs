@@ -51,7 +51,7 @@ public static class Lexer
                             break;
                         ch = text[i++];
                         if (ch is 'x' or '^' || char.IsDigit(ch))
-                            throw new CompileException("ERL003", "Hex, control and octal escapes are not implemented yet", i - 2);
+                            throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, LexerDiagnostics.UnsupportedEscape, i - 2);
                         ch = ch switch
                         {
                             'n' => '\n',
@@ -68,15 +68,15 @@ public static class Lexer
                     value.Append(ch);
                 }
                 if (!closed)
-                    throw new CompileException("ERL001", "Unterminated quoted literal", start);
+                    throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.UnterminatedQuotedLiteral, start);
                 string literal = value.ToString();
                 for (int offset = 0; offset < literal.Length;)
                 {
                     if (!Rune.TryGetRuneAt(literal, offset, out var rune) || rune.Value is 0xfffe or 0xffff)
-                        throw new CompileException("ERL001", "Illegal Unicode character in quoted literal", start);
+                        throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.IllegalQuotedUnicode, start);
                     offset += rune.Utf16SequenceLength;
                 }
-                tokens.Add(new(c == '\'' ? "quoted_atom" : "string", literal, start, i));
+                tokens.Add(new(c == '\'' ? LexerTokenKinds.QuotedAtom : LexerTokenKinds.String, literal, start, i));
                 continue;
             }
             if (char.IsLetter(c) || c == '_')
@@ -84,7 +84,7 @@ public static class Lexer
                 while (i < text.Length && (char.IsLetterOrDigit(text[i]) || text[i] is '_' or '@'))
                     i++;
                 string name = text[start..i];
-                tokens.Add(new(char.IsUpper(c) || c == '_' ? "variable" : Keywords.Contains(name) ? "keyword" : "atom", name, start, i));
+                tokens.Add(new(char.IsUpper(c) || c == '_' ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom, name, start, i));
                 if (blockPrefix)
                 {
                     if (name is "receive" or "case" or "fun")
@@ -114,15 +114,15 @@ public static class Lexer
                     while (i < text.Length && char.IsDigit(text[i]))
                         i++;
                 }
-                tokens.Add(new(floating ? "float" : "integer", text[start..i].Replace("_", ""), start, i));
+                tokens.Add(new(floating ? LexerTokenKinds.Float : LexerTokenKinds.Integer, text[start..i].Replace("_", ""), start, i));
                 continue;
             }
             var symbol = symbols.FirstOrDefault(s => text.AsSpan(start).StartsWith(s, StringComparison.Ordinal));
             if (symbol is not null)
                 i = start + symbol.Length;
-            tokens.Add(new("symbol", symbol ?? c.ToString(), start, i));
+            tokens.Add(new(LexerTokenKinds.Symbol, symbol ?? c.ToString(), start, i));
         }
-        tokens.Add(new("eof", "", i, i));
+        tokens.Add(new(LexerTokenKinds.EndOfInput, "", i, i));
         return tokens;
     }
 }
@@ -186,7 +186,7 @@ public sealed class Parser
     public Parser(string text, bool blockPrefix = false) => tokens = Lexer.Scan(text, blockPrefix);
     private Token Current => tokens[position];
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
-    private bool Is(string value) => Current.Kind != "quoted_atom" && Current.Text == value;
+    private bool Is(string value) => Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text == value;
     private bool Take(string value)
     {
         if (!Is(value))
@@ -197,21 +197,21 @@ public sealed class Parser
     private Token Expect(string value)
     {
         if (!Is(value))
-            throw Error($"Expected '{value}', found '{Current.Text}'");
+            throw Error(ParserDiagnostics.ExpectedToken(value, Current.Text));
         return tokens[position++];
     }
-    private CompileException Error(string message) => new("ERL002", message, Current.Start);
+    private CompileException Error(string message) => new(CompilerDiagnosticCodes.Syntax, message, Current.Start);
     private string Name()
     {
-        if (Current.Kind is not ("atom" or "quoted_atom"))
-            throw Error("Expected atom");
+        if (Current.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom))
+            throw Error(ParserDiagnostics.ExpectedAtom);
         return tokens[position++].Text;
     }
     public Expr ParseExpression(bool requireEnd = true)
     {
         var e = Expression();
-        if (requireEnd && Current.Kind != "eof")
-            throw Error("Unexpected trailing token");
+        if (requireEnd && Current.Kind != LexerTokenKinds.EndOfInput)
+            throw Error(ParserDiagnostics.UnexpectedTrailingToken);
         return e;
     }
     public ModuleDefinition ParseModule()
@@ -219,7 +219,7 @@ public sealed class Parser
         string? module = null;
         var exports = new List<(string, int)>();
         var functions = new List<FunctionDefinition>();
-        while (Current.Kind != "eof")
+        while (Current.Kind != LexerTokenKinds.EndOfInput)
         {
             if (Take("-"))
             {
@@ -240,8 +240,8 @@ public sealed class Parser
                         {
                             string name = Name();
                             Expect("/");
-                            if (Current.Kind != "integer")
-                                throw Error("Expected arity");
+                            if (Current.Kind != LexerTokenKinds.Integer)
+                                throw Error(ParserDiagnostics.ExpectedArity);
                             int arity = int.Parse(tokens[position++].Text, CultureInfo.InvariantCulture);
                             exports.Add((name, arity));
                         } while (Take(","));
@@ -251,7 +251,7 @@ public sealed class Parser
                     Expect(".");
                 }
                 else
-                    throw new CompileException("ERL003", $"Attribute '{attr}' is not supported yet", Current.Start);
+                    throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedAttribute(attr), Current.Start);
                 continue;
             }
             string fname = Name();
@@ -263,18 +263,18 @@ public sealed class Parser
             while (Take(";"))
             {
                 if (Name() != fname)
-                    throw Error("Function clauses must have the same name");
+                    throw Error(ParserDiagnostics.ClauseNameMismatch);
                 Expect("(");
                 patterns = PatternArguments();
                 if (patterns.Count != count)
-                    throw Error("Function clauses must have the same arity");
+                    throw Error(ParserDiagnostics.ClauseArityMismatch);
                 clauses.Add(ParseClause(patterns));
             }
             Expect(".");
             functions.Add(new(fname, count, clauses));
         }
         if (module is null)
-            throw Error("Missing -module attribute");
+            throw Error(ParserDiagnostics.MissingModuleAttribute);
         var result = new ModuleDefinition(module, exports, functions);
         Semantics.Validate(result);
         return result;
@@ -334,7 +334,7 @@ public sealed class Parser
         Expr left = Primary();
         while (true)
         {
-            int p = Current.Kind == "quoted_atom" ? 0 : Precedence(Current.Text);
+            int p = Current.Kind == LexerTokenKinds.QuotedAtom ? 0 : Precedence(Current.Text);
             if (p < minimum || p == 0)
                 break;
             string op = tokens[position++].Text;
@@ -365,7 +365,7 @@ public sealed class Parser
             Expect("of");
             var clauses = Clauses();
             if (clauses.Count == 0)
-                throw Error("case needs a clause");
+                throw Error(ParserDiagnostics.EmptyCase);
             Expect("end");
             return new Expr.Case(value, clauses);
         }
@@ -380,7 +380,7 @@ public sealed class Parser
             Expect("end");
             return new Expr.Fun(clauses);
         }
-        if (Current.Kind != "quoted_atom" && Current.Text is "+" or "-" or "not")
+        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is "+" or "-" or "not")
         {
             string op = tokens[position++].Text;
             return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(9));
@@ -429,12 +429,12 @@ public sealed class Parser
             position++;
             result = token.Kind switch
             {
-                "integer" => new Expr.Literal(new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture))),
-                "float" => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
-                "string" => new Expr.Literal(Term.String(token.Text)),
-                "variable" => new Expr.Variable(token.Text),
-                "atom" or "quoted_atom" => new Expr.Literal(Term.A(token.Text)),
-                _ => throw new CompileException("ERL003", $"Unsupported expression '{token.Text}'", token.Start)
+                LexerTokenKinds.Integer => new Expr.Literal(new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture))),
+                LexerTokenKinds.Float => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
+                LexerTokenKinds.String => new Expr.Literal(Term.String(token.Text)),
+                LexerTokenKinds.Variable => new Expr.Variable(token.Text),
+                LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom => new Expr.Literal(Term.A(token.Text)),
+                _ => throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedExpression(token.Text), token.Start)
             };
         }
         while (true)
@@ -446,7 +446,7 @@ public sealed class Parser
             else if (Take(":"))
             {
                 if (result is not Expr.Literal { Value: Atom module })
-                    throw Error("Dynamic module calls are not supported yet");
+                    throw Error(ParserDiagnostics.DynamicModuleCall);
                 string name = Name();
                 Expect("(");
                 result = new Expr.Call(module.Name, name, Arguments());
@@ -473,7 +473,7 @@ public sealed class Parser
             if (Take(":"))
             {
                 if (Current.Text is "+" or "-" or "not" or "bnot")
-                    throw Error("Unary bit segment sizes must be parenthesized");
+                    throw Error(ParserDiagnostics.UnaryBitSize);
                 size = Primary(true);
             }
             string type = BitSegmentTypes.Integer, endian = BitByteOrders.Big;
@@ -483,7 +483,7 @@ public sealed class Parser
             void Merge(string category, string setting)
             {
                 if (categories.TryGetValue(category, out var previous) && previous != setting)
-                    throw Error($"Conflicting bit segment {category} specifiers");
+                    throw Error(ParserDiagnostics.ConflictingBitSpecifier(category));
                 categories[category] = setting;
             }
             if (Take("/"))
@@ -500,48 +500,48 @@ public sealed class Parser
                         case BitSegmentTypes.Utf8:
                         case BitSegmentTypes.Utf16:
                         case BitSegmentTypes.Utf32:
-                            category = "type";
+                            category = BitSpecifierCategories.Type;
                             type = spec;
                             break;
-                        case "bytes":
-                        case "bitstring":
-                        case "bits":
-                            category = "type";
+                        case BitSegmentAliases.Bytes:
+                        case BitSegmentAliases.Bitstring:
+                        case BitSegmentAliases.Bits:
+                            category = BitSpecifierCategories.Type;
                             type = BitSegmentTypes.Binary;
-                            int aliasUnit = spec == "bytes" ? BitSyntaxDefaults.BinaryUnit : 1;
-                            Merge("unit", aliasUnit.ToString(CultureInfo.InvariantCulture));
+                            int aliasUnit = spec == BitSegmentAliases.Bytes ? BitSyntaxDefaults.BinaryUnit : 1;
+                            Merge(BitSpecifierCategories.Unit, aliasUnit.ToString(CultureInfo.InvariantCulture));
                             unit = aliasUnit;
                             break;
                         case BitByteOrders.Big:
                         case BitByteOrders.Little:
                         case BitByteOrders.Native:
-                            category = "endian";
+                            category = BitSpecifierCategories.Endian;
                             endian = spec;
                             break;
-                        case "signed":
-                        case "unsigned":
-                            category = "sign";
-                            signed = spec == "signed";
+                        case BitSignSpecifiers.Signed:
+                        case BitSignSpecifiers.Unsigned:
+                            category = BitSpecifierCategories.Sign;
+                            signed = spec == BitSignSpecifiers.Signed;
                             break;
-                        case "unit":
-                            category = "unit";
+                        case BitUnitSpecifier.Name:
+                            category = BitSpecifierCategories.Unit;
                             Expect(":");
-                            if (Current.Kind != "integer" || !int.TryParse(Current.Text, out var parsed) || parsed is < 1 or > 256)
-                                throw Error("Bit segment unit must be an integer from 1 through 256");
+                            if (Current.Kind != LexerTokenKinds.Integer || !int.TryParse(Current.Text, out var parsed) || parsed is < BitUnitSpecifier.Minimum or > BitUnitSpecifier.Maximum)
+                                throw Error(ParserDiagnostics.InvalidBitUnit);
                             unit = parsed;
                             position++;
                             break;
                         default:
-                            throw new CompileException("ERL003", $"Bit segment specifier '{spec}' is not supported yet", Current.Start);
+                            throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedBitSpecifier(spec), Current.Start);
                     }
-                    Merge(category, category == "type" ? type : category == "unit" ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec);
+                    Merge(category, category == BitSpecifierCategories.Type ? type : category == BitSpecifierCategories.Unit ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec);
                 } while (Take("-"));
             }
-            int defaultUnit = type is BitSegmentTypes.Binary or "bytes" ? BitSyntaxDefaults.BinaryUnit : 1;
+            int defaultUnit = type is BitSegmentTypes.Binary or BitSegmentAliases.Bytes ? BitSyntaxDefaults.BinaryUnit : 1;
             if ((type is BitSegmentTypes.Integer or BitSegmentTypes.Float) && size is null && unit is not null)
-                throw Error("An explicit numeric segment unit requires a size");
+                throw Error(ParserDiagnostics.NumericUnitRequiresSize);
             if (BitUnicode.IsUtf(type) && (size is not null || unit is not null))
-                throw Error("UTF segments must not specify a size or unit");
+                throw Error(ParserDiagnostics.UtfSizeOrUnit);
             if (value is Expr.Literal { Value: Cons or Nil } && BitUnicode.IsUtf(type))
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value))
@@ -553,7 +553,7 @@ public sealed class Parser
                     segments.Add(new(new Expr.Literal(item), null));
             }
             else if (value is Expr.Literal { Value: Cons or Nil })
-                throw new CompileException("ERL003", "String segment modifiers are not supported yet", Current.Start);
+                throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.StringSegmentModifiers, Current.Start);
             else
                 segments.Add(new(value, size, type, unit ?? defaultUnit, endian, signed));
         } while (Take(","));
@@ -575,7 +575,7 @@ public sealed class Parser
                 else if (Take("=>"))
                     exact = false;
                 else
-                    throw Error("Expected '=>' or ':=' in map field");
+                    throw Error(ParserDiagnostics.ExpectedMapFieldOperator);
                 fields.Add(new(key, Expression(), exact));
             } while (Take(","));
             Expect("}");
@@ -605,6 +605,6 @@ public sealed class Parser
         Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)),
         Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)),
         Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)),
-        _ => throw new CompileException("ERL004", "Invalid or unsupported pattern", 0)
+        _ => throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, ParserDiagnostics.InvalidPattern, 0)
     };
 }
