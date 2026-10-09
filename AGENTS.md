@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Code readability: put each statement on its own line, expand nontrivial control-flow blocks and separate logical stages with blank lines. Keep .editorconfig formatting consistent. Extract reusable semantic values into files owned by their domain; choose names by meaning, not just literal value. Equal strings/numbers can represent different contracts and must remain separate (for example lexer token kinds versus bit segment types, BIF names versus exception classes, or default integer width versus bits per byte). Do not globally merge literals by text equality. Keep source-language test fixtures and one-off diagnostic messages near their use unless they have an actual shared contract. Review each replacement in context.
+
 Work only in this repository. The sibling `../otp` is the official reference checkout and must remain unchanged. Read `CHANGELOG.md`, `docs/PROGRESS.md`, `docs/NEXT_STEPS.md`, `docs/COMPATIBILITY.md`, `docs/DECISIONS.md` and `reference-baseline.json` before implementing the next work unit.
 
 Baseline: OTP-29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5. Read reference files using `git -C ../otp show OTP-29.1.1:PATH`; its checked-out HEAD is newer. Never silently upgrade the baseline.

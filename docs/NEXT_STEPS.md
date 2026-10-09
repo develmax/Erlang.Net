@@ -20,3 +20,5 @@ dotnet run --project benchmarks/Erlang.Benchmarks -c Release -- artifacts/benchm
 ```
 
 The validation script installs its tool only under artifacts/local-tool and writes a consumer only under artifacts/package-consumer. On repeat runs it uninstalls/reinstalls that local tool and uses content-hash-specific workspace caches to validate current package bytes. Do not install globally. Package restore stays within the workspace-local feed/cache. No public NuGet publication or Git changes to the reference checkout.
+
+Carry part 018 readability forward: use domain-owned constants only when meaning is shared, retain distinct constants for equal values with different contracts, and separate logical stages with blank lines. Preserve source-language fixtures verbatim when formatting C#. The feature sequence above is unchanged.

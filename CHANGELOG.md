@@ -650,3 +650,36 @@ Reference expressions are evaluated through **erl_eval:exprs**, not a full compi
 ### Handoff
 
 Commit title: `Record complete float UTF and numeric oracle comparison`. Publish this evidence checkpoint to origin/main. Next executable language unit: construction-only non-UTF literal-string size/type modifiers, including empty-string validation, with patterns restricted according to pinned erl_lint good_string_size_type (default or unsized UTF). Add a separate compiled-reference-module comparison track; continue broader runtime/OTP/distribution/IDE work afterwards. Detailed English entries and immutable reports continue per part. No public NuGet publication.
+
+## Part 018 — 2026-10-09 — Domain constants and code readability
+
+**Part status:** completed for this refactor. Full assignment remains approximately **5%**, a coarse engineering estimate; no new semantic feature/MFA or compatibility promotion.
+**Objective and scope:** address the user's request for reusable constants in appropriate files and readable logical blocks, including the explicit correction that equal literals can represent different meanings.
+
+### Changes and semantic ownership
+
+Added **ErlangErrorReasons.cs** (canonical reason atoms/tuple tags) and **ErlangExceptionClasses.cs** (error/exit/throw classes) in Erlang.Terms. Added compiler-owned **BitSyntaxConstants.cs**, with separate groups for segment type names, byte orders, defaults, floating widths, storage layout and Unicode limits. Updated runtime/compiler/term call sites only where the meaning is shared. Reviewed each replacement in context; no global by-value deduplication.
+
+Equal values stay distinct when their contracts differ: lexer integer/float kinds versus bit-segment types; exit/throw BIF names versus exception classes; integer default width, binary default unit and bits per byte (all 8); float default width versus double segment width (64); UTF32 scalar byte length versus maximum UTF encoding length (4); UTF16 character count versus bytes per UTF16 character (2); byte rounding offset versus most significant bit index (7). Source-language fixtures and one-off diagnostic text remain local. Fixture literal contents and BIF names are unchanged.
+
+Formatted **21 existing C# files** across production projects, tests, tools, benchmark and the ordinary hybrid helper. Expanded dense statements/control flow and manually separated logical stages in bit construction/matching/float/Unicode helpers and numeric conversion. Added **.editorconfig** and durable **AGENTS.md** guidance for future parts. Native-Erlang **examples/HelloHybrid/Program.cs** is excluded from the C# formatter and remains validated by the hybrid pipeline. This first domain-focused extraction does not claim that every repository literal should become a constant.
+
+### Validation and reuse
+
+| Check | Command / saved report | Actual result |
+| --- | --- | --- |
+| Full solution, permanent tests and integration | pwsh -File tools/validate.ps1; [tests](docs/validation/part-018/tests.json), [integration](docs/validation/part-018/integration-results.json) | **299 passed, 0 failed**; 49 direct MFAs; zero build warnings/errors |
+| Generated .erl/hybrid, incremental/disabled/clean, local packages/consumer/CLI | Same script | Passed; expected negative paths retained |
+| Whitespace convention | dotnet format whitespace . --folder --include selected C# files --verify-no-changes --verbosity quiet | Passed; native-Erlang hybrid Program.cs excluded |
+| Source token/value preservation | Transient Roslyn audit against parent **2e1997abfed427c03e73d672364371b94fd3afe1**; [report](docs/validation/part-018/source-token-audit.json) | **21 existing files**, **206 constant references expanded**, **0 mismatches** |
+| Repository hygiene | git diff --check; sibling reference status | Checked before commit; reference unchanged |
+
+The transient audit parses baseline/current C# with the installed SDK Roslyn, ignores comments/whitespace, expands domain Type.Field references using their actual compiled const values and compares the remaining token stream plus literal values. It preserves test/example string contents as data. This detects accidental code/value changes; semantic ownership is separately reviewed and whole-runtime equivalence is not inferred. No new permanent tests mirror this reversible refactor; existing independent expectations remain unchanged.
+
+Reused installed SDK formatter/Roslyn assemblies; no new dependency, copied implementation or license change. Initial solution-mode formatting failed on a sandbox MSBuild named-pipe permission check; folder-mode formatting and verification succeeded without that workspace-loading operation. [Reuse audit](docs/dependency-decisions.md).
+
+The prior **160/160** OTP oracle and same-head CI remain historical evidence at **666c4b5060110068aba4ad043fec7d0ac3388168**, recorded in part 017. They were not rerun for this refactor. Selected reference cases still do not establish complete language/MFA/stack/signal/side-effect compatibility. Local package validation is not public NuGet publication.
+
+### Handoff
+
+Updated current PROGRESS/COMPATIBILITY/DECISIONS/NEXT_STEPS and immutable part-018 reports. Commit title: `Extract domain constants and improve code readability`. Publish this completed part to origin/main. Continue the existing feature sequence with construction-only non-UTF literal-string modifiers and empty-string validation, preserving pattern restrictions and these semantic ownership/readability conventions. Detailed English changelog continues per part.

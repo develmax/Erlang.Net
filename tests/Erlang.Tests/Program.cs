@@ -31,18 +31,22 @@ Test("oracle/source-quoting-roundtrip", () =>
 });
 async Task<Term> Eval(string source)
 {
-    await using var runtime = new ProcessRuntime(); Term? result = null; var e = new Parser(source).ParseExpression(); Semantics.Validate(e);
+    await using var runtime = new ProcessRuntime();
+    Term? result = null;
+    var e = new Parser(source).ParseExpression();
+    Semantics.Validate(e);
     var p = runtime.Spawn(async c => { result = await Execution.EvaluateAsync(e, c); return Term.A("ok"); });
-    Equal(await p.Completion.WaitAsync(TimeSpan.FromSeconds(3)), Term.A("normal")); return result!;
+    Equal(await p.Completion.WaitAsync(TimeSpan.FromSeconds(3)), Term.A("normal"));
+    return result!;
 }
 Test("terms/exact-numeric-equality", () => { Check(!Term.I(1).Equals(new FloatTerm(1))); Check(Term.I(1).NumericEquals(new FloatTerm(1))); return Task.CompletedTask; });
 Test("terms/large-integer-double-comparison", () => { Check(new Integer(BigInteger.Parse("9007199254740993")).CompareTo(new FloatTerm(9007199254740992)) > 0); Check(new Integer(BigInteger.One << 2000).CompareTo(new FloatTerm(double.MaxValue)) > 0); return Task.CompletedTask; });
-Test("terms/integer-double-nearest-even", () => { foreach((string source,double expected) in new[] { ("9007199254740993",9007199254740992.0),("9007199254740995",9007199254740996.0),("-9007199254740995",-9007199254740996.0),("18014398509481983",18014398509481984.0) }) { Check(new Integer(BigInteger.Parse(source)).TryToDouble(out double actual)); Check(actual==expected); } return Task.CompletedTask; });
-Test("terms/integer-double-overflow", () => { Check(!new Integer(BigInteger.One<<2000).TryToDouble(out _)); BigInteger max=(BigInteger.One<<1024)-(BigInteger.One<<971); Check(new Integer(max+(BigInteger.One<<970)-1).TryToDouble(out double value) && value==double.MaxValue); Check(!new Integer(max+(BigInteger.One<<970)).TryToDouble(out _)); return Task.CompletedTask; });
-Test("compiler/numeric-mixed-nearest-even", async () => Equal(await Eval("{9007199254740995+0.0,0.0+9007199254740995,9007199254740995*1.0,9007199254740995-9007199254740996.0}"),Term.Tuple(new FloatTerm(9007199254740996.0),new FloatTerm(9007199254740996.0),new FloatTerm(9007199254740996.0),new FloatTerm(0.0))));
-Test("compiler/numeric-integer-division-rounding", async () => { Equal(await Eval("9007199254740995/1"),new FloatTerm(9007199254740996.0)); Equal(await Eval("1/9007199254740995"),new FloatTerm(1.0/9007199254740996.0)); });
-Test("compiler/numeric-conversion-overflow-badarith", async () => { string huge=(BigInteger.One<<2000).ToString(System.Globalization.CultureInfo.InvariantCulture); foreach(string source in new[] { "1/"+huge,huge+"*0.0","0.0/"+huge }) Equal(await MapError(source),Term.A("badarith")); });
-Test("compiler/numeric-conversion-guard-failure", async () => { string huge=(BigInteger.One<<2000).ToString(System.Globalization.CultureInfo.InvariantCulture); Equal(await Eval("case "+huge+" of X when 0.0/X =:= 0.0 -> wrong; _ -> ok end"),Term.A("ok")); });
+Test("terms/integer-double-nearest-even", () => { foreach ((string source, double expected) in new[] { ("9007199254740993", 9007199254740992.0), ("9007199254740995", 9007199254740996.0), ("-9007199254740995", -9007199254740996.0), ("18014398509481983", 18014398509481984.0) }) { Check(new Integer(BigInteger.Parse(source)).TryToDouble(out double actual)); Check(actual == expected); } return Task.CompletedTask; });
+Test("terms/integer-double-overflow", () => { Check(!new Integer(BigInteger.One << 2000).TryToDouble(out _)); BigInteger max = (BigInteger.One << 1024) - (BigInteger.One << 971); Check(new Integer(max + (BigInteger.One << 970) - 1).TryToDouble(out double value) && value == double.MaxValue); Check(!new Integer(max + (BigInteger.One << 970)).TryToDouble(out _)); return Task.CompletedTask; });
+Test("compiler/numeric-mixed-nearest-even", async () => Equal(await Eval("{9007199254740995+0.0,0.0+9007199254740995,9007199254740995*1.0,9007199254740995-9007199254740996.0}"), Term.Tuple(new FloatTerm(9007199254740996.0), new FloatTerm(9007199254740996.0), new FloatTerm(9007199254740996.0), new FloatTerm(0.0))));
+Test("compiler/numeric-integer-division-rounding", async () => { Equal(await Eval("9007199254740995/1"), new FloatTerm(9007199254740996.0)); Equal(await Eval("1/9007199254740995"), new FloatTerm(1.0 / 9007199254740996.0)); });
+Test("compiler/numeric-conversion-overflow-badarith", async () => { string huge = (BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture); foreach (string source in new[] { "1/" + huge, huge + "*0.0", "0.0/" + huge }) Equal(await MapError(source), Term.A("badarith")); });
+Test("compiler/numeric-conversion-guard-failure", async () => { string huge = (BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture); Equal(await Eval("case " + huge + " of X when 0.0/X =:= 0.0 -> wrong; _ -> ok end"), Term.A("ok")); });
 Test("terms/negative-fraction-comparison", () => { Check(Term.I(-1).CompareTo(new FloatTerm(-1.5)) > 0); Check(Term.I(0).CompareTo(new FloatTerm(double.Epsilon)) < 0); return Task.CompletedTask; });
 Test("terms/type-order", () => { Term[] terms = [Term.I(1), Term.A("a"), new ReferenceTerm("n", 1), new FunctionTerm(0, (c, a) => ValueTask.FromResult<Term>(Term.A("ok"))), new PortTerm("n", 1), new Pid("n", 1), Term.Tuple(), new MapTerm([]), Nil.Value, Term.List(Term.I(0)), new BitString([])]; for (int i = 1; i < terms.Length; i++) Check(terms[i - 1].CompareTo(terms[i]) < 0); return Task.CompletedTask; });
 Test("terms/tuple-arity-first", () => { Check(Term.Tuple(Term.I(999)).CompareTo(Term.Tuple(Term.I(0), Term.I(0))) < 0); return Task.CompletedTask; });
@@ -55,7 +59,8 @@ Test("compiler/quoted-unicode-valid-codepoint-order", async () => Equal(await Ev
 Test("compiler/quoted-unicode-illegal-character", () =>
 {
     foreach (string invalid in new[] { "\ufffe", "\uffff", "\ud800", "\udfff" })
-        foreach (string quote in new[] { "'", "\"" }) Throws<CompileException>(() => new Parser(quote + invalid + quote).ParseExpression());
+        foreach (string quote in new[] { "'", "\"" })
+            Throws<CompileException>(() => new Parser(quote + invalid + quote).ParseExpression());
     return Task.CompletedTask;
 });
 Test("terms/structural-hash", () => { Term[] a = [Term.Tuple(Term.I(1), Term.List(Term.A("a"))), new FloatTerm(-0.0), new BitString([255], 3), new MapTerm([new(Term.A("x"), Term.I(2))])]; foreach (var t in a) Check(t.GetHashCode() == ExternalTermFormat.Decode(ExternalTermFormat.Encode(t)).GetHashCode()); return Task.CompletedTask; });
@@ -111,9 +116,13 @@ Test("compiler/unsafe-variable-rebinding-diagnostic", () => { Throws<CompileExce
 Test("compiler/signed-zero-pattern", async () => Equal(await Eval("case -0.0 of 0.0 -> wrong; -0.0 -> ok end"), Term.A("ok")));
 Test("otp/gen-server-call-cast-info-stop", async () =>
 {
-    await using var r = new ProcessRuntime(); var callback = new CounterServer(); var server = await GenServer.Start(r, callback, Term.I(0));
+    await using var r = new ProcessRuntime();
+    var callback = new CounterServer();
+    var server = await GenServer.Start(r, callback, Term.I(0));
     var client = r.Spawn(async c => { GenServer.Cast(c, server.Pid, Term.I(2)); r.Send(server.Pid, Term.I(3)); Equal(await GenServer.Call(c, server.Pid, Term.A("get")), Term.I(5)); Equal(await GenServer.Call(c, server.Pid, Term.A("stop")), Term.A("ok")); return Term.A("ok"); });
-    Equal(await client.Completion, Term.A("normal")); Equal(await server.Completion, Term.A("normal")); Check(callback.Terminated);
+    Equal(await client.Completion, Term.A("normal"));
+    Equal(await server.Completion, Term.A("normal"));
+    Check(callback.Terminated);
 });
 Test("otp/gen-server-crash-monitor", async () => { await using var r = new ProcessRuntime(); var server = await GenServer.Start(r, new CounterServer(), Term.I(0)); var client = r.Spawn(async c => { try { await GenServer.Call(c, server.Pid, Term.A("crash")); throw new InvalidOperationException("Expected crash"); } catch (ErlangException ex) { Check(ex.ExceptionClass == "exit"); } return Term.A("ok"); }); Equal(await client.Completion, Term.A("normal")); Check(!r.IsAlive(server.Pid)); });
 Test("otp/gen-server-timeout", async () => { await using var r = new ProcessRuntime(); var server = await GenServer.Start(r, new CounterServer(), Term.I(0)); var client = r.Spawn(async c => { try { await GenServer.Call(c, server.Pid, Term.A("noreply"), TimeSpan.FromMilliseconds(20)); throw new InvalidOperationException("Expected timeout"); } catch (ErlangException ex) { Equal(ex.Reason, Term.A("timeout")); } return Term.A("ok"); }); Equal(await client.Completion, Term.A("normal")); });
@@ -121,14 +130,25 @@ Test("otp/gen-server-init-error", async () => { await using var r = new ProcessR
 foreach (var strategy in Enum.GetValues<RestartStrategy>())
     Test("otp/supervisor-" + strategy, async () =>
     {
-        await using var r = new ProcessRuntime(); int[] starts = [0, 0, 0]; var restartObserved = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        await using var r = new ProcessRuntime();
+        int[] starts = [0, 0, 0];
+        var restartObserved = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         ChildSpec Spec(int index) => new(Term.I(index), c => { if (Interlocked.Increment(ref starts[index]) == 2 && index == 1) restartObserved.TrySetResult(); return ValueTask.FromResult(r.Spawn(async child => { await child.ReceiveAsync(t => t); return Term.A("ok"); }, c, true)); });
-        var supervisor = await Supervisor.Start(r, [Spec(0), Spec(1), Spec(2)], strategy, 5); var initial = supervisor.Children.Select(x => x.Pid).ToArray();
-        var killer = r.Spawn(c => { r.Exit(c, initial[1], Term.A("boom")); return ValueTask.FromResult<Term>(Term.A("ok")); }); await killer.Completion; await restartObserved.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        var supervisor = await Supervisor.Start(r, [Spec(0), Spec(1), Spec(2)], strategy, 5);
+        var initial = supervisor.Children.Select(x => x.Pid).ToArray();
+        var killer = r.Spawn(c => { r.Exit(c, initial[1], Term.A("boom")); return ValueTask.FromResult<Term>(Term.A("ok")); });
+        await killer.Completion;
+        await restartObserved.Task.WaitAsync(TimeSpan.FromSeconds(2));
         // Wait for the restart batch to finish publishing its complete child list.
-        var deadline = Stopwatch.StartNew(); while (supervisor.Children.Count != 3 && deadline.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(1);
-        Check(starts[0] == (strategy == RestartStrategy.OneForAll ? 2 : 1)); Check(starts[1] == 2); Check(starts[2] == (strategy == RestartStrategy.OneForOne ? 1 : 2));
-        await Supervisor.Stop(r, supervisor); Equal(await supervisor.Process.Completion, Term.A("shutdown")); Check(supervisor.Children.Count == 0);
+        var deadline = Stopwatch.StartNew();
+        while (supervisor.Children.Count != 3 && deadline.Elapsed < TimeSpan.FromSeconds(2))
+            await Task.Delay(1);
+        Check(starts[0] == (strategy == RestartStrategy.OneForAll ? 2 : 1));
+        Check(starts[1] == 2);
+        Check(starts[2] == (strategy == RestartStrategy.OneForOne ? 1 : 2));
+        await Supervisor.Stop(r, supervisor);
+        Equal(await supervisor.Process.Completion, Term.A("shutdown"));
+        Check(supervisor.Children.Count == 0);
     });
 Test("otp/supervisor-transient-temporary-normal", async () => { await using var r = new ProcessRuntime(); int starts = 0; var childReady = new TaskCompletionSource<Pid>(TaskCreationOptions.RunContinuationsAsynchronously); var supervisor = await Supervisor.Start(r, [new ChildSpec(Term.A("t"), c => { starts++; var p = r.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); }, c, true); childReady.SetResult(p.Pid); return ValueTask.FromResult(p); }, RestartPolicy.Transient)]); var pid = await childReady.Task; r.Send(pid, Term.A("finish")); var deadline = Stopwatch.StartNew(); while (supervisor.Children.Count != 0 && deadline.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(1); Check(starts == 1 && supervisor.Children.Count == 0); await Supervisor.Stop(r, supervisor); });
 Test("otp/supervisor-restart-intensity", async () => { await using var r = new ProcessRuntime(); var trigger = new TaskCompletionSource<Pid>(TaskCreationOptions.RunContinuationsAsynchronously); var supervisor = await Supervisor.Start(r, [new ChildSpec(Term.A("child"), c => { var p = r.Spawn(async x => { await x.ReceiveAsync(t => t); x.Exit(Term.A("boom")); return Term.A("ok"); }, c, true); trigger.TrySetResult(p.Pid); return ValueTask.FromResult(p); })], intensity: 0); r.Send(await trigger.Task, Term.A("crash")); Equal(await supervisor.Process.Completion.WaitAsync(TimeSpan.FromSeconds(2)), Term.A("shutdown")); Check(supervisor.Children.Count == 0); });
@@ -143,11 +163,13 @@ Test("compiler/quoted-operator-atom", async () => Equal(await Eval("{'not', 'div
 Test("hybrid/nullable-context", () => { Check(CodeGeneration.Preprocess("class C { string? value; }", "c.cs").StartsWith("#nullable enable", StringComparison.Ordinal)); Check(CodeGeneration.Preprocess("class C {}", "c.cs", "disable").StartsWith("#nullable disable", StringComparison.Ordinal)); return Task.CompletedTask; });
 
 // Every registered MFA has a direct contract smoke test. Error/option completeness still needs OTP differential coverage.
-var exportRegistry = new ModuleRegistry(); CoreModules.Register(exportRegistry);
+var exportRegistry = new ModuleRegistry();
+CoreModules.Register(exportRegistry);
 foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
     Test($"mfa/{export.Module}:{export.Function}/{export.Arity}", async () =>
     {
-        using var output = new StringWriter(); await using var runtime = new ProcessRuntime(output: output);
+        using var output = new StringWriter();
+        await using var runtime = new ProcessRuntime(output: output);
         var process = runtime.Spawn(async c =>
         {
             async ValueTask<Term> Call(params Term[] a) => await runtime.Modules.Call(c, export.Module, export.Function, a);
@@ -165,8 +187,8 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("erlang", "is_tuple", 1) => ([Term.Tuple()], Term.A("true")),
                 ("erlang", "is_binary", 1) => ([new BitString([128], 1)], Term.A("false")),
                 ("erlang", "is_bitstring", 1) => ([new BitString([128], 1)], Term.A("true")),
-                ("erlang", "bit_size", 1) => ([new BitString([128,128], 9)], Term.I(9)),
-                ("erlang", "byte_size", 1) => ([new BitString([128,128], 9)], Term.I(2)),
+                ("erlang", "bit_size", 1) => ([new BitString([128, 128], 9)], Term.I(9)),
+                ("erlang", "byte_size", 1) => ([new BitString([128, 128], 9)], Term.I(2)),
                 ("erlang", "is_list", 1) => ([new Cons(Term.I(1), Term.A("tail"))], Term.A("true")),
                 ("erlang", "is_pid", 1) => ([c.Self], Term.A("true")),
                 ("erlang", "is_map", 1) => ([new MapTerm([])], Term.A("true")),
@@ -182,29 +204,120 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("maps", "size", 1) => ([new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(1)),
                 _ => null
             };
-            if (pure is { } test) { Equal(await Call(test.Args), test.Expected); return Term.A("ok"); }
+            if (pure is { } test)
+            {
+                Equal(await Call(test.Args), test.Expected);
+                return Term.A("ok");
+            }
             switch (export.Function)
             {
-                case "self": Equal(await Call(), c.Self); break;
-                case "make_ref": var first = await Call(); var second = await Call(); Check(first is ReferenceTerm && !first.Equals(second)); break;
-                case "register": Equal(await Call(Term.A("name"), c.Self), Term.A("true")); Equal(runtime.WhereIs("name"), c.Self); break;
-                case "whereis": runtime.Register("name", c.Self); Equal(await Call(Term.A("name")), c.Self); Equal(await Call(Term.A("absent")), Term.A("undefined")); break;
-                case "unregister": runtime.Register("name", c.Self); Equal(await Call(Term.A("name")), Term.A("true")); Equal(runtime.WhereIs("name"), Term.A("undefined")); break;
-                case "link": c.TrapExits = true; Equal(await Call(new Pid(runtime.Node, 999999)), Term.A("true")); var exit = await c.ReceiveAsync(t => t is TupleTerm x && x.Items[0].Equals(Term.A("EXIT")) ? x : null, TimeSpan.Zero); Check(exit is not null && exit.Items[2].Equals(Term.A("noproc"))); break;
-                case "unlink": var linked = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); }, c, true); Equal(await Call(linked.Pid), Term.A("true")); runtime.Exit(c, linked.Pid, Term.A("boom")); Equal(await linked.Completion, Term.A("boom")); Check(runtime.IsAlive(c.Self)); break;
-                case "monitor": var reference = await Call(Term.A("process"), new Pid(runtime.Node, 999999)); Check(reference is ReferenceTerm); var down = await c.ReceiveAsync(t => t is TupleTerm x && x.Items[0].Equals(Term.A("DOWN")) ? x : null, TimeSpan.Zero); Check(down is not null && down.Items[1].Equals(reference) && down.Items[4].Equals(Term.A("noproc"))); break;
-                case "demonitor": var monitored = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); }); var monitor = runtime.Monitor(c, monitored.Pid); Equal(await Call(monitor), Term.A("true")); runtime.Exit(c, monitored.Pid, Term.A("kill")); await monitored.Completion; Check(c.Mailbox.Count == 0); break;
-                case "process_flag": Equal(await Call(Term.A("trap_exit"), Term.A("true")), Term.A("false")); Check(c.TrapExits); break;
-                case "exit" when export.Arity == 2: var target = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); }); Equal(await Call(target.Pid, Term.A("kill")), Term.A("true")); Equal(await target.Completion, Term.A("killed")); break;
-                case "exit": case "error": case "throw": try { await Call(Term.A("reason")); throw new InvalidOperationException("Expected exception"); } catch (ErlangException ex) { Equal(ex.Reason, Term.A("reason")); Check(ex.ExceptionClass == export.Function); } break;
-                case "put": Equal(await Call(Term.A("k"), Term.I(1)), Term.A("undefined")); Equal(await Call(Term.A("k"), Term.I(2)), Term.I(1)); break;
-                case "get": c.Dictionary[Term.A("k")] = Term.I(42); Equal(await Call(Term.A("k")), Term.I(42)); Equal(await Call(Term.A("missing")), Term.A("undefined")); break;
-                case "erase": c.Dictionary[Term.A("k")] = Term.I(42); Equal(await Call(Term.A("k")), Term.I(42)); Check(!c.Dictionary.ContainsKey(Term.A("k"))); break;
-                case "spawn": case "spawn_link": var selfObserved = new TaskCompletionSource<Pid>(TaskCreationOptions.RunContinuationsAsynchronously); var fun = new FunctionTerm(0, (execution, a) => { selfObserved.SetResult(((ProcessContext)execution).Self); return ValueTask.FromResult<Term>(Term.A("ok")); }); var spawned = await Call(fun); Equal(await selfObserved.Task, spawned); Check(!spawned.Equals(c.Self)); break;
-                case "spawn_monitor": var instant = new FunctionTerm(0, (execution, a) => ValueTask.FromResult<Term>(Term.A("ok"))); var pair = (TupleTerm)await Call(instant); Check(pair.Items[0] is Pid && pair.Items[1] is ReferenceTerm); var notification = await c.ReceiveAsync(t => t is TupleTerm x && x.Items.Count == 5 && x.Items[1].Equals(pair.Items[1]) ? x : null, TimeSpan.FromSeconds(1)); Check(notification is not null && notification.Items[4].Equals(Term.A("normal"))); break;
-                case "map": var doubleFun = new FunctionTerm(1, (execution, a) => ValueTask.FromResult(CoreModules.Arithmetic("*", a[0], Term.I(2)))); Equal(await Call(doubleFun, Term.List(Term.I(1), Term.I(2))), Term.List(Term.I(2), Term.I(4))); break;
-                case "format": Equal(await Call(Term.String("~s ~p~~ ~n"), Term.List(Term.String("hi"), Term.I(42))), Term.A("ok")); Check(output.ToString() == "hi 42~ \n"); break;
-                default: throw new InvalidOperationException("Missing direct MFA test for " + export);
+                case "self":
+                    Equal(await Call(), c.Self);
+                    break;
+                case "make_ref":
+                    var first = await Call();
+                    var second = await Call();
+                    Check(first is ReferenceTerm && !first.Equals(second));
+                    break;
+                case "register":
+                    Equal(await Call(Term.A("name"), c.Self), Term.A("true"));
+                    Equal(runtime.WhereIs("name"), c.Self);
+                    break;
+                case "whereis":
+                    runtime.Register("name", c.Self);
+                    Equal(await Call(Term.A("name")), c.Self);
+                    Equal(await Call(Term.A("absent")), Term.A("undefined"));
+                    break;
+                case "unregister":
+                    runtime.Register("name", c.Self);
+                    Equal(await Call(Term.A("name")), Term.A("true"));
+                    Equal(runtime.WhereIs("name"), Term.A("undefined"));
+                    break;
+                case "link":
+                    c.TrapExits = true;
+                    Equal(await Call(new Pid(runtime.Node, 999999)), Term.A("true"));
+                    var exit = await c.ReceiveAsync(t => t is TupleTerm x && x.Items[0].Equals(Term.A("EXIT")) ? x : null, TimeSpan.Zero);
+                    Check(exit is not null && exit.Items[2].Equals(Term.A("noproc")));
+                    break;
+                case "unlink":
+                    var linked = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); }, c, true);
+                    Equal(await Call(linked.Pid), Term.A("true"));
+                    runtime.Exit(c, linked.Pid, Term.A("boom"));
+                    Equal(await linked.Completion, Term.A("boom"));
+                    Check(runtime.IsAlive(c.Self));
+                    break;
+                case "monitor":
+                    var reference = await Call(Term.A("process"), new Pid(runtime.Node, 999999));
+                    Check(reference is ReferenceTerm);
+                    var down = await c.ReceiveAsync(t => t is TupleTerm x && x.Items[0].Equals(Term.A("DOWN")) ? x : null, TimeSpan.Zero);
+                    Check(down is not null && down.Items[1].Equals(reference) && down.Items[4].Equals(Term.A("noproc")));
+                    break;
+                case "demonitor":
+                    var monitored = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); });
+                    var monitor = runtime.Monitor(c, monitored.Pid);
+                    Equal(await Call(monitor), Term.A("true"));
+                    runtime.Exit(c, monitored.Pid, Term.A("kill"));
+                    await monitored.Completion;
+                    Check(c.Mailbox.Count == 0);
+                    break;
+                case "process_flag":
+                    Equal(await Call(Term.A("trap_exit"), Term.A("true")), Term.A("false"));
+                    Check(c.TrapExits);
+                    break;
+                case "exit" when export.Arity == 2:
+                    var target = runtime.Spawn(async x => { await x.ReceiveAsync(t => t); return Term.A("ok"); });
+                    Equal(await Call(target.Pid, Term.A("kill")), Term.A("true"));
+                    Equal(await target.Completion, Term.A("killed"));
+                    break;
+                case "exit":
+                case "error":
+                case "throw":
+                    try
+                    {
+                        await Call(Term.A("reason"));
+                        throw new InvalidOperationException("Expected exception");
+                    }
+                    catch (ErlangException ex) { Equal(ex.Reason, Term.A("reason")); Check(ex.ExceptionClass == export.Function); }
+                    break;
+                case "put":
+                    Equal(await Call(Term.A("k"), Term.I(1)), Term.A("undefined"));
+                    Equal(await Call(Term.A("k"), Term.I(2)), Term.I(1));
+                    break;
+                case "get":
+                    c.Dictionary[Term.A("k")] = Term.I(42);
+                    Equal(await Call(Term.A("k")), Term.I(42));
+                    Equal(await Call(Term.A("missing")), Term.A("undefined"));
+                    break;
+                case "erase":
+                    c.Dictionary[Term.A("k")] = Term.I(42);
+                    Equal(await Call(Term.A("k")), Term.I(42));
+                    Check(!c.Dictionary.ContainsKey(Term.A("k")));
+                    break;
+                case "spawn":
+                case "spawn_link":
+                    var selfObserved = new TaskCompletionSource<Pid>(TaskCreationOptions.RunContinuationsAsynchronously);
+                    var fun = new FunctionTerm(0, (execution, a) => { selfObserved.SetResult(((ProcessContext)execution).Self); return ValueTask.FromResult<Term>(Term.A("ok")); });
+                    var spawned = await Call(fun);
+                    Equal(await selfObserved.Task, spawned);
+                    Check(!spawned.Equals(c.Self));
+                    break;
+                case "spawn_monitor":
+                    var instant = new FunctionTerm(0, (execution, a) => ValueTask.FromResult<Term>(Term.A("ok")));
+                    var pair = (TupleTerm)await Call(instant);
+                    Check(pair.Items[0] is Pid && pair.Items[1] is ReferenceTerm);
+                    var notification = await c.ReceiveAsync(t => t is TupleTerm x && x.Items.Count == 5 && x.Items[1].Equals(pair.Items[1]) ? x : null, TimeSpan.FromSeconds(1));
+                    Check(notification is not null && notification.Items[4].Equals(Term.A("normal")));
+                    break;
+                case "map":
+                    var doubleFun = new FunctionTerm(1, (execution, a) => ValueTask.FromResult(CoreModules.Arithmetic("*", a[0], Term.I(2))));
+                    Equal(await Call(doubleFun, Term.List(Term.I(1), Term.I(2))), Term.List(Term.I(2), Term.I(4)));
+                    break;
+                case "format":
+                    Equal(await Call(Term.String("~s ~p~~ ~n"), Term.List(Term.String("hi"), Term.I(42))), Term.A("ok"));
+                    Check(output.ToString() == "hi 42~ \n");
+                    break;
+                default:
+                    throw new InvalidOperationException("Missing direct MFA test for " + export);
             }
             return Term.A("ok");
         });
@@ -214,15 +327,22 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
 
 async Task<Term> MapError(string source)
 {
-    await using var runtime = new ProcessRuntime(); Term? reason = null;
-    var expression = new Parser(source).ParseExpression(); Semantics.Validate(expression);
+    await using var runtime = new ProcessRuntime();
+    Term? reason = null;
+    var expression = new Parser(source).ParseExpression();
+    Semantics.Validate(expression);
     var process = runtime.Spawn(async c =>
     {
-        try { await Execution.EvaluateAsync(expression, c); throw new InvalidOperationException("Expected map error"); }
+        try
+        {
+            await Execution.EvaluateAsync(expression, c);
+            throw new InvalidOperationException("Expected map error");
+        }
         catch (ErlangException ex) { Check(ex.ExceptionClass == "error"); reason = ex.Reason; }
         return Term.A("ok");
     });
-    Equal(await process.Completion, Term.A("normal")); return reason!;
+    Equal(await process.Completion, Term.A("normal"));
+    return reason!;
 }
 Test("compiler/map-empty-and-nonmap-pattern", async () => Equal(await Eval("case #{a => 1} of #{} -> case a of #{} -> wrong; _ -> ok end end"), Term.A("ok")));
 Test("compiler/map-duplicate-last-wins", async () => Equal(await Eval("maps:get(a, #{a => 1, a => 42})"), Term.I(42)));
@@ -248,15 +368,18 @@ Test("compiler/map-sibling-binding-key-diagnostic", () => { Throws<CompileExcept
 Test("compiler/map-assoc-pattern-diagnostic", () => { Throws<CompileException>(() => new Parser("case #{} of #{a => X} -> X end").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/map-exact-construction-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("#{a := 1}").ParseExpression())); return Task.CompletedTask; });
 Test("compiler/map-illegal-key-call-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case #{} of #{put(k,1) := X} -> X end").ParseExpression())); return Task.CompletedTask; });
-Test("patterns/map-rollback", () => { var p = Parser.ToPattern(new Parser("#{a := X,b := X}").ParseExpression()); var b = new Dictionary<string,Term>(); Check(!p.Match(new MapTerm([new(Term.A("a"),Term.I(1)),new(Term.A("b"),Term.I(2))]), b)); Check(b.Count == 0); return Task.CompletedTask; });
+Test("patterns/map-rollback", () => { var p = Parser.ToPattern(new Parser("#{a := X,b := X}").ParseExpression()); var b = new Dictionary<string, Term>(); Check(!p.Match(new MapTerm([new(Term.A("a"), Term.I(1)), new(Term.A("b"), Term.I(2))]), b)); Check(b.Count == 0); return Task.CompletedTask; });
 Test("compiler/map-receive-preserves-unmatched", async () =>
 {
-    await using var runtime = new ProcessRuntime(); Term? value = null;
-    var expression = new Parser("receive #{a := X,b := X} -> X after 1000 -> timeout end").ParseExpression(); Semantics.Validate(expression);
-    var p = runtime.Spawn(async c => { value = await Execution.EvaluateAsync(expression,c); Check(c.Mailbox.Count == 1); return Term.A("ok"); });
-    runtime.Send(p.Pid,new MapTerm([new(Term.A("a"),Term.I(1)),new(Term.A("b"),Term.I(2))]));
-    runtime.Send(p.Pid,new MapTerm([new(Term.A("a"),Term.I(42)),new(Term.A("b"),Term.I(42))]));
-    Equal(await p.Completion,Term.A("normal")); Equal(value!,Term.I(42));
+    await using var runtime = new ProcessRuntime();
+    Term? value = null;
+    var expression = new Parser("receive #{a := X,b := X} -> X after 1000 -> timeout end").ParseExpression();
+    Semantics.Validate(expression);
+    var p = runtime.Spawn(async c => { value = await Execution.EvaluateAsync(expression, c); Check(c.Mailbox.Count == 1); return Term.A("ok"); });
+    runtime.Send(p.Pid, new MapTerm([new(Term.A("a"), Term.I(1)), new(Term.A("b"), Term.I(2))]));
+    runtime.Send(p.Pid, new MapTerm([new(Term.A("a"), Term.I(42)), new(Term.A("b"), Term.I(42))]));
+    Equal(await p.Completion, Term.A("normal"));
+    Equal(value!, Term.I(42));
 });
 Test("hybrid/map-case-directive-trivia", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = case #{a => 1} of #{a := X} -> X end. } }", "m.cs"); Check(generated.Contains("Expr.Map")); Check(generated.Contains("MapPatternField")); return Task.CompletedTask; });
 
@@ -265,143 +388,155 @@ Test("compiler/map-closure-key-value-shadow", async () => Equal(await Eval("case
 Test("compiler/map-context-guard-key", async () => Equal(await Eval("case #{self() => 42} of #{self() := V} -> V end"), Term.I(42)));
 Test("hybrid/map-inline-receive", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = receive #{a := X} -> X end. } }", "m.cs"); Check(generated.Contains("MapPatternField")); return Task.CompletedTask; });
 Test("hybrid/map-case-remote-call", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = case maps:get(a,#{a => 42}) of X -> X end. } }", "m.cs"); Check(generated.Contains("Expr.Case")); Check(generated.Contains("Expr.Map")); return Task.CompletedTask; });
-Test("compiler/map-bifs-positive-negative-types", async () => Equal(await Eval("{is_map(#{}),is_map([]),map_size(#{a => 1,b => 2}),is_map_key(a,#{a => 1}),is_map_key(b,#{a => 1})}"), Term.Tuple(Term.A("true"),Term.A("false"),Term.I(2),Term.A("true"),Term.A("false"))));
-Test("compiler/map-get-exact-key-badkey", async () => Equal(await MapError("map_get(1.0,#{1 => value})"), Term.Tuple(Term.A("badkey"),new FloatTerm(1))));
-Test("compiler/map-get-badmap", async () => Equal(await MapError("map_get(key,not_map)"), Term.Tuple(Term.A("badmap"),Term.A("not_map"))));
-Test("compiler/map-size-badmap", async () => Equal(await MapError("map_size([])"), Term.Tuple(Term.A("badmap"),Nil.Value)));
-Test("compiler/is-map-key-badmap", async () => Equal(await MapError("is_map_key(key,42)"), Term.Tuple(Term.A("badmap"),Term.I(42))));
-Test("compiler/map-key-signed-zero", async () => Equal(await Eval("{is_map_key(-0.0,#{0.0 => a}),is_map_key(0.0,#{0.0 => a}),map_get(-0.0,#{-0.0 => b})}"), Term.Tuple(Term.A("false"),Term.A("true"),Term.A("b"))));
-Test("compiler/map-guard-bifs-qualified", async () => Equal(await Eval("case #{a => 42} of M when erlang:is_map(M), erlang:map_size(M) =:= 1, erlang:is_map_key(a,M), erlang:map_get(a,M) =:= 42 -> ok; _ -> no end"),Term.A("ok")));
-Test("compiler/map-guard-missing-key-alternative", async () => Equal(await Eval("case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -> ok; _ -> no end"),Term.A("ok")));
-Test("compiler/map-guard-nonmap-rejection", async () => Equal(await Eval("case atom of M when map_size(M) =:= 0; is_map_key(a,M); map_get(a,M) =:= 1 -> no; _ -> ok end"),Term.A("ok")));
-Test("compiler/map-pattern-key-map-get", async () => Equal(await Eval("case #{a => key} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> Value end end"),Term.I(42)));
-Test("compiler/map-pattern-key-map-get-failure", async () => Equal(await Eval("case #{} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> no; _ -> ok end end"),Term.A("ok")));
+Test("compiler/map-bifs-positive-negative-types", async () => Equal(await Eval("{is_map(#{}),is_map([]),map_size(#{a => 1,b => 2}),is_map_key(a,#{a => 1}),is_map_key(b,#{a => 1})}"), Term.Tuple(Term.A("true"), Term.A("false"), Term.I(2), Term.A("true"), Term.A("false"))));
+Test("compiler/map-get-exact-key-badkey", async () => Equal(await MapError("map_get(1.0,#{1 => value})"), Term.Tuple(Term.A("badkey"), new FloatTerm(1))));
+Test("compiler/map-get-badmap", async () => Equal(await MapError("map_get(key,not_map)"), Term.Tuple(Term.A("badmap"), Term.A("not_map"))));
+Test("compiler/map-size-badmap", async () => Equal(await MapError("map_size([])"), Term.Tuple(Term.A("badmap"), Nil.Value)));
+Test("compiler/is-map-key-badmap", async () => Equal(await MapError("is_map_key(key,42)"), Term.Tuple(Term.A("badmap"), Term.I(42))));
+Test("compiler/map-key-signed-zero", async () => Equal(await Eval("{is_map_key(-0.0,#{0.0 => a}),is_map_key(0.0,#{0.0 => a}),map_get(-0.0,#{-0.0 => b})}"), Term.Tuple(Term.A("false"), Term.A("true"), Term.A("b"))));
+Test("compiler/map-guard-bifs-qualified", async () => Equal(await Eval("case #{a => 42} of M when erlang:is_map(M), erlang:map_size(M) =:= 1, erlang:is_map_key(a,M), erlang:map_get(a,M) =:= 42 -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/map-guard-missing-key-alternative", async () => Equal(await Eval("case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/map-guard-nonmap-rejection", async () => Equal(await Eval("case atom of M when map_size(M) =:= 0; is_map_key(a,M); map_get(a,M) =:= 1 -> no; _ -> ok end"), Term.A("ok")));
+Test("compiler/map-pattern-key-map-get", async () => Equal(await Eval("case #{a => key} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> Value end end"), Term.I(42)));
+Test("compiler/map-pattern-key-map-get-failure", async () => Equal(await Eval("case #{} of Keys -> case #{key => 42} of #{map_get(a,Keys) := Value} -> no; _ -> ok end end"), Term.A("ok")));
 Test("compiler/maps-module-not-guard-legal", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case #{} of M when maps:get(a,M) =:= 42 -> ok end").ParseExpression())); return Task.CompletedTask; });
-Test("compiler/bits-empty-default-bytes", async () => { Equal(await Eval("<<>>"),new BitString([])); Equal(await Eval("<<1,2,255>>"),new BitString([1,2,255])); });
-Test("compiler/bits-truncate-negative", async () => Equal(await Eval("<<511,-1,16:4,31:4>>"),new BitString([255,255,15])));
-Test("compiler/bits-unaligned-concatenation", async () => Equal(await Eval("<<5:3,17:5,3:2>>"),new BitString([177,192],10)));
-Test("compiler/bits-big-little-native", async () => { Equal(await Eval("<<4660:16/big>>"),new BitString([18,52])); Equal(await Eval("<<4660:16/little>>"),new BitString([52,18])); Equal(await Eval("<<4660:16/native>>"),new BitString(BitConverter.IsLittleEndian ? [52,18] : [18,52])); });
-Test("compiler/bits-little-partial-octet", async () => Equal(await Eval("<<291:12/little>>"),new BitString([35,16],12)));
-Test("compiler/bits-explicit-unit", async () => Equal(await Eval("<<4660:2/unit:8>>"),new BitString([18,52])));
-Test("compiler/bits-string-literal", async () => Equal(await Eval("<<\"abc\">>"),new BitString([97,98,99])));
-Test("compiler/bits-bound-expression-size", async () => Equal(await Eval("case 4 of S -> <<(2+3):(S+1)>> end"),new BitString([40],5)));
-Test("compiler/bits-binary-prefix", async () => Equal(await Eval("<<(<<1,2,3>>):2/binary>>"),new BitString([1,2])));
-Test("compiler/bits-bitstring-interpolation", async () => Equal(await Eval("<<1:1,(<<2:2>>)/bitstring,3:2>>"),new BitString([216],5)));
-Test("compiler/bits-binary-unit-one", async () => Equal(await Eval("<<(<<1:1>>)/binary-unit:1>>"),new BitString([128],1)));
-Test("compiler/bits-zero-size", async () => Equal(await Eval("<<-123:0,42:8>>"),new BitString([42])));
-Test("compiler/bits-bad-value", async () => Equal(await MapError("<<atom>>"),Term.A("badarg")));
-Test("compiler/bits-negative-size", async () => Equal(await MapError("<<1:(-1)>>"),Term.A("badarg")));
+Test("compiler/bits-empty-default-bytes", async () => { Equal(await Eval("<<>>"), new BitString([])); Equal(await Eval("<<1,2,255>>"), new BitString([1, 2, 255])); });
+Test("compiler/bits-truncate-negative", async () => Equal(await Eval("<<511,-1,16:4,31:4>>"), new BitString([255, 255, 15])));
+Test("compiler/bits-unaligned-concatenation", async () => Equal(await Eval("<<5:3,17:5,3:2>>"), new BitString([177, 192], 10)));
+Test("compiler/bits-big-little-native", async () => { Equal(await Eval("<<4660:16/big>>"), new BitString([18, 52])); Equal(await Eval("<<4660:16/little>>"), new BitString([52, 18])); Equal(await Eval("<<4660:16/native>>"), new BitString(BitConverter.IsLittleEndian ? [52, 18] : [18, 52])); });
+Test("compiler/bits-little-partial-octet", async () => Equal(await Eval("<<291:12/little>>"), new BitString([35, 16], 12)));
+Test("compiler/bits-explicit-unit", async () => Equal(await Eval("<<4660:2/unit:8>>"), new BitString([18, 52])));
+Test("compiler/bits-string-literal", async () => Equal(await Eval("<<\"abc\">>"), new BitString([97, 98, 99])));
+Test("compiler/bits-bound-expression-size", async () => Equal(await Eval("case 4 of S -> <<(2+3):(S+1)>> end"), new BitString([40], 5)));
+Test("compiler/bits-binary-prefix", async () => Equal(await Eval("<<(<<1,2,3>>):2/binary>>"), new BitString([1, 2])));
+Test("compiler/bits-bitstring-interpolation", async () => Equal(await Eval("<<1:1,(<<2:2>>)/bitstring,3:2>>"), new BitString([216], 5)));
+Test("compiler/bits-binary-unit-one", async () => Equal(await Eval("<<(<<1:1>>)/binary-unit:1>>"), new BitString([128], 1)));
+Test("compiler/bits-zero-size", async () => Equal(await Eval("<<-123:0,42:8>>"), new BitString([42])));
+Test("compiler/bits-bad-value", async () => Equal(await MapError("<<atom>>"), Term.A("badarg")));
+Test("compiler/bits-negative-size", async () => Equal(await MapError("<<1:(-1)>>"), Term.A("badarg")));
 Test("compiler/bits-size-prefix-requires-parentheses", async () =>
 {
-    foreach (string source in new[] { "<<1:-1>>", "<<1:+8>>", "<<1:bnot 1>>", "<<1:not true>>" }) Throws<CompileException>(() => new Parser(source).ParseExpression());
-    Equal(await Eval("<<1:(+8)>>"),new BitString([1]));
-    Equal(await Eval("<<-1>>"),new BitString([255]));
+    foreach (string source in new[] { "<<1:-1>>", "<<1:+8>>", "<<1:bnot 1>>", "<<1:not true>>" })
+        Throws<CompileException>(() => new Parser(source).ParseExpression());
+    Equal(await Eval("<<1:(+8)>>"), new BitString([1]));
+    Equal(await Eval("<<-1>>"), new BitString([255]));
 });
-Test("compiler/bits-float-size", async () => Equal(await MapError("<<1:1.0>>"),Term.A("badarg")));
-Test("compiler/bits-short-binary", async () => Equal(await MapError("<<(<<1>>):2/binary>>"),Term.A("badarg")));
-Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<(<<1:1>>)/binary>>"),Term.A("badarg")));
+Test("compiler/bits-float-size", async () => Equal(await MapError("<<1:1.0>>"), Term.A("badarg")));
+Test("compiler/bits-short-binary", async () => Equal(await MapError("<<(<<1>>):2/binary>>"), Term.A("badarg")));
+Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<(<<1:1>>)/binary>>"), Term.A("badarg")));
 Test("compiler/bits-invalid-unit-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/unit:0>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<1:8/unit:257>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-utf-size-unit-diagnostic", () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) foreach (string source in new[] { "<<65:8/"+type+">>", "<<65/"+type+"-unit:1>>" }) Throws<CompileException>(() => new Parser(source).ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-float16-vector", async () => Equal(await Eval("<<1.5:16/float>>"),new BitString([62,0])));
-Test("compiler/bits-float32-vector", async () => Equal(await Eval("<<1.5:32/float>>"),new BitString([63,192,0,0])));
-Test("compiler/bits-float64-default", async () => Equal(await Eval("<<1.5/float>>"),new BitString([63,248,0,0,0,0,0,0])));
-Test("compiler/bits-float-little-native", async () => { Equal(await Eval("<<1.5:16/float-little,1.5:32/float-little>>"),new BitString([0,62,0,0,192,63])); Equal(await Eval("<<1.5:16/float-native>>"),new BitString(BitConverter.IsLittleEndian ? [0,62] : [62,0])); });
-Test("compiler/bits-float-integer-coercion", async () => Equal(await Eval("<<1:16/float,2:32/float>>"),new BitString([60,0,64,0,0,0])));
-Test("compiler/bits-float-unit", async () => Equal(await Eval("<<1.5:2/float-unit:8>>"),new BitString([62,0])));
-Test("compiler/bits-float-bad-size", async () => { foreach (string source in new[] { "<<1.0:0/float>>", "<<1.0:8/float>>", "<<1.0:128/float>>", "<<1.0:all/float>>" }) Equal(await MapError(source),Term.A("badarg")); });
-Test("compiler/bits-float-bad-value", async () => { Equal(await MapError("<<atom/float>>"),Term.A("badarg")); Equal(await MapError("<<"+(BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture)+"/float>>"),Term.A("badarg")); });
-Test("compiler/bits-float16-round-once", async () => { Equal(await Eval("<<1.00048828125:16/float>>"),new BitString([60,0])); Equal(await Eval("<<1.000488282181322574615478515625:16/float>>"),new BitString([60,1])); Equal(await Eval("<<1.00048840045928955078125:16/float>>"),new BitString([60,1])); });
-Test("compiler/bits-float16-subnormal-vectors", async () => { Equal(await Eval("<<3.039836883544921875e-6:16/float>>"),new BitString([0,51])); Equal(await Eval("<<2.98023223876953125e-7:16/float>>"),new BitString([0,5])); Equal(await Eval("<<3.0517578125e-5:16/float>>"),new BitString([2,0])); });
-Test("compiler/bits-float-narrow-overflow", async () => { Equal(await Eval("<<1000000000:16/float>>"),new BitString([124,0])); Equal(await Eval("<<1.0e100:32/float>>"),new BitString([127,128,0,0])); });
-Test("compiler/bits-float-pattern16-rounded", async () => Equal(await Eval("case <<0.1:16/float>> of <<F:16/float>> -> F end"),new FloatTerm(0.0999755859375)));
+Test("compiler/bits-utf-size-unit-diagnostic", () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) foreach (string source in new[] { "<<65:8/" + type + ">>", "<<65/" + type + "-unit:1>>" }) Throws<CompileException>(() => new Parser(source).ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-float16-vector", async () => Equal(await Eval("<<1.5:16/float>>"), new BitString([62, 0])));
+Test("compiler/bits-float32-vector", async () => Equal(await Eval("<<1.5:32/float>>"), new BitString([63, 192, 0, 0])));
+Test("compiler/bits-float64-default", async () => Equal(await Eval("<<1.5/float>>"), new BitString([63, 248, 0, 0, 0, 0, 0, 0])));
+Test("compiler/bits-float-little-native", async () => { Equal(await Eval("<<1.5:16/float-little,1.5:32/float-little>>"), new BitString([0, 62, 0, 0, 192, 63])); Equal(await Eval("<<1.5:16/float-native>>"), new BitString(BitConverter.IsLittleEndian ? [0, 62] : [62, 0])); });
+Test("compiler/bits-float-integer-coercion", async () => Equal(await Eval("<<1:16/float,2:32/float>>"), new BitString([60, 0, 64, 0, 0, 0])));
+Test("compiler/bits-float-unit", async () => Equal(await Eval("<<1.5:2/float-unit:8>>"), new BitString([62, 0])));
+Test("compiler/bits-float-bad-size", async () => { foreach (string source in new[] { "<<1.0:0/float>>", "<<1.0:8/float>>", "<<1.0:128/float>>", "<<1.0:all/float>>" }) Equal(await MapError(source), Term.A("badarg")); });
+Test("compiler/bits-float-bad-value", async () => { Equal(await MapError("<<atom/float>>"), Term.A("badarg")); Equal(await MapError("<<" + (BigInteger.One << 2000).ToString(System.Globalization.CultureInfo.InvariantCulture) + "/float>>"), Term.A("badarg")); });
+Test("compiler/bits-float16-round-once", async () => { Equal(await Eval("<<1.00048828125:16/float>>"), new BitString([60, 0])); Equal(await Eval("<<1.000488282181322574615478515625:16/float>>"), new BitString([60, 1])); Equal(await Eval("<<1.00048840045928955078125:16/float>>"), new BitString([60, 1])); });
+Test("compiler/bits-float16-subnormal-vectors", async () => { Equal(await Eval("<<3.039836883544921875e-6:16/float>>"), new BitString([0, 51])); Equal(await Eval("<<2.98023223876953125e-7:16/float>>"), new BitString([0, 5])); Equal(await Eval("<<3.0517578125e-5:16/float>>"), new BitString([2, 0])); });
+Test("compiler/bits-float-narrow-overflow", async () => { Equal(await Eval("<<1000000000:16/float>>"), new BitString([124, 0])); Equal(await Eval("<<1.0e100:32/float>>"), new BitString([127, 128, 0, 0])); });
+Test("compiler/bits-float-pattern16-rounded", async () => Equal(await Eval("case <<0.1:16/float>> of <<F:16/float>> -> F end"), new FloatTerm(0.0999755859375)));
 Test("compiler/bits-float-integer-rounding", async () =>
 {
-    Equal(await Eval("case <<9007199254740995/float,-9007199254740995/float,9007199254740993/float>> of <<A/float,B/float,C/float>> -> {A,B,C} end"),Term.Tuple(new FloatTerm(9007199254740996.0),new FloatTerm(-9007199254740996.0),new FloatTerm(9007199254740992.0)));
-    Equal(await Eval("case <<9007199254740995/float>> of <<9007199254740995/float>> -> ok; _ -> no end"),Term.A("ok"));
-    BigInteger anchor=BigInteger.One<<100;
-    Equal(await Eval("case <<"+(anchor+(BigInteger.One<<47)+1)+"/float>> of <<F/float>> -> F end"),new FloatTerm(Math.ScaleB(1.0,100)+Math.ScaleB(1.0,48)));
+    Equal(await Eval("case <<9007199254740995/float,-9007199254740995/float,9007199254740993/float>> of <<A/float,B/float,C/float>> -> {A,B,C} end"), Term.Tuple(new FloatTerm(9007199254740996.0), new FloatTerm(-9007199254740996.0), new FloatTerm(9007199254740992.0)));
+    Equal(await Eval("case <<9007199254740995/float>> of <<9007199254740995/float>> -> ok; _ -> no end"), Term.A("ok"));
+    BigInteger anchor = BigInteger.One << 100;
+    Equal(await Eval("case <<" + (anchor + (BigInteger.One << 47) + 1) + "/float>> of <<F/float>> -> F end"), new FloatTerm(Math.ScaleB(1.0, 100) + Math.ScaleB(1.0, 48)));
 });
 Test("compiler/bits-float-integer-max-boundary", async () =>
 {
-    BigInteger max=(BigInteger.One<<1024)-(BigInteger.One<<971),halfway=max+(BigInteger.One<<970);
-    Equal(await Eval("case <<"+(halfway-1)+"/float>> of <<F/float>> -> F end"),new FloatTerm(double.MaxValue));
-    Equal(await MapError("<<"+halfway+"/float>>"),Term.A("badarg"));
+    BigInteger max = (BigInteger.One << 1024) - (BigInteger.One << 971), halfway = max + (BigInteger.One << 970);
+    Equal(await Eval("case <<" + (halfway - 1) + "/float>> of <<F/float>> -> F end"), new FloatTerm(double.MaxValue));
+    Equal(await MapError("<<" + halfway + "/float>>"), Term.A("badarg"));
 });
-Test("compiler/bits-float-pattern32", async () => Equal(await Eval("case <<1.5:32/float>> of <<F:32/float>> -> F end"),new FloatTerm(1.5)));
-Test("compiler/bits-float-pattern64-default", async () => Equal(await Eval("case <<1.5/float>> of <<F/float>> -> F end"),new FloatTerm(1.5)));
-Test("compiler/bits-float-pattern-unaligned", async () => Equal(await Eval("case <<1:1,1.5:16/float-little,5:3>> of <<_:1,F:16/float-little,T:3>> -> {F,T} end"),Term.Tuple(new FloatTerm(1.5),Term.I(5))));
-Test("compiler/bits-float-pattern-zero", async () => Equal(await Eval("case <<>> of <<F:0/float>> -> F end"),new FloatTerm(0.0)));
-Test("compiler/bits-float-pattern-nonfinite-reject", async () => { foreach (string bits in new[] { "<<31744:16>>", "<<32256:16>>", "<<2139095040:32>>", "<<2143289344:32>>", "<<9218868437227405312:64>>", "<<9221120237041090560:64>>" }) { int size=bits.Contains(":16")?16:bits.Contains(":32")?32:64; Equal(await Eval("case "+bits+" of <<F:"+size+"/float>> -> wrong; _ -> ok end"),Term.A("ok")); } });
-Test("compiler/bits-float-pattern-invalid-short", async () => { Equal(await Eval("case <<0:8>> of <<F:8/float>> -> wrong; _ -> ok end"),Term.A("ok")); Equal(await Eval("case <<0:8>> of <<F:16/float>> -> wrong; _ -> ok end"),Term.A("ok")); });
-Test("compiler/bits-float-pattern-numeric-literal", async () => Equal(await Eval("case <<1:32/float>> of <<1:32/float>> -> ok; _ -> no end"),Term.A("ok")));
-Test("compiler/bits-float-pattern-bound-integer", async () => Equal(await Eval("case 1 of X -> case <<1:32/float>> of <<X:32/float>> -> wrong; _ -> ok end end"),Term.A("ok")));
-Test("compiler/bits-float-signed-zero", async () => { Equal(await Eval("<<-0.0:16/float>>"),new BitString([128,0])); Equal(await Eval("case <<-0.0:32/float>> of <<F:32/float>> -> F end"),new FloatTerm(-0.0)); Equal(await Eval("case <<-0.0:16/float>> of <<0.0:16/float>> -> wrong; <<-0.0:16/float>> -> ok end"),Term.A("ok")); });
-Test("compiler/bits-float-pattern-prior-width", async () => Equal(await Eval("case <<16,1.5:16/float>> of <<N,F:N/float>> -> F end"),new FloatTerm(1.5)));
-Test("compiler/bits-float-guard-and-map-key", async () => Equal(await Eval("case #{<<1.5:16/float>> => 42} of #{<<1.5:16/float>> := X} when <<1:16/float>> =:= <<1.0:16/float>> -> X end"),Term.I(42)));
+Test("compiler/bits-float-pattern32", async () => Equal(await Eval("case <<1.5:32/float>> of <<F:32/float>> -> F end"), new FloatTerm(1.5)));
+Test("compiler/bits-float-pattern64-default", async () => Equal(await Eval("case <<1.5/float>> of <<F/float>> -> F end"), new FloatTerm(1.5)));
+Test("compiler/bits-float-pattern-unaligned", async () => Equal(await Eval("case <<1:1,1.5:16/float-little,5:3>> of <<_:1,F:16/float-little,T:3>> -> {F,T} end"), Term.Tuple(new FloatTerm(1.5), Term.I(5))));
+Test("compiler/bits-float-pattern-zero", async () => Equal(await Eval("case <<>> of <<F:0/float>> -> F end"), new FloatTerm(0.0)));
+Test("compiler/bits-float-pattern-nonfinite-reject", async () => { foreach (string bits in new[] { "<<31744:16>>", "<<32256:16>>", "<<2139095040:32>>", "<<2143289344:32>>", "<<9218868437227405312:64>>", "<<9221120237041090560:64>>" }) { int size = bits.Contains(":16") ? 16 : bits.Contains(":32") ? 32 : 64; Equal(await Eval("case " + bits + " of <<F:" + size + "/float>> -> wrong; _ -> ok end"), Term.A("ok")); } });
+Test("compiler/bits-float-pattern-invalid-short", async () => { Equal(await Eval("case <<0:8>> of <<F:8/float>> -> wrong; _ -> ok end"), Term.A("ok")); Equal(await Eval("case <<0:8>> of <<F:16/float>> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-float-pattern-numeric-literal", async () => Equal(await Eval("case <<1:32/float>> of <<1:32/float>> -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/bits-float-pattern-bound-integer", async () => Equal(await Eval("case 1 of X -> case <<1:32/float>> of <<X:32/float>> -> wrong; _ -> ok end end"), Term.A("ok")));
+Test("compiler/bits-float-signed-zero", async () => { Equal(await Eval("<<-0.0:16/float>>"), new BitString([128, 0])); Equal(await Eval("case <<-0.0:32/float>> of <<F:32/float>> -> F end"), new FloatTerm(-0.0)); Equal(await Eval("case <<-0.0:16/float>> of <<0.0:16/float>> -> wrong; <<-0.0:16/float>> -> ok end"), Term.A("ok")); });
+Test("compiler/bits-float-pattern-prior-width", async () => Equal(await Eval("case <<16,1.5:16/float>> of <<N,F:N/float>> -> F end"), new FloatTerm(1.5)));
+Test("compiler/bits-float-guard-and-map-key", async () => Equal(await Eval("case #{<<1.5:16/float>> => 42} of #{<<1.5:16/float>> := X} when <<1:16/float>> =:= <<1.0:16/float>> -> X end"), Term.I(42)));
 Test("compiler/bits-float-unit-without-size-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1.0/float-unit:8>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-float16-all-finite-roundtrip", async () =>
 {
-    var pattern=Parser.ToPattern(new Parser("<<F:16/float>>").ParseExpression());
-    await using var runtime=new ProcessRuntime();
-    var process=runtime.Spawn(async ctx =>
+    var pattern = Parser.ToPattern(new Parser("<<F:16/float>>").ParseExpression());
+    await using var runtime = new ProcessRuntime();
+    var process = runtime.Spawn(async ctx =>
     {
-        for (int bits=0;bits<=ushort.MaxValue;bits++)
+        for (int bits = 0; bits <= ushort.MaxValue; bits++)
         {
-            if ((bits & 0x7c00)==0x7c00) continue;
-            var input=new BitString([(byte)(bits>>8),(byte)bits]); var bindings=new Dictionary<string,Term>();
-            Check(pattern.Match(input,bindings,ctx));
-            var expression=new Expr.Bits([new BitSegment(new Expr.Literal(bindings["F"]),new Expr.Literal(Term.I(16)),"float")]);
-            Equal(await Execution.EvaluateAsync(expression,ctx),input);
+            if ((bits & 0x7c00) == 0x7c00)
+                continue;
+            var input = new BitString([(byte)(bits >> 8), (byte)bits]);
+            var bindings = new Dictionary<string, Term>();
+            Check(pattern.Match(input, bindings, ctx));
+            var expression = new Expr.Bits([new BitSegment(new Expr.Literal(bindings["F"]), new Expr.Literal(Term.I(16)), "float")]);
+            Equal(await Execution.EvaluateAsync(expression, ctx), input);
         }
         return Term.A("ok");
     });
-    Equal(await process.Completion,Term.A("normal"));
+    Equal(await process.Completion, Term.A("normal"));
 });
 Test("compiler/bits-duplicate-spec-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/big-little>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-utf8-boundary-vectors", async () =>
 {
-    (int Code, byte[] Bytes)[] vectors=[(0,[0]),(127,[127]),(128,[194,128]),(2047,[223,191]),(2048,[224,160,128]),(55295,[237,159,191]),(57344,[238,128,128]),(65535,[239,191,191]),(65536,[240,144,128,128]),(1114111,[244,143,191,191])];
-    foreach(var vector in vectors) Equal(await Eval("<<"+vector.Code+"/utf8>>"),new BitString(vector.Bytes));
+    (int Code, byte[] Bytes)[] vectors = [(0, [0]), (127, [127]), (128, [194, 128]), (2047, [223, 191]), (2048, [224, 160, 128]), (55295, [237, 159, 191]), (57344, [238, 128, 128]), (65535, [239, 191, 191]), (65536, [240, 144, 128, 128]), (1114111, [244, 143, 191, 191])];
+    foreach (var vector in vectors)
+        Equal(await Eval("<<" + vector.Code + "/utf8>>"), new BitString(vector.Bytes));
 });
-Test("compiler/bits-utf16-surrogate-vector", async () => { Equal(await Eval("<<128512/utf16>>"),new BitString([216,61,222,0])); Equal(await Eval("<<128512/utf16-little>>"),new BitString([61,216,0,222])); });
-Test("compiler/bits-utf32-vector", async () => { Equal(await Eval("<<128512/utf32>>"),new BitString([0,1,246,0])); Equal(await Eval("<<128512/utf32-little>>"),new BitString([0,246,1,0])); });
-Test("compiler/bits-utf-endian-native", async () => { foreach(string type in new[] { "utf16","utf32" }) Equal(await Eval("<<128512/"+type+"-native>>"),await Eval("<<128512/"+type+(BitConverter.IsLittleEndian?"-little":"-big")+">>")); Equal(await Eval("<<128512/utf8-little>>"),await Eval("<<128512/utf8-big>>")); });
-Test("compiler/bits-utf-invalid-values", async () => { foreach(string type in new[] { "utf8","utf16","utf32" }) foreach(string value in new[] { "-1","55296","57343","1114112","9007199254740993","1.0","atom","[65]" }) Equal(await MapError("<<("+value+")/"+type+">>"),Term.A("badarg")); });
-Test("compiler/bits-utf-undefined-size-diagnostic", () => { foreach(string type in new[] { "utf8","utf16","utf32" }) foreach(string source in new[] { "<<65:undefined/"+type+">>","case <<65>> of <<X:undefined/"+type+">> -> X end" }) Throws<CompileException>(() => new Parser(source).ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-utf-noncharacters", async () => { foreach(string type in new[] { "utf8","utf16","utf32" }) Equal(await Eval("case <<65534/"+type+",65535/"+type+">> of <<A/"+type+",B/"+type+">> -> {A,B} end"),Term.Tuple(Term.I(65534),Term.I(65535))); });
-Test("compiler/bits-utf8-prefix-rest", async () => Equal(await Eval("case <<240,159,152,128,42>> of <<X/utf8,Rest/binary>> -> {X,Rest} end"),Term.Tuple(Term.I(128512),new BitString([42]))));
-Test("compiler/bits-utf16-pattern-pair", async () => Equal(await Eval("case <<216,61,222,0>> of <<X/utf16>> -> X end"),Term.I(128512)));
-Test("compiler/bits-utf32-pattern", async () => Equal(await Eval("case <<0,246,1,0>> of <<X/utf32-little>> -> X end"),Term.I(128512)));
-Test("compiler/bits-utf8-invalid-sequences", async () => { foreach(string bytes in new[] { "128","192,175","193,191","224,128,128","237,160,128","240,128,128,128","244,144,128,128","245,128,128,128","254","255","226,130","194,65" }) Equal(await Eval("case <<"+bytes+">> of <<X/utf8,Rest/binary>> -> wrong; _ -> ok end"),Term.A("ok")); });
-Test("compiler/bits-utf16-invalid-sequences", async () => { foreach(string bytes in new[] { "216,0","220,0","216,0,0,65","220,0,216,0","0" }) Equal(await Eval("case <<"+bytes+">> of <<X/utf16,Rest/binary>> -> wrong; _ -> ok end"),Term.A("ok")); });
-Test("compiler/bits-utf32-invalid-scalars", async () => { foreach(string value in new[] { "55296","57343","1114112","4294967295" }) Equal(await Eval("case <<"+value+":32>> of <<X/utf32>> -> wrong; _ -> ok end"),Term.A("ok")); Equal(await Eval("case <<0,0,65>> of <<X/utf32>> -> wrong; _ -> ok end"),Term.A("ok")); });
-Test("compiler/bits-utf-unaligned", async () => { foreach(string type in new[] { "utf8","utf16-little","utf32-big" }) for(int offset=1;offset<=7;offset++) Equal(await Eval("case <<1:"+offset+",128512/"+type+",5:3>> of <<_:"+offset+",X/"+type+",T:3>> -> {X,T} end"),Term.Tuple(Term.I(128512),Term.I(5))); });
-Test("compiler/bits-utf-truncated-bit-tail", async () => Equal(await Eval("case <<240,159,152,64:7>> of <<X/utf8>> -> wrong; _ -> ok end"),Term.A("ok")));
-Test("compiler/bits-utf-binding-rollback", async () => Equal(await Eval("case <<65,128>> of <<X/utf8,Y/utf8>> -> wrong; <<X:16>> -> X end"),Term.I(16768)));
-Test("compiler/bits-utf-size-binding", async () => Equal(await Eval("case <<3/utf8,5:3>> of <<N/utf8,X:N>> -> X end"),Term.I(5)));
-Test("compiler/bits-utf-literal-and-bound", async () => { Equal(await Eval("case <<128512/utf8>> of <<128512/utf8>> -> ok; _ -> no end"),Term.A("ok")); Equal(await Eval("case 128512 of X -> case <<128512/utf16>> of <<X/utf16>> -> X end end"),Term.I(128512)); });
-Test("compiler/bits-utf-string-construction", async () => { Equal(await Eval("<<\"A😀\"/utf8>>"),new BitString([65,240,159,152,128])); Equal(await Eval("<<\"A😀\"/utf16-little>>"),new BitString([65,0,61,216,0,222])); Equal(await Eval("<<\"\"/utf32>>"),new BitString([])); });
-Test("compiler/bits-utf-string-pattern", async () => Equal(await Eval("case <<\"A😀\"/utf8,42>> of <<\"A😀\"/utf8,X>> -> X end"),Term.I(42)));
-Test("compiler/bits-utf-guard-map-key", async () => Equal(await Eval("case #{<<128512/utf8>> => 42} of #{<<128512/utf8>> := X} when <<65/utf8>> =:= <<65>> -> X end"),Term.I(42)));
+Test("compiler/bits-utf16-surrogate-vector", async () => { Equal(await Eval("<<128512/utf16>>"), new BitString([216, 61, 222, 0])); Equal(await Eval("<<128512/utf16-little>>"), new BitString([61, 216, 0, 222])); });
+Test("compiler/bits-utf32-vector", async () => { Equal(await Eval("<<128512/utf32>>"), new BitString([0, 1, 246, 0])); Equal(await Eval("<<128512/utf32-little>>"), new BitString([0, 246, 1, 0])); });
+Test("compiler/bits-utf-endian-native", async () => { foreach (string type in new[] { "utf16", "utf32" }) Equal(await Eval("<<128512/" + type + "-native>>"), await Eval("<<128512/" + type + (BitConverter.IsLittleEndian ? "-little" : "-big") + ">>")); Equal(await Eval("<<128512/utf8-little>>"), await Eval("<<128512/utf8-big>>")); });
+Test("compiler/bits-utf-invalid-values", async () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) foreach (string value in new[] { "-1", "55296", "57343", "1114112", "9007199254740993", "1.0", "atom", "[65]" }) Equal(await MapError("<<(" + value + ")/" + type + ">>"), Term.A("badarg")); });
+Test("compiler/bits-utf-undefined-size-diagnostic", () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) foreach (string source in new[] { "<<65:undefined/" + type + ">>", "case <<65>> of <<X:undefined/" + type + ">> -> X end" }) Throws<CompileException>(() => new Parser(source).ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-utf-noncharacters", async () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) Equal(await Eval("case <<65534/" + type + ",65535/" + type + ">> of <<A/" + type + ",B/" + type + ">> -> {A,B} end"), Term.Tuple(Term.I(65534), Term.I(65535))); });
+Test("compiler/bits-utf8-prefix-rest", async () => Equal(await Eval("case <<240,159,152,128,42>> of <<X/utf8,Rest/binary>> -> {X,Rest} end"), Term.Tuple(Term.I(128512), new BitString([42]))));
+Test("compiler/bits-utf16-pattern-pair", async () => Equal(await Eval("case <<216,61,222,0>> of <<X/utf16>> -> X end"), Term.I(128512)));
+Test("compiler/bits-utf32-pattern", async () => Equal(await Eval("case <<0,246,1,0>> of <<X/utf32-little>> -> X end"), Term.I(128512)));
+Test("compiler/bits-utf8-invalid-sequences", async () => { foreach (string bytes in new[] { "128", "192,175", "193,191", "224,128,128", "237,160,128", "240,128,128,128", "244,144,128,128", "245,128,128,128", "254", "255", "226,130", "194,65" }) Equal(await Eval("case <<" + bytes + ">> of <<X/utf8,Rest/binary>> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-utf16-invalid-sequences", async () => { foreach (string bytes in new[] { "216,0", "220,0", "216,0,0,65", "220,0,216,0", "0" }) Equal(await Eval("case <<" + bytes + ">> of <<X/utf16,Rest/binary>> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-utf32-invalid-scalars", async () => { foreach (string value in new[] { "55296", "57343", "1114112", "4294967295" }) Equal(await Eval("case <<" + value + ":32>> of <<X/utf32>> -> wrong; _ -> ok end"), Term.A("ok")); Equal(await Eval("case <<0,0,65>> of <<X/utf32>> -> wrong; _ -> ok end"), Term.A("ok")); });
+Test("compiler/bits-utf-unaligned", async () => { foreach (string type in new[] { "utf8", "utf16-little", "utf32-big" }) for (int offset = 1; offset <= 7; offset++) Equal(await Eval("case <<1:" + offset + ",128512/" + type + ",5:3>> of <<_:" + offset + ",X/" + type + ",T:3>> -> {X,T} end"), Term.Tuple(Term.I(128512), Term.I(5))); });
+Test("compiler/bits-utf-truncated-bit-tail", async () => Equal(await Eval("case <<240,159,152,64:7>> of <<X/utf8>> -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/bits-utf-binding-rollback", async () => Equal(await Eval("case <<65,128>> of <<X/utf8,Y/utf8>> -> wrong; <<X:16>> -> X end"), Term.I(16768)));
+Test("compiler/bits-utf-size-binding", async () => Equal(await Eval("case <<3/utf8,5:3>> of <<N/utf8,X:N>> -> X end"), Term.I(5)));
+Test("compiler/bits-utf-literal-and-bound", async () => { Equal(await Eval("case <<128512/utf8>> of <<128512/utf8>> -> ok; _ -> no end"), Term.A("ok")); Equal(await Eval("case 128512 of X -> case <<128512/utf16>> of <<X/utf16>> -> X end end"), Term.I(128512)); });
+Test("compiler/bits-utf-string-construction", async () => { Equal(await Eval("<<\"A😀\"/utf8>>"), new BitString([65, 240, 159, 152, 128])); Equal(await Eval("<<\"A😀\"/utf16-little>>"), new BitString([65, 0, 61, 216, 0, 222])); Equal(await Eval("<<\"\"/utf32>>"), new BitString([])); });
+Test("compiler/bits-utf-string-pattern", async () => Equal(await Eval("case <<\"A😀\"/utf8,42>> of <<\"A😀\"/utf8,X>> -> X end"), Term.I(42)));
+Test("compiler/bits-utf-guard-map-key", async () => Equal(await Eval("case #{<<128512/utf8>> => 42} of #{<<128512/utf8>> := X} when <<65/utf8>> =:= <<65>> -> X end"), Term.I(42)));
 Test("compiler/bits-utf-deterministic-roundtrips", async () =>
 {
-    await using var runtime=new ProcessRuntime();
-    var process=runtime.Spawn(async ctx =>
+    await using var runtime = new ProcessRuntime();
+    var process = runtime.Spawn(async ctx =>
     {
-        var random=new Random(14014);
-        foreach(string type in new[] {"utf8","utf16","utf16-little","utf32","utf32-little"})
+        var random = new Random(14014);
+        foreach (string type in new[] { "utf8", "utf16", "utf16-little", "utf32", "utf32-little" })
         {
-            Pattern pattern=Parser.ToPattern(new Parser("<<_:3,X/"+type+",T:2>>").ParseExpression());
-            for(int i=0;i<256;i++)
+            Pattern pattern = Parser.ToPattern(new Parser("<<_:3,X/" + type + ",T:2>>").ParseExpression());
+            for (int i = 0; i < 256; i++)
             {
-                int scalar=random.Next(0x110000); if(scalar is >=0xd800 and <=0xdfff) { i--; continue; }
-                var input=await Execution.EvaluateAsync(new Parser("<<5:3,"+scalar+"/"+type+",2:2>>").ParseExpression(),ctx);
-                var bindings=new Dictionary<string,Term>(); Check(pattern.Match(input,bindings,ctx)); Equal(bindings["X"],Term.I(scalar)); Equal(bindings["T"],Term.I(2));
+                int scalar = random.Next(0x110000);
+                if (scalar is >= 0xd800 and <= 0xdfff)
+                {
+                    i--;
+                    continue;
+                }
+                var input = await Execution.EvaluateAsync(new Parser("<<5:3," + scalar + "/" + type + ",2:2>>").ParseExpression(), ctx);
+                var bindings = new Dictionary<string, Term>();
+                Check(pattern.Match(input, bindings, ctx));
+                Equal(bindings["X"], Term.I(scalar));
+                Equal(bindings["T"], Term.I(2));
             }
         }
         return Term.A("ok");
     });
-    Equal(await process.Completion,Term.A("normal"));
+    Equal(await process.Completion, Term.A("normal"));
 });
 Test("compiler/bits-pattern-default", async () => Equal(await Eval("case <<42>> of <<X>> -> X end"), Term.I(42)));
 Test("compiler/bits-pattern-signed", async () => Equal(await Eval("case <<255>> of <<X:8/signed>> -> X end"), Term.I(-1)));
@@ -409,19 +544,19 @@ Test("compiler/bits-pattern-unsigned", async () => Equal(await Eval("case <<255>
 Test("compiler/bits-pattern-signed-little", async () => Equal(await Eval("case <<-257:16/little>> of <<X:16/signed-little>> -> X end"), Term.I(-257)));
 Test("compiler/bits-pattern-little-partial", async () => Equal(await Eval("case <<291:12/little>> of <<X:12/little>> -> X end"), Term.I(291)));
 Test("compiler/bits-pattern-native", async () => Equal(await Eval("case <<4660:16/native>> of <<X:16/native>> -> X end"), Term.I(4660)));
-Test("compiler/bits-pattern-prior-size", async () => Equal(await Eval("case <<3,5:3,2:2>> of <<N, X:N, Rest/bitstring>> -> {X,Rest} end"), Term.Tuple(Term.I(5), new BitString([128],2))));
+Test("compiler/bits-pattern-prior-size", async () => Equal(await Eval("case <<3,5:3,2:2>> of <<N, X:N, Rest/bitstring>> -> {X,Rest} end"), Term.Tuple(Term.I(5), new BitString([128], 2))));
 Test("compiler/bits-pattern-bound-size-expression", async () => Equal(await Eval("case 3 of N -> case <<17:5>> of <<X:(N+2)>> -> X end end"), Term.I(17)));
 Test("compiler/bits-pattern-shadow-size", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L>>) -> B end, F(<<16:8,7:16>>) end"), Term.I(7)));
 Test("compiler/bits-pattern-shadow-repeat", async () => Equal(await Eval("case 8 of L -> F = fun(<<L:L,B:L,L:L>>) -> B; (_) -> no end, F(<<16:8,7:16,16:16>>) end"), Term.I(7)));
 Test("compiler/fun-clause-local-shadow-capture", async () => Equal(await Eval("case 42 of X -> F = fun({X}) -> X; (_) -> X end, F(atom) end"), Term.I(42)));
 Test("compiler/fun-guard-fallback-capture", async () => Equal(await Eval("case 42 of X -> F = fun(X) when is_integer(X) -> X; (_) -> X end, F(atom) end"), Term.I(42)));
-Test("compiler/fun-bit-clause-fallback-capture", async () => Equal(await Eval("case {8,42} of {L,B} -> F = fun(<<L:L,B:L>>) -> {L,B}; (_) -> {L,B} end, F(atom) end"), Term.Tuple(Term.I(8),Term.I(42))));
+Test("compiler/fun-bit-clause-fallback-capture", async () => Equal(await Eval("case {8,42} of {L,B} -> F = fun(<<L:L,B:L>>) -> {L,B}; (_) -> {L,B} end, F(atom) end"), Term.Tuple(Term.I(8), Term.I(42))));
 Test("compiler/bits-pattern-repeat-mismatch", async () => Equal(await Eval("case <<1,2>> of <<X,X>> -> wrong; _ -> ok end"), Term.A("ok")));
 Test("compiler/bits-pattern-bound-value", async () => Equal(await Eval("case 42 of X -> case <<42>> of <<X>> -> ok; _ -> no end end"), Term.A("ok")));
 Test("compiler/bits-pattern-short-extra-nonbits", async () => { foreach (string source in new[] { "<<1:7>>", "<<1,2>>", "atom" }) Equal(await Eval("case " + source + " of <<X:8>> -> wrong; _ -> ok end"), Term.A("ok")); });
 Test("compiler/bits-pattern-zero-signed", async () => Equal(await Eval("case <<>> of <<X:0/signed>> -> X end"), Term.I(0)));
-Test("compiler/bits-pattern-binary-prefix", async () => Equal(await Eval("case <<1,2,3>> of <<B:2/binary,T/binary>> -> {B,T} end"), Term.Tuple(new BitString([1,2]),new BitString([3]))));
-Test("compiler/bits-pattern-unaligned-prefix", async () => Equal(await Eval("case <<1:1,5:3>> of <<_:1,B:3/bitstring>> -> B end"), new BitString([160],3)));
+Test("compiler/bits-pattern-binary-prefix", async () => Equal(await Eval("case <<1,2,3>> of <<B:2/binary,T/binary>> -> {B,T} end"), Term.Tuple(new BitString([1, 2]), new BitString([3]))));
+Test("compiler/bits-pattern-unaligned-prefix", async () => Equal(await Eval("case <<1:1,5:3>> of <<_:1,B:3/bitstring>> -> B end"), new BitString([160], 3)));
 Test("compiler/bits-pattern-unit", async () => Equal(await Eval("case <<1,2>> of <<X:2/unit:8>> -> X end"), Term.I(258)));
 Test("compiler/bits-pattern-rest-unit-mismatch", async () => Equal(await Eval("case <<1:1>> of <<B/binary>> -> wrong; _ -> ok end"), Term.A("ok")));
 Test("compiler/bits-pattern-invalid-size-alternative", async () => { foreach (string size in new[] { "(-1)", "atom", "1.0", "999999999999999999999999", "(hd(atom))" }) Equal(await Eval("case <<1>> of <<X:" + size + ">> -> wrong; _ -> ok end"), Term.A("ok")); });
@@ -429,59 +564,81 @@ Test("compiler/bits-pattern-string-prefix", async () => Equal(await Eval("case <
 Test("compiler/bits-pattern-literal-no-truncation", async () => Equal(await Eval("case <<0>> of <<256>> -> wrong; _ -> ok end"), Term.A("ok")));
 Test("compiler/bits-pattern-signed-literal", async () => Equal(await Eval("case <<255>> of <<-1:8/signed>> -> ok; _ -> no end"), Term.A("ok")));
 Test("compiler/bits-pattern-empty", async () => Equal(await Eval("case <<>> of <<>> -> ok; _ -> no end"), Term.A("ok")));
-Test("compiler/bits-pattern-rollback", () => { var p = Parser.ToPattern(new Parser("<<N,1>>").ParseExpression()); var b = new Dictionary<string,Term>(); Check(!p.Match(new BitString([42,2]),b)); Check(b.Count == 0); return Task.CompletedTask; });
+Test("compiler/bits-pattern-rollback", () => { var p = Parser.ToPattern(new Parser("<<N,1>>").ParseExpression()); var b = new Dictionary<string, Term>(); Check(!p.Match(new BitString([42, 2]), b)); Check(b.Count == 0); return Task.CompletedTask; });
 Test("compiler/bits-pattern-forward-size-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case <<1>> of <<X:N,N>> -> X end").ParseExpression())); return Task.CompletedTask; });
 Test("compiler/bits-pattern-nonlast-rest-diagnostic", () => { Throws<CompileException>(() => new Parser("case <<1>> of <<B/binary,X>> -> X end").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-pattern-size-call-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case <<1>> of <<X:(lists:sum([8]))>> -> X end").ParseExpression())); return Task.CompletedTask; });
 Test("compiler/bits-pattern-nested-diagnostic", () => { Throws<CompileException>(() => new Parser("case <<1>> of <<(<<X>>)/binary>> -> X end").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-pattern-map-value", async () => Equal(await Eval("case #{a => <<3,5:3>>} of #{a := <<N,X:N>>} -> X end"), Term.I(5)));
-Test("compiler/bits-pattern-match-badmatch", async () => Equal(await MapError("<<X:16>> = <<1>>"),Term.Tuple(Term.A("badmatch"),new BitString([1]))));
+Test("compiler/bits-pattern-match-badmatch", async () => Equal(await MapError("<<X:16>> = <<1>>"), Term.Tuple(Term.A("badmatch"), new BitString([1]))));
 Test("compiler/bits-pattern-receive-preserves-unmatched", async () =>
 {
     await using var runtime = new ProcessRuntime();
     var process = runtime.Spawn(async ctx =>
     {
-        ctx.Mailbox.Send(Term.A("earlier")); ctx.Mailbox.Send(new BitString([2,42])); ctx.Mailbox.Send(new BitString([1,7]));
-        var expression = new Parser("receive <<1,X>> -> X after 0 -> no end").ParseExpression(); Semantics.Validate(expression);
-        Equal(await Execution.EvaluateAsync(expression,ctx), Term.I(7));
-        Equal((await ctx.ReceiveAsync(t => t,TimeSpan.Zero))!,Term.A("earlier"));
-        Equal((await ctx.ReceiveAsync(t => t,TimeSpan.Zero))!,new BitString([2,42]));
+        ctx.Mailbox.Send(Term.A("earlier"));
+        ctx.Mailbox.Send(new BitString([2, 42]));
+        ctx.Mailbox.Send(new BitString([1, 7]));
+        var expression = new Parser("receive <<1,X>> -> X after 0 -> no end").ParseExpression();
+        Semantics.Validate(expression);
+        Equal(await Execution.EvaluateAsync(expression, ctx), Term.I(7));
+        Equal((await ctx.ReceiveAsync(t => t, TimeSpan.Zero))!, Term.A("earlier"));
+        Equal((await ctx.ReceiveAsync(t => t, TimeSpan.Zero))!, new BitString([2, 42]));
         return Term.A("ok");
     });
-    Equal(await process.Completion,Term.A("normal"));
+    Equal(await process.Completion, Term.A("normal"));
 });
-Test("compiler/bits-guard-and-map-key", async () => Equal(await Eval("case #{<<1,2>> => 42} of #{<<1,2>> := V} when <<1:3>> =:= <<1:3>> -> V end"),Term.I(42)));
+Test("compiler/bits-guard-and-map-key", async () => Equal(await Eval("case #{<<1,2>> => 42} of #{<<1,2>> := V} when <<1:3>> =:= <<1:3>> -> V end"), Term.I(42)));
 Test("compiler/bits-unit-without-size-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1/unit:8>>").ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-string-modifier-pending-diagnostic", () => { Throws<CompileException>(() => new Parser("<<\"ab\":16/little>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-identical-specifiers", async () => Equal(await Eval("<<1:8/integer-integer-big-big-unit:1-unit:1>>"),new BitString([1])));
+Test("compiler/bits-identical-specifiers", async () => Equal(await Eval("<<1:8/integer-integer-big-big-unit:1-unit:1>>"), new BitString([1])));
 Test("compiler/bits-alias-specifier-unit-conflict", () => { Throws<CompileException>(() => new Parser("<<(<<1>>)/bytes-unit:1>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<(<<1>>)/unit:8-bits>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-explicit-all-binary", async () => Equal(await Eval("<<(<<1,2>>):all/binary>>"),new BitString([1,2])));
-Test("compiler/bit-size-byte-rounding", async () => Equal(await Eval("{bit_size(<<>>),byte_size(<<>>),bit_size(<<1:1>>),byte_size(<<1:1>>),bit_size(<<1:8>>),byte_size(<<1:8>>),bit_size(<<1:9>>),byte_size(<<1:9>>)}"), Term.Tuple(Term.I(0),Term.I(0),Term.I(1),Term.I(1),Term.I(8),Term.I(1),Term.I(9),Term.I(2))));
-Test("compiler/bitstring-predicate-distinction", async () => Equal(await Eval("{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}"), Term.Tuple(Term.A("true"),Term.A("true"),Term.A("true"),Term.A("false"),Term.A("false"))));
-Test("compiler/bit-size-invalid-badarg", async () => Equal(await MapError("bit_size(atom)"),Term.A("badarg")));
-Test("compiler/byte-size-invalid-badarg", async () => Equal(await MapError("byte_size([1,2])"),Term.A("badarg")));
-Test("compiler/bit-bifs-qualified-guard", async () => Equal(await Eval("case <<1:9>> of Bits when erlang:is_bitstring(Bits), erlang:bit_size(Bits) =:= 9, erlang:byte_size(Bits) =:= 2 -> ok; _ -> no end"),Term.A("ok")));
-Test("compiler/bit-bif-guard-failure-alternative", async () => Equal(await Eval("case atom of X when bit_size(X) =:= 0; byte_size(X) =:= 0; is_atom(X) -> ok end"),Term.A("ok")));
-Test("compiler/bit-bif-map-pattern-key", async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"),Term.I(42)));
+Test("compiler/bits-explicit-all-binary", async () => Equal(await Eval("<<(<<1,2>>):all/binary>>"), new BitString([1, 2])));
+Test("compiler/bit-size-byte-rounding", async () => Equal(await Eval("{bit_size(<<>>),byte_size(<<>>),bit_size(<<1:1>>),byte_size(<<1:1>>),bit_size(<<1:8>>),byte_size(<<1:8>>),bit_size(<<1:9>>),byte_size(<<1:9>>)}"), Term.Tuple(Term.I(0), Term.I(0), Term.I(1), Term.I(1), Term.I(8), Term.I(1), Term.I(9), Term.I(2))));
+Test("compiler/bitstring-predicate-distinction", async () => Equal(await Eval("{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}"), Term.Tuple(Term.A("true"), Term.A("true"), Term.A("true"), Term.A("false"), Term.A("false"))));
+Test("compiler/bit-size-invalid-badarg", async () => Equal(await MapError("bit_size(atom)"), Term.A("badarg")));
+Test("compiler/byte-size-invalid-badarg", async () => Equal(await MapError("byte_size([1,2])"), Term.A("badarg")));
+Test("compiler/bit-bifs-qualified-guard", async () => Equal(await Eval("case <<1:9>> of Bits when erlang:is_bitstring(Bits), erlang:bit_size(Bits) =:= 9, erlang:byte_size(Bits) =:= 2 -> ok; _ -> no end"), Term.A("ok")));
+Test("compiler/bit-bif-guard-failure-alternative", async () => Equal(await Eval("case atom of X when bit_size(X) =:= 0; byte_size(X) =:= 0; is_atom(X) -> ok end"), Term.A("ok")));
+Test("compiler/bit-bif-map-pattern-key", async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"), Term.I(42)));
 var results = new List<object>();
 int failed = 0;
 foreach (var test in tests)
 {
-    var watch = Stopwatch.StartNew(); try { await test.Body().WaitAsync(TimeSpan.FromSeconds(15)); Console.WriteLine("PASS " + test.Name); results.Add(new { test.Name, Status = "Passed", Milliseconds = watch.ElapsedMilliseconds }); }
+    var watch = Stopwatch.StartNew();
+    try
+    {
+        await test.Body().WaitAsync(TimeSpan.FromSeconds(15));
+        Console.WriteLine("PASS " + test.Name);
+        results.Add(new
+        {
+            test.Name,
+            Status = "Passed",
+            Milliseconds = watch.ElapsedMilliseconds
+        });
+    }
     catch (Exception ex) { failed++; Console.WriteLine("FAIL " + test.Name + ": " + ex); results.Add(new { test.Name, Status = "Failed", Error = ex.ToString(), Milliseconds = watch.ElapsedMilliseconds }); }
 }
 Console.WriteLine($"{tests.Count - failed}/{tests.Count} passed");
-string? report = args.FirstOrDefault(); if (report is not null) { Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(report))!); await File.WriteAllTextAsync(report, JsonSerializer.Serialize(new { Passed = tests.Count - failed, Failed = failed, Tests = results }, new JsonSerializerOptions { WriteIndented = true })); }
+string? report = args.FirstOrDefault();
+if (report is not null) { Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(report))!); await File.WriteAllTextAsync(report, JsonSerializer.Serialize(new { Passed = tests.Count - failed, Failed = failed, Tests = results }, new JsonSerializerOptions { WriteIndented = true })); }
 if (failed == 0 && args.Length > 1) await File.WriteAllTextAsync(args[1], JsonSerializer.Serialize(exportRegistry.Exports.Select(e => new { e.Module, e.Function, e.Arity, Status = "Partially compatible", Evidence = $"mfa/{e.Module}:{e.Function}/{e.Arity}", Limits = "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending" }), new JsonSerializerOptions { WriteIndented = true }));
 return failed == 0 ? 0 : 1;
 
 internal sealed class CounterServer : IGenServer
 {
-    public bool Terminated { get; private set; }
+    public bool Terminated
+    {
+        get; private set;
+    }
     public ValueTask<Term> Init(ProcessContext context, Term arguments) => arguments.Equals(Term.A("fail")) ? throw new ErlangException("init_failed") : ValueTask.FromResult(arguments);
     public ValueTask<ServerResult> HandleCall(ProcessContext context, Term request, ServerFrom from, Term state)
         => request.Equals(Term.A("crash")) ? throw new ErlangException("boom") : ValueTask.FromResult(request.Equals(Term.A("stop")) ? new ServerResult(state, Term.A("ok"), Term.A("normal")) : new ServerResult(state, request.Equals(Term.A("noreply")) ? null : state));
     public ValueTask<ServerResult> HandleCast(ProcessContext context, Term request, Term state) => ValueTask.FromResult(new ServerResult(CoreModules.Arithmetic("+", state, request)));
     public ValueTask<ServerResult> HandleInfo(ProcessContext context, Term message, Term state) => ValueTask.FromResult(new ServerResult(CoreModules.Arithmetic("+", state, message)));
-    public ValueTask Terminate(ProcessContext context, Term reason, Term state) { Terminated = true; return ValueTask.CompletedTask; }
+    public ValueTask Terminate(ProcessContext context, Term reason, Term state)
+    {
+        Terminated = true;
+        return ValueTask.CompletedTask;
+    }
 }

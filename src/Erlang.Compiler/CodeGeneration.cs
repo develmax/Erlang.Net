@@ -25,7 +25,16 @@ public static class CodeGeneration
         _ => throw new NotSupportedException("Literal emission is not supported for " + term.GetType().Name)
     };
     private static string ListLiteral(Cons c)
-    { var items = new List<Term>(); Term tail = c; while (tail is Cons cell) { items.Add(cell.Head); tail = cell.Tail; } return "global::Erlang.Cons.From(" + Array(items, TermCode, "global::Erlang.Term") + "," + TermCode(tail) + ")"; }
+    {
+        var items = new List<Term>();
+        Term tail = c;
+        while (tail is Cons cell)
+        {
+            items.Add(cell.Head);
+            tail = cell.Tail;
+        }
+        return "global::Erlang.Cons.From(" + Array(items, TermCode, "global::Erlang.Term") + "," + TermCode(tail) + ")";
+    }
     private static string PatternCode(Pattern p) => p switch
     {
         Pattern.Any => "new " + P + "Any()",
@@ -72,48 +81,104 @@ public static class CodeGeneration
     {
         // Roslyn supplies C# lexical boundaries, including comments, raw strings and interpolation.
         var tokens = SyntaxFactory.ParseTokens(source).Where(t => !t.IsKind(SyntaxKind.EndOfFileToken)).ToArray();
-        var result = new StringBuilder(); int copied = 0;
+        var result = new StringBuilder();
+        int copied = 0;
         for (int i = 0; i < tokens.Length; i++)
         {
-            var token = tokens[i]; if (token.SpanStart < copied) continue;
-            if (token.Text is not ("receive" or "case" or "fun")) continue;
-            if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>")) continue;
+            var token = tokens[i];
+            if (token.SpanStart < copied)
+                continue;
+            if (token.Text is not ("receive" or "case" or "fun"))
+                continue;
+            if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>"))
+                continue;
             int following = token.Span.End;
-            while (following < source.Length && char.IsWhiteSpace(source[following])) following++;
-            if (following == source.Length || source[following] is '.' or ';' or '=' or ':' or ',') continue;
+            while (following < source.Length && char.IsWhiteSpace(source[following]))
+                following++;
+            if (following == source.Length || source[following] is '.' or ';' or '=' or ':' or ',')
+                continue;
             // An ordinary C# call to a method named fun/receive must remain C#.
-            if (token.Text == "receive" && source[following] == '(') continue;
+            if (token.Text == "receive" && source[following] == '(')
+                continue;
             if (token.Text == "fun")
             {
-                int depth = 0, close = -1; for (int n = i + 1; n < tokens.Length; n++) { if (tokens[n].Text == "(") depth++; if (tokens[n].Text == ")" && --depth == 0) { close = n; break; } }
-                if (close < 0 || close + 1 >= tokens.Length || tokens[close + 1].Text is not ("->" or "when")) continue;
+                int depth = 0, close = -1;
+                for (int n = i + 1; n < tokens.Length; n++)
+                {
+                    if (tokens[n].Text == "(")
+                        depth++;
+                    if (tokens[n].Text == ")" && --depth == 0)
+                    {
+                        close = n;
+                        break;
+                    }
+                }
+                if (close < 0 || close + 1 >= tokens.Length || tokens[close + 1].Text is not ("->" or "when"))
+                    continue;
             }
             if (token.Text == "case")
             {
-                bool hasOf = false; int depth = 0;
+                bool hasOf = false;
+                int depth = 0;
                 // Roslyn treats Erlang '#' as directive trivia, hiding the map and 'of'.
                 // Inspect this candidate with the Erlang lexer while retaining Roslyn's C# start boundary.
                 List<Token> probe;
-                try { probe = Lexer.Scan(source[token.SpanStart..], true); }
+                try
+                {
+                    probe = Lexer.Scan(source[token.SpanStart..], true);
+                }
                 catch (CompileException) { continue; }
                 for (int n = 1; n < probe.Count; n++)
-                { string text = probe[n].Text; if (probe[n].Kind is "quoted_atom" or "string") continue; if (depth == 0 && text is ";" or "}" or "->") break; if (depth == 0 && text == "of" && n > 1) { hasOf = true; break; } if (text is "(" or "[" or "{") depth++; if (text is ")" or "]" or "}") depth--; }
-                if (!hasOf) continue;
+                {
+                    string text = probe[n].Text;
+                    if (probe[n].Kind is "quoted_atom" or "string")
+                        continue;
+                    if (depth == 0 && text is ";" or "}" or "->")
+                        break;
+                    if (depth == 0 && text == "of" && n > 1)
+                    {
+                        hasOf = true;
+                        break;
+                    }
+                    if (text is "(" or "[" or "{")
+                        depth++;
+                    if (text is ")" or "]" or "}")
+                        depth--;
+                }
+                if (!hasOf)
+                    continue;
             }
             int start = token.SpanStart;
-            var parser = new Parser(source[start..], true); Expr expression;
-            try { expression = parser.ParseExpression(); Semantics.Validate(expression); }
+            var parser = new Parser(source[start..], true);
+            Expr expression;
+            try
+            {
+                expression = parser.ParseExpression();
+                Semantics.Validate(expression);
+            }
             catch (CompileException ex) { throw new CompileException(ex.Code, ex.Message, start + ex.Offset); }
-            int end = start + parser.EndOffset; while (end < source.Length && char.IsWhiteSpace(source[end])) end++;
-            if (end >= source.Length || source[end] != '.') throw new CompileException("ERL008", "Embedded Erlang expressions must end with 'end.'", end);
+            int end = start + parser.EndOffset;
+            while (end < source.Length && char.IsWhiteSpace(source[end]))
+                end++;
+            if (end >= source.Length || source[end] != '.')
+                throw new CompileException("ERL008", "Embedded Erlang expressions must end with 'end.'", end);
             end++;
             result.Append(source[copied..start]);
             result.Append("await global::Erlang.Compiler.Execution.EvaluateAsync(").Append(ExpressionCode(expression)).Append(", erlangProcess)");
             // '.' terminates an Erlang expression and maps to ';' for a C# statement/assignment.
-            result.Append(';'); int newlines = source[start..end].Count(c => c == '\n'); result.Append('\n', newlines); copied = end;
+            result.Append(';');
+            int newlines = source[start..end].Count(c => c == '\n');
+            result.Append('\n', newlines);
+            copied = end;
         }
         result.Append(source[copied..]);
-        string nullable = nullableContext switch { "enable" => "#nullable enable\n", "annotations" => "#nullable disable\n#nullable enable annotations\n", "warnings" => "#nullable disable\n#nullable enable warnings\n", _ => "#nullable disable\n" };
+        string nullable = nullableContext switch
+        {
+            "enable" => "#nullable enable\n",
+            "annotations" => "#nullable disable\n#nullable enable annotations\n",
+            "warnings" => "#nullable disable\n#nullable enable warnings\n",
+            _ => "#nullable disable\n"
+        };
         return nullable + "#line 1 " + Quote(Path.GetFullPath(path)) + "\n" + result;
     }
 }

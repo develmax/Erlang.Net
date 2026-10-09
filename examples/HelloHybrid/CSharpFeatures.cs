@@ -1,6 +1,12 @@
 namespace HelloHybrid;
 
-public interface IBox<out T> { T Value { get; } }
+public interface IBox<out T>
+{
+    T Value
+    {
+        get;
+    }
+}
 public sealed record Box<T>(T Value) : IBox<T>;
 public readonly record struct Coordinate(int X, int Y);
 
@@ -19,9 +25,15 @@ public static class CSharpFeatures
         int selected;
         switch (point.X)
         {
-            case 1: selected = identity(42); break;
-            case 2: selected = 0; break;
-            default: selected = -1; break;
+            case 1:
+                selected = identity(42);
+                break;
+            case 2:
+                selected = 0;
+                break;
+            default:
+                selected = -1;
+                break;
         }
         await Task.Yield();
         if (selected != 42 || box is not { Value: null } || !raw.StartsWith("case", StringComparison.Ordinal) || interpolated != "receive 42")
