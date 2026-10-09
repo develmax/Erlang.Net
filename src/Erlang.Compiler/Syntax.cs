@@ -52,6 +52,7 @@ public abstract record Expr
     public sealed record Variable(string Name) : Expr;
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
     public sealed record List(IReadOnlyList<Expr> Items, Expr? Tail = null) : Expr;
+    public sealed record Map(Expr? Base, IReadOnlyList<MapField> Fields) : Expr;
     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr;
     public sealed record Apply(Expr Function, IReadOnlyList<Expr> Arguments) : Expr;
     public sealed record Unary(string Operator, Expr Operand) : Expr;
@@ -62,6 +63,24 @@ public abstract record Expr
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;
     public sealed record Fun(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record GuardAlternatives(IReadOnlyList<Expr> Items) : Expr;
+}
+public sealed record MapField(Expr Key, Expr Value, bool Exact);
+public sealed record MapPatternField(Expr Key, Pattern Value);
+public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern
+{
+    protected override bool MatchCore(Term value, Dictionary<string, Term> bindings, ProcessContext? context = null, Dictionary<string, Term>? keyScope = null)
+    {
+        if (value is not MapTerm map) return false;
+        // Resolve all keys before any value pattern binds variables.
+        var keys = new Term[Fields.Count];
+        try { for (int i = 0; i < keys.Length; i++) keys[i] = Execution.PatternKey(Fields[i].Key, keyScope ?? bindings, context); }
+        catch (ErlangException) { return false; }
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if (!map.TryGet(keys[i], out var item) || !Fields[i].Value.Match(item!, bindings, context, keyScope)) return false;
+        }
+        return true;
+    }
 }
 public sealed record Clause(IReadOnlyList<Pattern> Patterns, Expr? Guard, Expr Body);
 public sealed record FunctionDefinition(string Name, int Arity, IReadOnlyList<Clause> Clauses);
@@ -148,6 +167,7 @@ public sealed class Parser
         { var clauses = new List<Clause>(); do { Expect("("); clauses.Add(ParseClause(PatternArguments())); } while (Take(";")); Expect("end"); return new Expr.Fun(clauses); }
         if (Current.Kind != "quoted_atom" && Current.Text is "+" or "-" or "not") { string op = tokens[position++].Text; return new Expr.Unary(op, Expression(9)); }
         if (Take("(")) { result = Expression(); Expect(")"); }
+        else if (Take("#")) result = ParseMap(null);
         else if (Take("{")) { var items = new List<Expr>(); if (!Take("}")) { do { items.Add(Expression()); } while (Take(",")); Expect("}"); } result = new Expr.Tuple(items); }
         else if (Take("["))
         { var items = new List<Expr>(); Expr? tail = null; if (!Take("]")) { do { items.Add(Expression()); } while (Take(",")); if (Take("|")) tail = Expression(); Expect("]"); } result = new Expr.List(items, tail); }
@@ -156,13 +176,35 @@ public sealed class Parser
             var token = Current; position++;
             result = token.Kind switch { "integer" => new Expr.Literal(new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture))), "float" => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))), "string" => new Expr.Literal(Term.String(token.Text)), "variable" => new Expr.Variable(token.Text), "atom" or "quoted_atom" => new Expr.Literal(Term.A(token.Text)), _ => throw new CompileException("ERL003", $"Unsupported expression '{token.Text}'", token.Start) };
         }
-        if (Take(":"))
-        { if (result is not Expr.Literal { Value: Atom module }) throw Error("Dynamic module calls are not supported yet"); string name = Name(); Expect("("); return new Expr.Call(module.Name, name, Arguments()); }
-        if (Take("("))
-        { var args = Arguments(); return result is Expr.Literal { Value: Atom fn } ? new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args); }
+        while (true)
+        {
+            if (Take("#")) result = ParseMap(result);
+            else if (Take(":"))
+            { if (result is not Expr.Literal { Value: Atom module }) throw Error("Dynamic module calls are not supported yet"); string name = Name(); Expect("("); result = new Expr.Call(module.Name, name, Arguments()); }
+            else if (Take("("))
+            { var args = Arguments(); result = result is Expr.Literal { Value: Atom fn } ? new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args); }
+            else break;
+        }
         return result;
+    }
+    private Expr ParseMap(Expr? mapBase)
+    {
+        Expect("{"); var fields = new List<MapField>();
+        if (!Take("}"))
+        {
+            do
+            {
+                var key = Expression(); bool exact;
+                if (Take(":=")) exact = true;
+                else if (Take("=>")) exact = false;
+                else throw Error("Expected '=>' or ':=' in map field");
+                fields.Add(new(key, Expression(), exact));
+            } while (Take(","));
+            Expect("}");
+        }
+        return new Expr.Map(mapBase, fields);
     }
     private List<Expr> Arguments() { var args = new List<Expr>(); if (!Take(")")) { do { args.Add(Expression()); } while (Take(",")); Expect(")"); } return args; }
     public static Pattern ToPattern(Expr e) => e switch
-    { Expr.Literal l => new Pattern.Literal(l.Value), Expr.Variable v => new Pattern.Variable(v.Name), Expr.Tuple t => new Pattern.Tuple(t.Items.Select(ToPattern).ToArray()), Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)), _ => throw new CompileException("ERL004", "Invalid or unsupported pattern", 0) };
+    { Expr.Map { Base: null } m when m.Fields.All(f => f.Exact) => new MapPattern(m.Fields.Select(f => new MapPatternField(f.Key, ToPattern(f.Value))).ToArray()), Expr.Literal l => new Pattern.Literal(l.Value), Expr.Variable v => new Pattern.Variable(v.Name), Expr.Tuple t => new Pattern.Tuple(t.Items.Select(ToPattern).ToArray()), Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)), Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)), _ => throw new CompileException("ERL004", "Invalid or unsupported pattern", 0) };
 }

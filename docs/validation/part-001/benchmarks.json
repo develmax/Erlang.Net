@@ -1,0 +1,33 @@
+{
+  "Framework": ".NET 10.0.11",
+  "OS": "Microsoft Windows 10.0.19045",
+  "Architecture": "X64",
+  "Processors": 16,
+  "Configuration": "Run with -c Release; exploratory single-machine baseline, no BEAM comparison or latency percentiles",
+  "Results": [
+    {
+      "Name": "spawn-send-complete",
+      "WorkUnits": 10000,
+      "Unit": "process lifecycle",
+      "Milliseconds": 95.2928,
+      "AllocatedBytes": 23055808,
+      "WorkUnitsPerSecond": 104939.72262332517
+    },
+    {
+      "Name": "mailbox-load-and-selective-late-match",
+      "WorkUnits": 10000,
+      "Unit": "queued message (one late selective receive per workload)",
+      "Milliseconds": 0.8435,
+      "AllocatedBytes": 1680392,
+      "WorkUnitsPerSecond": 11855364.552459989
+    },
+    {
+      "Name": "etf-roundtrip",
+      "WorkUnits": 10000,
+      "Unit": "encoded/decoded term with exact equality check",
+      "Milliseconds": 154.2279,
+      "AllocatedBytes": 113120040,
+      "WorkUnitsPerSecond": 64839.11147075205
+    }
+  ]
+}

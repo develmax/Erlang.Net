@@ -3,6 +3,21 @@ using Erlang;
 await HelloHybrid.CSharpFeatures.Verify();
 await using var runtime = new ProcessRuntime();
 Erlang.Generated.ErlangModule_arithmetic.Register(runtime.Modules);
+Erlang.Generated.ErlangModule_map_source.Register(runtime.Modules);
+var mapCheck = runtime.Spawn(async erlangProcess =>
+{
+    var value = await runtime.Modules.Call(erlangProcess, "map_source", "run");
+    if (!value.Equals(Term.I(42))) throw new InvalidOperationException("Map module generation failed");
+    var picked = await runtime.Modules.Call(erlangProcess, "map_source", "pick", new MapTerm([new(Term.A("value"), Term.Tuple(Term.I(21), Term.I(21)))]));
+    if (!picked.Equals(Term.I(21))) throw new InvalidOperationException("Map function pattern generation failed");
+    var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
+        #{1 := int, 1.0 := float, value := X} -> X;
+        _ -> no
+    end.
+    if (!hybridMap.Equals(Term.I(42))) throw new InvalidOperationException("Hybrid map generation failed");
+    return Term.A("ok");
+});
+if (!(await mapCheck.Completion).Equals(Term.A("normal"))) throw new InvalidOperationException("Map integration failed");
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var process = runtime.Spawn(async erlangProcess =>
 {

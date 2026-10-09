@@ -86,6 +86,8 @@ public sealed class MapTerm : Term
         Entries = Array.AsReadOnly(d.OrderBy(e => e.Key, Comparer<Term>.Create((a, b) => TermOrder.Compare(a, b, true))).ToArray());
     }
     public Term Get(Term key) => Entries.FirstOrDefault(e => e.Key.Equals(key)).Value ?? throw new ErlangException(Term.Tuple(Term.A("badkey"), key));
+    public bool TryGet(Term key, out Term? value)
+    { value = Entries.FirstOrDefault(e => e.Key.Equals(key)).Value; return value is not null; }
     public override string ToString() => "#{" + string.Join(',', Entries.Select(e => e.Key + "=>" + e.Value)) + "}";
 }
 public sealed class BitString : Term

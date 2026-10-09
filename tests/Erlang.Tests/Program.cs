@@ -172,7 +172,62 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
         Equal(await process.Completion.WaitAsync(TimeSpan.FromSeconds(3)), Term.A("normal"));
     });
 
-var results = new List<object>(); int failed = 0;
+
+async Task<Term> MapError(string source)
+{
+    await using var runtime = new ProcessRuntime(); Term? reason = null;
+    var expression = new Parser(source).ParseExpression(); Semantics.Validate(expression);
+    var process = runtime.Spawn(async c =>
+    {
+        try { await Execution.EvaluateAsync(expression, c); throw new InvalidOperationException("Expected map error"); }
+        catch (ErlangException ex) { Check(ex.ExceptionClass == "error"); reason = ex.Reason; }
+        return Term.A("ok");
+    });
+    Equal(await process.Completion, Term.A("normal")); return reason!;
+}
+Test("compiler/map-empty-and-nonmap-pattern", async () => Equal(await Eval("case #{a => 1} of #{} -> case a of #{} -> wrong; _ -> ok end end"), Term.A("ok")));
+Test("compiler/map-duplicate-last-wins", async () => Equal(await Eval("maps:get(a, #{a => 1, a => 42})"), Term.I(42)));
+Test("compiler/map-exact-numeric-keys", async () => Equal(await Eval("case #{1 => integer, 1.0 => float, 0.0 => positive, -0.0 => negative} of #{1 := A, 1.0 := B, 0.0 := C, -0.0 := D} -> {A,B,C,D} end"), Term.Tuple(Term.A("integer"), Term.A("float"), Term.A("positive"), Term.A("negative"))));
+Test("compiler/map-assoc-and-exact-update", async () => Equal(await Eval("case #{a => 1} of M -> N = M#{a := 2, b => 42}, {maps:get(a,M),maps:get(a,N),maps:get(b,N)} end"), Term.Tuple(Term.I(1), Term.I(2), Term.I(42))));
+Test("compiler/map-mixed-duplicate-update", async () => Equal(await Eval("maps:get(a, #{}#{a => 1, a := 2, a => 3})"), Term.I(3)));
+Test("compiler/map-chained-update", async () => Equal(await Eval("maps:get(a, #{}#{a => 1}#{a := 42})"), Term.I(42)));
+Test("compiler/map-badkey", async () => Equal(await MapError("#{}#{missing := 1}"), Term.Tuple(Term.A("badkey"), Term.A("missing"))));
+Test("compiler/map-exact-before-assoc-fails", async () => Equal(await MapError("#{}#{a := 1, a => 2}"), Term.Tuple(Term.A("badkey"), Term.A("a"))));
+Test("compiler/map-badmap-empty-update", async () => Equal(await MapError("atom#{}"), Term.Tuple(Term.A("badmap"), Term.A("atom"))));
+Test("compiler/map-error-expression-before-badmap", async () => Equal(await MapError("atom#{a := error(blurf)}"), Term.A("blurf")));
+Test("compiler/map-error-expression-before-badkey", async () => Equal(await MapError("#{}#{a := error(blurf)}"), Term.A("blurf")));
+Test("compiler/map-subset-nested-repeat", async () => Equal(await Eval("case #{a => {7,7}, extra => ok} of #{a := {X,X}} -> X; _ -> no end"), Term.I(7)));
+Test("compiler/map-repeated-variable-reject", async () => Equal(await Eval("case #{a => 1,b => 1.0} of #{a := X,b := X} -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/map-duplicate-pattern-keys", async () => Equal(await Eval("case #{a => 42} of #{a := X,a := Y} -> {X,Y} end"), Term.Tuple(Term.I(42), Term.I(42))));
+Test("compiler/map-bound-key-and-guard-expression", async () => Equal(await Eval("case 1 of K -> case #{2 => 42} of #{K + 1 := V} -> V end end"), Term.I(42)));
+Test("compiler/map-structured-key", async () => Equal(await Eval("case #{{a,[1]} => 42} of #{{a,[1]} := X} -> X end"), Term.I(42)));
+Test("compiler/map-guard-key-error-rejects", async () => Equal(await Eval("case #{a => 1} of #{hd(atom) := X} -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/map-construction-in-guard", async () => Equal(await Eval("case ok of X when #{a => 1} =:= #{a => 1} -> X end"), Term.A("ok")));
+Test("compiler/map-update-guard-error-rejects", async () => Equal(await Eval("case #{} of M when M#{a := 1} =:= #{} -> wrong; _ -> ok end"), Term.A("ok")));
+Test("compiler/map-unbound-key-diagnostic", () => { Throws<CompileException>(() => new Parser("-module(m). -export([f/2]). f(K, #{K := V}) -> V.").ParseModule()); return Task.CompletedTask; });
+Test("compiler/map-sibling-binding-key-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case #{a => b,b => 1} of #{a := K,K := V} -> V end").ParseExpression())); return Task.CompletedTask; });
+Test("compiler/map-assoc-pattern-diagnostic", () => { Throws<CompileException>(() => new Parser("case #{} of #{a => X} -> X end").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/map-exact-construction-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("#{a := 1}").ParseExpression())); return Task.CompletedTask; });
+Test("compiler/map-illegal-key-call-diagnostic", () => { Throws<CompileException>(() => Semantics.Validate(new Parser("case #{} of #{put(k,1) := X} -> X end").ParseExpression())); return Task.CompletedTask; });
+Test("patterns/map-rollback", () => { var p = Parser.ToPattern(new Parser("#{a := X,b := X}").ParseExpression()); var b = new Dictionary<string,Term>(); Check(!p.Match(new MapTerm([new(Term.A("a"),Term.I(1)),new(Term.A("b"),Term.I(2))]), b)); Check(b.Count == 0); return Task.CompletedTask; });
+Test("compiler/map-receive-preserves-unmatched", async () =>
+{
+    await using var runtime = new ProcessRuntime(); Term? value = null;
+    var expression = new Parser("receive #{a := X,b := X} -> X after 1000 -> timeout end").ParseExpression(); Semantics.Validate(expression);
+    var p = runtime.Spawn(async c => { value = await Execution.EvaluateAsync(expression,c); Check(c.Mailbox.Count == 1); return Term.A("ok"); });
+    runtime.Send(p.Pid,new MapTerm([new(Term.A("a"),Term.I(1)),new(Term.A("b"),Term.I(2))]));
+    runtime.Send(p.Pid,new MapTerm([new(Term.A("a"),Term.I(42)),new(Term.A("b"),Term.I(42))]));
+    Equal(await p.Completion,Term.A("normal")); Equal(value!,Term.I(42));
+});
+Test("hybrid/map-case-directive-trivia", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = case #{a => 1} of #{a := X} -> X end. } }", "m.cs"); Check(generated.Contains("Expr.Map")); Check(generated.Contains("MapPatternField")); return Task.CompletedTask; });
+
+Test("compiler/map-closure-captured-key", async () => Equal(await Eval("case a of K -> F = fun(#{K := V}) -> V end, F(#{a => 42}) end"), Term.I(42)));
+Test("compiler/map-closure-key-value-shadow", async () => Equal(await Eval("case a of K -> F = fun(#{K := K}) -> K end, F(#{a => 42}) end"), Term.I(42)));
+Test("compiler/map-context-guard-key", async () => Equal(await Eval("case #{self() => 42} of #{self() := V} -> V end"), Term.I(42)));
+Test("hybrid/map-inline-receive", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = receive #{a := X} -> X end. } }", "m.cs"); Check(generated.Contains("MapPatternField")); return Task.CompletedTask; });
+Test("hybrid/map-case-remote-call", () => { var generated = CodeGeneration.Preprocess("class C { async Task F(ProcessContext erlangProcess) { var x = case maps:get(a,#{a => 42}) of X -> X end. } }", "m.cs"); Check(generated.Contains("Expr.Case")); Check(generated.Contains("Expr.Map")); return Task.CompletedTask; });
+var results = new List<object>();
+int failed = 0;
 foreach (var test in tests)
 {
     var watch = Stopwatch.StartNew(); try { await test.Body().WaitAsync(TimeSpan.FromSeconds(15)); Console.WriteLine("PASS " + test.Name); results.Add(new { test.Name, Status = "Passed", Milliseconds = watch.ElapsedMilliseconds }); }

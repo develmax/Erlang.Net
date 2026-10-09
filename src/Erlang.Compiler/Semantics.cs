@@ -10,10 +10,23 @@ public static class Semantics
         foreach (var f in module.Functions) foreach (var clause in f.Clauses) ValidateClause(clause, [], false);
     }
     public static void Validate(Expr expression) => Walk(expression, [], false);
-    internal static IEnumerable<string> Variables(Pattern p) => p switch { Pattern.Variable v when v.Name != "_" => [v.Name], Pattern.Tuple t => t.Items.SelectMany(Variables), Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)), _ => [] };
+    internal static IEnumerable<string> Variables(Pattern p) => p switch { MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)), Pattern.Variable v when v.Name != "_" => [v.Name], Pattern.Tuple t => t.Items.SelectMany(Variables), Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)), _ => [] };
+    private static void PatternKeys(Pattern pattern, HashSet<string> bound)
+    {
+        switch (pattern)
+        {
+            case MapPattern m:
+                foreach (var field in m.Fields) { Walk(field.Key, new HashSet<string>(bound), true); PatternKeys(field.Value, bound); }
+                break;
+            case Pattern.Tuple t: foreach (var item in t.Items) PatternKeys(item, bound); break;
+            case Pattern.List l: foreach (var item in l.Items) PatternKeys(item, bound); if (l.Tail is not null) PatternKeys(l.Tail, bound); break;
+        }
+    }
     private static HashSet<string> ValidateClause(Clause clause, HashSet<string> bound, bool shadow)
     {
-        var scope = new HashSet<string>(bound); foreach (var p in clause.Patterns) { foreach (string name in Variables(p)) { if (shadow) scope.Remove("!unsafe:" + name); else if (scope.Contains("!unsafe:" + name)) throw new CompileException("ERL006", $"Unsafe pattern variable '{name}'", 0); scope.Add(name); } }
+        var scope = new HashSet<string>(bound);
+        foreach (var p in clause.Patterns) PatternKeys(p, bound);
+        foreach (var p in clause.Patterns) { foreach (string name in Variables(p)) { if (shadow) scope.Remove("!unsafe:" + name); else if (scope.Contains("!unsafe:" + name)) throw new CompileException("ERL006", $"Unsafe pattern variable '{name}'", 0); scope.Add(name); } }
         if (clause.Guard is not null) Walk(clause.Guard, scope, true);
         Walk(clause.Body, scope, false); return scope;
     }
@@ -31,6 +44,11 @@ public static class Semantics
             case Expr.Variable v: if (v.Name == "_" || !bound.Contains(v.Name)) throw new CompileException("ERL006", $"Unbound or unsafe variable '{v.Name}'", 0); break;
             case Expr.Tuple t: foreach (var x in t.Items) Walk(x, bound, guard); break;
             case Expr.List l: foreach (var x in l.Items) Walk(x, bound, guard); if (l.Tail is not null) Walk(l.Tail, bound, guard); break;
+            case Expr.Map m:
+                if (m.Base is not null) Walk(m.Base, bound, guard);
+                else if (m.Fields.Any(f => f.Exact)) throw new CompileException("ERL004", "Map construction requires '=>' fields; ':=' is for updates or patterns", 0);
+                foreach (var field in m.Fields) { Walk(field.Key, bound, guard); Walk(field.Value, bound, guard); }
+                break;
             case Expr.Sequence s: foreach (var x in s.Items) Walk(x, bound, guard); break;
             case Expr.GuardAlternatives s: foreach (var x in s.Items) Walk(x, bound, true); break;
             case Expr.Unary u: Walk(u.Operand, bound, guard); break;
@@ -41,7 +59,7 @@ public static class Semantics
                 if (guard && (call.Module is not null and not "erlang" || !GuardBifs.Contains((call.Function, call.Arguments.Count)))) throw new CompileException("ERL007", $"Illegal guard call '{call.Function}/{call.Arguments.Count}'", 0);
                 foreach (var x in call.Arguments) Walk(x, bound, guard); break;
             case Expr.Match m:
-                if (guard) throw new CompileException("ERL007", "Match is not legal in a guard", 0); Walk(m.Value, bound, false); foreach (string name in Variables(m.Pattern)) { if (bound.Contains("!unsafe:" + name)) throw new CompileException("ERL006", $"Unsafe match variable '{name}'", 0); bound.Add(name); }
+                if (guard) throw new CompileException("ERL007", "Match is not legal in a guard", 0); Walk(m.Value, bound, false); PatternKeys(m.Pattern, bound); foreach (string name in Variables(m.Pattern)) { if (bound.Contains("!unsafe:" + name)) throw new CompileException("ERL006", $"Unsafe match variable '{name}'", 0); bound.Add(name); }
                 break;
             case Expr.Case c: if (guard) throw new CompileException("ERL007", "case is not legal in a guard", 0); Walk(c.Value, bound, false); Branches(c.Clauses, bound); break;
             case Expr.Receive r: if (guard) throw new CompileException("ERL007", "receive is not legal in a guard", 0); if (r.Timeout is not null) Walk(r.Timeout, bound, false); Branches(r.Clauses, bound, r.After); break;

@@ -1,5 +1,5 @@
 {
-  "Passed": 153,
+  "Passed": 121,
   "Failed": 0,
   "Tests": [
     {
@@ -30,12 +30,12 @@
     {
       "Name": "terms/improper-list",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 2
     },
     {
       "Name": "terms/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 3
     },
     {
       "Name": "terms/map-integer-before-all-floats",
@@ -45,7 +45,7 @@
     {
       "Name": "terms/signed-zero-otp29",
       "Status": "Passed",
-      "Milliseconds": 29
+      "Milliseconds": 27
     },
     {
       "Name": "terms/atom-codepoint-order",
@@ -55,7 +55,7 @@
     {
       "Name": "terms/structural-hash",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "terms/unicode-list",
@@ -95,7 +95,7 @@
     {
       "Name": "mailbox/timeout",
       "Status": "Passed",
-      "Milliseconds": 36
+      "Milliseconds": 34
     },
     {
       "Name": "mailbox/concurrent-arrival",
@@ -110,7 +110,7 @@
     {
       "Name": "mailbox/sender-order-stress",
       "Status": "Passed",
-      "Milliseconds": 8
+      "Milliseconds": 14
     },
     {
       "Name": "runtime/process-self-and-dictionary",
@@ -155,12 +155,12 @@
     {
       "Name": "runtime/1000-waiting-processes",
       "Status": "Passed",
-      "Milliseconds": 7
+      "Milliseconds": 12
     },
     {
       "Name": "compiler/arithmetic-precedence",
       "Status": "Passed",
-      "Milliseconds": 128
+      "Milliseconds": 121
     },
     {
       "Name": "compiler/exact-equality",
@@ -170,7 +170,7 @@
     {
       "Name": "compiler/case-pattern-guard",
       "Status": "Passed",
-      "Milliseconds": 8
+      "Milliseconds": 7
     },
     {
       "Name": "compiler/guard-error-rejects",
@@ -210,7 +210,7 @@
     {
       "Name": "compiler/unsafe-variable-diagnostic",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/illegal-guard-diagnostic",
@@ -240,7 +240,7 @@
     {
       "Name": "hybrid/csharp-strings-comments-raw-preserved",
       "Status": "Passed",
-      "Milliseconds": 29
+      "Milliseconds": 27
     },
     {
       "Name": "hybrid/source-map-and-lowering",
@@ -270,7 +270,7 @@
     {
       "Name": "etf/random-integer-property",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 2
     },
     {
       "Name": "modules/lists-member-exact",
@@ -280,12 +280,12 @@
     {
       "Name": "modules/lists-and-maps",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/tail-recursion-50000",
       "Status": "Passed",
-      "Milliseconds": 735
+      "Milliseconds": 723
     },
     {
       "Name": "hybrid/ordinary-fun-call",
@@ -295,7 +295,7 @@
     {
       "Name": "hybrid/csharp-switch-and-erlang-case",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/unsafe-variable-rebinding-diagnostic",
@@ -310,12 +310,12 @@
     {
       "Name": "otp/gen-server-call-cast-info-stop",
       "Status": "Passed",
-      "Milliseconds": 7
+      "Milliseconds": 4
     },
     {
       "Name": "otp/gen-server-crash-monitor",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "otp/gen-server-timeout",
@@ -325,17 +325,17 @@
     {
       "Name": "otp/gen-server-init-error",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "otp/supervisor-OneForOne",
       "Status": "Passed",
-      "Milliseconds": 31
+      "Milliseconds": 16
     },
     {
       "Name": "otp/supervisor-OneForAll",
       "Status": "Passed",
-      "Milliseconds": 13
+      "Milliseconds": 14
     },
     {
       "Name": "otp/supervisor-RestForOne",
@@ -350,7 +350,7 @@
     {
       "Name": "otp/supervisor-restart-intensity",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "otp/supervisor-temporary-abnormal-no-restart",
@@ -360,12 +360,12 @@
     {
       "Name": "runtime/link-cascade-10000",
       "Status": "Passed",
-      "Milliseconds": 233
+      "Milliseconds": 216
     },
     {
       "Name": "runtime/spawn-monitor-immediate-exit-atomic",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 3
     },
     {
       "Name": "terms/bitstring-format",
@@ -375,7 +375,7 @@
     {
       "Name": "compiler/large-literal-codegeneration",
       "Status": "Passed",
-      "Milliseconds": 34
+      "Milliseconds": 27
     },
     {
       "Name": "compiler/reserved-keywords-rejected",
@@ -400,7 +400,7 @@
     {
       "Name": "mfa/erlang:demonitor/1",
       "Status": "Passed",
-      "Milliseconds": 6
+      "Milliseconds": 5
     },
     {
       "Name": "mfa/erlang:element/2",
@@ -565,7 +565,7 @@
     {
       "Name": "mfa/io:format/2",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "mfa/lists:append/2",
@@ -604,166 +604,6 @@
     },
     {
       "Name": "mfa/maps:size/1",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-empty-and-nonmap-pattern",
-      "Status": "Passed",
-      "Milliseconds": 3
-    },
-    {
-      "Name": "compiler/map-duplicate-last-wins",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-exact-numeric-keys",
-      "Status": "Passed",
-      "Milliseconds": 1
-    },
-    {
-      "Name": "compiler/map-assoc-and-exact-update",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-mixed-duplicate-update",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-chained-update",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-badkey",
-      "Status": "Passed",
-      "Milliseconds": 1
-    },
-    {
-      "Name": "compiler/map-exact-before-assoc-fails",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-badmap-empty-update",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-error-expression-before-badmap",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-error-expression-before-badkey",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-subset-nested-repeat",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-repeated-variable-reject",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-duplicate-pattern-keys",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-bound-key-and-guard-expression",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-structured-key",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-guard-key-error-rejects",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-construction-in-guard",
-      "Status": "Passed",
-      "Milliseconds": 1
-    },
-    {
-      "Name": "compiler/map-update-guard-error-rejects",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-unbound-key-diagnostic",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-sibling-binding-key-diagnostic",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-assoc-pattern-diagnostic",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-exact-construction-diagnostic",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-illegal-key-call-diagnostic",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "patterns/map-rollback",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-receive-preserves-unmatched",
-      "Status": "Passed",
-      "Milliseconds": 1
-    },
-    {
-      "Name": "hybrid/map-case-directive-trivia",
-      "Status": "Passed",
-      "Milliseconds": 5
-    },
-    {
-      "Name": "compiler/map-closure-captured-key",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-closure-key-value-shadow",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/map-context-guard-key",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "hybrid/map-inline-receive",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "hybrid/map-case-remote-call",
       "Status": "Passed",
       "Milliseconds": 0
     }

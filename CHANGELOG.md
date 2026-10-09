@@ -130,13 +130,13 @@ The checks below ran during part 001 implementation. They were not rerun when th
 | Check | Command / evidence | Result |
 | --- | --- | --- |
 | Solution, 11 projects | dotnet build -m:1; also dotnet build outside worker restrictions | Passed, 0 warnings/errors |
-| Permanent regression tests | dotnet run --project tests/Erlang.Tests --no-build -- artifacts/tests.json; [report](docs/validation/tests.json) | 121 passed, 0 failed; includes 42 direct MFA tests |
-| MSBuild/package/tool integration | pwsh -File tools/validate.ps1; [report](docs/validation/integration-results.json) | Build, Tests, Incremental, CleanRebuild, PackageConsumer, LocalTool — Passed; Hello World; DisabledPreprocessing — Expected failure |
+| Permanent regression tests | dotnet run --project tests/Erlang.Tests --no-build -- artifacts/tests.json; [report](docs/validation/part-001/tests.json) | 121 passed, 0 failed; includes 42 direct MFA tests |
+| MSBuild/package/tool integration | pwsh -File tools/validate.ps1; [report](docs/validation/part-001/integration-results.json) | Build, Tests, Incremental, CleanRebuild, PackageConsumer, LocalTool — Passed; Hello World; DisabledPreprocessing — Expected failure |
 | Differential against real OTP | [runner](tools/Erlang.Differential) | Not run: local oracle unavailable |
 | Remote CI | [.github/workflows](.github/workflows) | Prepared; execution unconfirmed |
 | Whitespace and reference checkout | git diff --check; git -C ../otp status --porcelain | No diff errors; reference checkout clean |
 
-Exploratory benchmark: Release, .NET 10.0.11, Windows 10 x64, 16 logical processors; one warmup and one measured run. [Results](docs/validation/benchmarks.json), [method](docs/benchmarks.md):
+Exploratory benchmark: Release, .NET 10.0.11, Windows 10 x64, 16 logical processors; one warmup and one measured run. [Results](docs/validation/part-001/benchmarks.json), [method](docs/benchmarks.md):
 
 - 10,000 spawn/send/receive/complete lifecycles: **95.2928 ms**, allocated **23,055,808 bytes**.
 - Preloading 10,000 messages and one late selective receive: **0.8435 ms**, allocated **1,680,392 bytes**.
@@ -181,3 +181,52 @@ No Git commit/push or public publication occurred during this part. The later ch
 **Commit:** this entry is included in the local checkpoint commit titled `Implement initial Erlang.NET foundation and detailed English changelog`. Its hash is available from Git history; it is not embedded in its own contents.
 
 **Next step:** continue NEXT_STEPS, add part 004 with detailed validation evidence, then commit the completed part locally.
+
+## Part 004 — 2026-10-09 — Publish the foundation and implement map source syntax
+
+**Part status:** completed for the stated map subset; **compatibility status:** Partially compatible. The complete assignment remains unfinished, estimated at roughly 5% overall. This estimate is judgment about the full scope, not measured compatibility, export coverage or the percentage of passing tests.
+
+### Objective and publication
+
+The user requested publication, continued implementation and an overall completion estimate. Published checkpoint **3860695** to the configured origin/main at https://github.com/develmax/Erlang.Net. Continued with map construction, updates and patterns, the next dependency-ready language task. No public NuGet release was requested or performed.
+
+### Changes and affected files
+
+- [Syntax.cs](src/Erlang.Compiler/Syntax.cs): added Expr.Map/MapField, postfix map updates, MapPattern/MapPatternField and parsing of #{} / => / :=. Patterns allow only :=; bare construction rejects := during semantic validation.
+- [Semantics.cs](src/Erlang.Compiler/Semantics.cs): map bases/keys/values are analyzed; pattern keys must be legal supported guard expressions with variables bound before the entire pattern. Variables bound by sibling patterns cannot provide keys. Value bindings participate in existing unsafe-variable and single-assignment checks.
+- [Patterns.cs](src/Erlang.Runtime/Patterns.cs): propagated optional process context and a snapshot of pre-pattern key bindings through nested patterns. Failed map matches roll back bindings. Closure key scope remains distinct from value-pattern shadowing.
+- [Execution.cs](src/Erlang.Compiler/Execution.cs): constructs immutable maps, performs exact associative/update checks, permits later duplicate values to win and reports {badmap,Value}/{badkey,Key}. All field expressions evaluate before map type/key validation, preserving reference error cases where expression errors take precedence. Guard construction/update errors reject the guard; key-evaluation errors reject the pattern.
+- [Term.cs](src/Erlang.Terms/Term.cs): added nonthrowing exact-key TryGet for map matching; no change to existing exact equality/order.
+- [CodeGeneration.cs](src/Erlang.Compiler/CodeGeneration.cs): emits map ASTs, patterns and literal MapTerms. Fixed hybrid recognition when Roslyn hides Erlang # as directive trivia, including inline case/receive and remote calls in case scrutinees. Roslyn still supplies C# block-start boundaries; the Erlang lexer/parser reads the candidate block.
+- [map_source.erl](examples/HelloHybrid/map_source.erl), example project and Program.cs: actual generated-module map construction/update/function patterns plus a hybrid map case run through MSBuild without changing the expected Hello World output.
+- [Program.cs tests](tests/Erlang.Tests/Program.cs): added **32 permanent regression cases** covering exact integer/float/signed-zero keys, duplicate keys, immutable updates, missing keys, invalid bases, error precedence, empty/subset/nested/repeated patterns, guard keys and failures, scope diagnostics, rollback, selective receive, captured/shadowed closure keys and hybrid preprocessing.
+- [validate.ps1](tools/validate.ps1): PackageReference consumer now copies and compiles the new map module; the installed local CLI also compiles it. Fixed the intermediate consumer failure caused by its previous arithmetic-only source list.
+- [Differential runner](tools/Erlang.Differential/Program.cs): expanded from 18 to **26 cases**, adding map values, updates, patterns, keys, closures and guard failure. These new oracle cases have not run.
+- Updated progress, compatibility matrix/JSON, semantic boundaries, decisions, reuse audit and README. Added the overall estimate and persistent authorization to publish completed commits to origin.
+- Preserved part 001 reports under docs/validation/part-001 by extracting them from commit 3860695; historical changelog links now point to those immutable copies. This is an evidence-link correction, not a change to historical 121/121 results. Current and part-004 reports are saved separately.
+
+### Reference, reuse and semantic decisions
+
+Inspected the exact OTP-29.1.1 expressions manual (Map Expressions and binding/precedence rules) and lib/compiler/test/map_SUITE.erl, especially t_update_exact, variable updates and pattern cases. Reused existing MapTerm exact-key behavior and BCL Dictionary primitives; no new dependency, third-party implementation or copied reference code. See [reuse audit](docs/dependency-decisions.md).
+
+Duplicate associations and exact updates apply in source order; an earlier => can introduce the key for a later :=, while an earlier failing := cannot be rescued by a later =>. Key/value expression evaluation order is not specified by the reference; this implementation uses left-to-right evaluation and does not claim it as a BEAM guarantee. Pattern keys use the pre-pattern scope, and matching does not require exact map size: #{} matches any map, not any term.
+
+### Validation
+
+| Check | Command / saved evidence | Actual result |
+| --- | --- | --- |
+| Full solution and permanent tests | dotnet build -m:1 --nologo; dotnet run --project tests/Erlang.Tests --no-build -- artifacts/tests.json docs/supported-mfas.json; [part report](docs/validation/part-004/tests.json) | **153 passed, 0 failed**, including 42 direct MFA cases; 0 build warnings/errors |
+| Full build/package integration | pwsh -File tools/validate.ps1; [part report](docs/validation/part-004/integration-results.json) | Build/Tests/Incremental/CleanRebuild/PackageConsumer/LocalTool Passed; exact Hello World; preprocessing disabled caused expected failure |
+| .erl and hybrid maps | Example and real PackageReference consumer executed by validation; packaged CLI compiled map_source.erl | Passed |
+| Historical evidence | Extracted reports from Git checkpoint 3860695 into part-001 | Original 121/121 results preserved |
+| Diff hygiene and reference checkout | git diff --check; git -C ../otp status --porcelain | No whitespace errors; OTP reference checkout unchanged |
+| Real OTP differential / reference suites | 26-case runner prepared; local exact-version oracle absent | Not run; no compatibility claim inferred |
+| Remote CI | Workflows present; no confirmed run result | Unconfirmed |
+
+The first map build exposed hybrid # directive handling; an inline regression then exposed a hidden next token. Both were fixed. The first full package cycle exposed the missing consumer module copy, which was fixed before the successful final validation. There are no known failing local regression tests at this checkpoint.
+
+### Limitations and handoff
+
+Map comprehensions, complete map BIF/guard coverage, full-language guard expressions, binary source syntax, optimized map storage and real oracle verification remain pending. Error stacktrace fidelity and all other previously documented runtime/OTP gaps remain open. Benchmarks were not rerun because this part makes no new performance claim.
+
+Next: obtain exact OTP oracle evidence and expand map guard BIFs, then implement bit syntax with source-backed tests. Keep [NEXT_STEPS](docs/NEXT_STEPS.md) as the executable queue. The completed map checkpoint is committed under `Add Erlang map source syntax and preserve checkpoint evidence` and published to origin/main; obtain its hash from Git history instead of embedding its own hash in the commit contents.

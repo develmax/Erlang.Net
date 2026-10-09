@@ -20,6 +20,7 @@ public static class CodeGeneration
         Nil => "global::Erlang.Nil.Value",
         Cons c => ListLiteral(c),
         TupleTerm t => "new global::Erlang.TupleTerm(" + Array(t.Items, TermCode, "global::Erlang.Term") + ")",
+        MapTerm m => "new global::Erlang.MapTerm(" + Array(m.Entries, f => "new global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>(" + TermCode(f.Key) + "," + TermCode(f.Value) + ")", "global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>") + ")",
         _ => throw new NotSupportedException("Literal emission is not supported for " + term.GetType().Name)
     };
     private static string ListLiteral(Cons c)
@@ -31,6 +32,7 @@ public static class CodeGeneration
         Pattern.Literal l => "new " + P + "Literal(" + TermCode(l.Value) + ")",
         Pattern.Tuple t => "new " + P + "Tuple(" + Array(t.Items, PatternCode, "global::Erlang.Pattern") + ")",
         Pattern.List l => "new " + P + "List(" + Array(l.Items, PatternCode, "global::Erlang.Pattern") + "," + (l.Tail is null ? "null" : PatternCode(l.Tail)) + ")",
+        MapPattern m => "new global::Erlang.Compiler.MapPattern(" + Array(m.Fields, f => "new global::Erlang.Compiler.MapPatternField(" + ExpressionCode(f.Key) + "," + PatternCode(f.Value) + ")", "global::Erlang.Compiler.MapPatternField") + ")",
         _ => throw new NotSupportedException()
     };
     private static string ClauseCode(Clause c) => "new global::Erlang.Compiler.Clause(" + Array(c.Patterns, PatternCode, "global::Erlang.Pattern") + "," + Optional(c.Guard) + "," + ExpressionCode(c.Body) + ")";
@@ -43,6 +45,7 @@ public static class CodeGeneration
         Expr.Variable v => "new " + E + "Variable(" + Quote(v.Name) + ")",
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
+        Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(m.Fields, f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")", "global::Erlang.Compiler.MapField") + ")",
         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
         Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + ")",
@@ -71,9 +74,11 @@ public static class CodeGeneration
             var token = tokens[i]; if (token.SpanStart < copied) continue;
             if (token.Text is not ("receive" or "case" or "fun")) continue;
             if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>")) continue;
-            if (i + 1 >= tokens.Length || tokens[i + 1].Text is "." or ";" or "=" or ":" or ",") continue;
+            int following = token.Span.End;
+            while (following < source.Length && char.IsWhiteSpace(source[following])) following++;
+            if (following == source.Length || source[following] is '.' or ';' or '=' or ':' or ',') continue;
             // An ordinary C# call to a method named fun/receive must remain C#.
-            if (token.Text == "receive" && tokens[i + 1].Text == "(") continue;
+            if (token.Text == "receive" && source[following] == '(') continue;
             if (token.Text == "fun")
             {
                 int depth = 0, close = -1; for (int n = i + 1; n < tokens.Length; n++) { if (tokens[n].Text == "(") depth++; if (tokens[n].Text == ")" && --depth == 0) { close = n; break; } }
@@ -82,8 +87,13 @@ public static class CodeGeneration
             if (token.Text == "case")
             {
                 bool hasOf = false; int depth = 0;
-                for (int n = i + 1; n < tokens.Length; n++)
-                { string text = tokens[n].Text; if (depth == 0 && text is ";" or "}" or "->") break; if (depth == 0 && text == "of" && n > i + 1) { hasOf = true; break; } if (text is "(" or "[" or "{") depth++; if (text is ")" or "]" or "}") depth--; }
+                // Roslyn treats Erlang '#' as directive trivia, hiding the map and 'of'.
+                // Inspect this candidate with the Erlang lexer while retaining Roslyn's C# start boundary.
+                List<Token> probe;
+                try { probe = Lexer.Scan(source[token.SpanStart..], true); }
+                catch (CompileException) { continue; }
+                for (int n = 1; n < probe.Count; n++)
+                { string text = probe[n].Text; if (probe[n].Kind is "quoted_atom" or "string") continue; if (depth == 0 && text is ";" or "}" or "->") break; if (depth == 0 && text == "of" && n > 1) { hasOf = true; break; } if (text is "(" or "[" or "{") depth++; if (text is ")" or "]" or "}") depth--; }
                 if (!hasOf) continue;
             }
             int start = token.SpanStart;

@@ -12,3 +12,5 @@
 10. Keep package/tool prototypes local, with a real PackageReference consumer. Public license selection and publication are deferred.
 11. PowerShell validation and Bash commands in the development-only oracle CI workflow are non-C# test-infrastructure exceptions. Runtime, compiler, inventory, differential runner and benchmark code are C#.
 12. Live differential execution remains blocked by missing Erlang runtime. The runner checks exact release and does not normalize semantic differences.
+13. Map pattern keys evaluate against the scope preceding the whole pattern, separate from newly bound value patterns. Closures preserve captured key scope while their value-pattern variables shadow outer variables. Optional process context reaches nested patterns for guard BIFs such as self.
+14. The user authorizes publishing completed commits to the configured Git remote. Public NuGet publication remains deferred. Keep detailed English entries and immutable per-part validation reports; do not overwrite historical evidence when updating current reports.
