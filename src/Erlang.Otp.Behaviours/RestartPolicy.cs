@@ -4,5 +4,7 @@ namespace Erlang.Otp;
 
 public enum RestartPolicy
 {
-    Permanent, Transient, Temporary
+    Permanent,
+    Transient,
+    Temporary
 }

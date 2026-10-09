@@ -16,12 +16,14 @@ public sealed class Integer(BigInteger value) : Term
         if (width <= 53)
         {
             result = (double)Value;
+
             return true;
         }
 
         if (width > 1024)
         {
             result = 0;
+
             return false;
         }
 
@@ -35,11 +37,14 @@ public sealed class Integer(BigInteger value) : Term
         if (!double.IsFinite(number))
         {
             result = 0;
+
             return false;
         }
 
         result = Value.Sign < 0 ? -number : number;
+
         return true;
     }
+
     public override string ToString() => Value.ToString(CultureInfo.InvariantCulture);
 }

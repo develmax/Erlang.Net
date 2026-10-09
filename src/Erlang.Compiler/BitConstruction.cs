@@ -52,6 +52,7 @@ internal static class BitConstruction
 
         var bytes = new byte[((int)total + BitStorageLayout.ByteRoundingOffset) / BitStorageLayout.BitsPerByte];
         int position = 0;
+
         void Append(int bit)
         {
             if (bit != 0)

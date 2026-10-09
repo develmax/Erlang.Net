@@ -46,4 +46,6 @@ pwsh -File tools/validate.ps1
 
 No packages are published. The prototype package targets net10.0. Install the local tool package to run `dotnet erlang compile INPUT OUTPUT`; without installation, use the DLL command above. Compilation currently emits AST construction code evaluated by the C# runtime, rather than direct native lowering of every operation.
 
+Source formatting: `dotnet run --project tools/Erlang.Style -- --write .`. The full validation script checks layout with `--check`. This development tool uses the pinned SDK's Roslyn formatter and repository-specific spacing/argument rules; it does not process native-Erlang hybrid Program.cs. Detailed numbered work history is indexed in [CHANGELOG](CHANGELOG.md); append only to its latest volume, rolling over at 32 KiB or 400 lines.
+
 Tests are a dependency-free executable harness and return a failing exit code on any failed assertion. `dotnet test` is not the test entry point. A separate differential runner requires an exact OTP 29.1.1 development oracle; production execution and builds do not.

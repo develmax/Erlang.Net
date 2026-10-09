@@ -10,15 +10,18 @@ public sealed class FloatTerm : Term
     {
         get;
     }
+
     public FloatTerm(double value)
     {
         if (!double.IsFinite(value))
             throw new ErlangException(ErlangErrorReasons.BadArithmetic);
         Value = value;
     }
+
     public override string ToString()
     {
         var s = Value.ToString("R", CultureInfo.InvariantCulture);
+
         return s.Contains('.') || s.Contains('E') ? s : s + ".0";
     }
 }

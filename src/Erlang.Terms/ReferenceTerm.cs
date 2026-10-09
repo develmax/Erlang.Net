@@ -9,5 +9,6 @@ public sealed class ReferenceTerm(string node, ulong id, uint creation = 0) : Te
     public string Node { get; } = node;
     public ulong Id { get; } = id;
     public uint Creation { get; } = creation;
+
     public override string ToString() => $"#Ref<{Node}.{Id}.{Creation}>";
 }

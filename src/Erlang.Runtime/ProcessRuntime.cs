@@ -1,5 +1,3 @@
-
-
 namespace Erlang;
 
 public sealed class ProcessRuntime : IAsyncDisposable
@@ -19,12 +17,14 @@ public sealed class ProcessRuntime : IAsyncDisposable
         get;
     }
     public ModuleRegistry Modules { get; } = new();
-    public ProcessRuntime(string node = "nonode@nohost", TextWriter? output = null)
+
+    public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null)
     {
         Node = node;
         Output = output ?? Console.Out;
         CoreModules.Register(Modules);
     }
+
     public ProcessHandle Spawn(Func<ProcessContext, ValueTask<Term>> body, ProcessContext? parent = null, bool link = false)
     {
         ProcessContext ctx;
@@ -43,31 +43,44 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
         _ = Task.Run(async () =>
         {
-            Term reason = Term.A("normal");
+            Term reason = Term.A(ProcessExitReasons.Normal);
             try
             {
                 ctx.Cancellation.ThrowIfCancellationRequested();
                 await body(ctx);
             }
-            catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested) { return; }
+            catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
+            {
+                return;
+            }
             catch (ErlangException ex)
             {
                 reason = ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(ex.Reason, Nil.Value);
             }
-            catch (Exception ex) { reason = Term.Tuple(Term.A("clr_error"), Term.String(ex.GetType().Name)); }
-            finally { Terminate(ctx, reason); }
+            catch (Exception ex)
+            {
+                reason = Term.Tuple(Term.A(ProcessExitReasons.ClrError), Term.String(ex.GetType().Name));
+            }
+            finally
+            {
+                Terminate(ctx, reason);
+            }
         });
+
         return new(ctx.Self, ctx.Done.Task);
     }
+
     public (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitor(ProcessContext observer, Func<ProcessContext, ValueTask<Term>> body)
     {
         lock (gate)
         {
             RequireAlive(observer.Self);
             var process = Spawn(body);
+
             return (process, Monitor(observer, process.Pid));
         }
     }
+
     public Term Send(Pid target, Term message)
     {
         lock (gate)
@@ -75,28 +88,33 @@ public sealed class ProcessRuntime : IAsyncDisposable
             if (processes.TryGetValue(target, out var p))
                 p.Mailbox.Send(message);
         }
+
         return message;
     }
+
     public bool IsAlive(Pid pid)
     {
         lock (gate)
             return processes.ContainsKey(pid);
     }
+
     public void Register(string name, Pid pid)
     {
         lock (gate)
         {
             RequireAlive(pid);
-            if (name == "undefined" || names.ContainsKey(name) || names.ContainsValue(pid))
+            if (name == ProcessRegistryAtoms.Undefined || names.ContainsKey(name) || names.ContainsValue(pid))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             names.Add(name, pid);
         }
     }
+
     public Term WhereIs(string name)
     {
         lock (gate)
-            return names.TryGetValue(name, out var p) ? p : Term.A("undefined");
+            return names.TryGetValue(name, out var p) ? p : Term.A(ProcessRegistryAtoms.Undefined);
     }
+
     public void Unregister(string name)
     {
         lock (gate)
@@ -105,7 +123,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
         }
     }
-    private ProcessContext RequireAlive(Pid pid) => processes.TryGetValue(pid, out var p) ? p : throw new ErlangException("noproc");
+
+    private ProcessContext RequireAlive(Pid pid) => processes.TryGetValue(pid, out var p) ? p : throw new ErlangException(ErlangErrorReasons.NoProcess);
+
     public void Link(ProcessContext source, Pid target)
     {
         lock (gate)
@@ -117,9 +137,15 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 p.Links.Add(source.Self);
             }
             else
-                Signal(source, target, Term.A("noproc"), false);
+                Signal(
+                    source,
+                    target,
+                    Term.A(ErlangErrorReasons.NoProcess),
+                    false
+                );
         }
     }
+
     public void Unlink(ProcessContext source, Pid target)
     {
         lock (gate)
@@ -129,6 +155,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 p.Links.Remove(source.Self);
         }
     }
+
     public ReferenceTerm Monitor(ProcessContext observer, Pid target)
     {
         lock (gate)
@@ -138,10 +165,18 @@ public sealed class ProcessRuntime : IAsyncDisposable
             if (processes.ContainsKey(target))
                 monitors.Add(reference, (observer.Self, target));
             else
-                observer.Mailbox.Send(Term.Tuple(Term.A("DOWN"), reference, Term.A("process"), target, Term.A("noproc")));
+                observer.Mailbox.Send(Term.Tuple(
+                    Term.A(ProcessMessageTags.MonitorDown),
+                    reference,
+                    Term.A(ProcessMonitorKinds.Process),
+                    target,
+                    Term.A(ErlangErrorReasons.NoProcess)
+                ));
+
             return reference;
         }
     }
+
     public bool Demonitor(ProcessContext observer, ReferenceTerm reference, bool flush = false)
     {
         lock (gate)
@@ -149,30 +184,45 @@ public sealed class ProcessRuntime : IAsyncDisposable
             if (monitors.TryGetValue(reference, out var m) && m.Observer.Equals(observer.Self))
                 monitors.Remove(reference);
             if (flush)
-                observer.Mailbox.Remove(t => t is TupleTerm x && x.Items.Count == 5 && x.Items[0].Equals(Term.A("DOWN")) && x.Items[1].Equals(reference));
+                observer.Mailbox.Remove(t => t is TupleTerm x && x.Items.Count == 5 && x.Items[0].Equals(Term.A(ProcessMessageTags.MonitorDown)) && x.Items[1].Equals(reference));
+
             return true;
         }
     }
+
     public void Exit(ProcessContext sender, Pid target, Term reason)
     {
         lock (gate)
         {
             if (processes.TryGetValue(target, out var p))
-                Signal(p, sender.Self, reason, true);
+                Signal(
+                    p,
+                    sender.Self,
+                    reason,
+                    true
+                );
         }
     }
-    private void Signal(ProcessContext target, Pid sender, Term reason, bool explicitSignal)
+
+    private void Signal(
+        ProcessContext target,
+        Pid sender,
+        Term reason,
+        bool explicitSignal
+    )
     {
-        bool kill = explicitSignal && reason.Equals(Term.A("kill"));
+        bool kill = explicitSignal && reason.Equals(Term.A(ProcessExitSignals.Kill));
         if (target.TrapExits && !kill)
         {
-            target.Mailbox.Send(Term.Tuple(Term.A("EXIT"), sender, reason));
+            target.Mailbox.Send(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), sender, reason));
+
             return;
         }
-        if (!kill && reason.Equals(Term.A("normal")) && !sender.Equals(target.Self))
+        if (!kill && reason.Equals(Term.A(ProcessExitReasons.Normal)) && !sender.Equals(target.Self))
             return;
-        Terminate(target, kill ? Term.A("killed") : reason);
+        Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);
     }
+
     private void Terminate(ProcessContext ctx, Term reason)
     {
         lock (gate)
@@ -197,7 +247,13 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     {
                         monitors.Remove(m.Key);
                         if (processes.TryGetValue(m.Value.Observer, out var observer))
-                            observer.Mailbox.Send(Term.Tuple(Term.A("DOWN"), m.Key, Term.A("process"), ctx.Self, reason));
+                            observer.Mailbox.Send(Term.Tuple(
+                                Term.A(ProcessMessageTags.MonitorDown),
+                                m.Key,
+                                Term.A(ProcessMonitorKinds.Process),
+                                ctx.Self,
+                                reason
+                            ));
                     }
                     else if (m.Value.Observer.Equals(ctx.Self))
                         monitors.Remove(m.Key);
@@ -209,21 +265,23 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     {
                         linked.Links.Remove(ctx.Self);
                         if (linked.TrapExits)
-                            linked.Mailbox.Send(Term.Tuple(Term.A("EXIT"), ctx.Self, reason));
-                        else if (!reason.Equals(Term.A("normal")))
+                            linked.Mailbox.Send(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), ctx.Self, reason));
+                        else if (!reason.Equals(Term.A(ProcessExitReasons.Normal)))
                             pending.Enqueue((linked, reason));
                     }
             }
         }
     }
+
     public ValueTask DisposeAsync()
     {
         lock (gate)
         {
             disposed = true;
             foreach (var p in processes.Values.ToArray())
-                Terminate(p, Term.A("shutdown"));
+                Terminate(p, Term.A(ProcessExitReasons.Shutdown));
         }
+
         return ValueTask.CompletedTask;
     }
 }

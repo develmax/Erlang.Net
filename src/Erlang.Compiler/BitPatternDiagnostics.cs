@@ -1,5 +1,3 @@
-
-
 namespace Erlang.Compiler;
 
 internal static class BitPatternDiagnostics

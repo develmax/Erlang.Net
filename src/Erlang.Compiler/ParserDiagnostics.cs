@@ -1,5 +1,3 @@
-
-
 namespace Erlang.Compiler;
 
 internal static class ParserDiagnostics
@@ -21,8 +19,12 @@ internal static class ParserDiagnostics
     public const string InvalidPattern = "Invalid or unsupported pattern";
 
     public static string ExpectedToken(string value, string actualText) => $"Expected '{value}', found '{actualText}'";
+
     public static string UnsupportedAttribute(string attribute) => $"Attribute '{attribute}' is not supported yet";
+
     public static string UnsupportedExpression(string text) => $"Unsupported expression '{text}'";
+
     public static string ConflictingBitSpecifier(string category) => $"Conflicting bit segment {category} specifiers";
+
     public static string UnsupportedBitSpecifier(string specifier) => $"Bit segment specifier '{specifier}' is not supported yet";
 }

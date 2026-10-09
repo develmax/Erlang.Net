@@ -1,5 +1,3 @@
-
-
 namespace Erlang;
 
 public sealed class ProcessContext : ITermExecutionContext
@@ -9,6 +7,7 @@ public sealed class ProcessContext : ITermExecutionContext
         Runtime = runtime;
         Self = pid;
     }
+
     internal CancellationTokenSource Stop { get; } = new();
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
@@ -33,6 +32,7 @@ public sealed class ProcessContext : ITermExecutionContext
     }
     public CancellationToken Cancellation => Stop.Token;
     public Dictionary<Term, Term> Dictionary { get; } = new();
+
     public async ValueTask ReduceAsync()
     {
         Cancellation.ThrowIfCancellationRequested();
@@ -43,6 +43,8 @@ public sealed class ProcessContext : ITermExecutionContext
             Cancellation.ThrowIfCancellationRequested();
         }
     }
+
     public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class => Mailbox.ReceiveAsync(select, timeout, Cancellation);
+
     public void Exit(Term reason) => throw new ErlangException(reason, ErlangExceptionClasses.Exit);
 }

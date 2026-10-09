@@ -5,28 +5,40 @@ namespace Erlang.Otp;
 public static class Supervisor
 {
     private sealed record Child(ChildSpec Spec, ProcessHandle Process);
-    public static async ValueTask<SupervisorHandle> Start(ProcessRuntime runtime, IReadOnlyList<ChildSpec> specifications, RestartStrategy strategy = RestartStrategy.OneForOne, int intensity = 1, TimeSpan? period = null, ProcessContext? parent = null)
+
+    public static async ValueTask<SupervisorHandle> Start(
+        ProcessRuntime runtime,
+        IReadOnlyList<ChildSpec> specifications,
+        RestartStrategy strategy = RestartStrategy.OneForOne,
+        int intensity = 1,
+        TimeSpan? period = null,
+        ProcessContext? parent = null
+    )
     {
         if (intensity < 0 || period <= TimeSpan.Zero || specifications.Select(s => s.Id).Distinct().Count() != specifications.Count)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         var handle = new SupervisorHandle();
         var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        handle.Process = runtime.Spawn(async context =>
+        handle.Process = runtime.Spawn(
+            async context =>
         {
             context.TrapExits = true;
             var children = new Child?[specifications.Count];
             var restarts = new Queue<long>();
             var retired = new HashSet<Pid>();
+
             void Publish() => handle.Publish(children.OfType<Child>().Select(c => (c.Spec.Id, c.Process.Pid)));
+
             async ValueTask StartChild(int index)
             {
                 var process = await specifications[index].Start(context);
                 if (process.Completion.IsCompleted)
-                    throw new ErlangException(Term.Tuple(Term.A("failed_to_start_child"), specifications[index].Id));
+                    throw new ErlangException(Term.Tuple(Term.A(SupervisorErrorReasons.FailedToStartChild), specifications[index].Id));
                 runtime.Link(context, process.Pid);
                 children[index] = new(specifications[index], process);
                 Publish();
             }
+
             async ValueTask StopChild(int index)
             {
                 if (children[index] is not { } child)
@@ -34,12 +46,16 @@ public static class Supervisor
                 retired.Add(child.Process.Pid);
                 children[index] = null;
                 Publish();
-                runtime.Exit(context, child.Process.Pid, Term.A("shutdown"));
+                runtime.Exit(context, child.Process.Pid, Term.A(ProcessExitReasons.Shutdown));
                 try
                 {
                     await child.Process.Completion.WaitAsync(child.Spec.Shutdown ?? TimeSpan.FromSeconds(5));
                 }
-                catch (TimeoutException) { runtime.Exit(context, child.Process.Pid, Term.A("kill")); await child.Process.Completion; }
+                catch (TimeoutException)
+                {
+                    runtime.Exit(context, child.Process.Pid, Term.A(ProcessExitSignals.Kill));
+                    await child.Process.Completion;
+                }
             }
             try
             {
@@ -49,13 +65,13 @@ public static class Supervisor
                 while (true)
                 {
                     var message = (await context.ReceiveAsync(t => t))!;
-                    if (message.Equals(Term.A("$supervisor_stop")))
+                    if (message.Equals(Term.A(SupervisorMessageTags.Stop)))
                     {
                         for (int i = children.Length - 1; i >= 0; i--)
                             await StopChild(i);
-                        context.Exit(Term.A("shutdown"));
+                        context.Exit(Term.A(ProcessExitReasons.Shutdown));
                     }
-                    if (message is not TupleTerm { Items.Count: 3 } exit || !exit.Items[0].Equals(Term.A("EXIT")) || exit.Items[1] is not Pid pid)
+                    if (message is not TupleTerm { Items.Count: 3 } exit || !exit.Items[0].Equals(Term.A(ProcessMessageTags.LinkedExit)) || exit.Items[1] is not Pid pid)
                         continue;
                     if (retired.Remove(pid))
                         continue;
@@ -69,7 +85,7 @@ public static class Supervisor
                     var spec = children[failed]!.Spec;
                     children[failed] = null;
                     Publish();
-                    bool normal = exit.Items[2].Equals(Term.A("normal")) || exit.Items[2].Equals(Term.A("shutdown")) || exit.Items[2] is TupleTerm { Items.Count: 2 } reason && reason.Items[0].Equals(Term.A("shutdown"));
+                    bool normal = exit.Items[2].Equals(Term.A(ProcessExitReasons.Normal)) || exit.Items[2].Equals(Term.A(ProcessExitReasons.Shutdown)) || exit.Items[2] is TupleTerm { Items.Count: 2 } reason && reason.Items[0].Equals(Term.A(ProcessExitReasons.Shutdown));
                     if (spec.Restart == RestartPolicy.Temporary || spec.Restart == RestartPolicy.Transient && normal)
                         continue;
                     long now = Stopwatch.GetTimestamp();
@@ -77,7 +93,7 @@ public static class Supervisor
                         restarts.Dequeue();
                     restarts.Enqueue(now);
                     if (restarts.Count > intensity)
-                        context.Exit(Term.A("shutdown"));
+                        context.Exit(Term.A(ProcessExitReasons.Shutdown));
                     int first = strategy == RestartStrategy.OneForAll ? 0 : failed;
                     int last = strategy == RestartStrategy.OneForOne ? failed : children.Length - 1;
                     for (int i = last; i >= first; i--)
@@ -88,15 +104,30 @@ public static class Supervisor
                             await StartChild(i);
                 }
             }
-            catch (Exception ex) { ready.TrySetException(ex); throw; }
-            finally { if (context.ExitReason is null) for (int i = children.Length - 1; i >= 0; i--) await StopChild(i); Publish(); }
-        }, parent, parent is not null);
+            catch (Exception ex)
+            {
+                ready.TrySetException(ex);
+                throw;
+            }
+            finally
+            {
+                if (context.ExitReason is null)
+                    for (int i = children.Length - 1; i >= 0; i--)
+                        await StopChild(i);
+                Publish();
+            }
+        },
+            parent,
+            parent is not null
+        );
         await ready.Task;
+
         return handle;
     }
+
     public static async ValueTask Stop(ProcessRuntime runtime, SupervisorHandle supervisor)
     {
-        runtime.Send(supervisor.Process.Pid, Term.A("$supervisor_stop"));
+        runtime.Send(supervisor.Process.Pid, Term.A(SupervisorMessageTags.Stop));
         await supervisor.Process.Completion;
     }
 }

@@ -2,11 +2,11 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–020.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–021.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
-| Discovery/bootstrap | 11 projects, pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
+| Discovery/bootstrap | 12 projects (including the development-only style tool), pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
@@ -26,10 +26,12 @@ Part 019 completes compiler diagnostic extraction, including one-off texts and t
 
 Part 020 establishes one namespace-level type per matching TypeName.cs file throughout src/tools/tests/benchmarks/examples. The [layout audit](validation/part-020/layout-audit.json) preserves all 80 type declarations/namespaces and the two executable statement files, with zero token mismatches or layout violations after formatting. Thirteen original files were reorganized; nested types stay with their owners. tools/validate.ps1 now copies all root C# files of HelloHybrid into its real package consumer. No semantic feature or progress percentage change.
 
+Part 021 splits detailed English history into indexed docs/changelog volumes with a 32 KiB / 400-line rollover policy. Process/OTP atoms, absence sentinels and remaining exception texts/reasons are domain-owned. The SDK-backed development-only Erlang.Style tool enforces enum/member/return/header/argument layout through tools/validate.ps1; four or more arguments, or a multi-item token width over 120, use separate indented lines. C# LF endings are enforced through .gitattributes. [Refactor audit](validation/part-021/source-token-audit.json) preserves 71 existing implementation/fixture token streams; [style probe](validation/part-021/style-probe.json) independently exercises failure/reformat/pass. No language/MFA feature or percentage change.
+
 ## Current validation
 
-- **299/299 local tests passed**, including 49 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-020/tests.json).
-- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-020/integration-results.json).
+- **299/299 local tests passed**, including 49 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-021/tests.json).
+- `pwsh -File tools/validate.ps1` passed: full build with zero warnings/errors; generated .erl/hybrid examples; unchanged-input timestamps; expected disabled-preprocessing failure; clean/rebuild; real local-package consumer and installed local CLI. Examples produced exactly Hello World and executed map/bit/float/UTF assertions. [Integration](validation/part-021/integration-results.json).
 - An unavailable local oracle returns code 2 with an incomplete infrastructure-error report and zero executed cases. No reference runtime is installed on this host.
 - Remote exact-version run **37955525454 at 666c4b5** matched **160/160** values/exception class/reason cases: prior 93, float 30, UTF 31 and arithmetic-coercion 6. Version confirmed, complete report, zero failures/aborts; actual artifact digest verified. [Report and metadata](validation/part-017/remote-checkpoint.json). Reference expressions use erl_eval; compiled-reference-module/optimizer equivalence remains unverified.
 - Same-head Windows CI **37955516789 at 666c4b5** passed **299/299 tests** and full build/integration/package validation. Its actual log confirms zero warnings/errors and Validation passed. Part 017 observes this remote evidence; no new runtime changes or local test rerun.

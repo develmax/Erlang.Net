@@ -7,7 +7,9 @@ public sealed class Mailbox
     private readonly object gate = new();
     private readonly LinkedList<Term> messages = new();
     private TaskCompletionSource changed = NewSignal();
+
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
+
     public int Count
     {
         get
@@ -16,6 +18,7 @@ public sealed class Mailbox
                 return messages.Count;
         }
     }
+
     public void Send(Term message)
     {
         lock (gate)
@@ -26,6 +29,7 @@ public sealed class Mailbox
             previous.TrySetResult();
         }
     }
+
     public int Remove(Func<Term, bool> predicate)
     {
         lock (gate)
@@ -41,9 +45,11 @@ public sealed class Mailbox
                 }
                 n = next;
             }
+
             return count;
         }
     }
+
     public async ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout, CancellationToken cancellation = default) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -61,6 +67,7 @@ public sealed class Mailbox
                     if (match is not null)
                     {
                         messages.Remove(node);
+
                         return match;
                     }
                 }
@@ -76,7 +83,10 @@ public sealed class Mailbox
                 else
                     await signal.WaitAsync(cancellation);
             }
-            catch (TimeoutException) { return null; }
+            catch (TimeoutException)
+            {
+                return null;
+            }
         }
     }
 }

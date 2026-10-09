@@ -10,6 +10,8 @@ public sealed class TupleTerm : Term
     {
         get;
     }
+
     public TupleTerm(IEnumerable<Term> items) => Items = Array.AsReadOnly(items.ToArray());
+
     public override string ToString() => "{" + string.Join(',', Items) + "}";
 }

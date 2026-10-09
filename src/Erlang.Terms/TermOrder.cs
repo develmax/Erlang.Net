@@ -7,6 +7,7 @@ namespace Erlang;
 public static class TermOrder
 {
     private static int Rank(Term t) => t switch { Integer or FloatTerm => 0, Atom => 1, ReferenceTerm => 2, FunctionTerm => 3, PortTerm => 4, Pid => 5, TupleTerm => 6, MapTerm => 7, Nil => 8, Cons => 9, BitString => 10, _ => throw new NotSupportedException() };
+
     public static int Compare(Term a, Term b, bool exact = false)
     {
         int rank = Rank(a).CompareTo(Rank(b));
@@ -19,6 +20,7 @@ public static class TermOrder
             case (FloatTerm x, FloatTerm y):
                 {
                     int c = x.Value.CompareTo(y.Value);
+
                     return c != 0 || !exact ? c : BitConverter.DoubleToInt64Bits(x.Value).CompareTo(BitConverter.DoubleToInt64Bits(y.Value));
                 }
             case (Integer x, FloatTerm y):
@@ -30,16 +32,38 @@ public static class TermOrder
             case (Nil, Nil):
                 return 0;
             case (Pid x, Pid y):
-                return Identity(x.Node, x.Creation, x.Id, y.Node, y.Creation, y.Id);
+                return Identity(
+                    x.Node,
+                    x.Creation,
+                    x.Id,
+                    y.Node,
+                    y.Creation,
+                    y.Id
+                );
             case (ReferenceTerm x, ReferenceTerm y):
-                return Identity(x.Node, x.Creation, x.Id, y.Node, y.Creation, y.Id);
+                return Identity(
+                    x.Node,
+                    x.Creation,
+                    x.Id,
+                    y.Node,
+                    y.Creation,
+                    y.Id
+                );
             case (PortTerm x, PortTerm y):
-                return Identity(x.Node, x.Creation, x.Id, y.Node, y.Creation, y.Id);
+                return Identity(
+                    x.Node,
+                    x.Creation,
+                    x.Id,
+                    y.Node,
+                    y.Creation,
+                    y.Id
+                );
             case (FunctionTerm x, FunctionTerm y):
                 return x.Identity.CompareTo(y.Identity);
             case (TupleTerm x, TupleTerm y):
                 {
                     int c = x.Items.Count.CompareTo(y.Items.Count);
+
                     return c != 0 ? c : Sequence(x.Items, y.Items, exact);
                 }
             case (MapTerm x, MapTerm y):
@@ -48,6 +72,7 @@ public static class TermOrder
                     if (c != 0)
                         return c;
                     c = Sequence(x.Entries.Select(e => e.Key).ToArray(), y.Entries.Select(e => e.Key).ToArray(), true);
+
                     return c != 0 ? c : Sequence(x.Entries.Select(e => e.Value).ToArray(), y.Entries.Select(e => e.Value).ToArray(), exact);
                 }
             case (Cons, Cons):
@@ -59,6 +84,7 @@ public static class TermOrder
                     a = x.Tail;
                     b = y.Tail;
                 }
+
                 return Compare(a, b, exact);
             case (BitString x, BitString y):
                 for (int i = 0; i < Math.Min(x.BitLength, y.BitLength); i++)
@@ -67,19 +93,30 @@ public static class TermOrder
                     if (c != 0)
                         return c;
                 }
+
                 return x.BitLength.CompareTo(y.BitLength);
             default:
                 throw new NotSupportedException();
         }
     }
-    private static int Identity(string an, uint ac, ulong ai, string bn, uint bc, ulong bi)
+
+    private static int Identity(
+        string an,
+        uint ac,
+        ulong ai,
+        string bn,
+        uint bc,
+        ulong bi
+    )
     {
         int c = string.CompareOrdinal(an, bn);
         if (c != 0)
             return c;
         c = ac.CompareTo(bc);
+
         return c != 0 ? c : ai.CompareTo(bi);
     }
+
     private static int Codepoints(string a, string b)
     {
         var x = a.EnumerateRunes().GetEnumerator();
@@ -94,6 +131,7 @@ public static class TermOrder
                 return c;
         }
     }
+
     private static int Sequence(IReadOnlyList<Term> a, IReadOnlyList<Term> b, bool exact)
     {
         for (int i = 0; i < a.Count; i++)
@@ -102,8 +140,10 @@ public static class TermOrder
             if (c != 0)
                 return c;
         }
+
         return 0;
     }
+
     // Compare the exact binary rational represented by a double, without rounding a large integer.
     private static int IntegerFloat(BigInteger i, double f)
     {
@@ -114,8 +154,10 @@ public static class TermOrder
         int power = (exponent == 0 ? -1022 : exponent - 1023) - 52;
         if (bits < 0)
             numerator = -numerator;
+
         return power >= 0 ? i.CompareTo(numerator << power) : (i << -power).CompareTo(numerator);
     }
+
     public static int Hash(Term t)
     {
         var h = new HashCode();
@@ -176,6 +218,7 @@ public static class TermOrder
                     h.Add(item);
                 break;
         }
+
         return h.ToHashCode();
     }
 }

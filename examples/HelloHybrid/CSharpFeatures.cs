@@ -1,5 +1,3 @@
-
-
 namespace HelloHybrid;
 
 public static class CSharpFeatures

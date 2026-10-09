@@ -3,6 +3,7 @@ namespace Erlang.Compiler;
 public static class Semantics
 {
     internal static readonly HashSet<(string, int)> GuardBifs = [("is_atom", 1), ("is_integer", 1), ("is_float", 1), ("is_number", 1), ("is_tuple", 1), ("is_binary", 1), ("is_bitstring", 1), ("bit_size", 1), ("byte_size", 1), ("is_list", 1), ("is_pid", 1), ("is_map", 1), ("map_size", 1), ("map_get", 2), ("is_map_key", 2), ("length", 1), ("hd", 1), ("tl", 1), ("element", 2), ("tuple_size", 1), ("self", 0)];
+
     public static void Validate(ModuleDefinition module)
     {
         if (module.Functions.Select(f => (f.Name, f.Arity)).Distinct().Count() != module.Functions.Count)
@@ -14,8 +15,11 @@ public static class Semantics
             foreach (var clause in f.Clauses)
                 ValidateClause(clause, [], false);
     }
+
     public static void Validate(Expr expression) => Walk(expression, [], false);
+
     internal static IEnumerable<string> Variables(Pattern p) => p switch { BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)), MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)), Pattern.Variable v when v.Name != "_" => [v.Name], Pattern.Tuple t => t.Items.SelectMany(Variables), Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)), _ => [] };
+
     private static void PatternKeys(Pattern pattern, HashSet<string> bound)
     {
         switch (pattern)
@@ -48,6 +52,7 @@ public static class Semantics
                 break;
         }
     }
+
     private static HashSet<string> ValidateClause(Clause clause, HashSet<string> bound, bool shadow)
     {
         var scope = new HashSet<string>(bound);
@@ -67,8 +72,10 @@ public static class Semantics
         if (clause.Guard is not null)
             Walk(clause.Guard, scope, true);
         Walk(clause.Body, scope, false);
+
         return scope;
     }
+
     private static void Branches(IReadOnlyList<Clause> clauses, HashSet<string> bound, Expr? after = null)
     {
         var outcomes = clauses.Select(c => ValidateClause(c, bound, false)).ToList();
@@ -89,6 +96,7 @@ public static class Semantics
                 bound.Add(name.StartsWith("!unsafe:", StringComparison.Ordinal) ? name : "!unsafe:" + name);
         }
     }
+
     private static void Walk(Expr e, HashSet<string> bound, bool guard)
     {
         switch (e)

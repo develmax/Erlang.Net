@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.Workspaces.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath></Reference>
+    <Reference Include="System.Composition.AttributedModel"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.AttributedModel.dll</HintPath></Reference>
+    <Reference Include="System.Composition.Runtime"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Runtime.dll</HintPath></Reference>
+    <Reference Include="System.Composition.Hosting"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Hosting.dll</HintPath></Reference>
+    <Reference Include="System.Composition.TypedParts"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.TypedParts.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

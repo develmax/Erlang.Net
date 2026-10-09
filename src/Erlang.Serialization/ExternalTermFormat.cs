@@ -9,13 +9,16 @@ namespace Erlang;
 public static class ExternalTermFormat
 {
     public const int DefaultMaxBytes = 16 * 1024 * 1024;
+
     public static byte[] Encode(Term term)
     {
         using var stream = new MemoryStream();
         stream.WriteByte(131);
         Write(stream, term, 0);
+
         return stream.ToArray();
     }
+
     public static Term Decode(ReadOnlySpan<byte> data, int maxBytes = DefaultMaxBytes)
     {
         if (data.Length > maxBytes || data.Length < 2 || data[0] != 131)
@@ -47,28 +50,36 @@ public static class ExternalTermFormat
                 var result = compressedReader.Read(0);
                 if (!compressedReader.AtEnd)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
+
                 return result;
             }
             var reader = new Reader(data[1..], maxBytes);
             var term = reader.Read(0);
             if (!reader.AtEnd)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
+
             return term;
         }
-        catch (Exception ex) when (ex is EndOfStreamException or OverflowException or DecoderFallbackException or InvalidDataException or FormatException or ArgumentException) { throw new ErlangException(ErlangErrorReasons.BadArgument); }
+        catch (Exception ex) when (ex is EndOfStreamException or OverflowException or DecoderFallbackException or InvalidDataException or FormatException or ArgumentException)
+        {
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        }
     }
+
     private static void U16(Stream s, int value)
     {
         Span<byte> b = stackalloc byte[2];
         BinaryPrimitives.WriteUInt16BigEndian(b, checked((ushort)value));
         s.Write(b);
     }
+
     private static void U32(Stream s, uint value)
     {
         Span<byte> b = stackalloc byte[4];
         BinaryPrimitives.WriteUInt32BigEndian(b, value);
         s.Write(b);
     }
+
     private static void Write(Stream s, Term term, int depth)
     {
         if (depth > 256)
@@ -193,36 +204,47 @@ public static class ExternalTermFormat
                     U32(s, (uint)(r.Id >> 32));
                 break;
             default:
-                throw new NotSupportedException("ETF encoding of " + term.GetType().Name + " is not implemented");
+                throw new NotSupportedException(EtfDiagnostics.UnsupportedEncoding(term.GetType().Name));
         }
     }
+
     private ref struct Reader(ReadOnlySpan<byte> data, int limit)
     {
         private readonly ReadOnlySpan<byte> data = data; private int offset;
         public bool AtEnd => offset == data.Length;
+
         private byte Byte()
         {
             if (offset >= data.Length)
                 throw new EndOfStreamException();
+
             return data[offset++];
         }
+
         private ReadOnlySpan<byte> Bytes(int n)
         {
             if (n < 0 || n > limit || n > data.Length - offset)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             var b = data.Slice(offset, n);
             offset += n;
+
             return b;
         }
+
         private int U16() => BinaryPrimitives.ReadUInt16BigEndian(Bytes(2));
+
         private uint U32() => BinaryPrimitives.ReadUInt32BigEndian(Bytes(4));
+
         private int Count(uint n, int minimum = 1)
         {
             if (n > limit || n > int.MaxValue || n * (ulong)minimum > (ulong)(data.Length - offset))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
+
             return (int)n;
         }
+
         private string Node(int depth) => Read(depth) is Atom a ? a.Name : throw new ErlangException(ErlangErrorReasons.BadArgument);
+
         public Term Read(int depth)
         {
             if (depth > 256)
@@ -247,6 +269,7 @@ public static class ExternalTermFormat
                         string name = tag is 118 or 119 ? new UTF8Encoding(false, true).GetString(Bytes(n)) : Encoding.Latin1.GetString(Bytes(n));
                         if (name.EnumerateRunes().Count() > 255)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
+
                         return Term.A(name);
                     }
                 case 106:
@@ -258,11 +281,13 @@ public static class ExternalTermFormat
                         var items = new Term[n];
                         for (int i = 0; i < n; i++)
                             items[i] = Read(depth + 1);
+
                         return new TupleTerm(items);
                     }
                 case 107:
                     {
                         int n = U16();
+
                         return Cons.From(Bytes(n).ToArray().Select(b => (Term)Term.I(b)));
                     }
                 case 108:
@@ -271,11 +296,13 @@ public static class ExternalTermFormat
                         var items = new Term[n];
                         for (int i = 0; i < n; i++)
                             items[i] = Read(depth + 1);
+
                         return Cons.From(items, Read(depth + 1));
                     }
                 case 109:
                     {
                         int n = Count(U32());
+
                         return new BitString(Bytes(n));
                     }
                 case 77:
@@ -284,6 +311,7 @@ public static class ExternalTermFormat
                         int bits = Byte();
                         if (n == 0 || bits is < 1 or > 8)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
+
                         return new BitString(Bytes(n), (n - 1) * 8 + bits);
                     }
                 case 110:
@@ -294,6 +322,7 @@ public static class ExternalTermFormat
                         if (sign > 1)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var value = new BigInteger(Bytes(n), true, false);
+
                         return new Integer(sign == 1 ? -value : value);
                     }
                 case 116:
@@ -302,6 +331,7 @@ public static class ExternalTermFormat
                         var items = new KeyValuePair<Term, Term>[n];
                         for (int i = 0; i < n; i++)
                             items[i] = new(Read(depth + 1), Read(depth + 1));
+
                         return new MapTerm(items);
                     }
                 case 88:
@@ -309,6 +339,7 @@ public static class ExternalTermFormat
                     {
                         string node = Node(depth + 1);
                         uint id = U32(), serial = U32(), creation = tag == 88 ? U32() : Byte();
+
                         return new Pid(node, id | ((ulong)serial << 32), creation);
                     }
                 case 120:
@@ -318,6 +349,7 @@ public static class ExternalTermFormat
                         string node = Node(depth + 1);
                         ulong id = tag == 120 ? BinaryPrimitives.ReadUInt64BigEndian(Bytes(8)) : U32();
                         uint creation = tag == 102 ? Byte() : U32();
+
                         return new PortTerm(node, id, creation);
                     }
                 case 90:
@@ -327,20 +359,22 @@ public static class ExternalTermFormat
                         string node = Node(depth + 1);
                         uint creation = tag == 90 ? U32() : Byte();
                         if (n is < 1 or > 2)
-                            throw new NotSupportedException("ETF reference IDs longer than 64 bits are not implemented");
+                            throw new NotSupportedException(EtfDiagnostics.LongReferenceId);
                         ulong id = U32();
                         if (n == 2)
                             id |= (ulong)U32() << 32;
+
                         return new ReferenceTerm(node, id, creation);
                     }
                 case 101:
                     {
                         string node = Node(depth + 1);
                         uint id = U32();
+
                         return new ReferenceTerm(node, id, Byte());
                     }
                 default:
-                    throw new NotSupportedException($"ETF tag {tag} is not implemented");
+                    throw new NotSupportedException(EtfDiagnostics.UnsupportedTag(tag));
             }
         }
     }

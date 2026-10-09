@@ -7,37 +7,50 @@ namespace Erlang.Compiler;
 public sealed class Parser
 {
     private readonly List<Token> tokens; private int position;
+
     public Parser(string text, bool blockPrefix = false) => tokens = Lexer.Scan(text, blockPrefix);
+
     private Token Current => tokens[position];
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
+
     private bool Is(string value) => Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text == value;
+
     private bool Take(string value)
     {
         if (!Is(value))
             return false;
         position++;
+
         return true;
     }
+
     private Token Expect(string value)
     {
         if (!Is(value))
             throw Error(ParserDiagnostics.ExpectedToken(value, Current.Text));
+
         return tokens[position++];
     }
+
     private CompileException Error(string message) => new(CompilerDiagnosticCodes.Syntax, message, Current.Start);
+
     private string Name()
     {
         if (Current.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom))
             throw Error(ParserDiagnostics.ExpectedAtom);
+
         return tokens[position++].Text;
     }
+
     public Expr ParseExpression(bool requireEnd = true)
     {
         var e = Expression();
         if (requireEnd && Current.Kind != LexerTokenKinds.EndOfInput)
             throw Error(ParserDiagnostics.UnexpectedTrailingToken);
+
         return e;
     }
+
     public ModuleDefinition ParseModule()
     {
         string? module = null;
@@ -101,8 +114,10 @@ public sealed class Parser
             throw Error(ParserDiagnostics.MissingModuleAttribute);
         var result = new ModuleDefinition(module, exports, functions);
         Semantics.Validate(result);
+
         return result;
     }
+
     private List<Pattern> PatternArguments()
     {
         var args = new List<Pattern>();
@@ -114,8 +129,10 @@ public sealed class Parser
             } while (Take(","));
             Expect(")");
         }
+
         return args;
     }
+
     private Clause ParseClause(IReadOnlyList<Pattern> patterns)
     {
         Expr? guard = null;
@@ -132,15 +149,19 @@ public sealed class Parser
             guard = alternatives.Count == 1 ? alternatives[0] : new Expr.GuardAlternatives(alternatives);
         }
         Expect("->");
+
         return new(patterns, guard, Body());
     }
+
     private Expr Body()
     {
         var body = new List<Expr> { Expression() };
         while (Take(","))
             body.Add(Expression());
+
         return body.Count == 1 ? body[0] : new Expr.Sequence(body);
     }
+
     private List<Clause> Clauses()
     {
         var result = new List<Clause>();
@@ -150,9 +171,12 @@ public sealed class Parser
         {
             result.Add(ParseClause([ToPattern(Expression(2))]));
         } while (Take(";"));
+
         return result;
     }
+
     private static int Precedence(string op) => op switch { "=" => 1, "!" => 2, "orelse" => 3, "andalso" => 4, "==" or "/=" or "=:=" or "=/=" or "<" or ">" or "=<" or ">=" => 5, "++" or "--" => 6, "+" or "-" => 7, "*" or "/" or "div" or "rem" => 8, _ => 0 };
+
     private Expr Expression(int minimum = 1)
     {
         Expr left = Primary();
@@ -165,8 +189,10 @@ public sealed class Parser
             var right = Expression(op is "=" or "!" or "++" or "--" ? p : p + 1);
             left = op == "=" ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
         }
+
         return left;
     }
+
     private Expr Primary(bool bitSegment = false)
     {
         Expr result;
@@ -181,6 +207,7 @@ public sealed class Parser
                 after = Body();
             }
             Expect("end");
+
             return new Expr.Receive(clauses, timeout, after);
         }
         if (Take("case"))
@@ -191,6 +218,7 @@ public sealed class Parser
             if (clauses.Count == 0)
                 throw Error(ParserDiagnostics.EmptyCase);
             Expect("end");
+
             return new Expr.Case(value, clauses);
         }
         if (Take("fun"))
@@ -202,11 +230,13 @@ public sealed class Parser
                 clauses.Add(ParseClause(PatternArguments()));
             } while (Take(";"));
             Expect("end");
+
             return new Expr.Fun(clauses);
         }
         if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is "+" or "-" or "not")
         {
             string op = tokens[position++].Text;
+
             return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(9));
         }
         if (Take("("))
@@ -283,8 +313,10 @@ public sealed class Parser
             else
                 break;
         }
+
         return result;
     }
+
     private Expr ParseBits()
     {
         var segments = new List<BitSegment>();
@@ -304,6 +336,7 @@ public sealed class Parser
             int? unit = null;
             bool signed = false;
             var categories = new Dictionary<string, string>();
+
             void Merge(string category, string setting)
             {
                 if (categories.TryGetValue(category, out var previous) && previous != setting)
@@ -358,7 +391,10 @@ public sealed class Parser
                         default:
                             throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedBitSpecifier(spec), Current.Start);
                     }
-                    Merge(category, category == BitSpecifierCategories.Type ? type : category == BitSpecifierCategories.Unit ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec);
+                    Merge(
+                        category,
+                        category == BitSpecifierCategories.Type ? type : category == BitSpecifierCategories.Unit ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec
+                    );
                 } while (Take("-"));
             }
             int defaultUnit = type is BitSegmentTypes.Binary or BitSegmentAliases.Bytes ? BitSyntaxDefaults.BinaryUnit : 1;
@@ -369,7 +405,14 @@ public sealed class Parser
             if (value is Expr.Literal { Value: Cons or Nil } && BitUnicode.IsUtf(type))
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value))
-                    segments.Add(new(new Expr.Literal(item), null, type, 1, endian, signed));
+                    segments.Add(new(
+                        new Expr.Literal(item),
+                        null,
+                        type,
+                        1,
+                        endian,
+                        signed
+                    ));
             }
             else if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
             {
@@ -379,11 +422,20 @@ public sealed class Parser
             else if (value is Expr.Literal { Value: Cons or Nil })
                 throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.StringSegmentModifiers, Current.Start);
             else
-                segments.Add(new(value, size, type, unit ?? defaultUnit, endian, signed));
+                segments.Add(new(
+                    value,
+                    size,
+                    type,
+                    unit ?? defaultUnit,
+                    endian,
+                    signed
+                ));
         } while (Take(","));
         Expect(">>");
+
         return new Expr.Bits(segments);
     }
+
     private Expr ParseMap(Expr? mapBase)
     {
         Expect("{");
@@ -404,8 +456,10 @@ public sealed class Parser
             } while (Take(","));
             Expect("}");
         }
+
         return new Expr.Map(mapBase, fields);
     }
+
     private List<Expr> Arguments()
     {
         var args = new List<Expr>();
@@ -417,8 +471,10 @@ public sealed class Parser
             } while (Take(","));
             Expect(")");
         }
+
         return args;
     }
+
     public static Pattern ToPattern(Expr e) => e switch
     {
         Expr.Bits bits => BitPattern.FromExpression(bits),

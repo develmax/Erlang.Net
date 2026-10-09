@@ -1,6 +1,6 @@
 # CHANGELOG entry template
 
-Append an entry to the root CHANGELOG.md after the previous part. Write every entry in English. Replace placeholders with actual facts and results.
+Root CHANGELOG.md is the volume index. Append an English entry only to the latest docs/changelog/NNNN.md volume. Create the next numbered volume if the combined file would exceed 32 KiB or 400 lines; keep each part whole. Closed volumes remain immutable. Update the index on rollover and use links relative to docs/changelog. Replace placeholders with actual facts and results.
 
 ```markdown
 ## Part NNN — YYYY-MM-DD — Concrete result

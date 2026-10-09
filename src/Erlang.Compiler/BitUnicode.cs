@@ -7,6 +7,7 @@ namespace Erlang.Compiler;
 internal static class BitUnicode
 {
     internal static bool IsUtf(string type) => type is BitSegmentTypes.Utf8 or BitSegmentTypes.Utf16 or BitSegmentTypes.Utf32;
+
     private static bool Little(string endian) => endian == BitByteOrders.Little || endian == BitByteOrders.Native && BitConverter.IsLittleEndian;
 
     internal static byte[] Encode(Term value, string type, string endian)
@@ -47,7 +48,12 @@ internal static class BitUnicode
         return result;
     }
 
-    internal static Integer? Decode(ReadOnlySpan<byte> bytes, string type, string endian, out int consumed)
+    internal static Integer? Decode(
+        ReadOnlySpan<byte> bytes,
+        string type,
+        string endian,
+        out int consumed
+    )
     {
         consumed = 0;
 
@@ -66,6 +72,7 @@ internal static class BitUnicode
                 return null;
 
             consumed = count * UtfSegmentLimits.Utf16BytesPerCharacter;
+
             return new Integer(scalar.Value);
         }
 
@@ -76,6 +83,7 @@ internal static class BitUnicode
         if (!Rune.TryCreate(value, out _))
             return null;
         consumed = UtfSegmentLimits.Utf32BytesPerScalar;
+
         return new Integer(value);
     }
 }

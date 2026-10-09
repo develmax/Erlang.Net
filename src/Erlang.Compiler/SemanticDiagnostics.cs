@@ -1,5 +1,3 @@
-
-
 namespace Erlang.Compiler;
 
 internal static class SemanticDiagnostics
@@ -15,8 +13,12 @@ internal static class SemanticDiagnostics
     public const string GuardDynamicCall = "Dynamic calls are not legal in guards";
 
     public static string UndefinedExport(string name, int arity) => $"Undefined export {name}/{arity}";
+
     public static string UnsafePatternVariable(string name) => $"Unsafe pattern variable '{name}'";
+
     public static string UnboundOrUnsafeVariable(string name) => $"Unbound or unsafe variable '{name}'";
+
     public static string IllegalGuardCall(string function, int arity) => $"Illegal guard call '{function}/{arity}'";
+
     public static string UnsafeMatchVariable(string name) => $"Unsafe match variable '{name}'";
 }

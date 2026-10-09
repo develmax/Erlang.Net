@@ -1,5 +1,3 @@
-
-
 namespace Erlang.Compiler;
 
 // Category keys describe conflict detection, not the source specifier values.

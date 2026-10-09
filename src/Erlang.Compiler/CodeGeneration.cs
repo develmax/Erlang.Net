@@ -10,8 +10,11 @@ public static class CodeGeneration
 {
     private const string E = "global::Erlang.Compiler.Expr.";
     private const string P = "global::Erlang.Pattern.";
+
     private static string Quote(string text) => JsonSerializer.Serialize(text);
+
     private static string Array<T>(IEnumerable<T> items, Func<T, string> emit, string type) => "new " + type + "[]{" + string.Join(',', items.Select(emit)) + "}";
+
     public static string TermCode(Term term) => term switch
     {
         Atom a => "global::Erlang.Term.A(" + Quote(a.Name) + ")",
@@ -20,10 +23,15 @@ public static class CodeGeneration
         Nil => "global::Erlang.Nil.Value",
         Cons c => ListLiteral(c),
         TupleTerm t => "new global::Erlang.TupleTerm(" + Array(t.Items, TermCode, "global::Erlang.Term") + ")",
-        MapTerm m => "new global::Erlang.MapTerm(" + Array(m.Entries, f => "new global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>(" + TermCode(f.Key) + "," + TermCode(f.Value) + ")", "global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>") + ")",
+        MapTerm m => "new global::Erlang.MapTerm(" + Array(
+            m.Entries,
+            f => "new global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>(" + TermCode(f.Key) + "," + TermCode(f.Value) + ")",
+            "global::System.Collections.Generic.KeyValuePair<global::Erlang.Term,global::Erlang.Term>"
+        ) + ")",
         BitString bits => "new global::Erlang.BitString(new byte[]{" + string.Join(',', bits.ToArray()) + "}," + bits.BitLength + ")",
-        _ => throw new NotSupportedException("Literal emission is not supported for " + term.GetType().Name)
+        _ => throw new NotSupportedException(CodeGenerationDiagnostics.UnsupportedLiteral(term.GetType().Name))
     };
+
     private static string ListLiteral(Cons c)
     {
         var items = new List<Term>();
@@ -33,8 +41,10 @@ public static class CodeGeneration
             items.Add(cell.Head);
             tail = cell.Tail;
         }
+
         return "global::Erlang.Cons.From(" + Array(items, TermCode, "global::Erlang.Term") + "," + TermCode(tail) + ")";
     }
+
     private static string PatternCode(Pattern p) => p switch
     {
         Pattern.Any => "new " + P + "Any()",
@@ -42,22 +52,40 @@ public static class CodeGeneration
         Pattern.Literal l => "new " + P + "Literal(" + TermCode(l.Value) + ")",
         Pattern.Tuple t => "new " + P + "Tuple(" + Array(t.Items, PatternCode, "global::Erlang.Pattern") + ")",
         Pattern.List l => "new " + P + "List(" + Array(l.Items, PatternCode, "global::Erlang.Pattern") + "," + (l.Tail is null ? "null" : PatternCode(l.Tail)) + ")",
-        MapPattern m => "new global::Erlang.Compiler.MapPattern(" + Array(m.Fields, f => "new global::Erlang.Compiler.MapPatternField(" + ExpressionCode(f.Key) + "," + PatternCode(f.Value) + ")", "global::Erlang.Compiler.MapPatternField") + ")",
-        BitPattern bits => "new global::Erlang.Compiler.BitPattern(" + Array(bits.Segments, s => "new global::Erlang.Compiler.BitPatternSegment(" + PatternCode(s.Value) + "," + BitSegmentCode(s.Specification) + ")", "global::Erlang.Compiler.BitPatternSegment") + ")",
+        MapPattern m => "new global::Erlang.Compiler.MapPattern(" + Array(
+            m.Fields,
+            f => "new global::Erlang.Compiler.MapPatternField(" + ExpressionCode(f.Key) + "," + PatternCode(f.Value) + ")",
+            "global::Erlang.Compiler.MapPatternField"
+        ) + ")",
+        BitPattern bits => "new global::Erlang.Compiler.BitPattern(" + Array(
+            bits.Segments,
+            s => "new global::Erlang.Compiler.BitPatternSegment(" + PatternCode(s.Value) + "," + BitSegmentCode(s.Specification) + ")",
+            "global::Erlang.Compiler.BitPatternSegment"
+        ) + ")",
         _ => throw new NotSupportedException()
     };
+
     private static string ClauseCode(Clause c) => "new global::Erlang.Compiler.Clause(" + Array(c.Patterns, PatternCode, "global::Erlang.Pattern") + "," + Optional(c.Guard) + "," + ExpressionCode(c.Body) + ")";
+
     private static string Clauses(IReadOnlyList<Clause> clauses) => Array(clauses, ClauseCode, "global::Erlang.Compiler.Clause");
+
     private static string Expressions(IReadOnlyList<Expr> expressions) => Array(expressions, ExpressionCode, "global::Erlang.Compiler.Expr");
+
     private static string Optional(Expr? expression) => expression is null ? "null" : ExpressionCode(expression);
+
     private static string BitSegmentCode(BitSegment s) => "new global::Erlang.Compiler.BitSegment(" + ExpressionCode(s.Value) + "," + Optional(s.Size) + "," + Quote(s.Type) + "," + s.Unit + "," + Quote(s.Endian) + "," + (s.Signed ? "true" : "false") + ")";
+
     public static string ExpressionCode(Expr expression) => expression switch
     {
         Expr.Literal l => "new " + E + "Literal(" + TermCode(l.Value) + ")",
         Expr.Variable v => "new " + E + "Variable(" + Quote(v.Name) + ")",
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
-        Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(m.Fields, f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")", "global::Erlang.Compiler.MapField") + ")",
+        Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(
+            m.Fields,
+            f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")",
+            "global::Erlang.Compiler.MapField"
+        ) + ")",
         Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
@@ -71,12 +99,18 @@ public static class CodeGeneration
         Expr.Fun f => "new " + E + "Fun(" + Clauses(f.Clauses) + ")",
         _ => throw new NotSupportedException()
     };
+
     public static string CompileModule(string source, string sourcePath)
     {
         var module = new Parser(source).ParseModule();
         string className = "ErlangModule_" + string.Concat(module.Name.Select(c => char.IsAsciiLetterOrDigit(c) || c == '_' ? c.ToString() : "_" + ((int)c).ToString("x4", CultureInfo.InvariantCulture)));
-        return "// Generated from " + sourcePath.Replace("\n", " ") + "\n#nullable enable\nnamespace Erlang.Generated;\npublic static class " + className + "\n{\npublic static global::Erlang.Compiler.ModuleDefinition Definition {get;} = new(" + Quote(module.Name) + ",new (string Name,int Arity)[]{" + string.Join(',', module.Exports.Select(x => "(" + Quote(x.Name) + "," + x.Arity + ")")) + "},new global::Erlang.Compiler.FunctionDefinition[]{" + string.Join(',', module.Functions.Select(f => "new global::Erlang.Compiler.FunctionDefinition(" + Quote(f.Name) + "," + f.Arity + "," + Clauses(f.Clauses) + ")")) + "});\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+
+        return "// Generated from " + sourcePath.Replace("\n", " ") + "\n#nullable enable\nnamespace Erlang.Generated;\npublic static class " + className + "\n{\npublic static global::Erlang.Compiler.ModuleDefinition Definition {get;} = new(" + Quote(module.Name) + ",new (string Name,int Arity)[]{" + string.Join(',', module.Exports.Select(x => "(" + Quote(x.Name) + "," + x.Arity + ")")) + "},new global::Erlang.Compiler.FunctionDefinition[]{" + string.Join(
+            ',',
+            module.Functions.Select(f => "new global::Erlang.Compiler.FunctionDefinition(" + Quote(f.Name) + "," + f.Arity + "," + Clauses(f.Clauses) + ")")
+        ) + "});\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
     }
+
     public static string Preprocess(string source, string path, string nullableContext = "enable")
     {
         // Roslyn supplies C# lexical boundaries, including comments, raw strings and interpolation.
@@ -127,7 +161,10 @@ public static class CodeGeneration
                 {
                     probe = Lexer.Scan(source[token.SpanStart..], true);
                 }
-                catch (CompileException) { continue; }
+                catch (CompileException)
+                {
+                    continue;
+                }
                 for (int n = 1; n < probe.Count; n++)
                 {
                     string text = probe[n].Text;
@@ -156,7 +193,10 @@ public static class CodeGeneration
                 expression = parser.ParseExpression();
                 Semantics.Validate(expression);
             }
-            catch (CompileException ex) { throw new CompileException(ex.Code, ex.Message, start + ex.Offset); }
+            catch (CompileException ex)
+            {
+                throw new CompileException(ex.Code, ex.Message, start + ex.Offset);
+            }
             int end = start + parser.EndOffset;
             while (end < source.Length && char.IsWhiteSpace(source[end]))
                 end++;
@@ -179,6 +219,7 @@ public static class CodeGeneration
             "warnings" => "#nullable disable\n#nullable enable warnings\n",
             _ => "#nullable disable\n"
         };
+
         return nullable + "#line 1 " + Quote(Path.GetFullPath(path)) + "\n" + result;
     }
 }

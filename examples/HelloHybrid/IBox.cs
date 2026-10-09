@@ -1,5 +1,3 @@
-
-
 namespace HelloHybrid;
 
 public interface IBox<out T>

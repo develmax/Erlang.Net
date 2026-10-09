@@ -1,5 +1,3 @@
-
-
 namespace Erlang.Compiler;
 
 // These names describe bit segments, not lexer token kinds or term type categories.

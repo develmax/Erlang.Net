@@ -24,20 +24,28 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsupportedSegmentValue, 0);
             segments.Add(new(value, segment));
         }
+
         return new(segments);
     }
 
-    protected override bool MatchCore(Term value, Dictionary<string, Term> bindings, ProcessContext? context = null, Dictionary<string, Term>? keyScope = null)
+    protected override bool MatchCore(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    )
     {
         if (value is not BitString input)
             return false;
         byte[] bytes = input.ToArray();
         int position = 0;
         var sizeScope = new Dictionary<string, Term>(keyScope ?? bindings, StringComparer.Ordinal);
+
         int ReadBit()
         {
             int bit = (bytes[position / BitStorageLayout.BitsPerByte] >> (BitStorageLayout.MostSignificantBitIndex - position % BitStorageLayout.BitsPerByte)) & 1;
             position++;
+
             return bit;
         }
         Span<byte> prefix = stackalloc byte[UtfSegmentLimits.MaximumEncodedBytes];
@@ -57,8 +65,18 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 for (int i = 0; i < available * BitStorageLayout.BitsPerByte; i++)
                     if (((bytes[(position + i) / BitStorageLayout.BitsPerByte] >> (BitStorageLayout.MostSignificantBitIndex - (position + i) % BitStorageLayout.BitsPerByte)) & 1) != 0)
                         prefix[i / BitStorageLayout.BitsPerByte] |= (byte)(1 << (BitStorageLayout.MostSignificantBitIndex - i % BitStorageLayout.BitsPerByte));
-                var scalar = BitUnicode.Decode(prefix[..available], spec.Type, spec.Endian, out int consumed);
-                if (scalar is null || !segment.Value.Match(scalar, bindings, context, keyScope))
+                var scalar = BitUnicode.Decode(
+                    prefix[..available],
+                    spec.Type,
+                    spec.Endian,
+                    out int consumed
+                );
+                if (scalar is null || !segment.Value.Match(
+                    scalar,
+                    bindings,
+                    context,
+                    keyScope
+                ))
                     return false;
                 position += consumed * BitStorageLayout.BitsPerByte;
                 foreach (string name in Semantics.Variables(segment.Value))
@@ -71,7 +89,10 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
             {
                 size = spec.Size is null ? null : Execution.PatternKey(spec.Size, sizeScope, context);
             }
-            catch (ErlangException) { return false; }
+            catch (ErlangException)
+            {
+                return false;
+            }
             bool whole = spec.Type == BitSegmentTypes.Binary && (size is null || size is Atom { Name: "all" });
             BigInteger length;
             if (whole)
@@ -127,11 +148,17 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 else
                     extracted = new BitString(part, count);
             }
-            if (!segment.Value.Match(extracted, bindings, context, keyScope))
+            if (!segment.Value.Match(
+                extracted,
+                bindings,
+                context,
+                keyScope
+            ))
                 return false;
             foreach (string name in Semantics.Variables(segment.Value))
                 sizeScope[name] = bindings[name];
         }
+
         return position == input.BitLength;
     }
 }

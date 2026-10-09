@@ -7,6 +7,7 @@ namespace Erlang.Compiler;
 public static class Lexer
 {
     private static readonly HashSet<string> Keywords = ["after", "begin", "case", "try", "cond", "catch", "andalso", "orelse", "end", "fun", "if", "let", "of", "receive", "when", "bnot", "not", "div", "rem", "band", "and", "bor", "bxor", "bsl", "bsr", "or", "xor", "maybe", "else"];
+
     public static List<Token> Scan(string text, bool blockPrefix = false)
     {
         var tokens = new List<Token>();
@@ -70,7 +71,12 @@ public static class Lexer
                         throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.IllegalQuotedUnicode, start);
                     offset += rune.Utf16SequenceLength;
                 }
-                tokens.Add(new(c == '\'' ? LexerTokenKinds.QuotedAtom : LexerTokenKinds.String, literal, start, i));
+                tokens.Add(new(
+                    c == '\'' ? LexerTokenKinds.QuotedAtom : LexerTokenKinds.String,
+                    literal,
+                    start,
+                    i
+                ));
                 continue;
             }
             if (char.IsLetter(c) || c == '_')
@@ -78,7 +84,12 @@ public static class Lexer
                 while (i < text.Length && (char.IsLetterOrDigit(text[i]) || text[i] is '_' or '@'))
                     i++;
                 string name = text[start..i];
-                tokens.Add(new(char.IsUpper(c) || c == '_' ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom, name, start, i));
+                tokens.Add(new(
+                    char.IsUpper(c) || c == '_' ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom,
+                    name,
+                    start,
+                    i
+                ));
                 if (blockPrefix)
                 {
                     if (name is "receive" or "case" or "fun")
@@ -108,15 +119,31 @@ public static class Lexer
                     while (i < text.Length && char.IsDigit(text[i]))
                         i++;
                 }
-                tokens.Add(new(floating ? LexerTokenKinds.Float : LexerTokenKinds.Integer, text[start..i].Replace("_", ""), start, i));
+                tokens.Add(new(
+                    floating ? LexerTokenKinds.Float : LexerTokenKinds.Integer,
+                    text[start..i].Replace("_", ""),
+                    start,
+                    i
+                ));
                 continue;
             }
             var symbol = symbols.FirstOrDefault(s => text.AsSpan(start).StartsWith(s, StringComparison.Ordinal));
             if (symbol is not null)
                 i = start + symbol.Length;
-            tokens.Add(new(LexerTokenKinds.Symbol, symbol ?? c.ToString(), start, i));
+            tokens.Add(new(
+                LexerTokenKinds.Symbol,
+                symbol ?? c.ToString(),
+                start,
+                i
+            ));
         }
-        tokens.Add(new(LexerTokenKinds.EndOfInput, "", i, i));
+        tokens.Add(new(
+            LexerTokenKinds.EndOfInput,
+            "",
+            i,
+            i
+        ));
+
         return tokens;
     }
 }

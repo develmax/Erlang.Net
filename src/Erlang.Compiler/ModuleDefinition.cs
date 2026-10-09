@@ -9,6 +9,16 @@ public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, i
     public void Register(ModuleRegistry registry)
     {
         foreach (var export in Exports)
-            registry.Register(Name, export.Name, export.Arity, (c, a) => Execution.InvokeAsync(this, export.Name, c, a));
+            registry.Register(
+                Name,
+                export.Name,
+                export.Arity,
+                (c, a) => Execution.InvokeAsync(
+                    this,
+                    export.Name,
+                    c,
+                    a
+                )
+            );
     }
 }

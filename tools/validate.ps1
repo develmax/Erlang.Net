@@ -9,6 +9,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "dotnet failed: $($Arguments -join ' ')" }
     }
     Invoke-DotNet @('build', '-m:1', '--nologo')
+    Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }
