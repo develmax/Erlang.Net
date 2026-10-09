@@ -295,7 +295,7 @@ Test("compiler/bits-float-size", async () => Equal(await MapError("<<1:1.0>>"),T
 Test("compiler/bits-short-binary", async () => Equal(await MapError("<<(<<1>>):2/binary>>"),Term.A("badarg")));
 Test("compiler/bits-binary-unit-alignment", async () => Equal(await MapError("<<(<<1:1>>)/binary>>"),Term.A("badarg")));
 Test("compiler/bits-invalid-unit-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/unit:0>>").ParseExpression()); Throws<CompileException>(() => new Parser("<<1:8/unit:257>>").ParseExpression()); return Task.CompletedTask; });
-Test("compiler/bits-unsupported-utf-diagnostic", () => { Throws<CompileException>(() => new Parser("<<65/utf8>>").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-utf-size-unit-diagnostic", () => { foreach (string type in new[] { "utf8", "utf16", "utf32" }) foreach (string source in new[] { "<<65:8/"+type+">>", "<<65/"+type+"-unit:1>>" }) Throws<CompileException>(() => new Parser(source).ParseExpression()); return Task.CompletedTask; });
 Test("compiler/bits-float16-vector", async () => Equal(await Eval("<<1.5:16/float>>"),new BitString([62,0])));
 Test("compiler/bits-float32-vector", async () => Equal(await Eval("<<1.5:32/float>>"),new BitString([63,192,0,0])));
 Test("compiler/bits-float64-default", async () => Equal(await Eval("<<1.5/float>>"),new BitString([63,248,0,0,0,0,0,0])));
@@ -352,6 +352,51 @@ Test("compiler/bits-float16-all-finite-roundtrip", async () =>
     Equal(await process.Completion,Term.A("normal"));
 });
 Test("compiler/bits-duplicate-spec-diagnostic", () => { Throws<CompileException>(() => new Parser("<<1:8/big-little>>").ParseExpression()); return Task.CompletedTask; });
+Test("compiler/bits-utf8-boundary-vectors", async () =>
+{
+    (int Code, byte[] Bytes)[] vectors=[(0,[0]),(127,[127]),(128,[194,128]),(2047,[223,191]),(2048,[224,160,128]),(55295,[237,159,191]),(57344,[238,128,128]),(65535,[239,191,191]),(65536,[240,144,128,128]),(1114111,[244,143,191,191])];
+    foreach(var vector in vectors) Equal(await Eval("<<"+vector.Code+"/utf8>>"),new BitString(vector.Bytes));
+});
+Test("compiler/bits-utf16-surrogate-vector", async () => { Equal(await Eval("<<128512/utf16>>"),new BitString([216,61,222,0])); Equal(await Eval("<<128512/utf16-little>>"),new BitString([61,216,0,222])); });
+Test("compiler/bits-utf32-vector", async () => { Equal(await Eval("<<128512/utf32>>"),new BitString([0,1,246,0])); Equal(await Eval("<<128512/utf32-little>>"),new BitString([0,246,1,0])); });
+Test("compiler/bits-utf-endian-native", async () => { foreach(string type in new[] { "utf16","utf32" }) Equal(await Eval("<<128512/"+type+"-native>>"),await Eval("<<128512/"+type+(BitConverter.IsLittleEndian?"-little":"-big")+">>")); Equal(await Eval("<<128512/utf8-little>>"),await Eval("<<128512/utf8-big>>")); });
+Test("compiler/bits-utf-invalid-values", async () => { foreach(string type in new[] { "utf8","utf16","utf32" }) foreach(string value in new[] { "-1","55296","57343","1114112","9007199254740993","1.0","atom","[65]" }) Equal(await MapError("<<("+value+")/"+type+">>"),Term.A("badarg")); });
+Test("compiler/bits-utf-undefined-size", async () => { foreach(string type in new[] { "utf8","utf16","utf32" }) Equal(await Eval("<<65:undefined/"+type+">>"),await Eval("<<65/"+type+">>")); });
+Test("compiler/bits-utf-noncharacters", async () => { foreach(string type in new[] { "utf8","utf16","utf32" }) Equal(await Eval("case <<65534/"+type+",65535/"+type+">> of <<A/"+type+",B/"+type+">> -> {A,B} end"),Term.Tuple(Term.I(65534),Term.I(65535))); });
+Test("compiler/bits-utf8-prefix-rest", async () => Equal(await Eval("case <<240,159,152,128,42>> of <<X/utf8,Rest/binary>> -> {X,Rest} end"),Term.Tuple(Term.I(128512),new BitString([42]))));
+Test("compiler/bits-utf16-pattern-pair", async () => Equal(await Eval("case <<216,61,222,0>> of <<X/utf16>> -> X end"),Term.I(128512)));
+Test("compiler/bits-utf32-pattern", async () => Equal(await Eval("case <<0,246,1,0>> of <<X/utf32-little>> -> X end"),Term.I(128512)));
+Test("compiler/bits-utf8-invalid-sequences", async () => { foreach(string bytes in new[] { "128","192,175","193,191","224,128,128","237,160,128","240,128,128,128","244,144,128,128","245,128,128,128","254","255","226,130","194,65" }) Equal(await Eval("case <<"+bytes+">> of <<X/utf8,Rest/binary>> -> wrong; _ -> ok end"),Term.A("ok")); });
+Test("compiler/bits-utf16-invalid-sequences", async () => { foreach(string bytes in new[] { "216,0","220,0","216,0,0,65","220,0,216,0","0" }) Equal(await Eval("case <<"+bytes+">> of <<X/utf16,Rest/binary>> -> wrong; _ -> ok end"),Term.A("ok")); });
+Test("compiler/bits-utf32-invalid-scalars", async () => { foreach(string value in new[] { "55296","57343","1114112","4294967295" }) Equal(await Eval("case <<"+value+":32>> of <<X/utf32>> -> wrong; _ -> ok end"),Term.A("ok")); Equal(await Eval("case <<0,0,65>> of <<X/utf32>> -> wrong; _ -> ok end"),Term.A("ok")); });
+Test("compiler/bits-utf-unaligned", async () => { foreach(string type in new[] { "utf8","utf16-little","utf32-big" }) for(int offset=1;offset<=7;offset++) Equal(await Eval("case <<1:"+offset+",128512/"+type+",5:3>> of <<_:"+offset+",X/"+type+",T:3>> -> {X,T} end"),Term.Tuple(Term.I(128512),Term.I(5))); });
+Test("compiler/bits-utf-truncated-bit-tail", async () => Equal(await Eval("case <<240,159,152,64:7>> of <<X/utf8>> -> wrong; _ -> ok end"),Term.A("ok")));
+Test("compiler/bits-utf-binding-rollback", async () => Equal(await Eval("case <<65,128>> of <<X/utf8,Y/utf8>> -> wrong; <<X:16>> -> X end"),Term.I(16768)));
+Test("compiler/bits-utf-size-binding", async () => Equal(await Eval("case <<3/utf8,5:3>> of <<N/utf8,X:N>> -> X end"),Term.I(5)));
+Test("compiler/bits-utf-literal-and-bound", async () => { Equal(await Eval("case <<128512/utf8>> of <<128512/utf8>> -> ok; _ -> no end"),Term.A("ok")); Equal(await Eval("case 128512 of X -> case <<128512/utf16>> of <<X/utf16>> -> X end end"),Term.I(128512)); });
+Test("compiler/bits-utf-string-construction", async () => { Equal(await Eval("<<\"A😀\"/utf8>>"),new BitString([65,240,159,152,128])); Equal(await Eval("<<\"A😀\"/utf16-little>>"),new BitString([65,0,61,216,0,222])); Equal(await Eval("<<\"\"/utf32>>"),new BitString([])); });
+Test("compiler/bits-utf-string-pattern", async () => Equal(await Eval("case <<\"A😀\"/utf8,42>> of <<\"A😀\"/utf8,X>> -> X end"),Term.I(42)));
+Test("compiler/bits-utf-guard-map-key", async () => Equal(await Eval("case #{<<128512/utf8>> => 42} of #{<<128512/utf8>> := X} when <<65/utf8>> =:= <<65>> -> X end"),Term.I(42)));
+Test("compiler/bits-utf-deterministic-roundtrips", async () =>
+{
+    await using var runtime=new ProcessRuntime();
+    var process=runtime.Spawn(async ctx =>
+    {
+        var random=new Random(14014);
+        foreach(string type in new[] {"utf8","utf16","utf16-little","utf32","utf32-little"})
+        {
+            Pattern pattern=Parser.ToPattern(new Parser("<<_:3,X/"+type+",T:2>>").ParseExpression());
+            for(int i=0;i<256;i++)
+            {
+                int scalar=random.Next(0x110000); if(scalar is >=0xd800 and <=0xdfff) { i--; continue; }
+                var input=await Execution.EvaluateAsync(new Parser("<<5:3,"+scalar+"/"+type+",2:2>>").ParseExpression(),ctx);
+                var bindings=new Dictionary<string,Term>(); Check(pattern.Match(input,bindings,ctx)); Equal(bindings["X"],Term.I(scalar)); Equal(bindings["T"],Term.I(2));
+            }
+        }
+        return Term.A("ok");
+    });
+    Equal(await process.Completion,Term.A("normal"));
+});
 Test("compiler/bits-pattern-default", async () => Equal(await Eval("case <<42>> of <<X>> -> X end"), Term.I(42)));
 Test("compiler/bits-pattern-signed", async () => Equal(await Eval("case <<255>> of <<X:8/signed>> -> X end"), Term.I(-1)));
 Test("compiler/bits-pattern-unsigned", async () => Equal(await Eval("case <<255>> of <<X:8/unsigned>> -> X end"), Term.I(255)));

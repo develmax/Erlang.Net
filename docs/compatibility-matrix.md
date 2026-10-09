@@ -16,8 +16,9 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Erlang parser/analyzer/emitter | Partially compatible | compiler/*; lexer/Pratt AST, scopes/guards/module exports, generated AST C#; full grammar/IR/native lowering pending |
 | Map source construction/updates/patterns | Partially compatible | compiler/map-*, patterns/map-rollback, hybrid/map-*, generated map_source.erl and PackageReference integration; full guard/BIF set/comprehensions/oracle pending |
 | is_map/map_size/map_get/is_map_key | Partially compatible | Four direct MFA cases plus compiler map-BIF exact-key/error/guard/pattern regressions; oracle and complete error stacks pending |
-| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary/float16/32/64 segments, direct rounding and integer coercion; UTF/string modifiers/new float oracle/full suites pending |
-| Float bit segments | Partially compatible | compiler/bits-float-*; 27 new tests including 63,488 finite binary16 roundtrips and generated .erl/hybrid/consumer checks; 123-case corpus pending |
+| Bitstring source construction | Partially compatible | compiler/bits-* plus .erl/hybrid/PackageReference generation; integer/binary/float16/32/64 segments, direct rounding and integer coercion; UTF8/16/32 and UTF strings now exist; remaining string modifiers/new oracle/full suites pending |
+| Float bit segments | Partially compatible | compiler/bits-float-*; 27 new tests including 63,488 finite binary16 roundtrips and generated .erl/hybrid/consumer checks; 123/123 matched at 19774f9; full applicable inputs/reference suites pending |
+| UTF bit segments and strings | Partially compatible | compiler/bits-utf-*; malformed/scalar/endian/unaligned/string/rollback checks and 1,280 deterministic roundtrips; 154-case corpus pending |
 | Bitstring source patterns | Partially compatible | compiler/bits-pattern-* plus generated unpack/1 and hybrid/PackageReference checks; signed/unsigned integer extraction, binary slices/rest, guard sizes and prior-segment bindings; full scope/segment/oracle evidence pending |
 | is_bitstring/bit_size/byte_size | Partially compatible | Three direct MFA cases plus compiler/bit-size-byte-rounding, predicate/size/error/guard/pattern-key regressions; oracle/resource-limit fidelity pending |
 | Core BIFs/lists/maps/io | Partially compatible | mfa/MODULE:FUNCTION/ARITY for every registered function; full errors/options/module coverage pending |
@@ -26,7 +27,7 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Mixed C#/Erlang | Partially compatible | hybrid/* and HelloHybrid integration; async receive/case/fun blocks at selected boundaries; arbitrary inline syntax/sync contexts pending |
 | MSBuild/local package | Partially compatible | tools/validate.ps1: output, incrementality, negative preprocessing, clean/rebuild, local consumer/tool; SDK/TFM/design-time expansion pending |
 | Source diagnostics/maps | Partially compatible | ERL001-008 parser/semantic errors, #line and line preservation; AST columns/full debugger/IDE mapping pending |
-| Differential verification | Implemented | Exact OTP-29.1.1 run 37943457369 matched 93/93 value/error cases at c139b45; report validation/part-012/differential.json. Stacks/signals/side effects/full reference suites pending |
+| Differential verification | Implemented | Exact OTP-29.1.1 run 37952290309 matched 123/123 value/error cases at 19774f9; report validation/part-014/float-differential.json. New UTF 154-case corpus pending. Stacks/signals/side effects/full reference suites pending |
 | Full expanded source inventory | Investigated | 1,289 source modules / 38,622 explicit exports / 524 BIF entries; expansion/contracts incomplete |
 | gen_statem/gen_event/application/SASL | Not started | Not implemented |
 | Distribution/remote links/monitors/RPC | Not started | No real-node interop claim |

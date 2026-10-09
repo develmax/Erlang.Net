@@ -21,7 +21,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 if (!double.IsFinite(number)) throw new CompileException("ERL004", "Float pattern literal is outside the finite double range", 0);
                 value = new Pattern.Literal(new FloatTerm(number));
             }
-            if (value is not Pattern.Variable && !(segment.Type == "integer" && value is Pattern.Literal { Value: Integer }) && !(segment.Type == "float" && value is Pattern.Literal { Value: FloatTerm }))
+            if (value is not Pattern.Variable && !((segment.Type == "integer" || BitUnicode.IsUtf(segment.Type)) && value is Pattern.Literal { Value: Integer }) && !(segment.Type == "float" && value is Pattern.Literal { Value: FloatTerm }))
                 throw new CompileException("ERL004", "Bit pattern segments support variables and numeric literals only", 0);
             segments.Add(new(value, segment));
         }
@@ -34,9 +34,23 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
         byte[] bytes = input.ToArray(); int position = 0;
         var sizeScope = new Dictionary<string, Term>(keyScope ?? bindings, StringComparer.Ordinal);
         int ReadBit() { int bit = (bytes[position / 8] >> (7 - position % 8)) & 1; position++; return bit; }
+        Span<byte> prefix = stackalloc byte[4];
         foreach (var segment in Segments)
         {
             var spec = segment.Specification; bool integer = spec.Type == "integer", floating = spec.Type == "float";
+            if (BitUnicode.IsUtf(spec.Type))
+            {
+                if (spec.Size is not null || spec.Unit != 1) return false;
+                int available = Math.Min((input.BitLength - position) / 8, 4);
+                prefix.Clear();
+                for (int i = 0; i < available * 8; i++)
+                    if (((bytes[(position + i) / 8] >> (7 - (position + i) % 8)) & 1) != 0) prefix[i / 8] |= (byte)(1 << (7 - i % 8));
+                var scalar = BitUnicode.Decode(prefix[..available], spec.Type, spec.Endian, out int consumed);
+                if (scalar is null || !segment.Value.Match(scalar, bindings, context, keyScope)) return false;
+                position += consumed * 8;
+                foreach (string name in Semantics.Variables(segment.Value)) sizeScope[name] = bindings[name];
+                continue;
+            }
             Term? size;
             try { size = spec.Size is null ? null : Execution.PatternKey(spec.Size, sizeScope, context); }
             catch (ErlangException) { return false; }

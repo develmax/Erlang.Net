@@ -134,7 +134,7 @@
         "compiler/bits-identical-specifiers",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary/float16/32/64 subset; UTF/string modifiers/complete diagnostics and full applicable oracle coverage pending"
+      "limits": "Integer/binary/float/UTF and UTF strings; non-UTF string size modifiers/full diagnostics/applicable reference suites pending"
     },
     {
       "name": "Bitstring source patterns",
@@ -149,7 +149,7 @@
         "compiler/bits-pattern-forward-size-diagnostic",
         "validation/part-012/differential.json"
       ],
-      "limits": "Integer/binary/float segments with guard sizes and prior-segment bindings; UTF/string modifiers/full scopes/reference suites pending"
+      "limits": "Integer/binary/float/UTF and UTF strings with guard sizes/prior-segment bindings; remaining strings/full scopes/reference suites pending"
     },
     {
       "name": "Bitstring guard BIFs",
@@ -208,9 +208,10 @@
         "oracle/source-quoting-roundtrip",
         "compiler/quoted-unicode-illegal-character",
         "compiler/bits-size-prefix-requires-parentheses",
-        "validation/part-012/differential.json"
+        "validation/part-012/differential.json",
+        "validation/part-014/float-differential.json"
       ],
-      "limits": "Exact OTP-29.1.1 93/93 corpus matched at c139b45 in run 37943457369. Values and exception class/reason only; full stacks/signals/side effects/reference suites remain unverified; no broad feature/MFA promotion. Current corpus has 123 cases, including 30 new float cases awaiting a tested-head remote run."
+      "limits": "Exact OTP-29.1.1 123/123 matched at 19774f9 in run 37952290309, including 30 float cases. Current corpus 154 has 31 new UTF cases pending. Values/class/reason only; full stacks/signals/side effects/reference suites unverified. No broad feature/MFA promotion."
     },
     {
       "name": "Complete expanded inventory",
@@ -247,9 +248,27 @@
         "compiler/bits-float-pattern-unaligned",
         "compiler/bits-float-signed-zero",
         "validation/part-013/tests.json",
-        "validation/part-013/integration-results.json"
+        "validation/part-013/integration-results.json",
+        "validation/part-014/float-differential.json"
       ],
-      "limits": "16/32/64 construction and finite matching, zero-width float patterns, endian/unit/numeric conversion. New float oracle cases pending; UTF/string modifiers/full diagnostics/scope/suites incomplete."
+      "limits": "16/32/64 construction and finite matching, zero-width float patterns/endian/unit/numeric conversion. Selected 30 float oracle cases matched within 123/123 at 19774f9; full diagnostics/scope/error/reference suites pending."
+    },
+    {
+      "name": "UTF bit segments and strings",
+      "status": "Partially compatible",
+      "evidence": [
+        "compiler/bits-utf8-boundary-vectors",
+        "compiler/bits-utf8-invalid-sequences",
+        "compiler/bits-utf16-invalid-sequences",
+        "compiler/bits-utf32-invalid-scalars",
+        "compiler/bits-utf-unaligned",
+        "compiler/bits-utf-binding-rollback",
+        "compiler/bits-utf-string-pattern",
+        "compiler/bits-utf-deterministic-roundtrips",
+        "validation/part-014/tests.json",
+        "validation/part-014/integration-results.json"
+      ],
+      "limits": "Strict UTF8/16/32 scalar construction/matching and UTF string sugar. New UTF oracle cases pending; complete scopes/error/diagnostics/resource boundaries/reference suites incomplete."
     }
   ]
 }

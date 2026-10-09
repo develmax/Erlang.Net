@@ -522,3 +522,41 @@ The final full validation followed the rounding fix. Earlier 268/269 fixture fai
 ### Handoff
 
 Updated PROGRESS, COMPATIBILITY, compatibility JSON/matrix, semantic differences and NEXT_STEPS. Commit title: `Implement float bit segments with exact numeric rounding`. Publish the validated checkpoint to authorized origin/main, dispatch the 123-case pinned oracle run, preserve the actual tested-head report and resolve any mismatches before extending UTF/string syntax. Public NuGet publication remains deferred. Publication hashes and subsequent remote evidence are obtained from Git history and the next numbered evidence entry.
+
+## Part 014 — 2026-10-09 — Strict UTF segments and confirmed float oracle
+
+**Part status:** completed for the implemented local UTF subset and the 123-case float oracle corpus. UTF remote comparison pending. Full assignment remains approximately **5%** by a coarse engineering estimate.
+**Objective and scope:** add UTF8/16/32 source construction/patterns and UTF literal strings, using scalar values rather than replacement decoding; preserve reference evidence for the published float predecessor.
+
+### Changes
+
+- New [BitUnicode.cs](src/Erlang.Compiler/BitUnicode.cs) uses Rune scalar validation/strict decoding and explicit UTF16/32 byte order. UTF8 ignores endian. Integer values in 0..D7FF/E000..10FFFF are valid, including noncharacters; invalid/noninteger construction raises badarg, invalid/truncated/overlong/surrogate decoding fails matching. No replacement scalar is substituted.
+- [Syntax.cs](src/Erlang.Compiler/Syntax.cs) accepts UTF types and expands UTF literal strings into scalar segments. Numeric size/unit specifiers are diagnosed; literal undefined size follows pinned erl_bits defaults. Other string size modifiers remain unsupported. [BitConstruction.cs](src/Erlang.Compiler/BitConstruction.cs) computes encoded widths; [BitPattern.cs](src/Erlang.Compiler/BitPattern.cs) decodes a bounded prefix at any bit offset and advances only by consumed bytes, reusing transactional binding/rollback.
+- **22 new permanent tests**, plus the old unsupported-UTF test replaced by size/unit diagnostics, cover encoding boundaries, surrogate pairs, endian/native, noncharacters, malformed/short/range-invalid input, offsets 1–7, failed binding rollback, prior scalar sizes, literal/bound values, guard/map keys, UTF strings and **1,280 deterministic scalar roundtrips**. [Tests](tests/Erlang.Tests/Program.cs).
+- Generated [utf_check/0](examples/HelloHybrid/map_source.erl) and native hybrid string matching in [Program.cs](examples/HelloHybrid/Program.cs) run through the normal build and real PackageReference consumer/local CLI. Added **31 UTF oracle cases**, bringing the current corpus to **154**. MFA registry remains **49**.
+
+### Reference and reuse
+
+Inspected pinned OTP-29.1.1 Unicode/string expressions, erl_bits.erl check_size_unit_1, UTF helpers in erl_bits.c and bs_utf_SUITE.erl boundary/illegal/unaligned tests. Reused audited System.Text.Rune, OperationStatus and BinaryPrimitives, with existing BCL MIT notices; no package or copied implementation. [Audit](docs/dependency-decisions.md) preceded implementation. Current resource/scope/diagnostic/exception-stack limits remain partial; no performance claim or BEAM production dependency.
+
+### Exact-head float evidence
+
+Part 013 was committed/pushed as **19774f9c5e292345afff9d3ec95d0d60bd583060**. [Oracle run 37952290309](https://github.com/develmax/Erlang.Net/actions/runs/37952290309) built the exact pinned reference and completed **123/123 comparisons**, zero mismatches, version confirmed, no abort/infrastructure error. This includes 30 float cases for direct half rounding/subnormals, nearest-even integer conversion/literals, endian/unit/unaligned extraction, zero-width patterns, signed zero, nonfinite rejection, narrow-overflow binary data and guard/map-key usage. This confirms the selected cases, not all bit syntax.
+
+The [original report](docs/validation/part-014/float-differential.json) and [metadata](docs/validation/part-014/float-remote-checkpoint.json) preserve exact heads, IDs and results. Downloaded artifact SHA256 matched GitHub digest **fc54c03bc452004c9d5090f749c1cabcb1b99f7727cf6fa7d10e04f0d28f68ed**. The same head passed [Windows CI run 37952244708](https://github.com/develmax/Erlang.Net/actions/runs/37952244708), including 271 tests and full integration. These remote runs exclude the new UTF implementation and its 31 cases. Earlier 93-case evidence remains historical and immutable.
+
+### Validation
+
+| Check | Exact command / saved report | Actual result |
+| --- | --- | --- |
+| Full solution and permanent harness | pwsh -File tools/validate.ps1; [tests](docs/validation/part-014/tests.json) | **293 passed, 0 failed**; build 0 warnings/errors; 49 direct MFAs |
+| Generated .erl/hybrid, incremental/negative/clean, packages/consumer/local CLI | Same script; [integration](docs/validation/part-014/integration-results.json) | Passed; exact Hello World and UTF/float assertions; expected negative checks |
+| Pinned oracle at predecessor 19774f9 | Run 37952290309 / original report | **123/123 matched**, complete; excludes UTF |
+| Windows CI at predecessor 19774f9 | Run 37952244708 | Success; excludes UTF |
+| Evidence/hygiene | JSON counts/evidence/path checks, artifact SHA256, git diff --check, reference status | Checked before commit; official reference unchanged |
+
+Local oracle remains absent. New 154-case UTF comparison will run after publication. Full reference suites, stacks/signals/side effects and performance comparison remain unrun. Broad features/MFAs remain Partially compatible.
+
+### Handoff
+
+Updated current progress/compatibility/matrix/JSON/semantic boundaries/next steps to distinguish 123 confirmed predecessor cases from 31 pending UTF additions. Commit title: `Implement strict UTF bit segments and record float oracle results`. Publish this validated part, dispatch the 154-case pinned run, preserve exact-head evidence and fix any discrepancies. Next language unit is non-UTF literal-string size modifiers with source/error contracts. No public NuGet publication.

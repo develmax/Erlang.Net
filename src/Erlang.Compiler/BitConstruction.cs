@@ -6,10 +6,18 @@ internal static class BitConstruction
 {
     public static BitString Create(IReadOnlyList<(Term Value, Term? Size, BitSegment Segment)> segments)
     {
-        var sizes = new int[segments.Count]; long total = 0;
+        var sizes = new int[segments.Count]; var encoded = new byte[]?[segments.Count]; long total = 0;
         for (int i = 0; i < sizes.Length; i++)
         {
             var (value, size, segment) = segments[i];
+            if (BitUnicode.IsUtf(segment.Type))
+            {
+                if (size is not null || segment.Unit != 1) throw new ErlangException("badarg");
+                encoded[i] = BitUnicode.Encode(value, segment.Type, segment.Endian);
+                sizes[i] = encoded[i]!.Length * 8; total += sizes[i];
+                if (total > int.MaxValue - 7) throw new ErlangException("system_limit");
+                continue;
+            }
             bool integer = segment.Type == "integer", floating = segment.Type == "float", binary = segment.Type == "binary";
             if (integer ? value is not Integer : floating ? value is not (Integer or FloatTerm) : value is not BitString) throw new ErlangException("badarg");
             BigInteger bits;
@@ -40,7 +48,7 @@ internal static class BitConstruction
             }
             else
             {
-                byte[] source = segment.Type == "float" ? BitFloat.Encode(value, size, segment.Endian) : ((BitString)value).ToArray();
+                byte[] source = encoded[i] ?? (segment.Type == "float" ? BitFloat.Encode(value, size, segment.Endian) : ((BitString)value).ToArray());
                 for (int bit = 0; bit < size; bit++) Append((source[bit / 8] >> (7 - bit % 8)) & 1);
             }
         }

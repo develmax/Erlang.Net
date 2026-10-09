@@ -23,6 +23,10 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!floatCheck.Equals(Term.Tuple(new FloatTerm(1.5),Term.I(5)))) throw new InvalidOperationException("Float segment module generation failed");
     var floatZero = case <<-0.0:32/float>> of <<F:32/float>> -> F end.
     if (!floatZero.Equals(new FloatTerm(-0.0))) throw new InvalidOperationException("Hybrid float zero changed sign");
+    var utfCheck = await runtime.Modules.Call(erlangProcess, "map_source", "utf_check");
+    if (!utfCheck.Equals(Term.Tuple(Term.I(128512),Term.I(5)))) throw new InvalidOperationException("UTF segment module generation failed");
+    var utfString = case <<"A😀"/utf8,42>> of <<"A😀"/utf8,X>> -> X end.
+    if (!utfString.Equals(Term.I(42))) throw new InvalidOperationException("Hybrid UTF string matching failed");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

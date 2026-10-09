@@ -221,7 +221,7 @@ public sealed class Parser
                     string spec = Name(); string category;
                     switch (spec)
                     {
-                        case "integer": case "binary": case "float":
+                        case "integer": case "binary": case "float": case "utf8": case "utf16": case "utf32":
                             category = "type"; type = spec; break;
                         case "bytes": case "bitstring": case "bits":
                             category = "type"; type = "binary"; int aliasUnit = spec == "bytes" ? 8 : 1;
@@ -239,7 +239,13 @@ public sealed class Parser
             }
             int defaultUnit = type is "binary" or "bytes" ? 8 : 1;
             if ((type is "integer" or "float") && size is null && unit is not null) throw Error("An explicit numeric segment unit requires a size");
-            if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
+            if (BitUnicode.IsUtf(type) && size is Expr.Literal { Value: Atom { Name: "undefined" } }) size = null;
+            if (BitUnicode.IsUtf(type) && (size is not null || unit is not null)) throw Error("UTF segments must not specify a size or unit");
+            if (value is Expr.Literal { Value: Cons or Nil } && BitUnicode.IsUtf(type))
+            {
+                foreach (var item in Cons.Items(((Expr.Literal)value).Value)) segments.Add(new(new Expr.Literal(item), null, type, 1, endian, signed));
+            }
+            else if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value)) segments.Add(new(new Expr.Literal(item), null));
             }
