@@ -88,13 +88,23 @@ internal static class ComprehensionExecution
             {
                 if (fields is not null)
                 {
+                    if (module is not null)
+                    {
+                        pairs.AddRange(await MapComprehensionBindings.Evaluate(
+                            fields,
+                            qualifiers,
+                            incoming,
+                            scope,
+                            evaluate
+                        ));
+
+                        return;
+                    }
                     foreach (var field in fields)
                     {
                         var local = CompiledBindingScope.Copy(scope);
                         Expr[] expressions = [field.Key, field.Value];
-                        var fieldValues = module is null
-                            ? await ExpressionBindings.EvaluateList(expressions, local, evaluate)
-                            : await CompiledExpressionBindings.EvaluateList(expressions, local, evaluate);
+                        var fieldValues = await ExpressionBindings.EvaluateList(expressions, local, evaluate);
                         pairs.Add(new(fieldValues[0], fieldValues[1]));
                     }
 

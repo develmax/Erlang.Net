@@ -268,3 +268,7 @@ Compiler608 related tests (+43 in implementation), Differential325 (+40), Hybrid
 ## Part 076 checkpoint
 
 Local1231/full pipeline;1068-case plan687/308/73 preserves631/252/67. Registry65 (+3), maps5/34 partial iterator/1,2,next/1. Publish and verify exact-source/new-head CI before promoting fresh proof. Default order unspecified; custom comparison/opaque HAMT path/full Core/resource/zip/assignment scopes unfinished.190 types/no violations. Approximately5% coarse. License draft stays uncommitted; source banners omitted; consolidated exact notices retained. Initial CS0136/1211 reports preserved.
+
+## Part 077 checkpoint
+
+Initial59768e8 exact-source1066/1068 has two compiled mc_pairs order mismatches; initial report/CI1231 retained. Source-directed safe-prefix/fallback correction passes1247/full pipeline; eight independent order expressions/modules added,1084-case plan695/316/73. Exactly two provisional module expectations follow retained official outputs;308 sources/generated hashes and historical631/252/67 unchanged.193 types/no violations;65 MFAs/delta0. Publish/reverify corrected head; do not claim first failures resolved until compared. Full Core canonicalization/nested filter metadata/custom/HAMT/resources remain incomplete; draft stays uncommitted.

@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-075/ci-tests.json",
+  "ComparisonTestReport": "validation/part-076/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -71,7 +71,8 @@
         "list/binary comprehensions, multiple list templates, relaxed/strict list/binary generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
         "generated C# AST/evaluator and module-local tail-call trampoline; native hybrid/PackageReference integration",
         "selected contracts verified against source-built OTP-29.1.1 at6273efc:631 expressions,252 compiled modules,67 normalized diagnostics;1106/full CI; full Core lowering remains unported",
-        "Map comprehensions with multiple => fields; relaxed/strict key/value generators and named/tuple/partial iterators; private bindings, last exact key wins and distinct interpreted/compiled pair timing;56 independent expressions/modules and six normalized scope diagnostics; local1231/full pipeline, fresh reference proof pending"
+        "Map comprehensions with multiple => fields; relaxed/strict key/value generators and named/tuple/partial iterators; private bindings, last exact key wins and distinct interpreted/compiled pair timing;56 independent expressions/modules and six normalized scope diagnostics; local1231/full pipeline, fresh reference proof pending",
+        "Compiled map template scheduling follows v3_core mc_pairs/mc_tuples safe-prefix/fallback order; two observed compiled mismatches corrected and eight independent order regressions added; local1247/full pipeline; new-head1084 reference proof pending"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -169,7 +170,8 @@
         "631 expressions,252 generated C#/compiled-reference modules and67 normalized rejection contracts verified at6273efc;950/950 complete/version-verified",
         "historical595/216/63 contracts and generated hashes retained;36 independent binary comprehension expressions/modules and four scope rejections added, zero expectation corrections",
         "same-head1106/full CI; explicit unavailable-oracle infrastructure failure and all immutable failed/successful checkpoint evidence retained",
-        "Map/iterator corpus expands plan to687 expressions/308 modules/73 diagnostics=1068; historical950 contracts retained, new-head comparison pending"
+        "Map/iterator corpus expands plan to687 expressions/308 modules/73 diagnostics=1068; historical950 contracts retained, new-head comparison pending",
+        "Initial map run at59768e8 completed1066/1068, two compiled template order failures retained; two new provisional module expectations corrected only to retained official outputs; historical631/252/67 unchanged; expanded695/316/73=1084 awaits corrected-head reference"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

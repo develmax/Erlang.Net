@@ -154,6 +154,6 @@ public static class MapComprehensionCases
     public static IReadOnlyList<CompiledModuleCase> Modules { get; } = All.Select((fixture, index) => new CompiledModuleCase(
         "compiled-" + fixture.Name,
         "-module(oracle_mc_" + index + "). -export([run/0]). run()->" + fixture.Source + ".",
-        fixture.Name == "mc-key-value-conflict" ? Failure("badmatch", Term.I(2)) : fixture.Expected
+        fixture.Name == "mc-effect-order" ? Success(Term.Tuple(Map((Term.A("a"), Term.A("value"))), Term.A("key"))) : fixture.Expected
     )).ToArray();
 }

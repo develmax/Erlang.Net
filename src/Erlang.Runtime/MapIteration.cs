@@ -8,7 +8,7 @@ public static class MapIteration
         if (map is not MapTerm value)
             throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), map));
         if (order == MapIteratorAtoms.Unordered)
-            return new Cons(Term.I(0), value);
+            return new Cons(Term.I(MapIteratorLayout.InitialPath), value);
         if (order is not (MapIteratorAtoms.Ordered or MapIteratorAtoms.Reversed))
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         IEnumerable<Term> keys = value.Entries.Select(entry => entry.Key);
@@ -20,14 +20,14 @@ public static class MapIteration
 
     public static Term Next(Term iterator)
     {
-        if (iterator is TupleTerm { Items.Count: 3 })
+        if (iterator is TupleTerm { Items.Count: MapIteratorLayout.TupleArity })
             return iterator;
         if (iterator is Atom { Name: MapIteratorAtoms.None })
             return iterator;
         if (iterator is Cons { Tail: MapTerm map } state)
         {
             Term keys = state.Head;
-            if (keys is Integer { Value.IsZero: true })
+            if (keys is Integer path && path.Value == MapIteratorLayout.InitialPath)
                 keys = Cons.From(map.Entries.Select(entry => entry.Key));
             if (keys is Nil)
                 return Term.A(MapIteratorAtoms.None);
@@ -46,8 +46,8 @@ public static class MapIteration
         Term iterator = source;
         while (Next(iterator) is TupleTerm pair)
         {
-            entries.Add(new(pair.Items[0], pair.Items[1]));
-            iterator = pair.Items[2];
+            entries.Add(new(pair.Items[MapIteratorLayout.KeyIndex], pair.Items[MapIteratorLayout.ValueIndex]));
+            iterator = pair.Items[MapIteratorLayout.ContinuationIndex];
         }
 
         return entries;

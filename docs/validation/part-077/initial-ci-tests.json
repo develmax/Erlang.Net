@@ -1,11 +1,11 @@
 {
-  "Passed": 1247,
+  "Passed": 1231,
   "Failed": 0,
   "Tests": [
     {
       "Name": "patterns/alias-mismatch-transaction",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 5
     },
     {
       "Name": "patterns/alias-same-term-and-bindings",
@@ -15,7 +15,7 @@
     {
       "Name": "compiler/maybe/invalid-grammar/1 ?= 1",
       "Status": "Passed",
-      "Milliseconds": 125
+      "Milliseconds": 7
     },
     {
       "Name": "compiler/maybe/invalid-grammar/maybe end",
@@ -30,7 +30,7 @@
     {
       "Name": "compiler/maybe/invalid-grammar/maybe ok ?= wrong ?= nope end",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/maybe/invalid-grammar/maybe (ok ?= ok) end",
@@ -45,17 +45,17 @@
     {
       "Name": "compiler/maybe/illegal-guard",
       "Status": "Passed",
-      "Milliseconds": 8
+      "Milliseconds": 11
     },
     {
       "Name": "hybrid/maybe/csharp-method-preserved",
       "Status": "Passed",
-      "Milliseconds": 34
+      "Milliseconds": 47
     },
     {
       "Name": "hybrid/maybe/nested-and-following-csharp",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 6
     },
     {
       "Name": "oracle/unicode-source-ascii-transport",
@@ -70,7 +70,7 @@
     {
       "Name": "style/documentation-comment-boundary",
       "Status": "Passed",
-      "Milliseconds": 483
+      "Milliseconds": 726
     },
     {
       "Name": "style/multiline-documentation-comment",
@@ -105,7 +105,7 @@
     {
       "Name": "terms/atom-reuse-parser-etf",
       "Status": "Passed",
-      "Milliseconds": 26
+      "Milliseconds": 5
     },
     {
       "Name": "terms/exact-numeric-equality",
@@ -130,22 +130,22 @@
     {
       "Name": "compiler/numeric-mixed-nearest-even",
       "Status": "Passed",
-      "Milliseconds": 15
+      "Milliseconds": 23
     },
     {
       "Name": "compiler/numeric-integer-division-rounding",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/numeric-conversion-overflow-badarith",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 5
     },
     {
       "Name": "compiler/numeric-conversion-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "terms/negative-fraction-comparison",
@@ -165,12 +165,12 @@
     {
       "Name": "terms/improper-list",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/map-integer-before-all-floats",
@@ -225,12 +225,12 @@
     {
       "Name": "patterns/list-tail",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mailbox/later-match-preserves-order",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "mailbox/zero-timeout-retains",
@@ -240,7 +240,7 @@
     {
       "Name": "mailbox/timeout",
       "Status": "Passed",
-      "Milliseconds": 37
+      "Milliseconds": 24
     },
     {
       "Name": "mailbox/concurrent-arrival",
@@ -255,22 +255,22 @@
     {
       "Name": "mailbox/sender-order-stress",
       "Status": "Passed",
-      "Milliseconds": 8
+      "Milliseconds": 15
     },
     {
       "Name": "runtime/process-self-and-dictionary",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 4
     },
     {
       "Name": "runtime/registration-cleanup",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/monitor-down",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 3
     },
     {
       "Name": "runtime/monitor-noproc-and-flush",
@@ -280,7 +280,7 @@
     {
       "Name": "runtime/link-trap-exit",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/link-propagation",
@@ -295,17 +295,17 @@
     {
       "Name": "runtime/kill-untrappable",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/1000-waiting-processes",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 15
     },
     {
       "Name": "compiler/arithmetic-precedence",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/exact-equality",
@@ -315,22 +315,22 @@
     {
       "Name": "compiler/case-pattern-guard",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/guard-error-rejects",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/guard-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/list-fun-map",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 5
     },
     {
       "Name": "compiler/receive-after-zero",
@@ -370,7 +370,7 @@
     {
       "Name": "compiler/module-clauses-private-function",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 5
     },
     {
       "Name": "compiler/spawn-fun-child-self",
@@ -405,22 +405,22 @@
     {
       "Name": "etf/roundtrip-all-supported-kinds",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 6
     },
     {
       "Name": "etf/malformed-input-limits",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "etf/random-integer-property",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "modules/lists-member-exact",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "modules/lists-and-maps",
@@ -430,7 +430,7 @@
     {
       "Name": "compiler/tail-recursion-50000",
       "Status": "Passed",
-      "Milliseconds": 2156
+      "Milliseconds": 1230
     },
     {
       "Name": "hybrid/ordinary-fun-call",
@@ -450,62 +450,62 @@
     {
       "Name": "compiler/signed-zero-pattern",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "otp/gen-server-call-cast-info-stop",
       "Status": "Passed",
-      "Milliseconds": 11
+      "Milliseconds": 9
     },
     {
       "Name": "otp/gen-server-crash-monitor",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "otp/gen-server-timeout",
       "Status": "Passed",
-      "Milliseconds": 29
+      "Milliseconds": 21
     },
     {
       "Name": "otp/gen-server-init-error",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "otp/supervisor-OneForOne",
       "Status": "Passed",
-      "Milliseconds": 32
+      "Milliseconds": 16
     },
     {
       "Name": "otp/supervisor-OneForAll",
       "Status": "Passed",
-      "Milliseconds": 12
+      "Milliseconds": 0
     },
     {
       "Name": "otp/supervisor-RestForOne",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 13
     },
     {
       "Name": "otp/supervisor-transient-temporary-normal",
       "Status": "Passed",
-      "Milliseconds": 14
+      "Milliseconds": 15
     },
     {
       "Name": "otp/supervisor-restart-intensity",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 2
     },
     {
       "Name": "otp/supervisor-temporary-abnormal-no-restart",
       "Status": "Passed",
-      "Milliseconds": 11
+      "Milliseconds": 3
     },
     {
       "Name": "runtime/link-cascade-10000",
       "Status": "Passed",
-      "Milliseconds": 504
+      "Milliseconds": 271
     },
     {
       "Name": "runtime/spawn-monitor-immediate-exit-atomic",
@@ -520,17 +520,17 @@
     {
       "Name": "compiler/large-literal-codegeneration",
       "Status": "Passed",
-      "Milliseconds": 30
+      "Milliseconds": 19
     },
     {
       "Name": "compiler/reserved-keywords-rejected",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/unsupported-escape-diagnostic",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 7
     },
     {
       "Name": "compiler/quoted-operator-atom",
@@ -710,7 +710,7 @@
     {
       "Name": "mfa/erlang:spawn_monitor/1",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "mfa/erlang:throw/1",
@@ -765,7 +765,7 @@
     {
       "Name": "mfa/lists:flatten/1",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "mfa/lists:flatten/2",
@@ -870,7 +870,7 @@
     {
       "Name": "compiler/map-empty-and-nonmap-pattern",
       "Status": "Passed",
-      "Milliseconds": 7
+      "Milliseconds": 6
     },
     {
       "Name": "compiler/map-duplicate-last-wins",
@@ -880,7 +880,7 @@
     {
       "Name": "compiler/map-exact-numeric-keys",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-assoc-and-exact-update",
@@ -890,27 +890,27 @@
     {
       "Name": "compiler/map-mixed-duplicate-update",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-chained-update",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-badkey",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-exact-before-assoc-fails",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-badmap-empty-update",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-error-expression-before-badmap",
@@ -920,12 +920,12 @@
     {
       "Name": "compiler/map-error-expression-before-badkey",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-subset-nested-repeat",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-repeated-variable-reject",
@@ -935,7 +935,7 @@
     {
       "Name": "compiler/map-duplicate-pattern-keys",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-bound-key-and-guard-expression",
@@ -945,7 +945,7 @@
     {
       "Name": "compiler/map-structured-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-guard-key-error-rejects",
@@ -1000,7 +1000,7 @@
     {
       "Name": "hybrid/map-case-directive-trivia",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 6
     },
     {
       "Name": "compiler/map-closure-captured-key",
@@ -1010,12 +1010,12 @@
     {
       "Name": "compiler/map-closure-key-value-shadow",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-context-guard-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "hybrid/map-inline-receive",
@@ -1030,12 +1030,12 @@
     {
       "Name": "compiler/map-bifs-positive-negative-types",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-get-exact-key-badkey",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-get-badmap",
@@ -1050,12 +1050,12 @@
     {
       "Name": "compiler/is-map-key-badmap",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-key-signed-zero",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-guard-bifs-qualified",
@@ -1065,22 +1065,22 @@
     {
       "Name": "compiler/map-guard-missing-key-alternative",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-guard-nonmap-rejection",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-pattern-key-map-get",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-pattern-key-map-get-failure",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/maps-module-not-guard-legal",
@@ -1090,12 +1090,12 @@
     {
       "Name": "compiler/bits-empty-default-bytes",
       "Status": "Passed",
-      "Milliseconds": 9
+      "Milliseconds": 6
     },
     {
       "Name": "compiler/bits-truncate-negative",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-unaligned-concatenation",
@@ -1115,12 +1115,12 @@
     {
       "Name": "compiler/bits-explicit-unit",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-string-literal",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-bound-expression-size",
@@ -1160,22 +1160,22 @@
     {
       "Name": "compiler/bits-size-prefix-requires-parentheses",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-size",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-short-binary",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-binary-unit-alignment",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-invalid-unit-diagnostic",
@@ -1190,47 +1190,47 @@
     {
       "Name": "compiler/bits-float16-vector",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float32-vector",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float64-default",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-little-native",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-integer-coercion",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-unit",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-bad-size",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-bad-value",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float16-round-once",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float16-subnormal-vectors",
@@ -1240,17 +1240,17 @@
     {
       "Name": "compiler/bits-float-narrow-overflow",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern16-rounded",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-float-integer-rounding",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-integer-max-boundary",
@@ -1260,7 +1260,7 @@
     {
       "Name": "compiler/bits-float-pattern32",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern64-default",
@@ -1270,32 +1270,32 @@
     {
       "Name": "compiler/bits-float-pattern-unaligned",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern-zero",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern-nonfinite-reject",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern-invalid-short",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern-numeric-literal",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern-bound-integer",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-signed-zero",
@@ -1305,12 +1305,12 @@
     {
       "Name": "compiler/bits-float-pattern-prior-width",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-guard-and-map-key",
       "Status": "Passed",
-      "Milliseconds": 6
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-float-unit-without-size-diagnostic",
@@ -1320,7 +1320,7 @@
     {
       "Name": "compiler/bits-float16-all-finite-roundtrip",
       "Status": "Passed",
-      "Milliseconds": 625
+      "Milliseconds": 382
     },
     {
       "Name": "compiler/bits-duplicate-spec-diagnostic",
@@ -1340,7 +1340,7 @@
     {
       "Name": "compiler/bits-utf32-vector",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-utf-endian-native",
@@ -1395,7 +1395,7 @@
     {
       "Name": "compiler/bits-utf-unaligned",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-utf-truncated-bit-tail",
@@ -1420,7 +1420,7 @@
     {
       "Name": "compiler/bits-utf-string-construction",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-utf-string-pattern",
@@ -1435,17 +1435,17 @@
     {
       "Name": "compiler/bits-utf-deterministic-roundtrips",
       "Status": "Passed",
-      "Milliseconds": 41
+      "Milliseconds": 30
     },
     {
       "Name": "compiler/bits-pattern-default",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-signed",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-unsigned",
@@ -1480,7 +1480,7 @@
     {
       "Name": "compiler/bits-pattern-shadow-size",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-shadow-repeat",
@@ -1495,12 +1495,12 @@
     {
       "Name": "compiler/fun-guard-fallback-capture",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/fun-bit-clause-fallback-capture",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-repeat-mismatch",
@@ -1515,7 +1515,7 @@
     {
       "Name": "compiler/bits-pattern-short-extra-nonbits",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-zero-signed",
@@ -1530,7 +1530,7 @@
     {
       "Name": "compiler/bits-pattern-unaligned-prefix",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-unit",
@@ -1600,7 +1600,7 @@
     {
       "Name": "compiler/bits-pattern-match-badmatch",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-pattern-receive-preserves-unmatched",
@@ -1610,7 +1610,7 @@
     {
       "Name": "compiler/bits-guard-and-map-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-unit-without-size-diagnostic",
@@ -1620,7 +1620,7 @@
     {
       "Name": "compiler/bits-string-little-per-codepoint",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-string-unit-per-codepoint",
@@ -1630,7 +1630,7 @@
     {
       "Name": "compiler/bits-string-unaligned",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-string-unicode-integer-truncation",
@@ -1680,7 +1680,7 @@
     {
       "Name": "compiler/bits-string-invalid-sizes",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-string-modifier-pattern-diagnostic",
@@ -1690,7 +1690,7 @@
     {
       "Name": "compiler/bits-string-guard-and-map-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-numeric-literal-all-diagnostic",
@@ -1735,7 +1735,7 @@
     {
       "Name": "compiler/bit-bifs-qualified-guard",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bit-bif-guard-failure-alternative",
@@ -1810,7 +1810,7 @@
     {
       "Name": "lists/duplicate-negative",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/duplicate-big-negative",
@@ -1875,12 +1875,12 @@
     {
       "Name": "lists/duplicate-local-length-limit",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/duplicate-flatten-deep-wide-identity",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 57
     },
     {
       "Name": "lists/append-empty",
@@ -1970,7 +1970,7 @@
     {
       "Name": "lists/append-nonlist",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/append-improper-outer",
@@ -2015,12 +2015,12 @@
     {
       "Name": "lists/append-long-outer-suffix-identity",
       "Status": "Passed",
-      "Milliseconds": 33
+      "Milliseconds": 16
     },
     {
       "Name": "lists/last-singleton",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/last-nested",
@@ -2070,7 +2070,7 @@
     {
       "Name": "lists/last-empty",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/last-nonlist",
@@ -2130,12 +2130,12 @@
     {
       "Name": "lists/last-split-long-list-identity",
       "Status": "Passed",
-      "Milliseconds": 22
+      "Milliseconds": 30
     },
     {
       "Name": "lists/nth-improper-prefix",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/nth-invalid-function-clause",
@@ -2145,7 +2145,7 @@
     {
       "Name": "lists/nthtail-empty-and-improper",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/nthtail-invalid-function-clause",
@@ -2155,7 +2155,7 @@
     {
       "Name": "lists/seq-default-empty-and-negative",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/seq-two-arg-error-contract",
@@ -2190,22 +2190,22 @@
     {
       "Name": "lists/reverse-short-error-contract",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/reverse-long-improper-badarg",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/reverse-tail-and-empty",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/keyfind-skip-and-first",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/keyfind-improper-prefix",
@@ -2215,7 +2215,7 @@
     {
       "Name": "lists/keysearch-missing",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/keysearch-invalid-position",
@@ -2230,7 +2230,7 @@
     {
       "Name": "lists/keysearch-large-position",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "lists/keysearch-small-integer-rounded-float",
@@ -2245,7 +2245,7 @@
     {
       "Name": "lists/keysearch-nested-numeric-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "terms/map-index-exact-and-structural-keys",
@@ -2265,7 +2265,7 @@
     {
       "Name": "compiler/comprehension/binary-invalid-patterns",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/comprehension/map-invalid-syntax",
@@ -2295,7 +2295,7 @@
     {
       "Name": "compiler/comprehension/binary-zero-progress-resource-policy",
       "Status": "Passed",
-      "Milliseconds": 10
+      "Milliseconds": 7
     },
     {
       "Name": "hybrid/comprehension/binary-ast-emission",
@@ -3570,7 +3570,7 @@
     {
       "Name": "compiler/operators/bc-variable-template",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/operators/bc-nonbit-template",
@@ -4005,46 +4005,6 @@
     {
       "Name": "compiler/operators/mc-large-map",
       "Status": "Passed",
-      "Milliseconds": 1
-    },
-    {
-      "Name": "compiler/operators/mc-safe-keys-reversed",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-three-safe-keys",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-first-fallback",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-second-fallback",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-distinct-safe-values",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-incoming-safe-value",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-generator-value-disables-prefix",
-      "Status": "Passed",
-      "Milliseconds": 0
-    },
-    {
-      "Name": "compiler/operators/mc-filter-value-disables-prefix",
-      "Status": "Passed",
       "Milliseconds": 0
     },
     {
@@ -4080,7 +4040,7 @@
     {
       "Name": "compiler/if/ordered-first",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/if/false-fallback",
@@ -4275,182 +4235,182 @@
     {
       "Name": "oracle/compiled-module/private-clauses",
       "Status": "Passed",
-      "Milliseconds": 714
+      "Milliseconds": 1480
     },
     {
       "Name": "oracle/compiled-module/guard-fallback",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/closure-shadow",
       "Status": "Passed",
-      "Milliseconds": 141
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/tail-calls",
       "Status": "Passed",
-      "Milliseconds": 195
+      "Milliseconds": 121
     },
     {
       "Name": "oracle/compiled-module/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 123
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/bit-pattern",
       "Status": "Passed",
-      "Milliseconds": 156
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/utf-pattern",
       "Status": "Passed",
-      "Milliseconds": 122
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/string-size-binding",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/unicode-atom",
       "Status": "Passed",
-      "Milliseconds": 115
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/key-find",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/function-clause",
       "Status": "Passed",
-      "Milliseconds": 112
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/badmatch",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/throw",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/exit",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/bit-value-size-order",
       "Status": "Passed",
-      "Milliseconds": 119
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/bit-value-before-size-exception",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/bit-size-before-next-value-exception",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-value-later-exception",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-size-later-exception",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 112
     },
     {
       "Name": "oracle/compiled-module/bit-size-binding-exported-after-binary",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/closure-bit-captured-size",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 97
     },
     {
       "Name": "oracle/compiled-module/closure-bit-clause-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 108
     },
     {
       "Name": "oracle/compiled-module/closure-guard-fallback-keeps-outer",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 113
     },
     {
       "Name": "oracle/compiled-module/closure-map-key-capture-value-shadow",
       "Status": "Passed",
-      "Milliseconds": 103
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/closure-nested-body-local-capture",
       "Status": "Passed",
-      "Milliseconds": 114
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-utf-later-exception",
       "Status": "Passed",
-      "Milliseconds": 121
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/bit-independent-binding-exports",
       "Status": "Passed",
-      "Milliseconds": 121
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/bit-prebound-size-across-fields",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-first",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-second",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/if-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 120
     },
     {
       "Name": "oracle/compiled-module/if-no-match",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 68
     },
     {
       "Name": "oracle/compiled-module/if-body-error",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/if-side-effects",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/if-tail-calls",
       "Status": "Passed",
-      "Milliseconds": 1221
+      "Milliseconds": 1513
     },
     {
       "Name": "oracle/compiled-module/if-closure-branch-export",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/begin-export",
@@ -4460,102 +4420,102 @@
     {
       "Name": "oracle/compiled-module/operators-vector",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/begin-tail-calls",
       "Status": "Passed",
-      "Milliseconds": 1158
+      "Milliseconds": 1607
     },
     {
       "Name": "oracle/compiled-module/operators-precedence",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/operators-strict-bindings",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/operators-strict-error-order",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/operators-big-shifts",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/catch-throw-exit",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/catch-error-reason-stack",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/catch-body-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 115
     },
     {
       "Name": "oracle/compiled-module/operators-send-match",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/begin-closure",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 101
     },
     {
       "Name": "oracle/compiled-module/expr-list-tuple-export",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/expr-list-call-export",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/expr-list-apply-export",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/expr-list-effect-order",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/expr-list-conflict",
       "Status": "Passed",
-      "Milliseconds": 112
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/expr-list-cons-export",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 114
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-nonconstant",
       "Status": "Passed",
-      "Milliseconds": 112
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-cons-order",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-call-conflict",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-fun-local",
@@ -4565,17 +4525,17 @@
     {
       "Name": "oracle/compiled-module/compiled-map-export",
       "Status": "Passed",
-      "Milliseconds": 96
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-map-base-conflict",
       "Status": "Passed",
-      "Milliseconds": 134
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/compiled-map-fields-before-type",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-map-assoc-then-exact",
@@ -4585,262 +4545,262 @@
     {
       "Name": "oracle/compiled-module/compiled-map-effect-order",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-local-value-capture",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-local-size-capture",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-size-to-value-local-capture",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 108
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-prebound-capture",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-float-huge-size-order",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-float-later-evaluation-error",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-value-capture",
       "Status": "Passed",
-      "Milliseconds": 110
+      "Milliseconds": 97
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-key-capture",
       "Status": "Passed",
-      "Milliseconds": 154
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-base-capture",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 92
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-prebound-capture",
       "Status": "Passed",
-      "Milliseconds": 103
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-negative-precheck",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-atom-precheck",
       "Status": "Passed",
-      "Milliseconds": 113
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-effect-precheck",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-size-export",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-float-elimination",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-huge-elimination",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-literal-failure-order",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-zero-elimination",
       "Status": "Passed",
-      "Milliseconds": 72
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-match-tuple-whole-value",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-match-list-whole-value",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 64
     },
     {
       "Name": "oracle/compiled-module/compiled-match-call-whole-value",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-match-before-block-effect",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 61
     },
     {
       "Name": "oracle/compiled-module/compiled-match-nested-tuple-constraint",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-match-map-whole-value",
       "Status": "Passed",
-      "Milliseconds": 109
+      "Milliseconds": 60
     },
     {
       "Name": "oracle/compiled-module/compiled-try-success-after",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-try-success-catch",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 59
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-body-bindings",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-try-default-throw",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 55
     },
     {
       "Name": "oracle/compiled-module/compiled-try-error-pattern",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-try-exit-class",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 51
     },
     {
       "Name": "oracle/compiled-module/compiled-try-class-variable",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-try-default-does-not-catch-error",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-try-class-mismatch",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-try-stack-body",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 56
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-failure-fallback",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-rethrow",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 54
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-guard-fallback",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-no-match",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 64
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-error-outside-catch",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-try-handler-error-outside-catch",
       "Status": "Passed",
-      "Milliseconds": 55
+      "Milliseconds": 45
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-success-effect",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-handler-effect",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-of-failure-effect",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-rethrow-effect",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 67
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-value",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-error",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-handler",
       "Status": "Passed",
-      "Milliseconds": 54
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-try-incoming-binding",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-local-binding",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-try-local-call-protected",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-local-call-unprotected",
@@ -4850,617 +4810,617 @@
     {
       "Name": "oracle/compiled-module/compiled-try-after-local-call-order",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-try-negative-integer-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-try-negative-float-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 63
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-try-parenthesized-negative-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 110
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-if-guard",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 59
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-case-guard",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-captured-fun-guard",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-shadowed-fun-guard",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 92
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-nested-catch-guard",
       "Status": "Passed",
-      "Milliseconds": 56
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-receive-guard",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-ordinary-sequence",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-match-last-value",
       "Status": "Passed",
-      "Milliseconds": 109
+      "Milliseconds": 54
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-sequential-matches",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-first-mismatch",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 45
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-later-mismatch",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 72
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-success-skips-else",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-pattern",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 72
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-no-match",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-all-guards-fail",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-error-propagates",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-throw-propagates",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 68
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-exit-propagates",
       "Status": "Passed",
-      "Milliseconds": 65
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-body-error-propagates",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 59
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-ordinary-badmatch",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 43
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-body-error",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-incoming-binding",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-incoming-mismatch-else",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-repeated-pattern-variable",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-exact-numeric-match",
       "Status": "Passed",
-      "Milliseconds": 63
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-list-tail-pattern",
       "Status": "Passed",
-      "Milliseconds": 103
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-map-pattern",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-bit-pattern",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-pattern-expression-failure",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-nested-independent-bindings",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-binds-before-pattern",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 64
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-captures-incoming",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-success-effect-order",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 101
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-mismatch-effect-order",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-case-whole-and-parts",
       "Status": "Passed",
-      "Milliseconds": 109
+      "Milliseconds": 64
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-reversed-case",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-nested-case",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-structural-pair",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-mismatch-fallback",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-exact-repeated-variable",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-fun-argument",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-fun-shadow",
       "Status": "Passed",
-      "Milliseconds": 59
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-match",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-mismatch",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-else",
       "Status": "Passed",
-      "Milliseconds": 107
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-try-catch-stack",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-suffix",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-alias-whole",
       "Status": "Passed",
-      "Milliseconds": 64
+      "Milliseconds": 51
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-alias-suffix",
       "Status": "Passed",
-      "Milliseconds": 68
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-integer-list-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 45
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-nested-proper-literal",
       "Status": "Passed",
-      "Milliseconds": 73
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-empty-list",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-empty-string",
       "Status": "Passed",
-      "Milliseconds": 66
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-chained",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-mismatch-fallback",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-unicode",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-map-incoming-key",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-bit-incoming-size",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 55
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-function-parameter",
       "Status": "Passed",
-      "Milliseconds": 63
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-basic",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordered-filter",
       "Status": "Passed",
-      "Milliseconds": 62
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-empty",
       "Status": "Passed",
-      "Milliseconds": 61
+      "Milliseconds": 44
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-no-generator",
       "Status": "Passed",
-      "Milliseconds": 68
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-false-filter",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 51
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-guard-nonboolean",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 60
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-guard-failure-skips",
       "Status": "Passed",
-      "Milliseconds": 116
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-nonboolean",
       "Status": "Passed",
-      "Milliseconds": 67
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-error",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-fun-filter",
       "Status": "Passed",
-      "Milliseconds": 121
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-relaxed-mismatch",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-repeated-exact",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 51
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-success",
       "Status": "Passed",
-      "Milliseconds": 72
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-mismatch",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 54
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-filter-not-match",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-bad-source",
       "Status": "Passed",
-      "Milliseconds": 64
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-improper-source",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-empty-before-bad-source",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 45
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-cartesian-order",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-dependent-generator",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-shadow-outer",
       "Status": "Passed",
-      "Milliseconds": 66
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-shadow-earlier-generator",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 59
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-filter-binding",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-source-binding-private",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-nested",
       "Status": "Passed",
-      "Milliseconds": 65
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-multiple-templates",
       "Status": "Passed",
-      "Milliseconds": 69
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-template-match-private",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-body-side-effect-order",
       "Status": "Passed",
-      "Milliseconds": 65
+      "Milliseconds": 66
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-alias-pattern",
       "Status": "Passed",
-      "Milliseconds": 68
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-map-input-key",
       "Status": "Passed",
-      "Milliseconds": 69
+      "Milliseconds": 66
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-bit-input-size",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-closure-capture",
       "Status": "Passed",
-      "Milliseconds": 68
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-failure-before-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 67
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-false-before-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 58
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-remote-operator-filter",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-remote-arithmetic-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 73
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-list-source",
       "Status": "Passed",
-      "Milliseconds": 108
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-filter",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 67
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-empty",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-no-generator",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-variable-template",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-nonbit-template",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-unaligned-output",
       "Status": "Passed",
-      "Milliseconds": 114
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-empty-template",
       "Status": "Passed",
-      "Milliseconds": 167
+      "Milliseconds": 55
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-template-segments",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 115
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-nested",
       "Status": "Passed",
-      "Milliseconds": 107
+      "Milliseconds": 61
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-ordinary-filter",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 124
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-guard-errors",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-bc-template-before-next-error",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-byte-list",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 51
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-byte-binary",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-empty",
       "Status": "Passed",
-      "Milliseconds": 59
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-strict-empty",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-relaxed-literal",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 66
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-strict-literal",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 120
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-relaxed-tail",
       "Status": "Passed",
-      "Milliseconds": 96
+      "Milliseconds": 53
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-strict-tail",
       "Status": "Passed",
-      "Milliseconds": 107
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-unaligned",
       "Status": "Passed",
-      "Milliseconds": 120
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-strict-unaligned-tail",
@@ -5470,217 +5430,217 @@
     {
       "Name": "oracle/compiled-module/compiled-bg-bad-source",
       "Status": "Passed",
-      "Milliseconds": 55
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-repeated",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 101
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-incoming-shadow",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 59
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-incoming-size",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 114
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-sequential-size",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-dependent-source",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-source-private",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 57
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-utf8",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-utf-invalid-tail",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-strict-utf-invalid-tail",
       "Status": "Passed",
-      "Milliseconds": 60
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-float-invalid-skips",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-binary-segments",
       "Status": "Passed",
-      "Milliseconds": 73
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-bg-little-signed",
       "Status": "Passed",
-      "Milliseconds": 99
+      "Milliseconds": 54
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-list",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 97
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-filter",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 60
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-empty",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-no-generator",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-false",
       "Status": "Passed",
-      "Milliseconds": 52
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-multiple-fields",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-last-key",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-last-field",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-exact-numeric-keys",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 101
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-tuple-key",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 55
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-nested",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-binary-source",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 61
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-dependent",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-key-value-conflict",
       "Status": "Passed",
-      "Milliseconds": 55
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-template-private",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-effect-order",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-map-result",
       "Status": "Passed",
-      "Milliseconds": 72
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-list-result",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-binary-result",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-empty",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-strict-empty",
       "Status": "Passed",
-      "Milliseconds": 50
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-key-filter",
       "Status": "Passed",
-      "Milliseconds": 117
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-value-filter",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-strict-key",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 45
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-strict-value",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-repeated",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-repeated-strict",
       "Status": "Passed",
-      "Milliseconds": 72
+      "Milliseconds": 92
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-bad-map",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 43
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-bad-list",
       "Status": "Passed",
-      "Milliseconds": 51
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-shadow",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-nested-source",
@@ -5690,167 +5650,127 @@
     {
       "Name": "oracle/compiled-module/compiled-mg-follow-list",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 48
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-follow-binary",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-key-incoming-scope",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-guard-filter",
       "Status": "Passed",
-      "Milliseconds": 96
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-ordinary-filter",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 56
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-bad-filter",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 84
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-filter-binding",
       "Status": "Passed",
-      "Milliseconds": 54
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-none-iterator",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-tuple-iterator",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 47
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-invalid-iterator-tail",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-ordered-iterator",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 58
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-reversed-iterator",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 116
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-default-iterator",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-partial-iterator",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-literal-key-iterator",
       "Status": "Passed",
-      "Milliseconds": 119
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-source-binding-isolated",
       "Status": "Passed",
-      "Milliseconds": 61
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-closure-capture",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-bad-map",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-invalid-order",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-order-invalid-map",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-next-none",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 50
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-next-tuple",
       "Status": "Passed",
-      "Milliseconds": 52
+      "Milliseconds": 49
     },
     {
       "Name": "oracle/compiled-module/compiled-mi-next-invalid",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-mg-validation-before-body",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 46
     },
     {
       "Name": "oracle/compiled-module/compiled-mc-large-map",
       "Status": "Passed",
-      "Milliseconds": 106
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-safe-keys-reversed",
-      "Status": "Passed",
-      "Milliseconds": 119
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-three-safe-keys",
-      "Status": "Passed",
-      "Milliseconds": 101
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-first-fallback",
-      "Status": "Passed",
-      "Milliseconds": 96
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-second-fallback",
-      "Status": "Passed",
-      "Milliseconds": 91
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-distinct-safe-values",
-      "Status": "Passed",
-      "Milliseconds": 87
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-incoming-safe-value",
-      "Status": "Passed",
-      "Milliseconds": 81
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-generator-value-disables-prefix",
-      "Status": "Passed",
-      "Milliseconds": 79
-    },
-    {
-      "Name": "oracle/compiled-module/compiled-mc-filter-value-disables-prefix",
-      "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiler-diagnostic/bit-size-to-next-size",
@@ -6230,7 +6150,7 @@
     {
       "Name": "oracle/compiled-module-repeat-context",
       "Status": "Passed",
-      "Milliseconds": 130
+      "Milliseconds": 127
     },
     {
       "Name": "oracle/compiled-module-invalid-source",

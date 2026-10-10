@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-075/ci-tests.json",
-  "LocalPassedTests": 1231,
+  "ComparisonTestReport": "validation/part-076/tests.json",
+  "LocalPassedTests": 1247,
   "RegisteredMfas": 65,
-  "PreviousRegisteredMfas": 62,
-  "RegisteredMfaDelta": 3,
+  "PreviousRegisteredMfas": 65,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 4,
   "Components": [
@@ -67,14 +67,15 @@
         "list/binary comprehensions, multiple list templates, relaxed/strict list/binary generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
         "generated C# AST/evaluator and module-local tail-call trampoline; native hybrid/PackageReference integration",
         "selected contracts verified against source-built OTP-29.1.1 at6273efc:631 expressions,252 compiled modules,67 normalized diagnostics;1106/full CI; full Core lowering remains unported",
-        "Map comprehensions with multiple =\u003E fields; relaxed/strict key/value generators and named/tuple/partial iterators; private bindings, last exact key wins and distinct interpreted/compiled pair timing;56 independent expressions/modules and six normalized scope diagnostics; local1231/full pipeline, fresh reference proof pending"
+        "Map comprehensions with multiple =\u003E fields; relaxed/strict key/value generators and named/tuple/partial iterators; private bindings, last exact key wins and distinct interpreted/compiled pair timing;56 independent expressions/modules and six normalized scope diagnostics; local1231/full pipeline, fresh reference proof pending",
+        "Compiled map template scheduling follows v3_core mc_pairs/mc_tuples safe-prefix/fallback order; two observed compiled mismatches corrected and eight independent order regressions added; local1247/full pipeline; new-head1084 reference proof pending"
       ],
       "Remaining": [
         "records/macros and full grammar; full iterator/resource contracts, zip and assignment qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 673
+      "RelatedPassedTests": 681
     },
     {
       "Id": "Core library modules",
@@ -150,13 +151,14 @@
         "631 expressions,252 generated C#/compiled-reference modules and67 normalized rejection contracts verified at6273efc;950/950 complete/version-verified",
         "historical595/216/63 contracts and generated hashes retained;36 independent binary comprehension expressions/modules and four scope rejections added, zero expectation corrections",
         "same-head1106/full CI; explicit unavailable-oracle infrastructure failure and all immutable failed/successful checkpoint evidence retained",
-        "Map/iterator corpus expands plan to687 expressions/308 modules/73 diagnostics=1068; historical950 contracts retained, new-head comparison pending"
+        "Map/iterator corpus expands plan to687 expressions/308 modules/73 diagnostics=1068; historical950 contracts retained, new-head comparison pending",
+        "Initial map run at59768e8 completed1066/1068, two compiled template order failures retained; two new provisional module expectations corrected only to retained official outputs; historical631/252/67 unchanged; expanded695/316/73=1084 awaits corrected-head reference"
       ],
       "Remaining": [
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 387
+      "RelatedPassedTests": 395
     },
     {
       "Id": "Style checks",
@@ -8209,8 +8211,8 @@
       "Name": "maps",
       "Status": "Partially compatible",
       "RegisteredMfas": 5,
-      "PreviousRegisteredMfas": 2,
-      "Delta": 3,
+      "PreviousRegisteredMfas": 5,
+      "Delta": 0,
       "ReferenceDeclarations": 34,
       "ApiPresencePercent": 14.7,
       "RequiresPreprocessing": false,
