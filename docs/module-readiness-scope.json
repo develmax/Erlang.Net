@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-064/tests.json",
+  "ComparisonTestReport": "validation/part-066/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -73,7 +73,7 @@
         "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
         "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1",
         "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes",
-        "Catch stack-variable taint restricted to temporary catch guard scope; handler nested guards/captured and shadowed fun variables valid; local815 pass, fresh OTP pending"
+        "Catch stack-variable taint restricted to temporary catch guard scope; handler nested guards/captured and shadowed fun variables valid; verified against OTP-29.1.1 at c2c516b; same-head815 full CI passes"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -172,7 +172,8 @@
         "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match",
         "496 expressions,116 compiled modules and41 diagnostic contracts verified at f202bca; try boundaries/scopes, all prior470/87/35 contracts and generated hashes retained, no expectation corrections",
         "499 expressions,119 compiled modules and41 diagnostics verified at5cbf0e8; all496/116/41 previous contracts/hashes preserved; signed integer/float/parenthesized catch reasons match, zero corrections",
-        "Three independent normalized stacktrace_guard/stacktrace_bound rejection contracts added; historical41 variable diagnostic outcomes unchanged; fresh44 diagnostic proof pending"
+        "Three independent normalized stacktrace_guard/stacktrace_bound rejection contracts added; historical41 variable diagnostic outcomes unchanged; 44 normalized diagnostic contracts verified against OTP-29.1.1 at c2c516b",
+        "505 expressions,125 compiled modules and44 diagnostics verified at c2c516b; all499/119/41 historical contracts and generated hashes preserved; six independent stack guard scope expressions/modules and three rejection contracts match, zero corrections"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
