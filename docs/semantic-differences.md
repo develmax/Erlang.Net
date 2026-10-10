@@ -65,3 +65,9 @@ Selected 14 generated C# Release assembly/default-optimized BEAM module outcomes
 ## Part 033 — Atom representation boundary
 
 A fixed ten-name immutable object cache reduces repeated factory allocations; arbitrary names remain uncached. Name-based equality/hash/order is preserved, including freshly constructed Atom objects. CLR reference identity is not a semantic test for Erlang equality. This is not the BEAM global atom table and does not establish its atom-count/length/resource limits. Existing oracle evidence remains at b13b56a; no new oracle/performance measurement here. Independent test fixture atoms are intentionally kept with their source examples; only protocol wrappers share domain constants.
+
+## Part 034 — Compiled bit-order and closure regressions
+
+Added twelve original compiled module fixtures: observable value/size order via process dictionary; value-before-size and size-before-next-value exceptions; delayed invalid integer/size/UTF validation versus a later throw; size binding used by the next segment; captured binary size; failed bit-clause binding rollback; guarded shadow/fallback; captured map key/shadowed value; nested body-local capture. The permanent fixture loop now executes **26** actual generated C# Release assemblies, with independent expected values. Local test count is **381**; no grammar/runtime MFA change.
+
+The existing **249 expression cases** and earlier **14 module sources/expected values/generated hashes** remain unchanged. The current runner plans **275 cases:249 expressions +26 modules**. New optimized-reference outcomes await the exact-version published-head workflow; historical263/263 at b13b56a remains scoped part-032 evidence. No optimizer/full stack/resource/signal compatibility promotion. Readiness compares immutable part-033 tests; **56 MFAs**, delta0, lists13/91 unchanged. Full assignment approximately5%.

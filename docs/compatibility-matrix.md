@@ -42,3 +42,5 @@ Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`
 | Compiled-reference-module track | Partially compatible | Fourteen generated C# Release assembly fixtures and three infrastructure regressions; reference compile:forms/code:load_binary/default optimizations path added, fourteen cases now match within complete 249+14 at b13b56a; no full optimizer/stacks/resources/reference-suite claim |
 
 Part 033 adds fixed common atom reuse (six permanent terms tests) and two style comment regressions; 369 local tests, no new MFA/grammar. Values remain name-equal; arbitrary names are not interned. Historical oracle remains part-032, not rerun here.
+
+Part034:26 compiled C# module fixtures pass locally (12 new bit-order/closure cases); planned pinned comparison249+26=275. Historical reference263/263 remains at b13b56a until the new head is checked. 381 local tests; no MFA or grammar addition.

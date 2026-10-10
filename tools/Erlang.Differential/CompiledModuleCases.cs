@@ -72,6 +72,74 @@ public static class CompiledModuleCases
             "exit",
             "-module(oracle_exit). -export([run/0]). run()->exit(reason).",
             Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("exit"),Term.A("reason"))
+        ),
+        new(
+            "bit-value-size-order",
+            "-module(oracle_bit_order). -export([run/0]). run()->put(trace,[]),B = <<(mark(v1,1)):(mark(s1,8)),(mark(v2,2)):(mark(s2,8))>>,{B,get(trace)}. mark(K,V)->put(trace,[K|get(trace)]),V.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(new BitString([1,2]),Term.List(
+                    Term.A("s2"),
+                    Term.A("v2"),
+                    Term.A("s1"),
+                    Term.A("v1")
+                ))
+            )
+        ),
+        new(
+            "bit-value-before-size-exception",
+            "-module(oracle_bit_value_error). -export([run/0]). run()-><<(throw(value_first)):(throw(size_second))>>.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("value_first"))
+        ),
+        new(
+            "bit-size-before-next-value-exception",
+            "-module(oracle_bit_size_error). -export([run/0]). run()-><<1:(throw(size_first)),(throw(next_value)):8>>.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("size_first"))
+        ),
+        new(
+            "bit-invalid-value-later-exception",
+            "-module(oracle_bit_invalid_value). -export([run/0]). run()-><<(id(bad)):8,(throw(later)):8>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("later"))
+        ),
+        new(
+            "bit-invalid-size-later-exception",
+            "-module(oracle_bit_invalid_size). -export([run/0]). run()-><<1:(id(bad)),(throw(later)):8>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("later"))
+        ),
+        new(
+            "bit-size-binding-next-segment",
+            "-module(oracle_bit_size_binding). -export([run/0]). run()->B = <<1:(S=4),2:S>>,{B,S}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(4)))
+        ),
+        new(
+            "closure-bit-captured-size",
+            "-module(oracle_closure_bit_size). -export([run/0]). run()->N=4,F=fun(<<X:N,Y:N>>)->{X,Y}; (_)->miss end,{F(<<18>>),N}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.I(1),Term.I(2)),Term.I(4)))
+        ),
+        new(
+            "closure-bit-clause-binding-rollback",
+            "-module(oracle_closure_bit_retry). -export([run/0]). run()->F=fun(<<N:4,X:N,0:1>>)->{first,N,X}; (<<N:4,X:N,_/bitstring>>)->{second,N,X} end,F(<<3:4,5:3,1:1>>).",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.A("second"),Term.I(3),Term.I(5)))
+        ),
+        new(
+            "closure-guard-fallback-keeps-outer",
+            "-module(oracle_closure_guard_retry). -export([run/0]). run()->X=42,F=fun({X}) when X>10->X; (_)->X end,{F({7}),F({12}),X}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(42),Term.I(12),Term.I(42)))
+        ),
+        new(
+            "closure-map-key-capture-value-shadow",
+            "-module(oracle_closure_map_key). -export([run/0]). run()->K=a,V=42,F=fun(#{K:=V})->V; (_)->V end,{F(#{a=>7}),F(#{b=>8}),V}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(7),Term.I(42),Term.I(42)))
+        ),
+        new(
+            "closure-nested-body-local-capture",
+            "-module(oracle_closure_nested). -export([run/0]). run()->X=42,F=fun()->Y=7,fun()->{X,Y} end end,G=F(),{G(),X}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.I(42),Term.I(7)),Term.I(42)))
+        ),
+        new(
+            "bit-invalid-utf-later-exception",
+            "-module(oracle_bit_invalid_utf). -export([run/0]). run()-><<(id(55296))/utf8,(throw(later)):8>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("later"))
         )
     ];
 }

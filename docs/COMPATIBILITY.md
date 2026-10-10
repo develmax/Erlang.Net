@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **369/369 tests**, 56 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 033](validation/part-033/tests.json), [integration](validation/part-033/integration-results.json).
+Current local evidence is **381/381 tests**, 56 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 034](validation/part-034/tests.json), [integration](validation/part-034/integration-results.json).
 
 Latest exact-version oracle evidence: **249/249 expression cases + 14/14 compiled modules (263/263)** at **b13b56a**, plus same-head Windows CI **361/361** and full integration/readiness. [Verified provenance](validation/part-032/remote-checkpoint.json). Modules remain partially compatible; [module readiness](MODULE_READINESS.md) reports registrations and remaining scope.
 
@@ -87,3 +87,9 @@ Term.A now reuses ten fixed immutable Atom values (ok, error, true, false, undef
 Current local tests: **369/369**, including six factory/reuse/null/parser/ETF/allocation/concurrency tests and two formatter documentation-comment regressions. Readiness remains **56 MFAs**, delta **0** against immutable part-032 CI; erlang40/351, lists13/91, maps2/34, io1/53. Terms/runtime/compiler remain partially compatible; full assignment approximately **5%**. [Local evidence](validation/part-033/tests.json). The formatter now inserts before the full XML-comment trivia, preserving ///. A test-only SDK dependency loading failure was repaired by explicit existing Roslyn/MEF references; no production dependency was added.
 
 The previous **249-expression + 14-module =263** reference result at b13b56a remains historical part-032 evidence. No live oracle or throughput benchmark ran in this part. Common atom reuse changes CLR allocation/identity only; full atom table/resource-limit semantics and full compatibility remain unfinished.
+
+## Part 034 — Compiled bit-order and closure regressions
+
+Added twelve original compiled module fixtures: observable value/size order via process dictionary; value-before-size and size-before-next-value exceptions; delayed invalid integer/size/UTF validation versus a later throw; size binding used by the next segment; captured binary size; failed bit-clause binding rollback; guarded shadow/fallback; captured map key/shadowed value; nested body-local capture. The permanent fixture loop now executes **26** actual generated C# Release assemblies, with independent expected values. Local test count is **381**; no grammar/runtime MFA change.
+
+The existing **249 expression cases** and earlier **14 module sources/expected values/generated hashes** remain unchanged. The current runner plans **275 cases:249 expressions +26 modules**. New optimized-reference outcomes await the exact-version published-head workflow; historical263/263 at b13b56a remains scoped part-032 evidence. No optimizer/full stack/resource/signal compatibility promotion. Readiness compares immutable part-033 tests; **56 MFAs**, delta0, lists13/91 unchanged. Full assignment approximately5%.

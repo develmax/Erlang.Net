@@ -1,0 +1,33 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "lib/stdlib/src/eval_bits.erl",
+      "Blob": "c5fa76595d1f6d229d108d0824db185ad971515e"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5"
+    },
+    {
+      "Path": "lib/compiler/test/bs_construct_SUITE.erl",
+      "Blob": "8a643c29b0f2fe04fff58a801c36380477544e86"
+    }
+  ],
+  "InspectedContracts": [
+    "expr_grp1 field expression evaluation before binary creation",
+    "eval_field value then size",
+    "eval_fun fresh head bindings plus captured outer scope and guard fallback",
+    "compiler suite bad-size and side-effect evidence"
+  ],
+  "CopiedReferenceCode": false,
+  "NewDependency": false,
+  "CurrentLocalModules": 26,
+  "PreviousModules": 14,
+  "AddedModules": 12,
+  "Expressions": 249,
+  "PlannedTotal": 275,
+  "LocalTests": 381,
+  "LiveReferenceComparison": "Pending on published head"
+}

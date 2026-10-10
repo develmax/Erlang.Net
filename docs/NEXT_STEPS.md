@@ -61,3 +61,7 @@ Both tracks and same-head Windows CI are complete: 249 expressions,14 compiled m
 ## Part 033 checkpoint
 
 Publish the completed atom/constants/style increment after full validation. Current local tests369, registeredMFAs56, lists13/91; approximately5% overall. The fixed common atom cache is implemented; arbitrary atom/resource-limit semantics remain separate unfinished work. Continue part-032 compiled fixture expansion for bit-size evaluation/error ordering and closure scopes, then grammar/OTP callbacks/signals. Retain all249 expression and14 compiled fixtures and their independent expected values. Remote oracle263/263 at b13b56a remains historical evidence, not a rerun for this allocation refactor.
+
+## Part 034 checkpoint
+
+Publish twelve compiled bit-order/closure fixture additions and dispatch the pinned workflow on the exact implementation head. Require separate counts249 expressions/26 modules (275 total), completeness/version verification, no aborts, independent expected values and all old/new source/generated hashes; inspect same-head Windows CI381/full integration. Preserve actual artifacts as the next evidence part before promoting the selected new cases. Next substantive feature work: audited library contracts or missing grammar/OTP callbacks/signals; full compiler/atom resources/stack/debug scope remains unfinished.
