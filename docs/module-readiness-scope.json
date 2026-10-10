@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-058/tests.json",
+  "ComparisonTestReport": "validation/part-060/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -70,7 +70,7 @@
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
-        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected local regression proof, fresh OTP pending"
+        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -165,8 +165,8 @@
       ],
       "Implemented": [
         "Pinned source-built OTP-29.1.1 value/class/reason comparator",
-        "467 expressions,81 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified at77c4bf7",
-        "All previous461/73/35 contracts and compiled hashes retained; independent empty-string error/effect/elimination outcomes match"
+        "470 expressions,87 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified atdf42a94",
+        "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

@@ -34,7 +34,11 @@
       "evidence": [
         "patterns/repeated-variable",
         "patterns/already-bound",
-        "compiler/unsafe-variable-rebinding-diagnostic"
+        "compiler/unsafe-variable-rebinding-diagnostic",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ]
     },
     {
@@ -47,7 +51,11 @@
         "validation/part-012/differential.json",
         "validation/part-056/tests.json",
         "validation/part-056/reference-audit.json",
-        "validation/part-057/remote-checkpoint.json"
+        "validation/part-057/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Clause-local shadowing regressions pass; named/external fun forms and complete oracle scope evidence pending"
     },
@@ -136,7 +144,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Selected522/522 comparisons and same-head652 CI at2bf65a0 verify interpreted expression-list/cons ports and a separate compiled conflict/capture subset policy, resolving the preserved part049 failure. Full Core IR/internal child-body constraints/known-variable states/optimizer/stacks/resources/grammar remain incomplete; native hybrid standalone retains interpreter route. Map base/static scopes remain a next port."
     },
@@ -156,7 +168,11 @@
         "validation/part-012/differential.json",
         "validation/part-056/tests.json",
         "validation/part-056/reference-audit.json",
-        "validation/part-057/remote-checkpoint.json"
+        "validation/part-057/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Supported guard-expression subset only; map comprehensions/full map BIF set and full applicable oracle coverage pending"
     },
@@ -175,7 +191,11 @@
         "validation/part-012/differential.json",
         "validation/part-056/tests.json",
         "validation/part-056/reference-audit.json",
-        "validation/part-057/remote-checkpoint.json"
+        "validation/part-057/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Local value/error/guard tests; full applicable oracle comparison and full error stacktrace fidelity pending"
     },
@@ -199,7 +219,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Integer/binary/float/UTF and literal strings with per-codepoint integer/float sizes; full diagnostics/error ordering/resources/reference suites pending"
     },
@@ -220,7 +244,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Integer/binary/float/UTF and default/unsized UTF strings; modified non-UTF strings rejected by pinned lint contract; full scopes/reference suites pending"
     },
@@ -240,7 +268,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Local tests plus selected 93-case oracle results; full applicable oracle and full representation/resource limits pending"
     },
@@ -340,7 +372,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "16/32/64 construction and finite matching, zero-width float patterns/endian/unit/numeric conversion. Selected 30 float oracle cases matched within 123/123 at 19774f9; full diagnostics/scope/error/reference suites pending."
     },
@@ -366,7 +402,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Strict UTF8/16/32 and UTF strings; all explicit sizes/units rejected. 31 selected UTF cases match within complete 160/160 at 666c4b5. Full scopes/error/diagnostics/resource/reference suites incomplete."
     },
@@ -431,7 +471,11 @@
         "validation/part-057/remote-checkpoint.json",
         "validation/part-058/tests.json",
         "validation/part-058/reference-audit.json",
-        "validation/part-059/remote-checkpoint.json"
+        "validation/part-059/remote-checkpoint.json",
+        "validation/part-060/tests.json",
+        "validation/part-060/reference-audit.json",
+        "validation/part-060/baseline-regression-proof.json",
+        "validation/part-061/remote-checkpoint.json"
       ],
       "limits": "Integer/float per-codepoint size/unit/endian, size evaluated once, empty validation; 23 selected new cases match within complete 183/183 at 3990623. Static non-binary all is a compile error, dynamic all reaches runtime checks; modified non-UTF strings forbidden in patterns. Initial incomplete run preserved in part-025. Full ordering/resources/stacks/reference suites remain partial."
     },
