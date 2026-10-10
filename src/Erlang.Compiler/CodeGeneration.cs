@@ -82,6 +82,7 @@ public static class CodeGeneration
         Expr.Variable v => "new " + E + "Variable(" + Quote(v.Name) + ")",
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
+        Expr.ListComprehension c => "new " + E + "ListComprehension(" + Expressions(c.Items) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
         Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(
             m.Fields,
             f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")",
@@ -104,6 +105,13 @@ public static class CodeGeneration
         Expr.If i => "new " + E + "If(" + Clauses(i.Clauses) + ")",
         Expr.Receive r => "new " + E + "Receive(" + Clauses(r.Clauses) + "," + Optional(r.Timeout) + "," + Optional(r.After) + ")",
         Expr.Fun f => "new " + E + "Fun(" + Clauses(f.Clauses) + ")",
+        _ => throw new NotSupportedException()
+    };
+
+    private static string ComprehensionQualifierCode(ComprehensionQualifier qualifier) => qualifier switch
+    {
+        ComprehensionQualifier.Generator g => "new global::Erlang.Compiler.ComprehensionQualifier.Generator(" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
+        ComprehensionQualifier.Filter f => "new global::Erlang.Compiler.ComprehensionQualifier.Filter(" + ExpressionCode(f.Expression) + ")",
         _ => throw new NotSupportedException()
     };
 

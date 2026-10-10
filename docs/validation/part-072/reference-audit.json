@@ -1,0 +1,1069 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Line": 396,
+          "Text": "list_comprehension -> '[' expr '||' lc_exprs ']' :",
+          "Following": [
+            "\t{lc,?anno('$1'),'$2','$4'}.",
+            "list_comprehension -> '[' expr ',' exprs '||' lc_exprs ']' :",
+            "    {lc,?anno('$1'),['$2'|'$4'],'$6'}.",
+            "map_comprehension -> '#' '{' map_field '||' lc_exprs '}' :",
+            "\t{mc,?anno('$1'),'$3','$5'}.",
+            "map_comprehension -> '#' '{' map_field ',' map_fields '||' lc_exprs '}' :",
+            "    {mc,?anno('$1'),['$3'|'$5'],'$7'}.",
+            "binary_comprehension -> '<<' expr_max '||' lc_exprs '>>' :"
+          ]
+        },
+        {
+          "Line": 398,
+          "Text": "list_comprehension -> '[' expr ',' exprs '||' lc_exprs ']' :",
+          "Following": [
+            "    {lc,?anno('$1'),['$2'|'$4'],'$6'}.",
+            "map_comprehension -> '#' '{' map_field '||' lc_exprs '}' :",
+            "\t{mc,?anno('$1'),'$3','$5'}.",
+            "map_comprehension -> '#' '{' map_field ',' map_fields '||' lc_exprs '}' :",
+            "    {mc,?anno('$1'),['$3'|'$5'],'$7'}.",
+            "binary_comprehension -> '<<' expr_max '||' lc_exprs '>>' :",
+            "\t{bc,?anno('$1'),'$2','$4'}.",
+            ""
+          ]
+        },
+        {
+          "Line": 415,
+          "Text": "lc_expr -> expr : '$1'.",
+          "Following": [
+            "lc_expr -> map_field_exact '<-' expr : {m_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> map_field_exact '<:-' expr : {m_generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> expr '<-' expr : {generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> expr '<:-' expr : {generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}."
+          ]
+        },
+        {
+          "Line": 416,
+          "Text": "lc_expr -> map_field_exact '<-' expr : {m_generate,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "lc_expr -> map_field_exact '<:-' expr : {m_generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> expr '<-' expr : {generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> expr '<:-' expr : {generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}."
+          ]
+        },
+        {
+          "Line": 417,
+          "Text": "lc_expr -> map_field_exact '<:-' expr : {m_generate_strict,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "lc_expr -> expr '<-' expr : {generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> expr '<:-' expr : {generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            ""
+          ]
+        },
+        {
+          "Line": 418,
+          "Text": "lc_expr -> expr '<-' expr : {generate,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "lc_expr -> expr '<:-' expr : {generate_strict,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :"
+          ]
+        },
+        {
+          "Line": 419,
+          "Text": "lc_expr -> expr '<:-' expr : {generate_strict,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}."
+          ]
+        },
+        {
+          "Line": 420,
+          "Text": "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            "map_expr -> expr_max '#' map_tuple :"
+          ]
+        },
+        {
+          "Line": 421,
+          "Text": "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+          "Following": [
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            "map_expr -> expr_max '#' map_tuple :",
+            "\t{map, ?anno('$2'),'$1','$3'}."
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Line": 1060,
+          "Text": "eval_lc(Es, Qs, Bs, Lf, Ef, RBs, FUVs) when is_list(Es) ->",
+          "Following": [
+            "    ret_expr(lists:reverse(eval_lc1(Es, Qs, Bs, Lf, Ef, FUVs, [])), Bs, RBs);",
+            "eval_lc(E, Qs, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    eval_lc([E], Qs, Bs, Lf, Ef, RBs, FUVs).",
+            "",
+            "eval_lc1(Es, [{zip, Anno, Gens}|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    {VarList, Bs1} = convert_gen_values(Gens, [], Bs0, Lf, Ef, FUVs),",
+            "    eval_zip(Es, [{zip, Anno, VarList}|Qs], Bs1, Lf, Ef, FUVs, Acc0, fun eval_lc1/7);",
+            "eval_lc1(Es, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->"
+          ]
+        },
+        {
+          "Line": 1062,
+          "Text": "eval_lc(E, Qs, Bs, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    eval_lc([E], Qs, Bs, Lf, Ef, RBs, FUVs).",
+            "",
+            "eval_lc1(Es, [{zip, Anno, Gens}|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    {VarList, Bs1} = convert_gen_values(Gens, [], Bs0, Lf, Ef, FUVs),",
+            "    eval_zip(Es, [{zip, Anno, VarList}|Qs], Bs1, Lf, Ef, FUVs, Acc0, fun eval_lc1/7);",
+            "eval_lc1(Es, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    case is_generator(Q) of",
+            "        true ->"
+          ]
+        },
+        {
+          "Line": 1065,
+          "Text": "eval_lc1(Es, [{zip, Anno, Gens}|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+          "Following": [
+            "    {VarList, Bs1} = convert_gen_values(Gens, [], Bs0, Lf, Ef, FUVs),",
+            "    eval_zip(Es, [{zip, Anno, VarList}|Qs], Bs1, Lf, Ef, FUVs, Acc0, fun eval_lc1/7);",
+            "eval_lc1(Es, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    case is_generator(Q) of",
+            "        true ->",
+            "            CF = fun(Bs, Acc) -> eval_lc1(Es, Qs, Bs, Lf, Ef, FUVs, Acc) end,",
+            "            eval_generator(Q, Bs0, Lf, Ef, FUVs, Acc0, CF);",
+            "        false ->"
+          ]
+        },
+        {
+          "Line": 1068,
+          "Text": "eval_lc1(Es, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+          "Following": [
+            "    case is_generator(Q) of",
+            "        true ->",
+            "            CF = fun(Bs, Acc) -> eval_lc1(Es, Qs, Bs, Lf, Ef, FUVs, Acc) end,",
+            "            eval_generator(Q, Bs0, Lf, Ef, FUVs, Acc0, CF);",
+            "        false ->",
+            "            CF = fun(Bs) -> eval_lc1(Es, Qs, Bs, Lf, Ef, FUVs, Acc0) end,",
+            "            eval_filter(Q, Bs0, Lf, Ef, CF, FUVs, Acc0)",
+            "    end;"
+          ]
+        },
+        {
+          "Line": 1077,
+          "Text": "eval_lc1(Es, [], Bs, Lf, Ef, FUVs, Acc) ->",
+          "Following": [
+            "    {Vs, _} = expr_list(Es, Acc, Bs, Bs, Lf, Ef, FUVs),",
+            "    Vs.",
+            "",
+            "%% convert values for generator vars from abstract form to flattened lists",
+            "convert_gen_values([{Generate, Anno, P, L0}|Qs], Acc, Bs0, Lf, Ef,FUVs)",
+            "    when Generate =:= generate;",
+            "         Generate =:= generate_strict;",
+            "         Generate =:= b_generate;"
+          ]
+        },
+        {
+          "Line": 1422,
+          "Text": "eval_generator({match,Anno,P,E}, Bs0, Lf, Ef, FUVs, Acc0, CompFun) ->",
+          "Following": [
+            "    eval_generator({generate_strict,Anno,P,{cons,Anno,E,{nil,Anno}}}, Bs0, Lf, Ef, FUVs, Acc0, CompFun);",
+            "eval_generator({Generate,Anno,P,L0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+            "  when Generate =:= generate;",
+            "       Generate =:= generate_strict ->",
+            "    {value,L1,_Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    eval_generate(L1, P, Anno, Bs0, Lf, Ef, CompFun,",
+            "                  Generate =:= generate, Acc0);",
+            "eval_generator({Generate,Anno,P,Bin0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)"
+          ]
+        },
+        {
+          "Line": 1424,
+          "Text": "eval_generator({Generate,Anno,P,L0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+          "Following": [
+            "  when Generate =:= generate;",
+            "       Generate =:= generate_strict ->",
+            "    {value,L1,_Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    eval_generate(L1, P, Anno, Bs0, Lf, Ef, CompFun,",
+            "                  Generate =:= generate, Acc0);",
+            "eval_generator({Generate,Anno,P,Bin0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+            "  when Generate =:= b_generate;",
+            "       Generate =:= b_generate_strict ->"
+          ]
+        },
+        {
+          "Line": 1430,
+          "Text": "eval_generator({Generate,Anno,P,Bin0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+          "Following": [
+            "  when Generate =:= b_generate;",
+            "       Generate =:= b_generate_strict ->",
+            "    {value,Bin,_Bs1} = expr(Bin0, Bs0, Lf, Ef, none, FUVs),",
+            "    eval_b_generate(Bin, P, Anno, Bs0, Lf, Ef, CompFun,",
+            "                    Generate =:= b_generate, Acc0);",
+            "eval_generator({Generate,Anno,P,Map0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+            "  when Generate =:= m_generate;",
+            "       Generate =:= m_generate_strict ->"
+          ]
+        },
+        {
+          "Line": 1436,
+          "Text": "eval_generator({Generate,Anno,P,Map0}, Bs0, Lf, Ef, FUVs, Acc0, CompFun)",
+          "Following": [
+            "  when Generate =:= m_generate;",
+            "       Generate =:= m_generate_strict ->",
+            "    {map_field_exact,_,K,V} = P,",
+            "    {value,Map,_Bs1} = expr(Map0, Bs0, Lf, Ef, none, FUVs),",
+            "    Iter = case is_map(Map) of",
+            "               true ->",
+            "                   maps:iterator(Map);",
+            "               false ->"
+          ]
+        },
+        {
+          "Line": 1458,
+          "Text": "eval_generate([V|Rest], P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc) ->",
+          "Following": [
+            "    case match(P, V, Anno, new_bindings(Bs0), Bs0, Ef) of",
+            "\t{match,Bsn} ->",
+            "            Bs2 = add_bindings(Bsn, Bs0),",
+            "            NewAcc = CompFun(Bs2, Acc),",
+            "            eval_generate(Rest, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, NewAcc);",
+            "        nomatch when Relaxed ->",
+            "            eval_generate(Rest, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc);",
+            "        nomatch ->"
+          ]
+        },
+        {
+          "Line": 1469,
+          "Text": "eval_generate([], _P, _Anno, _Bs0, _Lf, _Ef, _CompFun, _Relaxed, Acc) ->",
+          "Following": [
+            "    Acc;",
+            "eval_generate(Term, _P, Anno, Bs0, _Lf, Ef, _CompFun, _Relaxed, _Acc) ->",
+            "    apply_error({bad_generator,Term}, ?STACKTRACE, Anno, Bs0, Ef, none).",
+            "",
+            "eval_b_generate(<<_/bitstring>>=Bin, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc) ->",
+            "    Mfun = match_fun(Bs0, Ef),",
+            "    Efun = fun(Exp, Bs) -> expr(Exp, Bs, Lf, Ef, none) end,",
+            "    ErrorFun = fun(A, R, S) -> apply_error(R, S, A, Bs0, Ef, none) end,"
+          ]
+        },
+        {
+          "Line": 1471,
+          "Text": "eval_generate(Term, _P, Anno, Bs0, _Lf, Ef, _CompFun, _Relaxed, _Acc) ->",
+          "Following": [
+            "    apply_error({bad_generator,Term}, ?STACKTRACE, Anno, Bs0, Ef, none).",
+            "",
+            "eval_b_generate(<<_/bitstring>>=Bin, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc) ->",
+            "    Mfun = match_fun(Bs0, Ef),",
+            "    Efun = fun(Exp, Bs) -> expr(Exp, Bs, Lf, Ef, none) end,",
+            "    ErrorFun = fun(A, R, S) -> apply_error(R, S, A, Bs0, Ef, none) end,",
+            "    case eval_bits:bin_gen(P, Bin, new_bindings(Bs0), Bs0, Mfun, Efun, ErrorFun) of",
+            "        {match, Rest, Bs1} ->"
+          ]
+        },
+        {
+          "Line": 1512,
+          "Text": "eval_filter(F, Bs0, Lf, Ef, CompFun, FUVs, Acc) ->",
+          "Following": [
+            "    case erl_lint:is_guard_test(F) of",
+            "\ttrue ->",
+            "\t    case guard_test(F, Bs0, Lf, Ef) of",
+            "\t\t{value,true,Bs1} -> CompFun(Bs1);",
+            "\t\t{value,false,_} -> Acc",
+            "\t    end;",
+            "\tfalse ->",
+            "\t    case expr(F, Bs0, Lf, Ef, none, FUVs) of"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Line": 2961,
+          "Text": "is_gexpr({var,_A,_V}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({char,_A,_C}, _Info) -> true;",
+            "is_gexpr({integer,_A,_I}, _Info) -> true;",
+            "is_gexpr({float,_A,_F}, _Info) -> true;",
+            "is_gexpr({atom,_A,_Atom}, _Info) -> true;",
+            "is_gexpr({string,_A,_S}, _Info) -> true;",
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);"
+          ]
+        },
+        {
+          "Line": 2962,
+          "Text": "is_gexpr({char,_A,_C}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({integer,_A,_I}, _Info) -> true;",
+            "is_gexpr({float,_A,_F}, _Info) -> true;",
+            "is_gexpr({atom,_A,_Atom}, _Info) -> true;",
+            "is_gexpr({string,_A,_S}, _Info) -> true;",
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2963,
+          "Text": "is_gexpr({integer,_A,_I}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({float,_A,_F}, _Info) -> true;",
+            "is_gexpr({atom,_A,_Atom}, _Info) -> true;",
+            "is_gexpr({string,_A,_S}, _Info) -> true;",
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);"
+          ]
+        },
+        {
+          "Line": 2964,
+          "Text": "is_gexpr({float,_A,_F}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({atom,_A,_Atom}, _Info) -> true;",
+            "is_gexpr({string,_A,_S}, _Info) -> true;",
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2965,
+          "Text": "is_gexpr({atom,_A,_Atom}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({string,_A,_S}, _Info) -> true;",
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);"
+          ]
+        },
+        {
+          "Line": 2966,
+          "Text": "is_gexpr({string,_A,_S}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({nil,_A}, _Info) -> true;",
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2967,
+          "Text": "is_gexpr({nil,_A}, _Info) -> true;",
+          "Following": [
+            "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+            "    is_gexpr(Field, Info);"
+          ]
+        },
+        {
+          "Line": 2968,
+          "Text": "is_gexpr({cons,_A,H,T}, Info) -> is_gexpr_list([H,T], Info);",
+          "Following": [
+            "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+            "    is_gexpr(Field, Info);",
+            "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2969,
+          "Text": "is_gexpr({tuple,_A,Es}, Info) -> is_gexpr_list(Es, Info);",
+          "Following": [
+            "is_gexpr({map,_A,Es}, Info) ->",
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+            "    is_gexpr(Field, Info);",
+            "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->",
+            "    is_gexpr_list([Rec,Field], Info);"
+          ]
+        },
+        {
+          "Line": 2970,
+          "Text": "is_gexpr({map,_A,Es}, Info) ->",
+          "Following": [
+            "    is_map_fields(Es, Info);",
+            "is_gexpr({map,_A,Src,Es}, Info) ->",
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+            "    is_gexpr(Field, Info);",
+            "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->",
+            "    is_gexpr_list([Rec,Field], Info);",
+            "is_gexpr({record,A,Name,Inits}, Info0) ->"
+          ]
+        },
+        {
+          "Line": 2972,
+          "Text": "is_gexpr({map,_A,Src,Es}, Info) ->",
+          "Following": [
+            "    is_gexpr(Src, Info) andalso is_map_fields(Es, Info);",
+            "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+            "    is_gexpr(Field, Info);",
+            "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->",
+            "    is_gexpr_list([Rec,Field], Info);",
+            "is_gexpr({record,A,Name,Inits}, Info0) ->",
+            "    Info = case Info0 of",
+            "               {#{},_} ->"
+          ]
+        },
+        {
+          "Line": 2974,
+          "Text": "is_gexpr({record_index,_A,_Name,Field}, Info) ->",
+          "Following": [
+            "    is_gexpr(Field, Info);",
+            "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->",
+            "    is_gexpr_list([Rec,Field], Info);",
+            "is_gexpr({record,A,Name,Inits}, Info0) ->",
+            "    Info = case Info0 of",
+            "               {#{},_} ->",
+            "                   Info0;",
+            "               {F,IsOverridden} when is_function(F, 0) ->"
+          ]
+        },
+        {
+          "Line": 2976,
+          "Text": "is_gexpr({record_field,_A,Rec,_Name,Field}, Info) ->",
+          "Following": [
+            "    is_gexpr_list([Rec,Field], Info);",
+            "is_gexpr({record,A,Name,Inits}, Info0) ->",
+            "    Info = case Info0 of",
+            "               {#{},_} ->",
+            "                   Info0;",
+            "               {F,IsOverridden} when is_function(F, 0) ->",
+            "                   {F(),IsOverridden}",
+            "           end,"
+          ]
+        },
+        {
+          "Line": 2978,
+          "Text": "is_gexpr({record,A,Name,Inits}, Info0) ->",
+          "Following": [
+            "    Info = case Info0 of",
+            "               {#{},_} ->",
+            "                   Info0;",
+            "               {F,IsOverridden} when is_function(F, 0) ->",
+            "                   {F(),IsOverridden}",
+            "           end,",
+            "    is_gexpr_fields(Inits, A, Name, Info);",
+            "is_gexpr({bin,_A,Fs}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2986,
+          "Text": "is_gexpr({bin,_A,Fs}, Info) ->",
+          "Following": [
+            "    all(fun ({bin_element,_Anno,E,Sz,_Ts}) ->",
+            "                is_gexpr(E, Info) andalso (Sz =:= default orelse is_gexpr(Sz, Info))",
+            "        end, Fs);",
+            "is_gexpr({call,_A,{atom,_Af,F},As}, {_,IsOverridden}=Info) ->",
+            "    A = length(As),",
+            "    not IsOverridden({F,A}) andalso erl_internal:guard_bif(F, A)",
+            "\tandalso is_gexpr_list(As, Info);",
+            "is_gexpr({call,_A,{remote,_Ar,{atom,_Am,erlang},{atom,_Af,F}},As}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2990,
+          "Text": "is_gexpr({call,_A,{atom,_Af,F},As}, {_,IsOverridden}=Info) ->",
+          "Following": [
+            "    A = length(As),",
+            "    not IsOverridden({F,A}) andalso erl_internal:guard_bif(F, A)",
+            "\tandalso is_gexpr_list(As, Info);",
+            "is_gexpr({call,_A,{remote,_Ar,{atom,_Am,erlang},{atom,_Af,F}},As}, Info) ->",
+            "    A = length(As),",
+            "    (erl_internal:guard_bif(F, A) orelse is_gexpr_op(F, A))",
+            "        andalso is_gexpr_list(As, Info);",
+            "is_gexpr({call,A,{tuple,At,[{atom,Am,erlang},{atom,Af,F}]},As}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2994,
+          "Text": "is_gexpr({call,_A,{remote,_Ar,{atom,_Am,erlang},{atom,_Af,F}},As}, Info) ->",
+          "Following": [
+            "    A = length(As),",
+            "    (erl_internal:guard_bif(F, A) orelse is_gexpr_op(F, A))",
+            "        andalso is_gexpr_list(As, Info);",
+            "is_gexpr({call,A,{tuple,At,[{atom,Am,erlang},{atom,Af,F}]},As}, Info) ->",
+            "    is_gexpr({call,A,{remote,At,{atom,Am,erlang},{atom,Af,F}},As}, Info);",
+            "is_gexpr({op,_A,Op,A}, Info) ->",
+            "    is_gexpr_op(Op, 1) andalso is_gexpr(A, Info);",
+            "is_gexpr({op,_A,'andalso',A1,A2}, Info) ->"
+          ]
+        },
+        {
+          "Line": 2998,
+          "Text": "is_gexpr({call,A,{tuple,At,[{atom,Am,erlang},{atom,Af,F}]},As}, Info) ->",
+          "Following": [
+            "    is_gexpr({call,A,{remote,At,{atom,Am,erlang},{atom,Af,F}},As}, Info);",
+            "is_gexpr({op,_A,Op,A}, Info) ->",
+            "    is_gexpr_op(Op, 1) andalso is_gexpr(A, Info);",
+            "is_gexpr({op,_A,'andalso',A1,A2}, Info) ->",
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,'orelse',A1,A2}, Info) ->",
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,Op,A1,A2}, Info) ->"
+          ]
+        },
+        {
+          "Line": 3000,
+          "Text": "is_gexpr({op,_A,Op,A}, Info) ->",
+          "Following": [
+            "    is_gexpr_op(Op, 1) andalso is_gexpr(A, Info);",
+            "is_gexpr({op,_A,'andalso',A1,A2}, Info) ->",
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,'orelse',A1,A2}, Info) ->",
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,Op,A1,A2}, Info) ->",
+            "    is_gexpr_op(Op, 2) andalso is_gexpr_list([A1,A2], Info);",
+            "is_gexpr(_Other, _Info) -> false."
+          ]
+        },
+        {
+          "Line": 3002,
+          "Text": "is_gexpr({op,_A,'andalso',A1,A2}, Info) ->",
+          "Following": [
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,'orelse',A1,A2}, Info) ->",
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,Op,A1,A2}, Info) ->",
+            "    is_gexpr_op(Op, 2) andalso is_gexpr_list([A1,A2], Info);",
+            "is_gexpr(_Other, _Info) -> false.",
+            "",
+            "is_gexpr_op(Op, A) ->"
+          ]
+        },
+        {
+          "Line": 3004,
+          "Text": "is_gexpr({op,_A,'orelse',A1,A2}, Info) ->",
+          "Following": [
+            "    is_gexpr_list([A1,A2], Info);",
+            "is_gexpr({op,_A,Op,A1,A2}, Info) ->",
+            "    is_gexpr_op(Op, 2) andalso is_gexpr_list([A1,A2], Info);",
+            "is_gexpr(_Other, _Info) -> false.",
+            "",
+            "is_gexpr_op(Op, A) ->",
+            "    try erl_internal:op_type(Op, A) of",
+            "        arith -> true;"
+          ]
+        },
+        {
+          "Line": 3006,
+          "Text": "is_gexpr({op,_A,Op,A1,A2}, Info) ->",
+          "Following": [
+            "    is_gexpr_op(Op, 2) andalso is_gexpr_list([A1,A2], Info);",
+            "is_gexpr(_Other, _Info) -> false.",
+            "",
+            "is_gexpr_op(Op, A) ->",
+            "    try erl_internal:op_type(Op, A) of",
+            "        arith -> true;",
+            "        bool  -> true;",
+            "        comp  -> true;"
+          ]
+        },
+        {
+          "Line": 3008,
+          "Text": "is_gexpr(_Other, _Info) -> false.",
+          "Following": [
+            "",
+            "is_gexpr_op(Op, A) ->",
+            "    try erl_internal:op_type(Op, A) of",
+            "        arith -> true;",
+            "        bool  -> true;",
+            "        comp  -> true;",
+            "\tlist  -> false;",
+            "\tsend  -> false"
+          ]
+        },
+        {
+          "Line": 4724,
+          "Text": "lc_quals(Qs, Vt0, St0) ->",
+          "Following": [
+            "    OldRecDef = St0#lint.recdef_top,",
+            "    {Vt,Uvt,St} = lc_quals(Qs, Vt0, [], St0#lint{recdef_top = false}),",
+            "    {Vt,Uvt,St#lint{recdef_top = OldRecDef}}.",
+            "",
+            "lc_quals([{zip,_Anno,Gens0} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Gens1, St1} = filter_generators(Gens0, [], St0),",
+            "    {Vt,Uvt,St2} = case Gens1 of",
+            "        [] ->"
+          ]
+        },
+        {
+          "Line": 4729,
+          "Text": "lc_quals([{zip,_Anno,Gens0} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    {Gens1, St1} = filter_generators(Gens0, [], St0),",
+            "    {Vt,Uvt,St2} = case Gens1 of",
+            "        [] ->",
+            "            %% No valid generators.",
+            "            {Vt0, Uvt0, St1};",
+            "        _ ->",
+            "            handle_generators(Gens1, Vt0, Uvt0, St1)",
+            "        end,"
+          ]
+        },
+        {
+          "Line": 4739,
+          "Text": "lc_quals([{generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{b_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),"
+          ]
+        },
+        {
+          "Line": 4742,
+          "Text": "lc_quals([{generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{b_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{b_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    St1 = handle_bitstring_gen_pat(P,St0),"
+          ]
+        },
+        {
+          "Line": 4745,
+          "Text": "lc_quals([{b_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{b_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->"
+          ]
+        },
+        {
+          "Line": 4749,
+          "Text": "lc_quals([{b_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),"
+          ]
+        },
+        {
+          "Line": 4753,
+          "Text": "lc_quals([{m_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{match,Anno,P0,E0}=F|Qs], Vt0, Uvt0, St0) ->",
+            "    %% A top-level match is never a guard test.",
+            "    case is_feature_enabled(compr_assign, St0) of"
+          ]
+        },
+        {
+          "Line": 4756,
+          "Text": "lc_quals([{m_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{match,Anno,P0,E0}=F|Qs], Vt0, Uvt0, St0) ->",
+            "    %% A top-level match is never a guard test.",
+            "    case is_feature_enabled(compr_assign, St0) of",
+            "        true ->",
+            "            {P,E} = rewrite_compr_assign(P0, E0),",
+            "            {Vt,Uvt,St} = handle_generator(P, E, Vt0, Uvt0, false, St0),"
+          ]
+        },
+        {
+          "Line": 4759,
+          "Text": "lc_quals([{match,Anno,P0,E0}=F|Qs], Vt0, Uvt0, St0) ->",
+          "Following": [
+            "    %% A top-level match is never a guard test.",
+            "    case is_feature_enabled(compr_assign, St0) of",
+            "        true ->",
+            "            {P,E} = rewrite_compr_assign(P0, E0),",
+            "            {Vt,Uvt,St} = handle_generator(P, E, Vt0, Uvt0, false, St0),",
+            "            lc_quals(Qs, Vt, Uvt, St);",
+            "        false ->",
+            "            St1 = add_error(Anno, compr_assign, St0),"
+          ]
+        },
+        {
+          "Line": 4771,
+          "Text": "lc_quals([F|Qs], Vt, Uvt, St0) ->",
+          "Following": [
+            "    Info = is_guard_test2_info(St0),",
+            "    {Fvt,St1} = case is_guard_test2(F, Info) of",
+            "\t\t    true -> guard_test(F, Vt, St0);",
+            "                    false -> expr(F, Vt, St0)",
+            "\t\tend,",
+            "    lc_quals(Qs, vtupdate(Fvt, Vt), Uvt, St1);",
+            "lc_quals([], Vt, Uvt, St) ->",
+            "    {Vt, Uvt, St}."
+          ]
+        },
+        {
+          "Line": 4778,
+          "Text": "lc_quals([], Vt, Uvt, St) ->",
+          "Following": [
+            "    {Vt, Uvt, St}.",
+            "",
+            "%% Same as v3_core:rewrite_compr_assign/2. Expansion here is for scoping.",
+            "rewrite_compr_assign(P1, {match,L2,P2,E}) ->",
+            "    rewrite_compr_assign({match,L2,P1,P2}, E);",
+            "rewrite_compr_assign(P, E) ->",
+            "    {P, E}.",
+            ""
+          ]
+        },
+        {
+          "Line": 4834,
+          "Text": "handle_generator(P,E,Vt,Uvt,St0) ->",
+          "Following": [
+            "    handle_generator(P,E,Vt,Uvt,true,St0).",
+            "",
+            "handle_generator(P,E,Vt,Uvt,CheckUnusedE,St0) ->",
+            "    {Evt,St1} = expr(E, Vt, St0),",
+            "    %% Forget variables local to E immediately.",
+            "    Vt1 = vtupdate(vtold(Evt, Vt), Vt),",
+            "    St2 = case CheckUnusedE of",
+            "              true ->"
+          ]
+        },
+        {
+          "Line": 4837,
+          "Text": "handle_generator(P,E,Vt,Uvt,CheckUnusedE,St0) ->",
+          "Following": [
+            "    {Evt,St1} = expr(E, Vt, St0),",
+            "    %% Forget variables local to E immediately.",
+            "    Vt1 = vtupdate(vtold(Evt, Vt), Vt),",
+            "    St2 = case CheckUnusedE of",
+            "              true ->",
+            "                  {_, St} = check_unused_vars(Evt, Vt, St1),",
+            "                  St;",
+            "              false ->"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/v3_core.erl",
+      "Blob": "a1ddbb977e013a860c9e0cca58c364a52e1c8a92",
+      "Matches": [
+        {
+          "Line": 1752,
+          "Text": "lc_tq(Line, Ctx, [#igen{}|_T] = Qs, Mc, St) ->",
+          "Following": [
+            "    lc_tq1(Line, Ctx, Qs, Mc, St);",
+            "lc_tq(Line, Ctx, [#izip{}=Zip|Qs], Mc, St) ->",
+            "    zip_tq(Line, Ctx, Zip, Mc, St, Qs);",
+            "lc_tq(Line, Ctx, [#ifilter{}=Filter|Qs], Mc, St) ->",
+            "    filter_tq(Line, Ctx, Filter, Mc, St, Qs, fun lc_tq/5);",
+            "lc_tq(Line, Ctx, [], Mc0, St0) ->",
+            "    {Values,Pre,Opt,St} = lc_tq2(Ctx, St0),",
+            "    {T1,Tps,St1} = force_safe(Mc0, St),"
+          ]
+        },
+        {
+          "Line": 1754,
+          "Text": "lc_tq(Line, Ctx, [#izip{}=Zip|Qs], Mc, St) ->",
+          "Following": [
+            "    zip_tq(Line, Ctx, Zip, Mc, St, Qs);",
+            "lc_tq(Line, Ctx, [#ifilter{}=Filter|Qs], Mc, St) ->",
+            "    filter_tq(Line, Ctx, Filter, Mc, St, Qs, fun lc_tq/5);",
+            "lc_tq(Line, Ctx, [], Mc0, St0) ->",
+            "    {Values,Pre,Opt,St} = lc_tq2(Ctx, St0),",
+            "    {T1,Tps,St1} = force_safe(Mc0, St),",
+            "    Anno = lineno_anno(erl_anno:set_generated(true, Line), St1),",
+            "    E = ann_c_cons_all(Anno, Values, T1),"
+          ]
+        },
+        {
+          "Line": 1756,
+          "Text": "lc_tq(Line, Ctx, [#ifilter{}=Filter|Qs], Mc, St) ->",
+          "Following": [
+            "    filter_tq(Line, Ctx, Filter, Mc, St, Qs, fun lc_tq/5);",
+            "lc_tq(Line, Ctx, [], Mc0, St0) ->",
+            "    {Values,Pre,Opt,St} = lc_tq2(Ctx, St0),",
+            "    {T1,Tps,St1} = force_safe(Mc0, St),",
+            "    Anno = lineno_anno(erl_anno:set_generated(true, Line), St1),",
+            "    E = ann_c_cons_all(Anno, Values, T1),",
+            "    {E, Pre ++ Tps, Opt, St1}.",
+            ""
+          ]
+        },
+        {
+          "Line": 1758,
+          "Text": "lc_tq(Line, Ctx, [], Mc0, St0) ->",
+          "Following": [
+            "    {Values,Pre,Opt,St} = lc_tq2(Ctx, St0),",
+            "    {T1,Tps,St1} = force_safe(Mc0, St),",
+            "    Anno = lineno_anno(erl_anno:set_generated(true, Line), St1),",
+            "    E = ann_c_cons_all(Anno, Values, T1),",
+            "    {E, Pre ++ Tps, Opt, St1}.",
+            "",
+            "lc_tq2({mc,Pairs,BoundVars}, St) ->",
+            "    mc_pairs(Pairs, BoundVars, [], [], first, St);"
+          ]
+        },
+        {
+          "Line": 1765,
+          "Text": "lc_tq2({mc,Pairs,BoundVars}, St) ->",
+          "Following": [
+            "    mc_pairs(Pairs, BoundVars, [], [], first, St);",
+            "lc_tq2({lc,Es}, St0) ->",
+            "    {Values,Pre,St1} = safe_list(Es, St0),",
+            "    {Values,Pre,none,St1}.",
+            "",
+            "%% mc_pairs(Pairs, BoundVars, Keys, Pre, PrevVal, State) ->",
+            "%%     {Keys,Pre,OptInfo,State}.",
+            "%%  Verifies if it's safe to use maps:from_keys in the comprehension."
+          ]
+        },
+        {
+          "Line": 1767,
+          "Text": "lc_tq2({lc,Es}, St0) ->",
+          "Following": [
+            "    {Values,Pre,St1} = safe_list(Es, St0),",
+            "    {Values,Pre,none,St1}.",
+            "",
+            "%% mc_pairs(Pairs, BoundVars, Keys, Pre, PrevVal, State) ->",
+            "%%     {Keys,Pre,OptInfo,State}.",
+            "%%  Verifies if it's safe to use maps:from_keys in the comprehension.",
+            "%%  The conditions are:",
+            "%%   1. All values are exactly the same, if comprehension has multiple values"
+          ]
+        },
+        {
+          "Line": 1822,
+          "Text": "lc_tq1(Line, Ctx, [#igen{anno=#a{anno=GA}=GAnno,",
+          "Following": [
+            "\t\t      acc_pat=AccPat,acc_guard=AccGuard,",
+            "                      nomatch_pat=NomatchPat,",
+            "                      nomatch_mode=NomatchMode,",
+            "                      tail=Tail,tail_pat=TailPat,",
+            "                      refill={RefillPat,RefillAction},",
+            "                      arg={Pre,Arg}}|Qs], Mc, St0) ->",
+            "    {Name,St1} = new_fun_name(\"lc\", St0),",
+            "    LA = lineno_anno(Line, St1),"
+          ]
+        },
+        {
+          "Line": 2163,
+          "Text": "filter_tq(Line, Ctx0, #ifilter{anno=#a{anno=LA}=LAnno,arg={Pre,Arg}},",
+          "Following": [
+            "          Mc, St0, Qs, TqFun) ->",
+            "    %% The filter is an expression, it is compiled to a case of degree 1 with",
+            "    %% 3 clauses, one accumulating, one skipping and the final one throwing",
+            "    %% {case_clause,Value} where Value is the result of the filter and is not a",
+            "    %% boolean.",
+            "    %% Variables bound in Pre are visible in subsequent qualifiers and the body.",
+            "    Ctx = add_pre_bound_vars(Ctx0, Pre),",
+            "    {Lc,Lps,OptInfo,St1} = TqFun(Line, Ctx, Qs, Mc, St0),"
+          ]
+        },
+        {
+          "Line": 2184,
+          "Text": "filter_tq(Line, Ctx, #ifilter{anno=#a{anno=LA}=LAnno,arg=Guard},",
+          "Following": [
+            "          Mc, St0, Qs, TqFun) when is_list(Guard) ->",
+            "    %% Otherwise it is a guard, compiled to a case of degree 0 with 2 clauses,",
+            "    %% the first matches if the guard succeeds and the comprehension continues",
+            "    %% or the second one is selected and the current element is skipped.",
+            "    {Lc,Lps,OptInfo,St1} = TqFun(Line, Ctx, Qs, Mc, St0),",
+            "    {#icase{anno=LAnno#a{anno=[list_comprehension|LA]},args=[],",
+            "            clauses=[#iclause{anno=LAnno,pats=[],guard=Guard,body=Lps ++ [Lc]}],",
+            "            fc=#iclause{anno=LAnno#a{anno=[compiler_generated|LA]},"
+          ]
+        },
+        {
+          "Line": 3114,
+          "Text": "bad_generator(Ps, Generator, Arg) ->",
+          "Following": [
+            "    L = [#c_literal{val=bad_generator}, Generator],",
+            "    bad_generator_common(L, Ps, Arg).",
+            "",
+            "bad_generators(Ps, Arg, bc, ErrorType) ->",
+            "    T1 = #c_tuple{es=droplast(Ps)},",
+            "    L = [#c_literal{val=ErrorType}, T1],",
+            "    bad_generator_common(L, Ps, Arg);",
+            "bad_generators(Ps, Arg, lc, ErrorType) ->"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/test/lc_SUITE.erl",
+      "Blob": "b662bd9faacaecaf4f84eea94e31e104513c65b0",
+      "Matches": [
+        {
+          "Line": 80,
+          "Text": "basic(Config) when is_list(Config) ->",
+          "Following": [
+            "    L0 = lists:seq(1, 10),",
+            "    L1 = my_map(fun(X) -> {x,X} end, L0),",
+            "    L1 = [{x,X} || X <- L0],",
+            "    L0 = my_map(fun({x,X}) -> X end, L1),",
+            "    [1,2,3,4,5] = [X || X <- L0, X < 6],",
+            "    [4,5,6] = [X || X <- L0, X > 3, X < 7],",
+            "    [] = [X || X <- L0, X > 32, X < 7],",
+            "    [1,3,5,7,9] = [X || X <- L0, odd(X)],"
+          ]
+        },
+        {
+          "Line": 255,
+          "Text": "no_export(Config) when is_list(Config) ->",
+          "Following": [
+            "    [] = [ _X = a || false ] ++ [ _X = a || false ],",
+            "    ok.",
+            "",
+            "%% Test that variables in list comprehensions are",
+            "%% correctly shadowed.",
+            "",
+            "shadow(Config) when is_list(Config) ->",
+            "    Shadowed = nomatch,"
+          ]
+        },
+        {
+          "Line": 262,
+          "Text": "shadow(Config) when is_list(Config) ->",
+          "Following": [
+            "    Shadowed = nomatch,",
+            "    _ = id(Shadowed),\t\t\t\t%Eliminate warning.",
+            "    L = [{Shadowed,Shadowed+1} || Shadowed <- lists:seq(7, 9)],",
+            "    [{7,8},{8,9},{9,10}] = id(L),",
+            "    [8,9] = id([Shadowed || {_,Shadowed} <- id(L),",
+            "\t\t\t    Shadowed < 10]),",
+            "    ok.",
+            ""
+          ]
+        },
+        {
+          "Line": 271,
+          "Text": "effect(Config) when is_list(Config) ->",
+          "Following": [
+            "    ct:timetrap({minutes,10}),",
+            "    [{42,{a,b,c}}] =",
+            "\tdo_effect(fun(F, L) ->",
+            "\t\t\t  [F({V1,V2}) ||",
+            "\t\t\t      #{<<1:500>>:=V1,<<2:301>>:=V2} <- L],",
+            "\t\t\t  ok",
+            "\t\t  end, id([#{},x,#{<<1:500>>=>42,<<2:301>>=>{a,b,c}}])),",
+            ""
+          ]
+        },
+        {
+          "Line": 430,
+          "Text": "bad_generator(List) ->                          %Line 2",
+          "Following": [
+            "    [I ||                                       %Line 3",
+            "        I <- List].                             %Line 4",
+            "bad_generator_bc(List) ->                       %Line 5",
+            "    << <<I:4>> ||                               %Line 6",
+            "        I <- List>>.                            %Line 7",
+            "bad_generator_mc(List) ->                       %Line 8",
+            "    #{I => ok ||                                %Line 9",
+            "        I <- List}.                             %Line 10"
+          ]
+        }
+      ]
+    }
+  ],
+  "Contracts": [
+    "private comprehension bindings",
+    "source bindings discarded",
+    "fresh generator matching with original map keys/bit sizes",
+    "relaxed skips/strict badmatch",
+    "improper source tail bad_generator and effect ordering",
+    "guard failures skip versus ordinary bad_filter",
+    "multiple output templates and nested dependent generators"
+  ],
+  "UpstreamSuiteExecuted": false,
+  "Limits": "List-generator subset; no binary/map/zip/assignment qualifiers/full typed lint/Core optimizer/stacks/resources/BEAM speed"
+}

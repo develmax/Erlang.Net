@@ -1,18 +1,3 @@
-// SPDX-License-Identifier: Apache-2.0
-// Copyright Ericsson AB 1996-2026. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
 // Modified: try/maybe binding and stacktrace checks adapted from OTP-29.1.1 erl_lint; name-set subset.
 namespace Erlang.Compiler;
 
@@ -161,6 +146,27 @@ public static class Semantics
                 if (m.Base is null && m.Fields.Any(f => f.Exact))
                     throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, SemanticDiagnostics.MapConstructionOperator, 0);
                 ExpressionBindings.ValidateList(MapExpressionBindings.Expressions(m), bound, (expression, scope) => Walk(expression, scope, guard));
+                break;
+            case Expr.ListComprehension comprehension:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardComprehension, 0);
+                var comprehensionScope = new HashSet<string>(bound);
+                foreach (var qualifier in comprehension.Qualifiers)
+                {
+                    if (qualifier is ComprehensionQualifier.Generator generator)
+                    {
+                        Walk(generator.Source, new HashSet<string>(comprehensionScope), false);
+                        PatternKeys(generator.Pattern, comprehensionScope);
+                        foreach (string name in Variables(generator.Pattern))
+                        {
+                            comprehensionScope.Remove(VariableScopeNames.UnsafePrefix + name);
+                            comprehensionScope.Add(name);
+                        }
+                    }
+                    else if (qualifier is ComprehensionQualifier.Filter filter)
+                        Walk(filter.Expression, comprehensionScope, false);
+                }
+                ExpressionBindings.ValidateList(comprehension.Items, comprehensionScope, (expression, scope) => Walk(expression, scope, false));
                 break;
             case Expr.Bits bits:
                 var exported = new HashSet<string>(bound);

@@ -81,6 +81,14 @@ if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new Invali
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var tryCheck = runtime.Spawn(async erlangProcess =>
 {
+    var comprehension = begin
+        Outer=9,
+        Values=[X*2 || X <- [1,2,3,4],X rem 2=:=0],
+        Strict=[N || {ok,N} <:- [{ok,7},{ok,8}]],
+        Shadow=[Outer || Outer <- [1,2]],
+        {Outer,Values,Strict,Shadow}
+    end.
+    if (!comprehension.Equals(Term.Tuple(Term.I(9),Term.List(Term.I(4),Term.I(8)),Term.List(Term.I(7),Term.I(8)),Term.List(Term.I(1),Term.I(2))))) throw new InvalidOperationException(comprehension.ToString());
     var aliasPrefix = maybe Whole="he"++(Tail=Other) ?= "hello",{Whole,Tail,Other} end.
     if (!aliasPrefix.Equals(Term.Tuple(Term.String("hello"),Term.String("llo"),Term.String("llo")))) throw new InvalidOperationException(aliasPrefix.ToString());
     var aliasCatch = try error({tag,7}) catch error:Reason={tag,N}:Stack -> {Reason,N,is_list(Stack)} end.

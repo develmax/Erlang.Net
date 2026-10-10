@@ -75,7 +75,7 @@ public static class Execution
         return null;
     }
 
-    private static bool Guard(Expr? e, Dictionary<string, Term> b, ProcessContext ctx)
+    internal static bool Guard(Expr? e, Dictionary<string, Term> b, ProcessContext ctx)
     {
         if (e is null)
             return true;
@@ -111,6 +111,13 @@ public static class Execution
             x.Operator,
             GuardValue(x.Left, b, ctx),
             GuardValue(x.Right, b, ctx),
+            ctx
+        ),
+        Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 1 && ComprehensionGuard.IsOperator(x.Function, 1) => Unary(x.Function, GuardValue(x.Arguments[0], b, ctx)),
+        Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 2 && ComprehensionGuard.IsOperator(x.Function, 2) => Binary(
+            x.Function,
+            GuardValue(x.Arguments[0], b, ctx),
+            GuardValue(x.Arguments[1], b, ctx),
             ctx
         ),
         Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains((x.Function, x.Arguments.Count)) => ctx.Runtime.Modules.Call(
@@ -215,6 +222,19 @@ public static class Execution
                     ),
                     EvaluateMap,
                     module is not null
+                );
+            case Expr.ListComprehension comprehension:
+                return await ListComprehensionExecution.Evaluate(
+                    comprehension,
+                    b,
+                    ctx,
+                    module,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    )
                 );
             case Expr.Bits bits:
                 return await BitExpressionBindings.Evaluate(

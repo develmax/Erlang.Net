@@ -1,18 +1,3 @@
-// SPDX-License-Identifier: Apache-2.0
-// Copyright Ericsson AB 1996-2026. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
 // Modified: try/maybe productions adapted to the existing Pratt AST from OTP-29.1.1 erl_parse.yrl.
 using System.Globalization;
 using System.Numerics;
@@ -404,6 +389,26 @@ public sealed class Parser
                 {
                     items.Add(Expression());
                 } while (Take(ErlangSyntaxTokens.Comma));
+                if (Take(ErlangSyntaxTokens.ComprehensionSeparator))
+                {
+                    var qualifiers = new List<ComprehensionQualifier>();
+                    do
+                    {
+                        var qualifier = Expression();
+                        bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
+                        if (strict || Take(ErlangSyntaxTokens.ListGenerator))
+                            qualifiers.Add(new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict));
+                        else
+                        {
+                            if (qualifier is Expr.Match)
+                                throw Error(ParserDiagnostics.ComprehensionAssignment);
+                            qualifiers.Add(new ComprehensionQualifier.Filter(qualifier));
+                        }
+                    } while (Take(ErlangSyntaxTokens.Comma));
+                    Expect(ErlangSyntaxTokens.CloseList);
+
+                    return new Expr.ListComprehension(items, qualifiers);
+                }
                 if (Take(ErlangSyntaxTokens.ListTail))
                     tail = Expression();
                 Expect(ErlangSyntaxTokens.CloseList);

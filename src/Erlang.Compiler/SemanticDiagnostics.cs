@@ -12,6 +12,7 @@ internal static class SemanticDiagnostics
     public const string GuardCatch = "catch is not legal in a guard";
     public const string GuardTry = "try is not legal in a guard";
     public const string GuardMaybe = "maybe is not legal in a guard";
+    public const string GuardComprehension = "Comprehensions are not legal in guards";
 
     public static string BoundStacktrace(string name) => $"Stacktrace variable '{name}' must be fresh";
 
