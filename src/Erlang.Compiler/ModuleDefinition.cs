@@ -8,6 +8,8 @@ public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, i
 {
     public void Register(ModuleRegistry registry)
     {
+        Otp.OtpModules.Register(registry);
+
         foreach (var export in Exports)
             registry.Register(
                 Name,

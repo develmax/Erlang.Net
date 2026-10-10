@@ -98,6 +98,16 @@ public sealed class ProcessRuntime : IAsyncDisposable
             return processes.ContainsKey(pid);
     }
 
+    public ProcessHandle GetProcessHandle(Pid pid)
+    {
+        lock (gate)
+        {
+            var process = RequireAlive(pid);
+
+            return new(pid, process.Done.Task);
+        }
+    }
+
     public void Register(string name, Pid pid)
     {
         lock (gate)

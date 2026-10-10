@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-082/tests.json",
+  "ComparisonTestReport": "validation/part-083/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -104,30 +104,38 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
-        "Erlang callback adapters/exports",
-        "sys, aliases, timeouts/continue and upgrades"
+        "full sys/proc_lib, aliases, debug/start options, distribution and upgrades",
+        "hibernate memory semantics, huge timeouts, stacks and lifecycle races"
       ],
       "Implemented": [
-        "C# callbacks, call/cast/info/stop and monitor replies"
+        "C# and Erlang callbacks; ten standard gen_server MFAs",
+        "init outcomes/throw returns, call/cast/info, continue/timeout and optional callbacks",
+        "local names, terminate-before-stop-reply and monitor-based stop"
       ],
-      "Id": "gen_server host facade",
+      "Id": "gen_server adapters",
       "TestPrefixes": [
-        "otp/gen-server"
+        "otp/gen-server",
+        "mfa/gen_server:",
+        "oracle/compiled-module/otp-server"
       ]
     },
     {
       "Status": "Partially compatible",
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
-        "Erlang exports/callback adapters",
-        "dynamic specs and shutdown edge cases"
+        "dynamic children, simple_one_for_one, significant/auto_shutdown and upgrades",
+        "full shutdown/restart/race/sys contracts and stacks"
       ],
       "Implemented": [
-        "strategies, policies, intensity and ordered shutdown"
+        "C# strategies/policies/intensity and five standard supervisor MFAs",
+        "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
+        "serialized child queries and reverse shutdown"
       ],
-      "Id": "supervisor host facade",
+      "Id": "supervisor adapters",
       "TestPrefixes": [
-        "otp/supervisor"
+        "otp/supervisor",
+        "mfa/supervisor:",
+        "oracle/compiled-module/otp-supervisor"
       ]
     },
     {

@@ -54,6 +54,7 @@ internal static class Readiness
 
         var runtime = new ModuleRegistry();
         CoreModules.Register(runtime);
+        Erlang.Otp.OtpModules.Register(runtime);
         var actual = runtime.Exports.Select(export => Key(export.Module, export.Function, export.Arity)).ToHashSet();
         var declared = registered.Select(export => Key(export.Module, export.Function, export.Arity)).ToHashSet();
         if (registered.Length != declared.Count || !actual.SetEquals(declared) || registered.Any(export => export.Evidence != ReadinessText.MfaTestPrefix + Key(export.Module, export.Function, export.Arity) || !report.Tests.Any(test => test.Name == export.Evidence && test.Status == ReadinessText.Passed)))

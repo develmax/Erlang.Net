@@ -6,7 +6,7 @@ public static class Supervisor
 {
     private sealed record Child(ChildSpec Spec, ProcessHandle Process);
 
-    public static async ValueTask<SupervisorHandle> Start(
+    public static ValueTask<SupervisorHandle> Start(
         ProcessRuntime runtime,
         IReadOnlyList<ChildSpec> specifications,
         RestartStrategy strategy = RestartStrategy.OneForOne,
@@ -14,16 +14,32 @@ public static class Supervisor
         TimeSpan? period = null,
         ProcessContext? parent = null
     )
+        => StartCore(runtime, _ => ValueTask.FromResult(new SupervisorConfiguration(
+            specifications,
+            strategy,
+            intensity,
+            period
+        )), parent);
+
+    private static async ValueTask<SupervisorHandle> StartCore(
+        ProcessRuntime runtime,
+        Func<ProcessContext, ValueTask<SupervisorConfiguration>> initialize,
+        ProcessContext? parent,
+        string? name = null
+    )
     {
-        if (intensity < 0 || period <= TimeSpan.Zero || specifications.Select(s => s.Id).Distinct().Count() != specifications.Count)
-            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
         var handle = new SupervisorHandle();
         var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         handle.Process = runtime.Spawn(
             async context =>
         {
             context.TrapExits = true;
-            var children = new Child?[specifications.Count];
+            IReadOnlyList<ChildSpec> specifications = [];
+            var children = Array.Empty<Child?>();
+            RestartStrategy strategy = RestartStrategy.OneForOne;
+            int intensity = BehaviourDefaults.RestartIntensity;
+            TimeSpan? period = null;
             var restarts = new Queue<long>();
             var retired = new HashSet<Pid>();
 
@@ -31,7 +47,23 @@ public static class Supervisor
 
             async ValueTask StartChild(int index)
             {
-                var process = await specifications[index].Start(context);
+                ProcessHandle? process;
+                try
+                {
+                    process = specifications[index].OptionalStart is { } optional ? await optional(context) : await specifications[index].Start(context);
+                }
+                catch (ErlangException exception)
+                {
+                    throw new ErlangException(
+                        Term.Tuple(
+                            Term.A(ProcessExitReasons.Shutdown),
+                            Term.Tuple(Term.A(SupervisorErrorReasons.FailedToStartChild), specifications[index].Id, exception.Reason)
+                        ),
+                        ErlangExceptionClasses.Exit
+                    );
+                }
+                if (process is null)
+                    return;
                 if (process.Completion.IsCompleted)
                     throw new ErlangException(Term.Tuple(Term.A(SupervisorErrorReasons.FailedToStartChild), specifications[index].Id));
                 runtime.Link(context, process.Pid);
@@ -46,10 +78,13 @@ public static class Supervisor
                 retired.Add(child.Process.Pid);
                 children[index] = null;
                 Publish();
-                runtime.Exit(context, child.Process.Pid, Term.A(ProcessExitReasons.Shutdown));
+                runtime.Exit(context, child.Process.Pid, Term.A(child.Spec.BrutalKill ? ProcessExitSignals.Kill : ProcessExitReasons.Shutdown));
                 try
                 {
-                    await child.Process.Completion.WaitAsync(child.Spec.Shutdown ?? TimeSpan.FromSeconds(5));
+                    if (child.Spec.InfiniteShutdown)
+                        await child.Process.Completion;
+                    else
+                        await child.Process.Completion.WaitAsync(child.Spec.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds));
                 }
                 catch (TimeoutException)
                 {
@@ -59,12 +94,52 @@ public static class Supervisor
             }
             try
             {
+                if (name is not null)
+                {
+                    if (runtime.WhereIs(name) is Pid existing)
+                        throw new ErlangException(Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing), ErlangExceptionClasses.Exit);
+                    runtime.Register(name, context.Self);
+                }
+                var configuration = await initialize(context);
+                if (configuration.Ignore)
+                {
+                    ready.TrySetException(new ErlangException(Term.A(BehaviourAtoms.Ignore), ErlangExceptionClasses.Exit));
+
+                    return Term.A(BehaviourAtoms.Ok);
+                }
+                specifications = configuration.Children;
+                strategy = configuration.Strategy;
+                intensity = configuration.Intensity;
+                period = configuration.Period;
+                if (intensity < 0 || period <= TimeSpan.Zero || specifications.Select(s => s.Id).Distinct().Count() != specifications.Count)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                handle.Specifications = specifications;
+                children = new Child?[specifications.Count];
                 for (int i = 0; i < children.Length; i++)
                     await StartChild(i);
+                if (parent is not null)
+                    runtime.Link(context, parent.Self);
                 ready.TrySetResult();
                 while (true)
                 {
                     var message = (await context.ReceiveAsync(t => t))!;
+                    if (message is TupleTerm { Items.Count: 3 } call && call.Items[0] is Atom { Name: GenServerMessageTags.Call } && call.Items[1] is TupleTerm { Items.Count: 2 } from && from.Items[0] is Pid caller && from.Items[1] is ReferenceTerm reference)
+                    {
+                        Term reply = call.Items[2] switch
+                        {
+                            Atom { Name: OtpNames.WhichChildren } => OtpModules.WhichChildren(handle),
+                            Atom { Name: OtpNames.CountChildren } => OtpModules.CountChildren(handle),
+                            _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
+                        };
+                        GenServer.Reply(context, new(caller, reference), reply);
+                        continue;
+                    }
+                    if (message is TupleTerm { Items.Count: 3 } system && system.Items[0] is Atom { Name: BehaviourAtoms.System } && system.Items[2] is TupleTerm { Items.Count: 2 } stop && stop.Items[0] is Atom { Name: BehaviourAtoms.Terminate })
+                    {
+                        for (int i = children.Length - 1; i >= 0; i--)
+                            await StopChild(i);
+                        context.Exit(stop.Items[1]);
+                    }
                     if (message.Equals(Term.A(SupervisorMessageTags.Stop)))
                     {
                         for (int i = children.Length - 1; i >= 0; i--)
@@ -89,7 +164,7 @@ public static class Supervisor
                     if (spec.Restart == RestartPolicy.Temporary || spec.Restart == RestartPolicy.Transient && normal)
                         continue;
                     long now = Stopwatch.GetTimestamp();
-                    while (restarts.Count > 0 && Stopwatch.GetElapsedTime(restarts.Peek(), now) > (period ?? TimeSpan.FromSeconds(5)))
+                    while (restarts.Count > 0 && Stopwatch.GetElapsedTime(restarts.Peek(), now) > (period ?? TimeSpan.FromSeconds(BehaviourDefaults.RestartPeriodSeconds)))
                         restarts.Dequeue();
                     restarts.Enqueue(now);
                     if (restarts.Count > intensity)
@@ -117,13 +192,34 @@ public static class Supervisor
                 Publish();
             }
         },
-            parent,
-            parent is not null
+            null,
+            false
         );
-        await ready.Task;
+        try
+        {
+            await ready.Task;
+        }
+        catch
+        {
+            await handle.Process.Completion;
+            throw;
+        }
 
         return handle;
     }
+
+    internal static ValueTask<SupervisorHandle> StartModule(
+        ProcessRuntime runtime,
+        string module,
+        Term arguments,
+        ProcessContext parent,
+        string? name = null
+    ) => StartCore(
+        runtime,
+        c => ErlangSupervisor.Initialize(c, module, arguments),
+        parent,
+        name
+    );
 
     public static async ValueTask Stop(ProcessRuntime runtime, SupervisorHandle supervisor)
     {

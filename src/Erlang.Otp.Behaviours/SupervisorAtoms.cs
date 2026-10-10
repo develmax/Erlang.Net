@@ -1,0 +1,52 @@
+namespace Erlang.Otp;
+
+internal static class SupervisorAtoms
+{
+    public const string Strategy = "strategy";
+    public const string Intensity = "intensity";
+    public const string Period = "period";
+    public const string AutoShutdown = "auto_shutdown";
+    public const string Never = "never";
+    public const string Id = "id";
+    public const string Start = "start";
+    public const string Restart = "restart";
+    public const string Shutdown = "shutdown";
+    public const string Type = "type";
+    public const string Modules = "modules";
+    public const string Significant = "significant";
+    public const string Worker = "worker";
+    public const string Supervisor = "supervisor";
+    public const string Permanent = "permanent";
+    public const string Transient = "transient";
+    public const string Temporary = "temporary";
+    public const string OneForOne = "one_for_one";
+    public const string OneForAll = "one_for_all";
+    public const string RestForOne = "rest_for_one";
+    public const string BrutalKill = "brutal_kill";
+    public const string Dynamic = "dynamic";
+    public const string Undefined = "undefined";
+    public const string BadReturn = "bad_return";
+    public const string SupervisorData = "supervisor_data";
+    public const string StartSpec = "start_spec";
+    public const string InvalidType = "invalid_type";
+    public const string InvalidStrategy = "invalid_strategy";
+    public const string InvalidIntensity = "invalid_intensity";
+    public const string InvalidPeriod = "invalid_period";
+    public const string InvalidChildSpec = "invalid_child_spec";
+    public const string MissingId = "missing_id";
+    public const string MissingStart = "missing_start";
+    public const string InvalidMfa = "invalid_mfa";
+    public const string InvalidRestart = "invalid_restart_type";
+    public const string InvalidChildType = "invalid_child_type";
+    public const string InvalidShutdown = "invalid_shutdown";
+    public const string InvalidModules = "invalid_modules";
+    public const string InvalidModule = "invalid_module";
+    public const string DuplicateChild = "duplicate_child_name";
+    public const string BadCombination = "bad_combination";
+    public const string InvalidSignificant = "invalid_significant";
+    public const string InvalidAutoShutdown = "invalid_auto_shutdown";
+    public const string Specs = "specs";
+    public const string Active = "active";
+    public const string Supervisors = "supervisors";
+    public const string Workers = "workers";
+}

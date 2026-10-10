@@ -1476,11 +1476,18 @@ Test(
 // Every registered MFA has a direct contract smoke test. Error/option completeness still needs OTP differential coverage.
 var exportRegistry = new ModuleRegistry();
 CoreModules.Register(exportRegistry);
+OtpModules.Register(exportRegistry);
 foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
     Test(
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (export.Module is "gen_server" or "supervisor")
+        {
+            await Erlang.Tests.OtpMfaContracts.Run(export.Module, export.Function, export.Arity);
+
+            return;
+        }
         using var output = new StringWriter();
         await using var runtime = new ProcessRuntime(output: output);
         var process = runtime.Spawn(async c =>

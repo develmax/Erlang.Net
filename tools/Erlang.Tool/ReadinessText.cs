@@ -21,7 +21,7 @@ internal static class ReadinessText
     public const string ModuleHeading = "## Erlang API modules";
     public const string ModuleHeader = "| Module | Registered MFAs | Change | Reference declarations | API presence | Status |";
     public const string ModuleSeparator = "| --- | ---: | ---: | ---: | ---: | --- |";
-    public const string FacadeBoundary = "gen_server and supervisor have C# host facades; their Erlang-module exports are not registered. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.";
+    public const string FacadeBoundary = "gen_server and supervisor have C# host facades and selected registered Erlang-module adapters; full behaviour contracts remain partial. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.";
 
     public static string Summary(
         string tag,

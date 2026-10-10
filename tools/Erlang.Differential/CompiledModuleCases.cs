@@ -490,6 +490,6 @@ public static class CompiledModuleCases
                 Term.Tuple(Term.A("badmatch"),new MapTerm([new KeyValuePair<Term,Term>(Term.A("k"),Term.I(2))]))
             )
         )
-        , .. TryModuleCases.All, .. CatchPatternCases.Modules, .. StackGuardScopeCases.Modules, .. MaybeExpressionCases.Modules, .. AliasPatternCases.Modules, .. ListComprehensionCases.Modules, .. BinaryComprehensionCases.Modules, .. MapComprehensionCases.Modules, .. MapTemplateOrderCases.Modules, .. ComparatorSortCases.Modules, .. ZipGeneratorCases.Modules
+        , .. TryModuleCases.All, .. CatchPatternCases.Modules, .. StackGuardScopeCases.Modules, .. MaybeExpressionCases.Modules, .. AliasPatternCases.Modules, .. ListComprehensionCases.Modules, .. BinaryComprehensionCases.Modules, .. MapComprehensionCases.Modules, .. MapTemplateOrderCases.Modules, .. ComparatorSortCases.Modules, .. ZipGeneratorCases.Modules, .. OtpBehaviourCases.Modules
     ];
 }
