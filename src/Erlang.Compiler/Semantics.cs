@@ -137,12 +137,20 @@ public static class Semantics
                 }
                 break;
             case Expr.Bits bits:
+                var exported = new HashSet<string>(bound);
                 foreach (var segment in bits.Segments)
                 {
-                    Walk(segment.Value, bound, guard);
+                    var valueScope = new HashSet<string>(bound);
+                    Walk(segment.Value, valueScope, guard);
+                    exported.UnionWith(valueScope);
                     if (segment.Size is not null)
-                        Walk(segment.Size, bound, guard);
+                    {
+                        var sizeScope = new HashSet<string>(bound);
+                        Walk(segment.Size, sizeScope, guard);
+                        exported.UnionWith(sizeScope);
+                    }
                 }
+                bound.UnionWith(exported);
                 break;
             case Expr.Sequence s:
                 foreach (var x in s.Items)

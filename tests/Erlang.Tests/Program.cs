@@ -2779,6 +2779,39 @@ foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
     }
     );
 }
+foreach (var fixture in Erlang.Differential.CompiledDiagnosticCases.All)
+{
+    Test(
+        "oracle/compiler-diagnostic/" + fixture.Name,
+        () =>
+    {
+        try
+        {
+            using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == Erlang.Differential.CompiledDiagnosticExpectations.VariableBindingCode);
+            Check(exception.Message == Erlang.Differential.CompiledDiagnosticExpectations.Message(fixture.Variable));
+        }
+
+        return Task.CompletedTask;
+    }
+    );
+}
+Test(
+    "oracle/compiler-diagnostic-ascii-protocol",
+    () =>
+{
+    string command = Erlang.Differential.CompiledModuleProtocol.DiagnosticCommand("-module(scope_unicode). -export([run/0]). run()-><<('𐀀'):S>>.");
+    Check(command.All(character => character <= 127));
+    Check(command.Contains("compile:forms") && command.Contains("lists:usort"));
+    Check(!command.Contains("code:load_binary"));
+
+    return Task.CompletedTask;
+}
+);
 Test(
     "oracle/compiled-module-ascii-protocol",
     () =>

@@ -396,9 +396,15 @@
         "oracle/compiled-module/closure-bit-clause-binding-rollback",
         "oracle/compiled-module/closure-map-key-capture-value-shadow",
         "validation/part-034/tests.json",
-        "validation/part-034/corpus-audit.json"
+        "validation/part-034/corpus-audit.json",
+        "oracle/compiler-diagnostic/bit-size-to-next-size",
+        "oracle/compiler-diagnostic/bit-value-to-own-size",
+        "oracle/compiled-module/bit-independent-binding-exports",
+        "oracle/compiled-module/bit-prebound-size-across-fields",
+        "validation/part-035/tests.json",
+        "validation/part-035/initial-aborted-differential.json"
       ],
-      "limits": "Fourteen generated C# Release/default-optimized BEAM module cases match at b13b56a alongside 249 preserved expressions (263/263 complete). AST/evaluator backend; no full optimizer/native lowering/stacks/resources/reference-suite claim. Part034 locally runs 26 compiled modules; 12 new bit-order/closure cases await published-head compiled-reference comparison (275 planned total)."
+      "limits": "Fourteen generated C# Release/default-optimized BEAM module cases match at b13b56a alongside 249 preserved expressions (263/263 complete). AST/evaluator backend; no full optimizer/native lowering/stacks/resources/reference-suite claim. Part034 locally runs 26 compiled modules; 12 new bit-order/closure cases await published-head compiled-reference comparison (275 planned total). Part035 corrects binary construction sibling binding visibility;28 module and5 diagnostic fixtures pass locally, new282-case reference run pending. Initial268-case abort is not complete proof."
     }
   ],
   "moduleReadiness": "module-readiness.json"

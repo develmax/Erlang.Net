@@ -13,7 +13,9 @@ if (args.Length != 2)
 string oracle = args[0];
 var results = new List<object>();
 var moduleResults = new List<object>();
+var diagnosticResults = new List<object>();
 int moduleFailed = 0;
+int diagnosticFailed = 0;
 int failed = 0, planned = 0;
 string? activeSource = null;
 bool versionVerified = false;
@@ -28,14 +30,38 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 Baseline = "OTP-29.1.1",
                 VersionVerified = versionVerified,
                 Complete = complete,
-                Planned = planned + CompiledModuleCases.All.Count,
-                Executed = results.Count + moduleResults.Count,
-                Passed = results.Count + moduleResults.Count - failed,
+                Planned = planned + CompiledModuleCases.All.Count + CompiledDiagnosticCases.All.Count,
+                Executed = results.Count + moduleResults.Count + diagnosticResults.Count,
+                Passed = results.Count + moduleResults.Count + diagnosticResults.Count - failed,
                 Failed = failed,
                 AbortedSource = infrastructureError is null ? null : activeSource,
                 InfrastructureError = infrastructureError,
-                ExpressionTrack = new { Mode = OracleProtocol.EvaluationMode, Planned = planned, Executed = results.Count, Passed = results.Count - (failed - moduleFailed), Failed = failed - moduleFailed },
-                CompiledModuleTrack = new { ReferenceMode = GeneratedModuleMetadata.ReferenceMode, ImplementationMode = GeneratedModuleMetadata.ImplementationMode, Planned = CompiledModuleCases.All.Count, Executed = moduleResults.Count, Passed = moduleResults.Count - moduleFailed, Failed = moduleFailed },
+                ExpressionTrack = new
+                {
+                    Mode = OracleProtocol.EvaluationMode,
+                    Planned = planned,
+                    Executed = results.Count,
+                    Passed = results.Count - (failed - moduleFailed - diagnosticFailed),
+                    Failed = failed - moduleFailed - diagnosticFailed
+                },
+                CompiledModuleTrack = new
+                {
+                    ReferenceMode = GeneratedModuleMetadata.ReferenceMode,
+                    ImplementationMode = GeneratedModuleMetadata.ImplementationMode,
+                    Planned = CompiledModuleCases.All.Count,
+                    Executed = moduleResults.Count,
+                    Passed = moduleResults.Count - moduleFailed,
+                    Failed = moduleFailed
+                },
+                CompilerDiagnosticTrack = new
+                {
+                    ReferenceMode = CompiledDiagnosticExpectations.ReferenceMode,
+                    Planned = CompiledDiagnosticCases.All.Count,
+                    Executed = diagnosticResults.Count,
+                    Passed = diagnosticResults.Count - diagnosticFailed,
+                    Failed = diagnosticFailed
+                },
+                DiagnosticResults = diagnosticResults,
                 ModuleResults = moduleResults,
                 Results = results
             },
@@ -330,6 +356,48 @@ try
             Passed = passed
         });
         Console.WriteLine((passed ? "PASS module " : "FAIL module ") + fixture.Name);
+        await SaveReport(false);
+    }
+    foreach (var fixture in CompiledDiagnosticCases.All)
+    {
+        activeSource = fixture.Source;
+        Term reference = ExternalTermFormat.Decode(Convert.FromBase64String(await RunOracle(CompiledModuleProtocol.DiagnosticCommand(fixture.Source))));
+        string? code = null;
+        string? message = null;
+        bool accepted = true;
+        try
+        {
+            using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
+        }
+        catch (CompileException exception)
+        {
+            accepted = false;
+            code = exception.Code;
+            message = exception.Message;
+        }
+        Term expected = CompiledDiagnosticExpectations.ReferenceOutcome(fixture.Variable);
+        bool passed = reference.Equals(expected)
+            && !accepted
+            && code == CompiledDiagnosticExpectations.VariableBindingCode
+            && message == CompiledDiagnosticExpectations.Message(fixture.Variable);
+        if (!passed)
+        {
+            failed++;
+            diagnosticFailed++;
+        }
+        diagnosticResults.Add(new
+        {
+            fixture.Name,
+            fixture.Source,
+            SourceSha256 = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(fixture.Source))),
+            Expected = expected.ToString(),
+            Reference = reference.ToString(),
+            ImplementationAccepted = accepted,
+            ImplementationCode = code,
+            ImplementationMessage = message,
+            Passed = passed
+        });
+        Console.WriteLine((passed ? "PASS diagnostic " : "FAIL diagnostic ") + fixture.Name);
         await SaveReport(false);
     }
     await SaveReport(true);

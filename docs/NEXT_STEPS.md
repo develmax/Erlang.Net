@@ -65,3 +65,7 @@ Publish the completed atom/constants/style increment after full validation. Curr
 ## Part 034 checkpoint
 
 Publish twelve compiled bit-order/closure fixture additions and dispatch the pinned workflow on the exact implementation head. Require separate counts249 expressions/26 modules (275 total), completeness/version verification, no aborts, independent expected values and all old/new source/generated hashes; inspect same-head Windows CI381/full integration. Preserve actual artifacts as the next evidence part before promoting the selected new cases. Next substantive feature work: audited library contracts or missing grammar/OTP callbacks/signals; full compiler/atom resources/stack/debug scope remains unfinished.
+
+## Part 035 checkpoint
+
+Publish the locally validated construction-scope fix and compiler-rejection track, then rerun the existing pinned workflow on the corrected head. Require complete249 expressions/28 compiled modules/5 diagnostic cases (282 total), no abort/mismatch, same-head389-test CI and source/generated/diagnostic hash provenance. Keep the initial268-case abort immutable; historical263/263 is not corrected-head proof. After verification, implement audited lists:last/1 and lists:split/2, distinguishing empty/nonlist/improper-tail/zero/exact/overrun/large-index boundaries; then grammar/OTP callbacks/signals. Registry56/lists13/91/approximately5% overall.

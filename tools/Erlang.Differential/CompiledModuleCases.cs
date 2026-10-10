@@ -107,8 +107,8 @@ public static class CompiledModuleCases
             Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("later"))
         ),
         new(
-            "bit-size-binding-next-segment",
-            "-module(oracle_bit_size_binding). -export([run/0]). run()->B = <<1:(S=4),2:S>>,{B,S}.",
+            "bit-size-binding-exported-after-binary",
+            "-module(oracle_bit_size_binding). -export([run/0]). run()->B = <<1:(S=4),2:4>>,{B,S}.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(4)))
         ),
         new(
@@ -140,6 +140,16 @@ public static class CompiledModuleCases
             "bit-invalid-utf-later-exception",
             "-module(oracle_bit_invalid_utf). -export([run/0]). run()-><<(id(55296))/utf8,(throw(later)):8>>. id(X)->X.",
             Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("later"))
+        ),
+        new(
+            "bit-independent-binding-exports",
+            "-module(oracle_bit_exports). -export([run/0]). run()->B = <<(X=1),(Y=2)>>,{B,X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([1,2]),Term.I(1),Term.I(2)))
+        ),
+        new(
+            "bit-prebound-size-across-fields",
+            "-module(oracle_bit_prebound). -export([run/0]). run()->S=4,B = <<1:S,2:S>>,{B,S}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(4)))
         )
     ];
 }
