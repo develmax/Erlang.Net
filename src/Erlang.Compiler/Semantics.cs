@@ -1,3 +1,19 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Ericsson AB 1996-2026. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Modified: try binding/stacktrace checks adapted from OTP-29.1.1 erl_lint; name-set subset.
 namespace Erlang.Compiler;
 
 public static class Semantics
@@ -112,6 +128,8 @@ public static class Semantics
             case Expr.Literal:
                 break;
             case Expr.Variable v:
+                if (guard && bound.Contains(VariableScopeNames.StacktracePrefix + v.Name))
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardStacktrace(v.Name), 0);
                 if (v.Name == VariableScopeNames.Wildcard || !bound.Contains(v.Name))
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
                 break;
@@ -165,6 +183,39 @@ public static class Semantics
                 Walk(caught.Operand, catchScope, false);
                 foreach (string name in catchScope.Except(bound))
                     bound.Add(name.StartsWith(VariableScopeNames.UnsafePrefix, StringComparison.Ordinal) ? name : VariableScopeNames.UnsafePrefix + name);
+                break;
+            case Expr.Try tried:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardTry, 0);
+                var incoming = new HashSet<string>(bound);
+                var bodyScope = new HashSet<string>(incoming);
+                Walk(tried.Body, bodyScope, false);
+                var unsafeScope = new HashSet<string>(incoming);
+                MarkUnsafe(bodyScope, unsafeScope);
+                var outcomes = new HashSet<string>(bodyScope);
+                foreach (var clause in tried.Clauses)
+                    outcomes.UnionWith(ValidateClause(clause, bodyScope, false));
+                foreach (var clause in tried.Catches)
+                {
+                    var pattern = (Pattern.Tuple)clause.Patterns[0];
+                    var stack = (Pattern.Variable)pattern.Items[2];
+                    if (stack.Name != VariableScopeNames.Wildcard && (unsafeScope.Contains(stack.Name) || unsafeScope.Contains(VariableScopeNames.UnsafePrefix + stack.Name) || pattern.Items.Take(2).SelectMany(Variables).Contains(stack.Name)))
+                        throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.BoundStacktrace(stack.Name), 0);
+                    var handlerScope = new HashSet<string>(unsafeScope);
+                    if (stack.Name != VariableScopeNames.Wildcard)
+                        handlerScope.Add(VariableScopeNames.StacktracePrefix + stack.Name);
+                    var resultScope = ValidateClause(clause, handlerScope, false);
+                    resultScope.Remove(VariableScopeNames.StacktracePrefix + stack.Name);
+                    outcomes.UnionWith(resultScope);
+                }
+                MarkUnsafe(outcomes, unsafeScope);
+                if (tried.After is not null)
+                {
+                    var afterScope = new HashSet<string>(unsafeScope);
+                    Walk(tried.After, afterScope, false);
+                    outcomes.UnionWith(afterScope);
+                }
+                MarkUnsafe(outcomes, bound);
                 break;
             case Expr.Binary b:
                 if (guard && b.Operator is ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList)
@@ -236,5 +287,11 @@ public static class Semantics
                 ExpressionBindings.ValidateList(a.Arguments.Prepend(a.Function), bound, (expression, scope) => Walk(expression, scope, false));
                 break;
         }
+    }
+
+    private static void MarkUnsafe(IEnumerable<string> names, HashSet<string> bound)
+    {
+        foreach (string name in names.Except(bound).ToArray())
+            bound.Add(name.StartsWith(VariableScopeNames.UnsafePrefix, StringComparison.Ordinal) ? name : VariableScopeNames.UnsafePrefix + name);
     }
 }

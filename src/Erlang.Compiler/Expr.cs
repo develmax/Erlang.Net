@@ -20,6 +20,12 @@ public abstract record Expr
     public sealed record Sequence(IReadOnlyList<Expr> Items) : Expr;
     public sealed record Block(Expr Body) : Expr;
     public sealed record Catch(Expr Operand) : Expr;
+    public sealed record Try(
+        Expr Body,
+        IReadOnlyList<Clause> Clauses,
+        IReadOnlyList<Clause> Catches,
+        Expr? After
+    ) : Expr;
     public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record If(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;

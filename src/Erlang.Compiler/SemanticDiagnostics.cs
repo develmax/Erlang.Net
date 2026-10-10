@@ -10,6 +10,12 @@ internal static class SemanticDiagnostics
     public const string GuardIf = "if is not legal in a guard";
     public const string GuardBlock = "begin is not legal in a guard";
     public const string GuardCatch = "catch is not legal in a guard";
+    public const string GuardTry = "try is not legal in a guard";
+
+    public static string BoundStacktrace(string name) => $"Stacktrace variable '{name}' must be fresh";
+
+    public static string GuardStacktrace(string name) => $"Stacktrace variable '{name}' is not legal in a guard";
+
     public const string GuardReceive = "receive is not legal in a guard";
     public const string GuardFun = "fun is not legal in a guard";
     public const string FunClauseArityMismatch = "fun clauses must have equal arity";

@@ -1,3 +1,19 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Ericsson AB 1996-2026. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Modified: try productions adapted to the existing Pratt AST from OTP-29.1.1 erl_parse.yrl.
 using System.Globalization;
 using System.Numerics;
 using System.Text;
@@ -191,16 +207,19 @@ public sealed class Parser
         _ => OperatorPrecedence.None
     };
 
-    private Expr Expression(int minimum = 1)
+    private Expr Expression(int minimum = 1, bool stopQualifier = false)
     {
-        Expr left = Primary();
+        Expr left = Primary(stopQualifier: stopQualifier);
         while (true)
         {
             int p = Current.Kind == LexerTokenKinds.QuotedAtom ? 0 : Precedence(Current.Text);
             if (p < minimum || p == 0)
                 break;
             string op = tokens[position++].Text;
-            var right = Expression(op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList or ErlangOperators.AndAlso or ErlangOperators.OrElse ? p : p + 1);
+            var right = Expression(
+                op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList or ErlangOperators.AndAlso or ErlangOperators.OrElse ? p : p + 1,
+                stopQualifier
+            );
             left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
             if (p == OperatorPrecedence.Comparison && Current.Kind != LexerTokenKinds.QuotedAtom && Precedence(Current.Text) == OperatorPrecedence.Comparison)
                 throw Error(ParserDiagnostics.ChainedComparison);
@@ -209,9 +228,58 @@ public sealed class Parser
         return left;
     }
 
-    private Expr Primary(bool bitSegment = false)
+    private Expr Primary(bool bitSegment = false, bool stopQualifier = false)
     {
         Expr result;
+        if (Take(ErlangKeywords.Try))
+        {
+            var body = Body();
+            var clauses = new List<Clause>();
+            if (Take(ErlangKeywords.Of))
+            {
+                if (Is(ErlangKeywords.Catch) || Is(ErlangKeywords.After) || Is(ErlangKeywords.End))
+                    throw Error(ParserDiagnostics.EmptyTryOf);
+                clauses = Clauses();
+            }
+            var catches = new List<Clause>();
+            if (Take(ErlangKeywords.Catch))
+            {
+                do
+                {
+                    var first = ToPattern(Expression(2, true));
+                    Pattern exceptionClass = new Pattern.Literal(Term.A(ErlangExceptionClasses.Throw));
+                    Pattern reason = first;
+                    Pattern stack = new Pattern.Variable(VariableScopeNames.Wildcard);
+                    if (Take(ErlangSyntaxTokens.ModuleQualifier))
+                    {
+                        if (first is not (Pattern.Variable or Pattern.Literal { Value: Atom }))
+                            throw Error(ParserDiagnostics.InvalidExceptionClass);
+                        exceptionClass = first;
+                        reason = ToPattern(Expression(2, true));
+                        if (Take(ErlangSyntaxTokens.ModuleQualifier))
+                        {
+                            if (Current.Kind != LexerTokenKinds.Variable)
+                                throw Error(ParserDiagnostics.ExpectedStackVariable);
+                            stack = new Pattern.Variable(tokens[position++].Text);
+                        }
+                    }
+                    catches.Add(ParseClause([new Pattern.Tuple([exceptionClass, reason, stack])]));
+                } while (Take(ErlangSyntaxTokens.Semicolon));
+            }
+            Expr? after = null;
+            if (Take(ErlangKeywords.After))
+                after = Body();
+            if (catches.Count == 0 && after is null)
+                throw Error(ParserDiagnostics.TryNeedsHandler);
+            Expect(ErlangKeywords.End);
+
+            return new Expr.Try(
+                body,
+                clauses,
+                catches,
+                after
+            );
+        }
         if (Take(ErlangKeywords.Catch))
             return new Expr.Catch(Expression());
         if (Take(ErlangKeywords.Begin))
@@ -339,7 +407,7 @@ public sealed class Parser
                 break;
             if (Take(ErlangSyntaxTokens.MapPrefix))
                 result = ParseMap(result);
-            else if (Take(ErlangSyntaxTokens.ModuleQualifier))
+            else if (!stopQualifier && Take(ErlangSyntaxTokens.ModuleQualifier))
             {
                 if (result is not Expr.Literal { Value: Atom module })
                     throw Error(ParserDiagnostics.DynamicModuleCall);

@@ -71,5 +71,41 @@ public static class CompiledDiagnosticCases
         new("bits-value-not-visible-in-next-value", "-module(scope_bits_value). -export([run/0]). run()-><<(X=1),X>>.","X"),
         new("bits-size-not-visible-in-next-value", "-module(scope_bits_next). -export([run/0]). run()-><<1:(S=4),S>>.","S"),
         new("bits-later-value-not-visible-in-size", "-module(scope_bits_later). -export([run/0]). run()-><<1:X,(X=1)>>.","X")
+        , new(
+            "try-body-export-unsafe",
+            "-module(scope_try_export). -export([run/0]). run()->try X=1 after ok end,X.",
+            "X",
+            "try"
+        )
+        , new(
+            "try-of-export-unsafe",
+            "-module(scope_try_of). -export([run/0]). run()->try 1 of X -> X after ok end,X.",
+            "X",
+            "try"
+        )
+        , new(
+            "try-handler-export-unsafe",
+            "-module(scope_try_handler). -export([run/0]). run()->try throw(1) catch X -> X end,X.",
+            "X",
+            "try"
+        )
+        , new(
+            "try-after-export-unsafe",
+            "-module(scope_try_after). -export([run/0]). run()->try ok after X=1 end,X.",
+            "X",
+            "try"
+        )
+        , new(
+            "try-body-not-visible-in-handler",
+            "-module(scope_try_catch). -export([run/0]). run()->try X=1 catch _ -> X end.",
+            "X",
+            "try"
+        )
+        , new(
+            "try-body-not-visible-in-after",
+            "-module(scope_try_after_body). -export([run/0]). run()->try X=1 after X end.",
+            "X",
+            "try"
+        )
     ];
 }

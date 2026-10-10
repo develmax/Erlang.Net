@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-060/tests.json",
-  "LocalPassedTests": 725,
+  "LocalPassedTests": 794,
   "RegisteredMfas": 62,
   "PreviousRegisteredMfas": 62,
   "RegisteredMfaDelta": 0,
@@ -67,13 +67,14 @@
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
-        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved"
+        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
+        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected local tests, fresh OTP pending"
       ],
       "Remaining": [
-        "records/macros/comprehensions/try and full grammar",
+        "records/macros/comprehensions/maybe and full grammar; full try lint/stack/resource contracts",
         "complete source spans/debug mappings"
       ],
-      "RelatedPassedTests": 397
+      "RelatedPassedTests": 435
     },
     {
       "Id": "Core library modules",
@@ -125,7 +126,7 @@
       "Remaining": [
         "cross-block bindings, full diagnostics and IDE debugging"
       ],
-      "RelatedPassedTests": 15
+      "RelatedPassedTests": 17
     },
     {
       "Id": "Tooling and packages",
@@ -153,7 +154,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 128
+      "RelatedPassedTests": 163
     },
     {
       "Id": "Style checks",

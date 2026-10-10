@@ -3056,7 +3056,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,
@@ -3271,6 +3271,70 @@ Test(
     () =>
 {
     Throws<CompileException>(() => CodeGeneration.Preprocess("class A { async Task F(ProcessContext erlangProcess) { var x = if true -> ok end; } }", "a.cs"));
+
+    return Task.CompletedTask;
+}
+);
+foreach (string source in new[]
+{
+    "try ok end",
+    "try ok of catch _ -> no end",
+    "try error(reason) catch error:R:[] -> R end"
+})
+{
+    Test(
+        "compiler/try/invalid-grammar/" + source,
+        () =>
+    {
+        Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+        return Task.CompletedTask;
+    }
+    );
+}
+foreach (var fixture in new (string Source, string Code, string Message)[]
+{
+    ("begin S=[],try error(reason) catch error:R:S -> R end end", "ERL006", "Stacktrace variable 'S' must be fresh"),
+    ("try throw(reason) catch C:S:S -> C end", "ERL006", "Stacktrace variable 'S' must be fresh"),
+    ("try error(reason) catch error:R:S when is_list(S) -> R end", "ERL007", "Stacktrace variable 'S' is not legal in a guard")
+})
+{
+    Test(
+        "compiler/try/stack-diagnostic/" + fixture.Source,
+        () =>
+    {
+        try
+        {
+            Semantics.Validate(new Parser(fixture.Source).ParseExpression());
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == fixture.Code && exception.Message == fixture.Message);
+        }
+
+        return Task.CompletedTask;
+    }
+    );
+}
+Test(
+    "hybrid/try/csharp-statements-preserved",
+    () =>
+{
+    string source = "class A { int F() { try { return 1; } catch (Exception) { return 2; } finally { G(); } } void G() {} }";
+    Check(CodeGeneration.Preprocess(source, "a.cs").EndsWith(source, StringComparison.Ordinal));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/try/nested-and-following-csharp",
+    () =>
+{
+    string source = "class A { async Task F(ProcessContext erlangProcess) { var x = try try throw(7) catch N -> N end after ignored end. try { G(); } finally { G(); } } }";
+    string generated = CodeGeneration.Preprocess(source, "a.cs");
+    Check(generated.Contains("Expr.Try") && !generated.Contains("var x = try"));
+    Check(generated.Contains("try { G(); } finally { G(); }"));
 
     return Task.CompletedTask;
 }

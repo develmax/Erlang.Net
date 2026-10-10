@@ -294,6 +294,23 @@ public static class Execution
                         };
                     }
                 }
+            case Expr.Try tried:
+                return await TryExpressionExecution.Evaluate(
+                    tried,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    ),
+                    (clause, value, scope) => clause.Patterns.Count == 1 && clause.Patterns[0].Match(
+                        value,
+                        scope,
+                        ctx,
+                        scope
+                    ) && Guard(clause.Guard, scope, ctx)
+                );
             case Expr.Unary u:
                 return Unary(u.Operator, await Evaluate(
                     u.Operand,

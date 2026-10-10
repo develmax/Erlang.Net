@@ -490,5 +490,6 @@ public static class CompiledModuleCases
                 Term.Tuple(Term.A("badmatch"),new MapTerm([new KeyValuePair<Term,Term>(Term.A("k"),Term.I(2))]))
             )
         )
+        , .. TryModuleCases.All
     ];
 }

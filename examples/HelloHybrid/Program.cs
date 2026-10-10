@@ -79,6 +79,24 @@ var bitPhaseCheck = runtime.Spawn(async erlangProcess =>
 });
 if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new InvalidOperationException((await bitPhaseCheck.Completion).ToString());
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+var tryCheck = runtime.Spawn(async erlangProcess =>
+{
+    var result = begin
+        put(mark,none),
+        R=try
+            try ok of ok -> error(of_body)
+            catch error:_ -> unexpected
+            after put(mark,after_body)
+            end
+        catch error:Reason:Stack -> {Reason,is_list(Stack)}
+        end,
+        {R,get(mark)}
+    end.
+    if (!result.Equals(Term.Tuple(Term.Tuple(Term.A("of_body"),Term.A("true")),Term.A("after_body")))) throw new InvalidOperationException(result.ToString());
+
+    return Term.A("ok");
+});
+if (!(await tryCheck.Completion).Equals(Term.A("normal"))) throw new InvalidOperationException((await tryCheck.Completion).ToString());
 var process = runtime.Spawn(async erlangProcess =>
 {
     while (true)

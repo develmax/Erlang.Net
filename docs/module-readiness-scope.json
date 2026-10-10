@@ -56,7 +56,7 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Compiler",
       "Remaining": [
-        "records/macros/comprehensions/try and full grammar",
+        "records/macros/comprehensions/maybe and full grammar; full try lint/stack/resource contracts",
         "complete source spans/debug mappings"
       ],
       "Implemented": [
@@ -70,7 +70,8 @@
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
-        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved"
+        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
+        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected local tests, fresh OTP pending"
       ],
       "Id": "Compiler",
       "TestPrefixes": [

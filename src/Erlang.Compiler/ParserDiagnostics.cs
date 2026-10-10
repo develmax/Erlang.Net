@@ -11,6 +11,10 @@ internal static class ParserDiagnostics
     public const string EmptyCase = "case needs a clause";
     public const string EmptyIf = "if needs a guard clause";
     public const string EmptyBlock = "begin needs an expression";
+    public const string EmptyTryOf = "try of needs a clause";
+    public const string InvalidExceptionClass = "Exception class must be an atom or variable";
+    public const string ExpectedStackVariable = "Stacktrace must be a variable";
+    public const string TryNeedsHandler = "try needs catch or after";
     public const string ChainedComparison = "Comparison operators require parentheses when chained";
     public const string DynamicModuleCall = "Dynamic module calls are not supported yet";
     public const string UnaryBitSize = "Unary bit segment sizes must be parenthesized";
