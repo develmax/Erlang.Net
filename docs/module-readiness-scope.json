@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-028/ci-tests.json",
+  "ComparisonTestReport": "validation/part-030/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -149,11 +149,11 @@
       "Project": "tools/Erlang.Differential",
       "Remaining": [
         "full resource/input contracts",
-        "compiled-reference-module/optimizer/stacks/signals"
+        "broader compiled-module/optimizer/stacks/signals"
       ],
       "Implemented": [
         "pinned expr value/class/reason comparator",
-        "249 exact-version cases at 85bd19f"
+        "249 historical expression cases at 85bd19f; 14 compiled-module cases locally validated, reference pending"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

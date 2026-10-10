@@ -5,6 +5,8 @@ namespace Erlang.Differential;
 /// <summary>Keep the native command line ASCII; Erlang scans decoded Unicode codepoints.</summary>
 public static class OracleProtocol
 {
+    public const string EvaluationMode = "erl_eval:exprs";
+
     public static string EvaluationCommand(string expression)
     {
         string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(expression + "."));

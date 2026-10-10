@@ -12,6 +12,8 @@ if (args.Length != 2)
 }
 string oracle = args[0];
 var results = new List<object>();
+var moduleResults = new List<object>();
+int moduleFailed = 0;
 int failed = 0, planned = 0;
 string? activeSource = null;
 bool versionVerified = false;
@@ -26,12 +28,15 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 Baseline = "OTP-29.1.1",
                 VersionVerified = versionVerified,
                 Complete = complete,
-                Planned = planned,
-                Executed = results.Count,
-                Passed = results.Count - failed,
+                Planned = planned + CompiledModuleCases.All.Count,
+                Executed = results.Count + moduleResults.Count,
+                Passed = results.Count + moduleResults.Count - failed,
                 Failed = failed,
                 AbortedSource = infrastructureError is null ? null : activeSource,
                 InfrastructureError = infrastructureError,
+                ExpressionTrack = new { Mode = OracleProtocol.EvaluationMode, Planned = planned, Executed = results.Count, Passed = results.Count - (failed - moduleFailed), Failed = failed - moduleFailed },
+                CompiledModuleTrack = new { ReferenceMode = GeneratedModuleMetadata.ReferenceMode, ImplementationMode = GeneratedModuleMetadata.ImplementationMode, Planned = CompiledModuleCases.All.Count, Executed = moduleResults.Count, Passed = moduleResults.Count - moduleFailed, Failed = moduleFailed },
+                ModuleResults = moduleResults,
                 Results = results
             },
             new JsonSerializerOptions { WriteIndented = true }
@@ -299,6 +304,32 @@ try
             ExitReason = reason.ToString(),
             Passed = passed
         });
+        await SaveReport(false);
+    }
+    foreach (var fixture in CompiledModuleCases.All)
+    {
+        activeSource = fixture.Source;
+        Term expected = ExternalTermFormat.Decode(Convert.FromBase64String(await RunOracle(CompiledModuleProtocol.Command(fixture.Source))));
+        using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
+        Term actual = await CompiledModuleExecution.Run(generated);
+        bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected);
+        if (!passed)
+        {
+            failed++;
+            moduleFailed++;
+        }
+        moduleResults.Add(new
+        {
+            fixture.Name,
+            fixture.Source,
+            SourceSha256 = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(fixture.Source))),
+            generated.CSharpSha256,
+            Expected = expected.ToString(),
+            FixtureExpected = fixture.Expected.ToString(),
+            Actual = actual.ToString(),
+            Passed = passed
+        });
+        Console.WriteLine((passed ? "PASS module " : "FAIL module ") + fixture.Name);
         await SaveReport(false);
     }
     await SaveReport(true);

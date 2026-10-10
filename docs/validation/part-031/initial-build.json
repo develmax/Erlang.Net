@@ -1,0 +1,8 @@
+{
+  "Retry": "Process-local DOTNET_PROCESSOR_COUNT=2, MSBUILDDISABLENODEREUSE=1, DOTNET_CLI_USE_MSBUILD_SERVER=0; build -m:1 -nr:false",
+  "Cause": "Not established; unrelated host processes were not terminated",
+  "Stage": "Initial SDK/style and solution restore",
+  "RetrySucceeded": true,
+  "Succeeded": false,
+  "Error": "OutOfMemoryException before new C# compilation"
+}

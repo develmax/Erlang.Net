@@ -74,3 +74,7 @@ Reuse existing term/numeric infrastructure in iterative C#; preserve the pinned 
 ## Part 030 — Preserve scoped module progress
 
 Store complete 249-case and same-head 344-test CI artifacts with source 219+30 provenance and verified ZIP hashes. Retain part-028 as the explicit comparison baseline so the last feature increment remains visible (+3), even though this evidence-only checkpoint adds no MFA. Keep rounded key-search comparison, exact membership/map keys and 64-bit reference scope separate. Next implement a separate compiled-reference-module oracle track using the existing compiler/runtime and development-only pinned reference; it remains unrun here.
+
+## Part 031 — Separate compilation from expression evidence
+
+Reuse SDK Roslyn and BCL collectible contexts to exercise actual generated assemblies without adding packages or a production BEAM requirement. Use ASCII Base64 transport for complete Unicode module sources and compile:forms/code:load_binary in a fresh pinned reference process. Keep 249 expression cases and 14 module cases separately reported with source/generated hashes and independent expected fixtures. Test repeated identical assembly loading and rejected source locally. Readiness comparison baseline moves to immutable part-030; no new MFA, delta 0. Full optimized behavior/stack/resource/reference-suite scope remains incomplete.

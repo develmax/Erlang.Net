@@ -369,6 +369,21 @@
         "validation/part-030/corpus-audit.json"
       ],
       "limits": "First matching tuple and short reverse clause errors; thirty cases match within complete 249/249 at 85bd19f. Pinned 64-bit positions/small numeric fast path; complete inputs, stacks, resources, reductions and 32-bit reference remain unverified."
+    },
+    {
+      "name": "Compiled reference modules and generated assemblies",
+      "status": "Partially compatible",
+      "evidence": [
+        "oracle/compiled-module/private-clauses",
+        "oracle/compiled-module/tail-calls",
+        "oracle/compiled-module/bit-pattern",
+        "oracle/compiled-module-repeat-context",
+        "oracle/compiled-module-invalid-source",
+        "oracle/compiled-module-ascii-protocol",
+        "validation/part-031/tests.json",
+        "validation/part-031/reference-audit.json"
+      ],
+      "limits": "Fourteen locally generated/compiled assembly fixtures; pinned reference compile/load track awaits live run. Generated AST/evaluator, not native lowering; full optimizer, stacks, resources and suites unverified."
     }
   ],
   "moduleReadiness": "module-readiness.json"

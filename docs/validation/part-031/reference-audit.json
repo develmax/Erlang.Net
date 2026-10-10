@@ -1,0 +1,23 @@
+{
+  "ModuleCases": 14,
+  "Implementation": "CodeGeneration.CompileModule, SDK Roslyn Release DLL emit, collectible AssemblyLoadContext, generated Definition execution",
+  "ExpressionCases": 249,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "lib/compiler/src/compile.erl",
+      "Blob": "efbb7797af6358e320abdd25f782f19dd756eb5a"
+    },
+    {
+      "Path": "lib/kernel/src/code.erl",
+      "Blob": "30f4d06a07982ac0967fe0f105ef849158f48d5f"
+    }
+  ],
+  "Baseline": "OTP-29.1.1",
+  "TotalPlanned": 263,
+  "Reference": "Unicode scan, parse forms, compile:forms binary/default optimizations/return_errors/return_warnings; code:load_binary; run/0",
+  "Reuse": "Existing installed SDK Roslyn and BCL; Roslyn project MIT license and installed Microsoft .NET library license terms distinguished; no new library or copied OTP code",
+  "Limits": "Selected values/classes/reasons only; default optimized fixture outcomes, not full optimizer/stacks/resources/reference suites",
+  "RoslynProductVersion": "5.9.0-1.26379.115+14fbf8d5271c98133561eb55185fdb05b286f578",
+  "RoslynLicenseSource": "https://github.com/dotnet/roslyn/blob/main/License.txt"
+}

@@ -53,3 +53,7 @@ Key-search position and small-key fast path model the pinned 64-bit reference sm
 ## Part 030 — Selected reference confirmation
 
 All 30 added key-search/reverse cases match within complete 249/249 at 85bd19f, superseding the part-029 pending status for those cases only. Position architecture scope, full stacks/resources/reductions and compiled-reference-module boundary remain. No runtime/compiler semantics changed in this evidence checkpoint.
+
+## Part 031 — Module comparison scope
+
+The new reference track compiles full fixture modules with normal OTP compiler optimizations and invokes run/0; .NET emits actual generated C# Release assemblies and runs their AST/evaluator definitions. This checks selected compiled-module behavior and generation integrity, not full optimizer equivalence/native lowering or stack/debug mappings. Existing expression reports remain erl_eval evidence. No language/runtime semantics changed; compile/load infrastructure failure is kept separate from a compared value/class/reason mismatch. The initial host SDK memory failure and bounded-process retry are preserved separately.

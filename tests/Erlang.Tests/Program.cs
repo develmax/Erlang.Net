@@ -2653,6 +2653,53 @@ Test(
     )
 );
 
+foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
+{
+    Test(
+        "oracle/compiled-module/" + fixture.Name,
+        async () =>
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact), fixture.Expected);
+        Check(artifact.CSharpSha256.Length == 64);
+    }
+    );
+}
+Test(
+    "oracle/compiled-module-ascii-protocol",
+    () =>
+{
+    string command = Erlang.Differential.CompiledModuleProtocol.Command("-module(unicode_fixture). -export([run/0]). run()->'𐀀'.");
+    Check(command.All(character => character <= 127));
+    Check(command.Contains("compile:forms"));
+    Check(command.Contains("code:load_binary"));
+    Check(!command.Contains("erl_eval:exprs"));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "oracle/compiled-module-repeat-context",
+    async () =>
+{
+    var fixture = Erlang.Differential.CompiledModuleCases.All[0];
+    using var first = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+    using var second = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+    Equal(await Erlang.Differential.CompiledModuleExecution.Run(first), fixture.Expected);
+    Equal(await Erlang.Differential.CompiledModuleExecution.Run(second), fixture.Expected);
+    Check(first.CSharpSha256 == second.CSharpSha256);
+}
+);
+Test(
+    "oracle/compiled-module-invalid-source",
+    () =>
+{
+    Throws<Erlang.Compiler.CompileException>(() => Erlang.Differential.GeneratedModuleCompiler.Compile("-module(invalid). -export([run/0]). run()-><<1:all>>."));
+
+    return Task.CompletedTask;
+}
+);
+
 int failed = 0;
 foreach (var test in tests)
 {

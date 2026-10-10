@@ -1,1 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" /><ProjectReference Include="../../src/Erlang.Serialization/Erlang.Serialization.csproj" /></ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../src/Erlang.Serialization/Erlang.Serialization.csproj" />
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

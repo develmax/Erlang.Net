@@ -49,3 +49,7 @@ Publish the locally validated key-search/reverse increment and dispatch the comp
 ## Part 030 checkpoint
 
 The 249-case oracle and same-head Windows CI are complete and preserved. Next implement a separately compiled-reference-module track, with module/value/error provenance distinct from erl_eval; retain all 249 expression cases. Continue audited lists/OTP adapter contracts and signal race hardening. Current registry 56, lists 13/91 (+3 versus part-028), local/CI tests 344; broad assignment remains approximately 5%.
+
+## Part 031 checkpoint
+
+Publish the locally validated compiled-module track and dispatch the existing exact-version workflow against that head. Verify **249/249 expressions** and **14/14 modules** separately (**263 aggregate**), preserve same-head CI 361 tests and source/hash provenance; do not infer module results from historical 249-case reports. Next expand compiled fixtures to error/evaluation ordering and dynamic bit sizes, then grammar/OTP callbacks/signals. Registry 56 and lists 13/91 are unchanged; broad assignment remains approximately 5%.
