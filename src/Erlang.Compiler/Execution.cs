@@ -311,6 +311,29 @@ public static class Execution
                         scope
                     ) && Guard(clause.Guard, scope, ctx)
                 );
+            case Expr.Maybe conditional:
+                return await MaybeExpressionExecution.Evaluate(
+                    conditional,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    ),
+                    (pattern, value, scope) => CompiledBindingScope.Match(
+                        pattern,
+                        value,
+                        scope,
+                        ctx
+                    ),
+                    (clause, value, scope) => clause.Patterns.Count == 1 && clause.Patterns[0].Match(
+                        value,
+                        scope,
+                        ctx,
+                        scope
+                    ) && Guard(clause.Guard, scope, ctx)
+                );
             case Expr.Unary u:
                 return Unary(u.Operator, await Evaluate(
                     u.Operand,

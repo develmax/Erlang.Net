@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Modified: try productions adapted to the existing Pratt AST from OTP-29.1.1 erl_parse.yrl.
+// Modified: try/maybe productions adapted to the existing Pratt AST from OTP-29.1.1 erl_parse.yrl.
 using System.Globalization;
 using System.Numerics;
 using System.Text;
@@ -231,6 +231,29 @@ public sealed class Parser
     private Expr Primary(bool bitSegment = false, bool stopQualifier = false)
     {
         Expr result;
+        if (Take(ErlangKeywords.Maybe))
+        {
+            if (Is(ErlangKeywords.Else) || Is(ErlangKeywords.End))
+                throw Error(ParserDiagnostics.EmptyMaybe);
+            var items = new List<Expr>();
+            do
+            {
+                var item = Expression();
+                if (Take(ErlangSyntaxTokens.ConditionalMatch))
+                    item = new Expr.MaybeMatch(ToPattern(item), Expression());
+                items.Add(item);
+            } while (Take(ErlangSyntaxTokens.Comma));
+            var clauses = new List<Clause>();
+            if (Take(ErlangKeywords.Else))
+            {
+                if (Is(ErlangKeywords.End))
+                    throw Error(ParserDiagnostics.EmptyMaybeElse);
+                clauses = Clauses();
+            }
+            Expect(ErlangKeywords.End);
+
+            return new Expr.Maybe(items, clauses);
+        }
         if (Take(ErlangKeywords.Try))
         {
             var body = Body();

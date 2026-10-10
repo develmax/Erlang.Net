@@ -380,6 +380,7 @@ try
     cases = [.. cases, .. TryExpressionCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. CatchPatternCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. StackGuardScopeCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. MaybeExpressionCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {

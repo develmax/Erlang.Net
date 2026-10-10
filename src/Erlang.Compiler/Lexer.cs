@@ -12,7 +12,7 @@ public static class Lexer
     {
         var tokens = new List<Token>();
         int i = 0, depth = 0;
-        string[] symbols = [ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField];
+        string[] symbols = [ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField, ErlangSyntaxTokens.ConditionalMatch];
         while (i < text.Length)
         {
             if (char.IsWhiteSpace(text[i]))
@@ -94,7 +94,7 @@ public static class Lexer
                 ));
                 if (blockPrefix)
                 {
-                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Try)
+                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Try or ErlangKeywords.Maybe)
                         depth++;
                     else if (name == ErlangKeywords.End && --depth == 0)
                         break;

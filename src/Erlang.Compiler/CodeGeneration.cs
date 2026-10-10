@@ -92,6 +92,8 @@ public static class CodeGeneration
         Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + ")",
         Expr.Apply a => "new " + E + "Apply(" + ExpressionCode(a.Function) + "," + Expressions(a.Arguments) + ")",
         Expr.Match m => "new " + E + "Match(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
+        Expr.MaybeMatch m => "new " + E + "MaybeMatch(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
+        Expr.Maybe conditional => "new " + E + "Maybe(" + Expressions(conditional.Items) + "," + Clauses(conditional.Clauses) + ")",
         Expr.Sequence s => "new " + E + "Sequence(" + Expressions(s.Items) + ")",
         Expr.Block block => "new " + E + "Block(" + ExpressionCode(block.Body) + ")",
         Expr.Catch caught => "new " + E + "Catch(" + ExpressionCode(caught.Operand) + ")",
@@ -126,7 +128,7 @@ public static class CodeGeneration
             var token = tokens[i];
             if (token.SpanStart < copied)
                 continue;
-            if (token.Text is not (ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Catch or ErlangKeywords.Try))
+            if (token.Text is not (ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Catch or ErlangKeywords.Try or ErlangKeywords.Maybe))
                 continue;
             if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>"))
                 continue;
@@ -137,7 +139,7 @@ public static class CodeGeneration
                 continue;
             if (token.Text == ErlangKeywords.If && !HasIfGuard(source[token.SpanStart..]))
                 continue;
-            if (token.Text is ErlangKeywords.Begin or ErlangKeywords.Catch or ErlangKeywords.Try && !HasBlockExpression(source[token.SpanStart..]))
+            if (token.Text is ErlangKeywords.Begin or ErlangKeywords.Catch or ErlangKeywords.Try or ErlangKeywords.Maybe && !HasBlockExpression(source[token.SpanStart..]))
                 continue;
             // An ordinary C# call to a method named fun/receive must remain C#.
             if (token.Text == "receive" && source[following] == '(')
@@ -247,7 +249,7 @@ public static class CodeGeneration
     {
         try
         {
-            return new Parser(source, true).ParseExpression() is Expr.Block or Expr.Catch or Expr.Try;
+            return new Parser(source, true).ParseExpression() is Expr.Block or Expr.Catch or Expr.Try or Expr.Maybe;
         }
         catch (CompileException)
         {

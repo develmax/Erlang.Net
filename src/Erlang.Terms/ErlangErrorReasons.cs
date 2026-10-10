@@ -3,6 +3,7 @@ namespace Erlang;
 /// <summary>Canonical atoms used as Erlang exception reasons or reason tuple tags.</summary>
 public static class ErlangErrorReasons
 {
+    public const string ElseClause = "else_clause";
     public const string NoProcess = "noproc";
     public const string Timeout = "timeout";
     public const string BadArgument = "badarg";

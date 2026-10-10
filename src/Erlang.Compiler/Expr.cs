@@ -17,6 +17,8 @@ public abstract record Expr
     public sealed record Unary(string Operator, Expr Operand) : Expr;
     public sealed record Binary(string Operator, Expr Left, Expr Right) : Expr;
     public sealed record Match(Pattern Pattern, Expr Value) : Expr;
+    public sealed record MaybeMatch(Pattern Pattern, Expr Value) : Expr;
+    public sealed record Maybe(IReadOnlyList<Expr> Items, IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record Sequence(IReadOnlyList<Expr> Items) : Expr;
     public sealed record Block(Expr Body) : Expr;
     public sealed record Catch(Expr Operand) : Expr;

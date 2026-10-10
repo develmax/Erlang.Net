@@ -125,5 +125,6 @@ public static class CompiledDiagnosticCases
             "S",
             Kind:DiagnosticCaseKind.StacktraceBound
         )
+        , .. MaybeDiagnosticCases.All
     ];
 }

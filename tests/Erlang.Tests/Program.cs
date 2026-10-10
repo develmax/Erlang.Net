@@ -25,6 +25,56 @@ void Throws<T>(Action action) where T : Exception
     }
     throw new InvalidOperationException("Expected " + typeof(T).Name);
 }
+foreach (string source in new[] { "1 ?= 1", "maybe end", "maybe ok else end", "maybe ok ?= wrong ?= nope end", "maybe (ok ?= ok) end", "maybe ok ?= wrong else _ -> ok ?= wrong end" })
+{
+    Test(
+        "compiler/maybe/invalid-grammar/" + source,
+        () =>
+    {
+        Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+        return Task.CompletedTask;
+    }
+    );
+}
+Test(
+    "compiler/maybe/illegal-guard",
+    () =>
+{
+    try
+    {
+        new Parser("-module(maybe_guard). -export([run/0]). run()->if maybe true end -> ok end.").ParseModule();
+        Check(false);
+    }
+    catch (CompileException exception)
+    {
+        Check(exception.Code == "ERL007" && exception.Message == "maybe is not legal in a guard");
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/maybe/csharp-method-preserved",
+    () =>
+{
+    string source = "class C { int maybe() => 1; int M() { return maybe(); } }";
+    string result = CodeGeneration.Preprocess(source, "maybe-method.cs");
+    Check(result.EndsWith(source, StringComparison.Ordinal));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/maybe/nested-and-following-csharp",
+    () =>
+{
+    string result = CodeGeneration.Preprocess("var x = maybe ok ?= maybe ok end,42 else _ -> 0 end. var y = 7;", "maybe.cs");
+    Check(result.Contains("Expr.Maybe(", StringComparison.Ordinal) && result.EndsWith(" var y = 7;", StringComparison.Ordinal));
+
+    return Task.CompletedTask;
+}
+);
 Test(
     "oracle/unicode-source-ascii-transport",
     () =>
@@ -3056,7 +3106,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

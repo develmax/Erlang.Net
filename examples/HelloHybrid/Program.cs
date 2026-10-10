@@ -81,6 +81,16 @@ if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new Invali
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var tryCheck = runtime.Spawn(async erlangProcess =>
 {
+    var maybeValue = maybe
+        {ok,X} ?= {ok,40},
+        {ok,Y} ?= maybe X ?= 40,{ok,X+2} end,
+        Y
+    else
+        _ -> error(unexpected)
+    end.
+    if (!maybeValue.Equals(Term.I(42))) throw new InvalidOperationException(maybeValue.ToString());
+    var maybeElse = maybe ok ?= wrong, error(unreachable) else wrong -> 7 end.
+    if (!maybeElse.Equals(Term.I(7))) throw new InvalidOperationException(maybeElse.ToString());
     var stackGuard = try error(reason) catch error:_:S -> (fun(S) when is_integer(S) -> S end)(7) end.
     if (!stackGuard.Equals(Term.I(7))) throw new InvalidOperationException(stackGuard.ToString());
     var signedReason = try error(-1) catch error:-1:S -> is_list(S) end.

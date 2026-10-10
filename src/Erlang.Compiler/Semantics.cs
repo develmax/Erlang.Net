@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Modified: try binding/stacktrace checks adapted from OTP-29.1.1 erl_lint; name-set subset.
+// Modified: try/maybe binding and stacktrace checks adapted from OTP-29.1.1 erl_lint; name-set subset.
 namespace Erlang.Compiler;
 
 public static class Semantics
@@ -230,6 +230,22 @@ public static class Semantics
                     outcomes.UnionWith(afterScope);
                 }
                 MarkUnsafe(outcomes, bound);
+                break;
+            case Expr.Maybe conditional:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardMaybe, 0);
+                var conditionalBody = new HashSet<string>(bound);
+                foreach (var item in conditional.Items)
+                    Walk(item, conditionalBody, false);
+                var conditionalElse = new HashSet<string>(bound);
+                MarkUnsafe(conditionalBody, conditionalElse);
+                var conditionalOutcomes = new HashSet<string>(conditionalBody);
+                foreach (var clause in conditional.Clauses)
+                    conditionalOutcomes.UnionWith(ValidateClause(clause, conditionalElse, false));
+                MarkUnsafe(conditionalOutcomes, bound);
+                break;
+            case Expr.MaybeMatch conditionalMatch:
+                Walk(new Expr.Match(conditionalMatch.Pattern, conditionalMatch.Value), bound, guard);
                 break;
             case Expr.Binary b:
                 if (guard && b.Operator is ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList)
