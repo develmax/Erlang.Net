@@ -2,21 +2,21 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–082.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–083.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
 | Discovery/bootstrap | 12 projects (including the development-only style tool), pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
-| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
+| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
 | Core modules | 66 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
-| Hybrid/build | Native receive/case/fun/if/begin/catch in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
+| Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 62 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 66 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -32,7 +32,7 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Part061: **725/725 local tests/same-head CI/full integration**, **592/592 exact-version comparisons** (470 expressions,87 modules,35 diagnostics) atdf42a94. [Provenance](validation/part-061/remote-checkpoint.json), [local proof](validation/part-060/tests.json). Registry62/delta0; approximately5% coarse estimate. Historical failures preserved.
+Part083: **1427/1427 local tests/same-head CI/full integration**, **1256/1256 exact-source comparisons** (778 expressions,399 modules,79 diagnostics) at116e0eb. [Provenance](validation/part-083/remote-checkpoint.json), [local proof](validation/part-082/tests.json). Registry66/delta0; approximately5% coarse estimate. Initial zip1245/1252, seven undefined atom-map order discrepancies and five explicitly corrected source bodies remain part082 history; expected values unchanged.
 
 ## Historical validation through part032
 
@@ -478,3 +478,11 @@ Change those five new source bodies to explicit maps:iterator(...,ordered), reta
 Corrected local **1427/1427 and full pipeline** pass; plan **778 expressions/399 modules/79 diagnostics=1256**. [Tests](validation/part-082/tests.json), [integration](validation/part-082/integration-results.json), [corpus preservation](validation/part-082/corpus-audit.json). Prior722/343/73 sources/expected/generated hashes retained; all existing independent fixture expectations unchanged. Historical1138/1138 at124af8c remains the last entirely passing original run; corrected1256-case execution awaits publication. No reference success is inferred from local tests. Registry66:erlang40/351,lists20/91,maps5/34,io1/53; all substantive components partial, approximately5% coarse overall. Full zlc_SUITE/aliases/typed strings/Core/HAMT/resources/stacks/OTP/performance unfinished; license draft still uncommitted/unpublished/unpackaged.
 
 Next publish corrected contract corpus, rerun original comparison and same-head CI, preserve both initial and final evidence; then targeted upstream zip hardening or Erlang OTP callbacks.
+
+## Part 083 — Exact-source zip verification (2026-10-10)
+
+Published implementation **116e0eb1fa8285ab0085f71404f6d5b72b8514e5** passes **1256/1256 =778 expressions +399 compiled modules +79 normalized compiler diagnostics** against OTP-29.1.1 built from exact SHAad05823719d77c8faee87348ea39513d4e2f99c5. [Raw report](validation/part-083/differential.json), [provenance](validation/part-083/remote-checkpoint.json), [corpus audit](validation/part-083/corpus-audit.json). Same-head CI **1427/1427 and full integration**, with local/CI test names identical. Original build/version/completeness/track counts and independent expectations verified; all prior722/343/73 contracts preserved. No mismatch in the corrected-source run. Initial original1245/1252/seven differences remain part082 history: five new fixture source bodies now request explicit ordered iteration, without changing any existing expected value; two default numeric-key pairs were added. Initial and superseded local failures remain part081 history.
+
+56 new expression/module pairs and six diagnostics verify selected mixed zip groups, strict/global shared-variable conflicts, filter/source/body effects, incoming key/size differences, raw compiled map iterator tails versus interpreted normalized tails, source-binding dependencies, private scopes and native hybrid emission. In particular sequential lint/compiled source bindings and isolated interpreted sources match their respective originals. This evidence part changes no executable code or MFA:66 total, erlang40/351,lists20/91,maps5/34,io1/53. Compiler774 related tests, Differential484, Hybrid22; these overlapping counts are not coverage percentages. 204 namespace types/no violations; consolidated license notices packaged and LICENSE.local.txt still uncommitted/unpublished/unpackaged. No local full-pipeline repeat in this documentation-only proof part.
+
+Whole modules/full zlc_SUITE execution, alias canonicalization, typed binary string generators, default atom-map ordering/internal atom IDs and HAMT/reduction-dependent iterator refill state, proper source/stack frames, Core optimization/resources/signals/OTP callbacks and BEAM benchmarks remain unfinished; approximately5% coarse overall. Read-only inspection of pinned zlc_SUITE identified nested strict pattern/float-size/alias/gh10002 gaps for the next increment. Pinned erl_parse has no separate assignment-generator token; ordinary match expressions are filter qualifiers. Next harden selected upstream zip cases or implement Erlang OTP callback adapters without upgrading the baseline.

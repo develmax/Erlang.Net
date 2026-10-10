@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-081/tests.json",
+  "ComparisonTestReport": "validation/part-082/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -56,7 +56,7 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Compiler",
       "Remaining": [
-        "records/macros and full grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and assignment qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
+        "records/macros and full grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
@@ -70,9 +70,9 @@
         "list/binary/map comprehensions, multiple list/map templates, relaxed/strict list/binary/map generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
         "map iterator/tuple/none/partial-source handling; exact keys and last repeated key wins",
         "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
-        "selected contracts verified against exact-source OTP-29.1.1 at7a35cdd:695 expressions/316 compiled modules/73 diagnostics=1084;1247/full same-head CI; full Core lowering remains incomplete",
         "Grouped list/binary/map zip && generators with strict/shared row constraints; separate erl_eval traversal and v3_core joint/skip/tail clauses, raw compiled iterator versus normalized interpreted remainders",
-        "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates"
+        "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates",
+        "Selected zip and prior contracts verified against exact-source OTP-29.1.1 at116e0eb:778 expressions/399 compiled modules/79 diagnostics=1256;1427/full same-head CI; full Core lowering remains incomplete"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -87,7 +87,7 @@
       "Project": "src/Erlang.Runtime/CoreModules.cs",
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
-        "large-map comparator callback order follows unspecified initial traversal; opaque HAMT paths/full sort and map suites"
+        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
       "Implemented": [
         "erlang/lists/maps/io registered subset",
@@ -169,12 +169,10 @@
       ],
       "Implemented": [
         "pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency",
-        "722 expressions,343 generated C#/compiled-reference modules and73 normalized rejections verified at124af8c;1138/1138 complete/version verified",
-        "historical695 expressions/316 module source/expected/generated-hash contracts and73 diagnostics unchanged;27 comparator expressions/modules added without expectation correction",
-        "initial map1066/1068 and two original scheduling discrepancies remain retained in part077 and resolved in part078; new comparator increment zero mismatches",
-        "same-head1304/full CI; initial1300/1304 reserved-atom fixture parser failures retained; unavailable-oracle negative protocol and immutable snapshots",
-        "Part081 local1423/full pipeline;54 independent zip expressions/modules and six diagnostics;776/397/79=1252 planned, original execution pending publication",
-        "Part082 retains complete1245/1252 initial zip oracle and1423/full CI; five new fixture source bodies now explicitly order atom-map traversal with unchanged expected values; two numeric default pairs; local1427/full pipeline,1256 plan awaiting new head"
+        "778 expressions,399 generated C#/compiled-reference modules and79 normalized rejections verified at116e0eb;1256/1256 complete/version verified",
+        "historical722 expression inputs/343 module source/expected/generated-hash contracts and73 diagnostics unchanged;56 independent zip expressions/modules and six diagnostics added",
+        "selected interpreted/compiled source scopes, strict/shared pattern constraints and binary/map remainders independently match original; zero expectation corrections after reference execution",
+        "same-head1427/full CI; initial1411/1412 and pre-scope1421 local reports retained in part081; initial original1245/1252/seven differences and five explicit source-order corrections retained in part082; negative oracle protocol and immutable provenance snapshots"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
