@@ -2,17 +2,17 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–045.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–047.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
 | Discovery/bootstrap | 12 projects (including the development-only style tool), pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
-| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
+| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch, all ordinary operators, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
 | Core modules | 62 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
-| Hybrid/build | Native receive/case/fun/if in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
+| Hybrid/build | Native receive/case/fun/if/begin/catch in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
@@ -32,7 +32,7 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Part045: **516/516 local tests and same-head Windows CI**, full integration, and **392/392 exact-version comparisons** (346 expressions,36 compiled modules,10 diagnostics) at c7e575b. [Verified provenance](validation/part-045/remote-checkpoint.json), [local proof](validation/part-044/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% overall coarse estimate.
+Part047: **614/614 local tests and same-head Windows CI**, full integration, and **484/484 exact-version comparisons** (419 expressions,48 compiled modules,17 diagnostics) at b7b8c72. [Verified provenance](validation/part-047/remote-checkpoint.json), [local proof](validation/part-046/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% overall coarse estimate.
 
 ## Historical validation through part032
 
@@ -216,3 +216,11 @@ Corrected existing match/send equal precedence, right-associative andalso/orelse
 Full local pipeline passes **614/614 (+98)**:73 independent value/error expressions,12 generated modules (including50000 begin tail calls),7 diagnostic scope cases,6 parser/hybrid/stack checks. Native begin/operators/catch run in real hybrid and local package consumer; generated compiled modules cover the new constructs. [Tests](validation/part-046/tests.json), [integration](validation/part-046/integration-results.json), [pinned audit](validation/part-046/reference-audit.json). Initial build stopped at a duplicate helper method name; corrected BinaryValue naming, preserved initial-build.log, final full pipeline passed with zero test failures.
 
 Oracle plan **419 expressions +48 modules +17 diagnostics =484**; previous346/36/10 inputs and generated hashes preserved. New-head live comparison/CI pending;392/392 atc7e575b remains historical part045.156 namespace-level types/no violations. Registry62/delta0, lists19/91, erlang40/351, maps2/34, io1/53; readiness compares immutable part045 CI. No new MFA/whole-module promotion; approximately5% overall coarse estimate. CLR left-shift result bit index bound int.MaxValue is a local resource limit, not full allocation/reduction/fairness equivalence; no near-bound huge positive allocations ran. Next grammar/OTP callback adapters and complete source/debug/stack contracts.
+
+## Part 047 — Verified begin and ordinary operator subset
+
+Exact implementation head **b7b8c72fe98cebc877b2695bb6189dcd3a31c517** passes **419/419 expressions +48/48 compiled modules +17/17 diagnostics =484/484**, complete/version verified, zero failures/aborts. Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 source build succeeded. All73 independent new expression outcomes match,12 new compiled modules confirm begin/tail calls/bit/strict boolean/precedence/scopes/catch reasons and stack structure,7 diagnostics confirm operator operand isolation/short-circuit/catch unsafe bindings and begin unbound variables. Historical346/36/10 source/expected/generated/hash contracts preserved.
+
+Same-head Windows CI passes **614/614** and full generated/hybrid/incremental/negative/clean/local packages/consumer/CLI/readiness. [Raw proof](validation/part-047/remote-checkpoint.json), [strict provenance](validation/part-047/corpus-audit.json), [CI tests](validation/part-047/ci-tests.json). Readiness compares immutable part046 tests:62 MFAs/delta0; lists19/91, erlang40/351, maps2/34, io1/53. These are declaration ratios, not semantic completion.156 namespace types/layout unchanged. Local full pipeline remains part046 evidence, not rerun in this documentation part.
+
+All ordinary operator spellings and begin are implemented, with selected reference evidence; [matrix](operator-support.json) remains Partially compatible because full operands/resources/annotations/reference suites are not exhaustively verified. Catch logical stack frames are not complete OTP stacks/source annotations; int.MaxValue CLR left-shift result-bit indexing is a local bound, no near-bound allocations were compared. Record/generator/maybe/try grammar and OTP callbacks/signals remain unfinished; approximately5% coarse overall estimate. Historical392/392 atc7e575b retains its scope. Next remaining grammar/Erlang callback adapters, full debugging/stacks/resources.

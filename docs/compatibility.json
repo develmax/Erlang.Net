@@ -109,9 +109,11 @@
         "compiler/operators/andalso-right-association",
         "compiler/operators/catch-logical-stack-frame",
         "hybrid/operators/begin-and-catch",
-        "validation/part-046/tests.json"
+        "validation/part-046/tests.json",
+        "validation/part-047/differential.json",
+        "validation/part-047/remote-checkpoint.json"
       ],
-      "limits": "begin and all ordinary expression operator spellings implemented; selected614 tests/full integration passed,484-case new-head oracle pending. Catch logical operation/call frames are not full OTP stacks/annotations; CLR shift result-bit indexing is local resource policy. Records/generators/maybe ?= require their separate grammar constructs."
+      "limits": "begin and all ordinary expression operator spellings implemented; selected484/484 (419 expressions/48 modules/17 diagnostics) match exact OTP at b7b8c72; same-head614 CI passes. Catch logical frames differ from complete OTP stack/source annotations; shift CLR bit-index bound is local policy. Records/generators/maybe ?=/try and full grammar/resources/reference suites unfinished."
     },
     {
       "name": "Map source syntax",

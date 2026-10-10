@@ -65,3 +65,7 @@ Published if head c7e575b passes pinned392/392 (346 expressions,36 modules,10 di
 ## Part 046 checkpoint
 
 Local begin/all ordinary operator spellings passes614/full pipeline;484-case plan419/48/17. Preserve346/36/10 prior contracts and generated hashes. Publish/dispatch pinned oracle and same-head614 CI.156 namespace types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Catch logical stack terms are not full OTP frame/annotation equivalence; left-shift CLR result-bit indexing is local resource policy. Initial duplicate helper name build failure preserved. Next remaining construct grammar/OTP Erlang callback adapters; no whole-module promotion.
+
+## Part 047 checkpoint
+
+Published begin/ordinary operator head b7b8c72 passes pinned484/484 (419 expressions,48 modules,17 diagnostics), same-head614/full CI and strict source/hash/outcome provenance.156 types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Catch logical stack frames are not full source/frame equivalence; left-shift CLR bit-index resource bound is local policy. Preserve346/36/10 history and initial part046 helper-name build failure. Next remaining construct grammar/Erlang OTP callback adapters/signals, no whole-module promotion.

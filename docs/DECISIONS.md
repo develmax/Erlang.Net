@@ -138,3 +138,7 @@ Preserve392/392 and same-head516 CI with exact source-build/head/job/archive met
 ## Part 046 — Distinguish operator grammar, binding and stack contracts
 
 Use a named precedence catalog matching pinned ordinary grammar; strict operand scopes start from the same incoming bindings, short-circuit RHS cannot export, catch variables are unsafe after the catch boundary. Begin owns a distinct Block AST and preserves tail position. BigInteger signed bitwise/right shift primitives match value semantics; guard narrowing and enormous positive result bounds before CLR allocation. Reuse existing exception reason/class fields while adding immutable logical operation/call stack terms for catch; do not claim full OTP annotation/frame equivalence.33 ordinary forms/31 spellings are implemented; record/generator/maybe constructs remain unfinished grammar. No dependency/production BEAM/license change.
+
+## Part 047 — Separate operator outcomes from trace/resource equivalence
+
+Preserve484/484 plus same-head614 CI with exact source-build/head/job/archive provenance. Verify73 independent new expression outcomes,48 module source/expected/generated hashes and17 normalized rejection source/reason/code/messages, retaining346/36/10 prior contracts. Catch comparisons separately validate reasons and stack structure; do not interpret matching shape as complete source-stack equivalence. CLR bit-index local resource policy remains separate.62 MFAs/delta0 against part046 tests, no executable/dependency/license change.
