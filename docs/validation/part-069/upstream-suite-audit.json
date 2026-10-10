@@ -1,0 +1,74 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "lib/compiler/test/maybe_SUITE.erl",
+  "Blob": "46e3c68426d5a8af1ab23424d05570e0b5589156",
+  "Copyright": "Ericsson AB 2003-2026",
+  "License": "Apache-2.0",
+  "Anchors": [
+    {
+      "Line": 45,
+      "Routine": "basic(_Config) ->"
+    },
+    {
+      "Line": 94,
+      "Routine": "basic_1(V0, M) ->"
+    },
+    {
+      "Line": 100,
+      "Routine": "basic_1a(V0, M) ->"
+    },
+    {
+      "Line": 114,
+      "Routine": "basic_1b(V0, M) ->"
+    },
+    {
+      "Line": 130,
+      "Routine": "basic_1c(V0, M) ->"
+    },
+    {
+      "Line": 148,
+      "Routine": "basic_2(V0, M) ->"
+    },
+    {
+      "Line": 153,
+      "Routine": "basic_2a(V0, M) ->"
+    },
+    {
+      "Line": 168,
+      "Routine": "basic_2b(V0, M) ->"
+    },
+    {
+      "Line": 186,
+      "Routine": "basic_3(V0, M) ->"
+    },
+    {
+      "Line": 191,
+      "Routine": "basic_3a(V0, M) ->"
+    },
+    {
+      "Line": 199,
+      "Routine": "basic_3b(V0, M) ->"
+    },
+    {
+      "Line": 209,
+      "Routine": "basic_4({X}) ->"
+    },
+    {
+      "Line": 214,
+      "Routine": "nested(_Config) ->"
+    },
+    {
+      "Line": 220,
+      "Routine": "nested_1(V0, M) ->"
+    }
+  ],
+  "Status": "Read-only contract review after implementation; full upstream suite not run or imported",
+  "ReviewedContracts": [
+    "successive conditional match and first mismatch",
+    "ordinary match failure is not an else selection",
+    "else_clause when no else pattern matches",
+    "incoming bindings and nested maybe",
+    "record and alias/list-prefix patterns remain outside supported base pattern grammar"
+  ]
+}
