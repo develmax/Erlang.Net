@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 // Modified: C# adaptation of OTP-29.1.1 erl_eval map/ eval_map_fields/merge_bindings
-// (ordered-dictionary branch); compiled route uses the existing Core subset adapter.
+// (ordered-dictionary branch); compiled route follows v3_core map pre-expression concatenation.
 // Uses async callbacks, CLR collections and the current name-only lint model.
 // See docs/OTP-PORTS.md for exact provenance and remaining deviations.
 
@@ -31,19 +31,8 @@ internal static class MapExpressionBindings
     )
     {
         var fields = new (Term Key, Term Value, bool Exact)[map.Fields.Count];
-        if (compiled)
-        {
-            var expressions = Expressions(map).ToArray();
-            var values = await CompiledExpressionBindings.EvaluateList(expressions, bindings, evaluate);
-            int offset = map.Base is null ? 0 : 1;
-            for (int i = 0; i < fields.Length; i++)
-                fields[i] = (values[offset++], values[offset++], map.Fields[i].Exact);
-
-            return build(map.Base is null ? new MapTerm([]) : values[0], fields);
-        }
-
         var baseScope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        var fieldScope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        var fieldScope = compiled ? baseScope : new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
         Term mapBase = map.Base is null ? new MapTerm([]) : await evaluate(map.Base, baseScope);
         for (int i = 0; i < fields.Length; i++)
         {
@@ -54,7 +43,7 @@ internal static class MapExpressionBindings
         }
         // OTP validates/materializes the map before merging base and field bindings.
         var result = build(mapBase, fields);
-        var merged = map.Base is null ? fieldScope : ExpressionBindings.Merge(fieldScope, baseScope);
+        var merged = compiled || map.Base is null ? fieldScope : ExpressionBindings.Merge(fieldScope, baseScope);
         foreach (var binding in merged)
             bindings[binding.Key] = binding.Value;
 

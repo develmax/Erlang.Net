@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-052/tests.json",
-  "LocalPassedTests": 698,
+  "ComparisonTestReport": "validation/part-054/tests.json",
+  "LocalPassedTests": 702,
   "RegisteredMfas": 62,
   "PreviousRegisteredMfas": 62,
   "RegisteredMfaDelta": 0,
@@ -65,7 +65,8 @@
         "source-directed OTP expression-list/cons binding port for tuples/lists/call arguments; explicit per-routine provenance and CLR deviations",
         "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported",
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
-        "source-directed binary evaluation/materialization phases, sequential interpreter float errors and independent compiled child captures"
+        "source-directed binary evaluation/materialization phases, sequential interpreter float errors and independent compiled child captures",
+        "Sequential binary and compiled map pre-expressions, distinct interpreter map base/field scopes and independent static binding checks; corrected after retained part055 OTP failures"
       ],
       "Remaining": [
         "records/macros/comprehensions/try and full grammar",
@@ -151,7 +152,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 110
+      "RelatedPassedTests": 114
     },
     {
       "Id": "Style checks",

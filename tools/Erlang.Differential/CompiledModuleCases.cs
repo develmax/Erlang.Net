@@ -366,22 +366,22 @@ public static class CompiledModuleCases
         new(
             "compiled-bits-local-value-capture",
             "-module(oracle_bits_local_value). -export([run/0]). run()->B = <<(X=1),((fun()->X=99 end)()):8>>,{B,X}.",
-            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([1,99]),Term.I(1)))
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
         ),
         new(
             "compiled-bits-local-size-capture",
             "-module(oracle_bits_local_size). -export([run/0]). run()->B = <<(X=1):((fun()->X=4 end)()),2:4>>,{B,X}.",
-            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(1)))
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(4)))
         ),
         new(
             "compiled-bits-size-to-value-local-capture",
             "-module(oracle_bits_size_local). -export([run/0]). run()->B = <<1:(S=4),((fun()->S=2 end)()):4>>,{B,S}.",
-            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(4)))
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(2)))
         ),
         new(
             "compiled-bits-prebound-capture",
             "-module(oracle_bits_outer). -export([run/0]). run()->A=7,B = <<(X=1),((fun()->X=99,A end)()):8>>,{B,A,X}.",
-            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([1,7]),Term.I(7),Term.I(1)))
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
         ),
         new(
             "compiled-bits-float-huge-size-order",
@@ -392,6 +392,26 @@ public static class CompiledModuleCases
             "compiled-bits-float-later-evaluation-error",
             "-module(oracle_bits_float_eval). -export([run/0]). run()-><<(id(1 bsl 2000)):64/float,(error(later)):8>>. id(V)->V.",
             Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("later"))
+        ),
+        new(
+            "compiled-map-sequential-value-capture",
+            "-module(oracle_map_seq_value). -export([run/0]). run()->#{a=>(X=1),b=>((fun()->X=99 end)())}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
+        ),
+        new(
+            "compiled-map-sequential-key-capture",
+            "-module(oracle_map_seq_key). -export([run/0]). run()->#{(X=a)=>((fun()->X=b end)())}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.A("b")))
+        ),
+        new(
+            "compiled-map-sequential-base-capture",
+            "-module(oracle_map_seq_base). -export([run/0]). run()->(X=#{})#{a=>((fun()->X=99 end)())}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
+        ),
+        new(
+            "compiled-map-sequential-prebound-capture",
+            "-module(oracle_map_seq_outer). -export([run/0]). run()->A=7,#{a=>(X=1),b=>((fun()->X=99,A end)())}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
         )
     ];
 }

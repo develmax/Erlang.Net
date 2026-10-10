@@ -15,7 +15,7 @@
 //
 // Modified: C# adaptation of OTP-29.1.1 eval_bits:expr_grp/expr_grp1/eval_field.
 // Evaluates values/sizes before construction, with sequential interpreter scopes.
-// Compiled execution uses the existing v3_core-guided independent-child subset.
+// Compiled binary pre-expressions are also sequential, following v3_core:expr_bin_1.
 // Binary storage, error metadata and resource limits remain CLR adaptations.
 namespace Erlang.Compiler;
 
@@ -30,27 +30,12 @@ internal static class BitExpressionBindings
     {
         var segments = new (Term Value, Term? Size, BitSegment Segment)[bits.Segments.Count];
         var scope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        if (compiled)
+        for (int i = 0; i < segments.Length; i++)
         {
-            var values = await CompiledExpressionBindings.EvaluateList(Expressions(bits).ToArray(), scope, evaluate);
-            int offset = 0;
-            for (int i = 0; i < segments.Length; i++)
-            {
-                var segment = bits.Segments[i];
-                var value = values[offset++];
-                var size = segment.Size is null ? null : values[offset++];
-                segments[i] = (value, size, segment);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < segments.Length; i++)
-            {
-                var segment = bits.Segments[i];
-                var value = await evaluate(segment.Value, scope);
-                var size = segment.Size is null ? null : await evaluate(segment.Size, scope);
-                segments[i] = (value, size, segment);
-            }
+            var segment = bits.Segments[i];
+            var value = await evaluate(segment.Value, scope);
+            var size = segment.Size is null ? null : await evaluate(segment.Size, scope);
+            segments[i] = (value, size, segment);
         }
         var result = BitConstruction.Create(segments, encodeFloatInOrder: !compiled);
         foreach (var binding in scope)
@@ -59,13 +44,4 @@ internal static class BitExpressionBindings
         return result;
     }
 
-    private static IEnumerable<Expr> Expressions(Expr.Bits bits)
-    {
-        foreach (var segment in bits.Segments)
-        {
-            yield return segment.Value;
-            if (segment.Size is not null)
-                yield return segment.Size;
-        }
-    }
 }
