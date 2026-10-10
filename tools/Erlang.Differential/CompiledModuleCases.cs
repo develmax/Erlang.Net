@@ -300,12 +300,32 @@ public static class CompiledModuleCases
         new(
             "expr-list-conflict",
             "-module(oracle_expr_conflict). -export([run/0]). run()->{X=1,X=2}.",
-            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(1)))
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(2)))
         ),
         new(
             "expr-list-cons-export",
             "-module(oracle_expr_cons). -export([run/0]). run()->[X=1|Y=tail],{X,Y}.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(1),Term.A("tail")))
+        ),
+        new(
+            "compiled-binding-nonconstant",
+            "-module(oracle_compiled_dynamic). -export([run/0]). run()->{X=id(1),X=id(2)}. id(V)->V.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(2)))
+        ),
+        new(
+            "compiled-binding-cons-order",
+            "-module(oracle_compiled_cons). -export([run/0]). run()->put(mark,none),R=catch [X=1,X=2,put(mark,late)],{'EXIT',{Reason,_}}=R,{Reason,get(mark)}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.A("badmatch"),Term.I(2)),Term.A("none")))
+        ),
+        new(
+            "compiled-binding-call-conflict",
+            "-module(oracle_compiled_call). -export([run/0]). run()->element(X=1,X=2).",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(2)))
+        ),
+        new(
+            "compiled-binding-fun-local",
+            "-module(oracle_compiled_fun). -export([run/0]). run()->A=1,T={X=2,(fun()->X=99,A=1 end)()},{T,X}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.I(2),Term.I(1)),Term.I(2)))
         )
     ];
 }

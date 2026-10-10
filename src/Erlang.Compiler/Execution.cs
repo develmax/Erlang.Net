@@ -134,6 +134,18 @@ public static class Execution
 
         async ValueTask<Term[]> Arguments(IReadOnlyList<Expr> expressions)
         {
+            if (module is not null)
+                return await CompiledExpressionBindings.EvaluateList(
+                    expressions,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    )
+                );
+
             return await ExpressionBindings.EvaluateList(
                 expressions,
                 b,
@@ -169,6 +181,18 @@ public static class Execution
             case Expr.Tuple t:
                 return new TupleTerm(await Arguments(t.Items));
             case Expr.List l:
+                if (module is not null)
+                    return await CompiledExpressionBindings.EvaluateCons(
+                        l,
+                        b,
+                        (expression, scope) => Evaluate(
+                            expression,
+                            ctx,
+                            scope,
+                            module
+                        )
+                    );
+
                 return await ExpressionBindings.EvaluateCons(
                     l,
                     b,

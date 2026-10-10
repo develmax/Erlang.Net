@@ -32,6 +32,16 @@ The async callback is a CLR adaptation, not concurrent execution. Children execu
 
 Provenance: [part-048 source audit](validation/part-048/reference-audit.json) records pinned blob IDs, actual line ranges and consulted routine bodies. Historical selected OTP evidence is 484/484 at `b7b8c72`; the enlarged corpus must be verified separately at the new implementation head.
 
+## Part 050: distinct compiled expression binding policy
+
+Part049's complete reference comparison passed 517/518 cases: all439 expressions and25 diagnostics passed, but one of54 compiled modules differed. `{X=1,X=2}` raises `{badmatch,1}` in erl_eval and `{badmatch,2}` after OTP compilation. The interpreter port remains unchanged; the earlier compiled fixture's expected value was incorrect and its failing report is retained.
+
+`CompiledExpressionBindings.cs` is a source-directed CLR subset adapter, guided by `v3_core:safe_list`, `ulinearize_exprs`, known-variable groups and `uexprs` match lowering. It evaluates statically validated child bodies in source order, retains independent input/capture environments, and compares each child's returned bindings against prior bodies using the newly matched value in a conflict. Compiled cons heads/tail are checked in source order, rather than the interpreter's inner-to-outer cons merge. ModuleDefinition execution selects this adapter; standalone EvaluateAsync and current native hybrid expression lowering retain the interpreter path.
+
+This is not a port of the full Core Erlang IR, known-variable table, match lowering, optimizer or stack machinery. Internal child-body constraint timing still needs broader compiled cases and actual IR lowering; selected simple conflict/order/closure outcomes do not establish complete equivalence. Distinct independent scopes are essential: a function in a sibling body must not capture a newly bound sibling variable. A nonconstant conflict, cons side-effect order, static-call conflict and function-local variable regression are added alongside the corrected original compiled fixture. See part050 source/provenance evidence; the new522-case corpus requires new-head reference verification.
+
+The adapter preserves the notices of the used erl_eval helper (Ericsson AB1996–2026) and consulted v3_core adaptation (Ericsson AB1999–2026), with modification/subset labels. The unrelated original-code public license remains undecided.
+
 ## License and redistribution
 
 The adapted routines originate in Ericsson's Apache-2.0 files `lib/stdlib/src/erl_eval.erl` and `lib/stdlib/src/erl_lint.erl`, copyright Ericsson AB 1996–2026. The destination retains SPDX, copyright and license text, and identifies modifications. [OTP-LICENSE.txt](OTP-LICENSE.txt) retains the full upstream license; this register accompanies local packages. No root `NOTICE` or `NOTICE.txt` occurs in the pinned source tree (checked with `git ls-tree`); the source-file notices above are preserved.

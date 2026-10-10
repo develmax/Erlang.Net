@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **648/648 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part048](validation/part-048/tests.json), [integration](validation/part-048/integration-results.json).
+Current local evidence is **652/652 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part050](validation/part-050/tests.json), [integration](validation/part-050/integration-results.json).
 
 Latest exact-version oracle evidence: **419/419 expressions +48/48 compiled modules +17/17 compiler diagnostics (484/484)** at **b7b8c72**, plus same-head Windows CI **614/614** and full integration/readiness. [Verified provenance](validation/part-047/remote-checkpoint.json). Modules remain partially compatible; [module readiness](MODULE_READINESS.md) reports registrations and remaining scope.
 
@@ -209,3 +209,9 @@ Map binding scopes, bit evaluation callbacks, typed variable tables, generated p
 ## Part 049 — Compiled binding mismatch preserved
 
 Same-head648/full CI at9ae76d7 passes, but complete/version-verified pinned518 comparison returns517 passed/one failure:439 expressions,53/54 compiled modules,25 diagnostics. Compiled tuple conflict returns badmatch2 in OTP; shared evaluator/fixture returns badmatch1, which is correct for erl_eval. Preserve [raw evidence](validation/part-049/checkpoint.json); no518/518 claim. Next separate compiled policy with source-guided nonconstant/order/closure checks. Dated map/bit audit correction is in OTP-PORTS.md; runtime sequential evaluation must not be confused with independent static scope checks. Registry62/delta0, approximately5%; full lowering/grammar/traces/resources incomplete.
+
+## Part 050 — Compiled binding correction
+
+Separate ModuleDefinition binding subset policy corrects the preserved compiled badmatch2 versus interpreter badmatch1 mismatch. Independent child/function capture scopes retained; four additional compiled nonconstant/call/cons-order/function-local cases pass. The single old compiled FixtureExpected correction follows official retained part049 output and keeps source/generated hashes. Local **652/652/full integration** passes; [proof](validation/part-050/checkpoint.json). Corpus439/58/25=522 awaits new-head reference/CI after publication; do not claim517/518 failure resolved against OTP until compared. Historical484/484 remains separate.
+
+The adapter is not full Core lowering: internal child-body constraint timing, known-variable states, IR/optimizer/source stacks/resources remain incomplete. Current native hybrid standalone lowering retains interpreter semantics.159 types/no violations; registry62/delta0, approximately5% overall. Source notices/full license/updated register remain in local packages. Next verify522 then targeted map base/static scopes and deeper Core lowering.
