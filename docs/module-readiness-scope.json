@@ -69,7 +69,8 @@
         "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported",
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
-        "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1"
+        "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
+        "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected local regression proof, fresh OTP pending"
       ],
       "Id": "Compiler",
       "TestPrefixes": [

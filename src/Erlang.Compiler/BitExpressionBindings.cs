@@ -31,7 +31,7 @@ internal static class BitExpressionBindings
     )
     {
         var segments = new List<(Term Value, Term? Size, BitSegment Segment)>(bits.Segments.Count);
-        var scope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        var scope = CompiledBindingScope.Copy(bindings);
         foreach (var segment in bits.Segments)
         {
             var value = await evaluate(segment.Value, scope);

@@ -59,7 +59,7 @@ public static class Execution
     {
         foreach (var clause in clauses)
         {
-            var b = new Dictionary<string, Term>(parent, StringComparer.Ordinal);
+            var b = CompiledBindingScope.Copy(parent);
             bool matched = clause.Patterns.Count == values.Count;
             for (int i = 0; matched && i < values.Count; i++)
                 matched = clause.Patterns[i].Match(
@@ -250,7 +250,12 @@ public static class Execution
                         b,
                         module
                     );
-                    if (!m.Pattern.Match(value, b, ctx))
+                    if (!CompiledBindingScope.Match(
+                        m.Pattern,
+                        value,
+                        b,
+                        ctx
+                    ))
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), value));
 
                     return value;
@@ -265,7 +270,7 @@ public static class Execution
                 );
             case Expr.Catch caught:
                 {
-                    var scope = new Dictionary<string, Term>(b, StringComparer.Ordinal);
+                    var scope = CompiledBindingScope.Copy(b);
                     try
                     {
                         var result = await Evaluate(
@@ -299,7 +304,7 @@ public static class Execution
             case Expr.Binary x:
                 {
                     bool shortCircuit = x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse;
-                    var leftScope = shortCircuit ? b : new Dictionary<string, Term>(b, StringComparer.Ordinal);
+                    var leftScope = shortCircuit ? b : CompiledBindingScope.Copy(b);
                     var left = await Evaluate(
                         x.Left,
                         ctx,
@@ -312,7 +317,7 @@ public static class Execution
                         return Term.A(ErlangBooleanAtoms.False);
                     if (x.Operator == ErlangOperators.OrElse && left.Equals(Term.A(ErlangBooleanAtoms.True)))
                         return Term.A(ErlangBooleanAtoms.True);
-                    var rightScope = new Dictionary<string, Term>(b, StringComparer.Ordinal);
+                    var rightScope = CompiledBindingScope.Copy(b);
                     var right = await Evaluate(
                         x.Right,
                         ctx,

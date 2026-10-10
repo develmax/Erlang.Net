@@ -31,8 +31,8 @@ internal static class MapExpressionBindings
     )
     {
         var fields = new (Term Key, Term Value, bool Exact)[map.Fields.Count];
-        var baseScope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        var fieldScope = compiled ? baseScope : new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        var baseScope = CompiledBindingScope.Copy(bindings);
+        var fieldScope = compiled ? baseScope : CompiledBindingScope.Copy(bindings);
         Term mapBase = map.Base is null ? new MapTerm([]) : await evaluate(map.Base, baseScope);
         for (int i = 0; i < fields.Length; i++)
         {

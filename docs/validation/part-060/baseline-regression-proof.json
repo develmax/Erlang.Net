@@ -1,0 +1,599 @@
+{
+  "BaselineCommit": "51b5a4bf2013aca6693e7b8004b06222a571750f",
+  "ArchiveSHA256": "14C52C887A8EF47B80ECB5A81DF9337B180BB43F947F17B095735CC7B76A4F5C",
+  "ImplementationSources": [
+    {
+      "Path": "src/Erlang.CSharp.MSBuild/Erlang.CSharp.MSBuild.csproj",
+      "Blob": "3950a7c365ecfd458ead07449261239300f2b2eb"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitByteOrders.cs",
+      "Blob": "a984b9fd9b945d38a2a8d3b6abbe21a0a45fda91"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitConstruction.cs",
+      "Blob": "8fe161bab0318e3190fe7ad6f844a4c14e91c7e7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitExpressionBindings.cs",
+      "Blob": "5d1a032b7fa1b51682f6f3b4fa54c9df3c0a7141"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitFloat.cs",
+      "Blob": "6854b8376f3c28047985400374fe2849344ea947"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitPattern.cs",
+      "Blob": "dfee3e7560c9a34e6ecc20ee822ee71d2fb2527c"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitPatternDiagnostics.cs",
+      "Blob": "a0164180431cebe1554b65a134397472af56349f"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitPatternSegment.cs",
+      "Blob": "05a4f9f6992b5eb621a2195cfb1a296e10074170"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSegment.cs",
+      "Blob": "2e398de2eeeb26506e8252ab516962a74a4724d6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSegmentAliases.cs",
+      "Blob": "178a7ee45d2af3f6c9d93310b82aa99022752c64"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSegmentTypes.cs",
+      "Blob": "4e77576c54c8a75dae5642f3a6ca26efed25bd82"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSignSpecifiers.cs",
+      "Blob": "c24a9aaf0a41adfd88e1599f0496208424f4e277"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSizeAtoms.cs",
+      "Blob": "2c39451b472671c1dba894a4fe8aef70fd4b8b52"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSpecifierCategories.cs",
+      "Blob": "222e5d43e0a6fc515fb0d977ae5f31495602fa02"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitStorageLayout.cs",
+      "Blob": "2037f165b15643d3d47f712605da52de7ddcc411"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSyntaxDefaults.cs",
+      "Blob": "5525701cabb475afb4158047148647049b37a8ec"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitSyntaxTokens.cs",
+      "Blob": "c7cd4d6ab654728ee745f2ee494b4de4f9368dbc"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitUnicode.cs",
+      "Blob": "a05400a97087719050c2d049d8ab138218062ed7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BitUnitSpecifier.cs",
+      "Blob": "a54793d1a7af5ecfd39658546c0c8152aa4f4b32"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CatchResultAtoms.cs",
+      "Blob": "c44c0ae49691a6d61e5117b0e8e0c68f52877a4b"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Clause.cs",
+      "Blob": "8991de8bef15f0d70a3d04034c3c538c3387d061"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Blob": "3111eec360332f8391b61b6b412f240c2b4dccca"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGenerationDiagnostics.cs",
+      "Blob": "7af638e28d8517d8cc57b8a72cd15535a4d64b0f"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompileException.cs",
+      "Blob": "5f0da87c5c7bf46393678fa4a6fe125e38d5fa96"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
+      "Blob": "2befefd28e331f65a95db1fa9bf0335bd975ad07"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerDiagnosticCodes.cs",
+      "Blob": "90f417a2f897835b978f9783de6b82667f36857a"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Erlang.Compiler.csproj",
+      "Blob": "27121fba726d8ed4b0814605e89c0461a1f4b656"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ErlangKeywords.cs",
+      "Blob": "7cea7d1eff8f7a839f96e528502ae4f93fcca360"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ErlangSyntaxTokens.cs",
+      "Blob": "a9106a2b97dbb077053cb30405aab032e5eb629d"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Blob": "327419f10619a24686472b951c44130131f49f11"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ExecutionErrorReasons.cs",
+      "Blob": "ab01a3c613f7f1edcd48be9d98a52f6dcf8f5cca"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ExecutionResultAtoms.cs",
+      "Blob": "8091a727d7555ed7e7e57eb5d43070c3a43cfe84"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Blob": "56e0a6418d03ef838041dc51e3818a10ec8da1cd"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
+      "Blob": "c78345027da3056e8668209dc53e125a96fd66bc"
+    },
+    {
+      "Path": "src/Erlang.Compiler/FloatSegmentWidths.cs",
+      "Blob": "c682e89f556c60519cc6fea3598717e05bc72cae"
+    },
+    {
+      "Path": "src/Erlang.Compiler/FunctionDefinition.cs",
+      "Blob": "7f8f3e7257aec2dcb2d44ad831c3b00974e0275c"
+    },
+    {
+      "Path": "src/Erlang.Compiler/HybridDiagnostics.cs",
+      "Blob": "64fdff0f1de83015b2eedf24525cafb14120e4e2"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Lexer.cs",
+      "Blob": "1dc57a62148efff4258d51852c800b677bae6e90"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LexerDiagnostics.cs",
+      "Blob": "776154eb90c354acf41feb5ef8de5dbba8ce007c"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LexerTokenKinds.cs",
+      "Blob": "b3645aa15d1e3519934e9fee0acab01a4319f8fb"
+    },
+    {
+      "Path": "src/Erlang.Compiler/MapExpressionBindings.cs",
+      "Blob": "1d93f65344ed33e820495376048ba00301460b45"
+    },
+    {
+      "Path": "src/Erlang.Compiler/MapField.cs",
+      "Blob": "1dfbbd11a046969115f800da554a894ac26e742e"
+    },
+    {
+      "Path": "src/Erlang.Compiler/MapPattern.cs",
+      "Blob": "53a60b7eb883ab4fa1be3c516cd2b495dd2a62fa"
+    },
+    {
+      "Path": "src/Erlang.Compiler/MapPatternField.cs",
+      "Blob": "906d4ffbf1603a6cb796d51a146f09fff87a1e36"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleAttributeNames.cs",
+      "Blob": "8994929025dc64bdd48b914ac78a19c34ef210e7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Blob": "eecf666c998dcc7067b31f7eb1df3e7a695503a8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NumericLiteralSyntax.cs",
+      "Blob": "27a5a93e6df4f2bb3b26716887e3437b51aa81c3"
+    },
+    {
+      "Path": "src/Erlang.Compiler/OperatorPrecedence.cs",
+      "Blob": "e3e39cbb809fe263f025eb7dcd153008ce4f83cf"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Blob": "6a5a4a583fa160ed728b01c45e3bd2ca56724858"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ParserDiagnostics.cs",
+      "Blob": "c9bdaa918cef8e49b03fb720653dcc5d2236bfaa"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ReceiveTimeoutAtoms.cs",
+      "Blob": "0eddc89df4d97b4a8fa41582af4354fcbabfcf90"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SemanticDiagnostics.cs",
+      "Blob": "0685236226c79cb27a3efe254896955ab67def00"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Blob": "4c5a61c1266d853334a6a616fe3884be0bd9bdd8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Token.cs",
+      "Blob": "bf9de0931359b085c154f27196ed49286d13f68c"
+    },
+    {
+      "Path": "src/Erlang.Compiler/UtfSegmentLimits.cs",
+      "Blob": "f943d343b36062545ed3e99a944d9d902b897c1f"
+    },
+    {
+      "Path": "src/Erlang.Compiler/VariableScopeNames.cs",
+      "Blob": "97eccfee3d56c7d757c66cc0bac3807d35aca085"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ChildSpec.cs",
+      "Blob": "8c2d808bf9fdffaf96132d78e70b0333614c7b30"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj",
+      "Blob": "01995859ee4d7bd6fdeb1d2be65bf2c2a3fcb288"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/GenServer.cs",
+      "Blob": "0b93e2628ad0fb8305433e736b643a0449e4d9d7"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/GenServerMessageTags.cs",
+      "Blob": "7c97160a649675b2368cbc655b68409071d9fbe3"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/IGenServer.cs",
+      "Blob": "c5ad00de2fbb7d346fb81fd66907137a4ccfdf54"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/RestartPolicy.cs",
+      "Blob": "181ccb56e7e9bddad2e9c90a76ca7d638fa2d74e"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/RestartStrategy.cs",
+      "Blob": "e7c31241aec690085a997689ed778173b03e62ab"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ServerFrom.cs",
+      "Blob": "9891a6f5bb04013dc888deb0a0ff6248262d9a07"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ServerResult.cs",
+      "Blob": "d82a2d2ed06d5282dff5ddc5430cf53bed612757"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Supervisor.cs",
+      "Blob": "de90e28c75746c24bbd26a3b1b10843238d7b91a"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/SupervisorErrorReasons.cs",
+      "Blob": "7d2d061b0d54071676549e83035a58c71a4a5068"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/SupervisorHandle.cs",
+      "Blob": "35a6f7e7bf22fd32a2e8aed5ba601ebaf8e686ce"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/SupervisorMessageTags.cs",
+      "Blob": "9e2a9c24c02d840dbfb089fdaa1b5e274a5fcea5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Blob": "578ad8f4915927e41157dff8b0156727a6e1cf49"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Erlang.Runtime.csproj",
+      "Blob": "d1985172a1fd48d7b7c7447b6a0a8749df095327"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFunction.cs",
+      "Blob": "42b631ec230dd96f93559d3946f4d2a2dfa25250"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IntegerShiftLimits.cs",
+      "Blob": "ce86f4947de2d2589f0d65e9c127a66b5236aec1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoModuleNames.cs",
+      "Blob": "b7b750ad6573df0d578605775b9f7d7d6f201879"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoResultAtoms.cs",
+      "Blob": "73c128e58f51d77fa4f4903496f8332684a53505"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListDuplicateLimits.cs",
+      "Blob": "3fb620a1629699a6206e610dcfefd2d5c17c732a"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListKeySearchAtoms.cs",
+      "Blob": "00468d4a43a99e9c569b8e08bc839d375fb59ef8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListKeySearchLimits.cs",
+      "Blob": "987e408f90ccb711b9c6b62a122f44ff6b3e7264"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListModuleNames.cs",
+      "Blob": "5142e88f181bd416cf38c9355dab08def2cdc737"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListOperations.cs",
+      "Blob": "0da0c166a63de8c2aac4a7fdaf90543c41c028c5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListSequenceLimits.cs",
+      "Blob": "bbaef6d6908e63ffa27e60b25a36d2c530583d8a"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Blob": "9f56a7669a561243b4d9a38a485b7b4e2ebd2af1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MapModuleNames.cs",
+      "Blob": "c8f2d3acc6a89f4b0a7133201db0ee508f3ddfbf"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Blob": "0cd10d0c5d759890f1e2916e6796e94ff9a8dd71"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Pattern.cs",
+      "Blob": "0a5e5273131a4326d622fd5ab3c948c814f91890"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Blob": "b62703db0ffad191ac15262c5828503ae5eb37de"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessDictionaryAtoms.cs",
+      "Blob": "664928ff59132083c06fd8fe199fa73a3ba11347"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExitReasons.cs",
+      "Blob": "a04b93e998c0af5549a5a13d26f2caeec53aea33"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExitSignals.cs",
+      "Blob": "d54627c170f29f406394808f5d81c7b75213a0ea"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessFlagNames.cs",
+      "Blob": "cba00baa333fa1ac09138d8dd237fbdbb0eb6caf"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessHandle.cs",
+      "Blob": "ee765e1a02a47dcab688f85045bde9bf90d968fc"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessMessageTags.cs",
+      "Blob": "8143662a0616e869d39097f004b7ccecab59c9b9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessMonitorKinds.cs",
+      "Blob": "5ea52ff39018339869b320ed0ef1c82fa23c8aae"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessNodeDefaults.cs",
+      "Blob": "4e97084156a64efe6baa42039e147be0a854f105"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRegistryAtoms.cs",
+      "Blob": "62c479d418be720a1778cd04b5d8d59023ce3be9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Blob": "aa2dabfcf9e14b5fff31768a3ead5d21c81ed099"
+    },
+    {
+      "Path": "src/Erlang.Serialization/Erlang.Serialization.csproj",
+      "Blob": "d1985172a1fd48d7b7c7447b6a0a8749df095327"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfAtomLimits.cs",
+      "Blob": "ada996932eed32361ae7c247b9017806bc05c672"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfBitBinaryLayout.cs",
+      "Blob": "0562b64a6dbeb7a56fc2588777ebf0cb77a1c433"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfCompression.cs",
+      "Blob": "6c5d79de9b29a54c709a29d67884c7a21f7654fa"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfDiagnostics.cs",
+      "Blob": "a8dbed79880fc1d867bcae0aa091b277ddd4ee47"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfFieldWidths.cs",
+      "Blob": "ca41698e7a96943e870a373ad93c87548d3ca9b3"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfFloatLayout.cs",
+      "Blob": "7cfb5e1f1c3c18ecdc5731acb720ef0ed1232520"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfHeaderLayout.cs",
+      "Blob": "bf50dea1dfb5407025152f77c554e855675f48a4"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfIntegerLayout.cs",
+      "Blob": "3d8b4b218fe8c54c5bac57c758aaf0b14a856bb0"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfMapLayout.cs",
+      "Blob": "75fe9a523f0a31180cc8fd0f0a152c7ae8d6acd1"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfPidLayout.cs",
+      "Blob": "9559159e5d5c636fe89ba6a6519d4309cbcf8d3f"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfReferenceLayout.cs",
+      "Blob": "db52e02742be6d46b05529e14f41c480aae3d655"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfResourceLimits.cs",
+      "Blob": "37992a07c4d7b3c191ac652485954419373bd9fa"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfTags.cs",
+      "Blob": "96c09a424bb98592df4ae45c949d82e58ce95077"
+    },
+    {
+      "Path": "src/Erlang.Serialization/EtfTupleLayout.cs",
+      "Blob": "72568ce30395563455e5fe0361c91ee22e6df804"
+    },
+    {
+      "Path": "src/Erlang.Serialization/ExternalTermFormat.cs",
+      "Blob": "685bca17cfa99e2104f3271f265029099c560b35"
+    },
+    {
+      "Path": "src/Erlang.Terms/Atom.cs",
+      "Blob": "961cb6cebac6f3dd43928101652789201f10a8ec"
+    },
+    {
+      "Path": "src/Erlang.Terms/AtomCache.cs",
+      "Blob": "00f59eef8ea28a290dddb0b6b8345dbd423529ac"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Blob": "9eba6b4168678788346739cd1e0234115fccb4e6"
+    },
+    {
+      "Path": "src/Erlang.Terms/CommonAtomNames.cs",
+      "Blob": "a43450db62aaebebdd65b29c28465c3eafc49520"
+    },
+    {
+      "Path": "src/Erlang.Terms/Cons.cs",
+      "Blob": "672a56d05312f9a258e1b9ac1b1ce724a332d23b"
+    },
+    {
+      "Path": "src/Erlang.Terms/Erlang.Terms.csproj",
+      "Blob": "6b512ec9245ec39fc1b7b533a704aa5d6434ca52"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangBooleanAtoms.cs",
+      "Blob": "4e95b88277caecf2603e605d407d425fec3b1b7d"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangErrorReasons.cs",
+      "Blob": "d1064ee9ad3019c3a0ef963877ff86cf33c72a18"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangException.cs",
+      "Blob": "d0b18d2fffaa52c581a6ef5f208fc8241e5131dd"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangExceptionClasses.cs",
+      "Blob": "025b5ec8f14224e81f964c417c95ff8c6ac7b292"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangModuleNames.cs",
+      "Blob": "ed00d45218fa3314c740733eba2291edbbf172a6"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangOperators.cs",
+      "Blob": "2b8f563a18aa1cdff7931a8b0a7f4c4f67eeb256"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Blob": "32d62c3721e124c558079da8ccb1b79d4f82c286"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Blob": "c654879c11e8916c9678d7e9f19a0e4d09a92310"
+    },
+    {
+      "Path": "src/Erlang.Terms/ITermExecutionContext.cs",
+      "Blob": "1f678986a0d476f03c4d754d7659e11fa8455b03"
+    },
+    {
+      "Path": "src/Erlang.Terms/Integer.cs",
+      "Blob": "0ec796a2b15392e713a9a78df516e9553906632e"
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Blob": "4a3f3efaf5ad54ab39f579135a6d9f1450d494a1"
+    },
+    {
+      "Path": "src/Erlang.Terms/Nil.cs",
+      "Blob": "fe7611873f79fde08c95d318a9430e8b0f55b54c"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Blob": "062820ba7b30226eb1fd87037e24740b4b0573df"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Blob": "b42834e8c666c7db4d4b351daa62f4f346620ec5"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Blob": "3cb7b73026eb03a7976f6ec4a93ada6bd2996b05"
+    },
+    {
+      "Path": "src/Erlang.Terms/Term.cs",
+      "Blob": "3bb3893615dffe1978af9de1c0090e775b660fc7"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Blob": "4f4198dd34bc59e4a9722f5f08eeba41dd124da1"
+    },
+    {
+      "Path": "src/Erlang.Terms/TupleTerm.cs",
+      "Blob": "e8c166e381906a192143c9c2180038eb0a907f53"
+    }
+  ],
+  "AllImplementationBlobsMatch": true,
+  "FixtureOnlyCopies": [
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tools/Erlang.Differential/MatchTimingCases.cs",
+    "tests/Erlang.Tests/Program.cs"
+  ],
+  "Passed": 719,
+  "Failed": 6,
+  "ExpectedRegressionFailures": [
+    {
+      "Name": "oracle/compiled-module/compiled-match-tuple-whole-value",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {error,error,{badmatch,{3,4}}}, got {error,error,{badmatch,3}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/compiled-match-list-whole-value",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {error,error,{badmatch,{3,4}}}, got {error,error,{badmatch,3}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/compiled-match-call-whole-value",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {error,error,{badmatch,{3,4}}}, got {error,error,{badmatch,3}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/compiled-match-before-block-effect",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,{{badmatch,{2,3}},none}}, got {ok,{{badmatch,2},late}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "oracle/compiled-module/compiled-match-nested-tuple-constraint",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {error,error,{badmatch,{2,3}}}, got {error,error,{badmatch,2}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/compiled-match-map-whole-value",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {error,error,{badmatch,#{k=>2}}}, got {error,error,{badmatch,2}}\r\n   at Program.<<Main>$>g__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.<<Main>$>g__Equal|0_2(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 15\r\n   at Program.<>c__DisplayClass0_62.<<<Main>$>b__474>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3285\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part-060-baseline\\tests\\Erlang.Tests\\Program.cs:line 3364",
+      "Milliseconds": 125
+    }
+  ],
+  "FixedLocalPassed": 725,
+  "FixedLocalFailed": 0,
+  "Limits": "Local exact-source old/new regression proof; fresh OTP proof pending"
+}

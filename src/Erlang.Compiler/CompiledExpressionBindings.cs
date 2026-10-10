@@ -18,6 +18,8 @@
 // ulinearize_exprs and uexprs match failures, using the erl_eval binding helper.
 // Retains independent child environments (including closure capture), checks
 // each returned child's bindings in source order, and reports its new value.
+// Modified: known-variable constraints now check explicit patterns at their
+// match point, preserving the full RHS value and stopping following effects.
 // This is not a port of full Core Erlang lowering or optimization.
 
 namespace Erlang.Compiler;
@@ -30,12 +32,12 @@ internal static class CompiledExpressionBindings
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate
     )
     {
-        var original = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        var original = CompiledBindingScope.Copy(bindings);
         var merged = new Dictionary<string, Term>(original, StringComparer.Ordinal);
         var values = new Term[expressions.Count];
         for (int i = 0; i < expressions.Count; i++)
         {
-            var scope = new Dictionary<string, Term>(original, StringComparer.Ordinal);
+            var scope = new CompiledBindingScope(original, merged);
             values[i] = await evaluate(expressions[i], scope);
             merged = ExpressionBindings.Merge(merged, scope);
         }

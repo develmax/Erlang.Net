@@ -452,6 +452,43 @@ public static class CompiledModuleCases
             "compiled-empty-string-zero-elimination",
             "-module(oracle_empty_zero). -export([run/0]). run()->N=id(0),<<\"\":N,3:4>>. id(X)->X.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),new BitString([48],4))
+        ),
+        new(
+            "compiled-match-tuple-whole-value",
+            "-module(oracle_match_tuple). -export([run/0]). run()->{{X,Y}=id({1,2}),{X,Y}=id({3,4})}. id(V)->V.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.Tuple(Term.I(3),Term.I(4))))
+        ),
+        new(
+            "compiled-match-list-whole-value",
+            "-module(oracle_match_list). -export([run/0]). run()->[{X,Y}=id({1,2}),{X,Y}=id({3,4})]. id(V)->V.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.Tuple(Term.I(3),Term.I(4))))
+        ),
+        new(
+            "compiled-match-call-whole-value",
+            "-module(oracle_match_call). -export([run/0]). run()->pair({X,Y}=id({1,2}),{X,Y}=id({3,4})). id(V)->V. pair(A,B)->{A,B}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.Tuple(Term.I(3),Term.I(4))))
+        ),
+        new(
+            "compiled-match-before-block-effect",
+            "-module(oracle_match_effect). -export([run/0]). run()->put(mark,none),R=catch {X=id(1),begin {X,Y}=id({2,3}),put(mark,late),Y end},{'EXIT',{Reason,_}}=R,{Reason,get(mark)}. id(V)->V.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(Term.Tuple(Term.A("badmatch"),Term.Tuple(Term.I(2),Term.I(3))),Term.A("none"))
+            )
+        ),
+        new(
+            "compiled-match-nested-tuple-constraint",
+            "-module(oracle_match_nested). -export([run/0]). run()->{X=id(1),{{X,Y}=id({2,3}),ok}}. id(V)->V.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.Tuple(Term.I(2),Term.I(3))))
+        ),
+        new(
+            "compiled-match-map-whole-value",
+            "-module(oracle_match_map). -export([run/0]). run()->{X=id(1),#{k:=X}=id(#{k=>2})}. id(V)->V.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Failure),
+                Term.A("error"),
+                Term.Tuple(Term.A("badmatch"),new MapTerm([new KeyValuePair<Term,Term>(Term.A("k"),Term.I(2))]))
+            )
         )
     ];
 }
