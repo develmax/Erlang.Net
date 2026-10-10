@@ -320,3 +320,7 @@ Erlang callback adapters/15 OTP exports pass1479/full local pipeline; plan1293=7
 ## Part 085 checkpoint
 
 Original03d8a1f run38070440171 stopped1182/1182 executed (778 expressions/404 modules), zero mismatches, planned1293/Complete=false, Base64 infrastructure failure on bad-init fixture; same-head1479/full CI passed. Preserve initial evidence part085. Framed development oracle/noisy/strict negative probes pass1482/full local pipeline, unchanged778/436/79 sources/expected/generated hashes;217 types/no violations;81 MFAs/no delta. Publish/recheck new head before claiming original completeness. Last complete original1256 at116e0eb. Approximately5% coarse; remaining behaviour/upstream/performance scopes partial; draft uncommitted, consolidated notices packaged without banners. Journal0013 active.
+
+## Part 086 checkpoint
+
+Published2fd52f8 verifies1293/1293=778/436/79 exact-source OTP-29.1.1 and1482/full same-head CI. Prior778/399/79 unchanged;37 independent callback modules match, zero corrections. Registry81 (+15), gen_server10/41 and supervisor5/23 partial;217 types/no violations. Immutable proof part086, initial local failures part084. Next dynamic supervisor APIs/lifecycle races; full sys/proc_lib/options/aliases/upgrade/distribution/hibernate/significant/simple_one_for_one/resources/stacks/performance unfinished. Approximately5% coarse. License draft uncommitted; consolidated notices packaged without source banners. Journal0013 active.

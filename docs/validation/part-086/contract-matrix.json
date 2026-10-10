@@ -1,0 +1,269 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "TestedHead": "2fd52f8be2d247d3141afe4a48aca4934c58e254",
+  "NewGenServerModules": 18,
+  "NewSupervisorModules": 19,
+  "Cases": [
+    {
+      "Name": "otp-server-timeout-action",
+      "LocalEvidence": "oracle/compiled-module/otp-server-timeout-action",
+      "IndependentExpected": "{ok,timed}",
+      "SourceSha256": "7A12F7B61714B847F2EB87630268F284F0B3015A8712AD65F5BF2E6120B9D57E",
+      "CSharpSha256": "087D3D10526D4C43AF7E25482FE635727379DA117F5FF55E165FB8645594644F"
+    },
+    {
+      "Name": "otp-supervisor-invalid-restart",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-invalid-restart",
+      "IndependentExpected": "{ok,{error,{invalid_restart_type,wrong}}}",
+      "SourceSha256": "490F9A54C0D3A865CDE05024EB072DF707A92F014A5DBFC3B4D4AAF3A7ADCCF5",
+      "CSharpSha256": "433D99BD83F600EBD9FE5B3AE6678C25C539F00D00D61B5FB652506BD27AD62C"
+    },
+    {
+      "Name": "otp-supervisor-invalid-mfa",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-invalid-mfa",
+      "IndependentExpected": "{ok,{error,{invalid_mfa,wrong}}}",
+      "SourceSha256": "8AB9F3D6F7E2470D04AE41E14904FC5982D6416BE8912C190962DCF93C874C58",
+      "CSharpSha256": "0A577DBF946BAC363D9F0EA50A81956C13945793138597F94F2FE0C3C5C0E384"
+    },
+    {
+      "Name": "otp-supervisor-invalid-shutdown",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-invalid-shutdown",
+      "IndependentExpected": "{ok,{error,{invalid_shutdown,-1}}}",
+      "SourceSha256": "CD4FA080289A44D217BCA8881C51E56114D715FB3B8E00684BCE9B9BC0A6AA44",
+      "CSharpSha256": "08DB216FF0DC4EA35839FB50D63C0EE9CE3F884348244F266A4E959B63FBE2B0"
+    },
+    {
+      "Name": "otp-supervisor-invalid-modules",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-invalid-modules",
+      "IndependentExpected": "{ok,{error,{invalid_module,1}}}",
+      "SourceSha256": "4147A1142D2AF4C107A25A0156C2E02752908BD141B0826D35FB5AB624852BA9",
+      "CSharpSha256": "4DE8D74C68C531543B96CA14A3A5722B7827A33E873F0CBBA58CCF7B5D01C1FE"
+    },
+    {
+      "Name": "otp-supervisor-bad-init-return",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-bad-init-return",
+      "IndependentExpected": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+      "SourceSha256": "F8549584B4B3847EC03188D58A22B29574FA54156C6EB9940FE440A87F8DA0F8",
+      "CSharpSha256": "4A4F1E0595608CE8A32CA03ED9A99810CD88EFCF0FD1758106A3EE034B47A958"
+    },
+    {
+      "Name": "otp-server-optional-callbacks",
+      "LocalEvidence": "oracle/compiled-module/otp-server-optional-callbacks",
+      "IndependentExpected": "{ok,8}",
+      "SourceSha256": "D72C81ABD28DDA9681C43B6F51C346676D8ACE78AF29E096B93330FB7B7C4344",
+      "CSharpSha256": "0C83C6D42D8DF29D59ADBB5A033F1C3966ADFF76EBF50AC659D009834DED0AFC"
+    },
+    {
+      "Name": "otp-server-named-start-link-stop-three",
+      "LocalEvidence": "oracle/compiled-module/otp-server-named-start-link-stop-three",
+      "IndependentExpected": "{ok,6}",
+      "SourceSha256": "4BB560D89F8004B0F1D39F3190B4DFAFCB58DFEE50BD9E0E5222A4D6ED710147",
+      "CSharpSha256": "1A0AE1A2E6DB7DA3CAFB3785513B4AF2E0ED01022070D47737D8B263BCCB2C6D"
+    },
+    {
+      "Name": "otp-server-call-bad-return",
+      "LocalEvidence": "oracle/compiled-module/otp-server-call-bad-return",
+      "IndependentExpected": "{ok,{bad_return_value,wrong}}",
+      "SourceSha256": "25F3B42D1F27493A8F6DFF11CBA502921797EC97A1A9B6281DEACFDC77E38A67",
+      "CSharpSha256": "277B1D671AED76E963EAF41F50B4C804A49C13FD0DF5D4573F29D2CD3C9B3177"
+    },
+    {
+      "Name": "otp-server-init-bad-return",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-bad-return",
+      "IndependentExpected": "{ok,{error,{bad_return_value,wrong}}}",
+      "SourceSha256": "A05624C02AB7492049B29DDE22E49E7FDC3C724852923703228E2A0479EFA569",
+      "CSharpSha256": "8B7FC18DEF203A4FC0273C68FE5589328A33A09A3DE82625A65E6CBA29857131"
+    },
+    {
+      "Name": "otp-supervisor-named",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-named",
+      "IndependentExpected": "{ok,undefined}",
+      "SourceSha256": "82DAB1FE518612FBA7DCB740BC784F6997AA753E1A904071C9AC6A14B0A1C59F",
+      "CSharpSha256": "21838A95924E4112DD41FB74C0CEFDABA1C44E0F25643145FD9CFADFDDD15BDE"
+    },
+    {
+      "Name": "otp-supervisor-restart-permanent",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-restart-permanent",
+      "IndependentExpected": "{ok,true}",
+      "SourceSha256": "CE8AD3824BF27429434EEF8F3BEA9A377CDC30582050E6B134311297B6DDE233",
+      "CSharpSha256": "8FAF9F4093E4A91955BB13CDD2F01DEF6A2C2C8B9DB1E7A5D277E88D23E4E420"
+    },
+    {
+      "Name": "otp-supervisor-child-query-order",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-child-query-order",
+      "IndependentExpected": "{ok,[{specs,2},{active,2},{supervisors,0},{workers,2}]}",
+      "SourceSha256": "66A910767E6469A0C10E62600CBCCC5D12D315AC9FE26AF963DAABC3D2988031",
+      "CSharpSha256": "AD746DDDACEF5689BF19E2B41C5F1BECFC1428AD5150D4CF7153CB8660C0B1AF"
+    },
+    {
+      "Name": "otp-server-call-cast-info",
+      "LocalEvidence": "oracle/compiled-module/otp-server-call-cast-info",
+      "IndependentExpected": "{ok,{1,2,3}}",
+      "SourceSha256": "A270322BEA5B023EA425CA7477368D32140192261F9A4105AD4E565F6798D7B8",
+      "CSharpSha256": "2DE4430D2DD6B73806E73083289EDA881ED714715E2D45B73E4EC375B8D4F689"
+    },
+    {
+      "Name": "otp-server-init-continue",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-continue",
+      "IndependentExpected": "{ok,7}",
+      "SourceSha256": "2F12D48D76FDEFCBC1519F3C63A55C40EBD949F1CA9F6E8FF3D1BA0F79E52BF5",
+      "CSharpSha256": "1324D1908EF37C8D8511E72A9F60151FF1B832EA3C4B5C2D678B1F63214A3B01"
+    },
+    {
+      "Name": "otp-server-deferred-reply",
+      "LocalEvidence": "oracle/compiled-module/otp-server-deferred-reply",
+      "IndependentExpected": "{ok,8}",
+      "SourceSha256": "FB26D13DD44AA1DE118F5A4F855FCD03F5CC3BDC0981965AF885609D5EF1574A",
+      "CSharpSha256": "2638B0A9D3BFD1537123CDD4B06EB175FC6456F2BBB127CD3BA1552035690E31"
+    },
+    {
+      "Name": "otp-server-callback-self",
+      "LocalEvidence": "oracle/compiled-module/otp-server-callback-self",
+      "IndependentExpected": "{ok,true}",
+      "SourceSha256": "42E619E174747B5241FE2B011D120A41F17B51A6657A57EAB80853B90347DEB4",
+      "CSharpSha256": "3B099DFE9A931328CB989BB77E2F579797FD546F1C175B854A46C64D7044BEF7"
+    },
+    {
+      "Name": "otp-server-init-ignore",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-ignore",
+      "IndependentExpected": "{ok,ignore}",
+      "SourceSha256": "0CD737ECB570AEE5DBEB09F4C44D28AD26CD2E2D93FF3C9C1D1FC26DDC2323DB",
+      "CSharpSha256": "C73CA32803D8A2CB4BB17119C92D879FD91EC78E9121E3428F3455C84F455F34"
+    },
+    {
+      "Name": "otp-server-init-stop",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-stop",
+      "IndependentExpected": "{ok,{error,failed}}",
+      "SourceSha256": "F3ED46589D128A5B0A065BCDFCA39C33ECADD516973E026AD1B1AEBC08E3B61F",
+      "CSharpSha256": "1E68DF968519437675C6D5FC693E3EAD1BDE57468FE37A2C7D0316FACD91F853"
+    },
+    {
+      "Name": "otp-server-init-error",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-error",
+      "IndependentExpected": "{ok,{error,failed}}",
+      "SourceSha256": "CF1EB6747CA0F6DA7D1CEE8CEA3C46866E6C43A84ACEBDE43F83665DAB597A6C",
+      "CSharpSha256": "86BCA83A2EDA50339796ED4D4F88A84CB41E7F2DF69206A5C878DFBC470FE4E0"
+    },
+    {
+      "Name": "otp-server-init-throw-result",
+      "LocalEvidence": "oracle/compiled-module/otp-server-init-throw-result",
+      "IndependentExpected": "{ok,9}",
+      "SourceSha256": "F6A6DF5D62E8C30E2DC9EB0C48C0554ADB70B8FB384621266162F2E9C14C4EF5",
+      "CSharpSha256": "49E6A0BFED40A7F78EDA072C6EC087F3E7C1F7EAAC84A3D9AC3833E1B5ECFCFE"
+    },
+    {
+      "Name": "otp-server-call-throw-result",
+      "LocalEvidence": "oracle/compiled-module/otp-server-call-throw-result",
+      "IndependentExpected": "{ok,{yes,2}}",
+      "SourceSha256": "2D5D028F186F5027D2602745391EFD7E52E23E84A66ABB9ED7D1F25CEF4CE471",
+      "CSharpSha256": "4C663FE1FEA9D7CADE88E89B334E2679345AC976BEBA8D0175061616CB3B0324"
+    },
+    {
+      "Name": "otp-server-stop-reply-terminate-order",
+      "LocalEvidence": "oracle/compiled-module/otp-server-stop-reply-terminate-order",
+      "IndependentExpected": "{ok,ok}",
+      "SourceSha256": "FA15014894EB40C043A9DC9174453550C0CD86D3A47178CC2CD6A8A4AB13A6E9",
+      "CSharpSha256": "0DF27C57E44CB34E0AEDD3830990DC2C1C18443F89DD3AAD00F22AB7F34090C5"
+    },
+    {
+      "Name": "otp-server-named-start",
+      "LocalEvidence": "oracle/compiled-module/otp-server-named-start",
+      "IndependentExpected": "{ok,{5,undefined}}",
+      "SourceSha256": "E9245F9973460B5785B5294A863946C780AB2ACDBED05C4E1999A9D4421019D8",
+      "CSharpSha256": "3E5631624C90605958D9D1C299E25820BE2EB3F626BB4D2A89889D8632A51DB1"
+    },
+    {
+      "Name": "otp-server-missing-call",
+      "LocalEvidence": "oracle/compiled-module/otp-server-missing-call",
+      "IndependentExpected": "{ok,{noproc,{gen_server,call,[oracle_missing,hi]}}}",
+      "SourceSha256": "40CE719AC3C340BD56B7C75ED55F443BF83DBE5E84C5B2C33C852D75C25ABDB0",
+      "CSharpSha256": "D27F2FCC614AFCD4E0F78D809D599AF9C458A0123BE9FFB672553958EE3F2C87"
+    },
+    {
+      "Name": "otp-server-missing-cast",
+      "LocalEvidence": "oracle/compiled-module/otp-server-missing-cast",
+      "IndependentExpected": "{ok,ok}",
+      "SourceSha256": "70622F2B2BED415BC47A314BF42F5A521CBC115E0293A11F49166CF0DF8D0056",
+      "CSharpSha256": "5AB5D3CF6E5C19EE3D2CDE7392AD4F38AFC461CDE816BAF122337954969D339E"
+    },
+    {
+      "Name": "otp-supervisor-empty",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-empty",
+      "IndependentExpected": "{ok,{[],[{specs,0},{active,0},{supervisors,0},{workers,0}]}}",
+      "SourceSha256": "A31D99047F7E97F0D56435514AD26AF857FEA106EC3ED06437A7F2CD326ADE9B",
+      "CSharpSha256": "B8EC1B9C98697E7137AF8249083FB23D25AEDB11B7F1CFF1B719C5626A706BD9"
+    },
+    {
+      "Name": "otp-supervisor-ignore",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-ignore",
+      "IndependentExpected": "{ok,ignore}",
+      "SourceSha256": "9F45C9D448E8BC1B28FEE85E31C7C5ED8D298893F33A99FDE8E8EB52520FBD5C",
+      "CSharpSha256": "FEDC22441D6E93823F392C7F04CF63AEFBA1241F071F966869503116325D7504"
+    },
+    {
+      "Name": "otp-supervisor-map-child",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-map-child",
+      "IndependentExpected": "{ok,7}",
+      "SourceSha256": "720E3F6B13A95838F9ED18FBD227307B687E554738FC3C37E81C9585A5331421",
+      "CSharpSha256": "A8EE75937B93611F3879A5314B85A627A5987643DE4FC4BC7C7E9F9C5A7F93DD"
+    },
+    {
+      "Name": "otp-supervisor-legacy-child-flags",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-legacy-child-flags",
+      "IndependentExpected": "{ok,8}",
+      "SourceSha256": "8103E87CB3DBCA83F3DF6D80EA0D93C249D5F23E6366F4DD68C81689915DE625",
+      "CSharpSha256": "3169A4650C95D82E62D3457E9893B2CBBFBD9F408A0859C0E53C4FBDF1A31C06"
+    },
+    {
+      "Name": "otp-supervisor-ignore-child",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-ignore-child",
+      "IndependentExpected": "{ok,[{first,undefined,worker,[oracle_otp_supervisor]}]}",
+      "SourceSha256": "31047F9159C1E50F9DAF5781224C2A83052AEAC44CC64F93E644EE01A1245B75",
+      "CSharpSha256": "20CF4BB895D4E93D9423A25318C505A320D9905C5B46CAB6AC207259F90B6F1C"
+    },
+    {
+      "Name": "otp-supervisor-start-failure",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-start-failure",
+      "IndependentExpected": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+      "SourceSha256": "C9C1C92ABB8BB6D840FDB4643AD9C2F414471DE947CB26D0399CB407DE4BC060",
+      "CSharpSha256": "4376959F32555E871CE4AE15BAF26B7217B8DCD30B5C2E6991E144566D4CDF3B"
+    },
+    {
+      "Name": "otp-supervisor-invalid-intensity",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-invalid-intensity",
+      "IndependentExpected": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+      "SourceSha256": "7BC0AB0CFE7F473C335940CA93085A285CF9820D9E2EE8B08F0ADED65C40DD39",
+      "CSharpSha256": "23D49FAEB735728471E3DF8476F04144A09D78B2E2D1C4D44B376236D2431309"
+    },
+    {
+      "Name": "otp-supervisor-missing-id",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-missing-id",
+      "IndependentExpected": "{ok,{error,missing_id}}",
+      "SourceSha256": "0EC53BFDF1407180F4BE3FF6EDC5E11B411C09E19E723CC6DA5FFC15652EAD06",
+      "CSharpSha256": "AAE6D2CE3527E52F9DBC2DDEB4D96BEA91EE66F773B783745D94CA5264761765"
+    },
+    {
+      "Name": "otp-supervisor-missing-start",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-missing-start",
+      "IndependentExpected": "{ok,{error,missing_start}}",
+      "SourceSha256": "1C85B43DE2CE70F644D6715DA34C232F51260774DCC506794A47FDF3AB10BDCE",
+      "CSharpSha256": "35D4F85F5440603CB01421083D6FBC3997E121D767A2C2A0D1D5B67ADB06FE17"
+    },
+    {
+      "Name": "otp-supervisor-valid-check",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-valid-check",
+      "IndependentExpected": "{ok,ok}",
+      "SourceSha256": "43E327D1D8942BA5DF9E34A99908971DF8F059A6B89CA9DBB4FA128C8C274D49",
+      "CSharpSha256": "39F9378492E59D3D563C66B79F1F6A132117219D65C507620DE4011797F69EE9"
+    },
+    {
+      "Name": "otp-supervisor-duplicate-id",
+      "LocalEvidence": "oracle/compiled-module/otp-supervisor-duplicate-id",
+      "IndependentExpected": "{ok,{error,{duplicate_child_name,first}}}",
+      "SourceSha256": "73673E4D6048EFDE4C180D91BB087823851EE4F88582C6E3D2ACD71E9F909894",
+      "CSharpSha256": "731F04E197ED462C788B3FD3037A33B661FBE36A70CAB1FF210FA040C47B0AFE"
+    }
+  ],
+  "Limits": "Selected public callback/static-child contracts; full source suites, sys/proc_lib/aliases/options/upgrade/distribution/hibernate/dynamic/significant/retry/races/stacks unfinished"
+}

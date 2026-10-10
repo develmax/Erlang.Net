@@ -2,9 +2,11 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
-Development validation now compares **249 expressions**, **28 separately compiled fixture modules** and **5 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-036/remote-checkpoint.json).
+Development validation now compares **778 expressions**, **436 separately compiled fixture modules** and **79 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-086/remote-checkpoint.json).
 
-The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, initial OTP behaviours and a mixed C#/Erlang MSBuild preprocessor.
+The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, selected Erlang gen_server/supervisor callback adapters and a mixed C#/Erlang MSBuild preprocessor.
+
+Selected Erlang behaviour adapters expose ten gen_server and five supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
 
 [Module readiness](docs/MODULE_READINESS.md) reports delivered/remaining component milestones, tested registered MFAs and changes from the previous checkpoint. Its API-presence percentages measure declarations, not complete compatibility. The full inventory is in [module-readiness.json](docs/module-readiness.json).
 

@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–083.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–086.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 66 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
-| OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
+| Core modules | 81 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static child MFA/specs, actions, queries and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 66 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 81 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -502,3 +502,11 @@ Original workflow38070440171 at03d8a1f built pinned OTP successfully but stopped
 The development oracle previously decoded all stdout as Base64. Native OTP startup failures can emit asynchronous crash/warning reports there. Expression, compiled-module and diagnostic commands now emit one explicitly delimited ETF result in one io:format request; the decoder rejects missing/reversed/duplicate frames and invalid payloads, while ignoring surrounding logs. Version probing stays separate; native exit/timeout errors still fail infrastructure. No logger suppression, production adapter modification, new MFA or expectation/source correction.
 
 Corrected local1482/1482/full pipeline and repeat1482 tests pass; three result-frame tests and an independent noisy-output/four-invalid-frame probe added. [Local tests](validation/part-085/tests.json), [integration](validation/part-085/integration-results.json), [probe](validation/part-085/frame-probe.log), [preservation](validation/part-085/corpus-preservation.json). All778/436/79 fixture source/expected/generated hashes unchanged.217 namespace types/no layout violations;81 MFAs, gen_server10/supervisor5 partial. Publish transport fix and rerun exact-source1293 comparison plus same-head1482 CI. Last complete original evidence remains1256 at116e0eb; approximate5% overall, full behaviour/module/upstream/performance scopes unfinished. License draft remains uncommitted/unpublished/unpackaged.
+
+## Part 086 — Exact-source behaviour adapter verification (2026-10-10)
+
+Published implementation **2fd52f8be2d247d3141afe4a48aca4934c58e254** passes **1293/1293=778 expressions+436 compiled modules+79 normalized diagnostics** against OTP-29.1.1 built from exact source SHAad05823719d77c8faee87348ea39513d4e2f99c5. [Raw oracle](validation/part-086/differential.json), [strict provenance](validation/part-086/remote-checkpoint.json), [corpus preservation](validation/part-086/corpus-audit.json). Same-head CI **1482/1482 and full pipeline** pass. Workflow/job/artifact/source-build/version/completeness/track counts and local/CI test names verified. All prior778/399/79 contracts/source/generated hashes unchanged;37 independently expected callback modules match original with zero expectation corrections and no oracle mismatches.
+
+The selected checks for init outcomes/actions/throw returns, optional callbacks, call/cast/info/deferred replies, local named registration, monitor stop/termination, permanent child restart, legacy/map flags/specs, ignored children, query order and validation/start failures are complete for this increment. The adapters add15 MFAs, total81; gen_server10/41 explicit declarations and supervisor5/23, all partial. API presence ratios do not measure semantic completion.217 namespace types/no layout violations. Consolidated exact OTP notices packaged, LICENSE.local.txt uncommitted/unpublished/unpackaged; no source banners/new dependency/production BEAM. This proof changes no executable code and reuses local1482/full pipeline from part085. Framed oracle correction resolves the initial1182/1293 incomplete transport run without changing any fixture expectation/source.
+
+Full sys/proc_lib/options/aliases/upgrades/distribution/hibernation/huge-timeout/stacks and startup/parent/dead-child/shutdown races remain unfinished. Supervisor dynamic children/simple_one_for_one/significant/auto_shutdown and full restart retry/intensity/shutdown edges need additional source-directed implementation/tests. Original complete upstream suites and BEAM performance benchmarks are unrun; whole work.md remains approximately5% coarse. Next implement selected dynamic supervisor APIs and harden lifecycle/error races, preserving pinned baseline and immutable expectations.

@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-084/tests.json",
+  "ComparisonTestReport": "validation/part-085/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -72,7 +72,7 @@
         "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
         "Grouped list/binary/map zip && generators with strict/shared row constraints; separate erl_eval traversal and v3_core joint/skip/tail clauses, raw compiled iterator versus normalized interpreted remainders",
         "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates",
-        "Selected zip and prior contracts verified against exact-source OTP-29.1.1 at116e0eb:778 expressions/399 compiled modules/79 diagnostics=1256;1427/full same-head CI; full Core lowering remains incomplete"
+        "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -110,7 +110,8 @@
       "Implemented": [
         "C# and Erlang callbacks; ten standard gen_server MFAs",
         "init outcomes/throw returns, call/cast/info, continue/timeout and optional callbacks",
-        "local names, terminate-before-stop-reply and monitor-based stop"
+        "local names, terminate-before-stop-reply and monitor-based stop",
+        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial"
       ],
       "Id": "gen_server adapters",
       "TestPrefixes": [
@@ -129,7 +130,8 @@
       "Implemented": [
         "C# strategies/policies/intensity and five standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
-        "serialized child queries and reverse shutdown"
+        "serialized child queries and reverse shutdown",
+        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [
@@ -176,11 +178,10 @@
         "broader compiled-module/optimizer/stacks/signals"
       ],
       "Implemented": [
-        "pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency",
-        "778 expressions,399 generated C#/compiled-reference modules and79 normalized rejections verified at116e0eb;1256/1256 complete/version verified",
-        "historical722 expression inputs/343 module source/expected/generated-hash contracts and73 diagnostics unchanged;56 independent zip expressions/modules and six diagnostics added",
-        "selected interpreted/compiled source scopes, strict/shared pattern constraints and binary/map remainders independently match original; zero expectation corrections after reference execution",
-        "same-head1427/full CI; initial1411/1412 and pre-scope1421 local reports retained in part081; initial original1245/1252/seven differences and five explicit source-order corrections retained in part082; negative oracle protocol and immutable provenance snapshots"
+        "Pinned exact-source OTP-29.1.1 at2fd52f8:1293/1293=778 expressions/436 compiled modules/79 diagnostics",
+        "All previous778/399/79 source/expected/generated hashes preserved;37 independently expected OTP callback modules added with zero expectation corrections",
+        "Same-head1482/full CI; raw source/version/completeness/workflow/job/artifact provenance retained",
+        "Initial local host-init/unsafe-variable/tool-registry failures retained part084; original1182/1293 incomplete transport failure retained part085 and resolved with framed transport, without expectation changes"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
