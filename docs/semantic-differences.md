@@ -57,3 +57,7 @@ All 30 added key-search/reverse cases match within complete 249/249 at 85bd19f, 
 ## Part 031 — Module comparison scope
 
 The new reference track compiles full fixture modules with normal OTP compiler optimizations and invokes run/0; .NET emits actual generated C# Release assemblies and runs their AST/evaluator definitions. This checks selected compiled-module behavior and generation integrity, not full optimizer equivalence/native lowering or stack/debug mappings. Existing expression reports remain erl_eval evidence. No language/runtime semantics changed; compile/load infrastructure failure is kept separate from a compared value/class/reason mismatch. The initial host SDK memory failure and bounded-process retry are preserved separately.
+
+## Part 032 — Compiled-module evidence boundary
+
+Selected 14 generated C# Release assembly/default-optimized BEAM module outcomes now match within complete 263/263 at b13b56a, alongside the preserved 249 expression cases. Earlier pending module status is superseded only for those fixtures. Generated code remains AST/evaluator-based; full optimizer equivalence/native lowering/compile warning diagnostics/stack mappings/signals/resources/reference suites remain unverified. No semantic implementation changed in this evidence-only checkpoint.

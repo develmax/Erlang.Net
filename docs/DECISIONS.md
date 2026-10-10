@@ -78,3 +78,7 @@ Store complete 249-case and same-head 344-test CI artifacts with source 219+30 p
 ## Part 031 — Separate compilation from expression evidence
 
 Reuse SDK Roslyn and BCL collectible contexts to exercise actual generated assemblies without adding packages or a production BEAM requirement. Use ASCII Base64 transport for complete Unicode module sources and compile:forms/code:load_binary in a fresh pinned reference process. Keep 249 expression cases and 14 module cases separately reported with source/generated hashes and independent expected fixtures. Test repeated identical assembly loading and rejected source locally. Readiness comparison baseline moves to immutable part-030; no new MFA, delta 0. Full optimized behavior/stack/resource/reference-suite scope remains incomplete.
+
+## Part 032 — Keep track-level proof explicit
+
+Preserve complete 249-expression and 14-compiled-module outcomes separately, with same-head 361-test CI, archive/head provenance and source/generated SHA256 audit. Selected default-optimized compiler outcomes now have actual reference evidence; do not promote full optimizer/native-backend or whole-module compatibility. Readiness remains 56 MFAs with delta 0 against part-030; this work advances validation milestones. Reuse the existing pinned workflows/SDK tools, no new production dependency or license choice.

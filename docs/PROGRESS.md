@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–031.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–032.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Latest completed historical same-head evidence: **249/249** exact-version oracle cases and **344/344** Windows CI tests at **85bd19f**; [part-030 metadata](validation/part-030/remote-checkpoint.json). Full local validation is preserved in part-029. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
+Latest same-head evidence: **249/249 expressions + 14/14 compiled modules (263/263)** against exact OTP, plus **361/361** Windows CI tests at **b13b56a**; [part-032 metadata](validation/part-032/remote-checkpoint.json). Full local validation is preserved in part-031. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
 
 
 - **361/361 local tests passed**, including 56 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-031/tests.json).
@@ -96,3 +96,7 @@ Exact-version run **38003460218** at **85bd19f** passes **249/249**, complete/ve
 Added a separate module track: reference sources scan/parse into forms, compile to BEAM with default optimizations and load/run in a fresh oracle process; implementation sources generate C#, compile with SDK Roslyn Release, load in a collectible context and execute the generated ModuleDefinition. Fourteen original fixture modules cover private calls/guards/closures/tail calls/maps/bit/UTF/string size binding/Unicode/list lookup and error/throw/exit. Independent expected values and repeat-context/invalid-source/ASCII protocol tests pass locally: **361/361** and full integration/readiness. No new runtime MFA or grammar; registry 56, lists 13/91 unchanged. [Readiness](MODULE_READINESS.md), [local tests](validation/part-031/tests.json).
 
 New differential report separates unchanged **249 expressions** from **14 compiled modules** (**263 planned**), with source/generated hashes and mode labels; aggregate completeness requires both tracks. Live new-head comparison pending; historical 249/249 at 85bd19f does not verify the module track. Initial SDK/style/restore hit OutOfMemoryException before new code compilation; process-local processor/node-reuse bounds allowed a successful build/full pipeline, cause unconfirmed. [Initial failure](validation/part-031/initial-build.json). Full optimizer equivalence, stacks/signals/resources/release/reference suites remain incomplete; full assignment approximately 5%.
+
+## Part 032 — Complete expression and compiled-module reference evidence
+
+Exact-version run 38012731419 at b13b56a passes **249/249 expressions**, **14/14 compiled modules**, **263/263 aggregate**, complete/version verified, no failures/aborts. The compiled track executes default-optimized BEAM versus actual generated C# Release assemblies; source audit confirms all previous 249 expressions, all 14 fixture sources and source/generated hashes. Same-head Windows CI 38012730964 passes **361/361** and full integration/readiness. [Metadata](validation/part-032/remote-checkpoint.json), [corpus/hash audit](validation/part-032/corpus-audit.json). No new API; 56 MFAs and lists 13/91 unchanged. Selected compiled-module behavior is confirmed, full optimizer/native lowering/stacks/resources/reference suites remain incomplete. Documentation only; full local validation ran in part-031, assignment approximately 5%.
