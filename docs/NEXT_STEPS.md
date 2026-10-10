@@ -69,3 +69,7 @@ Publish twelve compiled bit-order/closure fixture additions and dispatch the pin
 ## Part 035 checkpoint
 
 Publish the locally validated construction-scope fix and compiler-rejection track, then rerun the existing pinned workflow on the corrected head. Require complete249 expressions/28 compiled modules/5 diagnostic cases (282 total), no abort/mismatch, same-head389-test CI and source/generated/diagnostic hash provenance. Keep the initial268-case abort immutable; historical263/263 is not corrected-head proof. After verification, implement audited lists:last/1 and lists:split/2, distinguishing empty/nonlist/improper-tail/zero/exact/overrun/large-index boundaries; then grammar/OTP callbacks/signals. Registry56/lists13/91/approximately5% overall.
+
+## Part 036 checkpoint
+
+Corrected three-track reference and same-head CI are complete and preserved:249 expressions,28 modules,5 diagnostics,282 total,389 tests. Next implement audited lists:last/1 and lists:split/2, with direct MFA cases plus proper/improper/empty/nonlist/zero/exact/overrun/large-index reference boundaries; keep the full282-case baseline. Further grammar/OTP callbacks/signals, full construction/scoping/diagnostic locations/warnings/debug/resources/reference suites remain unfinished. Registry 56/lists 13/91/approximately 5% overall.

@@ -46,3 +46,5 @@ Part 033 adds fixed common atom reuse (six permanent terms tests) and two style 
 Part034:26 compiled C# module fixtures pass locally (12 new bit-order/closure cases); planned pinned comparison249+26=275. Historical reference263/263 remains at b13b56a until the new head is checked. 381 local tests; no MFA or grammar addition.
 
 Part035 repairs construction binding visibility found by OTP's unbound_var rejection. 389 local tests,28 compiled modules and5 compiler-rejection fixtures;282 total planned reference cases. Initial run atc9ca96a is incomplete268/275, not complete proof; corrected-head reference pending. No new MFA/whole-module status.
+
+Part036 confirms corrected construction binding scope on the five explicit unbound-variable cases and positive exports/prebound inputs:249+28+5/282 complete atf0ff362, same-head389-test CI/full integration. Initial268-case abort stays historical; no full compiler/optimizer/diagnostic-location or whole-module promotion.

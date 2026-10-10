@@ -94,3 +94,7 @@ Retain stage-separated bit expression evaluation/binary validation and clause-lo
 ## Part 035 — Separate expression order from binding visibility
 
 Pinned erl_lint expr_bin/bin_element validates every construction value and size against the original Vt and merges their exports afterward. Snapshot/merge construction scopes accordingly; do not change runtime evaluation ordering or sequential pattern binding. Preserve the aborted reference run and move the invalid input to an explicit diagnostic track rather than accepting it or silently deleting evidence. Compare specific unbound_var reason terms and independent C# ERL006/text expectations. Complete aggregate counts require all three tracks, with process/scan/parse failures still infrastructural. Normalize diagnostic reasons only; annotations, warnings and full diagnostics remain unverified. No new dependency/MFA/status promotion.
+
+## Part 036 — Keep corrected proof and the failed attempt separate
+
+Preserve complete282/282 oracle and same-head 389-test CI with exact head/archive metadata and all three source/expected/hash/diagnostic audits. Keep the initial268-case abort immutable; it motivated a real construction-scope correction. Only selected normalized reasons and C# diagnostic code/message are confirmed, not warning/annotation/full diagnostic or optimizer equivalence. Readiness comparison moves to immutable part 035 tests; no MFA or broad status promotion. Reuse existing workflows/BCL/SDK tools with no dependency/license change.

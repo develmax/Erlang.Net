@@ -402,9 +402,12 @@
         "oracle/compiled-module/bit-independent-binding-exports",
         "oracle/compiled-module/bit-prebound-size-across-fields",
         "validation/part-035/tests.json",
-        "validation/part-035/initial-aborted-differential.json"
+        "validation/part-035/initial-aborted-differential.json",
+        "validation/part-036/differential.json",
+        "validation/part-036/remote-checkpoint.json",
+        "validation/part-036/corpus-audit.json"
       ],
-      "limits": "Fourteen generated C# Release/default-optimized BEAM module cases match at b13b56a alongside 249 preserved expressions (263/263 complete). AST/evaluator backend; no full optimizer/native lowering/stacks/resources/reference-suite claim. Part034 locally runs 26 compiled modules; 12 new bit-order/closure cases await published-head compiled-reference comparison (275 planned total). Part035 corrects binary construction sibling binding visibility;28 module and5 diagnostic fixtures pass locally, new282-case reference run pending. Initial268-case abort is not complete proof."
+      "limits": "28 generated C# Release/default-optimized BEAM modules, 249 preserved expressions and 5 normalized compiler rejection reasons match at f0ff362 (282/282 complete). Construction binding isolation confirmed for selected inputs; initial 268-case abort preserved. No full scoping/optimizer/native lowering/warnings/annotations/stacks/resources/reference-suite claim."
     }
   ],
   "moduleReadiness": "module-readiness.json"
