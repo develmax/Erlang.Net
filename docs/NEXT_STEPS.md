@@ -101,3 +101,7 @@ Published duplicate/flatten head 3c138b2 passes pinned355/355 (322 expressions,2
 ## Part 043 handoff
 
 User-requested remaining semantic strings are extracted with319 value-preserving references, full472-test integration and149-type layout audit. Current registry62/delta0; lists19/91. Preserve immutable part043 local audits and historical part042355/355 separately. Continue audited compiler if expressions and branch bindings; source templates/test fixtures keep independent literal data. Keep domain constants separate even when their values coincide.
+
+## Part 044 handoff
+
+Publish tested if implementation, dispatch exact pinned392-case oracle (346 expressions/36 modules/10 diagnostics) and inspect same-head516 CI; preserve source/hash/expected/class/reason and artifact/head/reference-build provenance. Existing355/355 proof is historical. After verification, extend remaining grammar (begin blocks and additional unary/boolean/bit operators) with pinned error/binding contracts, then Erlang OTP callback adapters/signals. Registry62/delta0; lists19/91; approximately5% overall.

@@ -1,0 +1,341 @@
+{
+  "ExpressionCases": 346,
+  "ExpressionSourceBaseline": "20690f0",
+  "ExpressionSourcesPreserved": true,
+  "ExpressionAuditMode": "Collection expression token values and hugeInteger initializer; unchanged inputs generate identical source strings",
+  "HistoricalCompiledModules": 28,
+  "HistoricalModuleSourcesPreserved": true,
+  "HistoricalExpectedValuesPreserved": true,
+  "HistoricalGeneratedHashesPreserved": true,
+  "CompiledModules": 36,
+  "CompilerDiagnostics": 10,
+  "PlannedTotal": 392,
+  "Fixtures": [
+    {
+      "Name": "private-clauses",
+      "Source": "-module(oracle_clauses). -export([run/0]). run()-\u003Epick(2). pick(0)-\u003Ezero; pick(N) when is_integer(N)-\u003EN\u002B1.",
+      "FixtureExpected": "{ok,3}",
+      "SourceSha256": "8BC767262EBECD9ABC5B7C1C72E6891647480B21808756887914B4F3ABE33085",
+      "CSharpSha256": "9483A8019291B9E2AC90FC51FC0F0CD0203C5A85440C6E4CEC6AA49E83DD836D"
+    },
+    {
+      "Name": "guard-fallback",
+      "Source": "-module(oracle_guards). -export([run/0]). run()-\u003Epick(atom). pick(X) when hd(X)==1; is_atom(X)-\u003Eyes; pick(_)-\u003Eno.",
+      "FixtureExpected": "{ok,yes}",
+      "SourceSha256": "CED8353C2AD75481039449B4B36D3D9BDD4E0C59EA445541BF6AE0FC7C617211",
+      "CSharpSha256": "F6DB41DFB03C04341C821F48B88F88D6B423622635D84368DB8385EDFB9A6431"
+    },
+    {
+      "Name": "closure-shadow",
+      "Source": "-module(oracle_closure). -export([run/0]). run()-\u003EX=42,F=fun({X})-\u003EX; (_)-\u003EX end,{F({7}),F(atom)}.",
+      "FixtureExpected": "{ok,{7,42}}",
+      "SourceSha256": "6FF2F7E00A46B536760682E3F4ED55D0D8FB4D4BB0A1B89B039C6C8C4487CC81",
+      "CSharpSha256": "7652303EB50E50F13374E2566CDB4BC0499F89B63B46155D5EAA593BBD297C28"
+    },
+    {
+      "Name": "tail-calls",
+      "Source": "-module(oracle_tail). -export([run/0]). run()-\u003Eloop(2000,0). loop(0,A)-\u003EA; loop(N,A)-\u003Eloop(N-1,A\u002B1).",
+      "FixtureExpected": "{ok,2000}",
+      "SourceSha256": "6A39ACD884F5AC8F3FA0655EE20F5AFF7DC6B28D116859E9D4D1F0C3128F05DC",
+      "CSharpSha256": "27AAA07DC21028C6037CD63D66185EE3D127BCEE45888732247CB48D023A8C72"
+    },
+    {
+      "Name": "map-exact-keys",
+      "Source": "-module(oracle_map). -export([run/0]). run()-\u003EM=#{1=\u003Einteger,1.0=\u003Efloat},#{1:=A,1.0:=B}=M,{A,B}.",
+      "FixtureExpected": "{ok,{integer,float}}",
+      "SourceSha256": "7005037A45E8DFB946747514C8D44B2B37FCD1FAC0672CBEFC9DBBA0EC1380AD",
+      "CSharpSha256": "85AD66DA793E7A178485FC924DE4C8FE98635AB59612924A4853AF06982DD4F8"
+    },
+    {
+      "Name": "bit-pattern",
+      "Source": "-module(oracle_bits). -export([run/0]). run()-\u003E\u003C\u003CN,X:N,T/bitstring\u003E\u003E = \u003C\u003C3,5:3,2:2\u003E\u003E,{X,T}.",
+      "FixtureExpected": "{ok,{5,\u003C\u003C2:2\u003E\u003E}}",
+      "SourceSha256": "E35215ACEB6328A90F2C1307672193B5A18AD93E023F7E297742200B5B73C96F",
+      "CSharpSha256": "6FCC4BB44B07BD489C0BEB0EDC24D56AFA4A7129F2B160C940A209F1D3B89ED7"
+    },
+    {
+      "Name": "utf-pattern",
+      "Source": "-module(oracle_utf). -export([run/0]). run()-\u003E\u003C\u003CX/utf16-little\u003E\u003E = \u003C\u003C128512/utf16-little\u003E\u003E,X.",
+      "FixtureExpected": "{ok,128512}",
+      "SourceSha256": "58F602EBC1335BF64108203192487F695201B8CAEAC5067A3540BB4529AD4DBB",
+      "CSharpSha256": "D866FD0EFA1037E9D503883BE504D6A4066CF1741BA6F2A8486CF02977CB372B"
+    },
+    {
+      "Name": "string-size-binding",
+      "Source": "-module(oracle_string). -export([run/0]). run()-\u003EB = \u003C\u003C\u0022ab\u0022:(S=16)/little\u003E\u003E,{B,S}.",
+      "FixtureExpected": "{ok,{\u003C\u003C97,0,98,0\u003E\u003E,16}}",
+      "SourceSha256": "BA1081FFBB86F23720C307451754A2C928F32323E77974BAF1BBE36DCBCA210F",
+      "CSharpSha256": "ECCE1E52625F0B5CC7F632E159F26876EC03D55EEDCC7DEE89A4E7F115A80673"
+    },
+    {
+      "Name": "unicode-atom",
+      "Source": "-module(oracle_unicode). -export([run/0]). run()-\u003E\u0027\uD800\uDC00\u0027.",
+      "FixtureExpected": "{ok,\u0027\uD800\uDC00\u0027}",
+      "SourceSha256": "2DF95705E3A0F415FD4157E5F4D4F9093A5E56F331D5D7667CD58468701C8239",
+      "CSharpSha256": "23330FAE28F3929395EE486962EF767618DE8593AE55584B23D71B0CB1DCFA75"
+    },
+    {
+      "Name": "key-find",
+      "Source": "-module(oracle_keys). -export([run/0]). run()-\u003Elists:keyfind(a,1,[{a,found}|tail]).",
+      "FixtureExpected": "{ok,{a,found}}",
+      "SourceSha256": "7537D16ACCA17A877CE2C0B74BCF763B4486D2B77C95A15C2DE89504175A347C",
+      "CSharpSha256": "12ECE9C5F685E0C8A1B91A0201FF0D5A5895B98C4EAECD7482564E414B387072"
+    },
+    {
+      "Name": "function-clause",
+      "Source": "-module(oracle_function_error). -export([run/0]). run()-\u003Epick(atom). pick(0)-\u003Eok.",
+      "FixtureExpected": "{error,error,function_clause}",
+      "SourceSha256": "11060E4DD55AF0CD7D8ED73A85C3FD9D7B7BA070ED3CC46AD0E46AACCE7C30EF",
+      "CSharpSha256": "6B957B678BF38364C6333A0201083AD3074A95D10B1B900D747C59142413A7C9"
+    },
+    {
+      "Name": "badmatch",
+      "Source": "-module(oracle_match_error). -export([run/0]). run()-\u003E{a,X}={b,1},X.",
+      "FixtureExpected": "{error,error,{badmatch,{b,1}}}",
+      "SourceSha256": "D37AD9A1E463C3D2FDD6344E3EBD07D39D1ECB5B877B7F237E92F74CA06A1CF8",
+      "CSharpSha256": "91C613185E2DFCCE721BBEDF6C1497E910B811FD3152FAED14324FC922AFECD4"
+    },
+    {
+      "Name": "throw",
+      "Source": "-module(oracle_throw). -export([run/0]). run()-\u003Ethrow(reason).",
+      "FixtureExpected": "{error,throw,reason}",
+      "SourceSha256": "680C3E5209D5B0597B679C1DB63972C5AB43EA0196EA9ECC10351E848D9415F2",
+      "CSharpSha256": "2EBF4429D3BD0A010BAC9C0C69A31323CDBEFFE89206C14A2B7AB59B1EF94E7E"
+    },
+    {
+      "Name": "exit",
+      "Source": "-module(oracle_exit). -export([run/0]). run()-\u003Eexit(reason).",
+      "FixtureExpected": "{error,exit,reason}",
+      "SourceSha256": "BCF9F5F07665AB75E6F3CBF9722E50C3F6E2B0477C99C9904006BA8660A7790A",
+      "CSharpSha256": "411CA08AF2CD68CBB18D80446CCD72F384874EF4753AB40E7450380824428884"
+    },
+    {
+      "Name": "bit-value-size-order",
+      "Source": "-module(oracle_bit_order). -export([run/0]). run()-\u003Eput(trace,[]),B = \u003C\u003C(mark(v1,1)):(mark(s1,8)),(mark(v2,2)):(mark(s2,8))\u003E\u003E,{B,get(trace)}. mark(K,V)-\u003Eput(trace,[K|get(trace)]),V.",
+      "FixtureExpected": "{ok,{\u003C\u003C1,2\u003E\u003E,[s2,v2,s1,v1]}}",
+      "SourceSha256": "BE686777D0034978B0BF2F8C001C6DFB669BF0FAC2C1231CA0E82596F8D21EA8",
+      "CSharpSha256": "7109439A2B2DEEE5CA9EA9471EC1F4A2F3BB3EE15681A2D2BECB4C7B0DE52892"
+    },
+    {
+      "Name": "bit-value-before-size-exception",
+      "Source": "-module(oracle_bit_value_error). -export([run/0]). run()-\u003E\u003C\u003C(throw(value_first)):(throw(size_second))\u003E\u003E.",
+      "FixtureExpected": "{error,throw,value_first}",
+      "SourceSha256": "AA418AC8072FF8A017FE9E9015B40B92F3CC45B249C2202A63B4A518BDCDBF42",
+      "CSharpSha256": "39E737E314094B20D9BD7034B8B63A793449EDBC6D065C50B501F46C7E72EF9D"
+    },
+    {
+      "Name": "bit-size-before-next-value-exception",
+      "Source": "-module(oracle_bit_size_error). -export([run/0]). run()-\u003E\u003C\u003C1:(throw(size_first)),(throw(next_value)):8\u003E\u003E.",
+      "FixtureExpected": "{error,throw,size_first}",
+      "SourceSha256": "F8360DA0B0D00B33832F44BEEE1A50D726F2B495936D4D01745AC7B2CEA41390",
+      "CSharpSha256": "E64887A5490D3B512D55D737CAC836FC56C93C599B004DC5BA1E393AB9A96D1B"
+    },
+    {
+      "Name": "bit-invalid-value-later-exception",
+      "Source": "-module(oracle_bit_invalid_value). -export([run/0]). run()-\u003E\u003C\u003C(id(bad)):8,(throw(later)):8\u003E\u003E. id(X)-\u003EX.",
+      "FixtureExpected": "{error,throw,later}",
+      "SourceSha256": "B00394AB578476AA6C4FB9655AB9A91FA9E8123FFBFCA249EB5725260D9A7CBF",
+      "CSharpSha256": "1F23066CD50FBE5816DEF2A548C9E9C381C915E5B96B530E74468DB14D37724B"
+    },
+    {
+      "Name": "bit-invalid-size-later-exception",
+      "Source": "-module(oracle_bit_invalid_size). -export([run/0]). run()-\u003E\u003C\u003C1:(id(bad)),(throw(later)):8\u003E\u003E. id(X)-\u003EX.",
+      "FixtureExpected": "{error,throw,later}",
+      "SourceSha256": "9EDD70A3FD1967319DB7616D0AB058C3EA971DAF19F1EFD6C791CA5ED7DB38E8",
+      "CSharpSha256": "1560566D100F15552BD4BA91428BB645AA19ED7BFAD9F4DDDC4D1F27C29DE22E"
+    },
+    {
+      "Name": "bit-size-binding-exported-after-binary",
+      "Source": "-module(oracle_bit_size_binding). -export([run/0]). run()-\u003EB = \u003C\u003C1:(S=4),2:4\u003E\u003E,{B,S}.",
+      "FixtureExpected": "{ok,{\u003C\u003C18\u003E\u003E,4}}",
+      "SourceSha256": "BB1CC1DD4554E57DA2482ED5E278B7C5F159AAB60F67EA444C46F4A4FE0931FD",
+      "CSharpSha256": "CB568545D3B7CA190C9DBB1E5E051C66A0212BF237C51F93724F13F014B8693C"
+    },
+    {
+      "Name": "closure-bit-captured-size",
+      "Source": "-module(oracle_closure_bit_size). -export([run/0]). run()-\u003EN=4,F=fun(\u003C\u003CX:N,Y:N\u003E\u003E)-\u003E{X,Y}; (_)-\u003Emiss end,{F(\u003C\u003C18\u003E\u003E),N}.",
+      "FixtureExpected": "{ok,{{1,2},4}}",
+      "SourceSha256": "D4DE8A3B00067170132DEB8D95B54EFA3AD37B1CDD2080D382BB939A3A057B37",
+      "CSharpSha256": "67F5F0F9D2DC362642BBA7D5B879CA808251F7B19144DFB80ABDFE7375C9344C"
+    },
+    {
+      "Name": "closure-bit-clause-binding-rollback",
+      "Source": "-module(oracle_closure_bit_retry). -export([run/0]). run()-\u003EF=fun(\u003C\u003CN:4,X:N,0:1\u003E\u003E)-\u003E{first,N,X}; (\u003C\u003CN:4,X:N,_/bitstring\u003E\u003E)-\u003E{second,N,X} end,F(\u003C\u003C3:4,5:3,1:1\u003E\u003E).",
+      "FixtureExpected": "{ok,{second,3,5}}",
+      "SourceSha256": "478DCBF74E86B5FBC2E526A2D6658FD25140CE241B62CB9537FB8DCF3A314D25",
+      "CSharpSha256": "7110E4F7719114EFF9C1CD5FEF212E4832DB8DD0669B4071229DABF4F9645C62"
+    },
+    {
+      "Name": "closure-guard-fallback-keeps-outer",
+      "Source": "-module(oracle_closure_guard_retry). -export([run/0]). run()-\u003EX=42,F=fun({X}) when X\u003E10-\u003EX; (_)-\u003EX end,{F({7}),F({12}),X}.",
+      "FixtureExpected": "{ok,{42,12,42}}",
+      "SourceSha256": "85D0A8482B69173944BB09127F605D6F15D5B18B6B0262D32268E9B87EBC8686",
+      "CSharpSha256": "1E673BA1C5E98D2D91C1874546198CFBC554ABAE874B5B4CFAC050C2E3D9C47D"
+    },
+    {
+      "Name": "closure-map-key-capture-value-shadow",
+      "Source": "-module(oracle_closure_map_key). -export([run/0]). run()-\u003EK=a,V=42,F=fun(#{K:=V})-\u003EV; (_)-\u003EV end,{F(#{a=\u003E7}),F(#{b=\u003E8}),V}.",
+      "FixtureExpected": "{ok,{7,42,42}}",
+      "SourceSha256": "91D3573860849424B613148EF8312B09F7271195A495AC46F909D7A258195CFE",
+      "CSharpSha256": "01D78D1606C6043B66AD6B12440D3BA7028D1D0353E9E1F6876775BBB454649F"
+    },
+    {
+      "Name": "closure-nested-body-local-capture",
+      "Source": "-module(oracle_closure_nested). -export([run/0]). run()-\u003EX=42,F=fun()-\u003EY=7,fun()-\u003E{X,Y} end end,G=F(),{G(),X}.",
+      "FixtureExpected": "{ok,{{42,7},42}}",
+      "SourceSha256": "92185926CEA1894D4896604B640ED57A572479A814E45F7404FC94BB2D1FF720",
+      "CSharpSha256": "3E3DA8C8DA7688E77F658894A1A0F1D8E4E809731F960EA1AE239D9489970BE8"
+    },
+    {
+      "Name": "bit-invalid-utf-later-exception",
+      "Source": "-module(oracle_bit_invalid_utf). -export([run/0]). run()-\u003E\u003C\u003C(id(55296))/utf8,(throw(later)):8\u003E\u003E. id(X)-\u003EX.",
+      "FixtureExpected": "{error,throw,later}",
+      "SourceSha256": "20EC03EF9606AA38B6E1F43FFDAFD82E21A9E901DE3477BA4D926C1E7BC1B8E3",
+      "CSharpSha256": "0511C79A7C930441B9490416A3376449B978F2839CA1CD04E7FB3C1AB26F0DFF"
+    },
+    {
+      "Name": "bit-independent-binding-exports",
+      "Source": "-module(oracle_bit_exports). -export([run/0]). run()-\u003EB = \u003C\u003C(X=1),(Y=2)\u003E\u003E,{B,X,Y}.",
+      "FixtureExpected": "{ok,{\u003C\u003C1,2\u003E\u003E,1,2}}",
+      "SourceSha256": "AE7777B8FC37B31AD97B8601406C118D41119CDCD8D4E699286CCF3427246C7E",
+      "CSharpSha256": "0B2814860993407DD3B30AE0C60193D693EE4E806A76D5B9DAA5D17E6E3535C2"
+    },
+    {
+      "Name": "bit-prebound-size-across-fields",
+      "Source": "-module(oracle_bit_prebound). -export([run/0]). run()-\u003ES=4,B = \u003C\u003C1:S,2:S\u003E\u003E,{B,S}.",
+      "FixtureExpected": "{ok,{\u003C\u003C18\u003E\u003E,4}}",
+      "SourceSha256": "14CB84334A2410A8E16EF051D8E3CB58EBB8FF3C0902465AB597FA7C576FFA8A",
+      "CSharpSha256": "53BD30C1C38B7315C7A7AAB85D7FC74844E9B34BE6F164AE84372ED9453BF17E"
+    },
+    {
+      "Name": "if-common-binding-first",
+      "Source": "-module(oracle_if_first). -export([run/0]). run()-\u003Eif true -\u003E X=1; true -\u003E X=2 end,X.",
+      "FixtureExpected": "{ok,1}",
+      "SourceSha256": "7D46605B74829C0EFE17132AF87BFEB2F5917C03DA9182D9BD370CA3BBD5A64A",
+      "CSharpSha256": "03D60231354F0B7557B668CAC15B28EEF3181612B412D1A5538FC57A188F2916"
+    },
+    {
+      "Name": "if-common-binding-second",
+      "Source": "-module(oracle_if_second). -export([run/0]). run()-\u003Eif false -\u003E X=1; true -\u003E X=2 end,X.",
+      "FixtureExpected": "{ok,2}",
+      "SourceSha256": "A139C49586C8ED3B91FCF3132880587FB911E2B18EC4048E527FE210C03523C0",
+      "CSharpSha256": "BFAF549DE71CD8E758463E51EA50FB14F52D3482E677B0870291D6005F4C4ED9"
+    },
+    {
+      "Name": "if-guard-alternatives",
+      "Source": "-module(oracle_if_guards). -export([run/0]). run()-\u003Eif hd(atom)=:=1; false -\u003E no; is_integer(42),42\u003E0 -\u003E yes end.",
+      "FixtureExpected": "{ok,yes}",
+      "SourceSha256": "D1F27CC7B6FDA6C5AD8D5D397062A712C37F89F21A95859CFB2BBC1BBE643463",
+      "CSharpSha256": "25FD290D6128306188450D18FA3F240545CF7E0ED501B503E360BBF71AA38DDE"
+    },
+    {
+      "Name": "if-no-match",
+      "Source": "-module(oracle_if_error). -export([run/0]). run()-\u003Eif false -\u003E no end.",
+      "FixtureExpected": "{error,error,if_clause}",
+      "SourceSha256": "E9DDBE8175EA94F0664594B3F16346360062C379CB662FF7F0E0DB5EEA669B85",
+      "CSharpSha256": "1C8254F99CF469D1D1854320CA9BFEC0903C05FC116A1A5434E7A0EB4A9EE50D"
+    },
+    {
+      "Name": "if-body-error",
+      "Source": "-module(oracle_if_body). -export([run/0]). run()-\u003Eif true -\u003E throw(selected); true -\u003E no end.",
+      "FixtureExpected": "{error,throw,selected}",
+      "SourceSha256": "0E9116C55AF490AD57FC35031F55CA7C8028F7502B94BF6410082487858405CA",
+      "CSharpSha256": "2430A0648BF9533887E3032293AB1DC123B7CE208B1F4115BFF1BF80B196374C"
+    },
+    {
+      "Name": "if-side-effects",
+      "Source": "-module(oracle_if_effects). -export([run/0]). run()-\u003Eput(counter,0),if false -\u003E put(counter,1); true -\u003E put(counter,2) end,get(counter).",
+      "FixtureExpected": "{ok,2}",
+      "SourceSha256": "F03508E54DA63F800A90AE664EDD482D0358FE84104DBD448C0B3DBF43EBFA9D",
+      "CSharpSha256": "76C7B10BBC1911A1BFD28D5277FBC058C2EE382CABBA6299CA5A1EFFADE5E66F"
+    },
+    {
+      "Name": "if-tail-calls",
+      "Source": "-module(oracle_if_tail). -export([run/0]). run()-\u003Eloop(50000,0). loop(N,A)-\u003Eif N=:=0 -\u003E A; N\u003E0 -\u003E loop(N-1,A\u002B1) end.",
+      "FixtureExpected": "{ok,50000}",
+      "SourceSha256": "356F26FC9A6A4EA6C9AC9CCF797257734A0E48F2417F9EFF324D531ECFE177DB",
+      "CSharpSha256": "0558241DDF6EAA5EB07AB6A8368F7784CCE07920220DA404BCEB6C0D4AFB8CE5"
+    },
+    {
+      "Name": "if-closure-branch-export",
+      "Source": "-module(oracle_if_closure). -export([run/0]). run()-\u003EF=fun(N)-\u003Eif N\u003E0 -\u003E X=42; true -\u003E X=7 end,fun()-\u003EX end end,G=F(1),G().",
+      "FixtureExpected": "{ok,42}",
+      "SourceSha256": "2858DC2085D01873A4E8B5B48CE850F3AA38718C1DA17DF3CD57AE8CAB8E5A47",
+      "CSharpSha256": "BC6CA988AEF46681928F93AEF1492B8C1560FA6DC210CE0BB47B99A12BBAC16A"
+    }
+  ],
+  "Diagnostics": [
+    {
+      "Name": "bit-size-to-next-size",
+      "Source": "-module(scope_size_size). -export([run/0]). run()-\u003EB = \u003C\u003C1:(S=4),2:S\u003E\u003E,{B,S}.",
+      "Variable": "S",
+      "Expected": "{error,[{unbound_var,\u0027S\u0027}]}",
+      "SourceSha256": "81DB3776BD785DCC7DDEADE33FA4DDD11C396CD60218554F4ABE03A82400F7AC"
+    },
+    {
+      "Name": "bit-value-to-own-size",
+      "Source": "-module(scope_value_size). -export([run/0]). run()-\u003E\u003C\u003C(S=4):S\u003E\u003E.",
+      "Variable": "S",
+      "Expected": "{error,[{unbound_var,\u0027S\u0027}]}",
+      "SourceSha256": "37E57591FDDA9CD22765C30929F5F92041603CEDB50341BF8EA94B76B4E9B747"
+    },
+    {
+      "Name": "bit-value-to-next-value",
+      "Source": "-module(scope_value_value). -export([run/0]). run()-\u003E\u003C\u003C(V=1),V\u003E\u003E.",
+      "Variable": "V",
+      "Expected": "{error,[{unbound_var,\u0027V\u0027}]}",
+      "SourceSha256": "58C55CBA735BE0A5B89EB1F10DB888FFA763D7375DB3190A806578DE9035CC4B"
+    },
+    {
+      "Name": "bit-size-to-next-value",
+      "Source": "-module(scope_size_value). -export([run/0]). run()-\u003E\u003C\u003C1:(S=4),S\u003E\u003E.",
+      "Variable": "S",
+      "Expected": "{error,[{unbound_var,\u0027S\u0027}]}",
+      "SourceSha256": "5B0601F88EF3B9F594910C2E5BFB6B4348DB42E40D3CB37174DBD31E286303E5"
+    },
+    {
+      "Name": "bit-string-size-to-next-size",
+      "Source": "-module(scope_string_size). -export([run/0]). run()-\u003E\u003C\u003C\u0022ab\u0022:(S=8),42:S\u003E\u003E.",
+      "Variable": "S",
+      "Expected": "{error,[{unbound_var,\u0027S\u0027}]}",
+      "SourceSha256": "68FAA2FB7225FBB5DEAF9458C903E1BA690BAD268E1E226F348B8CDD2E5EA33A"
+    },
+    {
+      "Name": "if-unbound-guard",
+      "Source": "-module(scope_if_guard). -export([run/0]). run()-\u003Eif U=:=1 -\u003E ok; true -\u003E no end.",
+      "Variable": "U",
+      "Expected": "{error,[{unbound_var,\u0027U\u0027}]}",
+      "SourceSha256": "299CA1B411543DD6F2EA0EE23809FB64DAF22F9738205BB80D8D108050B245CE"
+    },
+    {
+      "Name": "if-body-not-visible-in-other-guard",
+      "Source": "-module(scope_if_guard_body). -export([run/0]). run()-\u003Eif true -\u003E X=1; X=:=1 -\u003E no end.",
+      "Variable": "X",
+      "Expected": "{error,[{unbound_var,\u0027X\u0027}]}",
+      "SourceSha256": "D3F210A05D5EA47F515596561472CAA6FE6B925B566953BF80D8DD189861EA54"
+    },
+    {
+      "Name": "if-body-not-visible-in-other-body",
+      "Source": "-module(scope_if_bodies). -export([run/0]). run()-\u003Eif true -\u003E X=1; false -\u003E X end.",
+      "Variable": "X",
+      "Expected": "{error,[{unbound_var,\u0027X\u0027}]}",
+      "SourceSha256": "87B071A05640DC8B4720BD5D473664CF9961951B098C6026D09E7F5B2214C8D9"
+    },
+    {
+      "Name": "if-partial-binding-unsafe",
+      "Source": "-module(scope_if_unsafe). -export([run/0]). run()-\u003Eif true -\u003E X=1; false -\u003E no end,X.",
+      "Variable": "X",
+      "Expected": "{error,[{unsafe_var,\u0027X\u0027,{if,1}}]}",
+      "SourceSha256": "560EA81AD4585A8553EE86A8DFEBB5A987602202692532534790825F6F06C92F"
+    },
+    {
+      "Name": "if-nested-partial-binding-unsafe",
+      "Source": "-module(scope_if_nested). -export([run/0]). run()-\u003Eif true -\u003E if true -\u003E X=1; false -\u003E no end; false -\u003E X=2 end,X.",
+      "Variable": "X",
+      "Expected": "{error,[{unsafe_var,\u0027X\u0027,{if,1}}]}",
+      "SourceSha256": "366A8F6803A48797FC429BEE5ED70FD1C289F632F569A094422660D108818C44"
+    }
+  ],
+  "IntentionalCorrection": "Added 24 if expressions,8 compiled modules,5 diagnostics; original322/28/5 preserved; live oracle pending",
+  "LiveOracleRun": false
+}

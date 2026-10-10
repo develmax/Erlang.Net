@@ -9,6 +9,7 @@ internal static class ParserDiagnostics
     public const string ClauseArityMismatch = "Function clauses must have the same arity";
     public const string MissingModuleAttribute = "Missing -module attribute";
     public const string EmptyCase = "case needs a clause";
+    public const string EmptyIf = "if needs a guard clause";
     public const string DynamicModuleCall = "Dynamic module calls are not supported yet";
     public const string UnaryBitSize = "Unary bit segment sizes must be parenthesized";
     public const string InvalidBitUnit = "Bit segment unit must be an integer from 1 through 256";

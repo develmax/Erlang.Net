@@ -370,6 +370,7 @@ try
         "lists:keyfind(-576460752303423488,1,[{-576460752303423488.0}])",
         "lists:keyfind(576460752303423489,1,[{576460752303423488.0}])",
         "lists:keyfind(#{1=>a},1,[{#{1.0=>a}}])"];
+    cases = [.. cases, .. IfExpressionCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {
@@ -451,7 +452,7 @@ try
             code = exception.Code;
             message = exception.Message;
         }
-        Term expected = CompiledDiagnosticExpectations.ReferenceOutcome(fixture.Variable);
+        Term expected = CompiledDiagnosticExpectations.ReferenceOutcome(fixture.Variable, fixture.UnsafeConstruct);
         bool passed = reference.Equals(expected)
             && !accepted
             && code == CompiledDiagnosticExpectations.VariableBindingCode

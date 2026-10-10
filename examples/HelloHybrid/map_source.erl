@@ -1,9 +1,14 @@
 -module(map_source).
--export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0, string_check/0, lists_check/0, keys_check/0]).
+-export([run/0, pick/1, bits/0, bit_guard/1, unpack/1, float_check/0, utf_check/0, string_check/0, lists_check/0, keys_check/0, if_check/0]).
 run() ->
     M = #{1 => int, 1.0 => float, value => 40},
     N = M#{value := 42, extra => ok},
     #{1 := int, 1.0 := float, value := X} = N,
+    X.
+if_check() ->
+    if hd(atom) =:= 1; false -> X = 0;
+       is_integer(42), 42 > 0 -> X = 42
+    end,
     X.
 pick(#{value := {X, X}}) when is_map(#{a => ok}), map_size(#{a => ok}) =:= 1,
     is_map_key(value, #{value => {X, X}}), map_get(value, #{value => {X, X}}) =:= {X, X} -> X;

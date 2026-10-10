@@ -35,6 +35,10 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!utfCheck.Equals(Term.Tuple(Term.I(128512),Term.I(5)))) throw new InvalidOperationException("UTF segment module generation failed");
     var utfString = case <<"A😀"/utf8,42>> of <<"A😀"/utf8,X>> -> X end.
     if (!utfString.Equals(Term.I(42))) throw new InvalidOperationException("Hybrid UTF string matching failed");
+    var ifCheck = if hd(atom) =:= 1; false -> no; true -> X=40, if X > 0 -> X+2 end end.
+    if (!ifCheck.Equals(Term.I(42))) throw new InvalidOperationException("Hybrid if generation failed");
+    var compiledIf = await runtime.Modules.Call(erlangProcess, "map_source", "if_check");
+    if (!compiledIf.Equals(Term.I(42))) throw new InvalidOperationException("Compiled if generation failed");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

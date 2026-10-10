@@ -95,6 +95,7 @@ public static class CodeGeneration
         Expr.Sequence s => "new " + E + "Sequence(" + Expressions(s.Items) + ")",
         Expr.GuardAlternatives s => "new " + E + "GuardAlternatives(" + Expressions(s.Items) + ")",
         Expr.Case c => "new " + E + "Case(" + ExpressionCode(c.Value) + "," + Clauses(c.Clauses) + ")",
+        Expr.If i => "new " + E + "If(" + Clauses(i.Clauses) + ")",
         Expr.Receive r => "new " + E + "Receive(" + Clauses(r.Clauses) + "," + Optional(r.Timeout) + "," + Optional(r.After) + ")",
         Expr.Fun f => "new " + E + "Fun(" + Clauses(f.Clauses) + ")",
         _ => throw new NotSupportedException()
@@ -122,7 +123,7 @@ public static class CodeGeneration
             var token = tokens[i];
             if (token.SpanStart < copied)
                 continue;
-            if (token.Text is not ("receive" or "case" or "fun"))
+            if (token.Text is not (ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If))
                 continue;
             if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>"))
                 continue;
@@ -130,6 +131,8 @@ public static class CodeGeneration
             while (following < source.Length && char.IsWhiteSpace(source[following]))
                 following++;
             if (following == source.Length || source[following] is '.' or ';' or '=' or ':' or ',')
+                continue;
+            if (token.Text == ErlangKeywords.If && !HasIfGuard(source[token.SpanStart..]))
                 continue;
             // An ordinary C# call to a method named fun/receive must remain C#.
             if (token.Text == "receive" && source[following] == '(')
@@ -221,5 +224,17 @@ public static class CodeGeneration
         };
 
         return nullable + "#line 1 " + Quote(Path.GetFullPath(path)) + "\n" + result;
+    }
+
+    private static bool HasIfGuard(string source)
+    {
+        try
+        {
+            return new Parser(source, true).ParseExpression() is Expr.If;
+        }
+        catch (CompileException)
+        {
+            return false;
+        }
     }
 }

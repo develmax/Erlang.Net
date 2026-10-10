@@ -150,6 +150,46 @@ public static class CompiledModuleCases
             "bit-prebound-size-across-fields",
             "-module(oracle_bit_prebound). -export([run/0]). run()->S=4,B = <<1:S,2:S>>,{B,S}.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([18]),Term.I(4)))
+        ),
+        new(
+            "if-common-binding-first",
+            "-module(oracle_if_first). -export([run/0]). run()->if true -> X=1; true -> X=2 end,X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(1))
+        ),
+        new(
+            "if-common-binding-second",
+            "-module(oracle_if_second). -export([run/0]). run()->if false -> X=1; true -> X=2 end,X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(2))
+        ),
+        new(
+            "if-guard-alternatives",
+            "-module(oracle_if_guards). -export([run/0]). run()->if hd(atom)=:=1; false -> no; is_integer(42),42>0 -> yes end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.A("yes"))
+        ),
+        new(
+            "if-no-match",
+            "-module(oracle_if_error). -export([run/0]). run()->if false -> no end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("if_clause"))
+        ),
+        new(
+            "if-body-error",
+            "-module(oracle_if_body). -export([run/0]). run()->if true -> throw(selected); true -> no end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("throw"),Term.A("selected"))
+        ),
+        new(
+            "if-side-effects",
+            "-module(oracle_if_effects). -export([run/0]). run()->put(counter,0),if false -> put(counter,1); true -> put(counter,2) end,get(counter).",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(2))
+        ),
+        new(
+            "if-tail-calls",
+            "-module(oracle_if_tail). -export([run/0]). run()->loop(50000,0). loop(N,A)->if N=:=0 -> A; N>0 -> loop(N-1,A+1) end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(50000))
+        ),
+        new(
+            "if-closure-branch-export",
+            "-module(oracle_if_closure). -export([run/0]). run()->F=fun(N)->if N>0 -> X=42; true -> X=7 end,fun()->X end end,G=F(1),G().",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(42))
         )
     ];
 }

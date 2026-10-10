@@ -1295,7 +1295,7 @@ Test(
     () =>
  {
      Throws<CompileException>(() => new Parser("end").ParseExpression());
-     Throws<CompileException>(() => new Parser("if true -> ok end").ParseExpression());
+     Throws<CompileException>(() => new Parser("try ok end").ParseExpression());
 
      return Task.CompletedTask;
  }
@@ -3005,6 +3005,123 @@ Test(
     )
 );
 
+foreach (var fixture in Erlang.Differential.IfExpressionCases.All)
+{
+    Test(
+        "compiler/if/" + fixture.Name,
+        async () =>
+    {
+        var expression = new Parser(fixture.Source).ParseExpression();
+        Semantics.Validate(expression);
+        await using var runtime = new ProcessRuntime();
+        Term? outcome = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                outcome = Term.Tuple(Term.A("ok"), await Execution.EvaluateAsync(expression, context));
+            }
+            catch (ErlangException exception)
+            {
+                outcome = Term.Tuple(Term.A("error"), Term.A(exception.ExceptionClass), exception.Reason);
+            }
+
+            return Term.A("ok");
+        });
+        Equal(await process.Completion, Term.A("normal"));
+        Equal(outcome!, fixture.Expected);
+    }
+    );
+}
+Test(
+    "compiler/if/empty-syntax",
+    () =>
+{
+    Throws<CompileException>(() => new Parser("if end").ParseExpression());
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/if/illegal-guards",
+    () =>
+{
+    foreach (string source in new[] { "if put(key,value) -> ok end", "if X=1 -> ok end", "if lists:member(a,[]) -> ok end", "if (if true -> true end) -> ok end", "if self() ! message -> ok end" })
+    {
+        try
+        {
+            Semantics.Validate(new Parser(source).ParseExpression());
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == "ERL007");
+        }
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/if/unsafe-rematch",
+    () =>
+{
+    try
+    {
+        Semantics.Validate(new Parser("case ok of ok -> if true -> X=1; false -> no end,X=2 end").ParseExpression());
+        Check(false);
+    }
+    catch (CompileException exception)
+    {
+        Check(exception.Code == "ERL006" && exception.Message == "Unsafe match variable 'X'");
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/if/csharp-statements-preserved",
+    () =>
+{
+    string source = "class A { int F(bool x) { if(x) { return 1; } else if(!x) return 2; return 3; } string s=\"if true -> no end.\"; /* if false -> no end. */ }";
+    Check(CodeGeneration.Preprocess(source, "a.cs").EndsWith(source, StringComparison.Ordinal));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/if/nested-and-following-csharp",
+    () =>
+{
+    string source = "class A { async Task F(ProcessContext erlangProcess) { var x = if true -> if false -> no; true -> 42 end end. if(x.Equals(Term.I(42))) return; var y = case ok of ok -> if true -> 7 end end. } }";
+    string generated = CodeGeneration.Preprocess(source, "a.cs");
+    Check(generated.Contains("Expr.If") && generated.Contains("Expr.Case"));
+    Check(generated.Contains("if(x.Equals(Term.I(42))) return;"));
+    Check(!generated.Contains("var x = if"));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/if/parenthesized-guard-alternatives",
+    () =>
+{
+    string source = "class A { async Task<Term> F(ProcessContext erlangProcess) { return if (false); (true) -> 42 end. } }";
+    string generated = CodeGeneration.Preprocess(source, "a.cs");
+    Check(generated.Contains("Expr.GuardAlternatives") && !generated.Contains("return if"));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/if/missing-terminator",
+    () =>
+{
+    Throws<CompileException>(() => CodeGeneration.Preprocess("class A { async Task F(ProcessContext erlangProcess) { var x = if true -> ok end; } }", "a.cs"));
+
+    return Task.CompletedTask;
+}
+);
 foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
 {
     Test(

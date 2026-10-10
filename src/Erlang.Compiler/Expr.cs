@@ -19,6 +19,7 @@ public abstract record Expr
     public sealed record Match(Pattern Pattern, Expr Value) : Expr;
     public sealed record Sequence(IReadOnlyList<Expr> Items) : Expr;
     public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr;
+    public sealed record If(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;
     public sealed record Fun(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record GuardAlternatives(IReadOnlyList<Expr> Items) : Expr;

@@ -137,20 +137,24 @@ public sealed class Parser
     {
         Expr? guard = null;
         if (Take(ErlangKeywords.When))
-        {
-            var alternatives = new List<Expr>();
-            do
-            {
-                Expr conjunction = Expression();
-                while (Take(ErlangSyntaxTokens.Comma))
-                    conjunction = new Expr.Binary(ErlangOperators.AndAlso, conjunction, Expression());
-                alternatives.Add(conjunction);
-            } while (Take(ErlangSyntaxTokens.Semicolon));
-            guard = alternatives.Count == 1 ? alternatives[0] : new Expr.GuardAlternatives(alternatives);
-        }
+            guard = Guard();
         Expect(ErlangSyntaxTokens.FunctionArrow);
 
         return new(patterns, guard, Body());
+    }
+
+    private Expr Guard()
+    {
+        var alternatives = new List<Expr>();
+        do
+        {
+            Expr conjunction = Expression();
+            while (Take(ErlangSyntaxTokens.Comma))
+                conjunction = new Expr.Binary(ErlangOperators.AndAlso, conjunction, Expression());
+            alternatives.Add(conjunction);
+        } while (Take(ErlangSyntaxTokens.Semicolon));
+
+        return alternatives.Count == 1 ? alternatives[0] : new Expr.GuardAlternatives(alternatives);
     }
 
     private Expr Body()
@@ -207,6 +211,21 @@ public sealed class Parser
     private Expr Primary(bool bitSegment = false)
     {
         Expr result;
+        if (Take(ErlangKeywords.If))
+        {
+            if (Is(ErlangKeywords.End))
+                throw Error(ParserDiagnostics.EmptyIf);
+            var clauses = new List<Clause>();
+            do
+            {
+                var guard = Guard();
+                Expect(ErlangSyntaxTokens.FunctionArrow);
+                clauses.Add(new Clause([], guard, Body()));
+            } while (Take(ErlangSyntaxTokens.Semicolon));
+            Expect(ErlangKeywords.End);
+
+            return new Expr.If(clauses);
+        }
         if (Take(ErlangKeywords.Receive))
         {
             var clauses = Clauses();

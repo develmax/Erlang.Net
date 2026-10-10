@@ -53,3 +53,7 @@ Published duplicate/flatten head 3c138b2 passes pinned355/355 (322 expressions,2
 ## Part 043 checkpoint
 
 Constants-only refactor preserves319 values/five source token streams and322/28/5 corpus/generated hashes; full472 tests/integration pass.149 namespace-level types/no layout violations;62 MFAs/delta0, lists19/91, approximately5%. Shared language operators/erlang MFA spellings have Terms catalogs; local keywords/syntax/bit/variable/numeric/timeout/map/io/process names keep separate owners. Equal slash/minus/colon/BIF/exception meanings must not be merged. Historical355/355 remains part042 at3c138b2; no live oracle rerun here. Next audited compiler if feature across interpreted/compiled/hybrid paths.
+
+## Part 044 checkpoint
+
+Local if grammar/guards/if_clause/common binding export passes516/full integration. New corpus346 expressions/36 compiled modules/10 diagnostics=392; preserve322/28/5 old contracts. Publish and dispatch pinned oracle/same-head516 CI before promoting reference proof. Initial509/516 fixture-sequence failure preserved under part044. Registry62/delta0, lists19/91, approximately5%. Next remaining grammar begin/operators followed by Erlang callbacks/signals. Keep hybrid C# if detection and historical355/355 scope explicit.

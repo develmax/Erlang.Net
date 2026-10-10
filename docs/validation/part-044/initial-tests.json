@@ -1,11 +1,11 @@
 {
-  "Passed": 516,
-  "Failed": 0,
+  "Passed": 509,
+  "Failed": 7,
   "Tests": [
     {
       "Name": "oracle/unicode-source-ascii-transport",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "oracle/source-quoting-roundtrip",
@@ -15,7 +15,7 @@
     {
       "Name": "style/documentation-comment-boundary",
       "Status": "Passed",
-      "Milliseconds": 452
+      "Milliseconds": 484
     },
     {
       "Name": "style/multiline-documentation-comment",
@@ -30,7 +30,7 @@
     {
       "Name": "terms/common-atoms-concurrent",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 4
     },
     {
       "Name": "terms/common-atoms-no-per-call-allocation",
@@ -50,7 +50,7 @@
     {
       "Name": "terms/atom-reuse-parser-etf",
       "Status": "Passed",
-      "Milliseconds": 7
+      "Milliseconds": 132
     },
     {
       "Name": "terms/exact-numeric-equality",
@@ -75,7 +75,7 @@
     {
       "Name": "compiler/numeric-mixed-nearest-even",
       "Status": "Passed",
-      "Milliseconds": 14
+      "Milliseconds": 15
     },
     {
       "Name": "compiler/numeric-integer-division-rounding",
@@ -185,7 +185,7 @@
     {
       "Name": "mailbox/timeout",
       "Status": "Passed",
-      "Milliseconds": 26
+      "Milliseconds": 38
     },
     {
       "Name": "mailbox/concurrent-arrival",
@@ -200,7 +200,7 @@
     {
       "Name": "mailbox/sender-order-stress",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 6
     },
     {
       "Name": "runtime/process-self-and-dictionary",
@@ -245,7 +245,7 @@
     {
       "Name": "runtime/1000-waiting-processes",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 4
     },
     {
       "Name": "compiler/arithmetic-precedence",
@@ -330,7 +330,7 @@
     {
       "Name": "hybrid/csharp-strings-comments-raw-preserved",
       "Status": "Passed",
-      "Milliseconds": 16
+      "Milliseconds": 17
     },
     {
       "Name": "hybrid/source-map-and-lowering",
@@ -375,7 +375,7 @@
     {
       "Name": "compiler/tail-recursion-50000",
       "Status": "Passed",
-      "Milliseconds": 710
+      "Milliseconds": 807
     },
     {
       "Name": "hybrid/ordinary-fun-call",
@@ -400,7 +400,7 @@
     {
       "Name": "otp/gen-server-call-cast-info-stop",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 4
     },
     {
       "Name": "otp/gen-server-crash-monitor",
@@ -410,7 +410,7 @@
     {
       "Name": "otp/gen-server-timeout",
       "Status": "Passed",
-      "Milliseconds": 34
+      "Milliseconds": 23
     },
     {
       "Name": "otp/gen-server-init-error",
@@ -445,17 +445,17 @@
     {
       "Name": "otp/supervisor-temporary-abnormal-no-restart",
       "Status": "Passed",
-      "Milliseconds": 13
+      "Milliseconds": 14
     },
     {
       "Name": "runtime/link-cascade-10000",
       "Status": "Passed",
-      "Milliseconds": 214
+      "Milliseconds": 202
     },
     {
       "Name": "runtime/spawn-monitor-immediate-exit-atomic",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 3
     },
     {
       "Name": "terms/bitstring-format",
@@ -465,7 +465,7 @@
     {
       "Name": "compiler/large-literal-codegeneration",
       "Status": "Passed",
-      "Milliseconds": 21
+      "Milliseconds": 27
     },
     {
       "Name": "compiler/reserved-keywords-rejected",
@@ -490,7 +490,7 @@
     {
       "Name": "mfa/erlang:bit_size/1",
       "Status": "Passed",
-      "Milliseconds": 6
+      "Milliseconds": 7
     },
     {
       "Name": "mfa/erlang:byte_size/1",
@@ -800,7 +800,7 @@
     {
       "Name": "compiler/map-empty-and-nonmap-pattern",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/map-duplicate-last-wins",
@@ -810,7 +810,7 @@
     {
       "Name": "compiler/map-exact-numeric-keys",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-assoc-and-exact-update",
@@ -875,7 +875,7 @@
     {
       "Name": "compiler/map-structured-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/map-guard-key-error-rejects",
@@ -1210,7 +1210,7 @@
     {
       "Name": "compiler/bits-float-pattern-nonfinite-reject",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-float-pattern-invalid-short",
@@ -1250,7 +1250,7 @@
     {
       "Name": "compiler/bits-float16-all-finite-roundtrip",
       "Status": "Passed",
-      "Milliseconds": 196
+      "Milliseconds": 188
     },
     {
       "Name": "compiler/bits-duplicate-spec-diagnostic",
@@ -1265,7 +1265,7 @@
     {
       "Name": "compiler/bits-utf16-surrogate-vector",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "compiler/bits-utf32-vector",
@@ -1365,7 +1365,7 @@
     {
       "Name": "compiler/bits-utf-deterministic-roundtrips",
       "Status": "Passed",
-      "Milliseconds": 16
+      "Milliseconds": 15
     },
     {
       "Name": "compiler/bits-pattern-default",
@@ -1810,12 +1810,12 @@
     {
       "Name": "lists/duplicate-flatten-deep-wide-identity",
       "Status": "Passed",
-      "Milliseconds": 39
+      "Milliseconds": 42
     },
     {
       "Name": "lists/append-empty",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/append-singleton-atom",
@@ -1945,7 +1945,7 @@
     {
       "Name": "lists/append-long-outer-suffix-identity",
       "Status": "Passed",
-      "Milliseconds": 42
+      "Milliseconds": 45
     },
     {
       "Name": "lists/last-singleton",
@@ -2060,7 +2060,7 @@
     {
       "Name": "lists/last-split-long-list-identity",
       "Status": "Passed",
-      "Milliseconds": 15
+      "Milliseconds": 33
     },
     {
       "Name": "lists/nth-improper-prefix",
@@ -2239,8 +2239,9 @@
     },
     {
       "Name": "compiler/if/selected-side-effect",
-      "Status": "Passed",
-      "Milliseconds": 0
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
+      "Milliseconds": 15
     },
     {
       "Name": "compiler/if/unselected-body-not-run",
@@ -2249,22 +2250,26 @@
     },
     {
       "Name": "compiler/if/common-binding-first",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
       "Name": "compiler/if/common-binding-second",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
       "Name": "compiler/if/prebound-match",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
       "Name": "compiler/if/prebound-badmatch",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
@@ -2274,7 +2279,8 @@
     },
     {
       "Name": "compiler/if/closure-capture",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unexpected trailing token\r\n   at Erlang.Compiler.Parser.ParseExpression(Boolean requireEnd) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 49\r\n   at Program.\u003C\u003Ec__DisplayClass0_56.\u003C\u003C\u003CMain\u003E$\u003Eb__456\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3014\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
@@ -2309,7 +2315,8 @@
     },
     {
       "Name": "compiler/if/unsafe-rematch",
-      "Status": "Passed",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Assertion failed\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Check|0_1(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 13\r\n   at Program.\u003C\u003Ec.\u003C\u003CMain\u003E$\u003Eb__0_305() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3076\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3211",
       "Milliseconds": 0
     },
     {
@@ -2325,7 +2332,7 @@
     {
       "Name": "hybrid/if/parenthesized-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "hybrid/if/missing-terminator",
@@ -2335,52 +2342,52 @@
     {
       "Name": "oracle/compiled-module/private-clauses",
       "Status": "Passed",
-      "Milliseconds": 424
+      "Milliseconds": 422
     },
     {
       "Name": "oracle/compiled-module/guard-fallback",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/closure-shadow",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/tail-calls",
       "Status": "Passed",
-      "Milliseconds": 121
+      "Milliseconds": 110
     },
     {
       "Name": "oracle/compiled-module/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/bit-pattern",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/utf-pattern",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/string-size-binding",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/unicode-atom",
       "Status": "Passed",
-      "Milliseconds": 70
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/key-find",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/function-clause",
@@ -2390,7 +2397,7 @@
     {
       "Name": "oracle/compiled-module/badmatch",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/throw",
@@ -2400,117 +2407,117 @@
     {
       "Name": "oracle/compiled-module/exit",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/bit-value-size-order",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/bit-value-before-size-exception",
       "Status": "Passed",
-      "Milliseconds": 66
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/bit-size-before-next-value-exception",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-value-later-exception",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-size-later-exception",
       "Status": "Passed",
-      "Milliseconds": 92
+      "Milliseconds": 108
     },
     {
       "Name": "oracle/compiled-module/bit-size-binding-exported-after-binary",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/closure-bit-captured-size",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/closure-bit-clause-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/closure-guard-fallback-keeps-outer",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 103
     },
     {
       "Name": "oracle/compiled-module/closure-map-key-capture-value-shadow",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/closure-nested-body-local-capture",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-utf-later-exception",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/bit-independent-binding-exports",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/bit-prebound-size-across-fields",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-first",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-second",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/if-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/if-no-match",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 106
     },
     {
       "Name": "oracle/compiled-module/if-body-error",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/if-side-effects",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/if-tail-calls",
       "Status": "Passed",
-      "Milliseconds": 938
+      "Milliseconds": 824
     },
     {
       "Name": "oracle/compiled-module/if-closure-branch-export",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiler-diagnostic/bit-size-to-next-size",
@@ -2575,7 +2582,7 @@
     {
       "Name": "oracle/compiled-module-repeat-context",
       "Status": "Passed",
-      "Milliseconds": 179
+      "Milliseconds": 177
     },
     {
       "Name": "oracle/compiled-module-invalid-source",

@@ -126,3 +126,7 @@ Preserve355/355 and same-head472 CI with exact head/job/build/archive metadata a
 ## Part 043 — Name strings by semantic owner
 
 Share language operator spellings between compiler and runtime and erlang MFA names between registration and guard validation using Terms-level catalogs. Compiler-local syntax/keywords/attributes/scopes and Runtime-local maps/io/list names retain their own owners. Slash/minus/colon in different grammar roles stay distinct; error/throw/exit BIF names remain separate from exception classes. Use string.Empty only for the empty string representation. Existing immutable atom caching is unchanged. Verify319 references through SDK Roslyn token/value audit and preserve generated hashes; no full compatibility promotion.
+
+## Part 044 — Reuse guard clauses for if without implicit binding
+
+Expr.If owns an ordered list of empty-pattern Clauses. Share guard parsing/validation/selection and branch intersection/unsafe-variable analysis with existing clause constructs, preserve tail position and propagate selected body errors. Hybrid if candidates must parse as complete Erlang expressions before lowering, retaining ordinary C# if statements; syntax failures may remain C# diagnostics at this detection boundary. Extend independent diagnostic fixtures with optional unsafe construct identity while preserving all original unbound_var expectations. No new dependency or runtime BEAM. Historical proof stays scoped until392-case new-head comparison completes.

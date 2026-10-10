@@ -92,7 +92,7 @@ public static class Lexer
                 ));
                 if (blockPrefix)
                 {
-                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun)
+                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If)
                         depth++;
                     else if (name == ErlangKeywords.End && --depth == 0)
                         break;

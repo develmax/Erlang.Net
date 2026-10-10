@@ -91,9 +91,18 @@
         "compiler/module-clauses-private-function",
         "compiler/illegal-guard-diagnostic",
         "compiler/guard-alternative",
-        "compiler/quoted-operator-atom"
+        "compiler/quoted-operator-atom",
+        "compiler/if/ordered-first",
+        "compiler/if/semicolon-alternatives",
+        "compiler/if/no-match",
+        "compiler/if/common-binding-first",
+        "compiler/if/unsafe-rematch",
+        "hybrid/if/csharp-statements-preserved",
+        "oracle/compiled-module/if-tail-calls",
+        "oracle/compiler-diagnostic/if-partial-binding-unsafe",
+        "validation/part-044/tests.json"
       ],
-      "limits": "Generated AST construction with C# evaluator; full grammar/native lowering incomplete"
+      "limits": "Generated AST construction with C# evaluator; if selected guards/errors/bindings locally tested across interpreted/generated/hybrid paths; full grammar/native lowering/diagnostic annotations incomplete, new-head exact oracle pending"
     },
     {
       "name": "Map source syntax",

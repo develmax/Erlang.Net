@@ -1,0 +1,361 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Line": 1677,
+          "Text": "if_clauses([{clause,_,[],G,B}|Cs], Anno, Bs, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    case guard(G, Bs, Lf, Ef) of",
+            "\ttrue -> exprs(B, Bs, Lf, Ef, RBs, FUVs);",
+            "\tfalse -> if_clauses(Cs, Anno, Bs, Lf, Ef, RBs, FUVs)",
+            "    end;",
+            "if_clauses([], Anno, Bs, _Lf, Ef, RBs, _FUVs) ->",
+            "    apply_error(if_clause, ?STACKTRACE, Anno, Bs, Ef, RBs).",
+            "",
+            "%% try_clauses(Body, CaseClauses, CatchClauses, AfterBody, Anno, Bindings,",
+            "%%             LocalFuncHandler, ExtFuncHandler, RBs)",
+            ""
+          ]
+        },
+        {
+          "Line": 1682,
+          "Text": "if_clauses([], Anno, Bs, _Lf, Ef, RBs, _FUVs) ->",
+          "Following": [
+            "    apply_error(if_clause, ?STACKTRACE, Anno, Bs, Ef, RBs).",
+            "",
+            "%% try_clauses(Body, CaseClauses, CatchClauses, AfterBody, Anno, Bindings,",
+            "%%             LocalFuncHandler, ExtFuncHandler, RBs)",
+            "",
+            "try_clauses(B, Cases, Catches, AB, Anno, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    check_stacktrace_vars(Catches, Anno, Bs, Ef, RBs),",
+            "    try exprs(B, Bs, Lf, Ef, none, FUVs) of",
+            "\t{value,V,Bs1} when Cases =:= [] ->",
+            "\t    ret_expr(V, Bs1, RBs);"
+          ]
+        },
+        {
+          "Line": 1796,
+          "Text": "guard(L=[G|_], Bs0, Lf, Ef) when is_list(G) ->",
+          "Following": [
+            "    guard1(L, Bs0, Lf, Ef);",
+            "guard(L, Bs0, Lf, Ef) ->",
+            "    guard0(L, Bs0, Lf, Ef).",
+            "",
+            "%% disjunction of guard conjunctions",
+            "guard1([G|Gs], Bs0, Lf, Ef) when is_list(G) ->",
+            "    case guard0(G, Bs0, Lf, Ef) of",
+            "\ttrue ->",
+            "\t    true;",
+            "\tfalse ->"
+          ]
+        },
+        {
+          "Line": 1798,
+          "Text": "guard(L, Bs0, Lf, Ef) ->",
+          "Following": [
+            "    guard0(L, Bs0, Lf, Ef).",
+            "",
+            "%% disjunction of guard conjunctions",
+            "guard1([G|Gs], Bs0, Lf, Ef) when is_list(G) ->",
+            "    case guard0(G, Bs0, Lf, Ef) of",
+            "\ttrue ->",
+            "\t    true;",
+            "\tfalse ->",
+            "\t    guard1(Gs, Bs0, Lf, Ef)",
+            "    end;"
+          ]
+        },
+        {
+          "Line": 1802,
+          "Text": "guard1([G|Gs], Bs0, Lf, Ef) when is_list(G) ->",
+          "Following": [
+            "    case guard0(G, Bs0, Lf, Ef) of",
+            "\ttrue ->",
+            "\t    true;",
+            "\tfalse ->",
+            "\t    guard1(Gs, Bs0, Lf, Ef)",
+            "    end;",
+            "guard1([], _Bs, _Lf, _Ef) -> false.",
+            "",
+            "%% guard conjunction",
+            "guard0([G|Gs], Bs0, Lf, Ef) ->"
+          ]
+        },
+        {
+          "Line": 1809,
+          "Text": "guard1([], _Bs, _Lf, _Ef) -> false.",
+          "Following": [
+            "",
+            "%% guard conjunction",
+            "guard0([G|Gs], Bs0, Lf, Ef) ->",
+            "    case erl_lint:is_guard_test(G) of",
+            "\ttrue ->",
+            "\t    case guard_test(G, Bs0, Lf, Ef) of",
+            "                {value,true,Bs} -> guard0(Gs, Bs, Lf, Ef);",
+            "                {value,false,_} -> false",
+            "\t    end;",
+            "\tfalse ->"
+          ]
+        },
+        {
+          "Line": 1812,
+          "Text": "guard0([G|Gs], Bs0, Lf, Ef) ->",
+          "Following": [
+            "    case erl_lint:is_guard_test(G) of",
+            "\ttrue ->",
+            "\t    case guard_test(G, Bs0, Lf, Ef) of",
+            "                {value,true,Bs} -> guard0(Gs, Bs, Lf, Ef);",
+            "                {value,false,_} -> false",
+            "\t    end;",
+            "\tfalse ->",
+            "            apply_error(guard_expr, ?STACKTRACE, element(2, G), Bs0, Ef, none)",
+            "    end;",
+            "guard0([], _Bs, _Lf, _Ef) -> true."
+          ]
+        },
+        {
+          "Line": 1822,
+          "Text": "guard0([], _Bs, _Lf, _Ef) -> true.",
+          "Following": [
+            "",
+            "%% guard_test(GuardTest, Bindings, LocalFuncHandler, ExtFuncHandler) ->",
+            "%%\t{value,bool(),NewBindings}.",
+            "%%  Evaluate one guard test. Never fails, returns bool().",
+            "",
+            "guard_test({call,A,{atom,Ln,F},As0}, Bs0, Lf, Ef) ->",
+            "    TT = type_test(F),",
+            "    G = {call,A,{atom,Ln,TT},As0},",
+            "    expr_guard_test(G, Bs0, Lf, Ef);",
+            "guard_test({call,A,{remote,Ar,{atom,Am,erlang},{atom,Af,F}},As0},"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Line": 2693,
+          "Text": "guard([L|R], Vt, St0) when is_list(L) ->",
+          "Following": [
+            "    {Gvt, St1} = guard_tests(L, Vt, St0),",
+            "    {Gsvt, St2} = guard(R, vtupdate(Gvt, Vt), St1),",
+            "    {vtupdate(Gvt, Gsvt),St2};",
+            "guard(L, Vt, St0) ->",
+            "    guard_tests(L, Vt, St0).",
+            "",
+            "%% guard conjunction",
+            "guard_tests([G|Gs], Vt, St0) ->",
+            "    {Gvt,St1} = guard_test(G, Vt, St0),",
+            "    {Gsvt,St2} = guard_tests(Gs, vtupdate(Gvt, Vt), St1),"
+          ]
+        },
+        {
+          "Line": 2697,
+          "Text": "guard(L, Vt, St0) ->",
+          "Following": [
+            "    guard_tests(L, Vt, St0).",
+            "",
+            "%% guard conjunction",
+            "guard_tests([G|Gs], Vt, St0) ->",
+            "    {Gvt,St1} = guard_test(G, Vt, St0),",
+            "    {Gsvt,St2} = guard_tests(Gs, vtupdate(Gvt, Vt), St1),",
+            "    {vtupdate(Gvt, Gsvt),St2};",
+            "guard_tests([], _Vt, St) -> {[],St}.",
+            "",
+            "%% guard_test(Test, VarTable, State) ->"
+          ]
+        },
+        {
+          "Line": 4580,
+          "Text": "icrt_clause({clause,_Anno,H,G,B}, Vt0, St0) ->",
+          "Following": [
+            "    {Hvt,Hnew,St1} = head(H, Vt0, St0),",
+            "    Vt1 = vtupdate(Hvt, Hnew),",
+            "    {Gvt,St2} = guard(G, vtupdate(Vt1, Vt0), St1),",
+            "    Vt2 = vtupdate(Gvt, Vt1),",
+            "    {Bvt,St3} = exprs(B, vtupdate(Vt2, Vt0), St2),",
+            "    {vtupdate(Bvt, Vt2),St3}.",
+            "",
+            "catch_clauses(Cs, Vt, St) ->",
+            "    mapfoldl(fun(C, St0) -> catch_clause(C, Vt, St0) end, St, Cs).",
+            ""
+          ]
+        },
+        {
+          "Line": 4616,
+          "Text": "icrt_export(Vts, Vt, {Tag,Attrs}, St) ->",
+          "Following": [
+            "    {_File,Loc} = loc(Attrs, St),",
+            "    icrt_export(lists:merge(Vts), Vt, {Tag,Loc}, length(Vts), []).",
+            "",
+            "icrt_export([{V,{{export,_},_,_}}|Vs0], [{V,{{export,_}=S0,_,As}}|Vt],",
+            "            In, I, Acc) ->",
+            "    %% V was an exported variable and has been used in an expression in at least",
+            "    %% one clause. Its state needs to be merged from all clauses to silence any",
+            "    %% exported var warning already emitted.",
+            "    {VVs,Vs} = lists:splitwith(fun ({K,_}) -> K =:= V end, Vs0),",
+            "    S = foldl(fun ({_,{S1,_,_}}, AccS) -> merge_state(AccS, S1) end, S0, VVs),"
+          ]
+        },
+        {
+          "Line": 4620,
+          "Text": "icrt_export([{V,{{export,_},_,_}}|Vs0], [{V,{{export,_}=S0,_,As}}|Vt],",
+          "Following": [
+            "            In, I, Acc) ->",
+            "    %% V was an exported variable and has been used in an expression in at least",
+            "    %% one clause. Its state needs to be merged from all clauses to silence any",
+            "    %% exported var warning already emitted.",
+            "    {VVs,Vs} = lists:splitwith(fun ({K,_}) -> K =:= V end, Vs0),",
+            "    S = foldl(fun ({_,{S1,_,_}}, AccS) -> merge_state(AccS, S1) end, S0, VVs),",
+            "    icrt_export(Vs, Vt, In, I, [{V,{S,used,As}}|Acc]);",
+            "icrt_export([{V,_}|Vs0], [{V,{_,_,As}}|Vt], In, I, Acc) ->",
+            "    %% V was either unsafe or bound and has now been reused. It may also have",
+            "    %% been an export but as it was not matched by the previous clause, it means"
+          ]
+        },
+        {
+          "Line": 4628,
+          "Text": "icrt_export([{V,_}|Vs0], [{V,{_,_,As}}|Vt], In, I, Acc) ->",
+          "Following": [
+            "    %% V was either unsafe or bound and has now been reused. It may also have",
+            "    %% been an export but as it was not matched by the previous clause, it means",
+            "    %% it has been changed to 'bound' in at least one clause because it was used",
+            "    %% in a pattern.",
+            "    Vs = lists:dropwhile(fun ({K,_}) -> K =:= V end, Vs0),",
+            "    icrt_export(Vs, Vt, In, I, [{V,{bound,used,As}}|Acc]);",
+            "icrt_export([{V1,_}|_]=Vs, [{V2,_}|Vt], In, I, Acc) when V1 > V2 ->",
+            "    %% V2 was already in scope and has not been reused in any clause.",
+            "    icrt_export(Vs, Vt, In, I, Acc);",
+            "icrt_export([{V,_}|_]=Vs0, Vt, In, I, Acc) ->"
+          ]
+        },
+        {
+          "Line": 4635,
+          "Text": "icrt_export([{V1,_}|_]=Vs, [{V2,_}|Vt], In, I, Acc) when V1 > V2 ->",
+          "Following": [
+            "    %% V2 was already in scope and has not been reused in any clause.",
+            "    icrt_export(Vs, Vt, In, I, Acc);",
+            "icrt_export([{V,_}|_]=Vs0, Vt, In, I, Acc) ->",
+            "    %% V is a new variable.",
+            "    {VVs,Vs} = lists:splitwith(fun ({K,_}) -> K =:= V end, Vs0),",
+            "    F = fun ({_,{S,U,As}}, {AccI,AccS0,AccAs0}) ->",
+            "                AccS = case {S,AccS0} of",
+            "                           {{unsafe,_},{unsafe,_}} ->",
+            "                               %% V was found unsafe in a previous clause, mark",
+            "                               %% it as unsafe for the whole parent expression."
+          ]
+        },
+        {
+          "Line": 4638,
+          "Text": "icrt_export([{V,_}|_]=Vs0, Vt, In, I, Acc) ->",
+          "Following": [
+            "    %% V is a new variable.",
+            "    {VVs,Vs} = lists:splitwith(fun ({K,_}) -> K =:= V end, Vs0),",
+            "    F = fun ({_,{S,U,As}}, {AccI,AccS0,AccAs0}) ->",
+            "                AccS = case {S,AccS0} of",
+            "                           {{unsafe,_},{unsafe,_}} ->",
+            "                               %% V was found unsafe in a previous clause, mark",
+            "                               %% it as unsafe for the whole parent expression.",
+            "                               {unsafe,In};",
+            "                           {{unsafe,_},_} ->",
+            "                               %% V was unsafe in a clause, keep that state and"
+          ]
+        },
+        {
+          "Line": 4675,
+          "Text": "icrt_export([], _, _, _, Acc) ->",
+          "Following": [
+            "    reverse(Acc).",
+            "",
+            "handle_comprehension(E, Qs, Vt0, St0) ->",
+            "    {Vt1, Uvt, St1} = lc_quals(Qs, Vt0, St0),",
+            "    {Evt,St2} = comprehension_exprs(E, Vt1, St1),",
+            "    Vt2 = vtupdate(Evt, Vt1),",
+            "    %% Shadowed global variables.",
+            "    {_,St3} = check_old_unused_vars(Vt2, Uvt, St2),",
+            "    %% There may be local variables in Uvt that are not global.",
+            "    {_,St4} = check_unused_vars(Uvt, Vt0, St3),"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Line": 497,
+          "Text": "if_expr -> 'if' if_clauses 'end' : {'if',?anno('$1'),'$2'}.",
+          "Following": [
+            "",
+            "if_clauses -> if_clause : ['$1'].",
+            "if_clauses -> if_clause ';' if_clauses : ['$1' | '$3'].",
+            "",
+            "if_clause -> guard clause_body :",
+            "\t{clause,first_anno(hd(hd('$1'))),[],'$1','$2'}.",
+            "",
+            "case_expr -> 'case' expr 'of' cr_clauses 'end' :",
+            "\t{'case',?anno('$1'),'$2','$4'}.",
+            ""
+          ]
+        },
+        {
+          "Line": 499,
+          "Text": "if_clauses -> if_clause : ['$1'].",
+          "Following": [
+            "if_clauses -> if_clause ';' if_clauses : ['$1' | '$3'].",
+            "",
+            "if_clause -> guard clause_body :",
+            "\t{clause,first_anno(hd(hd('$1'))),[],'$1','$2'}.",
+            "",
+            "case_expr -> 'case' expr 'of' cr_clauses 'end' :",
+            "\t{'case',?anno('$1'),'$2','$4'}.",
+            "",
+            "cr_clauses -> cr_clause : ['$1'].",
+            "cr_clauses -> cr_clause ';' cr_clauses : ['$1' | '$3']."
+          ]
+        },
+        {
+          "Line": 500,
+          "Text": "if_clauses -> if_clause ';' if_clauses : ['$1' | '$3'].",
+          "Following": [
+            "",
+            "if_clause -> guard clause_body :",
+            "\t{clause,first_anno(hd(hd('$1'))),[],'$1','$2'}.",
+            "",
+            "case_expr -> 'case' expr 'of' cr_clauses 'end' :",
+            "\t{'case',?anno('$1'),'$2','$4'}.",
+            "",
+            "cr_clauses -> cr_clause : ['$1'].",
+            "cr_clauses -> cr_clause ';' cr_clauses : ['$1' | '$3'].",
+            ""
+          ]
+        },
+        {
+          "Line": 502,
+          "Text": "if_clause -> guard clause_body :",
+          "Following": [
+            "\t{clause,first_anno(hd(hd('$1'))),[],'$1','$2'}.",
+            "",
+            "case_expr -> 'case' expr 'of' cr_clauses 'end' :",
+            "\t{'case',?anno('$1'),'$2','$4'}.",
+            "",
+            "cr_clauses -> cr_clause : ['$1'].",
+            "cr_clauses -> cr_clause ';' cr_clauses : ['$1' | '$3'].",
+            "",
+            "%% FIXME: merl in syntax_tools depends on patterns in a 'case' being",
+            "%% full expressions. Therefore, we can't use pat_expr here. There"
+          ]
+        }
+      ]
+    }
+  ],
+  "Interpretation": "Ordered zero-pattern if clauses; comma guard conjunctions and semicolon alternatives; guard errors fail, no branch raises if_clause; icrt_export marks variables absent from any branch unsafe; C# reuses existing guard/branch machinery without copying source"
+}

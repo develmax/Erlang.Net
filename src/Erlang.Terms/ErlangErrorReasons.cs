@@ -13,6 +13,7 @@ public static class ErlangErrorReasons
     public const string BadMap = "badmap";
     public const string BadMatch = "badmatch";
     public const string CaseClause = "case_clause";
+    public const string IfClause = "if_clause";
     public const string FunctionClause = "function_clause";
     public const string SystemLimit = "system_limit";
     public const string TimeoutValue = "timeout_value";

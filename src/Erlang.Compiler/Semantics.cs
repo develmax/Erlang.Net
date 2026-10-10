@@ -199,6 +199,11 @@ public static class Semantics
                 Walk(c.Value, bound, false);
                 Branches(c.Clauses, bound);
                 break;
+            case Expr.If i:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardIf, 0);
+                Branches(i.Clauses, bound);
+                break;
             case Expr.Receive r:
                 if (guard)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardReceive, 0);

@@ -336,6 +336,13 @@ public static class Execution
                         ctx
                     ) ?? throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), value)));
                 }
+            case Expr.If x:
+                return await Branch(Select(
+                    x.Clauses,
+                    [],
+                    b,
+                    ctx
+                ) ?? throw new ErlangException(ErlangErrorReasons.IfClause));
             case Expr.Receive x:
                 {
                     TimeSpan? timeout = null;

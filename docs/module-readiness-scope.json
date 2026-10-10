@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-042/ci-tests.json",
+  "ComparisonTestReport": "validation/part-043/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -61,7 +61,8 @@
       "Implemented": [
         "clauses, closures, scopes, maps and bit syntax",
         "generated C# AST and tail-call trampoline",
-        "bit construction value/size binding isolation with exports after the binary"
+        "bit construction value/size binding isolation with exports after the binary",
+        "if ordered guards/alternatives, if_clause and common branch binding export"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
