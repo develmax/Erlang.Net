@@ -3056,7 +3056,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,
@@ -3364,8 +3364,8 @@ foreach (var fixture in Erlang.Differential.CompiledDiagnosticCases.All)
         }
         catch (CompileException exception)
         {
-            Check(exception.Code == Erlang.Differential.CompiledDiagnosticExpectations.VariableBindingCode);
-            Check(exception.Message == Erlang.Differential.CompiledDiagnosticExpectations.Message(fixture.Variable));
+            Check(exception.Code == Erlang.Differential.CompiledDiagnosticExpectations.Code(fixture));
+            Check(exception.Message == Erlang.Differential.CompiledDiagnosticExpectations.Message(fixture));
         }
 
         return Task.CompletedTask;

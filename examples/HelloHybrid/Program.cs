@@ -81,6 +81,8 @@ if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new Invali
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var tryCheck = runtime.Spawn(async erlangProcess =>
 {
+    var stackGuard = try error(reason) catch error:_:S -> (fun(S) when is_integer(S) -> S end)(7) end.
+    if (!stackGuard.Equals(Term.I(7))) throw new InvalidOperationException(stackGuard.ToString());
     var signedReason = try error(-1) catch error:-1:S -> is_list(S) end.
     if (!signedReason.Equals(Term.A(ErlangBooleanAtoms.True))) throw new InvalidOperationException(signedReason.ToString());
     var result = begin

@@ -1,0 +1,1 @@
+-module(probe_stack_guard). -export([run/0]). run()->try error(reason) catch error:_:S -> if is_list(S) -> yes end end.

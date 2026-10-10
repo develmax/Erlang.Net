@@ -379,6 +379,7 @@ try
     cases = [.. cases, .. MatchTimingCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. TryExpressionCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. CatchPatternCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. StackGuardScopeCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {
@@ -460,11 +461,11 @@ try
             code = exception.Code;
             message = exception.Message;
         }
-        Term expected = CompiledDiagnosticExpectations.ReferenceOutcome(fixture.Variable, fixture.UnsafeConstruct);
+        Term expected = CompiledDiagnosticExpectations.ReferenceOutcome(fixture);
         bool passed = reference.Equals(expected)
             && !accepted
-            && code == CompiledDiagnosticExpectations.VariableBindingCode
-            && message == CompiledDiagnosticExpectations.Message(fixture.Variable);
+            && code == CompiledDiagnosticExpectations.Code(fixture)
+            && message == CompiledDiagnosticExpectations.Message(fixture);
         if (!passed)
         {
             failed++;

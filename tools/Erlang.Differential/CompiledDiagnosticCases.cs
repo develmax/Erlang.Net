@@ -107,5 +107,23 @@ public static class CompiledDiagnosticCases
             "X",
             "try"
         )
+        , new(
+            "stacktrace-direct-catch-guard",
+            "-module(scope_stack_guard). -export([run/0]). run()->try error(reason) catch error:R:S when is_list(S) -> R end.",
+            "S",
+            Kind:DiagnosticCaseKind.StacktraceGuard
+        )
+        , new(
+            "stacktrace-prebound-variable",
+            "-module(scope_stack_bound). -export([run/0]). run()->S=[],try error(reason) catch error:R:S -> R end.",
+            "S",
+            Kind:DiagnosticCaseKind.StacktraceBound
+        )
+        , new(
+            "stacktrace-reason-variable-reused",
+            "-module(scope_stack_reason). -export([run/0]). run()->try throw(reason) catch C:S:S -> C end.",
+            "S",
+            Kind:DiagnosticCaseKind.StacktraceBound
+        )
     ];
 }

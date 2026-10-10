@@ -72,7 +72,8 @@
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
         "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
         "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1",
-        "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes"
+        "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes",
+        "Catch stack-variable taint restricted to temporary catch guard scope; handler nested guards/captured and shadowed fun variables valid; local815 pass, fresh OTP pending"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -170,7 +171,8 @@
         "470 expressions,87 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified atdf42a94",
         "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match",
         "496 expressions,116 compiled modules and41 diagnostic contracts verified at f202bca; try boundaries/scopes, all prior470/87/35 contracts and generated hashes retained, no expectation corrections",
-        "499 expressions,119 compiled modules and41 diagnostics verified at5cbf0e8; all496/116/41 previous contracts/hashes preserved; signed integer/float/parenthesized catch reasons match, zero corrections"
+        "499 expressions,119 compiled modules and41 diagnostics verified at5cbf0e8; all496/116/41 previous contracts/hashes preserved; signed integer/float/parenthesized catch reasons match, zero corrections",
+        "Three independent normalized stacktrace_guard/stacktrace_bound rejection contracts added; historical41 variable diagnostic outcomes unchanged; fresh44 diagnostic proof pending"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

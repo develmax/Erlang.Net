@@ -1,0 +1,160 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "lib/stdlib/src/erl_lint.erl",
+  "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+  "Ranges": [
+    {
+      "Start": 4591,
+      "Lines": [
+        "catch_clause({clause,_Anno,H,G,B}, Vt0, St0) ->",
+        "    [{tuple,_,[_,_,Stack]}] = H,",
+        "    {Hvt,Hnew,St1} = head(H, Vt0, St0),",
+        "    Vt1 = vtupdate(Hvt, Hnew),",
+        "    %% check and mark the stack trace variable before checking the guard",
+        "    {GuardVt,St2} = taint_stack_var(Stack, vtupdate(Vt1, Vt0), St1),",
+        "    {Gvt,St3} = guard(G, GuardVt, St2),",
+        "    Vt2 = vtupdate(Gvt, Vt1),",
+        "    {Bvt,St4} = exprs(B, vtupdate(Vt2, Vt0), St3),",
+        "    {vtupdate(Bvt, Vt2),St4}.",
+        "",
+        "taint_stack_var({var,Anno,V}, Vt, St) when V =/= '_' ->",
+        "    St1 = case orddict:find(V, Vt) of",
+        "              {ok,{_,used,_}} ->",
+        "                  %% the stack var must be unused after processing the pattern;",
+        "                  %% it can be used either if bound/unsafe before the try, or",
+        "                  %% if it occurs in the class or term part of the pattern",
+        "                  add_error(Anno, {stacktrace_bound,V}, St);",
+        "              _ ->",
+        "                  St",
+        "          end,",
+        "    {vtupdate([{V,{stacktrace,unused,[Anno]}}], Vt), St1};",
+        "taint_stack_var(_, Vt, St) ->",
+        "    {Vt, St}.",
+        "",
+        "icrt_export(Vts, Vt, {Tag,Attrs}, St) ->",
+        "    {_File,Loc} = loc(Attrs, St),",
+        "    icrt_export(lists:merge(Vts), Vt, {Tag,Loc}, length(Vts), []).",
+        "",
+        "icrt_export([{V,{{export,_},_,_}}|Vs0], [{V,{{export,_}=S0,_,As}}|Vt],",
+        "            In, I, Acc) ->",
+        "    %% V was an exported variable and has been used in an expression in at least"
+      ]
+    },
+    {
+      "Start": 5170,
+      "Lines": [
+        "\t\t\t\t\t\t\t  St2)",
+        "\t\t\t\t      end, St, As)",
+        "\t\t\tend, St0, U)",
+        "\t  end,",
+        "    %% Return all variables as bound so warnings are only reported once.",
+        "    UVt = map(fun ({V,{State,_,As}}) -> {V,{State,used,As}} end, U),",
+        "    {vtmerge(Vt, UVt), St1}.",
+        "",
+        "%% vtupdate(UpdVarTable, VarTable) -> VarTable.",
+        "%%  Add the variables in the updated vartable to VarTable. The variables",
+        "%%  will be updated with their property in UpdVarTable. The state of",
+        "%%  the variables in UpdVarTable will be returned.",
+        "",
+        "vtupdate(Uvt, Vt0) ->",
+        "    orddict:merge(fun (_V, {S,U1,A1}, {_S,U2,A2}) ->",
+        "                          {S, merge_used(U1, U2), merge_annos(A1, A2)}",
+        "                  end, Uvt, Vt0).",
+        "",
+        "%% vtunsafe(From, UpdVarTable, VarTable) -> UnsafeVarTable.",
+        "%%  Mark all new variables in UpdVarTable as unsafe."
+      ]
+    }
+  ],
+  "TestPath": "lib/stdlib/test/erl_lint_SUITE.erl",
+  "TestBlob": "6c876b60427790e78fc084db66aea4813a9f2392",
+  "TestAnchors": [
+    {
+      "Line": 4786,
+      "Lines": [
+        "                  catch _:_:Stk when is_number(Stk) -> ok",
+        "                  end.",
+        "           \">>,",
+        "           [],",
+        "           {errors,[{{3,48},erl_lint,{stacktrace_guard,'Stk'}}],[]}},",
+        "          {bound,",
+        "           <<\"t1() ->",
+        "                  Stk = [],",
+        "                  try error(foo)",
+        "                  catch _:_:Stk -> ok",
+        "                  end.",
+        "           \">>,"
+      ]
+    },
+    {
+      "Line": 4795,
+      "Lines": [
+        "                  catch _:_:Stk -> ok",
+        "                  end.",
+        "           \">>,",
+        "           [],",
+        "           {errors,[{{4,29},erl_lint,{stacktrace_bound,'Stk'}}],[]}},",
+        "          {bound_in_pattern,",
+        "           <<\"t1() ->",
+        "                  try error(foo)",
+        "                  catch _:{x,T}:T -> ok",
+        "                  end.",
+        "           \">>,",
+        "           [],"
+      ]
+    },
+    {
+      "Line": 4803,
+      "Lines": [
+        "                  catch _:{x,T}:T -> ok",
+        "                  end.",
+        "           \">>,",
+        "           [],",
+        "           {errors,[{{3,33},erl_lint,{stacktrace_bound,'T'}}],[]}},",
+        "          {guard_and_bound,",
+        "           <<\"t1() ->",
+        "                  Stk = [],",
+        "                  try error(foo)",
+        "                  catch _:_:Stk when is_integer(Stk) -> ok",
+        "                  end.",
+        "           \">>,"
+      ]
+    },
+    {
+      "Line": 4812,
+      "Lines": [
+        "                  catch _:_:Stk when is_integer(Stk) -> ok",
+        "                  end.",
+        "           \">>,",
+        "           [],",
+        "           {errors,[{{4,29},erl_lint,{stacktrace_bound,'Stk'}},",
+        "                    {{4,49},erl_lint,{stacktrace_guard,'Stk'}}],[]}}",
+        "         ],",
+        "",
+        "    run(Config, Ts),",
+        "    ok.",
+        "",
+        ""
+      ]
+    },
+    {
+      "Line": 4813,
+      "Lines": [
+        "                  end.",
+        "           \">>,",
+        "           [],",
+        "           {errors,[{{4,29},erl_lint,{stacktrace_bound,'Stk'}},",
+        "                    {{4,49},erl_lint,{stacktrace_guard,'Stk'}}],[]}}",
+        "         ],",
+        "",
+        "    run(Config, Ts),",
+        "    ok.",
+        "",
+        "",
+        "%% Unicode atoms."
+      ]
+    }
+  ],
+  "Scope": "Temporary catch guard taint only; handler body/closures/shadows use untainted incoming bindings"
+}

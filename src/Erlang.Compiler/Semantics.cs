@@ -77,7 +77,12 @@ public static class Semantics
         }
     }
 
-    private static HashSet<string> ValidateClause(Clause clause, HashSet<string> bound, bool shadow)
+    private static HashSet<string> ValidateClause(
+        Clause clause,
+        HashSet<string> bound,
+        bool shadow,
+        string? stackVariable = null
+    )
     {
         var scope = new HashSet<string>(bound);
         foreach (var p in clause.Patterns)
@@ -94,7 +99,15 @@ public static class Semantics
             }
         }
         if (clause.Guard is not null)
-            Walk(clause.Guard, scope, true);
+        {
+            var guardScope = scope;
+            if (stackVariable is not null and not VariableScopeNames.Wildcard)
+            {
+                guardScope = new HashSet<string>(scope);
+                guardScope.Add(VariableScopeNames.StacktracePrefix + stackVariable);
+            }
+            Walk(clause.Guard, guardScope, true);
+        }
         Walk(clause.Body, scope, false);
 
         return scope;
@@ -201,11 +214,12 @@ public static class Semantics
                     var stack = (Pattern.Variable)pattern.Items[2];
                     if (stack.Name != VariableScopeNames.Wildcard && (unsafeScope.Contains(stack.Name) || unsafeScope.Contains(VariableScopeNames.UnsafePrefix + stack.Name) || pattern.Items.Take(2).SelectMany(Variables).Contains(stack.Name)))
                         throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.BoundStacktrace(stack.Name), 0);
-                    var handlerScope = new HashSet<string>(unsafeScope);
-                    if (stack.Name != VariableScopeNames.Wildcard)
-                        handlerScope.Add(VariableScopeNames.StacktracePrefix + stack.Name);
-                    var resultScope = ValidateClause(clause, handlerScope, false);
-                    resultScope.Remove(VariableScopeNames.StacktracePrefix + stack.Name);
+                    var resultScope = ValidateClause(
+                        clause,
+                        unsafeScope,
+                        false,
+                        stack.Name
+                    );
                     outcomes.UnionWith(resultScope);
                 }
                 MarkUnsafe(outcomes, unsafeScope);
