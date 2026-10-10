@@ -1,0 +1,1948 @@
+{
+  "Baseline": "1520ede589839591de6dd70899816ef88b609295",
+  "Replacements": 319,
+  "ConstantValuesPreserved": true,
+  "Files": [
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "TokensPreserved": true,
+      "Replacements": 25
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "TokensPreserved": true,
+      "Replacements": 34
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "TokensPreserved": true,
+      "Replacements": 49
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "TokensPreserved": true,
+      "Replacements": 107
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "TokensPreserved": true,
+      "Replacements": 104
+    }
+  ],
+  "Ledger": [
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 4056,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 4216,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 4671,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 9985,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 10126,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 10459,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 10472,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 11487,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 13122,
+      "Value": "infinity",
+      "Replacement": "ReceiveTimeoutAtoms.Infinity"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 15754,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 15811,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 15877,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 15907,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 15939,
+      "Value": "not",
+      "Replacement": "ErlangOperators.Not"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 16860,
+      "Value": "==",
+      "Replacement": "ErlangOperators.NumericEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 16917,
+      "Value": "/=",
+      "Replacement": "ErlangOperators.NumericNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 16975,
+      "Value": "=:=",
+      "Replacement": "ErlangOperators.ExactEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17026,
+      "Value": "=/=",
+      "Replacement": "ErlangOperators.ExactNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17078,
+      "Value": "\u003C",
+      "Replacement": "ErlangOperators.Less"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17134,
+      "Value": "\u003E",
+      "Replacement": "ErlangOperators.Greater"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17190,
+      "Value": "=\u003C",
+      "Replacement": "ErlangOperators.LessOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17248,
+      "Value": "\u003E=",
+      "Replacement": "ErlangOperators.GreaterOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17306,
+      "Value": "\u002B\u002B",
+      "Replacement": "ErlangOperators.Append"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17351,
+      "Value": "--",
+      "Replacement": "ErlangOperators.SubtractList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Execution.cs",
+      "Offset": 17383,
+      "Value": "!",
+      "Replacement": "ErlangOperators.Send"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 126,
+      "Value": "is_atom",
+      "Replacement": "ErlangModuleNames.IsAtom"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 142,
+      "Value": "is_integer",
+      "Replacement": "ErlangModuleNames.IsInteger"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 161,
+      "Value": "is_float",
+      "Replacement": "ErlangModuleNames.IsFloat"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 178,
+      "Value": "is_number",
+      "Replacement": "ErlangModuleNames.IsNumber"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 196,
+      "Value": "is_tuple",
+      "Replacement": "ErlangModuleNames.IsTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 213,
+      "Value": "is_binary",
+      "Replacement": "ErlangModuleNames.IsBinary"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 231,
+      "Value": "is_bitstring",
+      "Replacement": "ErlangModuleNames.IsBitString"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 252,
+      "Value": "bit_size",
+      "Replacement": "ErlangModuleNames.BitSize"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 269,
+      "Value": "byte_size",
+      "Replacement": "ErlangModuleNames.ByteSize"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 287,
+      "Value": "is_list",
+      "Replacement": "ErlangModuleNames.IsList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 303,
+      "Value": "is_pid",
+      "Replacement": "ErlangModuleNames.IsPid"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 318,
+      "Value": "is_map",
+      "Replacement": "ErlangModuleNames.IsMap"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 333,
+      "Value": "map_size",
+      "Replacement": "ErlangModuleNames.MapSize"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 350,
+      "Value": "map_get",
+      "Replacement": "ErlangModuleNames.MapGet"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 366,
+      "Value": "is_map_key",
+      "Replacement": "ErlangModuleNames.IsMapKey"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 385,
+      "Value": "length",
+      "Replacement": "ErlangModuleNames.Length"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 400,
+      "Value": "hd",
+      "Replacement": "ErlangModuleNames.Head"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 411,
+      "Value": "tl",
+      "Replacement": "ErlangModuleNames.Tail"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 422,
+      "Value": "element",
+      "Replacement": "ErlangModuleNames.Element"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 438,
+      "Value": "tuple_size",
+      "Replacement": "ErlangModuleNames.TupleSize"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 457,
+      "Value": "self",
+      "Replacement": "ErlangModuleNames.Self"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 1561,
+      "Value": "_",
+      "Replacement": "VariableScopeNames.Wildcard"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 3380,
+      "Value": "!unsafe:",
+      "Replacement": "VariableScopeNames.UnsafePrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 3440,
+      "Value": "!unsafe:",
+      "Replacement": "VariableScopeNames.UnsafePrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 4559,
+      "Value": "!unsafe:",
+      "Replacement": "VariableScopeNames.UnsafePrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 4606,
+      "Value": "!unsafe:",
+      "Replacement": "VariableScopeNames.UnsafePrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 4868,
+      "Value": "_",
+      "Replacement": "VariableScopeNames.Wildcard"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7127,
+      "Value": "!",
+      "Replacement": "ErlangOperators.Send"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7134,
+      "Value": "\u002B\u002B",
+      "Replacement": "ErlangOperators.Append"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7142,
+      "Value": "--",
+      "Replacement": "ErlangOperators.SubtractList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7350,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7363,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 7706,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Compiler/Semantics.cs",
+      "Offset": 8449,
+      "Value": "!unsafe:",
+      "Replacement": "VariableScopeNames.UnsafePrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 183,
+      "Value": "after",
+      "Replacement": "ErlangKeywords.After"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 192,
+      "Value": "begin",
+      "Replacement": "ErlangKeywords.Begin"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 201,
+      "Value": "case",
+      "Replacement": "ErlangKeywords.Case"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 209,
+      "Value": "try",
+      "Replacement": "ErlangKeywords.Try"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 216,
+      "Value": "cond",
+      "Replacement": "ErlangKeywords.Cond"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 224,
+      "Value": "catch",
+      "Replacement": "ErlangKeywords.Catch"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 233,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 244,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 254,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 261,
+      "Value": "fun",
+      "Replacement": "ErlangKeywords.Fun"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 268,
+      "Value": "if",
+      "Replacement": "ErlangKeywords.If"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 274,
+      "Value": "let",
+      "Replacement": "ErlangKeywords.Let"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 281,
+      "Value": "of",
+      "Replacement": "ErlangKeywords.Of"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 287,
+      "Value": "receive",
+      "Replacement": "ErlangKeywords.Receive"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 298,
+      "Value": "when",
+      "Replacement": "ErlangKeywords.When"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 306,
+      "Value": "bnot",
+      "Replacement": "ErlangOperators.BitwiseNot"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 314,
+      "Value": "not",
+      "Replacement": "ErlangOperators.Not"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 321,
+      "Value": "div",
+      "Replacement": "ErlangOperators.IntegerDivide"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 328,
+      "Value": "rem",
+      "Replacement": "ErlangOperators.Remainder"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 335,
+      "Value": "band",
+      "Replacement": "ErlangOperators.BitwiseAnd"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 343,
+      "Value": "and",
+      "Replacement": "ErlangOperators.And"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 350,
+      "Value": "bor",
+      "Replacement": "ErlangOperators.BitwiseOr"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 357,
+      "Value": "bxor",
+      "Replacement": "ErlangOperators.BitwiseXor"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 365,
+      "Value": "bsl",
+      "Replacement": "ErlangOperators.ShiftLeft"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 372,
+      "Value": "bsr",
+      "Replacement": "ErlangOperators.ShiftRight"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 379,
+      "Value": "or",
+      "Replacement": "ErlangOperators.Or"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 385,
+      "Value": "xor",
+      "Replacement": "ErlangOperators.Xor"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 392,
+      "Value": "maybe",
+      "Replacement": "ErlangKeywords.Maybe"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 401,
+      "Value": "else",
+      "Replacement": "ErlangKeywords.Else"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 589,
+      "Value": "=:=",
+      "Replacement": "ErlangOperators.ExactEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 596,
+      "Value": "=/=",
+      "Replacement": "ErlangOperators.ExactNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 603,
+      "Value": "-\u003E",
+      "Replacement": "ErlangSyntaxTokens.FunctionArrow"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 609,
+      "Value": "==",
+      "Replacement": "ErlangOperators.NumericEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 615,
+      "Value": "/=",
+      "Replacement": "ErlangOperators.NumericNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 621,
+      "Value": "=\u003C",
+      "Replacement": "ErlangOperators.LessOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 627,
+      "Value": "\u003E=",
+      "Replacement": "ErlangOperators.GreaterOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 633,
+      "Value": "\u002B\u002B",
+      "Replacement": "ErlangOperators.Append"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 639,
+      "Value": "--",
+      "Replacement": "ErlangOperators.SubtractList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 645,
+      "Value": "\u003C\u003C",
+      "Replacement": "ErlangSyntaxTokens.BinaryOpen"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 651,
+      "Value": "\u003E\u003E",
+      "Replacement": "ErlangSyntaxTokens.BinaryClose"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 657,
+      "Value": "=\u003E",
+      "Replacement": "ErlangSyntaxTokens.MapAssociation"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 663,
+      "Value": ":=",
+      "Replacement": "ErlangSyntaxTokens.MapExactField"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 3830,
+      "Value": "receive",
+      "Replacement": "ErlangKeywords.Receive"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 3843,
+      "Value": "case",
+      "Replacement": "ErlangKeywords.Case"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 3853,
+      "Value": "fun",
+      "Replacement": "ErlangKeywords.Fun"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 3930,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 5025,
+      "Value": "_",
+      "Replacement": "NumericLiteralSyntax.DigitSeparator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 5030,
+      "Value": "",
+      "Replacement": "string.Empty"
+    },
+    {
+      "File": "src/Erlang.Compiler/Lexer.cs",
+      "Offset": 5588,
+      "Value": "",
+      "Replacement": "string.Empty"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 1723,
+      "Value": "-",
+      "Replacement": "ErlangSyntaxTokens.AttributeIntroducer"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 1804,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 1838,
+      "Value": "module",
+      "Replacement": "ModuleAttributeNames.Module"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 1930,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 1963,
+      "Value": ".",
+      "Replacement": "ErlangSyntaxTokens.FormTerminator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2020,
+      "Value": "export",
+      "Replacement": "ModuleAttributeNames.Export"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2075,
+      "Value": "[",
+      "Replacement": "ErlangSyntaxTokens.OpenList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2111,
+      "Value": "]",
+      "Replacement": "ErlangSyntaxTokens.CloseList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2277,
+      "Value": "/",
+      "Replacement": "ErlangSyntaxTokens.AritySeparator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2634,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2672,
+      "Value": "]",
+      "Replacement": "ErlangSyntaxTokens.CloseList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2727,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 2760,
+      "Value": ".",
+      "Replacement": "ErlangSyntaxTokens.FormTerminator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 3051,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 3262,
+      "Value": ";",
+      "Replacement": "ErlangSyntaxTokens.Semicolon"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 3413,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 3668,
+      "Value": ".",
+      "Replacement": "ErlangSyntaxTokens.FormTerminator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4081,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4204,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4230,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4390,
+      "Value": "when",
+      "Replacement": "ErlangKeywords.When"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4564,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4620,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4732,
+      "Value": ";",
+      "Replacement": "ErlangSyntaxTokens.Semicolon"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 4870,
+      "Value": "-\u003E",
+      "Replacement": "ErlangSyntaxTokens.FunctionArrow"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5032,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5247,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5260,
+      "Value": "after",
+      "Replacement": "ErlangKeywords.After"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5405,
+      "Value": ";",
+      "Replacement": "ErlangSyntaxTokens.Semicolon"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5515,
+      "Value": "=",
+      "Replacement": "ErlangOperators.Match"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5533,
+      "Value": "!",
+      "Replacement": "ErlangOperators.Send"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5551,
+      "Value": "orelse",
+      "Replacement": "ErlangOperators.OrElse"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5574,
+      "Value": "andalso",
+      "Replacement": "ErlangOperators.AndAlso"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5598,
+      "Value": "==",
+      "Replacement": "ErlangOperators.NumericEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5606,
+      "Value": "/=",
+      "Replacement": "ErlangOperators.NumericNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5614,
+      "Value": "=:=",
+      "Replacement": "ErlangOperators.ExactEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5623,
+      "Value": "=/=",
+      "Replacement": "ErlangOperators.ExactNotEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5632,
+      "Value": "\u003C",
+      "Replacement": "ErlangOperators.Less"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5639,
+      "Value": "\u003E",
+      "Replacement": "ErlangOperators.Greater"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5646,
+      "Value": "=\u003C",
+      "Replacement": "ErlangOperators.LessOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5654,
+      "Value": "\u003E=",
+      "Replacement": "ErlangOperators.GreaterOrEqual"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5673,
+      "Value": "\u002B\u002B",
+      "Replacement": "ErlangOperators.Append"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5681,
+      "Value": "--",
+      "Replacement": "ErlangOperators.SubtractList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5700,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5707,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5725,
+      "Value": "*",
+      "Replacement": "ErlangOperators.Multiply"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5732,
+      "Value": "/",
+      "Replacement": "ErlangOperators.Divide"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5739,
+      "Value": "div",
+      "Replacement": "ErlangOperators.IntegerDivide"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 5748,
+      "Value": "rem",
+      "Replacement": "ErlangOperators.Remainder"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6143,
+      "Value": "=",
+      "Replacement": "ErlangOperators.Match"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6150,
+      "Value": "!",
+      "Replacement": "ErlangOperators.Send"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6157,
+      "Value": "\u002B\u002B",
+      "Replacement": "ErlangOperators.Append"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6165,
+      "Value": "--",
+      "Replacement": "ErlangOperators.SubtractList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6209,
+      "Value": "=",
+      "Replacement": "ErlangOperators.Match"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6423,
+      "Value": "receive",
+      "Replacement": "ErlangKeywords.Receive"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6551,
+      "Value": "after",
+      "Replacement": "ErlangKeywords.After"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6638,
+      "Value": "-\u003E",
+      "Replacement": "ErlangSyntaxTokens.FunctionArrow"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6710,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6808,
+      "Value": "case",
+      "Replacement": "ErlangKeywords.Case"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 6884,
+      "Value": "of",
+      "Replacement": "ErlangKeywords.Of"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7041,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7127,
+      "Value": "fun",
+      "Replacement": "ErlangKeywords.Fun"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7243,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7337,
+      "Value": ";",
+      "Replacement": "ErlangSyntaxTokens.Semicolon"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7363,
+      "Value": "end",
+      "Replacement": "ErlangKeywords.End"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7498,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7505,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7512,
+      "Value": "not",
+      "Replacement": "ErlangOperators.Not"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7689,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7759,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7797,
+      "Value": "\u003C\u003C",
+      "Replacement": "ErlangSyntaxTokens.BinaryOpen"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7860,
+      "Value": "#",
+      "Replacement": "ErlangSyntaxTokens.MapPrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 7925,
+      "Value": "{",
+      "Replacement": "ErlangSyntaxTokens.OpenTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8005,
+      "Value": "}",
+      "Replacement": "ErlangSyntaxTokens.CloseTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8137,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8167,
+      "Value": "}",
+      "Replacement": "ErlangSyntaxTokens.CloseTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8263,
+      "Value": "[",
+      "Replacement": "ErlangSyntaxTokens.OpenList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8374,
+      "Value": "]",
+      "Replacement": "ErlangSyntaxTokens.CloseList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8506,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8538,
+      "Value": "|",
+      "Replacement": "ErlangSyntaxTokens.ListTail"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 8608,
+      "Value": "]",
+      "Replacement": "ErlangSyntaxTokens.CloseList"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 9637,
+      "Value": "#",
+      "Replacement": "ErlangSyntaxTokens.MapPrefix"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 9712,
+      "Value": ":",
+      "Replacement": "ErlangSyntaxTokens.ModuleQualifier"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 9934,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10052,
+      "Value": "(",
+      "Replacement": "ErlangSyntaxTokens.OpenParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10442,
+      "Value": "\u003E\u003E",
+      "Replacement": "ErlangSyntaxTokens.BinaryClose"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10605,
+      "Value": ":",
+      "Replacement": "BitSyntaxTokens.SizeSeparator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10661,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10668,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10675,
+      "Value": "not",
+      "Replacement": "ErlangOperators.Not"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 10684,
+      "Value": "bnot",
+      "Replacement": "ErlangOperators.BitwiseNot"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 11349,
+      "Value": "/",
+      "Replacement": "BitSyntaxTokens.SpecifierIntroducer"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 13337,
+      "Value": ":",
+      "Replacement": "BitSyntaxTokens.UnitSeparator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 14235,
+      "Value": "-",
+      "Replacement": "BitSyntaxTokens.SpecifierSeparator"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16232,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16254,
+      "Value": "\u003E\u003E",
+      "Replacement": "ErlangSyntaxTokens.BinaryClose"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16371,
+      "Value": "{",
+      "Replacement": "ErlangSyntaxTokens.OpenTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16438,
+      "Value": "}",
+      "Replacement": "ErlangSyntaxTokens.CloseTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16576,
+      "Value": ":=",
+      "Replacement": "ErlangSyntaxTokens.MapExactField"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16647,
+      "Value": "=\u003E",
+      "Replacement": "ErlangSyntaxTokens.MapAssociation"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16872,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 16898,
+      "Value": "}",
+      "Replacement": "ErlangSyntaxTokens.CloseTuple"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 17064,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 17175,
+      "Value": ",",
+      "Replacement": "ErlangSyntaxTokens.Comma"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 17201,
+      "Value": ")",
+      "Replacement": "ErlangSyntaxTokens.CloseParenthesis"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 17877,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Compiler/Parser.cs",
+      "Offset": 18005,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 458,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 480,
+      "Value": "self",
+      "Replacement": "ErlangModuleNames.Self"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 568,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 590,
+      "Value": "length",
+      "Replacement": "ErlangModuleNames.Length"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 710,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 732,
+      "Value": "hd",
+      "Replacement": "ErlangModuleNames.Head"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 895,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 917,
+      "Value": "tl",
+      "Replacement": "ErlangModuleNames.Tail"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1080,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1102,
+      "Value": "element",
+      "Replacement": "ErlangModuleNames.Element"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1358,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1380,
+      "Value": "tuple_size",
+      "Replacement": "ErlangModuleNames.TupleSize"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1571,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1593,
+      "Value": "is_atom",
+      "Replacement": "ErlangModuleNames.IsAtom"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1699,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1721,
+      "Value": "is_integer",
+      "Replacement": "ErlangModuleNames.IsInteger"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1833,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1855,
+      "Value": "is_float",
+      "Replacement": "ErlangModuleNames.IsFloat"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1967,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 1989,
+      "Value": "is_number",
+      "Replacement": "ErlangModuleNames.IsNumber"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2113,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2135,
+      "Value": "is_tuple",
+      "Replacement": "ErlangModuleNames.IsTuple"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2247,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2269,
+      "Value": "is_binary",
+      "Replacement": "ErlangModuleNames.IsBinary"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2398,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2420,
+      "Value": "is_bitstring",
+      "Replacement": "ErlangModuleNames.IsBitString"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2536,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2558,
+      "Value": "bit_size",
+      "Replacement": "ErlangModuleNames.BitSize"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2745,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2767,
+      "Value": "byte_size",
+      "Replacement": "ErlangModuleNames.ByteSize"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2966,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 2988,
+      "Value": "is_list",
+      "Replacement": "ErlangModuleNames.IsList"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3101,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3123,
+      "Value": "is_pid",
+      "Replacement": "ErlangModuleNames.IsPid"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3227,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3249,
+      "Value": "is_map",
+      "Replacement": "ErlangModuleNames.IsMap"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3357,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3379,
+      "Value": "map_size",
+      "Replacement": "ErlangModuleNames.MapSize"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3589,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3611,
+      "Value": "map_get",
+      "Replacement": "ErlangModuleNames.MapGet"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3808,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 3830,
+      "Value": "is_map_key",
+      "Replacement": "ErlangModuleNames.IsMapKey"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4049,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4071,
+      "Value": "make_ref",
+      "Replacement": "ErlangModuleNames.MakeReference"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4233,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4255,
+      "Value": "register",
+      "Replacement": "ErlangModuleNames.Register"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4449,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4471,
+      "Value": "whereis",
+      "Replacement": "ErlangModuleNames.WhereIs"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4589,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4611,
+      "Value": "unregister",
+      "Replacement": "ErlangModuleNames.Unregister"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4793,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4815,
+      "Value": "link",
+      "Replacement": "ErlangModuleNames.Link"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 4988,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5010,
+      "Value": "unlink",
+      "Replacement": "ErlangModuleNames.Unlink"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5187,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5209,
+      "Value": "monitor",
+      "Replacement": "ErlangModuleNames.Monitor"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5275,
+      "Value": "process",
+      "Replacement": "ProcessMonitorKinds.Process"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5420,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5442,
+      "Value": "demonitor",
+      "Replacement": "ErlangModuleNames.Demonitor"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5705,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5727,
+      "Value": "process_flag",
+      "Replacement": "ErlangModuleNames.ProcessFlag"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 5810,
+      "Value": "trap_exit",
+      "Replacement": "ProcessFlagNames.TrapExit"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6027,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6049,
+      "Value": "exit",
+      "Replacement": "ErlangModuleNames.Exit"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6191,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6213,
+      "Value": "exit",
+      "Replacement": "ErlangModuleNames.Exit"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6392,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6414,
+      "Value": "error",
+      "Replacement": "ErlangModuleNames.Error"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6528,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6550,
+      "Value": "throw",
+      "Replacement": "ErlangModuleNames.Throw"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6694,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6716,
+      "Value": "put",
+      "Replacement": "ErlangModuleNames.Put"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6957,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 6979,
+      "Value": "get",
+      "Replacement": "ErlangModuleNames.Get"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 7138,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 7160,
+      "Value": "erase",
+      "Replacement": "ErlangModuleNames.Erase"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 8788,
+      "Value": "sum",
+      "Replacement": "ListModuleNames.Sum"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 8897,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 10521,
+      "Value": "map",
+      "Replacement": "ListModuleNames.Map"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 10872,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 10894,
+      "Value": "spawn",
+      "Replacement": "ErlangModuleNames.Spawn"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11164,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11186,
+      "Value": "spawn_link",
+      "Replacement": "ErlangModuleNames.SpawnLink"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11470,
+      "Value": "erlang",
+      "Replacement": "ErlangModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11492,
+      "Value": "spawn_monitor",
+      "Replacement": "ErlangModuleNames.SpawnMonitor"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11847,
+      "Value": "maps",
+      "Replacement": "MapModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 11867,
+      "Value": "get",
+      "Replacement": "MapModuleNames.Get"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 12060,
+      "Value": "maps",
+      "Replacement": "MapModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 12080,
+      "Value": "size",
+      "Replacement": "MapModuleNames.Size"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 12293,
+      "Value": "io",
+      "Replacement": "IoModuleNames.Module"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 12311,
+      "Value": "format",
+      "Replacement": "IoModuleNames.Format"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 14902,
+      "Value": "/",
+      "Replacement": "ErlangOperators.Divide"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 14931,
+      "Value": "div",
+      "Replacement": "ErlangOperators.IntegerDivide"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 14940,
+      "Value": "rem",
+      "Replacement": "ErlangOperators.Remainder"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15062,
+      "Value": "/",
+      "Replacement": "ErlangOperators.Divide"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15400,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15455,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15510,
+      "Value": "*",
+      "Replacement": "ErlangOperators.Multiply"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15565,
+      "Value": "div",
+      "Replacement": "ErlangOperators.IntegerDivide"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 15622,
+      "Value": "rem",
+      "Replacement": "ErlangOperators.Remainder"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 16316,
+      "Value": "\u002B",
+      "Replacement": "ErlangOperators.Plus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 16349,
+      "Value": "-",
+      "Replacement": "ErlangOperators.Minus"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 16382,
+      "Value": "*",
+      "Replacement": "ErlangOperators.Multiply"
+    },
+    {
+      "File": "src/Erlang.Runtime/CoreModules.cs",
+      "Offset": 16415,
+      "Value": "/",
+      "Replacement": "ErlangOperators.Divide"
+    }
+  ]
+}

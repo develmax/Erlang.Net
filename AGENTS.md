@@ -49,3 +49,7 @@ Local duplicate/2 and flatten/1,2 pass472 tests/full integration; registry62/lis
 ## Part 042 checkpoint
 
 Published duplicate/flatten head 3c138b2 passes pinned355/355 (322 expressions,28 modules,5 diagnostics), same-head472 tests/full integration and strict provenance. Registry62/lists19/91; evidence-only delta0 against immutable part041 tests. Huge positive duplicate cap remains local-only resource policy. Next substantive compiler if expression guards/alternatives, no-match if_clause and branch binding/export rules through interpreted, compiled and hybrid paths; then Erlang OTP callback adapters/signals. Approximately5% overall, no whole-module promotion; preserve historical reports.
+
+## Part 043 checkpoint
+
+Constants-only refactor preserves319 values/five source token streams and322/28/5 corpus/generated hashes; full472 tests/integration pass.149 namespace-level types/no layout violations;62 MFAs/delta0, lists19/91, approximately5%. Shared language operators/erlang MFA spellings have Terms catalogs; local keywords/syntax/bit/variable/numeric/timeout/map/io/process names keep separate owners. Equal slash/minus/colon/BIF/exception meanings must not be merged. Historical355/355 remains part042 at3c138b2; no live oracle rerun here. Next audited compiler if feature across interpreted/compiled/hybrid paths.

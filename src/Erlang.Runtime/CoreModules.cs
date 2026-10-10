@@ -18,140 +18,140 @@ public static class CoreModules
             (c, a) => ValueTask.FromResult(f(c, a))
         );
         Add(
-            "erlang",
-            "self",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Self,
             0,
             (c, a) => c.Self
         );
         Add(
-            "erlang",
-            "length",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Length,
             1,
             (c, a) => Term.I(Cons.Items(a[0]).LongCount())
         );
         Add(
-            "erlang",
-            "hd",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Head,
             1,
             (c, a) => a[0] is Cons l ? l.Head : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "tl",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Tail,
             1,
             (c, a) => a[0] is Cons l ? l.Tail : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "element",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Element,
             2,
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "tuple_size",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.TupleSize,
             1,
             (c, a) => a[0] is TupleTerm t ? Term.I(t.Items.Count) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "is_atom",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsAtom,
             1,
             (c, a) => Boolean(a[0] is Atom)
         );
         Add(
-            "erlang",
-            "is_integer",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsInteger,
             1,
             (c, a) => Boolean(a[0] is Integer)
         );
         Add(
-            "erlang",
-            "is_float",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsFloat,
             1,
             (c, a) => Boolean(a[0] is FloatTerm)
         );
         Add(
-            "erlang",
-            "is_number",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsNumber,
             1,
             (c, a) => Boolean(a[0] is Integer or FloatTerm)
         );
         Add(
-            "erlang",
-            "is_tuple",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsTuple,
             1,
             (c, a) => Boolean(a[0] is TupleTerm)
         );
         Add(
-            "erlang",
-            "is_binary",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsBinary,
             1,
             (c, a) => Boolean(a[0] is BitString b && b.IsBinary)
         );
         Add(
-            "erlang",
-            "is_bitstring",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsBitString,
             1,
             (c, a) => Boolean(a[0] is BitString)
         );
         Add(
-            "erlang",
-            "bit_size",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.BitSize,
             1,
             (c, a) => a[0] is BitString b ? Term.I(b.BitLength) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "byte_size",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.ByteSize,
             1,
             (c, a) => a[0] is BitString b ? Term.I((b.BitLength + 7L) / 8) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "is_list",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsList,
             1,
             (c, a) => Boolean(a[0] is Cons or Nil)
         );
         Add(
-            "erlang",
-            "is_pid",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsPid,
             1,
             (c, a) => Boolean(a[0] is Pid)
         );
         Add(
-            "erlang",
-            "is_map",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsMap,
             1,
             (c, a) => Boolean(a[0] is MapTerm)
         );
         Add(
-            "erlang",
-            "map_size",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.MapSize,
             1,
             (c, a) => a[0] is MapTerm m ? Term.I(m.Entries.Count) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0]))
         );
         Add(
-            "erlang",
-            "map_get",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.MapGet,
             2,
             (c, a) => a[1] is MapTerm m ? m.Get(a[0]) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[1]))
         );
         Add(
-            "erlang",
-            "is_map_key",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.IsMapKey,
             2,
             (c, a) => a[1] is MapTerm m ? Boolean(m.TryGet(a[0], out _)) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[1]))
         );
         Add(
-            "erlang",
-            "make_ref",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.MakeReference,
             0,
             (c, a) => new ReferenceTerm(c.Runtime.Node, (ulong)Interlocked.Increment(ref nextRef))
         );
         Add(
-            "erlang",
-            "register",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Register,
             2,
             (c, a) =>
  {
@@ -161,14 +161,14 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "whereis",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.WhereIs,
             1,
             (c, a) => c.Runtime.WhereIs(AtomName(a[0]))
         );
         Add(
-            "erlang",
-            "unregister",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Unregister,
             1,
             (c, a) =>
  {
@@ -178,8 +178,8 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "link",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Link,
             1,
             (c, a) =>
  {
@@ -189,8 +189,8 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "unlink",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Unlink,
             1,
             (c, a) =>
  {
@@ -200,14 +200,14 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "monitor",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Monitor,
             2,
-            (c, a) => AtomName(a[0]) == "process" ? c.Runtime.Monitor(c, PidValue(a[1])) : throw new ErlangException(ErlangErrorReasons.BadArgument)
+            (c, a) => AtomName(a[0]) == ProcessMonitorKinds.Process ? c.Runtime.Monitor(c, PidValue(a[1])) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
-            "erlang",
-            "demonitor",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Demonitor,
             1,
             (c, a) =>
  {
@@ -218,12 +218,12 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "process_flag",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.ProcessFlag,
             2,
             (c, a) =>
  {
-     if (AtomName(a[0]) != "trap_exit")
+     if (AtomName(a[0]) != ProcessFlagNames.TrapExit)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
      bool previous = c.TrapExits;
      c.TrapExits = Bool(a[1]);
@@ -232,14 +232,14 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "exit",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Exit,
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Exit)
         );
         Add(
-            "erlang",
-            "exit",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Exit,
             2,
             (c, a) =>
  {
@@ -249,20 +249,20 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "error",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Error,
             1,
             (c, a) => throw new ErlangException(a[0])
         );
         Add(
-            "erlang",
-            "throw",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Throw,
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Throw)
         );
         Add(
-            "erlang",
-            "put",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Put,
             2,
             (c, a) =>
  {
@@ -273,14 +273,14 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "get",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Get,
             1,
             (c, a) => c.Dictionary.GetValueOrDefault(a[0], Term.A(ProcessDictionaryAtoms.Undefined))
         );
         Add(
-            "erlang",
-            "erase",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Erase,
             1,
             (c, a) =>
  {
@@ -340,9 +340,9 @@ public static class CoreModules
         );
         Add(
             ListModuleNames.Module,
-            "sum",
+            ListModuleNames.Sum,
             1,
-            (c, a) => Cons.Items(a[0]).Aggregate((Term)Term.I(0), (x, y) => Arithmetic("+", x, y))
+            (c, a) => Cons.Items(a[0]).Aggregate((Term)Term.I(0), (x, y) => Arithmetic(ErlangOperators.Plus, x, y))
         );
         Add(
             ListModuleNames.Module,
@@ -400,7 +400,7 @@ public static class CoreModules
         );
         r.Register(
             ListModuleNames.Module,
-            "map",
+            ListModuleNames.Map,
             2,
             async (c, a) =>
  {
@@ -414,8 +414,8 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "spawn",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Spawn,
             1,
             (c, a) =>
  {
@@ -426,8 +426,8 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "spawn_link",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.SpawnLink,
             1,
             (c, a) =>
  {
@@ -438,8 +438,8 @@ public static class CoreModules
  }
         );
         Add(
-            "erlang",
-            "spawn_monitor",
+            ErlangModuleNames.Module,
+            ErlangModuleNames.SpawnMonitor,
             1,
             (c, a) =>
  {
@@ -451,20 +451,20 @@ public static class CoreModules
  }
         );
         Add(
-            "maps",
-            "get",
+            MapModuleNames.Module,
+            MapModuleNames.Get,
             2,
             (c, a) => a[1] is MapTerm m ? m.Get(a[0]) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[1]))
         );
         Add(
-            "maps",
-            "size",
+            MapModuleNames.Module,
+            MapModuleNames.Size,
             1,
             (c, a) => a[0] is MapTerm m ? Term.I(m.Entries.Count) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0]))
         );
         r.Register(
-            "io",
-            "format",
+            IoModuleNames.Module,
+            IoModuleNames.Format,
             2,
             async (c, a) =>
         {
@@ -528,9 +528,9 @@ public static class CoreModules
     {
         if (a is Integer x && b is Integer y)
         {
-            if (op == "/" && y.Value == 0 || op is "div" or "rem" && y.Value == 0)
+            if (op == ErlangOperators.Divide && y.Value == 0 || op is ErlangOperators.IntegerDivide or ErlangOperators.Remainder && y.Value == 0)
                 throw new ErlangException(ErlangErrorReasons.BadArithmetic);
-            if (op == "/")
+            if (op == ErlangOperators.Divide)
             {
                 if (!x.TryToDouble(out double numerator) || !y.TryToDouble(out double denominator))
                     throw new ErlangException(ErlangErrorReasons.BadArithmetic);
@@ -540,11 +540,11 @@ public static class CoreModules
 
             return op switch
             {
-                "+" => new Integer(x.Value + y.Value),
-                "-" => new Integer(x.Value - y.Value),
-                "*" => new Integer(x.Value * y.Value),
-                "div" => new Integer(x.Value / y.Value),
-                "rem" => new Integer(x.Value % y.Value),
+                ErlangOperators.Plus => new Integer(x.Value + y.Value),
+                ErlangOperators.Minus => new Integer(x.Value - y.Value),
+                ErlangOperators.Multiply => new Integer(x.Value * y.Value),
+                ErlangOperators.IntegerDivide => new Integer(x.Value / y.Value),
+                ErlangOperators.Remainder => new Integer(x.Value % y.Value),
                 _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
             };
         }
@@ -563,10 +563,10 @@ public static class CoreModules
 
         return new FloatTerm(op switch
         {
-            "+" => left + right,
-            "-" => left - right,
-            "*" => left * right,
-            "/" => left / right,
+            ErlangOperators.Plus => left + right,
+            ErlangOperators.Minus => left - right,
+            ErlangOperators.Multiply => left * right,
+            ErlangOperators.Divide => left / right,
             _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
         });
     }

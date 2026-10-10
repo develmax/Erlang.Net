@@ -2,7 +2,7 @@ namespace Erlang.Compiler;
 
 public static class Semantics
 {
-    internal static readonly HashSet<(string, int)> GuardBifs = [("is_atom", 1), ("is_integer", 1), ("is_float", 1), ("is_number", 1), ("is_tuple", 1), ("is_binary", 1), ("is_bitstring", 1), ("bit_size", 1), ("byte_size", 1), ("is_list", 1), ("is_pid", 1), ("is_map", 1), ("map_size", 1), ("map_get", 2), ("is_map_key", 2), ("length", 1), ("hd", 1), ("tl", 1), ("element", 2), ("tuple_size", 1), ("self", 0)];
+    internal static readonly HashSet<(string, int)> GuardBifs = [(ErlangModuleNames.IsAtom, 1), (ErlangModuleNames.IsInteger, 1), (ErlangModuleNames.IsFloat, 1), (ErlangModuleNames.IsNumber, 1), (ErlangModuleNames.IsTuple, 1), (ErlangModuleNames.IsBinary, 1), (ErlangModuleNames.IsBitString, 1), (ErlangModuleNames.BitSize, 1), (ErlangModuleNames.ByteSize, 1), (ErlangModuleNames.IsList, 1), (ErlangModuleNames.IsPid, 1), (ErlangModuleNames.IsMap, 1), (ErlangModuleNames.MapSize, 1), (ErlangModuleNames.MapGet, 2), (ErlangModuleNames.IsMapKey, 2), (ErlangModuleNames.Length, 1), (ErlangModuleNames.Head, 1), (ErlangModuleNames.Tail, 1), (ErlangModuleNames.Element, 2), (ErlangModuleNames.TupleSize, 1), (ErlangModuleNames.Self, 0)];
 
     public static void Validate(ModuleDefinition module)
     {
@@ -22,7 +22,7 @@ public static class Semantics
     {
         BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)),
         MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)),
-        Pattern.Variable v when v.Name != "_" => [v.Name],
+        Pattern.Variable v when v.Name != VariableScopeNames.Wildcard => [v.Name],
         Pattern.Tuple t => t.Items.SelectMany(Variables),
         Pattern.List l => l.Items.SelectMany(Variables).Concat(l.Tail is null ? [] : Variables(l.Tail)),
         _ => []
@@ -71,8 +71,8 @@ public static class Semantics
             foreach (string name in Variables(p))
             {
                 if (shadow)
-                    scope.Remove("!unsafe:" + name);
-                else if (scope.Contains("!unsafe:" + name))
+                    scope.Remove(VariableScopeNames.UnsafePrefix + name);
+                else if (scope.Contains(VariableScopeNames.UnsafePrefix + name))
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnsafePatternVariable(name), 0);
                 scope.Add(name);
             }
@@ -101,7 +101,7 @@ public static class Semantics
                 common.IntersectWith(b);
             bound.UnionWith(common);
             foreach (var name in all.Except(common))
-                bound.Add(name.StartsWith("!unsafe:", StringComparison.Ordinal) ? name : "!unsafe:" + name);
+                bound.Add(name.StartsWith(VariableScopeNames.UnsafePrefix, StringComparison.Ordinal) ? name : VariableScopeNames.UnsafePrefix + name);
         }
     }
 
@@ -112,7 +112,7 @@ public static class Semantics
             case Expr.Literal:
                 break;
             case Expr.Variable v:
-                if (v.Name == "_" || !bound.Contains(v.Name))
+                if (v.Name == VariableScopeNames.Wildcard || !bound.Contains(v.Name))
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
                 break;
             case Expr.Tuple t:
@@ -164,10 +164,10 @@ public static class Semantics
                 Walk(u.Operand, bound, guard);
                 break;
             case Expr.Binary b:
-                if (guard && b.Operator is "!" or "++" or "--")
+                if (guard && b.Operator is ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardOperator, 0);
                 Walk(b.Left, bound, guard);
-                if (b.Operator is "andalso" or "orelse")
+                if (b.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse)
                 {
                     var maybe = new HashSet<string>(bound);
                     Walk(b.Right, maybe, guard);
@@ -176,7 +176,7 @@ public static class Semantics
                     Walk(b.Right, bound, guard);
                 break;
             case Expr.Call call:
-                if (guard && (call.Module is not null and not "erlang" || !GuardBifs.Contains((call.Function, call.Arguments.Count))))
+                if (guard && (call.Module is not null and not ErlangModuleNames.Module || !GuardBifs.Contains((call.Function, call.Arguments.Count))))
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.IllegalGuardCall(call.Function, call.Arguments.Count), 0);
                 foreach (var x in call.Arguments)
                     Walk(x, bound, guard);
@@ -188,7 +188,7 @@ public static class Semantics
                 PatternKeys(m.Pattern, bound);
                 foreach (string name in Variables(m.Pattern))
                 {
-                    if (bound.Contains("!unsafe:" + name))
+                    if (bound.Contains(VariableScopeNames.UnsafePrefix + name))
                         throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnsafeMatchVariable(name), 0);
                     bound.Add(name);
                 }

@@ -6,13 +6,13 @@ namespace Erlang.Compiler;
 
 public static class Lexer
 {
-    private static readonly HashSet<string> Keywords = ["after", "begin", "case", "try", "cond", "catch", "andalso", "orelse", "end", "fun", "if", "let", "of", "receive", "when", "bnot", "not", "div", "rem", "band", "and", "bor", "bxor", "bsl", "bsr", "or", "xor", "maybe", "else"];
+    private static readonly HashSet<string> Keywords = [ErlangKeywords.After, ErlangKeywords.Begin, ErlangKeywords.Case, ErlangKeywords.Try, ErlangKeywords.Cond, ErlangKeywords.Catch, ErlangOperators.AndAlso, ErlangOperators.OrElse, ErlangKeywords.End, ErlangKeywords.Fun, ErlangKeywords.If, ErlangKeywords.Let, ErlangKeywords.Of, ErlangKeywords.Receive, ErlangKeywords.When, ErlangOperators.BitwiseNot, ErlangOperators.Not, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.And, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.Or, ErlangOperators.Xor, ErlangKeywords.Maybe, ErlangKeywords.Else];
 
     public static List<Token> Scan(string text, bool blockPrefix = false)
     {
         var tokens = new List<Token>();
         int i = 0, depth = 0;
-        string[] symbols = ["=:=", "=/=", "->", "==", "/=", "=<", ">=", "++", "--", "<<", ">>", "=>", ":="];
+        string[] symbols = [ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField];
         while (i < text.Length)
         {
             if (char.IsWhiteSpace(text[i]))
@@ -92,9 +92,9 @@ public static class Lexer
                 ));
                 if (blockPrefix)
                 {
-                    if (name is "receive" or "case" or "fun")
+                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun)
                         depth++;
-                    else if (name == "end" && --depth == 0)
+                    else if (name == ErlangKeywords.End && --depth == 0)
                         break;
                 }
                 continue;
@@ -121,7 +121,7 @@ public static class Lexer
                 }
                 tokens.Add(new(
                     floating ? LexerTokenKinds.Float : LexerTokenKinds.Integer,
-                    text[start..i].Replace("_", ""),
+                    text[start..i].Replace(NumericLiteralSyntax.DigitSeparator, string.Empty),
                     start,
                     i
                 ));
@@ -139,7 +139,7 @@ public static class Lexer
         }
         tokens.Add(new(
             LexerTokenKinds.EndOfInput,
-            "",
+            string.Empty,
             i,
             i
         ));

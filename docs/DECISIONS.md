@@ -122,3 +122,7 @@ Follow pinned do_flatten by evaluating each tail before the head; frames disting
 ## Part 042 — Separate value contracts from local allocation limits
 
 Preserve355/355 and same-head472 CI with exact head/job/build/archive metadata and all297 old expression,28 compiled and5 diagnostic source/hash/expected contracts. The25 new cases establish selected duplicate/flatten values/errors; huge positive allocations and local int.MaxValue/system_limit cap remain explicitly outside reference proof. Readiness comparison immutable part041 tests;62 MFAs/delta0 in this evidence part, lists19/91. No executable/dependency/license/resource/full-module promotion.
+
+## Part 043 — Name strings by semantic owner
+
+Share language operator spellings between compiler and runtime and erlang MFA names between registration and guard validation using Terms-level catalogs. Compiler-local syntax/keywords/attributes/scopes and Runtime-local maps/io/list names retain their own owners. Slash/minus/colon in different grammar roles stay distinct; error/throw/exit BIF names remain separate from exception classes. Use string.Empty only for the empty string representation. Existing immutable atom caching is unchanged. Verify319 references through SDK Roslyn token/value audit and preserve generated hashes; no full compatibility promotion.

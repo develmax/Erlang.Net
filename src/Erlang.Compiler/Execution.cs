@@ -105,8 +105,8 @@ public static class Execution
         ),
         Expr.Bits bits => BitConstruction.Create(bits.Segments.Select(s => (GuardValue(s.Value, b, ctx), s.Size is null ? null : GuardValue(s.Size, b, ctx), s)).ToArray()),
         Expr.Unary u => Unary(u.Operator, GuardValue(u.Operand, b, ctx)),
-        Expr.Binary { Operator: "andalso" } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? GuardValue(x.Right, b, ctx) : Term.A(ErlangBooleanAtoms.False),
-        Expr.Binary { Operator: "orelse" } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? Term.A(ErlangBooleanAtoms.True) : GuardValue(x.Right, b, ctx),
+        Expr.Binary { Operator: ErlangOperators.AndAlso } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? GuardValue(x.Right, b, ctx) : Term.A(ErlangBooleanAtoms.False),
+        Expr.Binary { Operator: ErlangOperators.OrElse } x => CoreModules.Bool(GuardValue(x.Left, b, ctx)) ? Term.A(ErlangBooleanAtoms.True) : GuardValue(x.Right, b, ctx),
         Expr.Binary x => Binary(
             x.Operator,
             GuardValue(x.Left, b, ctx),
@@ -115,7 +115,7 @@ public static class Execution
         ),
         Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains((x.Function, x.Arguments.Count)) => ctx.Runtime.Modules.Call(
             ctx,
-            "erlang",
+            ErlangModuleNames.Module,
             x.Function,
             x.Arguments.Select(a => GuardValue(a, b, ctx)).ToArray()
         ).GetAwaiter().GetResult(),
@@ -267,9 +267,9 @@ public static class Execution
                         b,
                         module
                     );
-                    if (x.Operator == "andalso" && !CoreModules.Bool(left))
+                    if (x.Operator == ErlangOperators.AndAlso && !CoreModules.Bool(left))
                         return Term.A(ErlangBooleanAtoms.False);
-                    if (x.Operator == "orelse" && CoreModules.Bool(left))
+                    if (x.Operator == ErlangOperators.OrElse && CoreModules.Bool(left))
                         return Term.A(ErlangBooleanAtoms.True);
                     var right = await Evaluate(
                         x.Right,
@@ -278,7 +278,7 @@ public static class Execution
                         module
                     );
 
-                    return x.Operator is "andalso" or "orelse" ? right : Binary(
+                    return x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse ? right : Binary(
                         x.Operator,
                         left,
                         right,
@@ -303,7 +303,7 @@ public static class Execution
 
                     return await ctx.Runtime.Modules.Call(
                         ctx,
-                        x.Module ?? "erlang",
+                        x.Module ?? ErlangModuleNames.Module,
                         x.Function,
                         args
                     );
@@ -349,7 +349,7 @@ public static class Execution
                         );
                         timeout = time switch
                         {
-                            Atom { Name: "infinity" } => null,
+                            Atom { Name: ReceiveTimeoutAtoms.Infinity } => null,
                             Integer i when i.Value >= 0 && i.Value <= uint.MaxValue => TimeSpan.FromMilliseconds((double)i.Value),
                             _ => throw new ErlangException(ErlangErrorReasons.TimeoutValue)
                         };
@@ -411,10 +411,10 @@ public static class Execution
 
     private static Term Unary(string op, Term value) => op switch
     {
-        "+" when value is Integer or FloatTerm => value,
-        "-" when value is FloatTerm f => new FloatTerm(-f.Value),
-        "-" => CoreModules.Arithmetic("-", Term.I(0), value),
-        "not" => CoreModules.Boolean(!CoreModules.Bool(value)),
+        ErlangOperators.Plus when value is Integer or FloatTerm => value,
+        ErlangOperators.Minus when value is FloatTerm f => new FloatTerm(-f.Value),
+        ErlangOperators.Minus => CoreModules.Arithmetic(ErlangOperators.Minus, Term.I(0), value),
+        ErlangOperators.Not => CoreModules.Boolean(!CoreModules.Bool(value)),
         _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
     };
 
@@ -440,17 +440,17 @@ public static class Execution
         ProcessContext? ctx
     ) => op switch
     {
-        "==" => CoreModules.Boolean(a.NumericEquals(b)),
-        "/=" => CoreModules.Boolean(!a.NumericEquals(b)),
-        "=:=" => CoreModules.Boolean(a.Equals(b)),
-        "=/=" => CoreModules.Boolean(!a.Equals(b)),
-        "<" => CoreModules.Boolean(a.CompareTo(b) < 0),
-        ">" => CoreModules.Boolean(a.CompareTo(b) > 0),
-        "=<" => CoreModules.Boolean(a.CompareTo(b) <= 0),
-        ">=" => CoreModules.Boolean(a.CompareTo(b) >= 0),
-        "++" => Cons.From(Cons.Items(a), b),
-        "--" => Subtract(a, b),
-        "!" when ctx is not null => ctx.Runtime.Send(
+        ErlangOperators.NumericEqual => CoreModules.Boolean(a.NumericEquals(b)),
+        ErlangOperators.NumericNotEqual => CoreModules.Boolean(!a.NumericEquals(b)),
+        ErlangOperators.ExactEqual => CoreModules.Boolean(a.Equals(b)),
+        ErlangOperators.ExactNotEqual => CoreModules.Boolean(!a.Equals(b)),
+        ErlangOperators.Less => CoreModules.Boolean(a.CompareTo(b) < 0),
+        ErlangOperators.Greater => CoreModules.Boolean(a.CompareTo(b) > 0),
+        ErlangOperators.LessOrEqual => CoreModules.Boolean(a.CompareTo(b) <= 0),
+        ErlangOperators.GreaterOrEqual => CoreModules.Boolean(a.CompareTo(b) >= 0),
+        ErlangOperators.Append => Cons.From(Cons.Items(a), b),
+        ErlangOperators.SubtractList => Subtract(a, b),
+        ErlangOperators.Send when ctx is not null => ctx.Runtime.Send(
             a is Pid p ? p : a is Atom name && ctx.Runtime.WhereIs(name.Name) is Pid registered ? registered : throw new ErlangException(ErlangErrorReasons.BadArgument),
             b
         ),

@@ -58,56 +58,56 @@ public sealed class Parser
         var functions = new List<FunctionDefinition>();
         while (Current.Kind != LexerTokenKinds.EndOfInput)
         {
-            if (Take("-"))
+            if (Take(ErlangSyntaxTokens.AttributeIntroducer))
             {
                 string attr = Name();
-                Expect("(");
-                if (attr == "module")
+                Expect(ErlangSyntaxTokens.OpenParenthesis);
+                if (attr == ModuleAttributeNames.Module)
                 {
                     module = Name();
-                    Expect(")");
-                    Expect(".");
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    Expect(ErlangSyntaxTokens.FormTerminator);
                 }
-                else if (attr == "export")
+                else if (attr == ModuleAttributeNames.Export)
                 {
-                    Expect("[");
-                    if (!Take("]"))
+                    Expect(ErlangSyntaxTokens.OpenList);
+                    if (!Take(ErlangSyntaxTokens.CloseList))
                     {
                         do
                         {
                             string name = Name();
-                            Expect("/");
+                            Expect(ErlangSyntaxTokens.AritySeparator);
                             if (Current.Kind != LexerTokenKinds.Integer)
                                 throw Error(ParserDiagnostics.ExpectedArity);
                             int arity = int.Parse(tokens[position++].Text, CultureInfo.InvariantCulture);
                             exports.Add((name, arity));
-                        } while (Take(","));
-                        Expect("]");
+                        } while (Take(ErlangSyntaxTokens.Comma));
+                        Expect(ErlangSyntaxTokens.CloseList);
                     }
-                    Expect(")");
-                    Expect(".");
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    Expect(ErlangSyntaxTokens.FormTerminator);
                 }
                 else
                     throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedAttribute(attr), Current.Start);
                 continue;
             }
             string fname = Name();
-            Expect("(");
+            Expect(ErlangSyntaxTokens.OpenParenthesis);
             var patterns = PatternArguments();
             var clauses = new List<Clause>();
             int count = patterns.Count;
             clauses.Add(ParseClause(patterns));
-            while (Take(";"))
+            while (Take(ErlangSyntaxTokens.Semicolon))
             {
                 if (Name() != fname)
                     throw Error(ParserDiagnostics.ClauseNameMismatch);
-                Expect("(");
+                Expect(ErlangSyntaxTokens.OpenParenthesis);
                 patterns = PatternArguments();
                 if (patterns.Count != count)
                     throw Error(ParserDiagnostics.ClauseArityMismatch);
                 clauses.Add(ParseClause(patterns));
             }
-            Expect(".");
+            Expect(ErlangSyntaxTokens.FormTerminator);
             functions.Add(new(fname, count, clauses));
         }
         if (module is null)
@@ -121,13 +121,13 @@ public sealed class Parser
     private List<Pattern> PatternArguments()
     {
         var args = new List<Pattern>();
-        if (!Take(")"))
+        if (!Take(ErlangSyntaxTokens.CloseParenthesis))
         {
             do
             {
                 args.Add(ToPattern(Expression(2)));
-            } while (Take(","));
-            Expect(")");
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseParenthesis);
         }
 
         return args;
@@ -136,19 +136,19 @@ public sealed class Parser
     private Clause ParseClause(IReadOnlyList<Pattern> patterns)
     {
         Expr? guard = null;
-        if (Take("when"))
+        if (Take(ErlangKeywords.When))
         {
             var alternatives = new List<Expr>();
             do
             {
                 Expr conjunction = Expression();
-                while (Take(","))
-                    conjunction = new Expr.Binary("andalso", conjunction, Expression());
+                while (Take(ErlangSyntaxTokens.Comma))
+                    conjunction = new Expr.Binary(ErlangOperators.AndAlso, conjunction, Expression());
                 alternatives.Add(conjunction);
-            } while (Take(";"));
+            } while (Take(ErlangSyntaxTokens.Semicolon));
             guard = alternatives.Count == 1 ? alternatives[0] : new Expr.GuardAlternatives(alternatives);
         }
-        Expect("->");
+        Expect(ErlangSyntaxTokens.FunctionArrow);
 
         return new(patterns, guard, Body());
     }
@@ -156,7 +156,7 @@ public sealed class Parser
     private Expr Body()
     {
         var body = new List<Expr> { Expression() };
-        while (Take(","))
+        while (Take(ErlangSyntaxTokens.Comma))
             body.Add(Expression());
 
         return body.Count == 1 ? body[0] : new Expr.Sequence(body);
@@ -165,26 +165,26 @@ public sealed class Parser
     private List<Clause> Clauses()
     {
         var result = new List<Clause>();
-        if (Is("end") || Is("after"))
+        if (Is(ErlangKeywords.End) || Is(ErlangKeywords.After))
             return result;
         do
         {
             result.Add(ParseClause([ToPattern(Expression(2))]));
-        } while (Take(";"));
+        } while (Take(ErlangSyntaxTokens.Semicolon));
 
         return result;
     }
 
     private static int Precedence(string op) => op switch
     {
-        "=" => 1,
-        "!" => 2,
-        "orelse" => 3,
-        "andalso" => 4,
-        "==" or "/=" or "=:=" or "=/=" or "<" or ">" or "=<" or ">=" => 5,
-        "++" or "--" => 6,
-        "+" or "-" => 7,
-        "*" or "/" or "div" or "rem" => 8,
+        ErlangOperators.Match => 1,
+        ErlangOperators.Send => 2,
+        ErlangOperators.OrElse => 3,
+        ErlangOperators.AndAlso => 4,
+        ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual or ErlangOperators.Less or ErlangOperators.Greater or ErlangOperators.LessOrEqual or ErlangOperators.GreaterOrEqual => 5,
+        ErlangOperators.Append or ErlangOperators.SubtractList => 6,
+        ErlangOperators.Plus or ErlangOperators.Minus => 7,
+        ErlangOperators.Multiply or ErlangOperators.Divide or ErlangOperators.IntegerDivide or ErlangOperators.Remainder => 8,
         _ => 0
     };
 
@@ -197,8 +197,8 @@ public sealed class Parser
             if (p < minimum || p == 0)
                 break;
             string op = tokens[position++].Text;
-            var right = Expression(op is "=" or "!" or "++" or "--" ? p : p + 1);
-            left = op == "=" ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
+            var right = Expression(op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList ? p : p + 1);
+            left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
         }
 
         return left;
@@ -207,84 +207,84 @@ public sealed class Parser
     private Expr Primary(bool bitSegment = false)
     {
         Expr result;
-        if (Take("receive"))
+        if (Take(ErlangKeywords.Receive))
         {
             var clauses = Clauses();
             Expr? timeout = null, after = null;
-            if (Take("after"))
+            if (Take(ErlangKeywords.After))
             {
                 timeout = Expression();
-                Expect("->");
+                Expect(ErlangSyntaxTokens.FunctionArrow);
                 after = Body();
             }
-            Expect("end");
+            Expect(ErlangKeywords.End);
 
             return new Expr.Receive(clauses, timeout, after);
         }
-        if (Take("case"))
+        if (Take(ErlangKeywords.Case))
         {
             var value = Expression();
-            Expect("of");
+            Expect(ErlangKeywords.Of);
             var clauses = Clauses();
             if (clauses.Count == 0)
                 throw Error(ParserDiagnostics.EmptyCase);
-            Expect("end");
+            Expect(ErlangKeywords.End);
 
             return new Expr.Case(value, clauses);
         }
-        if (Take("fun"))
+        if (Take(ErlangKeywords.Fun))
         {
             var clauses = new List<Clause>();
             do
             {
-                Expect("(");
+                Expect(ErlangSyntaxTokens.OpenParenthesis);
                 clauses.Add(ParseClause(PatternArguments()));
-            } while (Take(";"));
-            Expect("end");
+            } while (Take(ErlangSyntaxTokens.Semicolon));
+            Expect(ErlangKeywords.End);
 
             return new Expr.Fun(clauses);
         }
-        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is "+" or "-" or "not")
+        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not)
         {
             string op = tokens[position++].Text;
 
             return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(9));
         }
-        if (Take("("))
+        if (Take(ErlangSyntaxTokens.OpenParenthesis))
         {
             result = Expression();
-            Expect(")");
+            Expect(ErlangSyntaxTokens.CloseParenthesis);
         }
-        else if (Take("<<"))
+        else if (Take(ErlangSyntaxTokens.BinaryOpen))
             result = ParseBits();
-        else if (Take("#"))
+        else if (Take(ErlangSyntaxTokens.MapPrefix))
             result = ParseMap(null);
-        else if (Take("{"))
+        else if (Take(ErlangSyntaxTokens.OpenTuple))
         {
             var items = new List<Expr>();
-            if (!Take("}"))
+            if (!Take(ErlangSyntaxTokens.CloseTuple))
             {
                 do
                 {
                     items.Add(Expression());
-                } while (Take(","));
-                Expect("}");
+                } while (Take(ErlangSyntaxTokens.Comma));
+                Expect(ErlangSyntaxTokens.CloseTuple);
             }
             result = new Expr.Tuple(items);
         }
-        else if (Take("["))
+        else if (Take(ErlangSyntaxTokens.OpenList))
         {
             var items = new List<Expr>();
             Expr? tail = null;
-            if (!Take("]"))
+            if (!Take(ErlangSyntaxTokens.CloseList))
             {
                 do
                 {
                     items.Add(Expression());
-                } while (Take(","));
-                if (Take("|"))
+                } while (Take(ErlangSyntaxTokens.Comma));
+                if (Take(ErlangSyntaxTokens.ListTail))
                     tail = Expression();
-                Expect("]");
+                Expect(ErlangSyntaxTokens.CloseList);
             }
             result = new Expr.List(items, tail);
         }
@@ -306,17 +306,17 @@ public sealed class Parser
         {
             if (bitSegment)
                 break;
-            if (Take("#"))
+            if (Take(ErlangSyntaxTokens.MapPrefix))
                 result = ParseMap(result);
-            else if (Take(":"))
+            else if (Take(ErlangSyntaxTokens.ModuleQualifier))
             {
                 if (result is not Expr.Literal { Value: Atom module })
                     throw Error(ParserDiagnostics.DynamicModuleCall);
                 string name = Name();
-                Expect("(");
+                Expect(ErlangSyntaxTokens.OpenParenthesis);
                 result = new Expr.Call(module.Name, name, Arguments());
             }
-            else if (Take("("))
+            else if (Take(ErlangSyntaxTokens.OpenParenthesis))
             {
                 var args = Arguments();
                 result = result is Expr.Literal { Value: Atom fn } ? new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args);
@@ -331,15 +331,15 @@ public sealed class Parser
     private Expr ParseBits()
     {
         var segments = new List<BitSegment>();
-        if (Take(">>"))
+        if (Take(ErlangSyntaxTokens.BinaryClose))
             return new Expr.Bits(segments);
         do
         {
             var value = Primary(true);
             Expr? size = null;
-            if (Take(":"))
+            if (Take(BitSyntaxTokens.SizeSeparator))
             {
-                if (Current.Text is "+" or "-" or "not" or "bnot")
+                if (Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
                     throw Error(ParserDiagnostics.UnaryBitSize);
                 size = Primary(true);
             }
@@ -354,7 +354,7 @@ public sealed class Parser
                     throw Error(ParserDiagnostics.ConflictingBitSpecifier(category));
                 categories[category] = setting;
             }
-            if (Take("/"))
+            if (Take(BitSyntaxTokens.SpecifierIntroducer))
             {
                 do
                 {
@@ -393,7 +393,7 @@ public sealed class Parser
                             break;
                         case BitUnitSpecifier.Name:
                             category = BitSpecifierCategories.Unit;
-                            Expect(":");
+                            Expect(BitSyntaxTokens.UnitSeparator);
                             if (Current.Kind != LexerTokenKinds.Integer || !int.TryParse(Current.Text, out var parsed) || parsed is < BitUnitSpecifier.Minimum or > BitUnitSpecifier.Maximum)
                                 throw Error(ParserDiagnostics.InvalidBitUnit);
                             unit = parsed;
@@ -406,7 +406,7 @@ public sealed class Parser
                         category,
                         category == BitSpecifierCategories.Type ? type : category == BitSpecifierCategories.Unit ? unit!.Value.ToString(CultureInfo.InvariantCulture) : spec
                     );
-                } while (Take("-"));
+                } while (Take(BitSyntaxTokens.SpecifierSeparator));
             }
             int defaultUnit = type is BitSegmentTypes.Binary or BitSegmentAliases.Bytes ? BitSyntaxDefaults.BinaryUnit : 1;
             if ((type is BitSegmentTypes.Integer or BitSegmentTypes.Float) && size is null && unit is not null)
@@ -451,31 +451,31 @@ public sealed class Parser
                     endian,
                     signed
                 ));
-        } while (Take(","));
-        Expect(">>");
+        } while (Take(ErlangSyntaxTokens.Comma));
+        Expect(ErlangSyntaxTokens.BinaryClose);
 
         return new Expr.Bits(segments);
     }
 
     private Expr ParseMap(Expr? mapBase)
     {
-        Expect("{");
+        Expect(ErlangSyntaxTokens.OpenTuple);
         var fields = new List<MapField>();
-        if (!Take("}"))
+        if (!Take(ErlangSyntaxTokens.CloseTuple))
         {
             do
             {
                 var key = Expression();
                 bool exact;
-                if (Take(":="))
+                if (Take(ErlangSyntaxTokens.MapExactField))
                     exact = true;
-                else if (Take("=>"))
+                else if (Take(ErlangSyntaxTokens.MapAssociation))
                     exact = false;
                 else
                     throw Error(ParserDiagnostics.ExpectedMapFieldOperator);
                 fields.Add(new(key, Expression(), exact));
-            } while (Take(","));
-            Expect("}");
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseTuple);
         }
 
         return new Expr.Map(mapBase, fields);
@@ -484,13 +484,13 @@ public sealed class Parser
     private List<Expr> Arguments()
     {
         var args = new List<Expr>();
-        if (!Take(")"))
+        if (!Take(ErlangSyntaxTokens.CloseParenthesis))
         {
             do
             {
                 args.Add(Expression());
-            } while (Take(","));
-            Expect(")");
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseParenthesis);
         }
 
         return args;
@@ -504,8 +504,8 @@ public sealed class Parser
         Expr.Variable v => new Pattern.Variable(v.Name),
         Expr.Tuple t => new Pattern.Tuple(t.Items.Select(ToPattern).ToArray()),
         Expr.List l => new Pattern.List(l.Items.Select(ToPattern).ToArray(), l.Tail is null ? null : ToPattern(l.Tail)),
-        Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)),
-        Expr.Unary { Operator: "-", Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)),
+        Expr.Unary { Operator: ErlangOperators.Minus, Operand: Expr.Literal { Value: Integer i } } => new Pattern.Literal(new Integer(-i.Value)),
+        Expr.Unary { Operator: ErlangOperators.Minus, Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)),
         _ => throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, ParserDiagnostics.InvalidPattern, 0)
     };
 }
