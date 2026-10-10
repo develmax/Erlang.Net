@@ -374,6 +374,7 @@ try
     cases = [.. cases, .. BeginOperatorCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. ExpressionListCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. MapBindingCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. BitEvaluationCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {

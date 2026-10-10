@@ -53,6 +53,18 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     return Term.A("ok");
 });
 if (!(await mapCheck.Completion).Equals(Term.A("normal"))) throw new InvalidOperationException("Map integration failed");
+var bitPhaseCheck = runtime.Spawn(async erlangProcess =>
+{
+    var result = begin
+        R = catch <<(1 bsl 2000):64/float,0:(1 bsl 100)>>,
+        {'EXIT',{Reason,_}} = R,
+        Reason
+    end.
+    if (!result.Equals(Term.A(ErlangErrorReasons.BadArgument))) throw new InvalidOperationException(result.ToString());
+
+    return Term.A("ok");
+});
+if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new InvalidOperationException((await bitPhaseCheck.Completion).ToString());
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var process = runtime.Spawn(async erlangProcess =>
 {

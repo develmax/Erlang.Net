@@ -66,6 +66,10 @@ public static class CompiledDiagnosticCases
         new("map-field-not-visible-in-next", "-module(scope_map_next). -export([run/0]). run()->#{a=>(X=1),b=>X}.","X"),
         new("map-base-not-visible-in-field", "-module(scope_map_base). -export([run/0]). run()->(X=#{})#{a=>X}.","X"),
         new("map-field-not-visible-in-base", "-module(scope_map_back). -export([run/0]). run()->X#{a=>(X=#{})}.","X"),
-        new("map-key-not-visible-in-next-key", "-module(scope_map_keys). -export([run/0]). run()->#{(X=a)=>1,X=>2}.","X")
+        new("map-key-not-visible-in-next-key", "-module(scope_map_keys). -export([run/0]). run()->#{(X=a)=>1,X=>2}.","X"),
+        new("bits-value-not-visible-in-own-size", "-module(scope_bits_size). -export([run/0]). run()-><<(X=1):X>>.","X"),
+        new("bits-value-not-visible-in-next-value", "-module(scope_bits_value). -export([run/0]). run()-><<(X=1),X>>.","X"),
+        new("bits-size-not-visible-in-next-value", "-module(scope_bits_next). -export([run/0]). run()-><<1:(S=4),S>>.","S"),
+        new("bits-later-value-not-visible-in-size", "-module(scope_bits_later). -export([run/0]). run()-><<1:X,(X=1)>>.","X")
     ];
 }

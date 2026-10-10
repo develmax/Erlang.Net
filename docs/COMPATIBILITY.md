@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **676/676 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part052](validation/part-052/tests.json), [integration](validation/part-052/integration-results.json).
+Current local evidence is **698/698 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part054](validation/part-054/tests.json), [integration](validation/part-054/integration-results.json).
 
 Latest exact-version oracle evidence: **449/449 expressions +63/63 compiled modules +31/31 compiler diagnostics (543/543)** at **0fe8a72**, plus same-head Windows CI **676/676** and full integration/readiness. [Verified provenance](validation/part-053/remote-checkpoint.json). Modules remain partially compatible; [module readiness](MODULE_READINESS.md) reports registrations and remaining scope.
 
@@ -237,3 +237,11 @@ Implementation head **0fe8a7265f827e7c5e9e5010b762ceb2d75162e2** passes **449/44
 161 namespace-level types/no violations,62 MFAs / delta 0 against immutable part052 tests. API declarations erlang40/351,lists19/91,maps2/34,io1/53 are presence, not semantic completion; approximately 5% coarse overall estimate. Local full pipeline and old/new C# lookup measurements remain part052 evidence; no executable change or benchmark rerun here. [Performance policy](PERFORMANCE.md) records the measured workload, retained-memory tradeoff and requirements for a BEAM comparison. No cross-runtime speed claim.
 
 Full Core lowering/internal child-body constraints/optimizer, complete lint/grammar/stacks/resources/runtime/OTP/reference suites remain unfinished. Native hybrid standalone expressions retain interpreter semantics. Next deeper Core match timing and deferred binary error ordering, then missing grammar/Erlang OTP callback adapters. Preserve failed historical evidence; no whole-module promotion/dependency/production BEAM/public NuGet/license change.
+
+## Part 054 — Binary evaluation phases and compiled capture isolation
+
+Local **698/698/full integration** passes; [checkpoint](validation/part-054/checkpoint.json). New BitExpressionBindings.cs adapts eval_bits evaluation-before-materialization, sequential interpreter bindings and post-construction export. Interpreter float conversion now precedes later field validation; compiled modules retain their size-before-float subset behavior and use independent child environments to prevent sibling exports leaking into function captures. [Pinned audit](validation/part-054/reference-audit.json), [corpus](validation/part-054/corpus-audit.json). All historical 449/63/31 source/outcome/generated hash contracts retained. New corpus **461 expressions/69 modules/35 diagnostics =565** awaits new-head OTP/CI; historical543/543 remains part053 at0fe8a72.
+
+Hybrid/PackageReference consumer exercises the corrected interpreter error order. Initial fixture build used the wrong context identifier; corrected to configured erlangProcess and original failure preserved. Source-derived Ericsson AB1999-2025 Apache-2.0 notice and updated register/full license are retained in both local archives.163 namespace types/no violations;62 MFAs/delta0, API erlang40/351,lists19/91,maps2/34,io1/53; approximately5% coarse overall estimate.
+
+Full Core/FUVs/empty-string compiler special lowering/JIT/error_info/resources/grammar/runtime/OTP equivalence remains incomplete. Native standalone hybrid uses interpreter semantics. No benchmark or speed claim in this semantic increment. Next verify565/same-head698 CI, then explicit compiler empty-string checks and more Core match timing before missing grammar/OTP callbacks.

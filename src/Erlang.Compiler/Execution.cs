@@ -217,26 +217,17 @@ public static class Execution
                     module is not null
                 );
             case Expr.Bits bits:
-                {
-                    var segments = new (Term Value, Term? Size, BitSegment Segment)[bits.Segments.Count];
-                    for (int i = 0; i < segments.Length; i++)
-                    {
-                        var segment = bits.Segments[i];
-                        segments[i] = (await Evaluate(
-                            segment.Value,
-                            ctx,
-                            b,
-                            module
-                        ), segment.Size is null ? null : await Evaluate(
-                            segment.Size,
-                            ctx,
-                            b,
-                            module
-                        ), segment);
-                    }
-
-                    return BitConstruction.Create(segments);
-                }
+                return await BitExpressionBindings.Evaluate(
+                    bits,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    ),
+                    module is not null
+                );
             case Expr.Sequence s:
                 {
                     Term result = Term.A(ExecutionResultAtoms.EmptySequence);

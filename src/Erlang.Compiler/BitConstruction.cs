@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal static class BitConstruction
 {
-    public static BitString Create(IReadOnlyList<(Term Value, Term? Size, BitSegment Segment)> segments)
+    public static BitString Create(IReadOnlyList<(Term Value, Term? Size, BitSegment Segment)> segments, bool encodeFloatInOrder = false)
     {
         var expanded = new List<(Term Value, Term? Size, BitSegment Segment)>();
         var validationOnly = new HashSet<int>();
@@ -65,6 +65,10 @@ internal static class BitConstruction
             int count = (int)bits;
             if (floating && count is not (FloatSegmentWidths.Half or FloatSegmentWidths.Single or FloatSegmentWidths.Double))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
+            // eval_bits materializes each field before the next one. Compiled BEAM
+            // can validate segment sizes before it attempts float encoding.
+            if (floating && encodeFloatInOrder)
+                encoded[i] = BitFloat.Encode(value, count, segment.Endian);
             if (binary && (count > ((BitString)value).BitLength || whole && count % segment.Unit != 0))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (validationOnly.Contains(i))
