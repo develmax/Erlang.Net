@@ -118,3 +118,7 @@ Preserve330/330 and same-head442 CI with exact head/job/reference build/archive 
 ## Part 041 — Tail-first flatten with an explicit list-spine distinction
 
 Follow pinned do_flatten by evaluating each tail before the head; frames distinguish required Cons/Nil spines from opaque leaf terms. This preserves function_clause on malformed nested tails, leaf order, and the untraversed flatten/2 suffix without recursion. Duplicate reuses immutable element identity. Its local int.MaxValue cap has its own ListDuplicateLimits type despite equal Sequence limit value; guard before narrowing and do not claim reference resource equivalence. No external dependency/license change. Current62 MFAs/lists19/91; validate against immutable part040 CI442/59.
+
+## Part 042 — Separate value contracts from local allocation limits
+
+Preserve355/355 and same-head472 CI with exact head/job/build/archive metadata and all297 old expression,28 compiled and5 diagnostic source/hash/expected contracts. The25 new cases establish selected duplicate/flatten values/errors; huge positive allocations and local int.MaxValue/system_limit cap remain explicitly outside reference proof. Readiness comparison immutable part041 tests;62 MFAs/delta0 in this evidence part, lists19/91. No executable/dependency/license/resource/full-module promotion.
