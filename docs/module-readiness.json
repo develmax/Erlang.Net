@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-078/ci-tests.json",
+  "ComparisonTestReport": "validation/part-079/tests.json",
   "LocalPassedTests": 1304,
   "RegisteredMfas": 66,
-  "PreviousRegisteredMfas": 65,
-  "RegisteredMfaDelta": 1,
+  "PreviousRegisteredMfas": 66,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 4,
   "Components": [
@@ -148,11 +148,10 @@
       "Status": "Partially compatible",
       "Implemented": [
         "pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency",
-        "695 expressions,316 generated C#/compiled-reference modules and73 normalized rejections verified at7a35cdd;1084/1084 complete/version verified",
-        "historical631 expressions/252 module contracts/generated hashes/67 diagnostics unchanged;64 independent map/iterator/template-order expressions/modules and six new diagnostics verified",
-        "initial map run1066/1068 retained; two original compiled order mismatches resolved, only two provisional expectations corrected to retained official outcomes; all308 initial source/generated hashes unchanged",
-        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained",
-        "Part079 adds27 comparator expressions/27 modules:722/343/73=1138 planned; historical1084 preserved; local1304/full pipeline, fresh oracle pending publication"
+        "722 expressions,343 generated C#/compiled-reference modules and73 normalized rejections verified at124af8c;1138/1138 complete/version verified",
+        "historical695 expressions/316 module source/expected/generated-hash contracts and73 diagnostics unchanged;27 comparator expressions/modules added without expectation correction",
+        "initial map1066/1068 and two original scheduling discrepancies remain retained in part077 and resolved in part078; new comparator increment zero mismatches",
+        "same-head1304/full CI; initial1300/1304 reserved-atom fixture parser failures retained; unavailable-oracle negative protocol and immutable snapshots"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -7860,8 +7859,8 @@
       "Name": "lists",
       "Status": "Partially compatible",
       "RegisteredMfas": 20,
-      "PreviousRegisteredMfas": 19,
-      "Delta": 1,
+      "PreviousRegisteredMfas": 20,
+      "Delta": 0,
       "ReferenceDeclarations": 91,
       "ApiPresencePercent": 22.0,
       "RequiresPreprocessing": false,

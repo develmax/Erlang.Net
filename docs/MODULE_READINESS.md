@@ -1,6 +1,6 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **1304 passed**. Runtime MFAs **66** (previous snapshot **65**, delta **+1**), in **4** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Local tests **1304 passed**. Runtime MFAs **66** (previous snapshot **66**, delta **0**), in **4** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
@@ -17,7 +17,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | supervisor host facade | Partially compatible | 6 | strategies, policies, intensity and ordered shutdown | Erlang exports/callback adapters; dynamic specs and shutdown edge cases |
 | Hybrid and MSBuild | Partially compatible | 21 | native Erlang blocks and .erl generation; incremental/clean/disabled-preprocessing/package consumer | cross-block bindings, full diagnostics and IDE debugging |
 | Tooling and packages | Implemented | 2 | local CLI/compiler/preprocessor/inventory; regenerated module readiness report | stable public release contract; no NuGet publication yet |
-| Differential validation | Partially compatible | 422 | pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency; 695 expressions,316 generated C#/compiled-reference modules and73 normalized rejections verified at7a35cdd;1084/1084 complete/version verified; historical631 expressions/252 module contracts/generated hashes/67 diagnostics unchanged;64 independent map/iterator/template-order expressions/modules and six new diagnostics verified; initial map run1066/1068 retained; two original compiled order mismatches resolved, only two provisional expectations corrected to retained official outcomes; all308 initial source/generated hashes unchanged; same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained; Part079 adds27 comparator expressions/27 modules:722/343/73=1138 planned; historical1084 preserved; local1304/full pipeline, fresh oracle pending publication | full resource/input contracts; broader compiled-module/optimizer/stacks/signals |
+| Differential validation | Partially compatible | 422 | pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency; 722 expressions,343 generated C#/compiled-reference modules and73 normalized rejections verified at124af8c;1138/1138 complete/version verified; historical695 expressions/316 module source/expected/generated-hash contracts and73 diagnostics unchanged;27 comparator expressions/modules added without expectation correction; initial map1066/1068 and two original scheduling discrepancies remain retained in part077 and resolved in part078; new comparator increment zero mismatches; same-head1304/full CI; initial1300/1304 reserved-atom fixture parser failures retained; unavailable-oracle negative protocol and immutable snapshots | full resource/input contracts; broader compiled-module/optimizer/stacks/signals |
 | Style checks | Implemented | 2 | SDK syntax-aware layout and validation gate; XML documentation comment preservation and idempotence | broader SDK matrix |
 | Benchmarks | Partially compatible | 0 | exploratory local harness; reproducible Release old/new C# integer-map lookup samples/allocations; no BEAM performance proof | representative workloads and BEAM comparison |
 
@@ -36,7 +36,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | gen_server | 0 | 0 | 41 | 0.0% | Not started |
 | gen_statem | 0 | 0 | 39 | 0.0% | Not started |
 | io | 1 | 0 | 53 | 1.9% | Partially compatible |
-| lists | 20 | +1 | 91 | 22.0% | Partially compatible |
+| lists | 20 | 0 | 91 | 22.0% | Partially compatible |
 | maps | 5 | 0 | 34 | 14.7% | Partially compatible |
 | rpc | 0 | 0 | 35 | 0.0% | Not started |
 | string | 0 | 0 | 71 | 0.0% | Not started |
