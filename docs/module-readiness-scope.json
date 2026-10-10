@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-060/tests.json",
+  "ComparisonTestReport": "validation/part-062/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -71,7 +71,7 @@
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
         "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
-        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected local tests, fresh OTP pending"
+        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -167,7 +167,8 @@
       "Implemented": [
         "Pinned source-built OTP-29.1.1 value/class/reason comparator",
         "470 expressions,87 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified atdf42a94",
-        "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match"
+        "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match",
+        "496 expressions,116 compiled modules and41 diagnostic contracts verified at f202bca; try boundaries/scopes, all prior470/87/35 contracts and generated hashes retained, no expectation corrections"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
