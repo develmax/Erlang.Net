@@ -10,7 +10,8 @@
       "Implemented": [
         "immutable terms and exact/numeric equality",
         "codepoint ordering and integer/float coercion",
-        "bounded reuse of ten common immutable atom values"
+        "bounded reuse of ten common immutable atom values",
+        "privately owned exact-key Dictionary index with sorted read-only map entries"
       ],
       "Id": "Terms",
       "TestPrefixes": [
@@ -65,7 +66,8 @@
         "if ordered guards/alternatives, if_clause and common branch binding export",
         "begin and all ordinary expression operator spellings; catch logical stacks and corrected precedence/operand bindings",
         "source-directed OTP expression-list/cons binding port for tuples/lists/call arguments; explicit per-routine provenance and CLR deviations",
-        "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported"
+        "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported",
+        "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct"
       ],
       "Id": "Compiler",
       "TestPrefixes": [

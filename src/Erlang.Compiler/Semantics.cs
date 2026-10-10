@@ -122,15 +122,9 @@ public static class Semantics
                 ExpressionBindings.ValidateList(l.Tail is null ? l.Items : l.Items.Append(l.Tail), bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.Map m:
-                if (m.Base is not null)
-                    Walk(m.Base, bound, guard);
-                else if (m.Fields.Any(f => f.Exact))
+                if (m.Base is null && m.Fields.Any(f => f.Exact))
                     throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, SemanticDiagnostics.MapConstructionOperator, 0);
-                foreach (var field in m.Fields)
-                {
-                    Walk(field.Key, bound, guard);
-                    Walk(field.Value, bound, guard);
-                }
+                ExpressionBindings.ValidateList(MapExpressionBindings.Expressions(m), bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.Bits bits:
                 var exported = new HashSet<string>(bound);

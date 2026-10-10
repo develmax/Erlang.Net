@@ -204,30 +204,18 @@ public static class Execution
                     )
                 );
             case Expr.Map m:
-                {
-                    Term mapBase = m.Base is null ? new MapTerm([]) : await Evaluate(
-                        m.Base,
+                return await MapExpressionBindings.Evaluate(
+                    m,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
                         ctx,
-                        b,
+                        scope,
                         module
-                    );
-                    var fields = new (Term Key, Term Value, bool Exact)[m.Fields.Count];
-                    for (int i = 0; i < fields.Length; i++)
-                        fields[i] = (await Evaluate(
-                            m.Fields[i].Key,
-                            ctx,
-                            b,
-                            module
-                        ), await Evaluate(
-                            m.Fields[i].Value,
-                            ctx,
-                            b,
-                            module
-                        ), m.Fields[i].Exact);
-
-                    // Evaluate expressions before map type/key checks, as required by reference error cases.
-                    return EvaluateMap(mapBase, fields);
-                }
+                    ),
+                    EvaluateMap,
+                    module is not null
+                );
             case Expr.Bits bits:
                 {
                     var segments = new (Term Value, Term? Size, BitSegment Segment)[bits.Segments.Count];

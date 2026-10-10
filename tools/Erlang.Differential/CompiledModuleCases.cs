@@ -326,6 +326,42 @@ public static class CompiledModuleCases
             "compiled-binding-fun-local",
             "-module(oracle_compiled_fun). -export([run/0]). run()->A=1,T={X=2,(fun()->X=99,A=1 end)()},{T,X}.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.I(2),Term.I(1)),Term.I(2)))
+        ),
+        new(
+            "compiled-map-export",
+            "-module(oracle_map_export). -export([run/0]). run()->M=(B=#{a=>1})#{(K=b)=>(V=2)},{M,B,K,V}.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(
+                    new MapTerm([new(Term.A("a"),Term.I(1)),new(Term.A("b"),Term.I(2))]),
+                    new MapTerm([new(Term.A("a"),Term.I(1))]),
+                    Term.A("b"),
+                    Term.I(2)
+                )
+            )
+        ),
+        new(
+            "compiled-map-base-conflict",
+            "-module(oracle_map_conflict). -export([run/0]). run()->(X=#{})#{a=>(X=1)}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(1)))
+        ),
+        new(
+            "compiled-map-fields-before-type",
+            "-module(oracle_map_type). -export([run/0]). run()->(notmap)#{a=>error(field)}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("field"))
+        ),
+        new(
+            "compiled-map-assoc-then-exact",
+            "-module(oracle_map_exact). -export([run/0]). run()->#{}#{a=>1,a:=2}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),new MapTerm([new(Term.A("a"),Term.I(2))]))
+        ),
+        new(
+            "compiled-map-effect-order",
+            "-module(oracle_map_order). -export([run/0]). run()->put(mark,0),M=#{put(mark,1)=>put(mark,2),put(mark,3)=>put(mark,4)},{M,get(mark)}.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(new MapTerm([new(Term.I(0),Term.I(1)),new(Term.I(2),Term.I(3))]),Term.I(4))
+            )
         )
     ];
 }

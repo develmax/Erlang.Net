@@ -60,6 +60,12 @@ public static class CompiledDiagnosticCases
         new("apply-sibling-forward", "-module(scope_apply_forward). -export([run/0]). run()->F=fun(A,B)->A+B end,F(X=1,X).","X"),
         new("tuple-nested-sibling", "-module(scope_tuple_nested). -export([run/0]). run()->{X=1,{X}}.","X"),
         new("list-sibling-forward", "-module(scope_list_forward). -export([run/0]). run()->[X=1,X].","X"),
-        new("list-head-not-in-tail", "-module(scope_list_tail). -export([run/0]). run()->[X=1|X].","X")
+        new("list-head-not-in-tail", "-module(scope_list_tail). -export([run/0]). run()->[X=1|X].","X"),
+        new("map-key-not-visible-in-value", "-module(scope_map_key). -export([run/0]). run()->#{(X=a)=>X}.","X"),
+        new("map-value-not-visible-in-key", "-module(scope_map_value). -export([run/0]). run()->#{X=>(X=a)}.","X"),
+        new("map-field-not-visible-in-next", "-module(scope_map_next). -export([run/0]). run()->#{a=>(X=1),b=>X}.","X"),
+        new("map-base-not-visible-in-field", "-module(scope_map_base). -export([run/0]). run()->(X=#{})#{a=>X}.","X"),
+        new("map-field-not-visible-in-base", "-module(scope_map_back). -export([run/0]). run()->X#{a=>(X=#{})}.","X"),
+        new("map-key-not-visible-in-next-key", "-module(scope_map_keys). -export([run/0]). run()->#{(X=a)=>1,X=>2}.","X")
     ];
 }

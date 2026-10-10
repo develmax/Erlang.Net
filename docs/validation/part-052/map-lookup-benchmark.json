@@ -1,0 +1,259 @@
+{
+  "Runtime": ".NET 10.0.11",
+  "OS": "Microsoft Windows 10.0.19045",
+  "Architecture": "X64",
+  "Build": "Release",
+  "Workload": "Prebuilt integer-key maps; cycling keys with 20% misses; same query sequence; no map construction in timed region",
+  "Limits": "C# old linear algorithm versus retained exact-key Dictionary only; not an OTP/BEAM benchmark or full-language speed claim; retained map memory not measured; timing influenced by host",
+  "Results": [
+    {
+      "MapSize": 8,
+      "QueryCount": 20000,
+      "Repetitions": 5,
+      "LinearSamples": [
+        {
+          "Milliseconds": 5.054,
+          "Allocated": 2400000,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 4.6492,
+          "Allocated": 2400000,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 7.2531,
+          "Allocated": 2400000,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 5.6375,
+          "Allocated": 2400000,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 4.5638,
+          "Allocated": 2400000,
+          "Checksum": 52000
+        }
+      ],
+      "IndexedSamples": [
+        {
+          "Milliseconds": 1.2184,
+          "Allocated": 0,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 1.0899,
+          "Allocated": 0,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 2.023,
+          "Allocated": 0,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 1.5057,
+          "Allocated": 0,
+          "Checksum": 52000
+        },
+        {
+          "Milliseconds": 0.9095,
+          "Allocated": 0,
+          "Checksum": 52000
+        }
+      ],
+      "LinearMedianMs": 5.054,
+      "IndexedMedianMs": 1.2184,
+      "MedianRatio": 4.14806303348654
+    },
+    {
+      "MapSize": 64,
+      "QueryCount": 20000,
+      "Repetitions": 5,
+      "LinearSamples": [
+        {
+          "Milliseconds": 15.3,
+          "Allocated": 2400000,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 15.7805,
+          "Allocated": 2400000,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 14.948,
+          "Allocated": 2400000,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 17.1501,
+          "Allocated": 2400000,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 14.9458,
+          "Allocated": 2400000,
+          "Checksum": 500000
+        }
+      ],
+      "IndexedSamples": [
+        {
+          "Milliseconds": 0.9393,
+          "Allocated": 0,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 0.847,
+          "Allocated": 0,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 0.94,
+          "Allocated": 0,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 1.3408,
+          "Allocated": 0,
+          "Checksum": 500000
+        },
+        {
+          "Milliseconds": 1.5665,
+          "Allocated": 0,
+          "Checksum": 500000
+        }
+      ],
+      "LinearMedianMs": 15.3,
+      "IndexedMedianMs": 0.94,
+      "MedianRatio": 16.276595744680854
+    },
+    {
+      "MapSize": 1024,
+      "QueryCount": 20000,
+      "Repetitions": 5,
+      "LinearSamples": [
+        {
+          "Milliseconds": 171.9257,
+          "Allocated": 2400000,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 179.1879,
+          "Allocated": 2400000,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 168.6979,
+          "Allocated": 2400000,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 174.3498,
+          "Allocated": 2400000,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 187.3715,
+          "Allocated": 2400000,
+          "Checksum": 8172400
+        }
+      ],
+      "IndexedSamples": [
+        {
+          "Milliseconds": 0.8381,
+          "Allocated": 0,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 0.8287,
+          "Allocated": 0,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 1.2726,
+          "Allocated": 0,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 0.8995,
+          "Allocated": 0,
+          "Checksum": 8172400
+        },
+        {
+          "Milliseconds": 0.853,
+          "Allocated": 0,
+          "Checksum": 8172400
+        }
+      ],
+      "LinearMedianMs": 174.3498,
+      "IndexedMedianMs": 0.853,
+      "MedianRatio": 204.3960140679953
+    },
+    {
+      "MapSize": 4096,
+      "QueryCount": 20000,
+      "Repetitions": 5,
+      "LinearSamples": [
+        {
+          "Milliseconds": 723.76,
+          "Allocated": 2400000,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 1081.749,
+          "Allocated": 2400000,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 1031.9621,
+          "Allocated": 2400000,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 825.6721,
+          "Allocated": 2400000,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 896.7647,
+          "Allocated": 2400000,
+          "Checksum": 33542624
+        }
+      ],
+      "IndexedSamples": [
+        {
+          "Milliseconds": 1.1691,
+          "Allocated": 0,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 0.9355,
+          "Allocated": 0,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 0.959,
+          "Allocated": 0,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 1.0464,
+          "Allocated": 0,
+          "Checksum": 33542624
+        },
+        {
+          "Milliseconds": 1.2245,
+          "Allocated": 0,
+          "Checksum": 33542624
+        }
+      ],
+      "LinearMedianMs": 896.7647,
+      "IndexedMedianMs": 1.0464,
+      "MedianRatio": 856.9999044342508
+    }
+  ],
+  "TieredCompilation": "Disabled for stable JIT tier across sizes"
+}

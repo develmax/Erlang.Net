@@ -3005,7 +3005,58 @@ Test(
     )
 );
 
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All))
+Test(
+    "terms/map-index-exact-and-structural-keys",
+    () =>
+{
+    var map = new MapTerm([
+        new(Term.I(1), Term.A("integer")),
+        new(new FloatTerm(1), Term.A("float")),
+        new(Term.Tuple(Term.List(Term.I(2))), Term.A("nested")),
+        new(new FloatTerm(0), Term.A("first")),
+        new(new FloatTerm(-0d), Term.A("last"))
+    ]);
+    Equal(map.Get(Term.I(1)), Term.A("integer"));
+    Equal(map.Get(new FloatTerm(1)), Term.A("float"));
+    Equal(map.Get(Term.Tuple(Term.List(Term.I(2)))), Term.A("nested"));
+    Equal(map.Get(new FloatTerm(0)), Term.A("first"));
+    Equal(map.Get(new FloatTerm(-0d)), Term.A("last"));
+    Check(!map.TryGet(Term.I(0), out var missing) && missing is null);
+    Check(map.Entries.Count == 5);
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/map-index-owned-input-and-readonly-entries",
+    () =>
+{
+    var input = new Dictionary<Term, Term> { [Term.A("a")] = Term.I(1) };
+    var map = new MapTerm(input);
+    input[Term.A("a")] = Term.I(2);
+    Equal(map.Get(Term.A("a")), Term.I(1));
+    var entries = (IList<KeyValuePair<Term, Term>>)map.Entries;
+    Throws<NotSupportedException>(() => entries[0] = new(Term.A("a"), Term.I(3)));
+    Equal(map.Get(Term.A("a")), Term.I(1));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/map-index-nested-map-key-order",
+    () =>
+{
+    var key1 = new MapTerm([new(Term.A("a"), Term.I(1)), new(Term.A("b"), Term.I(2))]);
+    var key2 = new MapTerm([new(Term.A("b"), Term.I(2)), new(Term.A("a"), Term.I(1))]);
+    var map = new MapTerm([new(key1, Term.A("found"))]);
+    Equal(map.Get(key2), Term.A("found"));
+    Check(map.TryGet(key2, out var value));
+    Equal(value!, Term.A("found"));
+
+    return Task.CompletedTask;
+}
+);
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,
