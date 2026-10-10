@@ -15,6 +15,8 @@ internal static class ErlangSyntaxTokens
     public const string ComprehensionSeparator = "||";
     public const string ListGenerator = "<-";
     public const string StrictListGenerator = "<:-";
+    public const string BinaryGenerator = "<=";
+    public const string StrictBinaryGenerator = "<:=";
     public const string FormTerminator = ".";
     public const string MapPrefix = "#";
     public const string MapAssociation = "=>";

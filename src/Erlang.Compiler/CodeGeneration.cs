@@ -83,6 +83,7 @@ public static class CodeGeneration
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
         Expr.ListComprehension c => "new " + E + "ListComprehension(" + Expressions(c.Items) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
+        Expr.BinaryComprehension c => "new " + E + "BinaryComprehension(" + ExpressionCode(c.Body) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
         Expr.Map m => "new " + E + "Map(" + Optional(m.Base) + "," + Array(
             m.Fields,
             f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")",
@@ -111,6 +112,7 @@ public static class CodeGeneration
     private static string ComprehensionQualifierCode(ComprehensionQualifier qualifier) => qualifier switch
     {
         ComprehensionQualifier.Generator g => "new global::Erlang.Compiler.ComprehensionQualifier.Generator(" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
+        ComprehensionQualifier.BinaryGenerator g => "new global::Erlang.Compiler.ComprehensionQualifier.BinaryGenerator((global::Erlang.Compiler.BitPattern)" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
         ComprehensionQualifier.Filter f => "new global::Erlang.Compiler.ComprehensionQualifier.Filter(" + ExpressionCode(f.Expression) + ")",
         _ => throw new NotSupportedException()
     };

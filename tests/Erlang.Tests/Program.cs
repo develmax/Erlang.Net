@@ -3133,7 +3133,45 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All))
+Test(
+    "compiler/comprehension/binary-invalid-patterns",
+    () =>
+    {
+        foreach (string source in new[] { "[X || X <= <<1>>]", "[X || <<X/binary>> <= <<1>>]", "[X || <<X:all/bits>> <:= <<1>>]", "[1 || <<>> <= <<1>>]", "<< <<X>> || >>" })
+            Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "compiler/comprehension/binary-illegal-guard",
+    () =>
+    {
+        Throws<CompileException>(() => Semantics.Validate(new Parser("if << <<1>> || true >> =:= <<1>> -> ok end").ParseExpression()));
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "compiler/comprehension/binary-zero-progress-resource-policy",
+    async () =>
+    {
+        var value = await Eval("try [X || <<X:0>> <= <<1>>] catch error:R -> R end");
+        Equal(value, Term.A(ErlangErrorReasons.SystemLimit));
+    }
+);
+Test(
+    "hybrid/comprehension/binary-ast-emission",
+    () =>
+    {
+        string source = "class A { async Task F(ProcessContext erlangProcess) { var x = begin Encoded= << <<N:3>> || N <- [1,2] >>,[N || <<N:3>> <:= Encoded] end. } }";
+        string generated = CodeGeneration.Preprocess(source, "binary.cs");
+        Check(generated.Contains("Expr.BinaryComprehension") && generated.Contains("ComprehensionQualifier.BinaryGenerator"));
+
+        return Task.CompletedTask;
+    }
+);
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

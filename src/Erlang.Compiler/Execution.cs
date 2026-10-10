@@ -224,8 +224,21 @@ public static class Execution
                     module is not null
                 );
             case Expr.ListComprehension comprehension:
-                return await ListComprehensionExecution.Evaluate(
+                return await ComprehensionExecution.Evaluate(
                     comprehension,
+                    b,
+                    ctx,
+                    module,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    )
+                );
+            case Expr.BinaryComprehension binaryComprehension:
+                return await ComprehensionExecution.Evaluate(
+                    binaryComprehension,
                     b,
                     ctx,
                     module,

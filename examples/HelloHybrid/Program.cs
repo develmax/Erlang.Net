@@ -89,6 +89,13 @@ var tryCheck = runtime.Spawn(async erlangProcess =>
         {Outer,Values,Strict,Shadow}
     end.
     if (!comprehension.Equals(Term.Tuple(Term.I(9),Term.List(Term.I(4),Term.I(8)),Term.List(Term.I(7),Term.I(8)),Term.List(Term.I(1),Term.I(2))))) throw new InvalidOperationException(comprehension.ToString());
+    var binaryComprehension = begin
+        Encoded= << <<(X*2):3>> || X <- [1,2] >>,
+        Decoded=[X || <<X:3>> <:= Encoded],
+        Filtered= << <<Y>> || <<Y>> <= <<1,2,3>>,Y>1 >>,
+        {Decoded,Filtered}
+    end.
+    if (!binaryComprehension.Equals(Term.Tuple(Term.List(Term.I(2),Term.I(4)),new BitString(new byte[]{2,3})))) throw new InvalidOperationException(binaryComprehension.ToString());
     var aliasPrefix = maybe Whole="he"++(Tail=Other) ?= "hello",{Whole,Tail,Other} end.
     if (!aliasPrefix.Equals(Term.Tuple(Term.String("hello"),Term.String("llo"),Term.String("llo")))) throw new InvalidOperationException(aliasPrefix.ToString());
     var aliasCatch = try error({tag,7}) catch error:Reason={tag,N}:Stack -> {Reason,N,is_list(Stack)} end.

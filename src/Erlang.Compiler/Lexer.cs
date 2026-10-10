@@ -12,7 +12,7 @@ public static class Lexer
     {
         var tokens = new List<Token>();
         int i = 0, depth = 0;
-        string[] symbols = [ErlangSyntaxTokens.StrictListGenerator, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.ComprehensionSeparator, ErlangSyntaxTokens.ListGenerator, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField, ErlangSyntaxTokens.ConditionalMatch];
+        string[] symbols = [ErlangSyntaxTokens.StrictBinaryGenerator, ErlangSyntaxTokens.BinaryGenerator, ErlangSyntaxTokens.StrictListGenerator, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.ComprehensionSeparator, ErlangSyntaxTokens.ListGenerator, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField, ErlangSyntaxTokens.ConditionalMatch];
         while (i < text.Length)
         {
             if (char.IsWhiteSpace(text[i]))

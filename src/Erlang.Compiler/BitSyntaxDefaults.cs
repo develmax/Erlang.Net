@@ -6,5 +6,6 @@ internal static class BitSyntaxDefaults
     public const int IntegerWidth = 8;
     public const int FloatWidth = 64;
     public const int BinaryUnit = 8;
+    public const int BitStringUnit = 1;
     public const int NumericUnit = 1;
 }

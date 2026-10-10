@@ -124,6 +124,40 @@ public static class Semantics
         }
     }
 
+    private static void ValidateComprehension(
+        IReadOnlyList<Expr> items,
+        IReadOnlyList<ComprehensionQualifier> qualifiers,
+        HashSet<string> bound,
+        bool guard
+    )
+    {
+        if (guard)
+            throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardComprehension, 0);
+        var scope = new HashSet<string>(bound);
+        foreach (var qualifier in qualifiers)
+        {
+            (Pattern Pattern, Expr Source)? generator = qualifier switch
+            {
+                ComprehensionQualifier.Generator g => (g.Pattern, g.Source),
+                ComprehensionQualifier.BinaryGenerator g => (g.Pattern, g.Source),
+                _ => null
+            };
+            if (generator is { } value)
+            {
+                Walk(value.Source, new HashSet<string>(scope), false);
+                PatternKeys(value.Pattern, scope);
+                foreach (string name in Variables(value.Pattern))
+                {
+                    scope.Remove(VariableScopeNames.UnsafePrefix + name);
+                    scope.Add(name);
+                }
+            }
+            else if (qualifier is ComprehensionQualifier.Filter filter)
+                Walk(filter.Expression, scope, false);
+        }
+        ExpressionBindings.ValidateList(items, scope, (expression, local) => Walk(expression, local, false));
+    }
+
     private static void Walk(Expr e, HashSet<string> bound, bool guard)
     {
         switch (e)
@@ -148,25 +182,20 @@ public static class Semantics
                 ExpressionBindings.ValidateList(MapExpressionBindings.Expressions(m), bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.ListComprehension comprehension:
-                if (guard)
-                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardComprehension, 0);
-                var comprehensionScope = new HashSet<string>(bound);
-                foreach (var qualifier in comprehension.Qualifiers)
-                {
-                    if (qualifier is ComprehensionQualifier.Generator generator)
-                    {
-                        Walk(generator.Source, new HashSet<string>(comprehensionScope), false);
-                        PatternKeys(generator.Pattern, comprehensionScope);
-                        foreach (string name in Variables(generator.Pattern))
-                        {
-                            comprehensionScope.Remove(VariableScopeNames.UnsafePrefix + name);
-                            comprehensionScope.Add(name);
-                        }
-                    }
-                    else if (qualifier is ComprehensionQualifier.Filter filter)
-                        Walk(filter.Expression, comprehensionScope, false);
-                }
-                ExpressionBindings.ValidateList(comprehension.Items, comprehensionScope, (expression, scope) => Walk(expression, scope, false));
+                ValidateComprehension(
+                    comprehension.Items,
+                    comprehension.Qualifiers,
+                    bound,
+                    guard
+                );
+                break;
+            case Expr.BinaryComprehension comprehension:
+                ValidateComprehension(
+                    new[] { comprehension.Body },
+                    comprehension.Qualifiers,
+                    bound,
+                    guard
+                );
                 break;
             case Expr.Bits bits:
                 var exported = new HashSet<string>(bound);

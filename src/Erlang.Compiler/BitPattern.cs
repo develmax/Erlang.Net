@@ -39,8 +39,58 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
     {
         if (value is not BitString input)
             return false;
-        byte[] bytes = input.ToArray();
-        int position = 0;
+
+        return ReadFields(
+            input,
+            input.ToArray(),
+            0,
+            bindings,
+            context,
+            keyScope,
+            false,
+            out int consumed,
+            out bool matched
+        ) && matched && consumed == input.BitLength;
+    }
+
+    // Modified: consuming generator scan follows eval_bits:bin_gen/8.
+    // Failed fields retain prior bindings but still consume their encoded bits.
+    internal bool ReadGenerator(
+        BitString input,
+        byte[] bytes,
+        int start,
+        Dictionary<string, Term> bindings,
+        ProcessContext context,
+        Dictionary<string, Term> keyScope,
+        out int consumed,
+        out bool matched
+    ) => ReadFields(
+        input,
+        bytes,
+        start,
+        bindings,
+        context,
+        keyScope,
+        true,
+        out consumed,
+        out matched
+    );
+
+    private bool ReadFields(
+        BitString input,
+        byte[] bytes,
+        int start,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context,
+        Dictionary<string, Term>? keyScope,
+        bool generator,
+        out int consumed,
+        out bool matched
+    )
+    {
+        int position = start;
+        consumed = 0;
+        matched = true;
         var sizeScope = new Dictionary<string, Term>(keyScope ?? bindings, StringComparer.Ordinal);
 
         int ReadBit()
@@ -71,18 +121,25 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                     prefix[..available],
                     spec.Type,
                     spec.Endian,
-                    out int consumed
+                    out int utfConsumed
                 );
-                if (scalar is null || !segment.Value.Match(
+                if (scalar is null)
+                    return false;
+                position += utfConsumed * BitStorageLayout.BitsPerByte;
+                if (segment.Value.Match(
                     scalar,
                     bindings,
                     context,
                     keyScope
                 ))
+                {
+                    foreach (string name in Semantics.Variables(segment.Value))
+                        sizeScope[name] = bindings[name];
+                }
+                else if (generator)
+                    matched = false;
+                else
                     return false;
-                position += consumed * BitStorageLayout.BitsPerByte;
-                foreach (string name in Semantics.Variables(segment.Value))
-                    sizeScope[name] = bindings[name];
                 continue;
             }
 
@@ -144,23 +201,35 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 {
                     var number = BitFloat.Decode(part, count, spec.Endian);
                     if (number is null)
-                        return false;
+                    {
+                        if (!generator)
+                            return false;
+                        matched = false;
+                        continue;
+                    }
                     extracted = number;
                 }
                 else
                     extracted = new BitString(part, count);
             }
-            if (!segment.Value.Match(
+            if (segment.Value.Match(
                 extracted,
                 bindings,
                 context,
                 keyScope
             ))
+            {
+                foreach (string name in Semantics.Variables(segment.Value))
+                    sizeScope[name] = bindings[name];
+            }
+            else if (generator)
+                matched = false;
+            else
                 return false;
-            foreach (string name in Semantics.Variables(segment.Value))
-                sizeScope[name] = bindings[name];
         }
 
-        return position == input.BitLength;
+        consumed = position - start;
+
+        return true;
     }
 }

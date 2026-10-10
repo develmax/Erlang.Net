@@ -391,21 +391,7 @@ public sealed class Parser
                 } while (Take(ErlangSyntaxTokens.Comma));
                 if (Take(ErlangSyntaxTokens.ComprehensionSeparator))
                 {
-                    var qualifiers = new List<ComprehensionQualifier>();
-                    do
-                    {
-                        var qualifier = Expression();
-                        bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
-                        if (strict || Take(ErlangSyntaxTokens.ListGenerator))
-                            qualifiers.Add(new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict));
-                        else
-                        {
-                            if (qualifier is Expr.Match)
-                                throw Error(ParserDiagnostics.ComprehensionAssignment);
-                            qualifiers.Add(new ComprehensionQualifier.Filter(qualifier));
-                        }
-                    } while (Take(ErlangSyntaxTokens.Comma));
-                    Expect(ErlangSyntaxTokens.CloseList);
+                    var qualifiers = ComprehensionQualifiers(ErlangSyntaxTokens.CloseList);
 
                     return new Expr.ListComprehension(items, qualifiers);
                 }
@@ -455,6 +441,42 @@ public sealed class Parser
         return result;
     }
 
+    private IReadOnlyList<ComprehensionQualifier> ComprehensionQualifiers(string close)
+    {
+        var qualifiers = new List<ComprehensionQualifier>();
+        do
+        {
+            var qualifier = Expression();
+            bool strictBinary = Take(ErlangSyntaxTokens.StrictBinaryGenerator);
+            if (strictBinary || Take(ErlangSyntaxTokens.BinaryGenerator))
+            {
+                if (qualifier is not Expr.Bits bits)
+                    throw Error(ParserDiagnostics.BinaryGeneratorPattern);
+                var pattern = BitPattern.FromExpression(bits);
+                if (pattern.Segments.Count == 0)
+                    throw Error(BitPatternDiagnostics.EmptyGeneratorPattern);
+                if (pattern.Segments.Any(s => s.Specification.Type == BitSegmentTypes.Binary && (s.Specification.Size is null || s.Specification.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })))
+                    throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedGeneratorField, 0);
+                qualifiers.Add(new ComprehensionQualifier.BinaryGenerator(pattern, Expression(), strictBinary));
+            }
+            else
+            {
+                bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
+                if (strict || Take(ErlangSyntaxTokens.ListGenerator))
+                    qualifiers.Add(new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict));
+                else
+                {
+                    if (qualifier is Expr.Match)
+                        throw Error(ParserDiagnostics.ComprehensionAssignment);
+                    qualifiers.Add(new ComprehensionQualifier.Filter(qualifier));
+                }
+            }
+        } while (Take(ErlangSyntaxTokens.Comma));
+        Expect(close);
+
+        return qualifiers;
+    }
+
     private Expr ParseBits()
     {
         var segments = new List<BitSegment>();
@@ -463,6 +485,8 @@ public sealed class Parser
         do
         {
             var value = Primary(true);
+            if (segments.Count == 0 && Take(ErlangSyntaxTokens.ComprehensionSeparator))
+                return new Expr.BinaryComprehension(value, ComprehensionQualifiers(ErlangSyntaxTokens.BinaryClose));
             Expr? size = null;
             if (Take(BitSyntaxTokens.SizeSeparator))
             {

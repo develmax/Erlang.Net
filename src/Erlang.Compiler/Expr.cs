@@ -11,6 +11,7 @@ public abstract record Expr
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
     public sealed record List(IReadOnlyList<Expr> Items, Expr? Tail = null) : Expr;
     public sealed record ListComprehension(IReadOnlyList<Expr> Items, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
+    public sealed record BinaryComprehension(Expr Body, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
     public sealed record Map(Expr? Base, IReadOnlyList<MapField> Fields) : Expr;
     public sealed record Bits(IReadOnlyList<BitSegment> Segments) : Expr;
     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr;
