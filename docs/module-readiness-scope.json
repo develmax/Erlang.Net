@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-068/tests.json",
+  "ComparisonTestReport": "validation/part-070/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -75,7 +75,7 @@
         "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes",
         "Catch stack-variable taint restricted to temporary catch guard scope; handler nested guards/captured and shadowed fun variables valid; verified against OTP-29.1.1 at c2c516b; same-head815 full CI passes",
         "maybe/?= source-directed sequence, mismatch/else, exception and no-export binding contracts across interpreted/generated/hybrid paths; 30 independent expression/module fixtures and eight normalized diagnostics verified against OTP-29.1.1 at 2b99ef0; same-head892 full CI passes",
-        "Alias and literal string/integer-list prefix patterns across maybe/case/fun/function/catch; independent incoming key/size scopes and transactional matching; fresh797-case OTP proof pending"
+        "Alias and literal string/integer-list prefix patterns across maybe/case/fun/function/catch; independent incoming key/size scopes and transactional matching; 24 expression/25 compiled module/six diagnostic contracts verified against OTP-29.1.1 at64579d4; same-head949 full CI passes"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -176,7 +176,8 @@
         "499 expressions,119 compiled modules and41 diagnostics verified at5cbf0e8; all496/116/41 previous contracts/hashes preserved; signed integer/float/parenthesized catch reasons match, zero corrections",
         "Three independent normalized stacktrace_guard/stacktrace_bound rejection contracts added; historical41 variable diagnostic outcomes unchanged; 44 normalized diagnostic contracts verified against OTP-29.1.1 at c2c516b",
         "505 expressions,125 compiled modules and44 diagnostics verified at c2c516b; all499/119/41 historical contracts and generated hashes preserved; six independent stack guard scope expressions/modules and three rejection contracts match, zero corrections",
-        "535 expressions,155 compiled modules and52 diagnostics verified at 2b99ef0; all505/125/44 historical contracts and generated hashes preserved; maybe conditional match/else/exception/scope cases match, zero corrections"
+        "535 expressions,155 compiled modules and52 diagnostics verified at 2b99ef0; all505/125/44 historical contracts and generated hashes preserved; maybe conditional match/else/exception/scope cases match, zero corrections",
+        "559 expressions,180 compiled modules and58 diagnostics verified at64579d4; all535/155/52 previous contracts and generated hashes retained; alias/literal-prefix matching and rejection cases match, zero expectation corrections"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
