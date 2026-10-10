@@ -2,7 +2,7 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-062/tests.json",
+  "ComparisonTestReport": "validation/part-064/tests.json",
   "LocalPassedTests": 800,
   "RegisteredMfas": 62,
   "PreviousRegisteredMfas": 62,
@@ -69,7 +69,7 @@
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
         "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
         "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1",
-        "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions and hybrid consumer locally pass, fresh OTP pending"
+        "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes"
       ],
       "Remaining": [
         "records/macros/comprehensions/maybe and full grammar; full try lint/stack/resource contracts",
@@ -150,7 +150,8 @@
         "Pinned source-built OTP-29.1.1 value/class/reason comparator",
         "470 expressions,87 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified atdf42a94",
         "All previous467/81/35 contracts and generated hashes retained; structural whole-value failures/effect timing independently match",
-        "496 expressions,116 compiled modules and41 diagnostic contracts verified at f202bca; try boundaries/scopes, all prior470/87/35 contracts and generated hashes retained, no expectation corrections"
+        "496 expressions,116 compiled modules and41 diagnostic contracts verified at f202bca; try boundaries/scopes, all prior470/87/35 contracts and generated hashes retained, no expectation corrections",
+        "499 expressions,119 compiled modules and41 diagnostics verified at5cbf0e8; all496/116/41 previous contracts/hashes preserved; signed integer/float/parenthesized catch reasons match, zero corrections"
       ],
       "Remaining": [
         "full resource/input contracts",
