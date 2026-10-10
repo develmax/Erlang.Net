@@ -347,7 +347,7 @@ public sealed class Parser
         {
             string op = tokens[position++].Text;
 
-            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(OperatorPrecedence.Prefix));
+            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(OperatorPrecedence.Prefix, stopQualifier));
         }
         if (Take(ErlangSyntaxTokens.OpenParenthesis))
         {

@@ -378,6 +378,7 @@ try
     cases = [.. cases, .. BitEmptyStringCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. MatchTimingCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. TryExpressionCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. CatchPatternCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {

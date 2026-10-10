@@ -1,0 +1,235 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "lib/stdlib/src/erl_parse.yrl",
+  "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+  "Matches": [
+    {
+      "Line": 48,
+      "Lines": [
+        "prefix_op mult_op add_op list_op comp_op",
+        "binary bin_elements bin_element bit_expr sigil",
+        "opt_bit_size_expr bit_size_expr opt_bit_type_list bit_type_list bit_type",
+        "top_type top_types type typed_expr typed_attr_val"
+      ]
+    },
+    {
+      "Line": 326,
+      "Lines": [
+        "pat_expr -> pat_expr '=' pat_expr : {match,first_anno('$1'),'$1','$3'}.",
+        "pat_expr -> pat_expr comp_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3')."
+      ]
+    },
+    {
+      "Line": 327,
+      "Lines": [
+        "pat_expr -> pat_expr comp_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3')."
+      ]
+    },
+    {
+      "Line": 328,
+      "Lines": [
+        "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2')."
+      ]
+    },
+    {
+      "Line": 329,
+      "Lines": [
+        "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+        "pat_expr -> map_pat_expr : '$1'."
+      ]
+    },
+    {
+      "Line": 330,
+      "Lines": [
+        "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+        "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+        "pat_expr -> map_pat_expr : '$1'.",
+        "pat_expr -> record_pat_expr : '$1'."
+      ]
+    },
+    {
+      "Line": 331,
+      "Lines": [
+        "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+        "pat_expr -> map_pat_expr : '$1'.",
+        "pat_expr -> record_pat_expr : '$1'.",
+        "pat_expr -> pat_expr_max : '$1'."
+      ]
+    },
+    {
+      "Line": 332,
+      "Lines": [
+        "pat_expr -> map_pat_expr : '$1'.",
+        "pat_expr -> record_pat_expr : '$1'.",
+        "pat_expr -> pat_expr_max : '$1'.",
+        ""
+      ]
+    },
+    {
+      "Line": 333,
+      "Lines": [
+        "pat_expr -> record_pat_expr : '$1'.",
+        "pat_expr -> pat_expr_max : '$1'.",
+        "",
+        "pat_expr_max -> var : '$1'."
+      ]
+    },
+    {
+      "Line": 334,
+      "Lines": [
+        "pat_expr -> pat_expr_max : '$1'.",
+        "",
+        "pat_expr_max -> var : '$1'.",
+        "pat_expr_max -> atomic : '$1'."
+      ]
+    },
+    {
+      "Line": 336,
+      "Lines": [
+        "pat_expr_max -> var : '$1'.",
+        "pat_expr_max -> atomic : '$1'.",
+        "pat_expr_max -> list : '$1'.",
+        "pat_expr_max -> binary : '$1'."
+      ]
+    },
+    {
+      "Line": 337,
+      "Lines": [
+        "pat_expr_max -> atomic : '$1'.",
+        "pat_expr_max -> list : '$1'.",
+        "pat_expr_max -> binary : '$1'.",
+        "pat_expr_max -> sigil : '$1'."
+      ]
+    },
+    {
+      "Line": 338,
+      "Lines": [
+        "pat_expr_max -> list : '$1'.",
+        "pat_expr_max -> binary : '$1'.",
+        "pat_expr_max -> sigil : '$1'.",
+        "pat_expr_max -> tuple : '$1'."
+      ]
+    },
+    {
+      "Line": 339,
+      "Lines": [
+        "pat_expr_max -> binary : '$1'.",
+        "pat_expr_max -> sigil : '$1'.",
+        "pat_expr_max -> tuple : '$1'.",
+        "pat_expr_max -> '(' pat_expr ')' : '$2'."
+      ]
+    },
+    {
+      "Line": 340,
+      "Lines": [
+        "pat_expr_max -> sigil : '$1'.",
+        "pat_expr_max -> tuple : '$1'.",
+        "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+        ""
+      ]
+    },
+    {
+      "Line": 341,
+      "Lines": [
+        "pat_expr_max -> tuple : '$1'.",
+        "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+        "",
+        "map_pat_expr -> '#' map_tuple :"
+      ]
+    },
+    {
+      "Line": 342,
+      "Lines": [
+        "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+        "",
+        "map_pat_expr -> '#' map_tuple :",
+        "\t{map, ?anno('$1'),'$2'}."
+      ]
+    },
+    {
+      "Line": 577,
+      "Lines": [
+        "try_opt_stacktrace -> ':' var : '$2'.",
+        "try_opt_stacktrace -> '$empty' : '_'.",
+        "",
+        ""
+      ]
+    },
+    {
+      "Line": 578,
+      "Lines": [
+        "try_opt_stacktrace -> '$empty' : '_'.",
+        "",
+        "",
+        "maybe_expr -> 'maybe' maybe_match_exprs 'end' :"
+      ]
+    },
+    {
+      "Line": 607,
+      "Lines": [
+        "pat_exprs -> pat_expr : ['$1'].",
+        "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+        "",
+        "guard -> exprs : ['$1']."
+      ]
+    },
+    {
+      "Line": 608,
+      "Lines": [
+        "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+        "",
+        "guard -> exprs : ['$1'].",
+        "guard -> exprs ';' guard : ['$1'|'$3']."
+      ]
+    },
+    {
+      "Line": 623,
+      "Lines": [
+        "prefix_op -> '+' : '$1'.",
+        "prefix_op -> '-' : '$1'.",
+        "prefix_op -> 'bnot' : '$1'.",
+        "prefix_op -> 'not' : '$1'."
+      ]
+    },
+    {
+      "Line": 624,
+      "Lines": [
+        "prefix_op -> '-' : '$1'.",
+        "prefix_op -> 'bnot' : '$1'.",
+        "prefix_op -> 'not' : '$1'.",
+        ""
+      ]
+    },
+    {
+      "Line": 625,
+      "Lines": [
+        "prefix_op -> 'bnot' : '$1'.",
+        "prefix_op -> 'not' : '$1'.",
+        "",
+        "mult_op -> '/' : '$1'."
+      ]
+    },
+    {
+      "Line": 626,
+      "Lines": [
+        "prefix_op -> 'not' : '$1'.",
+        "",
+        "mult_op -> '/' : '$1'.",
+        "mult_op -> '*' : '$1'."
+      ]
+    }
+  ],
+  "PriorRegression": "docs/validation/part-063/signed-reason-probe.erl/log",
+  "Scope": "Propagate catch qualifier boundary into prefix operands; no precedence change"
+}

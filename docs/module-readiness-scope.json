@@ -71,7 +71,8 @@
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
         "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1",
         "Explicit compiled sibling match constraints remain separate from lexical captures; structural badmatch uses whole RHS and stops following effects; selected matches verified atdf42a94 against OTP-29.1.1; six old-implementation failures preserved",
-        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1"
+        "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1",
+        "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions and hybrid consumer locally pass, fresh OTP pending"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
