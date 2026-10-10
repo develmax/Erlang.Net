@@ -121,3 +121,7 @@ Begin/ordinary operators head b7b8c72 passes pinned484/484 (419 expressions,48 m
 ## Part 048 handoff
 
 Publish local648/full-pipeline source-directed expression binding port; dispatch pinned518 cases (439 expressions,54 compiled modules,25 diagnostics), inspect same-head648 CI and preserve strict historical/new expected/hash/code/message evidence. Then port eval_map_fields/map base scopes and eval_bits callbacks against exact source. Keep current Pratt/name-only lint/trace/resource departures explicit in OTP-PORTS.md. Full assignment remains approximately5%; registry62/delta0.
+
+## Part 049 — Compiled binding mismatch preserved
+
+Same-head648/full CI at9ae76d7 passes, but complete/version-verified pinned518 comparison returns517 passed/one failure:439 expressions,53/54 compiled modules,25 diagnostics. Compiled tuple conflict returns badmatch2 in OTP; shared evaluator/fixture returns badmatch1, which is correct for erl_eval. Preserve [raw evidence](validation/part-049/checkpoint.json); no518/518 claim. Next separate compiled policy with source-guided nonconstant/order/closure checks. Dated map/bit audit correction is in OTP-PORTS.md; runtime sequential evaluation must not be confused with independent static scope checks. Registry62/delta0, approximately5%; full lowering/grammar/traces/resources incomplete.

@@ -146,3 +146,7 @@ Preserve484/484 plus same-head614 CI with exact source-build/head/job/archive pr
 ## Part 048 — Port algorithms before inventing replacements
 
 User accepted source-directed implementation after discussing independent-reimplementation risk. Prefer pinned source algorithm/state/error order and meaningful original-test adaptations; record every CLR departure. Preserve existing working code while replacing confirmed divergences. First adaptation uses expr_list/cons/ordered-dictionary merge and name-only lint independent walk; do not claim complete variable tables or compiled optimizer equivalence. Exact reference evidence remains historical until518-case new-head comparison completes. Apache-2.0-derived code has file notices/modification labels/package provenance; unrelated original-code license stays unresolved.
+
+## Part 049 — Compiled binding mismatch preserved
+
+Same-head648/full CI at9ae76d7 passes, but complete/version-verified pinned518 comparison returns517 passed/one failure:439 expressions,53/54 compiled modules,25 diagnostics. Compiled tuple conflict returns badmatch2 in OTP; shared evaluator/fixture returns badmatch1, which is correct for erl_eval. Preserve [raw evidence](validation/part-049/checkpoint.json); no518/518 claim. Next separate compiled policy with source-guided nonconstant/order/closure checks. Dated map/bit audit correction is in OTP-PORTS.md; runtime sequential evaluation must not be confused with independent static scope checks. Registry62/delta0, approximately5%; full lowering/grammar/traces/resources incomplete.
