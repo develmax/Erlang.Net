@@ -6,6 +6,81 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+void AddComparatorSortTests()
+{
+    Test(
+        "lists/sort-permutations-stability",
+        async () =>
+    {
+        await using var runtime = new ProcessRuntime();
+        var completed = new TaskCompletionSource();
+        runtime.Spawn(async context =>
+        {
+            try
+            {
+                var random = new Random(791);
+                var comparer = new FunctionTerm(
+                    2,
+                    (_, arguments) => ValueTask.FromResult<Term>(
+                    ((TupleTerm)arguments[0]).Items[0].CompareTo(((TupleTerm)arguments[1]).Items[0]) <= 0 ? Term.A(ErlangBooleanAtoms.True) : Term.A(ErlangBooleanAtoms.False))
+                );
+                for (int sample = 0; sample < 200; sample++)
+                {
+                    var input = Enumerable.Range(0, sample).Select(index => Term.Tuple(Term.I(random.Next(12)), Term.I(index))).ToArray();
+                    var expected = input.OrderBy(value => (int)((Integer)value.Items[0]).Value).Cast<Term>();
+                    Equal(await ComparatorSort.Sort(comparer, Cons.From(input), context), Cons.From(expected));
+                }
+                completed.SetResult();
+            }
+            catch (Exception error)
+            {
+                completed.SetException(error);
+            }
+
+            return Term.A(ErlangBooleanAtoms.True);
+        });
+        await completed.Task.WaitAsync(TimeSpan.FromSeconds(30));
+    }
+    );
+    Test(
+        "lists/sort-async-large-stack",
+        async () =>
+    {
+        await using var runtime = new ProcessRuntime();
+        var completed = new TaskCompletionSource();
+        runtime.Spawn(async context =>
+        {
+            try
+            {
+                int calls = 0;
+                var comparer = new FunctionTerm(
+                    2,
+                    async (_, arguments) =>
+                {
+                    if (++calls % 1024 == 0)
+                        await Task.Yield();
+
+                    return arguments[0].CompareTo(arguments[1]) <= 0 ? Term.A(ErlangBooleanAtoms.True) : Term.A(ErlangBooleanAtoms.False);
+                }
+                );
+                var values = Enumerable.Range(0, 20000).Select(value => Term.I(20000 - value));
+                var sorted = await ComparatorSort.Sort(comparer, Cons.From(values), context);
+                Equal(sorted, Cons.From(Enumerable.Range(1, 20000).Select(value => Term.I(value))));
+                Check(calls == 19999);
+                completed.SetResult();
+            }
+            catch (Exception error)
+            {
+                completed.SetException(error);
+            }
+
+            return Term.A(ErlangBooleanAtoms.True);
+        });
+        await completed.Task.WaitAsync(TimeSpan.FromSeconds(30));
+    }
+    );
+}
+AddComparatorSortTests();
 void Test(string name, Func<Task> body) => tests.Add((name, body));
 void Check(bool value, string message = "Assertion failed")
 {
@@ -1455,6 +1530,7 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("lists", "flatten", 1) => ([Term.List(Term.List(Term.A("a")), Term.A("b"))], Term.List(Term.A("a"), Term.A("b"))),
                 ("lists", "flatten", 2) => ([Term.List(Term.List(Term.A("a"))), new Cons(Term.A("b"), Term.A("tail"))], new Cons(Term.A("a"), new Cons(Term.A("b"), Term.A("tail")))),
                 ("lists", "member", 2) => ([Term.I(1), Term.List(new FloatTerm(1))], Term.A("false")),
+                ("lists", "sort", 2) => ([new FunctionTerm(2, (_, a) => ValueTask.FromResult<Term>(Term.A(a[0].CompareTo(a[1]) <= 0 ? "true" : "false"))), Term.List(Term.I(2), Term.I(1))], Term.List(Term.I(1), Term.I(2))),
                 ("lists", "sum", 1) => ([Term.List(Term.I(1), new FloatTerm(2.5))], new FloatTerm(3.5)),
                 ("maps", "get", 2) => ([Term.A("k"), new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(42)),
                 ("maps", "iterator", 1) => ([new MapTerm([])], new Cons(Term.I(0), new MapTerm([]))),
@@ -3213,7 +3289,7 @@ Test(
         return Task.CompletedTask;
     }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All).Concat(Erlang.Differential.MapComprehensionCases.All).Concat(Erlang.Differential.MapTemplateOrderCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All).Concat(Erlang.Differential.MapComprehensionCases.All).Concat(Erlang.Differential.MapTemplateOrderCases.All).Concat(Erlang.Differential.ComparatorSortCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

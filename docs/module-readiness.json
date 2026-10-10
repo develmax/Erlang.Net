@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-077/tests.json",
-  "LocalPassedTests": 1247,
-  "RegisteredMfas": 65,
+  "ComparisonTestReport": "validation/part-078/ci-tests.json",
+  "LocalPassedTests": 1304,
+  "RegisteredMfas": 66,
   "PreviousRegisteredMfas": 65,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 4,
   "Components": [
@@ -73,7 +73,7 @@
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 681
+      "RelatedPassedTests": 708
     },
     {
       "Id": "Core library modules",
@@ -81,12 +81,14 @@
       "Status": "Partially compatible",
       "Implemented": [
         "erlang/lists/maps/io registered subset",
-        "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries"
+        "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries",
+        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators"
       ],
       "Remaining": [
-        "remaining reference MFAs and full input/error contracts"
+        "remaining reference MFAs and full input/error contracts",
+        "large-map comparator callback order follows unspecified initial traversal; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 165
+      "RelatedPassedTests": 168
     },
     {
       "Id": "gen_server host facade",
@@ -149,13 +151,14 @@
         "695 expressions,316 generated C#/compiled-reference modules and73 normalized rejections verified at7a35cdd;1084/1084 complete/version verified",
         "historical631 expressions/252 module contracts/generated hashes/67 diagnostics unchanged;64 independent map/iterator/template-order expressions/modules and six new diagnostics verified",
         "initial map run1066/1068 retained; two original compiled order mismatches resolved, only two provisional expectations corrected to retained official outcomes; all308 initial source/generated hashes unchanged",
-        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained"
+        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained",
+        "Part079 adds27 comparator expressions/27 modules:722/343/73=1138 planned; historical1084 preserved; local1304/full pipeline, fresh oracle pending publication"
       ],
       "Remaining": [
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 395
+      "RelatedPassedTests": 422
     },
     {
       "Id": "Style checks",
@@ -7856,11 +7859,11 @@
     {
       "Name": "lists",
       "Status": "Partially compatible",
-      "RegisteredMfas": 19,
+      "RegisteredMfas": 20,
       "PreviousRegisteredMfas": 19,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 91,
-      "ApiPresencePercent": 20.9,
+      "ApiPresencePercent": 22.0,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/lists.erl"
@@ -7883,6 +7886,7 @@
         "lists:reverse/2",
         "lists:seq/2",
         "lists:seq/3",
+        "lists:sort/2",
         "lists:split/2",
         "lists:sum/1"
       ],

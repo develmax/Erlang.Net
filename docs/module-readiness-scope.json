@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-077/tests.json",
+  "ComparisonTestReport": "validation/part-078/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -84,11 +84,13 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Runtime/CoreModules.cs",
       "Remaining": [
-        "remaining reference MFAs and full input/error contracts"
+        "remaining reference MFAs and full input/error contracts",
+        "large-map comparator callback order follows unspecified initial traversal; opaque HAMT paths/full sort and map suites"
       ],
       "Implemented": [
         "erlang/lists/maps/io registered subset",
-        "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries"
+        "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries",
+        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [
@@ -168,7 +170,8 @@
         "695 expressions,316 generated C#/compiled-reference modules and73 normalized rejections verified at7a35cdd;1084/1084 complete/version verified",
         "historical631 expressions/252 module contracts/generated hashes/67 diagnostics unchanged;64 independent map/iterator/template-order expressions/modules and six new diagnostics verified",
         "initial map run1066/1068 retained; two original compiled order mismatches resolved, only two provisional expectations corrected to retained official outcomes; all308 initial source/generated hashes unchanged",
-        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained"
+        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained",
+        "Part079 adds27 comparator expressions/27 modules:722/343/73=1138 planned; historical1084 preserved; local1304/full pipeline, fresh oracle pending publication"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

@@ -382,7 +382,7 @@ try
     cases = [.. cases, .. StackGuardScopeCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. MaybeExpressionCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. AliasPatternCases.All.Select(fixture => fixture.Source)];
-    cases = [.. cases, .. ListComprehensionCases.All.Select(fixture => fixture.Source), .. BinaryComprehensionCases.All.Select(fixture => fixture.Source), .. MapComprehensionCases.All.Select(fixture => fixture.Source), .. MapTemplateOrderCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. ListComprehensionCases.All.Select(fixture => fixture.Source), .. BinaryComprehensionCases.All.Select(fixture => fixture.Source), .. MapComprehensionCases.All.Select(fixture => fixture.Source), .. MapTemplateOrderCases.All.Select(fixture => fixture.Source), .. ComparatorSortCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {

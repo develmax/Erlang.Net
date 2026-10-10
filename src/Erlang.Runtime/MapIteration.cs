@@ -3,6 +3,20 @@ namespace Erlang;
 
 public static class MapIteration
 {
+    public static async ValueTask<Term> Iterator(Term map, Term order, ProcessContext context)
+    {
+        if (map is not MapTerm value)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        if (order is Atom atom)
+            return Iterator(value, atom.Name);
+        if (order is not FunctionTerm { Arity: 2 })
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        var keys = Cons.From(value.Entries.Select(entry => entry.Key));
+        var sorted = await ComparatorSort.Sort(order, keys, context);
+
+        return new Cons(sorted, value);
+    }
+
     public static Term Iterator(Term map, string order = MapIteratorAtoms.Unordered)
     {
         if (map is not MapTerm value)

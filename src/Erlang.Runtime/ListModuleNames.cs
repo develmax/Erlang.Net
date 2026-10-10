@@ -3,6 +3,7 @@ namespace Erlang;
 internal static class ListModuleNames
 {
     public const string Sum = "sum";
+    public const string Sort = "sort";
     public const string Map = "map";
     public const string Module = "lists";
     public const string Append = "append";

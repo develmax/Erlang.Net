@@ -6,6 +6,8 @@ Erlang.Generated.ErlangModule_arithmetic.Register(runtime.Modules);
 Erlang.Generated.ErlangModule_map_source.Register(runtime.Modules);
 var mapCheck = runtime.Spawn(async erlangProcess =>
 {
+    var sortedKeys = begin [K || K := _ <- maps:iterator(#{1=>a,2=>b,3=>c},fun(A,B)->A>B end)] end.
+    if (!sortedKeys.Equals(Term.List(Term.I(3),Term.I(2),Term.I(1)))) throw new InvalidOperationException(sortedKeys.ToString());
     var value = await runtime.Modules.Call(erlangProcess, "map_source", "run");
     if (!value.Equals(Term.I(42))) throw new InvalidOperationException("Map module generation failed");
     var picked = await runtime.Modules.Call(erlangProcess, "map_source", "pick", new MapTerm([new(Term.A("value"), Term.Tuple(Term.I(21), Term.I(21)))]));
