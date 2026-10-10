@@ -181,15 +181,14 @@ public sealed class Parser
 
     private static int Precedence(string op) => op switch
     {
-        ErlangOperators.Match => 1,
-        ErlangOperators.Send => 2,
-        ErlangOperators.OrElse => 3,
-        ErlangOperators.AndAlso => 4,
-        ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual or ErlangOperators.Less or ErlangOperators.Greater or ErlangOperators.LessOrEqual or ErlangOperators.GreaterOrEqual => 5,
-        ErlangOperators.Append or ErlangOperators.SubtractList => 6,
-        ErlangOperators.Plus or ErlangOperators.Minus => 7,
-        ErlangOperators.Multiply or ErlangOperators.Divide or ErlangOperators.IntegerDivide or ErlangOperators.Remainder => 8,
-        _ => 0
+        ErlangOperators.Match or ErlangOperators.Send => OperatorPrecedence.MatchAndSend,
+        ErlangOperators.OrElse => OperatorPrecedence.OrElse,
+        ErlangOperators.AndAlso => OperatorPrecedence.AndAlso,
+        ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual or ErlangOperators.Less or ErlangOperators.Greater or ErlangOperators.LessOrEqual or ErlangOperators.GreaterOrEqual => OperatorPrecedence.Comparison,
+        ErlangOperators.Append or ErlangOperators.SubtractList => OperatorPrecedence.List,
+        ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor or ErlangOperators.ShiftLeft or ErlangOperators.ShiftRight or ErlangOperators.Or or ErlangOperators.Xor => OperatorPrecedence.Additive,
+        ErlangOperators.Multiply or ErlangOperators.Divide or ErlangOperators.IntegerDivide or ErlangOperators.Remainder or ErlangOperators.BitwiseAnd or ErlangOperators.And => OperatorPrecedence.Multiplicative,
+        _ => OperatorPrecedence.None
     };
 
     private Expr Expression(int minimum = 1)
@@ -201,8 +200,10 @@ public sealed class Parser
             if (p < minimum || p == 0)
                 break;
             string op = tokens[position++].Text;
-            var right = Expression(op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList ? p : p + 1);
+            var right = Expression(op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList or ErlangOperators.AndAlso or ErlangOperators.OrElse ? p : p + 1);
             left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
+            if (p == OperatorPrecedence.Comparison && Current.Kind != LexerTokenKinds.QuotedAtom && Precedence(Current.Text) == OperatorPrecedence.Comparison)
+                throw Error(ParserDiagnostics.ChainedComparison);
         }
 
         return left;
@@ -211,6 +212,17 @@ public sealed class Parser
     private Expr Primary(bool bitSegment = false)
     {
         Expr result;
+        if (Take(ErlangKeywords.Catch))
+            return new Expr.Catch(Expression());
+        if (Take(ErlangKeywords.Begin))
+        {
+            if (Is(ErlangKeywords.End))
+                throw Error(ParserDiagnostics.EmptyBlock);
+            var body = Body();
+            Expect(ErlangKeywords.End);
+
+            return new Expr.Block(body);
+        }
         if (Take(ErlangKeywords.If))
         {
             if (Is(ErlangKeywords.End))
@@ -263,11 +275,11 @@ public sealed class Parser
 
             return new Expr.Fun(clauses);
         }
-        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not)
+        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
         {
             string op = tokens[position++].Text;
 
-            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(9));
+            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(OperatorPrecedence.Prefix));
         }
         if (Take(ErlangSyntaxTokens.OpenParenthesis))
         {

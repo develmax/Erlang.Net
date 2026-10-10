@@ -545,6 +545,11 @@ public static class CoreModules
                 ErlangOperators.Multiply => new Integer(x.Value * y.Value),
                 ErlangOperators.IntegerDivide => new Integer(x.Value / y.Value),
                 ErlangOperators.Remainder => new Integer(x.Value % y.Value),
+                ErlangOperators.BitwiseAnd => new Integer(x.Value & y.Value),
+                ErlangOperators.BitwiseOr => new Integer(x.Value | y.Value),
+                ErlangOperators.BitwiseXor => new Integer(x.Value ^ y.Value),
+                ErlangOperators.ShiftLeft => Shift(x.Value, y.Value),
+                ErlangOperators.ShiftRight => Shift(x.Value, -y.Value),
                 _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
             };
         }
@@ -569,5 +574,23 @@ public static class CoreModules
             ErlangOperators.Divide => left / right,
             _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
         });
+    }
+
+    private static Term Shift(BigInteger value, BigInteger count)
+    {
+        if (value.IsZero || count.IsZero)
+            return new Integer(value);
+        if (count.Sign < 0)
+        {
+            var magnitude = -count;
+            if (magnitude >= value.GetBitLength())
+                return Term.I(value.Sign < 0 ? -1 : 0);
+
+            return new Integer(value >> (int)magnitude);
+        }
+        if (count > IntegerShiftLimits.MaximumResultBits || count + value.GetBitLength() > IntegerShiftLimits.MaximumResultBits)
+            throw new ErlangException(ErlangErrorReasons.SystemLimit);
+
+        return new Integer(value << (int)count);
     }
 }

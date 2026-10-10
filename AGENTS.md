@@ -61,3 +61,7 @@ Local if grammar/guards/if_clause/common binding export passes516/full integrati
 ## Part 045 checkpoint
 
 Published if head c7e575b passes pinned392/392 (346 expressions,36 modules,10 diagnostics), same-head516/full CI and strict provenance.151 types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Preserve322/28/5 historical contracts and initial part044 fixture-sequence failure. Next begin blocks/operators then Erlang callback adapters/signals; full grammar/annotation/warning/stacks/resources/reference suites incomplete. Part043 tests/integration snapshots reuse part041 reports; actual part043 execution is recorded in its validation log, clarified by dated active-volume correction.
+
+## Part 046 checkpoint
+
+Local begin/all ordinary operator spellings passes614/full pipeline;484-case plan419/48/17. Preserve346/36/10 prior contracts and generated hashes. Publish/dispatch pinned oracle and same-head614 CI.156 namespace types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Catch logical stack terms are not full OTP frame/annotation equivalence; left-shift CLR result-bit indexing is local resource policy. Initial duplicate helper name build failure preserved. Next remaining construct grammar/OTP Erlang callback adapters; no whole-module promotion.

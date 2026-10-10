@@ -102,9 +102,16 @@
         "oracle/compiler-diagnostic/if-partial-binding-unsafe",
         "validation/part-044/tests.json",
         "validation/part-045/differential.json",
-        "validation/part-045/remote-checkpoint.json"
+        "validation/part-045/remote-checkpoint.json",
+        "compiler/operators/begin-binding-export",
+        "compiler/operators/strict-binding-export",
+        "compiler/operators/shift-right-negative-value",
+        "compiler/operators/andalso-right-association",
+        "compiler/operators/catch-logical-stack-frame",
+        "hybrid/operators/begin-and-catch",
+        "validation/part-046/tests.json"
       ],
-      "limits": "Generated AST construction with C# evaluator; selected if guards/errors/branch bindings matched pinned OTP at c7e575b,392/392 including346 expr/36 compiled/10 diagnostics. Full grammar/native lowering/annotations/warnings/stacks/resources/reference suites incomplete."
+      "limits": "begin and all ordinary expression operator spellings implemented; selected614 tests/full integration passed,484-case new-head oracle pending. Catch logical operation/call frames are not full OTP stacks/annotations; CLR shift result-bit indexing is local resource policy. Records/generators/maybe ?= require their separate grammar constructs."
     },
     {
       "name": "Map source syntax",

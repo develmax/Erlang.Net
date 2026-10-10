@@ -1,0 +1,1061 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Line": 623,
+          "Text": "prefix_op -> '+' : '$1'.",
+          "Following": [
+            "prefix_op -> '-' : '$1'.",
+            "prefix_op -> 'bnot' : '$1'.",
+            "prefix_op -> 'not' : '$1'.",
+            "",
+            "mult_op -> '/' : '$1'.",
+            "mult_op -> '*' : '$1'.",
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'."
+          ]
+        },
+        {
+          "Line": 624,
+          "Text": "prefix_op -> '-' : '$1'.",
+          "Following": [
+            "prefix_op -> 'bnot' : '$1'.",
+            "prefix_op -> 'not' : '$1'.",
+            "",
+            "mult_op -> '/' : '$1'.",
+            "mult_op -> '*' : '$1'.",
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'."
+          ]
+        },
+        {
+          "Line": 625,
+          "Text": "prefix_op -> 'bnot' : '$1'.",
+          "Following": [
+            "prefix_op -> 'not' : '$1'.",
+            "",
+            "mult_op -> '/' : '$1'.",
+            "mult_op -> '*' : '$1'.",
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'."
+          ]
+        },
+        {
+          "Line": 626,
+          "Text": "prefix_op -> 'not' : '$1'.",
+          "Following": [
+            "",
+            "mult_op -> '/' : '$1'.",
+            "mult_op -> '*' : '$1'.",
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'.",
+            ""
+          ]
+        },
+        {
+          "Line": 628,
+          "Text": "mult_op -> '/' : '$1'.",
+          "Following": [
+            "mult_op -> '*' : '$1'.",
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'.",
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'."
+          ]
+        },
+        {
+          "Line": 629,
+          "Text": "mult_op -> '*' : '$1'.",
+          "Following": [
+            "mult_op -> 'div' : '$1'.",
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'.",
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'."
+          ]
+        },
+        {
+          "Line": 630,
+          "Text": "mult_op -> 'div' : '$1'.",
+          "Following": [
+            "mult_op -> 'rem' : '$1'.",
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'.",
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'."
+          ]
+        },
+        {
+          "Line": 631,
+          "Text": "mult_op -> 'rem' : '$1'.",
+          "Following": [
+            "mult_op -> 'band' : '$1'.",
+            "mult_op -> 'and' : '$1'.",
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'."
+          ]
+        },
+        {
+          "Line": 632,
+          "Text": "mult_op -> 'band' : '$1'.",
+          "Following": [
+            "mult_op -> 'and' : '$1'.",
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'."
+          ]
+        },
+        {
+          "Line": 633,
+          "Text": "mult_op -> 'and' : '$1'.",
+          "Following": [
+            "",
+            "add_op -> '+' : '$1'.",
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'."
+          ]
+        },
+        {
+          "Line": 635,
+          "Text": "add_op -> '+' : '$1'.",
+          "Following": [
+            "add_op -> '-' : '$1'.",
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            ""
+          ]
+        },
+        {
+          "Line": 636,
+          "Text": "add_op -> '-' : '$1'.",
+          "Following": [
+            "add_op -> 'bor' : '$1'.",
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'."
+          ]
+        },
+        {
+          "Line": 637,
+          "Text": "add_op -> 'bor' : '$1'.",
+          "Following": [
+            "add_op -> 'bxor' : '$1'.",
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'."
+          ]
+        },
+        {
+          "Line": 638,
+          "Text": "add_op -> 'bxor' : '$1'.",
+          "Following": [
+            "add_op -> 'bsl' : '$1'.",
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'.",
+            ""
+          ]
+        },
+        {
+          "Line": 639,
+          "Text": "add_op -> 'bsl' : '$1'.",
+          "Following": [
+            "add_op -> 'bsr' : '$1'.",
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'.",
+            "",
+            "comp_op -> '==' : '$1'."
+          ]
+        },
+        {
+          "Line": 640,
+          "Text": "add_op -> 'bsr' : '$1'.",
+          "Following": [
+            "add_op -> 'or' : '$1'.",
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'.",
+            "",
+            "comp_op -> '==' : '$1'.",
+            "comp_op -> '/=' : '$1'."
+          ]
+        },
+        {
+          "Line": 641,
+          "Text": "add_op -> 'or' : '$1'.",
+          "Following": [
+            "add_op -> 'xor' : '$1'.",
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'.",
+            "",
+            "comp_op -> '==' : '$1'.",
+            "comp_op -> '/=' : '$1'.",
+            "comp_op -> '=<' : '$1'."
+          ]
+        },
+        {
+          "Line": 642,
+          "Text": "add_op -> 'xor' : '$1'.",
+          "Following": [
+            "",
+            "list_op -> '++' : '$1'.",
+            "list_op -> '--' : '$1'.",
+            "",
+            "comp_op -> '==' : '$1'.",
+            "comp_op -> '/=' : '$1'.",
+            "comp_op -> '=<' : '$1'.",
+            "comp_op -> '<' : '$1'."
+          ]
+        },
+        {
+          "Line": 2177,
+          "Text": "inop_prec('=') -> {150,100,100};",
+          "Following": [
+            "inop_prec('!') -> {150,100,100};",
+            "inop_prec('orelse') -> {160,150,150};",
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};"
+          ]
+        },
+        {
+          "Line": 2178,
+          "Text": "inop_prec('!') -> {150,100,100};",
+          "Following": [
+            "inop_prec('orelse') -> {160,150,150};",
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};"
+          ]
+        },
+        {
+          "Line": 2179,
+          "Text": "inop_prec('orelse') -> {160,150,150};",
+          "Following": [
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};"
+          ]
+        },
+        {
+          "Line": 2180,
+          "Text": "inop_prec('andalso') -> {200,160,160};",
+          "Following": [
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};"
+          ]
+        },
+        {
+          "Line": 2181,
+          "Text": "inop_prec('==') -> {300,200,300};",
+          "Following": [
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};"
+          ]
+        },
+        {
+          "Line": 2182,
+          "Text": "inop_prec('/=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};"
+          ]
+        },
+        {
+          "Line": 2183,
+          "Text": "inop_prec('=<') -> {300,200,300};",
+          "Following": [
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2184,
+          "Text": "inop_prec('<') -> {300,200,300};",
+          "Following": [
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2185,
+          "Text": "inop_prec('>=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2186,
+          "Text": "inop_prec('>') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2187,
+          "Text": "inop_prec('=:=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2188,
+          "Text": "inop_prec('=/=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2189,
+          "Text": "inop_prec('++') -> {400,300,300};",
+          "Following": [
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2190,
+          "Text": "inop_prec('--') -> {400,300,300};",
+          "Following": [
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2191,
+          "Text": "inop_prec('+') -> {400,400,500};",
+          "Following": [
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2192,
+          "Text": "inop_prec('-') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2193,
+          "Text": "inop_prec('bor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2194,
+          "Text": "inop_prec('bxor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2195,
+          "Text": "inop_prec('bsl') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2196,
+          "Text": "inop_prec('bsr') -> {400,400,500};",
+          "Following": [
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2197,
+          "Text": "inop_prec('or') -> {400,400,500};",
+          "Following": [
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};"
+          ]
+        },
+        {
+          "Line": 2198,
+          "Text": "inop_prec('xor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};"
+          ]
+        },
+        {
+          "Line": 2199,
+          "Text": "inop_prec('*') -> {500,500,600};",
+          "Following": [
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};"
+          ]
+        },
+        {
+          "Line": 2200,
+          "Text": "inop_prec('/') -> {500,500,600};",
+          "Following": [
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}."
+          ]
+        },
+        {
+          "Line": 2201,
+          "Text": "inop_prec('div') -> {500,500,600};",
+          "Following": [
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2202,
+          "Text": "inop_prec('rem') -> {500,500,600};",
+          "Following": [
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'."
+          ]
+        },
+        {
+          "Line": 2203,
+          "Text": "inop_prec('band') -> {500,500,600};",
+          "Following": [
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            ""
+          ]
+        },
+        {
+          "Line": 2204,
+          "Text": "inop_prec('and') -> {500,500,600};",
+          "Following": [
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false."
+          ]
+        },
+        {
+          "Line": 2205,
+          "Text": "inop_prec('#') -> {750,700,750};",
+          "Following": [
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}."
+          ]
+        },
+        {
+          "Line": 2206,
+          "Text": "inop_prec('(') -> {750,750,800};",
+          "Following": [
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2207,
+          "Text": "inop_prec(':') -> {900,800,900};",
+          "Following": [
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};"
+          ]
+        },
+        {
+          "Line": 2208,
+          "Text": "inop_prec('.') -> {900,900,1000}.",
+          "Following": [
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};"
+          ]
+        },
+        {
+          "Line": 2215,
+          "Text": "preop_prec('catch') -> {0,100};",
+          "Following": [
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}."
+          ]
+        },
+        {
+          "Line": 2216,
+          "Text": "preop_prec('+') -> {600,700};",
+          "Following": [
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2217,
+          "Text": "preop_prec('-') -> {600,700};",
+          "Following": [
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}."
+          ]
+        },
+        {
+          "Line": 2218,
+          "Text": "preop_prec('bnot') -> {600,700};",
+          "Following": [
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2219,
+          "Text": "preop_prec('not') -> {600,700};",
+          "Following": [
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false."
+          ]
+        },
+        {
+          "Line": 2220,
+          "Text": "preop_prec('#') -> {700,800}.",
+          "Following": [
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900."
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Line": 603,
+          "Text": "expr({block,_,Es}, Bs, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    exprs(Es, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({'if',Anno,Cs}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    if_clauses(Cs, Anno, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({'case',Anno,E,Cs}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {value,Val,Bs} = expr(E, Bs0, Lf, Ef, none, FUVs),",
+            "    case_clauses(Val, Cs, Anno, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({'try',Anno,B,Cases,Catches,AB}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    try_clauses(B, Cases, Catches, AB, Anno, Bs, Lf, Ef, RBs, FUVs);"
+          ]
+        },
+        {
+          "Line": 779,
+          "Text": "expr({'catch',_,Expr}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    try expr(Expr, Bs0, Lf, Ef, none, FUVs) of",
+            "        {value,V,Bs} ->",
+            "            ret_expr(V, Bs, RBs)",
+            "    catch",
+            "        throw:Term ->",
+            "            ret_expr(Term, Bs0, RBs);",
+            "        exit:Reason ->",
+            "            ret_expr({'EXIT',Reason}, Bs0, RBs);"
+          ]
+        },
+        {
+          "Line": 813,
+          "Text": "expr({op,Anno,Op,A0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value,A,Bs} = expr(A0, Bs0, Lf, Ef, none, FUVs),",
+            "    eval_op(Op, A, Anno, Bs, Ef, RBs);",
+            "expr({op,Anno,'andalso',L0,R0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {value,L,Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    V = case L of",
+            "\t    true ->",
+            "\t\t{value,R,_} = expr(R0, Bs1, Lf, Ef, none, FUVs),",
+            "\t\tR;"
+          ]
+        },
+        {
+          "Line": 816,
+          "Text": "expr({op,Anno,'andalso',L0,R0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value,L,Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    V = case L of",
+            "\t    true ->",
+            "\t\t{value,R,_} = expr(R0, Bs1, Lf, Ef, none, FUVs),",
+            "\t\tR;",
+            "\t    false -> false;",
+            "\t    _ -> apply_error({badarg,L}, ?STACKTRACE, Anno, Bs0, Ef, RBs)",
+            "\tend,"
+          ]
+        },
+        {
+          "Line": 826,
+          "Text": "expr({op,Anno,'orelse',L0,R0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value,L,Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    V = case L of",
+            "\t    true -> true;",
+            "\t    false ->",
+            "\t\t{value,R,_} = expr(R0, Bs1, Lf, Ef, none, FUVs),",
+            "\t\tR;",
+            "\t    _ -> apply_error({badarg,L}, ?STACKTRACE, Anno, Bs0, Ef, RBs)",
+            "\tend,"
+          ]
+        },
+        {
+          "Line": 836,
+          "Text": "expr({op,Anno,Op,L0,R0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value,L,Bs1} = expr(L0, Bs0, Lf, Ef, none, FUVs),",
+            "    {value,R,Bs2} = expr(R0, Bs0, Lf, Ef, none, FUVs),",
+            "    eval_op(Op, L, R, Anno, merge_bindings(Bs1, Bs2, Anno, Ef), Ef, RBs);",
+            "expr({bin,_,Fs}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    EvalFun = fun(E, B) -> expr(E, B, Lf, Ef, none, FUVs) end,",
+            "    ErrorFun = fun(A, R, S) -> apply_error(R, S, A, Bs0, Ef, RBs) end,",
+            "    {value,V,Bs} = eval_bits:expr_grp(Fs, Bs0, EvalFun, ErrorFun),",
+            "    ret_expr(V, Bs, RBs);"
+          ]
+        },
+        {
+          "Line": 2138,
+          "Text": "merge_bindings(Bs1, Bs2, Anno, Ef) when is_map(Bs1), is_map(Bs2) ->",
+          "Following": [
+            "    maps:merge_with(fun",
+            "\t(_K, V, V) -> V;",
+            "\t(_K, _, V) -> apply_error({badmatch,V}, ?STACKTRACE, Anno, Bs1, Ef, none)",
+            "    end, Bs2, Bs1);",
+            "merge_bindings(Bs1, Bs2, Anno, Ef) ->",
+            "    foldl(fun ({Name,Val}, Bs) ->",
+            "\t\t  case orddict:find(Name, Bs) of",
+            "\t\t      {ok,Val} -> Bs;\t\t%Already with SAME value"
+          ]
+        },
+        {
+          "Line": 2143,
+          "Text": "merge_bindings(Bs1, Bs2, Anno, Ef) ->",
+          "Following": [
+            "    foldl(fun ({Name,Val}, Bs) ->",
+            "\t\t  case orddict:find(Name, Bs) of",
+            "\t\t      {ok,Val} -> Bs;\t\t%Already with SAME value",
+            "\t\t      {ok,V1} ->",
+            "\t\t\t  apply_error({badmatch,V1}, ?STACKTRACE, Anno, Bs1, Ef, none);",
+            "\t\t      error -> orddict:store(Name, Val, Bs)",
+            "\t\t  end end,",
+            "\t  Bs2, orddict:to_list(Bs1))."
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Line": 3133,
+          "Text": "expr({block,Anno,Es}, Vt, St) ->",
+          "Following": [
+            "    %% Unfold block into a sequence.",
+            "    {Vt1, St1} = exprs(Es, Vt, St),",
+            "    {vtupd_export({'begin', Anno}, Vt1, Vt), St1};",
+            "expr({'if',Anno,Cs}, Vt, St) ->",
+            "    icrt_clauses(Cs, {'if',Anno}, Vt, St);",
+            "expr({'case',Anno,E,Cs}, Vt, St0) ->",
+            "    {Evt,St1} = expr(E, Vt, St0),",
+            "    {Cvt,St2} = icrt_clauses(Cs, {'case',Anno}, vtupdate(Evt, Vt), St1),"
+          ]
+        },
+        {
+          "Line": 3242,
+          "Text": "expr({'catch',Anno,E}, Vt, St0) ->",
+          "Following": [
+            "    %% No new variables added, flag new variables as unsafe.",
+            "    {Evt,St} = expr(E, Vt, St0),",
+            "    St1 = case is_warn_enabled(deprecated_catch, St) of",
+            "              true -> add_warning(Anno, deprecated_catch, St);",
+            "              false -> St",
+            "          end,",
+            "    {vtupd_unsafe({'catch', Anno}, Evt, Vt), St1};",
+            "expr({match,_Anno,P,E}, Vt, St0) ->"
+          ]
+        },
+        {
+          "Line": 3272,
+          "Text": "expr({op,Anno,Op,A}, Vt, St) ->",
+          "Following": [
+            "    vtupd_export_expr_list({Op, Anno}, [A], Vt, St);",
+            "expr({op,Anno,Op,L,R}, Vt, St0) when Op =:= 'orelse'; Op =:= 'andalso' ->",
+            "    {Evt1, St1} = vtupd_export_expr_list({Op, Anno}, [L], Vt, St0),",
+            "    Vt1 = vtupdate(Evt1, Vt),",
+            "    {Evt2,St2} = expr(R, Vt1, St1),",
+            "    Evt3 = vtupd_unsafe({Op, Anno}, Evt2, Vt1),",
+            "    {vtmerge(Evt1, Evt3),St2};",
+            "expr({op,Anno,EqOp,L,R}, Vt, St0) when EqOp =:= '=:='; EqOp =:= '=/=' ->"
+          ]
+        },
+        {
+          "Line": 3274,
+          "Text": "expr({op,Anno,Op,L,R}, Vt, St0) when Op =:= 'orelse'; Op =:= 'andalso' ->",
+          "Following": [
+            "    {Evt1, St1} = vtupd_export_expr_list({Op, Anno}, [L], Vt, St0),",
+            "    Vt1 = vtupdate(Evt1, Vt),",
+            "    {Evt2,St2} = expr(R, Vt1, St1),",
+            "    Evt3 = vtupd_unsafe({Op, Anno}, Evt2, Vt1),",
+            "    {vtmerge(Evt1, Evt3),St2};",
+            "expr({op,Anno,EqOp,L,R}, Vt, St0) when EqOp =:= '=:='; EqOp =:= '=/=' ->",
+            "    St = expr_check_match_zero(R, expr_check_match_zero(L, St0)),",
+            "    vtupd_export_expr_list({EqOp, Anno}, [L, R], Vt, St); %They see the same variables"
+          ]
+        },
+        {
+          "Line": 3280,
+          "Text": "expr({op,Anno,EqOp,L,R}, Vt, St0) when EqOp =:= '=:='; EqOp =:= '=/=' ->",
+          "Following": [
+            "    St = expr_check_match_zero(R, expr_check_match_zero(L, St0)),",
+            "    vtupd_export_expr_list({EqOp, Anno}, [L, R], Vt, St); %They see the same variables",
+            "expr({op,Anno,Op,L,R}, Vt, St) ->",
+            "    St1 = warn_obsolete_op(Op, 2, Anno, St),",
+            "    vtupd_export_expr_list({Op, Anno}, [L, R], Vt, St1); %They see the same variables",
+            "%% The following are not allowed to occur anywhere!",
+            "expr({remote,_Anno,M,_F}, _Vt, St) ->",
+            "    {[],add_error(erl_parse:first_anno(M), illegal_expr, St)};"
+          ]
+        },
+        {
+          "Line": 3283,
+          "Text": "expr({op,Anno,Op,L,R}, Vt, St) ->",
+          "Following": [
+            "    St1 = warn_obsolete_op(Op, 2, Anno, St),",
+            "    vtupd_export_expr_list({Op, Anno}, [L, R], Vt, St1); %They see the same variables",
+            "%% The following are not allowed to occur anywhere!",
+            "expr({remote,_Anno,M,_F}, _Vt, St) ->",
+            "    {[],add_error(erl_parse:first_anno(M), illegal_expr, St)};",
+            "expr({executable_line,_,_}, _Vt, St) ->",
+            "    {[], St};",
+            "expr({ssa_check_when,_Anno,_WantedResult,_Args,_AnnoCheck,_Tag,_Exprs}, _Vt, St) ->"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_arith.c",
+      "Blob": "f793dbe0c8c33d6f1d6669e95ee5d8fc97c7956d",
+      "Matches": [
+        {
+          "Line": 311,
+          "Text": "Eterm erts_bsl(Process* p, Eterm arg1, Eterm arg2) {",
+          "Following": [
+            "    return erts_shift(p, arg1, arg2, 0);",
+            "}",
+            "",
+            "Eterm erts_bsr(Process* p, Eterm arg1, Eterm arg2) {",
+            "    return erts_shift(p, arg1, arg2, 1);",
+            "}",
+            "",
+            "BIF_RETTYPE bsl_2(BIF_ALIST_2)"
+          ]
+        },
+        {
+          "Line": 315,
+          "Text": "Eterm erts_bsr(Process* p, Eterm arg1, Eterm arg2) {",
+          "Following": [
+            "    return erts_shift(p, arg1, arg2, 1);",
+            "}",
+            "",
+            "BIF_RETTYPE bsl_2(BIF_ALIST_2)",
+            "{",
+            "    BIF_RET(erts_bsl(BIF_P, BIF_ARG_1, BIF_ARG_2));",
+            "}",
+            ""
+          ]
+        },
+        {
+          "Line": 329,
+          "Text": "BIF_RETTYPE bnot_1(BIF_ALIST_1)",
+          "Following": [
+            "{",
+            "    Eterm ret;",
+            "",
+            "    if (is_small(BIF_ARG_1)) {",
+            "\tret = make_small(~signed_val(BIF_ARG_1));",
+            "    } else if (is_big(BIF_ARG_1)) {",
+            "\tUint need = BIG_NEED_SIZE(big_size(BIF_ARG_1)+1);",
+            "\tEterm* bigp = HeapFragOnlyAlloc(BIF_P, need);"
+          ]
+        }
+      ]
+    }
+  ],
+  "Contracts": [
+    "ordinary unary/binary operators and precedence/association",
+    "strict independent operand scopes and merged bindings",
+    "short-circuit rhs bindings not exported",
+    "block sequence and binding export",
+    "catch success/throw/exit/error and unsafe bindings",
+    "signed integer infinite bitwise operations and negative/huge shifts"
+  ],
+  "Limits": "CLR integer result-bit index bound is local resource policy; catch logical frames are not full OTP annotation/stack equivalence"
+}

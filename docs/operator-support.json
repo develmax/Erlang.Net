@@ -1,0 +1,212 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "OrdinaryExpressionOperators": [
+    {
+      "Spelling": "+",
+      "Arity": 1,
+      "Group": "Prefix",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "-",
+      "Arity": 1,
+      "Group": "Prefix",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "not",
+      "Arity": 1,
+      "Group": "Prefix",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "bnot",
+      "Arity": 1,
+      "Group": "Prefix",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "*",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "/",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "div",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "rem",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "band",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "and",
+      "Arity": 2,
+      "Group": "Multiplicative",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "+",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "-",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "bor",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "bxor",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "bsl",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "bsr",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "or",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "xor",
+      "Arity": 2,
+      "Group": "Additive",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "++",
+      "Arity": 2,
+      "Group": "List",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "--",
+      "Arity": 2,
+      "Group": "List",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "==",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "/=",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "=<",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "<",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": ">=",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": ">",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "=:=",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "=/=",
+      "Arity": 2,
+      "Group": "Comparison",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "andalso",
+      "Arity": 2,
+      "Group": "ShortCircuit",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "orelse",
+      "Arity": 2,
+      "Group": "ShortCircuit",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "=",
+      "Arity": 2,
+      "Group": "MatchAndSend",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "!",
+      "Arity": 2,
+      "Group": "MatchAndSend",
+      "Status": "Partially compatible"
+    },
+    {
+      "Spelling": "catch",
+      "Arity": 1,
+      "Group": "Catch",
+      "Status": "Partially compatible"
+    }
+  ],
+  "Source": "erl_parse.yrl prefix_op/mult_op/add_op/list_op/comp_op/inop_prec/preop_prec",
+  "LocalTests": "validation/part-046/tests.json",
+  "ReferenceProof": "validation/part-045/remote-checkpoint.json (historical392-case scope;484 planned)",
+  "Limits": [
+    "not full grammar or complete operand/resource contract coverage",
+    "record syntax, generators and maybe ?= are separate constructs",
+    "catch logical stacks differ from OTP source annotations and complete call stacks",
+    "CLR left-shift result bit-index limit is local policy; huge allocation behavior unverified"
+  ]
+}

@@ -8,6 +8,8 @@ internal static class SemanticDiagnostics
     public const string GuardMatch = "Match is not legal in a guard";
     public const string GuardCase = "case is not legal in a guard";
     public const string GuardIf = "if is not legal in a guard";
+    public const string GuardBlock = "begin is not legal in a guard";
+    public const string GuardCatch = "catch is not legal in a guard";
     public const string GuardReceive = "receive is not legal in a guard";
     public const string GuardFun = "fun is not legal in a guard";
     public const string FunClauseArityMismatch = "fun clauses must have equal arity";

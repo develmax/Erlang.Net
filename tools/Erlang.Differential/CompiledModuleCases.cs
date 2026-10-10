@@ -190,6 +190,92 @@ public static class CompiledModuleCases
             "if-closure-branch-export",
             "-module(oracle_if_closure). -export([run/0]). run()->F=fun(N)->if N>0 -> X=42; true -> X=7 end,fun()->X end end,G=F(1),G().",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(42))
+        ),
+        new(
+            "begin-export",
+            "-module(oracle_begin_export). -export([run/0]). run()->begin X=40,begin Y=2,X+Y end end,{X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(40),Term.I(2)))
+        ),
+        new(
+            "operators-vector",
+            "-module(oracle_ops_vector). -export([run/0]). run()->{bnot 0,13 band 6,8 bor 1,7 bxor 3,5 bsl 3,-5 bsr 1,true and false,true or false,true xor true}.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(
+                    Term.I(-1),
+                    Term.I(4),
+                    Term.I(9),
+                    Term.I(4),
+                    Term.I(40),
+                    Term.I(-3),
+                    Term.A("false"),
+                    Term.A("true"),
+                    Term.A("false")
+                )
+            )
+        ),
+        new(
+            "begin-tail-calls",
+            "-module(oracle_begin_tail). -export([run/0]). run()->loop(50000,0). loop(0,A)->A; loop(N,A)->begin B=A+1,loop(N-1,B) end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(50000))
+        ),
+        new(
+            "operators-precedence",
+            "-module(oracle_ops_prec). -export([run/0]). run()->{1 bor 2 band 4,1 bsl 2 + 1,true or false and false,true andalso true andalso payload}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(
+                Term.I(1),
+                Term.I(5),
+                Term.A("true"),
+                Term.A("payload")
+            ))
+        ),
+        new(
+            "operators-strict-bindings",
+            "-module(oracle_ops_bind). -export([run/0]). run()->(X=1)+(Y=2),{X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(1),Term.I(2)))
+        ),
+        new(
+            "operators-strict-error-order",
+            "-module(oracle_ops_order). -export([run/0]). run()->atom and error(rhs).",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("rhs"))
+        ),
+        new(
+            "operators-big-shifts",
+            "-module(oracle_ops_shifts). -export([run/0]). run()->{1 bsl 64,-5 bsl -1,5 bsr -3,-42 bsr 18446744073709551616}.",
+            Term.Tuple(
+                Term.A(OracleOutcomeTags.Success),
+                Term.Tuple(
+                    new Integer(System.Numerics.BigInteger.Parse("18446744073709551616")),
+                    Term.I(-3),
+                    Term.I(40),
+                    Term.I(-1)
+                )
+            )
+        ),
+        new(
+            "catch-throw-exit",
+            "-module(oracle_catch_values). -export([run/0]). run()->{catch throw(payload),catch exit(reason)}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.A("payload"),Term.Tuple(Term.A("EXIT"),Term.A("reason"))))
+        ),
+        new(
+            "catch-error-reason-stack",
+            "-module(oracle_catch_error). -export([run/0]). run()->{'EXIT',{Reason,Stack}}=catch error(boom),{Reason,is_list(Stack),length(Stack)>0}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.A("boom"),Term.A("true"),Term.A("true")))
+        ),
+        new(
+            "catch-body-binding-rollback",
+            "-module(oracle_catch_scope). -export([run/0]). run()->X=42,V=catch begin X=42,throw(done) end,{V,X}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.A("done"),Term.I(42)))
+        ),
+        new(
+            "operators-send-match",
+            "-module(oracle_ops_send). -export([run/0]). run()->self() ! X=42,receive X -> X after 0 -> no end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(42))
+        ),
+        new(
+            "begin-closure",
+            "-module(oracle_begin_closure). -export([run/0]). run()->begin X=40,F=fun(Y)->begin Z=X+Y,Z end end,F(2) end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(42))
         )
     ];
 }

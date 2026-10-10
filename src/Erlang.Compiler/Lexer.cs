@@ -28,6 +28,8 @@ public static class Lexer
             }
             int start = i;
             char c = text[i++];
+            if (blockPrefix && depth == 0 && c == '.')
+                break;
             if (c is '\'' or '"')
             {
                 var value = new StringBuilder();
@@ -92,7 +94,7 @@ public static class Lexer
                 ));
                 if (blockPrefix)
                 {
-                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If)
+                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin)
                         depth++;
                     else if (name == ErlangKeywords.End && --depth == 0)
                         break;

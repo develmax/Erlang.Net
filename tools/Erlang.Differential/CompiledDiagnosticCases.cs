@@ -30,6 +30,28 @@ public static class CompiledDiagnosticCases
             "-module(scope_if_nested). -export([run/0]). run()->if true -> if true -> X=1; false -> no end; false -> X=2 end,X.",
             "X",
             "if"
-        )
+        ),
+        new("operator-left-binding-not-in-right", "-module(scope_op_right). -export([run/0]). run()->(X=1)+X.","X"),
+        new("operator-right-binding-not-in-left", "-module(scope_op_left). -export([run/0]). run()->X+(X=1).","X"),
+        new("operator-band-sibling-binding", "-module(scope_op_band). -export([run/0]). run()->(X=1) band X.","X"),
+        new(
+            "andalso-binding-unsafe",
+            "-module(scope_andalso). -export([run/0]). run()->true andalso (X=1),X.",
+            "X",
+            "andalso"
+        ),
+        new(
+            "orelse-binding-unsafe",
+            "-module(scope_orelse). -export([run/0]). run()->false orelse (X=1),X.",
+            "X",
+            "orelse"
+        ),
+        new(
+            "catch-binding-unsafe",
+            "-module(scope_catch). -export([run/0]). run()->catch (X=1),X.",
+            "X",
+            "catch"
+        ),
+        new("begin-unbound-variable", "-module(scope_begin). -export([run/0]). run()->begin U end.","U")
     ];
 }

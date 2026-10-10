@@ -39,6 +39,10 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!ifCheck.Equals(Term.I(42))) throw new InvalidOperationException("Hybrid if generation failed");
     var compiledIf = await runtime.Modules.Call(erlangProcess, "map_source", "if_check");
     if (!compiledIf.Equals(Term.I(42))) throw new InvalidOperationException("Compiled if generation failed");
+    var beginCheck = begin X=40,Y=2,{X+Y,bnot 0,13 band 6,8 bor 1,7 bxor 3,5 bsl 3,-5 bsr 1,true and false,true or false,true xor true} end.
+    if (!beginCheck.Equals(Term.Tuple(Term.I(42),Term.I(-1),Term.I(4),Term.I(9),Term.I(4),Term.I(40),Term.I(-3),Term.A("false"),Term.A("true"),Term.A("false")))) throw new InvalidOperationException("Hybrid begin/operators failed");
+    var catchCheck = catch throw(done).
+    if (!catchCheck.Equals(Term.A("done"))) throw new InvalidOperationException("Hybrid catch failed");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

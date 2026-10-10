@@ -109,3 +109,7 @@ Publish tested if implementation, dispatch exact pinned392-case oracle (346 expr
 ## Part 045 handoff
 
 Published if head c7e575b passes exact392/392 and same-head516 CI. Preserve immutable source/hash/expected/diagnostic/head/job/archive metadata; registry62/delta0, lists19/91, approximately5%. Next implement audited begin blocks with binding/export/order errors and missing operators across interpreted/generated/hybrid paths; then Erlang OTP callback adapters/signals. No full grammar/module/resources/annotations/reference-suite claim.
+
+## Part 046 handoff
+
+Publish begin/operators implementation, dispatch exact pinned484 cases (419 expressions,48 generated/compiled modules,17 diagnostics), inspect same-head614 CI and preserve source/hash/expected/class/reason/provenance. Historical392/392 remains part045. Next Erlang OTP callback adapters or remaining construct-specific grammar; full records/comprehensions/maybe/try, annotations/stacks/resources/signals/reference suites incomplete. Registry62/delta0, lists19/91, approximately5% overall. Near-bound enormous allocations are local-only and must not enter reference corpus.

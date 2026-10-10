@@ -252,6 +252,40 @@ public static class Execution
 
                     return value;
                 }
+            case Expr.Block block:
+                return await Evaluate(
+                    block.Body,
+                    ctx,
+                    b,
+                    module,
+                    tail
+                );
+            case Expr.Catch caught:
+                {
+                    var scope = new Dictionary<string, Term>(b, StringComparer.Ordinal);
+                    try
+                    {
+                        var result = await Evaluate(
+                            caught.Operand,
+                            ctx,
+                            scope,
+                            module
+                        );
+                        foreach (var binding in scope)
+                            b[binding.Key] = binding.Value;
+
+                        return result;
+                    }
+                    catch (ErlangException exception)
+                    {
+                        return exception.ExceptionClass switch
+                        {
+                            ErlangExceptionClasses.Throw => exception.Reason,
+                            ErlangExceptionClasses.Exit => Term.Tuple(Term.A(CatchResultAtoms.Exit), exception.Reason),
+                            _ => Term.Tuple(Term.A(CatchResultAtoms.Exit), Term.Tuple(exception.Reason, exception.StackTraceTerm))
+                        };
+                    }
+                }
             case Expr.Unary u:
                 return Unary(u.Operator, await Evaluate(
                     u.Operand,
@@ -261,22 +295,37 @@ public static class Execution
                 ));
             case Expr.Binary x:
                 {
+                    bool shortCircuit = x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse;
+                    var leftScope = shortCircuit ? b : new Dictionary<string, Term>(b, StringComparer.Ordinal);
                     var left = await Evaluate(
                         x.Left,
                         ctx,
-                        b,
+                        leftScope,
                         module
                     );
-                    if (x.Operator == ErlangOperators.AndAlso && !CoreModules.Bool(left))
+                    if (shortCircuit && left is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
+                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]);
+                    if (x.Operator == ErlangOperators.AndAlso && left.Equals(Term.A(ErlangBooleanAtoms.False)))
                         return Term.A(ErlangBooleanAtoms.False);
-                    if (x.Operator == ErlangOperators.OrElse && CoreModules.Bool(left))
+                    if (x.Operator == ErlangOperators.OrElse && left.Equals(Term.A(ErlangBooleanAtoms.True)))
                         return Term.A(ErlangBooleanAtoms.True);
+                    var rightScope = new Dictionary<string, Term>(b, StringComparer.Ordinal);
                     var right = await Evaluate(
                         x.Right,
                         ctx,
-                        b,
+                        rightScope,
                         module
                     );
+                    if (!shortCircuit)
+                    {
+                        foreach (var binding in rightScope)
+                            if (leftScope.TryGetValue(binding.Key, out var previous) && !previous.Equals(binding.Value))
+                                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), binding.Value));
+                        foreach (var binding in leftScope)
+                            b[binding.Key] = binding.Value;
+                        foreach (var binding in rightScope)
+                            b[binding.Key] = binding.Value;
+                    }
 
                     return x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse ? right : Binary(
                         x.Operator,
@@ -301,12 +350,19 @@ public static class Execution
                         );
                     }
 
-                    return await ctx.Runtime.Modules.Call(
-                        ctx,
-                        x.Module ?? ErlangModuleNames.Module,
-                        x.Function,
-                        args
-                    );
+                    try
+                    {
+                        return await ctx.Runtime.Modules.Call(
+                            ctx,
+                            x.Module ?? ErlangModuleNames.Module,
+                            x.Function,
+                            args
+                        );
+                    }
+                    catch (ErlangException exception)
+                    {
+                        throw exception.WithStackFrame(x.Module ?? ErlangModuleNames.Module, x.Function, args);
+                    }
                 }
             case Expr.Apply x:
                 {
@@ -416,12 +472,47 @@ public static class Execution
         }
     }
 
-    private static Term Unary(string op, Term value) => op switch
+    private static Term Unary(string op, Term value)
+    {
+        try
+        {
+            return UnaryValue(op, value);
+        }
+        catch (ErlangException exception)
+        {
+            throw exception.WithStackFrame(ErlangModuleNames.Module, op, [value]);
+        }
+    }
+
+    private static Term Binary(
+        string op,
+        Term a,
+        Term b,
+        ProcessContext? context
+    )
+    {
+        try
+        {
+            return BinaryValue(
+                op,
+                a,
+                b,
+                context
+            );
+        }
+        catch (ErlangException exception)
+        {
+            throw exception.WithStackFrame(ErlangModuleNames.Module, op, [a, b]);
+        }
+    }
+
+    private static Term UnaryValue(string op, Term value) => op switch
     {
         ErlangOperators.Plus when value is Integer or FloatTerm => value,
         ErlangOperators.Minus when value is FloatTerm f => new FloatTerm(-f.Value),
         ErlangOperators.Minus => CoreModules.Arithmetic(ErlangOperators.Minus, Term.I(0), value),
         ErlangOperators.Not => CoreModules.Boolean(!CoreModules.Bool(value)),
+        ErlangOperators.BitwiseNot when value is Integer integer => new Integer(~integer.Value),
         _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
     };
 
@@ -440,13 +531,16 @@ public static class Execution
         return new MapTerm(entries);
     }
 
-    private static Term Binary(
+    private static Term BinaryValue(
         string op,
         Term a,
         Term b,
         ProcessContext? ctx
     ) => op switch
     {
+        ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(a) & CoreModules.Bool(b)),
+        ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(a) | CoreModules.Bool(b)),
+        ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(a) ^ CoreModules.Bool(b)),
         ErlangOperators.NumericEqual => CoreModules.Boolean(a.NumericEquals(b)),
         ErlangOperators.NumericNotEqual => CoreModules.Boolean(!a.NumericEquals(b)),
         ErlangOperators.ExactEqual => CoreModules.Boolean(a.Equals(b)),

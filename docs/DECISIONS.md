@@ -134,3 +134,7 @@ Expr.If owns an ordered list of empty-pattern Clauses. Share guard parsing/valid
 ## Part 045 — Verify branch scope without promoting complete grammar
 
 Preserve392/392 and same-head516 CI with exact source-build/head/job/archive metadata. Independently verify24 new expected expression outcomes and all36 module source/generated/outcome contracts plus10 diagnostic source/reason/code/messages. Preserve322/28/5 historical contracts. Normalized unsafe_var keeps if/line information in the reason; full annotations/warnings/stack/resource semantics remain unverified. Readiness baseline part044 tests/delta0; no executable/dependency/license/MFA change.
+
+## Part 046 — Distinguish operator grammar, binding and stack contracts
+
+Use a named precedence catalog matching pinned ordinary grammar; strict operand scopes start from the same incoming bindings, short-circuit RHS cannot export, catch variables are unsafe after the catch boundary. Begin owns a distinct Block AST and preserves tail position. BigInteger signed bitwise/right shift primitives match value semantics; guard narrowing and enormous positive result bounds before CLR allocation. Reuse existing exception reason/class fields while adding immutable logical operation/call stack terms for catch; do not claim full OTP annotation/frame equivalence.33 ordinary forms/31 spellings are implemented; record/generator/maybe constructs remain unfinished grammar. No dependency/production BEAM/license change.

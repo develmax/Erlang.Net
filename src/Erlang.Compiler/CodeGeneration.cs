@@ -93,6 +93,8 @@ public static class CodeGeneration
         Expr.Apply a => "new " + E + "Apply(" + ExpressionCode(a.Function) + "," + Expressions(a.Arguments) + ")",
         Expr.Match m => "new " + E + "Match(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
         Expr.Sequence s => "new " + E + "Sequence(" + Expressions(s.Items) + ")",
+        Expr.Block block => "new " + E + "Block(" + ExpressionCode(block.Body) + ")",
+        Expr.Catch caught => "new " + E + "Catch(" + ExpressionCode(caught.Operand) + ")",
         Expr.GuardAlternatives s => "new " + E + "GuardAlternatives(" + Expressions(s.Items) + ")",
         Expr.Case c => "new " + E + "Case(" + ExpressionCode(c.Value) + "," + Clauses(c.Clauses) + ")",
         Expr.If i => "new " + E + "If(" + Clauses(i.Clauses) + ")",
@@ -123,7 +125,7 @@ public static class CodeGeneration
             var token = tokens[i];
             if (token.SpanStart < copied)
                 continue;
-            if (token.Text is not (ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If))
+            if (token.Text is not (ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Catch))
                 continue;
             if (i == 0 || tokens[i - 1].Text is not ("=" or "{" or ";" or "return" or "=>"))
                 continue;
@@ -133,6 +135,8 @@ public static class CodeGeneration
             if (following == source.Length || source[following] is '.' or ';' or '=' or ':' or ',')
                 continue;
             if (token.Text == ErlangKeywords.If && !HasIfGuard(source[token.SpanStart..]))
+                continue;
+            if (token.Text is ErlangKeywords.Begin or ErlangKeywords.Catch && !HasBlockExpression(source[token.SpanStart..]))
                 continue;
             // An ordinary C# call to a method named fun/receive must remain C#.
             if (token.Text == "receive" && source[following] == '(')
@@ -231,6 +235,18 @@ public static class CodeGeneration
         try
         {
             return new Parser(source, true).ParseExpression() is Expr.If;
+        }
+        catch (CompileException)
+        {
+            return false;
+        }
+    }
+
+    private static bool HasBlockExpression(string source)
+    {
+        try
+        {
+            return new Parser(source, true).ParseExpression() is Expr.Block or Expr.Catch;
         }
         catch (CompileException)
         {

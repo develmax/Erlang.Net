@@ -163,17 +163,39 @@ public static class Semantics
             case Expr.Unary u:
                 Walk(u.Operand, bound, guard);
                 break;
+            case Expr.Block block:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardBlock, 0);
+                Walk(block.Body, bound, false);
+                break;
+            case Expr.Catch caught:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardCatch, 0);
+                var catchScope = new HashSet<string>(bound);
+                Walk(caught.Operand, catchScope, false);
+                foreach (string name in catchScope.Except(bound))
+                    bound.Add(name.StartsWith(VariableScopeNames.UnsafePrefix, StringComparison.Ordinal) ? name : VariableScopeNames.UnsafePrefix + name);
+                break;
             case Expr.Binary b:
                 if (guard && b.Operator is ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardOperator, 0);
-                Walk(b.Left, bound, guard);
                 if (b.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse)
                 {
+                    Walk(b.Left, bound, guard);
                     var maybe = new HashSet<string>(bound);
                     Walk(b.Right, maybe, guard);
+                    foreach (string name in maybe.Except(bound))
+                        bound.Add(name.StartsWith(VariableScopeNames.UnsafePrefix, StringComparison.Ordinal) ? name : VariableScopeNames.UnsafePrefix + name);
                 }
                 else
-                    Walk(b.Right, bound, guard);
+                {
+                    var leftScope = new HashSet<string>(bound);
+                    var rightScope = new HashSet<string>(bound);
+                    Walk(b.Left, leftScope, guard);
+                    Walk(b.Right, rightScope, guard);
+                    bound.UnionWith(leftScope);
+                    bound.UnionWith(rightScope);
+                }
                 break;
             case Expr.Call call:
                 if (guard && (call.Module is not null and not ErlangModuleNames.Module || !GuardBifs.Contains((call.Function, call.Arguments.Count))))

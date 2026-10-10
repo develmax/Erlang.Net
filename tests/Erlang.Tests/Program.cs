@@ -3005,6 +3005,108 @@ Test(
     )
 );
 
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All)
+{
+    Test(
+        "compiler/operators/" + fixture.Name,
+        async () =>
+    {
+        var expression = new Parser(fixture.Source).ParseExpression();
+        Semantics.Validate(expression);
+        await using var runtime = new ProcessRuntime();
+        Term? outcome = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                outcome = Term.Tuple(Term.A("ok"), await Execution.EvaluateAsync(expression, context));
+            }
+            catch (ErlangException exception)
+            {
+                outcome = Term.Tuple(Term.A("error"), Term.A(exception.ExceptionClass), exception.Reason);
+            }
+
+            return Term.A("ok");
+        });
+        Equal(await process.Completion, Term.A("normal"));
+        Equal(outcome!, fixture.Expected);
+    }
+    );
+}
+Test(
+    "compiler/operators/chained-comparison-diagnostic",
+    () =>
+{
+    foreach (string source in new[] { "1 < 2 < 3", "1 == 1 =:= true", "1 >= 0 /= false" })
+        Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/operators/empty-block-diagnostic",
+    () =>
+{
+    Throws<CompileException>(() => new Parser("begin end").ParseExpression());
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/operators/block-catch-illegal-guard",
+    () =>
+{
+    foreach (string source in new[] { "if (begin true end) -> yes end", "if (catch true) -> yes end" })
+    {
+        try
+        {
+            Semantics.Validate(new Parser(source).ParseExpression());
+            Check(false);
+        }
+        catch (CompileException exception)
+        {
+            Check(exception.Code == "ERL007");
+        }
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/operators/begin-and-catch",
+    () =>
+{
+    string source = "class A { async Task F(ProcessContext erlangProcess) { var x = begin X=40,if X>0 -> begin X+2 end end end. var y = catch throw(done). } }";
+    string generated = CodeGeneration.Preprocess(source, "a.cs");
+    Check(generated.Contains("Expr.Block") && generated.Contains("Expr.Catch"));
+    Check(!generated.Contains("var y = catch"));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "hybrid/operators/csharp-try-catch-preserved",
+    () =>
+{
+    string source = "class A { void F() { try { throw new Exception(); } catch(Exception e) { Console.WriteLine(e); } catch { } } string s=\"begin catch value end.\"; int begin()=>42; }";
+    Check(CodeGeneration.Preprocess(source, "a.cs").EndsWith(source, StringComparison.Ordinal));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/operators/catch-logical-stack-frame",
+    async () =>
+{
+    var value = await Eval("catch error(boom)");
+    Check(value is TupleTerm { Items.Count: 2 } outer && outer.Items[0].Equals(Term.A("EXIT")));
+    var reasonAndStack = (TupleTerm)((TupleTerm)value).Items[1];
+    var frame = (TupleTerm)Cons.Items(reasonAndStack.Items[1]).First();
+    Equal(frame.Items[0], Term.A("erlang"));
+    Equal(frame.Items[1], Term.A("error"));
+    Equal(frame.Items[2], Term.List(Term.A("boom")));
+}
+);
 foreach (var fixture in Erlang.Differential.IfExpressionCases.All)
 {
     Test(
