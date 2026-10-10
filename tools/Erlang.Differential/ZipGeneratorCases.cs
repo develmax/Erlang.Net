@@ -87,15 +87,33 @@ public static class ZipGeneratorCases
         new("zip-binary-template", "<< <<(X+Y):4>> || X <- [1,2] && Y <- [3,4] >>", Ok(Bytes(70))),
         new("zip-binary-incoming-size", "begin N=8,[X || <<X:N>> <= <<1>> && Y <- [1]] end", Ok(Nil.Value)),
         new("zip-zero-binary-finite-list", "[X+Y || <<X:0>> <= <<>> && Y <- [1,2]]", Bad(Bytes(),Numbers(1,2))),
-        new("zip-map-list", "[{K,V,Y} || K := V <- #{a=>1,b=>2} && Y <- [10,20]]", Ok(Term.List(Triple("a",1,10),Triple("b",2,20)))),
-        new("zip-map-map", "[V+W || K := V <- #{a=>1,b=>2} && K := W <- #{a=>3,b=>4}]", Ok(Numbers(4,6))),
-        new("zip-map-binary", "[V+X || _ := V <- #{a=>1,b=>2} && <<X>> <= <<10,20>>]", Ok(Numbers(11,22))),
+        new(
+            "zip-map-list",
+            "[{K,V,Y} || K := V <- maps:iterator(#{a=>1,b=>2},ordered) && Y <- [10,20]]",
+            Ok(Term.List(Triple("a",1,10),Triple("b",2,20)))
+        ),
+        new(
+            "zip-map-map",
+            "[V+W || K := V <- maps:iterator(#{a=>1,b=>2},ordered) && K := W <- maps:iterator(#{a=>3,b=>4},ordered)]",
+            Ok(Numbers(4,6))
+        ),
+        new("zip-map-binary", "[V+X || _ := V <- maps:iterator(#{a=>1,b=>2},ordered) && <<X>> <= <<10,20>>]", Ok(Numbers(11,22))),
+        new("zip-map-numeric-default", "[V+Y || _ := V <- #{1=>1,2=>2} && Y <- [10,20]]", Ok(Numbers(11,22))),
+        new(
+            "zip-map-numeric-default-tail",
+            "[V+Y || _ := V <- #{1=>1,2=>2} && Y <- [10]]",
+            Bad(new MapTerm([new(Term.I(2),Term.I(2))]),Nil.Value)
+        ),
         new("zip-map-iterator", "[V+Y || _ := V <- maps:iterator(#{a=>1,b=>2},reversed) && Y <- [10,20]]", Ok(Numbers(12,21))),
         new("zip-map-tuple-chain", "[V+Y || _ := V <- {a,1,{b,2,none}} && Y <- [10,20]]", Ok(Numbers(11,22))),
         new("zip-map-none", "[V || _ := V <- none && Y <- []]", Ok(Nil.Value)),
         new("zip-map-short", "[V+Y || _ := V <- #{a=>1} && Y <- [10,20]]", Bad(Map(),Numbers(20))),
-        new("zip-map-long", "[V+Y || _ := V <- #{a=>1,b=>2} && Y <- [10]]", Bad(Map(("b",2)),Nil.Value)),
-        new("zip-map-strict", "[V+Y || a := V <:- #{a=>1,b=>2} && Y <- [10,20]]", Bad(Map(("b",2)),Numbers(20))),
+        new("zip-map-long", "[V+Y || _ := V <- maps:iterator(#{a=>1,b=>2},ordered) && Y <- [10]]", Bad(Map(("b",2)),Nil.Value)),
+        new(
+            "zip-map-strict",
+            "[V+Y || a := V <:- maps:iterator(#{a=>1,b=>2},ordered) && Y <- [10,20]]",
+            Bad(Map(("b",2)),Numbers(20))
+        ),
         new(
             "zip-invalid-map-before-source-error",
             "[V || _ := V <- wrong && Y <- error(source_failed)]",
@@ -120,6 +138,7 @@ public static class ZipGeneratorCases
         "zip-zero-binary-finite-list" => Ok(Numbers(1, 2)),
         "zip-binary-shared-variable" => Ok(Numbers(1)),
         "zip-binary-incoming-size" or "zip-incoming-map-key" or "zip-shadow-map-key" => Ok(Numbers(1)),
+        "zip-map-numeric-default-tail" => Bad(Term.Tuple(Term.I(2), Term.I(2), Term.A("none")), Nil.Value),
         "zip-map-short" => Bad(Term.A("none"), Numbers(20)),
         "zip-map-long" => Bad(Term.Tuple(Term.A("b"), Term.I(2), Term.A("none")), Nil.Value),
         "zip-map-strict" => Bad(Term.Tuple(Term.A("b"), Term.I(2), Term.A("none")), Numbers(20)),

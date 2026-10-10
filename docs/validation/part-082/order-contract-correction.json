@@ -1,0 +1,18 @@
+{
+  "TestedHead": "abc146341c539b8ea4911bcaf088bf26a59ae005",
+  "InitialOracle": 1245,
+  "Planned": 1252,
+  "Failures": 7,
+  "FixtureBodiesCorrected": [
+    "zip-map-list",
+    "zip-map-map",
+    "zip-map-binary",
+    "zip-map-long",
+    "zip-map-strict"
+  ],
+  "Reason": "Default atom-key map order is undefined and internally depends on tagged atom IDs",
+  "DefaultClrOrder": "Sorted exact keys, documented limitation",
+  "ExpectedValuesChanged": false,
+  "NewCases": "Two default numeric-key map expression/module pairs",
+  "ExactSourceAudit": "order-source-audit.json"
+}
