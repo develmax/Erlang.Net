@@ -321,6 +321,14 @@
   },
   {
     "Module": "lists",
+    "Function": "append",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:append/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "lists",
     "Function": "member",
     "Arity": 2,
     "Status": "Partially compatible",

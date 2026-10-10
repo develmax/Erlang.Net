@@ -106,3 +106,7 @@ Iterate Cons cells rather than converting to CLR lists or narrowing counts. last
 ## Part 038 — Scope compatibility proof to checked contracts
 
 Preserve complete304/304 and same-head414-test CI with exact head/job/build/artifact SHA metadata. All249 prior expression sources and28 compiled sources/independent outcomes/generated hashes plus5 diagnostic reasons/code/messages remain checked. Added22 last/split reference boundaries agree. This establishes selected value/class/reason behavior, not full lists/resource/error annotation/stack equivalence. Compare readiness against immutable part037 tests; evidence-only delta0, cumulative58 MFAs/lists15/91. No executable or dependency/license changes.
+
+## Part 039 — Keep existing member semantics and preserve recursive error order iteratively
+
+member/2 was already registered and exact/lazy; retain it rather than claim another MFA. Extend permanent contracts including signed-zero distinction. append/1 first traverses the outer spine, then combines prefixes from right to left using existing append/2 behavior; the last element is returned untouched. This preserves outer function_clause precedence over malformed-prefix badarg and suffix identity without recursion. New MFA count is one,59 total/lists16/91. Full resource/reduction/stack equivalence remains unverified. Reuse existing terms/BCL helpers; no dependency or license change.

@@ -4,6 +4,29 @@ namespace Erlang;
 
 internal static class ListOperations
 {
+    public static Term Append(Term lists)
+    {
+        var prefixes = new List<Term>();
+        while (lists is Cons cell)
+        {
+            if (cell.Tail is Nil)
+            {
+                Term result = cell.Head;
+                for (int index = prefixes.Count - 1; index >= 0; index--)
+                    result = Cons.From(Cons.Items(prefixes[index]), result);
+
+                return result;
+            }
+
+            prefixes.Add(cell.Head);
+            lists = cell.Tail;
+        }
+        if (lists is not Nil)
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        return Nil.Value;
+    }
+
     public static Term Last(Term list)
     {
         if (list is not Cons first)

@@ -304,13 +304,19 @@ public static class CoreModules
         );
         Add(
             ListModuleNames.Module,
-            "append",
+            ListModuleNames.Append,
             2,
             (c, a) => Cons.From(Cons.Items(a[0]), a[1])
         );
         Add(
             ListModuleNames.Module,
-            "member",
+            ListModuleNames.Append,
+            1,
+            (c, a) => ListOperations.Append(a[0])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Member,
             2,
             (c, a) => Boolean(Cons.Items(a[1]).Any(x => x.Equals(a[0])))
         );

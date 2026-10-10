@@ -81,3 +81,7 @@ Publish the completed last/1 and split/2 increment, dispatch pinned OTP on the e
 ## Part 038 checkpoint
 
 Published last/split head f20113c now passes pinned304/304 (271 expressions,28 modules,5 diagnostics), same-head414-test CI/full integration and strict provenance checks. Registry58/lists15/91; evidence-only delta0 against immutable part037 tests. Next implement audited lists:member/2 exact equality and append/1 tail/error contracts, then missing grammar and Erlang OTP callback adapters/signals. Resource/reduction/stack contracts and full suites remain unfinished; approximately5% overall. Preserve historical reports; no whole-module promotion.
+
+## Part 039 checkpoint
+
+Local append/1 and existing member/2 boundary increment passes442 tests/full integration. Publish and dispatch exact pinned330-case oracle:297 expressions,28 modules,5 diagnostics; inspect same-head CI442 and preserve strict source/hash provenance. Registry59/lists16/91; member/2 already existed and is not a new MFA. Historical304/304 belongs to part038. Next audited lists:duplicate/2 and flatten/1 nested/improper/error/resource contracts, then grammar/Erlang callback adapters/signals. Approximately5% overall; no whole-module promotion.

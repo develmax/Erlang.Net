@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–038.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–039.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 58 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 59 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
 | Hybrid/build | Native receive/case/fun in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 58 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 59 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -146,3 +146,11 @@ Exact implementation head **f20113cbda21d1335ef00a71b1fdffa226679bb4** passes **
 Same-head Windows CI passes **414/414** and full build/generated/hybrid/incremental/disabled-preprocessing/clean/local packages/consumer/CLI/readiness. [Raw proof/provenance](validation/part-038/remote-checkpoint.json). Oracle run [38017470376](https://github.com/develmax/Erlang.Net/actions/runs/38017470376); CI run [38017461106](https://github.com/develmax/Erlang.Net/actions/runs/38017461106). Readiness uses immutable part037 local tests:58 MFAs/delta0 in this evidence part; implementation part037 added2, lists15/91 (16.5% declaration presence), erlang40/351, maps2/34, io1/53. No semantic percentage or whole-module promotion; approximately5% overall remains a coarse estimate.
 
 Current type inventory136, zero filename/multiple-type violations; no executable source changes from f20113c. Resource exhaustion, complete error annotations/stacks, full module contracts/reference suites and broader compiler/OTP services remain unfinished. Next audited member/2 exact equality and append/1 improper-tail/error contracts, then grammar and Erlang callback adapters/signals. Historical282/282 at f0ff362 and prior aborted268-case attempt retain their original scope.
+
+## Part 039 — append/1 and existing member/2 boundaries
+
+Implemented lists:append/1 with iterative outer-spine collection and right-to-left concatenation. Empty outer list returns []; singleton returns its arbitrary element unchanged; final elements may be improper lists or any term. Nonlist/improper outer spines raise function_clause before validating earlier prefixes; invalid/improper nonfinal prefixes raise badarg. Reused existing append/2 primitives and retained existing member/2 exact-equality/lazy early-match implementation, with stronger nested/map/bit/signed-zero/improper-tail regressions. Added list-domain names for both existing exports.
+
+Full local pipeline passes **442/442**, including59 direct MFA cases,26 new expression contracts and a100001-element outer traversal/suffix-identity test. Initial441/442 failure was an incorrect new test expectation for signed-zero exact membership, corrected to false using historical pinned proof; runtime code was already correct. [Tests](validation/part-039/tests.json), [integration](validation/part-039/integration-results.json), [initial failure](validation/part-039/initial-tests.json). Registry **59 (+1)**, lists **16/91 (17.6% declaration presence)**, erlang40/351/maps2/34/io1/53 unchanged. Readiness delta uses immutable part038 CI414/58. member/2 is not a newly added MFA; earlier next-step wording is corrected here.
+
+Differential plan **297 expressions +28 modules +5 diagnostics =330**, all271 prior expression sources/dynamic input and28 module sources/independent outcomes/generated hashes preserved. New-head reference/CI comparison awaits publication/dispatch; historical304/304 at f20113c remains scoped prior-head proof. Resource/reduction/stack/full module/reference suites remain incomplete; approximately5% overall is an engineering estimate, not semantic coverage.

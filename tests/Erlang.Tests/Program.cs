@@ -1373,6 +1373,7 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("lists", "reverse", 1) => ([Term.List(Term.I(1), Term.I(2))], Term.List(Term.I(2), Term.I(1))),
                 ("lists", "reverse", 2) => ([Term.List(Term.I(1), Term.I(2)), Term.A("tail")], new Cons(Term.I(2), new Cons(Term.I(1), Term.A("tail")))),
                 ("lists", "append", 2) => ([Term.List(Term.I(1)), Term.A("tail")], new Cons(Term.I(1), Term.A("tail"))),
+                ("lists", "append", 1) => ([Term.List(Term.List(Term.I(1)), Term.A("tail"))], new Cons(Term.I(1), Term.A("tail"))),
                 ("lists", "member", 2) => ([Term.I(1), Term.List(new FloatTerm(1))], Term.A("false")),
                 ("lists", "sum", 1) => ([Term.List(Term.I(1), new FloatTerm(2.5))], new FloatTerm(3.5)),
                 ("maps", "get", 2) => ([Term.A("k"), new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(42)),
@@ -2608,6 +2609,78 @@ Test(
     async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"), Term.I(42))
 );
 var results = new List<object>();
+foreach (var sample in new (string Name, string Source, Term Expected)[]
+{
+    ("append-empty", "lists:append([])", Nil.Value),
+    ("append-singleton-atom", "lists:append([tail])", Term.A("tail")),
+    ("append-singleton-number", "lists:append([42])", Term.I(42)),
+    ("append-singleton-improper", "lists:append([[a|tail]])", new Cons(Term.A("a"), Term.A("tail"))),
+    ("append-many", "lists:append([[a,b],[],[c,d]])", Term.List(
+        Term.A("a"),
+        Term.A("b"),
+        Term.A("c"),
+        Term.A("d")
+    )),
+    ("append-arbitrary-final-tail", "lists:append([[a],[b],tail])", new Cons(Term.A("a"), new Cons(Term.A("b"), Term.A("tail")))),
+    ("append-empty-prefix-arbitrary-tail", "lists:append([[],42])", Term.I(42)),
+    ("append-improper-final-list", "lists:append([[a],[b|tail]])", new Cons(Term.A("a"), new Cons(Term.A("b"), Term.A("tail")))),
+    ("member-empty", "lists:member(a,[])", Term.A("false")),
+    ("member-found-before-improper", "lists:member(a,[a|tail])", Term.A("true")),
+    ("member-found-later-before-improper", "lists:member(b,[a,b|tail])", Term.A("true")),
+    ("member-tuple-exact", "lists:member({1},[{1.0}])", Term.A("false")),
+    ("member-map-exact-keys", "lists:member(#{1=>a},[#{1.0=>a}])", Term.A("false")),
+    ("member-map-equal", "lists:member(#{a=>1,b=>2},[#{b=>2,a=>1}])", Term.A("true")),
+    ("member-bits-exact", "lists:member(<<1:1>>,[<<1:2>>])", Term.A("false")),
+    ("member-improper-value-equal", "lists:member([a|tail],[[a|tail]])", Term.A("true")),
+    ("member-signed-zero", "lists:member(0.0,[-0.0])", Term.A("false"))
+})
+    Test($"lists/{sample.Name}", async () => Equal(await Eval(sample.Source), sample.Expected));
+
+foreach (var sample in new (string Name, string Source, string Reason)[]
+{
+    ("append-nonlist", "lists:append(atom)", "function_clause"),
+    ("append-improper-outer", "lists:append([[a]|tail])", "function_clause"),
+    ("append-invalid-prefix", "lists:append([atom,[]])", "badarg"),
+    ("append-improper-prefix", "lists:append([[a|tail],[]])", "badarg"),
+    ("append-outer-error-before-prefix", "lists:append([atom|tail])", "function_clause"),
+    ("append-outer-error-after-prefix", "lists:append([atom,[a]|tail])", "function_clause"),
+    ("member-nonlist", "lists:member(a,atom)", "badarg"),
+    ("member-absent-improper", "lists:member(b,[a|tail])", "badarg"),
+    ("member-numeric-inexact-improper", "lists:member(1,[1.0|tail])", "badarg")
+})
+    Test($"lists/{sample.Name}", async () => Equal(await MapError(sample.Source), Term.A(sample.Reason)));
+
+Test(
+    "lists/append-long-outer-suffix-identity",
+    async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    Term suffix = new Cons(Term.A("marker"), Term.A("tail"));
+    Term lists = Term.List(suffix);
+    for (int i = 0; i < 100000; i++)
+        lists = new Cons(Nil.Value, lists);
+    var process = runtime.Spawn(async context =>
+    {
+        Term result = await runtime.Modules.Call(
+            context,
+            "lists",
+            "append",
+            [lists]
+        );
+        Check(ReferenceEquals(result, suffix));
+        var copied = (Cons)await runtime.Modules.Call(
+            context,
+            "lists",
+            "append",
+            [Term.List(Term.List(Term.I(1)), suffix)]
+        );
+        Check(ReferenceEquals(copied.Tail, suffix));
+
+        return Term.A("ok");
+    });
+    Equal(await process.Completion, Term.A("normal"));
+}
+);
 foreach (var sample in new (string Name, string Source, Term Expected)[]
 {
     ("last-singleton", "lists:last([a])", Term.A("a")),
