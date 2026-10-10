@@ -2,6 +2,7 @@ namespace Erlang.Differential;
 
 internal static class OracleDiagnostics
 {
+    public const string InvalidResultFrame = "Oracle output must contain exactly one complete ETF result frame";
     public const string PlatformAssembliesMissing = "Trusted platform assembly inventory is unavailable";
     public const string GeneratedDefinitionMissing = "Generated assembly does not expose its module definition";
 

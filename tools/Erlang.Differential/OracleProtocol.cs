@@ -14,6 +14,6 @@ public static class OracleProtocol
         return "{ok,OracleTokens,_}=erl_scan:string(unicode:characters_to_list(base64:decode(\"" + encoded +
             "\"))),{ok,OracleExpressions}=erl_parse:parse_exprs(OracleTokens)," +
             "{value,OracleResult,_}=erl_eval:exprs(OracleExpressions,erl_eval:new_bindings())," +
-            "io:format(\"~s\",[base64:encode(term_to_binary(OracleResult))]),halt().";
+            OracleResultProtocol.Command("OracleResult");
     }
 }

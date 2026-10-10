@@ -388,7 +388,7 @@ try
     {
         activeSource = source;
         string wrapped = "try (" + source + ") of OracleValue -> {ok,OracleValue} catch OracleClass:OracleReason -> {error,OracleClass,OracleReason} end";
-        Term expected = ExternalTermFormat.Decode(Convert.FromBase64String(await RunOracle(OracleProtocol.EvaluationCommand(wrapped))));
+        Term expected = OracleResultProtocol.Decode(await RunOracle(OracleProtocol.EvaluationCommand(wrapped)));
         await using var runtime = new ProcessRuntime();
         Term? actual = null;
         var expression = new Parser(source).ParseExpression();
@@ -424,7 +424,7 @@ try
     foreach (var fixture in CompiledModuleCases.All)
     {
         activeSource = fixture.Source;
-        Term expected = ExternalTermFormat.Decode(Convert.FromBase64String(await RunOracle(CompiledModuleProtocol.Command(fixture.Source))));
+        Term expected = OracleResultProtocol.Decode(await RunOracle(CompiledModuleProtocol.Command(fixture.Source)));
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
         Term actual = await CompiledModuleExecution.Run(generated);
         bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected);
@@ -450,7 +450,7 @@ try
     foreach (var fixture in CompiledDiagnosticCases.All)
     {
         activeSource = fixture.Source;
-        Term reference = ExternalTermFormat.Decode(Convert.FromBase64String(await RunOracle(CompiledModuleProtocol.DiagnosticCommand(fixture.Source))));
+        Term reference = OracleResultProtocol.Decode(await RunOracle(CompiledModuleProtocol.DiagnosticCommand(fixture.Source)));
         string? code = null;
         string? message = null;
         bool accepted = true;

@@ -3641,6 +3641,48 @@ Test(
     return Task.CompletedTask;
 }
 );
+Test(
+    "oracle/result-frame-noisy-output",
+    () =>
+{
+    Term expected = Term.Tuple(Term.A("ok"), Term.Tuple(Term.A("error"), Term.A("failed")));
+    string encoded = Convert.ToBase64String(ExternalTermFormat.Encode(expected));
+    string frame = Erlang.Differential.OracleResultProtocol.Begin + encoded + Erlang.Differential.OracleResultProtocol.End;
+    Equal(
+        Erlang.Differential.OracleResultProtocol.Decode("=CRASH REPORT=\nstartup error\n" + frame + "\n=WARNING REPORT=\nlate log"),
+        expected
+    );
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "oracle/result-frame-reject-ambiguous",
+    () =>
+{
+    string begin = Erlang.Differential.OracleResultProtocol.Begin, end = Erlang.Differential.OracleResultProtocol.End;
+    foreach (string output in new[] { "no frame", begin + "missing end", end + begin, begin + end + begin + end })
+    {
+        Throws<InvalidOperationException>(() => Erlang.Differential.OracleResultProtocol.Decode(output));
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "oracle/result-frame-reject-invalid-payload",
+    () =>
+{
+    try
+    {
+        Erlang.Differential.OracleResultProtocol.Decode(Erlang.Differential.OracleResultProtocol.Begin + "not base64!" + Erlang.Differential.OracleResultProtocol.End);
+        Check(false);
+    }
+    catch (FormatException) { }
+
+    return Task.CompletedTask;
+}
+);
 foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
 {
     Test(

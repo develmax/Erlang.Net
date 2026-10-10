@@ -316,3 +316,7 @@ Whole modules/full zlc_SUITE execution, alias canonicalization, typed binary str
 ## Part 084 checkpoint
 
 Erlang callback adapters/15 OTP exports pass1479/full local pipeline; plan1293=778/436/79, prior778/399/79 source/expected/generated hashes unchanged. Registry81; gen_server10/supervisor5 partial. Exact-source/CI checks pending, last complete proof1256 at116e0eb. Initial host-init/unsafe-variable/tool registry failures retained; expectations unchanged. Empty options/local names only; full sys/proc_lib/aliases/upgrade/hibernate/distribution/dynamic/significant/races/stacks incomplete. Approximately5% coarse; draft uncommitted, consolidated notices packaged without banners. Journal0013 active.
+
+## Part 085 checkpoint
+
+Original03d8a1f run38070440171 stopped1182/1182 executed (778 expressions/404 modules), zero mismatches, planned1293/Complete=false, Base64 infrastructure failure on bad-init fixture; same-head1479/full CI passed. Preserve initial evidence part085. Framed development oracle/noisy/strict negative probes pass1482/full local pipeline, unchanged778/436/79 sources/expected/generated hashes;217 types/no violations;81 MFAs/no delta. Publish/recheck new head before claiming original completeness. Last complete original1256 at116e0eb. Approximately5% coarse; remaining behaviour/upstream/performance scopes partial; draft uncommitted, consolidated notices packaged without banners. Journal0013 active.

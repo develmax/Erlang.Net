@@ -9,13 +9,13 @@ public static class CompiledModuleProtocol
         return Forms(source) + "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings])," +
             "{module,M}=code:load_binary(M,\"differential.erl\",Bin)," +
             "Result=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
-            "io:format(\"~s\",[base64:encode(term_to_binary(Result))]),halt().";
+            OracleResultProtocol.Command("Result");
     }
 
     public static string DiagnosticCommand(string source) => Forms(source) +
         "Result=case compile:forms(Forms,[binary,return_errors,return_warnings]) of " +
         "{ok,_,_,_}->{ok,[]}; {error,Errors,_}->{error,lists:usort([R || {_,Es}<-Errors,{_,_,R}<-Es])} end," +
-        "io:format(\"~s\",[base64:encode(term_to_binary(Result))]),halt().";
+        OracleResultProtocol.Command("Result");
 
     private static string Forms(string source)
     {
