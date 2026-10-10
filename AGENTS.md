@@ -29,3 +29,7 @@ Numeric constants: wire tags/versions, field widths/offsets, domain limits and b
 ## Part 037 checkpoint
 
 Local last/split implementation passes414 tests/full pipeline; registry58/lists15/91. Publish and dispatch pinned304-case oracle (271 expressions,28 modules,5 diagnostics) and inspect same-head CI414 before promoting new reference proof. Historical282/282 remains part036. Next audited member/2 exact equality and append/1 improper-tail boundaries, then grammar/OTP callback adapters/signals. Approximately5% overall, no whole-module promotion.
+
+## Part 038 checkpoint
+
+Published last/split head f20113c now passes pinned304/304 (271 expressions,28 modules,5 diagnostics), same-head414-test CI/full integration and strict provenance checks. Registry58/lists15/91; evidence-only delta0 against immutable part037 tests. Next implement audited lists:member/2 exact equality and append/1 tail/error contracts, then missing grammar and Erlang OTP callback adapters/signals. Resource/reduction/stack contracts and full suites remain unfinished; approximately5% overall. Preserve historical reports; no whole-module promotion.

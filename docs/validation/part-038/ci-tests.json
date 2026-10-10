@@ -1,0 +1,2076 @@
+{
+  "Passed": 414,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "oracle/unicode-source-ascii-transport",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "oracle/source-quoting-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "style/documentation-comment-boundary",
+      "Status": "Passed",
+      "Milliseconds": 755
+    },
+    {
+      "Name": "style/multiline-documentation-comment",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/common-atoms-reused",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/common-atoms-concurrent",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "terms/common-atoms-no-per-call-allocation",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/arbitrary-atoms-not-retained",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/atom-factory-null-contract",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/atom-reuse-parser-etf",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "terms/exact-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/large-integer-double-comparison",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/integer-double-nearest-even",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/integer-double-overflow",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/numeric-mixed-nearest-even",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/numeric-integer-division-rounding",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/numeric-conversion-overflow-badarith",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/numeric-conversion-guard-failure",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "terms/negative-fraction-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/type-order",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "terms/tuple-arity-first",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/improper-list",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/map-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "terms/map-integer-before-all-floats",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/signed-zero-otp29",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/atom-codepoint-order",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-unicode-valid-codepoint-order",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-unicode-illegal-character",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "terms/structural-hash",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "terms/unicode-list",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "terms/immutable-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/repeated-variable",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/already-bound",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/list-tail",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mailbox/later-match-preserves-order",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mailbox/zero-timeout-retains",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/timeout",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "mailbox/concurrent-arrival",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mailbox/cancel",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/sender-order-stress",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/process-self-and-dictionary",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/registration-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/monitor-down",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/monitor-noproc-and-flush",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/link-trap-exit",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/link-propagation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/normal-link-exit-ignored",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/kill-untrappable",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/1000-waiting-processes",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/arithmetic-precedence",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/exact-equality",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/case-pattern-guard",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/guard-error-rejects",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/guard-alternative",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/list-fun-map",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/receive-after-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/binding-and-repeat",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/single-assignment-mismatch",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/unbound-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/unsafe-variable-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/illegal-guard-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-keyword-atom",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/module-clauses-private-function",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/spawn-fun-child-self",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/selective-receive-clause-order",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "hybrid/csharp-strings-comments-raw-preserved",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "hybrid/source-map-and-lowering",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "hybrid/nested-case-and-fun",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "etf/reference-vectors",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "etf/roundtrip-all-supported-kinds",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "etf/malformed-input-limits",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "etf/random-integer-property",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "modules/lists-member-exact",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "modules/lists-and-maps",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/tail-recursion-50000",
+      "Status": "Passed",
+      "Milliseconds": 997
+    },
+    {
+      "Name": "hybrid/ordinary-fun-call",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/csharp-switch-and-erlang-case",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/unsafe-variable-rebinding-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/signed-zero-pattern",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "otp/gen-server-call-cast-info-stop",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "otp/gen-server-crash-monitor",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "otp/gen-server-timeout",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "otp/gen-server-init-error",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "otp/supervisor-OneForOne",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "otp/supervisor-OneForAll",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "otp/supervisor-RestForOne",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "otp/supervisor-transient-temporary-normal",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "otp/supervisor-restart-intensity",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "otp/supervisor-temporary-abnormal-no-restart",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/link-cascade-10000",
+      "Status": "Passed",
+      "Milliseconds": 247
+    },
+    {
+      "Name": "runtime/spawn-monitor-immediate-exit-atomic",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "terms/bitstring-format",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/large-literal-codegeneration",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "compiler/reserved-keywords-rejected",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/unsupported-escape-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/quoted-operator-atom",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/nullable-context",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:bit_size/1",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "mfa/erlang:byte_size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:demonitor/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:element/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:erase/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:error/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:exit/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:exit/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:get/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:hd/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_atom/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_binary/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_bitstring/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_float/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_integer/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_list/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_map/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_map_key/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_number/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_pid/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_tuple/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:length/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:link/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:make_ref/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:map_get/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:map_size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:monitor/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:process_flag/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:put/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:register/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:self/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn_link/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:spawn_monitor/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:throw/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:tl/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:tuple_size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:unlink/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:unregister/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:whereis/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/io:format/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/lists:append/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:keyfind/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/lists:keymember/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:keysearch/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:last/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:map/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:member/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:nth/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:nthtail/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:reverse/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:reverse/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:seq/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:seq/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:split/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/lists:sum/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:get/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-empty-and-nonmap-pattern",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/map-duplicate-last-wins",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-exact-numeric-keys",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/map-assoc-and-exact-update",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-mixed-duplicate-update",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-chained-update",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-badkey",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-exact-before-assoc-fails",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-badmap-empty-update",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-error-expression-before-badmap",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-error-expression-before-badkey",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-subset-nested-repeat",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-repeated-variable-reject",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-duplicate-pattern-keys",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-bound-key-and-guard-expression",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-structured-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-guard-key-error-rejects",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-construction-in-guard",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/map-update-guard-error-rejects",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-unbound-key-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-sibling-binding-key-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-assoc-pattern-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-exact-construction-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-illegal-key-call-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "patterns/map-rollback",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-receive-preserves-unmatched",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "hybrid/map-case-directive-trivia",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/map-closure-captured-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-closure-key-value-shadow",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-context-guard-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/map-inline-receive",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/map-case-remote-call",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-bifs-positive-negative-types",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-get-exact-key-badkey",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-get-badmap",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-size-badmap",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/is-map-key-badmap",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-key-signed-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-guard-bifs-qualified",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-guard-missing-key-alternative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-guard-nonmap-rejection",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-pattern-key-map-get",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/map-pattern-key-map-get-failure",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/maps-module-not-guard-legal",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-empty-default-bytes",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/bits-truncate-negative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-unaligned-concatenation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-big-little-native",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-little-partial-octet",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-explicit-unit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-literal",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-bound-expression-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-binary-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-bitstring-interpolation",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-binary-unit-one",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-zero-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-bad-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-negative-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-size-prefix-requires-parentheses",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-short-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-binary-unit-alignment",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-invalid-unit-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-size-unit-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float16-vector",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float32-vector",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float64-default",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-little-native",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-integer-coercion",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-unit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-bad-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-bad-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float16-round-once",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float16-subnormal-vectors",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-narrow-overflow",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern16-rounded",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/bits-float-integer-rounding",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-integer-max-boundary",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-pattern32",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern64-default",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern-unaligned",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern-nonfinite-reject",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-pattern-invalid-short",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern-numeric-literal",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-pattern-bound-integer",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-signed-zero",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-float-pattern-prior-width",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float-guard-and-map-key",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/bits-float-unit-without-size-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-float16-all-finite-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 343
+    },
+    {
+      "Name": "compiler/bits-duplicate-spec-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf8-boundary-vectors",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/bits-utf16-surrogate-vector",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf32-vector",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-endian-native",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf-invalid-values",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/bits-utf-undefined-size-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-noncharacters",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf8-prefix-rest",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf16-pattern-pair",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf32-pattern",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf8-invalid-sequences",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/bits-utf16-invalid-sequences",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf32-invalid-scalars",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf-unaligned",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/bits-utf-truncated-bit-tail",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-binding-rollback",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-size-binding",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-literal-and-bound",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-string-construction",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-utf-string-pattern",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-guard-map-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-utf-deterministic-roundtrips",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "compiler/bits-pattern-default",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-signed",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-unsigned",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-signed-little",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-little-partial",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-native",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-prior-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-bound-size-expression",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-shadow-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-shadow-repeat",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/fun-clause-local-shadow-capture",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/fun-guard-fallback-capture",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/fun-bit-clause-fallback-capture",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-repeat-mismatch",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-bound-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-short-extra-nonbits",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-zero-signed",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-binary-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-unaligned-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-unit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-rest-unit-mismatch",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-invalid-size-alternative",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-pattern-string-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-literal-no-truncation",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-signed-literal",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-empty",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-rollback",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-forward-size-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-nonlast-rest-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-size-call-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-nested-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-map-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-match-badmatch",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-pattern-receive-preserves-unmatched",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-guard-and-map-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-unit-without-size-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-little-per-codepoint",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-unit-per-codepoint",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-unaligned",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-unicode-integer-truncation",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-float-half",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-float-single-little",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-float-default",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-size-evaluated-once",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-size-binding",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-empty-string-valid-modifiers",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-empty-string-size-evaluation",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-zero-width",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-invalid-sizes",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/bits-string-modifier-pattern-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-string-guard-and-map-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-numeric-literal-all-diagnostic",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-identical-specifiers",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-alias-specifier-unit-conflict",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bits-explicit-all-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bit-size-byte-rounding",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bitstring-predicate-distinction",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bit-size-invalid-badarg",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/byte-size-invalid-badarg",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bit-bifs-qualified-guard",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bit-bif-guard-failure-alternative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/bit-bif-map-pattern-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-singleton",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-nested",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-empty",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-middle",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-exact",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-improper-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-improper-middle",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-improper-exact",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-integer-tail",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-empty",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-nonlist",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-improper",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-negative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-float-count",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-atom-count",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-nonlist-zero",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-empty-overrun",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-proper-overrun",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-improper-overrun",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-huge-proper",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/split-huge-improper",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/last-split-long-list-identity",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "lists/nth-improper-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/nth-invalid-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/nthtail-empty-and-improper",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/nthtail-invalid-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/seq-default-empty-and-negative",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/seq-two-arg-error-contract",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/seq-step-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/seq-zero-step",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/seq-three-arg-error-contract",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/seq-big-integer-values",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/seq-length-system-limit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/reverse-short-error-contract",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/reverse-long-improper-badarg",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/reverse-tail-and-empty",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keyfind-skip-and-first",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keyfind-improper-prefix",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keysearch-missing",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keysearch-invalid-position",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/keysearch-improper-missing",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "lists/keysearch-large-position",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keysearch-small-integer-rounded-float",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keysearch-float-key-exact-rational",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "lists/keysearch-nested-numeric-key",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module/private-clauses",
+      "Status": "Passed",
+      "Milliseconds": 1534
+    },
+    {
+      "Name": "oracle/compiled-module/guard-fallback",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "oracle/compiled-module/closure-shadow",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "oracle/compiled-module/tail-calls",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/map-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "oracle/compiled-module/bit-pattern",
+      "Status": "Passed",
+      "Milliseconds": 95
+    },
+    {
+      "Name": "oracle/compiled-module/utf-pattern",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "oracle/compiled-module/string-size-binding",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "oracle/compiled-module/unicode-atom",
+      "Status": "Passed",
+      "Milliseconds": 71
+    },
+    {
+      "Name": "oracle/compiled-module/key-find",
+      "Status": "Passed",
+      "Milliseconds": 103
+    },
+    {
+      "Name": "oracle/compiled-module/function-clause",
+      "Status": "Passed",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "oracle/compiled-module/badmatch",
+      "Status": "Passed",
+      "Milliseconds": 100
+    },
+    {
+      "Name": "oracle/compiled-module/throw",
+      "Status": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "oracle/compiled-module/exit",
+      "Status": "Passed",
+      "Milliseconds": 96
+    },
+    {
+      "Name": "oracle/compiled-module/bit-value-size-order",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/bit-value-before-size-exception",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/bit-size-before-next-value-exception",
+      "Status": "Passed",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "oracle/compiled-module/bit-invalid-value-later-exception",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "oracle/compiled-module/bit-invalid-size-later-exception",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/bit-size-binding-exported-after-binary",
+      "Status": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "oracle/compiled-module/closure-bit-captured-size",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/closure-bit-clause-binding-rollback",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/closure-guard-fallback-keeps-outer",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/closure-map-key-capture-value-shadow",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "oracle/compiled-module/closure-nested-body-local-capture",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/bit-invalid-utf-later-exception",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "oracle/compiled-module/bit-independent-binding-exports",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/bit-prebound-size-across-fields",
+      "Status": "Passed",
+      "Milliseconds": 95
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/bit-size-to-next-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/bit-value-to-own-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/bit-value-to-next-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/bit-size-to-next-value",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/bit-string-size-to-next-size",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic-ascii-protocol",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module-ascii-protocol",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module-repeat-context",
+      "Status": "Passed",
+      "Milliseconds": 183
+    },
+    {
+      "Name": "oracle/compiled-module-invalid-source",
+      "Status": "Passed",
+      "Milliseconds": 0
+    }
+  ]
+}

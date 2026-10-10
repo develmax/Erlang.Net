@@ -102,3 +102,7 @@ Preserve complete282/282 oracle and same-head 389-test CI with exact head/archiv
 ## Part 037 — Preserve improper-tail boundaries and arbitrary integer indices
 
 Iterate Cons cells rather than converting to CLR lists or narrowing counts. last rejects improper termination; split permits arbitrary tails once count reaches zero, distinguishes proper exhaustion badarg from unmatched improper tail function_clause and preserves original suffix identity. Reuse immutable terms and existing reverse; no new dependency/license choice. Permanent tests and 22 oracle inputs cover these distinct contracts. Compare readiness against immutable part036 CI389/56; local414/58 is new evidence, historical282 oracle is not a rerun.
+
+## Part 038 — Scope compatibility proof to checked contracts
+
+Preserve complete304/304 and same-head414-test CI with exact head/job/build/artifact SHA metadata. All249 prior expression sources and28 compiled sources/independent outcomes/generated hashes plus5 diagnostic reasons/code/messages remain checked. Added22 last/split reference boundaries agree. This establishes selected value/class/reason behavior, not full lists/resource/error annotation/stack equivalence. Compare readiness against immutable part037 tests; evidence-only delta0, cumulative58 MFAs/lists15/91. No executable or dependency/license changes.
