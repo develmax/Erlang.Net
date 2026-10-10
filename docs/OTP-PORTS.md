@@ -30,7 +30,7 @@ Destination: `src/Erlang.Compiler/ExpressionBindings.cs`, called by `Execution` 
 
 The async callback is a CLR adaptation, not concurrent execution. Children execute left to right. Process reductions, allocations, complete source stack frames and optimizer behavior are outside this port's equivalence claim.
 
-Provenance: [part-048 source audit](validation/part-048/reference-audit.json) records pinned blob IDs, actual line ranges and consulted routine bodies. Historical selected OTP evidence is 484/484 at `b7b8c72`; the enlarged corpus must be verified separately at the new implementation head.
+Provenance: [part-048 source audit](validation/part-048/reference-audit.json) records pinned blob IDs, actual line ranges and consulted routine bodies. Part051 verifies 522/522 selected comparisons and same-head652 CI at `2bf65a0`; part049 retains the complete517/518 predecessor failure. Historical484/484 at `b7b8c72` remains separately scoped.
 
 ## Part 050: distinct compiled expression binding policy
 
@@ -38,7 +38,7 @@ Part049's complete reference comparison passed 517/518 cases: all439 expressions
 
 `CompiledExpressionBindings.cs` is a source-directed CLR subset adapter, guided by `v3_core:safe_list`, `ulinearize_exprs`, known-variable groups and `uexprs` match lowering. It evaluates statically validated child bodies in source order, retains independent input/capture environments, and compares each child's returned bindings against prior bodies using the newly matched value in a conflict. Compiled cons heads/tail are checked in source order, rather than the interpreter's inner-to-outer cons merge. ModuleDefinition execution selects this adapter; standalone EvaluateAsync and current native hybrid expression lowering retain the interpreter path.
 
-This is not a port of the full Core Erlang IR, known-variable table, match lowering, optimizer or stack machinery. Internal child-body constraint timing still needs broader compiled cases and actual IR lowering; selected simple conflict/order/closure outcomes do not establish complete equivalence. Distinct independent scopes are essential: a function in a sibling body must not capture a newly bound sibling variable. A nonconstant conflict, cons side-effect order, static-call conflict and function-local variable regression are added alongside the corrected original compiled fixture. See part050 source/provenance evidence; the new522-case corpus requires new-head reference verification.
+This is not a port of the full Core Erlang IR, known-variable table, match lowering, optimizer or stack machinery. Internal child-body constraint timing still needs broader compiled cases and actual IR lowering; selected simple conflict/order/closure outcomes do not establish complete equivalence. Distinct independent scopes are essential: a function in a sibling body must not capture a newly bound sibling variable. A nonconstant conflict, cons side-effect order, static-call conflict and function-local variable regression are added alongside the corrected original compiled fixture. See part050 source/provenance evidence; part051 verifies the selected522-case corpus at the new executable head `2bf65a0`.
 
 The adapter preserves the notices of the used erl_eval helper (Ericsson AB1996–2026) and consulted v3_core adaptation (Ericsson AB1999–2026), with modification/subset labels. The unrelated original-code public license remains undecided.
 
