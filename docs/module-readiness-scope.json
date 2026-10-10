@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-056/tests.json",
+  "ComparisonTestReport": "validation/part-058/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -69,7 +69,7 @@
         "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported",
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
         "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
-        "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; fresh OTP proof pending"
+        "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; selected cases verified at 77c4bf7 against OTP-29.1.1"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -164,8 +164,8 @@
       ],
       "Implemented": [
         "Pinned source-built OTP-29.1.1 value/class/reason comparator",
-        "461 expressions,73 generated-assembly/compiled-reference modules and35 normalized compiler rejection comparisons verified at 2435ce9",
-        "Retained historical sources/generated hashes; four new binary fixture corrections traced to immutable failed part055 reference results"
+        "467 expressions,81 generated-assembly/compiled-reference modules and35 normalized rejection comparisons verified at77c4bf7",
+        "All previous461/73/35 contracts and compiled hashes retained; independent empty-string error/effect/elimination outcomes match"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
