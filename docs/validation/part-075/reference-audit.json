@@ -1,0 +1,514 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Files": [
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Following": [
+            "tuple",
+            "record_expr record_tuple record_field record_fields",
+            "map_expr map_tuple map_field map_field_assoc map_field_exact map_fields map_key",
+            "if_expr if_clause if_clauses case_expr cr_clause cr_clauses receive_expr",
+            "fun_expr fun_clause fun_clauses atom_or_var integer_or_var",
+            "try_expr try_catch try_clause try_clauses try_opt_stacktrace",
+            "function_call argument_list",
+            "exprs guard"
+          ],
+          "Text": "binary_comprehension",
+          "Line": 38
+        },
+        {
+          "Following": [
+            "\t{bc,?anno('$1'),'$2','$4'}.",
+            "",
+            "lc_exprs -> lc_expr : ['$1'].",
+            "lc_exprs -> lc_expr ',' lc_exprs : ['$1'|'$3'].",
+            "lc_exprs -> zc_exprs : [{zip, ?anno(hd('$1')), '$1'}].",
+            "lc_exprs -> zc_exprs ',' lc_exprs : [{zip, ?anno('$2'), '$1'}|'$3'].",
+            "",
+            "zc_exprs -> lc_expr '&&' lc_expr : ['$1','$3']."
+          ],
+          "Text": "binary_comprehension -> '<<' expr_max '||' lc_exprs '>>' :",
+          "Line": 404
+        },
+        {
+          "Following": [
+            "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            "map_expr -> expr_max '#' map_tuple :"
+          ],
+          "Text": "lc_expr -> binary '<=' expr : {b_generate,?anno('$2'),'$1','$3'}.",
+          "Line": 420
+        },
+        {
+          "Following": [
+            "",
+            "tuple -> '{' '}' : {tuple,?anno('$1'),[]}.",
+            "tuple -> '{' exprs '}' : {tuple,?anno('$1'),'$2'}.",
+            "",
+            "map_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            "map_expr -> expr_max '#' map_tuple :",
+            "\t{map, ?anno('$2'),'$1','$3'}."
+          ],
+          "Text": "lc_expr -> binary '<:=' expr : {b_generate_strict,?anno('$2'),'$1','$3'}.",
+          "Line": 421
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Following": [
+            "    ret_expr(eval_bc1(E, Qs, Bs, Lf, Ef, FUVs, <<>>), Bs, RBs).",
+            "",
+            "eval_bc1(E, [{zip, Anno, Gens}|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    {VarList, Bs1} = convert_gen_values(Gens, [], Bs0, Lf, Ef, FUVs),",
+            "    eval_zip(E, [{zip, Anno, VarList}|Qs], Bs1, Lf, Ef, FUVs, Acc0, fun eval_bc1/7);",
+            "eval_bc1(E, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    case is_generator(Q) of",
+            "        true ->"
+          ],
+          "Text": "eval_bc(E, Qs, Bs, Lf, Ef, RBs, FUVs) ->",
+          "Line": 1351
+        },
+        {
+          "Following": [
+            "    {VarList, Bs1} = convert_gen_values(Gens, [], Bs0, Lf, Ef, FUVs),",
+            "    eval_zip(E, [{zip, Anno, VarList}|Qs], Bs1, Lf, Ef, FUVs, Acc0, fun eval_bc1/7);",
+            "eval_bc1(E, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+            "    case is_generator(Q) of",
+            "        true ->",
+            "            CF = fun(Bs, Acc) -> eval_bc1(E, Qs, Bs, Lf, Ef, FUVs, Acc) end,",
+            "            eval_generator(Q, Bs0, Lf, Ef, FUVs, Acc0, CF);",
+            "        false ->"
+          ],
+          "Text": "eval_bc1(E, [{zip, Anno, Gens}|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+          "Line": 1354
+        },
+        {
+          "Following": [
+            "    case is_generator(Q) of",
+            "        true ->",
+            "            CF = fun(Bs, Acc) -> eval_bc1(E, Qs, Bs, Lf, Ef, FUVs, Acc) end,",
+            "            eval_generator(Q, Bs0, Lf, Ef, FUVs, Acc0, CF);",
+            "        false ->",
+            "            CF = fun(Bs) -> eval_bc1(E, Qs, Bs, Lf, Ef, FUVs, Acc0) end,",
+            "            eval_filter(Q, Bs0, Lf, Ef, CF, FUVs, Acc0)",
+            "    end;"
+          ],
+          "Text": "eval_bc1(E, [Q|Qs], Bs0, Lf, Ef, FUVs, Acc0) ->",
+          "Line": 1357
+        },
+        {
+          "Following": [
+            "    {value,V,_} = expr(E, Bs, Lf, Ef, none, FUVs),",
+            "    <<Acc/bitstring,V/bitstring>>.",
+            "",
+            "%% eval_mc(ExprOrExprs, [Qualifier], Bindings, LocalFunctionHandler,",
+            "%%         ExternalFuncHandler, RetBindings) ->",
+            "%%\t{value,Value,Bindings} | Value",
+            "",
+            "eval_mc(Es, Qs, Bs, Lf, Ef, RBs, FUVs) when is_list(Es) ->"
+          ],
+          "Text": "eval_bc1(E, [], Bs, Lf, Ef, FUVs, Acc) ->",
+          "Line": 1366
+        },
+        {
+          "Following": [
+            "    Mfun = match_fun(Bs0, Ef),",
+            "    Efun = fun(Exp, Bs) -> expr(Exp, Bs, Lf, Ef, none) end,",
+            "    ErrorFun = fun(A, R, S) -> apply_error(R, S, A, Bs0, Ef, none) end,",
+            "    case eval_bits:bin_gen(P, Bin, new_bindings(Bs0), Bs0, Mfun, Efun, ErrorFun) of",
+            "        {match, Rest, Bs1} ->",
+            "            Bs2 = add_bindings(Bs1, Bs0),",
+            "            NewAcc = CompFun(Bs2, Acc),",
+            "            eval_b_generate(Rest, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, NewAcc);"
+          ],
+          "Text": "eval_b_generate(<<_/bitstring>>=Bin, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc) ->",
+          "Line": 1474
+        },
+        {
+          "Following": [
+            "    apply_error({bad_generator,Term}, ?STACKTRACE, Anno, Bs0, Ef, none).",
+            "",
+            "eval_m_generate(Iter0, P, Anno, Bs0, Lf, Ef, CompFun, Relaxed, Acc0) ->",
+            "    case maps:next(Iter0) of",
+            "        {K,V,Iter} ->",
+            "            case match(P, {K,V}, Anno, new_bindings(Bs0), Bs0, Ef) of",
+            "                {match,Bsn} ->",
+            "                    Bs2 = add_bindings(Bsn, Bs0),"
+          ],
+          "Text": "eval_b_generate(Term, _P, Anno, Bs0, _Lf, Ef, _CompFun, _Relaxed, _Acc) ->",
+          "Line": 1492
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/eval_bits.erl",
+      "Blob": "c5fa76595d1f6d229d108d0824db185ad971515e",
+      "Matches": [
+        {
+          "Following": [
+            "    bin_gen(Fs, Bin, Bs0, BBs0, Mfun, Efun, fun default_error/3, true).",
+            "",
+            "bin_gen({bin,_,Fs}, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) ->",
+            "    bin_gen(Fs, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun, true).",
+            "",
+            "bin_gen([F|Fs], Bin, Bs0, BBs0, Mfun, Efun, ErrorFun, Flag)",
+            "  when is_function(Mfun, 2), is_function(Efun, 2) ->",
+            "    case bin_gen_field(F, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) of"
+          ],
+          "Text": "bin_gen({bin,_,Fs}, Bin, Bs0, BBs0, Mfun, Efun) ->",
+          "Line": 192
+        },
+        {
+          "Following": [
+            "    bin_gen(Fs, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun, true).",
+            "",
+            "bin_gen([F|Fs], Bin, Bs0, BBs0, Mfun, Efun, ErrorFun, Flag)",
+            "  when is_function(Mfun, 2), is_function(Efun, 2) ->",
+            "    case bin_gen_field(F, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) of",
+            "        {match,Bs,BBs,Rest} ->",
+            "            bin_gen(Fs, Rest, Bs, BBs, Mfun, Efun, ErrorFun, Flag);",
+            "        {nomatch,Rest} ->"
+          ],
+          "Text": "bin_gen({bin,_,Fs}, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) ->",
+          "Line": 195
+        },
+        {
+          "Following": [
+            "  when is_function(Mfun, 2), is_function(Efun, 2) ->",
+            "    case bin_gen_field(F, Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) of",
+            "        {match,Bs,BBs,Rest} ->",
+            "            bin_gen(Fs, Rest, Bs, BBs, Mfun, Efun, ErrorFun, Flag);",
+            "        {nomatch,Rest} ->",
+            "            bin_gen(Fs, Rest, Bs0, BBs0, Mfun, Efun, ErrorFun, false);",
+            "        done ->",
+            "            done"
+          ],
+          "Text": "bin_gen([F|Fs], Bin, Bs0, BBs0, Mfun, Efun, ErrorFun, Flag)",
+          "Line": 198
+        },
+        {
+          "Following": [
+            "    {match, Bin, Bs0};",
+            "bin_gen([], Bin, _Bs0, _BBs0, _Mfun, _Efun, _ErrorFun, false) ->",
+            "    {nomatch, Bin}.",
+            "  ",
+            "bin_gen_field({bin_element,_,{string,_,S},default,default},",
+            "              Bin, Bs, BBs, _Mfun, _Efun, _ErrorFun) ->",
+            "    Bits = try list_to_binary(S)",
+            "           catch _:_ -> <<>>"
+          ],
+          "Text": "bin_gen([], Bin, Bs0, _BBs0, _Mfun, _Efun, _ErrorFun, true) ->",
+          "Line": 208
+        },
+        {
+          "Following": [
+            "    {nomatch, Bin}.",
+            "  ",
+            "bin_gen_field({bin_element,_,{string,_,S},default,default},",
+            "              Bin, Bs, BBs, _Mfun, _Efun, _ErrorFun) ->",
+            "    Bits = try list_to_binary(S)",
+            "           catch _:_ -> <<>>",
+            "           end,",
+            "    Size = length(S),"
+          ],
+          "Text": "bin_gen([], Bin, _Bs0, _BBs0, _Mfun, _Efun, _ErrorFun, false) ->",
+          "Line": 210
+        },
+        {
+          "Following": [
+            "              Bin, Bs, BBs, _Mfun, _Efun, _ErrorFun) ->",
+            "    Bits = try list_to_binary(S)",
+            "           catch _:_ -> <<>>",
+            "           end,",
+            "    Size = length(S),",
+            "    case Bin of",
+            "        <<Bits:Size/binary,Rest/bitstring>> ->",
+            "            {match,Bs,BBs,Rest};"
+          ],
+          "Text": "bin_gen_field({bin_element,_,{string,_,S},default,default},",
+          "Line": 213
+        },
+        {
+          "Following": [
+            "              Bin0, Bs0, BBs0, Mfun, Efun, ErrorFun) ->",
+            "    {Size1, [Type,{unit,Unit},Sign,Endian]} =",
+            "        make_bit_type(Anno, Size0, Options0, ErrorFun),",
+            "    case catch Efun(Size1, BBs0) of",
+            "        {value, Size, _BBs} -> % ",
+            "            F = fun(C, Bin, Bs, BBs) ->",
+            "                        bin_gen_field1(Bin, Type, Size, Unit, Sign, Endian,",
+            "                                       {integer,SAnno,C}, Bs, BBs, Mfun)"
+          ],
+          "Text": "bin_gen_field({bin_element,Anno,{string,SAnno,S},Size0,Options0},",
+          "Line": 227
+        },
+        {
+          "Following": [
+            "              Bin, Bs0, BBs0, Mfun, Efun, ErrorFun) ->",
+            "    {Size1, [Type,{unit,Unit},Sign,Endian]} = ",
+            "        make_bit_type(Anno, Size0, Options0, ErrorFun),",
+            "    V = erl_eval:partial_eval(VE),",
+            "    NewV = coerce_to_float(V, Type),",
+            "    case catch Efun(Size1, BBs0) of",
+            "        {value, Size, _BBs} ->",
+            "            bin_gen_field1(Bin, Type, Size, Unit, Sign, Endian,"
+          ],
+          "Text": "bin_gen_field({bin_element,Anno,VE,Size0,Options0},",
+          "Line": 239
+        },
+        {
+          "Following": [
+            "    {match,Bs,BBs,Rest};",
+            "bin_gen_field_string([C|Cs], Bin0, Bs0, BBs0, Fun) ->",
+            "    case Fun(C, Bin0, Bs0, BBs0) of",
+            "        {match,Bs,BBs,Rest} ->",
+            "            bin_gen_field_string(Cs, Rest, Bs, BBs, Fun);",
+            "        {nomatch,Rest} ->",
+            "            {nomatch,Rest};",
+            "        done ->"
+          ],
+          "Text": "bin_gen_field_string([], Rest, Bs, BBs, _F) ->",
+          "Line": 253
+        },
+        {
+          "Following": [
+            "    case Fun(C, Bin0, Bs0, BBs0) of",
+            "        {match,Bs,BBs,Rest} ->",
+            "            bin_gen_field_string(Cs, Rest, Bs, BBs, Fun);",
+            "        {nomatch,Rest} ->",
+            "            {nomatch,Rest};",
+            "        done ->",
+            "            done",
+            "    end."
+          ],
+          "Text": "bin_gen_field_string([C|Cs], Bin0, Bs0, BBs0, Fun) ->",
+          "Line": 255
+        },
+        {
+          "Following": [
+            "    case catch get_value(Bin, float, Size, Unit, Sign, Endian) of",
+            "        {Val,<<_/bitstring>>=Rest} ->",
+            "            case catch Mfun(match, {NewV,Val,Bs0}) of",
+            "                {match,Bs} ->",
+            "                    BBs = add_bin_binding(Mfun, NewV, Bs, BBs0),",
+            "                    {match,Bs,BBs,Rest};",
+            "                _ ->",
+            "                    {nomatch,Rest}"
+          ],
+          "Text": "bin_gen_field1(Bin, float, Size, Unit, Sign, Endian, NewV, Bs0, BBs0, Mfun) ->",
+          "Line": 265
+        },
+        {
+          "Following": [
+            "    case catch get_value(Bin, Type, Size, Unit, Sign, Endian) of",
+            "        {Val,<<_/bitstring>>=Rest} ->",
+            "            case catch Mfun(match, {NewV,Val,Bs0}) of",
+            "                {match,Bs} ->",
+            "                    BBs = add_bin_binding(Mfun, NewV, Bs, BBs0),",
+            "                    {match,Bs,BBs,Rest};",
+            "                _ ->",
+            "                    {nomatch,Rest}"
+          ],
+          "Text": "bin_gen_field1(Bin, Type, Size, Unit, Sign, Endian, NewV, Bs0, BBs0, Mfun) ->",
+          "Line": 282
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Following": [
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{b_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->"
+          ],
+          "Text": "lc_quals([{b_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Line": 4745
+        },
+        {
+          "Following": [
+            "    St1 = handle_bitstring_gen_pat(P,St0),",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St1),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),",
+            "    lc_quals(Qs, Vt, Uvt, St);",
+            "lc_quals([{m_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+            "    {Vt,Uvt,St} = handle_generator(P,E,Vt0,Uvt0,St0),"
+          ],
+          "Text": "lc_quals([{b_generate_strict,_Anno,P,E} | Qs], Vt0, Uvt0, St0) ->",
+          "Line": 4749
+        },
+        {
+          "Following": [
+            "    case lists:last(Segments) of",
+            "        {bin_element,Anno,_,default,Flags} when is_list(Flags) ->",
+            "            case member(binary, Flags) orelse member(bytes, Flags)",
+            "              orelse member(bits, Flags) orelse member(bitstring, Flags) of",
+            "                true ->",
+            "                    add_error(Anno, unsized_binary_in_bin_gen_pattern, St);",
+            "                false ->",
+            "                    St"
+          ],
+          "Text": "handle_bitstring_gen_pat({bin,_,Segments=[_|_]},St) ->",
+          "Line": 4869
+        },
+        {
+          "Following": [
+            "    St.",
+            "",
+            "%% fun_clauses(Clauses, ImportVarTable, State) ->",
+            "%%      {UsedVars, State}.",
+            "%%  Fun's cannot export any variables.",
+            "",
+            "%% It is an error if variable is bound inside a record definition",
+            "%% unless it was introduced in a fun or an lc. Only if pat_var finds"
+          ],
+          "Text": "handle_bitstring_gen_pat(_,St) ->",
+          "Line": 4882
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/v3_core.erl",
+      "Blob": "a1ddbb977e013a860c9e0cca58c364a52e1c8a92",
+      "Matches": [
+        {
+          "Following": [
+            "    {BinVar,St1} = new_var(St0),",
+            "    {Qs1,St2} = preprocess_quals(Line, Qs0, St1),",
+            "    {PrePre,Qs} = case Qs1 of",
+            "                      [#igen{arg={IgenPre,Arg}}=Igen|Igens] ->",
+            "                          {IgenPre,[Igen#igen{arg={[],Arg}}|Igens]};",
+            "                      _ ->",
+            "                          {[],Qs1}",
+            "                  end,"
+          ],
+          "Text": "bc_tq(Line, Exp, Qs0, St0) ->",
+          "Line": 1934
+        },
+        {
+          "Following": [
+            "\t\t       acc_pat=AccPat,acc_guard=AccGuard,",
+            "                       nomatch_pat=NomatchPat,",
+            "                       nomatch_mode=NomatchMode,",
+            "                       tail=Tail,tail_pat=TailPat,",
+            "                       refill={RefillPat,RefillAction},",
+            "                       arg={Pre,Arg}}|Qs], Mc, St0) ->",
+            "    {Name,St1} = new_fun_name(\"lbc\", St0),",
+            "    LA = lineno_anno(Line, St1),"
+          ],
+          "Text": "bc_tq1(Line, E, [#igen{anno=#a{anno=GA}=GAnno,",
+          "Line": 1952
+        },
+        {
+          "Following": [
+            "    bzip_tq1(Line, E, Zip, Mc, St, Qs);",
+            "bc_tq1(Line, E, [#ifilter{}=Filter|Qs], Mc, St) ->",
+            "    TqFun = fun(L, {lc, Expr}, Qs1, Mc1, St1) ->",
+            "                    {Bc, Bps, St2} = bc_tq1(L, Expr, Qs1, Mc1, St1),",
+            "                    {Bc, Bps, none, St2}",
+            "            end,",
+            "    {Res, Pre, _OptInfo, St1} = filter_tq(Line, {lc, E}, Filter, Mc, St, Qs, TqFun),",
+            "    {Res, Pre, St1};"
+          ],
+          "Text": "bc_tq1(Line, E, [#izip{}=Zip|Qs], Mc, St) ->",
+          "Line": 2011
+        },
+        {
+          "Following": [
+            "    TqFun = fun(L, {lc, Expr}, Qs1, Mc1, St1) ->",
+            "                    {Bc, Bps, St2} = bc_tq1(L, Expr, Qs1, Mc1, St1),",
+            "                    {Bc, Bps, none, St2}",
+            "            end,",
+            "    {Res, Pre, _OptInfo, St1} = filter_tq(Line, {lc, E}, Filter, Mc, St, Qs, TqFun),",
+            "    {Res, Pre, St1};",
+            "bc_tq1(_, {bin,Bl,Elements}, [], AccVar, St0) ->",
+            "    bc_tq_build(Bl, [], AccVar, Elements, St0);"
+          ],
+          "Text": "bc_tq1(Line, E, [#ifilter{}=Filter|Qs], Mc, St) ->",
+          "Line": 2013
+        },
+        {
+          "Following": [
+            "    bc_tq_build(Bl, [], AccVar, Elements, St0);",
+            "bc_tq1(Line, E0, [], AccVar, St0) ->",
+            "    BsFlags = [binary,{unit,1}],",
+            "    BsSize = make_all_size(Line),",
+            "    {E1,Pre0,St1} = safe(E0, St0),",
+            "    case E1 of",
+            "\t#c_var{name=VarName} ->",
+            "\t    Var = {var,Line,VarName},"
+          ],
+          "Text": "bc_tq1(_, {bin,Bl,Elements}, [], AccVar, St0) ->",
+          "Line": 2020
+        },
+        {
+          "Following": [
+            "    BsFlags = [binary,{unit,1}],",
+            "    BsSize = make_all_size(Line),",
+            "    {E1,Pre0,St1} = safe(E0, St0),",
+            "    case E1 of",
+            "\t#c_var{name=VarName} ->",
+            "\t    Var = {var,Line,VarName},",
+            "\t    Els = [{bin_element,Line,Var,BsSize,BsFlags}],",
+            "\t    bc_tq_build(Line, Pre0, AccVar, Els, St1);"
+          ],
+          "Text": "bc_tq1(Line, E0, [], AccVar, St0) ->",
+          "Line": 2022
+        },
+        {
+          "Following": [
+            "    Elements = [{bin_element,Line,{var,Line,AccVar},make_all_size(Line),",
+            "\t\t [binary,{unit,1}]}|Elements0],",
+            "    {E,Pre,St} = expr({bin,Line,Elements}, St0),",
+            "    #a{anno=A} = Anno0 = get_anno(E),",
+            "    Anno = Anno0#a{anno=[compiler_generated,single_use|A]},",
+            "    {set_anno(E, Anno),Pre0++Pre,St}.",
+            "",
+            "bzip_tq1(Line, E, #izip{anno=#a{anno=_GA}=GAnno,"
+          ],
+          "Text": "bc_tq_build(Line, Pre0, #c_var{name=AccVar}, Elements0, St0) ->",
+          "Line": 2046
+        },
+        {
+          "Following": [
+            "  when Generate =:= b_generate;",
+            "       Generate =:= b_generate_strict ->",
+            "    LA = lineno_anno(Line, St0),",
+            "    GA = lineno_anno(Lg, St0),",
+            "    GAnno = #a{anno=GA},",
+            "    %% No-match patterns are very different between relaxed and strict",
+            "    %% generators. Consider a relaxed generator like",
+            "    %% <<0:1, X:15>> <= Expr. If the pattern doesn't match the beginning"
+          ],
+          "Text": "generator(Line, {Generate,Lg,P,E}, Gs, _StrictPats, St0)",
+          "Line": 2429
+        }
+      ]
+    }
+  ],
+  "Scope": "Binary result/relaxed and strict binary generator subset; complete Core lowering/typed lint/resources not ported",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Reuse": "Existing BitPattern/BitConstruction/private comprehension scopes; no new package"
+}
