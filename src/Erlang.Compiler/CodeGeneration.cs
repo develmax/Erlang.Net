@@ -47,6 +47,7 @@ public static class CodeGeneration
 
     private static string PatternCode(Pattern p) => p switch
     {
+        AliasPattern alias => "new global::Erlang.AliasPattern(" + PatternCode(alias.Left) + "," + PatternCode(alias.Right) + ")",
         Pattern.Any => "new " + P + "Any()",
         Pattern.Variable v => "new " + P + "Variable(" + Quote(v.Name) + ")",
         Pattern.Literal l => "new " + P + "Literal(" + TermCode(l.Value) + ")",

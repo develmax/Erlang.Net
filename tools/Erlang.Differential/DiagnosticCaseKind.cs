@@ -4,5 +4,6 @@ public enum DiagnosticCaseKind
 {
     VariableScope,
     StacktraceBound,
-    StacktraceGuard
+    StacktraceGuard,
+    InvalidPattern
 }

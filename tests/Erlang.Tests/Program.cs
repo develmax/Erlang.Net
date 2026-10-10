@@ -25,6 +25,33 @@ void Throws<T>(Action action) where T : Exception
     }
     throw new InvalidOperationException("Expected " + typeof(T).Name);
 }
+Test(
+    "patterns/alias-mismatch-transaction",
+    () =>
+{
+    var bindings = new Dictionary<string, Term> { ["incoming"] = Term.I(7) };
+    var pattern = new AliasPattern(new Pattern.Variable("fresh"), new Pattern.Literal(Term.I(2)));
+    Check(!pattern.Match(Term.I(1), bindings));
+    Check(bindings.Count == 1 && !bindings.ContainsKey("fresh"));
+    Equal(bindings["incoming"], Term.I(7));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "patterns/alias-same-term-and-bindings",
+    () =>
+{
+    var bindings = new Dictionary<string, Term>();
+    var pattern = new AliasPattern(new Pattern.Variable("whole"), new Pattern.Tuple([new Pattern.Variable("part")]));
+    var value = Term.Tuple(Term.I(42));
+    Check(pattern.Match(value, bindings));
+    Check(ReferenceEquals(bindings["whole"], value));
+    Equal(bindings["part"], Term.I(42));
+
+    return Task.CompletedTask;
+}
+);
 foreach (string source in new[] { "1 ?= 1", "maybe end", "maybe ok else end", "maybe ok ?= wrong ?= nope end", "maybe (ok ?= ok) end", "maybe ok ?= wrong else _ -> ok ?= wrong end" })
 {
     Test(
@@ -3106,7 +3133,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

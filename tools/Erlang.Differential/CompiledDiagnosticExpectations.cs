@@ -11,12 +11,16 @@ public static class CompiledDiagnosticExpectations
     public const string StacktraceGuardCode = "ERL007";
     public const string StacktraceBoundTag = "stacktrace_bound";
     public const string StacktraceGuardTag = "stacktrace_guard";
+    public const string InvalidPatternTag = "illegal_pattern";
+    public const string InvalidPatternCode = "ERL004";
+    public const string InvalidPatternMessage = "Invalid or unsupported pattern";
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
         DiagnosticCaseKind.VariableScope => VariableBindingCode,
         DiagnosticCaseKind.StacktraceBound => StacktraceFreshnessCode,
         DiagnosticCaseKind.StacktraceGuard => StacktraceGuardCode,
+        DiagnosticCaseKind.InvalidPattern => InvalidPatternCode,
         _ => throw new NotSupportedException()
     };
 
@@ -25,6 +29,7 @@ public static class CompiledDiagnosticExpectations
         DiagnosticCaseKind.VariableScope => Message(fixture.Variable),
         DiagnosticCaseKind.StacktraceBound => $"Stacktrace variable '{fixture.Variable}' must be fresh",
         DiagnosticCaseKind.StacktraceGuard => $"Stacktrace variable '{fixture.Variable}' is not legal in a guard",
+        DiagnosticCaseKind.InvalidPattern => InvalidPatternMessage,
         _ => throw new NotSupportedException()
     };
 
@@ -33,6 +38,7 @@ public static class CompiledDiagnosticExpectations
         DiagnosticCaseKind.VariableScope => ReferenceOutcome(fixture.Variable, fixture.UnsafeConstruct),
         DiagnosticCaseKind.StacktraceBound => StackOutcome(StacktraceBoundTag, fixture.Variable),
         DiagnosticCaseKind.StacktraceGuard => StackOutcome(StacktraceGuardTag, fixture.Variable),
+        DiagnosticCaseKind.InvalidPattern => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(InvalidPatternTag))),
         _ => throw new NotSupportedException()
     };
 

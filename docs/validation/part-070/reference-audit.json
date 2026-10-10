@@ -1,0 +1,1220 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Line": 32,
+          "Lines": [
+            "pat_expr pat_expr_max map_pat_expr record_pat_expr",
+            "pat_argument_list pat_exprs",
+            "list tail",
+            "list_comprehension lc_expr lc_exprs",
+            "zc_exprs",
+            "map_comprehension",
+            "binary_comprehension",
+            "tuple",
+            "record_expr record_tuple record_field record_fields",
+            "map_expr map_tuple map_field map_field_assoc map_field_exact map_fields map_key",
+            "if_expr if_clause if_clauses case_expr cr_clause cr_clauses receive_expr",
+            "fun_expr fun_clause fun_clauses atom_or_var integer_or_var",
+            "try_expr try_catch try_clause try_clauses try_opt_stacktrace"
+          ]
+        },
+        {
+          "Line": 33,
+          "Lines": [
+            "pat_argument_list pat_exprs",
+            "list tail",
+            "list_comprehension lc_expr lc_exprs",
+            "zc_exprs",
+            "map_comprehension",
+            "binary_comprehension",
+            "tuple",
+            "record_expr record_tuple record_field record_fields",
+            "map_expr map_tuple map_field map_field_assoc map_field_exact map_fields map_key",
+            "if_expr if_clause if_clauses case_expr cr_clause cr_clauses receive_expr",
+            "fun_expr fun_clause fun_clauses atom_or_var integer_or_var",
+            "try_expr try_catch try_clause try_clauses try_opt_stacktrace",
+            "function_call argument_list"
+          ]
+        },
+        {
+          "Line": 326,
+          "Lines": [
+            "pat_expr -> pat_expr '=' pat_expr : {match,first_anno('$1'),'$1','$3'}.",
+            "pat_expr -> pat_expr comp_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'."
+          ]
+        },
+        {
+          "Line": 327,
+          "Lines": [
+            "pat_expr -> pat_expr comp_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'."
+          ]
+        },
+        {
+          "Line": 328,
+          "Lines": [
+            "pat_expr -> pat_expr list_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'."
+          ]
+        },
+        {
+          "Line": 329,
+          "Lines": [
+            "pat_expr -> pat_expr add_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'."
+          ]
+        },
+        {
+          "Line": 330,
+          "Lines": [
+            "pat_expr -> pat_expr mult_op pat_expr : ?mkop2('$1', '$2', '$3').",
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'.",
+            "pat_expr_max -> '(' pat_expr ')' : '$2'."
+          ]
+        },
+        {
+          "Line": 331,
+          "Lines": [
+            "pat_expr -> prefix_op pat_expr : ?mkop1('$1', '$2').",
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'.",
+            "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+            ""
+          ]
+        },
+        {
+          "Line": 332,
+          "Lines": [
+            "pat_expr -> map_pat_expr : '$1'.",
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'.",
+            "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+            "",
+            "map_pat_expr -> '#' map_tuple :"
+          ]
+        },
+        {
+          "Line": 333,
+          "Lines": [
+            "pat_expr -> record_pat_expr : '$1'.",
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'.",
+            "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+            "",
+            "map_pat_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}."
+          ]
+        },
+        {
+          "Line": 334,
+          "Lines": [
+            "pat_expr -> pat_expr_max : '$1'.",
+            "",
+            "pat_expr_max -> var : '$1'.",
+            "pat_expr_max -> atomic : '$1'.",
+            "pat_expr_max -> list : '$1'.",
+            "pat_expr_max -> binary : '$1'.",
+            "pat_expr_max -> sigil : '$1'.",
+            "pat_expr_max -> tuple : '$1'.",
+            "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+            "",
+            "map_pat_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            ""
+          ]
+        },
+        {
+          "Line": 342,
+          "Lines": [
+            "pat_expr_max -> '(' pat_expr ')' : '$2'.",
+            "",
+            "map_pat_expr -> '#' map_tuple :",
+            "\t{map, ?anno('$1'),'$2'}.",
+            "",
+            "record_pat_expr -> '#' atom '.' atom :",
+            "                       {record_index,?anno('$1'),element(3, '$2'),'$4'}.",
+            "record_pat_expr -> '#' record_name record_tuple :",
+            "                       {record,?anno('$1'),element(3, '$2'),'$3'}.",
+            "record_pat_expr -> '#' atom ':' record_name record_tuple :",
+            "                       Id = {element(3, '$2'), element(3, '$4')},",
+            "                       {record,?anno('$1'),Id,'$5'}.",
+            "record_pat_expr -> '#_' record_tuple :"
+          ]
+        },
+        {
+          "Line": 515,
+          "Lines": [
+            "cr_clause -> expr clause_guard clause_body :",
+            "\t{clause,first_anno('$1'),['$1'],'$2','$3'}.",
+            "",
+            "receive_expr -> 'receive' cr_clauses 'end' :",
+            "\t{'receive',?anno('$1'),'$2'}.",
+            "receive_expr -> 'receive' 'after' expr clause_body 'end' :",
+            "\t{'receive',?anno('$1'),[],'$3','$4'}.",
+            "receive_expr -> 'receive' cr_clauses 'after' expr clause_body 'end' :",
+            "\t{'receive',?anno('$1'),'$2','$4','$5'}.",
+            "",
+            "",
+            "fun_expr -> 'fun' atom '/' integer :",
+            "\t{'fun',?anno('$1'),{function,element(3, '$2'),element(3, '$4')}}."
+          ]
+        },
+        {
+          "Line": 564,
+          "Lines": [
+            "try_clause -> pat_expr clause_guard clause_body :",
+            "\tA = first_anno('$1'),",
+            "        Az = last_anno('$1'), % Good enough...",
+            "\t{clause,A,[{tuple,A,[{atom,A,throw},'$1',{var,Az,'_'}]}],'$2','$3'}.",
+            "try_clause -> atom ':' pat_expr try_opt_stacktrace clause_guard clause_body :",
+            "\tA = ?anno('$1'),",
+            "\tT = case '$4' of '_' -> {var,last_anno('$3'),'_'}; V -> V end,",
+            "\t{clause,A,[{tuple,A,['$1','$3',T]}],'$5','$6'}.",
+            "try_clause -> var ':' pat_expr try_opt_stacktrace clause_guard clause_body :",
+            "\tA = ?anno('$1'),",
+            "\tT = case '$4' of '_' -> {var,last_anno('$3'),'_'}; V -> V end,",
+            "\t{clause,A,[{tuple,A,['$1','$3',T]}],'$5','$6'}.",
+            ""
+          ]
+        },
+        {
+          "Line": 568,
+          "Lines": [
+            "try_clause -> atom ':' pat_expr try_opt_stacktrace clause_guard clause_body :",
+            "\tA = ?anno('$1'),",
+            "\tT = case '$4' of '_' -> {var,last_anno('$3'),'_'}; V -> V end,",
+            "\t{clause,A,[{tuple,A,['$1','$3',T]}],'$5','$6'}.",
+            "try_clause -> var ':' pat_expr try_opt_stacktrace clause_guard clause_body :",
+            "\tA = ?anno('$1'),",
+            "\tT = case '$4' of '_' -> {var,last_anno('$3'),'_'}; V -> V end,",
+            "\t{clause,A,[{tuple,A,['$1','$3',T]}],'$5','$6'}.",
+            "",
+            "try_opt_stacktrace -> ':' var : '$2'.",
+            "try_opt_stacktrace -> '$empty' : '_'.",
+            "",
+            ""
+          ]
+        },
+        {
+          "Line": 572,
+          "Lines": [
+            "try_clause -> var ':' pat_expr try_opt_stacktrace clause_guard clause_body :",
+            "\tA = ?anno('$1'),",
+            "\tT = case '$4' of '_' -> {var,last_anno('$3'),'_'}; V -> V end,",
+            "\t{clause,A,[{tuple,A,['$1','$3',T]}],'$5','$6'}.",
+            "",
+            "try_opt_stacktrace -> ':' var : '$2'.",
+            "try_opt_stacktrace -> '$empty' : '_'.",
+            "",
+            "",
+            "maybe_expr -> 'maybe' maybe_match_exprs 'end' :",
+            "\t{'maybe',?anno('$1'),'$2'}.",
+            "maybe_expr -> 'maybe' maybe_match_exprs 'else' cr_clauses 'end' :",
+            "        %% `erl_lint` can produce a better warning when the position"
+          ]
+        },
+        {
+          "Line": 598,
+          "Lines": [
+            "pat_argument_list -> '(' ')' : {[],?anno('$1')}.",
+            "pat_argument_list -> '(' pat_exprs ')' : {'$2',?anno('$1')}.",
+            "",
+            "exprs -> expr : ['$1'].",
+            "exprs -> expr ',' exprs : ['$1' | '$3'].",
+            "",
+            "clause_body_exprs -> ssa_check_when_clauses exprs : '$1' ++ '$2'.",
+            "clause_body_exprs -> exprs : '$1'.",
+            "",
+            "pat_exprs -> pat_expr : ['$1'].",
+            "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+            "",
+            "guard -> exprs : ['$1']."
+          ]
+        },
+        {
+          "Line": 599,
+          "Lines": [
+            "pat_argument_list -> '(' pat_exprs ')' : {'$2',?anno('$1')}.",
+            "",
+            "exprs -> expr : ['$1'].",
+            "exprs -> expr ',' exprs : ['$1' | '$3'].",
+            "",
+            "clause_body_exprs -> ssa_check_when_clauses exprs : '$1' ++ '$2'.",
+            "clause_body_exprs -> exprs : '$1'.",
+            "",
+            "pat_exprs -> pat_expr : ['$1'].",
+            "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+            "",
+            "guard -> exprs : ['$1'].",
+            "guard -> exprs ';' guard : ['$1'|'$3']."
+          ]
+        },
+        {
+          "Line": 607,
+          "Lines": [
+            "pat_exprs -> pat_expr : ['$1'].",
+            "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+            "",
+            "guard -> exprs : ['$1'].",
+            "guard -> exprs ';' guard : ['$1'|'$3'].",
+            "",
+            "atomic -> char : '$1'.",
+            "atomic -> integer : '$1'.",
+            "atomic -> float : '$1'.",
+            "atomic -> atom : '$1'.",
+            "atomic -> strings : '$1'.",
+            "",
+            "strings -> string : '$1'."
+          ]
+        },
+        {
+          "Line": 608,
+          "Lines": [
+            "pat_exprs -> pat_expr ',' pat_exprs : ['$1' | '$3'].",
+            "",
+            "guard -> exprs : ['$1'].",
+            "guard -> exprs ';' guard : ['$1'|'$3'].",
+            "",
+            "atomic -> char : '$1'.",
+            "atomic -> integer : '$1'.",
+            "atomic -> float : '$1'.",
+            "atomic -> atom : '$1'.",
+            "atomic -> strings : '$1'.",
+            "",
+            "strings -> string : '$1'.",
+            "strings -> string strings :"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Line": 1914,
+          "Lines": [
+            "match1({match,_,Pat1,Pat2}, Term, Bs0, BBs, Ef) ->",
+            "    {match, Bs1} = match1(Pat1, Term, Bs0, BBs, Ef),",
+            "    match1(Pat2, Term, Bs1, BBs, Ef);",
+            "match1({string,_,S0}, S, Bs, _BBs, _Ef) ->",
+            "    case S of",
+            "\tS0 -> {match,Bs};",
+            "\t_ -> throw(nomatch)",
+            "    end;",
+            "match1({nil,_}, Nil, Bs, _BBs, _Ef) ->",
+            "    case Nil of",
+            "\t[] -> {match,Bs};",
+            "\t_ -> throw(nomatch)",
+            "    end;"
+          ]
+        },
+        {
+          "Line": 1962,
+          "Lines": [
+            "match1({op,_,'++',{nil,_},R}, Term, Bs, BBs, Ef) ->",
+            "    match1(R, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{cons,Ai,{integer,A2,I},T},R}, Term, Bs, BBs, Ef) ->",
+            "    match1({cons,Ai,{integer,A2,I},{op,Ai,'++',T,R}}, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{cons,Ai,{char,A2,C},T},R}, Term, Bs, BBs, Ef) ->",
+            "    match1({cons,Ai,{char,A2,C},{op,Ai,'++',T,R}}, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{string,Ai,L},R}, Term, Bs, BBs, Ef) ->",
+            "    match1(string_to_conses(L, Ai, R), Term, Bs, BBs, Ef);",
+            "match1({op,Anno,Op,A}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,A}) of",
+            "\t{op,Anno,Op,A} ->",
+            "\t    throw(invalid);",
+            "\tX ->"
+          ]
+        },
+        {
+          "Line": 1964,
+          "Lines": [
+            "match1({op,_,'++',{cons,Ai,{integer,A2,I},T},R}, Term, Bs, BBs, Ef) ->",
+            "    match1({cons,Ai,{integer,A2,I},{op,Ai,'++',T,R}}, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{cons,Ai,{char,A2,C},T},R}, Term, Bs, BBs, Ef) ->",
+            "    match1({cons,Ai,{char,A2,C},{op,Ai,'++',T,R}}, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{string,Ai,L},R}, Term, Bs, BBs, Ef) ->",
+            "    match1(string_to_conses(L, Ai, R), Term, Bs, BBs, Ef);",
+            "match1({op,Anno,Op,A}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,A}) of",
+            "\t{op,Anno,Op,A} ->",
+            "\t    throw(invalid);",
+            "\tX ->",
+            "\t    match1(X, Term, Bs, BBs, Ef)",
+            "    end;"
+          ]
+        },
+        {
+          "Line": 1966,
+          "Lines": [
+            "match1({op,_,'++',{cons,Ai,{char,A2,C},T},R}, Term, Bs, BBs, Ef) ->",
+            "    match1({cons,Ai,{char,A2,C},{op,Ai,'++',T,R}}, Term, Bs, BBs, Ef);",
+            "match1({op,_,'++',{string,Ai,L},R}, Term, Bs, BBs, Ef) ->",
+            "    match1(string_to_conses(L, Ai, R), Term, Bs, BBs, Ef);",
+            "match1({op,Anno,Op,A}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,A}) of",
+            "\t{op,Anno,Op,A} ->",
+            "\t    throw(invalid);",
+            "\tX ->",
+            "\t    match1(X, Term, Bs, BBs, Ef)",
+            "    end;",
+            "match1({op,Anno,Op,L,R}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,L,R}) of"
+          ]
+        },
+        {
+          "Line": 1968,
+          "Lines": [
+            "match1({op,_,'++',{string,Ai,L},R}, Term, Bs, BBs, Ef) ->",
+            "    match1(string_to_conses(L, Ai, R), Term, Bs, BBs, Ef);",
+            "match1({op,Anno,Op,A}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,A}) of",
+            "\t{op,Anno,Op,A} ->",
+            "\t    throw(invalid);",
+            "\tX ->",
+            "\t    match1(X, Term, Bs, BBs, Ef)",
+            "    end;",
+            "match1({op,Anno,Op,L,R}, Term, Bs, BBs, Ef) ->",
+            "    case partial_eval({op,Anno,Op,L,R}) of",
+            "\t{op,Anno,Op,L,R} ->",
+            "\t    throw(invalid);"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Line": 2411,
+          "Lines": [
+            "pattern({op,_Anno,'++',{nil,_},R}, Vt, Old, St) ->",
+            "    pattern(R, Vt, Old, St);",
+            "pattern({op,_Anno,'++',{cons,Ai,{char,_A2,_C},T},R}, Vt, Old, St) ->",
+            "    pattern({op,Ai,'++',T,R}, Vt, Old, St);    %Char unimportant here",
+            "pattern({op,_Anno,'++',{cons,Ai,{integer,_A2,_I},T},R}, Vt, Old, St) ->",
+            "    pattern({op,Ai,'++',T,R}, Vt, Old, St);    %Weird, but compatible!",
+            "pattern({op,_Anno,'++',{string,_Ai,_S},R}, Vt, Old, St) ->",
+            "    pattern(R, Vt, Old, St);                   %String unimportant here",
+            "pattern({match,Anno,Pat1,Pat2}, Vt0, Old, St0) ->",
+            "    {Lvt, Lnew, St1} = pattern(Pat1, Vt0, Old, St0),",
+            "    {Rvt, Rnew, St2} = pattern(Pat2, Vt0, Old, St1),",
+            "    {Vt1, St3} = vtmerge_pat(Lvt, Rvt, St2),",
+            "    {New, St4} = vtmerge_pat(Lnew, Rnew, St3),"
+          ]
+        },
+        {
+          "Line": 2413,
+          "Lines": [
+            "pattern({op,_Anno,'++',{cons,Ai,{char,_A2,_C},T},R}, Vt, Old, St) ->",
+            "    pattern({op,Ai,'++',T,R}, Vt, Old, St);    %Char unimportant here",
+            "pattern({op,_Anno,'++',{cons,Ai,{integer,_A2,_I},T},R}, Vt, Old, St) ->",
+            "    pattern({op,Ai,'++',T,R}, Vt, Old, St);    %Weird, but compatible!",
+            "pattern({op,_Anno,'++',{string,_Ai,_S},R}, Vt, Old, St) ->",
+            "    pattern(R, Vt, Old, St);                   %String unimportant here",
+            "pattern({match,Anno,Pat1,Pat2}, Vt0, Old, St0) ->",
+            "    {Lvt, Lnew, St1} = pattern(Pat1, Vt0, Old, St0),",
+            "    {Rvt, Rnew, St2} = pattern(Pat2, Vt0, Old, St1),",
+            "    {Vt1, St3} = vtmerge_pat(Lvt, Rvt, St2),",
+            "    {New, St4} = vtmerge_pat(Lnew, Rnew, St3),",
+            "    St5 = case only_vars(Pat1) orelse only_vars(Pat2) of",
+            "              true -> St4;"
+          ]
+        },
+        {
+          "Line": 2415,
+          "Lines": [
+            "pattern({op,_Anno,'++',{cons,Ai,{integer,_A2,_I},T},R}, Vt, Old, St) ->",
+            "    pattern({op,Ai,'++',T,R}, Vt, Old, St);    %Weird, but compatible!",
+            "pattern({op,_Anno,'++',{string,_Ai,_S},R}, Vt, Old, St) ->",
+            "    pattern(R, Vt, Old, St);                   %String unimportant here",
+            "pattern({match,Anno,Pat1,Pat2}, Vt0, Old, St0) ->",
+            "    {Lvt, Lnew, St1} = pattern(Pat1, Vt0, Old, St0),",
+            "    {Rvt, Rnew, St2} = pattern(Pat2, Vt0, Old, St1),",
+            "    {Vt1, St3} = vtmerge_pat(Lvt, Rvt, St2),",
+            "    {New, St4} = vtmerge_pat(Lnew, Rnew, St3),",
+            "    St5 = case only_vars(Pat1) orelse only_vars(Pat2) of",
+            "              true -> St4;",
+            "              false -> maybe_add_warning(Anno, match_alias_pats, St4)",
+            "          end,"
+          ]
+        },
+        {
+          "Line": 2417,
+          "Lines": [
+            "pattern({op,_Anno,'++',{string,_Ai,_S},R}, Vt, Old, St) ->",
+            "    pattern(R, Vt, Old, St);                   %String unimportant here",
+            "pattern({match,Anno,Pat1,Pat2}, Vt0, Old, St0) ->",
+            "    {Lvt, Lnew, St1} = pattern(Pat1, Vt0, Old, St0),",
+            "    {Rvt, Rnew, St2} = pattern(Pat2, Vt0, Old, St1),",
+            "    {Vt1, St3} = vtmerge_pat(Lvt, Rvt, St2),",
+            "    {New, St4} = vtmerge_pat(Lnew, Rnew, St3),",
+            "    St5 = case only_vars(Pat1) orelse only_vars(Pat2) of",
+            "              true -> St4;",
+            "              false -> maybe_add_warning(Anno, match_alias_pats, St4)",
+            "          end,",
+            "    {Vt1, New, St5};",
+            "%% Catch legal constant expressions, including unary +,-."
+          ]
+        },
+        {
+          "Line": 2419,
+          "Lines": [
+            "pattern({match,Anno,Pat1,Pat2}, Vt0, Old, St0) ->",
+            "    {Lvt, Lnew, St1} = pattern(Pat1, Vt0, Old, St0),",
+            "    {Rvt, Rnew, St2} = pattern(Pat2, Vt0, Old, St1),",
+            "    {Vt1, St3} = vtmerge_pat(Lvt, Rvt, St2),",
+            "    {New, St4} = vtmerge_pat(Lnew, Rnew, St3),",
+            "    St5 = case only_vars(Pat1) orelse only_vars(Pat2) of",
+            "              true -> St4;",
+            "              false -> maybe_add_warning(Anno, match_alias_pats, St4)",
+            "          end,",
+            "    {Vt1, New, St5};",
+            "%% Catch legal constant expressions, including unary +,-.",
+            "pattern(Pat, _Vt, _Old, St) ->",
+            "    case is_pattern_expr(Pat) of"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/v3_core.erl",
+      "Blob": "a1ddbb977e013a860c9e0cca58c364a52e1c8a92",
+      "Matches": [
+        {
+          "Line": 2851,
+          "Lines": [
+            "pattern({match,_,P1,P2}, St) ->",
+            "    %% Handle aliased patterns in a clause. Example:",
+            "    %%",
+            "    %%      f({a,b} = {A,B}) -> . . .",
+            "    %%",
+            "    %% The `=` operator does not have any defined order in which the",
+            "    %% two patterns are matched. Therefore, this example can safely be",
+            "    %% rewritten like so:",
+            "    %%",
+            "    %%      f({a=A,b=B}) -> . . .",
+            "    %%",
+            "    %% Aliased patterns that are illegal, such as:",
+            "    %%"
+          ]
+        },
+        {
+          "Line": 2872,
+          "Lines": [
+            "pattern({op,_,'++',{nil,_},R}, St) ->",
+            "    pattern(R, St);",
+            "pattern({op,_,'++',{cons,Li,H,T},R}, St) ->",
+            "    pattern({cons,Li,H,{op,Li,'++',T,R}}, St);",
+            "pattern({op,_,'++',{string,Li,L},R}, St) ->",
+            "    pattern(string_to_conses(Li, L, R), St);",
+            "pattern({op,_Line,_Op,_A}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St);",
+            "pattern({op,_Line,_Op,_L,_R}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St).",
+            "",
+            "%% pattern_map_pairs([MapFieldExact],State) -> [#c_map_pairs{}]",
+            "pattern_map_pairs(Ps, St0) ->"
+          ]
+        },
+        {
+          "Line": 2874,
+          "Lines": [
+            "pattern({op,_,'++',{cons,Li,H,T},R}, St) ->",
+            "    pattern({cons,Li,H,{op,Li,'++',T,R}}, St);",
+            "pattern({op,_,'++',{string,Li,L},R}, St) ->",
+            "    pattern(string_to_conses(Li, L, R), St);",
+            "pattern({op,_Line,_Op,_A}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St);",
+            "pattern({op,_Line,_Op,_L,_R}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St).",
+            "",
+            "%% pattern_map_pairs([MapFieldExact],State) -> [#c_map_pairs{}]",
+            "pattern_map_pairs(Ps, St0) ->",
+            "    {CMapPairs,St1} = mapfoldl(fun pattern_map_pair/2, St0, Ps),",
+            "    {pat_alias_map_pairs(CMapPairs),St1}."
+          ]
+        },
+        {
+          "Line": 2876,
+          "Lines": [
+            "pattern({op,_,'++',{string,Li,L},R}, St) ->",
+            "    pattern(string_to_conses(Li, L, R), St);",
+            "pattern({op,_Line,_Op,_A}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St);",
+            "pattern({op,_Line,_Op,_L,_R}=Op, St) ->",
+            "    pattern(erl_eval:partial_eval(Op), St).",
+            "",
+            "%% pattern_map_pairs([MapFieldExact],State) -> [#c_map_pairs{}]",
+            "pattern_map_pairs(Ps, St0) ->",
+            "    {CMapPairs,St1} = mapfoldl(fun pattern_map_pair/2, St0, Ps),",
+            "    {pat_alias_map_pairs(CMapPairs),St1}.",
+            "",
+            "pattern_map_pair({map_field_exact,L,K,V}, St0) ->"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/test/maybe_SUITE.erl",
+      "Blob": "46e3c68426d5a8af1ab23424d05570e0b5589156",
+      "Matches": [
+        {
+          "Line": 45,
+          "Lines": [
+            "basic(_Config) ->",
+            "    {ok,42,fish} = basic_1(0, #{0 => {ok,42}, 42 => {ok,fish}}),",
+            "    error = basic_1(0, #{0 => {ok,42}, 42 => {error,whatever}}),",
+            "    error = basic_1(0, #{0 => {ok,42}, 42 => error}),",
+            "    error = basic_1(0, #{0 => error}),",
+            "    error = basic_1(0, #{0 => {error,whatever}}),",
+            "    some_value = basic_1(0, #{0 => #value{v=some_value}}),",
+            "    ?assertError({else_clause,something_wrong}, basic_1(0, #{0 => something_wrong})),",
+            "",
+            "    {ok,life,\"universe\",everything} = basic_2(0, #{0 => {ok,life},",
+            "                                                   life => \"universe\",",
+            "                                                   \"universe\" => {ok,everything}}),",
+            "    error = basic_2(0, #{0 => {ok,life},"
+          ]
+        },
+        {
+          "Line": 80,
+          "Lines": [
+            "    {\"llo\", \"hello\", \"hello\"} = maybe Y1 = \"he\"++X3=Z1 ?= \"hello\", {X3,Y1,Z1} end,",
+            "    {\"llo\", \"hello\", \"llo\"} = maybe Y2 = \"he\"++(X4=Z2) ?= \"hello\", {X4,Y2,Z2} end,",
+            "",
+            "    whatever = maybe",
+            "                   AlwaysMatching ?= id(whatever),",
+            "                   AlwaysMatching",
+            "               else",
+            "                   E2 -> E2",
+            "               end,",
+            "",
+            "    <<0>> = basic_4(id({<<0>>})),",
+            "",
+            "    ok."
+          ]
+        },
+        {
+          "Line": 81,
+          "Lines": [
+            "    {\"llo\", \"hello\", \"llo\"} = maybe Y2 = \"he\"++(X4=Z2) ?= \"hello\", {X4,Y2,Z2} end,",
+            "",
+            "    whatever = maybe",
+            "                   AlwaysMatching ?= id(whatever),",
+            "                   AlwaysMatching",
+            "               else",
+            "                   E2 -> E2",
+            "               end,",
+            "",
+            "    <<0>> = basic_4(id({<<0>>})),",
+            "",
+            "    ok.",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_scan.erl",
+      "Blob": "edf246531e2b9871035a571e758b94514e8eea1b",
+      "Matches": [
+        {
+          "Line": 452,
+          "Lines": [
+            "         (C >= $\\000 andalso C =< $\\s orelse C >= $\\200 andalso C =< $\\240))).",
+            "-define(DIGIT(C), (is_integer(C) andalso $0 =< C andalso C =< $9)).",
+            "-define(NAMECHAR(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= $a andalso C =< $z orelse",
+            "          C >= $A andalso C =< $Z orelse",
+            "          C =:= $_ orelse",
+            "          C >= $0 andalso C =< $9 orelse",
+            "          C =:= $@ orelse",
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),"
+          ]
+        },
+        {
+          "Line": 453,
+          "Lines": [
+            "-define(DIGIT(C), (is_integer(C) andalso $0 =< C andalso C =< $9)).",
+            "-define(NAMECHAR(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= $a andalso C =< $z orelse",
+            "          C >= $A andalso C =< $Z orelse",
+            "          C =:= $_ orelse",
+            "          C >= $0 andalso C =< $9 orelse",
+            "          C =:= $@ orelse",
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso"
+          ]
+        },
+        {
+          "Line": 456,
+          "Lines": [
+            "         (C >= $a andalso C =< $z orelse",
+            "          C >= $A andalso C =< $Z orelse",
+            "          C =:= $_ orelse",
+            "          C >= $0 andalso C =< $9 orelse",
+            "          C =:= $@ orelse",
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF)))."
+          ]
+        },
+        {
+          "Line": 457,
+          "Lines": [
+            "          C >= $A andalso C =< $Z orelse",
+            "          C =:= $_ orelse",
+            "          C >= $0 andalso C =< $9 orelse",
+            "          C =:= $@ orelse",
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            ""
+          ]
+        },
+        {
+          "Line": 459,
+          "Lines": [
+            "          C >= $0 andalso C =< $9 orelse",
+            "          C =:= $@ orelse",
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            "",
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            ""
+          ]
+        },
+        {
+          "Line": 461,
+          "Lines": [
+            "          C >= $ß andalso C =< $ÿ andalso C =/= $÷ andalso",
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            "",
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            "",
+            "-define(NO_SIGIL, {}).",
+            ""
+          ]
+        },
+        {
+          "Line": 462,
+          "Lines": [
+            "          C >= $À andalso C =< $Þ andalso C =/= $×))).",
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            "",
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            "",
+            "-define(NO_SIGIL, {}).",
+            "",
+            "options(Opts0) when is_list(Opts0) ->"
+          ]
+        },
+        {
+          "Line": 463,
+          "Lines": [
+            "-define(CHAR(C), (is_integer(C) andalso 0 =< C andalso C < 16#110000)).",
+            "-define(UNICODE(C),",
+            "        (is_integer(C) andalso",
+            "         (C >= 0 andalso C < 16#D800 orelse",
+            "          C > 16#DFFF andalso C < 16#FFFE orelse",
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            "",
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            "",
+            "-define(NO_SIGIL, {}).",
+            "",
+            "options(Opts0) when is_list(Opts0) ->",
+            "    Opts = lists:foldr(fun expand_opt/2, [], Opts0),"
+          ]
+        },
+        {
+          "Line": 468,
+          "Lines": [
+            "          C > 16#FFFF andalso C =< 16#10FFFF))).",
+            "",
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            "",
+            "-define(NO_SIGIL, {}).",
+            "",
+            "options(Opts0) when is_list(Opts0) ->",
+            "    Opts = lists:foldr(fun expand_opt/2, [], Opts0),",
+            "    [RW_fun] =",
+            "        case opts(Opts, [reserved_word_fun], []) of",
+            "            badarg ->",
+            "                erlang:error(badarg, [Opts0]);",
+            "            R ->"
+          ]
+        },
+        {
+          "Line": 470,
+          "Lines": [
+            "-define(UNI255(C), (is_integer(C) andalso 0 =< C andalso C =< 16#ff)).",
+            "",
+            "-define(NO_SIGIL, {}).",
+            "",
+            "options(Opts0) when is_list(Opts0) ->",
+            "    Opts = lists:foldr(fun expand_opt/2, [], Opts0),",
+            "    [RW_fun] =",
+            "        case opts(Opts, [reserved_word_fun], []) of",
+            "            badarg ->",
+            "                erlang:error(badarg, [Opts0]);",
+            "            R ->",
+            "                R",
+            "        end,"
+          ]
+        },
+        {
+          "Line": 606,
+          "Lines": [
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $A, C =< $Z ->",
+            "    scan_variable(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $a, C =< $z ->",
+            "    scan_atom(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([C|Cs], St, Line, Col, Toks) when ?DIGIT(C) ->",
+            "    scan_number(Cs, St, Line, Col, Toks, [C], no_underscore);",
+            "scan1(\"...\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"...\", '...', 3);",
+            "scan1(\"..\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "scan1(\"..\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"..\", '..', 2);",
+            "scan1(\".\"=Cs, St, Line, Col, Toks) ->"
+          ]
+        },
+        {
+          "Line": 608,
+          "Lines": [
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $a, C =< $z ->",
+            "    scan_atom(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([C|Cs], St, Line, Col, Toks) when ?DIGIT(C) ->",
+            "    scan_number(Cs, St, Line, Col, Toks, [C], no_underscore);",
+            "scan1(\"...\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"...\", '...', 3);",
+            "scan1(\"..\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "scan1(\"..\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"..\", '..', 2);",
+            "scan1(\".\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "scan1(\"&&\"++Cs, St, Line, Col, Toks) ->"
+          ]
+        },
+        {
+          "Line": 638,
+          "Lines": [
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $ß, C =< $ÿ, C =/= $÷ ->",
+            "    scan_atom(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $À, C =< $Þ, C /= $× ->",
+            "    scan_variable(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([$\\t|Cs], St, Line, Col, Toks) when St#erl_scan.ws ->",
+            "    scan_tabs(Cs, St, Line, Col, Toks, 1);",
+            "scan1([$\\t|Cs], St, Line, Col, Toks) ->",
+            "    skip_white_space(Cs, St, Line, Col, Toks, 1);",
+            "scan1([C|Cs], St, Line, Col, Toks) when ?WHITE_SPACE(C) ->",
+            "    case St#erl_scan.ws of",
+            "        true ->",
+            "            scan_white_space(Cs, St, Line, Col, Toks, [C]);",
+            "        false ->"
+          ]
+        },
+        {
+          "Line": 640,
+          "Lines": [
+            "scan1([C|Cs], St, Line, Col, Toks) when C >= $À, C =< $Þ, C /= $× ->",
+            "    scan_variable(Cs, St, Line, Col, Toks, [C]);",
+            "scan1([$\\t|Cs], St, Line, Col, Toks) when St#erl_scan.ws ->",
+            "    scan_tabs(Cs, St, Line, Col, Toks, 1);",
+            "scan1([$\\t|Cs], St, Line, Col, Toks) ->",
+            "    skip_white_space(Cs, St, Line, Col, Toks, 1);",
+            "scan1([C|Cs], St, Line, Col, Toks) when ?WHITE_SPACE(C) ->",
+            "    case St#erl_scan.ws of",
+            "        true ->",
+            "            scan_white_space(Cs, St, Line, Col, Toks, [C]);",
+            "        false ->",
+            "            skip_white_space(Cs, St, Line, Col, Toks, 1)",
+            "    end;"
+          ]
+        },
+        {
+          "Line": 693,
+          "Lines": [
+            "%% =:= =/= =< == =>",
+            "scan1(\"=:=\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=:=\", '=:=', 3);",
+            "scan1(\"=:\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "scan1(\"=/=\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=/=\", '=/=', 3);",
+            "scan1(\"=/\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "scan1(\"=<\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=<\", '=<', 2);",
+            "scan1(\"=>\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=>\", '=>', 2);"
+          ]
+        },
+        {
+          "Line": 702,
+          "Lines": [
+            "scan1(\"=<\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=<\", '=<', 2);",
+            "scan1(\"=>\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=>\", '=>', 2);",
+            "scan1(\"==\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"==\", '==', 2);",
+            "scan1(\"=\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "%% /=",
+            "scan1(\"/=\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"/=\", '/=', 2);",
+            "scan1(\"/\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};"
+          ]
+        },
+        {
+          "Line": 703,
+          "Lines": [
+            "    tok2(Cs, St, Line, Col, Toks, \"=<\", '=<', 2);",
+            "scan1(\"=>\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"=>\", '=>', 2);",
+            "scan1(\"==\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"==\", '==', 2);",
+            "scan1(\"=\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "%% /=",
+            "scan1(\"/=\"++Cs, St, Line, Col, Toks) ->",
+            "    tok2(Cs, St, Line, Col, Toks, \"/=\", '/=', 2);",
+            "scan1(\"/\"=Cs, St, Line, Col, Toks) ->",
+            "    {more,{Cs,St,Col,Toks,Line,[],fun scan/6}};",
+            "%% ||"
+          ]
+        },
+        {
+          "Line": 826,
+          "Lines": [
+            "scan_name([C|Cs], Wcs) when C >= $a, C =< $z ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $A, C =< $Z ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([$_=C|Cs], Wcs) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when ?DIGIT(C) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([$@=C|Cs], Wcs) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $ß, C =< $ÿ, C =/= $÷ ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $À, C =< $Þ, C =/= $× ->"
+          ]
+        },
+        {
+          "Line": 828,
+          "Lines": [
+            "scan_name([C|Cs], Wcs) when C >= $A, C =< $Z ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([$_=C|Cs], Wcs) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when ?DIGIT(C) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([$@=C|Cs], Wcs) ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $ß, C =< $ÿ, C =/= $÷ ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $À, C =< $Þ, C =/= $× ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([], Wcs) ->"
+          ]
+        },
+        {
+          "Line": 836,
+          "Lines": [
+            "scan_name([C|Cs], Wcs) when C >= $ß, C =< $ÿ, C =/= $÷ ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([C|Cs], Wcs) when C >= $À, C =< $Þ, C =/= $× ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([], Wcs) ->",
+            "    {more,Wcs};",
+            "scan_name(Cs, Wcs) ->",
+            "    {Wcs,Cs}.",
+            "",
+            "",
+            "-define(STR(Cl, St, S),",
+            "        case ((St)#erl_scan.has_fun)",
+            "            andalso ((St)#erl_scan.text_fun)((Cl), begin S end) of"
+          ]
+        },
+        {
+          "Line": 838,
+          "Lines": [
+            "scan_name([C|Cs], Wcs) when C >= $À, C =< $Þ, C =/= $× ->",
+            "    scan_name(Cs, [C|Wcs]);",
+            "scan_name([], Wcs) ->",
+            "    {more,Wcs};",
+            "scan_name(Cs, Wcs) ->",
+            "    {Wcs,Cs}.",
+            "",
+            "",
+            "-define(STR(Cl, St, S),",
+            "        case ((St)#erl_scan.has_fun)",
+            "            andalso ((St)#erl_scan.text_fun)((Cl), begin S end) of",
+            "            true  -> begin S end;",
+            "            false -> []"
+          ]
+        },
+        {
+          "Line": 1714,
+          "Lines": [
+            "-define(OCT(C), (is_integer(C) andalso $0 =< C andalso C =< $7)).",
+            "-define(HEX(C), (is_integer(C) andalso",
+            "                 (C >= $0 andalso C =< $9 orelse",
+            "                  C >= $A andalso C =< $F orelse",
+            "                  C >= $a andalso C =< $f))).",
+            "",
+            "%% \\<1-3> octal digits",
+            "scan_escape([O1,O2,O3|Cs], Col) when ?OCT(O1), ?OCT(O2), ?OCT(O3) ->",
+            "    Val = (O1*8 + O2)*8 + O3 - 73*$0,",
+            "    {Val,[O1,O2,O3],Cs,incr_column(Col, 3)};",
+            "scan_escape([O1,O2], _Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    more;",
+            "scan_escape([O1,O2|Cs], Col) when ?OCT(O1), ?OCT(O2) ->"
+          ]
+        },
+        {
+          "Line": 1716,
+          "Lines": [
+            "                 (C >= $0 andalso C =< $9 orelse",
+            "                  C >= $A andalso C =< $F orelse",
+            "                  C >= $a andalso C =< $f))).",
+            "",
+            "%% \\<1-3> octal digits",
+            "scan_escape([O1,O2,O3|Cs], Col) when ?OCT(O1), ?OCT(O2), ?OCT(O3) ->",
+            "    Val = (O1*8 + O2)*8 + O3 - 73*$0,",
+            "    {Val,[O1,O2,O3],Cs,incr_column(Col, 3)};",
+            "scan_escape([O1,O2], _Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    more;",
+            "scan_escape([O1,O2|Cs], Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    Val = (O1*8 + O2) - 9*$0,",
+            "    {Val,[O1,O2],Cs,incr_column(Col, 2)};"
+          ]
+        },
+        {
+          "Line": 1717,
+          "Lines": [
+            "                  C >= $A andalso C =< $F orelse",
+            "                  C >= $a andalso C =< $f))).",
+            "",
+            "%% \\<1-3> octal digits",
+            "scan_escape([O1,O2,O3|Cs], Col) when ?OCT(O1), ?OCT(O2), ?OCT(O3) ->",
+            "    Val = (O1*8 + O2)*8 + O3 - 73*$0,",
+            "    {Val,[O1,O2,O3],Cs,incr_column(Col, 3)};",
+            "scan_escape([O1,O2], _Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    more;",
+            "scan_escape([O1,O2|Cs], Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    Val = (O1*8 + O2) - 9*$0,",
+            "    {Val,[O1,O2],Cs,incr_column(Col, 2)};",
+            "scan_escape([O1], _Col) when ?OCT(O1) ->"
+          ]
+        },
+        {
+          "Line": 1718,
+          "Lines": [
+            "                  C >= $a andalso C =< $f))).",
+            "",
+            "%% \\<1-3> octal digits",
+            "scan_escape([O1,O2,O3|Cs], Col) when ?OCT(O1), ?OCT(O2), ?OCT(O3) ->",
+            "    Val = (O1*8 + O2)*8 + O3 - 73*$0,",
+            "    {Val,[O1,O2,O3],Cs,incr_column(Col, 3)};",
+            "scan_escape([O1,O2], _Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    more;",
+            "scan_escape([O1,O2|Cs], Col) when ?OCT(O1), ?OCT(O2) ->",
+            "    Val = (O1*8 + O2) - 9*$0,",
+            "    {Val,[O1,O2],Cs,incr_column(Col, 2)};",
+            "scan_escape([O1], _Col) when ?OCT(O1) ->",
+            "    more;"
+          ]
+        },
+        {
+          "Line": 1811,
+          "Lines": [
+            "caret_char_code(C) when $@ =< C, C =< $_; $a =< C, C =< $z -> C band 16#1f;",
+            "caret_char_code(_) -> error.",
+            "",
+            "scan_number(Cs, #erl_scan{}=St, Line, Col, Toks, {Ncs, Us}) ->",
+            "    scan_number(Cs, St, Line, Col, Toks, Ncs, Us).",
+            "",
+            "scan_number([C|Cs], St, Line, Col, Toks, Ncs, Us) when ?DIGIT(C) ->",
+            "    scan_number(Cs, St, Line, Col, Toks, [C|Ncs], Us);",
+            "scan_number([$_,Next|Cs], St, Line, Col, Toks, [Prev|_]=Ncs, _Us) when",
+            "      ?DIGIT(Next) andalso ?DIGIT(Prev) ->",
+            "    scan_number(Cs, St, Line, Col, Toks, [Next,$_|Ncs], with_underscore);",
+            "scan_number([$_]=Cs, St, Line, Col, Toks, Ncs, Us) ->",
+            "    {more,{Cs,St,Col,Toks,Line,{Ncs,Us},fun scan_number/6}};"
+          ]
+        },
+        {
+          "Line": 1833,
+          "Lines": [
+            "        B when is_integer(B), 2 =< B, B =< 1+$Z-$A+10 ->",
+            "            Bcs = Ncs++[$#],",
+            "            scan_based_num(Cs, St, Line, Col, Toks, B, [], Bcs, no_underscore);",
+            "        B when is_integer(B) ->",
+            "            Len = length(Ncs),",
+            "            scan_error({base,B}, Line, Col, Line, incr_column(Col, Len), Cs0)",
+            "    catch",
+            "        error:system_limit ->",
+            "            %% Extremely unlikely to occur in practice.",
+            "            scan_error({illegal,base}, Line, Col, Line, Col, Cs0)",
+            "    end;",
+            "scan_number([C|_]=Cs0, _St, Line, Col, _Toks, Ncs, _Us) when ?NAMECHAR(C) ->",
+            "    scan_error({illegal,integer}, Line, Col, Line, incr_column(Col, length(Ncs)), Cs0);"
+          ]
+        },
+        {
+          "Line": 1873,
+          "Lines": [
+            "  when is_integer(B), 2 =< B, B =< 1+$Z-$A+10 ->",
+            "    scan_based_num(Cs, St, Line, Col, Toks, B, NCs, BCs, Us).",
+            "",
+            "scan_based_num([C|Cs], St, Line, Col, Toks, B, Ncs, Bcs, Us) when",
+            "      ?BASED_DIGIT(C, B) ->",
+            "    scan_based_num(Cs, St, Line, Col, Toks, B, [C|Ncs], Bcs, Us);",
+            "scan_based_num([$_,Next|Cs], St, Line, Col, Toks, B, [Prev|_]=Ncs, Bcs, _Us)",
+            "      when ?BASED_DIGIT(Next, B) andalso ?BASED_DIGIT(Prev, B) ->",
+            "    scan_based_num(Cs, St, Line, Col, Toks, B, [Next,$_|Ncs], Bcs,",
+            "                   with_underscore);",
+            "scan_based_num([$_]=Cs, St, Line, Col, Toks, B, NCs, BCs, Us) ->",
+            "    {more,{Cs,St,Col,Toks,Line,{B,NCs,BCs,Us},fun scan_based_num/6}};",
+            "scan_based_num([$.,C|Cs], St, Line, Col, Toks, B, Ncs, BCs, Us) when ?BASED_DIGIT(C, B) ->"
+          ]
+        }
+      ]
+    }
+  ],
+  "Contracts": [
+    "Alias sides match the same term with original key/size scope",
+    "Independent static alias pattern states; incoming variable constraints preserved",
+    "Only literal proper integer/character/string list prefixes; convert to cons/tail",
+    "Compiled alias consolidation inspected, full Core not imported"
+  ],
+  "Status": "Read-only source-guided implementation audit; fresh oracle pending",
+  "FullUpstreamSuitesRun": false
+}

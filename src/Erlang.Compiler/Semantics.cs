@@ -36,6 +36,7 @@ public static class Semantics
 
     internal static IEnumerable<string> Variables(Pattern p) => p switch
     {
+        AliasPattern alias => Variables(alias.Left).Concat(Variables(alias.Right)),
         BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)),
         MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)),
         Pattern.Variable v when v.Name != VariableScopeNames.Wildcard => [v.Name],
@@ -48,6 +49,10 @@ public static class Semantics
     {
         switch (pattern)
         {
+            case AliasPattern alias:
+                PatternKeys(alias.Left, bound);
+                PatternKeys(alias.Right, bound);
+                break;
             case BitPattern bits:
                 var sizes = new HashSet<string>(bound);
                 foreach (var segment in bits.Segments)

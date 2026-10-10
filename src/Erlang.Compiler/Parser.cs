@@ -141,7 +141,7 @@ public sealed class Parser
         {
             do
             {
-                args.Add(ToPattern(Expression(2)));
+                args.Add(ToPattern(Expression()));
             } while (Take(ErlangSyntaxTokens.Comma));
             Expect(ErlangSyntaxTokens.CloseParenthesis);
         }
@@ -189,7 +189,7 @@ public sealed class Parser
             return result;
         do
         {
-            result.Add(ParseClause([ToPattern(Expression(2))]));
+            result.Add(ParseClause([ToPattern(Expression())]));
         } while (Take(ErlangSyntaxTokens.Semicolon));
 
         return result;
@@ -269,7 +269,7 @@ public sealed class Parser
             {
                 do
                 {
-                    var first = ToPattern(Expression(2, true));
+                    var first = ToPattern(Expression(stopQualifier: true));
                     Pattern exceptionClass = new Pattern.Literal(Term.A(ErlangExceptionClasses.Throw));
                     Pattern reason = first;
                     Pattern stack = new Pattern.Variable(VariableScopeNames.Wildcard);
@@ -278,7 +278,7 @@ public sealed class Parser
                         if (first is not (Pattern.Variable or Pattern.Literal { Value: Atom }))
                             throw Error(ParserDiagnostics.InvalidExceptionClass);
                         exceptionClass = first;
-                        reason = ToPattern(Expression(2, true));
+                        reason = ToPattern(Expression(stopQualifier: true));
                         if (Take(ErlangSyntaxTokens.ModuleQualifier))
                         {
                             if (Current.Kind != LexerTokenKinds.Variable)
@@ -620,6 +620,8 @@ public sealed class Parser
 
     public static Pattern ToPattern(Expr e) => e switch
     {
+        Expr.Match match => new AliasPattern(match.Pattern, ToPattern(match.Value)),
+        Expr.Binary { Operator: ErlangOperators.Append } prefix => PrefixPattern(prefix.Left, prefix.Right),
         Expr.Bits bits => BitPattern.FromExpression(bits),
         Expr.Map { Base: null } m when m.Fields.All(f => f.Exact) => new MapPattern(m.Fields.Select(f => new MapPatternField(f.Key, ToPattern(f.Value))).ToArray()),
         Expr.Literal l => new Pattern.Literal(l.Value),
@@ -630,4 +632,39 @@ public sealed class Parser
         Expr.Unary { Operator: ErlangOperators.Minus, Operand: Expr.Literal { Value: FloatTerm f } } => new Pattern.Literal(new FloatTerm(-f.Value)),
         _ => throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, ParserDiagnostics.InvalidPattern, 0)
     };
+
+    private static Pattern PrefixPattern(Expr prefix, Expr tail)
+    {
+        var items = new List<Pattern>();
+        if (!PrefixItems(prefix, items))
+            throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, ParserDiagnostics.InvalidPattern, 0);
+        var suffix = ToPattern(tail);
+
+        return items.Count == 0 ? suffix : new Pattern.List(items, suffix);
+    }
+
+    private static bool PrefixItems(Expr expression, List<Pattern> items)
+    {
+        if (expression is Expr.Literal literal)
+        {
+            Term value = literal.Value;
+            while (value is Cons { Head: Integer } cell)
+            {
+                items.Add(new Pattern.Literal(cell.Head));
+                value = cell.Tail;
+            }
+
+            return value is Nil;
+        }
+        if (expression is not Expr.List list)
+            return false;
+        foreach (var item in list.Items)
+        {
+            if (item is not Expr.Literal { Value: Integer } integer)
+                return false;
+            items.Add(new Pattern.Literal(integer.Value));
+        }
+
+        return list.Tail is null || PrefixItems(list.Tail, items);
+    }
 }

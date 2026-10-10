@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-068/tests.json",
-  "LocalPassedTests": 892,
+  "LocalPassedTests": 949,
   "RegisteredMfas": 62,
   "PreviousRegisteredMfas": 62,
   "RegisteredMfaDelta": 0,
@@ -23,7 +23,7 @@
       "Remaining": [
         "full atom/resource limits and distributed identity"
       ],
-      "RelatedPassedTests": 29
+      "RelatedPassedTests": 31
     },
     {
       "Id": "Serialization",
@@ -71,13 +71,14 @@
         "try/of/catch/after grammar, protected-body-only catch, original handler/after scopes, unsafe exports and fresh stack restrictions; selected cases verified at f202bca against OTP-29.1.1",
         "Signed catch reason prefix operands retain :Stack boundary; three new expression/module regressions verified against OTP at5cbf0e8; same-head800 full CI/hybrid/package consumer passes",
         "Catch stack-variable taint restricted to temporary catch guard scope; handler nested guards/captured and shadowed fun variables valid; verified against OTP-29.1.1 at c2c516b; same-head815 full CI passes",
-        "maybe/?= source-directed sequence, mismatch/else, exception and no-export binding contracts across interpreted/generated/hybrid paths; 30 independent expression/module fixtures and eight normalized diagnostics verified against OTP-29.1.1 at 2b99ef0; same-head892 full CI passes"
+        "maybe/?= source-directed sequence, mismatch/else, exception and no-export binding contracts across interpreted/generated/hybrid paths; 30 independent expression/module fixtures and eight normalized diagnostics verified against OTP-29.1.1 at 2b99ef0; same-head892 full CI passes",
+        "Alias and literal string/integer-list prefix patterns across maybe/case/fun/function/catch; independent incoming key/size scopes and transactional matching; fresh797-case OTP proof pending"
       ],
       "Remaining": [
         "records/macros/comprehensions and full grammar; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings"
       ],
-      "RelatedPassedTests": 492
+      "RelatedPassedTests": 524
     },
     {
       "Id": "Core library modules",
@@ -162,7 +163,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 213
+      "RelatedPassedTests": 244
     },
     {
       "Id": "Style checks",
