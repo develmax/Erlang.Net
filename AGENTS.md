@@ -41,3 +41,7 @@ Local append/1 and existing member/2 boundary increment passes442 tests/full int
 ## Part 040 checkpoint
 
 Published append/member head 605ef3d passes pinned330/330 (297 expressions,28 modules,5 diagnostics), same-head442-test CI/full integration and strict provenance. Registry59/lists16/91; evidence-only delta0 against immutable part039 tests. member/2 already existed; append/1 is the sole new MFA. Next audited lists:duplicate/2 and flatten/1 nested/improper/error/resource contracts, then grammar/Erlang callback adapters/signals. Approximately5% overall; no whole-module promotion. Preserve initial part039 signed-zero test expectation failure and all historical evidence.
+
+## Part 041 checkpoint
+
+Local duplicate/2 and flatten/1,2 pass472 tests/full integration; registry62/lists19/91. Publish and dispatch pinned355-case comparison:322 expressions,28 modules,5 diagnostics, same-head CI472 and strict source/hash provenance. Preserve297 old expressions and28 compiled cases. Huge positive duplicate limits are local-only resource policy, not live allocation oracle cases. Next substantive compiler feature: audited if expression guards/alternatives, no-match if_clause and branch binding/export rules through interpreted, compiled and hybrid paths; then Erlang OTP callback adapters/signals. Approximately5% overall; no whole-module promotion.

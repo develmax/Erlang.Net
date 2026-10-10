@@ -5,6 +5,8 @@ internal static class ListModuleNames
     public const string Module = "lists";
     public const string Append = "append";
     public const string Member = "member";
+    public const string Duplicate = "duplicate";
+    public const string Flatten = "flatten";
     public const string Nth = "nth";
     public const string Last = "last";
     public const string Split = "split";

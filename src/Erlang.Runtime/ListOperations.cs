@@ -4,6 +4,50 @@ namespace Erlang;
 
 internal static class ListOperations
 {
+    public static Term Duplicate(Term count, Term value)
+    {
+        if (count is not Integer number || number.Value < 0)
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+        if (number.Value > ListDuplicateLimits.MaximumLength)
+            throw new ErlangException(ErlangErrorReasons.SystemLimit);
+
+        Term result = Nil.Value;
+        for (int remaining = (int)number.Value; remaining > 0; remaining--)
+            result = new Cons(value, result);
+
+        return result;
+    }
+
+    public static Term Flatten(Term list) => Flatten(list, Nil.Value);
+
+    public static Term Flatten(Term list, Term tail)
+    {
+        if (list is not (Cons or Nil) || tail is not (Cons or Nil))
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        var pending = new Stack<(Term Value, bool IsListSpine)>();
+        pending.Push((list, true));
+        Term result = tail;
+        while (pending.TryPop(out var frame))
+        {
+            if (frame.Value is Nil)
+                continue;
+            if (frame.Value is Cons cell)
+            {
+                pending.Push((cell.Head, false));
+                pending.Push((cell.Tail, true));
+
+                continue;
+            }
+            if (frame.IsListSpine)
+                throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+            result = new Cons(frame.Value, result);
+        }
+
+        return result;
+    }
+
     public static Term Append(Term lists)
     {
         var prefixes = new List<Term>();

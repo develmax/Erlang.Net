@@ -316,6 +316,24 @@ public static class CoreModules
         );
         Add(
             ListModuleNames.Module,
+            ListModuleNames.Duplicate,
+            2,
+            (c, a) => ListOperations.Duplicate(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Flatten,
+            1,
+            (c, a) => ListOperations.Flatten(a[0])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Flatten,
+            2,
+            (c, a) => ListOperations.Flatten(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
             ListModuleNames.Member,
             2,
             (c, a) => Boolean(Cons.Items(a[1]).Any(x => x.Equals(a[0])))

@@ -1374,6 +1374,9 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("lists", "reverse", 2) => ([Term.List(Term.I(1), Term.I(2)), Term.A("tail")], new Cons(Term.I(2), new Cons(Term.I(1), Term.A("tail")))),
                 ("lists", "append", 2) => ([Term.List(Term.I(1)), Term.A("tail")], new Cons(Term.I(1), Term.A("tail"))),
                 ("lists", "append", 1) => ([Term.List(Term.List(Term.I(1)), Term.A("tail"))], new Cons(Term.I(1), Term.A("tail"))),
+                ("lists", "duplicate", 2) => ([Term.I(2), Term.A("a")], Term.List(Term.A("a"), Term.A("a"))),
+                ("lists", "flatten", 1) => ([Term.List(Term.List(Term.A("a")), Term.A("b"))], Term.List(Term.A("a"), Term.A("b"))),
+                ("lists", "flatten", 2) => ([Term.List(Term.List(Term.A("a"))), new Cons(Term.A("b"), Term.A("tail"))], new Cons(Term.A("a"), new Cons(Term.A("b"), Term.A("tail")))),
                 ("lists", "member", 2) => ([Term.I(1), Term.List(new FloatTerm(1))], Term.A("false")),
                 ("lists", "sum", 1) => ([Term.List(Term.I(1), new FloatTerm(2.5))], new FloatTerm(3.5)),
                 ("maps", "get", 2) => ([Term.A("k"), new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(42)),
@@ -2609,6 +2612,100 @@ Test(
     async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"), Term.I(42))
 );
 var results = new List<object>();
+foreach (var sample in new (string Name, string Source, Term Expected)[]
+{
+    ("duplicate-zero", "lists:duplicate(0,anything)", Nil.Value),
+    ("duplicate-one", "lists:duplicate(1,a)", Term.List(Term.A("a"))),
+    ("duplicate-value", "lists:duplicate(3,{a,1})", Term.List(Term.Tuple(Term.A("a"), Term.I(1)), Term.Tuple(Term.A("a"), Term.I(1)), Term.Tuple(Term.A("a"), Term.I(1)))),
+    ("duplicate-improper-element", "lists:duplicate(2,[a|tail])", Term.List(new Cons(Term.A("a"), Term.A("tail")), new Cons(Term.A("a"), Term.A("tail")))),
+    ("flatten-empty", "lists:flatten([])", Nil.Value),
+    ("flatten-flat", "lists:flatten([a,b,c])", Term.List(Term.A("a"), Term.A("b"), Term.A("c"))),
+    ("flatten-nested-empty", "lists:flatten([[],[[],[]],[]])", Nil.Value),
+    ("flatten-mixed-opaque-leaves", "lists:flatten([a,[[b],[]],{[c]},<<1>>])", Term.List(
+        Term.A("a"),
+        Term.A("b"),
+        Term.Tuple(Term.List(Term.A("c"))),
+        new BitString([1])
+    )),
+    ("flatten-unicode-list", "lists:flatten([\"A😀\",[66]])", Term.List(Term.I(65), Term.I(128512), Term.I(66))),
+    ("flatten-two-empty-keeps-tail", "lists:flatten([],[[]])", Term.List(Nil.Value)),
+    ("flatten-two-preserves-nested-tail", "lists:flatten([[a],b],[[c]])", Term.List(Term.A("a"), Term.A("b"), Term.List(Term.A("c")))),
+    ("flatten-two-improper-tail", "lists:flatten([[a],b],[c|tail])", new Cons(Term.A("a"), new Cons(Term.A("b"), new Cons(Term.A("c"), Term.A("tail")))))
+})
+    Test($"lists/{sample.Name}", async () => Equal(await Eval(sample.Source), sample.Expected));
+
+foreach (var sample in new (string Name, string Source)[]
+{
+    ("duplicate-negative", "lists:duplicate(-1,a)"),
+    ("duplicate-big-negative", "lists:duplicate(-999999999999999999999999,a)"),
+    ("duplicate-float-count", "lists:duplicate(0.0,a)"),
+    ("duplicate-atom-count", "lists:duplicate(atom,a)"),
+    ("duplicate-list-count", "lists:duplicate([],a)"),
+    ("flatten-nonlist", "lists:flatten(atom)"),
+    ("flatten-tuple-input", "lists:flatten({a})"),
+    ("flatten-improper-outer", "lists:flatten([a|tail])"),
+    ("flatten-improper-nested", "lists:flatten([[a|tail]])"),
+    ("flatten-two-invalid-tail", "lists:flatten([],atom)"),
+    ("flatten-two-invalid-input", "lists:flatten(atom,[])"),
+    ("flatten-two-improper-input", "lists:flatten([a|tail],[])"),
+    ("flatten-two-improper-nested", "lists:flatten([[a|tail]],[b|tail])")
+})
+    Test($"lists/{sample.Name}", async () => Equal(await MapError(sample.Source), Term.A("function_clause")));
+
+Test(
+    "lists/duplicate-local-length-limit",
+    async () =>
+{
+    Equal(await MapError("lists:duplicate(2147483648,a)"), Term.A("system_limit"));
+    Equal(await MapError("lists:duplicate(999999999999999999999999,a)"), Term.A("system_limit"));
+}
+);
+Test(
+    "lists/duplicate-flatten-deep-wide-identity",
+    async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    Term marker = Term.Tuple(Term.List(Term.A("marker")));
+    Term deep = marker;
+    Term wide = Nil.Value;
+    for (int i = 0; i < 100000; i++)
+    {
+        deep = Term.List(deep);
+        wide = new Cons(marker, wide);
+    }
+    Term suffix = new Cons(Term.List(Term.A("tail-value")), Term.A("tail"));
+    var process = runtime.Spawn(async context =>
+    {
+        Term copies = await runtime.Modules.Call(
+            context,
+            "lists",
+            "duplicate",
+            [Term.I(100000), marker]
+        );
+        Check(Cons.Items(copies).Count() == 100000);
+        Check(Cons.Items(copies).All(value => ReferenceEquals(value, marker)));
+        var flattened = (Cons)await runtime.Modules.Call(
+            context,
+            "lists",
+            "flatten",
+            [deep, suffix]
+        );
+        Check(ReferenceEquals(flattened.Head, marker));
+        Check(ReferenceEquals(flattened.Tail, suffix));
+        Term flatWide = await runtime.Modules.Call(
+            context,
+            "lists",
+            "flatten",
+            [wide]
+        );
+        Check(Cons.Items(flatWide).Count() == 100000);
+        Check(Cons.Items(flatWide).All(value => ReferenceEquals(value, marker)));
+
+        return Term.A("ok");
+    });
+    Equal(await process.Completion, Term.A("normal"));
+}
+);
 foreach (var sample in new (string Name, string Source, Term Expected)[]
 {
     ("append-empty", "lists:append([])", Nil.Value),
