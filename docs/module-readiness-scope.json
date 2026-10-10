@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-050/tests.json",
+  "ComparisonTestReport": "validation/part-052/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -162,8 +162,8 @@
       ],
       "Implemented": [
         "pinned value/class/reason comparator",
-        "439 expressions and 58 generated-assembly/compiled-reference modules verified at 2bf65a0",
-        "25 normalized compiler-rejection reason/code/message comparisons; distinct compiled/interpreted binding outcomes and closure/order regressions verified"
+        "449 expressions and 63 generated-assembly/compiled-reference modules verified at 0fe8a72",
+        "31 normalized compiler-rejection reason/code/message comparisons; distinct compiled/interpreted binding outcomes and closure/order regressions verified"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
@@ -192,7 +192,8 @@
         "representative workloads and BEAM comparison"
       ],
       "Implemented": [
-        "exploratory local harness"
+        "exploratory local harness",
+        "reproducible Release old/new C# integer-map lookup samples/allocations; no BEAM performance proof"
       ],
       "Id": "Benchmarks",
       "TestPrefixes": []

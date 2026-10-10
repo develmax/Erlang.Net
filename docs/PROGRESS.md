@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–052.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–053.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Part051: **652/652 local tests and same-head Windows CI/full integration**, **522/522 exact-version comparisons** (439 expressions,58 compiled modules,25 diagnostics) at2bf65a0. [Verified provenance](validation/part-051/remote-checkpoint.json), [local proof](validation/part-050/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% coarse overall estimate. Part049 failed comparison remains preserved.
+Part053: **676/676 local tests/same-head CI/full integration**, **543/543 exact-version comparisons** (449 expressions,63 modules,31 diagnostics) at 0fe8a72. [Provenance](validation/part-053/remote-checkpoint.json), [local proof](validation/part-052/tests.json), [performance scope](PERFORMANCE.md). Registry62/delta0; approximately 5% coarse estimate. Historical failures preserved.
 
 ## Historical validation through part032
 
@@ -254,3 +254,11 @@ Full Core known-variable/IR/internal child-body constraint timing/optimizer/stac
 Local **676/676/full integration** passes; [reports](validation/part-052/checkpoint.json). Map base and fields have independent interpreter input scopes; fields remain sequential, type/key checks precede the final merge. Static base/key/value scopes are independent; compiled modules use the distinct Core subset adapter. New corpus **449 expressions/63 modules/31 diagnostics=543** awaits new-head oracle/CI. Historical522/522 remains part051 at2bf65a0. Prior439/58/25 sources/outcomes/generated hashes unchanged;62 MFAs/delta0,161 namespace types/no violations; approximately5% coarse overall estimate.
 
 MapTerm retains its privately owned exact-key dictionary for Get/TryGet, preserving sorted read-only entries, distinct numeric/signed-zero keys and input immutability. [Release microbenchmark](validation/part-052/map-lookup-benchmark.json) compares the old C# scan with current indexed lookup on identical integer-key queries. Construction/retained memory/BEAM/end-to-end performance are outside this measurement. Full Core/lint/grammar/resources/stacks remain incomplete. Use C# optimizations that preserve observable contracts; cross-runtime superiority requires matched benchmarks. Next verify543/same-head676 CI, then deeper Core match timing and deferred binary errors.
+
+## Part 053 — Verified map scopes and exact-key index
+
+Implementation head **0fe8a7265f827e7c5e9e5010b762ceb2d75162e2** passes **449/449 expressions +63/63 compiled modules +31/31 compiler diagnostics =543/543** against exact source-built OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. Same-head Windows CI passes **676/676/full integration**. [Raw provenance](validation/part-053/remote-checkpoint.json), [strict contract/hash audit](validation/part-053/corpus-audit.json). All prior 439/58/25 expression/module/diagnostic contracts and generated hashes remain unchanged; ten independent map expectations, five compiled outcomes and six rejections match. Distinct interpreted base/field conflict and compiled conflict outcomes are verified for these inputs.
+
+161 namespace-level types/no violations,62 MFAs / delta 0 against immutable part052 tests. API declarations erlang40/351,lists19/91,maps2/34,io1/53 are presence, not semantic completion; approximately 5% coarse overall estimate. Local full pipeline and old/new C# lookup measurements remain part052 evidence; no executable change or benchmark rerun here. [Performance policy](PERFORMANCE.md) records the measured workload, retained-memory tradeoff and requirements for a BEAM comparison. No cross-runtime speed claim.
+
+Full Core lowering/internal child-body constraints/optimizer, complete lint/grammar/stacks/resources/runtime/OTP/reference suites remain unfinished. Native hybrid standalone expressions retain interpreter semantics. Next deeper Core match timing and deferred binary error ordering, then missing grammar/Erlang OTP callback adapters. Preserve failed historical evidence; no whole-module promotion/dependency/production BEAM/public NuGet/license change.
