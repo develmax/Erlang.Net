@@ -61,6 +61,13 @@ var bitPhaseCheck = runtime.Spawn(async erlangProcess =>
         Reason
     end.
     if (!result.Equals(Term.A(ErlangErrorReasons.BadArgument))) throw new InvalidOperationException(result.ToString());
+    var emptyResult = begin
+        N = -1,
+        R = catch <<"":N,(error(later)):8>>,
+        {'EXIT',{Reason,_}} = R,
+        Reason
+    end.
+    if (!emptyResult.Equals(Term.A("later"))) throw new InvalidOperationException(emptyResult.ToString());
 
     return Term.A("ok");
 });

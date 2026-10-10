@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-056/tests.json",
-  "LocalPassedTests": 702,
+  "LocalPassedTests": 716,
   "RegisteredMfas": 62,
   "PreviousRegisteredMfas": 62,
   "RegisteredMfaDelta": 0,
@@ -65,13 +65,14 @@
         "source-directed OTP expression-list/cons binding port for tuples/lists/call arguments; explicit per-routine provenance and CLR deviations",
         "distinct compiled expression-list/cons conflict policy; independent capture scopes retained; full Core lowering remains unported",
         "source-directed map base/field runtime scopes and independent static scopes; compiled subset kept distinct",
-        "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9"
+        "Source-directed sequential binary value/size and compiled map base/key/value pre-expressions; independent static checks and distinct interpreter map/float phases; selected captures verified against OTP at 2435ce9",
+        "Compiled empty integer/float string segments: dynamic nonnegative integer size precheck before later callbacks, elimination without storage and binding export; fresh OTP proof pending"
       ],
       "Remaining": [
         "records/macros/comprehensions/try and full grammar",
         "complete source spans/debug mappings"
       ],
-      "RelatedPassedTests": 388
+      "RelatedPassedTests": 394
     },
     {
       "Id": "Core library modules",
@@ -151,7 +152,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 114
+      "RelatedPassedTests": 122
     },
     {
       "Id": "Style checks",

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright Ericsson AB 1999-2025. All Rights Reserved.
+// Copyright Ericsson AB 1999-2026. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +17,7 @@
 // Modified: C# adaptation of OTP-29.1.1 eval_bits:expr_grp/expr_grp1/eval_field.
 // Evaluates values/sizes before construction, with sequential interpreter scopes.
 // Compiled binary pre-expressions are also sequential, following v3_core:expr_bin_1.
+// Modified: adapt v3_core:bitstr empty-string size prechecks and segment elimination.
 // Binary storage, error metadata and resource limits remain CLR adaptations.
 namespace Erlang.Compiler;
 
@@ -28,14 +30,22 @@ internal static class BitExpressionBindings
         bool compiled
     )
     {
-        var segments = new (Term Value, Term? Size, BitSegment Segment)[bits.Segments.Count];
+        var segments = new List<(Term Value, Term? Size, BitSegment Segment)>(bits.Segments.Count);
         var scope = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        for (int i = 0; i < segments.Length; i++)
+        foreach (var segment in bits.Segments)
         {
-            var segment = bits.Segments[i];
             var value = await evaluate(segment.Value, scope);
             var size = segment.Size is null ? null : await evaluate(segment.Size, scope);
-            segments[i] = (value, size, segment);
+            if (compiled && segment.IsStringLiteral && value is Nil && segment.Type is BitSegmentTypes.Integer or BitSegmentTypes.Float)
+            {
+                if (size is null || size is Integer { Value.Sign: >= 0 })
+                    continue;
+                // Literal failures are lowered to a failed binary after its pre-expressions.
+                // Dynamic sizes carry an immediate integer/nonnegative precheck.
+                if (segment.Size is not Expr.Literal)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+            }
+            segments.Add((value, size, segment));
         }
         var result = BitConstruction.Create(segments, encodeFloatInOrder: !compiled);
         foreach (var binding in scope)

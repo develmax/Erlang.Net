@@ -412,6 +412,46 @@ public static class CompiledModuleCases
             "compiled-map-sequential-prebound-capture",
             "-module(oracle_map_seq_outer). -export([run/0]). run()->A=7,#{a=>(X=1),b=>((fun()->X=99,A end)())}.",
             Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(99)))
+        ),
+        new(
+            "compiled-empty-string-negative-precheck",
+            "-module(oracle_empty_negative). -export([run/0]). run()->N=id(-1),<<\"\":N,(error(later)):8>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("badarg"))
+        ),
+        new(
+            "compiled-empty-string-atom-precheck",
+            "-module(oracle_empty_atom). -export([run/0]). run()->N=id(bad),<<\"\":N,(error(later)):8>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("badarg"))
+        ),
+        new(
+            "compiled-empty-string-effect-precheck",
+            "-module(oracle_empty_effect). -export([run/0]). run()->put(mark,none),N=id(-1),R=catch <<\"\":N,(begin put(mark,after_size),1 end):8>>,{'EXIT',{Reason,_}}=R,{Reason,get(mark)}. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.A("badarg"),Term.A("none")))
+        ),
+        new(
+            "compiled-empty-string-size-export",
+            "-module(oracle_empty_export). -export([run/0]). run()->B = <<\"\":(N=id(4)),3:4>>,{B,N}. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(new BitString([48],4),Term.I(4)))
+        ),
+        new(
+            "compiled-empty-string-float-elimination",
+            "-module(oracle_empty_float). -export([run/0]). run()-><<\"\":7/float>>.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),new BitString([]))
+        ),
+        new(
+            "compiled-empty-string-huge-elimination",
+            "-module(oracle_empty_huge). -export([run/0]). run()->N=id(1 bsl 100),<<\"\":N>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),new BitString([]))
+        ),
+        new(
+            "compiled-empty-string-literal-failure-order",
+            "-module(oracle_empty_literal). -export([run/0]). run()-><<\"\":bad,(error(later)):8>>.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.A("later"))
+        ),
+        new(
+            "compiled-empty-string-zero-elimination",
+            "-module(oracle_empty_zero). -export([run/0]). run()->N=id(0),<<\"\":N,3:4>>. id(X)->X.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),new BitString([48],4))
         )
     ];
 }
