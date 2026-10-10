@@ -119,6 +119,7 @@ public static class CodeGeneration
         ComprehensionQualifier.Generator g => "new global::Erlang.Compiler.ComprehensionQualifier.Generator(" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
         ComprehensionQualifier.BinaryGenerator g => "new global::Erlang.Compiler.ComprehensionQualifier.BinaryGenerator((global::Erlang.Compiler.BitPattern)" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
         ComprehensionQualifier.MapGenerator g => "new global::Erlang.Compiler.ComprehensionQualifier.MapGenerator(" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
+        ComprehensionQualifier.Zip zip => "new global::Erlang.Compiler.ComprehensionQualifier.Zip(" + Array(zip.Generators, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
         ComprehensionQualifier.Filter f => "new global::Erlang.Compiler.ComprehensionQualifier.Filter(" + ExpressionCode(f.Expression) + ")",
         _ => throw new NotSupportedException()
     };

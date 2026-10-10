@@ -3,6 +3,7 @@ namespace Erlang.Compiler;
 internal static class ParserDiagnostics
 {
     public const string BinaryGeneratorPattern = "Binary generators require a binary pattern";
+    public const string IllegalZipGenerator = "Zip groups require list, binary or map generators";
     public const string ComprehensionAssignment = "Comprehension assignment qualifiers are not supported";
     public const string ExpectedAtom = "Expected atom";
     public const string UnexpectedTrailingToken = "Unexpected trailing token";

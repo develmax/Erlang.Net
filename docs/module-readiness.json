@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-079/tests.json",
-  "LocalPassedTests": 1304,
+  "ComparisonTestReport": "validation/part-080/ci-tests.json",
+  "LocalPassedTests": 1423,
   "RegisteredMfas": 66,
   "PreviousRegisteredMfas": 66,
   "RegisteredMfaDelta": 0,
@@ -66,14 +66,16 @@
         "list/binary/map comprehensions, multiple list/map templates, relaxed/strict list/binary/map generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
         "map iterator/tuple/none/partial-source handling; exact keys and last repeated key wins",
         "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
-        "selected contracts verified against exact-source OTP-29.1.1 at7a35cdd:695 expressions/316 compiled modules/73 diagnostics=1084;1247/full same-head CI; full Core lowering remains incomplete"
+        "selected contracts verified against exact-source OTP-29.1.1 at7a35cdd:695 expressions/316 compiled modules/73 diagnostics=1084;1247/full same-head CI; full Core lowering remains incomplete",
+        "Grouped list/binary/map zip \u0026\u0026 generators with strict/shared row constraints; separate erl_eval traversal and v3_core joint/skip/tail clauses, raw compiled iterator versus normalized interpreted remainders",
+        "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates"
       ],
       "Remaining": [
-        "records/macros and full grammar; full iterator/resource contracts, zip and assignment qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
+        "records/macros and full grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and assignment qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 708
+      "RelatedPassedTests": 772
     },
     {
       "Id": "Core library modules",
@@ -127,7 +129,7 @@
       "Remaining": [
         "cross-block bindings, full diagnostics and IDE debugging"
       ],
-      "RelatedPassedTests": 21
+      "RelatedPassedTests": 22
     },
     {
       "Id": "Tooling and packages",
@@ -151,13 +153,14 @@
         "722 expressions,343 generated C#/compiled-reference modules and73 normalized rejections verified at124af8c;1138/1138 complete/version verified",
         "historical695 expressions/316 module source/expected/generated-hash contracts and73 diagnostics unchanged;27 comparator expressions/modules added without expectation correction",
         "initial map1066/1068 and two original scheduling discrepancies remain retained in part077 and resolved in part078; new comparator increment zero mismatches",
-        "same-head1304/full CI; initial1300/1304 reserved-atom fixture parser failures retained; unavailable-oracle negative protocol and immutable snapshots"
+        "same-head1304/full CI; initial1300/1304 reserved-atom fixture parser failures retained; unavailable-oracle negative protocol and immutable snapshots",
+        "Part081 local1423/full pipeline;54 independent zip expressions/modules and six diagnostics;776/397/79=1252 planned, original execution pending publication"
       ],
       "Remaining": [
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 422
+      "RelatedPassedTests": 482
     },
     {
       "Id": "Style checks",

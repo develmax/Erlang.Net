@@ -13,17 +13,10 @@ internal static class MapComprehensionBindings
     )
     {
         var bound = new HashSet<string>(scope.Keys.Except(incoming.Keys), StringComparer.Ordinal);
+        foreach (var generator in ComprehensionGenerator.Flatten(qualifiers))
+            bound.UnionWith(Semantics.Variables(generator.Pattern));
         foreach (var qualifier in qualifiers)
         {
-            Pattern? pattern = qualifier switch
-            {
-                ComprehensionQualifier.Generator generator => generator.Pattern,
-                ComprehensionQualifier.BinaryGenerator generator => generator.Pattern,
-                ComprehensionQualifier.MapGenerator generator => generator.Pattern,
-                _ => null
-            };
-            if (pattern is not null)
-                bound.UnionWith(Semantics.Variables(pattern));
             if (qualifier is ComprehensionQualifier.Filter filter)
                 bound.UnionWith(FilterBindings(filter.Expression));
         }

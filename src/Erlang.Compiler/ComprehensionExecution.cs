@@ -126,6 +126,19 @@ internal static class ComprehensionExecution
 
                 return;
             }
+            if (qualifiers[index] is ComprehensionQualifier.Zip zip)
+            {
+                await ZipComprehensionExecution.Evaluate(
+                    zip,
+                    scope,
+                    context,
+                    module is not null,
+                    evaluate,
+                    nested => Qualifiers(index + 1, nested)
+                );
+
+                return;
+            }
             if (qualifiers[index] is ComprehensionQualifier.Generator generator)
             {
                 Term source = await evaluate(generator.Source, CompiledBindingScope.Copy(scope));

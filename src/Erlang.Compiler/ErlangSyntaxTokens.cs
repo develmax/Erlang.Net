@@ -13,6 +13,7 @@ internal static class ErlangSyntaxTokens
     public const string FunctionArrow = "->";
     public const string ConditionalMatch = "?=";
     public const string ComprehensionSeparator = "||";
+    public const string ZipGeneratorSeparator = "&&";
     public const string ListGenerator = "<-";
     public const string StrictListGenerator = "<:-";
     public const string BinaryGenerator = "<=";

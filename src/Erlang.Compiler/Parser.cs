@@ -446,44 +446,57 @@ public sealed class Parser
         var qualifiers = new List<ComprehensionQualifier>();
         do
         {
-            var qualifier = Expression();
-            if (Take(ErlangSyntaxTokens.MapExactField))
+            var qualifier = ComprehensionQualifier();
+            if (Take(ErlangSyntaxTokens.ZipGeneratorSeparator))
             {
-                var value = Expression();
-                bool strictMap = Take(ErlangSyntaxTokens.StrictListGenerator);
-                if (!strictMap)
-                    Expect(ErlangSyntaxTokens.ListGenerator);
-                qualifiers.Add(new ComprehensionQualifier.MapGenerator(ToPattern(new Expr.Tuple([qualifier, value])), Expression(), strictMap));
-                continue;
-            }
-            bool strictBinary = Take(ErlangSyntaxTokens.StrictBinaryGenerator);
-            if (strictBinary || Take(ErlangSyntaxTokens.BinaryGenerator))
-            {
-                if (qualifier is not Expr.Bits bits)
-                    throw Error(ParserDiagnostics.BinaryGeneratorPattern);
-                var pattern = BitPattern.FromExpression(bits);
-                if (pattern.Segments.Count == 0)
-                    throw Error(BitPatternDiagnostics.EmptyGeneratorPattern);
-                if (pattern.Segments.Any(s => s.Specification.Type == BitSegmentTypes.Binary && (s.Specification.Size is null || s.Specification.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })))
-                    throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedGeneratorField, 0);
-                qualifiers.Add(new ComprehensionQualifier.BinaryGenerator(pattern, Expression(), strictBinary));
-            }
-            else
-            {
-                bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
-                if (strict || Take(ErlangSyntaxTokens.ListGenerator))
-                    qualifiers.Add(new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict));
-                else
+                var group = new List<ComprehensionQualifier> { qualifier };
+                do
                 {
-                    if (qualifier is Expr.Match)
-                        throw Error(ParserDiagnostics.ComprehensionAssignment);
-                    qualifiers.Add(new ComprehensionQualifier.Filter(qualifier));
-                }
+                    group.Add(ComprehensionQualifier());
+                } while (Take(ErlangSyntaxTokens.ZipGeneratorSeparator));
+                if (group.Any(generator => ComprehensionGenerator.From(generator) is null))
+                    throw Error(ParserDiagnostics.IllegalZipGenerator);
+                qualifier = new ComprehensionQualifier.Zip(group);
             }
+            qualifiers.Add(qualifier);
         } while (Take(ErlangSyntaxTokens.Comma));
         Expect(close);
 
         return qualifiers;
+    }
+
+    private ComprehensionQualifier ComprehensionQualifier()
+    {
+        var qualifier = Expression();
+        if (Take(ErlangSyntaxTokens.MapExactField))
+        {
+            var value = Expression();
+            bool strictMap = Take(ErlangSyntaxTokens.StrictListGenerator);
+            if (!strictMap)
+                Expect(ErlangSyntaxTokens.ListGenerator);
+
+            return new ComprehensionQualifier.MapGenerator(ToPattern(new Expr.Tuple([qualifier, value])), Expression(), strictMap);
+        }
+        bool strictBinary = Take(ErlangSyntaxTokens.StrictBinaryGenerator);
+        if (strictBinary || Take(ErlangSyntaxTokens.BinaryGenerator))
+        {
+            if (qualifier is not Expr.Bits bits)
+                throw Error(ParserDiagnostics.BinaryGeneratorPattern);
+            var pattern = BitPattern.FromExpression(bits);
+            if (pattern.Segments.Count == 0)
+                throw Error(BitPatternDiagnostics.EmptyGeneratorPattern);
+            if (pattern.Segments.Any(s => s.Specification.Type == BitSegmentTypes.Binary && (s.Specification.Size is null || s.Specification.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })))
+                throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedGeneratorField, 0);
+
+            return new ComprehensionQualifier.BinaryGenerator(pattern, Expression(), strictBinary);
+        }
+        bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
+        if (strict || Take(ErlangSyntaxTokens.ListGenerator))
+            return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict);
+        if (qualifier is Expr.Match)
+            throw Error(ParserDiagnostics.ComprehensionAssignment);
+
+        return new ComprehensionQualifier.Filter(qualifier);
     }
 
     private Expr ParseBits()

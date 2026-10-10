@@ -136,6 +136,22 @@ public static class Semantics
         var scope = new HashSet<string>(bound);
         foreach (var qualifier in qualifiers)
         {
+            if (qualifier is ComprehensionQualifier.Zip zip)
+            {
+                var generators = ComprehensionGenerator.Flatten(zip.Generators).ToArray();
+                var sourceScope = new HashSet<string>(scope);
+                foreach (var entry in generators)
+                    Walk(entry.Source, sourceScope, false);
+                foreach (var entry in generators)
+                    PatternKeys(entry.Pattern, scope);
+                foreach (var entry in generators)
+                    foreach (string name in Variables(entry.Pattern))
+                    {
+                        scope.Remove(VariableScopeNames.UnsafePrefix + name);
+                        scope.Add(name);
+                    }
+                continue;
+            }
             (Pattern Pattern, Expr Source)? generator = qualifier switch
             {
                 ComprehensionQualifier.Generator g => (g.Pattern, g.Source),

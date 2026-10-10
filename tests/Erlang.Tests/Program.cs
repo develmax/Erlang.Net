@@ -3289,7 +3289,69 @@ Test(
         return Task.CompletedTask;
     }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All).Concat(Erlang.Differential.MapComprehensionCases.All).Concat(Erlang.Differential.MapTemplateOrderCases.All).Concat(Erlang.Differential.ComparatorSortCases.All))
+Test(
+    "compiler/zip/invalid-group",
+    () =>
+{
+    foreach (string source in new[] { "[X || X <- [1] && true]", "[X || true && X <- [1]]", "[X || X <- [1] &&]", "1 && 2" })
+        Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/zip/illegal-guard",
+    () =>
+{
+    Throws<CompileException>(() => Semantics.Validate(new Parser("case ok of X when [Y || Y <- [] && Z <- []] =:= [] -> X end").ParseExpression()));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "compiler/zip/large-iterative",
+    async () =>
+{
+    var result = await Eval("[X+Y || X <- lists:seq(1,20000) && Y <- lists:seq(1,20000)]");
+    Equal(result, Cons.From(Enumerable.Range(1, 20000).Select(value => Term.I(value * 2))));
+}
+);
+Test(
+    "compiler/zip/no-progress-local-policy",
+    async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    var expression = new Parser("[X+Y || <<X:0>> <= <<>> && <<Y:0>> <= <<>>]").ParseExpression();
+    Semantics.Validate(expression);
+    var process = runtime.Spawn(async context =>
+    {
+        try
+        {
+            await Execution.EvaluateAsync(expression, context);
+            throw new InvalidOperationException("Expected local zero-progress failure");
+        }
+        catch (ErlangException exception)
+        {
+            Equal(exception.Reason, Term.A("system_limit"));
+        }
+
+        return Term.A("ok");
+    });
+    Equal(await process.Completion.WaitAsync(TimeSpan.FromSeconds(3)), Term.A("normal"));
+}
+);
+Test(
+    "hybrid/comprehension/zip-ast-emission",
+    () =>
+{
+    string source = "class A { async Task F(ProcessContext erlangProcess) { var value = begin [X+Y || X <- [1] && Y <- [2]] end. if (true && false) { } } }";
+    string generated = CodeGeneration.Preprocess(source, "zip.cs");
+    Check(generated.Contains("ComprehensionQualifier.Zip") && generated.Contains("true && false"));
+
+    return Task.CompletedTask;
+}
+);
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All).Concat(Erlang.Differential.MapComprehensionCases.All).Concat(Erlang.Differential.MapTemplateOrderCases.All).Concat(Erlang.Differential.ComparatorSortCases.All).Concat(Erlang.Differential.ZipGeneratorCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

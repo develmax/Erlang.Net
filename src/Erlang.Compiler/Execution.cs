@@ -96,7 +96,7 @@ public static class Execution
     private static Term GuardValue(Expr e, Dictionary<string, Term> b, ProcessContext? ctx) => e switch
     {
         Expr.Literal l => l.Value,
-        Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(ExecutionErrorReasons.Unbound),
+        Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
         Expr.Tuple t => new TupleTerm(t.Items.Select(x => GuardValue(x, b, ctx))),
         Expr.List l => Cons.From(l.Items.Select(x => GuardValue(x, b, ctx)), l.Tail is null ? null : GuardValue(l.Tail, b, ctx)),
         Expr.Map m => EvaluateMap(
@@ -184,7 +184,7 @@ public static class Execution
             case Expr.Literal l:
                 return l.Value;
             case Expr.Variable v:
-                return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(ExecutionErrorReasons.Unbound);
+                return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name)));
             case Expr.Tuple t:
                 return new TupleTerm(await Arguments(t.Items));
             case Expr.List l:
