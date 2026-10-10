@@ -73,3 +73,7 @@ Publish the locally validated construction-scope fix and compiler-rejection trac
 ## Part 036 checkpoint
 
 Corrected three-track reference and same-head CI are complete and preserved:249 expressions,28 modules,5 diagnostics,282 total,389 tests. Next implement audited lists:last/1 and lists:split/2, with direct MFA cases plus proper/improper/empty/nonlist/zero/exact/overrun/large-index reference boundaries; keep the full282-case baseline. Further grammar/OTP callbacks/signals, full construction/scoping/diagnostic locations/warnings/debug/resources/reference suites remain unfinished. Registry 56/lists 13/91/approximately 5% overall.
+
+## Part 037 checkpoint
+
+Publish the completed last/1 and split/2 increment, dispatch pinned OTP on the exact head and preserve same-head CI plus complete **271 expressions /28 modules /5 diagnostics (304 total)**, all source/hash provenance and zero aborts. Local414 tests/full pipeline pass; registry58/lists15/91. Then implement audited lists:member/2 exact equality and lists:append/1 tail/error contracts with full reference boundaries, followed by missing grammar and Erlang OTP callback adapters/signals. Approximately5% overall; full assignment remains incomplete.

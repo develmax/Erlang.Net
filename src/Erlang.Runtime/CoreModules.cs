@@ -352,6 +352,18 @@ public static class CoreModules
         );
         Add(
             ListModuleNames.Module,
+            ListModuleNames.Last,
+            1,
+            (c, a) => ListOperations.Last(a[0])
+        );
+        Add(
+            ListModuleNames.Module,
+            ListModuleNames.Split,
+            2,
+            (c, a) => ListOperations.Split(a[0], a[1])
+        );
+        Add(
+            ListModuleNames.Module,
             ListModuleNames.Sequence,
             2,
             (c, a) => ListOperations.Sequence(a[0], a[1])

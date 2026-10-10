@@ -98,3 +98,7 @@ Pinned erl_lint expr_bin/bin_element validates every construction value and size
 ## Part 036 — Keep corrected proof and the failed attempt separate
 
 Preserve complete282/282 oracle and same-head 389-test CI with exact head/archive metadata and all three source/expected/hash/diagnostic audits. Keep the initial268-case abort immutable; it motivated a real construction-scope correction. Only selected normalized reasons and C# diagnostic code/message are confirmed, not warning/annotation/full diagnostic or optimizer equivalence. Readiness comparison moves to immutable part 035 tests; no MFA or broad status promotion. Reuse existing workflows/BCL/SDK tools with no dependency/license change.
+
+## Part 037 — Preserve improper-tail boundaries and arbitrary integer indices
+
+Iterate Cons cells rather than converting to CLR lists or narrowing counts. last rejects improper termination; split permits arbitrary tails once count reaches zero, distinguishes proper exhaustion badarg from unmatched improper tail function_clause and preserves original suffix identity. Reuse immutable terms and existing reverse; no new dependency/license choice. Permanent tests and 22 oracle inputs cover these distinct contracts. Compare readiness against immutable part036 CI389/56; local414/58 is new evidence, historical282 oracle is not a rerun.

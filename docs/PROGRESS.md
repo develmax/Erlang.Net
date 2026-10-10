@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–036.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–037.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 56 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 58 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
 | Hybrid/build | Native receive/case/fun in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 56 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 58 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -130,3 +130,11 @@ Corrected-head f0ff362 passes **249/249 expressions +28/28 compiled modules +5/5
 Same-head Windows CI passes **389/389** and full build/generated/hybrid/incremental/disabled-preprocessing/clean/local PackageReference/CLI/readiness integration. [Raw proof/provenance](validation/part-036/remote-checkpoint.json), [source/expected/hash audit](validation/part-036/corpus-audit.json). The initial incomplete268-case run at c9ca96a remains preserved in part 035; it is superseded only for the corrected fixture corpus, not reclassified as successful. Registry 56/delta 0, lists 13/91 and approximately 5% overall remain unchanged. Readiness compares immutable part 035 local tests.
 
 All249 expression sources and current 28 module sources/independent outcomes/generated hashes and 5 diagnostic sources/reasons/C# code/messages match. Default-optimized selected compiled outcomes and normalized unbound-variable reasons are verified; full grammar/scoping/optimizer/native lowering/warnings/annotations/debug stacks/resources/signals/reference suites remain unfinished. No runtime MFA or whole-module status promotion.
+
+## Part 037 — Iterative lists:last/1 and lists:split/2
+
+Implemented and registered last/1 and split/2 from audited OTP-29.1.1 contracts. last requires a nonempty proper list; empty/nonlist/improper inputs raise function_clause. split validates integer/nonnegative count and initial list shape; zero/exact prefix succeeds even with an arbitrary improper tail, proper overrun raises badarg, improper overrun raises function_clause. BigInteger counts are not narrowed. Returned elements/suffix retain identity; traversal is iterative with no artificial length cap.
+
+Local full pipeline passes **414/414**, including 58 direct MFA tests, 22 new value/error cases and a 100001-element traversal/identity regression. Build, style, generated/hybrid/incremental/negative/clean/local PackageReference/CLI/readiness pass. [Immutable local evidence](validation/part-037/tests.json), [integration](validation/part-037/integration-results.json), [corpus preservation](validation/part-037/corpus-audit.json). Registry **58 (+2)**; lists **15/91 (16.5% declaration presence)**; erlang40/351, maps2/34, io1/53 unchanged. Readiness delta uses immutable part036 CI tests. Whole modules remain Partially compatible; approximately5% overall is a coarse estimate, not semantic coverage.
+
+The exact-version runner now plans **271 expressions +28 modules +5 diagnostics =304**. All earlier249 expression inputs/dynamic initializer and 28 module source/expected/generated hashes are preserved. New-head reference and CI checks are pending publication/dispatch. Historical282/282 at f0ff362 remains previous-head proof only. No stack/resource/full-suite equivalence or whole-module promotion.

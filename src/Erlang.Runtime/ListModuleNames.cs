@@ -4,6 +4,8 @@ internal static class ListModuleNames
 {
     public const string Module = "lists";
     public const string Nth = "nth";
+    public const string Last = "last";
+    public const string Split = "split";
     public const string NthTail = "nthtail";
     public const string Sequence = "seq";
     public const string Reverse = "reverse";

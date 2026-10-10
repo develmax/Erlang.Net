@@ -1366,6 +1366,8 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("lists", "keysearch", 3) => ([Term.A("a"), Term.I(1), Term.List(Term.Tuple(Term.A("a")))], Term.Tuple(Term.A("value"), Term.Tuple(Term.A("a")))),
                 ("lists", "nth", 2) => ([Term.I(2), Term.List(Term.A("a"), Term.A("b"))], Term.A("b")),
                 ("lists", "nthtail", 2) => ([Term.I(1), new Cons(Term.A("a"), Term.A("tail"))], Term.A("tail")),
+                ("lists", "last", 1) => ([Term.List(Term.I(1), Term.A("last"))], Term.A("last")),
+                ("lists", "split", 2) => ([Term.I(1), Term.List(Term.A("a"), Term.A("b"))], Term.Tuple(Term.List(Term.A("a")), Term.List(Term.A("b")))),
                 ("lists", "seq", 2) => ([Term.I(1), Term.I(3)], Term.List(Term.I(1), Term.I(2), Term.I(3))),
                 ("lists", "seq", 3) => ([Term.I(5), Term.I(1), Term.I(-2)], Term.List(Term.I(5), Term.I(3), Term.I(1))),
                 ("lists", "reverse", 1) => ([Term.List(Term.I(1), Term.I(2))], Term.List(Term.I(2), Term.I(1))),
@@ -2606,6 +2608,72 @@ Test(
     async () => Equal(await Eval("case <<1:9>> of B -> case #{2 => 42} of #{byte_size(B) := X} -> X end end"), Term.I(42))
 );
 var results = new List<object>();
+foreach (var sample in new (string Name, string Source, Term Expected)[]
+{
+    ("last-singleton", "lists:last([a])", Term.A("a")),
+    ("last-nested", "lists:last([a,[],{b,2}])", Term.Tuple(Term.A("b"), Term.I(2))),
+    ("split-empty", "lists:split(0,[])", Term.Tuple(Nil.Value, Nil.Value)),
+    ("split-zero", "lists:split(0,[a,b])", Term.Tuple(Nil.Value, Term.List(Term.A("a"), Term.A("b")))),
+    ("split-middle", "lists:split(1,[a,b,c])", Term.Tuple(Term.List(Term.A("a")), Term.List(Term.A("b"), Term.A("c")))),
+    ("split-exact", "lists:split(2,[a,b])", Term.Tuple(Term.List(Term.A("a"), Term.A("b")), Nil.Value)),
+    ("split-improper-zero", "lists:split(0,[a|tail])", Term.Tuple(Nil.Value, new Cons(Term.A("a"), Term.A("tail")))),
+    ("split-improper-middle", "lists:split(1,[a,b|tail])", Term.Tuple(Term.List(Term.A("a")), new Cons(Term.A("b"), Term.A("tail")))),
+    ("split-improper-exact", "lists:split(2,[a,b|tail])", Term.Tuple(Term.List(Term.A("a"), Term.A("b")), Term.A("tail"))),
+    ("split-integer-tail", "lists:split(1,[a|42])", Term.Tuple(Term.List(Term.A("a")), Term.I(42)))
+})
+    Test($"lists/{sample.Name}", async () => Equal(await Eval(sample.Source), sample.Expected));
+
+foreach (var sample in new (string Name, string Source, string Reason)[]
+{
+    ("last-empty", "lists:last([])", "function_clause"),
+    ("last-nonlist", "lists:last(atom)", "function_clause"),
+    ("last-improper", "lists:last([a,b|tail])", "function_clause"),
+    ("split-negative", "lists:split(-1,[a])", "badarg"),
+    ("split-float-count", "lists:split(1.0,[a])", "badarg"),
+    ("split-atom-count", "lists:split(atom,[a])", "badarg"),
+    ("split-nonlist-zero", "lists:split(0,atom)", "badarg"),
+    ("split-empty-overrun", "lists:split(1,[])", "badarg"),
+    ("split-proper-overrun", "lists:split(3,[a,b])", "badarg"),
+    ("split-improper-overrun", "lists:split(3,[a,b|tail])", "function_clause"),
+    ("split-huge-proper", "lists:split(999999999999999999999999,[a])", "badarg"),
+    ("split-huge-improper", "lists:split(999999999999999999999999,[a|tail])", "function_clause")
+})
+    Test($"lists/{sample.Name}", async () => Equal(await MapError(sample.Source), Term.A(sample.Reason)));
+
+Test(
+    "lists/last-split-long-list-identity",
+    async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    Term marker = Term.Tuple(Term.A("marker"));
+    Term suffix = Term.List(marker);
+    Term list = suffix;
+    for (int i = 0; i < 100000; i++)
+        list = new Cons(Term.I(i), list);
+    var process = runtime.Spawn(async context =>
+    {
+        Term last = await runtime.Modules.Call(
+            context,
+            "lists",
+            "last",
+            [list]
+        );
+        Check(ReferenceEquals(last, marker));
+        var split = (TupleTerm)await runtime.Modules.Call(
+            context,
+            "lists",
+            "split",
+            [Term.I(100000), list]
+        );
+        Check(ReferenceEquals(split.Items[1], suffix));
+        Check(Cons.Items(split.Items[0]).Count() == 100000);
+        Check(Cons.Items(list).Count() == 100001);
+
+        return Term.A("ok");
+    });
+    Equal(await process.Completion, Term.A("normal"));
+}
+);
 Test(
     "lists/nth-improper-prefix",
     async () => Equal(await Eval("{lists:nth(1,[a|tail]),lists:nth(2,[a,b|tail])}"), Term.Tuple(Term.A("a"), Term.A("b")))

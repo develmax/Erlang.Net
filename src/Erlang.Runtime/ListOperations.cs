@@ -4,6 +4,46 @@ namespace Erlang;
 
 internal static class ListOperations
 {
+    public static Term Last(Term list)
+    {
+        if (list is not Cons first)
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        Term last = first.Head;
+        list = first.Tail;
+        while (list is Cons cell)
+        {
+            last = cell.Head;
+            list = cell.Tail;
+        }
+        if (list is not Nil)
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        return last;
+    }
+
+    public static Term Split(Term count, Term list)
+    {
+        if (count is not Integer number || number.Value < 0 || list is not (Cons or Nil))
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        BigInteger remaining = number.Value;
+        Term reversed = Nil.Value;
+        while (remaining > 0)
+        {
+            if (list is Nil)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            if (list is not Cons cell)
+                throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+            reversed = new Cons(cell.Head, reversed);
+            list = cell.Tail;
+            remaining--;
+        }
+
+        return Term.Tuple(Reverse(reversed, Nil.Value), list);
+    }
+
     public static Term Reverse(Term list)
     {
         if (list is Nil || list is Cons { Tail: Nil })

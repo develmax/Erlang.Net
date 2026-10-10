@@ -377,6 +377,22 @@
   },
   {
     "Module": "lists",
+    "Function": "last",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:last/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "lists",
+    "Function": "split",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:split/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "lists",
     "Function": "seq",
     "Arity": 2,
     "Status": "Partially compatible",
