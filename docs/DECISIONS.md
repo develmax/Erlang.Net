@@ -130,3 +130,7 @@ Share language operator spellings between compiler and runtime and erlang MFA na
 ## Part 044 — Reuse guard clauses for if without implicit binding
 
 Expr.If owns an ordered list of empty-pattern Clauses. Share guard parsing/validation/selection and branch intersection/unsafe-variable analysis with existing clause constructs, preserve tail position and propagate selected body errors. Hybrid if candidates must parse as complete Erlang expressions before lowering, retaining ordinary C# if statements; syntax failures may remain C# diagnostics at this detection boundary. Extend independent diagnostic fixtures with optional unsafe construct identity while preserving all original unbound_var expectations. No new dependency or runtime BEAM. Historical proof stays scoped until392-case new-head comparison completes.
+
+## Part 045 — Verify branch scope without promoting complete grammar
+
+Preserve392/392 and same-head516 CI with exact source-build/head/job/archive metadata. Independently verify24 new expected expression outcomes and all36 module source/generated/outcome contracts plus10 diagnostic source/reason/code/messages. Preserve322/28/5 historical contracts. Normalized unsafe_var keeps if/line information in the reason; full annotations/warnings/stack/resource semantics remain unverified. Readiness baseline part044 tests/delta0; no executable/dependency/license/MFA change.

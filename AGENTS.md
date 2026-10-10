@@ -57,3 +57,7 @@ Constants-only refactor preserves319 values/five source token streams and322/28/
 ## Part 044 checkpoint
 
 Local if grammar/guards/if_clause/common binding export passes516/full integration. New corpus346 expressions/36 compiled modules/10 diagnostics=392; preserve322/28/5 old contracts. Publish and dispatch pinned oracle/same-head516 CI before promoting reference proof. Initial509/516 fixture-sequence failure preserved under part044. Registry62/delta0, lists19/91, approximately5%. Next remaining grammar begin/operators followed by Erlang callbacks/signals. Keep hybrid C# if detection and historical355/355 scope explicit.
+
+## Part 045 checkpoint
+
+Published if head c7e575b passes pinned392/392 (346 expressions,36 modules,10 diagnostics), same-head516/full CI and strict provenance.151 types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Preserve322/28/5 historical contracts and initial part044 fixture-sequence failure. Next begin blocks/operators then Erlang callback adapters/signals; full grammar/annotation/warning/stacks/resources/reference suites incomplete. Part043 tests/integration snapshots reuse part041 reports; actual part043 execution is recorded in its validation log, clarified by dated active-volume correction.

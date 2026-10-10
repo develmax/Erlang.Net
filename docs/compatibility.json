@@ -100,9 +100,11 @@
         "hybrid/if/csharp-statements-preserved",
         "oracle/compiled-module/if-tail-calls",
         "oracle/compiler-diagnostic/if-partial-binding-unsafe",
-        "validation/part-044/tests.json"
+        "validation/part-044/tests.json",
+        "validation/part-045/differential.json",
+        "validation/part-045/remote-checkpoint.json"
       ],
-      "limits": "Generated AST construction with C# evaluator; if selected guards/errors/bindings locally tested across interpreted/generated/hybrid paths; full grammar/native lowering/diagnostic annotations incomplete, new-head exact oracle pending"
+      "limits": "Generated AST construction with C# evaluator; selected if guards/errors/branch bindings matched pinned OTP at c7e575b,392/392 including346 expr/36 compiled/10 diagnostics. Full grammar/native lowering/annotations/warnings/stacks/resources/reference suites incomplete."
     },
     {
       "name": "Map source syntax",

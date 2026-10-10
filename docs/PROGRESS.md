@@ -2,17 +2,17 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–042.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–045.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
 | Discovery/bootstrap | 12 projects (including the development-only style tool), pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
-| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
+| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
 | Core modules | 62 registered erlang/lists/maps/io MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# gen_server callbacks and supervisor strategies/policies/intensity/ordered shutdown | Partially compatible |
-| Hybrid/build | Native receive/case/fun in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
+| Hybrid/build | Native receive/case/fun/if in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
@@ -32,7 +32,11 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Latest same-head evidence: **249/249 expressions + 14/14 compiled modules (263/263)** against exact OTP, plus **361/361** Windows CI tests at **b13b56a**; [part-032 metadata](validation/part-032/remote-checkpoint.json). Full local validation is preserved in part-031. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
+Part045: **516/516 local tests and same-head Windows CI**, full integration, and **392/392 exact-version comparisons** (346 expressions,36 compiled modules,10 diagnostics) at c7e575b. [Verified provenance](validation/part-045/remote-checkpoint.json), [local proof](validation/part-044/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% overall coarse estimate.
+
+## Historical validation through part032
+
+Part032 same-head evidence: **249/249 expressions + 14/14 compiled modules (263/263)** against exact OTP, plus **361/361** Windows CI tests at **b13b56a**; [part-032 metadata](validation/part-032/remote-checkpoint.json). Full local validation is preserved in part-031. Current component/module breakdown: [MODULE_READINESS](MODULE_READINESS.md).
 
 
 - **361/361 local tests passed**, including 56 direct MFA cases, 63,488 finite binary16 roundtrips, 1,280 deterministic UTF scalar roundtrips and malformed/scalar/endian/unaligned/scope regressions. [Report](validation/part-031/tests.json).
@@ -194,3 +198,11 @@ Added Expr.If and parser guard clauses using existing ordered zero-pattern Claus
 Full local pipeline passes **516/516 tests (+44)**, including24 expression outcomes,8 compiled modules (50000 tail calls),5 compiled diagnostic cases and7 parser/guard/scope/hybrid checks. Generated .erl and native hybrid examples execute if checks in direct and real local-package/installed-CLI paths. Initial509/516 attempt is preserved: seven newly written expression fixtures incorrectly used root sequences; wrap them in case bodies, without changing parser semantics. [Local proof](validation/part-044/tests.json), [integration](validation/part-044/integration-results.json), [pinned source audit](validation/part-044/reference-audit.json).
 
 New oracle plan **346 expressions +36 compiled modules +10 diagnostics =392**, preserving322 previous inputs,28 independent compiled sources/outcomes/generated hashes and5 old diagnostic cases. New unsafe-var fixtures retain construct/line information in normalized reasons; full diagnostic text/annotations/warnings equivalence is not claimed. New-head live oracle and same-head CI are pending;355/355 at3c138b2 remains historical part042 evidence. Source layout151 types/no violations. Registry62/delta0, lists19/91, erlang40/351, maps2/34, io1/53; readiness compares immutable part043 tests. No new MFA or whole-module promotion; overall approximately5% coarse estimate. Full grammar/optimizer/native lowering/resources/reductions/signals/OTP/reference suites remain unfinished.
+
+## Part 045 — Verified if guards, errors and variable export
+
+Exact implementation head **c7e575b54ea04ffa6b58cbe8a4510a20aa5b9797** passes **346/346 expressions +36/36 compiled modules +10/10 diagnostics =392/392**, complete/version verified, zero failures/aborts. Pinned OTP-29.1.1 source build succeeded. All24 new expression results match independent expected outcomes;8 compiled modules confirm selected guards/if_clause/body exceptions/side effects/common export/closure capture/50000 tail calls;5 new compiler rejections confirm unbound variables and unsafe branch exports with construct/line reason fields. Original322 expressions,28 compiled sources/outcomes/generated hashes and5 diagnostic contracts remain unchanged.
+
+Same-head Windows CI passes **516/516** and full generated .erl/native hybrid/incremental/negative/clean/local packages/consumer/CLI/readiness. [Raw proof/provenance](validation/part-045/remote-checkpoint.json), [strict source/hash expectations](validation/part-045/corpus-audit.json), [CI tests](validation/part-045/ci-tests.json). Readiness compares immutable part044 tests:62 MFAs/delta0, erlang40/351, lists19/91, maps2/34, io1/53. No new MFA, whole-module or semantic-percentage promotion; overall approximately5% coarse estimate.
+
+Local full pipeline remains part044 evidence; this part verifies remote same-head full pipeline. Source layout151 types/no violations remains unchanged. Full grammar/optimizer/native lowering/annotations/warnings/source stacks/signals/resources/reductions/OTP/reference suites remain unfinished. Next grammar begin blocks and missing operators with binding/error contracts, then Erlang OTP callback adapters/signals. Historical355/355 at3c138b2 keeps its original scope.
