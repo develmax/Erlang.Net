@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "compiled-mc-key-value-conflict",
+    "Source": "-module(oracle_mc_13). -export([run/0]). run()->#{(X=1)=>(X=2) || true}.",
+    "SourceSha256": "EBBCC2E6E6D6EDDB87BA6572041B5A3759EF035C5BE9F00C966EDFB6F6D61A36",
+    "CSharpSha256": "429658C32EBEC383A1501BB651B42B7F9A5EE1CD3D62DC5E0FFA31F78225E8EE",
+    "Expected": "{error,error,{badmatch,1}}",
+    "FixtureExpected": "{error,error,{badmatch,1}}",
+    "Actual": "{error,error,{badmatch,1}}",
+    "Passed": true
+  },
+  {
+    "Name": "compiled-mc-effect-order",
+    "Source": "-module(oracle_mc_15). -export([run/0]). run()->begin put(mark,none),M=#{(begin put(mark,key),a end)=>(begin put(mark,value),get(mark) end) || true},{M,get(mark)} end.",
+    "SourceSha256": "B9FA741B41BD2DCEA938AFCC87E0429D705DA29514154B87E9339912E5299E15",
+    "CSharpSha256": "500F80AFB0436F10C806CCF2A089DFB3174B60395FCE7C87CEB9EB52782AE64E",
+    "Expected": "{ok,{#{a=>value},key}}",
+    "FixtureExpected": "{ok,{#{a=>value},key}}",
+    "Actual": "{ok,{#{a=>value},key}}",
+    "Passed": true
+  }
+]

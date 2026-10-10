@@ -272,3 +272,7 @@ Local1231/full pipeline;1068-case plan687/308/73 preserves631/252/67. Registry65
 ## Part 077 checkpoint
 
 Initial59768e8 exact-source1066/1068 has two compiled mc_pairs order mismatches; initial report/CI1231 retained. Source-directed safe-prefix/fallback correction passes1247/full pipeline; eight independent order expressions/modules added,1084-case plan695/316/73. Exactly two provisional module expectations follow retained official outputs;308 sources/generated hashes and historical631/252/67 unchanged.193 types/no violations;65 MFAs/delta0. Publish/reverify corrected head; do not claim first failures resolved until compared. Full Core canonicalization/nested filter metadata/custom/HAMT/resources remain incomplete; draft stays uncommitted.
+
+## Part 078 checkpoint
+
+Published7a35cdd passes exact-source1084/1084=695/316/73 and same-head1247/full CI. Initial map1066/1068/two compiled scheduling mismatches retained and now resolved. Exactly two provisional module expectations follow retained original outputs; no further correction; historical631/252/67 and all308 initial source/generated hashes unchanged.193 types/no violations;65 MFAs/maps5/34/delta0 in evidence part. Next comparator iterators/zip generators or Erlang callback adapters; full Core canonicalization/nested filter metadata/opaque HAMT/resources/stacks/suites/performance remain unfinished. Approximately5% coarse, draft uncommitted, consolidated notices without source banners.

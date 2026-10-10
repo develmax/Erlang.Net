@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-076/tests.json",
+  "ComparisonTestReport": "validation/part-077/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -62,17 +62,15 @@
       ],
       "Implemented": [
         "clauses, closures, case/receive and private scope analysis",
-        "if/begin and all ordinary expression operator spellings; ordered guards and common branch exports",
-        "catch/try/of/catch/after with protected-body boundaries, private handler/after scopes and selected logical stack rules",
-        "maybe/?= success/mismatch/else/exception and private binding contracts",
-        "alias and literal string/integer-list prefix patterns; transactional matching and incoming key/size scopes",
-        "maps and integer/binary/float/UTF bit construction/patterns; source-directed binding/error order and independent static scopes",
-        "distinct interpreted/compiled sibling match and pre-expression policies; explicit constraints remain separate from lexical captures",
-        "list/binary comprehensions, multiple list templates, relaxed/strict list/binary generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
-        "generated C# AST/evaluator and module-local tail-call trampoline; native hybrid/PackageReference integration",
-        "selected contracts verified against source-built OTP-29.1.1 at6273efc:631 expressions,252 compiled modules,67 normalized diagnostics;1106/full CI; full Core lowering remains unported",
-        "Map comprehensions with multiple => fields; relaxed/strict key/value generators and named/tuple/partial iterators; private bindings, last exact key wins and distinct interpreted/compiled pair timing;56 independent expressions/modules and six normalized scope diagnostics; local1231/full pipeline, fresh reference proof pending",
-        "Compiled map template scheduling follows v3_core mc_pairs/mc_tuples safe-prefix/fallback order; two observed compiled mismatches corrected and eight independent order regressions added; local1247/full pipeline; new-head1084 reference proof pending"
+        "if/begin/all ordinary operators; ordered guards and common branch exports",
+        "catch/try/of/catch/after and maybe/?= selected value/error/else/exception/private-scope contracts",
+        "alias and literal string/list-prefix patterns; transactional matching and incoming key/size scopes",
+        "maps and integer/binary/float/UTF bit construction/patterns; source-directed binding/error order",
+        "distinct interpreted/compiled sibling constraints and map-template safe-prefix/fallback scheduling from v3_core; lexical captures remain private",
+        "list/binary/map comprehensions, multiple list/map templates, relaxed/strict list/binary/map generators, filters and private shadowing; consuming binary mismatch and strict remaining-tail errors",
+        "map iterator/tuple/none/partial-source handling; exact keys and last repeated key wins",
+        "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
+        "selected contracts verified against exact-source OTP-29.1.1 at7a35cdd:695 expressions/316 compiled modules/73 diagnostics=1084;1247/full same-head CI; full Core lowering remains incomplete"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -167,11 +165,10 @@
       ],
       "Implemented": [
         "pinned source-built OTP-29.1.1 value/class/reason comparator; no production Erlang dependency",
-        "631 expressions,252 generated C#/compiled-reference modules and67 normalized rejection contracts verified at6273efc;950/950 complete/version-verified",
-        "historical595/216/63 contracts and generated hashes retained;36 independent binary comprehension expressions/modules and four scope rejections added, zero expectation corrections",
-        "same-head1106/full CI; explicit unavailable-oracle infrastructure failure and all immutable failed/successful checkpoint evidence retained",
-        "Map/iterator corpus expands plan to687 expressions/308 modules/73 diagnostics=1068; historical950 contracts retained, new-head comparison pending",
-        "Initial map run at59768e8 completed1066/1068, two compiled template order failures retained; two new provisional module expectations corrected only to retained official outputs; historical631/252/67 unchanged; expanded695/316/73=1084 awaits corrected-head reference"
+        "695 expressions,316 generated C#/compiled-reference modules and73 normalized rejections verified at7a35cdd;1084/1084 complete/version verified",
+        "historical631 expressions/252 module contracts/generated hashes/67 diagnostics unchanged;64 independent map/iterator/template-order expressions/modules and six new diagnostics verified",
+        "initial map run1066/1068 retained; two original compiled order mismatches resolved, only two provisional expectations corrected to retained official outcomes; all308 initial source/generated hashes unchanged",
+        "same-head1247/full CI and unavailable-oracle negative protocol; immutable initial failures and successful checkpoints retained"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [
