@@ -110,3 +110,7 @@ Preserve complete304/304 and same-head414-test CI with exact head/job/build/arti
 ## Part 039 — Keep existing member semantics and preserve recursive error order iteratively
 
 member/2 was already registered and exact/lazy; retain it rather than claim another MFA. Extend permanent contracts including signed-zero distinction. append/1 first traverses the outer spine, then combines prefixes from right to left using existing append/2 behavior; the last element is returned untouched. This preserves outer function_clause precedence over malformed-prefix badarg and suffix identity without recursion. New MFA count is one,59 total/lists16/91. Full resource/reduction/stack equivalence remains unverified. Reuse existing terms/BCL helpers; no dependency or license change.
+
+## Part 040 — Keep new exports separate from stronger existing contracts
+
+Preserve330/330 and same-head442 CI with exact head/job/reference build/archive SHA provenance. All 271 prior expression sources and28 compiled sources/independent outcomes/generated hashes plus5 diagnostics remain checked. New26 cases establish selected append/1 and existing member/2 behavior; only append/1 increases the registry. Compare readiness to immutable part039 tests, evidence-only delta0;59 MFAs/lists16/91. No full resource/reduction/stack/module promotion or executable/dependency/license change.

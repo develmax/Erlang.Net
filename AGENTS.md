@@ -37,3 +37,7 @@ Published last/split head f20113c now passes pinned304/304 (271 expressions,28 m
 ## Part 039 checkpoint
 
 Local append/1 and existing member/2 boundary increment passes442 tests/full integration. Publish and dispatch exact pinned330-case oracle:297 expressions,28 modules,5 diagnostics; inspect same-head CI442 and preserve strict source/hash provenance. Registry59/lists16/91; member/2 already existed and is not a new MFA. Historical304/304 belongs to part038. Next audited lists:duplicate/2 and flatten/1 nested/improper/error/resource contracts, then grammar/Erlang callback adapters/signals. Approximately5% overall; no whole-module promotion.
+
+## Part 040 checkpoint
+
+Published append/member head 605ef3d passes pinned330/330 (297 expressions,28 modules,5 diagnostics), same-head442-test CI/full integration and strict provenance. Registry59/lists16/91; evidence-only delta0 against immutable part039 tests. member/2 already existed; append/1 is the sole new MFA. Next audited lists:duplicate/2 and flatten/1 nested/improper/error/resource contracts, then grammar/Erlang callback adapters/signals. Approximately5% overall; no whole-module promotion. Preserve initial part039 signed-zero test expectation failure and all historical evidence.
