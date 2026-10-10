@@ -140,6 +140,7 @@ public static class Semantics
             {
                 ComprehensionQualifier.Generator g => (g.Pattern, g.Source),
                 ComprehensionQualifier.BinaryGenerator g => (g.Pattern, g.Source),
+                ComprehensionQualifier.MapGenerator g => (g.Pattern, g.Source),
                 _ => null
             };
             if (generator is { } value)
@@ -192,6 +193,16 @@ public static class Semantics
             case Expr.BinaryComprehension comprehension:
                 ValidateComprehension(
                     new[] { comprehension.Body },
+                    comprehension.Qualifiers,
+                    bound,
+                    guard
+                );
+                break;
+            case Expr.MapComprehension comprehension:
+                if (comprehension.Fields.Any(field => field.Exact))
+                    throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, SemanticDiagnostics.MapComprehensionOperator, 0);
+                ValidateComprehension(
+                    comprehension.Fields.SelectMany(field => new[] { field.Key, field.Value }).ToArray(),
                     comprehension.Qualifiers,
                     bound,
                     guard

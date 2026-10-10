@@ -447,6 +447,15 @@ public sealed class Parser
         do
         {
             var qualifier = Expression();
+            if (Take(ErlangSyntaxTokens.MapExactField))
+            {
+                var value = Expression();
+                bool strictMap = Take(ErlangSyntaxTokens.StrictListGenerator);
+                if (!strictMap)
+                    Expect(ErlangSyntaxTokens.ListGenerator);
+                qualifiers.Add(new ComprehensionQualifier.MapGenerator(ToPattern(new Expr.Tuple([qualifier, value])), Expression(), strictMap));
+                continue;
+            }
             bool strictBinary = Take(ErlangSyntaxTokens.StrictBinaryGenerator);
             if (strictBinary || Take(ErlangSyntaxTokens.BinaryGenerator))
             {
@@ -625,6 +634,8 @@ public sealed class Parser
                 else
                     throw Error(ParserDiagnostics.ExpectedMapFieldOperator);
                 fields.Add(new(key, Expression(), exact));
+                if (mapBase is null && Take(ErlangSyntaxTokens.ComprehensionSeparator))
+                    return new Expr.MapComprehension(fields, ComprehensionQualifiers(ErlangSyntaxTokens.CloseTuple));
             } while (Take(ErlangSyntaxTokens.Comma));
             Expect(ErlangSyntaxTokens.CloseTuple);
         }

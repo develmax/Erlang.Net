@@ -81,6 +81,12 @@ if (!(await bitPhaseCheck.Completion).Equals(Term.A("normal"))) throw new Invali
 var helloPrinted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 var tryCheck = runtime.Spawn(async erlangProcess =>
 {
+    var mapComprehension = begin
+        M=#{K=>V*2,K+10=>V || K := V <:- #{1=>2,2=>3}},
+        Keys=[K || K := V <- maps:iterator(M,reversed),K>10],
+        {M,Keys}
+    end.
+    if (!mapComprehension.Equals(Term.Tuple(new MapTerm([new(Term.I(1),Term.I(4)),new(Term.I(2),Term.I(6)),new(Term.I(11),Term.I(2)),new(Term.I(12),Term.I(3))]),Term.List(Term.I(12),Term.I(11))))) throw new InvalidOperationException(mapComprehension.ToString());
     var comprehension = begin
         Outer=9,
         Values=[X*2 || X <- [1,2,3,4],X rem 2=:=0],

@@ -15,6 +15,7 @@ internal static class ComprehensionExecution
             expression.Items,
             expression.Qualifiers,
             false,
+            null,
             incoming,
             context,
             module,
@@ -31,6 +32,24 @@ internal static class ComprehensionExecution
         new[] { expression.Body },
         expression.Qualifiers,
         true,
+        null,
+        incoming,
+        context,
+        module,
+        evaluate
+    );
+
+    public static ValueTask<Term> Evaluate(
+        Expr.MapComprehension expression,
+        Dictionary<string, Term> incoming,
+        ProcessContext context,
+        ModuleDefinition? module,
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate
+    ) => Evaluate(
+        [],
+        expression.Qualifiers,
+        false,
+        expression.Fields,
         incoming,
         context,
         module,
@@ -41,6 +60,7 @@ internal static class ComprehensionExecution
         IReadOnlyList<Expr> items,
         IReadOnlyList<ComprehensionQualifier> qualifiers,
         bool binary,
+        IReadOnlyList<MapField>? fields,
         Dictionary<string, Term> incoming,
         ProcessContext context,
         ModuleDefinition? module,
@@ -48,7 +68,10 @@ internal static class ComprehensionExecution
     )
     {
         var result = new List<Term>();
+        var pairs = new List<KeyValuePair<Term, Term>>();
         await Qualifiers(0, CompiledBindingScope.Copy(incoming));
+        if (fields is not null)
+            return new MapTerm(pairs);
         if (binary)
             return BitConstruction.Create(result.Select(value => (value, (Term?)null, new BitSegment(
                 new Expr.Literal(value),
@@ -63,6 +86,20 @@ internal static class ComprehensionExecution
         {
             if (index == qualifiers.Count)
             {
+                if (fields is not null)
+                {
+                    foreach (var field in fields)
+                    {
+                        var local = CompiledBindingScope.Copy(scope);
+                        Expr[] expressions = [field.Key, field.Value];
+                        var fieldValues = module is null
+                            ? await ExpressionBindings.EvaluateList(expressions, local, evaluate)
+                            : await CompiledExpressionBindings.EvaluateList(expressions, local, evaluate);
+                        pairs.Add(new(fieldValues[0], fieldValues[1]));
+                    }
+
+                    return;
+                }
                 if (binary)
                 {
                     var chunk = await evaluate(items[0], CompiledBindingScope.Copy(scope));
@@ -104,6 +141,41 @@ internal static class ComprehensionExecution
                 }
                 if (source is not Nil)
                     throw new ErlangException(Term.Tuple(Term.A(ComprehensionErrorReasons.BadGenerator), source));
+
+                return;
+            }
+            if (qualifiers[index] is ComprehensionQualifier.MapGenerator mapGenerator)
+            {
+                Term source = await evaluate(mapGenerator.Source, CompiledBindingScope.Copy(scope));
+                IReadOnlyList<KeyValuePair<Term, Term>> entries;
+                try
+                {
+                    entries = MapIteration.Entries(source);
+                }
+                catch (ErlangException)
+                {
+                    throw new ErlangException(Term.Tuple(Term.A(ComprehensionErrorReasons.BadGenerator), source));
+                }
+                foreach (var entry in entries)
+                {
+                    await context.ReduceAsync();
+                    var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
+                    var pair = Term.Tuple(entry.Key, entry.Value);
+                    if (mapGenerator.Pattern.Match(
+                        pair,
+                        fresh,
+                        context,
+                        scope
+                    ))
+                    {
+                        var nested = CompiledBindingScope.Copy(scope);
+                        foreach (var binding in fresh)
+                            nested[binding.Key] = binding.Value;
+                        await Qualifiers(index + 1, nested);
+                    }
+                    else if (mapGenerator.Strict)
+                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), pair));
+                }
 
                 return;
             }

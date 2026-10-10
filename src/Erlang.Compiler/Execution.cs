@@ -249,6 +249,19 @@ public static class Execution
                         module
                     )
                 );
+            case Expr.MapComprehension mapComprehension:
+                return await ComprehensionExecution.Evaluate(
+                    mapComprehension,
+                    b,
+                    ctx,
+                    module,
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module
+                    )
+                );
             case Expr.Bits bits:
                 return await BitExpressionBindings.Evaluate(
                     bits,

@@ -1457,6 +1457,9 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
                 ("lists", "member", 2) => ([Term.I(1), Term.List(new FloatTerm(1))], Term.A("false")),
                 ("lists", "sum", 1) => ([Term.List(Term.I(1), new FloatTerm(2.5))], new FloatTerm(3.5)),
                 ("maps", "get", 2) => ([Term.A("k"), new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(42)),
+                ("maps", "iterator", 1) => ([new MapTerm([])], new Cons(Term.I(0), new MapTerm([]))),
+                ("maps", "iterator", 2) => ([new MapTerm([]), Term.A("ordered")], new Cons(Nil.Value, new MapTerm([]))),
+                ("maps", "next", 1) => ([Term.A("none")], Term.A("none")),
                 ("maps", "size", 1) => ([new MapTerm([new(Term.A("k"), Term.I(42))])], Term.I(1)),
                 _ => null
             };
@@ -3144,6 +3147,45 @@ Test(
     }
 );
 Test(
+    "compiler/comprehension/map-invalid-syntax",
+    () =>
+    {
+        foreach (string source in new[] { "#{K=>V || K=>V <- #{}}", "#{K=>V || K := V <= <<1>>}", "M#{a=>1 || true}" })
+            Throws<CompileException>(() => new Parser(source).ParseExpression());
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "compiler/comprehension/map-exact-template-rejected",
+    () =>
+    {
+        Throws<CompileException>(() => Semantics.Validate(new Parser("#{a:=1 || true}").ParseExpression()));
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "compiler/comprehension/map-illegal-guard",
+    () =>
+    {
+        Throws<CompileException>(() => Semantics.Validate(new Parser("if #{a=>1 || true} =:= #{} -> ok end").ParseExpression()));
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "hybrid/comprehension/map-ast-emission",
+    () =>
+    {
+        string source = "class A { async Task F(ProcessContext erlangProcess) { var x = begin #{K=>V+1 || K := V <:- #{a=>1}} end. } }";
+        string generated = CodeGeneration.Preprocess(source, "map.cs");
+        Check(generated.Contains("Expr.MapComprehension") && generated.Contains("ComprehensionQualifier.MapGenerator"));
+
+        return Task.CompletedTask;
+    }
+);
+Test(
     "compiler/comprehension/binary-illegal-guard",
     () =>
     {
@@ -3171,7 +3213,7 @@ Test(
         return Task.CompletedTask;
     }
 );
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All))
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All).Concat(Erlang.Differential.MapBindingCases.All).Concat(Erlang.Differential.BitEvaluationCases.All).Concat(Erlang.Differential.BitEmptyStringCases.All).Concat(Erlang.Differential.MatchTimingCases.All).Concat(Erlang.Differential.TryExpressionCases.All).Concat(Erlang.Differential.CatchPatternCases.All).Concat(Erlang.Differential.StackGuardScopeCases.All).Concat(Erlang.Differential.MaybeExpressionCases.All).Concat(Erlang.Differential.AliasPatternCases.All).Concat(Erlang.Differential.ListComprehensionCases.All).Concat(Erlang.Differential.BinaryComprehensionCases.All).Concat(Erlang.Differential.MapComprehensionCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

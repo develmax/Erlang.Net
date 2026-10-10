@@ -5,4 +5,6 @@ internal static class MapModuleNames
     public const string Module = "maps";
     public const string Get = "get";
     public const string Size = "size";
+    public const string Iterator = "iterator";
+    public const string Next = "next";
 }

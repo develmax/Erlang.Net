@@ -462,6 +462,24 @@ public static class CoreModules
             1,
             (c, a) => a[0] is MapTerm m ? Term.I(m.Entries.Count) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0]))
         );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Iterator,
+            1,
+            (c, a) => MapIteration.Iterator(a[0])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Iterator,
+            2,
+            (c, a) => a[0] is MapTerm && a[1] is Atom order ? MapIteration.Iterator(a[0], order.Name) : throw new ErlangException(ErlangErrorReasons.BadArgument)
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Next,
+            1,
+            (c, a) => MapIteration.Next(a[0])
+        );
         r.Register(
             IoModuleNames.Module,
             IoModuleNames.Format,

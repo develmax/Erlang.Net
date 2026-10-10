@@ -2,6 +2,7 @@ namespace Erlang.Compiler;
 
 internal static class SemanticDiagnostics
 {
+    public const string MapComprehensionOperator = "Map comprehension fields require =>";
     public const string DuplicateFunction = "Duplicate function definition";
     public const string MapConstructionOperator = "Map construction requires '=>' fields; ':=' is for updates or patterns";
     public const string GuardOperator = "Operator is not legal in a guard";
