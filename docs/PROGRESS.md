@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–047.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–048.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -32,7 +32,7 @@ Part 022 replaces nontrivial ETF numeric literals with separate wire tag/header/
 
 ## Current validation
 
-Part047: **614/614 local tests and same-head Windows CI**, full integration, and **484/484 exact-version comparisons** (419 expressions,48 compiled modules,17 diagnostics) at b7b8c72. [Verified provenance](validation/part-047/remote-checkpoint.json), [local proof](validation/part-046/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% overall coarse estimate.
+Part048: **648/648 local tests/full integration**, with historical same-head Windows CI614 and **484/484 exact-version comparisons** (419 expressions,48 compiled modules,17 diagnostics) at b7b8c72; new518-case source-port comparison pending. [Verified provenance](validation/part-047/remote-checkpoint.json), [local proof](validation/part-048/tests.json), [module readiness](MODULE_READINESS.md). Registry62/delta0; approximately5% overall coarse estimate.
 
 ## Historical validation through part032
 
@@ -224,3 +224,9 @@ Exact implementation head **b7b8c72fe98cebc877b2695bb6189dcd3a31c517** passes **
 Same-head Windows CI passes **614/614** and full generated/hybrid/incremental/negative/clean/local packages/consumer/CLI/readiness. [Raw proof](validation/part-047/remote-checkpoint.json), [strict provenance](validation/part-047/corpus-audit.json), [CI tests](validation/part-047/ci-tests.json). Readiness compares immutable part046 tests:62 MFAs/delta0; lists19/91, erlang40/351, maps2/34, io1/53. These are declaration ratios, not semantic completion.156 namespace types/layout unchanged. Local full pipeline remains part046 evidence, not rerun in this documentation part.
 
 All ordinary operator spellings and begin are implemented, with selected reference evidence; [matrix](operator-support.json) remains Partially compatible because full operands/resources/annotations/reference suites are not exhaustively verified. Catch logical stack frames are not complete OTP stacks/source annotations; int.MaxValue CLR left-shift result-bit indexing is a local bound, no near-bound allocations were compared. Record/generator/maybe/try grammar and OTP callbacks/signals remain unfinished; approximately5% coarse overall estimate. Historical392/392 atc7e575b retains its scope. Next remaining grammar/Erlang callback adapters, full debugging/stacks/resources.
+
+## Part 048 — Source-directed port policy and expression binding repair
+
+The accepted implementation policy is now close source ports with explicit routine provenance and CLR deviations; see [OTP-PORTS](OTP-PORTS.md). First audit found sibling scope drift. Ported erl_eval expr_list/cons/ordered-dictionary merge and the erl_lint independent-expression walk skeleton for tuples/lists/static and dynamic call arguments. Added20 expression outcomes/6 compiled modules/8 diagnostics, preserving419/48/17 previous contracts. Local **648/648/full integration** passes; [proof](validation/part-048/checkpoint.json). Planned pinned corpus518 (439/54/25) and same-head CI648 await publication. Historical484/484 and CI614 remain scoped to b7b8c72.
+
+Map binding scopes, bit evaluation callbacks, typed variable tables, generated parser/full grammar, optimized execution, source stacks/resources/scheduler/OTP remain incomplete. New Apache-2.0 adapted file retains Ericsson notices; local packages include the port register/full license.158 source types/no layout violations,62 MFAs/delta0; approximately5% overall, no whole-module promotion or public package release.

@@ -3005,7 +3005,7 @@ Test(
     )
 );
 
-foreach (var fixture in Erlang.Differential.BeginOperatorCases.All)
+foreach (var fixture in Erlang.Differential.BeginOperatorCases.All.Concat(Erlang.Differential.ExpressionListCases.All))
 {
     Test(
         "compiler/operators/" + fixture.Name,

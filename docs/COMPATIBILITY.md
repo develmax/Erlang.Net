@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **614/614 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part046](validation/part-046/tests.json), [integration](validation/part-046/integration-results.json).
+Current local evidence is **648/648 tests**, 62 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part048](validation/part-048/tests.json), [integration](validation/part-048/integration-results.json).
 
 Latest exact-version oracle evidence: **419/419 expressions +48/48 compiled modules +17/17 compiler diagnostics (484/484)** at **b7b8c72**, plus same-head Windows CI **614/614** and full integration/readiness. [Verified provenance](validation/part-047/remote-checkpoint.json). Modules remain partially compatible; [module readiness](MODULE_READINESS.md) reports registrations and remaining scope.
 
@@ -199,3 +199,9 @@ Exact implementation head **b7b8c72fe98cebc877b2695bb6189dcd3a31c517** passes **
 Same-head Windows CI passes **614/614** and full generated/hybrid/incremental/negative/clean/local packages/consumer/CLI/readiness. [Raw proof](validation/part-047/remote-checkpoint.json), [strict provenance](validation/part-047/corpus-audit.json), [CI tests](validation/part-047/ci-tests.json). Readiness compares immutable part046 tests:62 MFAs/delta0; lists19/91, erlang40/351, maps2/34, io1/53. These are declaration ratios, not semantic completion.156 namespace types/layout unchanged. Local full pipeline remains part046 evidence, not rerun in this documentation part.
 
 All ordinary operator spellings and begin are implemented, with selected reference evidence; [matrix](operator-support.json) remains Partially compatible because full operands/resources/annotations/reference suites are not exhaustively verified. Catch logical stack frames are not complete OTP stacks/source annotations; int.MaxValue CLR left-shift result-bit indexing is a local bound, no near-bound allocations were compared. Record/generator/maybe/try grammar and OTP callbacks/signals remain unfinished; approximately5% coarse overall estimate. Historical392/392 atc7e575b retains its scope. Next remaining grammar/Erlang callback adapters, full debugging/stacks/resources.
+
+## Part 048 — Source-directed port policy and expression binding repair
+
+The accepted implementation policy is now close source ports with explicit routine provenance and CLR deviations; see [OTP-PORTS](OTP-PORTS.md). First audit found sibling scope drift. Ported erl_eval expr_list/cons/ordered-dictionary merge and the erl_lint independent-expression walk skeleton for tuples/lists/static and dynamic call arguments. Added20 expression outcomes/6 compiled modules/8 diagnostics, preserving419/48/17 previous contracts. Local **648/648/full integration** passes; [proof](validation/part-048/checkpoint.json). Planned pinned corpus518 (439/54/25) and same-head CI648 await publication. Historical484/484 and CI614 remain scoped to b7b8c72.
+
+Map binding scopes, bit evaluation callbacks, typed variable tables, generated parser/full grammar, optimized execution, source stacks/resources/scheduler/OTP remain incomplete. New Apache-2.0 adapted file retains Ericsson notices; local packages include the port register/full license.158 source types/no layout violations,62 MFAs/delta0; approximately5% overall, no whole-module promotion or public package release.

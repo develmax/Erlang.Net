@@ -372,6 +372,7 @@ try
         "lists:keyfind(#{1=>a},1,[{#{1.0=>a}}])"];
     cases = [.. cases, .. IfExpressionCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. BeginOperatorCases.All.Select(fixture => fixture.Source)];
+    cases = [.. cases, .. ExpressionListCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
     foreach (string source in cases)
     {

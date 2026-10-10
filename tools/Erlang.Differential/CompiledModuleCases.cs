@@ -276,6 +276,36 @@ public static class CompiledModuleCases
             "begin-closure",
             "-module(oracle_begin_closure). -export([run/0]). run()->begin X=40,F=fun(Y)->begin Z=X+Y,Z end end,F(2) end.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.I(42))
+        ),
+        new(
+            "expr-list-tuple-export",
+            "-module(oracle_expr_tuple). -export([run/0]). run()->{X=1,Y=2},{X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(1),Term.I(2)))
+        ),
+        new(
+            "expr-list-call-export",
+            "-module(oracle_expr_call). -export([run/0]). run()->T=element(X=1,Y={2}),{T,X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(2),Term.I(1),Term.Tuple(Term.I(2))))
+        ),
+        new(
+            "expr-list-apply-export",
+            "-module(oracle_expr_apply). -export([run/0]). run()->F=fun(A,B)->A+B end,T=F(X=1,Y=2),{T,X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(3),Term.I(1),Term.I(2)))
+        ),
+        new(
+            "expr-list-effect-order",
+            "-module(oracle_expr_effect). -export([run/0]). run()->put(mark,0),T={put(mark,1),put(mark,2)},{T,get(mark)}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.Tuple(Term.I(0),Term.I(1)),Term.I(2)))
+        ),
+        new(
+            "expr-list-conflict",
+            "-module(oracle_expr_conflict). -export([run/0]). run()->{X=1,X=2}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Failure),Term.A("error"),Term.Tuple(Term.A("badmatch"),Term.I(1)))
+        ),
+        new(
+            "expr-list-cons-export",
+            "-module(oracle_expr_cons). -export([run/0]). run()->[X=1|Y=tail],{X,Y}.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success),Term.Tuple(Term.I(1),Term.A("tail")))
         )
     ];
 }

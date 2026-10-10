@@ -142,3 +142,7 @@ Use a named precedence catalog matching pinned ordinary grammar; strict operand 
 ## Part 047 — Separate operator outcomes from trace/resource equivalence
 
 Preserve484/484 plus same-head614 CI with exact source-build/head/job/archive provenance. Verify73 independent new expression outcomes,48 module source/expected/generated hashes and17 normalized rejection source/reason/code/messages, retaining346/36/10 prior contracts. Catch comparisons separately validate reasons and stack structure; do not interpret matching shape as complete source-stack equivalence. CLR bit-index local resource policy remains separate.62 MFAs/delta0 against part046 tests, no executable/dependency/license change.
+
+## Part 048 — Port algorithms before inventing replacements
+
+User accepted source-directed implementation after discussing independent-reimplementation risk. Prefer pinned source algorithm/state/error order and meaningful original-test adaptations; record every CLR departure. Preserve existing working code while replacing confirmed divergences. First adaptation uses expr_list/cons/ordered-dictionary merge and name-only lint independent walk; do not claim complete variable tables or compiled optimizer equivalence. Exact reference evidence remains historical until518-case new-head comparison completes. Apache-2.0-derived code has file notices/modification labels/package provenance; unrelated original-code license stays unresolved.

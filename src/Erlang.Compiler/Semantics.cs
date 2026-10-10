@@ -116,14 +116,10 @@ public static class Semantics
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
                 break;
             case Expr.Tuple t:
-                foreach (var x in t.Items)
-                    Walk(x, bound, guard);
+                ExpressionBindings.ValidateList(t.Items, bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.List l:
-                foreach (var x in l.Items)
-                    Walk(x, bound, guard);
-                if (l.Tail is not null)
-                    Walk(l.Tail, bound, guard);
+                ExpressionBindings.ValidateList(l.Tail is null ? l.Items : l.Items.Append(l.Tail), bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.Map m:
                 if (m.Base is not null)
@@ -200,8 +196,7 @@ public static class Semantics
             case Expr.Call call:
                 if (guard && (call.Module is not null and not ErlangModuleNames.Module || !GuardBifs.Contains((call.Function, call.Arguments.Count))))
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.IllegalGuardCall(call.Function, call.Arguments.Count), 0);
-                foreach (var x in call.Arguments)
-                    Walk(x, bound, guard);
+                ExpressionBindings.ValidateList(call.Arguments, bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.Match m:
                 if (guard)
@@ -244,9 +239,7 @@ public static class Semantics
             case Expr.Apply a:
                 if (guard)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardDynamicCall, 0);
-                Walk(a.Function, bound, false);
-                foreach (var x in a.Arguments)
-                    Walk(x, bound, false);
+                ExpressionBindings.ValidateList(a.Arguments.Prepend(a.Function), bound, (expression, scope) => Walk(expression, scope, false));
                 break;
         }
     }

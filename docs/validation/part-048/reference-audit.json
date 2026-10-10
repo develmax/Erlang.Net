@@ -1,0 +1,1097 @@
+{
+  "Tag": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Matches": [
+        {
+          "Line": 2177,
+          "Text": "inop_prec('=') -> {150,100,100};",
+          "Following": [
+            "inop_prec('!') -> {150,100,100};",
+            "inop_prec('orelse') -> {160,150,150};",
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};"
+          ]
+        },
+        {
+          "Line": 2178,
+          "Text": "inop_prec('!') -> {150,100,100};",
+          "Following": [
+            "inop_prec('orelse') -> {160,150,150};",
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};"
+          ]
+        },
+        {
+          "Line": 2179,
+          "Text": "inop_prec('orelse') -> {160,150,150};",
+          "Following": [
+            "inop_prec('andalso') -> {200,160,160};",
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2180,
+          "Text": "inop_prec('andalso') -> {200,160,160};",
+          "Following": [
+            "inop_prec('==') -> {300,200,300};",
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2181,
+          "Text": "inop_prec('==') -> {300,200,300};",
+          "Following": [
+            "inop_prec('/=') -> {300,200,300};",
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2182,
+          "Text": "inop_prec('/=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=<') -> {300,200,300};",
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2183,
+          "Text": "inop_prec('=<') -> {300,200,300};",
+          "Following": [
+            "inop_prec('<') -> {300,200,300};",
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2184,
+          "Text": "inop_prec('<') -> {300,200,300};",
+          "Following": [
+            "inop_prec('>=') -> {300,200,300};",
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2185,
+          "Text": "inop_prec('>=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('>') -> {300,200,300};",
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2186,
+          "Text": "inop_prec('>') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=:=') -> {300,200,300};",
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};"
+          ]
+        },
+        {
+          "Line": 2187,
+          "Text": "inop_prec('=:=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('=/=') -> {300,200,300};",
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2188,
+          "Text": "inop_prec('=/=') -> {300,200,300};",
+          "Following": [
+            "inop_prec('++') -> {400,300,300};",
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2189,
+          "Text": "inop_prec('++') -> {400,300,300};",
+          "Following": [
+            "inop_prec('--') -> {400,300,300};",
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2190,
+          "Text": "inop_prec('--') -> {400,300,300};",
+          "Following": [
+            "inop_prec('+') -> {400,400,500};",
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2191,
+          "Text": "inop_prec('+') -> {400,400,500};",
+          "Following": [
+            "inop_prec('-') -> {400,400,500};",
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2192,
+          "Text": "inop_prec('-') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bor') -> {400,400,500};",
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};"
+          ]
+        },
+        {
+          "Line": 2193,
+          "Text": "inop_prec('bor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bxor') -> {400,400,500};",
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};"
+          ]
+        },
+        {
+          "Line": 2194,
+          "Text": "inop_prec('bxor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bsl') -> {400,400,500};",
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};"
+          ]
+        },
+        {
+          "Line": 2195,
+          "Text": "inop_prec('bsl') -> {400,400,500};",
+          "Following": [
+            "inop_prec('bsr') -> {400,400,500};",
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};"
+          ]
+        },
+        {
+          "Line": 2196,
+          "Text": "inop_prec('bsr') -> {400,400,500};",
+          "Following": [
+            "inop_prec('or') -> {400,400,500};",
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}."
+          ]
+        },
+        {
+          "Line": 2197,
+          "Text": "inop_prec('or') -> {400,400,500};",
+          "Following": [
+            "inop_prec('xor') -> {400,400,500};",
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2198,
+          "Text": "inop_prec('xor') -> {400,400,500};",
+          "Following": [
+            "inop_prec('*') -> {500,500,600};",
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'."
+          ]
+        },
+        {
+          "Line": 2199,
+          "Text": "inop_prec('*') -> {500,500,600};",
+          "Following": [
+            "inop_prec('/') -> {500,500,600};",
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            ""
+          ]
+        },
+        {
+          "Line": 2200,
+          "Text": "inop_prec('/') -> {500,500,600};",
+          "Following": [
+            "inop_prec('div') -> {500,500,600};",
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false."
+          ]
+        },
+        {
+          "Line": 2201,
+          "Text": "inop_prec('div') -> {500,500,600};",
+          "Following": [
+            "inop_prec('rem') -> {500,500,600};",
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}."
+          ]
+        },
+        {
+          "Line": 2202,
+          "Text": "inop_prec('rem') -> {500,500,600};",
+          "Following": [
+            "inop_prec('band') -> {500,500,600};",
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            ""
+          ]
+        },
+        {
+          "Line": 2203,
+          "Text": "inop_prec('band') -> {500,500,600};",
+          "Following": [
+            "inop_prec('and') -> {500,500,600};",
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};"
+          ]
+        },
+        {
+          "Line": 2204,
+          "Text": "inop_prec('and') -> {500,500,600};",
+          "Following": [
+            "inop_prec('#') -> {750,700,750};",
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};"
+          ]
+        },
+        {
+          "Line": 2205,
+          "Text": "inop_prec('#') -> {750,700,750};",
+          "Following": [
+            "inop_prec('(') -> {750,750,800};",
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};"
+          ]
+        },
+        {
+          "Line": 2206,
+          "Text": "inop_prec('(') -> {750,750,800};",
+          "Following": [
+            "inop_prec(':') -> {900,800,900};",
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};"
+          ]
+        },
+        {
+          "Line": 2207,
+          "Text": "inop_prec(':') -> {900,800,900};",
+          "Following": [
+            "inop_prec('.') -> {900,900,1000}.",
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};"
+          ]
+        },
+        {
+          "Line": 2208,
+          "Text": "inop_prec('.') -> {900,900,1000}.",
+          "Following": [
+            "",
+            "-type pre_op() :: 'catch' | '+' | '-' | 'bnot' | 'not' | '#'.",
+            "",
+            "-doc false.",
+            "-spec preop_prec(pre_op()) -> {0 | 600 | 700, 100 | 700 | 800}.",
+            "",
+            "preop_prec('catch') -> {0,100};",
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}."
+          ]
+        },
+        {
+          "Line": 2215,
+          "Text": "preop_prec('catch') -> {0,100};",
+          "Following": [
+            "preop_prec('+') -> {600,700};",
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false."
+          ]
+        },
+        {
+          "Line": 2216,
+          "Text": "preop_prec('+') -> {600,700};",
+          "Following": [
+            "preop_prec('-') -> {600,700};",
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900."
+          ]
+        },
+        {
+          "Line": 2217,
+          "Text": "preop_prec('-') -> {600,700};",
+          "Following": [
+            "preop_prec('bnot') -> {600,700};",
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900.",
+            ""
+          ]
+        },
+        {
+          "Line": 2218,
+          "Text": "preop_prec('bnot') -> {600,700};",
+          "Following": [
+            "preop_prec('not') -> {600,700};",
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900.",
+            "",
+            "max_prec() -> 900."
+          ]
+        },
+        {
+          "Line": 2219,
+          "Text": "preop_prec('not') -> {600,700};",
+          "Following": [
+            "preop_prec('#') -> {700,800}.",
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900.",
+            "",
+            "max_prec() -> 900.",
+            ""
+          ]
+        },
+        {
+          "Line": 2220,
+          "Text": "preop_prec('#') -> {700,800}.",
+          "Following": [
+            "",
+            "-doc false.",
+            "-spec func_prec() -> {800,700}.",
+            "",
+            "func_prec() -> {800,700}.",
+            "",
+            "-doc false.",
+            "-spec max_prec() -> 900.",
+            "",
+            "max_prec() -> 900.",
+            "",
+            "-type prec() :: non_neg_integer()."
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_eval.erl",
+      "Blob": "97e03a11ade802e8aa8caa5678b99b96954c55c5",
+      "Matches": [
+        {
+          "Line": 440,
+          "Text": "expr({cons,Anno,H0,T0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value,H,Bs1} = expr(H0, Bs0, Lf, Ef, none, FUVs),",
+            "    {value,T,Bs2} = expr(T0, Bs0, Lf, Ef, none, FUVs),",
+            "    ret_expr([H|T], merge_bindings(Bs1, Bs2, Anno, Ef), RBs);",
+            "expr({lc,_,E,Qs}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    eval_lc(E, Qs, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({bc,_,E,Qs}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    eval_bc(E, Qs, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({mc,_,E,Qs}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    eval_mc(E, Qs, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({tuple,_,Es}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {Vs,Bs} = expr_list(Es, Bs0, Lf, Ef, FUVs),",
+            "    ret_expr(list_to_tuple(Vs), Bs, RBs);"
+          ]
+        },
+        {
+          "Line": 450,
+          "Text": "expr({tuple,_,Es}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {Vs,Bs} = expr_list(Es, Bs0, Lf, Ef, FUVs),",
+            "    ret_expr(list_to_tuple(Vs), Bs, RBs);",
+            "expr({record_field,_Anno,{atom,_,N},V0}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {value,V1,Bs1} = expr(V0, Bs0, Lf, Ef, RBs, FUVs),",
+            "    ret_expr({N,V1}, Bs1, RBs);",
+            "expr({record_field,Anno,Name,_}, Bs, _Lf, Ef, RBs, _FUVs) ->",
+            "    apply_error({undef_record,Name}, ?STACKTRACE, Anno, Bs, Ef, RBs);",
+            "expr({record_field,Anno,{var,_,Src0},{M,N},{atom,_,K}}, Bs, _Lf, Ef, RBs, _FUVs) ->",
+            "    case binding(Src0, Bs) of",
+            "        {value, Src1} ->",
+            "            case is_record(Src1, M, N) of",
+            "                true ->"
+          ]
+        },
+        {
+          "Line": 587,
+          "Text": "expr({map,Anno,Binding,Es}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {value, Map0, Bs1} = expr(Binding, Bs0, Lf, Ef, none, FUVs),",
+            "    {Vs,Bs2} = eval_map_fields(Es, Bs0, Lf, Ef, FUVs),",
+            "    _ = maps:put(k, v, Map0),\t\t\t%Validate map.",
+            "    Map1 = lists:foldl(fun ({map_assoc,K,V}, Mi) ->",
+            "\t\t\t       maps:put(K, V, Mi);",
+            "\t\t\t   ({map_exact,K,V}, Mi) ->",
+            "\t\t\t       maps:update(K, V, Mi)",
+            "\t\t       end, Map0, Vs),",
+            "    ret_expr(Map1, merge_bindings(Bs2, Bs1, Anno, Ef), RBs);",
+            "expr({map,_,Es}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {Vs,Bs} = eval_map_fields(Es, Bs0, Lf, Ef, FUVs),",
+            "    ret_expr(lists:foldl(fun"
+          ]
+        },
+        {
+          "Line": 597,
+          "Text": "expr({map,_,Es}, Bs0, Lf, Ef, RBs, FUVs) ->",
+          "Following": [
+            "    {Vs,Bs} = eval_map_fields(Es, Bs0, Lf, Ef, FUVs),",
+            "    ret_expr(lists:foldl(fun",
+            "\t\t({map_assoc,K,V}, Mi) -> maps:put(K,V,Mi)",
+            "\t    end, maps:new(), Vs), Bs, RBs);",
+            "",
+            "expr({block,_,Es}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    exprs(Es, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({'if',Anno,Cs}, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    if_clauses(Cs, Anno, Bs, Lf, Ef, RBs, FUVs);",
+            "expr({'case',Anno,E,Cs}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    {value,Val,Bs} = expr(E, Bs0, Lf, Ef, none, FUVs),",
+            "    case_clauses(Val, Cs, Anno, Bs, Lf, Ef, RBs, FUVs);"
+          ]
+        },
+        {
+          "Line": 770,
+          "Text": "expr({call,Anno,Func0,As0}, Bs0, Lf, Ef, RBs, FUVs) -> % function or {Mod,Fun}",
+          "Following": [
+            "    {value,Func,Bs1} = expr(Func0, Bs0, Lf, Ef, none, FUVs),",
+            "    {As,Bs2} = expr_list(As0, Bs1, Lf, Ef, FUVs),",
+            "    case Func of",
+            "\t{M,F} when is_atom(M), is_atom(F) ->",
+            "            apply_error({badfun,Func}, ?STACKTRACE, Anno, Bs0, Ef, RBs);",
+            "\t_ ->",
+            "\t    do_apply(Func, As, Anno, Bs2, Ef, RBs)",
+            "    end;",
+            "expr({'catch',_,Expr}, Bs0, Lf, Ef, RBs, FUVs) ->",
+            "    try expr(Expr, Bs0, Lf, Ef, none, FUVs) of",
+            "        {value,V,Bs} ->",
+            "            ret_expr(V, Bs, RBs)"
+          ]
+        },
+        {
+          "Line": 1623,
+          "Text": "expr_list(Es, Bs) ->",
+          "Following": [
+            "    expr_list(Es, Bs, none, none, empty_fun_used_vars()).",
+            "",
+            "-doc(#{equiv => expr_list(ExpressionList, Bindings, LocalFunctionHandler, none)}).",
+            "-spec(expr_list(ExpressionList, Bindings, LocalFunctionHandler) ->",
+            "             {ValueList, NewBindings} when",
+            "      ExpressionList :: expression_list(),",
+            "      Bindings :: binding_struct(),",
+            "      LocalFunctionHandler :: local_function_handler(),",
+            "      ValueList :: [value()],",
+            "      NewBindings :: binding_struct()).",
+            "expr_list(Es, Bs, Lf) ->",
+            "    expr_list(Es, Bs, Lf, none, empty_fun_used_vars())."
+          ]
+        },
+        {
+          "Line": 1634,
+          "Text": "expr_list(Es, Bs, Lf) ->",
+          "Following": [
+            "    expr_list(Es, Bs, Lf, none, empty_fun_used_vars()).",
+            "",
+            "-doc \"\"\"",
+            "Evaluates a list of expressions in parallel, using the same initial bindings for",
+            "each expression. Attempts are made to merge the bindings returned from each",
+            "evaluation.",
+            "",
+            "This function is useful in `LocalFunctionHandler`, see section",
+            "[Local Function Handler](`m:erl_eval#module-local-function-handler`) in this module.",
+            "",
+            "Returns `{ValueList, NewBindings}`.",
+            "\"\"\"."
+          ]
+        },
+        {
+          "Line": 1656,
+          "Text": "expr_list(Es, Bs, Lf, Ef) ->",
+          "Following": [
+            "    expr_list(Es, Bs, Lf, Ef, empty_fun_used_vars()).",
+            "",
+            "expr_list(Es, Bs, Lf, Ef, FUVs) ->",
+            "    {Vs, Bs1} = expr_list(Es, [], Bs, Bs, Lf, Ef, FUVs),",
+            "    {reverse(Vs), Bs1}.",
+            "",
+            "expr_list([E|Es], Vs, BsOrig, Bs0, Lf, Ef, FUVs) ->",
+            "    {value,V,Bs1} = expr(E, BsOrig, Lf, Ef, none, FUVs),",
+            "    expr_list(Es, [V|Vs], BsOrig, merge_bindings(Bs1, Bs0, element(2, E), Ef), Lf, Ef, FUVs);",
+            "expr_list([], Vs, _, Bs, _Lf, _Ef, _FUVs) ->",
+            "    {Vs,Bs}.",
+            ""
+          ]
+        },
+        {
+          "Line": 1659,
+          "Text": "expr_list(Es, Bs, Lf, Ef, FUVs) ->",
+          "Following": [
+            "    {Vs, Bs1} = expr_list(Es, [], Bs, Bs, Lf, Ef, FUVs),",
+            "    {reverse(Vs), Bs1}.",
+            "",
+            "expr_list([E|Es], Vs, BsOrig, Bs0, Lf, Ef, FUVs) ->",
+            "    {value,V,Bs1} = expr(E, BsOrig, Lf, Ef, none, FUVs),",
+            "    expr_list(Es, [V|Vs], BsOrig, merge_bindings(Bs1, Bs0, element(2, E), Ef), Lf, Ef, FUVs);",
+            "expr_list([], Vs, _, Bs, _Lf, _Ef, _FUVs) ->",
+            "    {Vs,Bs}.",
+            "",
+            "eval_op(Op, Arg1, Arg2, Anno, Bs, Ef, RBs) ->",
+            "    do_apply(erlang, Op, [Arg1,Arg2], Anno, Bs, Ef, RBs).",
+            ""
+          ]
+        },
+        {
+          "Line": 1663,
+          "Text": "expr_list([E|Es], Vs, BsOrig, Bs0, Lf, Ef, FUVs) ->",
+          "Following": [
+            "    {value,V,Bs1} = expr(E, BsOrig, Lf, Ef, none, FUVs),",
+            "    expr_list(Es, [V|Vs], BsOrig, merge_bindings(Bs1, Bs0, element(2, E), Ef), Lf, Ef, FUVs);",
+            "expr_list([], Vs, _, Bs, _Lf, _Ef, _FUVs) ->",
+            "    {Vs,Bs}.",
+            "",
+            "eval_op(Op, Arg1, Arg2, Anno, Bs, Ef, RBs) ->",
+            "    do_apply(erlang, Op, [Arg1,Arg2], Anno, Bs, Ef, RBs).",
+            "",
+            "eval_op(Op, Arg, Anno, Bs, Ef, RBs) ->",
+            "    do_apply(erlang, Op, [Arg], Anno, Bs, Ef, RBs).",
+            "",
+            "%% if_clauses(Clauses, Anno, Bindings, LocalFuncHandler, ExtFuncHandler, RBs)"
+          ]
+        },
+        {
+          "Line": 1666,
+          "Text": "expr_list([], Vs, _, Bs, _Lf, _Ef, _FUVs) ->",
+          "Following": [
+            "    {Vs,Bs}.",
+            "",
+            "eval_op(Op, Arg1, Arg2, Anno, Bs, Ef, RBs) ->",
+            "    do_apply(erlang, Op, [Arg1,Arg2], Anno, Bs, Ef, RBs).",
+            "",
+            "eval_op(Op, Arg, Anno, Bs, Ef, RBs) ->",
+            "    do_apply(erlang, Op, [Arg], Anno, Bs, Ef, RBs).",
+            "",
+            "%% if_clauses(Clauses, Anno, Bindings, LocalFuncHandler, ExtFuncHandler, RBs)",
+            "",
+            "if_clauses([{clause,_,[],G,B}|Cs], Anno, Bs, Lf, Ef, RBs, FUVs) ->",
+            "    case guard(G, Bs, Lf, Ef) of"
+          ]
+        },
+        {
+          "Line": 2138,
+          "Text": "merge_bindings(Bs1, Bs2, Anno, Ef) when is_map(Bs1), is_map(Bs2) ->",
+          "Following": [
+            "    maps:merge_with(fun",
+            "\t(_K, V, V) -> V;",
+            "\t(_K, _, V) -> apply_error({badmatch,V}, ?STACKTRACE, Anno, Bs1, Ef, none)",
+            "    end, Bs2, Bs1);",
+            "merge_bindings(Bs1, Bs2, Anno, Ef) ->",
+            "    foldl(fun ({Name,Val}, Bs) ->",
+            "\t\t  case orddict:find(Name, Bs) of",
+            "\t\t      {ok,Val} -> Bs;\t\t%Already with SAME value",
+            "\t\t      {ok,V1} ->",
+            "\t\t\t  apply_error({badmatch,V1}, ?STACKTRACE, Anno, Bs1, Ef, none);",
+            "\t\t      error -> orddict:store(Name, Val, Bs)",
+            "\t\t  end end,"
+          ]
+        },
+        {
+          "Line": 2143,
+          "Text": "merge_bindings(Bs1, Bs2, Anno, Ef) ->",
+          "Following": [
+            "    foldl(fun ({Name,Val}, Bs) ->",
+            "\t\t  case orddict:find(Name, Bs) of",
+            "\t\t      {ok,Val} -> Bs;\t\t%Already with SAME value",
+            "\t\t      {ok,V1} ->",
+            "\t\t\t  apply_error({badmatch,V1}, ?STACKTRACE, Anno, Bs1, Ef, none);",
+            "\t\t      error -> orddict:store(Name, Val, Bs)",
+            "\t\t  end end,",
+            "\t  Bs2, orddict:to_list(Bs1)).",
+            "",
+            "-doc false.",
+            "-spec(new_bindings(binding_struct()) -> binding_struct()).",
+            "new_bindings(Bs) when is_map(Bs) -> maps:new();"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Blob": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+      "Matches": [
+        {
+          "Line": 3067,
+          "Text": "expr({cons,Anno,H,T}, Vt, St) ->",
+          "Following": [
+            "    vtupd_export_expr_list({list, Anno}, [H, T], Vt, St);",
+            "expr({lc,_Anno,E,Qs}, Vt, St) ->",
+            "    handle_comprehension(E, Qs, Vt, St);",
+            "expr({bc,_Anno,E,Qs}, Vt, St) ->",
+            "    handle_comprehension(E, Qs, Vt, St);",
+            "expr({mc,_Anno,E,Qs}, Vt, St) ->",
+            "    handle_comprehension(E, Qs, Vt, St);",
+            "expr({tuple,Anno,Es}, Vt, St) ->",
+            "    vtupd_export_expr_list({tuple, Anno}, Es, Vt, St);",
+            "expr({map,Anno,Es}, Vt, St) ->",
+            "    map_fields(Es, Vt, check_assoc_fields(Es, St),",
+            "               fun(Es0, Vt0, St0) ->"
+          ]
+        },
+        {
+          "Line": 3075,
+          "Text": "expr({tuple,Anno,Es}, Vt, St) ->",
+          "Following": [
+            "    vtupd_export_expr_list({tuple, Anno}, Es, Vt, St);",
+            "expr({map,Anno,Es}, Vt, St) ->",
+            "    map_fields(Es, Vt, check_assoc_fields(Es, St),",
+            "               fun(Es0, Vt0, St0) ->",
+            "                       vtupd_export_expr_list({map, Anno}, Es0, Vt0, St0)",
+            "               end);",
+            "expr({map,Anno,Src,Es}, Vt, St) ->",
+            "    {Svt,St1} = vtupd_export_expr_list({map, Anno}, [Src], Vt, St),",
+            "    {Fvt,St2} = map_fields(Es, Vt, St1,",
+            "                           fun(Es0, Vt0, St0) ->",
+            "                                   vtupd_export_expr_list({map, Anno}, Es0, Vt0, St0)",
+            "                           end),"
+          ]
+        },
+        {
+          "Line": 3077,
+          "Text": "expr({map,Anno,Es}, Vt, St) ->",
+          "Following": [
+            "    map_fields(Es, Vt, check_assoc_fields(Es, St),",
+            "               fun(Es0, Vt0, St0) ->",
+            "                       vtupd_export_expr_list({map, Anno}, Es0, Vt0, St0)",
+            "               end);",
+            "expr({map,Anno,Src,Es}, Vt, St) ->",
+            "    {Svt,St1} = vtupd_export_expr_list({map, Anno}, [Src], Vt, St),",
+            "    {Fvt,St2} = map_fields(Es, Vt, St1,",
+            "                           fun(Es0, Vt0, St0) ->",
+            "                                   vtupd_export_expr_list({map, Anno}, Es0, Vt0, St0)",
+            "                           end),",
+            "    {vtupdate(Svt, Fvt), warn_if_literal_update(Anno, Src, St2)};",
+            "expr({record_index,Anno,Name,Field}, _Vt, St) ->"
+          ]
+        },
+        {
+          "Line": 3082,
+          "Text": "expr({map,Anno,Src,Es}, Vt, St) ->",
+          "Following": [
+            "    {Svt,St1} = vtupd_export_expr_list({map, Anno}, [Src], Vt, St),",
+            "    {Fvt,St2} = map_fields(Es, Vt, St1,",
+            "                           fun(Es0, Vt0, St0) ->",
+            "                                   vtupd_export_expr_list({map, Anno}, Es0, Vt0, St0)",
+            "                           end),",
+            "    {vtupdate(Svt, Fvt), warn_if_literal_update(Anno, Src, St2)};",
+            "expr({record_index,Anno,Name,Field}, _Vt, St) ->",
+            "    check_record(Anno, Name, St,",
+            "                 fun (tuple=Flavor, Dfs, St1) ->",
+            "                         record_field(Field, Flavor, Name, Dfs, St1);",
+            "                     (native, _Dfs, St1) ->",
+            "                         {atom, _, F} = Field,"
+          ]
+        },
+        {
+          "Line": 3223,
+          "Text": "expr({call,Anno,F,As}, Vt, St0) ->",
+          "Following": [
+            "    St = warn_invalid_call(Anno,F,St0),",
+            "    vtupd_export_expr_list({call, Anno}, [F | As], Vt, St); %They see the same variables",
+            "expr({'try',Anno,Es,Scs,Ccs,As}, Vt, St0) ->",
+            "    %% The only exports we allow are from the try expressions to the",
+            "    %% success clauses.",
+            "    {Evt0,St1} = exprs(Es, Vt, St0),",
+            "    TryAnno = {'try',Anno},",
+            "    Uvt = vtunsafe(TryAnno, Evt0, Vt),",
+            "    {Sccs,St2} = try_clauses(Scs, Ccs, TryAnno,",
+            "                             vtupdate(Evt0, Vt), Uvt, St1),",
+            "    Evt1 = vtupdate(Uvt, Evt0),",
+            "    Rvt0 = Sccs,"
+          ]
+        },
+        {
+          "Line": 3360,
+          "Text": "expr_list(Es, Vt, St0) ->",
+          "Following": [
+            "    foldl(fun (E, {Esvt, St1}) ->",
+            "                  {Evt, St2} = expr(E, Vt, St1),",
+            "                  vtmerge_pat(Evt, Esvt, St2)",
+            "          end, {[], St0}, Es).",
+            "",
+            "%% as expr_list but mark new vars as exported",
+            "",
+            "vtupd_export_expr_list(Where, Es, Vt, St) ->",
+            "    {Evt, St1} = expr_list(Es, Vt, St),",
+            "    {vtupd_export(Where, Evt, Vt), St1}.",
+            "",
+            "record_expr(Anno, Rec, Vt, St0) ->"
+          ]
+        },
+        {
+          "Line": 3368,
+          "Text": "vtupd_export_expr_list(Where, Es, Vt, St) ->",
+          "Following": [
+            "    {Evt, St1} = expr_list(Es, Vt, St),",
+            "    {vtupd_export(Where, Evt, Vt), St1}.",
+            "",
+            "record_expr(Anno, Rec, Vt, St0) ->",
+            "    St1 = warn_invalid_record(Anno, Rec, St0),",
+            "    expr(Rec, Vt, St1).",
+            "",
+            "check_assoc_fields([{map_field_exact,Anno,_,_}|Fs], St) ->",
+            "    check_assoc_fields(Fs, add_error(Anno, illegal_map_construction, St));",
+            "check_assoc_fields([{map_field_assoc,_,_,_}|Fs], St) ->",
+            "    check_assoc_fields(Fs, St);",
+            "check_assoc_fields([], St) ->"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/test/erl_eval_SUITE.erl",
+      "Blob": "7e4cb35ac6b1191832361e87e7cc877e4ca13829",
+      "Matches": [
+        {
+          "Line": 1274,
+          "Text": "    backtrace_check(\"{1,1} = {A = 1, A = 2}.\",",
+          "Following": [
+            "                    {badmatch, 1},",
+            "                    [erl_eval, {lists,foldl,3}]),",
+            "    backtrace_check(\"case a of a when foo:bar() -> x end.\",",
+            "                    guard_expr,",
+            "                    [{erl_eval,guard0,4}], none, none),",
+            "    backtrace_check(\"case a of foo() -> ok end.\",",
+            "                    {illegal_pattern,{call,1,{atom,1,foo},[]}},",
+            "                    [{erl_eval,match,6}], none, none),",
+            "    backtrace_check(\"case a of b -> ok end.\",",
+            "                    {case_clause,a},",
+            "                    [{erl_eval,case_clauses,8}, ?MODULE]),",
+            "    backtrace_check(\"if a =:= b -> ok end.\","
+          ]
+        }
+      ]
+    }
+  ],
+  "Ported": "expr_list/cons/ordered-dictionary merge and independent name-only static walk",
+  "Deferred": "maps/bit evaluation/typed variable tables/parser grammar/annotations/full stacks/resources",
+  "Copyright": "Ericsson AB 1996-2026",
+  "License": "Apache-2.0",
+  "RootNoticePaths": []
+}

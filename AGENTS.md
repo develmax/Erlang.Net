@@ -69,3 +69,9 @@ Local begin/all ordinary operator spellings passes614/full pipeline;484-case pla
 ## Part 047 checkpoint
 
 Published begin/ordinary operator head b7b8c72 passes pinned484/484 (419 expressions,48 modules,17 diagnostics), same-head614/full CI and strict source/hash/outcome provenance.156 types/no violations,62 MFAs/delta0, lists19/91, approximately5%. Catch logical stack frames are not full source/frame equivalence; left-shift CLR bit-index resource bound is local policy. Preserve346/36/10 history and initial part046 helper-name build failure. Next remaining construct grammar/Erlang OTP callback adapters/signals, no whole-module promotion.
+
+## Source-directed port policy — Part 048
+
+The user accepted close porting to reduce independent implementation drift. Before adding/replacing an algorithm, read the exact pinned original routines and applicable tests. Prefer original control flow, state transitions, evaluation/error order and structures; document every CLR adaptation and unported behavior in docs/OTP-PORTS.md. Preserve notices/SPDX/copyright and identify modifications for direct adaptations; include applicable notices/full license in packages. Existing independently implemented code is not retrospectively a port. Preserve regressions and compare interpreted plus compiled-reference behavior; matching a small corpus does not guarantee compatibility. Do not rewrite all working components at once.
+
+Part048 local expression-list/cons binding port passes648/full integration; new corpus439/54/25=518, preserve419/48/17 history.158 types/no violations;62 MFAs/delta0, approximately5%. Publish and verify518/same-head648 CI. Next source-directed map binding scopes/bit callbacks, then typed lint states/grammar/OTP adapters. Preserve before-port629/641 failures including explicitly corrected unregistered-BIF fixture mistakes. Source-derived Apache notices are now present; original-code public license remains undecided.

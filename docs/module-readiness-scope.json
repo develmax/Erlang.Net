@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-046/tests.json",
+  "ComparisonTestReport": "validation/part-047/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -63,7 +63,8 @@
         "generated C# AST and tail-call trampoline",
         "bit construction value/size binding isolation with exports after the binary",
         "if ordered guards/alternatives, if_clause and common branch binding export",
-        "begin and all ordinary expression operator spellings; catch logical stacks and corrected precedence/operand bindings"
+        "begin and all ordinary expression operator spellings; catch logical stacks and corrected precedence/operand bindings",
+        "source-directed OTP expression-list/cons binding port for tuples/lists/call arguments; explicit per-routine provenance and CLR deviations"
       ],
       "Id": "Compiler",
       "TestPrefixes": [

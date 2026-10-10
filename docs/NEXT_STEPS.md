@@ -117,3 +117,7 @@ Publish begin/operators implementation, dispatch exact pinned484 cases (419 expr
 ## Part 047 handoff
 
 Begin/ordinary operators head b7b8c72 passes pinned484/484 (419 expressions,48 modules,17 diagnostics), same-head614/full CI. Preserve immutable provenance; registry62/delta0, lists19/91, approximately5% overall. Next remaining grammar (try/records/comprehensions/maybe) or Erlang OTP callback adapters/signals; complete source spans/stacks/resource contracts and reference suites remain incomplete. Do not add near-bound huge positive allocation cases to the oracle.
+
+## Part 048 handoff
+
+Publish local648/full-pipeline source-directed expression binding port; dispatch pinned518 cases (439 expressions,54 compiled modules,25 diagnostics), inspect same-head648 CI and preserve strict historical/new expected/hash/code/message evidence. Then port eval_map_fields/map base scopes and eval_bits callbacks against exact source. Keep current Pratt/name-only lint/trace/resource departures explicit in OTP-PORTS.md. Full assignment remains approximately5%; registry62/delta0.

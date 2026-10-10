@@ -52,6 +52,14 @@ public static class CompiledDiagnosticCases
             "X",
             "catch"
         ),
-        new("begin-unbound-variable", "-module(scope_begin). -export([run/0]). run()->begin U end.","U")
+        new("begin-unbound-variable", "-module(scope_begin). -export([run/0]). run()->begin U end.","U"),
+        new("tuple-sibling-forward", "-module(scope_tuple_forward). -export([run/0]). run()->{X=1,X}.","X"),
+        new("tuple-sibling-backward", "-module(scope_tuple_backward). -export([run/0]). run()->{X,X=1}.","X"),
+        new("call-sibling-forward", "-module(scope_call_forward). -export([run/0]). run()->erlang:'+'(X=1,X).","X"),
+        new("call-sibling-backward", "-module(scope_call_backward). -export([run/0]). run()->erlang:'+'(X,X=1).","X"),
+        new("apply-sibling-forward", "-module(scope_apply_forward). -export([run/0]). run()->F=fun(A,B)->A+B end,F(X=1,X).","X"),
+        new("tuple-nested-sibling", "-module(scope_tuple_nested). -export([run/0]). run()->{X=1,{X}}.","X"),
+        new("list-sibling-forward", "-module(scope_list_forward). -export([run/0]). run()->[X=1,X].","X"),
+        new("list-head-not-in-tail", "-module(scope_list_tail). -export([run/0]). run()->[X=1|X].","X")
     ];
 }

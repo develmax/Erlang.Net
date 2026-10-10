@@ -43,6 +43,8 @@ var mapCheck = runtime.Spawn(async erlangProcess =>
     if (!beginCheck.Equals(Term.Tuple(Term.I(42),Term.I(-1),Term.I(4),Term.I(9),Term.I(4),Term.I(40),Term.I(-3),Term.A("false"),Term.A("true"),Term.A("false")))) throw new InvalidOperationException("Hybrid begin/operators failed");
     var catchCheck = catch throw(done).
     if (!catchCheck.Equals(Term.A("done"))) throw new InvalidOperationException("Hybrid catch failed");
+    var bindingCheck = begin {X=1,Y=2},T=element(I=1,V={42}),[H=3|Tail=tail],{X,Y,T,I,V,H,Tail} end.
+    if (!bindingCheck.Equals(Term.Tuple(Term.I(1),Term.I(2),Term.I(42),Term.I(1),Term.Tuple(Term.I(42)),Term.I(3),Term.A("tail")))) throw new InvalidOperationException("Hybrid expression bindings failed");
     var hybridMap = case #{1 => int, 1.0 => float, value => 41}#{value := 42} of
         #{1 := int, 1.0 := float, value := X} -> X;
         _ -> no

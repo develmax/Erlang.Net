@@ -134,16 +134,16 @@ public static class Execution
 
         async ValueTask<Term[]> Arguments(IReadOnlyList<Expr> expressions)
         {
-            var args = new Term[expressions.Count];
-            for (int i = 0; i < args.Length; i++)
-                args[i] = await Evaluate(
-                    expressions[i],
+            return await ExpressionBindings.EvaluateList(
+                expressions,
+                b,
+                (expression, scope) => Evaluate(
+                    expression,
                     ctx,
-                    b,
+                    scope,
                     module
-                );
-
-            return args;
+                )
+            );
         }
 
         async ValueTask<Term> Branch(Selection selection)
@@ -169,16 +169,16 @@ public static class Execution
             case Expr.Tuple t:
                 return new TupleTerm(await Arguments(t.Items));
             case Expr.List l:
-                {
-                    var items = await Arguments(l.Items);
-
-                    return Cons.From(items, l.Tail is null ? null : await Evaluate(
-                        l.Tail,
+                return await ExpressionBindings.EvaluateCons(
+                    l,
+                    b,
+                    (expression, scope) => Evaluate(
+                        expression,
                         ctx,
-                        b,
+                        scope,
                         module
-                    ));
-                }
+                    )
+                );
             case Expr.Map m:
                 {
                     Term mapBase = m.Base is null ? new MapTerm([]) : await Evaluate(

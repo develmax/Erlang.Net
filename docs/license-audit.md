@@ -7,3 +7,5 @@ The build tool package redistributes the pinned SDK's Microsoft.CodeAnalysis ass
 Akka.NET was inspected and not copied. saleyn/otp.net and takayuki/Erlang.NET remain unaccepted candidates: license/source audits are incomplete, so no code may be imported on the basis of the present registry alone. The similarly named TOTP/HOTP Otp.NET package is unrelated to Erlang and must not be used by mistake.
 
 This is an engineering provenance checkpoint. A complete per-file license inventory of all future OTP ports, native dependencies and generated reference assets remains incomplete.
+
+Part 048 changes the original-code-only description above: ExpressionBindings.cs is an identified C# adaptation of pinned Apache-2.0 erl_eval/erl_lint algorithms. It preserves Ericsson copyright/SPDX/license notices and records modifications, source blobs/lines and limits in OTP-PORTS.md. The pinned tree has no root NOTICE/NOTICE.txt; original file notices are preserved. Both local packages include the port register alongside the full upstream license. Other existing files are not retrospectively described as source ports; the original-code public license remains undecided.
