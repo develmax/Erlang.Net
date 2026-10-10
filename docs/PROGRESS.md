@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–032.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–033.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -100,3 +100,11 @@ New differential report separates unchanged **249 expressions** from **14 compil
 ## Part 032 — Complete expression and compiled-module reference evidence
 
 Exact-version run 38012731419 at b13b56a passes **249/249 expressions**, **14/14 compiled modules**, **263/263 aggregate**, complete/version verified, no failures/aborts. The compiled track executes default-optimized BEAM versus actual generated C# Release assemblies; source audit confirms all previous 249 expressions, all 14 fixture sources and source/generated hashes. Same-head Windows CI 38012730964 passes **361/361** and full integration/readiness. [Metadata](validation/part-032/remote-checkpoint.json), [corpus/hash audit](validation/part-032/corpus-audit.json). No new API; 56 MFAs and lists 13/91 unchanged. Selected compiled-module behavior is confirmed, full optimizer/native lowering/stacks/resources/reference suites remain incomplete. Documentation only; full local validation ran in part-031, assignment approximately 5%.
+
+## Part 033 — Common atom reuse and semantic constants
+
+Term.A now reuses ten fixed immutable Atom values (ok, error, true, false, undefined, normal, timeout, badarg, noproc, shutdown). The cache uses ordinal names and does not retain arbitrary names. Equality, hashing, Unicode ordering and the public new Atom constructor remain value-based; reference identity is not the Erlang equality contract. Domain catalogs remain separate even when spellings match. Differential outcome wrappers use their own success/failure constants; source/expected test data remain independent.
+
+Current local tests: **369/369**, including six factory/reuse/null/parser/ETF/allocation/concurrency tests and two formatter documentation-comment regressions. Readiness remains **56 MFAs**, delta **0** against immutable part-032 CI; erlang40/351, lists13/91, maps2/34, io1/53. Terms/runtime/compiler remain partially compatible; full assignment approximately **5%**. [Local evidence](validation/part-033/tests.json). The formatter now inserts before the full XML-comment trivia, preserving ///. A test-only SDK dependency loading failure was repaired by explicit existing Roslyn/MEF references; no production dependency was added.
+
+The previous **249-expression + 14-module =263** reference result at b13b56a remains historical part-032 evidence. No live oracle or throughput benchmark ran in this part. Common atom reuse changes CLR allocation/identity only; full atom table/resource-limit semantics and full compatibility remain unfinished.

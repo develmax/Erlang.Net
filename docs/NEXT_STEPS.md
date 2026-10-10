@@ -57,3 +57,7 @@ Publish the locally validated compiled-module track and dispatch the existing ex
 ## Part 032 checkpoint
 
 Both tracks and same-head Windows CI are complete: 249 expressions,14 compiled modules,361 tests. Next expand compiled fixtures for dynamic bit-size evaluation/error ordering and closure/scope edges, then broader grammar/OTP callback adapters and deterministic signal races. Retain both existing corpora and their separate modes/hashes. No new MFA in this increment; registry 56, lists 13/91 and overall approximately 5% remain unchanged. Full optimizer/debug/resources/reference suites still require separate work.
+
+## Part 033 checkpoint
+
+Publish the completed atom/constants/style increment after full validation. Current local tests369, registeredMFAs56, lists13/91; approximately5% overall. The fixed common atom cache is implemented; arbitrary atom/resource-limit semantics remain separate unfinished work. Continue part-032 compiled fixture expansion for bit-size evaluation/error ordering and closure scopes, then grammar/OTP callbacks/signals. Retain all249 expression and14 compiled fixtures and their independent expected values. Remote oracle263/263 at b13b56a remains historical evidence, not a rerun for this allocation refactor.

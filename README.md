@@ -14,6 +14,8 @@ Regenerate the report from the current successful test report and actual runtime
 dotnet run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/tests.json docs
 ```
 
+Term.A("ok") represents the Erlang atom ok, a symbolic value often used as a success marker; Term.String("ok") creates a character list. The factory reuses ten fixed common immutable atom values and leaves arbitrary names uncached. Compare terms by value, not CLR object identity. Domain constants retain their separate protocol meanings.
+
 The source subset includes map construction, associative/exact updates and map patterns with supported guard-expression keys, plus integer/binary bitstring construction and patterns with signed extraction, byte order and prior-segment size bindings. Overall project completion is estimated at roughly 5%; this is an engineering estimate, not verified compatibility coverage. See progress and the changelog for evidence and remaining scope.
 
 ```powershell

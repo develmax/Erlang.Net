@@ -52,6 +52,31 @@ Test(
     return Task.CompletedTask;
 }
 );
+Test(
+    "style/documentation-comment-boundary",
+    () =>
+{
+    string source = "class Example { public void First() {}\n/// <summary>Preserve this text.</summary>\npublic void Second() {} }";
+    string formatted = SourceLayout.Apply(source);
+    Check(formatted.Contains("/// <summary>Preserve this text.</summary>"));
+    Check(formatted.Contains("}\n\n    ///"));
+    Check(SourceLayout.Apply(formatted) == formatted);
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "style/multiline-documentation-comment",
+    () =>
+{
+    string source = "class Example { public void First() {}\n/// <summary>\n/// Preserve both lines.\n/// </summary>\npublic void Second() {} }";
+    string formatted = SourceLayout.Apply(source);
+    Check(formatted.Contains("/// <summary>\n    /// Preserve both lines.\n    /// </summary>"));
+    Check(SourceLayout.Apply(formatted) == formatted);
+
+    return Task.CompletedTask;
+}
+);
 async Task<Term> Eval(string source)
 {
     await using var runtime = new ProcessRuntime();
@@ -68,6 +93,95 @@ async Task<Term> Eval(string source)
 
     return result!;
 }
+Test(
+    "terms/common-atoms-reused",
+    () =>
+{
+    string[] names = ["ok", "error", "true", "false", "undefined", "normal", "timeout", "badarg", "noproc", "shutdown"];
+    foreach (string name in names)
+    {
+        var first = Term.A(name);
+        var second = Term.A(new string(name.ToCharArray()));
+        Check(ReferenceEquals(first, second));
+        Equal(first, new Atom(name));
+        Check(first.GetHashCode() == new Atom(name).GetHashCode());
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/common-atoms-concurrent",
+    () =>
+{
+    var expected = Term.A("ok");
+    var results = new Atom[1024];
+    Parallel.For(0, results.Length, index => results[index] = Term.A("ok"));
+    Check(results.All(atom => ReferenceEquals(atom, expected)));
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/common-atoms-no-per-call-allocation",
+    () =>
+{
+    var expected = Term.A("ok");
+    long before = GC.GetAllocatedBytesForCurrentThread();
+    bool same = true;
+    for (int index = 0; index < 1024; index++)
+        same &= ReferenceEquals(expected, Term.A("ok"));
+    long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+    Check(same && allocated == 0);
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/arbitrary-atoms-not-retained",
+    () =>
+{
+    foreach (string name in new[] { "application_specific_atom", "OK", "", "𐀀", "ok\0" })
+    {
+        var first = Term.A(name);
+        var second = Term.A(name);
+        Check(!ReferenceEquals(first, second));
+        Equal(first, second);
+        Check(first.GetHashCode() == second.GetHashCode());
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/atom-factory-null-contract",
+    () =>
+{
+    try
+    {
+        Term.A(null!);
+        Check(false);
+    }
+    catch (ArgumentNullException exception)
+    {
+        Check(exception.ParamName == "name");
+    }
+
+    return Task.CompletedTask;
+}
+);
+Test(
+    "terms/atom-reuse-parser-etf",
+    () =>
+{
+    var atom = Term.A("ok");
+    var parsed = new Parser("ok").ParseExpression();
+    Check(parsed is Expr.Literal literal && ReferenceEquals(literal.Value, atom));
+    Check(ReferenceEquals(ExternalTermFormat.Decode(ExternalTermFormat.Encode(atom)), atom));
+
+    return Task.CompletedTask;
+}
+);
 Test(
     "terms/exact-numeric-equality",
     () =>

@@ -16,7 +16,8 @@ public abstract class Term : IEquatable<Term>, IComparable<Term>
 
     public override int GetHashCode() => TermOrder.Hash(this);
 
-    public static Atom A(string value) => new(value);
+    /// <summary>Creates an atom, reusing selected common immutable values. Equality remains by name.</summary>
+    public static Atom A(string value) => AtomCache.Get(value);
 
     public static Integer I(long value) => new(value);
 

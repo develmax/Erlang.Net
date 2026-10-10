@@ -82,3 +82,7 @@ Reuse SDK Roslyn and BCL collectible contexts to exercise actual generated assem
 ## Part 032 — Keep track-level proof explicit
 
 Preserve complete 249-expression and 14-compiled-module outcomes separately, with same-head 361-test CI, archive/head provenance and source/generated SHA256 audit. Selected default-optimized compiler outcomes now have actual reference evidence; do not promote full optimizer/native-backend or whole-module compatibility. Readiness remains 56 MFAs with delta 0 against part-030; this work advances validation milestones. Reuse the existing pinned workflows/SDK tools, no new production dependency or license choice.
+
+## Part 033 — Reuse values without merging protocol roles
+
+Keep CommonAtomNames/AtomCache internal to Terms: a spelling identifies the shared immutable value, not a success/error role in every caller. Preserve IoResultAtoms.Ok, ExecutionResultAtoms.EmptySequence and OracleOutcomeTags.Success as independent contracts. Choose a fixed FrozenDictionary rather than unbounded global string/object interning. Unknown names allocate normally; existing null/name-value contracts remain intact. Permanent tests exercise concurrency, equality/hash, fresh Unicode values, parser/ETF reuse and zero per-call allocation for a warmed common value. Fix SDK style insertion at full XML-comment trivia boundaries and test idempotence. Readiness comparison moves to immutable part-032 CI (delta zero); no MFA/grammar/status promotion.

@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **361/361 tests**, 56 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 031](validation/part-031/tests.json), [integration](validation/part-031/integration-results.json).
+Current local evidence is **369/369 tests**, 56 direct registered-MFA cases, a warning-free full build and generated .erl/hybrid/PackageReference/CLI integration. Reports: [part 033](validation/part-033/tests.json), [integration](validation/part-033/integration-results.json).
 
 Latest exact-version oracle evidence: **249/249 expression cases + 14/14 compiled modules (263/263)** at **b13b56a**, plus same-head Windows CI **361/361** and full integration/readiness. [Verified provenance](validation/part-032/remote-checkpoint.json). Modules remain partially compatible; [module readiness](MODULE_READINESS.md) reports registrations and remaining scope.
 
@@ -79,3 +79,11 @@ Fourteen module fixtures run locally from Roslyn-emitted C# Release assemblies, 
 ## Part 032 — Selected compiled-module confirmation
 
 [Oracle 38012731419](https://github.com/develmax/Erlang.Net/actions/runs/38012731419) at b13b56a is complete/version verified: 249 expression and 14 module cases pass, zero mismatches/aborts. Fourteen original modules compile with normal OTP optimizations and run loaded BEAM; the same sources generate/compile C# Release assemblies and run their AST/evaluator definitions. Independent expectations and source/generated hashes match. Same-head Windows CI passes 361 tests and full integration/readiness. [Raw report](validation/part-032/differential.json), [provenance](validation/part-032/remote-checkpoint.json). This confirms selected compiled-module outcomes, not full optimizer/native backend/debug stacks/resource/signals/reference-suite equivalence. Compiler and runtime statuses remain partial.
+
+## Part 033 — Common atom reuse and semantic constants
+
+Term.A now reuses ten fixed immutable Atom values (ok, error, true, false, undefined, normal, timeout, badarg, noproc, shutdown). The cache uses ordinal names and does not retain arbitrary names. Equality, hashing, Unicode ordering and the public new Atom constructor remain value-based; reference identity is not the Erlang equality contract. Domain catalogs remain separate even when spellings match. Differential outcome wrappers use their own success/failure constants; source/expected test data remain independent.
+
+Current local tests: **369/369**, including six factory/reuse/null/parser/ETF/allocation/concurrency tests and two formatter documentation-comment regressions. Readiness remains **56 MFAs**, delta **0** against immutable part-032 CI; erlang40/351, lists13/91, maps2/34, io1/53. Terms/runtime/compiler remain partially compatible; full assignment approximately **5%**. [Local evidence](validation/part-033/tests.json). The formatter now inserts before the full XML-comment trivia, preserving ///. A test-only SDK dependency loading failure was repaired by explicit existing Roslyn/MEF references; no production dependency was added.
+
+The previous **249-expression + 14-module =263** reference result at b13b56a remains historical part-032 evidence. No live oracle or throughput benchmark ran in this part. Common atom reuse changes CLR allocation/identity only; full atom table/resource-limit semantics and full compatibility remain unfinished.

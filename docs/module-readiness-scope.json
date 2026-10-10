@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-030/ci-tests.json",
+  "ComparisonTestReport": "validation/part-032/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -9,7 +9,8 @@
       ],
       "Implemented": [
         "immutable terms and exact/numeric equality",
-        "codepoint ordering and integer/float coercion"
+        "codepoint ordering and integer/float coercion",
+        "bounded reuse of ten common immutable atom values"
       ],
       "Id": "Terms",
       "TestPrefixes": [
@@ -167,10 +168,13 @@
         "broader SDK matrix"
       ],
       "Implemented": [
-        "SDK syntax-aware layout and validation gate"
+        "SDK syntax-aware layout and validation gate",
+        "XML documentation comment preservation and idempotence"
       ],
       "Id": "Style checks",
-      "TestPrefixes": []
+      "TestPrefixes": [
+        "style/"
+      ]
     },
     {
       "Status": "Partially compatible",

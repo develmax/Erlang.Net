@@ -61,3 +61,7 @@ The new reference track compiles full fixture modules with normal OTP compiler o
 ## Part 032 — Compiled-module evidence boundary
 
 Selected 14 generated C# Release assembly/default-optimized BEAM module outcomes now match within complete 263/263 at b13b56a, alongside the preserved 249 expression cases. Earlier pending module status is superseded only for those fixtures. Generated code remains AST/evaluator-based; full optimizer equivalence/native lowering/compile warning diagnostics/stack mappings/signals/resources/reference suites remain unverified. No semantic implementation changed in this evidence-only checkpoint.
+
+## Part 033 — Atom representation boundary
+
+A fixed ten-name immutable object cache reduces repeated factory allocations; arbitrary names remain uncached. Name-based equality/hash/order is preserved, including freshly constructed Atom objects. CLR reference identity is not a semantic test for Erlang equality. This is not the BEAM global atom table and does not establish its atom-count/length/resource limits. Existing oracle evidence remains at b13b56a; no new oracle/performance measurement here. Independent test fixture atoms are intentionally kept with their source examples; only protocol wrappers share domain constants.

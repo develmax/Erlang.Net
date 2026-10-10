@@ -1,0 +1,21 @@
+{
+  "Tag": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferencePath": "erts/emulator/beam/atom.c",
+  "ReferenceBlob": "a4dc975bf281019a40df03a5ba27d3a944dd9690",
+  "InspectedFunctions": [
+    "erts_atom_put_index",
+    "erts_atom_put",
+    "index_get",
+    "index_put"
+  ],
+  "Implementation": "Fixed ten-name ordinal FrozenDictionary; no arbitrary-name retention",
+  "Semantics": "Atom equality/hash/order remain name-based; direct constructor remains uncached",
+  "SourceBaseline": "30a83d7605e17b7c2231502ff78b733e45f670cc",
+  "LiveOracleRun": false,
+  "HistoricalOracleHead": "b13b56abf0eac96a02ed32f7c7841d5314a198a6",
+  "HistoricalOracleExpressionCases": 249,
+  "HistoricalOracleCompiledModules": 14,
+  "NewDependency": false,
+  "NewMfas": 0
+}

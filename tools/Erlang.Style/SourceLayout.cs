@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Host.Mef;
 
-internal static class SourceLayout
+public static class SourceLayout
 {
     private const int ManyArguments = 4;
     private const int LongListWidth = 120;
@@ -41,7 +41,7 @@ internal static class SourceLayout
             int anchor = token.SpanStart;
             var comment = token.LeadingTrivia.FirstOrDefault(trivia => !trivia.IsKind(SyntaxKind.WhitespaceTrivia) && !trivia.IsKind(SyntaxKind.EndOfLineTrivia));
             if (comment != default)
-                anchor = comment.SpanStart;
+                anchor = comment.FullSpan.Start;
 
             int previous = anchor - 1;
             int newlines = 0;
