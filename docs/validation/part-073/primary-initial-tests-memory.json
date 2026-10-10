@@ -1,21 +1,21 @@
 {
-  "Passed": 1026,
-  "Failed": 0,
+  "Passed": 1009,
+  "Failed": 17,
   "Tests": [
     {
       "Name": "patterns/alias-mismatch-transaction",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 8
     },
     {
       "Name": "patterns/alias-same-term-and-bindings",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/maybe/invalid-grammar/1 ?= 1",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 316
     },
     {
       "Name": "compiler/maybe/invalid-grammar/maybe end",
@@ -30,7 +30,7 @@
     {
       "Name": "compiler/maybe/invalid-grammar/maybe ok ?= wrong ?= nope end",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/maybe/invalid-grammar/maybe (ok ?= ok) end",
@@ -40,27 +40,27 @@
     {
       "Name": "compiler/maybe/invalid-grammar/maybe ok ?= wrong else _ -\u003E ok ?= wrong end",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/maybe/illegal-guard",
       "Status": "Passed",
-      "Milliseconds": 7
+      "Milliseconds": 20
     },
     {
       "Name": "hybrid/maybe/csharp-method-preserved",
       "Status": "Passed",
-      "Milliseconds": 28
+      "Milliseconds": 66
     },
     {
       "Name": "hybrid/maybe/nested-and-following-csharp",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 9
     },
     {
       "Name": "oracle/unicode-source-ascii-transport",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/source-quoting-roundtrip",
@@ -70,22 +70,22 @@
     {
       "Name": "style/documentation-comment-boundary",
       "Status": "Passed",
-      "Milliseconds": 417
+      "Milliseconds": 930
     },
     {
       "Name": "style/multiline-documentation-comment",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 7
     },
     {
       "Name": "terms/common-atoms-reused",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/common-atoms-concurrent",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 8
     },
     {
       "Name": "terms/common-atoms-no-per-call-allocation",
@@ -105,7 +105,7 @@
     {
       "Name": "terms/atom-reuse-parser-etf",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 57
     },
     {
       "Name": "terms/exact-numeric-equality",
@@ -120,7 +120,7 @@
     {
       "Name": "terms/integer-double-nearest-even",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/integer-double-overflow",
@@ -130,22 +130,22 @@
     {
       "Name": "compiler/numeric-mixed-nearest-even",
       "Status": "Passed",
-      "Milliseconds": 16
+      "Milliseconds": 38
     },
     {
       "Name": "compiler/numeric-integer-division-rounding",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/numeric-conversion-overflow-badarith",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 8
     },
     {
       "Name": "compiler/numeric-conversion-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 7
     },
     {
       "Name": "terms/negative-fraction-comparison",
@@ -165,12 +165,12 @@
     {
       "Name": "terms/improper-list",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "terms/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "terms/map-integer-before-all-floats",
@@ -190,7 +190,7 @@
     {
       "Name": "compiler/quoted-unicode-valid-codepoint-order",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/quoted-unicode-illegal-character",
@@ -200,7 +200,7 @@
     {
       "Name": "terms/structural-hash",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "terms/unicode-list",
@@ -215,7 +215,7 @@
     {
       "Name": "patterns/repeated-variable",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "patterns/already-bound",
@@ -225,127 +225,127 @@
     {
       "Name": "patterns/list-tail",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mailbox/later-match-preserves-order",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 6
     },
     {
       "Name": "mailbox/zero-timeout-retains",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mailbox/timeout",
       "Status": "Passed",
-      "Milliseconds": 31
+      "Milliseconds": 35
     },
     {
       "Name": "mailbox/concurrent-arrival",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "mailbox/cancel",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mailbox/sender-order-stress",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 13
     },
     {
       "Name": "runtime/process-self-and-dictionary",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 5
     },
     {
       "Name": "runtime/registration-cleanup",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/monitor-down",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 5
     },
     {
       "Name": "runtime/monitor-noproc-and-flush",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/link-trap-exit",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 4
     },
     {
       "Name": "runtime/link-propagation",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/normal-link-exit-ignored",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "runtime/kill-untrappable",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "runtime/1000-waiting-processes",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 12
     },
     {
       "Name": "compiler/arithmetic-precedence",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/exact-equality",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/case-pattern-guard",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 5
     },
     {
       "Name": "compiler/guard-error-rejects",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/guard-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/list-fun-map",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 10
     },
     {
       "Name": "compiler/receive-after-zero",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/binding-and-repeat",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/single-assignment-mismatch",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/unbound-diagnostic",
@@ -370,17 +370,17 @@
     {
       "Name": "compiler/module-clauses-private-function",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 8
     },
     {
       "Name": "compiler/spawn-fun-child-self",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/selective-receive-clause-order",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "hybrid/csharp-strings-comments-raw-preserved",
@@ -390,7 +390,7 @@
     {
       "Name": "hybrid/source-map-and-lowering",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "hybrid/nested-case-and-fun",
@@ -405,32 +405,32 @@
     {
       "Name": "etf/roundtrip-all-supported-kinds",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 9
     },
     {
       "Name": "etf/malformed-input-limits",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "etf/random-integer-property",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 4
     },
     {
       "Name": "modules/lists-member-exact",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "modules/lists-and-maps",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/tail-recursion-50000",
       "Status": "Passed",
-      "Milliseconds": 846
+      "Milliseconds": 1999
     },
     {
       "Name": "hybrid/ordinary-fun-call",
@@ -450,12 +450,12 @@
     {
       "Name": "compiler/signed-zero-pattern",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "otp/gen-server-call-cast-info-stop",
       "Status": "Passed",
-      "Milliseconds": 5
+      "Milliseconds": 6
     },
     {
       "Name": "otp/gen-server-crash-monitor",
@@ -470,32 +470,32 @@
     {
       "Name": "otp/gen-server-init-error",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "otp/supervisor-OneForOne",
       "Status": "Passed",
-      "Milliseconds": 9
+      "Milliseconds": 15
     },
     {
       "Name": "otp/supervisor-OneForAll",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 13
     },
     {
       "Name": "otp/supervisor-RestForOne",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 15
     },
     {
       "Name": "otp/supervisor-transient-temporary-normal",
       "Status": "Passed",
-      "Milliseconds": 14
+      "Milliseconds": 15
     },
     {
       "Name": "otp/supervisor-restart-intensity",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "otp/supervisor-temporary-abnormal-no-restart",
@@ -505,12 +505,12 @@
     {
       "Name": "runtime/link-cascade-10000",
       "Status": "Passed",
-      "Milliseconds": 209
+      "Milliseconds": 270
     },
     {
       "Name": "runtime/spawn-monitor-immediate-exit-atomic",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 7
     },
     {
       "Name": "terms/bitstring-format",
@@ -520,12 +520,12 @@
     {
       "Name": "compiler/large-literal-codegeneration",
       "Status": "Passed",
-      "Milliseconds": 19
+      "Milliseconds": 25
     },
     {
       "Name": "compiler/reserved-keywords-rejected",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/unsupported-escape-diagnostic",
@@ -535,7 +535,7 @@
     {
       "Name": "compiler/quoted-operator-atom",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "hybrid/nullable-context",
@@ -545,7 +545,7 @@
     {
       "Name": "mfa/erlang:bit_size/1",
       "Status": "Passed",
-      "Milliseconds": 6
+      "Milliseconds": 10
     },
     {
       "Name": "mfa/erlang:byte_size/1",
@@ -710,7 +710,7 @@
     {
       "Name": "mfa/erlang:spawn_monitor/1",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mfa/erlang:throw/1",
@@ -745,7 +745,7 @@
     {
       "Name": "mfa/io:format/2",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mfa/lists:append/1",
@@ -775,7 +775,7 @@
     {
       "Name": "mfa/lists:keyfind/3",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "mfa/lists:keymember/3",
@@ -855,7 +855,7 @@
     {
       "Name": "compiler/map-empty-and-nonmap-pattern",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 7
     },
     {
       "Name": "compiler/map-duplicate-last-wins",
@@ -865,7 +865,7 @@
     {
       "Name": "compiler/map-exact-numeric-keys",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-assoc-and-exact-update",
@@ -880,17 +880,17 @@
     {
       "Name": "compiler/map-chained-update",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-badkey",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-exact-before-assoc-fails",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-badmap-empty-update",
@@ -905,7 +905,7 @@
     {
       "Name": "compiler/map-error-expression-before-badkey",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-subset-nested-repeat",
@@ -915,7 +915,7 @@
     {
       "Name": "compiler/map-repeated-variable-reject",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-duplicate-pattern-keys",
@@ -940,7 +940,7 @@
     {
       "Name": "compiler/map-construction-in-guard",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/map-update-guard-error-rejects",
@@ -985,17 +985,17 @@
     {
       "Name": "hybrid/map-case-directive-trivia",
       "Status": "Passed",
-      "Milliseconds": 3
+      "Milliseconds": 10
     },
     {
       "Name": "compiler/map-closure-captured-key",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-closure-key-value-shadow",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-context-guard-key",
@@ -1030,32 +1030,32 @@
     {
       "Name": "compiler/map-size-badmap",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/is-map-key-badmap",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-key-signed-zero",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-guard-bifs-qualified",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-guard-missing-key-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-guard-nonmap-rejection",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/map-pattern-key-map-get",
@@ -1075,27 +1075,27 @@
     {
       "Name": "compiler/bits-empty-default-bytes",
       "Status": "Passed",
-      "Milliseconds": 4
+      "Milliseconds": 9
     },
     {
       "Name": "compiler/bits-truncate-negative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-unaligned-concatenation",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-big-little-native",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-little-partial-octet",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-explicit-unit",
@@ -1120,22 +1120,22 @@
     {
       "Name": "compiler/bits-bitstring-interpolation",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-binary-unit-one",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-zero-size",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-bad-value",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-negative-size",
@@ -1145,22 +1145,22 @@
     {
       "Name": "compiler/bits-size-prefix-requires-parentheses",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-size",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-short-binary",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-binary-unit-alignment",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-invalid-unit-diagnostic",
@@ -1175,77 +1175,77 @@
     {
       "Name": "compiler/bits-float16-vector",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float32-vector",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float64-default",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-little-native",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-integer-coercion",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-unit",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-bad-size",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-bad-value",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-float16-round-once",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float16-subnormal-vectors",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-narrow-overflow",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern16-rounded",
       "Status": "Passed",
-      "Milliseconds": 2
+      "Milliseconds": 5
     },
     {
       "Name": "compiler/bits-float-integer-rounding",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-integer-max-boundary",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern32",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern64-default",
@@ -1255,22 +1255,22 @@
     {
       "Name": "compiler/bits-float-pattern-unaligned",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern-zero",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern-nonfinite-reject",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-float-pattern-invalid-short",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern-numeric-literal",
@@ -1285,7 +1285,7 @@
     {
       "Name": "compiler/bits-float-signed-zero",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-float-pattern-prior-width",
@@ -1295,7 +1295,7 @@
     {
       "Name": "compiler/bits-float-guard-and-map-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-float-unit-without-size-diagnostic",
@@ -1305,7 +1305,7 @@
     {
       "Name": "compiler/bits-float16-all-finite-roundtrip",
       "Status": "Passed",
-      "Milliseconds": 219
+      "Milliseconds": 518
     },
     {
       "Name": "compiler/bits-duplicate-spec-diagnostic",
@@ -1315,27 +1315,27 @@
     {
       "Name": "compiler/bits-utf8-boundary-vectors",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-utf16-surrogate-vector",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf32-vector",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-endian-native",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-utf-invalid-values",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-utf-undefined-size-diagnostic",
@@ -1345,27 +1345,27 @@
     {
       "Name": "compiler/bits-utf-noncharacters",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 2
     },
     {
       "Name": "compiler/bits-utf8-prefix-rest",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf16-pattern-pair",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf32-pattern",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf8-invalid-sequences",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf16-invalid-sequences",
@@ -1375,62 +1375,62 @@
     {
       "Name": "compiler/bits-utf32-invalid-scalars",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-unaligned",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-utf-truncated-bit-tail",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-size-binding",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-literal-and-bound",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-string-construction",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-string-pattern",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-guard-map-key",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-utf-deterministic-roundtrips",
       "Status": "Passed",
-      "Milliseconds": 18
+      "Milliseconds": 32
     },
     {
       "Name": "compiler/bits-pattern-default",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-signed",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-unsigned",
@@ -1450,12 +1450,12 @@
     {
       "Name": "compiler/bits-pattern-native",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-prior-size",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-bound-size-expression",
@@ -1485,7 +1485,7 @@
     {
       "Name": "compiler/fun-bit-clause-fallback-capture",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-repeat-mismatch",
@@ -1515,7 +1515,7 @@
     {
       "Name": "compiler/bits-pattern-unaligned-prefix",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-unit",
@@ -1530,7 +1530,7 @@
     {
       "Name": "compiler/bits-pattern-invalid-size-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-string-prefix",
@@ -1540,7 +1540,7 @@
     {
       "Name": "compiler/bits-pattern-literal-no-truncation",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-signed-literal",
@@ -1585,17 +1585,17 @@
     {
       "Name": "compiler/bits-pattern-match-badmatch",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-pattern-receive-preserves-unmatched",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/bits-guard-and-map-key",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-unit-without-size-diagnostic",
@@ -1605,7 +1605,7 @@
     {
       "Name": "compiler/bits-string-little-per-codepoint",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-unit-per-codepoint",
@@ -1635,12 +1635,12 @@
     {
       "Name": "compiler/bits-string-float-default",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-size-evaluated-once",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-size-binding",
@@ -1655,17 +1655,17 @@
     {
       "Name": "compiler/bits-empty-string-size-evaluation",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-zero-width",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-invalid-sizes",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bits-string-modifier-pattern-diagnostic",
@@ -1700,37 +1700,37 @@
     {
       "Name": "compiler/bit-size-byte-rounding",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bitstring-predicate-distinction",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bit-size-invalid-badarg",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/byte-size-invalid-badarg",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bit-bifs-qualified-guard",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bit-bif-guard-failure-alternative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/bit-bif-map-pattern-key",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/duplicate-zero",
@@ -1795,7 +1795,7 @@
     {
       "Name": "lists/duplicate-negative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/duplicate-big-negative",
@@ -1860,12 +1860,12 @@
     {
       "Name": "lists/duplicate-local-length-limit",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/duplicate-flatten-deep-wide-identity",
       "Status": "Passed",
-      "Milliseconds": 36
+      "Milliseconds": 82
     },
     {
       "Name": "lists/append-empty",
@@ -1955,7 +1955,7 @@
     {
       "Name": "lists/append-nonlist",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/append-improper-outer",
@@ -2000,12 +2000,12 @@
     {
       "Name": "lists/append-long-outer-suffix-identity",
       "Status": "Passed",
-      "Milliseconds": 36
+      "Milliseconds": 59
     },
     {
       "Name": "lists/last-singleton",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/last-nested",
@@ -2115,42 +2115,42 @@
     {
       "Name": "lists/last-split-long-list-identity",
       "Status": "Passed",
-      "Milliseconds": 14
+      "Milliseconds": 20
     },
     {
       "Name": "lists/nth-improper-prefix",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/nth-invalid-function-clause",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/nthtail-empty-and-improper",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/nthtail-invalid-function-clause",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-default-empty-and-negative",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-two-arg-error-contract",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-step-boundaries",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-zero-step",
@@ -2160,12 +2160,12 @@
     {
       "Name": "lists/seq-three-arg-error-contract",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-big-integer-values",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/seq-length-system-limit",
@@ -2175,17 +2175,17 @@
     {
       "Name": "lists/reverse-short-error-contract",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/reverse-long-improper-badarg",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/reverse-tail-and-empty",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/keyfind-skip-and-first",
@@ -2205,7 +2205,7 @@
     {
       "Name": "lists/keysearch-invalid-position",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "lists/keysearch-improper-missing",
@@ -2230,7 +2230,7 @@
     {
       "Name": "lists/keysearch-nested-numeric-key",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 0
     },
     {
       "Name": "terms/map-index-exact-and-structural-keys",
@@ -2735,7 +2735,7 @@
     {
       "Name": "compiler/operators/map-field-conflict",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 9
     },
     {
       "Name": "compiler/operators/map-exact-after-assoc",
@@ -3315,12 +3315,12 @@
     {
       "Name": "compiler/operators/lc-basic",
       "Status": "Passed",
-      "Milliseconds": 1
+      "Milliseconds": 3
     },
     {
       "Name": "compiler/operators/lc-ordered-filter",
       "Status": "Passed",
-      "Milliseconds": 0
+      "Milliseconds": 1
     },
     {
       "Name": "compiler/operators/lc-empty",
@@ -3720,497 +3720,514 @@
     {
       "Name": "oracle/compiled-module/private-clauses",
       "Status": "Passed",
-      "Milliseconds": 447
+      "Milliseconds": 701
     },
     {
       "Name": "oracle/compiled-module/guard-fallback",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 127
     },
     {
       "Name": "oracle/compiled-module/closure-shadow",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 137
     },
     {
       "Name": "oracle/compiled-module/tail-calls",
       "Status": "Passed",
-      "Milliseconds": 127
+      "Milliseconds": 221
     },
     {
       "Name": "oracle/compiled-module/map-exact-keys",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/bit-pattern",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 169
     },
     {
       "Name": "oracle/compiled-module/utf-pattern",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 141
     },
     {
       "Name": "oracle/compiled-module/string-size-binding",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 116
     },
     {
       "Name": "oracle/compiled-module/unicode-atom",
-      "Status": "Passed",
-      "Milliseconds": 96
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 52
     },
     {
       "Name": "oracle/compiled-module/key-find",
-      "Status": "Passed",
-      "Milliseconds": 81
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/function-clause",
-      "Status": "Passed",
-      "Milliseconds": 93
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/badmatch",
-      "Status": "Passed",
-      "Milliseconds": 64
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 1
     },
     {
       "Name": "oracle/compiled-module/throw",
-      "Status": "Passed",
-      "Milliseconds": 74
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 1
     },
     {
       "Name": "oracle/compiled-module/exit",
-      "Status": "Passed",
-      "Milliseconds": 90
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 1
     },
     {
       "Name": "oracle/compiled-module/bit-value-size-order",
-      "Status": "Passed",
-      "Milliseconds": 83
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 1
     },
     {
       "Name": "oracle/compiled-module/bit-value-before-size-exception",
-      "Status": "Passed",
-      "Milliseconds": 79
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 11
     },
     {
       "Name": "oracle/compiled-module/bit-size-before-next-value-exception",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-value-later-exception",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 108
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-size-later-exception",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 119
     },
     {
       "Name": "oracle/compiled-module/bit-size-binding-exported-after-binary",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 121
     },
     {
       "Name": "oracle/compiled-module/closure-bit-captured-size",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 116
     },
     {
       "Name": "oracle/compiled-module/closure-bit-clause-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 107
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/closure-guard-fallback-keeps-outer",
-      "Status": "Passed",
-      "Milliseconds": 87
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 7
     },
     {
       "Name": "oracle/compiled-module/closure-map-key-capture-value-shadow",
-      "Status": "Passed",
-      "Milliseconds": 80
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 3
     },
     {
       "Name": "oracle/compiled-module/closure-nested-body-local-capture",
-      "Status": "Passed",
-      "Milliseconds": 81
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/bit-invalid-utf-later-exception",
-      "Status": "Passed",
-      "Milliseconds": 109
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/bit-independent-binding-exports",
-      "Status": "Passed",
-      "Milliseconds": 84
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/bit-prebound-size-across-fields",
-      "Status": "Passed",
-      "Milliseconds": 97
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-first",
-      "Status": "Passed",
-      "Milliseconds": 73
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 2
     },
     {
       "Name": "oracle/compiled-module/if-common-binding-second",
-      "Status": "Passed",
-      "Milliseconds": 83
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 4
     },
     {
       "Name": "oracle/compiled-module/if-guard-alternatives",
-      "Status": "Passed",
-      "Milliseconds": 105
+      "Status": "Failed",
+      "Error": "System.OutOfMemoryException: Insufficient memory to continue the execution of the program.\r\n   at System.Runtime.InteropServices.Marshal.AllocHGlobal(IntPtr cb)\r\n   at System.Reflection.Internal.StreamMemoryBlockProvider.ReadMemoryBlockNoLock(Stream stream, Int64 start, Int32 size)\r\n   at System.Reflection.PortableExecutable.PEReader..ctor(Stream peStream, PEStreamOptions options, Int32 size)\r\n   at Microsoft.CodeAnalysis.ModuleMetadata.CreateFromStream(Stream peStream, PEStreamOptions options)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(Stream peStream, String path, PEStreamOptions options, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Microsoft.CodeAnalysis.MetadataReference.CreateFromFile(String path, MetadataReferenceProperties properties, DocumentationProvider documentation)\r\n   at Erlang.Differential.GeneratedModuleCompiler.\u003C\u003Ec.\u003CCompile\u003Eb__0_0(String path) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 17\r\n   at System.Linq.Enumerable.IteratorSelectIterator\u00602.MoveNext()\r\n   at System.Linq.Enumerable.\u003CToArray\u003Eg__EnumerableToArray|324_0[TSource](IEnumerable\u00601 source)\r\n   at System.Collections.Immutable.ImmutableArray.CreateRange[T](IEnumerable\u00601 items)\r\n   at Microsoft.CodeAnalysis.Compilation.ValidateReferences[T](IEnumerable\u00601 references)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, CSharpCompilationOptions options, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilation previousSubmission, Type returnType, Type hostObjectType, Boolean isSubmission)\r\n   at Microsoft.CodeAnalysis.CSharp.CSharpCompilation.Create(String assemblyName, IEnumerable\u00601 syntaxTrees, IEnumerable\u00601 references, CSharpCompilationOptions options)\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 18\r\n   at Program.\u003C\u003Ec__DisplayClass0_65.\u003C\u003C\u003CMain\u003E$\u003Eb__486\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3425\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 3505",
+      "Milliseconds": 1
     },
     {
       "Name": "oracle/compiled-module/if-no-match",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 132
     },
     {
       "Name": "oracle/compiled-module/if-body-error",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/if-side-effects",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiled-module/if-tail-calls",
       "Status": "Passed",
-      "Milliseconds": 1138
+      "Milliseconds": 1704
     },
     {
       "Name": "oracle/compiled-module/if-closure-branch-export",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/begin-export",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/operators-vector",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 143
     },
     {
       "Name": "oracle/compiled-module/begin-tail-calls",
       "Status": "Passed",
-      "Milliseconds": 1209
+      "Milliseconds": 1427
     },
     {
       "Name": "oracle/compiled-module/operators-precedence",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/operators-strict-bindings",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/operators-strict-error-order",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/operators-big-shifts",
       "Status": "Passed",
-      "Milliseconds": 105
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/catch-throw-exit",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/catch-error-reason-stack",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/catch-body-binding-rollback",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/operators-send-match",
       "Status": "Passed",
-      "Milliseconds": 121
+      "Milliseconds": 92
     },
     {
       "Name": "oracle/compiled-module/begin-closure",
       "Status": "Passed",
-      "Milliseconds": 158
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/expr-list-tuple-export",
       "Status": "Passed",
-      "Milliseconds": 167
+      "Milliseconds": 103
     },
     {
       "Name": "oracle/compiled-module/expr-list-call-export",
       "Status": "Passed",
-      "Milliseconds": 192
+      "Milliseconds": 113
     },
     {
       "Name": "oracle/compiled-module/expr-list-apply-export",
       "Status": "Passed",
-      "Milliseconds": 208
+      "Milliseconds": 126
     },
     {
       "Name": "oracle/compiled-module/expr-list-effect-order",
       "Status": "Passed",
-      "Milliseconds": 150
+      "Milliseconds": 130
     },
     {
       "Name": "oracle/compiled-module/expr-list-conflict",
       "Status": "Passed",
-      "Milliseconds": 113
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/expr-list-cons-export",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 103
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-nonconstant",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-cons-order",
       "Status": "Passed",
-      "Milliseconds": 152
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-call-conflict",
       "Status": "Passed",
-      "Milliseconds": 103
+      "Milliseconds": 115
     },
     {
       "Name": "oracle/compiled-module/compiled-binding-fun-local",
       "Status": "Passed",
-      "Milliseconds": 115
+      "Milliseconds": 117
     },
     {
       "Name": "oracle/compiled-module/compiled-map-export",
       "Status": "Passed",
-      "Milliseconds": 119
+      "Milliseconds": 133
     },
     {
       "Name": "oracle/compiled-module/compiled-map-base-conflict",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 137
     },
     {
       "Name": "oracle/compiled-module/compiled-map-fields-before-type",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/compiled-map-assoc-then-exact",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 131
     },
     {
       "Name": "oracle/compiled-module/compiled-map-effect-order",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 128
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-local-value-capture",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 120
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-local-size-capture",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 110
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-size-to-value-local-capture",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 135
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-prebound-capture",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 123
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-float-huge-size-order",
       "Status": "Passed",
-      "Milliseconds": 116
+      "Milliseconds": 143
     },
     {
       "Name": "oracle/compiled-module/compiled-bits-float-later-evaluation-error",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-value-capture",
       "Status": "Passed",
-      "Milliseconds": 129
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-key-capture",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 72
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-base-capture",
       "Status": "Passed",
-      "Milliseconds": 113
+      "Milliseconds": 91
     },
     {
       "Name": "oracle/compiled-module/compiled-map-sequential-prebound-capture",
       "Status": "Passed",
-      "Milliseconds": 117
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-negative-precheck",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-atom-precheck",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 142
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-effect-precheck",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 105
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-size-export",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 119
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-float-elimination",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-huge-elimination",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 64
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-literal-failure-order",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 116
     },
     {
       "Name": "oracle/compiled-module/compiled-empty-string-zero-elimination",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/compiled-match-tuple-whole-value",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/compiled-match-list-whole-value",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 110
     },
     {
       "Name": "oracle/compiled-module/compiled-match-call-whole-value",
       "Status": "Passed",
-      "Milliseconds": 108
+      "Milliseconds": 120
     },
     {
       "Name": "oracle/compiled-module/compiled-match-before-block-effect",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/compiled-match-nested-tuple-constraint",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/compiled-match-map-whole-value",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 131
     },
     {
       "Name": "oracle/compiled-module/compiled-try-success-after",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 103
     },
     {
       "Name": "oracle/compiled-module/compiled-try-success-catch",
       "Status": "Passed",
-      "Milliseconds": 59
+      "Milliseconds": 152
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-body-bindings",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 121
     },
     {
       "Name": "oracle/compiled-module/compiled-try-default-throw",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 116
     },
     {
       "Name": "oracle/compiled-module/compiled-try-error-pattern",
       "Status": "Passed",
-      "Milliseconds": 104
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/compiled-try-exit-class",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 143
     },
     {
       "Name": "oracle/compiled-module/compiled-try-class-variable",
       "Status": "Passed",
-      "Milliseconds": 70
+      "Milliseconds": 95
     },
     {
       "Name": "oracle/compiled-module/compiled-try-default-does-not-catch-error",
       "Status": "Passed",
-      "Milliseconds": 52
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/compiled-try-class-mismatch",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 119
     },
     {
       "Name": "oracle/compiled-module/compiled-try-stack-body",
       "Status": "Passed",
-      "Milliseconds": 67
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 162
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-failure-fallback",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 110
     },
     {
       "Name": "oracle/compiled-module/compiled-try-guard-rethrow",
@@ -4220,402 +4237,402 @@
     {
       "Name": "oracle/compiled-module/compiled-try-of-guard-fallback",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-no-match",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 70
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-error-outside-catch",
       "Status": "Passed",
-      "Milliseconds": 57
+      "Milliseconds": 100
     },
     {
       "Name": "oracle/compiled-module/compiled-try-handler-error-outside-catch",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-success-effect",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 118
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-handler-effect",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-of-failure-effect",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 112
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-rethrow-effect",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-value",
       "Status": "Passed",
-      "Milliseconds": 72
+      "Milliseconds": 62
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-error",
       "Status": "Passed",
-      "Milliseconds": 52
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-overrides-handler",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-try-incoming-binding",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-local-binding",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-try-local-call-protected",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 92
     },
     {
       "Name": "oracle/compiled-module/compiled-try-of-local-call-unprotected",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/compiled-try-after-local-call-order",
       "Status": "Passed",
-      "Milliseconds": 58
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-try-negative-integer-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 111
     },
     {
       "Name": "oracle/compiled-module/compiled-try-negative-float-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-try-parenthesized-negative-stack-pattern",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-if-guard",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-case-guard",
       "Status": "Passed",
-      "Milliseconds": 70
+      "Milliseconds": 115
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-captured-fun-guard",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 70
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-shadowed-fun-guard",
       "Status": "Passed",
-      "Milliseconds": 55
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-nested-catch-guard",
       "Status": "Passed",
-      "Milliseconds": 69
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-stack-body-receive-guard",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-ordinary-sequence",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 112
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-match-last-value",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 104
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-sequential-matches",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-first-mismatch",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 93
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-later-mismatch",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-success-skips-else",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-pattern",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-guard-alternatives",
       "Status": "Passed",
-      "Milliseconds": 106
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-no-match",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 108
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-all-guards-fail",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 107
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-error-propagates",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 109
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-throw-propagates",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 61
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-exit-propagates",
       "Status": "Passed",
-      "Milliseconds": 73
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-body-error-propagates",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 101
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-ordinary-badmatch",
       "Status": "Passed",
-      "Milliseconds": 94
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-body-error",
       "Status": "Passed",
-      "Milliseconds": 117
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-incoming-binding",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-incoming-mismatch-else",
       "Status": "Passed",
-      "Milliseconds": 57
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-repeated-pattern-variable",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 96
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-exact-numeric-match",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-list-tail-pattern",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-map-pattern",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-bit-pattern",
       "Status": "Passed",
-      "Milliseconds": 89
+      "Milliseconds": 119
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-pattern-expression-failure",
       "Status": "Passed",
-      "Milliseconds": 71
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-nested-independent-bindings",
       "Status": "Passed",
-      "Milliseconds": 96
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-rhs-binds-before-pattern",
       "Status": "Passed",
-      "Milliseconds": 51
+      "Milliseconds": 62
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-else-captures-incoming",
       "Status": "Passed",
-      "Milliseconds": 102
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-success-effect-order",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 111
     },
     {
       "Name": "oracle/compiled-module/compiled-maybe-mismatch-effect-order",
       "Status": "Passed",
-      "Milliseconds": 100
+      "Milliseconds": 86
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-case-whole-and-parts",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-reversed-case",
       "Status": "Passed",
-      "Milliseconds": 77
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-nested-case",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 120
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-structural-pair",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 78
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-mismatch-fallback",
       "Status": "Passed",
-      "Milliseconds": 56
+      "Milliseconds": 88
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-exact-repeated-variable",
       "Status": "Passed",
-      "Milliseconds": 68
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-fun-argument",
       "Status": "Passed",
-      "Milliseconds": 83
+      "Milliseconds": 75
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-fun-shadow",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 103
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-match",
       "Status": "Passed",
-      "Milliseconds": 98
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-mismatch",
       "Status": "Passed",
-      "Milliseconds": 91
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-maybe-else",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-try-catch-stack",
       "Status": "Passed",
-      "Milliseconds": 93
+      "Milliseconds": 94
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-suffix",
       "Status": "Passed",
-      "Milliseconds": 96
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-alias-whole",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 68
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-string-alias-suffix",
       "Status": "Passed",
-      "Milliseconds": 123
+      "Milliseconds": 79
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-integer-list-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 128
+      "Milliseconds": 71
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-nested-proper-literal",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 113
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-empty-list",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 90
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-empty-string",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-chained",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 70
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-mismatch-fallback",
       "Status": "Passed",
-      "Milliseconds": 113
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-prefix-unicode",
       "Status": "Passed",
-      "Milliseconds": 54
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-map-incoming-key",
       "Status": "Passed",
-      "Milliseconds": 82
+      "Milliseconds": 67
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-bit-incoming-size",
       "Status": "Passed",
-      "Milliseconds": 87
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-alias-function-parameter",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-basic",
@@ -4625,177 +4642,177 @@
     {
       "Name": "oracle/compiled-module/compiled-lc-ordered-filter",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-empty",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 72
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-no-generator",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 67
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-false-filter",
       "Status": "Passed",
-      "Milliseconds": 70
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-guard-nonboolean",
       "Status": "Passed",
-      "Milliseconds": 105
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-guard-failure-skips",
       "Status": "Passed",
-      "Milliseconds": 95
+      "Milliseconds": 82
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-nonboolean",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 89
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-error",
       "Status": "Passed",
-      "Milliseconds": 78
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-ordinary-fun-filter",
       "Status": "Passed",
-      "Milliseconds": 90
+      "Milliseconds": 87
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-relaxed-mismatch",
       "Status": "Passed",
-      "Milliseconds": 111
+      "Milliseconds": 80
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-repeated-exact",
       "Status": "Passed",
-      "Milliseconds": 108
+      "Milliseconds": 97
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-success",
       "Status": "Passed",
-      "Milliseconds": 107
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-mismatch",
       "Status": "Passed",
-      "Milliseconds": 59
+      "Milliseconds": 66
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-strict-filter-not-match",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 83
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-bad-source",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-improper-source",
       "Status": "Passed",
-      "Milliseconds": 79
+      "Milliseconds": 105
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-empty-before-bad-source",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-cartesian-order",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 76
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-dependent-generator",
       "Status": "Passed",
-      "Milliseconds": 86
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-shadow-outer",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 81
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-shadow-earlier-generator",
       "Status": "Passed",
-      "Milliseconds": 63
+      "Milliseconds": 67
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-filter-binding",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 65
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-source-binding-private",
       "Status": "Passed",
-      "Milliseconds": 88
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-nested",
       "Status": "Passed",
-      "Milliseconds": 75
+      "Milliseconds": 74
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-multiple-templates",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 102
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-template-match-private",
       "Status": "Passed",
-      "Milliseconds": 84
+      "Milliseconds": 73
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-body-side-effect-order",
       "Status": "Passed",
-      "Milliseconds": 85
+      "Milliseconds": 77
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-alias-pattern",
       "Status": "Passed",
-      "Milliseconds": 108
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-map-input-key",
       "Status": "Passed",
-      "Milliseconds": 97
+      "Milliseconds": 98
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-bit-input-size",
       "Status": "Passed",
-      "Milliseconds": 54
+      "Milliseconds": 63
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-closure-capture",
       "Status": "Passed",
-      "Milliseconds": 80
+      "Milliseconds": 69
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-failure-before-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 74
+      "Milliseconds": 85
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-false-before-improper-tail",
       "Status": "Passed",
-      "Milliseconds": 101
+      "Milliseconds": 99
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-remote-operator-filter",
       "Status": "Passed",
-      "Milliseconds": 76
+      "Milliseconds": 106
     },
     {
       "Name": "oracle/compiled-module/compiled-lc-remote-arithmetic-guard-failure",
       "Status": "Passed",
-      "Milliseconds": 81
+      "Milliseconds": 72
     },
     {
       "Name": "oracle/compiler-diagnostic/bit-size-to-next-size",
@@ -5125,7 +5142,7 @@
     {
       "Name": "oracle/compiled-module-repeat-context",
       "Status": "Passed",
-      "Milliseconds": 163
+      "Milliseconds": 152
     },
     {
       "Name": "oracle/compiled-module-invalid-source",
