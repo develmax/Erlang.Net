@@ -14,6 +14,7 @@ public sealed record ChildSpec(
     bool BrutalKill = false
 )
 {
+    public bool Significant { get; init; }
     internal Func<ProcessContext, ValueTask<Term>>? StartResult { get; init; }
     internal Term? StartMfa { get; init; }
 }

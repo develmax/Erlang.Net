@@ -6,4 +6,7 @@ public sealed record SupervisorConfiguration(
     int Intensity = BehaviourDefaults.RestartIntensity,
     TimeSpan? Period = null,
     bool Ignore = false
-);
+)
+{
+    public AutoShutdownPolicy AutoShutdown { get; init; }
+}

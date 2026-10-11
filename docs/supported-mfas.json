@@ -649,6 +649,14 @@
   },
   {
     "Module": "supervisor",
+    "Function": "check_childspecs",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:check_childspecs/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
     "Function": "start_child",
     "Arity": 2,
     "Status": "Partially compatible",

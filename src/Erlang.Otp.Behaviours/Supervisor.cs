@@ -40,6 +40,7 @@ public static class Supervisor
             RestartStrategy strategy = RestartStrategy.OneForOne;
             int intensity = BehaviourDefaults.RestartIntensity;
             TimeSpan? period = null;
+            AutoShutdownPolicy automatic = AutoShutdownPolicy.Never;
             var restarts = new Queue<long>();
             var restarting = new HashSet<Term>();
             Term retryTag = await runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.MakeReference);
@@ -64,6 +65,16 @@ public static class Supervisor
                 for (int i = children.Count - 1; i >= 0; i--)
                     if (children[i] is null && specifications[i].Restart == RestartPolicy.Temporary)
                         RemoveChild(i);
+            }
+
+            bool ShouldAutoShutdown(ChildSpec child)
+            {
+                if (!child.Significant || automatic == AutoShutdownPolicy.Never)
+                    return false;
+                if (automatic == AutoShutdownPolicy.AnySignificant)
+                    return true;
+
+                return !specifications.Where((specification, index) => specification.Significant && (children[index] is not null || restarting.Contains(specification.Id))).Any();
             }
 
             async ValueTask<Term> InvokeStart(ChildSpec spec)
@@ -106,7 +117,7 @@ public static class Supervisor
                     ChildSpec spec;
                     try
                     {
-                        spec = ErlangSupervisor.ParseChild(argument);
+                        spec = ErlangSupervisor.ParseChild(argument, automatic);
                     }
                     catch (ErlangException exception)
                     {
@@ -290,6 +301,7 @@ public static class Supervisor
                 strategy = configuration.Strategy;
                 intensity = configuration.Intensity;
                 period = configuration.Period;
+                automatic = configuration.AutoShutdown;
                 if (intensity < 0 || period <= TimeSpan.Zero || specifications.Select(s => s.Id).Distinct().Count() != specifications.Count)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 children.AddRange(new Child?[specifications.Count]);
@@ -356,10 +368,13 @@ public static class Supervisor
                     if (spec.Restart == RestartPolicy.Temporary)
                     {
                         RemoveChild(failed);
+                    }
+                    if (spec.Restart == RestartPolicy.Temporary || spec.Restart == RestartPolicy.Transient && normal)
+                    {
+                        if (ShouldAutoShutdown(spec))
+                            context.Exit(Term.A(ProcessExitReasons.Shutdown));
                         continue;
                     }
-                    if (spec.Restart == RestartPolicy.Transient && normal)
-                        continue;
                     await RestartAutomatically(failed);
                 }
             }

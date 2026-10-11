@@ -1,0 +1,31 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "License": "Consolidated exact Ericsson Apache notices packaged; draft excluded; no banners",
+  "ClrAdaptations": [
+    "Existing monitor-based ordered cleanup and mailbox serialization",
+    "Init properties preserve public positional record constructors",
+    "Existing immutable terms and ProcessRuntime; no new dependency"
+  ],
+  "SourceTests": "lib/stdlib/test/supervisor_SUITE.erl",
+  "Contracts": [
+    "undefined standalone policy differs from startup never",
+    "Significant transient/temporary specs; permanent significant validation precedence",
+    "Any unrestarted significant exit or last remaining significant PID/restarting state triggers shutdown",
+    "Manual termination/delete, ignored starts and group restart shutdown do not trigger auto shutdown"
+  ],
+  "Routines": [
+    "check_childspecs/1,2",
+    "init_children/check_startspec/validSignificant",
+    "do_restart/do_auto_shutdown"
+  ],
+  "ExpectedValuesChanged": 0,
+  "Limits": [
+    "simple_one_for_one",
+    "Complete clocks/sys/upgrades/logging/distribution/resources/stacks/races",
+    "Full upstream suites and performance"
+  ],
+  "InitialProbe": "21/30 passed;9 fixture-only undef failures corrected via missing helpers/module and registered query liveness assertion before reference dispatch",
+  "NewModules": 30,
+  "Source": "lib/stdlib/src/supervisor.erl"
+}

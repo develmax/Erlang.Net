@@ -7,6 +7,8 @@ internal static class SupervisorAtoms
     public const string Period = "period";
     public const string AutoShutdown = "auto_shutdown";
     public const string Never = "never";
+    public const string AnySignificant = "any_significant";
+    public const string AllSignificant = "all_significant";
     public const string Id = "id";
     public const string Start = "start";
     public const string Restart = "restart";

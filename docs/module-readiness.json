@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-093/tests.json",
-  "LocalPassedTests": 1541,
-  "RegisteredMfas": 85,
+  "LocalPassedTests": 1572,
+  "RegisteredMfas": 86,
   "PreviousRegisteredMfas": 85,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -90,7 +90,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 187
+      "RelatedPassedTests": 188
     },
     {
       "Id": "gen_server adapters",
@@ -123,13 +123,16 @@
         "Invalid shape/private-tag casts fail function_clause; correctly tagged stale retries ignored",
         "One provisional malformed-cast fixture corrected from pinned source before initial original comparison completed; final 14 contracts verified at c20e990",
         "Erlang callbacks own links and may return dead PIDs; monitor-based shutdown with queued EXIT flush",
-        "15 independent lifecycle contracts verified against exact-source OTP-29.1.1 at9ef47ed"
+        "15 independent lifecycle contracts verified against exact-source OTP-29.1.1 at9ef47ed",
+        "Significant transient/temporary children and any_significant/all_significant auto shutdown",
+        "check_childspecs/2 with standalone undefined policy and source validation/error precedence",
+        "30 independently expected significant modules/full1572 pass locally; new exact-source proof pending"
       ],
       "Remaining": [
-        "simple_one_for_one, significant/auto_shutdown and upgrades",
-        "complete shutdown logging/reason classification, priority/distributed signals, timing/sys/clock races and stacks"
+        "simple_one_for_one and upgrades/sys",
+        "Complete logging/reason classification, priority/distributed signals, timing/clock races and stacks"
       ],
-      "RelatedPassedTests": 89
+      "RelatedPassedTests": 120
     },
     {
       "Id": "Hybrid and MSBuild",
@@ -171,7 +174,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 579
+      "RelatedPassedTests": 609
     },
     {
       "Id": "Style checks",
@@ -14169,17 +14172,18 @@
     {
       "Name": "supervisor",
       "Status": "Partially compatible",
-      "RegisteredMfas": 9,
+      "RegisteredMfas": 10,
       "PreviousRegisteredMfas": 9,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 23,
-      "ApiPresencePercent": 39.1,
+      "ApiPresencePercent": 43.5,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/supervisor.erl"
       ],
       "Mfas": [
         "supervisor:check_childspecs/1",
+        "supervisor:check_childspecs/2",
         "supervisor:count_children/1",
         "supervisor:delete_child/2",
         "supervisor:restart_child/2",

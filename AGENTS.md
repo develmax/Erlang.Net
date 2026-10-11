@@ -347,3 +347,6 @@ Local1541/full pipeline,15 lifecycle contracts; planned1348=778/491/79 preserves
 
 ## Part 094 checkpoint
 Published9ef47ed passes exact-source1348/1348=778/491/79, same-head1541/full CI and strict provenance.15 lifecycle contracts, zero expectation corrections; old778/476/79 preserved.85MFAs/delta0; supervisor9/23/gen_server10/41 partial;220types/no violations. Next simple_one_for_one/significant/auto_shutdown, plus full logging/signals/timing/sys/upgrades/stacks/resources/upstream/performance.5% coarse;0014 active; draft excluded.
+
+## Part 095 checkpoint
+Local1572/full;30 significant/auto-shutdown/check_childspecs contracts,86MFAs (+1), supervisor10/23.222types/no violations; old778/491/79 preserved, planned1378=778/521/79. Publish and verify original/headCI then096 proof. Initial9 fixture-only failures retained; no expectation corrections. Target10% requires wider platform milestone, do not merely relabel5%. Continue simple_one, collections, timers/source/application. Draft excluded;0014 active.

@@ -37,16 +37,24 @@ public static class ErlangSupervisor
         if (period is not Integer p || p.Value <= 0 || p.Value > int.MaxValue)
             throw Flag(SupervisorAtoms.InvalidPeriod, period);
         Term automatic = Get(flags, SupervisorAtoms.AutoShutdown, Term.A(SupervisorAtoms.Never));
-        if (automatic is not Atom { Name: SupervisorAtoms.Never })
-            throw Flag(SupervisorAtoms.InvalidAutoShutdown, automatic);
+        AutoShutdownPolicy policy = automatic switch
+        {
+            Atom { Name: SupervisorAtoms.Never } => AutoShutdownPolicy.Never,
+            Atom { Name: SupervisorAtoms.AnySignificant } => AutoShutdownPolicy.AnySignificant,
+            Atom { Name: SupervisorAtoms.AllSignificant } => AutoShutdownPolicy.AllSignificant,
+            _ => throw Flag(SupervisorAtoms.InvalidAutoShutdown, automatic)
+        };
         try
         {
             return new(
-                ParseChildren(data.Items[1]),
+                ParseChildren(data.Items[1], policy),
                 strategy,
                 (int)n.Value,
                 TimeSpan.FromSeconds((int)p.Value)
-            );
+            )
+            {
+                AutoShutdown = policy
+            };
         }
         catch (ErlangException exception)
         {
@@ -54,14 +62,16 @@ public static class ErlangSupervisor
         }
     }
 
-    public static IReadOnlyList<ChildSpec> ParseChildren(Term value)
+    public static IReadOnlyList<ChildSpec> ParseChildren(Term value) => ParseChildren(value, null);
+
+    internal static IReadOnlyList<ChildSpec> ParseChildren(Term value, AutoShutdownPolicy? policy)
     {
         var children = new List<ChildSpec>();
         var ids = new HashSet<Term>();
         Term remaining = value;
         while (remaining is Cons cell)
         {
-            var spec = ParseChild(cell.Head);
+            var spec = ParseChild(cell.Head, policy);
             if (!ids.Add(spec.Id))
                 throw Error(SupervisorAtoms.DuplicateChild, spec.Id);
             children.Add(spec);
@@ -73,7 +83,7 @@ public static class ErlangSupervisor
         return children;
     }
 
-    internal static ChildSpec ParseChild(Term value)
+    internal static ChildSpec ParseChild(Term value, AutoShutdownPolicy? policy = null)
     {
         MapTerm spec;
         if (value is MapTerm map)
@@ -106,7 +116,8 @@ public static class ErlangSupervisor
             _ => throw Error(SupervisorAtoms.InvalidRestart, restartValue)
         };
         Term significant = Get(spec, SupervisorAtoms.Significant, Term.A(ErlangBooleanAtoms.False));
-        if (significant.Equals(Term.A(ErlangBooleanAtoms.True)))
+        bool isSignificant = significant.Equals(Term.A(ErlangBooleanAtoms.True));
+        if (isSignificant && policy == AutoShutdownPolicy.Never)
             throw Error(
                 SupervisorAtoms.BadCombination,
                 Term.List(
@@ -114,7 +125,15 @@ public static class ErlangSupervisor
                     Term.Tuple(Term.A(SupervisorAtoms.Significant), significant)
                 )
             );
-        if (!significant.Equals(Term.A(ErlangBooleanAtoms.False)))
+        if (isSignificant && restart == RestartPolicy.Permanent)
+            throw Error(
+                SupervisorAtoms.BadCombination,
+                Term.List(
+                    Term.Tuple(Term.A(SupervisorAtoms.Restart), Term.A(SupervisorAtoms.Permanent)),
+                    Term.Tuple(Term.A(SupervisorAtoms.Significant), significant)
+                )
+            );
+        if (!isSignificant && !significant.Equals(Term.A(ErlangBooleanAtoms.False)))
             throw Error(SupervisorAtoms.InvalidSignificant, significant);
         Term type = Get(spec, SupervisorAtoms.Type, Term.A(SupervisorAtoms.Worker));
         if (type is not Atom { Name: SupervisorAtoms.Worker or SupervisorAtoms.Supervisor })
@@ -194,7 +213,8 @@ public static class ErlangSupervisor
         )
         {
             StartResult = StartResult,
-            StartMfa = start
+            StartMfa = start,
+            Significant = isSignificant
         };
     }
 
@@ -211,7 +231,7 @@ public static class ErlangSupervisor
             RestartPolicy.Transient => SupervisorAtoms.Transient,
             _ => SupervisorAtoms.Temporary
         }),
-        Term.A(ErlangBooleanAtoms.False),
+        Term.A(spec.Significant ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
         spec.InfiniteShutdown ? Term.A(BehaviourAtoms.Infinity) : spec.BrutalKill ? Term.A(SupervisorAtoms.BrutalKill) : Term.I((int)(spec.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds)).TotalMilliseconds),
         spec.Type ?? Term.A(SupervisorAtoms.Worker),
         spec.Modules ?? Nil.Value

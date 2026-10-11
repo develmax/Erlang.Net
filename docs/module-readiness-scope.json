@@ -124,8 +124,8 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
-        "simple_one_for_one, significant/auto_shutdown and upgrades",
-        "complete shutdown logging/reason classification, priority/distributed signals, timing/sys/clock races and stacks"
+        "simple_one_for_one and upgrades/sys",
+        "Complete logging/reason classification, priority/distributed signals, timing/clock races and stacks"
       ],
       "Implemented": [
         "C# strategies/policies/intensity and nine standard supervisor MFAs",
@@ -138,7 +138,10 @@
         "Invalid shape/private-tag casts fail function_clause; correctly tagged stale retries ignored",
         "One provisional malformed-cast fixture corrected from pinned source before initial original comparison completed; final 14 contracts verified at c20e990",
         "Erlang callbacks own links and may return dead PIDs; monitor-based shutdown with queued EXIT flush",
-        "15 independent lifecycle contracts verified against exact-source OTP-29.1.1 at9ef47ed"
+        "15 independent lifecycle contracts verified against exact-source OTP-29.1.1 at9ef47ed",
+        "Significant transient/temporary children and any_significant/all_significant auto shutdown",
+        "check_childspecs/2 with standalone undefined policy and source validation/error precedence",
+        "30 independently expected significant modules/full1572 pass locally; new exact-source proof pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [

@@ -23,6 +23,7 @@ public static class OtpMfaContracts
             ("supervisor", "which_children", 1) => "otp-supervisor-child-query-order",
             ("supervisor", "count_children", 1) => "otp-supervisor-child-query-order",
             ("supervisor", "check_childspecs", 1) => "otp-supervisor-valid-check",
+            ("supervisor", "check_childspecs", 2) => "otp-supervisor-significant-check-policy",
             ("supervisor", "start_child", 2) => "otp-supervisor-dynamic-lifecycle",
             ("supervisor", "terminate_child", 2) => "otp-supervisor-dynamic-lifecycle",
             ("supervisor", "restart_child", 2) => "otp-supervisor-dynamic-restart-failure-retry",

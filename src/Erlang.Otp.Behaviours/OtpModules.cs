@@ -133,21 +133,13 @@ public static class OtpModules
                 OtpNames.Supervisor,
                 OtpNames.CheckChildSpecs,
                 1,
-                (c, a) =>
-            {
-                try
-                {
-                    if (a[0] is not Cons and not Nil)
-                        return ValueTask.FromResult<Term>(Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), a[0])));
-                    ErlangSupervisor.ParseChildren(a[0]);
-
-                    return ValueTask.FromResult<Term>(Term.A(BehaviourAtoms.Ok));
-                }
-                catch (ErlangException ex)
-                {
-                    return ValueTask.FromResult<Term>(Term.Tuple(Term.A(BehaviourAtoms.Error), ex.Reason));
-                }
-            }
+                (c, a) => ValueTask.FromResult(CheckChildSpecs(a[0], Term.A(SupervisorAtoms.Undefined)))
+            );
+            Add(
+                OtpNames.Supervisor,
+                OtpNames.CheckChildSpecs,
+                2,
+                (c, a) => ValueTask.FromResult(CheckChildSpecs(a[0], a[1]))
             );
             foreach (string operation in new[] { OtpNames.StartChild, OtpNames.TerminateChild, OtpNames.RestartChild, OtpNames.DeleteChild })
                 Add(
@@ -157,6 +149,47 @@ public static class OtpModules
                     (c, a) => SupervisorCall(c, Term.Tuple(Term.A(operation), a[1]), a[0])
                 );
             Installed.Add(registry, new());
+        }
+    }
+
+    private static Term CheckChildSpecs(Term specifications, Term automatic)
+    {
+        Term Invalid(Term value) => Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), value));
+        try
+        {
+            Cons.Items(specifications).ToArray();
+        }
+        catch (ErlangException)
+        {
+            return Invalid(specifications);
+        }
+        AutoShutdownPolicy? policy;
+        switch (automatic)
+        {
+            case Atom { Name: SupervisorAtoms.Undefined }:
+                policy = null;
+                break;
+            case Atom { Name: SupervisorAtoms.Never }:
+                policy = AutoShutdownPolicy.Never;
+                break;
+            case Atom { Name: SupervisorAtoms.AnySignificant }:
+                policy = AutoShutdownPolicy.AnySignificant;
+                break;
+            case Atom { Name: SupervisorAtoms.AllSignificant }:
+                policy = AutoShutdownPolicy.AllSignificant;
+                break;
+            default:
+                return Invalid(automatic);
+        }
+        try
+        {
+            ErlangSupervisor.ParseChildren(specifications, policy);
+
+            return Term.A(BehaviourAtoms.Ok);
+        }
+        catch (ErlangException exception)
+        {
+            return Term.Tuple(Term.A(BehaviourAtoms.Error), exception.Reason);
         }
     }
 
