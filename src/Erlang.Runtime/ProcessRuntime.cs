@@ -16,12 +16,14 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         get;
     }
+    internal RuntimeTimers Timers { get; }
     public ModuleRegistry Modules { get; } = new();
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null)
     {
         Node = node;
         Output = output ?? Console.Out;
+        Timers = new(this, gate);
         CoreModules.Register(Modules);
     }
 
@@ -245,6 +247,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
+                Timers.RecipientTerminated(ctx.Self);
                 ctx.Terminated = true;
                 ctx.ExitReason = reason;
                 foreach (var name in names.Where(p => p.Value.Equals(ctx.Self)).Select(p => p.Key).ToArray())
@@ -288,6 +291,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         lock (gate)
         {
             disposed = true;
+            Timers.Dispose();
             foreach (var p in processes.Values.ToArray())
                 Terminate(p, Term.A(ProcessExitReasons.Shutdown));
         }

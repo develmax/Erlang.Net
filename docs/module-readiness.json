@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-097/tests.json",
-  "LocalPassedTests": 1614,
-  "RegisteredMfas": 90,
-  "PreviousRegisteredMfas": 86,
-  "RegisteredMfaDelta": 4,
+  "ComparisonTestReport": "validation/part-099/tests.json",
+  "LocalPassedTests": 1774,
+  "RegisteredMfas": 129,
+  "PreviousRegisteredMfas": 90,
+  "RegisteredMfaDelta": 39,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -44,13 +44,16 @@
       "Status": "Partially compatible",
       "Implemented": [
         "selective receive and local links/monitors",
-        "registered core MFAs"
+        "registered core MFAs",
+        "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
+        "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
-        "distribution, ETS/DETS, ports/NIF/code loading"
+        "distribution, ETS/DETS, ports/NIF/code loading",
+        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
       ],
-      "RelatedPassedTests": 57
+      "RelatedPassedTests": 81
     },
     {
       "Id": "Compiler",
@@ -68,14 +71,16 @@
         "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
         "Grouped list/binary/map zip \u0026\u0026 generators with strict/shared row constraints; separate erl_eval traversal and v3_core joint/skip/tail clauses, raw compiled iterator versus normalized interpreted remainders",
         "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates",
-        "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete"
+        "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete",
+        "Tuple record declarations, creation/default/wildcard field order, strict access/immutable updates, indexes and record_info",
+        "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics"
       ],
       "Remaining": [
-        "records/macros and full grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
+        "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 774
+      "RelatedPassedTests": 809
     },
     {
       "Id": "Core library modules",
@@ -84,13 +89,15 @@
       "Implemented": [
         "erlang/lists/maps/io registered subset",
         "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries",
-        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators"
+        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators",
+        "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
+        "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 192
+      "RelatedPassedTests": 296
     },
     {
       "Id": "gen_server adapters",
@@ -145,12 +152,13 @@
       "Status": "Partially compatible",
       "Implemented": [
         "native Erlang blocks and .erl generation",
-        "incremental/clean/disabled-preprocessing/package consumer"
+        "incremental/clean/disabled-preprocessing/package consumer",
+        "platform_demo.erl uses supervision, gen_server, records, timers and collections; compiled into hybrid and real PackageReference consumer"
       ],
       "Remaining": [
         "cross-block bindings, full diagnostics and IDE debugging"
       ],
-      "RelatedPassedTests": 22
+      "RelatedPassedTests": 23
     },
     {
       "Id": "Tooling and packages",
@@ -178,7 +186,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 646
+      "RelatedPassedTests": 767
     },
     {
       "Id": "Style checks",
@@ -5447,11 +5455,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 40,
+      "RegisteredMfas": 44,
       "PreviousRegisteredMfas": 40,
-      "Delta": 0,
+      "Delta": 4,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 11.4,
+      "ApiPresencePercent": 12.5,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5459,6 +5467,7 @@
       "Mfas": [
         "erlang:bit_size/1",
         "erlang:byte_size/1",
+        "erlang:cancel_timer/1",
         "erlang:demonitor/1",
         "erlang:element/2",
         "erlang:erase/1",
@@ -5486,11 +5495,14 @@
         "erlang:monitor/2",
         "erlang:process_flag/2",
         "erlang:put/2",
+        "erlang:read_timer/1",
         "erlang:register/2",
         "erlang:self/0",
+        "erlang:send_after/3",
         "erlang:spawn/1",
         "erlang:spawn_link/1",
         "erlang:spawn_monitor/1",
+        "erlang:start_timer/3",
         "erlang:throw/1",
         "erlang:tl/1",
         "erlang:tuple_size/1",
@@ -7890,36 +7902,47 @@
     {
       "Name": "lists",
       "Status": "Partially compatible",
-      "RegisteredMfas": 20,
+      "RegisteredMfas": 31,
       "PreviousRegisteredMfas": 20,
-      "Delta": 0,
+      "Delta": 11,
       "ReferenceDeclarations": 91,
-      "ApiPresencePercent": 22.0,
+      "ApiPresencePercent": 34.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/lists.erl"
       ],
       "Mfas": [
+        "lists:all/2",
+        "lists:any/2",
         "lists:append/1",
         "lists:append/2",
+        "lists:dropwhile/2",
         "lists:duplicate/2",
+        "lists:filtermap/2",
         "lists:flatten/1",
         "lists:flatten/2",
+        "lists:foldl/3",
+        "lists:foldr/3",
+        "lists:foreach/2",
         "lists:keyfind/3",
         "lists:keymember/3",
         "lists:keysearch/3",
         "lists:last/1",
         "lists:map/2",
+        "lists:mapfoldl/3",
+        "lists:mapfoldr/3",
         "lists:member/2",
         "lists:nth/2",
         "lists:nthtail/2",
+        "lists:partition/2",
         "lists:reverse/1",
         "lists:reverse/2",
         "lists:seq/2",
         "lists:seq/3",
         "lists:sort/2",
         "lists:split/2",
-        "lists:sum/1"
+        "lists:sum/1",
+        "lists:takewhile/2"
       ],
       "AbsentFromReference": []
     },
@@ -8242,21 +8265,45 @@
     {
       "Name": "maps",
       "Status": "Partially compatible",
-      "RegisteredMfas": 5,
+      "RegisteredMfas": 29,
       "PreviousRegisteredMfas": 5,
-      "Delta": 0,
+      "Delta": 24,
       "ReferenceDeclarations": 34,
-      "ApiPresencePercent": 14.7,
+      "ApiPresencePercent": 85.3,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/maps.erl"
       ],
       "Mfas": [
+        "maps:filter/2",
+        "maps:filtermap/2",
+        "maps:find/2",
+        "maps:fold/3",
+        "maps:foreach/2",
+        "maps:from_keys/2",
+        "maps:from_list/1",
         "maps:get/2",
+        "maps:get/3",
+        "maps:is_iterator_valid/1",
+        "maps:is_key/2",
         "maps:iterator/1",
         "maps:iterator/2",
+        "maps:keys/1",
+        "maps:map/2",
+        "maps:merge/2",
+        "maps:new/0",
         "maps:next/1",
-        "maps:size/1"
+        "maps:put/3",
+        "maps:remove/2",
+        "maps:size/1",
+        "maps:take/2",
+        "maps:to_list/1",
+        "maps:update/3",
+        "maps:update_with/3",
+        "maps:update_with/4",
+        "maps:values/1",
+        "maps:with/2",
+        "maps:without/2"
       ],
       "AbsentFromReference": []
     },
@@ -14177,8 +14224,8 @@
       "Name": "supervisor",
       "Status": "Partially compatible",
       "RegisteredMfas": 14,
-      "PreviousRegisteredMfas": 10,
-      "Delta": 4,
+      "PreviousRegisteredMfas": 14,
+      "Delta": 0,
       "ReferenceDeclarations": 23,
       "ApiPresencePercent": 60.9,
       "RequiresPreprocessing": false,

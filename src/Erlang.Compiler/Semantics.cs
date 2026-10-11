@@ -187,6 +187,21 @@ public static class Semantics
                 if (v.Name == VariableScopeNames.Wildcard || !bound.Contains(v.Name))
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
                 break;
+            case Expr.RecordConstruction record:
+                Walk(RecordExpressions.Create(record), bound, guard);
+                break;
+            case Expr.RecordAccess record:
+                Walk(record.Value, bound, guard);
+                break;
+            case Expr.RecordUpdate record:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, RecordDiagnostics.GuardUpdate, 0);
+                ExpressionBindings.ValidateList(
+                    new[] { record.Value }.Concat(record.Fields.Select(field => field.Value)),
+                    bound,
+                    (expression, scope) => Walk(expression, scope, false)
+                );
+                break;
             case Expr.Tuple t:
                 ExpressionBindings.ValidateList(t.Items, bound, (expression, scope) => Walk(expression, scope, guard));
                 break;

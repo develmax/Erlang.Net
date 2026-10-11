@@ -78,6 +78,13 @@ public static class CodeGeneration
 
     public static string ExpressionCode(Expr expression) => expression switch
     {
+        Expr.RecordConstruction record => ExpressionCode(RecordExpressions.Create(record)),
+        Expr.RecordAccess record => "new " + E + "RecordAccess(" + ExpressionCode(record.Value) + "," + Quote(record.Name) + "," + record.Arity + "," + record.Index + ")",
+        Expr.RecordUpdate record => "new " + E + "RecordUpdate(" + ExpressionCode(record.Value) + "," + Quote(record.Name) + "," + record.Arity + "," + Array(
+            record.Fields,
+            field => "new global::Erlang.Compiler.RecordUpdateField(" + field.Index + "," + ExpressionCode(field.Value) + ")",
+            "global::Erlang.Compiler.RecordUpdateField"
+        ) + ")",
         Expr.Literal l => "new " + E + "Literal(" + TermCode(l.Value) + ")",
         Expr.Variable v => "new " + E + "Variable(" + Quote(v.Name) + ")",
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",

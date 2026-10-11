@@ -7,6 +7,7 @@ namespace Erlang.Compiler;
 
 public sealed class Parser
 {
+    private readonly Dictionary<string, RecordDefinition> records = new(StringComparer.Ordinal);
     private readonly List<Token> tokens; private int position;
 
     public Parser(string text, bool blockPrefix = false) => tokens = Lexer.Scan(text, blockPrefix);
@@ -87,6 +88,31 @@ public sealed class Parser
                     }
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     Expect(ErlangSyntaxTokens.FormTerminator);
+                }
+                else if (attr == ModuleAttributeNames.Record)
+                {
+                    string name = Name();
+                    if (records.ContainsKey(name))
+                        throw RecordError(RecordDiagnostics.DuplicateRecord(name));
+                    Expect(ErlangSyntaxTokens.Comma);
+                    Expect(ErlangSyntaxTokens.OpenTuple);
+                    var fields = new List<RecordField>();
+                    if (!Take(ErlangSyntaxTokens.CloseTuple))
+                    {
+                        do
+                        {
+                            string field = Name();
+                            if (fields.Any(value => value.Name == field))
+                                throw RecordError(RecordDiagnostics.DuplicateField(field));
+                            Expr value = Take(ErlangOperators.Match) ? Expression() : new Expr.Literal(Term.A(RecordAtoms.Undefined));
+                            Semantics.Validate(value);
+                            fields.Add(new(field, value));
+                        } while (Take(ErlangSyntaxTokens.Comma));
+                        Expect(ErlangSyntaxTokens.CloseTuple);
+                    }
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    Expect(ErlangSyntaxTokens.FormTerminator);
+                    records.Add(name, new(name, fields));
                 }
                 else
                     throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedAttribute(attr), Current.Start);
@@ -365,7 +391,7 @@ public sealed class Parser
         else if (Take(ErlangSyntaxTokens.BinaryOpen))
             result = ParseBits();
         else if (Take(ErlangSyntaxTokens.MapPrefix))
-            result = ParseMap(null);
+            result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(null) : ParseRecord(null);
         else if (Take(ErlangSyntaxTokens.OpenTuple))
         {
             var items = new List<Expr>();
@@ -420,7 +446,7 @@ public sealed class Parser
             if (bitSegment)
                 break;
             if (Take(ErlangSyntaxTokens.MapPrefix))
-                result = ParseMap(result);
+                result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(result) : ParseRecord(result);
             else if (!stopQualifier && Take(ErlangSyntaxTokens.ModuleQualifier))
             {
                 if (result is not Expr.Literal { Value: Atom module })
@@ -432,7 +458,7 @@ public sealed class Parser
             else if (Take(ErlangSyntaxTokens.OpenParenthesis))
             {
                 var args = Arguments();
-                result = result is Expr.Literal { Value: Atom fn } ? new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args);
+                result = result is Expr.Literal { Value: Atom fn } ? fn.Name == RecordAtoms.RecordInfo ? RecordInfo(args) : new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args);
             }
             else
                 break;
@@ -630,6 +656,87 @@ public sealed class Parser
         return new Expr.Bits(segments);
     }
 
+    private CompileException RecordError(string message) => new(CompilerDiagnosticCodes.RecordDefinition, message, Current.Start);
+
+    private Expr RecordInfo(IReadOnlyList<Expr> arguments)
+    {
+        if (arguments.Count != 2 || arguments[0] is not Expr.Literal { Value: Atom info } || arguments[1] is not Expr.Literal { Value: Atom name } || !records.TryGetValue(name.Name, out var definition))
+            throw RecordError(RecordDiagnostics.InvalidInfo);
+
+        return info.Name switch
+        {
+            RecordAtoms.Fields => new Expr.Literal(Cons.From(definition.Fields.Select(field => Term.A(field.Name)))),
+            RecordAtoms.Size => new Expr.Literal(Term.I(definition.Fields.Count + 1)),
+            _ => throw RecordError(RecordDiagnostics.InvalidInfo)
+        };
+    }
+
+    private Expr ParseRecord(Expr? recordBase)
+    {
+        string name = Name();
+        if (!records.TryGetValue(name, out var definition))
+            throw RecordError(RecordDiagnostics.UndefinedRecord(name));
+
+        int FieldIndex(string field)
+        {
+            for (int index = 0; index < definition.Fields.Count; index++)
+                if (definition.Fields[index].Name == field)
+                    return index + 1;
+
+            throw RecordError(RecordDiagnostics.UndefinedField(name, field));
+        }
+        if (Take(ErlangSyntaxTokens.FormTerminator))
+        {
+            int index = FieldIndex(Name());
+
+            return recordBase is null ? new Expr.Literal(Term.I(index + 1)) : new Expr.RecordAccess(
+                recordBase,
+                name,
+                definition.Fields.Count + 1,
+                index
+            );
+        }
+        Expect(ErlangSyntaxTokens.OpenTuple);
+        var fields = new List<RecordField>();
+        Expr? wildcard = null;
+        if (!Take(ErlangSyntaxTokens.CloseTuple))
+        {
+            do
+            {
+                string field;
+                if (Current.Kind == LexerTokenKinds.Variable && Current.Text == VariableScopeNames.Wildcard)
+                {
+                    field = VariableScopeNames.Wildcard;
+                    position++;
+                }
+                else
+                {
+                    field = Name();
+                    FieldIndex(field);
+                }
+                if (fields.Any(value => value.Name == field))
+                    throw RecordError(RecordDiagnostics.DuplicateField(field));
+                Expect(ErlangOperators.Match);
+                Expr value = Expression();
+                fields.Add(new(field, value));
+                if (field == VariableScopeNames.Wildcard)
+                    wildcard = value;
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseTuple);
+        }
+        if (recordBase is null)
+            return new Expr.RecordConstruction(definition, fields, wildcard);
+        if (wildcard is not null)
+            throw RecordError(RecordDiagnostics.WildcardUpdate);
+
+        return new Expr.RecordUpdate(
+            recordBase,
+            name,
+            definition.Fields.Count + 1,
+            fields.Select(field => new RecordUpdateField(FieldIndex(field.Name), field.Value)).ToArray()
+        );
+    }
+
     private Expr ParseMap(Expr? mapBase)
     {
         Expect(ErlangSyntaxTokens.OpenTuple);
@@ -673,6 +780,7 @@ public sealed class Parser
 
     public static Pattern ToPattern(Expr e) => e switch
     {
+        Expr.RecordConstruction record => RecordExpressions.Pattern(record),
         Expr.Match match => new AliasPattern(match.Pattern, ToPattern(match.Value)),
         Expr.Binary { Operator: ErlangOperators.Append } prefix => PrefixPattern(prefix.Left, prefix.Right),
         Expr.Bits bits => BitPattern.FromExpression(bits),

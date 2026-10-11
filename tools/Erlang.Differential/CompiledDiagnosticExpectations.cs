@@ -3,6 +3,13 @@ namespace Erlang.Differential;
 /// <summary>Independent expected diagnostic contracts for variable scope fixtures.</summary>
 public static class CompiledDiagnosticExpectations
 {
+    public const string RecordDefinitionCode = "ERL009";
+    public const string UndefinedRecordTag = "undefined_record";
+    public const string UndefinedRecordFieldTag = "undefined_field";
+    public const string DuplicateRecordTag = "redefine_record";
+    public const string DuplicateRecordFieldTag = "redefine_field";
+    public const string RecordWildcardUpdateTag = "wildcard_in_update";
+    public const string RecordWildcardUpdateMessage = "A tuple record update cannot contain a wildcard field";
     public const string VariableBindingCode = "ERL006";
     public const string UnboundVariableTag = "unbound_var";
     public const string UnsafeVariableTag = "unsafe_var";
@@ -21,6 +28,7 @@ public static class CompiledDiagnosticExpectations
         DiagnosticCaseKind.StacktraceBound => StacktraceFreshnessCode,
         DiagnosticCaseKind.StacktraceGuard => StacktraceGuardCode,
         DiagnosticCaseKind.InvalidPattern => InvalidPatternCode,
+        DiagnosticCaseKind.UndefinedRecord or DiagnosticCaseKind.UndefinedRecordField or DiagnosticCaseKind.DuplicateRecord or DiagnosticCaseKind.DuplicateRecordField or DiagnosticCaseKind.RecordWildcardUpdate => RecordDefinitionCode,
         _ => throw new NotSupportedException()
     };
 
@@ -30,6 +38,11 @@ public static class CompiledDiagnosticExpectations
         DiagnosticCaseKind.StacktraceBound => $"Stacktrace variable '{fixture.Variable}' must be fresh",
         DiagnosticCaseKind.StacktraceGuard => $"Stacktrace variable '{fixture.Variable}' is not legal in a guard",
         DiagnosticCaseKind.InvalidPattern => InvalidPatternMessage,
+        DiagnosticCaseKind.UndefinedRecord => $"Record '{fixture.Variable}' is undefined",
+        DiagnosticCaseKind.UndefinedRecordField => $"Field '{fixture.UnsafeConstruct}' is undefined in record '{fixture.Variable}'",
+        DiagnosticCaseKind.DuplicateRecord => $"Record '{fixture.Variable}' is already defined",
+        DiagnosticCaseKind.DuplicateRecordField => $"Record field '{fixture.UnsafeConstruct}' is already defined",
+        DiagnosticCaseKind.RecordWildcardUpdate => RecordWildcardUpdateMessage,
         _ => throw new NotSupportedException()
     };
 
@@ -39,8 +52,18 @@ public static class CompiledDiagnosticExpectations
         DiagnosticCaseKind.StacktraceBound => StackOutcome(StacktraceBoundTag, fixture.Variable),
         DiagnosticCaseKind.StacktraceGuard => StackOutcome(StacktraceGuardTag, fixture.Variable),
         DiagnosticCaseKind.InvalidPattern => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(InvalidPatternTag))),
+        DiagnosticCaseKind.UndefinedRecord => StackOutcome(UndefinedRecordTag, fixture.Variable),
+        DiagnosticCaseKind.DuplicateRecord => StackOutcome(DuplicateRecordTag, fixture.Variable),
+        DiagnosticCaseKind.RecordWildcardUpdate => StackOutcome(RecordWildcardUpdateTag, fixture.Variable),
+        DiagnosticCaseKind.UndefinedRecordField => RecordFieldOutcome(UndefinedRecordFieldTag, fixture),
+        DiagnosticCaseKind.DuplicateRecordField => RecordFieldOutcome(DuplicateRecordFieldTag, fixture),
         _ => throw new NotSupportedException()
     };
+
+    private static Term RecordFieldOutcome(string tag, CompiledDiagnosticCase fixture) => Term.Tuple(
+        Term.A(OracleOutcomeTags.Failure),
+        Term.List(Term.Tuple(Term.A(tag), Term.A(fixture.Variable), Term.A(fixture.UnsafeConstruct!)))
+    );
 
     private static Term StackOutcome(string tag, string variable) => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.Tuple(Term.A(tag), Term.A(variable))));
 

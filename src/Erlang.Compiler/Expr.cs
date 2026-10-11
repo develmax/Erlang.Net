@@ -6,6 +6,20 @@ namespace Erlang.Compiler;
 
 public abstract record Expr
 {
+    public sealed record RecordConstruction(RecordDefinition Definition, IReadOnlyList<RecordField> Fields, Expr? Wildcard) : Expr;
+    public sealed record RecordTest(Expr Value, string Name, int Arity) : Expr;
+    public sealed record RecordAccess(
+        Expr Value,
+        string Name,
+        int Arity,
+        int Index
+    ) : Expr;
+    public sealed record RecordUpdate(
+        Expr Value,
+        string Name,
+        int Arity,
+        IReadOnlyList<RecordUpdateField> Fields
+    ) : Expr;
     public sealed record Literal(Term Value) : Expr;
     public sealed record Variable(string Name) : Expr;
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;

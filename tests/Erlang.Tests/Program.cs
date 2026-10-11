@@ -1504,6 +1504,12 @@ foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x =>
 
             return;
         }
+        if (Erlang.Tests.FunctionalMfaContracts.FixtureName(export.Module, export.Function, export.Arity) is { } functional)
+        {
+            await Erlang.Tests.FunctionalMfaContracts.Run(functional);
+
+            return;
+        }
         using var output = new StringWriter();
         await using var runtime = new ProcessRuntime(output: output);
         var process = runtime.Spawn(async c =>

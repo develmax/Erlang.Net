@@ -5,5 +5,10 @@ public enum DiagnosticCaseKind
     VariableScope,
     StacktraceBound,
     StacktraceGuard,
-    InvalidPattern
+    InvalidPattern,
+    UndefinedRecord,
+    UndefinedRecordField,
+    DuplicateRecord,
+    DuplicateRecordField,
+    RecordWildcardUpdate
 }

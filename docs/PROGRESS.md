@@ -2,21 +2,21 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–100.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–101.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
 | Discovery/bootstrap | 12 projects (including the development-only style tool), pinned baseline/SDK, source inventory, durable instructions | Partially compatible |
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
-| Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
-| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 90 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades and relative timers | Partially compatible |
+| Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, tuple records, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
+| Core modules | 129 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, significant/auto_shutdown and simple_one_for_one, public queries/stop, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 90 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 129 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -606,3 +606,15 @@ Full supervisor/sys/upgrades/logging/clocks/races/distribution/stacks/resources/
 Selected ordinary/simple/significant supervision contracts now cover four strategies, appended arguments and retry state, PID/dead/unknown control distinctions, normalized child specs, public query/stop and concurrent simple shutdown versus ordinary ordered cleanup. **90 MFAs**, supervisor **14/23**, gen_server **10/41**, all partial API presence; **162/32 related tests**, **224 namespace types/no violations**. [Source/reuse audit](validation/part-100/reference-audit.json), [contracts](validation/part-100/contract-matrix.json). Initial local enum test-matrix failure remains099 history; no source fixture expectations changed. Consolidated notices verified in packages; draft license uncommitted/unpublished/unpackaged, no banners/new dependencies/production BEAM.
 
 Full sys/proc_lib/options/upgrades/logging/distribution/stack/resource/timing/race/upstream-suite/performance contracts remain unfinished. Target10% remains pending until collections/timers/source/application packages satisfy [milestone](TEN_PERCENT_MILESTONE.md). Continue prepared101 maps/common-list functional APIs and runtime timers, then source/application state and runnable sample. Commit proof and continue implementation.
+
+## Part 101 — Functional collections, timers, records and platform example (2026-10-11)
+
+**Local increment complete; independent original verification pending.** Add 24 maps exports, 11 lists exports and four Erlang timer exports. Implement tuple record definitions, construction/access/update/index, wildcard and partial patterns, guard checks and record_info. The generated `platform_demo.erl` application combines supervisor, gen_server state in records, timer delivery and functional collections. Both the hybrid example and the installed local PackageReference consumer verify its `{platform_ready,100,[2,3]}` result without production BEAM.
+
+Full local pipeline passes **1774/1774**, including **129 direct-MFA contracts (+39)**, style, incremental/clean builds, disabled-preprocessing failure, local CLI, package readiness and package consumer. **248 namespace types**, no layout violations. [Tests](validation/part-101/tests.json), [integration](validation/part-101/integration-results.json), [116 new module contracts](validation/part-101/contract-matrix.json), [source/reuse audit](validation/part-101/reference-audit.json), [preservation](validation/part-101/corpus-audit.json), [package notices](validation/part-101/package-notices.json).
+
+All prior **778 expressions / 558 modules / 79 diagnostics** preserve sources, independent expectations and generated hashes. The next pinned corpus is **1536 = 778 expressions + 674 modules + 84 diagnostics**. New original comparison and same-head CI are pending. Historical **1415/1415 and 1614/full CI** belong to implementation0d6a233/part100. Initial isolated map registration omission and record guard `orelse` failure are retained; implementation/input setup corrected before promotion, independent expectations unchanged. All 558 prior modules also passed the isolated combined compiler/runtime probe.
+
+Map callbacks preserve error precedence, exact keys and ordered iterator behavior; default traversal remains unspecified. Lists preserve initial versus recursive errors, left/right evaluation order and short circuit. Timers survive creator death, cancel for dead PID recipients, resolve names at delivery and do not flush delivered messages. Record update values precede base evaluation; strict record guard checks respect boolean operand boundaries. These are selected partial contracts, not full-module completion or a performance comparison. Typed/native/imported records, macros/includes, full lint/spans/stacks/resources, timer options/absolute epochs/ranges/races, sys/upgrades/distribution and full upstream suites remain unfinished.
+
+The requested approximately10% early platform milestone has all planned capability packages locally delivered. Keep that target pending until the new original and same-head checks are complete; do not derive the percentage from test/API counts. Continue exact-source verification and preserve part102, fixing any mismatch against pinned source without weakening independent expectations.

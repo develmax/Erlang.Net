@@ -19,3 +19,5 @@ Part098: significant/auto_shutdown and check_childspecs/2 verified against exact
 Part099: simple_one_for_one and public query/stop increment passes1614/full locally; original1415 pending in100. Wider collections/timer/source/application packages remain pending; do not promote percentage yet.
 
 Part100: selected supervisor strategy/lifecycle package verified1415/1415 and1614/full same-headCI at0d6a233. Collections/timers/source/application packages remain pending; target10% still active.
+
+Part101: all planned capability packages locally delivered.1774/full, maps29/34, lists31/91, erlang44/351, supervisor14/23 and gen_server10/41 partial API presence.116 new modules/five diagnostics; planned1536 original verification pending102. platform_demo.erl is verified in generated hybrid and installed local package consumer. Timers preserve creator independence and clean up recipient state; 'owner cleanup' in the initial plan must mean recipient/runtime lifecycle, not creator death. Keep target10% pending until independent checks.

@@ -366,3 +366,6 @@ Local1614/full;35 simple modules+4 directMFAs+1 host rejection,90MFAs/super14/23
 
 ## Part100 checkpoint
 Published0d6a233 verifies1415/1415=778/558/79 and1614/full same-headCI; prior778/523/79 unchanged,35 new simple cases/no corrections.90MFAs,super14/23/gen10/41;162/32 relatedtests,224types. Continue prepared101 collections/timers then source/application/sample toward10%; no final goal completion yet. Draft excluded;0014 active near rollover.
+
+## Part101 checkpoint
+Local1774/full,129MFAs (+39); maps29/34/lists31/91/erlang44/351/super14/23/gen10/41 partial API presence.248types/no violations; prior778/558/79 source/expected/generated hashes preserved. Plan1536=778/674/84,116 new modules+5 diagnostics. All10% milestone packages locally delivered, do not finish until102 original/headCI proof. Initial draft map registration and record guard failures retained; independent expectations unchanged.0014 closed at100;0015 active. Draft license excluded; notices exact.

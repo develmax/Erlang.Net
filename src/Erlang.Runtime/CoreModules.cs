@@ -486,6 +486,215 @@ public static class CoreModules
             1,
             (c, a) => MapIteration.Next(a[0])
         );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Get,
+            3,
+            (c, a) => MapOperations.RequireMap(a[1]).TryGet(a[0], out var value) ? value! : a[2]
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.New,
+            0,
+            (c, a) => new MapTerm([])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Find,
+            2,
+            (c, a) => MapOperations.RequireMap(a[1]).TryGet(a[0], out var value) ? Term.Tuple(Term.A(MapResultAtoms.Ok), value!) : Term.A(MapResultAtoms.Error)
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.IsKey,
+            2,
+            (c, a) => Boolean(MapOperations.RequireMap(a[1]).TryGet(a[0], out _))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Put,
+            3,
+            (c, a) => MapOperations.Put(a[0], a[1], a[2])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Update,
+            3,
+            (c, a) => MapOperations.Put(
+                a[0],
+                a[1],
+                a[2],
+                true
+            )
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Remove,
+            2,
+            (c, a) => MapOperations.Remove(a[0], a[1])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Take,
+            2,
+            (c, a) => MapOperations.Take(a[0], a[1])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.FromList,
+            1,
+            (c, a) => MapOperations.FromList(a[0])
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.FromKeys,
+            2,
+            (c, a) => new MapTerm(Cons.Items(a[0]).Select(key => new KeyValuePair<Term, Term>(key, a[1])))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Merge,
+            2,
+            (c, a) => new MapTerm(MapOperations.RequireMap(a[0]).Entries.Concat(MapOperations.RequireMap(a[1]).Entries))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Keys,
+            1,
+            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Key))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Values,
+            1,
+            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Value))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.ToList,
+            1,
+            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => Term.Tuple(entry.Key, entry.Value)))
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.With,
+            2,
+            (c, a) => MapOperations.SelectKeys(a[0], a[1], true)
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Without,
+            2,
+            (c, a) => MapOperations.SelectKeys(a[0], a[1], false)
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.IsIteratorValid,
+            1,
+            (c, a) => Boolean(MapOperations.IsIteratorValid(a[0]))
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.UpdateWith,
+            3,
+            (c, a) => MapOperations.UpdateWith(
+                c,
+                a[0],
+                a[1],
+                a[2]
+            )
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.UpdateWith,
+            4,
+            (c, a) => MapOperations.UpdateWith(
+                c,
+                a[0],
+                a[1],
+                a[3],
+                a[2]
+            )
+        );
+        foreach (string operation in new[] { MapModuleNames.Filter, MapModuleNames.FilterMap, MapModuleNames.Map, MapModuleNames.ForEach })
+            r.Register(
+                MapModuleNames.Module,
+                operation,
+                2,
+                (c, a) => MapOperations.Transform(
+                    c,
+                    operation,
+                    a[0],
+                    a[1]
+                )
+            );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.Fold,
+            3,
+            (c, a) => MapOperations.Transform(
+                c,
+                MapModuleNames.Fold,
+                a[0],
+                a[2],
+                a[1]
+            )
+        );
+        foreach (string operation in new[] { ListModuleNames.All, ListModuleNames.Any, ListModuleNames.Partition, ListModuleNames.FilterMap, ListModuleNames.ForEach, ListModuleNames.TakeWhile, ListModuleNames.DropWhile })
+            r.Register(
+                ListModuleNames.Module,
+                operation,
+                2,
+                (c, a) => ListFunctions.Run(
+                    c,
+                    operation,
+                    a[0],
+                    a[1]
+                )
+            );
+        foreach (string operation in new[] { ListModuleNames.FoldLeft, ListModuleNames.FoldRight, ListModuleNames.MapFoldLeft, ListModuleNames.MapFoldRight })
+            r.Register(
+                ListModuleNames.Module,
+                operation,
+                3,
+                (c, a) => ListFunctions.Run(
+                    c,
+                    operation,
+                    a[0],
+                    a[2],
+                    a[1]
+                )
+            );
+        foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
+            r.Register(
+                ErlangModuleNames.Module,
+                operation,
+                3,
+                async (context, arguments) =>
+            {
+                var reference = (ReferenceTerm)await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.MakeReference);
+
+                return context.Runtime.Timers.Start(
+                    reference,
+                    arguments[0],
+                    arguments[1],
+                    arguments[2],
+                    operation == TimerModuleNames.StartTimer
+                );
+            }
+            );
+        Add(
+            ErlangModuleNames.Module,
+            TimerModuleNames.ReadTimer,
+            1,
+            (context, arguments) => context.Runtime.Timers.Access(arguments[0], false)
+        );
+        Add(
+            ErlangModuleNames.Module,
+            TimerModuleNames.CancelTimer,
+            1,
+            (context, arguments) => context.Runtime.Timers.Access(arguments[0], true)
+        );
         r.Register(
             IoModuleNames.Module,
             IoModuleNames.Format,

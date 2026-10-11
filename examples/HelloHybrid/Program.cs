@@ -2,6 +2,7 @@ using Erlang;
 
 await HelloHybrid.CSharpFeatures.Verify();
 await using var runtime = new ProcessRuntime();
+await HelloHybrid.PlatformDemo.Verify(runtime);
 Erlang.Generated.ErlangModule_arithmetic.Register(runtime.Modules);
 Erlang.Generated.ErlangModule_map_source.Register(runtime.Modules);
 var mapCheck = runtime.Spawn(async erlangProcess =>

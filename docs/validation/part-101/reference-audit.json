@@ -1,0 +1,34 @@
+{
+  "RecordDiagnostics": 5,
+  "TimerCases": 20,
+  "Limits": [
+    "Default map traversal unspecified; full map resource/HAMT/stack contracts",
+    "Basic relative timer arities only; options/absolute epoch/range/async/priority/pause/distribution/races incomplete",
+    "Tuple records only; typed/native/imported records, macros/includes/forward declarations/full lint warnings/stack/spans incomplete",
+    "Whole OTP modules, sys/upgrades/distribution and measured BEAM performance unverified"
+  ],
+  "ProductionBeamDependency": false,
+  "AllPriorSourcesExpectationsGeneratedHashesPreserved": true,
+  "Reuse": "Existing immutable MapTerm/FunctionTerm/MapIteration, runtime gate/mailbox/identity/process lifecycle, compiler AST/binding helpers and MSBuild/package integration; BCL collections, ValueTask, Timer and weak guard cache",
+  "ApplicationCases": 1,
+  "HistoricalDiagnostics": 79,
+  "NewModules": 116,
+  "MapCases": 41,
+  "RecordCases": 30,
+  "HistoricalExpressions": 778,
+  "HistoricalModules": 558,
+  "Sources": [
+    "lib/stdlib/src/maps.erl",
+    "lib/stdlib/src/lists.erl",
+    "erts/emulator/beam/erl_hl_timer.c",
+    "lib/stdlib/src/erl_parse.yrl",
+    "lib/stdlib/src/erl_lint.erl",
+    "lib/stdlib/src/erl_expand_records.erl"
+  ],
+  "ListCases": 24,
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectationsCorrected": 0,
+  "NewDependencies": 0,
+  "License": "Exact consolidated Ericsson Apache notices packaged; draft excluded, no banners",
+  "Baseline": "OTP-29.1.1"
+}

@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-097/tests.json",
+  "ComparisonTestReport": "validation/part-099/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -39,24 +39,28 @@
       "Project": "src/Erlang.Runtime",
       "Remaining": [
         "signal races, scheduler fairness and resources",
-        "distribution, ETS/DETS, ports/NIF/code loading"
+        "distribution, ETS/DETS, ports/NIF/code loading",
+        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
       ],
       "Implemented": [
         "selective receive and local links/monitors",
-        "registered core MFAs"
+        "registered core MFAs",
+        "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
+        "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays"
       ],
       "Id": "Runtime",
       "TestPrefixes": [
         "runtime/",
         "mailbox/",
-        "mfa/erlang:"
+        "mfa/erlang:",
+        "oracle/compiled-module/runtime-timer-"
       ]
     },
     {
       "Status": "Partially compatible",
       "Project": "src/Erlang.Compiler",
       "Remaining": [
-        "records/macros and full grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
+        "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
@@ -72,14 +76,17 @@
         "generated C# AST/evaluator, module-local tail-call trampoline and native hybrid/PackageReference integration",
         "Grouped list/binary/map zip && generators with strict/shared row constraints; separate erl_eval traversal and v3_core joint/skip/tail clauses, raw compiled iterator versus normalized interpreted remainders",
         "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates",
-        "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete"
+        "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete",
+        "Tuple record declarations, creation/default/wildcard field order, strict access/immutable updates, indexes and record_info",
+        "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
         "compiler/",
         "patterns/",
         "modules/",
-        "oracle/compiler-diagnostic/"
+        "oracle/compiler-diagnostic/",
+        "oracle/compiled-module/records-"
       ]
     },
     {
@@ -92,12 +99,16 @@
       "Implemented": [
         "erlang/lists/maps/io registered subset",
         "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries",
-        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators"
+        "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators",
+        "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
+        "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [
         "mfa/",
-        "lists/"
+        "lists/",
+        "oracle/compiled-module/maps-operations-",
+        "oracle/compiled-module/lists-functional-"
       ]
     },
     {
@@ -163,11 +174,13 @@
       ],
       "Implemented": [
         "native Erlang blocks and .erl generation",
-        "incremental/clean/disabled-preprocessing/package consumer"
+        "incremental/clean/disabled-preprocessing/package consumer",
+        "platform_demo.erl uses supervision, gen_server, records, timers and collections; compiled into hybrid and real PackageReference consumer"
       ],
       "Id": "Hybrid and MSBuild",
       "TestPrefixes": [
-        "hybrid/"
+        "hybrid/",
+        "oracle/compiled-module/early-platform-"
       ]
     },
     {

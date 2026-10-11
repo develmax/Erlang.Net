@@ -83,7 +83,7 @@ public static class Execution
             return alternatives.Items.Any(x => Guard(x, b, ctx));
         try
         {
-            return GuardValue(e, b, ctx).Equals(Term.A(ErlangBooleanAtoms.True));
+            return GuardValue(RecordGuards.Normalize(e), b, ctx).Equals(Term.A(ErlangBooleanAtoms.True));
         }
         catch (ErlangException)
         {
@@ -97,6 +97,14 @@ public static class Execution
     {
         Expr.Literal l => l.Value,
         Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
+        Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : Term.A(ErlangBooleanAtoms.False),
+        Expr.RecordConstruction record => GuardValue(RecordExpressions.Create(record), b, ctx),
+        Expr.RecordAccess record => RecordExpressions.Access(
+            GuardValue(record.Value, b, ctx),
+            record.Name,
+            record.Arity,
+            record.Index
+        ),
         Expr.Tuple t => new TupleTerm(t.Items.Select(x => GuardValue(x, b, ctx))),
         Expr.List l => Cons.From(l.Items.Select(x => GuardValue(x, b, ctx)), l.Tail is null ? null : GuardValue(l.Tail, b, ctx)),
         Expr.Map m => EvaluateMap(
@@ -185,6 +193,35 @@ public static class Execution
                 return l.Value;
             case Expr.Variable v:
                 return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name)));
+            case Expr.RecordConstruction record:
+                return await Evaluate(
+                    RecordExpressions.Create(record),
+                    ctx,
+                    b,
+                    module
+                );
+            case Expr.RecordAccess record:
+                return RecordExpressions.Access(
+                    await Evaluate(
+                        record.Value,
+                        ctx,
+                        b,
+                        module
+                    ),
+                    record.Name,
+                    record.Arity,
+                    record.Index
+                );
+            case Expr.RecordUpdate record:
+                var updates = await Arguments(record.Fields.Select(field => field.Value).ToArray());
+                var original = await Evaluate(
+                    record.Value,
+                    ctx,
+                    b,
+                    module
+                );
+
+                return RecordExpressions.Update(original, record, updates);
             case Expr.Tuple t:
                 return new TupleTerm(await Arguments(t.Items));
             case Expr.List l:

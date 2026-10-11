@@ -41,11 +41,12 @@ try {
         $consumerRoot = Join-Path $validationRoot 'artifacts/package-consumer'
         New-Item -ItemType Directory -Path $consumerRoot -Force | Out-Null
         @'
-<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" /><ErlangSource Include="arithmetic.erl;map_source.erl" /></ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" /><ErlangSource Include="arithmetic.erl;map_source.erl;platform_demo.erl" /></ItemGroup></Project>
 '@ | Set-Content (Join-Path $consumerRoot 'Consumer.csproj')
         Copy-Item -LiteralPath (Get-ChildItem -LiteralPath examples/HelloHybrid -Filter '*.cs' -File).FullName -Destination $consumerRoot
         Copy-Item -LiteralPath examples/HelloHybrid/arithmetic.erl -Destination $consumerRoot
         Copy-Item -LiteralPath examples/HelloHybrid/map_source.erl -Destination $consumerRoot
+        Copy-Item -LiteralPath examples/HelloHybrid/platform_demo.erl -Destination $consumerRoot
         $feedPath = [System.Security.SecurityElement]::Escape((Join-Path $validationRoot 'artifacts/packages'))
         $consumerHash = (Get-FileHash artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg -Algorithm SHA256).Hash.Substring(0, 16)
         $toolHash = (Get-FileHash artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg -Algorithm SHA256).Hash.Substring(0, 16)
