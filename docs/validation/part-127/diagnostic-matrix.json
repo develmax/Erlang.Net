@@ -1,0 +1,83 @@
+[
+  {
+    "Name": "module-non-latin1-greek",
+    "Source": "-module('λ'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "module names with non-latin1 characters are not supported",
+    "Expected": "{error,[non_latin1_module_unsupported]}",
+    "SourceSha256": "5C8E8587FC9E4EA191C74846FBC3C7852DBD7AA08F48A3CCE9EA1718474C8532"
+  },
+  {
+    "Name": "module-non-latin1-supplementary",
+    "Source": "-module('😀'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "module names with non-latin1 characters are not supported",
+    "Expected": "{error,[non_latin1_module_unsupported]}",
+    "SourceSha256": "2EE8C955CA273FCF7DD3122790E93A9FA0DF5496F681AFAE970F0DB59CD1F434"
+  },
+  {
+    "Name": "module-non-latin1-boundary",
+    "Source": "-module('Ā'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "module names with non-latin1 characters are not supported",
+    "Expected": "{error,[non_latin1_module_unsupported]}",
+    "SourceSha256": "49CAD126C98D92F025D97D7428711E244521FFE4ED4F7DABD7E01C061A4FF0E8"
+  },
+  {
+    "Name": "module-empty",
+    "Source": "-module(''). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must not be empty",
+    "Expected": "{error,[empty_module_name]}",
+    "SourceSha256": "397039976F6F0BEDA1C80D96EAC9B4097A388D9658480348917B4BC9A0D2AC7D"
+  },
+  {
+    "Name": "module-blank-space",
+    "Source": "-module(' '). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must contain at least one visible character",
+    "Expected": "{error,[blank_module_name]}",
+    "SourceSha256": "C37D50A84535BF03B596BC6EBB9B56738DB3FDBFFB2EAF92DE809A6621B70185"
+  },
+  {
+    "Name": "module-blank-latin1",
+    "Source": "-module(' ­ '). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must contain at least one visible character",
+    "Expected": "{error,[blank_module_name]}",
+    "SourceSha256": "DA0D92707F232C98DB13976044620086FD5EDC976EFE0572437208D40626A7A6"
+  },
+  {
+    "Name": "module-control-newline",
+    "Source": "-module('m\\n'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must not contain control characters",
+    "Expected": "{error,[ctrl_chars_in_module_name]}",
+    "SourceSha256": "0A13911EEDDA5F551CE61599BB764C92D8EA678A9DA32D73299E4F53D2B64290"
+  },
+  {
+    "Name": "module-control-del",
+    "Source": "-module('m'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must not contain control characters",
+    "Expected": "{error,[ctrl_chars_in_module_name]}",
+    "SourceSha256": "AA94DC5E72B00D1F6237EEF980B77DCFD662E3C4CE0ED9FB416B472E80CF5653"
+  },
+  {
+    "Name": "module-control-c1",
+    "Source": "-module('m'). -export([run/0]). run()->ok.",
+    "Variable": "",
+    "ExpectedCode": "ERL010",
+    "ExpectedMessage": "the module name must not contain control characters",
+    "Expected": "{error,[ctrl_chars_in_module_name]}",
+    "SourceSha256": "E5FF4D1A8C27307E8533B902A886E052DB584E96BE8EF2F98B06DC3C3708BAA1"
+  }
+]

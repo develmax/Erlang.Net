@@ -2,6 +2,7 @@ namespace Erlang.Compiler;
 
 internal static class CompilerDiagnosticCodes
 {
+    public const string ModuleDefinition = "ERL010";
     public const string RecordDefinition = "ERL009";
     public const string InvalidLiteral = "ERL001";
     public const string Syntax = "ERL002";

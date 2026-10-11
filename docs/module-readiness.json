@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-125/tests.json",
-  "LocalPassedTests": 3271,
+  "LocalPassedTests": 3284,
   "RegisteredMfas": 342,
   "PreviousRegisteredMfas": 342,
   "RegisteredMfaDelta": 0,
@@ -81,14 +81,15 @@
         "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete",
         "Tuple record declarations, creation/default/wildcard field order, strict access/immutable updates, indexes and record_info",
         "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics",
-        "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491"
+        "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491",
+        "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 809
+      "RelatedPassedTests": 818
     },
     {
       "Id": "Core library modules",
@@ -113,8 +114,7 @@
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
-        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites",
-        "Original126 incomplete at new non-Latin1 module:2724 executed pass;repair fixture/compiler boundary and repeat full128"
+        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
       "RelatedPassedTests": 1381
     },
@@ -206,7 +206,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 2044
+      "RelatedPassedTests": 2057
     },
     {
       "Id": "Style checks",

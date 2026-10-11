@@ -7,6 +7,7 @@ public static class Semantics
 
     public static void Validate(ModuleDefinition module)
     {
+        ModuleNameValidation.Validate(module.Name);
         if (module.Functions.Select(f => (f.Name, f.Arity)).Distinct().Count() != module.Functions.Count)
             throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.DuplicateFunction, 0);
         foreach (var export in module.Exports)

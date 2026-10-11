@@ -439,3 +439,7 @@ Part125: UTF8 byte-list conversion repaired from preserved124 failures;two Unico
 ## Part126 incomplete original checkpoint
 
 Part126: native**2724/2724 executed pass**,all57 prior function contracts now match,but**complete=false**:new non-Latin1 module compilation abort prevents1 new module/84 diagnostics. Same-head**3271/full CI**. [Preserved abort](validation/part-126/remote-checkpoint.json). Registry342,erlang192/351,159 missing. Publish failure;correct new-only module name to Latin1,add independent compiler rejection127,repeat whole oracle128;latest complete success1222751/2751.
+
+## Part127 checkpoint
+
+Part127: source-directed module-name Latin1/visible/control admission;new-only local UTF8 fixture repaired from126 abort;four positive names/nine independent diagnostics. **3284/full local**,plan2822=778/1951/93. [Ledger](validation/part-127/correction-ledger.json).1946 prior modules/84 diagnostics unchanged;registry342,erlang192/351,159 missing. Publish/freeze/full original and same-head CI128;whole goal active. Compiler annotations/aggregation/attribute syntax and ETF/runtime scope remain unfinished.

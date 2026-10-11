@@ -1,0 +1,143 @@
+{
+  "AddedModules": [
+    {
+      "Name": "module-latin1-maximum",
+      "Source": "-module('ÿ'). -export([run/0]). run()->{module,M}=erlang:fun_info(fun()->ok end,module),M.",
+      "FixtureExpected": "{ok,ÿ}",
+      "SourceSha256": "5A9257FA946E13659A140904D8D8D4075BFF056BAC906C76E0DE114BE7E37240",
+      "CSharpSha256": "F0598C42A4B9A7BE63A6C30E67D614128443D04A804DC0821656BE0C3ACBEB03"
+    },
+    {
+      "Name": "module-visible-with-spaces",
+      "Source": "-module(' visible '). -export([run/0]). run()->{module,M}=erlang:fun_info(fun()->ok end,module),M.",
+      "FixtureExpected": "{ok,' visible '}",
+      "SourceSha256": "F4FC85E640AD3AF845B9205B33EB94E237BF93CE12430D9535DB8CED4638B764",
+      "CSharpSha256": "D0CC949E66196B5FB317E980B23D9B47EA2449612915D0A0AF360DF635556B15"
+    },
+    {
+      "Name": "module-visible-with-nbsp",
+      "Source": "-module(' visible'). -export([run/0]). run()->{module,M}=erlang:fun_info(fun()->ok end,module),M.",
+      "FixtureExpected": "{ok,' visible'}",
+      "SourceSha256": "120797CA15B79998AB28EB19D42B492E9AB911EDE3384F44FCA878FF56FEB645",
+      "CSharpSha256": "F984B77B98B1B2EB344423B5F7176170C451A52B1E0BC7B4057B87E60634A5BE"
+    },
+    {
+      "Name": "module-visible-with-soft-hyphen",
+      "Source": "-module('­visible'). -export([run/0]). run()->{module,M}=erlang:fun_info(fun()->ok end,module),M.",
+      "FixtureExpected": "{ok,'­visible'}",
+      "SourceSha256": "9B52E0BA594629AC4502B93B9219C0B8EE54BE85E8C7A478D90CDF09C30EB341",
+      "CSharpSha256": "BD3DCA2727C2B0648A1340EF9AD98944EA3C2A5E807784AEA78AAD730114C789"
+    }
+  ],
+  "Corrections": [
+    {
+      "Before": {
+        "Name": "erlang-fun-info-local-unicode-text",
+        "Source": "-module('λ😀'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,206,187,240,159,152,128,46],L),lists:last(L)}.",
+        "FixtureExpected": "{ok,{true,62}}",
+        "SourceSha256": "CC7E5624C1AED21B4CBBA030EEE15500EB348048892FCE296EC241695D22238D",
+        "CSharpSha256": "0FE6259333BC700E8BD94F84D9B9DBF68BC226E7F3B2538AB2D90C5BE1748725"
+      },
+      "After": {
+        "Name": "erlang-fun-info-local-unicode-text",
+        "Source": "-module('àéØ'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,195,160,195,169,195,152,46],L),lists:last(L)}.",
+        "FixtureExpected": "{ok,{true,62}}",
+        "SourceSha256": "8F170EAC546FE5374496D11BB99651C2417B07747A048DA3AF31B1C81BA8FCA5",
+        "CSharpSha256": "D4FB16FB97CF77639FB9B7C7A9D6466C52B3ABA7CBE25D6C83007A19BC1BEDC7"
+      },
+      "ChangedFields": [
+        "Source",
+        "SourceSha256",
+        "CSharpSha256"
+      ],
+      "Evidence": "Immutable126 compiler abort non_latin1_module_unsupported and pinned erl_lint"
+    }
+  ],
+  "UnchangedPreviousModules": 1946,
+  "AddedDiagnostics": [
+    {
+      "Name": "module-non-latin1-greek",
+      "Source": "-module('λ'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "module names with non-latin1 characters are not supported",
+      "Expected": "{error,[non_latin1_module_unsupported]}",
+      "SourceSha256": "5C8E8587FC9E4EA191C74846FBC3C7852DBD7AA08F48A3CCE9EA1718474C8532"
+    },
+    {
+      "Name": "module-non-latin1-supplementary",
+      "Source": "-module('😀'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "module names with non-latin1 characters are not supported",
+      "Expected": "{error,[non_latin1_module_unsupported]}",
+      "SourceSha256": "2EE8C955CA273FCF7DD3122790E93A9FA0DF5496F681AFAE970F0DB59CD1F434"
+    },
+    {
+      "Name": "module-non-latin1-boundary",
+      "Source": "-module('Ā'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "module names with non-latin1 characters are not supported",
+      "Expected": "{error,[non_latin1_module_unsupported]}",
+      "SourceSha256": "49CAD126C98D92F025D97D7428711E244521FFE4ED4F7DABD7E01C061A4FF0E8"
+    },
+    {
+      "Name": "module-empty",
+      "Source": "-module(''). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must not be empty",
+      "Expected": "{error,[empty_module_name]}",
+      "SourceSha256": "397039976F6F0BEDA1C80D96EAC9B4097A388D9658480348917B4BC9A0D2AC7D"
+    },
+    {
+      "Name": "module-blank-space",
+      "Source": "-module(' '). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must contain at least one visible character",
+      "Expected": "{error,[blank_module_name]}",
+      "SourceSha256": "C37D50A84535BF03B596BC6EBB9B56738DB3FDBFFB2EAF92DE809A6621B70185"
+    },
+    {
+      "Name": "module-blank-latin1",
+      "Source": "-module(' ­ '). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must contain at least one visible character",
+      "Expected": "{error,[blank_module_name]}",
+      "SourceSha256": "DA0D92707F232C98DB13976044620086FD5EDC976EFE0572437208D40626A7A6"
+    },
+    {
+      "Name": "module-control-newline",
+      "Source": "-module('m\\n'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must not contain control characters",
+      "Expected": "{error,[ctrl_chars_in_module_name]}",
+      "SourceSha256": "0A13911EEDDA5F551CE61599BB764C92D8EA678A9DA32D73299E4F53D2B64290"
+    },
+    {
+      "Name": "module-control-del",
+      "Source": "-module('m\\177'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must not contain control characters",
+      "Expected": "{error,[ctrl_chars_in_module_name]}",
+      "SourceSha256": "3AEC922DC51EFD7981DECF727DBB30FA90CE29C5A47945D9AFE275EC287DA586"
+    },
+    {
+      "Name": "module-control-c1",
+      "Source": "-module('m\\200'). -export([run/0]). run()->ok.",
+      "Variable": "",
+      "ExpectedCode": "ERL010",
+      "ExpectedMessage": "the module name must not contain control characters",
+      "Expected": "{error,[ctrl_chars_in_module_name]}",
+      "SourceSha256": "6F81BA7914BBCE0DEF5E09073B02E1E12277D4380C12F6697F0BAF61A319149A"
+    }
+  ],
+  "Planned": 2822,
+  "NativeExecuted": false,
+  "UnchangedDiagnostics": 84
+}

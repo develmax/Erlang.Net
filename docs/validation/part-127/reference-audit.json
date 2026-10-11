@@ -1,0 +1,27 @@
+{
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RetainedFailures": [
+    "126 original aborted on newly authored non-Latin1 module",
+    "127 initial style failure after expanding new fixture body",
+    "1273282/3284:two new control fixtures used deliberately unsupported Erlang octal escapes; switch only those new inputs to equivalent raw codepoints,retain expected error contract"
+  ],
+  "NewExports": 0,
+  "OriginalStatus": "Pending128",
+  "NewDiagnostics": 9,
+  "BlobSHA1": "6b8110a837916a2db34ec86a04e937e3772c54c6",
+  "Baseline": "OTP-29.1.1",
+  "NewCompiledModules": 4,
+  "Source": "lib/stdlib/src/erl_lint.erl",
+  "Routines": [
+    "check_module_name",
+    "remove_non_visible",
+    "any_control_characters",
+    "format_error_1"
+  ],
+  "Boundaries": [
+    "Module attribute syntax/nonatom/missing/redefined attributes and complete warnings remain unfinished",
+    "First error at offset0,not native multi-error collection/source annotations",
+    "General Unicode atoms retain their contract"
+  ],
+  "Reuse": "Existing SDK Rune/LINQ/CompileException; no new dependency;consolidated Ericsson1996-2026 Apache adaptation notice"
+}

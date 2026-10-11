@@ -240,7 +240,7 @@ public static class ErlangFunctionInfoCases
 
         cases.Add(new(
             "erlang-fun-info-local-unicode-text",
-            "-module('λ😀'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,206,187,240,159,152,128,46],L),lists:last(L)}.",
+            "-module('àéØ'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,195,160,195,169,195,152,46],L),lists:last(L)}.",
             Term.Tuple(Term.A("ok"), Term.Tuple(Term.A("true"), Term.I(62)))
         ));
 

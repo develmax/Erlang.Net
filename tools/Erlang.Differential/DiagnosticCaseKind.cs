@@ -10,5 +10,9 @@ public enum DiagnosticCaseKind
     UndefinedRecordField,
     DuplicateRecord,
     DuplicateRecordField,
-    RecordWildcardUpdate
+    RecordWildcardUpdate,
+    NonLatin1Module,
+    EmptyModule,
+    BlankModule,
+    ControlModule
 }

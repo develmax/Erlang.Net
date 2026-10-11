@@ -3,6 +3,15 @@ namespace Erlang.Differential;
 /// <summary>Independent expected diagnostic contracts for variable scope fixtures.</summary>
 public static class CompiledDiagnosticExpectations
 {
+    public const string ModuleDefinitionCode = "ERL010";
+    public const string NonLatin1ModuleTag = "non_latin1_module_unsupported";
+    public const string EmptyModuleTag = "empty_module_name";
+    public const string BlankModuleTag = "blank_module_name";
+    public const string ControlModuleTag = "ctrl_chars_in_module_name";
+    public const string NonLatin1ModuleMessage = "module names with non-latin1 characters are not supported";
+    public const string EmptyModuleMessage = "the module name must not be empty";
+    public const string BlankModuleMessage = "the module name must contain at least one visible character";
+    public const string ControlModuleMessage = "the module name must not contain control characters";
     public const string RecordDefinitionCode = "ERL009";
     public const string UndefinedRecordTag = "undefined_record";
     public const string UndefinedRecordFieldTag = "undefined_field";
@@ -24,6 +33,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NonLatin1Module or DiagnosticCaseKind.EmptyModule or DiagnosticCaseKind.BlankModule or DiagnosticCaseKind.ControlModule => ModuleDefinitionCode,
         DiagnosticCaseKind.VariableScope => VariableBindingCode,
         DiagnosticCaseKind.StacktraceBound => StacktraceFreshnessCode,
         DiagnosticCaseKind.StacktraceGuard => StacktraceGuardCode,
@@ -34,6 +44,10 @@ public static class CompiledDiagnosticExpectations
 
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NonLatin1Module => NonLatin1ModuleMessage,
+        DiagnosticCaseKind.EmptyModule => EmptyModuleMessage,
+        DiagnosticCaseKind.BlankModule => BlankModuleMessage,
+        DiagnosticCaseKind.ControlModule => ControlModuleMessage,
         DiagnosticCaseKind.VariableScope => Message(fixture.Variable),
         DiagnosticCaseKind.StacktraceBound => $"Stacktrace variable '{fixture.Variable}' must be fresh",
         DiagnosticCaseKind.StacktraceGuard => $"Stacktrace variable '{fixture.Variable}' is not legal in a guard",
@@ -48,6 +62,10 @@ public static class CompiledDiagnosticExpectations
 
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NonLatin1Module => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(NonLatin1ModuleTag))),
+        DiagnosticCaseKind.EmptyModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(EmptyModuleTag))),
+        DiagnosticCaseKind.BlankModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(BlankModuleTag))),
+        DiagnosticCaseKind.ControlModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(ControlModuleTag))),
         DiagnosticCaseKind.VariableScope => ReferenceOutcome(fixture.Variable, fixture.UnsafeConstruct),
         DiagnosticCaseKind.StacktraceBound => StackOutcome(StacktraceBoundTag, fixture.Variable),
         DiagnosticCaseKind.StacktraceGuard => StackOutcome(StacktraceGuardTag, fixture.Variable),
