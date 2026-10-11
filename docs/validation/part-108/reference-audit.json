@@ -1,0 +1,20 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    "lib/stdlib/src/maps.erl:next/is_iterator_valid",
+    "erts/emulator/beam/erl_map.c:erts_internal_map_next_3"
+  ],
+  "Correction": "Provisional first-key-only fixture renamed to missing-later-key and true assertion corrected to false from pinned source and retained failed native outcome",
+  "PriorNewFixturesPreserved": 84,
+  "PriorHistoricalModulesPreserved": 674,
+  "MapsCompletionModules": 90,
+  "AddedBatchRegressionModules": 5,
+  "FixtureExpectedSuccessUnchanged": true,
+  "Original": "Verified 1626/1626 at 6363039; all 90 new modules match independent expectations under default native optimization",
+  "LocalPassed": 1869,
+  "Reuse": "Existing exact map lookup, Cons and immutable tuple terms; no dependency",
+  "Limits": "Native reduction-dependent batch boundaries/HAMT paths/stack/error_info/resource/full CT/performance contracts unclaimed",
+  "MapsSourceBlob": "30ff7fb7677a8fbd5cace5bf783286df7e186931",
+  "MapNextSourceBlob": "eeef1119c1118bfc6f48398bc0cece61b85b624e"
+}

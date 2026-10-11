@@ -1,0 +1,17 @@
+{
+  "Observed": "Two 41-byte zero-filled refs",
+  "Refs": [
+    "refs/heads/main",
+    "refs/remotes/origin/main"
+  ],
+  "RestoredCommit": "6363039e77a5eb1a15c2ea06b30f77e2fb267023",
+  "Verification": [
+    "origin ls-remote",
+    "retained reflog",
+    "commit object",
+    "git fsck --connectivity-only --no-dangling"
+  ],
+  "WorkingTreeAndIndexUnchanged": true,
+  "CorruptedBytesRetainedInIgnoredArtifacts": true,
+  "Cause": "Unconfirmed"
+}
