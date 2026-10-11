@@ -4,7 +4,7 @@ namespace Erlang.Otp;
 
 public static class Supervisor
 {
-    private sealed record Child(ChildSpec Spec, ProcessHandle Process);
+    private sealed record Child(ChildSpec Spec, Pid Pid);
 
     public static ValueTask<SupervisorHandle> Start(
         ProcessRuntime runtime,
@@ -41,14 +41,13 @@ public static class Supervisor
             int intensity = BehaviourDefaults.RestartIntensity;
             TimeSpan? period = null;
             var restarts = new Queue<long>();
-            var retired = new HashSet<Pid>();
             var restarting = new HashSet<Term>();
             Term retryTag = await runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.MakeReference);
 
             void Publish()
             {
                 handle.Specifications = Array.AsReadOnly(specifications.ToArray());
-                handle.Publish(children.OfType<Child>().Select(c => (c.Spec.Id, c.Process.Pid)));
+                handle.Publish(children.OfType<Child>().Select(c => (c.Spec.Id, c.Pid)));
                 handle.PublishRestarting(restarting);
             }
 
@@ -88,9 +87,12 @@ public static class Supervisor
                 restarting.Remove(specifications[index].Id);
                 if (result.Items[1] is Pid pid)
                 {
-                    var process = runtime.GetProcessHandle(pid);
-                    runtime.Link(context, pid);
-                    children[index] = new(specifications[index], process);
+                    if (specifications[index].StartResult is null)
+                    {
+                        runtime.GetProcessHandle(pid);
+                        runtime.Link(context, pid);
+                    }
+                    children[index] = new(specifications[index], pid);
                 }
                 Publish();
             }
@@ -113,7 +115,7 @@ public static class Supervisor
                     int existing = specifications.FindIndex(s => s.Id.Equals(spec.Id));
                     if (existing >= 0)
                         return children[existing] is { } running
-                            ? Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(SupervisorAtoms.AlreadyStarted), running.Process.Pid))
+                            ? Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(SupervisorAtoms.AlreadyStarted), running.Pid))
                             : Error(SupervisorAtoms.AlreadyPresent);
                     var result = (TupleTerm)await InvokeStart(spec);
                     if (result.Items[0] is Atom { Name: BehaviourAtoms.Error })
@@ -163,6 +165,21 @@ public static class Supervisor
 
             async ValueTask StartChild(int index)
             {
+                if (specifications[index].StartResult is not null)
+                {
+                    var result = (TupleTerm)await InvokeStart(specifications[index]);
+                    if (result.Items[0] is Atom { Name: BehaviourAtoms.Error })
+                        throw new ErlangException(
+                            Term.Tuple(
+                                Term.A(ProcessExitReasons.Shutdown),
+                                Term.Tuple(Term.A(SupervisorErrorReasons.FailedToStartChild), specifications[index].Id, result.Items[1])
+                            ),
+                            ErlangExceptionClasses.Exit
+                        );
+                    InstallChild(index, result);
+
+                    return;
+                }
                 ProcessHandle? process;
                 try
                 {
@@ -183,7 +200,7 @@ public static class Supervisor
                 if (process.Completion.IsCompleted)
                     throw new ErlangException(Term.Tuple(Term.A(SupervisorErrorReasons.FailedToStartChild), specifications[index].Id));
                 runtime.Link(context, process.Pid);
-                children[index] = new(specifications[index], process);
+                children[index] = new(specifications[index], process.Pid);
                 Publish();
             }
 
@@ -196,21 +213,26 @@ public static class Supervisor
 
                     return;
                 }
-                retired.Add(child.Process.Pid);
                 children[index] = null;
                 Publish();
-                runtime.Exit(context, child.Process.Pid, Term.A(child.Spec.BrutalKill ? ProcessExitSignals.Kill : ProcessExitReasons.Shutdown));
+                var monitor = runtime.Monitor(context, child.Pid);
+
+                TupleTerm? Down(Term message) => message is TupleTerm { Items.Count: 5 } down && down.Items[0] is Atom { Name: ProcessMessageTags.MonitorDown } && down.Items[1].Equals(monitor) && down.Items[2] is Atom { Name: ProcessMonitorKinds.Process } && down.Items[3].Equals(child.Pid) ? down : null;
                 try
                 {
-                    if (child.Spec.InfiniteShutdown)
-                        await child.Process.Completion;
-                    else
-                        await child.Process.Completion.WaitAsync(child.Spec.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds));
+                    runtime.Exit(context, child.Pid, Term.A(child.Spec.BrutalKill ? ProcessExitSignals.Kill : ProcessExitReasons.Shutdown));
+                    TimeSpan? timeout = child.Spec.BrutalKill || child.Spec.InfiniteShutdown ? null : child.Spec.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds);
+                    if (await context.ReceiveAsync(Down, timeout) is null)
+                    {
+                        runtime.Exit(context, child.Pid, Term.A(ProcessExitSignals.Kill));
+                        await context.ReceiveAsync(Down);
+                    }
                 }
-                catch (TimeoutException)
+                finally
                 {
-                    runtime.Exit(context, child.Process.Pid, Term.A(ProcessExitSignals.Kill));
-                    await child.Process.Completion;
+                    runtime.Demonitor(context, monitor, true);
+                    runtime.Unlink(context, child.Pid);
+                    context.Mailbox.Remove(message => message is TupleTerm { Items.Count: 3 } exit && exit.Items[0] is Atom { Name: ProcessMessageTags.LinkedExit } && exit.Items[1].Equals(child.Pid));
                 }
             }
 
@@ -320,9 +342,7 @@ public static class Supervisor
                     }
                     if (message is not TupleTerm { Items.Count: 3 } exit || !exit.Items[0].Equals(Term.A(ProcessMessageTags.LinkedExit)) || exit.Items[1] is not Pid pid)
                         continue;
-                    if (retired.Remove(pid))
-                        continue;
-                    int failed = children.FindIndex(c => c is not null && c.Process.Pid.Equals(pid));
+                    int failed = children.FindIndex(c => c is not null && c.Pid.Equals(pid));
                     if (failed < 0)
                     {
                         if (parent is not null && pid.Equals(parent.Self))

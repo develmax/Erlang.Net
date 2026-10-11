@@ -1,0 +1,27 @@
+{
+  "Contracts": [
+    "Start result validates PID type, not liveness; child callback owns links",
+    "Dead PID retained in which_children; active count checks liveness",
+    "Monitor before shutdown; receive exact DOWN; finite timeout escalates to kill",
+    "Unlink and flush queued EXIT after shutdown; preserve unrelated queued requests"
+  ],
+  "Source": "lib/stdlib/src/supervisor.erl",
+  "ClrAdaptations": [
+    "Existing local ProcessRuntime monitor/mailbox/ValueTask",
+    "Store PID without requiring live ProcessHandle for Erlang MFA",
+    "Host C# startup retains live-handle/autolink convenience",
+    "Runtime death/link/monitor publication serialized under existing gate"
+  ],
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Limits": [
+    "Shutdown logging and complete reason classification",
+    "Full priority/distributed signal and timing races",
+    "simple_one_for_one/significant/auto_shutdown/sys/proc_lib/upgrades/stacks/resources",
+    "Full upstream suites and performance"
+  ],
+  "IndependentNewModules": 15,
+  "Blob": "aa367e1f43c5d4ff1913d19d1f5b3e662ddb6eec",
+  "Baseline": "OTP-29.1.1",
+  "License": "Consolidated Ericsson Apache notices packaged; draft excluded; no source banners",
+  "ExpectedValuesChanged": 0
+}

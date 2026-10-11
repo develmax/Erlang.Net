@@ -341,3 +341,6 @@ Local correction1526/full; invalid casts fail function_clause, valid-tag stale r
 
 ## Part 092 checkpoint
 Publishedc20e990 passes exact-source1333/1333=778/476/79, same-head1526/full CI and strict provenance.14 new retry contracts, all prior778/462/79 untouched, one provisional cast expectation/source corrected from pinned inspection before initial original comparison completed; final independent expectations match.85 MFAs/delta0, supervisor9/23 and gen_server10/41 partial;219 types/no violations. Next dead/nonlinked PIDs/shutdown/signal/clock-window boundaries, then simple_one_for_one/significant/sys/options/aliases/upgrades/resources/stacks/upstream/performance. Approximately5% coarse. Active0014; notices packaged part089, draft excluded.
+
+## Part 093 checkpoint
+Local1541/full pipeline,15 lifecycle contracts; planned1348=778/491/79 preserves prior778/476/79.85MFAs/delta0;220types/no violations. Erlang child callback owns links and may return dead PID; monitor shutdown/unlink/EXIT flush. CLR host convenience separate. Publish and verify exact-source/head CI, then part094 proof. Full logging/classification/signals/timing/sys/significant/simple_one/upgrades/stacks/resources/upstream/performance partial,5% coarse;0014 active; draft excluded.

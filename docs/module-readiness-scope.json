@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-091/tests.json",
+  "ComparisonTestReport": "validation/part-093/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -125,7 +125,7 @@
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
         "simple_one_for_one, significant/auto_shutdown and upgrades",
-        "full dead/nonlinked PID, shutdown/signal races, clock phase/sys contracts and stacks"
+        "complete shutdown logging/reason classification, priority/distributed signals, timing/sys/clock races and stacks"
       ],
       "Implemented": [
         "C# strategies/policies/intensity and nine standard supervisor MFAs",
@@ -136,7 +136,9 @@
         "Group startup aborts at first failure; rest_for_one retries failed suffix, one_for_all retries all; every attempt counts intensity",
         "14 independent compiled retry contracts verified against exact-source OTP-29.1.1 at c20e990; full behaviour remains partial",
         "Invalid shape/private-tag casts fail function_clause; correctly tagged stale retries ignored",
-        "One provisional malformed-cast fixture corrected from pinned source before initial original comparison completed; final 14 contracts verified at c20e990"
+        "One provisional malformed-cast fixture corrected from pinned source before initial original comparison completed; final 14 contracts verified at c20e990",
+        "Erlang callbacks own links and may return dead PIDs; monitor-based shutdown with queued EXIT flush",
+        "15 independent lifecycle contracts pass locally; exact-source comparison pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [

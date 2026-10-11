@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "otp-supervisor-lifecycle-static-dead",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E43643D48C6DA83D7A7A8B0A44EE2390ADF53CDF87D8844C4D1E14FD98C41823",
+    "CSharpSha256": "457E4DD573F7ABAFBA54D340B807E543CA1888958AD09472016C19FB11F7F532"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-dynamic-dead-extra",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "94B13588A15F62AF51FD630EF69A6461353568BF11A8FCB7BDF4E5D198209379",
+    "CSharpSha256": "1E2FD188565A5FDBBECCA0590A85966C9793CF9D6BD31544D7B1AE3A469466A1"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-manual-dead-extra",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D04039E00BA310D3AAD8B893295B6AF5727C5A92FB98F3BF1EE4EF6E87F4CA0E",
+    "CSharpSha256": "3B94CFCBE05F462E744624B5D502568FF0A21AF7BC0ED65752350614351C7934"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-automatic-dead-extra",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6AC1F9CFC2BC84965829619924231C8D98FDCA0315F20C0E7CEAEF19FFF1CF00",
+    "CSharpSha256": "6D07F378B3F537226A5A4C91BBC33AF3144BF6C42A2929033703DB444B95E5B3"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-linked-dead-transient",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9776EEBF4C43EF640EB5D2CBEC66EAEC736136900BD7C6CAAC2E7B471953DC51",
+    "CSharpSha256": "24C2EED213D36DCA6707A40FACA278AD0D73B3E66E78044D99DA65FCAE84BF35"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-linked-dead-temporary",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5B0987B537632D3D44B2643943C956FD348CF2594E9A1C86ACD58266437345C6",
+    "CSharpSha256": "16EC95E2796F323247666BA86F020D7689F9BDB6AB6DC19D86C75A568CDC40E1"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-detached-at-start",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "01FAB3162C742BC4A0FA9BDF8C749EDCD6557BC95A4E26B2841F20FB5AB40FFA",
+    "CSharpSha256": "5DA8E492EF5C64F552692F1376E52B6703B505A61D4711DF1A99BAC756E1E983"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-existing-unlinked-dynamic",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "85D7892CC356028BF862BB5345FD50F7CCD17A3F8648E40BC430539E9527BD57",
+    "CSharpSha256": "308D69A250A5C5C5D350E8F37FED4B5218C331C49E78E19C2276B17CB4FC2FC8"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-unlinked-survives-supervisor-kill",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F8A685A96C6A612719E6090113BDDBDE2BF829264E22DDB968E91C70A98DA932",
+    "CSharpSha256": "1C8A4B4DF833805E0DEE3F89F809BF18BD66984E9C9C6EC1B9297CBD1A7F2E0A"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-unlinked-infinite",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "13122255E445A48879D507308C372F2742E5DC67A5CB0F794EC977425F5470E0",
+    "CSharpSha256": "31EDB541FC048138D65F922D75B79BA114C15FAB7518161E7B6A9CB37DB9B246"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-detached",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1336E31D5ADAFA98E1C093B5885E0926F151D36FC9CF7EEBA563ECCF2FAF4F1F",
+    "CSharpSha256": "78CF0E75B88F1D901B3D0A0006B3B3565A1975E35DF7DD6EDF6D972151107C99"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-stubborn-timeout",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F27014E39E8E5BE235899E1CEE8E46E34396D69128F430286F7D6EC0180858B2",
+    "CSharpSha256": "9B8309F725BB9F1EBE08A2336AC02E5A7EFE43C085F60C5E1050100A2AC4C419"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-brutal-kill",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "43BDFD32E8160030405E38321460946A9E269794BBAFDE019B3FD5E5628AAC47",
+    "CSharpSha256": "3CA0D4CF043A94E01F04BD6F30162E284B8B3A00918C5C76ABE1439B71C67B03"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-shared-pid-exit-flush",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0EE4A92F9F1133B2EEA772AA1DC4B729A4C39318A80E4435EDEEC8C4559945D3",
+    "CSharpSha256": "46D771A9B6589F38805292DBC1FA273DB2FB05EEC2927D737BF4A43DAE6FECEF"
+  },
+  {
+    "Name": "otp-supervisor-lifecycle-selective-shutdown-queue",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BF1CF6D321CB02EC4F976A8482A3099D1162E26924EE1B859D226BA95AFAF001",
+    "CSharpSha256": "45387886C00D69D4F2DC029FDA363D29D132BDEB8ED80269A461B530A5260BE7"
+  }
+]

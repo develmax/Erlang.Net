@@ -181,21 +181,12 @@ public static class ErlangSupervisor
             return Term.Tuple(Term.A(BehaviourAtoms.Error), result);
         }
 
-        async ValueTask<ProcessHandle?> Start(ProcessContext context)
-        {
-            var result = (TupleTerm)await StartResult(context);
-            if (result.Items[0] is Atom { Name: BehaviourAtoms.Error })
-                throw new ErlangException(result.Items[1], ErlangExceptionClasses.Exit);
-
-            return result.Items[1] is Pid pid ? context.Runtime.GetProcessHandle(pid) : null;
-        }
-
         return new(
             id!,
             context => throw new ErlangException(ErlangErrorReasons.UndefinedFunction),
             restart,
             shutdown is Integer millis ? TimeSpan.FromMilliseconds((int)millis.Value) : null,
-            Start,
+            null,
             type,
             modules,
             infinite,

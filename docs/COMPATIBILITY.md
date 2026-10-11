@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **1526/1526 tests**,85 direct registered-MFA contracts and full integration. [Local tests](validation/part-091/tests.json), [integration](validation/part-091/integration-results.json). Same-head1526/full CI verified: [provenance](validation/part-092/remote-checkpoint.json).
+Current local evidence is **1541/1541 tests**,85 registered-MFA contracts and full integration. [Local tests](validation/part-093/tests.json), [integration](validation/part-093/integration-results.json). New-head CI and original1348 comparison are pending; historical part092 proof remains tied toc20e990.
 
 Latest exact-source oracle evidence: **1333/1333=778 expressions+476 compiled modules+79 diagnostics** at **c20e990**, zero differences; one provisional expectation corrected before this run. [Provenance](validation/part-092/remote-checkpoint.json). All modules remain partially compatible; [readiness](MODULE_READINESS.md) separates API presence from semantic scope.
 
@@ -525,3 +525,11 @@ Selected recovery/error/throw/exit/Extra/ignore, restarting/API/query/count, can
 Initial 9dec6df original run completed 1332/1333 with one wrong-tag mismatch and no infrastructure failure; the 13 other retry cases matched. The source-directed correction was made before that run completed. [Initial raw history](validation/part-092/initial-9dec6df/checkpoint.json) retains the failed report and same-head1526 CI separately; it is not final compatibility proof. Current local package notices match exact consolidated files and exclude the draft: [audit](validation/part-092/package-notices.json).
 
 Approximately5% coarse overall; full modules/upstream suites/performance remain unfinished. Next harden dead/nonlinked PID and shutdown/signal races, intensity/window/clock phase boundaries, then simple_one_for_one/significant/auto_shutdown and sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources. Group/scheduler/resource/clock equivalence is not established beyond the selected fixtures.
+
+## Part 093 — Supervisor PID ownership and monitored shutdown (2026-10-11)
+
+Erlang child callbacks now own their links and can return an already terminated PID, matching pinned supervisor.erl. PID identity stays in child queries and running/duplicate checks; only active counts require liveness. Shutdown monitors the child before signalling, receives the matching DOWN, escalates finite timeouts to kill, then unlinks and flushes queued EXIT. Selective shutdown preserves queued management calls. C# host startup convenience retains its live-handle/autolink contract.
+
+Local **1541/1541 and full pipeline** pass: [tests](validation/part-093/tests.json), [integration](validation/part-093/integration-results.json). [15 independently expected modules](validation/part-093/contract-matrix.json) cover static/dynamic/manual/automatic dead PID returns, linked normal completion, detached/unlinked children, survival after supervisor death, infinite/finite/brutal shutdown, shared PID EXIT flush and queued calls. [Source audit](validation/part-093/reference-audit.json), [corpus preservation](validation/part-093/corpus-audit.json). All prior778/476/79 source/expectation/generated hashes unchanged. Planned original comparison **1348=778/491/79**; pending until part094. Latest completed original proof remains1333 atc20e990/part092.
+
+85 registered MFAs unchanged, supervisor9/23 and gen_server10/41 remain partial API presence.220 namespace types/no layout violations. Consolidated notices checked in both packages; draft excluded/no banners/new dependency. Full shutdown logging/reason classification, all signal/timing races, sys/proc_lib/significant/simple_one_for_one/upgrades/stacks/resources/upstream suites/performance unfinished; approximately5% coarse overall.
