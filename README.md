@@ -2,11 +2,13 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
-Development validation now compares **778 expressions**, **764 separately compiled fixture modules** and **84 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-108/remote-checkpoint.json).
+Development validation now compares **778 expressions**, **1016 separately compiled fixture modules** and **84 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-110/remote-checkpoint.json).
 
 Two map iterator fixtures explicitly use `-compile(no_ssa_opt)` because the pinned OTP optimizer assumes a map-only argument for `maps:map/2`. The initial optimized differences and one corrected provisional record-guard expectation remain documented in [the original comparison](docs/validation/part-102/differential.json) and [the source audit](docs/validation/part-104/reference-audit.json).
 
 The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, selected Erlang gen_server/supervisor callback adapters and a mixed C#/Erlang MSBuild preprocessor.
+
+All 91 lists exports are registered and directly tested; [lists compatibility scope](docs/LISTS_COMPATIBILITY.md) records functional proof and runtime boundaries.
 
 All 34 maps exports are registered and directly tested; [maps compatibility scope](docs/MAPS_COMPATIBILITY.md) describes functional proof and remaining runtime boundaries.
 

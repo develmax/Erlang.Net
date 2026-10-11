@@ -1,0 +1,33 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    "lib/stdlib/src/lists.erl",
+    "lib/stdlib/test/lists_SUITE.erl",
+    "erts/emulator/beam/erl_bif_lists.c"
+  ],
+  "ListsExportsImplemented": 91,
+  "NewMfas": 60,
+  "NewIndependentModules": 252,
+  "HistoricalModulesPreserved": 764,
+  "HistoricalExpressionsPreserved": 778,
+  "HistoricalDiagnosticsPreserved": 84,
+  "LocalTests": 2181,
+  "Original": "Verified1878/1878 at 9aeb8f1; all 252 new independent modules match under default native optimization",
+  "ProvisionalSourceContractsCorrectedBeforeOriginal": 2,
+  "FixtureSyntaxCorrectedBeforeOriginal": 1,
+  "Corrections": [
+    "prefix remainder must satisfy native is_list guard; use nonempty improper Cons remainder",
+    "zip3 padding uses the fixed second pad x rather than y",
+    "composite uniq map equality assertion replaces invalid map match syntax"
+  ],
+  "ImplementationCorrections": [
+    "sum/map improper tail and callback priorities",
+    "keysort/ukeysort first invalid key precedes later improper tail; single improper Cons gives case_clause",
+    "mergel/umergel lazy grouping preserves inner error before invalid outer tail"
+  ],
+  "Reuse": "Immutable Cons/terms, TermOrder numeric comparison, exact equality/hash, FunctionTerm/ProcessContext, existing comparator sort. Temporary BCL collections and pure stable sorting; no new dependency.",
+  "Adaptations": "Iterative native callback sort/merge state machines, lazy alternating merge groups, cached pure key projection, exact rational legacy float text",
+  "ProbeEvidence": "Initial172:169 passed/3 provisional source failures; keysort-before and mergel-before each execute only2 filtered cases despite helper Total label; mergel-after2/2; full final2181 includes all252",
+  "Limits": "Native allocation/reduction/stack/error_info, exhaustive Common Test execution and performance parity unclaimed"
+}
