@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-086/ci-tests.json",
+  "ComparisonTestReport": "validation/part-087/tests.json",
   "LocalPassedTests": 1512,
   "RegisteredMfas": 85,
-  "PreviousRegisteredMfas": 81,
-  "RegisteredMfaDelta": 4,
+  "PreviousRegisteredMfas": 85,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -116,7 +116,7 @@
         "C# strategies/policies/intensity and nine standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
         "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
-        "Selected static callback contracts verified at2fd52f8; dynamic increment original comparison pending"
+        "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial"
       ],
       "Remaining": [
         "simple_one_for_one, significant/auto_shutdown and upgrades",
@@ -155,10 +155,10 @@
       "Project": "tools/Erlang.Differential",
       "Status": "Partially compatible",
       "Implemented": [
-        "Pinned exact-source OTP-29.1.1 at2fd52f8:1293/1293=778 expressions/436 compiled modules/79 diagnostics",
-        "All previous778/399/79 source/expected/generated hashes preserved;37 independently expected OTP callback modules added with zero expectation corrections",
-        "Same-head1482/full CI; raw source/version/completeness/workflow/job/artifact provenance retained",
-        "Initial local host-init/unsafe-variable/tool-registry failures retained part084; original1182/1293 incomplete transport failure retained part085 and resolved with framed transport, without expectation changes"
+        "Pinned exact-source OTP-29.1.1 at32c827a:1319/1319=778 expressions/462 compiled modules/79 diagnostics",
+        "All prior778/436/79 sources/expectations/generated hashes unchanged;26 independent dynamic supervisor modules, zero expectation corrections",
+        "Same-head1512/full CI with local/CI test names identical; source/version/completeness/workflow/job/artifact proof retained",
+        "Initial local fixture/incremental failures retained part087; framed transport preserved"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -14163,8 +14163,8 @@
       "Name": "supervisor",
       "Status": "Partially compatible",
       "RegisteredMfas": 9,
-      "PreviousRegisteredMfas": 5,
-      "Delta": 4,
+      "PreviousRegisteredMfas": 9,
+      "Delta": 0,
       "ReferenceDeclarations": 23,
       "ApiPresencePercent": 39.1,
       "RequiresPreprocessing": false,

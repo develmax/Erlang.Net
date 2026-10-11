@@ -328,3 +328,7 @@ Published2fd52f8 verifies1293/1293=778/436/79 exact-source OTP-29.1.1 and1482/fu
 ## Part 087 checkpoint
 
 Dynamic start/terminate/restart/delete supports ordinary supervisors; local1512/full passes, planned1319=778/462/79, previous778/436/79 hashes/expectations preserved.85 MFAs (+4), supervisor9/23 partial;218 namespace types/no violations. Initial fixture/incremental failures retained. Publish and dispatch exact-source comparison/same-headCI before promoting proof. Source-directed error/Extra/ignore/order/shutdown transitions; public ChildSpec signature retained. Retry/restarting/simple_one_for_one/significant/sys/races/resources/stacks/performance unfinished; approximately5% coarse. Draft excluded, exact notices packaged. Journal0013 active.
+
+## Part 088 checkpoint
+
+Published32c827a verifies1319/1319=778/462/79 exact-source OTP and1512/full CI; prior778/436/79 contracts unchanged;26 independent dynamic modules, zero corrections.85 MFAs; supervisor9/23, gen_server10/41 partial;218 types/no violations. Proof part088, initial failures part087. Next automatic retry/restarting/tagged casts/mailbox yielding and dead/nonlinked PIDs/shutdown/intensity races. Full significant/simple_one_for_one/sys/options/aliases/upgrades/resources/stacks/upstream/performance unfinished; approximately5% coarse. Draft excluded; exact notices packaged. Active journal in CHANGELOG.md.

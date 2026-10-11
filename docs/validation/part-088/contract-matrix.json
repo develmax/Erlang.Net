@@ -1,0 +1,158 @@
+[
+  {
+    "Name": "otp-supervisor-dynamic-already-started-arbitrary-reason",
+    "FixtureExpected": "{ok,{error,{already_started,other}}}",
+    "SourceSha256": "E3302920C8A799A40425A7FB3D38DC1910123E3D5856565E2432922E25D49B09",
+    "CSharpSha256": "B319AFFED46204FBD9F2FD938C4317BFA61CA8FF2BA3E3E0CA1372BB8F2ABA36"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-temporary-natural-exit",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "8F045ECA11181D15350C103E6E15AF4661F666F24484A0824F4AD74AD59AC2CD",
+    "CSharpSha256": "8E149205F94C6A6C9CD954726B5D3F5918689C0641B0D4FDA975DC5EF28A3964"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-transient-normal-exit",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "22741E31899FE67BBB014F5B27EBFCAAC816B9F13C5CE09C1AD72C80CA72822D",
+    "CSharpSha256": "2B076BC1B5653A7CEEAA1FC2449B53283CCC2FBEB1775266665816173AB1C53B"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-static-ignore-temporary",
+    "FixtureExpected": "{ok,{error,not_found}}",
+    "SourceSha256": "828D9701D9B46187B9A61E27A1A47696ECED4A4639ACFA09654C0CC22F92ABF8",
+    "CSharpSha256": "EECD16C1F90942A9EE087E3137F43DDA482B66D4045AA543168A0E36FC7533F0"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-one-for-all",
+    "FixtureExpected": "{ok,{true,true}}",
+    "SourceSha256": "F843D5EDC7F239DA5C03EE2C8A95CA9ABD713CAF3B557E40CC3EF312C7485E8A",
+    "CSharpSha256": "57E12797A0108D8974D2D34DB8462AA0869633543AA1D1DE261F667BF6FB200A"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-rest-for-one",
+    "FixtureExpected": "{ok,{true,true,1}}",
+    "SourceSha256": "D7F568F18351E56ED35BB87BA38EAEC2E64245F1AB9265EB7F99F579EC7C3DCE",
+    "CSharpSha256": "C30C312E49F7BEC154CD7858D867D3BA4362D3B3CD5CC65734529A23CE74CAD8"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-lifecycle",
+    "FixtureExpected": "{ok,{7,true}}",
+    "SourceSha256": "A7689BF0EDB44CB79E33F42585325705ECE90C82054846419C0135039FBFC82E",
+    "CSharpSha256": "2467E542F1E896718E2765B22AEBE8B891582E64D65094B6B87828A6CF01B63B"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-missing",
+    "FixtureExpected": "{ok,{{error,not_found},{error,not_found},{error,not_found}}}",
+    "SourceSha256": "2D6C8DC5F152FD2F1D006C091FFA656A1E42306E72EC96230A5FDFA55C527F57",
+    "CSharpSha256": "E6512CF9CF56A0ACD4369D0400C01AD40684481DBEE24EDED0F4557156638473"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-legacy",
+    "FixtureExpected": "{ok,8}",
+    "SourceSha256": "A415EA685CA199638511CB3DC25FE83EAB73EE09B97DF9541DEA3EBF793B10EB",
+    "CSharpSha256": "9E3065F4B7ED2D0C938778386C06D8F8C543610EB2174ACC8E41D300C450C973"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-ignore-permanent",
+    "FixtureExpected": "{ok,{ok,undefined}}",
+    "SourceSha256": "F30922E61928723F473EB9A30F1DFA82440DDB3F0CB7013DF3EFB25A554CD403",
+    "CSharpSha256": "4B3D59BDDD539BDD646302CB5672B5A121542B88A25E20B534F0112EAC5CFCB5"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-ignore-temporary",
+    "FixtureExpected": "{ok,{[],{error,not_found}}}",
+    "SourceSha256": "8A07FFF7A7DFC962F1F2FEE1C206300CA8F66F81BE278AD3A0A7147235EC4639",
+    "CSharpSha256": "776DAB42C121493A6C73AF608F16E920A459EB2D77EA38565B18D28523AE349D"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-extra",
+    "FixtureExpected": "{ok,{true,9}}",
+    "SourceSha256": "FB58EAA244BE8592DBC32FB60F60F6E8D5F0463882CCF15BCBD98C167B0CFDFA",
+    "CSharpSha256": "C11248DD5FBF1466A00FD779CF835730B696DFDD5187C5FF2E95B0A82D6BF00E"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-temporary-termination",
+    "FixtureExpected": "{ok,{true,1}}",
+    "SourceSha256": "739F4611011C9E9B5134D1F1A6C341550964C0FD60AE7A2B4EAD51F2C5AB050A",
+    "CSharpSha256": "564339E94E7B45F519BBBE97FE8E2E23781125A4429773AE61D4EDB4401A9031"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-replacement",
+    "FixtureExpected": "{ok,{true,2}}",
+    "SourceSha256": "EADBD155405E1828C7F12D8B408C1F2465E2701119CF29F2C05E35B98960A4D6",
+    "CSharpSha256": "2B5245D5FC359A9922CA9C8498959E41A5EEA608291BCF0A9BFC6DC38E50B3FE"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-restart-failure-retry",
+    "FixtureExpected": "{ok,3}",
+    "SourceSha256": "1B80A272F28820A78CECEAFFA4F2233496E087F1F630F705E6E5C6E3297D7485",
+    "CSharpSha256": "D034D0A2360969786F80DA1A61DE1C7F01B48F3905B4AA3045FBD6388CC6D936"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-order-and-counts",
+    "FixtureExpected": "{ok,[{specs,2},{active,0},{supervisors,1},{workers,1}]}",
+    "SourceSha256": "6C9A23EBF5F975005A54B346A88C057EDB2297CEAC12C37012242A8140CA79B3",
+    "CSharpSha256": "565D25B4DCA205AF5FFC384143F4CDE7A7284F053DBA7B1EC5CEB43B2CA5A630"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-validate-before-duplicate",
+    "FixtureExpected": "{ok,{error,missing_start}}",
+    "SourceSha256": "F206F90E6094AD36B15C0E2BFC072E878F43565921F15529E81331DF70EB1E95",
+    "CSharpSha256": "064C53857A2755F9FCEF1C545B3118311A5ED68007D9B98690A3912966102E02"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-invalid-spec",
+    "FixtureExpected": "{ok,{error,{invalid_child_spec,bad}}}",
+    "SourceSha256": "5769FC01D48A3B5EEF60127A98C5D28641B7BD5E433A8EE0F231C5F1D3415B8E",
+    "CSharpSha256": "1A3B3C93C593C23213E64AA6988E2BDF7C6ABD4098C3E5472A52894C793A3BB3"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-failed-start",
+    "FixtureExpected": "{ok,{error,{failed,{child,undefined,first,{oracle_dynamic,child,[{error,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+    "SourceSha256": "926AEBB6E8CAE39A61685CC34D713AD89038A94FE644281BDE3C4845690DFEA2",
+    "CSharpSha256": "B9FBC7007FEAA50EA0594CD3B45BD23388B7C872FF5E8A5015D038F91F8BADD8"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-exit-start",
+    "FixtureExpected": "{ok,{error,{{'EXIT',failed},{child,undefined,first,{oracle_dynamic,child,[{exit,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+    "SourceSha256": "9D21952BFA169547B68850815B1F0B612B68DF8C4CB046A26D1251738D3F41B2",
+    "CSharpSha256": "8C314E137C5104F09C4BF1C08254AADBE7204246B3B8F665F9C7EF18440513D3"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-raw-start",
+    "FixtureExpected": "{ok,{error,{bad,{child,undefined,first,{oracle_dynamic,child,[{raw,bad}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+    "SourceSha256": "DADC275BEEC3B83794D18B3A9BF583126FD15D8A732BDCE50E10BFA628B9F8C6",
+    "CSharpSha256": "B8D6414F87E5B38ADF2079D3425BC78432A0CCE973B880C080CC9D0ADB5468B2"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-throw-return",
+    "FixtureExpected": "{ok,{ok,undefined}}",
+    "SourceSha256": "86F21CE49AD631FDC60AF2E6782AF8A4D511860861CE1171DA062C69530C2603",
+    "CSharpSha256": "0A28EE055088D26A5AC91D66459D8B636ED4A3B9F97056569FEE59C5B5F9F68E"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-already-started-return",
+    "FixtureExpected": "{ok,ok}",
+    "SourceSha256": "626C5B6CB79225CE03A60F2F4F646192198CAF43EDE5AF99FF6593E75D7E0801",
+    "CSharpSha256": "450C3269E69D5625738B1491DBF5E8A7519982846793A550EDF3FDA63E5085DF"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-shutdown-ack",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0EE12AFAB9B64FB987CD5FCF8431C310F2CD918A88DB17C5BD88A75AC799B4DE",
+    "CSharpSha256": "D21BCCE6754C090C4B97137659FB4E0D363EF27A98D58A996175E88074404253"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-named",
+    "FixtureExpected": "{ok,ok}",
+    "SourceSha256": "215EB3D6A9BB23C8D731456D6E6D4F0A1296C3954884F93AFC6031910C9C6F4A",
+    "CSharpSha256": "E04CFFCC3270C6405D50F29D91E7A5D315E5A395911046D2AEA3E883283B4BA9"
+  },
+  {
+    "Name": "otp-supervisor-dynamic-missing-supervisor",
+    "FixtureExpected": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
+    "SourceSha256": "1CC53185C0603F5B12F35214449C6F45DDFFF2538133493D5D4729A1C601D346",
+    "CSharpSha256": "55C40711982D0958B6F855BCAA131198A19E6D918D9D0FDD9E594FA0F2BC3E65"
+  }
+]

@@ -31,3 +31,4 @@ ok = supervisor:terminate_child(Sup, worker),
 ok = supervisor:terminate_child(Sup, worker),
 ok = supervisor:delete_child(Sup, worker).
 ```
+Dynamic child implementation32c827a additionally verifies26 independently expected modules; supported corpus1319/1319 and same-head1512/full CI. [Dynamic proof](validation/part-088/remote-checkpoint.json), [26-case matrix](validation/part-088/contract-matrix.json). The37 static callback cases above remain unchanged historical part086 proof.

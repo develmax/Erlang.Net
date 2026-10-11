@@ -2,9 +2,9 @@
   "Baseline": "OTP-29.1.1",
   "VersionVerified": true,
   "Complete": true,
-  "Planned": 1293,
-  "Executed": 1293,
-  "Passed": 1293,
+  "Planned": 1319,
+  "Executed": 1319,
+  "Passed": 1319,
   "Failed": 0,
   "AbortedSource": null,
   "InfrastructureError": null,
@@ -18,9 +18,9 @@
   "CompiledModuleTrack": {
     "ReferenceMode": "compile:forms/default optimizations/code:load_binary",
     "ImplementationMode": "generated C#/Roslyn Release assembly/ModuleDefinition evaluator",
-    "Planned": 436,
-    "Executed": 436,
-    "Passed": 436,
+    "Planned": 462,
+    "Executed": 462,
+    "Passed": 462,
     "Failed": 0
   },
   "CompilerDiagnosticTrack": {
@@ -5260,6 +5260,266 @@
       "Expected": "{ok,{error,{duplicate_child_name,first}}}",
       "FixtureExpected": "{ok,{error,{duplicate_child_name,first}}}",
       "Actual": "{ok,{error,{duplicate_child_name,first}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-already-started-arbitrary-reason",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{error,{already_started,other}}]}}),[] =supervisor:which_children(P),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "E3302920C8A799A40425A7FB3D38DC1910123E3D5856565E2432922E25D49B09",
+      "CSharpSha256": "B319AFFED46204FBD9F2FD938C4317BFA61CA8FF2BA3E3E0CA1372BB8F2ABA36",
+      "Expected": "{ok,{error,{already_started,other}}}",
+      "FixtureExpected": "{ok,{error,{already_started,other}}}",
+      "Actual": "{ok,{error,{already_started,other}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-temporary-natural-exit",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]},restart=\u003Etemporary},{ok,C}=supervisor:start_child(P,S),ok=gen_server:stop(C),[] =supervisor:which_children(P),{ok,D}=supervisor:start_child(P,S),R=C=/=D,ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "8F045ECA11181D15350C103E6E15AF4661F666F24484A0824F4AD74AD59AC2CD",
+      "CSharpSha256": "8E149205F94C6A6C9CD954726B5D3F5918689C0641B0D4FDA975DC5EF28A3964",
+      "Expected": "{ok,true}",
+      "FixtureExpected": "{ok,true}",
+      "Actual": "{ok,true}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-transient-normal-exit",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]},restart=\u003Etransient},{ok,C}=supervisor:start_child(P,S),ok=gen_server:stop(C),[{first,undefined,worker,_}]=supervisor:which_children(P),{error,already_present}=supervisor:start_child(P,S),{ok,D}=supervisor:restart_child(P,first),R=C=/=D,ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "22741E31899FE67BBB014F5B27EBFCAAC816B9F13C5CE09C1AD72C80CA72822D",
+      "CSharpSha256": "2B076BC1B5653A7CEEAA1FC2449B53283CCC2FBEB1775266665816173AB1C53B",
+      "Expected": "{ok,true}",
+      "FixtureExpected": "{ok,true}",
+      "Actual": "{ok,true}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-static-ignore-temporary",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[ignore]},restart=\u003Etemporary},{ok,P}=supervisor:start_link(oracle_dynamic,[S]),{ok,undefined}=supervisor:start_child(P,S),R=supervisor:delete_child(P,first),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "828D9701D9B46187B9A61E27A1A47696ECED4A4639ACFA09654C0CC22F92ABF8",
+      "CSharpSha256": "EECD16C1F90942A9EE087E3137F43DDA482B66D4045AA543168A0E36FC7533F0",
+      "Expected": "{ok,{error,not_found}}",
+      "FixtureExpected": "{ok,{error,not_found}}",
+      "Actual": "{ok,{error,not_found}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-one-for-all",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,{flags,#{strategy=\u003Eone_for_all,intensity=\u003E5},[]}),{ok,C}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{notify,self(),1}]}}),{ok,D}=supervisor:start_child(P,#{id=\u003Esecond,start=\u003E{oracle_dynamic,child,[{notify,self(),2}]}}),{ok,_}=supervisor:start_child(P,#{id=\u003Ethird,start=\u003E{oracle_dynamic,child,[3]},restart=\u003Etemporary}),receive {started,1,_}-\u003Eok after 1000-\u003Emissing end,receive {started,2,_}-\u003Eok after 1000-\u003Emissing end,exit(C,kill),N=receive {started,1,{ok,N0}}-\u003EN0 after 1000-\u003Emissing end,Q=receive {started,2,{ok,Q0}}-\u003EQ0 after 1000-\u003Emissing end,[{second,Q,worker,_},{first,N,worker,_}]=supervisor:which_children(P),R={C=/=N,D=/=Q},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "F843D5EDC7F239DA5C03EE2C8A95CA9ABD713CAF3B557E40CC3EF312C7485E8A",
+      "CSharpSha256": "57E12797A0108D8974D2D34DB8462AA0869633543AA1D1DE261F667BF6FB200A",
+      "Expected": "{ok,{true,true}}",
+      "FixtureExpected": "{ok,{true,true}}",
+      "Actual": "{ok,{true,true}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-rest-for-one",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,{flags,#{strategy=\u003Erest_for_one,intensity=\u003E5},[]}),{ok,C}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]}}),{ok,D}=supervisor:start_child(P,#{id=\u003Esecond,start=\u003E{oracle_dynamic,child,[{notify,self(),2}]}}),{ok,E}=supervisor:start_child(P,#{id=\u003Ethird,start=\u003E{oracle_dynamic,child,[{notify,self(),3}]}}),receive {started,2,_}-\u003Eok after 1000-\u003Emissing end,receive {started,3,_}-\u003Eok after 1000-\u003Emissing end,exit(D,kill),N=receive {started,2,{ok,N0}}-\u003EN0 after 1000-\u003Emissing end,Q=receive {started,3,{ok,Q0}}-\u003EQ0 after 1000-\u003Emissing end,[{third,Q,worker,_},{second,N,worker,_},{first,C,worker,_}]=supervisor:which_children(P),R={D=/=N,E=/=Q,gen_server:call(C,get)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "D7F568F18351E56ED35BB87BA38EAEC2E64245F1AB9265EB7F99F579EC7C3DCE",
+      "CSharpSha256": "C30C312E49F7BEC154CD7858D867D3BA4362D3B3CD5CC65734529A23CE74CAD8",
+      "Expected": "{ok,{true,true,1}}",
+      "FixtureExpected": "{ok,{true,true,1}}",
+      "Actual": "{ok,{true,true,1}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-lifecycle",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[7]}},{ok,C}=supervisor:start_child(P,S),7=gen_server:call(C,get),{error,{already_started,C}}=supervisor:start_child(P,S),{error,running}=supervisor:restart_child(P,first),{error,running}=supervisor:delete_child(P,first),M=monitor(process,C),ok=supervisor:terminate_child(P,first),receive {\u0027DOWN\u0027,M,process,C,shutdown}-\u003Eok after 1000-\u003Emissing end,[{first,undefined,worker,[oracle_dynamic]}]=supervisor:which_children(P),{error,already_present}=supervisor:start_child(P,S),ok=supervisor:terminate_child(P,first),{ok,D}=supervisor:restart_child(P,first),V=gen_server:call(D,get),ok=supervisor:terminate_child(P,first),ok=supervisor:delete_child(P,first),[] =supervisor:which_children(P),ok=gen_server:stop(P),{V,C=/=D}. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "A7689BF0EDB44CB79E33F42585325705ECE90C82054846419C0135039FBFC82E",
+      "CSharpSha256": "2467E542F1E896718E2765B22AEBE8B891582E64D65094B6B87828A6CF01B63B",
+      "Expected": "{ok,{7,true}}",
+      "FixtureExpected": "{ok,{7,true}}",
+      "Actual": "{ok,{7,true}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-missing",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R={supervisor:terminate_child(P,missing),supervisor:restart_child(P,missing),supervisor:delete_child(P,missing)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "2D6C8DC5F152FD2F1D006C091FFA656A1E42306E72EC96230A5FDFA55C527F57",
+      "CSharpSha256": "E6512CF9CF56A0ACD4369D0400C01AD40684481DBEE24EDED0F4557156638473",
+      "Expected": "{ok,{{error,not_found},{error,not_found},{error,not_found}}}",
+      "FixtureExpected": "{ok,{{error,not_found},{error,not_found},{error,not_found}}}",
+      "Actual": "{ok,{{error,not_found},{error,not_found},{error,not_found}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-legacy",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),{ok,C}=supervisor:start_child(P,{first,{oracle_dynamic,child,[8]},transient,5000,worker,[oracle_dynamic]}),V=gen_server:call(C,get),ok=gen_server:stop(P),V. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "A415EA685CA199638511CB3DC25FE83EAB73EE09B97DF9541DEA3EBF793B10EB",
+      "CSharpSha256": "9E3065F4B7ED2D0C938778386C06D8F8C543610EB2174ACC8E41D300C450C973",
+      "Expected": "{ok,8}",
+      "FixtureExpected": "{ok,8}",
+      "Actual": "{ok,8}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-ignore-permanent",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[ignore]}},{ok,undefined}=supervisor:start_child(P,S),{error,already_present}=supervisor:start_child(P,S),R=supervisor:restart_child(P,first),ok=supervisor:delete_child(P,first),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "F30922E61928723F473EB9A30F1DFA82440DDB3F0CB7013DF3EFB25A554CD403",
+      "CSharpSha256": "4B3D59BDDD539BDD646302CB5672B5A121542B88A25E20B534F0112EAC5CFCB5",
+      "Expected": "{ok,{ok,undefined}}",
+      "FixtureExpected": "{ok,{ok,undefined}}",
+      "Actual": "{ok,{ok,undefined}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-ignore-temporary",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[ignore]},restart=\u003Etemporary},{ok,undefined}=supervisor:start_child(P,S),{ok,undefined}=supervisor:start_child(P,S),R={supervisor:which_children(P),supervisor:restart_child(P,first)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "8A07FFF7A7DFC962F1F2FEE1C206300CA8F66F81BE278AD3A0A7147235EC4639",
+      "CSharpSha256": "776DAB42C121493A6C73AF608F16E920A459EB2D77EA38565B18D28523AE349D",
+      "Expected": "{ok,{[],{error,not_found}}}",
+      "FixtureExpected": "{ok,{[],{error,not_found}}}",
+      "Actual": "{ok,{[],{error,not_found}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-extra",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),{ok,C,extra}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{extra,9}]}}),ok=supervisor:terminate_child(P,first),{ok,D,extra}=supervisor:restart_child(P,first),R={C=/=D,gen_server:call(D,get)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "FB58EAA244BE8592DBC32FB60F60F6E8D5F0463882CCF15BCBD98C167B0CFDFA",
+      "CSharpSha256": "C11248DD5FBF1466A00FD779CF835730B696DFDD5187C5FF2E95B0A82D6BF00E",
+      "Expected": "{ok,{true,9}}",
+      "FixtureExpected": "{ok,{true,9}}",
+      "Actual": "{ok,{true,9}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-temporary-termination",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]},restart=\u003Etemporary},{ok,C}=supervisor:start_child(P,S),ok=supervisor:terminate_child(P,first),{error,not_found}=supervisor:restart_child(P,first),{error,not_found}=supervisor:delete_child(P,first),{ok,D}=supervisor:start_child(P,S),R={C=/=D,gen_server:call(D,get)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "739F4611011C9E9B5134D1F1A6C341550964C0FD60AE7A2B4EAD51F2C5AB050A",
+      "CSharpSha256": "564339E94E7B45F519BBBE97FE8E2E23781125A4429773AE61D4EDB4401A9031",
+      "Expected": "{ok,{true,1}}",
+      "FixtureExpected": "{ok,{true,1}}",
+      "Actual": "{ok,{true,1}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-replacement",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),{ok,C}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]}}),ok=supervisor:terminate_child(P,first),ok=supervisor:delete_child(P,first),{ok,D}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[2]}}),R={C=/=D,gen_server:call(D,get)},ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "EADBD155405E1828C7F12D8B408C1F2465E2701119CF29F2C05E35B98960A4D6",
+      "CSharpSha256": "2B5245D5FC359A9922CA9C8498959E41A5EEA608291BCF0A9BFC6DC38E50B3FE",
+      "Expected": "{ok,{true,2}}",
+      "FixtureExpected": "{ok,{true,2}}",
+      "Actual": "{ok,{true,2}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-restart-failure-retry",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),{ok,_}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[retry]}}),ok=supervisor:terminate_child(P,first),{error,failed}=supervisor:restart_child(P,first),[{first,undefined,worker,_}]=supervisor:which_children(P),{ok,D}=supervisor:restart_child(P,first),V=gen_server:call(D,get),ok=gen_server:stop(P),V. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "1B80A272F28820A78CECEAFFA4F2233496E087F1F630F705E6E5C6E3297D7485",
+      "CSharpSha256": "D034D0A2360969786F80DA1A61DE1C7F01B48F3905B4AA3045FBD6388CC6D936",
+      "Expected": "{ok,3}",
+      "FixtureExpected": "{ok,3}",
+      "Actual": "{ok,3}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-order-and-counts",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),S=#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[ignore]}},T=#{id=\u003Esecond,start=\u003E{oracle_dynamic,child,[ignore]},type=\u003Esupervisor},{ok,undefined}=supervisor:start_child(P,S),{ok,undefined}=supervisor:start_child(P,T),[{second,undefined,supervisor,_},{first,undefined,worker,_}]=supervisor:which_children(P),ok=supervisor:delete_child(P,first),{ok,undefined}=supervisor:start_child(P,S),[{first,undefined,worker,_},{second,undefined,supervisor,_}]=supervisor:which_children(P),N=supervisor:count_children(P),ok=gen_server:stop(P),N. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "6C9A23EBF5F975005A54B346A88C057EDB2297CEAC12C37012242A8140CA79B3",
+      "CSharpSha256": "565D25B4DCA205AF5FFC384143F4CDE7A7284F053DBA7B1EC5CEB43B2CA5A630",
+      "Expected": "{ok,[{specs,2},{active,0},{supervisors,1},{workers,1}]}",
+      "FixtureExpected": "{ok,[{specs,2},{active,0},{supervisors,1},{workers,1}]}",
+      "Actual": "{ok,[{specs,2},{active,0},{supervisors,1},{workers,1}]}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-validate-before-duplicate",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[ignore]}}]),R=supervisor:start_child(P,#{id=\u003Efirst}),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "F206F90E6094AD36B15C0E2BFC072E878F43565921F15529E81331DF70EB1E95",
+      "CSharpSha256": "064C53857A2755F9FCEF1C545B3118311A5ED68007D9B98690A3912966102E02",
+      "Expected": "{ok,{error,missing_start}}",
+      "FixtureExpected": "{ok,{error,missing_start}}",
+      "Actual": "{ok,{error,missing_start}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-invalid-spec",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,bad),[] =supervisor:which_children(P),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "5769FC01D48A3B5EEF60127A98C5D28641B7BD5E433A8EE0F231C5F1D3415B8E",
+      "CSharpSha256": "1A3B3C93C593C23213E64AA6988E2BDF7C6ABD4098C3E5472A52894C793A3BB3",
+      "Expected": "{ok,{error,{invalid_child_spec,bad}}}",
+      "FixtureExpected": "{ok,{error,{invalid_child_spec,bad}}}",
+      "Actual": "{ok,{error,{invalid_child_spec,bad}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-failed-start",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{error,failed}]}}),[] =supervisor:which_children(P),{ok,C}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[1]}}),1=gen_server:call(C,get),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "926AEBB6E8CAE39A61685CC34D713AD89038A94FE644281BDE3C4845690DFEA2",
+      "CSharpSha256": "B9FBC7007FEAA50EA0594CD3B45BD23388B7C872FF5E8A5015D038F91F8BADD8",
+      "Expected": "{ok,{error,{failed,{child,undefined,first,{oracle_dynamic,child,[{error,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "FixtureExpected": "{ok,{error,{failed,{child,undefined,first,{oracle_dynamic,child,[{error,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Actual": "{ok,{error,{failed,{child,undefined,first,{oracle_dynamic,child,[{error,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-exit-start",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{exit,failed}]}}),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "9D21952BFA169547B68850815B1F0B612B68DF8C4CB046A26D1251738D3F41B2",
+      "CSharpSha256": "8C314E137C5104F09C4BF1C08254AADBE7204246B3B8F665F9C7EF18440513D3",
+      "Expected": "{ok,{error,{{\u0027EXIT\u0027,failed},{child,undefined,first,{oracle_dynamic,child,[{exit,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "FixtureExpected": "{ok,{error,{{\u0027EXIT\u0027,failed},{child,undefined,first,{oracle_dynamic,child,[{exit,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Actual": "{ok,{error,{{\u0027EXIT\u0027,failed},{child,undefined,first,{oracle_dynamic,child,[{exit,failed}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-raw-start",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{raw,bad}]}}),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "DADC275BEEC3B83794D18B3A9BF583126FD15D8A732BDCE50E10BFA628B9F8C6",
+      "CSharpSha256": "B8D6414F87E5B38ADF2079D3425BC78432A0CCE973B880C080CC9D0ADB5468B2",
+      "Expected": "{ok,{error,{bad,{child,undefined,first,{oracle_dynamic,child,[{raw,bad}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "FixtureExpected": "{ok,{error,{bad,{child,undefined,first,{oracle_dynamic,child,[{raw,bad}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Actual": "{ok,{error,{bad,{child,undefined,first,{oracle_dynamic,child,[{raw,bad}]},permanent,false,5000,worker,[oracle_dynamic]}}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-throw-return",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),R=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{throw,ignore}]}}),ok=supervisor:delete_child(P,first),ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "86F21CE49AD631FDC60AF2E6782AF8A4D511860861CE1171DA062C69530C2603",
+      "CSharpSha256": "0A28EE055088D26A5AC91D66459D8B636ED4A3B9F97056569FEE59C5B5F9F68E",
+      "Expected": "{ok,{ok,undefined}}",
+      "FixtureExpected": "{ok,{ok,undefined}}",
+      "Actual": "{ok,{ok,undefined}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-already-started-return",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,C}=gen_server:start_link(oracle_dynamic,{worker,1},[]),{ok,P}=supervisor:start_link(oracle_dynamic,[]),{error,{already_started,C}}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{error,{already_started,C}}]}}),[] =supervisor:which_children(P),ok=gen_server:stop(P),ok=gen_server:stop(C),ok. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "626C5B6CB79225CE03A60F2F4F646192198CAF43EDE5AF99FF6593E75D7E0801",
+      "CSharpSha256": "450C3269E69D5625738B1491DBF5E8A7519982846793A550EDF3FDA63E5085DF",
+      "Expected": "{ok,ok}",
+      "FixtureExpected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-shutdown-ack",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,P}=supervisor:start_link(oracle_dynamic,[]),{ok,_}=supervisor:start_child(P,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[{notify,self(),1}]}}),receive {started,1,_}-\u003Eok after 1000-\u003Emissing end,ok=supervisor:terminate_child(P,first),R=receive {terminated,1,shutdown}-\u003Edone after 1000-\u003Emissing end,ok=gen_server:stop(P),R. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "0EE12AFAB9B64FB987CD5FCF8431C310F2CD918A88DB17C5BD88A75AC799B4DE",
+      "CSharpSha256": "D21BCCE6754C090C4B97137659FB4E0D363EF27A98D58A996175E88074404253",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-named",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003E{ok,_}=supervisor:start_link({local,oracle_dynamic_name},oracle_dynamic,[]),{ok,C}=supervisor:start_child(oracle_dynamic_name,#{id=\u003Efirst,start=\u003E{oracle_dynamic,child,[5]}}),5=gen_server:call(C,get),ok=supervisor:terminate_child(oracle_dynamic_name,first),ok=supervisor:delete_child(oracle_dynamic_name,first),ok=gen_server:stop(oracle_dynamic_name),ok. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "215EB3D6A9BB23C8D731456D6E6D4F0A1296C3954884F93AFC6031910C9C6F4A",
+      "CSharpSha256": "E04CFFCC3270C6405D50F29D91E7A5D315E5A395911046D2AEA3E883283B4BA9",
+      "Expected": "{ok,ok}",
+      "FixtureExpected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-dynamic-missing-supervisor",
+      "Source": "-module(oracle_dynamic). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003Etry supervisor:delete_child(oracle_missing,first) catch exit:R-\u003ER end. init({worker,{notify,P,S}})-\u003Eprocess_flag(trap_exit,true),{ok,{notify,P,S}}; init({worker,S})-\u003E{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}; init(C)-\u003E{ok,{#{},C}}. child(ignore)-\u003Eignore; child({error,R})-\u003E{error,R}; child({exit,R})-\u003Eexit(R); child({raw,R})-\u003ER; child({throw,R})-\u003Ethrow(R); child({extra,S})-\u003E{ok,P}=gen_server:start_link(oracle_dynamic,{worker,S},[]),{ok,P,extra}; child(retry)-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),gen_server:start_link(oracle_dynamic,{worker,1},[]); 1-\u003Eput(attempt,2),{error,failed}; _-\u003Egen_server:start_link(oracle_dynamic,{worker,3},[]) end; child({notify,P,S})-\u003ER=gen_server:start_link(oracle_dynamic,{worker,{notify,P,S}},[]),P!{started,S,R},R; child(S)-\u003Egen_server:start_link(oracle_dynamic,{worker,S},[]). handle_call(get,_,S)-\u003E{reply,S,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{notify,P,S})-\u003EP!{terminated,S,R}; terminate(_,_)-\u003Eok.",
+      "SourceSha256": "1CC53185C0603F5B12F35214449C6F45DDFFF2538133493D5D4729A1C601D346",
+      "CSharpSha256": "55C40711982D0958B6F855BCAA131198A19E6D918D9D0FDD9E594FA0F2BC3E65",
+      "Expected": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
+      "FixtureExpected": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
+      "Actual": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
       "Passed": true
     }
   ],

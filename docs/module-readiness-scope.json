@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-086/ci-tests.json",
+  "ComparisonTestReport": "validation/part-087/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -131,7 +131,7 @@
         "C# strategies/policies/intensity and nine standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
         "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
-        "Selected static callback contracts verified at2fd52f8; dynamic increment original comparison pending"
+        "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [
@@ -178,10 +178,10 @@
         "broader compiled-module/optimizer/stacks/signals"
       ],
       "Implemented": [
-        "Pinned exact-source OTP-29.1.1 at2fd52f8:1293/1293=778 expressions/436 compiled modules/79 diagnostics",
-        "All previous778/399/79 source/expected/generated hashes preserved;37 independently expected OTP callback modules added with zero expectation corrections",
-        "Same-head1482/full CI; raw source/version/completeness/workflow/job/artifact provenance retained",
-        "Initial local host-init/unsafe-variable/tool-registry failures retained part084; original1182/1293 incomplete transport failure retained part085 and resolved with framed transport, without expectation changes"
+        "Pinned exact-source OTP-29.1.1 at32c827a:1319/1319=778 expressions/462 compiled modules/79 diagnostics",
+        "All prior778/436/79 sources/expectations/generated hashes unchanged;26 independent dynamic supervisor modules, zero expectation corrections",
+        "Same-head1512/full CI with local/CI test names identical; source/version/completeness/workflow/job/artifact proof retained",
+        "Initial local fixture/incremental failures retained part087; framed transport preserved"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

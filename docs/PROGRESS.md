@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–087.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–088.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 81 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 85 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -518,3 +518,11 @@ Four registered Erlang APIs implement start_child/2, terminate_child/2, restart_
 26 independently expected compiled Erlang modules cover lifecycle/missing/running/duplicate states, legacy/named specs, ignore, extra, failed/retry/throw/exit/raw starts, shutdown acknowledgement, temporary/transient exits, query order/counts and dynamic group restart schedules. Prior778 expressions/436 compiled module sources/expectations/generated hashes and79 diagnostics are unchanged. Registry85 (+4), supervisor9/23 and gen_server10/41 explicit-declaration API presence; these are partial APIs, not compatibility percentages. Local validation/original-source checkpoints are recorded in parts087/088; source comparison is pending until part088 is complete. Historical1293/1293 belongs to2fd52f8/part086.
 
 Simple_one_for_one, significant/auto_shutdown, automatic restart retry/restarting states, returned dead/nonlinked PIDs, complete intensity/shutdown/signal races, sys/upgrades/stacks/resources and full upstream/performance suites remain unfinished. Approximately5% coarse overall. Next exact-source comparison and lifecycle/retry hardening; no full-module or BEAM speed claim.
+
+## Part 088 — Exact-source dynamic supervisor verification (2026-10-11)
+
+Implementation **32c827a517c7e372b0181fe08dfbde978200b16f** passes **1319/1319=778 expressions+462 compiled modules+79 diagnostics** against OTP-29.1.1 built from exact SHAad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-088/differential.json), [provenance](validation/part-088/remote-checkpoint.json), [preservation](validation/part-088/corpus-audit.json). Same-head CI **1512/1512 and full pipeline**, test names match local part087 exactly. Original version/build/head/completeness/tracks/artifacts and independent expectations verified. All prior778/436/79 contracts/hashes unchanged;26 new dynamic child contracts match with zero expectation corrections. Initial local failures retained part087. Local full1512 execution preceded commit with the same executable sources; no repeated full pipeline in this evidence-only part.
+
+Ordinary-supervisor start/terminate/restart/delete transitions, errors/child-record payloads, Extra/ignore, temporary/transient exits, query order/counts, names, shutdown acknowledgement and dynamic group restart order selected contracts verified. Registry85, supervisor9/23 and gen_server10/41 partial API presence;218 namespace types/no violations. Consolidated notices packaged, draft excluded; no new dependency/BEAM/banners. Whole task approximately5% coarse, full modules/upstream suites/performance unfinished.
+
+Source inspection confirms automatic restart failures require a restarting marker and tagged retry cast that yields to the mailbox; the current automatic engine exits on these failures. Next port this retry schedule and test shutdown/control interleaving, dead/nonlinked PIDs and intensity/time boundaries. Simple_one_for_one, significant/auto_shutdown, full sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources/races remain unfinished.

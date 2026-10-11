@@ -2,7 +2,7 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
-Development validation now compares **778 expressions**, **436 separately compiled fixture modules** and **79 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-086/remote-checkpoint.json).
+Development validation now compares **778 expressions**, **462 separately compiled fixture modules** and **79 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-088/remote-checkpoint.json).
 
 The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, selected Erlang gen_server/supervisor callback adapters and a mixed C#/Erlang MSBuild preprocessor.
 
