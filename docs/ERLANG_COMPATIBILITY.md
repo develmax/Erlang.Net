@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c034. All 51 new monitor and 46 default-disabled trace contracts match. 218/351 erlang exports present; 133 missing. Tested process monitoring/default-disabled tracing does not establish port/time_offset/connected-distribution/enabled-tracing completeness.
+
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
 Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.218 registered,133 missing,total368 direct MFAs.62.1% API presence is not semantic completion.

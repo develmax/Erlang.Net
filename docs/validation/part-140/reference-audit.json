@@ -1,0 +1,131 @@
+{
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "BlobSHA1": "840127c5162b14a3b7e7eb834e28fd950755f99d"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_monitor_link.h",
+      "BlobSHA1": "7523228293a52883820d0d651b0d34cdcc8c0010"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "erts/preloaded/src/erts_internal.erl",
+      "BlobSHA1": "fcf68868566fd8c83af7a6dbac97e33c067ddb23"
+    },
+    {
+      "Path": "erts/configure.ac",
+      "BlobSHA1": "c5113a5953128d331ebff40e66feb6b2ced9f7b6"
+    }
+  ],
+  "Registry": 368,
+  "ApiPresencePercent": 62.1,
+  "Boundaries": [
+    "Only process-kind monitor paths implemented; port/time_offset and connected distribution unfinished",
+    "Default-disabled trace configuration only; enabled tracing backends unfinished",
+    "Physical scheduler/races/reductions/full error_info/stacks/resources/exhaustive CT and speed superiority not established"
+  ],
+  "NewTraceModules": 46,
+  "NewCompiledModules": 97,
+  "ErlangDeclared": 351,
+  "ErlangPresent": 218,
+  "NativeStatus": "Pending140",
+  "Missing": 133,
+  "OriginalExclusions": 6,
+  "HostStrengthening": "Initial3902 passed before final five-field DOWN assertion; full3902 validates exact tag/reference/kind/child PID/reason",
+  "InitialFailures": [
+    "Prototype host redundantly registered builtin modules; duplicate erlang:self/0 failure preserved; remove redundant registration and rerun pass"
+  ],
+  "Preservation": "All1372436 source/expectation/generated hashes and historical778/1951/93 preserved",
+  "Configuration": "Default no dynamic probes; exact compiled !USE_VM_PROBES branches; enabled tracing unfinished",
+  "Licensing": "Altered consolidated Ericsson Apache notices exact in two local packages; no source banners,dependency,public package or draft license",
+  "ManagedPlan": 3404,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NewMonitorModules": 51,
+  "PriorTests": 3795,
+  "NewExports": [
+    {
+      "Module": "erlang",
+      "Function": "monitor",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:monitor/3",
+      "Limits": "Owned process monitors with tag/priority/alias modes, pending DOWN and single-message flush/info; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "demonitor",
+      "Arity": 2,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:demonitor/2",
+      "Limits": "Owned process monitors with tag/priority/alias modes, pending DOWN and single-message flush/info; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_get_tag",
+      "Arity": 0,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_get_tag/0",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_get_tag_data",
+      "Arity": 0,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_get_tag_data/0",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_put_tag",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_put_tag/1",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_append_vm_tag_data",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_append_vm_tag_data/1",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_prepend_vm_tag_data",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_prepend_vm_tag_data/1",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_spread_tag",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_spread_tag/1",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dt_restore_tag",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:dt_restore_tag/1",
+      "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+    }
+  ],
+  "Tests": 3902,
+  "Baseline": "OTP-29.1.1",
+  "ComparableOriginalPlan": 3398,
+  "NewHostChecks": 1
+}

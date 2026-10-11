@@ -1,5 +1,7 @@
 # Compatibility checkpoint — 2026-10-11
 
+Part140: **3398/3398 comparable original OTP and 3902/full same-head CI** at a71c034. All 51 new monitor and 46 default-disabled trace contracts match; all 139 fixtures and six exclusions remain unchanged. [Proof](validation/part-140/remote-checkpoint.json). Registry 368; erlang 218/351, 133 missing, 62.1% API presence. Next: actual group-leader inheritance, MFA spawning and monitored I/O requests, then remaining runtime prerequisites. The full erlang goal continues.
+
 Part139: process monitor options/pending DOWN/alias modes and seven exact default-disabled trace exports; **3902/full local**,97 new modules and one concurrent128-child host check. [Audit](validation/part-139/reference-audit.json). Registry368;erlang218/351,133missing,62.1% API presence. All137 fixtures preserved; six exclusions unchanged. Original3398 and same-head3902 CI pending140; latest successful original138. Whole erlang goal active; ports/clock monitors/distribution/enabled tracing/native scheduler prerequisites unfinished.
 
 Part138: **3301/3301 comparable original OTP and3795/full same-head CI** at2eb3e41; all137 fixtures and old native outcomes preserved;136 pending alias mismatch repaired without source/hash change or new exclusion. [Proof](validation/part-138/remote-checkpoint.json). Registry359;erlang209/351,142missing,59.5% API presence. Refresh actual export table. Next integrate process monitor options/default-disabled tracing,then group leader/spawn and remaining real runtime prerequisites; whole erlang goal active.
