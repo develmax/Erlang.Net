@@ -9,6 +9,9 @@ public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, i
     public void Register(ModuleRegistry registry)
     {
         Otp.OtpModules.Register(registry);
+        AtomNameRegistry.Observe(Name);
+        foreach (var function in Functions)
+            AtomNameRegistry.Observe(function.Name);
 
         foreach (var export in Exports)
             registry.Register(

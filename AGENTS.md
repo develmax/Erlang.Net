@@ -399,3 +399,6 @@ Local2626/full,283 MFAs(+28),erlang133/351,1371 compiled modules(+240),planned22
 
 ## Part114 active erlang checkpoint
 2832c78 now verifies2233/2233=778/1371/84 exact-source original and2626/full same-head CI;283MFAs,erlang133/351/218missing,280types. Historical110778/1016/84 preserved; ten basic source corrections after failed112 immutable113,355 new independent modules match. Evidence-only zero delta versus113. Publish114 then integrate atom/existing table and float-output drafts; all remaining exports require real runtime support.0016 active and closed0015 unchanged; draft license excluded. User goal stays active until whole erlang completion.
+
+## Part115 active erlang checkpoint
+Local atom/float-output increment:146/351,total296,205missing;2816/full,175 new modules,293types;original2408/same-head2816 CI116 pending. All114 historical778/1371/84 preserved. VM atom-name retention separate from ten cached objects;ordinal bootstrap956,EXIT/exit source-generation fix,full resource/configurable/native-population boundaries explicit. Publish115,freeze executable sources for116 proof;continue clocks/timer options then ETF/hash/process/native-record/code/ports/distribution/tracing/host support.0016 active,closed0015/draft preserved.

@@ -73,6 +73,8 @@ public static class Lexer
                         throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.IllegalQuotedUnicode, start);
                     offset += rune.Utf16SequenceLength;
                 }
+                if (c == '\'')
+                    AtomNameRegistry.Observe(literal);
                 tokens.Add(new(
                     c == '\'' ? LexerTokenKinds.QuotedAtom : LexerTokenKinds.String,
                     literal,
@@ -86,6 +88,7 @@ public static class Lexer
                 while (i < text.Length && (char.IsLetterOrDigit(text[i]) || text[i] is '_' or '@'))
                     i++;
                 string name = text[start..i];
+                AtomNameRegistry.Observe(name);
                 tokens.Add(new(
                     char.IsUpper(c) || c == '_' ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom,
                     name,

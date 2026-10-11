@@ -5,14 +5,15 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Terms",
       "Remaining": [
-        "full atom/resource limits and distributed identity"
+        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity"
       ],
       "Implemented": [
         "immutable terms and exact/numeric equality",
         "codepoint ordering and integer/float coercion",
         "bounded reuse of ten common immutable atom values",
         "privately owned exact-key Dictionary index with sorted read-only map entries",
-        "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms"
+        "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
+        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized"
       ],
       "Id": "Terms",
       "TestPrefixes": [
@@ -108,7 +109,8 @@
         "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
         "Complete maps exported surface 34/34 with 90 new independently expected modules verified against exact-source OTP at 6363039; full internal/resource/error_info/stack/performance parity unclaimed",
         "Complete lists 91/91 exported surface with 252 new independent functional modules verified against pinned original at 9aeb8f1; native allocation/reduction/stacks/error_info/exhaustive CT/performance contracts unclaimed",
-        "Erlang basic/data increment:89 new MFAs,355 compiled contracts (116 basic,239 data) verified against exact-source OTP at2832c78; erlang133/351,218 missing; whole module remains partial"
+        "Erlang basic/data increment:89 new MFAs,355 compiled contracts (116 basic,239 data) verified against exact-source OTP at2832c78; erlang133/351,218 missing; whole module remains partial",
+        "Erlang text increment:13 actual atom/float-output MFAs and175 independent modules;local2816/full;erlang146/351,205 missing;original116 pending"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [
@@ -119,7 +121,8 @@
         "oracle/compiled-module/maps-completion-",
         "oracle/compiled-module/lists-completion-",
         "oracle/compiled-module/erlang-basic-",
-        "oracle/compiled-module/erlang-data-"
+        "oracle/compiled-module/erlang-data-",
+        "oracle/compiled-module/erlang-text-"
       ]
     },
     {

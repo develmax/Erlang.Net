@@ -22,7 +22,7 @@ Regenerate the report from the current successful test report and actual runtime
 dotnet run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/tests.json docs
 ```
 
-Term.A("ok") represents the Erlang atom ok, a symbolic value often used as a success marker; Term.String("ok") creates a character list. The factory reuses ten fixed common immutable atom values and leaves arbitrary names uncached. Compare terms by value, not CLR object identity. Domain constants retain their separate protocol meanings.
+Term.A("ok") represents the Erlang atom ok, a symbolic value often used as a success marker; Term.String("ok") creates a character list. The factory reuses ten fixed common immutable atom values and leaves arbitrary Atom objects uncached; their names are retained in the VM-wide name table for existing-atom conversion. Compare terms by value, not CLR object identity. Domain constants retain their separate protocol meanings.
 
 The source subset includes map construction, associative/exact updates and map patterns with supported guard-expression keys, plus integer/binary bitstring construction and patterns with signed extraction, byte order and prior-segment size bindings. Overall project completion is estimated at roughly 10% after the verified early functional platform milestone; this is an engineering estimate, not verified compatibility coverage. See progress and the changelog for evidence and remaining scope.
 
@@ -70,4 +70,4 @@ Source formatting: `dotnet run --project tools/Erlang.Style -- --write .`. The f
 
 Tests are a dependency-free executable harness and return a failing exit code on any failed assertion. `dotnet test` is not the test entry point. A separate differential runner requires an exact OTP 29.1.1 development oracle; production execution and builds do not.
 
-The erlang module currently registers **133/351** pinned exports; [erlang scope ledger](docs/ERLANG_COMPATIBILITY.md) lists all implemented and missing APIs. Latest implementation2832c78 passes [2233/2233 original and2626/full same-head CI](docs/validation/part-114/remote-checkpoint.json), with2626/full local113. Failed112 evidence is retained; module completion remains an active goal.
+The erlang module currently registers **146/351** pinned exports; [scope ledger](docs/ERLANG_COMPATIBILITY.md) lists205 missing APIs. Latest atom/float-output increment passes2816/full local115; original2408/same-head CI116 pending. Latest completed [2233/2233 original and2626/full CI114](docs/validation/part-114/remote-checkpoint.json) remains historical proof. Whole-module completion is an active goal.

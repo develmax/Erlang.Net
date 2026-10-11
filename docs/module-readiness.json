@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-113/tests.json",
-  "LocalPassedTests": 2626,
-  "RegisteredMfas": 283,
+  "LocalPassedTests": 2816,
+  "RegisteredMfas": 296,
   "PreviousRegisteredMfas": 283,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 13,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -19,12 +19,13 @@
         "codepoint ordering and integer/float coercion",
         "bounded reuse of ten common immutable atom values",
         "privately owned exact-key Dictionary index with sorted read-only map entries",
-        "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms"
+        "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
+        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized"
       ],
       "Remaining": [
-        "full atom/resource limits and distributed identity"
+        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity"
       ],
-      "RelatedPassedTests": 32
+      "RelatedPassedTests": 34
     },
     {
       "Id": "Serialization",
@@ -55,7 +56,7 @@
         "distribution, ETS/DETS, ports/NIF/code loading",
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
       ],
-      "RelatedPassedTests": 170
+      "RelatedPassedTests": 183
     },
     {
       "Id": "Compiler",
@@ -98,13 +99,14 @@
         "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
         "Complete maps exported surface 34/34 with 90 new independently expected modules verified against exact-source OTP at 6363039; full internal/resource/error_info/stack/performance parity unclaimed",
         "Complete lists 91/91 exported surface with 252 new independent functional modules verified against pinned original at 9aeb8f1; native allocation/reduction/stacks/error_info/exhaustive CT/performance contracts unclaimed",
-        "Erlang basic/data increment:89 new MFAs,355 compiled contracts (116 basic,239 data) verified against exact-source OTP at2832c78; erlang133/351,218 missing; whole module remains partial"
+        "Erlang basic/data increment:89 new MFAs,355 compiled contracts (116 basic,239 data) verified against exact-source OTP at2832c78; erlang133/351,218 missing; whole module remains partial",
+        "Erlang text increment:13 actual atom/float-output MFAs and175 independent modules;local2816/full;erlang146/351,205 missing;original116 pending"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1147
+      "RelatedPassedTests": 1335
     },
     {
       "Id": "gen_server adapters",
@@ -194,7 +196,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 1464
+      "RelatedPassedTests": 1639
     },
     {
       "Id": "Style checks",
@@ -5463,11 +5465,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 133,
+      "RegisteredMfas": 146,
       "PreviousRegisteredMfas": 133,
-      "Delta": 0,
+      "Delta": 13,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 37.9,
+      "ApiPresencePercent": 41.6,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5499,9 +5501,16 @@
         "erlang:append_element/2",
         "erlang:apply/2",
         "erlang:apply/3",
+        "erlang:atom_to_binary/1",
+        "erlang:atom_to_binary/2",
+        "erlang:atom_to_list/1",
         "erlang:band/2",
         "erlang:binary_part/2",
         "erlang:binary_part/3",
+        "erlang:binary_to_atom/1",
+        "erlang:binary_to_atom/2",
+        "erlang:binary_to_existing_atom/1",
+        "erlang:binary_to_existing_atom/2",
         "erlang:binary_to_float/1",
         "erlang:binary_to_integer/1",
         "erlang:binary_to_integer/2",
@@ -5530,6 +5539,10 @@
         "erlang:exit/1",
         "erlang:exit/2",
         "erlang:float/1",
+        "erlang:float_to_binary/1",
+        "erlang:float_to_binary/2",
+        "erlang:float_to_list/1",
+        "erlang:float_to_list/2",
         "erlang:floor/1",
         "erlang:get/0",
         "erlang:get/1",
@@ -5563,8 +5576,10 @@
         "erlang:is_tuple/1",
         "erlang:length/1",
         "erlang:link/1",
+        "erlang:list_to_atom/1",
         "erlang:list_to_binary/1",
         "erlang:list_to_bitstring/1",
+        "erlang:list_to_existing_atom/1",
         "erlang:list_to_float/1",
         "erlang:list_to_integer/1",
         "erlang:list_to_integer/2",

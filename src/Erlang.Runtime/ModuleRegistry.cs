@@ -11,7 +11,12 @@ public sealed class ModuleRegistry
         string function,
         int arity,
         ErlangFunction body
-    ) => functions.Add((module, function, arity), body);
+    )
+    {
+        AtomNameRegistry.Observe(module);
+        AtomNameRegistry.Observe(function);
+        functions.Add((module, function, arity), body);
+    }
 
     public ValueTask<Term> Call(
         ProcessContext context,

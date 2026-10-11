@@ -209,6 +209,30 @@
   },
   {
     "Module": "erlang",
+    "Function": "atom_to_binary",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:atom_to_binary/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "atom_to_binary",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:atom_to_binary/2",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "atom_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:atom_to_list/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "band",
     "Arity": 2,
     "Status": "Partially compatible",
@@ -230,6 +254,38 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:binary_part/3",
     "Limits": "Source-directed integer/binary/list/iolist/float-parser/checksum contracts;functional/error contracts verified against pinned original in114;native storage/resource/stack/error_info/performance contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "binary_to_atom",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:binary_to_atom/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "binary_to_atom",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:binary_to_atom/2",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "binary_to_existing_atom",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:binary_to_existing_atom/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "binary_to_existing_atom",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:binary_to_existing_atom/2",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -454,6 +510,38 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:float/1",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "float_to_binary",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:float_to_binary/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "float_to_binary",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:float_to_binary/2",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "float_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:float_to_list/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "float_to_list",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:float_to_list/2",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -721,6 +809,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "list_to_atom",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_atom/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "list_to_binary",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -734,6 +830,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:list_to_bitstring/1",
     "Limits": "Source-directed integer/binary/list/iolist/float-parser/checksum contracts;functional/error contracts verified against pinned original in114;native storage/resource/stack/error_info/performance contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "list_to_existing_atom",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_existing_atom/1",
+    "Limits": "Source-directed atom Unicode/Latin1/existing-name and float output/options/rounding contracts;original116 pending;VM name retention/capacity and native allocation/stack/error_info/performance boundaries explicit"
   },
   {
     "Module": "erlang",

@@ -7,6 +7,34 @@ using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
 Test(
+    "terms/atom-name-registry-observation",
+    () =>
+    {
+        string name = "host_observed_atom_name_115";
+        var first = new Atom(name);
+        Check(AtomNameRegistry.Exists(name));
+        var second = Term.A(name);
+        Check(!ReferenceEquals(first, second));
+        Equal(first, second);
+        Check(AtomNameRegistry.Exists(ProcessExitReasons.Normal));
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "terms/atom-name-registry-concurrent-insertion",
+    () =>
+    {
+        string name = "concurrent_atom_115_" + Guid.NewGuid().ToString("N");
+        int before = AtomNameRegistry.Count;
+        Parallel.For(0, 500, _ => AtomNameRegistry.Observe(name));
+        Check(AtomNameRegistry.Exists(name));
+        Check(AtomNameRegistry.Count == before + 1);
+
+        return Task.CompletedTask;
+    }
+);
+Test(
     "terms/identity-deep-reuse",
     () =>
 {
