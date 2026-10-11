@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-103/tests.json",
-  "LocalPassedTests": 1864,
+  "LocalPassedTests": 1869,
   "RegisteredMfas": 134,
   "PreviousRegisteredMfas": 129,
   "RegisteredMfaDelta": 5,
@@ -95,13 +95,14 @@
         "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
         "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations",
         "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
-        "Complete maps exported surface34/34: intersect/intersect_with/merge_with and groups_from_list/2,3; smaller-map combiner orientation, right-to-left grouping callbacks, iterator to_list and source error precedence"
+        "Complete maps exported surface34/34: intersect/intersect_with/merge_with and groups_from_list/2,3; smaller-map combiner orientation, right-to-left grouping callbacks, iterator to_list and source error precedence",
+        "Source-directed iterator tuple-chain correction with five regression cases; 90 maps completion modules local, original part108 pending"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 386
+      "RelatedPassedTests": 391
     },
     {
       "Id": "gen_server adapters",
@@ -191,7 +192,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 852
+      "RelatedPassedTests": 857
     },
     {
       "Id": "Style checks",

@@ -43,10 +43,18 @@ public static class MapIteration
             Term keys = state.Head;
             if (keys is Integer path && path.Value == MapIteratorLayout.InitialPath)
                 keys = Cons.From(map.Entries.Select(entry => entry.Key));
-            if (keys is Nil)
-                return Term.A(MapIteratorAtoms.None);
-            if (keys is Cons key && map.TryGet(key.Head, out var value))
-                return Term.Tuple(key.Head, value!, new Cons(key.Tail, map));
+            var entries = new List<KeyValuePair<Term, Term>>();
+            foreach (Term key in Cons.Items(keys))
+            {
+                if (!map.TryGet(key, out var value))
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                entries.Add(new(key, value!));
+            }
+            Term result = Term.A(MapIteratorAtoms.None);
+            for (int i = entries.Count - 1; i >= 0; i--)
+                result = Term.Tuple(entries[i].Key, entries[i].Value, result);
+
+            return result;
         }
 
         throw new ErlangException(ErlangErrorReasons.BadArgument);

@@ -123,8 +123,8 @@ public static class MapsCompletionCases
                 "put(input,[[missing]|#{a=>1}]),T=get(input),try maps:to_list(T) of _->unexpected catch error:{badmap,T}->ok end"
             ),
             Case(
-                "iterator-valid-first-only",
-                "I=[[a,missing]|#{a=>1}],true=maps:is_iterator_valid(I),try maps:to_list(I) of _->unexpected catch error:{badmap,I}->ok end"
+                "iterator-valid-missing-later-key",
+                "I=[[a,missing]|#{a=>1}],false=maps:is_iterator_valid(I),try maps:to_list(I) of _->unexpected catch error:{badmap,I}->ok end"
             ),
             Case(
                 "all-iteration-consistency-small",
@@ -208,6 +208,14 @@ public static class MapsCompletionCases
             "try maps:iterator(wrong,ordered) of _->unexpected catch error:badarg->ok end,try maps:iterator(#{},wrong) of _->unexpected catch error:badarg->ok end,try maps:iterator(#{},fun(_)->true end) of _->unexpected catch error:badarg->ok end"
         ));
         cases.Add(Case("next-tuple-pass-through", "T={a,b,wrong},T=maps:next(T),false=maps:is_iterator_valid(T),none=maps:next(none)"));
+        cases.Add(Case("next-ordered-tuple-chain", "{a,1,{b,2,none}}=maps:next(maps:iterator(#{a=>1,b=>2},ordered))"));
+        cases.Add(Case("next-reversed-tuple-chain", "{b,2,{a,1,none}}=maps:next(maps:iterator(#{a=>1,b=>2},reversed))"));
+        cases.Add(Case("next-missing-later-key", "try maps:next([[a,missing]|#{a=>1}]) of _->unexpected catch error:badarg->ok end"));
+        cases.Add(Case("next-improper-later-tail", "try maps:next([[a|wrong]|#{a=>1}]) of _->unexpected catch error:badarg->ok end"));
+        cases.Add(Case(
+            "foreach-invalid-batch-no-callback",
+            "put(called,false),I=[[a,missing]|#{a=>1}],try maps:foreach(fun(_,_) ->put(called,true) end,I) of _->unexpected catch error:{badmap,I}->ok end,false=get(called)"
+        ));
         cases.Add(Case(
             "next-bad-iterator",
             "try maps:next(wrong) of _->unexpected catch error:badarg->ok end,try maps:next([]) of _->unexpected catch error:badarg->ok end"

@@ -375,3 +375,6 @@ Implementation d713491 verifies1536/1536=778/674/84 and 1774/full same-headCI; p
 
 ## Part 105 checkpoint
 Maps export surface is complete 34/34; five new MFAs, 134 total. New 85 independent source modules pass locally; 1864/full pipeline, 250 types/no violations; all prior 778/674/84 sources/expectations/generated hashes retained. Publish105, run pinned1621=778/759/84 and same-head1864/full CI; preserve106. No new expectation corrections or SSA workarounds; historical two explicit no_ssa_opt sources unchanged. maps internal HAMT/opaque layout/stacks/error_info/resources/full CT/BEAM speed not claimed. Active0015, closed journals and sibling unchanged; draft license excluded.
+
+## Part 107 checkpoint
+1869/full local, 134 MFAs, 250 types. Pinned map_next builds tuple chains; corrected one provisional source true assertion to false, retained failure106, 84 other new maps fixtures unchanged. Added five cases; next original1626=778/764/84 pending108. All historical104 sources/expectations/generated hashes unchanged. maps34/34 API; native batching/resources/HAMT/error_info/stacks/full CT/performance partial. License draft excluded; active0015; no banners/new dependencies. Publish and verify original.
