@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-138/ci-tests.json",
-  "LocalPassedTests": 3795,
-  "RegisteredMfas": 359,
+  "LocalPassedTests": 3902,
+  "RegisteredMfas": 368,
   "PreviousRegisteredMfas": 359,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 9,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -58,7 +58,8 @@
         "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
         "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes",
         "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending",
-        "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending"
+        "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending",
+        "Part139: owned process monitor/3,demonitor/2,tag/priority/alias modes,pending DOWN and single-message flush/info; seven exact default-disabled dt_* exports; 97 compiled contracts plus concurrent128-child host check;3902/full local, original140 pending"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -67,7 +68,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 252
+      "RelatedPassedTests": 262
     },
     {
       "Id": "Compiler",
@@ -125,7 +126,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1398
+      "RelatedPassedTests": 1407
     },
     {
       "Id": "gen_server adapters",
@@ -220,7 +221,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 2542
+      "RelatedPassedTests": 2639
     },
     {
       "Id": "Style checks",
@@ -5489,11 +5490,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 209,
+      "RegisteredMfas": 218,
       "PreviousRegisteredMfas": 209,
-      "Delta": 0,
+      "Delta": 9,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 59.5,
+      "ApiPresencePercent": 62.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5563,7 +5564,15 @@
         "erlang:date/0",
         "erlang:delete_element/2",
         "erlang:demonitor/1",
+        "erlang:demonitor/2",
         "erlang:div/2",
+        "erlang:dt_append_vm_tag_data/1",
+        "erlang:dt_get_tag/0",
+        "erlang:dt_get_tag_data/0",
+        "erlang:dt_prepend_vm_tag_data/1",
+        "erlang:dt_put_tag/1",
+        "erlang:dt_restore_tag/1",
+        "erlang:dt_spread_tag/1",
         "erlang:element/2",
         "erlang:erase/0",
         "erlang:erase/1",
@@ -5643,6 +5652,7 @@
         "erlang:md5_update/2",
         "erlang:min/2",
         "erlang:monitor/2",
+        "erlang:monitor/3",
         "erlang:monotonic_time/0",
         "erlang:monotonic_time/1",
         "erlang:nif_error/1",

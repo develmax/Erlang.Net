@@ -487,3 +487,7 @@ Part137: receiver admission repairs pending alias signals; 10 new independent mo
 ## Part138 checkpoint
 
 Part138: **3301/3301 comparable original OTP and3795/full same-head CI** at2eb3e41; all137 fixtures and old native outcomes preserved;136 pending alias mismatch repaired without source/hash change or new exclusion. [Proof](validation/part-138/remote-checkpoint.json). Registry359;erlang209/351,142missing,59.5% API presence. Refresh actual export table. Next integrate process monitor options/default-disabled tracing,then group leader/spawn and remaining real runtime prerequisites; whole erlang goal active.
+
+## Part139 checkpoint
+
+Part139: process monitor options/pending DOWN/alias modes and seven exact default-disabled trace exports; **3902/full local**,97 new modules and one concurrent128-child host check. [Audit](validation/part-139/reference-audit.json). Registry368;erlang218/351,133missing,62.1% API presence. All137 fixtures preserved; six exclusions unchanged. Original3398 and same-head3902 CI pending140; latest successful original138. Whole erlang goal active; ports/clock monitors/distribution/enabled tracing/native scheduler prerequisites unfinished.

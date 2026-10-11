@@ -203,7 +203,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             2,
-            (c, a) => AtomName(a[0]) == ProcessMonitorKinds.Process ? c.Runtime.Monitor(c, PidValue(a[1])) : throw new ErlangException(ErlangErrorReasons.BadArgument)
+            (c, a) => AtomName(a[0]) == ProcessMonitorKinds.Process ? c.Runtime.Monitor(c, a[1], ProcessMonitorOptions.Default) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(
             ErlangModuleNames.Module,
@@ -726,6 +726,8 @@ public static class CoreModules
         ErlangEtfRegistrations.Register(r);
         ErlangHashRegistrations.Register(r);
         ProcessAliasRegistrations.Register(r);
+        ProcessMonitorRegistrations.Register(r);
+        DynamicTraceRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })

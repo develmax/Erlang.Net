@@ -1,0 +1,52 @@
+{
+  "Plan": [
+    "Owned monitor entries with tag,priority and alias activation mode",
+    "No self monitor; by-name target retains {Name,Node} reporting identity",
+    "Explicit alias survives demonitor/down; demonitor and reply_demonitor deactivate on monitor end; reply_demonitor removes actual monitor on first admission",
+    "demonitor info reports actual monitor removal; flush removes one matching five-field notification regardless of custom tag",
+    "Local ordinary refs accepted,foreign-node ref badarg,old local incarnation returns false",
+    "Port/clock-service/distribution require actual subsystems and remain separate prerequisites"
+  ],
+  "Sources": [
+    "bif.c monitor/demonitor/erts_monitor_opts",
+    "erl_proc_sig_queue.c monitor-down and reply-alias transitions"
+  ],
+  "BaselineHead": "569cba885e5e05bc0b50257882d43420c49ad183",
+  "Integrated": false,
+  "OriginalVerified": false,
+  "LocalNewMonitorContracts": 44,
+  "LocalPublishedAliasContracts": 43,
+  "LocalPassed": 133,
+  "DynamicTraceModules": 46,
+  "HistoricalModulesPassedBeforeTrace": 2469,
+  "TraceEnabledConfiguration": false,
+  "TraceSourceScope": "bif.c exact !USE_VM_PROBES branches;configure.ac defaults to no dynamic trace;original workflow never enables probes. This is actual disabled-build behavior,not a generic placeholder.",
+  "PriorityFixtureRevision": {
+    "Before": "P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[priority]),self()!ordinary,P!go,wait_dead(P),{'DOWN',R,process,P,normal}=receive M1->M1 after 1000->error(timeout) end,ordinary=receive M2->M2 after 1000->error(timeout) end",
+    "After": "self()!ordinary,R=erlang:monitor(process,priority_missing,[priority]),N=node(),{'DOWN',R,process,{priority_missing,N},noproc}=receive M1->M1 after 1000->error(timeout) end,ordinary=receive M2->M2 after 1000->error(timeout) end",
+    "Expected": "{ok,done}",
+    "Reason": "is_process_alive false is not a cross-process monitor-signal barrier. Use synchronous missing-name monitor failure to test prioritization of a generated DOWN;independent outcome unchanged. Prototype-only pre-publication revision;old log remains preserved."
+  },
+  "RebasedHead": "2eb3e411f8ae1ff0ac6891f9c71049f6668fa608",
+  "RebasedContractsPassed": 150,
+  "RebasedHistoricalModulesPassed": 2487,
+  "NewPendingMonitorContracts": 7,
+  "ConcurrentMonitorHostCheck": "128 children; half cancelled before parallel termination; exact remaining DOWN notifications and empty mailbox",
+  "IntegrationPlan": {
+    "RealNewExports": 9,
+    "ExpectedOriginalPlan": 3398,
+    "Part": 139,
+    "ExpectedLocalTests": 3902,
+    "NewHostChecks": 1,
+    "ExpectedErlangPresent": 218,
+    "Reuse": "Existing runtime gate,alias-reference layout,pending-signal mailbox;no packages/banners;separate send option/result/alias/monitor constants by meaning",
+    "Gate": "Preserve original138 before integration; full3902 and original140 required",
+    "ExpectedManagedPlan": 3404,
+    "ExpectedRegistry": 368,
+    "BaselinePublished": "2eb3e411f8ae1ff0ac6891f9c71049f6668fa608",
+    "Missing": 133,
+    "NewCompiledModules": 97
+  },
+  "RuntimeTypesAdded": 11,
+  "SemanticConstants": "Separate DynamicTraceResultNames.Undefined from ProcessRegistryAtoms.Undefined; separate ProcessSendNames/OptionNames/ResultNames,monitor options and standalone alias names; reuse only shared compiled-success outcome meaning"
+}

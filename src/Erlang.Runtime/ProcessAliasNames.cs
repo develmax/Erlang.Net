@@ -7,7 +7,4 @@ internal static class ProcessAliasNames
     public const string Explicit = "explicit_unalias";
     public const string Reply = "reply";
     public const string Priority = "priority";
-    public const string NoConnect = "noconnect";
-    public const string NoSuspend = "nosuspend";
-    public const string SendNoSuspend = "send_nosuspend";
 }

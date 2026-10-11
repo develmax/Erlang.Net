@@ -1,6 +1,8 @@
 # Erlang API and compatibility scope
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.209 registered,142 missing,total359 direct MFAs.59.5% API presence is not semantic completion.
+Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
+
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.218 registered,133 missing,total368 direct MFAs.62.1% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -79,7 +81,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `delete_element/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `delete_module/1` | Missing; real implementation/runtime prerequisites required |
 | `demonitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `demonitor/2` | Missing; real implementation/runtime prerequisites required |
+| `demonitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `disconnect_node/1` | Missing; real implementation/runtime prerequisites required |
 | `display_string/1` | Missing; real implementation/runtime prerequisites required |
 | `display_string/2` | Missing; real implementation/runtime prerequisites required |
@@ -93,13 +95,13 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `dist_get_stat/1` | Missing; real implementation/runtime prerequisites required |
 | `div/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dmonitor_node/3` | Missing; real implementation/runtime prerequisites required |
-| `dt_append_vm_tag_data/1` | Missing; real implementation/runtime prerequisites required |
-| `dt_get_tag_data/0` | Missing; real implementation/runtime prerequisites required |
-| `dt_get_tag/0` | Missing; real implementation/runtime prerequisites required |
-| `dt_prepend_vm_tag_data/1` | Missing; real implementation/runtime prerequisites required |
-| `dt_put_tag/1` | Missing; real implementation/runtime prerequisites required |
-| `dt_restore_tag/1` | Missing; real implementation/runtime prerequisites required |
-| `dt_spread_tag/1` | Missing; real implementation/runtime prerequisites required |
+| `dt_append_vm_tag_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_get_tag_data/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_get_tag/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_prepend_vm_tag_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_put_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_restore_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dt_spread_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `element/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `erase/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `erase/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -219,7 +221,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `monitor_node/2` | Missing; real implementation/runtime prerequisites required |
 | `monitor_node/3` | Missing; real implementation/runtime prerequisites required |
 | `monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor/3` | Missing; real implementation/runtime prerequisites required |
+| `monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monotonic_time/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monotonic_time/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `nif_error/1` | Registered; bounded functional evidence, see supported-mfas.json |

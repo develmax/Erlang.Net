@@ -5,7 +5,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
     private readonly object gate = new();
     private readonly Dictionary<Pid, ProcessContext> processes = new();
     private readonly Dictionary<string, Pid> names = new(StringComparer.Ordinal);
-    private readonly Dictionary<ReferenceTerm, (Pid Observer, Pid Target)> monitors = new();
+    private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private long nextPid, nextRef;
     private bool disposed;
@@ -150,7 +150,10 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     if (!aliases.TryGetValue(reference, out var current))
                         return null;
                     if (current.Reply)
+                    {
                         aliases.Remove(reference);
+                        monitors.Remove(reference);
+                    }
 
                     return priority && current.Priority;
                 }
@@ -272,37 +275,110 @@ public sealed class ProcessRuntime : IAsyncDisposable
         );
     }
 
-    public ReferenceTerm Monitor(ProcessContext observer, Pid target)
+    public ReferenceTerm Monitor(ProcessContext observer, Pid target) => Monitor(observer, target, ProcessMonitorOptions.Default);
+
+    internal ReferenceTerm Monitor(ProcessContext observer, Term target, ProcessMonitorOptions options)
     {
         lock (gate)
         {
             RequireAlive(observer.Self);
-            var reference = MakeReference();
-            if (processes.ContainsKey(target))
-                monitors.Add(reference, (observer.Self, target));
+            Pid? recipient;
+            Term reported;
+            if (target is Pid pid)
+            {
+                recipient = pid;
+                reported = pid;
+            }
+            else if (target is Atom name)
+            {
+                recipient = WhereIs(name.Name) as Pid;
+                reported = Term.Tuple(name, NodeAtom);
+            }
+            else if (target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom named && address.Items[1] is Atom { Name: var node } && node == Node)
+            {
+                recipient = WhereIs(named.Name) as Pid;
+                reported = Term.Tuple(named, NodeAtom);
+            }
             else
-                observer.Mailbox.Send(Term.Tuple(
-                    Term.A(ProcessMessageTags.MonitorDown),
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            ReferenceTerm reference = options.AliasMode is null ? MakeReference() : CreateAlias(observer, options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false);
+            if (recipient?.Equals(observer.Self) == true)
+            {
+                aliases.Remove(reference);
+
+                return reference;
+            }
+            var entry = new ProcessMonitorEntry(
+                observer.Self,
+                recipient,
+                reported,
+                options.Tag,
+                options.Priority,
+                options.AliasMode == ProcessAliasNames.Explicit
+            );
+            monitors.Add(reference, entry);
+            if (recipient is null || !processes.ContainsKey(recipient))
+                MonitorDown(
+                    observer,
                     reference,
-                    Term.A(ProcessMonitorKinds.Process),
-                    target,
-                    Term.A(ErlangErrorReasons.NoProcess)
-                ));
+                    entry,
+                    Term.A(recipient is not null && recipient.Node != Node ? ProcessMonitorFailureReasons.Disconnected : ErlangErrorReasons.NoProcess)
+                );
 
             return reference;
         }
     }
 
-    public bool Demonitor(ProcessContext observer, ReferenceTerm reference, bool flush = false)
+    private void MonitorDown(
+        ProcessContext observer,
+        ReferenceTerm reference,
+        ProcessMonitorEntry entry,
+        Term reason
+    )
+    {
+        observer.Mailbox.SendPending(
+            Term.Tuple(
+                entry.Tag,
+                reference,
+                Term.A(ProcessMonitorKinds.Process),
+                entry.ReportedTarget,
+                reason
+            ),
+            () =>
+        {
+            if (!monitors.TryGetValue(reference, out var current) || !current.Observer.Equals(observer.Self))
+                return null;
+            monitors.Remove(reference);
+            if (!current.KeepAlias)
+                aliases.Remove(reference);
+
+            return current.Priority;
+        }
+        );
+    }
+
+    public bool Demonitor(
+        ProcessContext observer,
+        ReferenceTerm reference,
+        bool flush = false,
+        bool info = false
+    )
     {
         lock (gate)
         {
-            if (monitors.TryGetValue(reference, out var m) && m.Observer.Equals(observer.Self))
+            if (reference.Node != Node)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            bool removed = monitors.TryGetValue(reference, out var monitor) && monitor.Observer.Equals(observer.Self);
+            if (removed)
+            {
                 monitors.Remove(reference);
-            if (flush)
-                observer.Mailbox.Remove(t => t is TupleTerm x && x.Items.Count == 5 && x.Items[0].Equals(Term.A(ProcessMessageTags.MonitorDown)) && x.Items[1].Equals(reference));
+                if (!monitor!.KeepAlias)
+                    aliases.Remove(reference);
+            }
+            else if (flush)
+                observer.Mailbox.RemoveFirst(term => term is TupleTerm tuple && tuple.Items.Count == 5 && tuple.Items[1].Equals(reference));
 
-            return true;
+            return !info || removed;
         }
     }
 
@@ -363,17 +439,15 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 ctx.Links.Clear();
                 foreach (var m in monitors.ToArray())
                 {
-                    if (m.Value.Target.Equals(ctx.Self))
+                    if (m.Value.Target?.Equals(ctx.Self) == true)
                     {
-                        monitors.Remove(m.Key);
                         if (processes.TryGetValue(m.Value.Observer, out var observer))
-                            observer.Mailbox.Send(Term.Tuple(
-                                Term.A(ProcessMessageTags.MonitorDown),
+                            MonitorDown(
+                                observer,
                                 m.Key,
-                                Term.A(ProcessMonitorKinds.Process),
-                                ctx.Self,
+                                m.Value,
                                 reason
-                            ));
+                            );
                     }
                     else if (m.Value.Observer.Equals(ctx.Self))
                         monitors.Remove(m.Key);

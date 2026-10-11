@@ -52,7 +52,7 @@ internal static class ProcessAliasRegistrations
             arguments[2]
         ));
         Add(
-            ProcessAliasNames.SendNoSuspend,
+            ProcessSendNames.NoSuspend,
             2,
             (context, arguments) => CoreModules.Boolean(Send(
                 context,
@@ -62,7 +62,7 @@ internal static class ProcessAliasRegistrations
             ).Equals(Term.A(CommonAtomNames.Ok)))
         );
         Add(
-            ProcessAliasNames.SendNoSuspend,
+            ProcessSendNames.NoSuspend,
             3,
             (context, arguments) => CoreModules.Boolean(Send(
                 context,
@@ -85,20 +85,20 @@ internal static class ProcessAliasRegistrations
         {
             switch (option)
             {
-                case Atom { Name: ProcessAliasNames.Priority }:
+                case Atom { Name: ProcessSendOptionNames.Priority }:
                     priority = true;
                     break;
-                case Atom { Name: ProcessAliasNames.NoConnect }:
+                case Atom { Name: ProcessSendOptionNames.NoConnect }:
                     noConnect = true;
                     break;
-                case Atom { Name: ProcessAliasNames.NoSuspend }:
+                case Atom { Name: ProcessSendOptionNames.NoSuspend }:
                     break;
                 default:
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
         if (noConnect && (target is Pid remotePid && remotePid.Node != context.Runtime.Node || target is ReferenceTerm remoteReference && remoteReference.Node != context.Runtime.Node || target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom && address.Items[1] is Atom remoteNode && remoteNode.Name != context.Runtime.Node))
-            return Term.A(ProcessAliasNames.NoConnect);
+            return Term.A(ProcessSendResultNames.NoConnect);
         ErlangOperatorValues.Send(
             context,
             target,

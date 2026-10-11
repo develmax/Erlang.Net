@@ -99,6 +99,23 @@ public sealed class Mailbox
         }
     }
 
+    public bool RemoveFirst(Func<Term, bool> predicate)
+    {
+        ProcessSignals?.Invoke();
+        lock (gate)
+        {
+            for (var node = messages.First; node is not null; node = node.Next)
+                if (node.Value.Admission is null && predicate(node.Value.Value))
+                {
+                    RemoveNode(node);
+
+                    return true;
+                }
+
+            return false;
+        }
+    }
+
     public int Remove(Func<Term, bool> predicate)
     {
         ProcessSignals?.Invoke();

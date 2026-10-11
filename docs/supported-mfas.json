@@ -221,7 +221,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:monitor/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Owned process PID/name monitors, no self monitor, pending DOWN cancellation/admission and monitor-associated aliases; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
   },
   {
     "Module": "erlang",
@@ -229,7 +229,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:demonitor/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Owned process PID/name monitors, no self monitor, pending DOWN cancellation/admission and monitor-associated aliases; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
   },
   {
     "Module": "erlang",
@@ -2870,5 +2870,77 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/3",
     "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+  },
+  {
+    "Module": "erlang",
+    "Function": "monitor",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monitor/3",
+    "Limits": "Owned process monitors with tag/priority/alias modes, pending DOWN and single-message flush/info; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "demonitor",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:demonitor/2",
+    "Limits": "Owned process monitors with tag/priority/alias modes, pending DOWN and single-message flush/info; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_get_tag",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_get_tag/0",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_get_tag_data",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_get_tag_data/0",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_put_tag",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_put_tag/1",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_append_vm_tag_data",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_append_vm_tag_data/1",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_prepend_vm_tag_data",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_prepend_vm_tag_data/1",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_spread_tag",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_spread_tag/1",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dt_restore_tag",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dt_restore_tag/1",
+    "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
   }
 ]

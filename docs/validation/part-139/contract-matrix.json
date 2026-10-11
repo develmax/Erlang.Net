@@ -1,0 +1,681 @@
+[
+  {
+    "Name": "erlang-monitor-tag",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{tag,custom}]),P!go,receive {custom,R,process,P,normal}->ok after 1000->error(timeout) end,false=erlang:demonitor(R,[info]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "53E47DE472EA5A2A2D9D4AE323B0C8788D2F817FC7C18A2DCF20E68147D5FE77",
+    "CSharpSha256": "1AD4116F035058A0A7DF5EF2F50FF9E2A3CE0DF50AD5CFDBB35DE44AA16AD74C"
+  },
+  {
+    "Name": "erlang-monitor-tag-last",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{tag,one},{tag,{two,42}}]),P!go,receive {{two,42},R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9569863AC82F1A13DAD6D30B608F3F6CF664267EAB4C97D01DC870F096A1C2C7",
+    "CSharpSha256": "33FA764569B0B7C35733E5B7C2CE48E969129A4ECBFA5C093BA5B69B9BD31C3A"
+  },
+  {
+    "Name": "erlang-monitor-tag-map",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{tag,#{key=>42}}]),P!go,receive {#{key:=42},R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5D94E78A87FF39789B44B40ECCFC25A40672811A7AA4C9AFC7B9F2CE2815AC04",
+    "CSharpSha256": "AAEAD5C56B0BAA4ED1EA15F204631654341615D48EB87106E4CF8C5D4F1526C6"
+  },
+  {
+    "Name": "erlang-monitor-priority-down",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->self()!ordinary,R=erlang:monitor(process,priority_missing,[priority]),N=node(),{'DOWN',R,process,{priority_missing,N},noproc}=receive M1->M1 after 1000->error(timeout) end,ordinary=receive M2->M2 after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CBCB33A670E3C0B932F0AB3ACED87DF25263E6002C3D78E1D2BB404A9F54BA71",
+    "CSharpSha256": "85181AA5372C484679092F301A0F3D6A27AAD0D19F167C2A88CDB2E15A3E9284"
+  },
+  {
+    "Name": "erlang-monitor-plain-down-order",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[]),self()!ordinary,P!go,wait_dead(P),ordinary=receive M1->M1 after 1000->error(timeout) end,receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "07121A4AE8A10B8B4A83F46D4BFFBD9C6E5CBE47E152FA485E5787DA736922D4",
+    "CSharpSha256": "0E08F8E6E4039AE08FA81D5E324EA149117B38F2F9284937BFE9A2083E2B2BA2"
+  },
+  {
+    "Name": "erlang-monitor-info-active",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[]),true=erlang:demonitor(R,[info]),false=erlang:demonitor(R,[info]),true=erlang:demonitor(R,[]),P!go,wait_dead(P),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "7512448960604A0619B0B11B80A62B32C5C7F6F64090FEFA6BC155A1EE59FDBF",
+    "CSharpSha256": "2337A08B0FD38C4619AA42C6C1CE97BF36D6928D295CEB4D9406E465D236090C"
+  },
+  {
+    "Name": "erlang-monitor-info-ordinary",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=make_ref(),false=erlang:demonitor(R,[info]),true=erlang:demonitor(R,[]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "57F4B6ED5183039BB70AF78867224686DCB4EAED00BF7E1E0DAF96404E5D2F38",
+    "CSharpSha256": "9D66E159A70A35409340FCB2CD2FDA0656CEB0365CCC5A5CAED54C48A103EB15"
+  },
+  {
+    "Name": "erlang-monitor-self",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,self(),[]),false=erlang:demonitor(R,[info]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1D9EE8B012761839C8CE96F31ACCA9EA191E67927EC9FEB9AF23AFA042D4A77A",
+    "CSharpSha256": "330970C7FCBAA778E7A8F786E849E890D44D6742FFF53A98C7B8C62E8D8E998D"
+  },
+  {
+    "Name": "erlang-monitor-self-alias",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,self(),[{alias,explicit_unalias}]),false=erlang:unalias(R),false=erlang:demonitor(R,[info]),R!lost,receive lost->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "432A75C8D9CD72333AEC0A7FCE8CAD2DEEDB5B647D2CEAFBF9438AD918D5F767",
+    "CSharpSha256": "1900BA405FD0DB3B53BD9EF7BAC6F18C1E746F971E592ACA90224D1EC7B0B656"
+  },
+  {
+    "Name": "erlang-monitor-missing-name",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[{tag,tagged}]),N=node(),receive {tagged,R,process,{monitor_missing,N},noproc}->ok after 1000->error(timeout) end,false=erlang:demonitor(R,[info]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4E0563B352D070D2966F0DD94DB617BC4CC7597C980E5E42060C455B474D1EDE",
+    "CSharpSha256": "263FA0694C0184CBFF31389D91B6A29940161A4FEEB9969C594ABDBC84A73F5A"
+  },
+  {
+    "Name": "erlang-monitor-missing-local-tuple",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->N=node(),R=erlang:monitor(process,{monitor_missing,N},[]),receive {'DOWN',R,process,{monitor_missing,N},noproc}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8B06AFBBE59560D6E04D761944979DB18910ABDB04092AB18F0C29847562405A",
+    "CSharpSha256": "61E5B6FFB9226C6893C9E201644D79E3DDDBC1ACD8003B3484B9176FFAAD04A1"
+  },
+  {
+    "Name": "erlang-monitor-named",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),true=register(monitored_name,P),R=erlang:monitor(process,monitored_name,[{tag,named}]),P!go,N=node(),receive {named,R,process,{monitored_name,N},normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C208C05EA8AA53B235C1AC781F11C175AC090D06D4C0180E00D1977403D9CC2D",
+    "CSharpSha256": "753DF3731234DFC4622230590B87F4CA5A2DC62F8FC40118EC8E44740EEE3DA5"
+  },
+  {
+    "Name": "erlang-monitor-flush-any-tag-one",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=make_ref(),self()!{tag,R,1,2,first},self()!{other,R,1,2,second},false=erlang:demonitor(R,[flush,info]),receive {other,R,1,2,second}->ok after 0->error(lost) end,receive {tag,R,1,2,first}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DE1D6E68D77DF3B65D1D42D3D67B4ECCB203B7CC15341DC1EDF7B48C10A83027",
+    "CSharpSha256": "910D4C4ECA131F3CAC2AB326DC2511122FA3EA8B76940591E86C865F81B6DC04"
+  },
+  {
+    "Name": "erlang-monitor-flush-exact-reference",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=make_ref(),Other=make_ref(),self()!{tag,Other,1,2,kept},self()!{tag,R,1,2,removed},true=erlang:demonitor(R,[flush]),receive {tag,Other,1,2,kept}->ok after 0->error(lost) end,receive {tag,R,1,2,removed}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BC8B8359B3D2D7421C5F7A23740C02E9A30B82815E111E3BB569A03BDBE076AB",
+    "CSharpSha256": "3AE9FECB6331DF8090199768A29AD7215F5D5B09C2D03488406596CAF3BADE18"
+  },
+  {
+    "Name": "erlang-monitor-flush-skips-wrong-arity",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=make_ref(),self()!{tag,R,1,2},self()!{tag,R,1,2,removed},true=erlang:demonitor(R,[flush]),receive {tag,R,1,2}->ok after 0->error(lost) end,receive {tag,R,1,2,removed}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "32A36616E1DB30015B30BBD5B8BC3372B0B152372C98AF496E32FBE198326A7E",
+    "CSharpSha256": "33CCFC73472112E9962EAB38089EFDAAB5AC13892D8AD1DE8219B3F7A99BEA83"
+  },
+  {
+    "Name": "erlang-monitor-flush-active-does-not-drain-user-tuple",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[]),self()!{tag,R,1,2,kept},true=erlang:demonitor(R,[flush,info]),receive {tag,R,1,2,kept}->ok after 0->error(lost) end,P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2D47A16C23DB85609F10FCF9FB47CB100562DC67BE70378DBFBE1252DE14C92D",
+    "CSharpSha256": "C2D04ABF43E86EA7DCDFA4774A4D85A78E8F7A3361B26AF858211EF479B9A1C0"
+  },
+  {
+    "Name": "erlang-monitor-explicit-survives-demonitor",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,explicit_unalias}]),true=erlang:demonitor(R,[info]),R!reply,receive reply->ok after 1000->error(timeout) end,true=erlang:unalias(R),P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5EAB9D92B0EEF83B14D45353B68B22DCC68BB52520C3230F5739D2C4585AC87D",
+    "CSharpSha256": "7A67F25097F182FCE8FE40D420B51011180C1BD95DA7E25D838FF2D8E4122790"
+  },
+  {
+    "Name": "erlang-monitor-explicit-survives-down",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,explicit_unalias}]),P!go,receive {'DOWN',R,_,_,_}->ok after 1000->error(timeout) end,R!reply,receive reply->ok after 1000->error(timeout) end,true=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "995C9E5EFC557B4592126A62BBCA6EFD946A8DF5CB8B486D10667122843D213B",
+    "CSharpSha256": "2C0A13DC6F54B8B73C2B64642F27D48C87486B5EDA4E5F5A5F4F68A36FC0C61F"
+  },
+  {
+    "Name": "erlang-monitor-demonitor-mode-removes-alias",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,demonitor}]),true=erlang:demonitor(R,[info]),false=erlang:unalias(R),R!lost,receive lost->error(unexpected) after 0->ok end,P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C7302097876FC600EB4B2046FA103DA21965E111AD5FAA1C6411640304DA21C5",
+    "CSharpSha256": "8DDE3C3991D61CB4F44D71A314492FB4B3A5B6F32BDC50706CD3E7862AD66A48"
+  },
+  {
+    "Name": "erlang-monitor-demonitor-mode-down",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,demonitor}]),P!go,receive {'DOWN',R,_,_,_}->ok after 1000->error(timeout) end,false=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "017D1E0B8B4D5B00E73C78AFAD6831BED9963C627E9C51FEFF60EFE702238B4B",
+    "CSharpSha256": "3861FBC8B7E45B96E2392450AB2D50B8CBAE3D25D86F16A835DD8EF2A2E65CFF"
+  },
+  {
+    "Name": "erlang-monitor-reply-demonitor",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->Owner=self(),P=spawn(fun()->receive {go,R}->R!reply,Owner!barrier end end),R=erlang:monitor(process,P,[{alias,reply_demonitor}]),P!{go,R},receive reply->ok after 1000->error(timeout) end,receive barrier->ok after 1000->error(timeout) end,wait_dead(P),false=erlang:demonitor(R,[info]),false=erlang:unalias(R),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2473AB82348D02482886F4BD488B904BA1D293A2FD6FDA71803369D1547338BC",
+    "CSharpSha256": "CE8E524B2A9C069B218F6A8EB19CCDDA683C4D7222A691639BB77FC26C2700C8"
+  },
+  {
+    "Name": "erlang-monitor-unalias-keeps-monitor",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,reply_demonitor}]),true=erlang:unalias(R),P!go,receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1097010834228E494EADAFF68F5AB7A780A9AF466117002C1FB9DA296E387CD8",
+    "CSharpSha256": "A5619922F1F36B2BC8E0C985D11B0133ABD3371640F1073F613A72724B83319F"
+  },
+  {
+    "Name": "erlang-monitor-monitor-priority-not-alias-permission",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[priority,{alias,explicit_unalias}]),self()!ordinary,ok=erlang:send(R,reply,[priority]),ordinary=receive M1->M1 after 1000->error(timeout) end,reply=receive M2->M2 after 1000->error(timeout) end,true=erlang:demonitor(R,[info]),true=erlang:unalias(R),P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "04DBA87DFE0AC8742A8CC9A047D18E9ACE70AFD2C43C06BB4B9B213CCAB9434B",
+    "CSharpSha256": "65D1857892969F319E9E185BDD66949253ACF6F0C16D5E72140BFCCE6C882F00"
+  },
+  {
+    "Name": "erlang-monitor-alias-last-mode",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[{alias,reply_demonitor},{alias,explicit_unalias}]),R!one,R!two,receive one->ok after 1000->error(timeout) end,receive two->ok after 1000->error(timeout) end,true=erlang:demonitor(R,[info]),true=erlang:unalias(R),P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C1C2AA858C471749E8D589AAA76A7A3D3BE03E3C573F550BC924623E702902DE",
+    "CSharpSha256": "D5CA16273AE8212479C272C4666F364F8DC24B03298654BE263AE496592FD95A"
+  },
+  {
+    "Name": "erlang-monitor-standalone-alias-is-not-monitor",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:alias(),false=erlang:demonitor(R,[info]),R!kept,receive kept->ok after 1000->error(timeout) end,true=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "91B040DAEB5D551C538CBFD8E9CFBE1F01A51F8ABADA20A5E1476AE1F0E5D04A",
+    "CSharpSha256": "6638B8BC0963FB5F8A59515A2240947826B1F7CFBDF72119917E4952EC8EBA08"
+  },
+  {
+    "Name": "erlang-monitor-foreign-owner-info-false",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->Owner=self(),P=spawn(fun()->receive go->ok end end),R=erlang:monitor(process,P,[]),Q=spawn(fun()->Owner!{result,erlang:demonitor(R,[info])} end),receive {result,false}->ok after 1000->error(timeout) end,wait_dead(Q),true=erlang:demonitor(R,[info]),P!go,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2B865420620F4DFE0E80F3D2B6F7118EBF763C20E9B9183416818C49E653626A",
+    "CSharpSha256": "BE4C139DB05F2BBA7BDD6DD13912BFCC576563B30D97CD68CAC47C439E6B9F12"
+  },
+  {
+    "Name": "erlang-monitor-foreign-node-reference",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:binary_to_term(<<131,90,0,1,119,17,\"elsewhere@invalid\",0:32,1:32>>),ok=try erlang:demonitor(R,[info]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F59239023D9737C4C505EECF4508C447B15A9DC86C1CDD3E165655AA9221AE73",
+    "CSharpSha256": "2A5089D2A823B5D76053C29DA039565D2B7607F0BCABB23A453D2D625B6DD29F"
+  },
+  {
+    "Name": "erlang-monitor-old-local-incarnation",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->N=erlang:atom_to_binary(node()),S=byte_size(N),R=erlang:binary_to_term(<<131,90,0,1,119,S,N/binary,7:32,1:32>>),false=erlang:demonitor(R,[info]),true=erlang:demonitor(R,[flush]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6E55F7958BEEDA38B5107C12AE50FA8AE6C333209160CE70087F655B244B4AD2",
+    "CSharpSha256": "AF7585FC224D9108285A6F18B2E83868F8103C28948B9DA6C8EF7890F9F28E6D"
+  },
+  {
+    "Name": "erlang-monitor-duplicate-flush-info",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=make_ref(),self()!{tag,R,1,2,first},self()!{tag,R,1,2,second},false=erlang:demonitor(R,[flush,info,flush,info]),receive {tag,R,1,2,second}->ok after 0->error(lost) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "765412B6EC50AA32AACD83770496F567E00E48FF846E62BCB58CF4909E7FDC0A",
+    "CSharpSha256": "8A1DDF4352882075F5281FD1D15C03D695E579B0327DE90D56AF53A3C158154C"
+  },
+  {
+    "Name": "erlang-monitor-explicit-missing-name-remains-alias",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[{alias,explicit_unalias}]),receive {'DOWN',R,_,_,noproc}->ok after 1000->error(timeout) end,R!reply,receive reply->ok after 1000->error(timeout) end,true=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C9571A44C993E063F0CDAF5679CCFBECCB4DB09B363F36114467D24437C427D6",
+    "CSharpSha256": "45462F0BD7F6702AA8E142F69F1D29DF7A6382E3559A60A8F165D779C16A95F5"
+  },
+  {
+    "Name": "erlang-monitor-demonitor-missing-name-deactivates",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[{alias,demonitor}]),receive {'DOWN',R,_,_,noproc}->ok after 1000->error(timeout) end,false=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "56EA84D3F6751B387D6DBD3E567EFC01CC3CF8292DE9542518A72D71E79E0B8D",
+    "CSharpSha256": "EC8FCEE9620205C60B7DC2AC05DD1919CAA7FB5DF19AD66A0589A3F5A57BBEFD"
+  },
+  {
+    "Name": "erlang-monitor-foreign-pid-disconnected",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->P=erlang:binary_to_term(<<131,88,119,17,\"elsewhere@invalid\",1:32,0:32,0:32>>),R=erlang:monitor(process,P,[{tag,remote}]),receive {remote,R,process,P,noconnection}->ok after 1000->error(timeout) end,false=erlang:demonitor(R,[info]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F094C3FC813D022AC1A40AD6AD42C8800A80C7ABF486C518150780ACE23F7442",
+    "CSharpSha256": "03DC00AB237CB57B55CFD7E3409104ACBD542206028B4D5E2324FAD78AEE4933"
+  },
+  {
+    "Name": "erlang-monitor-pending-missing-demonitor-info",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[]),true=erlang:demonitor(R,[info]),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0A605A28EE143C570923B5011BBCE695F79746E5C7ABF00B07EAE2BA2CA2CF8F",
+    "CSharpSha256": "A9C208B46DA0BBF0DEAC749361D60B6BE22F41E7B4054F2470D28CB9841FD1A7"
+  },
+  {
+    "Name": "erlang-monitor-pending-missing-demonitor-flush",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[]),true=erlang:demonitor(R,[flush,info]),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "415AF9487E1391F7504AF90EC5BEA7F563EC37804F14151B2D82E1D74BCB00DD",
+    "CSharpSha256": "520A869E14344CC75CBEAF1C378AE1F073664E96E43CBBDB15C59C948EEC4B89"
+  },
+  {
+    "Name": "erlang-monitor-pending-missing-explicit-keeps-alias",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[{alias,explicit_unalias}]),true=erlang:demonitor(R,[info]),R!reply,receive reply->ok after 1000->error(timeout) end,receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,true=erlang:unalias(R),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A3D8D613A34B19C887EBFE259E130C50D70AAF49744FF9BB3B40BD56EFE627D7",
+    "CSharpSha256": "9F599693BB8DC6A92500DFA936C8E6F4B4923934031DD7292F14B90BEE619746"
+  },
+  {
+    "Name": "erlang-monitor-pending-missing-demonitor-removes-alias",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[{alias,demonitor}]),true=erlang:demonitor(R,[info]),false=erlang:unalias(R),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C4FFB18E1498246C5F2062B98AA3023DDD65C7612404E6F0100EC3F1A75A38CA",
+    "CSharpSha256": "1232B6723857CC4000257D85F2BDA93808AFB1F01A6879BE82C0760FA317A22D"
+  },
+  {
+    "Name": "erlang-monitor-admitted-down-kept-after-demonitor",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[]),receive absent->error(unexpected) after 0->ok end,false=erlang:demonitor(R,[info]),receive {'DOWN',R,_,_,noproc}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2D906F9217A5F80BA375C911ED216ED1626B3A2D04A1D5D724260D6219597C0C",
+    "CSharpSha256": "81BB2D4E827729D863CBB08BCA7614F73715F9D571FB9DA828465CD69874569D"
+  },
+  {
+    "Name": "erlang-monitor-admitted-down-flushed",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->R=erlang:monitor(process,monitor_missing,[]),receive absent->error(unexpected) after 0->ok end,false=erlang:demonitor(R,[flush,info]),receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FE69609A91CF6C3690ADB1638B3278CABBA71657221651B68AFFAE339F3F09F5",
+    "CSharpSha256": "59336E589DA1831009702414615D80E01D75AEDA4E58EC58A6F91F268D4F621F"
+  },
+  {
+    "Name": "erlang-monitor-pending-priority-down-cancelled",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->self()!ordinary,R=erlang:monitor(process,monitor_missing,[priority]),true=erlang:demonitor(R,[info]),ordinary=receive M->M after 1000->error(timeout) end,receive {'DOWN',R,_,_,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F543A71AC58C4E9C5944EBA4721C7FEBA2C11ACE209C826AE2622FDEA6C26057",
+    "CSharpSha256": "DDBA2597240FEA91B049BED6723B3CDBAD90D5A623F0ADBDBD8A8CBB70049E5E"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-0",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),bad) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4C2776952DC35DC88F615BB5906166DF8F218BD4FC97DA2BBCB9AAA4761C4AFC",
+    "CSharpSha256": "711AACA8F8DB889EA1CB3E154AE8BEE5D9F24DAF484B1D6E982EF8022499FD36"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-1",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A4F26A5DB4D01F214A58E5B8DE81B561677CC420A758F39893053705B3ED3E2F",
+    "CSharpSha256": "1D1CD859DC094AFE0200E93F00049197E664CAF0C79C0CAC4ED701B9C55A7065"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-2",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[priority|bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5ED856C9FDA208BEA5A62C3CC3C0B36B41E8D99EEB980FAB6CC3E3B1D7BD9F8C",
+    "CSharpSha256": "4C45D821B4B446FC4BC3F237673891CDCBD73D5BC4951AB6F2978ABEFB28F5B8"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-3",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[{alias,reply}]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B1C0AE85FA3AC49AC9C205E22A97F1ADA1D697BD9557A568C3BD33E31D0F5A0E",
+    "CSharpSha256": "6B3387265C81D144F7A5E7D510EC6C8077452E1484421B61A7E372161CF2056A"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-4",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[{tag}]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A93131CBCBF139C5DA4BBBF39F7BE7AFED636D5D534F0668BED77E5F8333C801",
+    "CSharpSha256": "29CD2A5A3134FBFBDC09F73207C409082EF9D902D0850CDEE547532C1FE24322"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-5",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[{alias,demonitor},42]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "89B264AD91A74DC660D4EAC3A0EA2FF5BA213AB38EA515FB54B1A1D72E48C6AD",
+    "CSharpSha256": "99D5936E75307B90DB39D528D15872864C0240356E28982B19720C56341DEE84"
+  },
+  {
+    "Name": "erlang-monitor-invalid-monitor-6",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:monitor(process,self(),[{tag,a,extra}]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CF9F5AE42055BFB77AAF7F17DB4F7FD4986816BCFA9BDD69375346695F8CC241",
+    "CSharpSha256": "5CE956417010384589A2A07F3D42A5F6C45AFABEB66C7C5EFF493E3ADEE801EE"
+  },
+  {
+    "Name": "erlang-monitor-invalid-demonitor-0",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:demonitor(make_ref(),bad) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E7B255EE6B4F550787E68C27B5EF4AE159B31F8CCA12A05CF04467C53266D48F",
+    "CSharpSha256": "49FA6A4FEEE99F0FF653F6D125C13A88B1E2E232F1A5B80A9597C40E7F137341"
+  },
+  {
+    "Name": "erlang-monitor-invalid-demonitor-1",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:demonitor(make_ref(),[bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "25DDBB823431A822A80AA9A3A7750B16AA2212A9C65B1491A5C2082E5B7D68AC",
+    "CSharpSha256": "99C440F2794F082EAD18FAC5D5298B39B1B1B6A803D4F3223E1AEBE5F767BE1F"
+  },
+  {
+    "Name": "erlang-monitor-invalid-demonitor-2",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:demonitor(make_ref(),[flush|bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "29C90963D9E05AC9F6C7FD62DA7B2E8AEC36FF373C06ABC3471B733E85F238A3",
+    "CSharpSha256": "B26679C29D22B732C0A87D21065285317B31CD67EC3A3148260E78B46573E9A2"
+  },
+  {
+    "Name": "erlang-monitor-invalid-demonitor-3",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:demonitor(make_ref(),[{flush,true}]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "60BF231298F295E302D261F01795D69AB64D134074504D94F29184ACC0E0288C",
+    "CSharpSha256": "7C26CAC647D79598CA7AFAEEF6DE8A3D2AB523B6BA2C22CE1F4382F30163602D"
+  },
+  {
+    "Name": "erlang-monitor-invalid-demonitor-4",
+    "Source": "-module(monitor_contract). -export([run/0]). run()->ok=try erlang:demonitor(make_ref(),[info,42]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1432A0FC1275E5E1EC81AE4A188833B26E480067B44A7B164F1BDCF872EACAEB",
+    "CSharpSha256": "56F700C597199618BED19401DF86148338EA53D1A22E8E5FF68135489510EC6C"
+  },
+  {
+    "Name": "erlang-dynamic-trace-get-tag",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_get_tag(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8D0A6285659EDA418DD67E9D1EB0AAE3540EFAB15BD6FF4E4D8AF0CE2256D5A6",
+    "CSharpSha256": "7B772EA931D62F530925751DD6C8AADC11A6A688BB1711CB85FAA3C77829642F"
+  },
+  {
+    "Name": "erlang-dynamic-trace-get-tag-data",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D45217958B7D7653838EBF6CEB3876692A0B62C1C75FFAC17090AA1711669B59",
+    "CSharpSha256": "B84C89CFBECD88A7E6CD5348AB5D6FFEE3BDD73D271FEAAF9951CE1DD274459B"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-true",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->true=erlang:dt_spread_tag(true),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FC20AF04A3B57CA256681CD24E8ECFD02834879E1705BDBF89382A9404966063",
+    "CSharpSha256": "C62A9817BFDB39F7B7832E05BFF19DD18DBA869EBA0E72CA9FD48B24AEC86B68"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-false",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->true=erlang:dt_spread_tag(false),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9F72947B7B65D63C10D01A226C9345B539E8197A8FE47814A31C5456AD3CDAEA",
+    "CSharpSha256": "31BDB0237FFD25D5376737303B26EDA94EC1B5C442B2388693FF084C7D7A6D26"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-true",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->true=erlang:dt_restore_tag(true),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "99EFEF3D3E672541F95411E742D8D747650FAF0D4CD84D459DC9B94D51F0252F",
+    "CSharpSha256": "09F023D9B60BBC8BB54E58E70D908EDF5C7FE66672BE300048024D4BCDB76126"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-0",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag(undefined),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "08ED8C6EC603BE6F644706D92011BC2796BD3D6055AFAEA5EDAA97BE7FFF4B0B",
+    "CSharpSha256": "95395E962FF77DFC876E34D0BDFD3C1975B95E123F4EBA06DFBBEB6AA0A2CCD7"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-0",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = undefined,V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "71E9319811DC0FBC9F5C0B2F5722F7E05AB0804EFB3896DEAE5A7D3004B0345A",
+    "CSharpSha256": "85891C82E747CBEE3D853A572E17DAD4B79E210272AD9A91FECBA2BDC3C9ACB7"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-0",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = undefined,V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4D02A169A94A2E34357B6267256C72C00EA34603F6A88B2A8BBEF27B56114E09",
+    "CSharpSha256": "814CB87FDF10E6D397F9E81D4A867E78666020F1E41F6E7C6360413374CF9668"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-0",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag(undefined) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "872A82796D0EB2EE893FF286CE9DEC44D16C04EA1D9FE8724B9378CCF1B5448B",
+    "CSharpSha256": "86F3CAB767664EA8EFF71A0ECC892C0B5D444693FD4D65CB3F9D1676666D95FA"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-0",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag(undefined) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "95BCC887550C01B159AD0A26518C56EB1B305DC06528337C39239C7CE3692872",
+    "CSharpSha256": "69A9515CA118D5FF9567C2A099BDF252CEB8945472D1E6A18849A3455FCF31C0"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-1",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag(false),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F9B7D6C31D3612A75F6BEEB44EA884305F7809757A4A0E7737D4A54B714F7127",
+    "CSharpSha256": "4347751540B1299A624C2D56E7F5AE0B0F84DC65963EE8B74370B037A3D434DB"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-1",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = false,V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "20B3B5FFED63287F53FDE752AFF00757C55E216177A8379E7A74DE740068EF6C",
+    "CSharpSha256": "D8BFEBD2449CBCF078AF0FE4D90B1B93B05BDF10C986FDF0447729DC97CF0B8A"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-1",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = false,V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "06754E2C9A274EC7540B4E9D278FE3A150016181351E24C96FBE54F423C624B5",
+    "CSharpSha256": "2302DA43BF5A346270DDE33187298A3E220BB4EC33592CEA28C182491D15209B"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-1",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag(false) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CB856CEFCA9836D85F6FDE9A7742B7C83DFFABA4570E80598215EDFD8CC4E55A",
+    "CSharpSha256": "76F3DEFB1BDBFC4F8B208BFB51F9790C70FE53CE460A07A5A12D705C73D3A758"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-1",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->true=erlang:dt_spread_tag(false),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9F72947B7B65D63C10D01A226C9345B539E8197A8FE47814A31C5456AD3CDAEA",
+    "CSharpSha256": "31BDB0237FFD25D5376737303B26EDA94EC1B5C442B2388693FF084C7D7A6D26"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-2",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag(42),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B512998623F85F7AD961D72174F8A3694D9052E6117F2C7FA367EE07C68A7600",
+    "CSharpSha256": "ECC37AC05F6DEAAC4549FBF33374DC0B25FE885660A4AB9D2C3DCBF78E5C3817"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-2",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = 42,V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6A001D4AC52F46876580461A34AFA9B24AF3501D068F8D76DF48455482710D3C",
+    "CSharpSha256": "D3B23FDC70933C5BEDC9811218F733BFDE01AB64120A6CDDC1C008F1A8A84304"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-2",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = 42,V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6594DC47441EBCDB514E73375B5291901BC571BFF6831DE59563EF909C915933",
+    "CSharpSha256": "3A52259085E94D50AEA3935798A11626D962BAA6517E1CADF106D9410DB3891F"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-2",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag(42) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "80892221190826D604C30AA6B6521FFD7BC3D52E4F8AD0C93C7A50224DCB7BAB",
+    "CSharpSha256": "30872B3AF49A2DDA3D2000BDC7B7690E46CF87F14F09B63B72CC45B2055E4C0E"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-2",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag(42) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "098251E24E2B2DC4D7A29850800310508CF332C27355EAB684BDFF1B7C5CD610",
+    "CSharpSha256": "A551190D5AF7C8CF29203181274CBB93C7553684707A5334D8AF14414BE64B3E"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-3",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag([]),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "40CC3A89ECCAF134B1799A1B22EDC2F038D723F414FC7D10C702AF771B29DD2E",
+    "CSharpSha256": "47332F0F1044FB3197DFC2E05B166709A4F60A8922706B76CCEDB5F729852230"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-3",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = [],V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6A8979D99ADED1EE1A60B782A51EC73AF29093E2368EA5997B348BFA14F427B4",
+    "CSharpSha256": "ED5FA86655B41121F73CF6B044C3C34BB51FA49ADE319498432F34B8D7065892"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-3",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = [],V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CFEE3F43BD1FB2901D1A53C73C811BFC0CB021E4348827A7AB2AD6CC5D3C9851",
+    "CSharpSha256": "8936BCEE68AD76E019E654E1893BA41E18826C1539ED4248E076CD1F6D3EBC1A"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-3",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag([]) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "50074BB4826AFCBF28A770DEF665100A4D7741097DF5C5BD570BA22BA5DE8730",
+    "CSharpSha256": "D16C79E1D9A4D0D60972E3C0DD84F7BA7EEE7D86C25D1905BE06642493C8F669"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-3",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag([]) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "14A5C2377215B155722BE03838AEF07288755AAE31927727BB81C742FD7C9847",
+    "CSharpSha256": "41E729E0B8F48F63884F155680E285EA78189F3477820439482785E4FB7E2318"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-4",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag([a|b]),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A147BED653D19BD670C150ED40754CDB9EAE9CE4451E476A5BAEEF33E77ED2F1",
+    "CSharpSha256": "E3D975773BF0DAE95708668EA3973725FA5F6AB94A6771788FF6C8241F473D66"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-4",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = [a|b],V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BF8EA50BB751C4C7B9647F156271A6D698CB21B9AEC58D1C90B390DB4D79BE9C",
+    "CSharpSha256": "3B288DD1C67C39BDCA13AB82B498D5382B9EA999ACCC634BD3FC55C4D7C6ADFF"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-4",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = [a|b],V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8C2B3D421DA0C7AE03A7F69A6DAAEFB39487BC873E293C306392477AAFAC28E8",
+    "CSharpSha256": "0323ED33990E8965C781EF9FE9D7C5ED8B60F24994917CF45EA6257D675588DC"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-4",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag([a|b]) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "ABE31551D3E995E438D69FAADC5951BB29DD2B5F1FC668742503101A8EF0056A",
+    "CSharpSha256": "A06F7DF957AC2A0B35AB73106387DD0246CDAEB6A34BDAD47FA7D55EA61D4A51"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-4",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag([a|b]) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F4CC964797E3A19E596212452951BBED88E91C99839DC8898291190318949903",
+    "CSharpSha256": "06C46872B503B45B9B129A1B5DBBF0D36F293D01F6ED0B8FC5D9B98CBFD71FBB"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-5",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag(<<1:3>>),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2F757D09C7139B89F9559DB085ED22424077B450AF57FEABEC3369EA4FFC209A",
+    "CSharpSha256": "6126C6E306EFA84C6668AD4F41A20BFCD7E8B8F47DDF900DF66A40AF2EFDF264"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-5",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = <<1:3>>,V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "416ABA423CC3022A7D111D0C3FB1A0DE3A83BD0271C587F843191F365C562A3F",
+    "CSharpSha256": "CB7CB04C62ACF13A53C4360B032CEAA83E5B9712AE81D74A89351F214A52EB54"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-5",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = <<1:3>>,V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "31CD2EDE4F9A96E9CEADBE477FD41575BB6E75CEF3D29CAD7274F443B731DEA1",
+    "CSharpSha256": "B9E0B41644E0E5243B72590E1E52C91A4C014B48BE94BF76EA39D258CD2877D2"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-5",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag(<<1:3>>) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5E4103E7F1F63F7064A5A8AEFDE137B3357D029FC546FE78ED96AE50B8A0F3E5",
+    "CSharpSha256": "30788D64F7344875BBD73C17140A1E8F322686CDCA99F1C7B8C7564A27387932"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-5",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag(<<1:3>>) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CF58011787B09866384E13028C0D12C1B8D583074BDEB1613EE1D8619A18C3B4",
+    "CSharpSha256": "EB6C298D8BBCCDD8DBB69DFAA8DDCE9F339531F9FB9B7DDC1198DE6D0DD293AA"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-6",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag(#{key=>42}),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "62F7C237C1DE17675F2904116A920DCDD732D8B7B0566421CE254E14A540A0D2",
+    "CSharpSha256": "543575681C8413418339DAC0DF0E1A834039BAA3BFC4871E67E0BDBC057D66C6"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-6",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = #{key=>42},V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "788B561AEAE81AC6D7329ADDEFF824E688F4305E46D006EAC3EA15EA6A8EAB0B",
+    "CSharpSha256": "BEB833867D6DABB9A55F14D471146DB60EF5722E1CC872CED584F8202AE2F5A4"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-6",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = #{key=>42},V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0EE69F94523454A8D3789E2AF2F91433F0E64B62CDD11AB8F1E67E88656370DC",
+    "CSharpSha256": "ACE7F1302A019BF883FE5D0145359773AAFDBA02ED6BB6FEEB7F9BEBE9DF4C5C"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-6",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag(#{key=>42}) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DF626B269240B4C51F3ABD555CB9914394D92BBE0036A40375309B246E6CC37A",
+    "CSharpSha256": "7A465EA450AFA0F4BBEEC2F539AA73FDF0C41C5BD63D170F1F7872F5A52B4C3F"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-6",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag(#{key=>42}) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AB83FC37B8F3C0BE48E6779B42739C2C137424464FCE569427CA543E6A213E60",
+    "CSharpSha256": "4D590A04D84741A6A6730091984988066001F8182339DC6575B978DE01B4CFAA"
+  },
+  {
+    "Name": "erlang-dynamic-trace-put-7",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->undefined=erlang:dt_put_tag({true,<<>>}),undefined=erlang:dt_get_tag(),undefined=erlang:dt_get_tag_data(),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B17BDDDD1AE22F1C435521C662E4C51B135683425A4A7D556C4ED202DEE761A6",
+    "CSharpSha256": "CE9D39D7EA1C70A75AE71AC2818986B0562AA1AB96E25457BEC59A6B0F4EC161"
+  },
+  {
+    "Name": "erlang-dynamic-trace-append-7",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = {true,<<>>},V=erlang:dt_append_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "32FDB07C5C18544769C42AD4F0F006BA998883576C4E280355D02F6FD5C7B0C4",
+    "CSharpSha256": "21D2A953673CFAE858FC38741B61743E1DA492973AED09D8D0CDAD3D3C97317A"
+  },
+  {
+    "Name": "erlang-dynamic-trace-prepend-7",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->V = {true,<<>>},V=erlang:dt_prepend_vm_tag_data(V),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F09F649ED860ED81555BD8AFA0783EDB3A9D51C331CD6D74AFD41B13D756C380",
+    "CSharpSha256": "DF2B800F1192B57B202D24345778B0083D9FEAF84DA6A12AF8B1737007FE0625"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-invalid-7",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_restore_tag({true,<<>>}) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "47C934E62DCE31F01D0929E723052AFF9BFA2B33DADA6CE66888E448429E475F",
+    "CSharpSha256": "1F9256CF53B56A0AC0269952B36B31290EBC4BF6EA48C6EC154CC475A48ED087"
+  },
+  {
+    "Name": "erlang-dynamic-trace-spread-invalid-7",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->ok=try erlang:dt_spread_tag({true,<<>>}) of _->unexpected catch error:badarg->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E88FCA9CFCD8C4EBDA496143DA6CFA4C5D77C677EED8BC48DB9B73F7BC263AC9",
+    "CSharpSha256": "E671D12CAECEFA667D62B9EFEAF8DD646BE78CC29329D4B8B9F88D97E6E63931"
+  },
+  {
+    "Name": "erlang-dynamic-trace-restore-spread-return",
+    "Source": "-module(dynamic_trace_contract). -export([run/0]). run()->true=erlang:dt_restore_tag(erlang:dt_spread_tag(true)),true=erlang:dt_restore_tag(erlang:dt_spread_tag(false)),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8719905F59EC1AE40912EA3857F6CAB351459E2EDDEE387A6E1858FE562EC671",
+    "CSharpSha256": "36F17BE7E8A8EB5A285608F93BC00119947D6E364E6B9560C1D69D613D954428"
+  }
+]
