@@ -344,3 +344,6 @@ Publishedc20e990 passes exact-source1333/1333=778/476/79, same-head1526/full CI 
 
 ## Part 093 checkpoint
 Local1541/full pipeline,15 lifecycle contracts; planned1348=778/491/79 preserves prior778/476/79.85MFAs/delta0;220types/no violations. Erlang child callback owns links and may return dead PID; monitor shutdown/unlink/EXIT flush. CLR host convenience separate. Publish and verify exact-source/head CI, then part094 proof. Full logging/classification/signals/timing/sys/significant/simple_one/upgrades/stacks/resources/upstream/performance partial,5% coarse;0014 active; draft excluded.
+
+## Part 094 checkpoint
+Published9ef47ed passes exact-source1348/1348=778/491/79, same-head1541/full CI and strict provenance.15 lifecycle contracts, zero expectation corrections; old778/476/79 preserved.85MFAs/delta0; supervisor9/23/gen_server10/41 partial;220types/no violations. Next simple_one_for_one/significant/auto_shutdown, plus full logging/signals/timing/sys/upgrades/stacks/resources/upstream/performance.5% coarse;0014 active; draft excluded.
