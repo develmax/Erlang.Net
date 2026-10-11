@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–108.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–109.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades and relative timers | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, tuple records, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 134 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 194 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, significant/auto_shutdown and simple_one_for_one, public queries/stop, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 134 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 194 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -700,3 +700,17 @@ Completed functional API contracts include smaller-map traversal with original c
 - Commands: reference-checkpoint-108 -Mode Download; preserve108 strict source/independent-outcome/hash/head/CI guard; readiness CLI with immutable part 107 tests; Git diff/closed-volume/reference guards.
 - Historical 1536/1774 proof at d713491 remains immutable part104. One provisional iterator source assertion correction retained in part106/107; no new optimization workaround; prior map compiler caveat retained in part102/103/104.
 - Publish verified maps proof, bounded English journal and refreshed readiness. Next work: remaining lists/OTP/source features; map internal resources/error_info/stacks require runtime/compiler support. Closed journals and sibling checkout remain untouched; LICENSE.local.txt stays uncommitted/unpublished/unpackaged.
+
+## Part 109 — 2026-10-11 — Complete lists exported API and source-directed contracts
+
+Implement all **91/91 lists exports**, adding **60 registered MFAs** (194 total) and **252 independent compiled-module contracts**. Before implementation, audit pinned OTP-29.1.1 lists.erl and lists_SUITE.erl, existing terms/comparison/callback infrastructure and BCL reuse; record source/reuse choices in OTP-PORTS and dependency-decisions. No new dependency or source license banners.
+
+Port basic/key operations, concat legacy float formatting, zip/zip3/zipwith/zipwith3 fail/trim/pad modes, unzip, filter/filtermap alias, search/splitwith/flatmap/uniq, stable sort/keysort and unique/reverse/key/callback merges. Preserve exact versus numeric equality, first representatives, unchanged tails, callback directions/order, malformed arguments and fault precedence. Callback unique sorting and merging follow original state transitions; pure sort uses cached stable BCL projection. Fix existing map/sum tail and callback contracts. Separate semantic constants/types and apply repository layout/style rules.
+
+Add direct exported-function contracts, literal callback traces, badfun/badarity/throw/exit, improper tails, numeric/composite keys, padding modes and 64 deterministic seeded sort/merge vectors. Expected values are independent literal/frequency contracts, never copied from execution. Preserve all historical 778 expressions, 764 module sources/expectations/generated hashes and 84 diagnostics. New modules use default native optimization; two historical explicit no_ssa_opt map fixtures stay unchanged.
+
+Retain initial failures: first isolated172 probe passed169; correct two provisional source contracts (prefix remainder guard and zip3 fixed padding), plus one invalid map-pattern fixture syntax; final independent {ok,done} remains unchanged. Source audit then finds keysort first-key versus tail priority and lazy mergel/umergel nested versus outer-tail priority; retain two failing regression pairs and fix implementation. Also retain intermediate tuple projection build failure. Filtered helper Total labels count corpus size, not executed subsets: keysort/mergel probes each execute two cases. Earlier full passes2177 and2179 precede final corrections; final evidence supersedes them without erasing logs.
+
+Final local pipeline **2181/2181**, all252 new modules and194 direct MFAs; hybrid, negative preprocessing/oracle, incremental/clean builds, package consumer, CLI and readiness pass. **263 namespace types**, no file/type violations; exact consolidated notices in both packages and uncommitted license draft excluded. [Tests](validation/part-109/tests.json), [integration](validation/part-109/integration-results.json), [contracts](validation/part-109/contract-matrix.json), [source/failure audit](validation/part-109/reference-audit.json), [corpus preservation](validation/part-109/corpus-audit.json), [notices](validation/part-109/package-notices.json).
+
+Next pinned original corpus **1878 = 778 expressions + 1016 modules + 84 diagnostics**, with same-head full CI, pending part110. API presence is complete; functional promotion waits for original proof. Native allocation/reductions/stack/error_info, exhaustive Common Test and performance parity remain unclaimed. Latest complete original remains part108 (1626/1626); other modules remain partial and overall approximate10% engineering estimate is unchanged. Publish this increment and continue through original verification.

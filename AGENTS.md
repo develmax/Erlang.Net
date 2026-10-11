@@ -381,3 +381,6 @@ Maps export surface is complete 34/34; five new MFAs, 134 total. New 85 independ
 
 ## Part 108 checkpoint
 Implementation 6363039 verifies 1626/1626 = 778/764/84 and 1869/full same-head CI. maps export surface 34/34, 134 MFAs total, 250 namespace types/no violations. 90 new independent modules default-optimized; all prior 778/674/84 sources/expectations/generated hashes unchanged; one source-directed assertion correction, zero new optimization workarounds, historical two explicit no_ssa_opt fixtures preserved. Complete maps functional API proof; native HAMT/opaque layout/stacks/error_info/resources/full CT/BEAM speed unclaimed. Approximately 10% unchanged. Active 0015; draft excluded, closed journals/reference unchanged. Publish 108, then next source/list/OTP work.
+
+## Part109 checkpoint
+Local2181/full,194 direct MFAs (+60), lists91/91,263 types.252 independent default-optimized modules; prior778/764/84 preserved. Two provisional source contract corrections plus one syntax correction before original; keysort and lazy mergel priorities fixed with retained failing regressions. Original1878=778/1016/84 and same-head CI pending110. Do not stop before proof. No new dependencies/banners; draft excluded;0015 active.

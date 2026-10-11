@@ -342,7 +342,7 @@ public static class CoreModules
             ListModuleNames.Module,
             ListModuleNames.Sum,
             1,
-            (c, a) => Cons.Items(a[0]).Aggregate((Term)Term.I(0), (x, y) => Arithmetic(ErlangOperators.Plus, x, y))
+            (c, a) => ListBasicOperations.Sum(a[0])
         );
         Add(
             ListModuleNames.Module,
@@ -404,13 +404,12 @@ public static class CoreModules
             2,
             async (c, a) =>
  {
-     if (a[0] is not FunctionTerm f)
-         throw new ErlangException(ErlangErrorReasons.BadArgument);
-     var result = new List<Term>();
-     foreach (var x in Cons.Items(a[1]))
-         result.Add(await f.Invoke(c, [x]));
-
-     return Cons.From(result);
+     return await ListFunctions.Run(
+         c,
+         ListModuleNames.Map,
+         a[0],
+         a[1]
+     );
  }
         );
         Add(
@@ -712,6 +711,7 @@ public static class CoreModules
                     a[1]
                 )
             );
+        ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
                 ErlangModuleNames.Module,

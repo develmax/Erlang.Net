@@ -10,6 +10,8 @@ public static class ErlangErrorReasons
     public const string BadArithmetic = "badarith";
     public const string BadArity = "badarity";
     public const string BadFunction = "badfun";
+    public const string BadGenerator = "bad_generator";
+    public const string BadFilter = "bad_filter";
     public const string BadKey = "badkey";
     public const string BadMap = "badmap";
     public const string BadMatch = "badmatch";

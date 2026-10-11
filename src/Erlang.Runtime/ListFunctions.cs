@@ -43,7 +43,7 @@ public static class ListFunctions
 
             return operation == ListModuleNames.MapFoldRight ? Term.Tuple(output, accumulator!) : accumulator!;
         }
-        if (operation is ListModuleNames.All or ListModuleNames.Any or ListModuleNames.FoldLeft && list is not (Cons or Nil))
+        if (operation is ListModuleNames.All or ListModuleNames.Any or ListModuleNames.FoldLeft or ListModuleNames.Map && list is not (Cons or Nil))
             throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), list));
         var accepted = new List<Term>();
         var rejected = new List<Term>();
@@ -60,6 +60,8 @@ public static class ListFunctions
                 accepted.Add(pair.Items[0]);
                 accumulator = pair.Items[1];
             }
+            else if (operation == ListModuleNames.Map)
+                accepted.Add(value);
             else if (operation != ListModuleNames.ForEach)
             {
                 if (operation == ListModuleNames.FilterMap && value is TupleTerm { Items.Count: 2 } pair && pair.Items[0] is Atom { Name: ErlangBooleanAtoms.True })

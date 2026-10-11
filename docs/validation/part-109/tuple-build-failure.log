@@ -1,0 +1,23 @@
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+  Erlang.Terms -> D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Terms\bin\Debug\net10.0\Erlang.Terms.dll
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(21,29): error CS1061: "Term" не содержит определения "Key", и не удалось найти доступный метод расширения "Key", принимающий тип "Term" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку). [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(23,33): error CS1061: "Term" не содержит определения "Value", и не удалось найти доступный метод расширения "Value", принимающий тип "Term" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку). [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(19,9): error CS0030: Не удается преобразовать тип "(Erlang.Term Value, Erlang.Term Key)" в "Erlang.Term" [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+  Erlang.Serialization -> D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Serialization\bin\Debug\net10.0\Erlang.Serialization.dll
+  Erlang.Style -> D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Style\bin\Debug\net10.0\Erlang.Style.dll
+
+Ошибка сборки.
+
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(21,29): error CS1061: "Term" не содержит определения "Key", и не удалось найти доступный метод расширения "Key", принимающий тип "Term" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку). [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(23,33): error CS1061: "Term" не содержит определения "Value", и не удалось найти доступный метод расширения "Value", принимающий тип "Term" в качестве первого аргумента (возможно, пропущена директива using или ссылка на сборку). [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ListSortOperations.cs(19,9): error CS0030: Не удается преобразовать тип "(Erlang.Term Value, Erlang.Term Key)" в "Erlang.Term" [D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj]
+    Предупреждений: 0
+    Ошибок: 3
+
+Прошло времени 00:00:03.18
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate.ps1:9
+Line |
+   9 |  … ASTEXITCODE -ne 0) { throw "dotnet failed: $($Arguments -join ' ')" }
+     |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | dotnet failed: build -m:1 --nologo
