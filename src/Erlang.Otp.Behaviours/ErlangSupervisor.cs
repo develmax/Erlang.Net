@@ -28,6 +28,7 @@ public static class ErlangSupervisor
             Atom { Name: SupervisorAtoms.OneForOne } => RestartStrategy.OneForOne,
             Atom { Name: SupervisorAtoms.OneForAll } => RestartStrategy.OneForAll,
             Atom { Name: SupervisorAtoms.RestForOne } => RestartStrategy.RestForOne,
+            Atom { Name: SupervisorAtoms.SimpleOneForOne } => RestartStrategy.SimpleOneForOne,
             _ => throw Flag(SupervisorAtoms.InvalidStrategy, strategyValue)
         };
         Term intensity = Get(flags, SupervisorAtoms.Intensity, Term.I(BehaviourDefaults.RestartIntensity));
@@ -44,6 +45,16 @@ public static class ErlangSupervisor
             Atom { Name: SupervisorAtoms.AllSignificant } => AutoShutdownPolicy.AllSignificant,
             _ => throw Flag(SupervisorAtoms.InvalidAutoShutdown, automatic)
         };
+        if (strategy == RestartStrategy.SimpleOneForOne && policy != AutoShutdownPolicy.Never)
+            throw Flag(
+                SupervisorAtoms.BadCombination,
+                Term.List(
+                Term.Tuple(Term.A(SupervisorAtoms.AutoShutdown), automatic),
+                Term.Tuple(Term.A(SupervisorAtoms.Strategy), strategyValue)
+            )
+            );
+        if (strategy == RestartStrategy.SimpleOneForOne && data.Items[1] is not Cons { Tail: Nil })
+            throw Exit(Term.Tuple(Term.A(SupervisorAtoms.BadStartSpec), data.Items[1]));
         try
         {
             return new(
@@ -164,42 +175,6 @@ public static class ErlangSupervisor
                     throw Error(SupervisorAtoms.InvalidModule, item);
         }
 
-        async ValueTask<Term> StartResult(ProcessContext context)
-        {
-            Term result;
-            try
-            {
-                result = await context.Runtime.Modules.Call(
-                    context,
-                    module.Name,
-                    function.Name,
-                    arguments
-                );
-            }
-            catch (ErlangException ex) when (ex.ExceptionClass == ErlangExceptionClasses.Throw)
-            {
-                result = ex.Reason;
-            }
-            catch (ErlangException ex)
-            {
-                return Term.Tuple(
-                    Term.A(BehaviourAtoms.Error),
-                    Term.Tuple(
-                        Term.A(ProcessMessageTags.LinkedExit),
-                        ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(ex.Reason, ex.StackTraceTerm)
-                    )
-                );
-            }
-            if (result is Atom { Name: BehaviourAtoms.Ignore })
-                return Term.Tuple(Term.A(BehaviourAtoms.Ok), Term.A(SupervisorAtoms.Undefined));
-            if (result is TupleTerm { Items.Count: 2 } error && error.Items[0] is Atom { Name: BehaviourAtoms.Error })
-                return error;
-            if (result is TupleTerm success && success.Items.Count is 2 or 3 && success.Items[0] is Atom { Name: BehaviourAtoms.Ok } && success.Items[1] is Pid pid)
-                return success;
-
-            return Term.Tuple(Term.A(BehaviourAtoms.Error), result);
-        }
-
         return new(
             id!,
             context => throw new ErlangException(ErlangErrorReasons.UndefinedFunction),
@@ -212,11 +187,82 @@ public static class ErlangSupervisor
             brutal
         )
         {
-            StartResult = StartResult,
+            StartResult = context => StartChild(context, mfa),
             StartMfa = start,
             Significant = isSignificant
         };
     }
+
+    private static async ValueTask<Term> StartChild(ProcessContext context, TupleTerm start)
+    {
+        Term result;
+        try
+        {
+            result = await context.Runtime.Modules.Call(
+                context,
+                ((Atom)start.Items[0]).Name,
+                ((Atom)start.Items[1]).Name,
+                Cons.Items(start.Items[2]).ToArray()
+            );
+        }
+        catch (ErlangException ex) when (ex.ExceptionClass == ErlangExceptionClasses.Throw)
+        {
+            result = ex.Reason;
+        }
+        catch (ErlangException ex)
+        {
+            return Term.Tuple(
+                Term.A(BehaviourAtoms.Error),
+                Term.Tuple(
+                    Term.A(ProcessMessageTags.LinkedExit),
+                    ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(ex.Reason, ex.StackTraceTerm)
+                )
+            );
+        }
+        if (result is Atom { Name: BehaviourAtoms.Ignore })
+            return Term.Tuple(Term.A(BehaviourAtoms.Ok), Term.A(SupervisorAtoms.Undefined));
+        if (result is TupleTerm { Items.Count: 2 } error && error.Items[0] is Atom { Name: BehaviourAtoms.Error })
+            return error;
+        if (result is TupleTerm success && success.Items.Count is 2 or 3 && success.Items[0] is Atom { Name: BehaviourAtoms.Ok } && success.Items[1] is Pid pid)
+            return success;
+
+        return Term.Tuple(Term.A(BehaviourAtoms.Error), result);
+    }
+
+    internal static ChildSpec WithArguments(ChildSpec template, Term extra)
+    {
+        var original = (TupleTerm)template.StartMfa!;
+        var prefix = Cons.Items(original.Items[2]).ToArray();
+        Term arguments = extra;
+        for (int index = prefix.Length - 1; index >= 0; index--)
+            arguments = new Cons(prefix[index], arguments);
+        var start = Term.Tuple(original.Items[0], original.Items[1], arguments);
+
+        return template with { StartMfa = start, StartResult = context => StartChild(context, start) };
+    }
+
+    internal static MapTerm ChildSpecification(ChildSpec specification) => new(
+    [
+        new(Term.A(SupervisorAtoms.Id), specification.Id),
+        new(Term.A(SupervisorAtoms.Start), specification.StartMfa!),
+        new(
+            Term.A(SupervisorAtoms.Restart),
+            Term.A(specification.Restart switch
+        {
+            RestartPolicy.Permanent => SupervisorAtoms.Permanent,
+            RestartPolicy.Transient => SupervisorAtoms.Transient,
+            _ => SupervisorAtoms.Temporary
+        })
+        ),
+        new(Term.A(SupervisorAtoms.Significant), Term.A(specification.Significant ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)),
+        new(
+            Term.A(SupervisorAtoms.Shutdown),
+            specification.InfiniteShutdown ? Term.A(BehaviourAtoms.Infinity) : specification.BrutalKill ? Term.A(SupervisorAtoms.BrutalKill) : Term.I((int)(specification.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds)).TotalMilliseconds)
+        ),
+        new(Term.A(SupervisorAtoms.Type), specification.Type ?? Term.A(SupervisorAtoms.Worker)),
+        new(Term.A(SupervisorAtoms.Modules), specification.Modules ?? Nil.Value)
+    ]
+    );
 
     private static Term Get(MapTerm map, string key, Term fallback) => map.TryGet(Term.A(key), out var value) ? value! : fallback;
 

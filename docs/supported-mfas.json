@@ -686,5 +686,37 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/supervisor:delete_child/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "get_childspec",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:get_childspec/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "which_child",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:which_child/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "stop",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:stop/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "stop",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:stop/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   }
 ]

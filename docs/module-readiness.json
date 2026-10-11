@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-093/tests.json",
-  "LocalPassedTests": 1574,
-  "RegisteredMfas": 86,
-  "PreviousRegisteredMfas": 85,
-  "RegisteredMfaDelta": 1,
+  "ComparisonTestReport": "validation/part-097/tests.json",
+  "LocalPassedTests": 1614,
+  "RegisteredMfas": 90,
+  "PreviousRegisteredMfas": 86,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -90,7 +90,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 188
+      "RelatedPassedTests": 192
     },
     {
       "Id": "gen_server adapters",
@@ -113,7 +113,7 @@
       "Project": "src/Erlang.Otp.Behaviours",
       "Status": "Partially compatible",
       "Implemented": [
-        "C# strategies/policies/intensity and nine standard supervisor MFAs",
+        "C# strategies/policies/intensity and fourteen standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
         "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
         "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial",
@@ -128,13 +128,16 @@
         "check_childspecs/2 with standalone undefined policy and source validation/error precedence",
         "Initial29/30 significant modules matched at93f9500; one provisional assertion corrected in097; final32 verified against original at4992a98",
         "Source is_list cons/nil guard precedes policy and improper-tail traversal; valid improper prefix raises function_clause",
-        "32 independent significant modules verified against exact-source OTP-29.1.1 at4992a98; full module remains partial"
+        "32 independent significant modules verified against exact-source OTP-29.1.1 at4992a98; full module remains partial",
+        "simple_one_for_one single MFA template, appended dynamic arguments and PID/restarting state",
+        "Concurrent simple-child shutdown with one timeout budget; source query/stop public APIs",
+        "35 independently expected simple modules/full1614 pass locally; new exact-source proof pending"
       ],
       "Remaining": [
-        "simple_one_for_one and upgrades/sys",
-        "Complete logging/reason classification, priority/distributed signals, timing/clock races and stacks"
+        "Full sys/upgrades/proc_lib/debug/logging and reason classification",
+        "Complete timing/clock, priority/distributed signal, dead-child race and stack/resource contracts"
       ],
-      "RelatedPassedTests": 122
+      "RelatedPassedTests": 162
     },
     {
       "Id": "Hybrid and MSBuild",
@@ -176,7 +179,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 611
+      "RelatedPassedTests": 646
     },
     {
       "Id": "Style checks",
@@ -14174,11 +14177,11 @@
     {
       "Name": "supervisor",
       "Status": "Partially compatible",
-      "RegisteredMfas": 10,
-      "PreviousRegisteredMfas": 9,
-      "Delta": 1,
+      "RegisteredMfas": 14,
+      "PreviousRegisteredMfas": 10,
+      "Delta": 4,
       "ReferenceDeclarations": 23,
-      "ApiPresencePercent": 43.5,
+      "ApiPresencePercent": 60.9,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/supervisor.erl"
@@ -14188,11 +14191,15 @@
         "supervisor:check_childspecs/2",
         "supervisor:count_children/1",
         "supervisor:delete_child/2",
+        "supervisor:get_childspec/2",
         "supervisor:restart_child/2",
         "supervisor:start_child/2",
         "supervisor:start_link/2",
         "supervisor:start_link/3",
+        "supervisor:stop/1",
+        "supervisor:stop/3",
         "supervisor:terminate_child/2",
+        "supervisor:which_child/2",
         "supervisor:which_children/1"
       ],
       "AbsentFromReference": []

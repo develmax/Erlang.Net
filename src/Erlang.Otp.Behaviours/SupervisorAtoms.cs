@@ -2,6 +2,8 @@ namespace Erlang.Otp;
 
 internal static class SupervisorAtoms
 {
+    public const string SimpleOneForOne = "simple_one_for_one";
+    public const string BadStartSpec = "bad_start_spec";
     public const string Strategy = "strategy";
     public const string Intensity = "intensity";
     public const string Period = "period";

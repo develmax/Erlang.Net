@@ -15,3 +15,5 @@ This run expands several substantial capabilities and a runnable application pat
 These are concrete delivery criteria for the next engineering reassessment, not a claim that they exhaust exactly10% of the reference specification. Full OTP services and source suites, distribution, sys/proc_lib/upgrades, optimizer/debug/stacks, resource/signal/clock races and measured BEAM performance remain outside this early milestone. If those delivery criteria are not met, keep the target pending and report actual progress without fabricating a percentage.
 
 Part098: significant/auto_shutdown and check_childspecs/2 verified against exact-source OTP at4992a98 (1380/1380) and1574/full same-headCI. Simple strategy and remaining work packages are pending. Overall target is not yet achieved.
+
+Part099: simple_one_for_one and public query/stop increment passes1614/full locally; original1415 pending in100. Wider collections/timer/source/application packages remain pending; do not promote percentage yet.

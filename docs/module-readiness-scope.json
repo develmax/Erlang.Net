@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-093/tests.json",
+  "ComparisonTestReport": "validation/part-097/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -124,11 +124,11 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
-        "simple_one_for_one and upgrades/sys",
-        "Complete logging/reason classification, priority/distributed signals, timing/clock races and stacks"
+        "Full sys/upgrades/proc_lib/debug/logging and reason classification",
+        "Complete timing/clock, priority/distributed signal, dead-child race and stack/resource contracts"
       ],
       "Implemented": [
-        "C# strategies/policies/intensity and nine standard supervisor MFAs",
+        "C# strategies/policies/intensity and fourteen standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
         "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
         "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial",
@@ -143,7 +143,10 @@
         "check_childspecs/2 with standalone undefined policy and source validation/error precedence",
         "Initial29/30 significant modules matched at93f9500; one provisional assertion corrected in097; final32 verified against original at4992a98",
         "Source is_list cons/nil guard precedes policy and improper-tail traversal; valid improper prefix raises function_clause",
-        "32 independent significant modules verified against exact-source OTP-29.1.1 at4992a98; full module remains partial"
+        "32 independent significant modules verified against exact-source OTP-29.1.1 at4992a98; full module remains partial",
+        "simple_one_for_one single MFA template, appended dynamic arguments and PID/restarting state",
+        "Concurrent simple-child shutdown with one timeout budget; source query/stop public APIs",
+        "35 independently expected simple modules/full1614 pass locally; new exact-source proof pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [

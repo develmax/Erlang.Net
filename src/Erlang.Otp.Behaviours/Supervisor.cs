@@ -139,6 +139,8 @@ public static class Supervisor
                     }
                     if (result.Items[1] is Pid || spec.Restart != RestartPolicy.Temporary)
                     {
+                        if (spec.Restart == RestartPolicy.Temporary && spec.StartMfa is TupleTerm start)
+                            spec = spec with { StartMfa = Term.Tuple(start.Items[0], start.Items[1], Term.A(SupervisorAtoms.Undefined)) };
                         specifications.Add(spec);
                         children.Add(null);
                         InstallChild(children.Count - 1, result);
@@ -149,6 +151,18 @@ public static class Supervisor
                 int index = specifications.FindIndex(s => s.Id.Equals(argument));
                 if (index < 0)
                     return Error(SupervisorAtoms.NotFound);
+                if (operation == OtpNames.GetChildSpec)
+                    return Term.Tuple(Term.A(BehaviourAtoms.Ok), ErlangSupervisor.ChildSpecification(specifications[index]));
+                if (operation == OtpNames.WhichChild)
+                    return Term.Tuple(
+                        Term.A(BehaviourAtoms.Ok),
+                        Term.Tuple(
+                            specifications[index].Id,
+                            restarting.Contains(argument) ? Term.A(SupervisorAtoms.Restarting) : children[index]?.Pid ?? (Term)Term.A(SupervisorAtoms.Undefined),
+                            specifications[index].Type ?? Term.A(SupervisorAtoms.Worker),
+                            specifications[index].Modules ?? Nil.Value
+                        )
+                    );
                 if (operation == OtpNames.TerminateChild)
                 {
                     await StopChild(index);
@@ -297,6 +311,19 @@ public static class Supervisor
 
                     return Term.A(BehaviourAtoms.Ok);
                 }
+                if (configuration.Strategy == RestartStrategy.SimpleOneForOne)
+                {
+                    if (configuration.Children.Count != BehaviourDefaults.DynamicTemplateSpecifications || configuration.Children[0].StartMfa is null)
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+                    return await SimpleSupervisor.Run(
+                        context,
+                        configuration,
+                        parent,
+                        ready,
+                        handle
+                    );
+                }
                 specifications.AddRange(configuration.Children);
                 strategy = configuration.Strategy;
                 intensity = configuration.Intensity;
@@ -322,7 +349,7 @@ public static class Supervisor
                         {
                             Atom { Name: OtpNames.WhichChildren } => OtpModules.WhichChildren(handle),
                             Atom { Name: OtpNames.CountChildren } => OtpModules.CountChildren(handle, runtime),
-                            TupleTerm { Items.Count: 2 } request when request.Items[0] is Atom { Name: OtpNames.StartChild or OtpNames.TerminateChild or OtpNames.RestartChild or OtpNames.DeleteChild } operation => await ManageChild(operation.Name, request.Items[1]),
+                            TupleTerm { Items.Count: 2 } request when request.Items[0] is Atom { Name: OtpNames.StartChild or OtpNames.TerminateChild or OtpNames.RestartChild or OtpNames.DeleteChild or OtpNames.GetChildSpec or OtpNames.WhichChild } operation => await ManageChild(operation.Name, request.Items[1]),
                             _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
                         };
                         GenServer.Reply(context, new(caller, reference), reply);

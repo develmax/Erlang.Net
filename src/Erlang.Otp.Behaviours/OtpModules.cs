@@ -141,13 +141,30 @@ public static class OtpModules
                 2,
                 (c, a) => ValueTask.FromResult(CheckChildSpecs(a[0], a[1]))
             );
-            foreach (string operation in new[] { OtpNames.StartChild, OtpNames.TerminateChild, OtpNames.RestartChild, OtpNames.DeleteChild })
+            foreach (string operation in new[] { OtpNames.StartChild, OtpNames.TerminateChild, OtpNames.RestartChild, OtpNames.DeleteChild, OtpNames.GetChildSpec, OtpNames.WhichChild })
                 Add(
                     OtpNames.Supervisor,
                     operation,
                     2,
                     (c, a) => SupervisorCall(c, Term.Tuple(Term.A(operation), a[1]), a[0])
                 );
+            Add(
+                OtpNames.Supervisor,
+                OtpNames.Stop,
+                1,
+                (context, arguments) => GenServer.Stop(context, Resolve(context, arguments[0], true)!, Term.A(ProcessExitReasons.Normal))
+            );
+            Add(
+                OtpNames.Supervisor,
+                OtpNames.Stop,
+                3,
+                (context, arguments) => GenServer.Stop(
+                    context,
+                    Resolve(context, arguments[0], true)!,
+                    arguments[1],
+                    Timeout(arguments[2])
+                )
+            );
             Installed.Add(registry, new());
         }
     }

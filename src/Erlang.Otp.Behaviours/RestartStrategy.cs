@@ -6,5 +6,6 @@ public enum RestartStrategy
 {
     OneForOne,
     OneForAll,
-    RestForOne
+    RestForOne,
+    SimpleOneForOne
 }

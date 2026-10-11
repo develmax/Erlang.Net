@@ -360,3 +360,6 @@ Local1574/full, corrected32 significant modules/2 extra cases;86MFAs/delta0/222t
 
 ## Part 098 checkpoint
 Published4992a98 verifies1380/1380=778/523/79 and1574/full same-headCI, one explicit source assertion correction; old778/491/79 preserved.32 significant cases,86MFAs (+1), supervisor10/23;222types/no violations. Target10% remains active per TEN_PERCENT_MILESTONE.md. Next simple_one_for_one/public queries/stop, then collections/timers/source/application. No final milestone completion yet; draft excluded;0014 active.
+
+## Part099 checkpoint
+Local1614/full;35 simple modules+4 directMFAs+1 host rejection,90MFAs/super14/23/gen10/41;224types. Prior778/523/79 unchanged, plan1415=778/558/79. Publish, dispatch100 original/headCI, then continue collections/timers/source/application toward10%. Initial enum host-matrix failure retained; source expectations unchanged; draft excluded;0014 active.

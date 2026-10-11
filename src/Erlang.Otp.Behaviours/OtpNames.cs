@@ -10,6 +10,8 @@ internal static class OtpNames
     public const string Cast = "cast";
     public const string Reply = "reply";
     public const string Stop = "stop";
+    public const string WhichChild = "which_child";
+    public const string GetChildSpec = "get_childspec";
     public const string WhichChildren = "which_children";
     public const string CountChildren = "count_children";
     public const string CheckChildSpecs = "check_childspecs";

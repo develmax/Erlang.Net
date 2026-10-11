@@ -1222,7 +1222,7 @@ Test(
      }
  }
 );
-foreach (var strategy in Enum.GetValues<RestartStrategy>())
+foreach (var strategy in new[] { RestartStrategy.OneForOne, RestartStrategy.OneForAll, RestartStrategy.RestForOne })
     Test(
         "otp/supervisor-" + strategy,
         async () =>
@@ -1273,6 +1273,22 @@ foreach (var strategy in Enum.GetValues<RestartStrategy>())
         Check(supervisor.Children.Count == 0);
     }
     );
+Test(
+    "otp/supervisor-simple-host-template-required",
+    async () =>
+    {
+        await using var runtime = new ProcessRuntime();
+        try
+        {
+            await Supervisor.Start(runtime, [], RestartStrategy.SimpleOneForOne);
+            throw new InvalidOperationException("Expected missing simple MFA template rejection");
+        }
+        catch (ErlangException error)
+        {
+            Equal(error.Reason, Term.A("badarg"));
+        }
+    }
+);
 Test(
     "otp/supervisor-transient-temporary-normal",
     async () =>
