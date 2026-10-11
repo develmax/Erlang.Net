@@ -89,6 +89,11 @@ public sealed class Parser
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     Expect(ErlangSyntaxTokens.FormTerminator);
                 }
+                else if (attr == ModuleAttributeNames.Compile && Take(CompilerOptionNames.DisableSsaOptimization))
+                {
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    Expect(ErlangSyntaxTokens.FormTerminator);
+                }
                 else if (attr == ModuleAttributeNames.Record)
                 {
                     string name = Name();

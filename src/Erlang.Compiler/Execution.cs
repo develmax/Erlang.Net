@@ -97,7 +97,7 @@ public static class Execution
     {
         Expr.Literal l => l.Value,
         Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
-        Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : Term.A(ErlangBooleanAtoms.False),
+        Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : throw new ErlangException(ErlangErrorReasons.BadArgument),
         Expr.RecordConstruction record => GuardValue(RecordExpressions.Create(record), b, ctx),
         Expr.RecordAccess record => RecordExpressions.Access(
             GuardValue(record.Value, b, ctx),

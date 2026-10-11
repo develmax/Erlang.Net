@@ -4,7 +4,9 @@ public static class MapOperationsCases
 {
     private static CompiledModuleCase Case(string name, string body) => new(
         "maps-operations-" + name,
-        "-module(oracle_map_operations). -export([run/0]). run()->" + body + ",done.",
+        "-module(oracle_map_operations). -export([run/0]). " +
+            (name is "none" or "duplicate-iterator-keys" ? "-compile(no_ssa_opt). " : string.Empty) +
+            "run()->" + body + ",done.",
         Term.Tuple(Term.A("ok"), Term.A("done"))
     );
 

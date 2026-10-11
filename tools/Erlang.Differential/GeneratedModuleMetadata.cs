@@ -7,6 +7,6 @@ internal static class GeneratedModuleMetadata
     public const string DefinitionProperty = "Definition";
     public const string SourceFile = "differential.erl";
     public const string EntryPoint = "run";
-    public const string ReferenceMode = "compile:forms/default optimizations/code:load_binary";
+    public const string ReferenceMode = "compile:forms/default optimizations except explicit source -compile(no_ssa_opt) on two maps iterator cases/code:load_binary";
     public const string ImplementationMode = "generated C#/Roslyn Release assembly/ModuleDefinition evaluator";
 }

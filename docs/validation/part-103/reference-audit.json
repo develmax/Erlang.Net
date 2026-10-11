@@ -1,0 +1,22 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InspectedBeforeFix": [
+    "lib/stdlib/src/erl_expand_records.erl:bool_operand/strict_record_access/conj",
+    "lib/compiler/src/beam_call_types.erl:types(maps,map,...)",
+    "lib/compiler/src/compile.erl:no_ssa_opt",
+    "lib/stdlib/src/maps.erl:map/2"
+  ],
+  "RetainedFailure": "part-102/differential.json",
+  "RecordFix": "Internal strict record validation throws on wrong tag/arity, ending that guard alternative; outer orelse cannot recover. Semicolon alternatives and prior short-circuit still work.",
+  "ProvisionalExpectationsCorrected": 1,
+  "ExpectationCorrection": "Only records-guard-orelse-invalid-left, source unchanged; independent badmatch/no outcome supported by pinned record expansion and original report",
+  "MapFixtureChange": "Only two new iterator fixtures add explicit -compile(no_ssa_opt); their done expectations unchanged; all prior558 modules,778 expressions,79 diagnostics untouched",
+  "ReferenceCompilerLimitation": "Optimized OTP considers maps:map argument map-only in beam_call_types despite iterator-accepting source. In complete102 run it drops continuation on statically non-map iterator inputs. Do not emulate this optimizer artifact as runtime language semantics; retain102 results and check explicit no_ssa_opt source in104.",
+  "CompilationOptionScope": "Only no_ssa_opt atom accepted, no C# SSA optimizer exists; other unsupported compile options remain rejected",
+  "LocalTests": 1774,
+  "Original": "Pending104",
+  "ProductionBeamRequired": false,
+  "NewDependency": false,
+  "SourceBanners": false
+}

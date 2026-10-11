@@ -29,7 +29,11 @@ public static class RecordCases
         Case("guard-valid", "R=#state{a=42},yes=case R of X when X#state.a=:=42->yes;_->no end"),
         Case("guard-invalid", "no=case {other,42,second,undefined} of X when X#state.a=:=42->yes;_->no end"),
         Case("guard-construct", "yes=case #state{} of X when X=:=#state{}->yes;_->no end"),
-        Case("guard-orelse-invalid-left", "yes=case wrong of X when X#state.a=:=42 orelse true->yes;_->no end"),
+        new(
+            "records-guard-orelse-invalid-left",
+            "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()->yes=case wrong of X when X#state.a=:=42 orelse true->yes;_->no end,done.",
+            Term.Tuple(Term.A("error"), Term.A("error"), Term.Tuple(Term.A("badmatch"), Term.A("no")))
+        ),
         Case("guard-orelse-short-circuit", "yes=case wrong of X when true orelse X#state.a=:=42->yes;_->no end"),
         Case(
             "construction-field-order",
