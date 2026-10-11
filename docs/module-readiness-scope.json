@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-123/tests.json",
+  "ComparisonTestReport": "validation/part-125/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -102,7 +102,8 @@
       "Project": "src/Erlang.Runtime/CoreModules.cs",
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
-        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
+        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites",
+        "Original126 incomplete at new non-Latin1 module:2724 executed pass;repair fixture/compiler boundary and repeat full128"
       ],
       "Implemented": [
         "erlang/lists/maps/io registered subset",

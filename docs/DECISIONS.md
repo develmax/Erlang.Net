@@ -1,5 +1,7 @@
 # Decisions
 
+Part126: native**2724/2724 executed pass**,all57 prior function contracts now match,but**complete=false**:new non-Latin1 module compilation abort prevents1 new module/84 diagnostics. Same-head**3271/full CI**. [Preserved abort](validation/part-126/remote-checkpoint.json). Registry342,erlang192/351,159 missing. Publish failure;correct new-only module name to Latin1,add independent compiler rejection127,repeat whole oracle128;latest complete success1222751/2751.
+
 Part125: UTF8 byte-list conversion repaired from preserved124 failures;two Unicode expectations and actual init-phase observation corrected explicitly;one local Unicode regression. **3271/full local**,plan2809=778/1947/84;1943 previous modules unchanged and all122 preserved. [Ledger](validation/part-125/correction-ledger.json). Registry342,erlang192/351,159 missing;whole goal active. Publish/freeze/verify original and same-head CI126 before promoting proof;ETF/runtime work follows.
 
 Part124: complete original at704485b executes2808 with **2805 passed/3 mismatches**,same-head3270/full CI;all122778/1889/84 unchanged. [Preserved failures](validation/part-124/mismatches.json). fun_to_list returns UTF8 bytes,not Unicode codepoints;native -eval init phase starting differs from completed managed bootstrap. Registry342,erlang192/351,159 missing;current function increment not fully native-verified. Latest successful original1222751/2751. Publish failure evidence,correct new-only fixtures/real UTF8 output,repeat whole original and continue erlang goal.

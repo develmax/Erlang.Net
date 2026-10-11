@@ -2,7 +2,7 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-123/tests.json",
+  "ComparisonTestReport": "validation/part-125/tests.json",
   "LocalPassedTests": 3271,
   "RegisteredMfas": 342,
   "PreviousRegisteredMfas": 342,
@@ -113,7 +113,8 @@
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
-        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
+        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites",
+        "Original126 incomplete at new non-Latin1 module:2724 executed pass;repair fixture/compiler boundary and repeat full128"
       ],
       "RelatedPassedTests": 1381
     },

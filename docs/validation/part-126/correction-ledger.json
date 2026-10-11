@@ -1,0 +1,83 @@
+{
+  "Historical122ModulesUnchanged": 1889,
+  "OriginalExecuted": false,
+  "PlannedTotal": 2809,
+  "AddedModules": [
+    {
+      "Name": "erlang-fun-info-local-unicode-text",
+      "Source": "-module('λ😀'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,206,187,240,159,152,128,46],L),lists:last(L)}.",
+      "FixtureExpected": "{ok,{true,62}}",
+      "SourceSha256": "CC7E5624C1AED21B4CBBA030EEE15500EB348048892FCE296EC241695D22238D",
+      "CSharpSha256": "0FE6259333BC700E8BD94F84D9B9DBF68BC226E7F3B2538AB2D90C5BE1748725"
+    }
+  ],
+  "UnchangedPreviousModules": 1943,
+  "AuthorizedCorrections": [
+    {
+      "Name": "erlang-fun-info-local-init-status",
+      "ChangedFields": [
+        "Source",
+        "FixtureExpected",
+        "SourceSha256",
+        "CSharpSha256"
+      ],
+      "Before": {
+        "Name": "erlang-fun-info-local-init-status",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->P=whereis(init),P!{self(),get_status},receive {init,S}->S after 1000->timeout end. maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,{started,started}}",
+        "SourceSha256": "BC2C563D874C9E6838C6FBD0999B6684E812E079434AFA431AEEF34067478242",
+        "CSharpSha256": "C5EE42422331195E79157D8262A290DD056859D9CB87E219673D25ADE914BF9D"
+      },
+      "After": {
+        "Name": "erlang-fun-info-local-init-status",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->P=whereis(init),P!{self(),get_status},receive {init,{Phase,Provided}}->{Phase=:=starting orelse Phase=:=started,Provided=:=started} after 1000->timeout end. maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,{true,true}}",
+        "SourceSha256": "1E4F4D0AB1E37AABD0D6749BA95B165C1430107C7A1BF5BC46E2F2263B6F716B",
+        "CSharpSha256": "6A39FA35AC7F80BD68E9312618653B5C7E6AFA0487D435CCD98BBBB3596425EF"
+      },
+      "Evidence": "Immutable part124 original mismatches and pinned bif.c/init.erl"
+    },
+    {
+      "Name": "erlang-fun-info-external-text-3",
+      "ChangedFields": [
+        "FixtureExpected"
+      ],
+      "Before": {
+        "Name": "erlang-fun-info-external-text-3",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('àé','aØ_1',1)). maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,[102,117,110,32,224,233,58,97,216,95,49,47,49]}",
+        "SourceSha256": "51AF421C5B4FBEFE2CDF0853E153650EF5E86DDA69F6F229433E33FC3A84C343",
+        "CSharpSha256": "3DCB2ED909CEDF4D498C3FB8631E035F8C9FCF15CAF3A557D028687AC243F559"
+      },
+      "After": {
+        "Name": "erlang-fun-info-external-text-3",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('àé','aØ_1',1)). maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,[102,117,110,32,195,160,195,169,58,97,195,152,95,49,47,49]}",
+        "SourceSha256": "51AF421C5B4FBEFE2CDF0853E153650EF5E86DDA69F6F229433E33FC3A84C343",
+        "CSharpSha256": "3DCB2ED909CEDF4D498C3FB8631E035F8C9FCF15CAF3A557D028687AC243F559"
+      },
+      "Evidence": "Immutable part124 original mismatches and pinned bif.c/init.erl"
+    },
+    {
+      "Name": "erlang-fun-info-external-text-4",
+      "ChangedFields": [
+        "FixtureExpected"
+      ],
+      "Before": {
+        "Name": "erlang-fun-info-external-text-4",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('λ','😀',1)). maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,[102,117,110,32,39,955,39,58,39,128512,39,47,49]}",
+        "SourceSha256": "87FB79DFA2E46AAC13B64B7F3FF4261FB960063F4EAD056D62AE16A37C25775E",
+        "CSharpSha256": "569F2A565F85CBD79EA088D2CDF5D9126E828C88F2B5D048AF5B5E76A53E888D"
+      },
+      "After": {
+        "Name": "erlang-fun-info-external-text-4",
+        "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('λ','😀',1)). maker(Value,_Unused)->fun()->Value end. ",
+        "FixtureExpected": "{ok,[102,117,110,32,39,206,187,39,58,39,240,159,152,128,39,47,49]}",
+        "SourceSha256": "87FB79DFA2E46AAC13B64B7F3FF4261FB960063F4EAD056D62AE16A37C25775E",
+        "CSharpSha256": "569F2A565F85CBD79EA088D2CDF5D9126E828C88F2B5D048AF5B5E76A53E888D"
+      },
+      "Evidence": "Immutable part124 original mismatches and pinned bif.c/init.erl"
+    }
+  ]
+}
