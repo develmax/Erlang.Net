@@ -1,0 +1,27 @@
+{
+  "OriginalPassed": 3301,
+  "AllPreviouslySuccessfulNativeResultsPreserved": true,
+  "OriginalFailed": 0,
+  "All137SourcesExpectationsAndHashesPreserved": true,
+  "Explicit136Correction": {
+    "Name": "erlang-alias-admitted-survives-deactivate",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,done.",
+    "SourceSha256": "33C0AA9E9035CA1BE5255568295D036303ECE7D6897C0D73466BDD50BBDFDD11",
+    "CSharpSha256": "92B899CDFCCBA1E0B42EB989D2F116C4CFA62D816511C61C51E81FC3D3FD76B6",
+    "SourceAndGeneratedHashUnchanged": true,
+    "Before": "{ok,done}",
+    "After": "{error,error,timeout}",
+    "OriginalEvidence": "docs/validation/part-136/mismatches.json",
+    "Reason": "Provisional admission premise contradicted by original;runtime pending-signal repair preserves exact original source and outcome"
+  },
+  "Registry": 359,
+  "OriginalPlanned": 3301,
+  "All136NativeExpectedValuesPreserved": true,
+  "CiPassed": 3795,
+  "Head": "2eb3e411f8ae1ff0ac6891f9c71049f6668fa608",
+  "CiFullPipeline": true,
+  "SixOriginalExclusionsUnchanged": true,
+  "Complete": true,
+  "ClosedJournalsAndSiblingUnchanged": true,
+  "ArchiveDigestsVerified": true
+}
