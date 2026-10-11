@@ -1,6 +1,6 @@
 # Decisions
 
-Part119 adds11 real MD5/raise/process/node/scheduling MFAs and134 modules;erlang181/351,170 missing,total331;local3105/full. [Local evidence](validation/part-119/tests.json),[source boundaries](validation/part-119/reference-audit.json). Original2657 and same-head3105/full CI120 pending;complete historical118 remains2523/2523 at0aabf20. Whole erlang goal active.
+Part120: published MD5/raise/process/node/scheduling implementation4aa285d passes **2657/2657 original and3105/full same-head CI**. [Provenance](validation/part-120/remote-checkpoint.json). Registry331,erlang181/351,170 missing. All118778/1661/84 preserved;134 new independent modules verified. Whole erlang goal active; next external-function identity/queries and remaining real runtime prerequisites.
 
 1. Pin stable OTP-29.1.1 at ad05823719d77c8faee87348ea39513d4e2f99c5. The existing reference HEAD is newer and is not the baseline.
 2. Pin .NET SDK 10.0.400 and C# 14, net10.0. Avoid external restore dependencies in the initial runtime/test bootstrap.
