@@ -1,8 +1,10 @@
 # Compatibility checkpoint — 2026-10-11
 
+Part117 adds24 real clock/calendar/timer-option MFAs and115 compiled contracts; erlang170/351,181 missing,total320; local2959/full. [Evidence](validation/part-117/tests.json),[source scope](validation/part-117/reference-audit.json). Original2523 and same-head2959/full CI118 pending; historical116 remains2408/2408 at44ca437. User goal remains active; no full compatibility/performance claim.
+
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **2816/2816/full**,296 direct MFAs,erlang146/351. [Local115](validation/part-115/tests.json), [same-head original/CI116](validation/part-116/remote-checkpoint.json). Whole erlang remains unfinished.
+Current local evidence is **2959/2959/full**,320 direct MFAs,erlang170/351. [Local117](validation/part-117/tests.json); original2523 and same-head2959/full CI118 pending. Whole erlang remains unfinished.
 
 Latest exact-source oracle evidence: **2408/2408=778 expressions+1546 modules+84 diagnostics** at44ca437. [Provenance](validation/part-116/remote-checkpoint.json). All prior sources/independent outcomes/generated hashes preserved.
 

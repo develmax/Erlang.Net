@@ -23,11 +23,11 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
         Term duration,
         Term destination,
         Term message,
-        bool wrap
+        bool wrap,
+        bool absolute = false
     )
     {
-        if (duration is not Integer time || time.Value < 0 || time.Value > long.MaxValue)
-            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        var time = (Integer)ErlangTimerDeadline.Delay(duration, absolute);
         if (destination is not Atom && destination is not Pid { Creation: 0 } || destination is Pid pid && pid.Node != runtime.Node)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)

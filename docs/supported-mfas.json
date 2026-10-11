@@ -401,11 +401,27 @@
   },
   {
     "Module": "erlang",
+    "Function": "cancel_timer",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:cancel_timer/2",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "ceil",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:ceil/1",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "convert_time_unit",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:convert_time_unit/3",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -430,6 +446,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:crc32_combine/3",
     "Limits": "Source-directed integer/binary/list/iolist/float-parser/checksum contracts;functional/error contracts verified against pinned original in114;native storage/resource/stack/error_info/performance contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "date",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:date/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -873,6 +897,30 @@
   },
   {
     "Module": "erlang",
+    "Function": "localtime",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:localtime/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "localtime_to_universaltime",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:localtime_to_universaltime/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "localtime_to_universaltime",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:localtime_to_universaltime/2",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "make_ref",
     "Arity": 0,
     "Status": "Partially compatible",
@@ -945,6 +993,22 @@
   },
   {
     "Module": "erlang",
+    "Function": "monotonic_time",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monotonic_time/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "monotonic_time",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monotonic_time/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "not",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -953,11 +1017,27 @@
   },
   {
     "Module": "erlang",
+    "Function": "now",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:now/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "or",
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:or/2",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "posixtime_to_universaltime",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:posixtime_to_universaltime/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -982,6 +1062,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:read_timer/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "read_timer",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:read_timer/2",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -1030,6 +1118,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_after/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "send_after",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:send_after/4",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -1089,6 +1185,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "start_timer",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:start_timer/4",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "subtract",
     "Arity": 2,
     "Status": "Partially compatible",
@@ -1097,11 +1201,59 @@
   },
   {
     "Module": "erlang",
+    "Function": "system_time",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:system_time/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "system_time",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:system_time/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
     "Function": "throw",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:throw/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "time",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:time/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "time_offset",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:time_offset/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "time_offset",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:time_offset/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "timestamp",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:timestamp/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",
@@ -1134,6 +1286,46 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:tuple_to_list/1",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "unique_integer",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:unique_integer/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "unique_integer",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:unique_integer/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "universaltime",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:universaltime/0",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "universaltime_to_localtime",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:universaltime_to_localtime/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "universaltime_to_posixtime",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:universaltime_to_posixtime/1",
+    "Limits": "Source-directed clock/calendar and timer options; local117 functional evidence; original118 pending; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
   },
   {
     "Module": "erlang",

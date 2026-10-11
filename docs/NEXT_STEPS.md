@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part117 adds24 real clock/calendar/timer-option MFAs and115 compiled contracts; erlang170/351,181 missing,total320; local2959/full. [Evidence](validation/part-117/tests.json),[source scope](validation/part-117/reference-audit.json). Original2523 and same-head2959/full CI118 pending; historical116 remains2408/2408 at44ca437. User goal remains active; no full compatibility/performance claim.
+
 Read PROGRESS and semantic-differences first; preserve existing tests/sample/package integration.
 
 1. **Expand from the verified early platform milestone.** Part 110 verifies lists 91/91, preserves maps 34/34, and passes 1878/1878 original comparisons and 2181/full same-head CI; approximately 10% is a coarse delivery estimate. Next audit typed-record/macros/includes and diagnostic spans, timer options/absolute clock contracts, list/map resource, stack and error_info contracts, additional OTP services and runtime resources. Preserve independent corpus, source-directed semantics, bounded English journal and publication checks.

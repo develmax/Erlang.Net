@@ -69,7 +69,7 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
         )
     );
 }
-async Task<string> RunOracle(string expression)
+async Task<string> RunOracle(string expression, CancellationToken cancellationToken = default)
 {
     var info = new ProcessStartInfo(oracle) { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
     foreach (string argument in new[] { "-noshell", "-noinput", "-eval", expression })
@@ -79,11 +79,14 @@ async Task<string> RunOracle(string expression)
     var error = process.StandardError.ReadToEndAsync();
     try
     {
-        await process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(15));
+        await process.WaitForExitAsync(cancellationToken).WaitAsync(TimeSpan.FromSeconds(OracleExecutionLimits.ProcessTimeoutSeconds), cancellationToken);
     }
-    catch (TimeoutException)
+    catch (Exception exception) when (exception is TimeoutException or OperationCanceledException)
     {
-        process.Kill(true);
+        if (!process.HasExited)
+            process.Kill(true);
+        await process.WaitForExitAsync();
+        await Task.WhenAll(output, error);
         throw;
     }
     string stdout = await output, stderr = await error;
@@ -384,11 +387,15 @@ try
     cases = [.. cases, .. AliasPatternCases.All.Select(fixture => fixture.Source)];
     cases = [.. cases, .. ListComprehensionCases.All.Select(fixture => fixture.Source), .. BinaryComprehensionCases.All.Select(fixture => fixture.Source), .. MapComprehensionCases.All.Select(fixture => fixture.Source), .. MapTemplateOrderCases.All.Select(fixture => fixture.Source), .. ComparatorSortCases.All.Select(fixture => fixture.Source), .. ZipGeneratorCases.All.Select(fixture => fixture.Source)];
     planned = cases.Length;
-    foreach (string source in cases)
+    await foreach (var reference in OracleExecutionPipeline.Run(
+        cases,
+        source => OracleProtocol.EvaluationCommand("try (" + source + ") of OracleValue -> {ok,OracleValue} catch OracleClass:OracleReason -> {error,OracleClass,OracleReason} end"),
+        RunOracle,
+        source => activeSource = source
+    ))
     {
-        activeSource = source;
-        string wrapped = "try (" + source + ") of OracleValue -> {ok,OracleValue} catch OracleClass:OracleReason -> {error,OracleClass,OracleReason} end";
-        Term expected = OracleResultProtocol.Decode(await RunOracle(OracleProtocol.EvaluationCommand(wrapped)));
+        string source = reference.Fixture;
+        Term expected = OracleResultProtocol.Decode(reference.Output);
         await using var runtime = new ProcessRuntime();
         Term? actual = null;
         var expression = new Parser(source).ParseExpression();
@@ -421,10 +428,15 @@ try
         });
         await SaveReport(false);
     }
-    foreach (var fixture in CompiledModuleCases.All)
+    await foreach (var oracleResult in OracleExecutionPipeline.Run(
+        CompiledModuleCases.All,
+        fixture => CompiledModuleProtocol.Command(fixture.Source),
+        RunOracle,
+        fixture => activeSource = fixture.Source
+    ))
     {
-        activeSource = fixture.Source;
-        Term expected = OracleResultProtocol.Decode(await RunOracle(CompiledModuleProtocol.Command(fixture.Source)));
+        var fixture = oracleResult.Fixture;
+        Term expected = OracleResultProtocol.Decode(oracleResult.Output);
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
         Term actual = await CompiledModuleExecution.Run(generated);
         bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected);
@@ -447,10 +459,15 @@ try
         Console.WriteLine((passed ? "PASS module " : "FAIL module ") + fixture.Name);
         await SaveReport(false);
     }
-    foreach (var fixture in CompiledDiagnosticCases.All)
+    await foreach (var oracleResult in OracleExecutionPipeline.Run(
+        CompiledDiagnosticCases.All,
+        fixture => CompiledModuleProtocol.DiagnosticCommand(fixture.Source),
+        RunOracle,
+        fixture => activeSource = fixture.Source
+    ))
     {
-        activeSource = fixture.Source;
-        Term reference = OracleResultProtocol.Decode(await RunOracle(CompiledModuleProtocol.DiagnosticCommand(fixture.Source)));
+        var fixture = oracleResult.Fixture;
+        Term reference = OracleResultProtocol.Decode(oracleResult.Output);
         string? code = null;
         string? message = null;
         bool accepted = true;

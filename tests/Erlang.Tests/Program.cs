@@ -6,6 +6,10 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test("oracle/prefetch-order-and-bound", Erlang.Tests.OracleExecutionPipelineTests.OrderingAndBound);
+Test("oracle/prefetch-failure-provenance", Erlang.Tests.OracleExecutionPipelineTests.OrderedFailureAndCleanup);
+Test("oracle/prefetch-early-dispose", Erlang.Tests.OracleExecutionPipelineTests.EarlyDisposeCleanup);
+Test("oracle/prefetch-callback-cleanup", Erlang.Tests.OracleExecutionPipelineTests.CallbackFailureCleanup);
 Test(
     "terms/atom-name-registry-observation",
     () =>

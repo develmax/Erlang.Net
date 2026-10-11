@@ -13,12 +13,10 @@ public static class GeneratedModuleCompiler
     {
         string generated = CodeGeneration.CompileModule(source, GeneratedModuleMetadata.SourceFile);
         string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(generated)));
-        string[] platform = ((string?)AppContext.GetData(GeneratedModuleMetadata.PlatformAssemblies) ?? throw new InvalidOperationException(OracleDiagnostics.PlatformAssembliesMissing)).Split(Path.PathSeparator);
-        var references = platform.Concat(new[] { typeof(ModuleDefinition).Assembly.Location, typeof(ModuleRegistry).Assembly.Location, typeof(Term).Assembly.Location }).Distinct(StringComparer.Ordinal).Select(path => MetadataReference.CreateFromFile(path));
         var compilation = CSharpCompilation.Create(
             GeneratedModuleMetadata.AssemblyPrefix + hash,
             [CSharpSyntaxTree.ParseText(generated, new CSharpParseOptions(LanguageVersion.Preview))],
-            references,
+            GeneratedModuleReferences.All,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release)
         );
         using var binary = new MemoryStream();

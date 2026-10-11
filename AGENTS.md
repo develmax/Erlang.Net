@@ -405,3 +405,6 @@ Local atom/float-output increment:146/351,total296,205missing;2816/full,175 new 
 
 ## Part116 active erlang checkpoint
 44ca437 verifies2408/2408=778/1546/84 exact-source original and2816/full same-head CI,296 MFAs,erlang146/351/205missing,293types. All prior114778/1371/84 preserved;175 new atom/float contracts match,zero fixture repairs. Publish116 then integrate audited clocks/calendar/timer options and independent bounded fresh-VM oracle prefetch with cleanup/failure/order tests.0016 active but approaching32KiB;117 likely starts0017,closing0016 immutably. No banners/dependencies/draft publication;goal stays active through all remaining functions.
+
+## Part117 active checkpoint
+Clock/calendar/timer24-MFA increment:170/351,181missing,total320;2959/full local,115 new modules,2523 native plan778/1661/84. All116 historical sources/outcomes/hashes preserved. Publish117,freeze executable sources for118;bounded two-fresh-VM prefetch preserves order/failure source/cleanup.0017 active,closed0016 SHA256 D58AB614455EE39C1254460DC6F760B516E6A73543212F30807E328A7B13B5B1. Goal continues through ETF/function/hash/process/native-record/code/ports/distribution/tracing/host prerequisites. No full timezone/warp/resources/stacks/performance proof.
