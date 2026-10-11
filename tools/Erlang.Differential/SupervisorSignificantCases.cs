@@ -46,7 +46,7 @@ public static class SupervisorSignificantCases
         ),
         Case(
             "check-invalid-policy-order",
-            "{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,[bad|tail]}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done"
+            "{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done"
         ),
         Case(
             "check-empty-and-legacy",
@@ -152,6 +152,14 @@ public static class SupervisorSignificantCases
         Case(
             "failed-dynamic-record",
             "{ok,P}=start(any_significant,[]),S=#{id=>first,start=>{oracle_sig,child,[fail]},restart=>transient,significant=>true},{error,{failed,{child,undefined,first,{oracle_sig,child,[fail]},transient,true,5000,worker,[oracle_sig]}}}=supervisor:start_child(P,S),stop(P)"
+        ),
+        Case(
+            "check-improper-invalid-head",
+            "{error,{invalid_child_spec,bad}}=supervisor:check_childspecs([bad|tail],any_significant),done"
+        ),
+        Case(
+            "check-improper-valid-prefix",
+            "S=spec(first,self(),temporary,false),done=try supervisor:check_childspecs([S|tail],any_significant) catch error:function_clause->done end,done"
         ),
         Case(
             "group-restart-no-auto-shutdown",

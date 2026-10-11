@@ -3,7 +3,7 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-093/tests.json",
-  "LocalPassedTests": 1572,
+  "LocalPassedTests": 1574,
   "RegisteredMfas": 86,
   "PreviousRegisteredMfas": 85,
   "RegisteredMfaDelta": 1,
@@ -126,13 +126,15 @@
         "15 independent lifecycle contracts verified against exact-source OTP-29.1.1 at9ef47ed",
         "Significant transient/temporary children and any_significant/all_significant auto shutdown",
         "check_childspecs/2 with standalone undefined policy and source validation/error precedence",
-        "30 independently expected significant modules/full1572 pass locally; new exact-source proof pending"
+        "30 independently expected significant modules/full1572 pass locally; new exact-source proof pending",
+        "Source is_list cons/nil guard precedes policy and improper-tail traversal; valid improper prefix raises function_clause",
+        "32 significant contracts/full1574 pass locally; original096 mismatch retained, final1380 verification pending"
       ],
       "Remaining": [
         "simple_one_for_one and upgrades/sys",
         "Complete logging/reason classification, priority/distributed signals, timing/clock races and stacks"
       ],
-      "RelatedPassedTests": 120
+      "RelatedPassedTests": 122
     },
     {
       "Id": "Hybrid and MSBuild",
@@ -174,7 +176,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 609
+      "RelatedPassedTests": 611
     },
     {
       "Id": "Style checks",

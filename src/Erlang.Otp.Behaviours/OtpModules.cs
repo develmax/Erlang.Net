@@ -155,14 +155,8 @@ public static class OtpModules
     private static Term CheckChildSpecs(Term specifications, Term automatic)
     {
         Term Invalid(Term value) => Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), value));
-        try
-        {
-            Cons.Items(specifications).ToArray();
-        }
-        catch (ErlangException)
-        {
+        if (specifications is not Cons and not Nil)
             return Invalid(specifications);
-        }
         AutoShutdownPolicy? policy;
         switch (automatic)
         {
@@ -187,7 +181,7 @@ public static class OtpModules
 
             return Term.A(BehaviourAtoms.Ok);
         }
-        catch (ErlangException exception)
+        catch (ErlangException exception) when (exception.Reason is not Atom { Name: ErlangErrorReasons.FunctionClause })
         {
             return Term.Tuple(Term.A(BehaviourAtoms.Error), exception.Reason);
         }

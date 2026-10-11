@@ -354,3 +354,6 @@ Local1572/full;30 significant/auto-shutdown/check_childspecs contracts,86MFAs (+
 ## Part096 incomplete compatibility checkpoint
 Original1377/1378 complete/version, one new invalid-policy improper-list mismatch at93f9500;CI1572/full passes. Preserve raw096.097 fixes guard tocons/nil, policy before tail; ParseChildren improper valid prefix must raise function_clause. One provisional source assertion correction must be explicit; old778/491/79 remain unchanged. Final098 proof required before SimpleSupervisor099; prepared097-SimpleSupervisor/SupervisorSimpleCases under ignored artifacts are future099 drafts. Target10% still active, do not stop after first increment.
 
+
+## Part097 checkpoint
+Local1574/full, corrected32 significant modules/2 extra cases;86MFAs/delta0/222types. Planned1380=778/523/79 preserves old778/491/79 and29 other new sources. One provisional source assertion correction from native096 plus pinned source, external FixtureExpected unchanged. Publish/verify098 before preparedSimple099; target10% active, do not stop after this correction. Draft excluded;0014 active.

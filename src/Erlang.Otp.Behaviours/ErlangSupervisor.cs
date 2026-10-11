@@ -78,7 +78,7 @@ public static class ErlangSupervisor
             remaining = cell.Tail;
         }
         if (remaining is not Nil)
-            throw new ErlangException(Term.Tuple(Term.A(SupervisorAtoms.InvalidChildSpec), value));
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
 
         return children;
     }

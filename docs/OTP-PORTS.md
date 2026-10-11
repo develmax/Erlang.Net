@@ -296,3 +296,7 @@ Full shutdown logging/reason classification, signal/priority/distribution/timing
 
 Adapted pinned supervisor.erl check_childspecs/1,2, init_children, validSignificant, do_restart/do_auto_shutdown and selected supervisor_SUITE significant tests (Ericsson Apache notices retained). Support never/any_significant/all_significant and significant transient/temporary specs; preserve undefined standalone policy, validation/error order, manual/ignore versus natural exits and active PID/restarting bookkeeping. Reuse existing C# monitored cleanup; init properties preserve public positional constructors.30 independent new module fixtures; first local probe had9 fixture-only undef failures from omitted helpers, an unavailable predicate and wrong callback-module name, corrected before original dispatch with unchanged independent expectations. Full suite/sys/upgrades/logging/races/distribution/clocks remain partial. No banners/new dependency; draft excluded.
 
+
+## Part097 — Childspec improper-list guard and error order
+Adapt pinned check_childspecs/2/check_childspecs1/check_startspec4: cons/nil guard accepts improper lists, invalid auto_shutdown precedes traversal; invalid head returns its validation error and valid improper prefix raises function_clause. First1377/1378 report096 retained; one provisional source assertion explicitly corrected, external FixtureExpected done unchanged. Add2 independent tail regressions. No new dependency/banners; consolidated notices retained, draft excluded. Full startup stack/error frames and other broader scope remain partial.
+

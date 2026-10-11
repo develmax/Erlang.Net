@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **1572/1572 tests**,86 registered-MFA contracts and full integration. [Local tests](validation/part-095/tests.json), [integration](validation/part-095/integration-results.json). New1378/head-CI comparison pending; historical1348 remains tied to9ef47ed.
+Current local evidence is **1574/1574 tests**,86 registered-MFA contracts and full integration. [Local tests](validation/part-097/tests.json), [integration](validation/part-097/integration-results.json). Corrected1380 original/head-CI proof pending; initial1377/1378 remains096 history.
 
 Latest exact-source oracle evidence: **1348/1348=778 expressions+491 compiled modules+79 diagnostics** at **9ef47ed**, zero differences and zero expectation corrections. [Provenance](validation/part-094/remote-checkpoint.json). All modules remain partially compatible; [readiness](MODULE_READINESS.md) separates API presence from semantic scope.
 
@@ -553,3 +553,11 @@ Full simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/stacks/re
 ## Part096 — Initial significant comparison mismatch
 Original1377/1378 at93f9500, complete/version verified, one invalid-policy/improper-list mismatch; no1378 pass claim. Same-head1572/fullCI passes. [Evidence](validation/part-096/checkpoint.json). Next source-directed correction097 and final proof098 before continuing milestone.
 
+
+## Part 097 — Improper childspec list validation correction (2026-10-11)
+
+Pinned check_childspecs/2 is_list accepts cons cells with improper tails, then validates policy. C# previously required a proper list first. Correct this guard/order and preserve check_startspec/4: invalid head returns its error, valid improper prefix reaches a missing clause and raises function_clause, which must escape the public checker. [Source audit](validation/part-097/reference-audit.json), [explicit provisional source assertion correction](validation/part-097/source-correction.json). One new invalid-policy fixture assertion changes from badarg improper-list to badarg wrong, following retained original096 and source inspection; external FixtureExpected done remains unchanged. All prior778/491/79 contracts and29 other new significant sources/expectations/generated hashes unchanged. Initial native1377/1378 stays immutable096; no claim it passed.
+
+Local **1574/1574 and full pipeline**;32 significant modules, two additional improper-head/prefix regressions. [Tests](validation/part-097/tests.json), [integration](validation/part-097/integration-results.json), [matrix](validation/part-097/contract-matrix.json), [preservation](validation/part-097/corpus-audit.json). First build temporarily denied writing an MSBuild cache; retry with build-server reuse disabled passed, first log retained. Correction probe30/30 precedes the two added regressions, both pass in the full1574 harness.86 MFAs/delta0, supervisor10/23 and gen_server10/41 partial;222 namespace types/no violations. Consolidated package notices verified, draft excluded/no banners/new dependency.
+
+Plan **1380=778/523/79** against original/head CI; pending until098. Full startup malformed-tail stacks/init error frames, simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/resources/upstream suites/performance unfinished. Requested10% milestone remains active; coarse5% is not promoted. Publish this correction, complete098 proof, then apply prepared SimpleSupervisor/public query/stop implementation as099 and continue wider platform work.
