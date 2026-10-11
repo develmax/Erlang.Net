@@ -1,0 +1,24 @@
+{
+  "FinalProof": false,
+  "Head": "9dec6df18079dfc3b5d1bc22a98fe4927f507989",
+  "Passed": 1332,
+  "Complete": true,
+  "AbortedSource": null,
+  "Executed": 1333,
+  "Reason": "Initial malformed-cast expectation/implementation superseded after pinned source inspection; retain raw report without compatibility promotion",
+  "InfrastructureError": null,
+  "Planned": 1333,
+  "FailedContract": {
+    "Name": "otp-supervisor-retry-forged-tag",
+    "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()->S=#{id=>first,start=>{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=>5},[S]}),C=receive {started,first,1,C0}->C0 after 1000->missing end,exit(C,kill),receive {failed,first,2,P}->ok after 1000->missing end,P!{'$gen_cast',{try_again_restart,make_ref(),first}},R=make_ref(),P!{'$gen_call',{self(),R},which_children},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}->ok after 1000->missing end,Q=receive {started,first,3,Q0}->Q0 after 1000->missing end,3=gen_server:call(Q,get),ok=gen_server:stop(P),ok. init({worker,S})->process_flag(trap_exit,true),{ok,S}; init({flags,F,C})->{ok,{F,C}}. child({P,Id,F,Result})->K={attempt,Id},N=case get(K) of undefined->1; V->V+1 end,put(K,N),case N>1 andalso N=<F+1 of true->P!{failed,Id,N,self()},receive go->ok end,case Result of {throw,T}->throw(T); {exit,T}->exit(T); T->T end; false->{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra->{ok,C,extra}; _->{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)->{reply,N,S}. handle_cast(_,S)->{noreply,S}. terminate(R,{P,Id,N})->P!{terminated,Id,N,R}.",
+    "SourceSha256": "139B536178770247F091147720C7C5763C5BEA0FE18D6816ABDA77EF14D0B05C",
+    "CSharpSha256": "80B4568767C9A9CE83FFC873F4D3A1312C67EA60B734BDE707A0C22EA11198CD",
+    "Expected": "{error,exit,{noproc,{gen_server,call,[missing,get]}}}",
+    "FixtureExpected": "{ok,ok}",
+    "Actual": "{ok,ok}",
+    "Passed": false
+  },
+  "SourceCorrectionBeforeInitialOriginalCompleted": true,
+  "Failed": 1,
+  "OracleConclusion": "failure"
+}

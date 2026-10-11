@@ -1,0 +1,28 @@
+{
+  "ExpectedValuesChanged": 1,
+  "Routines": [
+    "handle_cast/2 shape/private-tag failure and correctly tagged stale retry lookup"
+  ],
+  "Source": "lib/stdlib/src/supervisor.erl",
+  "NewModules": 0,
+  "Baseline": "OTP-29.1.1",
+  "Limitations": [
+    "Clock phase/dirty optimization/full timing boundaries",
+    "dead/nonlinked PID and complete shutdown/signal races",
+    "simple_one_for_one",
+    "significant/auto_shutdown",
+    "sys/proc_lib/upgrades/stacks/resources",
+    "complete upstream suites/performance"
+  ],
+  "ReferenceCheckoutModified": false,
+  "Blob": "aa367e1f43c5d4ff1913d19d1f5b3e662ddb6eec",
+  "ClrAdaptations": [
+    "Ordered lists and restarting ID set replace child records/maps",
+    "Private reference-tagged self cast and reduction checkpoint return control to mailbox",
+    "Monotonic whole-second queue; source dirty-count optimization omitted"
+  ],
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "License": "Consolidated Ericsson Apache notices retained/package-checked; no banners; draft excluded",
+  "Reuse": "Existing C# actor/immutable terms/ValueTask/BCL collections; no dependency or production BEAM",
+  "Part": 91
+}

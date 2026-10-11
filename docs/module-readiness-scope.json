@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-089/tests.json",
+  "ComparisonTestReport": "validation/part-091/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -134,9 +134,9 @@
         "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial",
         "Automatic failure retries publish restarting and queue private tagged self-casts; control requests run between attempts",
         "Group startup aborts at first failure; rest_for_one retries failed suffix, one_for_all retries all; every attempt counts intensity",
-        "14 independent compiled retry contracts pass locally; new exact-source comparison pending",
+        "14 independent compiled retry contracts verified against exact-source OTP-29.1.1 at c20e990; full behaviour remains partial",
         "Invalid shape/private-tag casts fail function_clause; correctly tagged stale retries ignored",
-        "One provisional malformed-cast fixture corrected from pinned source;14 retry modules/full1526 pass locally; final reference proof pending"
+        "One provisional malformed-cast fixture corrected from pinned source before initial original comparison completed; final 14 contracts verified at c20e990"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [
@@ -183,10 +183,10 @@
         "broader compiled-module/optimizer/stacks/signals"
       ],
       "Implemented": [
-        "Pinned exact-source OTP-29.1.1 at32c827a:1319/1319=778 expressions/462 compiled modules/79 diagnostics",
-        "All prior778/436/79 sources/expectations/generated hashes unchanged;26 independent dynamic supervisor modules, zero expectation corrections",
-        "Same-head1512/full CI with local/CI test names identical; source/version/completeness/workflow/job/artifact proof retained",
-        "Initial local fixture/incremental failures retained part087; framed transport preserved"
+        "Pinned exact-source OTP-29.1.1 at c20e990:1333/1333=778 expressions/476 compiled modules/79 diagnostics",
+        "All prior 778/462/79 sources/expectations/generated hashes unchanged;14 independent retry modules match after one documented source-inspection correction",
+        "Same-head1526/full CI with local/CI test names identical; source/version/completeness/workflow/job/artifact proof retained",
+        "Initial9dec6df run and framing/history retained separately; final proof belongs only to corrected head"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

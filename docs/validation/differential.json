@@ -2,9 +2,9 @@
   "Baseline": "OTP-29.1.1",
   "VersionVerified": true,
   "Complete": true,
-  "Planned": 1319,
-  "Executed": 1319,
-  "Passed": 1319,
+  "Planned": 1333,
+  "Executed": 1333,
+  "Passed": 1333,
   "Failed": 0,
   "AbortedSource": null,
   "InfrastructureError": null,
@@ -18,9 +18,9 @@
   "CompiledModuleTrack": {
     "ReferenceMode": "compile:forms/default optimizations/code:load_binary",
     "ImplementationMode": "generated C#/Roslyn Release assembly/ModuleDefinition evaluator",
-    "Planned": 462,
-    "Executed": 462,
-    "Passed": 462,
+    "Planned": 476,
+    "Executed": 476,
+    "Passed": 476,
     "Failed": 0
   },
   "CompilerDiagnosticTrack": {
@@ -5520,6 +5520,146 @@
       "Expected": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
       "FixtureExpected": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
       "Actual": "{ok,{noproc,{gen_server,call,[oracle_missing,{delete_child,first},infinity]}}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-state-and-recovery",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},count_children},B=make_ref(),P!{\u0027$gen_call\u0027,{self(),B},{restart_child,first}},D=make_ref(),P!{\u0027$gen_call\u0027,{self(),D},{delete_child,first}},E=make_ref(),P!{\u0027$gen_call\u0027,{self(),E},{start_child,S}},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,N=receive {K,V}-\u003EV after 1000-\u003Emissing end,receive {B,{error,restarting}}-\u003Eok after 1000-\u003Emissing end,receive {D,{error,restarting}}-\u003Eok after 1000-\u003Emissing end,receive {E,{error,already_present}}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,first,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,3=gen_server:call(Q,get),ok=gen_server:stop(P),N. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "A2131AF75B736394B83CE89FD44A76A282B903433406DD61A80E133BAFFB1784",
+      "CSharpSha256": "78DD5841712DA48952D51F87391754F136856F13092E0B0AB8949CA5559BA0ED",
+      "Expected": "{ok,[{specs,1},{active,0},{supervisors,0},{workers,1}]}",
+      "FixtureExpected": "{ok,[{specs,1},{active,0},{supervisors,0},{workers,1}]}",
+      "Actual": "{ok,[{specs,1},{active,0},{supervisors,0},{workers,1}]}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-terminate-cancels",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},{terminate_child,first}},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,receive {K,ok}-\u003Eok after 1000-\u003Emissing end,[{first,undefined,worker,_}]=supervisor:which_children(P),{ok,Q}=supervisor:restart_child(P,first),3=gen_server:call(Q,get),receive {started,first,3,Q}-\u003Eok after 1000-\u003Emissing end,[{first,Q,worker,_}]=supervisor:which_children(P),ok=gen_server:stop(P),ok. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "1680138EE070FB9AE8FD8C48C43926E0503CF25B19D0622ECDA3499533859F8B",
+      "CSharpSha256": "F439A9AF171B98B5B82CA2C79AF1DDBCD38820F4F154127EE75092A6F526E6D4",
+      "Expected": "{ok,ok}",
+      "FixtureExpected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-delete-and-replace",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},{terminate_child,first}},D=make_ref(),P!{\u0027$gen_call\u0027,{self(),D},{delete_child,first}},P!go,receive {K,ok}-\u003Eok after 1000-\u003Emissing end,receive {D,ok}-\u003Eok after 1000-\u003Emissing end,[] =supervisor:which_children(P),{ok,Q}=supervisor:start_child(P,S),3=gen_server:call(Q,get),receive {started,first,3,Q}-\u003Eok after 1000-\u003Emissing end,ok=gen_server:stop(P),ok. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "923378218D9DED79AE35E21CE375A63F7EE9D36864C2C4ABF03D993CABD2DB08",
+      "CSharpSha256": "F4D52A1AE67AC2B18A7618DCBE02045353242B5535BD3E2DFD8591AFE226E896",
+      "Expected": "{ok,ok}",
+      "FixtureExpected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-shutdown-between-attempts",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,M=monitor(process,P),R=make_ref(),P!{system,{self(),R},{terminate,normal}},P!go,receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Edone after 1000-\u003Emissing end. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "12C0DF0B8ED36D5E4B5AF0B906A7F90F93AEAB08F3EB96D19A974D5F51396282",
+      "CSharpSha256": "DA8DFB415AABE25A4124ACB42DDF50BF9ACA0F488853A64C971D947AC4925266",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-intensity-exhausted",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,9,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E2},[S]}),M=monitor(process,P),process_flag(trap_exit,true),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003EP!go after 1000-\u003Emissing end,receive {failed,first,3,P}-\u003EP!go after 1000-\u003Emissing end,receive {\u0027DOWN\u0027,M,process,P,shutdown}-\u003Edone after 1000-\u003Emissing end. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "3033C88920C120482F79A6B2FFF5A6E56959E53CF2C5688C85709AF1BA4CD03B",
+      "CSharpSha256": "03C78C9647E6B1B94BD45AA1DBFADE0A87364A6C2B528FC8D2BD2D7DE8731FDB",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-ignore-clears-marker",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,ignore}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},P!go,receive {R,[{first,undefined,worker,_}]}-\u003Eok after 1000-\u003Emissing end,{error,already_present}=supervisor:start_child(P,S),{ok,Q}=supervisor:restart_child(P,first),3=gen_server:call(Q,get),ok=gen_server:stop(P),ok. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "BDF02CEAAFFC79BDF82E59C761F4B07F13457F5FE46EB89F765682C716BA0254",
+      "CSharpSha256": "39EB6246BA1DBA5BB2886818F5FC05888298919928A384F743870EC794B48757",
+      "Expected": "{ok,ok}",
+      "FixtureExpected": "{ok,ok}",
+      "Actual": "{ok,ok}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-two-failures",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,2,bad}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,receive {failed,first,3,P}-\u003Eok after 1000-\u003Emissing end,K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},which_children},P!go,receive {K,[{first,restarting,worker,_}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,first,4,Q0}-\u003EQ0 after 1000-\u003Emissing end,V=gen_server:call(Q,get),ok=gen_server:stop(P),V. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "308A2322BA4C378F655380942B023B60334314B20B103AA15298C253FA5EFA87",
+      "CSharpSha256": "409B00B76B34BA2BCC39848A7A4BD46A61D5991D1B3920ADD2E7A8DBDBB67BED",
+      "Expected": "{ok,4}",
+      "FixtureExpected": "{ok,4}",
+      "Actual": "{ok,4}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-throw",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{throw,{error,failed}}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,first,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,V=gen_server:call(Q,get),ok=gen_server:stop(P),V. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "7995827622EA0E6C77CD2010222D11969591D53FB0C8AB50CBECF4C3D6212562",
+      "CSharpSha256": "7B5EC8BB81231B77DF7BD83FD1B19AC98848848C9BCCBA472E610E09EA1C9BE2",
+      "Expected": "{ok,3}",
+      "FixtureExpected": "{ok,3}",
+      "Actual": "{ok,3}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-exit",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{exit,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,first,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,V=gen_server:call(Q,get),ok=gen_server:stop(P),V. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "F8CB6E41E0B11EA2F2749733AEC14F2C315BA5CD6CC5097D49BB8B5AE5913AA9",
+      "CSharpSha256": "0C1EDA9F781F2CCC0097A8A5E400A2437806EF98ED2ADF4E3FE47D5DC5308123",
+      "Expected": "{ok,3}",
+      "FixtureExpected": "{ok,3}",
+      "Actual": "{ok,3}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-extra",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,extra}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},P!go,receive {R,[{first,restarting,worker,[oracle_retry]}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,first,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,V=gen_server:call(Q,get),ok=gen_server:stop(P),V. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "1144F4C2E3E9ADDFAD043A7EBB0A97EBA93839480054A56EC78FAA9E08E421B3",
+      "CSharpSha256": "A9F2125EF9D821B27A2BBF3D91C294EE119FC360010D72F2AD653809E3C49ADF",
+      "Expected": "{ok,3}",
+      "FixtureExpected": "{ok,3}",
+      "Actual": "{ok,3}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-one-for-all",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003EA=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,0,ok}]}},B=#{id=\u003Esecond,start=\u003E{oracle_retry,child,[{self(),second,1,{error,failed}}]}},D=#{id=\u003Ethird,start=\u003E{oracle_retry,child,[{self(),third,0,ok}]}},T=#{id=\u003Etemp,start=\u003E{oracle_retry,child,[{self(),temp,0,ok}]},restart=\u003Etemporary},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{strategy=\u003Eone_for_all,intensity=\u003E5},[A,B,D,T]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,receive {started,second,1,_}-\u003Eok after 1000-\u003Emissing end,receive {started,third,1,_}-\u003Eok after 1000-\u003Emissing end,receive {started,temp,1,_}-\u003Eok after 1000-\u003Emissing end,exit(C,kill),receive {failed,second,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},count_children},P!go,receive {R,[{third,undefined,worker,_},{second,restarting,worker,_},{first,_,worker,_}]}-\u003Eok after 1000-\u003Emissing end,receive {K,[{specs,3},{active,1},{supervisors,0},{workers,3}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,second,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,U=receive {started,third,2,U0}-\u003EU0 after 1000-\u003Emissing end,[{third,U,worker,_},{second,Q,worker,_},{first,F,worker,_}]=supervisor:which_children(P),R0={gen_server:call(F,get),gen_server:call(Q,get),gen_server:call(U,get)},ok=gen_server:stop(P),R0. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "2A58005D22AA919001BFC922A6F0CF97ECD581B90EAB6015CA0BA49C565EB499",
+      "CSharpSha256": "83F87BBCDBDBD681734C920E669B1D582F142D5893C81A9169842A7C506D1DF7",
+      "Expected": "{ok,{3,3,2}}",
+      "FixtureExpected": "{ok,{3,3,2}}",
+      "Actual": "{ok,{3,3,2}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-rest-for-one",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003EA=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,0,ok}]}},B=#{id=\u003Esecond,start=\u003E{oracle_retry,child,[{self(),second,1,{error,failed}}]}},D=#{id=\u003Ethird,start=\u003E{oracle_retry,child,[{self(),third,0,ok}]}},T=#{id=\u003Etemp,start=\u003E{oracle_retry,child,[{self(),temp,0,ok}]},restart=\u003Etemporary},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{strategy=\u003Erest_for_one,intensity=\u003E5},[A,B,D,T]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,receive {started,second,1,_}-\u003Eok after 1000-\u003Emissing end,receive {started,third,1,_}-\u003Eok after 1000-\u003Emissing end,receive {started,temp,1,_}-\u003Eok after 1000-\u003Emissing end,exit(C,kill),receive {failed,second,2,P}-\u003Eok after 1000-\u003Emissing end,R=make_ref(),P!{\u0027$gen_call\u0027,{self(),R},which_children},K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},count_children},P!go,receive {R,[{third,undefined,worker,_},{second,restarting,worker,_},{first,_,worker,_}]}-\u003Eok after 1000-\u003Emissing end,receive {K,[{specs,3},{active,1},{supervisors,0},{workers,3}]}-\u003Eok after 1000-\u003Emissing end,Q=receive {started,second,3,Q0}-\u003EQ0 after 1000-\u003Emissing end,U=receive {started,third,2,U0}-\u003EU0 after 1000-\u003Emissing end,[{third,U,worker,_},{second,Q,worker,_},{first,F,worker,_}]=supervisor:which_children(P),R0={gen_server:call(F,get),gen_server:call(Q,get),gen_server:call(U,get)},ok=gen_server:stop(P),R0. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "9C86CA89C71033AB2DA77B04079FCA46E0B85BF689C63C3B40A7FADF0060DDED",
+      "CSharpSha256": "C54B2F897C52E601F40D304589CF31F5B5AB20BB7D5079A4C79BF394E4E01B98",
+      "Expected": "{ok,{2,3,2}}",
+      "FixtureExpected": "{ok,{2,3,2}}",
+      "Actual": "{ok,{2,3,2}}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-forged-tag",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003Eprocess_flag(trap_exit,true),S=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E5},[S]}),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {failed,first,2,P}-\u003Eok after 1000-\u003Emissing end,M=monitor(process,P),P!{\u0027$gen_cast\u0027,{try_again_restart,make_ref(),first}},P!go,receive {\u0027DOWN\u0027,M,process,P,{function_clause,_}}-\u003Edone after 1000-\u003Emissing end. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "0C0A559C1FC6F645B9FDA0277ABE080BFA9AC62560994E8B1AB73CD7F646D617",
+      "CSharpSha256": "B04AFB64ACA01ECD6900B0DA87C196C40603E86D89A9AAA70163115F98E3E985",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-retry-zero-intensity",
+      "Source": "-module(oracle_retry). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2,terminate/2]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_retry,child,[{self(),first,1,{error,failed}}]}},{ok,P}=supervisor:start_link(oracle_retry,{flags,#{intensity=\u003E0},[S]}),M=monitor(process,P),process_flag(trap_exit,true),C=receive {started,first,1,C0}-\u003EC0 after 1000-\u003Emissing end,exit(C,kill),receive {\u0027DOWN\u0027,M,process,P,shutdown}-\u003Edone after 1000-\u003Emissing end. init({worker,S})-\u003Eprocess_flag(trap_exit,true),{ok,S}; init({flags,F,C})-\u003E{ok,{F,C}}. child({P,Id,F,Result})-\u003EK={attempt,Id},N=case get(K) of undefined-\u003E1; V-\u003EV\u002B1 end,put(K,N),case N\u003E1 andalso N=\u003CF\u002B1 of true-\u003EP!{failed,Id,N,self()},receive go-\u003Eok end,case Result of {throw,T}-\u003Ethrow(T); {exit,T}-\u003Eexit(T); T-\u003ET end; false-\u003E{ok,C}=gen_server:start_link(oracle_retry,{worker,{P,Id,N}},[]),R=case Result of extra-\u003E{ok,C,extra}; _-\u003E{ok,C} end,P!{started,Id,N,C},R end. handle_call(get,_,{P,Id,N}=S)-\u003E{reply,N,S}. handle_cast(_,S)-\u003E{noreply,S}. terminate(R,{P,Id,N})-\u003EP!{terminated,Id,N,R}.",
+      "SourceSha256": "C6798D5E7551C956B0B57629884FED4B482D173CE9D6067D5C2D041CE416EF4F",
+      "CSharpSha256": "0299AC105182BB853E1E371001D804331CBC52884DF11702EDF46BD854514E18",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
       "Passed": true
     }
   ],

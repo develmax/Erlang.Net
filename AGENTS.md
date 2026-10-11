@@ -338,3 +338,6 @@ Local1526/full pipeline;14 automatic retry contracts, plan1333=778/476/79 preser
 
 ## Part 091 checkpoint
 Local correction1526/full; invalid casts fail function_clause, valid-tag stale retries ignored.14 retry modules, one provisional expectation/source corrected after pinned source inspection; prior778/462/79 plus13 new cases preserved. Publish and verify new exact-source1333/CI1526; initial9dec6df run must remain separate historical evidence.85 MFAs,219 types unchanged. Full scope approximately5%; lifecycle/clocks/sys/simple_one_for_one/significant/stacks/upstream/performance partial; draft excluded.
+
+## Part 092 checkpoint
+Publishedc20e990 passes exact-source1333/1333=778/476/79, same-head1526/full CI and strict provenance.14 new retry contracts, all prior778/462/79 untouched, one provisional cast expectation/source corrected from pinned inspection before initial original comparison completed; final independent expectations match.85 MFAs/delta0, supervisor9/23 and gen_server10/41 partial;219 types/no violations. Next dead/nonlinked PIDs/shutdown/signal/clock-window boundaries, then simple_one_for_one/significant/sys/options/aliases/upgrades/resources/stacks/upstream/performance. Approximately5% coarse. Active0014; notices packaged part089, draft excluded.
