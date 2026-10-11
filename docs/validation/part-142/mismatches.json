@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "erlang-spawn-group-mfa-linked",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->false=process_flag(trap_exit,true),Owner=self(),G=group_leader(),P=erlang:spawn_link(spawn_group_contract,child,[Owner,linked,42]),receive {linked,P,42,G}->ok after 1000->error(timeout) end,P!stop,receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "SourceSha256": "4690A9211F229FE4C22603203AF12AF0D62EA88E4FA46A50B2B17DA0C0B4B4C1",
+    "CSharpSha256": "192D936995AB4A9EBD8364CB0EE26F5C453F5F090BDF3646B9D7FF359AD08291",
+    "Expected": "{error,error,{badmatch,true}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-link-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->false=process_flag(trap_exit,true),P=erlang:spawn_link(spawn_missing,run,[]),receive {'EXIT',P,{undef,_}}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "SourceSha256": "ED7645436851EC166187EEDB774769911376BF9C25D324A8CE7458B6DC4F2D4B",
+    "CSharpSha256": "E6AE6FB7B226B806736DB0129BD411FCBB0D7F9D69A8C36357BC413186EB78BD",
+    "Expected": "{error,error,{badmatch,true}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "SourceSha256": "CAF41C32BEAC6206645BE391362F06A5AA3F5C03E46C34CC2B8C69DE44C14CB8",
+    "CSharpSha256": "6D40D6AB30D4D1E57BFEAB8CDE7C3A27311C0B5BAE2C18A421CC8875008DEDB0",
+    "Expected": "{ok,<nonode@nohost.83.0>}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->P=erlang:spawn(fun(_)->ok end),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badarity,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "SourceSha256": "FD9F34E2617C9EEEA93A5CE79092DDBBC3EBB340A22030AE981C61E3F68ED1BC",
+    "CSharpSha256": "515EBC2BA735E9F10F1E88A537BCFFF2D62CC072188C6C58DEC8FE95A3B1CFA3",
+    "Expected": "{ok,<nonode@nohost.83.0>}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  }
+]

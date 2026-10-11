@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part142: complete **3454/3458 original**,four new spawn discrepancies preserved;**3968/full same-head CI** at59992ef. [Failures](validation/part-142/mismatches.json), [proof](validation/part-142/remote-checkpoint.json). All old successful native results/all141 sources/six exclusions preserved. Registry373;erlang223/351,128 missing,63.5% API presence. Latest successful original140. Next: align native fresh-child execution context without altering fixtures,resolve PID outcomes,then priority signals/links and monitored-spawn inheritance. Whole goal continues.
+
 Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
 
 Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c034. All 51 new monitor and 46 default-disabled trace contracts match. 218/351 erlang exports present; 133 missing. Tested process monitoring/default-disabled tracing does not establish port/time_offset/connected-distribution/enabled-tracing completeness.

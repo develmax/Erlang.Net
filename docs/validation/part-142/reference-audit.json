@@ -1,0 +1,95 @@
+{
+  "PriorTests": 3902,
+  "OriginalExclusions": 6,
+  "NewIoModules": 15,
+  "Baseline": "OTP-29.1.1",
+  "Boundaries": [
+    "Connected distribution, physical scheduler/reductions/full stacks/error_info/code loading unfinished",
+    "Managed initializer is default I/O device; native system-process graph, full io_lib/input/file/distributed-device behavior unfinished"
+  ],
+  "ApiPresencePercent": 63.5,
+  "InitialFailures": [
+    "Two unpublished linked-spawn fixtures incorrectly matched true against old process_flag value false; corrected premise, expected result unchanged",
+    "Unpublished tuple-spawn runtime/fixture corrected after tracing actual child apply/2 through beam_common.c; earlier2578 draft pass is historical",
+    "Nullable initializer message rejected by typed predicate; corrected with nullable input and NotNullWhen(true)"
+  ],
+  "ComparableOriginalPlan": 3458,
+  "CallPath": "spawn/1 wrapper accepts MFA tuple but apply_fun/call_fun rejects it with badfun in child; do not directly execute tuple MFA",
+  "ErlangPresent": 223,
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "BlobSHA1": "0201ea38d25b67d08bc5115d6763f6b57f4b376a"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "BlobSHA1": "0622939e65926bc614d4d045b048c5cd4d416d3c"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "lib/stdlib/src/io.erl",
+      "BlobSHA1": "3d724060260b269706d98a342a293344dd97848e"
+    }
+  ],
+  "NewHostChecks": 1,
+  "NewCompiledModules": 60,
+  "Licensing": "Altered consolidated Ericsson Apache notices exact in two local packages; io.erl1996-2025 and emulator/preloaded1996-2026; no source banners,dependency,public package or draft license",
+  "Missing": 128,
+  "ManagedPlan": 3464,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ErlangDeclared": 351,
+  "NativeStatus": "Pending142",
+  "Registry": 373,
+  "NewSpawnModules": 45,
+  "Preservation": "All1392533 source/expectation/generated hashes and historical778/1951/93 preserved",
+  "NewExports": [
+    {
+      "Module": "erlang",
+      "Function": "group_leader",
+      "Arity": 0,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:group_leader/0",
+      "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "group_leader",
+      "Arity": 2,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:group_leader/2",
+      "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:spawn/3",
+      "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_link",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:spawn_link/3",
+      "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_monitor",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:spawn_monitor/3",
+      "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    }
+  ],
+  "Tests": 3968
+}

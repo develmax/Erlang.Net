@@ -499,3 +499,7 @@ Part140: **3398/3398 comparable original OTP and 3902/full same-head CI** at a71
 ## Part141 checkpoint
 
 Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
+
+## Part142 checkpoint
+
+Part142: complete **3454/3458 original**,four new spawn discrepancies preserved;**3968/full same-head CI** at59992ef. [Failures](validation/part-142/mismatches.json), [proof](validation/part-142/remote-checkpoint.json). All old successful native results/all141 sources/six exclusions preserved. Registry373;erlang223/351,128 missing,63.5% API presence. Latest successful original140. Next: align native fresh-child execution context without altering fixtures,resolve PID outcomes,then priority signals/links and monitored-spawn inheritance. Whole goal continues.
