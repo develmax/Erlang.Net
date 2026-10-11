@@ -1,0 +1,23 @@
+{
+  "NewModules": 35,
+  "ExpectedValuesChanged": 0,
+  "Reuse": "Existing StartChild result normalization, immutable terms/mailbox/monitors/gen_server stop; BCL Dictionary/Stopwatch/ValueTask; no new dependency",
+  "HistoricalModules": 523,
+  "ClrLimits": "Simple CLR facade requires Erlang MFA template; PID-key query order unspecified; full clocks/sys/upgrades/logging/distribution/stacks/resources/performance unfinished",
+  "Baseline": "OTP-29.1.1",
+  "HistoricalExpressions": 778,
+  "License": "Consolidated exact notices packaged; draft excluded/no banners",
+  "Source": "lib/stdlib/src/supervisor.erl",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AllPriorSourcesExpectationsGeneratedHashesPreserved": true,
+  "Routines": [
+    "init_dynamic/check_flags",
+    "dynamic handle_call and PID/restarting find_child",
+    "dyn_* state and argument retention",
+    "restart(simple_one_for_one)",
+    "terminate_dynamic_children/monitor_children/shutdown",
+    "child_to_spec/save_child",
+    "supervisor stop delegates gen_server"
+  ],
+  "HistoricalDiagnostics": 79
+}

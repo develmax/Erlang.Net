@@ -17,3 +17,5 @@ These are concrete delivery criteria for the next engineering reassessment, not 
 Part098: significant/auto_shutdown and check_childspecs/2 verified against exact-source OTP at4992a98 (1380/1380) and1574/full same-headCI. Simple strategy and remaining work packages are pending. Overall target is not yet achieved.
 
 Part099: simple_one_for_one and public query/stop increment passes1614/full locally; original1415 pending in100. Wider collections/timer/source/application packages remain pending; do not promote percentage yet.
+
+Part100: selected supervisor strategy/lifecycle package verified1415/1415 and1614/full same-headCI at0d6a233. Collections/timers/source/application packages remain pending; target10% still active.
