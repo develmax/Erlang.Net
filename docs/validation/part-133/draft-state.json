@@ -1,0 +1,41 @@
+{
+  "Boundaries": [
+    "No native scheduler/reduction/trapping parity claim",
+    "Compiler-generated local function metadata differs from BEAM;fixed source ETF functions hash comparable real fields",
+    "Native record term/hash support absent",
+    "No general speed superiority claim",
+    "Initial mirrored stale ETF decoder failure retained;forced Rebuild fixes prototype outputs without new main change"
+  ],
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_term_hashing.c",
+      "BlobSHA1": "c24b0604245c8e795839c2bf05887f8e49dd4882"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.c",
+      "BlobSHA1": "a4dc975bf281019a40df03a5ba27d3a944dd9690"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/test/hash_SUITE.erl",
+      "BlobSHA1": "37a313f87a2639749e306d05c79650501779017c"
+    }
+  ],
+  "DeepTuple": 20000,
+  "WholeBinaryBytes": 4194304,
+  "SourceLiteralVectorsPassed": 76,
+  "DraftOnly": true,
+  "BaseImplementation": "20332dcfcee1d8ed5530d938b01f99250e7e2e91",
+  "Integrated": false,
+  "CompiledTotal": 2357,
+  "MeasuredHashAllocationBytes": 288,
+  "Baseline": "OTP-29.1.1",
+  "HistoricalCompiledContractsPassed": 2134,
+  "BothAlgorithmsComplete": true,
+  "LiveOracleRun": false,
+  "DeepMaps": 5000,
+  "NewCompiledHashContractsPassed": 223
+}

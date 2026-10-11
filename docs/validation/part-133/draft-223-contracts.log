@@ -1,0 +1,225 @@
+CHECK erlang-hash-vector-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([],4294967296).
+CHECK erlang-hash-default-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([]).
+CHECK erlang-hash-range-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([],97).
+CHECK erlang-hash-vector-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(abc,4294967296).
+CHECK erlang-hash-default-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(abc).
+CHECK erlang-hash-range-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(abc,97).
+CHECK erlang-hash-vector-atom-next -module(hash_contract). -export([run/0]). run()->erlang:phash2(abd,4294967296).
+CHECK erlang-hash-default-atom-next -module(hash_contract). -export([run/0]). run()->erlang:phash2(abd).
+CHECK erlang-hash-range-atom-next -module(hash_contract). -export([run/0]). run()->erlang:phash2(abd,97).
+CHECK erlang-hash-vector-latin1 -module(hash_contract). -export([run/0]). run()->erlang:phash2('åäö',4294967296).
+CHECK erlang-hash-default-latin1 -module(hash_contract). -export([run/0]). run()->erlang:phash2('åäö').
+CHECK erlang-hash-range-latin1 -module(hash_contract). -export([run/0]). run()->erlang:phash2('åäö',97).
+CHECK erlang-hash-vector-unicode -module(hash_contract). -export([run/0]). run()->erlang:phash2('😃',4294967296).
+CHECK erlang-hash-default-unicode -module(hash_contract). -export([run/0]). run()->erlang:phash2('😃').
+CHECK erlang-hash-range-unicode -module(hash_contract). -export([run/0]). run()->erlang:phash2('😃',97).
+CHECK erlang-hash-vector-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0,4294967296).
+CHECK erlang-hash-default-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0).
+CHECK erlang-hash-range-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0,97).
+CHECK erlang-hash-vector-one -module(hash_contract). -export([run/0]). run()->erlang:phash2(1,4294967296).
+CHECK erlang-hash-default-one -module(hash_contract). -export([run/0]). run()->erlang:phash2(1).
+CHECK erlang-hash-range-one -module(hash_contract). -export([run/0]). run()->erlang:phash2(1,97).
+CHECK erlang-hash-vector-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-1,4294967296).
+CHECK erlang-hash-default-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-1).
+CHECK erlang-hash-range-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-1,97).
+CHECK erlang-hash-vector-small-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 20,4294967296).
+CHECK erlang-hash-default-small-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 20).
+CHECK erlang-hash-range-small-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 20,97).
+CHECK erlang-hash-vector-small-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 20),4294967296).
+CHECK erlang-hash-default-small-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 20)).
+CHECK erlang-hash-range-small-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 20),97).
+CHECK erlang-hash-vector-word-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(4294967296,4294967296).
+CHECK erlang-hash-default-word-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(4294967296).
+CHECK erlang-hash-range-word-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(4294967296,97).
+CHECK erlang-hash-vector-word-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-4294967296,4294967296).
+CHECK erlang-hash-default-word-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-4294967296).
+CHECK erlang-hash-range-word-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-4294967296,97).
+CHECK erlang-hash-vector-large-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(981494972710656,4294967296).
+CHECK erlang-hash-default-large-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(981494972710656).
+CHECK erlang-hash-range-large-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(981494972710656,97).
+CHECK erlang-hash-vector-large-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-981494972710656,4294967296).
+CHECK erlang-hash-default-large-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-981494972710656).
+CHECK erlang-hash-range-large-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-981494972710656,97).
+CHECK erlang-hash-vector-big-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 65,4294967296).
+CHECK erlang-hash-default-big-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 65).
+CHECK erlang-hash-range-big-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 65,97).
+CHECK erlang-hash-vector-big-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 65),4294967296).
+CHECK erlang-hash-default-big-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 65)).
+CHECK erlang-hash-range-big-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 65),97).
+CHECK erlang-hash-vector-huge-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 200,4294967296).
+CHECK erlang-hash-default-huge-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 200).
+CHECK erlang-hash-range-huge-positive -module(hash_contract). -export([run/0]). run()->erlang:phash2(1 bsl 200,97).
+CHECK erlang-hash-vector-huge-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 200),4294967296).
+CHECK erlang-hash-default-huge-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 200)).
+CHECK erlang-hash-range-huge-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-(1 bsl 200),97).
+CHECK erlang-hash-vector-empty-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<>>,4294967296).
+CHECK erlang-hash-default-empty-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<>>).
+CHECK erlang-hash-range-empty-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<>>,97).
+CHECK erlang-hash-vector-zero-byte -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0>>,4294967296).
+CHECK erlang-hash-default-zero-byte -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0>>).
+CHECK erlang-hash-range-zero-byte -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0>>,97).
+CHECK erlang-hash-vector-zero-word -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:32>>,4294967296).
+CHECK erlang-hash-default-zero-word -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:32>>).
+CHECK erlang-hash-range-zero-word -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:32>>,97).
+CHECK erlang-hash-vector-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc">>,4294967296).
+CHECK erlang-hash-default-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc">>).
+CHECK erlang-hash-range-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc">>,97).
+CHECK erlang-hash-vector-binary-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"12345678901234567890">>,4294967296).
+CHECK erlang-hash-default-binary-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"12345678901234567890">>).
+CHECK erlang-hash-range-binary-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"12345678901234567890">>,97).
+CHECK erlang-hash-vector-zero-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:7>>,4294967296).
+CHECK erlang-hash-default-zero-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:7>>).
+CHECK erlang-hash-range-zero-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<0:7>>,97).
+CHECK erlang-hash-vector-ones-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<127:7>>,4294967296).
+CHECK erlang-hash-default-ones-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<127:7>>).
+CHECK erlang-hash-range-ones-bits -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<127:7>>,97).
+CHECK erlang-hash-vector-bits-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc",13:4>>,4294967296).
+CHECK erlang-hash-default-bits-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc",13:4>>).
+CHECK erlang-hash-range-bits-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<"abc",13:4>>,97).
+CHECK erlang-hash-vector-float-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0.0,4294967296).
+CHECK erlang-hash-default-float-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0.0).
+CHECK erlang-hash-range-float-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(0.0,97).
+CHECK erlang-hash-vector-float-negative-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(-0.0,4294967296).
+CHECK erlang-hash-default-float-negative-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(-0.0).
+CHECK erlang-hash-range-float-negative-zero -module(hash_contract). -export([run/0]). run()->erlang:phash2(-0.0,97).
+CHECK erlang-hash-vector-float -module(hash_contract). -export([run/0]). run()->erlang:phash2(3.14,4294967296).
+CHECK erlang-hash-default-float -module(hash_contract). -export([run/0]). run()->erlang:phash2(3.14).
+CHECK erlang-hash-range-float -module(hash_contract). -export([run/0]). run()->erlang:phash2(3.14,97).
+CHECK erlang-hash-vector-float-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-3.14,4294967296).
+CHECK erlang-hash-default-float-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-3.14).
+CHECK erlang-hash-range-float-negative -module(hash_contract). -export([run/0]). run()->erlang:phash2(-3.14,97).
+CHECK erlang-hash-vector-list-float -module(hash_contract). -export([run/0]). run()->erlang:phash2([0.0],4294967296).
+CHECK erlang-hash-default-list-float -module(hash_contract). -export([run/0]). run()->erlang:phash2([0.0]).
+CHECK erlang-hash-range-list-float -module(hash_contract). -export([run/0]). run()->erlang:phash2([0.0],97).
+CHECK erlang-hash-vector-list-tuple -module(hash_contract). -export([run/0]). run()->erlang:phash2([{}],4294967296).
+CHECK erlang-hash-default-list-tuple -module(hash_contract). -export([run/0]). run()->erlang:phash2([{}]).
+CHECK erlang-hash-range-list-tuple -module(hash_contract). -export([run/0]). run()->erlang:phash2([{}],97).
+CHECK erlang-hash-vector-list-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2([<<>>],4294967296).
+CHECK erlang-hash-default-list-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2([<<>>]).
+CHECK erlang-hash-range-list-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2([<<>>],97).
+CHECK erlang-hash-vector-list-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([[]],4294967296).
+CHECK erlang-hash-default-list-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([[]]).
+CHECK erlang-hash-range-list-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2([[]],97).
+CHECK erlang-hash-vector-list-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2([abc],4294967296).
+CHECK erlang-hash-default-list-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2([abc]).
+CHECK erlang-hash-range-list-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2([abc],97).
+CHECK erlang-hash-vector-list-atoms -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b,c],4294967296).
+CHECK erlang-hash-default-list-atoms -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b,c]).
+CHECK erlang-hash-range-list-atoms -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b,c],97).
+CHECK erlang-hash-vector-improper -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b|c],4294967296).
+CHECK erlang-hash-default-improper -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b|c]).
+CHECK erlang-hash-range-improper -module(hash_contract). -export([run/0]). run()->erlang:phash2([a,b|c],97).
+CHECK erlang-hash-vector-string -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc",4294967296).
+CHECK erlang-hash-default-string -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc").
+CHECK erlang-hash-range-string -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc",97).
+CHECK erlang-hash-vector-string-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009],4294967296).
+CHECK erlang-hash-default-string-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009]).
+CHECK erlang-hash-range-string-tail -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009],97).
+CHECK erlang-hash-vector-string-suffix -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009]++"de",4294967296).
+CHECK erlang-hash-default-string-suffix -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009]++"de").
+CHECK erlang-hash-range-string-suffix -module(hash_contract). -export([run/0]). run()->erlang:phash2("abc"++[1009]++"de",97).
+CHECK erlang-hash-vector-string-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2("1234567890123456",4294967296).
+CHECK erlang-hash-default-string-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2("1234567890123456").
+CHECK erlang-hash-range-string-blocks -module(hash_contract). -export([run/0]). run()->erlang:phash2("1234567890123456",97).
+CHECK erlang-hash-vector-tuple-empty -module(hash_contract). -export([run/0]). run()->erlang:phash2({},4294967296).
+CHECK erlang-hash-default-tuple-empty -module(hash_contract). -export([run/0]). run()->erlang:phash2({}).
+CHECK erlang-hash-range-tuple-empty -module(hash_contract). -export([run/0]). run()->erlang:phash2({},97).
+CHECK erlang-hash-vector-tuple-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2({[]},4294967296).
+CHECK erlang-hash-default-tuple-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2({[]}).
+CHECK erlang-hash-range-tuple-nil -module(hash_contract). -export([run/0]). run()->erlang:phash2({[]},97).
+CHECK erlang-hash-vector-tuple-nested -module(hash_contract). -export([run/0]). run()->erlang:phash2({{}},4294967296).
+CHECK erlang-hash-default-tuple-nested -module(hash_contract). -export([run/0]). run()->erlang:phash2({{}}).
+CHECK erlang-hash-range-tuple-nested -module(hash_contract). -export([run/0]). run()->erlang:phash2({{}},97).
+CHECK erlang-hash-vector-tuple-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2({<<>>},4294967296).
+CHECK erlang-hash-default-tuple-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2({<<>>}).
+CHECK erlang-hash-range-tuple-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2({<<>>},97).
+CHECK erlang-hash-vector-tuple-float -module(hash_contract). -export([run/0]). run()->erlang:phash2({0.0},4294967296).
+CHECK erlang-hash-default-tuple-float -module(hash_contract). -export([run/0]). run()->erlang:phash2({0.0}).
+CHECK erlang-hash-range-tuple-float -module(hash_contract). -export([run/0]). run()->erlang:phash2({0.0},97).
+CHECK erlang-hash-vector-tuple-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2({abc},4294967296).
+CHECK erlang-hash-default-tuple-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2({abc}).
+CHECK erlang-hash-range-tuple-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2({abc},97).
+CHECK erlang-hash-vector-tuple-mixed -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,1,{},-3.14},4294967296).
+CHECK erlang-hash-default-tuple-mixed -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,1,{},-3.14}).
+CHECK erlang-hash-range-tuple-mixed -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,1,{},-3.14},97).
+CHECK erlang-hash-vector-tuple-binary-a -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,<<>>},4294967296).
+CHECK erlang-hash-default-tuple-binary-a -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,<<>>}).
+CHECK erlang-hash-range-tuple-binary-a -module(hash_contract). -export([run/0]). run()->erlang:phash2({a,<<>>},97).
+CHECK erlang-hash-vector-tuple-binary-b -module(hash_contract). -export([run/0]). run()->erlang:phash2({b,<<>>},4294967296).
+CHECK erlang-hash-default-tuple-binary-b -module(hash_contract). -export([run/0]). run()->erlang:phash2({b,<<>>}).
+CHECK erlang-hash-range-tuple-binary-b -module(hash_contract). -export([run/0]). run()->erlang:phash2({b,<<>>},97).
+CHECK erlang-hash-vector-rune-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(5792,5872)),4294967296).
+CHECK erlang-hash-default-rune-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(5792,5872))).
+CHECK erlang-hash-range-rune-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(5792,5872)),97).
+CHECK erlang-hash-vector-kana-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(12441,12474)),4294967296).
+CHECK erlang-hash-default-kana-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(12441,12474))).
+CHECK erlang-hash-range-kana-atom -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_atom(lists:seq(12441,12474)),97).
+CHECK erlang-hash-vector-large-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127)))),4294967296).
+CHECK erlang-hash-default-large-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127))))).
+CHECK erlang-hash-range-large-binary -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127)))),97).
+CHECK erlang-hash-vector-binary-slice -module(hash_contract). -export([run/0]). run()->erlang:phash2(begin B = erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127)))),<<_:128,Sub/binary>> = B,Sub end,4294967296).
+CHECK erlang-hash-default-binary-slice -module(hash_contract). -export([run/0]). run()->erlang:phash2(begin B = erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127)))),<<_:128,Sub/binary>> = B,Sub end).
+CHECK erlang-hash-range-binary-slice -module(hash_contract). -export([run/0]). run()->erlang:phash2(begin B = erlang:list_to_binary(lists:flatten(lists:duplicate(500,lists:seq(32,127)))),<<_:128,Sub/binary>> = B,Sub end,97).
+CHECK erlang-hash-vector-bits-prefix -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<5:3,"12345678901234567890">>,4294967296).
+CHECK erlang-hash-default-bits-prefix -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<5:3,"12345678901234567890">>).
+CHECK erlang-hash-range-bits-prefix -module(hash_contract). -export([run/0]). run()->erlang:phash2(<<5:3,"12345678901234567890">>,97).
+CHECK erlang-hash-vector-pid-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,103,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,36,0,0,0,0,1>>),4294967296).
+CHECK erlang-hash-default-pid-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,103,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,36,0,0,0,0,1>>)).
+CHECK erlang-hash-range-pid-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,103,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,36,0,0,0,0,1>>),97).
+CHECK erlang-hash-vector-port-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,102,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,24,3>>),4294967296).
+CHECK erlang-hash-default-port-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,102,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,24,3>>)).
+CHECK erlang-hash-range-port-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,102,100,0,11,97,112,97,64,108,101,103,111,108,97,115,0,0,0,24,3>>),97).
+CHECK erlang-hash-vector-reference-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,114,0,3,100,0,11,97,112,97,64,108,101,103,111,108,97,115,2,0,0,0,155,0,0,0,0,0,0,0,0>>),4294967296).
+CHECK erlang-hash-default-reference-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,114,0,3,100,0,11,97,112,97,64,108,101,103,111,108,97,115,2,0,0,0,155,0,0,0,0,0,0,0,0>>)).
+CHECK erlang-hash-range-reference-wire -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,114,0,3,100,0,11,97,112,97,64,108,101,103,111,108,97,115,2,0,0,0,155,0,0,0,0,0,0,0,0>>),97).
+CHECK erlang-hash-vector-external-map-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,2),4294967296).
+CHECK erlang-hash-default-external-map-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,2)).
+CHECK erlang-hash-range-external-map-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,2),97).
+CHECK erlang-hash-vector-external-map-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,3),4294967296).
+CHECK erlang-hash-default-external-map-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,3)).
+CHECK erlang-hash-range-external-map-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,map,3),97).
+CHECK erlang-hash-vector-external-filter-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,2),4294967296).
+CHECK erlang-hash-default-external-filter-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,2)).
+CHECK erlang-hash-range-external-filter-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,2),97).
+CHECK erlang-hash-vector-external-filter-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,3),4294967296).
+CHECK erlang-hash-default-external-filter-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,3)).
+CHECK erlang-hash-range-external-filter-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(lists,filter,3),97).
+CHECK erlang-hash-vector-external-stub-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,2),4294967296).
+CHECK erlang-hash-default-external-stub-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,2)).
+CHECK erlang-hash-range-external-stub-two -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,2),97).
+CHECK erlang-hash-vector-external-stub-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,3),4294967296).
+CHECK erlang-hash-default-external-stub-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,3)).
+CHECK erlang-hash-range-external-stub-three -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:make_fun(xxx,map,3),97).
+CHECK erlang-hash-legacy-tuple -module(hash_contract). -export([run/0]). run()->erlang:phash({a,b,c},4294967295).
+CHECK erlang-hash-legacy-reference -module(hash_contract). -export([run/0]). run()->erlang:phash(erlang:binary_to_term(<<131,114,0,3,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,0,122,0,0,0,0,0,0,0,0>>),4294967295).
+CHECK erlang-hash-bad-range-phash-194 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},0) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-195 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},-1) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-196 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},1.0) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-197 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},hello) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-198 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},[]) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-199 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},{1}) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-200 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},4294967297) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash-201 -module(hash_contract). -export([run/0]). run()->try erlang:phash(#{a=>1},1 bsl 100) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-202 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},0) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-203 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},-1) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-204 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},1.0) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-205 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},hello) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-206 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},[]) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-207 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},{1}) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-208 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},4294967297) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-bad-range-phash2-209 -module(hash_contract). -export([run/0]). run()->try erlang:phash2(#{a=>1},1 bsl 100) of _->unexpected catch error:Reason->Reason end.
+CHECK erlang-hash-range-laws-210 -module(hash_contract). -export([run/0]). run()->V = [],H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-211 -module(hash_contract). -export([run/0]). run()->V = abc,H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-212 -module(hash_contract). -export([run/0]). run()->V = -123456789012345678901234567890,H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-213 -module(hash_contract). -export([run/0]). run()->V = -0.0,H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-214 -module(hash_contract). -export([run/0]). run()->V = <<5:3>>,H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-215 -module(hash_contract). -export([run/0]). run()->V = {a,[1|tail]},H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-range-laws-216 -module(hash_contract). -export([run/0]). run()->V = #{1=>one,1.0=>float},H=erlang:phash2(V,4294967296),L=erlang:phash(V,4294967296),erlang:phash2(V) =:= (H band 134217727) andalso erlang:phash2(V,1) =:= 0 andalso erlang:phash(V,1) =:= 1 andalso erlang:phash2(V,17) =:= (H rem 17) andalso erlang:phash(V,17) =:= (((L-1) rem 17)+1) andalso H >= 0 andalso H < 4294967296 andalso L > 0 andalso L =< 4294967296.
+CHECK erlang-hash-map-order-independent -module(hash_contract). -export([run/0]). run()->A=maps:from_list([{1,one},{1.0,float},{a,#{b=>[1,2]}},{<<5:3>>,bits}]),B=maps:from_list(lists:reverse(maps:to_list(A))),erlang:phash2(A,4294967296) =:= erlang:phash2(B,4294967296) andalso erlang:phash(A,4294967296) =:= erlang:phash(B,4294967296).
+CHECK erlang-hash-wire-local-1 -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,112,0,0,0,66,0,215,206,77,69,249,50,170,17,129,47,21,98,13,196,76,242,0,0,0,1,0,0,0,0,100,0,1,116,97,1,98,2,195,126,58,103,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,112,0,0,0,0,0>>),4294967296).
+CHECK erlang-hash-wire-local-2 -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,112,0,0,0,66,0,215,206,77,69,249,50,170,17,129,47,21,98,13,196,76,242,0,0,0,2,0,0,0,0,100,0,1,116,97,2,98,3,130,152,185,103,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,112,0,0,0,0,0>>),4294967296).
+CHECK erlang-hash-wire-local-3 -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,112,0,0,0,66,2,215,206,77,69,249,50,170,17,129,47,21,98,13,196,76,242,0,0,0,3,0,0,0,0,100,0,1,116,97,3,98,7,168,160,93,103,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,112,0,0,0,0,0>>),4294967296).
+CHECK erlang-hash-wire-local-4 -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,112,0,0,0,66,0,215,206,77,69,249,50,170,17,129,47,21,98,13,196,76,242,0,0,0,4,0,0,0,0,100,0,1,116,97,4,98,2,230,21,171,103,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,112,0,0,0,0,0>>),4294967296).
+CHECK erlang-hash-wire-local-5 -module(hash_contract). -export([run/0]). run()->erlang:phash2(erlang:binary_to_term(<<131,112,0,0,0,92,0,215,206,77,69,249,50,170,17,129,47,21,98,13,196,76,242,0,0,0,5,0,0,0,3,100,0,1,116,97,5,98,0,99,101,130,103,100,0,13,110,111,110,111,100,101,64,110,111,104,111,115,116,0,0,0,112,0,0,0,0,0,100,0,3,97,98,99,100,0,3,97,98,100,104,2,100,0,3,97,98,99,100,0,3,97,98,100>>),4294967296).
+Compiled contracts 223; hash new 223; historical include False
+Pinned hash_SUITE literal vectors 76/76; independent live proof pending

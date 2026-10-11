@@ -463,3 +463,7 @@ Part131: ETF nonzero-sign normalization,one new-only expectation correction,two 
 ## Part132 checkpoint
 
 Part132: complete comparable original3000 executes **2999 pass/one unsafe zero-word-reference admission mismatch**,five explicit local-function exclusions;all128778/1951/93 preserved. **3479/full same-head CI** at20332dc. [Proof](validation/part-132/remote-checkpoint.json). Registry350,erlang200/351,151missing. Publish evidence,retain managed badarg against native out-of-packet first-word read,add exact exclusion/permanent guard,integrate hash draft and repeat original. Latest completely successful original1282822/2822;whole goal continues.0019 active,closed0018/sibling/draft unchanged.
+
+## Part133 checkpoint
+
+Part133: source-directed phash/2,phash2/1,2,249 independent compiled contracts(two algorithms/26 upstream numeric maps),iterative/immutable binary spans and two host guards. **3733/full local**,registry353,erlang203/351,148missing,API presence57.8%. [Source audit](validation/part-133/reference-audit.json). All1312134 SDK and128778/1951/93 contracts preserved;managed3254/comparable3248 plus6 exact native-defect exclusions retaining managed tests. Publish/freeze/original134 and same-head CI pending;whole goal continues. Native records,trapping/physical metadata/exhaustive suites/performance remain unfinished;0019 active,closed0018/sibling/draft unchanged.

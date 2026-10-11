@@ -1,0 +1,93 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "VersionVerified": false,
+  "Complete": false,
+  "Planned": 2470,
+  "ReferenceCoverageComplete": false,
+  "OriginalOtpDefectExclusions": [
+    {
+      "Name": "erlang-etf-roundtrip-136",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003EV=maker({42,hello}),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "43196876EDDFADE44E701895DAB8FA6B5463CED278C81151CAD26E53E29B2ADC",
+      "ManagedExpected": "{ok,true}",
+      "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-130"
+    },
+    {
+      "Name": "erlang-etf-roundtrip-137",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003EV=maker({42,hello}),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "C7C50A8C91AA87714FD4F758140AE9DD95629E93D5ED5B7C31A8534E46FD5FEE",
+      "ManagedExpected": "{ok,true}",
+      "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-130"
+    },
+    {
+      "Name": "erlang-etf-roundtrip-141",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003EV=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "38E4D49FDBAC7F0BF8C69C811A2DD30B5ABB82210F1CE9F7934C3524DFDEA79E",
+      "ManagedExpected": "{ok,true}",
+      "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-130"
+    },
+    {
+      "Name": "erlang-etf-roundtrip-142",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003EV=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "AFC5FE137D581E7174925DD7364C6BB0D9D881C15B379E05243019067AC1C951",
+      "ManagedExpected": "{ok,true}",
+      "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-130"
+    },
+    {
+      "Name": "erlang-etf-local-iovec",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003EV={self(),erlang:make_ref(),maker(42)},B=erlang:iolist_to_binary(erlang:term_to_iovec(V,[local])),erlang:binary_to_term(B) =:= V. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "E9DDF7836BE0406D5D612E9A76401C95281E4F3EC270D1594F83EDFD5762117D",
+      "ManagedExpected": "{ok,true}",
+      "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-130"
+    },
+    {
+      "Name": "erlang-etf-wire-identity-invalid-162",
+      "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-\u003Etry erlang:binary_to_term(\u003C\u003C131,90,0,0,119,1,110,0,0,0,0\u003E\u003E) of _-\u003Eunexpected catch error:Reason-\u003EReason end. maker(Value)-\u003Efun()-\u003EValue end.",
+      "SourceSha256": "3B560CF41C4C778683AE8C0E6AF72E08F4EF4A08CAC4A5694449CD39F1E0D5E6",
+      "ManagedExpected": "{ok,badarg}",
+      "Reason": "OTP-29.1.1 external.c permits ref_words0 in decoded_size but unconditionally reads the first reference word beyond this packet. Part132 preserves successful native admission; mandatory managed badarg protects the declared packet boundary.",
+      "NativeExecuted": false,
+      "OriginalEvidence": "docs/validation/part-132"
+    }
+  ],
+  "Executed": 0,
+  "Passed": 0,
+  "Failed": 0,
+  "AbortedSource": null,
+  "InfrastructureError": "An error occurred trying to start process \u0027artifacts/nonexistent-oracle/erl\u0027 with working directory \u0027D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\u0027. \u041D\u0435 \u0443\u0434\u0430\u0435\u0442\u0441\u044F \u043D\u0430\u0439\u0442\u0438 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u044B\u0439 \u0444\u0430\u0439\u043B.",
+  "ExpressionTrack": {
+    "Mode": "erl_eval:exprs",
+    "Planned": 0,
+    "Executed": 0,
+    "Passed": 0,
+    "Failed": 0
+  },
+  "CompiledModuleTrack": {
+    "ReferenceMode": "compile:forms/default optimizations except explicit source -compile(no_ssa_opt) on two maps iterator cases/code:load_binary",
+    "ImplementationMode": "generated C#/Roslyn Release assembly/ModuleDefinition evaluator",
+    "Planned": 2377,
+    "Executed": 0,
+    "Passed": 0,
+    "Failed": 0
+  },
+  "CompilerDiagnosticTrack": {
+    "ReferenceMode": "compile:forms/error reasons without annotations",
+    "Planned": 93,
+    "Executed": 0,
+    "Passed": 0,
+    "Failed": 0
+  },
+  "DiagnosticResults": [],
+  "ModuleResults": [],
+  "Results": []
+}

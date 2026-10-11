@@ -1,0 +1,66 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ManagedPlan": 3254,
+  "Registry": 353,
+  "Boundaries": [
+    "Native record terms/hash remain absent",
+    "Scheduler trapping,physical reductions,exhaustive upstream hash suites and general performance superiority unverified",
+    "Opaque host-only callback terms have no Erlang identity and reject hashing",
+    "Source-literal/draft checks are local;original exact-source execution follows publication"
+  ],
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_term_hashing.c",
+      "BlobSHA1": "c24b0604245c8e795839c2bf05887f8e49dd4882"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.c",
+      "BlobSHA1": "a4dc975bf281019a40df03a5ba27d3a944dd9690"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/test/hash_SUITE.erl",
+      "BlobSHA1": "37a313f87a2639749e306d05c79650501779017c"
+    },
+    {
+      "Path": "erts/emulator/test/map_SUITE.erl",
+      "BlobSHA1": "596bdd92df577cbbe8fa44260c9780099ccb6453"
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "BlobSHA1": "c8bdbded993970b0675dfdf0063e5757744f197e"
+    }
+  ],
+  "ErlangPresent": 203,
+  "ComparableOriginalPlan": 3248,
+  "Missing": 148,
+  "ApiPresencePercent": 57.8,
+  "NewCompiledModules": 249,
+  "NewExports": [
+    "erlang:phash/2",
+    "erlang:phash2/1",
+    "erlang:phash2/2"
+  ],
+  "Adaptations": [
+    "Iterative traversal instead of CLR recursion;map pair XOR contexts explicitly restored",
+    "Binary payload spans avoid full copies;managed partial-bit storage is packed and immutable",
+    "Fixed source ETF functions preserve real code identity fields for hash comparison;C# generated function metadata remains backend-specific",
+    "Safe zero-word-reference rejection retained;exact unsafe native admission excluded from comparison and preserved in132"
+  ],
+  "DraftLiteralVectors": 76,
+  "ErlangDeclared": 351,
+  "OriginalExclusions": 6,
+  "PriorTests": 3479,
+  "Tests": 3733,
+  "Reuse": "SDK BigInteger,BitConverter,Encoding.UTF8,Stack value frames,owned ReadOnlySpan;no new package/native production dependency",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Preservation": "All1312134 SDK module sources,expectations and generated hashes;all128778 expressions/1951 native modules/93 diagnostics unchanged",
+  "Licensing": "Altered Ericsson Apache source ports credited in consolidated OTP-PORTS;two exact notices in both locally validated packages;no source banners/public packages/license draft publication",
+  "MapSuiteLiteralContracts": 26,
+  "NewHostChecks": 2,
+  "NativeStatus": "Pending134",
+  "Delta": 254
+}

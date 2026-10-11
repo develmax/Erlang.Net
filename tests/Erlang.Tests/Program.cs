@@ -6,6 +6,8 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test("erlang/hash-iterative-deep-terms-and-no-binary-payload-copy", Erlang.Tests.ErlangHashHostChecks.Resources);
+Test("serialization/zero-word-references-reject-out-of-packet-first-word", EtfHostChecks.ZeroWordReferences);
 Test("serialization/iovec-borrowing-immutable-fragments-size-and-patching", EtfHostChecks.IoVec);
 Test("serialization/decoded-function-environment-and-local-runtime-domains", EtfHostChecks.FunctionsAndLocalDomains);
 Test("terms/reference-words-equality-hash-and-allocation-rollover", EtfHostChecks.References);

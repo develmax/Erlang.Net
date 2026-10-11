@@ -4,6 +4,54 @@ using Erlang.Tests;
 
 internal static class EtfHostChecks
 {
+    public static async Task ZeroWordReferences()
+    {
+        await using var runtime = new ProcessRuntime();
+        await Execute(
+            runtime,
+            async context =>
+        {
+            foreach (byte[] packet in new byte[][]
+            {
+                [131, 90, 0, 0, 119, 1, 110, 0, 0, 0, 0],
+                [131, 114, 0, 0, 119, 1, 110, 0]
+            })
+                foreach (byte[] suffix in new byte[][] { [], [0, 0, 0, 0], [255, 255, 255, 255] })
+                {
+                    byte[] bytes = packet.Concat(suffix).ToArray();
+                    try
+                    {
+                        ExternalTermFormat.Decode(bytes);
+                        throw new InvalidDataException(EtfCheckDiagnostics.ZeroWordReference);
+                    }
+                    catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument))) { }
+                    try
+                    {
+                        await runtime.Modules.Call(
+                            context,
+                            "erlang",
+                            "binary_to_term",
+                            new BitString(bytes)
+                        );
+                        throw new InvalidDataException(EtfCheckDiagnostics.ZeroWordReference);
+                    }
+                    catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument))) { }
+                }
+
+            Term valid = await runtime.Modules.Call(
+                context,
+                "erlang",
+                "binary_to_term",
+                new BitString(new byte[] { 131, 90, 0, 1, 119, 1, 110, 0, 0, 0, 0, 255, 255, 255, 255 })
+            );
+            Require(
+                valid is ReferenceTerm reference && reference.Words.Count == 1 && reference.Words[0] == uint.MaxValue,
+                EtfCheckDiagnostics.ZeroWordReference
+            );
+        }
+        );
+    }
+
     public static async Task IoVec()
     {
         await using var runtime = new ProcessRuntime();

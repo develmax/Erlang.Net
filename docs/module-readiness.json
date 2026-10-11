@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-131/tests.json",
-  "LocalPassedTests": 3479,
-  "RegisteredMfas": 350,
+  "ComparisonTestReport": "validation/part-132/ci-tests.json",
+  "LocalPassedTests": 3733,
+  "RegisteredMfas": 353,
   "PreviousRegisteredMfas": 350,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 3,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -64,7 +64,7 @@
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection"
       ],
-      "RelatedPassedTests": 240
+      "RelatedPassedTests": 243
     },
     {
       "Id": "Compiler",
@@ -122,7 +122,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1389
+      "RelatedPassedTests": 1392
     },
     {
       "Id": "gen_server adapters",
@@ -214,7 +214,7 @@
         "Part130: original at3d0b18e2867/2870 executed pass,three new ETF differences and native local external-function abort;40 modules/93 diagnostics remain unexecuted;complete original128 remains2822",
         "Part132: comparable original3000 complete,2999pass/one new zero-word-reference mismatch;five explicit native-defect exclusions. Source reads first reference word beyond packet for count0. Full equivalence remains unresolved;latest fully successful original1282822."
       ],
-      "RelatedPassedTests": 2240
+      "RelatedPassedTests": 2489
     },
     {
       "Id": "Style checks",
@@ -5483,11 +5483,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 200,
+      "RegisteredMfas": 203,
       "PreviousRegisteredMfas": 200,
-      "Delta": 0,
+      "Delta": 3,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 57.0,
+      "ApiPresencePercent": 57.8,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5644,6 +5644,9 @@
         "erlang:not/1",
         "erlang:now/0",
         "erlang:or/2",
+        "erlang:phash/2",
+        "erlang:phash2/1",
+        "erlang:phash2/2",
         "erlang:posixtime_to_universaltime/1",
         "erlang:process_flag/2",
         "erlang:processes/0",

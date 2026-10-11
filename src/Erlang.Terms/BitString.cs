@@ -27,6 +27,8 @@ public sealed class BitString : Term
 
     internal int ByteLength => bytes.Length;
 
+    internal ReadOnlySpan<byte> ByteSpan => bytes;
+
     private BitString(byte[] ownedBytes, bool takeOwnership)
     {
         bytes = takeOwnership ? ownedBytes : ownedBytes.ToArray();

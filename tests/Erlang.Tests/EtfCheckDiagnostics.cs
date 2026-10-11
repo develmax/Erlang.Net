@@ -2,6 +2,7 @@ namespace Erlang.Tests;
 
 internal static class EtfCheckDiagnostics
 {
+    public const string ZeroWordReference = "ETF accepted a reference without its mandatory first identifier word";
     public const string IoVecBytes = "ETF iovec fragments differ from flat encoding";
     public const string Size = "ETF counting stream differs from plain encoding";
     public const string BorrowedBinary = "ETF iovec copied a large immutable binary";
