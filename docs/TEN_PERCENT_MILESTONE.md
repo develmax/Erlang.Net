@@ -21,3 +21,17 @@ Part099: simple_one_for_one and public query/stop increment passes1614/full loca
 Part100: selected supervisor strategy/lifecycle package verified1415/1415 and1614/full same-headCI at0d6a233. Collections/timers/source/application packages remain pending; target10% still active.
 
 Part101: all planned capability packages locally delivered.1774/full, maps29/34, lists31/91, erlang44/351, supervisor14/23 and gen_server10/41 partial API presence.116 new modules/five diagnostics; planned1536 original verification pending102. platform_demo.erl is verified in generated hybrid and installed local package consumer. Timers preserve creator independence and clean up recipient state; 'owner cleanup' in the initial plan must mean recipient/runtime lifecycle, not creator death. Keep target10% pending until independent checks.
+
+## Acceptance checkpoint — part 104 (2026-10-11)
+
+All five early-platform work packages are delivered at **d713491b52da2bcdd0827f02133157730e917059** and checked against exact-source OTP. [1536-case original comparison and 1774/full same-head CI](validation/part-104/remote-checkpoint.json) preserve all prior778/558/79 sources/expectations/generated hashes and add116 independently expected modules/five diagnostics with one documented record expectation correction; two map fixtures explicitly use -compile(no_ssa_opt) and their independent expected values remain unchanged. [Runnable source](../examples/HelloHybrid/platform_demo.erl) also passes generated hybrid and real installed PackageReference integration.
+
+| Package | Delivered evidence | Scope |
+| --- | --- | --- |
+| Supervisor | Significant policies and all four ordinary/simple strategies, dynamic/retry/PID/query/shutdown selected contracts; parts098/100 exact-source proofs | Whole behaviour remains partial |
+| Collections | 41 map and24 list modules;24 maps and11 lists exports added | maps 29/34 and lists 31/91 are API presence, not semantic percentages |
+| Runtime timers | 20 modules; send/start/read/cancel basic relative arities, creator independence, recipient cancellation, name lookup at delivery | Full options/absolute epochs/ranges/pause/distribution/races unfinished |
+| Record/source state | 30 modules/five diagnostics; tuple records, defaults/access/update/index/patterns/guards/record_info | Typed/native/imported records/macros/includes/full lint/spans unfinished |
+| Runnable application | Supervised gen_server with record state, timer delivery and map/list functions; original and hybrid/package execution agree | Independent CLR execution; no production BEAM |
+
+Overall readiness is reassessed at approximately **10%** as an engineering estimate for this completed capability milestone. This document does not establish an exact weighted 10% denominator. Complete OTP services, distribution, optimizer/debugger/stacks/resources, full source suites and measured BEAM performance remain unfinished. Relative speed has not been proven. Initial 'owner cleanup' is explicitly recipient/runtime lifecycle; timers survive creator death.

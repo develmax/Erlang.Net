@@ -9,7 +9,8 @@ Erlang callback modules execute through the native C# behaviour engines. No Erla
 | gen_server | stop/1,3 | System terminate request, termination and monitor completion |
 | supervisor | start_link/2,3 | Erlang init, optional local name, static children started by MFA |
 | supervisor | which_children/1; count_children/1 | Serialized child snapshots, child type/module metadata |
-| supervisor | check_childspecs/1 | Selected map/legacy child-spec validation |
+| supervisor | check_childspecs/1,2 | Selected map/legacy child-spec validation and significant/auto_shutdown policy |
+| supervisor | which_child/2; get_childspec/2; stop/1,3 | Single-child queries and supervisor shutdown |
 | supervisor | start_child/2; terminate_child/2; restart_child/2; delete_child/2 | Serialized dynamic specs, shutdown completion, inactive restart/delete and source-shaped errors |
 
 Callbacks run with the process's own `ProcessContext`, including its PID, dictionary, mailbox, links and monitors. The From tag is a managed monitor reference; OTP alias tag encoding and late-reply cleanup are unfinished. gen_server supports init/1, handle_call/3, handle_cast/2, handle_info/2, handle_continue/2 and terminate/2. Missing handle_info/2 preserves state; terminate/2 is optional. Init and ordinary callbacks treat thrown terms as callback returns; terminate exceptions remain failures. Integer timeout, infinity and `{continue,Term}` actions are supported within CLR timeout bounds. `hibernate` currently has idle-loop behaviour without BEAM memory reclamation semantics.

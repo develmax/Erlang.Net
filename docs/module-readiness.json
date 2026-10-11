@@ -46,7 +46,8 @@
         "selective receive and local links/monitors",
         "registered core MFAs",
         "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
-        "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays"
+        "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
+        "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -73,7 +74,8 @@
         "Sequential lint/compiled zip-source bindings and isolated interpreted source bindings; source bindings do not enter patterns/templates",
         "Selected compiler and callback corpus verified against exact-source OTP-29.1.1 at2fd52f8:778 expressions/436 compiled modules/79 diagnostics=1293;1482/full same-head CI; full Core lowering remains incomplete",
         "Tuple record declarations, creation/default/wildcard field order, strict access/immutable updates, indexes and record_info",
-        "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics"
+        "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics",
+        "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
@@ -91,7 +93,8 @@
         "nth/nthtail/seq, keyfind/keymember/keysearch, last/split, append/1 and duplicate/flatten; member/2 exact/early-match boundaries",
         "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators",
         "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
-        "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations"
+        "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations",
+        "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
@@ -153,7 +156,8 @@
       "Implemented": [
         "native Erlang blocks and .erl generation",
         "incremental/clean/disabled-preprocessing/package consumer",
-        "platform_demo.erl uses supervision, gen_server, records, timers and collections; compiled into hybrid and real PackageReference consumer"
+        "platform_demo.erl uses supervision, gen_server, records, timers and collections; compiled into hybrid and real PackageReference consumer",
+        "Integrated supervised record/timer/collection application verified against exact-source OTP at d713491 and same-head hybrid/package CI"
       ],
       "Remaining": [
         "cross-block bindings, full diagnostics and IDE debugging"
@@ -178,9 +182,9 @@
       "Project": "tools/Erlang.Differential",
       "Status": "Partially compatible",
       "Implemented": [
-        "Pinned exact-source OTP-29.1.1 at0d6a233:1415/1415=778 expressions/558 compiled modules/79 diagnostics",
-        "All prior778/523/79 sources/independent expectations/generated hashes unchanged;35 new simple modules match without correction",
-        "Same-head1614/full CI with identical local/CI test names; exact-source/version/completeness/workflow/job/artifact/head proof retained"
+        "Exact-source OTP-29.1.1 at d713491: 1536/1536 = 778 expressions \u002B 674 modules \u002B 84 diagnostics",
+        "All prior 778/558/79 sources, independent expectations and generated hashes preserved; 116 new modules and five diagnostics match with one documented record expectation correction; two map fixtures explicitly use -compile(no_ssa_opt) and their independent expected values remain unchanged",
+        "Same-head 1774/full CI with identical local/CI test names; baseline source build/version/completeness/tracks/workflow/job/artifact/head verified"
       ],
       "Remaining": [
         "full resource/input contracts",

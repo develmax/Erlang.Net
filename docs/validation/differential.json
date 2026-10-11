@@ -2,9 +2,9 @@
   "Baseline": "OTP-29.1.1",
   "VersionVerified": true,
   "Complete": true,
-  "Planned": 1415,
-  "Executed": 1415,
-  "Passed": 1415,
+  "Planned": 1536,
+  "Executed": 1536,
+  "Passed": 1536,
   "Failed": 0,
   "AbortedSource": null,
   "InfrastructureError": null,
@@ -16,18 +16,18 @@
     "Failed": 0
   },
   "CompiledModuleTrack": {
-    "ReferenceMode": "compile:forms/default optimizations/code:load_binary",
+    "ReferenceMode": "compile:forms/default optimizations except explicit source -compile(no_ssa_opt) on two maps iterator cases/code:load_binary",
     "ImplementationMode": "generated C#/Roslyn Release assembly/ModuleDefinition evaluator",
-    "Planned": 558,
-    "Executed": 558,
-    "Passed": 558,
+    "Planned": 674,
+    "Executed": 674,
+    "Passed": 674,
     "Failed": 0
   },
   "CompilerDiagnosticTrack": {
     "ReferenceMode": "compile:forms/error reasons without annotations",
-    "Planned": 79,
-    "Executed": 79,
-    "Passed": 79,
+    "Planned": 84,
+    "Executed": 84,
+    "Passed": 84,
     "Failed": 0
   },
   "DiagnosticResults": [
@@ -898,6 +898,61 @@
       "ImplementationAccepted": false,
       "ImplementationCode": "ERL006",
       "ImplementationMessage": "Unbound or unsafe variable \u0027Z\u0027",
+      "Passed": true
+    },
+    {
+      "Name": "record-undefined",
+      "Source": "-module(record_undefined). -export([run/0]). run()-\u003E#state{}.",
+      "SourceSha256": "1C1924367A31B25992FBFA3526F8CC41F2116F0448B6B400D70211F10A2AF372",
+      "Expected": "{error,[{undefined_record,state}]}",
+      "Reference": "{error,[{undefined_record,state}]}",
+      "ImplementationAccepted": false,
+      "ImplementationCode": "ERL009",
+      "ImplementationMessage": "Record \u0027state\u0027 is undefined",
+      "Passed": true
+    },
+    {
+      "Name": "record-field-undefined",
+      "Source": "-module(record_field_undefined). -export([run/0]). -record(state,{a}). run()-\u003E#state{zzzzzz=value}.",
+      "SourceSha256": "16D2AC3CB3C3DE240850EAAC25CDCA051D8AD06F586B19D8A79468B631D184FE",
+      "Expected": "{error,[{undefined_field,state,zzzzzz}]}",
+      "Reference": "{error,[{undefined_field,state,zzzzzz}]}",
+      "ImplementationAccepted": false,
+      "ImplementationCode": "ERL009",
+      "ImplementationMessage": "Field \u0027zzzzzz\u0027 is undefined in record \u0027state\u0027",
+      "Passed": true
+    },
+    {
+      "Name": "record-field-duplicate",
+      "Source": "-module(record_field_duplicate). -export([run/0]). -record(state,{a,a}). run()-\u003Eok.",
+      "SourceSha256": "1914E4D7CE2E41DBABAE330C9612120504F87D25D6E22EA2602A41416F40A15A",
+      "Expected": "{error,[{redefine_field,state,a}]}",
+      "Reference": "{error,[{redefine_field,state,a}]}",
+      "ImplementationAccepted": false,
+      "ImplementationCode": "ERL009",
+      "ImplementationMessage": "Record field \u0027a\u0027 is already defined",
+      "Passed": true
+    },
+    {
+      "Name": "record-duplicate",
+      "Source": "-module(record_duplicate). -export([run/0]). -record(state,{a}). -record(state,{b}). run()-\u003Eok.",
+      "SourceSha256": "520D54EDC362E4EF88D5EE5E986A9EEB10B26276D8C32BC13116F09CFDBB920F",
+      "Expected": "{error,[{redefine_record,state}]}",
+      "Reference": "{error,[{redefine_record,state}]}",
+      "ImplementationAccepted": false,
+      "ImplementationCode": "ERL009",
+      "ImplementationMessage": "Record \u0027state\u0027 is already defined",
+      "Passed": true
+    },
+    {
+      "Name": "record-wildcard-update",
+      "Source": "-module(record_wildcard). -export([run/0]). -record(state,{a}). run()-\u003ER=#state{},R#state{_=value}.",
+      "SourceSha256": "65F4B7B6A94FF4FD97BD8F6AA4206CB3713CE9F357A98122B380EB9B4829351D",
+      "Expected": "{error,[{wildcard_in_update,state}]}",
+      "Reference": "{error,[{wildcard_in_update,state}]}",
+      "ImplementationAccepted": false,
+      "ImplementationCode": "ERL009",
+      "ImplementationMessage": "A tuple record update cannot contain a wildcard field",
       "Passed": true
     }
   ],
@@ -6480,6 +6535,1166 @@
       "Expected": "{ok,done}",
       "FixtureExpected": "{ok,done}",
       "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-get-default",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Emissing=maps:get(absent,#{},missing),value=maps:get(key,#{key=\u003Evalue},missing),done.",
+      "SourceSha256": "D03CDA5DFFA20537766FD414D013302E4FD13592D2A8471CA6FC186324C88D2C",
+      "CSharpSha256": "5C4595E8ADBA58B73FEA0B05FFA6D8FEDC9E41A8EF838FD60391A539323656E2",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-find",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E{ok,value}=maps:find(key,#{key=\u003Evalue}),error=maps:find(absent,#{}),done.",
+      "SourceSha256": "123AEC92127E8A6045CBAB87013D48313CA59643CADABFF58DAE4FE3797488A3",
+      "CSharpSha256": "549DBEFE2BC05DD28F12AED5767543016B38122549C008AF32972F34D67A1DFB",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-from-list",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{a:=last,b:=two}=maps:from_list([{a,first},{b,two},{a,last}]),#{1:=integer,1.0:=float}=maps:from_list([{1,integer},{1.0,float}]),done.",
+      "SourceSha256": "1FF0A87DEB80E082CCB76794EED6DBFDCC9FEC9AABD5FC72E1D6A8A302B90974",
+      "CSharpSha256": "19AAEA7D679BAA7AEED10ECE50098AEEA58E9CDFE2D2F65A2D51093A34AF53AF",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-from-keys",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1:=value,1.0:=value}=maps:from_keys([1,1.0,1],value),#{}=maps:from_keys([],unused),done.",
+      "SourceSha256": "74E2C48C579281BB0600192EC4E463D4F17963E91681758B8A9A203EC5A302C1",
+      "CSharpSha256": "122552D587765FF200333F00BD702241358C5C7659558993F7BD9F4A2C1B66F0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-is-key",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etrue=maps:is_key(1,#{1=\u003Einteger}),false=maps:is_key(1.0,#{1=\u003Einteger}),done.",
+      "SourceSha256": "D175F8B67EA335B98253F14B7D6F32273E8200B1E3E4220D367AC52EF812425A",
+      "CSharpSha256": "B44EFB37261802F45D1377B642A5DDA7E7167586374CE5C1149CE2ED3425C9AD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-keys-values",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E[1,2]=lists:sort(fun(A,B)-\u003EA=\u003CB end,maps:keys(#{1=\u003Ea,2=\u003Eb})),[a,b]=lists:sort(fun(A,B)-\u003EA=\u003CB end,maps:values(#{1=\u003Ea,2=\u003Eb})),done.",
+      "SourceSha256": "B7CC0C865FD406A89F74E28C810CD99FCF980B495B40665538F0B2ECA063FC68",
+      "CSharpSha256": "30FB3998F6C033C77C0BD6DB4317260944F1A3DCE36E8CD9661891323BF83F87",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-merge",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{a:=right,b:=left,c:=third}=maps:merge(#{a=\u003Eleft,b=\u003Eleft},#{a=\u003Eright,c=\u003Ethird}),done.",
+      "SourceSha256": "ADF4A6DF06938814DB950145CF66476ADDFEC36809EF7D0663C0E114FCB41404",
+      "CSharpSha256": "27446C7527F056DF1D2D83C92C9F7A7DF6C7ED13B87AF2E9ABE551B00AEDA266",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-new",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{}=maps:new(),0=maps:size(maps:new()),done.",
+      "SourceSha256": "323867E569F7B7F1305A31556ECDE8BD9C21ED5A0029A25B135AA625D974E79F",
+      "CSharpSha256": "831AB675F6507BB9A3304A102996454A106ED8A5B8568D8586C55EA9E6EB5730",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-put",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003EM=#{1=\u003Eold},N=maps:put(1.0,new,M),2=maps:size(N),old=maps:get(1,M),new=maps:get(1.0,N),done.",
+      "SourceSha256": "10D5E50C386DC7CC0E35882521E75B5211D62A3B341A8EB1CF220B6E91E84437",
+      "CSharpSha256": "326859D4CFF9C2C8A082029493ECD2CA1B52CBA300641DC379CBD5CDBED182A6",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-remove",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1.0:=keep}=maps:remove(1,#{1=\u003Eremove,1.0=\u003Ekeep}),#{}=maps:remove(absent,#{}),done.",
+      "SourceSha256": "950043C2881CCE92B7B3C6BD68884800CAE31995F29985C7479E92DD498CB24F",
+      "CSharpSha256": "80EF9613E02E957C72C58655124757B6D6967BCE8E027CB45ED80284A71F2554",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-take",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E{value,#{b:=other}}=maps:take(a,#{a=\u003Evalue,b=\u003Eother}),error=maps:take(absent,#{}),done.",
+      "SourceSha256": "5131B2B9924C6631A8877361239D6F1374719F0AC15B782B69226DF3950967A1",
+      "CSharpSha256": "57A886156C4BAACCD4B0FEB63DA6EE05C4760CA1327E0248AA7A574152DD1A66",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-to-list",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E[{1,a},{2,b}]=lists:sort(fun(A,B)-\u003EA=\u003CB end,maps:to_list(#{1=\u003Ea,2=\u003Eb})),done.",
+      "SourceSha256": "ED9515044DC9FE73B9A7F0DA111EA333A8B7944F555231F2278AC2C8854D1550",
+      "CSharpSha256": "7447B89AD0DE52A1CC7ED54628CD53F47008D13BCF4C9B60C975201E7A09CB0C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-update",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{a:=new}=maps:update(a,new,#{a=\u003Eold}),try maps:update(a,new,#{}) of _-\u003Eunexpected catch error:{badkey,a}-\u003Eok end,done.",
+      "SourceSha256": "646A030F742CBC451C457A3B954ABC10349BBB6669B16140B897529A7CD3E88A",
+      "CSharpSha256": "EFE36AAC413F964B4E72D02CE8F6CD4CCBCC24F07351759F4AE4659E52176FFC",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-update-with-three",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{a:=3}=maps:update_with(a,fun(V)-\u003EV\u002B1 end,#{a=\u003E2}),try maps:update_with(a,fun(V)-\u003EV end,#{}) of _-\u003Eunexpected catch error:{badkey,a}-\u003Eok end,done.",
+      "SourceSha256": "FB713141B38084C89DAC81AAA3B0FFBC14FFE54AEE5E3B771690216DEBB4C4B8",
+      "CSharpSha256": "97C00DCD94E84936F68C28C4573E59E62E12C4EBBE3C5F6BB33193ABAE88BD4B",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-update-with-four",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{a:=3}=maps:update_with(a,fun(V)-\u003EV\u002B1 end,initial,#{a=\u003E2}),#{a:=initial}=maps:update_with(a,fun(_)-\u003Ethrow(called) end,initial,#{}),done.",
+      "SourceSha256": "EABFB1FF8ACF4965B77BDBCB77BDAAFE0EF003FFD9BEDCBADD13857F4B5DD799",
+      "CSharpSha256": "CE019E8C5E7D9E4BAE2D5CED60C8BBB74B58086BA33276966FC2446774C3D3D4",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-with",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1:=a}=maps:with([1,missing,1],#{1=\u003Ea,1.0=\u003Eb}),#{}=maps:with([],#{a=\u003Eb}),done.",
+      "SourceSha256": "78E47D213C5C8B2A7581243BBE5733FC752A8CD069E4F92493878F359FC5104D",
+      "CSharpSha256": "6F8625D16AA439198A7CB6704FA99240A1771C754D71C67CA8EA41D74A72BA82",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-without",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1.0:=b}=maps:without([1,missing,1],#{1=\u003Ea,1.0=\u003Eb}),done.",
+      "SourceSha256": "40502769B39214A4324A9B8B109B697A944873FA67436A3046AE28D17140CBB6",
+      "CSharpSha256": "8F6E9F7856161EABEEE6975677541EAB113BAE2841CF6323EA48E169F5212D9C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-filter",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{2:=20}=maps:filter(fun(K,V)-\u003EK=:=2 andalso V=:=20 end,#{1=\u003E10,2=\u003E20}),done.",
+      "SourceSha256": "70C886BF3420EF84EE08F5CB66B32373392DBC2135DFBFB74F51F39D1549EC1A",
+      "CSharpSha256": "9551D3CF329BCAF255E8E1B7BEA6F479CEC30E8C1DE6E8AEE7C4B346B65F61A5",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-filtermap",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1:=10,3:=31}=maps:filtermap(fun(1,_)-\u003Etrue;(2,_)-\u003Efalse;(3,V)-\u003E{true,V\u002B1} end,#{1=\u003E10,2=\u003E20,3=\u003E30}),done.",
+      "SourceSha256": "86D5DCBC97410386337B1D4542F9BFEBB3097B7D69BE66F3786F2A0D49B9DDEB",
+      "CSharpSha256": "7FB0AC14FC15C91B35439A1065886FC06F0C840127995B7A2E4E56070D35DB63",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-fold",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E33=maps:fold(fun(K,V,A)-\u003EK\u002BV\u002BA end,0,#{1=\u003E10,2=\u003E20}),seed=maps:fold(fun(_,_,_)-\u003Eunexpected end,seed,#{}),done.",
+      "SourceSha256": "9039380771AF81B9E2E40D9D62A5BCD3C2FA084902EAE93CDE902F979779B0A1",
+      "CSharpSha256": "3E6E9947F8502B4E7E06724400F530AEA574058A142791C51BBC4FB1B694ED3C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-foreach",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Eok=maps:foreach(fun(K,V)-\u003Eput(K,V),ignored end,#{1=\u003E10,2=\u003E20}),10=get(1),20=get(2),done.",
+      "SourceSha256": "A30E11E5AFA2FDFC1F40759EFB704F872056255B6C9CBE73071F5BE75ADB9085",
+      "CSharpSha256": "A9F658957A2BAB162A523D5F710CA99B2B8A919CD0D494599EF34B5054A7247A",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-map",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1:=11,2:=22}=maps:map(fun(K,V)-\u003EK\u002BV end,#{1=\u003E10,2=\u003E20}),done.",
+      "SourceSha256": "92E099AE4BDAF24093F2B3C785B18A1711C2C2ECA16B9DCC0FA6934DA8171C9A",
+      "CSharpSha256": "5E917E01F39DEC54935E69C5ED00104993A4118F489712DBE422FC5FCF980F17",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-ordered-fold",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E[{2,20},{1,10}]=maps:fold(fun(K,V,A)-\u003E[{K,V}|A] end,[],maps:iterator(#{2=\u003E20,1=\u003E10},ordered)),done.",
+      "SourceSha256": "E3C9F74868640480F8F37523560B0D4811E677262936F2639B6E42DFABFB5CA1",
+      "CSharpSha256": "933E28024DCB121C808273E3FCE17730495C536BC0E7428CFDACE4B8AD970997",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-reversed-map-callback",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Eput(order,[]),#{1:=10,2:=20}=maps:map(fun(K,V)-\u003Eput(order,[K|get(order)]),V end,maps:iterator(#{1=\u003E10,2=\u003E20},reversed)),[1,2]=get(order),done.",
+      "SourceSha256": "67A0288E5486091BB923D74D74CA3DB21B07422DCFC5ED556FC10AF2B46D63F1",
+      "CSharpSha256": "6B8CD9B45594B4135CF31BC874DB2268AD51E44D93E6A1FC9A5273CBB4A7A338",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-iterator-filter",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{2:=20}=maps:filter(fun(K,_)-\u003EK\u003E1 end,maps:iterator(#{1=\u003E10,2=\u003E20},ordered)),done.",
+      "SourceSha256": "A8E6CD2E39781ABDF9DD445BD47562C07F4FDDA5C911E842FE346F363AA0AB7D",
+      "CSharpSha256": "4333FB18ED59E02F8FCB896C0C4F7728F5B470C1C02541E699810EBD6DBA4841",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-iterator-filtermap",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003E#{1:=11}=maps:filtermap(fun(_,V)-\u003E{true,V\u002B1} end,maps:iterator(#{1=\u003E10},ordered)),done.",
+      "SourceSha256": "1FDC6CFC0679563EFD36E60D7D63BE492D3E821F91D136384D1B2570F159C85E",
+      "CSharpSha256": "53290CAA84EA79BCC262853CD27A31CB5D1A42F1943173E03C80C7430392F6A0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-iterator-foreach",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Eput(order,[]),ok=maps:foreach(fun(K,_)-\u003Eput(order,[K|get(order)]) end,maps:iterator(#{1=\u003E10,2=\u003E20},ordered)),[2,1]=get(order),done.",
+      "SourceSha256": "AB3643842A418E0D2688C8E6526FEE652F1578CE150B9AD676D480309052CEC1",
+      "CSharpSha256": "CF403E884E39BD8DEEFEBD60B6056290E8A4FAC7CFDF510BFC1776197F98CD2F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-none",
+      "Source": "-module(oracle_map_operations). -export([run/0]). -compile(no_ssa_opt). run()-\u003E#{}=maps:map(fun(_,V)-\u003EV end,none),#{}=maps:filter(fun(_,_)-\u003Etrue end,none),seed=maps:fold(fun(_,_,_)-\u003Eunexpected end,seed,none),done.",
+      "SourceSha256": "E594363D6377A877C038992404AB63DB743FDADE9BF659504DBD6E307C731060",
+      "CSharpSha256": "EE9195ACD9F3E89E22E38EE72B0A1FF9544A8DEFAFDC56437EF885CF0648C01A",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-callback",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:map(wrong,wrong) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try maps:filter(fun(_)-\u003Etrue end,#{}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "D104FC384EC6750AFA6B0F004A4BA964ACCDAD8102CE6786A5406AF7040A580C",
+      "CSharpSha256": "DF3B12395B30CDBA09C2E6DE2EC21820AE4AD448F272AE9867A16B192829F5DE",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-source",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:map(fun(_,V)-\u003EV end,wrong) of _-\u003Eunexpected catch error:{badmap,wrong}-\u003Eok end,done.",
+      "SourceSha256": "BF2969AB9B63CA94318D520D31BF552540FC8034DAE9413F3EF01F54513D376A",
+      "CSharpSha256": "14ACBF40CABC1F981C14439B38C6873BB91132B61AE0D35B035640B6515D2A36",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-continuation-order",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Eput(called,false),try maps:fold(fun(_,_,A)-\u003Eput(called,true),A end,seed,{key,value,wrong}) of _-\u003Eunexpected catch error:{badmap,{key,value,wrong}}-\u003Eok end,true=get(called),done.",
+      "SourceSha256": "019A28CC503F33F784375FB9077DC03CA29A19749BA3F582FE312579648A714E",
+      "CSharpSha256": "69091229BCBBC253BC42D0B590BB85CD2F2BA23DE780DE3F73BA3A4BEB89024C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-callback-error-propagates",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:map(fun(_,_)-\u003Eerror(badarg) end,#{a=\u003Eb}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "26A821DD13064F4E210BDA80542E1448FF0BB9D4375AF1FA0738AFA0E02DF1FE",
+      "CSharpSha256": "DAED7ECB017D293E1262CED47E0F950592FEC4FFDB50E1E1693C5FAE9685ED08",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-filter-result",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:filter(fun(_,_)-\u003Ewrong end,#{a=\u003Eb}) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,try maps:filtermap(fun(_,_)-\u003E{false,new} end,#{a=\u003Eb}) of _-\u003Eunexpected catch error:{case_clause,{false,new}}-\u003Eok end,done.",
+      "SourceSha256": "03F6F63741A3E6258B984F533DE421FA2E686FA07AAC4B28B1542C8B7F82635C",
+      "CSharpSha256": "641DDBB0599C61A465A94D45CB6DD91876803D0F63AE685621634F20C3FE457D",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-from-list",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:from_list([{a,b}|wrong]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try maps:from_list([{a}]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "C7B5046B29027AF83E7DBC7C4FF657FBD5DBFD84ED4203D6F46483D83F25EE4F",
+      "CSharpSha256": "D2A36C560518E603B1F7909713DF959B7B5D407146A562060A5783C2118E9C8C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-map-precedence",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:update_with(a,wrong,wrong) of _-\u003Eunexpected catch error:{badmap,wrong}-\u003Eok end,try maps:merge(wrong,other) of _-\u003Eunexpected catch error:{badmap,wrong}-\u003Eok end,done.",
+      "SourceSha256": "7F25C659B68D66AE96E2FD149B74190A0FB0C2DB5BBF39922591962D906E279C",
+      "CSharpSha256": "A8BD871EB7DB45A9310A5AE3093BECFFB97DFDE4543374EA5C49DCFD70D29EA3",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-update-callback",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:update_with(a,wrong,#{}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try maps:update_with(a,fun(_,_) -\u003E wrong end,initial,#{}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "EED268A53D3138E6951B9CE77C145EB886E5233F376B45484B40367BE13C5576",
+      "CSharpSha256": "9C1B5806AE9F0AA0DE7C7353D7485FD3AA38DF77B5CCCE38DECC6756691BD2FE",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-bad-select-shape",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:with(wrong,#{}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try maps:without(wrong,wrong) of _-\u003Eunexpected catch error:{badmap,wrong}-\u003Eok end,done.",
+      "SourceSha256": "B18E3552C927812C396E2E4D5703FA47DE3E5253E1BE9A7CC732954CAF9B5204",
+      "CSharpSha256": "0DA570D74FF49666A6210E369FE0E5D14445E13CCF780D4CCCCD9F71E62CA0D8",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-with-improper-tail",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:with([a|wrong],#{a=\u003Eb}) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,done.",
+      "SourceSha256": "D37EE99A3493DE79EEE3633327CA61DC16CEF6BEDF6818E9950BC78EE8F38776",
+      "CSharpSha256": "F04D77386CBA07B956B0249DA504DEC3A8257630E946AB8C2680524676FA36E2",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-without-improper-tail",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etry maps:without([a|wrong],#{a=\u003Eb}) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,done.",
+      "SourceSha256": "6E4D7267B5A331D7D539FDBD0828E7D3CDED9DD84C519DB8FD769B4784BF3463",
+      "CSharpSha256": "C6505BD542AEAD3639009EA1663530987D99CD30CB46B0E4B4CA202848B7A2F3",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-duplicate-iterator-keys",
+      "Source": "-module(oracle_map_operations). -export([run/0]). -compile(no_ssa_opt). run()-\u003Eput(counter,0),#{a:=2}=maps:map(fun(_,_)-\u003EV=get(counter)\u002B1,put(counter,V),V end,[ [a,a] | #{a=\u003Eold} ]),done.",
+      "SourceSha256": "F62B324040B6E8EB7EFA4E189719A7E647AB63CB9E92C8548310AE7AA08843ED",
+      "CSharpSha256": "6BB5C6D8A0B9F4A356A72BCD9061A3A1B94CC71906E50E13AC8FBED2C2011D92",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "maps-operations-valid-iterator",
+      "Source": "-module(oracle_map_operations). -export([run/0]). run()-\u003Etrue=maps:is_iterator_valid(none),true=maps:is_iterator_valid(maps:iterator(#{a=\u003Eb})),false=maps:is_iterator_valid(wrong),false=maps:is_iterator_valid({a,b,wrong}),done.",
+      "SourceSha256": "00C1C58D7208CF52E92E66A40D9CD670FEBF0FA0F2349E7D775846A6B22EE6E5",
+      "CSharpSha256": "8C7817F3D4BCE98EFB245DB9407E1C85FBAFC6D6852979028E560BB6D759A0C7",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foldl",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E[3,2,1]=lists:foldl(fun(X,A)-\u003E[X|A] end,[],[1,2,3]),seed=lists:foldl(fun(_,_) -\u003E unused end,seed,[]),done.",
+      "SourceSha256": "628238191C4A93A15CAAAA14EBDBFA457A409402E049D493C3674C9915F7C5D2",
+      "CSharpSha256": "E73EFB6F23B5DCD7D7148A5E125C92A01542A992D642356B50B5ACA9AEBC0F85",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foldr",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E[1,2,3]=lists:foldr(fun(X,A)-\u003E[X|A] end,[],[1,2,3]),put(order,[]),6=lists:foldr(fun(X,A)-\u003Eput(order,[X|get(order)]),X\u002BA end,0,[1,2,3]),[1,2,3]=get(order),done.",
+      "SourceSha256": "C5E20DA2B37AD280C7CB70B1EC95FFF5029326D95628C50FB93667260071BB3C",
+      "CSharpSha256": "8F6B4A2097803C3B2AC6B2079EEE1EB24AC17FA872258080ED4530D83A462700",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foreach",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Eput(order,[]),ok=lists:foreach(fun(X)-\u003Eput(order,[X|get(order)]),ignored end,[1,2,3]),[3,2,1]=get(order),done.",
+      "SourceSha256": "748E3F48C9238C27025A690F12F7EA75B6B660FCBA72126A171392DC082615D0",
+      "CSharpSha256": "98D9925D8FCAE8585591021352E9883D75A18BD185E4C95F0C8E5D793AA2A6E7",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-partition",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E{[1,3],[2,4]}=lists:partition(fun(X)-\u003EX rem 2=:=1 end,[1,2,3,4]),done.",
+      "SourceSha256": "828C977B64902D7CCBFDFA082F1FB2ECBEE5E0FF25428C37ED228FBBE2EAB3BE",
+      "CSharpSha256": "966614C8080E0A85B922209F8286F382C74DF89EB9BAD095B238A285F61F4ECA",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-all",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etrue=lists:all(fun(X)-\u003EX\u003E0 end,[1,2,3]),false=lists:all(fun(X)-\u003EX\u003E1 end,[1,2]),true=lists:all(fun(_)-\u003Eunexpected end,[]),done.",
+      "SourceSha256": "124478732C0863DD7528A87033F2C61403B91AFA0FB01C0E371582A52F1517AC",
+      "CSharpSha256": "6D12256BDF50A6FCC5E563B37B2523665AFEFD41CFD34F66F8A536641EAEC3AF",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-any",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etrue=lists:any(fun(X)-\u003EX=:=2 end,[1,2]),false=lists:any(fun(_)-\u003Efalse end,[1,2]),false=lists:any(fun(_)-\u003Eunexpected end,[]),done.",
+      "SourceSha256": "25D1C89162A66A728F560109D1AED78DAA01BDE1066E91920ACEC8C1709444C3",
+      "CSharpSha256": "9E3649D0F597B170331D198790B40C464DB9166B291DD62DFFF8EB3E26BDBE94",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-takewhile",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E[1,2]=lists:takewhile(fun(X)-\u003EX\u003C3 end,[1,2,3,1]),[]=lists:takewhile(fun(_)-\u003Efalse end,[1|wrong]),done.",
+      "SourceSha256": "F24107DB29780E54F50A9F25807DBC6DCF1E782444C66CCC013454FA2C4FF8BA",
+      "CSharpSha256": "EB51D9265EDE4C03F4C90AB9C631D9BDF3B24AB5602B733AD028C000E84957DF",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-dropwhile",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E[3,1]=lists:dropwhile(fun(X)-\u003EX\u003C3 end,[1,2,3,1]),[1|wrong]=lists:dropwhile(fun(_)-\u003Efalse end,[1|wrong]),done.",
+      "SourceSha256": "01FAA97C34AD835BCD4EA7F52D130626E13B47FCF5CB7417D75F01797C988FD0",
+      "CSharpSha256": "FF63140207067642A35CD99B1060123715032BD017DA829405F7AF955AB0ECE5",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-filtermap",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E[1,30]=lists:filtermap(fun(1)-\u003Etrue;(2)-\u003Efalse;(3)-\u003E{true,30} end,[1,2,3]),done.",
+      "SourceSha256": "C84AD5D4632BB0AADB3D2EC2945BBCB251E1312451A97711076A74146649BE94",
+      "CSharpSha256": "0A4E694B14C6CD2C14C2F3B9AA1D6FC969F2C5CF9927C770E630DDF800352922",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-mapfoldl",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E{[1,3,6],6}=lists:mapfoldl(fun(X,A)-\u003E{X\u002BA,X\u002BA} end,0,[1,2,3]),done.",
+      "SourceSha256": "F08ECAA85513F914BB5D31A6FF2EEA87B2D67B9A25A9EAD0730C8E92087E5EB2",
+      "CSharpSha256": "427EFC4AC483570F8F5A44A47B2EEBCFD50DEE867064A8EFB08F515AA726F6CD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-mapfoldr",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003E{[6,5,3],6}=lists:mapfoldr(fun(X,A)-\u003E{X\u002BA,X\u002BA} end,0,[1,2,3]),done.",
+      "SourceSha256": "5C04566E90284E6B4E8C0E4FD76F0C47263223C5237A4A921A395506C6965EBB",
+      "CSharpSha256": "1CF2FE7D771B6E79053B53958CF57B593E42DF5F875D50FE44739726062178D1",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-short-circuit-improper",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Efalse=lists:all(fun(_)-\u003Efalse end,[1|wrong]),true=lists:any(fun(_)-\u003Etrue end,[1|wrong]),done.",
+      "SourceSha256": "F42B0B6984CB3ACCCA0819221F3BD9D89DDDB1210A97B3A84722C1E676CD26C8",
+      "CSharpSha256": "64CEB729CB0AB7E756D9F4C388BD09232FCF7D605D37264ABBB970D4CA66485E",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-callback-arity-empty",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:foldl(wrong,seed,[]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,try lists:any(fun(_,_) -\u003E true end,[]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,done.",
+      "SourceSha256": "D644CE18D3F2B642550445F41C3436A7EAFAEC8F9C0F25384645CE034A7FC0FE",
+      "CSharpSha256": "7327E61794456FA777D222F719E255DC8F51F55E3DF5938F199929E7212074BB",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foldl-initial-invalid",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:foldl(fun(_,A)-\u003EA end,seed,wrong) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,done.",
+      "SourceSha256": "3144E869C54468ED038E498DD6CA3E8B5737F57ADCEA38CE1EE6AFF0213C7846",
+      "CSharpSha256": "DA3193EBB415F7DBD8D86ABA6B4EE1043716AE7DBF8DEF85E24B09F2C16338C8",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-all-initial-invalid",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:all(fun(_)-\u003Etrue end,wrong) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,done.",
+      "SourceSha256": "DD65F4A736B5F4C15D6BD89CA1B99CB973FC1739BD3E413EC5E37397AF875C3C",
+      "CSharpSha256": "BFC9F3F70F5EB539F086E8E6BE2D0980B83D834B8AF0339AE594EA6B14DCEF80",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-any-initial-invalid",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:any(fun(_)-\u003Etrue end,wrong) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,done.",
+      "SourceSha256": "11AD852865C51505C28950C3CB9D21F33D019E82AD8976C211ACD8B1B31F0D0D",
+      "CSharpSha256": "008EB12CE458CC0561D6317DED7DE8353AC9B930FE9C812D972CB46ED8A6B7CD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foldl-improper-effects",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Eput(called,false),try lists:foldl(fun(_,A)-\u003Eput(called,true),A end,seed,[1|wrong]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,true=get(called),done.",
+      "SourceSha256": "CC06269622C8FD6F6B6DF2B1521032467768887D621035981B94D01F9EF4909C",
+      "CSharpSha256": "AB5A800B14E43743E5524869DAC4D25B3E6C5853A44573D03561A1F26CC9995E",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foldr-improper-no-effects",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Eput(called,false),try lists:foldr(fun(_,A)-\u003Eput(called,true),A end,seed,[1|wrong]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,false=get(called),done.",
+      "SourceSha256": "364FDA8A8883DC8C0893B401B98056494E66A69E4284955B3CAE876879DA135C",
+      "CSharpSha256": "2DCCAD4DC320EC71076AC45C06D20D5B055BAF0F376577D74AB2FCDBDF5431C2",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-predicate-case-clause",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:partition(fun(_)-\u003Ewrong end,[1]) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,try lists:all(fun(_)-\u003Ewrong end,[1]) of _-\u003Eunexpected catch error:{case_clause,wrong}-\u003Eok end,done.",
+      "SourceSha256": "BEBEF74544EBBA388AF9F76A8C97C401DE5AC4C8A18D474107DEFB6E79E914CB",
+      "CSharpSha256": "1B9339B82396836805F4D89703063C98D934630A6C8F34624B546F2BE4AC1C26",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-filtermap-case-clause",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:filtermap(fun(_)-\u003E{false,new} end,[1]) of _-\u003Eunexpected catch error:{case_clause,{false,new}}-\u003Eok end,done.",
+      "SourceSha256": "ED2391D048F4C09102C68CB6A7DE3D23202ECB98B89CD9D47C00A383890F9067",
+      "CSharpSha256": "16E6186299033029EBB4E0C2FD188747B5F26908536310C073F16315DF03D679",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-mapfold-badmatch",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:mapfoldl(fun(_,_) -\u003E wrong end,seed,[1]) of _-\u003Eunexpected catch error:{badmatch,wrong}-\u003Eok end,try lists:mapfoldr(fun(_,_) -\u003E wrong end,seed,[1]) of _-\u003Eunexpected catch error:{badmatch,wrong}-\u003Eok end,done.",
+      "SourceSha256": "904832FF2FD61784251857762C62256C5589B06CC0D0FD47345702DE0B993ED2",
+      "CSharpSha256": "537D221EFB254F64A0C1EDB6C76E168527C0036E3B6927BFB3E0515154B2D600",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-foreach-error-propagates",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:foreach(fun(_)-\u003Ethrow(callback) end,[1]) of _-\u003Eunexpected catch throw:callback-\u003Eok end,done.",
+      "SourceSha256": "381A5B4DC217FF37D483D76743D5724AE05D00102A9168F358BFBFC1E5DE6A02",
+      "CSharpSha256": "2F3EDDFA36D51B6A558AB359E8ED8446E44FAD6621D4612202A37BC133F013E4",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-dropwhile-tail-error",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Etry lists:dropwhile(fun(_)-\u003Etrue end,[1|wrong]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,done.",
+      "SourceSha256": "36D65028B992CAD81E52750BE5A0C1F48B3BC81FD00434C7318F84C919CD60B3",
+      "CSharpSha256": "A4068CAAF89216B4B9F5EF862DF581FFAD770D727F8715A38B80054DA9B8CB92",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "lists-functional-mapfold-right-malformed-no-effects",
+      "Source": "-module(oracle_list_functions). -export([run/0]). run()-\u003Eput(called,false),try lists:mapfoldr(fun(X,A)-\u003Eput(called,true),{X,A} end,seed,[1|wrong]) of _-\u003Eunexpected catch error:function_clause-\u003Eok end,false=get(called),done.",
+      "SourceSha256": "6CC513A48707B7CD07A46B15CC862034AE5D021B3CB75C3A70BBEE2E6C1A0D7A",
+      "CSharpSha256": "E225091D2A93AE1ABCE6D154608B0DD2BFE6054CC35F9EBA5B961938DEF50859",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-send-after",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(0,self(),delivered),receive delivered-\u003Eok after 2000-\u003Emissing end,false=erlang:read_timer(T),false=erlang:cancel_timer(T),done.",
+      "SourceSha256": "13C59BCC66E8998943706009D4A9F796116AFA3FC6795D6BB2D16FCA8E904CFB",
+      "CSharpSha256": "6901AD05227195BCFC06DF12DD192B2D3A62DEA71EC76AC295F0712644CD4667",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-start-timer",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:start_timer(0,self(),{payload,42}),receive {timeout,T,{payload,42}}-\u003Eok after 2000-\u003Emissing end,false=erlang:read_timer(T),done.",
+      "SourceSha256": "48B47EB313384C14EEAECE77784326A4DECDB8FA017627929D4B5CA974D8536C",
+      "CSharpSha256": "15BAAF152A1CF75DF254382A140FA0D59F2B2C9A1ADE75B827E9858547FCADB8",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-read-cancel",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(60000,self(),cancelled),N=erlang:read_timer(T),true=is_integer(N),true=N\u003E=0,true=N=\u003C60000,C=erlang:cancel_timer(T),true=is_integer(C),true=C\u003E=0,true=C=\u003CN,false=erlang:cancel_timer(T),false=erlang:read_timer(T),receive cancelled-\u003Eunexpected after 0-\u003Eok end,done.",
+      "SourceSha256": "AF2B23A8CD173A9F0DB55D009F7CD61858334AD33F765442842ACD7E6718B72B",
+      "CSharpSha256": "BDABCF95856BF66E918BBAF4226158F8EBE2BCF81520AC194241A69927AFCED8",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-read-does-not-cancel",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:start_timer(100,self(),delivered),N=erlang:read_timer(T),true=is_integer(N),receive {timeout,T,delivered}-\u003Eok after 2000-\u003Emissing end,done.",
+      "SourceSha256": "919D34D721EACEB3F8DB551BD3A8C0E23FD0D37AA6968E75D38A2903699AA1FB",
+      "CSharpSha256": "CD0320768C6990518DCA2DF5282E2EF3701B088D671D7B9FB756A9BC11C6B255",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-unknown-reference",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=make_ref(),false=erlang:read_timer(T),false=erlang:cancel_timer(T),done.",
+      "SourceSha256": "C582D0EFEFCD5A4A87FAA090170464D35ECB8A74D9C6C2CEB9C381BD01658720",
+      "CSharpSha256": "AF683EB072CEA9719E9A2FD411D8AB308E9C67B36C9FF1000EE7E1BF05DD7602",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-dead-recipient",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003E{P,M}=spawn_monitor(fun()-\u003Eok end),receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Eok end,T=erlang:send_after(60000,P,unused),false=erlang:read_timer(T),U=erlang:start_timer(60000,P,unused),false=erlang:cancel_timer(U),done.",
+      "SourceSha256": "14FFC6274CF710771AD2CB638FD37952A366F9B9C11B0F37682CEB2E1ECBBA0A",
+      "CSharpSha256": "8DAA0CFE6EBD0AB1B69FA7A2B781A80D027C570E2379E23EFF23647773C19F5A",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-recipient-death-cancels",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003E{P,M}=spawn_monitor(fun()-\u003Ereceive finish-\u003Eok end end),T=erlang:send_after(60000,P,unused),P!finish,receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Eok end,false=erlang:read_timer(T),false=erlang:cancel_timer(T),done.",
+      "SourceSha256": "6A237941A3719A0C31C709010200D8203157AFE52AD650DAD2D0597DAD65E819",
+      "CSharpSha256": "FFB4CDC92683228F14A0E92AE635EF399E811799EB7222E1CCA2E613600CD201",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-creator-death-survives",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003EParent=self(),{P,M}=spawn_monitor(fun()-\u003ET=erlang:send_after(100,Parent,delivered),Parent!{timer,T} end),receive {timer,T}-\u003Eok end,receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Eok end,receive delivered-\u003Eok after 2000-\u003Emissing end,false=erlang:read_timer(T),done.",
+      "SourceSha256": "25366C155536066B8351736832EC5ADC005BCE081C9DB0E113A759CFFF3720D1",
+      "CSharpSha256": "B58C7952BE44035EACFC0FD96040E113EE39EF29139904CFC56056DA612B7240",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-named-delivery",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(100,oracle_timer_target,delivered),true=register(oracle_timer_target,self()),receive delivered-\u003Eok after 2000-\u003Emissing end,true=unregister(oracle_timer_target),false=erlang:read_timer(T),done.",
+      "SourceSha256": "B63D48741CBE501A2B07D9B2D19C3C0A166BBBE3647979ECC4B4B658D0D1515D",
+      "CSharpSha256": "53493AEEBABF86424DEABEAC6AB49F71CD867FB26ED295631606BAC9D2D403EE",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-name-resolved-at-delivery",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003EP=spawn(fun()-\u003Ereceive finish-\u003Eok end end),true=register(oracle_timer_target,P),T=erlang:start_timer(100,oracle_timer_target,delivered),true=unregister(oracle_timer_target),true=register(oracle_timer_target,self()),receive {timeout,T,delivered}-\u003Eok after 2000-\u003Emissing end,true=unregister(oracle_timer_target),P!finish,done.",
+      "SourceSha256": "0799A029ED367E63365D00D9AA6C44290F57AE593C15CFBDA7FE3D2EFADB89A2",
+      "CSharpSha256": "42742AA31DF01F5E976B2CC1BCE5AF683DC470AE8BFBBCEC265218DF736D44DD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-absent-name",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(60000,unregistered_timer_target,unused),N=erlang:cancel_timer(T),true=is_integer(N),done.",
+      "SourceSha256": "AFE0891EAD62D16B6031B103850B67CB1DFDCBDEB47B1E23553E8A2635398E95",
+      "CSharpSha256": "742867150B626F9539CAABD3FAC0502F56C7D458EFBD40D0A09E5B0214B8E4B5",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-cancel-from-other-process",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003EParent=self(),{P,M}=spawn_monitor(fun()-\u003ET=erlang:start_timer(60000,Parent,unused),Parent!{timer,T},receive finish-\u003Eok end end),receive {timer,T}-\u003Eok end,N=erlang:cancel_timer(T),true=is_integer(N),P!finish,receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Eok end,false=erlang:read_timer(T),done.",
+      "SourceSha256": "A874D6332751040ECDB9EDBCD897B4855D9B0765FAB752A5BBC6B5DC76009D60",
+      "CSharpSha256": "EAD1E060161429846B659BA0E0C46F38244983BAEDDF3F5100A31FC85162A08C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-cancel-does-not-flush-delivered",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:start_timer(0,self(),delivered),receive {timeout,T,delivered}-\u003Eself()!{saved,T} after 2000-\u003Emissing end,false=erlang:cancel_timer(T),receive {saved,T}-\u003Eok end,done.",
+      "SourceSha256": "78EEE26078C86B6525177DF18EB8C041C03AD763E6974655113F8E3A589CFC8D",
+      "CSharpSha256": "8FB4680B995A47FE6B78B1DF4F8BE72A73E41EDCF7FD5C25DE5AB73B84A4BECC",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-independent-references",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(60000,self(),first),U=erlang:send_after(60000,self(),second),true=T=/=U,true=is_integer(erlang:cancel_timer(T)),true=is_integer(erlang:read_timer(U)),true=is_integer(erlang:cancel_timer(U)),done.",
+      "SourceSha256": "E555AC0A13E3E66B123CDFA66EEEC6C6B7958F85BB092A50FB8705F72083F219",
+      "CSharpSha256": "0B095BEDFA1A4551A853B64C2E08018B0158B544D00A07A3611830DEE560476F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-bad-time",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003Etry erlang:send_after(-1,self(),unused) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try erlang:start_timer(1.0,self(),unused) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "8E70072650B8525F33E417EEE7207AFAD831537E05F6B7AC2A1122C8C3391AE8",
+      "CSharpSha256": "31E1EA184B313CF0A49607243858FEED6C86AD037D2F8EE5EB6B1B3BEF70ED8C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-bad-recipient",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003Etry erlang:send_after(0,{wrong},unused) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try erlang:start_timer(0,42,unused) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "6DF818D7CF1DACB32092CCF3B038025CDBF4DF1ED7E3F2B85821BB1E358D1CB0",
+      "CSharpSha256": "58D92AF7CCAB5EE187D7AD3FF4ECD5EA6D61F7C46A138EF771114F17F1F8FFC6",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-bad-reference",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003Etry erlang:read_timer(wrong) of _-\u003Eunexpected catch error:badarg-\u003Eok end,try erlang:cancel_timer(42) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "7D9069ED9039EC7A7686625368BB22BC1F35FF377DFBB88101BBBF57F467594C",
+      "CSharpSha256": "9397D83F5B32FD0FF04FA8584459F7F9453E80784CF213CD2C543D0390D700C8",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-large-relative-duration",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:send_after(4294967296,self(),unused),N=erlang:cancel_timer(T),true=is_integer(N),true=N\u003E2147483647,true=N=\u003C4294967296,done.",
+      "SourceSha256": "E87417CC05582E28775C40FCDB49253280B2BC31CD50123DEF6229FB9DB55A4C",
+      "CSharpSha256": "DB78A8F9CE29AF6F2D3E3C2BCB3A6C7D601D675844B13D23AEB487DBF5365461",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-empty-message",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003ET=erlang:start_timer(0,self(),[]),receive {timeout,T,[]}-\u003Eok after 2000-\u003Emissing end,done.",
+      "SourceSha256": "499543C85B1846CB4457AEA8933B0F8650B7847AF5F48C1295A880DD2DFFCD98",
+      "CSharpSha256": "1E9D6A8FE03DA04EB1299E7F078A9F075054BAC1C0438D0ECD32187FD8E5632D",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "runtime-timer-pid-registration-change",
+      "Source": "-module(oracle_runtime_timer). -export([run/0]). run()-\u003Etrue=register(oracle_timer_target,self()),T=erlang:send_after(100,self(),delivered),true=unregister(oracle_timer_target),receive delivered-\u003Eok after 2000-\u003Emissing end,false=erlang:read_timer(T),done.",
+      "SourceSha256": "00AEA93E461382821F255B2C08AE0E9B6ECAF047460003A14C744D4F5B52545B",
+      "CSharpSha256": "3982A9A6E727B192D8CE79EF6162F574A88E7C0ECD7AF02839A677288463E99F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-defaults",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E{state,first,second,undefined}=#state{},done.",
+      "SourceSha256": "3597FCD186FD143F935B461CB9BB8F5FD1845A75F2095FFD734C2CBE55E6DC58",
+      "CSharpSha256": "385280A74C8A68878EB004E11F985853B49C3088845FD77EFBF2B9AEE37F1AFD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-construction",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E{state,new,second,value}=#state{c=value,a=new},done.",
+      "SourceSha256": "4CD988DF191507EBE87E4324DD7C16937C42C814BA6332D205A301FE6031F995",
+      "CSharpSha256": "B023E57282EABD705A8278767FB1740A379186C949D18F9CD6EA448B70583A50",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-access",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{a=42},42=R#state.a,second=R#state.b,done.",
+      "SourceSha256": "99186530E03C6366B7E9F76133317AB2D5DEC464E1919056FDE97C3D8D976729",
+      "CSharpSha256": "B3B6888892A71F9366096718600C05BDB9F4E2372358C33320AF4B8D718610AD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-index",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E2=#state.a,3=#state.b,4=#state.c,done.",
+      "SourceSha256": "E26048AF57EFB38A5CF50562A0ADBEB704DBA1E277B24844976FA0483E9F7F2F",
+      "CSharpSha256": "476791275F4B96FB9BA31D10A817EDE40EC16FA8D124A5120BC21CA6FE8144D1",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-update",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{},S=R#state{b=new,c=42},first=S#state.a,new=S#state.b,42=S#state.c,second=R#state.b,done.",
+      "SourceSha256": "D36FB029DADF6EB5CAC2B62D4455AE643FBC55D4FE96485959CC85E944139ABD",
+      "CSharpSha256": "42EED927D0E15CDE4957BE250C67F7CFD20247CBC3B0E21AA6007E0517C4A16C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-empty-update",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{},R=R#state{},done.",
+      "SourceSha256": "CABFF183B8D4E7FA5F7A976D31B318C7B2299CF1A1838CA10E93CABDCD65245C",
+      "CSharpSha256": "11695FE3312A93DCC9D97452961FBB6D5E3187978121952F5574CA4AD17E9D12",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-pattern-unspecified-wildcard",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E#state{a=A}=#state{a=42,b=nondefault,c=other},42=A,done.",
+      "SourceSha256": "B91D9CB30B949DCE35D06623167DFE8EF0DF2E43E9701888960E6440A6857C97",
+      "CSharpSha256": "E5A833258003FAAC743456E8F98DB20BCDDBF253E7E68C9E4671D21D966DC768",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-pattern-tag",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eother=case {other,first,second,undefined} of #state{}-\u003Eunexpected;_-\u003Eother end,done.",
+      "SourceSha256": "3A4418891D63926B75BDB2421D3E5BECAEDEB4A956710017B9BCF78C61C6CE62",
+      "CSharpSha256": "95D96473782EA979B9D82AB171ADB8729C21B7F30FCA4BB9D7F2075BC7D13F94",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-pattern-arity",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eother=case {state,first} of #state{}-\u003Eunexpected;_-\u003Eother end,done.",
+      "SourceSha256": "E67401232CF411DCC0C9F3626EC5655D01FF3EED633F81A152D489949D4DB548",
+      "CSharpSha256": "8EA75265BD29F9DA4E9024533964766F4EAFD82D0182AC38F6994133D2D51C80",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-wildcard-construction",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E{state,new,same,same}=#state{_=same,a=new},done.",
+      "SourceSha256": "03B27FFEE51962DC7152C46E66256CF7736E17D8B37E23A4299245A96A6F2016",
+      "CSharpSha256": "9D6FCEC5F8EDE7EAE0536FD25712C14CA2F4856A2ADCA1873BC9711B3AD60ADB",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-wildcard-pattern",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{a=one,b=two,c=two},#state{a=one,_=X}=R,two=X,done.",
+      "SourceSha256": "F9456329F24462582F571461DFCF4361C8992B1F23587AF85B4F5C44593202BB",
+      "CSharpSha256": "DFDF04B600CC137606F64E6552CAFDDCFBAAD6DDB8E13FE28FEDDB2145C5CCEA",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-record-info",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E[a,b,c]=record_info(fields,state),4=record_info(size,state),done.",
+      "SourceSha256": "AC220C83F9617190E8C7B86F63F82AEB034C1A18EB8B8A1CC8248D8D437EA30D",
+      "CSharpSha256": "0E317961D631EFCFFC9EBEE0E728C0C155326E9F850274CA18FB8F9092725C2F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-badrecord-access",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER={other,first,second,undefined},try R#state.a of _-\u003Eunexpected catch error:{badrecord,R}-\u003Eok end,done.",
+      "SourceSha256": "313FCD647A7A60BC4B9C2AFFEB1B8A1B84B74D5FC359693FC333D2E0CF2180EF",
+      "CSharpSha256": "A7ADC1A23BCBD74566D4629E4052BC48C003D1A354308A1D8A43F3135F0FC60C",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-badrecord-size",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER={state,first},try R#state.a of _-\u003Eunexpected catch error:{badrecord,R}-\u003Eok end,done.",
+      "SourceSha256": "94BAADEFBABC557AE73307C929FAA8C19506643389631815C76213222B99A387",
+      "CSharpSha256": "95A929B11AE24AF505A9018115CABD4A35E01EC76CCF211C3FFB5F997CE71882",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-badrecord-update",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=wrong,try R#state{a=new} of _-\u003Eunexpected catch error:{badrecord,wrong}-\u003Eok end,done.",
+      "SourceSha256": "66E3B57EBA8FD2AE3857B13285F3EF6A06AAF6682F6920968AC6946C34B16498",
+      "CSharpSha256": "F3CF14AE089234F5F825F2C51109F11554753D0ECFACDC23614979219F2A0325",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-badrecord-empty-update",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=wrong,try R#state{} of _-\u003Eunexpected catch error:{badrecord,wrong}-\u003Eok end,done.",
+      "SourceSha256": "707CEDDC383EB6B5A679AFF882589D80CCCB9D65C8E782492C2531FFE5827DB0",
+      "CSharpSha256": "72CFCDB01D796693AFF84A5CD20A88614DDB49C376AA87B7D17CCDAFCAA9EAF4",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-guard-valid",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{a=42},yes=case R of X when X#state.a=:=42-\u003Eyes;_-\u003Eno end,done.",
+      "SourceSha256": "02DEB43DF917319614DA10E0BFC835A5DA6BDF48676A5CBFAF704AFC804B4675",
+      "CSharpSha256": "1759109014DFC434F64F47D6AF5C2DBDA5F1EBCF3E9534ABE957BCFF8BACE491",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-guard-invalid",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eno=case {other,42,second,undefined} of X when X#state.a=:=42-\u003Eyes;_-\u003Eno end,done.",
+      "SourceSha256": "C628B660A0583DDE63DA6328810DAE87C046B58B7CF910B9AB3D0BA7E40482DB",
+      "CSharpSha256": "4A7699C7D0EB566D5B1E1C8A740D5B9BA82B644AFD988B0FC7D7F8D5AD70826F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-guard-construct",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eyes=case #state{} of X when X=:=#state{}-\u003Eyes;_-\u003Eno end,done.",
+      "SourceSha256": "FE6E1AA1BC0656263BD77DC9C5F727DE1E54F537BE7B54D154EFC2E78DDDC189",
+      "CSharpSha256": "B330E93106756F9D9835489C4BD0364011A1A8AF3CB729BA1DE6727BD4A4BBF0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-guard-orelse-invalid-left",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eyes=case wrong of X when X#state.a=:=42 orelse true-\u003Eyes;_-\u003Eno end,done.",
+      "SourceSha256": "7FD6C6085075E9E3DCF9C02EAF5B9206496AD1EC8577EB3D1275174D53776369",
+      "CSharpSha256": "118251E2470036E93DC94D27336D715C003D54C1AD5ADF2F9F85AB380E7839EC",
+      "Expected": "{error,error,{badmatch,no}}",
+      "FixtureExpected": "{error,error,{badmatch,no}}",
+      "Actual": "{error,error,{badmatch,no}}",
+      "Passed": true
+    },
+    {
+      "Name": "records-guard-orelse-short-circuit",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eyes=case wrong of X when true orelse X#state.a=:=42-\u003Eyes;_-\u003Eno end,done.",
+      "SourceSha256": "91B9572E26AE6782DD0E29AD32E794F61E9EDC3C710A042E67E02A41D0F42B6B",
+      "CSharpSha256": "78D3EBB450A8EFD59F20219E695D77A07712742BDCE378393AC0D6FE9DCA5EBD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-construction-field-order",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eput(order,[]),#state{b=begin put(order,[b|get(order)]),two end,a=begin put(order,[a|get(order)]),one end},[b,a]=get(order),done.",
+      "SourceSha256": "4393EDA25A510F7E6016C69C8F9019038EED18F439E4B8D2C8FBEFF443589987",
+      "CSharpSha256": "C41645F60E7B46768A3E87082CB329FFD3F4D409040240290629B2254C7E81F0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-default-field-order",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=begin put(order,[a|get(order)]),first end,b=begin put(order,[b|get(order)]),second end,c}). run()-\u003Eput(order,[]),{state,first,second,undefined}=#state{},[b,a]=get(order),done.",
+      "SourceSha256": "4F6B6EE67FBD6C78798F60856B6171B6EC7AA20942491566230A9AAE2895C45B",
+      "CSharpSha256": "D91BF92B5D645100E2A77B1E0F4EC3EDA5875453F7ED43B3C2F56F00B971C3DC",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-update-field-before-base",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eput(order,[]),(begin put(order,[base|get(order)]),#state{} end)#state{b=begin put(order,[b|get(order)]),two end,a=begin put(order,[a|get(order)]),one end},[base,a,b]=get(order),done.",
+      "SourceSha256": "818BA89A055B88EF46A5A46834BE4A9E38ECA733BFC6727405A7DF836696FD60",
+      "CSharpSha256": "3D47CC4F496A3B0525604E98440C8E49756DD3AD6FFEEBBCEDE854C50A2F394E",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-update-before-badrecord",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eput(called,false),try wrong#state{a=begin put(called,true),one end} of _-\u003Eunexpected catch error:{badrecord,wrong}-\u003Eok end,true=get(called),done.",
+      "SourceSha256": "16E9DDBC595FE8EE4C78BC7C46287BAE7E372A93D2CEB6EA74AC14CDFFB389E7",
+      "CSharpSha256": "03C139B6D0D07B8007EC88612CD909A6207450128F6BE2D275D60C8CE5103285",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-access-base-once",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003Eput(counter,0),first=(begin put(counter,get(counter)\u002B1),#state{} end)#state.a,1=get(counter),done.",
+      "SourceSha256": "3B828638D9A4E5BAA4F4A0D7B15097D9BD037D0E0608EE2B7BEE6FA4F86F9061",
+      "CSharpSha256": "129D602AD8D19D3A2E0D80CAE6CBC5A4356F55ED5F58F583DB609BF62AA8E8CE",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-nested",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003ER=#state{a=#state{a=inner}},inner=(R#state.a)#state.a,done.",
+      "SourceSha256": "C0A679EC10FF9E0F00A727D7CC3C4655BCAD8218CA4D23E6131311062CAF27EB",
+      "CSharpSha256": "450BD2E78E996300D657527041674ACEEAA35AB5D020A6094487C313A93CD344",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-pattern-comprehension",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E[1,2]=[V || #state{a=V} \u003C- [#state{a=1},wrong,#state{a=2}]],done.",
+      "SourceSha256": "4FD83460DCD03723281A3C576F2B1C49E3447546E8359C95784E5C9F57F69702",
+      "CSharpSha256": "FE11A70EECF837A7C3850A7DF67CCC63301175AA15741E796136046C32FCC206",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-quoted-field",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()-\u003E\u0027value\u0027=(#state{a=\u0027value\u0027})#state.\u0027a\u0027,done.",
+      "SourceSha256": "40170C847FDF07F36C24A02EA46233EB5F78571712E9334147A7BFB9DCB988B0",
+      "CSharpSha256": "DB39582687E60BD67109E61D64BC0252D2E928A0343F5C43ABB624EA2DB4504E",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "records-empty-record",
+      "Source": "-module(oracle_records). -export([run/0]). -record(state,{}). run()-\u003E{state}=#state{},1=record_info(size,state),[]=record_info(fields,state),done.",
+      "SourceSha256": "301B32FB75DB2167C2CA75E97D6E9F4E7F95EBAE972820E7CB7729B8F517CF27",
+      "CSharpSha256": "726CBA47C1590722EC82197B9DDB4F0E94C67914E7E0780147C9AF446DC6B66F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "early-platform-supervised-record-timer-collections",
+      "Source": "-module(platform_demo).\n-export([run/0, init/1, start_worker/0, handle_call/3, handle_info/2, terminate/2]).\n-record(state, {values = #{}, timer = undefined}).\n\nrun() -\u003E\n    {ok, Supervisor} = supervisor:start_link(platform_demo, supervisor),\n    {ok, {cache, Worker, worker, [platform_demo]}} = supervisor:which_child(Supervisor, cache),\n    scheduled = gen_server:call(Worker, {refresh, self()}),\n    receive {refreshed, 100} -\u003E ok after 2000 -\u003E error(refresh_timeout) end,\n    Values = gen_server:call(Worker, snapshot),\n    [2, 3] = lists:sort(fun(A, B) -\u003E A =\u003C B end, maps:keys(Values)),\n    100 = maps:fold(fun(_, Value, Acc) -\u003E Value \u002B Acc end, 0, Values),\n    ok = supervisor:stop(Supervisor),\n    {platform_ready, 100, [2, 3]}.\n\ninit(supervisor) -\u003E\n    {ok, {#{strategy =\u003E one_for_one}, [#{id =\u003E cache, start =\u003E {platform_demo, start_worker, []}}]}};\ninit(worker) -\u003E\n    {ok, #state{}}.\n\nstart_worker() -\u003E\n    gen_server:start_link(platform_demo, worker, []).\n\nhandle_call({refresh, Parent}, _, State) -\u003E\n    Timer = erlang:send_after(0, self(), {refresh, Parent}),\n    {reply, scheduled, State#state{timer = Timer}};\nhandle_call(snapshot, _, State) -\u003E\n    {reply, State#state.values, State}.\n\nhandle_info({refresh, Parent}, State) -\u003E\n    Pairs = lists:foldr(fun(Key, Acc) -\u003E [{Key, Key * 10} | Acc] end, [], [1, 2, 3]),\n    Selected = maps:filter(fun(Key, _) -\u003E Key \u003E 1 end, maps:from_list(Pairs)),\n    Values = maps:map(fun(_, Value) -\u003E Value * 2 end, Selected),\n    Sum = maps:fold(fun(_, Value, Acc) -\u003E Value \u002B Acc end, 0, Values),\n    Parent ! {refreshed, Sum},\n    {noreply, State#state{values = Values, timer = undefined}}.\n\nterminate(_, State) -\u003E\n    case State#state.timer of\n        undefined -\u003E ok;\n        Timer -\u003E erlang:cancel_timer(Timer), ok\n    end.\n",
+      "SourceSha256": "DFA1B1F665BDB836730F9EAB859ED945EF8B8D4649DB024E6B4D9E910527D2D3",
+      "CSharpSha256": "16A33DFA0A9D180F0F18A7B335C6B08BCBAF71B0B257CC55A44EB80484E8A880",
+      "Expected": "{ok,{platform_ready,100,[2,3]}}",
+      "FixtureExpected": "{ok,{platform_ready,100,[2,3]}}",
+      "Actual": "{ok,{platform_ready,100,[2,3]}}",
       "Passed": true
     }
   ],

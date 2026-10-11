@@ -2,11 +2,13 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
-Development validation now compares **778 expressions**, **558 separately compiled fixture modules** and **79 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-100/remote-checkpoint.json).
+Development validation now compares **778 expressions**, **674 separately compiled fixture modules** and **84 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-104/remote-checkpoint.json).
+
+Two map iterator fixtures explicitly use `-compile(no_ssa_opt)` because the pinned OTP optimizer assumes a map-only argument for `maps:map/2`. The initial optimized differences and one corrected provisional record-guard expectation remain documented in [the original comparison](docs/validation/part-102/differential.json) and [the source audit](docs/validation/part-104/reference-audit.json).
 
 The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, selected Erlang gen_server/supervisor callback adapters and a mixed C#/Erlang MSBuild preprocessor.
 
-Selected Erlang behaviour adapters expose ten gen_server and nine supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
+Selected Erlang behaviour adapters expose ten gen_server and fourteen supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
 
 [Module readiness](docs/MODULE_READINESS.md) reports delivered/remaining component milestones, tested registered MFAs and changes from the previous checkpoint. Its API-presence percentages measure declarations, not complete compatibility. The full inventory is in [module-readiness.json](docs/module-readiness.json).
 
@@ -18,7 +20,7 @@ dotnet run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/te
 
 Term.A("ok") represents the Erlang atom ok, a symbolic value often used as a success marker; Term.String("ok") creates a character list. The factory reuses ten fixed common immutable atom values and leaves arbitrary names uncached. Compare terms by value, not CLR object identity. Domain constants retain their separate protocol meanings.
 
-The source subset includes map construction, associative/exact updates and map patterns with supported guard-expression keys, plus integer/binary bitstring construction and patterns with signed extraction, byte order and prior-segment size bindings. Overall project completion is estimated at roughly 5%; this is an engineering estimate, not verified compatibility coverage. See progress and the changelog for evidence and remaining scope.
+The source subset includes map construction, associative/exact updates and map patterns with supported guard-expression keys, plus integer/binary bitstring construction and patterns with signed extraction, byte order and prior-segment size bindings. Overall project completion is estimated at roughly 10% after the verified early functional platform milestone; this is an engineering estimate, not verified compatibility coverage. See progress and the changelog for evidence and remaining scope.
 
 ```powershell
 dotnet build

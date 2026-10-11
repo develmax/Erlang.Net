@@ -369,3 +369,6 @@ Published0d6a233 verifies1415/1415=778/558/79 and1614/full same-headCI; prior778
 
 ## Part101 checkpoint
 Local1774/full,129MFAs (+39); maps29/34/lists31/91/erlang44/351/super14/23/gen10/41 partial API presence.248types/no violations; prior778/558/79 source/expected/generated hashes preserved. Plan1536=778/674/84,116 new modules+5 diagnostics. All10% milestone packages locally delivered, do not finish until102 original/headCI proof. Initial draft map registration and record guard failures retained; independent expectations unchanged.0014 closed at100;0015 active. Draft license excluded; notices exact.
+
+## Part 104 checkpoint
+Implementation d713491 verifies1536/1536=778/674/84 and 1774/full same-headCI; prior778/558/79 preserved,116 new modules/five diagnostics/one documented provisional correction.129MFAs; maps 29/34/lists 31/91/erlang 44/351/super14/23/gen10/41 partial API presence.249types/no violations. Five early platform packages complete; overall approximately 10% coarse engineering estimate, no full OTP/performance claim. Next source/library/timer/OTP/runtime gaps.0015 active,0014 closed; draft license excluded. Publish proof and report milestone.
