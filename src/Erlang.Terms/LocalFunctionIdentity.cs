@@ -2,8 +2,12 @@ namespace Erlang;
 
 public sealed record LocalFunctionIdentity(
     Atom Module,
-    Atom Name,
+    Atom? Name,
     int Index,
     int OldUnique,
-    BitString Unique
-);
+    BitString Unique,
+    int? LegacyIndex = null
+)
+{
+    public int OldIndex => LegacyIndex ?? Index;
+}

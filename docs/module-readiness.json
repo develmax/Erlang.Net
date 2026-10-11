@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-127/tests.json",
-  "LocalPassedTests": 3284,
-  "RegisteredMfas": 342,
+  "ComparisonTestReport": "validation/part-128/ci-tests.json",
+  "LocalPassedTests": 3477,
+  "RegisteredMfas": 350,
   "PreviousRegisteredMfas": 342,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 8,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -21,24 +21,27 @@
         "privately owned exact-key Dictionary index with sorted read-only map entries",
         "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
         "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
-        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained"
+        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained",
+        "Part129: immutable1-5word references/FullId and zero-padding equality/hash;source-valid per-runtime3word reference allocation;nullable loaded fun names and separate old/new indexes"
       ],
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
         "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability"
       ],
-      "RelatedPassedTests": 35
+      "RelatedPassedTests": 36
     },
     {
       "Id": "Serialization",
       "Project": "src/Erlang.Serialization",
       "Status": "Partially compatible",
       "Implemented": [
-        "common bounded ETF tags and compressed input"
+        "common bounded ETF tags and compressed input",
+        "Part129: eight Erlang ETF bindings;version-specific atom/float/list tags,compression and exact physical used count,safe atoms/export entries,local hash preflight,wide identities,real function code/environment,borrowed non-local iovec and counted external_size;3477/full local,original130 pending"
       ],
       "Remaining": [
-        "external functions and wide identities",
-        "full vectors/resource boundaries"
+        "Native record ETF67,complete export-arity/native identity/lazy-code/purge interoperability",
+        "Managed decode16MiB/depth256 policies;full binary_SUITE,scheduler/resource/error_info and native block-hash primitive proof",
+        "Local/compressed iovec flattening;no native fragmentation/allocation/performance parity claim"
       ],
       "RelatedPassedTests": 4
     },
@@ -52,7 +55,8 @@
         "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
         "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
         "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
-        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked"
+        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
+        "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -60,7 +64,7 @@
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection"
       ],
-      "RelatedPassedTests": 232
+      "RelatedPassedTests": 240
     },
     {
       "Id": "Compiler",
@@ -111,13 +115,14 @@
         "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;verified against original2751/2751 and3207/full same-head CI122 at069b560;erlang188/351,total338",
         "Four local-function introspection/text MFAs with actual code/free environments/init owner; original124 complete2805/2808 exposes UTF8/status mismatch; whole erlang unfinished",
         "Source-directed UTF8 byte-list conversion125 plus local Unicode regression; init observation accepts actual starting/started lifecycle phase. Local3271/full; full original126 pending",
-        "Complete original1282822/2822 and same-head3284/full CI at7b5029c verifies58 function metadata modules plus module-name increment;whole erlang unfinished"
+        "Complete original1282822/2822 and same-head3284/full CI at7b5029c verifies58 function metadata modules plus module-name increment;whole erlang unfinished",
+        "Part129: term_to_binary1/2,term_to_iovec1/2,binary_to_term1/2,external_size1/2;registry350,erlang200/351,151 missing,181 compiled contracts and3477/full local"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1381
+      "RelatedPassedTests": 1389
     },
     {
       "Id": "gen_server adapters",
@@ -207,7 +212,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 2057
+      "RelatedPassedTests": 2238
     },
     {
       "Id": "Style checks",
@@ -5476,11 +5481,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 192,
+      "RegisteredMfas": 200,
       "PreviousRegisteredMfas": 192,
-      "Delta": 0,
+      "Delta": 8,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 54.7,
+      "ApiPresencePercent": 57.0,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5527,6 +5532,8 @@
         "erlang:binary_to_integer/2",
         "erlang:binary_to_list/1",
         "erlang:binary_to_list/3",
+        "erlang:binary_to_term/1",
+        "erlang:binary_to_term/2",
         "erlang:bit_size/1",
         "erlang:bitstring_to_list/1",
         "erlang:bnot/1",
@@ -5555,6 +5562,8 @@
         "erlang:error/3",
         "erlang:exit/1",
         "erlang:exit/2",
+        "erlang:external_size/1",
+        "erlang:external_size/2",
         "erlang:float/1",
         "erlang:float_to_binary/1",
         "erlang:float_to_binary/2",
@@ -5659,6 +5668,10 @@
         "erlang:subtract/2",
         "erlang:system_time/0",
         "erlang:system_time/1",
+        "erlang:term_to_binary/1",
+        "erlang:term_to_binary/2",
+        "erlang:term_to_iovec/1",
+        "erlang:term_to_iovec/2",
         "erlang:throw/1",
         "erlang:time/0",
         "erlang:time_offset/0",

@@ -447,3 +447,7 @@ Part127: source-directed module-name Latin1/visible/control admission;new-only l
 ## Part128 complete bounded proof
 
 Part128: **complete original2822/2822=778/1951/93 and3284/full same-head CI** at7b5029c. [Provenance](validation/part-128/remote-checkpoint.json).All122 preserved;58 function/four valid-name/nine diagnostic contracts match;124/126 failures immutable. Registry342,erlang192/351,159 missing;whole goal active. Publish proof and continue real ETF/hash/function/reference/iovec/runtime prerequisites;physical code/init/annotations/resources boundaries remain explicit.
+
+## Part129 checkpoint
+
+Part129: real ETF8 exports/options/physical used/safe/local,function code reconstruction,wide references and immutable borrowed iovec/counting streams;**3477/full local**,plan3003=778/2132/93. [Source boundaries](validation/part-129/reference-audit.json). All128778/1951/93 preserved;one old host unsupported-tag exception corrected explicitly;initial3473/3474 retained. Registry350,erlang200/351,151 missing,379types/no violations. Publish/freeze/original and same-head CI130 pending;whole goal active. Native records/large export arities/BEAM code lifecycle/resources/upstream/performance unfinished;0019 active,closed0018 immutable.

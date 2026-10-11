@@ -10,4 +10,6 @@ internal static class EtfHeaderLayout
     public const int TagOffset = 1;
     public const int Version = 131;
     public const int VersionOffset = 0;
+    public const int LocalHashOffset = 2;
+    public const int LocalTermOffset = 6;
 }

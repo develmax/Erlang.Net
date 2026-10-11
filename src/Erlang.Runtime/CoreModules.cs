@@ -147,7 +147,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.MakeReference,
             0,
-            (c, a) => new ReferenceTerm(c.Runtime.Node, (ulong)Interlocked.Increment(ref nextRef))
+            (c, a) => c.Runtime.MakeReference()
         );
         Add(
             ErlangModuleNames.Module,
@@ -723,6 +723,7 @@ public static class CoreModules
         ErlangProcessQueryRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
+        ErlangEtfRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
@@ -807,7 +808,6 @@ public static class CoreModules
         );
     }
 
-    private static long nextRef = 1L << 40;
 
     public static string AtomName(Term t) => t is Atom a ? a.Name : throw new ErlangException(ErlangErrorReasons.BadArgument);
 

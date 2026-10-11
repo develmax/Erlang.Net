@@ -22,6 +22,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
     internal RuntimeTimers Timers { get; }
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
     public ModuleRegistry Modules { get; } = new();
+    public RuntimeFunctionEntries Functions { get; } = new();
+    internal uint LocalTermSeed { get; } = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(System.Security.Cryptography.RandomNumberGenerator.GetBytes(ErlangEtfParameters.LocalSeedBytes));
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null)
     {
@@ -192,12 +194,26 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
     }
 
+    public ReferenceTerm MakeReference()
+    {
+        ulong value = unchecked((ulong)Interlocked.Increment(ref nextRef));
+
+        return new ReferenceTerm(
+            Node,
+            [
+            (uint)(value & ReferenceIdentityLayout.LocalFirstWordMask),
+            (uint)(value >> ReferenceIdentityLayout.LocalFirstWordBits),
+            (uint)(value >> (ReferenceIdentityLayout.LocalFirstWordBits + ReferenceIdentityLayout.WordBits))
+        ]
+        );
+    }
+
     public ReferenceTerm Monitor(ProcessContext observer, Pid target)
     {
         lock (gate)
         {
             RequireAlive(observer.Self);
-            var reference = new ReferenceTerm(Node, (ulong)++nextRef);
+            var reference = MakeReference();
             if (processes.ContainsKey(target))
                 monitors.Add(reference, (observer.Self, target));
             else

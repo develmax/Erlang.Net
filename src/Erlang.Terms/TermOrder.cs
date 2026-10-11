@@ -57,14 +57,14 @@ public static class TermOrder
                     y.Id
                 );
             case (ReferenceTerm x, ReferenceTerm y):
-                return Identity(
-                    x.Node,
-                    x.Creation,
-                    x.Id,
-                    y.Node,
-                    y.Creation,
-                    y.Id
-                );
+                {
+                    int node = Codepoints(x.Node, y.Node);
+                    if (node != 0)
+                        return node;
+                    int creation = x.Creation.CompareTo(y.Creation);
+
+                    return creation != 0 ? creation : x.FullId.CompareTo(y.FullId);
+                }
             case (PortTerm x, PortTerm y):
                 return Identity(
                     x.Node,
@@ -230,7 +230,7 @@ public static class TermOrder
                 break;
             case ReferenceTerm x:
                 h.Add(x.Node);
-                h.Add(x.Id);
+                h.Add(x.FullId);
                 h.Add(x.Creation);
                 break;
             case PortTerm x:

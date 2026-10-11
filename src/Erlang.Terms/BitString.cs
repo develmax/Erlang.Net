@@ -25,6 +25,20 @@ public sealed class BitString : Term
 
     public byte[] ToArray() => (byte[])bytes.Clone();
 
+    internal int ByteLength => bytes.Length;
+
+    private BitString(byte[] ownedBytes, bool takeOwnership)
+    {
+        bytes = takeOwnership ? ownedBytes : ownedBytes.ToArray();
+        BitLength = checked(ownedBytes.Length * BitStringLayout.BitsPerByte);
+    }
+
+    internal static BitString FromOwnedBytes(byte[] bytes) => new(bytes, true);
+
+    internal BitString ByteView() => IsBinary ? this : new BitString(bytes, true);
+
+    public void WriteTo(Stream destination) => destination.Write(bytes);
+
     internal int Bit(int i) => (bytes[i / 8] >> (7 - i % 8)) & 1;
 
     public override string ToString() => IsBinary ? "<<" + string.Join(',', bytes) + ">>" : "<<" + string.Join(

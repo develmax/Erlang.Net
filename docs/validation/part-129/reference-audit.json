@@ -1,0 +1,66 @@
+{
+  "ErlangDeclared": 351,
+  "NewExports": 8,
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ErlangMissing": 151,
+  "Registry": 350,
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "BlobSHA1": "c8bdbded993970b0675dfdf0063e5757744f197e"
+    },
+    {
+      "Path": "erts/emulator/beam/external.h",
+      "BlobSHA1": "72f86654165ae2c7876e8175af3906550defd424"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.h",
+      "BlobSHA1": "d8e8601acf8177f47ed778ebbb086601a56e7061"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term_hashing.c",
+      "BlobSHA1": "c24b0604245c8e795839c2bf05887f8e49dd4882"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_fun.c",
+      "BlobSHA1": "a3def838b147ca898fb239f2fa57c29be47ea36d"
+    },
+    {
+      "Path": "erts/emulator/beam/export.h",
+      "BlobSHA1": "7a218f27b785cd5be2ccb403ee3d0ed5d340bd37"
+    },
+    {
+      "Path": "erts/emulator/test/binary_SUITE.erl",
+      "BlobSHA1": "930ad831a24cbacbe679d00eac74943889552a41"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    }
+  ],
+  "Licensing": "Modified Ericsson Apache ports credited in consolidated OTP-PORTS;two exact notices in both local packages;owner LICENSE.local.txt remains uncommitted/unpublished/unpackaged;no public NuGet",
+  "ErlangPresent": 200,
+  "Boundaries": [
+    "Managed decode16MiB/depth256 limits differ from native VM resources",
+    "Native record ETF67 and complete BEAM code/lazy load/purge/hash/index/environment interoperability remain unfinished",
+    "Large foreign export arities beyond the modeled function range remain unfinished",
+    "Local/compressed iovec flattening and segmentation policy are not native allocation/performance parity",
+    "Native block-hash primitive live proof and exhaustive upstream binary_SUITE unrun",
+    "Strict public codec rejects trailing input;Erlang binary_to_term DecodeOne consumes first term/member and used count",
+    "Opaque host callbacks without Erlang identity are not serialized as fake functions"
+  ],
+  "Specification": [
+    "https://www.rfc-editor.org/info/rfc1950/",
+    "https://www.rfc-editor.org/info/rfc1951/"
+  ],
+  "Baseline": "OTP-29.1.1",
+  "HostInvariants": 4,
+  "PreservedInputs": "All128778/1951/93 sources,expected outcomes,generated hashes and diagnostic codes/messages",
+  "Plan": 3003,
+  "Reuse": "Existing SDK zlib compression/data validation,spans,pools,counting streams;source-directed managed boundary scanner and actual runtime code factories;no new package",
+  "NewCompiledModules": 181,
+  "PriorCompleteOriginal": "Part128 at7b5029c:2822/2822 and3284/full same-head CI",
+  "OriginalStatus": "Pending130",
+  "HostCorrection": "Old truncatedNEW_FUN strict API test expected NotSupportedException;implemented tag now returns malformed badarg. Original failure3473/3474 retained;independent native fixture added.",
+  "Tests": 3477
+}

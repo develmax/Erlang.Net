@@ -34,7 +34,7 @@ internal static class FunctionText
     public static string Format(FunctionTerm function)
     {
         if (function.LocalIdentity is { } local)
-            return LocalPrefix + local.Module.Name + LocalSeparator + local.Index.ToString(CultureInfo.InvariantCulture) + LocalSeparator + local.OldUnique.ToString(CultureInfo.InvariantCulture) + LocalSuffix;
+            return LocalPrefix + local.Module.Name + LocalSeparator + local.OldIndex.ToString(CultureInfo.InvariantCulture) + LocalSeparator + local.OldUnique.ToString(CultureInfo.InvariantCulture) + LocalSuffix;
         var external = function.ExternalIdentity!;
 
         return ExternalPrefix + AtomName(external.Module.Name) + ExternalModuleSeparator + AtomName(external.Function.Name) + ExternalAritySeparator + function.Arity.ToString(CultureInfo.InvariantCulture);

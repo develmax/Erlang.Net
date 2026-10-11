@@ -570,18 +570,25 @@ public static class Execution
                 {
                     var capture = ClosureCaptures.Capture(f, b);
                     var identity = LocalFunctionEntries.Get(module, f, ctx);
+                    string[] names = capture.Keys.ToArray();
 
-                    return new FunctionTerm(
-                        identity,
-                        f.Clauses[0].Patterns.Count,
-                        capture.Values,
-                        async (context, args) =>
+                    FunctionTerm Create(IReadOnlyList<Term> environment)
+                    {
+                        if (environment.Count != names.Length)
+                            throw new ErlangException(ErlangErrorReasons.BadArgument);
+                        var restored = names.Select((name, index) => new KeyValuePair<string, Term>(name, environment[index])).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+
+                        return new FunctionTerm(
+                            identity,
+                            f.Clauses[0].Patterns.Count,
+                            environment,
+                            async (context, args) =>
                     {
                         var process = (ProcessContext)context;
-                        using var frame = process.EnterFunction(identity.Module.Name, identity.Name.Name, args.Count);
+                        using var frame = process.EnterFunction(identity.Module.Name, identity.Name!.Name, args.Count);
                         foreach (var clause in f.Clauses)
                         {
-                            var scope = new Dictionary<string, Term>(capture, StringComparer.Ordinal);
+                            var scope = new Dictionary<string, Term>(restored, StringComparer.Ordinal);
                             foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
                                 scope.Remove(name);
                             var selection = Select(
@@ -589,7 +596,7 @@ public static class Execution
                                 args,
                                 scope,
                                 process,
-                                capture
+                                restored
                             );
                             if (selection is not null)
                                 return await Evaluate(
@@ -601,7 +608,16 @@ public static class Execution
                         }
                         throw new ErlangException(ErlangErrorReasons.FunctionClause);
                     }
+                        );
+                    }
+                    identity = ctx.Runtime.Functions.Register(
+                        identity,
+                        f.Clauses[0].Patterns.Count,
+                        names.Length,
+                        Create
                     );
+
+                    return Create(capture.Values.ToArray());
                 }
             default:
                 throw new NotSupportedException();

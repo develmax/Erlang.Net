@@ -6,6 +6,18 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test("serialization/iovec-borrowing-immutable-fragments-size-and-patching", EtfHostChecks.IoVec);
+Test("serialization/decoded-function-environment-and-local-runtime-domains", EtfHostChecks.FunctionsAndLocalDomains);
+Test("terms/reference-words-equality-hash-and-allocation-rollover", EtfHostChecks.References);
+Test(
+    "serialization/physical-zlib-boundaries-trailing-and-truncation",
+    () =>
+{
+    EtfHostChecks.CompressionBoundary();
+
+    return Task.CompletedTask;
+}
+);
 Test(
     "runtime/initialization-ownership-atomic-registry-lifecycle",
     async () => Check(await InitializationLifecycleChecks.Run() == 0)
@@ -1184,7 +1196,7 @@ Test(
      Throws<ErlangException>(() => ExternalTermFormat.Decode([131, 97]));
      Throws<ErlangException>(() => ExternalTermFormat.Decode([131, 97, 1, 0]));
      Throws<ErlangException>(() => ExternalTermFormat.Decode([131, 119, 1, 255]));
-     Throws<NotSupportedException>(() => ExternalTermFormat.Decode([131, 112]));
+     Throws<ErlangException>(() => ExternalTermFormat.Decode([131, 112]));
 
      return Task.CompletedTask;
  }

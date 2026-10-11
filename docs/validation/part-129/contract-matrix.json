@@ -1,0 +1,1269 @@
+[
+  {
+    "Name": "erlang-etf-vector-default-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(hello). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,119,5,104,101,108,108,111>>}",
+    "SourceSha256": "3981C5FADC71AA23D97D0B443EEF2E71DFA18A799937CF38C6AD7B3557D07D8F",
+    "CSharpSha256": "D2A51521A82BB1200ACB474C102860602AACDCD6C10F21B88E9A2B3587652C34"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,119,5,104,101,108,108,111>>) =:= hello. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "F22E186F3F2185ABD79887152B6532366C99678B5E36904F3C6BB3A4FFD19A19",
+    "CSharpSha256": "55F7D8EF5B9D5A35EFD9B39CD04DF3B36DE0E8CEBAF8502573EB880A0CD872FD"
+  },
+  {
+    "Name": "erlang-etf-vector-size-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(hello) >= byte_size(<<131,119,5,104,101,108,108,111>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "057695CBE253B85C36E2214BA0DF7FE392A8B3F3BFD38BE4BE69FD7FDFFBBAE4",
+    "CSharpSha256": "6ECB32E449B76785C4FB22EFBB1E1A9F8FCCF8085D82CD364FEFC42E7F9CB2D3"
+  },
+  {
+    "Name": "erlang-etf-vector-default-nil",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary([]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,106>>}",
+    "SourceSha256": "0B201D3183CEDBFBB2F24CE37657DC6DA77FD36B3CF0BD8B37C8F36B69E77F34",
+    "CSharpSha256": "4AA32A79902041BBB2195290D0CA8B9E860343F0AA0D73913528628339416C75"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-nil",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,106>>) =:= []. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "36572FF609294D99AEC02555C72ADBE15AC25169B92B8A1D7723D642C35CC981",
+    "CSharpSha256": "CC8D3B312C03B0D490C9F18A473478B4DA5DCC2223813E44E6B7950EC2B1150C"
+  },
+  {
+    "Name": "erlang-etf-vector-size-nil",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size([]) >= byte_size(<<131,106>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "AF4AFC086FB91892D9A72C8EEC30082BC14B3C6B63BD7033021A335C986A03F7",
+    "CSharpSha256": "0A6E887CA2EF8B765150A2DDB7F158E1A96ADAB6E4DB732C86388B595CB8C84C"
+  },
+  {
+    "Name": "erlang-etf-vector-default-small",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(255). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,97,255>>}",
+    "SourceSha256": "2E97D31C3D54FBB21BAF5E292A25D1B0EDF4DB12B0DD319D3B57CDBF6F2E08B5",
+    "CSharpSha256": "A0EF03CA8FB2CA37A1F6F2D6BE9EA3C0117742CCB1F9E46B2A7745CE3D974054"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-small",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,97,255>>) =:= 255. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "D6D060CD35FBE76A3A99449B0141891728A5744234C984F27F5D10361EEBB7E4",
+    "CSharpSha256": "86EB321E75949FF132E28D5E07EB78ED97C26A108C8A7635C2774BC2A1613603"
+  },
+  {
+    "Name": "erlang-etf-vector-size-small",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(255) >= byte_size(<<131,97,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "B1A230338533BAAA573BE41784359ECF556C738F9FEED1036D4E1183C92EDD0F",
+    "CSharpSha256": "F9506D1DA6B1DF5A39702028847191571EFB0977172D679B411B4AC122CCE2CB"
+  },
+  {
+    "Name": "erlang-etf-vector-default-integer",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(256). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,98,0,0,1,0>>}",
+    "SourceSha256": "F7D259273504342FE27967EA966F92A3E29042DF1D7DE8D0621A606AC24D0C39",
+    "CSharpSha256": "F3EC14B9BFFCAAC0F2AE2BFB2266D9626990D43BB5EC00A61946AFF51BE30CA1"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-integer",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,98,0,0,1,0>>) =:= 256. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "50AF6D3C0A973B869E8CFCA58FD187AB3E5AC7398561DABF86B26E3C4C316150",
+    "CSharpSha256": "FD2DCBA35BA1DE5FD5D96F390CEAE8ABC8569B0B28D34427940B5BAD68C3D70A"
+  },
+  {
+    "Name": "erlang-etf-vector-size-integer",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(256) >= byte_size(<<131,98,0,0,1,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "612A09C267EC20B498AFDF4FD67CF6DBADD5760361AD363838C5E797A0E708D9",
+    "CSharpSha256": "06225E7BFBC1167D64963E58D67BC544EBEE73674AD06F2FC372096E933EFD44"
+  },
+  {
+    "Name": "erlang-etf-vector-default-negative",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(-1). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,98,255,255,255,255>>}",
+    "SourceSha256": "B6C04F99F415732FF3BA55E5583113E42659DB4B6C26C7E59CE33AF29C981180",
+    "CSharpSha256": "3F734B4741803EFEED11D5504B62AC83CA7B3F2D1FC5A3303392991643A7064F"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-negative",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,98,255,255,255,255>>) =:= -1. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "8C9D397A839E69CFA43346916E444DC5D0917F7EDD69F6F6DF213401E87FFDAB",
+    "CSharpSha256": "3BDFAB50C05E60268479D145DA0711EFBDB0BED35553C8C284A8EC8D080D674E"
+  },
+  {
+    "Name": "erlang-etf-vector-size-negative",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(-1) >= byte_size(<<131,98,255,255,255,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "31EAC5A319729541E0F21C2126FD79877A8F1881146A6AEFCEB324D1B710546A",
+    "CSharpSha256": "3280996F1507C35FF3890128930CF80A4B0C958D909F483B1599022EC7E430A7"
+  },
+  {
+    "Name": "erlang-etf-vector-default-big",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(4294967296). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,110,5,0,0,0,0,0,1>>}",
+    "SourceSha256": "E207E54D29D3ADA0BF593EC8F6DBDE73C3F2EEEF9992C6D290F8E8B16D9F7E8F",
+    "CSharpSha256": "082F8C9C0CC09FA7F6DB9A6F1ED912B984CD0A534AD6343DB8A19D6EC2633A82"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-big",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,110,5,0,0,0,0,0,1>>) =:= 4294967296. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "E061AF7409F12175AC81172F6CADDB888B19B20B3B30106C84302DD3E409A09B",
+    "CSharpSha256": "0138D4BD7EE7EE139A6FAA04A5BF3E532F3EA26DBEEED1F908709E1FBCB8BB76"
+  },
+  {
+    "Name": "erlang-etf-vector-size-big",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(4294967296) >= byte_size(<<131,110,5,0,0,0,0,0,1>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "15CC3F15AAAD726BC481860C28DE1DB179734E50BE0306FB6E39D5483A9D8323",
+    "CSharpSha256": "4F5739E9CF38490149170DF263D5968213565CF97709DBD438E70E41A6B862FB"
+  },
+  {
+    "Name": "erlang-etf-vector-default-string",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary([0,255]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,107,0,2,0,255>>}",
+    "SourceSha256": "9C775E6DB29EBD6355692BCE22785988412DAB2B94DAA439729B0A11AC4D0126",
+    "CSharpSha256": "81D676BA6E59AC3C561D2E915F46270AA69D8358BE7A8EEFEF35C0F145148F48"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-string",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,107,0,2,0,255>>) =:= [0,255]. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "04D98E4A8D2A1DDF2666D632DAC49648EF993584E492844DBB7C8AD4DC43B3AA",
+    "CSharpSha256": "058F4E172AD0A5A4397EF9DFE5E7F2740B63F3DCD99A2A5632EAE806FDED07CC"
+  },
+  {
+    "Name": "erlang-etf-vector-size-string",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size([0,255]) >= byte_size(<<131,107,0,2,0,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "DE561593EA837B8409597AFD20382839F925983F433B1AB3F51E84F7D5B1A1BA",
+    "CSharpSha256": "C07EAE7ED387AEBB9E0DA8C71B8757880A8215D5C2C81995A1718687CDF912E3"
+  },
+  {
+    "Name": "erlang-etf-vector-default-improper",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary([1|tail]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,108,0,0,0,1,97,1,119,4,116,97,105,108>>}",
+    "SourceSha256": "8843F3F3714E8518CDDBC254A4184DB507EA2434E351216D7CB35466088F00C1",
+    "CSharpSha256": "D7D0235BB039D097097A38D4ED35F511C5FD925904F10D9A10213F89CC3790A7"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-improper",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,108,0,0,0,1,97,1,119,4,116,97,105,108>>) =:= [1|tail]. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "9B62DD9411DB7F591BFA4B9DF6814F43E654AF66E12FE75C6549A82564BDD8B5",
+    "CSharpSha256": "6DF74BB5B275F90C25D50BBE2D2323FF963F1F08666C0860FBF04E12F45CC54A"
+  },
+  {
+    "Name": "erlang-etf-vector-size-improper",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size([1|tail]) >= byte_size(<<131,108,0,0,0,1,97,1,119,4,116,97,105,108>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "252DDF2E917A90C255B18B97138A622A243C9046059C038507A4C231BB03C2A4",
+    "CSharpSha256": "ED4C1A0C0C5543200B738DBE6FF26754841143D17B2BDB84EFDACDA0A455E14F"
+  },
+  {
+    "Name": "erlang-etf-vector-default-tuple",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary({1,[]}). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,104,2,97,1,106>>}",
+    "SourceSha256": "B0D1F9CB84DEB73513781691757FE6C078A8833ED4A693C7DC6F4A4821192E01",
+    "CSharpSha256": "233B646AB53DB590736489FC4A61E1449695845D7E0CBB8AA6D6FD93E83609E4"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-tuple",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,104,2,97,1,106>>) =:= {1,[]}. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "0B1B4ED6D50DA753073CC1A2CA846CFC3A5C15854514A1F724962E800657B521",
+    "CSharpSha256": "8E1958557653476A81E2F8A31C06D71206963E0A678480FFC1F9E8EACEA46CC9"
+  },
+  {
+    "Name": "erlang-etf-vector-size-tuple",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size({1,[]}) >= byte_size(<<131,104,2,97,1,106>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "BFAFFA252ECDE7F3DEEA673C92FEC67702524D81A8E43FC09AA50D476C1A68DF",
+    "CSharpSha256": "756720A94410F98D774D6AC580257A6BC1538553FC013A0795D99E187F0EE6EC"
+  },
+  {
+    "Name": "erlang-etf-vector-default-binary",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(<<0,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,109,0,0,0,2,0,255>>}",
+    "SourceSha256": "73344E690751E632A57662516BE828172D47B1853F5D0C367F8F472861D2E922",
+    "CSharpSha256": "5AB3EBB688D0DEC7397C01B39E549878D7BB977C0C1A9224D46475EF0EAA3ACD"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-binary",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,109,0,0,0,2,0,255>>) =:= <<0,255>>. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "22E5EEF458DEDB8669F0D6ED0FD01C33FDA658B071623D0BA91EF3BD68CB88DC",
+    "CSharpSha256": "284CDCDD2F2D85D9FE730D9E6010B3E1A1101C5A6E8DCBE878C6DE817329DBD5"
+  },
+  {
+    "Name": "erlang-etf-vector-size-binary",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(<<0,255>>) >= byte_size(<<131,109,0,0,0,2,0,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "9A892D9BEB1A86CFBA8D8FB9797E544FC26BD64FDF56A2A9C3CB7A169CD2725E",
+    "CSharpSha256": "5091A1B13A1B2025E738E15A3145D48157A63B4D7268495DA5E6C921FBCD2050"
+  },
+  {
+    "Name": "erlang-etf-vector-default-bits",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(<<5:3>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,77,0,0,0,1,3,160>>}",
+    "SourceSha256": "0E416536B29ABF48AA6503F2FF6E3457387D1BA5E253A2EABC876B987F543329",
+    "CSharpSha256": "FD7A539B2A9152BEDC8C480B28E68EA328DC503129C61DA7504F19EFD1989017"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-bits",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,77,0,0,0,1,3,160>>) =:= <<5:3>>. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "04BDB0CB51FDB6AEC9F56FCE4ECFB3FFB144E68FDB26E338877F9E8CC2651B4F",
+    "CSharpSha256": "095154CC413E54C2AC5D0F8F3FBD7B8FAED97E4712EB96D568E6D7447CFA450B"
+  },
+  {
+    "Name": "erlang-etf-vector-size-bits",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(<<5:3>>) >= byte_size(<<131,77,0,0,0,1,3,160>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "2843D114703494C6307CD9408759CA2CEB5D58C04D98D37C3A737091C7DE0D68",
+    "CSharpSha256": "333F625CD7004A3682D1965A49AB5B52A79178856367B0DF7F1FE4F9CB33BB10"
+  },
+  {
+    "Name": "erlang-etf-vector-default-map",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(#{1=>2}). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,116,0,0,0,1,97,1,97,2>>}",
+    "SourceSha256": "A299135988BAC673AB5298DFCA85FFEC14625990CC11625C29A93E05E354485A",
+    "CSharpSha256": "18015FFDD124E3473F39972BA140C1AA8266750D4FEF119B5E59C051CF944B40"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-map",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,116,0,0,0,1,97,1,97,2>>) =:= #{1=>2}. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "F8EE867F331E0374A67CE104D8D366F3B7A9B755CD7007F75257EFCC14FC0335",
+    "CSharpSha256": "1262369B4F487F8F831CDAE2CAD1E714526FD144E78768E049FB1A050F4F2C0C"
+  },
+  {
+    "Name": "erlang-etf-vector-size-map",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(#{1=>2}) >= byte_size(<<131,116,0,0,0,1,97,1,97,2>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "EA90792DEC0F6FC0302288C916D3BE7E5DC2045F0C1D28E20C286FF3BE8B409C",
+    "CSharpSha256": "DD24442FC1431C827B21A6983A5C7E88CD6B4CD1D2087955BFADAB32D6D7C4A1"
+  },
+  {
+    "Name": "erlang-etf-vector-default-unicode",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary('λ😀'). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,119,6,206,187,240,159,152,128>>}",
+    "SourceSha256": "C8794443DC678D1D2FE91FC844CA5DFD00B28EF24EFA86BABAC7EA47F09D4C15",
+    "CSharpSha256": "2F83176B115C575DA57D3D5CF89FB83FCD696231229D7DD4D40B4E730B8FCED8"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-unicode",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,119,6,206,187,240,159,152,128>>) =:= 'λ😀'. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "C25FC62D040505985C3C4B813A4D600FA46118CA91CABF778AAF3CD6E003A75A",
+    "CSharpSha256": "29C647736BF91858F1E7C286ABEFE2E757870F28934DFDC3BD57802AAFF36124"
+  },
+  {
+    "Name": "erlang-etf-vector-size-unicode",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size('λ😀') >= byte_size(<<131,119,6,206,187,240,159,152,128>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "2B71DAA7BC200D9C2B88BA78E80B77EAE4A6F02D00F8D6F1A2BF932557A4C725",
+    "CSharpSha256": "4CA832AC1A2B7E334869A17F77DD8DA41D21C2B703FE8BB658D3D64A1CE5CBDF"
+  },
+  {
+    "Name": "erlang-etf-vector-default-float",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(1.0). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,70,63,240,0,0,0,0,0,0>>}",
+    "SourceSha256": "8FF4C38F2E77A09A05CB0C03F6FDB3300C209745C8607EAF13D17BFA1AA6A421",
+    "CSharpSha256": "B3C42F76A68B9BA64969C58F01D828A6D5FEE07210269BFB19E65CBAF861C167"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-float",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,70,63,240,0,0,0,0,0,0>>) =:= 1.0. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "EC6D7891B80828C197238E406B6E80FA62E643B0AA083CF93ECD45FE6B70DDCF",
+    "CSharpSha256": "F1D49583F47DF8F53D63CC856976DC128F8C59D322F874D272218AD74891D1AF"
+  },
+  {
+    "Name": "erlang-etf-vector-size-float",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(1.0) >= byte_size(<<131,70,63,240,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "A609B6E62F2103C4224AB48DAD0D57D858C22D8C5FCC810B14D69DBC4FFE7AB6",
+    "CSharpSha256": "89931DDE193FB90F6865EE8EB044123FAC0F1553A3ABD332B2B87E8A32235778"
+  },
+  {
+    "Name": "erlang-etf-vector-default-signed-zero",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(-0.0). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,70,128,0,0,0,0,0,0,0>>}",
+    "SourceSha256": "7B6AA8BE68E780FDCE00727A3FBE192F76E033B1BC687F3395B641DED6AA032C",
+    "CSharpSha256": "81CC26DB872249B22B0F0EB5ED4BD20BB80D1469795A63A56B637C1D0290444D"
+  },
+  {
+    "Name": "erlang-etf-decode-vector-signed-zero",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,70,128,0,0,0,0,0,0,0>>) =:= -0.0. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "96CEF5259647300D29F003838B45B2CF2EBDD5FCCD9D106B8CA2316EAF2A50DB",
+    "CSharpSha256": "9EC6D962C5F20C059DD0912875B406EFC20E6BD46E604FF47DEAA7824D11546E"
+  },
+  {
+    "Name": "erlang-etf-vector-size-signed-zero",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(-0.0) >= byte_size(<<131,70,128,0,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "220F3F75A8E1D27BC58E5247106EFF88FCC866B87E4BC83C2419012BF9EC903D",
+    "CSharpSha256": "0C79703716CADA805001F237C7C43DBA84FF06E71445D371FE6B9CF057C16D36"
+  },
+  {
+    "Name": "erlang-etf-vector-minor-0-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(hello,[{minor_version,0}]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,100,0,5,104,101,108,108,111>>}",
+    "SourceSha256": "09DDB441F8D7C490594A830B09025CF2C99A36391A641451B774454CBC312735",
+    "CSharpSha256": "4BB3D4712AD30877019FAC13CE3C035E370D11655D44BD6FAA9F21046AB5B7AF"
+  },
+  {
+    "Name": "erlang-etf-minor-unicode-0",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->B=erlang:term_to_binary('λ😀',[{minor_version,0}]),erlang:binary_to_term(B) =:= 'λ😀'. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "4456A830610BBE0DCA664DF07E16605E4B107D6B50A39C0E27501B2663940EDB",
+    "CSharpSha256": "4AE0B8000F9B6A79B113A85BFCA2F03CD5B5B3B108CB0A4CF30CEBA078A5933B"
+  },
+  {
+    "Name": "erlang-etf-minor-float-0",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->B=erlang:term_to_binary(1.2345,[{minor_version,0}]),erlang:binary_to_term(B) =:= 1.2345. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "60BD346A2E576029A04F11E648CE492B8C73BC2DA95C1130345DE21254D0EBBB",
+    "CSharpSha256": "595B698B6510C7A2B478357537E8B6156E0CAD41FB6F96A6D0C590DF1D271F1C"
+  },
+  {
+    "Name": "erlang-etf-vector-minor-1-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(hello,[{minor_version,1}]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,<<131,100,0,5,104,101,108,108,111>>}",
+    "SourceSha256": "3908F9CB6E801A0320FECA2FBCDA481AC354FD9DFAC5F26E2A2F62A11AFB65D9",
+    "CSharpSha256": "83814BFA714D050FFF90AEA877F6BE74B556705CF6BEC1CBEE989ACE0FCFD65C"
+  },
+  {
+    "Name": "erlang-etf-minor-unicode-1",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->B=erlang:term_to_binary('λ😀',[{minor_version,1}]),erlang:binary_to_term(B) =:= 'λ😀'. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "3D4E5FDD387D92E983A866E6F45346451B398CE4BECACB1A1851B00C53CC2392",
+    "CSharpSha256": "D31CDDC31BD83CCCE29BBE75B4BC019B881949B0B5C20E4268FD682671505002"
+  },
+  {
+    "Name": "erlang-etf-minor-float-1",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->B=erlang:term_to_binary(1.2345,[{minor_version,1}]),erlang:binary_to_term(B) =:= 1.2345. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "D2A420326109FF7B5568C755092096EA42576FD9092DD562EBC0EA0DE85402E9",
+    "CSharpSha256": "36F7EE49CEDFA05F21CA4D6E978E35AA082F723EA3285194C0654EB466864FF3"
+  },
+  {
+    "Name": "erlang-etf-iovec-default",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:term_to_iovec({<<1,2>>,hello}),is_list(V) andalso erlang:iolist_to_binary(V) =:= erlang:term_to_binary({<<1,2>>,hello}). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "AF02E65E58178F304441C49BFAA6E3975A30B64A068A17B1A0C7EA7F7ED00488",
+    "CSharpSha256": "D8C606B00B800307A058D06F619B8CE56C809992F671C2E1371A3B2A657E11EF"
+  },
+  {
+    "Name": "erlang-etf-iovec-compressed",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:term_to_iovec(lists:duplicate(2000,42),[compressed]),is_binary(V) andalso erlang:binary_to_term(V) =:= lists:duplicate(2000,42). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "321CB5CE0F1BF7AED3CF9963711F8B9C2CAB562F4EF6D5AA3ECDE8F545AEE5D6",
+    "CSharpSha256": "4943FEA96CA56EF1331A47318C58CA93AD69EA98919B5DFBAEC198D0ABB998CC"
+  },
+  {
+    "Name": "erlang-etf-iovec-compressed-fallback",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:term_to_iovec(hello,[compressed]),is_binary(V) andalso V =:= erlang:term_to_binary(hello). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "A86B47232AFCE0992C6EB9F8C9D346E2198A71A408B386D0FA98D11AD246C416",
+    "CSharpSha256": "052DF1CFC8C5F136B645C4EB7002C6DA7769A5A53F79777BC369709B7118CFE9"
+  },
+  {
+    "Name": "erlang-etf-iovec-large-binary",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->B=erlang:list_to_binary(lists:duplicate(1000,42)),V=erlang:term_to_iovec({B,B},[deterministic]),is_list(V) andalso erlang:iolist_to_binary(V) =:= erlang:term_to_binary({B,B},[deterministic]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "DE70119F886AE63908545626C14682106FD66581288AE8790F7239CD96E6A312",
+    "CSharpSha256": "61021AC74DA07AC12F230A76308CD1ADB08AE5AB4F40AFE8C80C9C5FA7F208FB"
+  },
+  {
+    "Name": "erlang-etf-size-default",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:external_size(hello). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,8}",
+    "SourceSha256": "8402634F78625A48C986A4F4000A96D4205DD94756ADDE02B9C27B373EAF4146",
+    "CSharpSha256": "C26130FD05019FCB7D72CE17EE7FCD1BE93C4DB0379BB7AA547BF2D297682FC8"
+  },
+  {
+    "Name": "erlang-etf-size-compressed",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(2000,42),erlang:external_size(V,[compressed]) >= byte_size(erlang:term_to_binary(V,[compressed])). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "41CDA4AD403E7273DCD451EEF904064158FBB23C008658DF8FCF2EF8845E9C55",
+    "CSharpSha256": "9EFCCBD50205E030AA5624D8CB187028E227CBE74ED2C0BFA168E1E0D5DE852D"
+  },
+  {
+    "Name": "erlang-etf-used-plain",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,97,42,131,106>>,[used]). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,{42,3}}",
+    "SourceSha256": "27E2C216EAF36C05CF5C44BD3B78FF96A7972729BEBBAA1F9B7A567BACF65920",
+    "CSharpSha256": "56F5F0A6D9A8582E99E8EF787BE10DCF882AF53341A3FA60BFF74ACBE2078E39"
+  },
+  {
+    "Name": "erlang-etf-trailing-plain",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,97,42,255>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,42}",
+    "SourceSha256": "F890FB395F11AE9DB6767912BA179368FA69DC0C1BF5B7FFFB4BAAC2C7942F32",
+    "CSharpSha256": "EAC57B12D9684F93A9DAD63CD4DC8B8F7BD82C2C10E31FA95DCFAF2ED1F90987"
+  },
+  {
+    "Name": "erlang-etf-used-compressed",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(2000,42),B=erlang:term_to_binary(V,[compressed]),{V,N}=erlang:binary_to_term(<<B/binary,131,106>>,[used]),N =:= byte_size(B). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "7B61F17B8C86A49CAC92DD2BD278129CFC31A6DB9FAEFB326091FC129CF6686E",
+    "CSharpSha256": "EEEB4129ED1D6244E94BBF08C7F2982EB62775C84070A5CC54721667A984700B"
+  },
+  {
+    "Name": "erlang-etf-safe-existing",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,119,6,101,114,108,97,110,103>>,[safe,safe]) =:= erlang. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "1B177324186E66507289232248350F51D5F7862940C48333A343C873188D25C5",
+    "CSharpSha256": "03969279C314FA1C437AB4E9E6EC04FDB90741445B0203D97691C1EEB4C15B83"
+  },
+  {
+    "Name": "erlang-etf-safe-new-atom",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,119,24,101,116,102,95,117,110,107,110,111,119,110,95,97,116,111,109,95,52,53,56,55,51,50,49>>,[safe]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "3C4224ED3072948D20D9560324E9B53340D5EC8606FC70406B24E44DD94655D6",
+    "CSharpSha256": "DCCD90785F6F71EDB9CE6062BF04F499D63483945066CC91CA62FB2A1E6490F6"
+  },
+  {
+    "Name": "erlang-etf-compression-level-0",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,0}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "2E5EC3C3F1307258E446955D196F5CEC31D15D2DF4A46B473A5BE74212D7D2F5",
+    "CSharpSha256": "A0EFE103CEE55D8FA362F1F34B3E82ABE496C4C68C2F9AD9408E688DEF8231E5"
+  },
+  {
+    "Name": "erlang-etf-compression-level-1",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,1}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "17ACF7DD0BF2887248EA801598B806BEC965E022EABBB8BCA1EE28C40EB29A76",
+    "CSharpSha256": "63E38246CEA7A4FE9C4F9A0B9E2F932340CB5CB3166B2988DAECE8389059FFB3"
+  },
+  {
+    "Name": "erlang-etf-compression-level-2",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,2}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "67C70AA6BF469B7C7503F8006C040F87082CBEC9D1D784F7AC04D806DC6B60F0",
+    "CSharpSha256": "8EB19B8760A9766C158BEBFA40E0D19A2748A3729A2815B83848F0D49AA42A6F"
+  },
+  {
+    "Name": "erlang-etf-compression-level-3",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,3}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "D192B2D7AF9989420246D7A6B92E03C70F820F87E3E029056AC4D4858894473F",
+    "CSharpSha256": "A0EE8A029523B8A238F0FD77F16480F13A74AF46787091EDE099DCFEF660B7EF"
+  },
+  {
+    "Name": "erlang-etf-compression-level-4",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,4}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "2A27345CD4FBD5547421DFFD450D8D6891D422C4EA858A5E98F0402D91A3E260",
+    "CSharpSha256": "1DC1E34892B0532637F2C5EE344D17C1029E6124DC4F1553C4C666798A3759B4"
+  },
+  {
+    "Name": "erlang-etf-compression-level-5",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,5}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "EC3D3482A62B04B1438BABB11ED962C053D79A8BB2441A045D0D856CAD86644F",
+    "CSharpSha256": "CB8C3EA2296E6FC985067514F0C3519674889A8B9EFE41803FA906A5EF2BE70C"
+  },
+  {
+    "Name": "erlang-etf-compression-level-6",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,6}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "E128555F220A418750A4F4E5732786061B53B8E77F58E0B8BB83237C5B832927",
+    "CSharpSha256": "D6D630D0ECD2B29810963D703DB8965629516C3EC8FDE95E7652DF111152D65E"
+  },
+  {
+    "Name": "erlang-etf-compression-level-7",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,7}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "317B89497D5773C43DF6255C02422657C5CA2F516B7E4C47B45143A88969CE2E",
+    "CSharpSha256": "CDD1628F87C4BBF2D216E8364E95A21BBB97E274AC53A8F652DFAE7AA6F8F33E"
+  },
+  {
+    "Name": "erlang-etf-compression-level-8",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,8}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "23FE26FB7C814193FB3E90EB8DC9C13B7CADEA8B3B27646B622DF70A5F874D59",
+    "CSharpSha256": "6E7909BA1576C845697F9A3AE6EB0F90A6482A0DFF9B1DC4B1085ED52D2B40C1"
+  },
+  {
+    "Name": "erlang-etf-compression-level-9",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=lists:duplicate(1000,17),B=erlang:term_to_binary(V,[{compressed,9}]),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "B56ADE38D50DF98E0B9D4C81C46243B39A7AED38DBD3B02E94BC3F85E5380E21",
+    "CSharpSha256": "DAEED7B7079F9D37813E9B455EB38244D2E070334800BEBD02C404FFBBE90DCA"
+  },
+  {
+    "Name": "erlang-etf-last-option-wins",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:term_to_binary(hello,[{minor_version,0},{minor_version,2},{compressed,9},{compressed,0}]) =:= <<131,119,5,104,101,108,108,111>>. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "91DE47770F9A098612026EF412BDBCEABB12F920177D62317389B10E2F1A5267",
+    "CSharpSha256": "15F842CC389F824FAA688FEB367FF2D39B35BDFF0C069704F2E279330EF42385"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-73",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,bad) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "89726CF0AE48D63AB85D4B445B7561E697F7C88D4BD922980923338A21DAACE8",
+    "CSharpSha256": "F75F95355929DA85C10DFE3E5F0D7775575EF9DC198A4B7978F4D6C16D9A3BC3"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-74",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "AFC110D9433EBA62ED989445408211A5F4EA77C276B5C4048B85A3243EBB4915",
+    "CSharpSha256": "1287D0D9747472931DC405B6BD7CB7AF4CA9EC81F24491E8DEDEDA342AB0BCA0"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-75",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[compressed|bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "B93A73C4496DDA4D03E4842F8B92EB515CD0AB6B9E9EE57D5A4DDC7A926C8436",
+    "CSharpSha256": "DE40112A2C3EFA985BEF2FF323CE77E71E1D51400C51CB1A96D495A61C328953"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-76",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{compressed,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "0788FE1A7DD7E62E1A9462E32DEABB83653DF9EC31340B18EEE05DA17633781D",
+    "CSharpSha256": "93ED9C8063B3E23CAA15D3FAF41F054F2EE56E704FC1463ADFAA54154B2E290D"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-77",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{compressed,10}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "7DCDA20FD4B1E3656C6321917E7D566FB411699B90D49D8AD663E8F6367C0765",
+    "CSharpSha256": "D66D17133CB7B8D7B3DF36A4FBB7D7289F56A4A6C5D528F98B0ABD7BC928F1D0"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-78",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{compressed,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "545614D5EFBA5FD01301D95449916D24B9D838EE5839AE7A1D36B0589271CA09",
+    "CSharpSha256": "637D55F163296CC19F143605FB0CDD49BB0A7F3F7A573C780B6BC34199E2798C"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-79",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{minor_version,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "429C816D8A35B6A42B9CAA3A7220453A003952B7DA3A33CAB5FD4D6275EFDF51",
+    "CSharpSha256": "E365502B4429D68E26F14266C86529B0FB41BB2A11595CC1255AABB3BB21CAF8"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-80",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{minor_version,3}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F46FA09759293C555D8B7A8F22B8ED218C701E884EB7900FB64B0EFE32FCE5C1",
+    "CSharpSha256": "2A25317F332841AB555E2558CD41A1EC5B24F6AB7F930296D688816467FEABDA"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-81",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{minor_version,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "C3B43D2B6A14095749CF575DA02EEC3479BF79ED679727AB16937FEEDA9DD723",
+    "CSharpSha256": "E65FE4C0D827DB3A495F222E65A2223E5DB696067A1BF26CC89CBE5C7211BAE1"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-82",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[local,deterministic]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "04E57C0ADC14A5EE1A98B06A93E355D4FA4D2916481A119E3D542AC19D2FC7C2",
+    "CSharpSha256": "324ED8F2EA103ACE22225F6C03BE520F6F4E8313F119FE5889F9F597A8AED7E4"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-83",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[iovec]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "AD22C0DAFE2D6AC68C43ECA0A06B5456A4F718722E477BBB55049AB05D3BFBB8",
+    "CSharpSha256": "C3498F92DE082BA4FE9566B6026027CE0FE3B99441DBA4EF7EA20DF09B01C3F9"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_binary-84",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_binary(42,[{fragment,100}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F7A5297EF61FDC5348EC61C925BF20B8E13ADE3516234E4B287298F21D05D132",
+    "CSharpSha256": "7AEC08FD83E233ADE55C52F652836B63D5CAF5302F885310834CC9B04245EB21"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-85",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,bad) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "7CD47BB07E0936CCE102125AE0F4E4BD2F17927A7A8EE16480D75023A8935B6C",
+    "CSharpSha256": "BB015CD037F344BEAEC48D0A11FEAF748CDE59079603B9DBCD012F01F134FBC2"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-86",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "D93757F50FA12ACEC1F8BF5D52E5BACA30C625D0AC414098097B3925932AF54B",
+    "CSharpSha256": "63DFF1C9326015715CCD1B52B1637C491EC9DCDCA7468D0B98758C55DC13BB46"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-87",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[compressed|bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "536213811ACA302444AA07DCEC59F117A5ACAA2171F6B3B5C7E8459AAABA6CD4",
+    "CSharpSha256": "7B9ED340E60E45315D88B3A456ACD2E18610B29966A7F381E9A6D59568F5B07F"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-88",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{compressed,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F8EA1A5CB0016C61593C085A030BB5C0EC26F306C019C515402843C32F29D52D",
+    "CSharpSha256": "07E67915D8EDAE4EBB00061E9CAE96B003864567718D412C1D361AA1EC9255D1"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-89",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{compressed,10}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "C754EAA72C63B54951C2132499AE878D50562D8B76D3513608859C290A2092EE",
+    "CSharpSha256": "13219844B385893E0BC6CBF74D2D71943B4ACFDEC8BEC902A371905AF7B18687"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-90",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{compressed,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "815B57F156DA78EFC98A1963B7AC2CAC90F26EDBCE66E06E24C77079F65D7AA7",
+    "CSharpSha256": "32D1EFD735267A4C189A618894DA0E3FAA9DA3C828E3CCA8747703DFEBB2CF7C"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-91",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{minor_version,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "AFC34E396171D30867DE7C6BB09EF0EF9AEAA5D87A7D57EE19222C034465B625",
+    "CSharpSha256": "D024146F4C69B3BB8CECB384921F4B2BF42CE153F9B804B8CE41879AFE234633"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-92",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{minor_version,3}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "EB94473C11839C6CF3427D6B2B00BC38A4B0F0E2C36B877392B65D4093392B7A",
+    "CSharpSha256": "EB66C1271CD2F06279D7755F2AA1E895541FA12B17C62C9E1543A2E20757A091"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-93",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{minor_version,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "6C898AC69CFADDC976EA86851ED1E5BFBA7381BBCDC56EBDADFE8591B852F453",
+    "CSharpSha256": "34E6018EBE3D8CDC19B505640763C0419603CFF399E2B2B1EA20B0EE8542EA08"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-94",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[local,deterministic]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "A8F65CED1CD818ED341D6D5742A71ECB2472B1F34378929E06E3BBB6C5CFA698",
+    "CSharpSha256": "9D9AE157BE919DB4124FD587DF6E21949DC21FE02B5B8C3E038FE464E54C9A15"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-95",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[iovec]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F9C690CC5FC11E52E817E291A476BFBF7F0935A01E725A8D2FE7A5D5A4360E9B",
+    "CSharpSha256": "E7DD626E4FDE727A26DD74E06C953324B5CB8216A462D929401161E5D1912C9E"
+  },
+  {
+    "Name": "erlang-etf-bad-options-term_to_iovec-96",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:term_to_iovec(42,[{fragment,100}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "89E74666579322A38E990EB00EFAB34F81875CEE72DCD6663A96BE791F100C53",
+    "CSharpSha256": "EA522AACFCC410F1B35875AEE309F58289C3D93C6AFBAC1DE5A60504CB831847"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-97",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,bad) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "803AAE2257ABA70B08F2E806B063B6E5C4135ABB4963FDC647C63E173124A96A",
+    "CSharpSha256": "A7415E388483826067B3C8B49161B16C8FB2412DE83785FDF789CA13807B3691"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-98",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "3A4AD820EFDD884BDC9BC9648F7D963B196BA08F2334259D33B5FA053923EB20",
+    "CSharpSha256": "7423B154865F8257950AEDCDC99C94936BEF7F9E49CF61540BF1245D9681E759"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-99",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[compressed|bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "4B4DBB225DD2883EA9034AA2908895C511B4A0A244F2C005D8182F8A6FF769F1",
+    "CSharpSha256": "0B768AD8B210A26D83C8E39090BF3B9CC397A2F46CBE39C0523FE81AA1FAC359"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-100",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{compressed,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "D9A4BBF0F0BA93A824470D7D4F480F2A8921D089629E1D090FE031DCE3A1B5C2",
+    "CSharpSha256": "921E3730D359DB8797D23E911BA6D83D8A85F4C67D905C44D1FDD3098E82A9B6"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-101",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{compressed,10}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "6DFFCC84E002361E2DD2B2A7F7736D614F4A828BBC13F3285DF902B893916461",
+    "CSharpSha256": "28651B99CC488CE589EFD7805829DBD4A29AF61D9DFFDC43D4705EB1D1FB5315"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-102",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{compressed,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "9F7B717871D7C5B09C8E1FAD9B848E8F32283273846526B10F5AF013872F9487",
+    "CSharpSha256": "E921E74D2343CCD6D0B8C871C812FF2272CD792B6B00C80692849E24C17A1155"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-103",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{minor_version,-1}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "180DE949D5AEF2A28A2C378BC9EAFE0C9ED31349A9CF11B103B53FB22E5D07C7",
+    "CSharpSha256": "61E3C55C3BEBDE7909FF83846408804947BA28A30A1ABE7329E73BCDE8FE24ED"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-104",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{minor_version,3}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "D75A3EF3CED98CCD10C34B8BDEF1FE83042D3D3D5C28F3BA0E999488EB8A79E3",
+    "CSharpSha256": "5440736E426B5FCEC05938D0B83969CF9520CD82CC15CB265D498B6C5E606E65"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-105",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{minor_version,1.0}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F9C4F4B30E3514483798E7AA070328ED7759E2C17A64FCFC9BE8E2626E5033FD",
+    "CSharpSha256": "52F40EA3F7CCDAC34891972FC2EC7046C5BF3703CA210D6452BB1ABE4737918C"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-106",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[local,deterministic]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "1FFF0347C59353FB45B13937BD1DFFCB5196EF66BF2F1545DD42E672418A9F37",
+    "CSharpSha256": "87032253C948E9D0F84E63A9CCCE6EF099F078DFDB3C32F1B3309C2EF667F168"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-107",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[iovec]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "087C4830EF449E40FCBB95D9D3729E40C75721F2AF6488FD5C441B3E8FD3A10C",
+    "CSharpSha256": "64A667B4F7C2589F934ED56A1F513290E0C0138A7FF96C416314FF1F8F192EC5"
+  },
+  {
+    "Name": "erlang-etf-bad-options-external_size-108",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:external_size(42,[{fragment,100}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "E331409945CB6A94511707EF4F55D53510365C6DF155AB8D912401286B737160",
+    "CSharpSha256": "6434ACD681027DCF87EF80244211D51CC87DD59095CCAE89D15622B9BC854C3C"
+  },
+  {
+    "Name": "erlang-etf-bad-decode-options-109",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42>>,bad) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "812670E54CAA21DE63F8A6C64D2C61B3E68CA47C582491CD4D10A0EF75132B05",
+    "CSharpSha256": "383E8864B33D5C7C460326F4A478EC5480FEE928C50ACA63CDEC0A12266E8A4A"
+  },
+  {
+    "Name": "erlang-etf-bad-decode-options-110",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42>>,[bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "75142EDD37552A96B19516CA1F397526214761CF6D1062148C97B48E57E7F898",
+    "CSharpSha256": "54E1D18A84E34B6F4B3EE7FC63E12458C064DF86410D8001B852942DF1ADC672"
+  },
+  {
+    "Name": "erlang-etf-bad-decode-options-111",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42>>,[safe|bad]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "921039306B673810F569BAF5874B7A48078ED90E2F542B204EC2F174D7195DE6",
+    "CSharpSha256": "18BBA57D625A45A7C495C6A51B6E1BF0489D50237AD5A36F3AE26DA4B1454DF2"
+  },
+  {
+    "Name": "erlang-etf-bad-decode-options-112",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42>>,[compressed]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "7916289BF2BF6A32F7417A1F92438167831C189D8F2CEA37AC57832A0E2AD996",
+    "CSharpSha256": "EA82F19D9062D6B4F3E793177451FA143CCBDA29E55B320CC02A398B45441D3B"
+  },
+  {
+    "Name": "erlang-etf-bad-decode-options-113",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42>>,[{used,true}]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "751C18CDC23CA481BC1FAAEFC64443C1F0529DF02F1BF2A99FA3B8A7009A6024",
+    "CSharpSha256": "CBA59C1BDBCC9B4A875D79B319A2ADABF4639F3297BFF70A58B6D1F328AEC064"
+  },
+  {
+    "Name": "erlang-etf-malformed-114",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(hello) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "F7212A99118620CE095DF20CBDBBFB28BC7E0E5624A10DB40BE4CE91FA0D40A8",
+    "CSharpSha256": "2621C054E2D56BEF56E55D061D3609CF1FF2E001F58387D7CB789E962545BC78"
+  },
+  {
+    "Name": "erlang-etf-malformed-115",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term([]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "4B8440589D518E6EB5169E078607ED7682A93463CC246CA4454EFA28A87C13C5",
+    "CSharpSha256": "5BC3C48253DB3D34E0089F95BE7D617A21762CDF36F3B5C3F2C623CEF9020246"
+  },
+  {
+    "Name": "erlang-etf-malformed-116",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "0D68C9D7E0AF1B540B3EDDFB5832235722CC69EEEE30C32A038CB3022992DF02",
+    "CSharpSha256": "150E79BEDB9358F91807F0600A17AD23EB06B899FEBEEA06256FF5F331C73A22"
+  },
+  {
+    "Name": "erlang-etf-malformed-117",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "79CC14F3624608BBCABA93EB04D1CC65CA5C372FD12DCC811C8BBB8554A8E2D7",
+    "CSharpSha256": "5DF4D7E11EE165B576409430FA6D98A0359A2007CD7E0994042AE9DC17226EED"
+  },
+  {
+    "Name": "erlang-etf-malformed-118",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<132,97,42>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "11D5B1F8374EA5E543EF0F29554862B1832605F1E2A2A1A3A22C3543B0C3A846",
+    "CSharpSha256": "ED7561A7F0A72F9E8978F42422F65EC0D94879E2D52721670A65E6B358668C32"
+  },
+  {
+    "Name": "erlang-etf-malformed-119",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "268659236AF9A038505F1B57E48646963CD7958EF4E08489F85E4F7927CA9CD9",
+    "CSharpSha256": "F4A04D92950DC01624FF7CFC47478B782EF444FEB04031849678A9811F014679"
+  },
+  {
+    "Name": "erlang-etf-malformed-120",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,109,0,0,0,2,1>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "6585FAD6BA43D50D0C899915E8F4582F404A9D4116F645A9EA39549323653CE1",
+    "CSharpSha256": "162BE9FF4769D7052FEC2BF7E2B9A3D9720B62E507324C79ADC446DE7EEC81F5"
+  },
+  {
+    "Name": "erlang-etf-malformed-121",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,77,0,0,0,1,0,255>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "19A2D6B540F1E524F7AE116DC6C6A79E44B093B463F7B21B94CE756654857B54",
+    "CSharpSha256": "B57DE59780D81764616E0BA4C94DF834DC182C3E4C3FA3C219190D622593E1ED"
+  },
+  {
+    "Name": "erlang-etf-malformed-122",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,77,0,0,0,1,9,255>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "E8969A6512DED79F3342AD100DB632F3DB446C06AE75FB83F508DC166CFC31A9",
+    "CSharpSha256": "1F168F27217B5DBA2FA32D24B2618E4D1CA3617941C9A5A4C340CCD5FE24184B"
+  },
+  {
+    "Name": "erlang-etf-malformed-123",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,70,127,240,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "B9D57E2C48A597AC708E70E220592C4AFEF859BA11ABA6B6E8826DCA22C5E081",
+    "CSharpSha256": "73A7D929905523B4F55DBB2BC25E10A26F0FD2048812D71217E4C8BE14215C4A"
+  },
+  {
+    "Name": "erlang-etf-malformed-124",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,119,2,255,255>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "95FC77A9CE75D3198B74BC57B3DEDD59FE95E1E5C983105F487846EBEA726E3C",
+    "CSharpSha256": "B459A8ED76EE859F40454DCE12ED56A122AF0EF07FE7AC669EAC9A6945E8CC01"
+  },
+  {
+    "Name": "erlang-etf-malformed-125",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,255>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "077F8E9F41A26D0346D639496159EA64CA764BC84E96E42305A6704C971943D7",
+    "CSharpSha256": "DBC9626C588B8C3751833EED7394D9B78A415EAB4BFFC9DC11A2563539A6AA91"
+  },
+  {
+    "Name": "erlang-etf-malformed-126",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,116,0,0,0,2,97,1,97,2,97,1,97,3>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "0B108D25AF3B43DA5710D250DEFF46B7BFF382619271A1A2D9734DBAF86F9F14",
+    "CSharpSha256": "2FD5528FF48495771FA63210E813B46C6D230294A194333B8F5825904312E8C8"
+  },
+  {
+    "Name": "erlang-etf-malformed-127",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,110,1,2,42>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "15D993A4D9B60660BB40A980392B6C4C59D937701F2FCC3564C6EC1E7034CB21",
+    "CSharpSha256": "FD0F15904C157C711A00FF4C4D22F271CBC30E5A5B364CB2F16F2A47517A3CB7"
+  },
+  {
+    "Name": "erlang-etf-malformed-128",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,97,42,0:1>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "DE0F110E6E1D056CDB85BEE8BCFC8381658B6560E70DA27F1FE7A3085FCAC429",
+    "CSharpSha256": "509EDE194EDD15F3FDB06EF88CCC0A192319950EC1D0840F47DDCA9CD43A3002"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-129",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref()},B=erlang:term_to_binary(V,[]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "555D98ACF30A7AEC8D21894CB112BFCD7FB69AC5F667F31DB8393615B2388D3F",
+    "CSharpSha256": "D6C1A7FCDECC7F4B1ADD8B5B9D793B7A1E2847556181B96509BF6C294DAB0AE4"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-130",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref()},B=erlang:term_to_binary(V,[compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "20B6D56CD73928318FB5F3A8BEE0C4371163CAF80F00822325153F70CBEAC634",
+    "CSharpSha256": "F6EFC51CB22A69414F5EC2F6220134B52BA74E289B3D490C5DCA32BD403EF48A"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-131",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref()},B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "D0BFBA6A7CDD08D03A8944FA02C7E98999D01683368BFA974894D74F70B8D8FE",
+    "CSharpSha256": "E395635BCC9763B9FA30C02DCAB587B2684C9B7AB5EEAA4FAEF59B8F739E688C"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-132",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref()},B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "78BA769273947B682BFEEBAE0E464DCDA2416600DB500BCB7E7A30759C6A04CF",
+    "CSharpSha256": "02F92A76F59A206FBFB545A37669F3FFC12AD2EC063FA6F97D1F4EC5ADA3175E"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-133",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref()},B=erlang:term_to_binary(V,[deterministic]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "A9903C43A43F43D2F3B2A898900FD40A4920B56E2840D64209B73B8D13645624",
+    "CSharpSha256": "4D97E7EDF632234A8B1E34A563290763D81FB2D15AF22367326AC89C207278A2"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-134",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "528D6A4E0CC19596B7D77AE9FC4AE264A607D9B608A9E91B124DEEED8154B6C6",
+    "CSharpSha256": "B5172CA4D39A4F8F1C1260BC0865948113AEDE4114FB234AFC7E598381EB0FE2"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-135",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "4DA33B9EE563998433F30F656FA483449AEEF47E58D33775C86BB5A8B20B01AD",
+    "CSharpSha256": "E7339065599A0D173D773D791B48F191B35236570E32A0091B6E0204FE2E5814"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-136",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "43196876EDDFADE44E701895DAB8FA6B5463CED278C81151CAD26E53E29B2ADC",
+    "CSharpSha256": "26C45AED190FDAA29DEE0E8419093C559790ED8C76FEB1D66609E14303011EC1"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-137",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "C7C50A8C91AA87714FD4F758140AE9DD95629E93D5ED5B7C31A8534E46FD5FEE",
+    "CSharpSha256": "2032FEF1DA716233EB2811E82DFE4B24CEE304761E584E70D9F6BE5D0A56C393"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-138",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[deterministic]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "5DF421DC992266B8A5B99071CC295B6A8F335974689C217C91977B9C6926A395",
+    "CSharpSha256": "A7F04D5505FF24879DAA92E2997B6EF6CC3725AB486F6AA589F53602F0541F38"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-139",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "E2D253EAC48FDB0C6C0E4E13A1429D54E2F2F6D6B10AEBCE0C4A8B4E99B2F76D",
+    "CSharpSha256": "ACE15587F7CDB71D73C83B81E430E547FF0C3EB876E0AB6821773BFD0BB732B0"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-140",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "5263F9C2B28FCDE8068FFD5D60806874543947C440C7F72EE04737F1F1D7FD0B",
+    "CSharpSha256": "38AB241155F7EE95FD08D4057D967FD8F8F4807F9BCDAC587421F97101D3CB1F"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-141",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "38E4D49FDBAC7F0BF8C69C811A2DD30B5ABB82210F1CE9F7934C3524DFDEA79E",
+    "CSharpSha256": "F367383CC7E8626161385FD4AA0CF00E663336F07C3014A45311DFA1FF05BBBA"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-142",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "AFC5FE137D581E7174925DD7364C6BB0D9D881C15B379E05243019067AC1C951",
+    "CSharpSha256": "68B398383CC886C8B0F29050F03E7259E880737A397AF5AF8CBDD83397F763F9"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-143",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[deterministic]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "B9D66B7D56C9801C66F2E91F3011D8C1FCFA5D516EA83627197A4031E7841FA2",
+    "CSharpSha256": "A1A1B0001AD0F385B23D9522D1B21829C51E1EA12FB1E4CA2071DFF964FB1FBC"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-144",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=#{1=>[2|tail],1.0=><<5:3>>},B=erlang:term_to_binary(V,[]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "DA1C426FA88638C98BBFCE70DDCF402156CD25C9533B4FD1868562F714E2B981",
+    "CSharpSha256": "C2FA6B3E907CE837F2D5636D98607263F1199029382CE4553BF099FA1711EFA6"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-145",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=#{1=>[2|tail],1.0=><<5:3>>},B=erlang:term_to_binary(V,[compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "DEC3B9776F11819CB8A2C1AE97B4EBCF1F283A62CE93873411F030F4920A7A89",
+    "CSharpSha256": "D0CB9FEFBC943BB8947B1DEBB825E72C4FFC14B1931FE40D7ABCD181D996A5F2"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-146",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=#{1=>[2|tail],1.0=><<5:3>>},B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "6073B093BEF8D80B7D9752C14D5CE836DF9FF4E8A7F5598E9FDE05B0ABC2C435",
+    "CSharpSha256": "79EC9C195E0CA7696DCBC28A250CE9F2349C2EDA64BA6FB9BDB48B0EE8E18AA8"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-147",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=#{1=>[2|tail],1.0=><<5:3>>},B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "48FE3578270232B9F02BE9CBCFA0AEBF8DDAC9C8C8F171476A2E5EE591C36334",
+    "CSharpSha256": "F0BEAF33D0AF042E65E30A68007C1723A4B7F19ECD20A48F9366A42FDFB867B1"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-148",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=#{1=>[2|tail],1.0=><<5:3>>},B=erlang:term_to_binary(V,[deterministic]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "70B5D0ABD66CCE11819283F7B1AC4E397B398D707B62E02A43147B2CF98EB11A",
+    "CSharpSha256": "E9EAC77743610E55D4A983B96F94EB3E63340AC487514068BDB033D941BD3608"
+  },
+  {
+    "Name": "erlang-etf-closure-executes",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->F=maker(42),G=erlang:binary_to_term(erlang:term_to_binary(F)),G() =:= 42. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "AF6603AC137389DC6E4726C8D02835A144CCA3DE956D2BD77C9E866EE70A27AC",
+    "CSharpSha256": "16B68D06053A6217F33BEEDDA4D7293891A635E90CDFCE250371716A7CD5ED73"
+  },
+  {
+    "Name": "erlang-etf-external-executes",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->F=erlang:make_fun(erlang,length,1),G=erlang:binary_to_term(erlang:term_to_binary(F),[safe]),G([1,2,3]) =:= 3. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "442B5DBBCC77157075428BC10DD669BEE1803713A5A0AF6156915AC31121BFED",
+    "CSharpSha256": "8B1F827CEC6052294A48970D82A3EDF8F88D5FCB04C1F28166FAE6F9731F5686"
+  },
+  {
+    "Name": "erlang-etf-safe-created-external-stub",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->F=erlang:make_fun(etf_missing_module,etf_missing_function,0),G=erlang:binary_to_term(erlang:term_to_binary(F),[safe]),G =:= F. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "928C7EC1DFA3B7EC90F117F6FFBC81C14336EFD2EF6F763331E8260B4D4F5B14",
+    "CSharpSha256": "5150551F29105797738EE8DD5F6EEA8ADE1C2712A526DD39D8E9653E83844A9F"
+  },
+  {
+    "Name": "erlang-etf-local-iovec",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref(),maker(42)},B=erlang:iolist_to_binary(erlang:term_to_iovec(V,[local])),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "E9DDF7836BE0406D5D612E9A76401C95281E4F3EC270D1594F83EDFD5762117D",
+    "CSharpSha256": "56D791C74226E49F0F0ABD5D01053A6792E2127D1D174D6B5168416CB9A3D0D5"
+  },
+  {
+    "Name": "erlang-etf-legacy-pid",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->A=erlang:binary_to_term(<<131,103,119,1,110,0,0,0,1,0,0,0,2,3>>),B=erlang:binary_to_term(<<131,88,119,1,110,0,0,0,1,0,0,0,2,0,0,0,3>>),A =:= B. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "7FD1FEF12DBB23BD9B925A47690B1F24043E75EE2C7C580EE136DA29BA51FF5C",
+    "CSharpSha256": "26DF75CBE3A60716AD70F53B311588C76721C5C057CBE007A9BB7BC71D80E932"
+  },
+  {
+    "Name": "erlang-etf-legacy-port",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->A=erlang:binary_to_term(<<131,102,119,1,110,0,0,0,42,3>>),B=erlang:binary_to_term(<<131,120,119,1,110,0,0,0,0,0,0,0,42,0,0,0,3>>),A =:= B. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "14ACD626ABDF0B09E7A55709A04F606FF4E82189167A9F3F84E42552CFF08DE1",
+    "CSharpSha256": "8A4A0EE29B0534018B25F76339069E2CD0E7884B0150BAB399E3D7C655E1DB84"
+  },
+  {
+    "Name": "erlang-etf-legacy-reference",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->A=erlang:binary_to_term(<<131,101,119,1,110,0,0,0,42,3>>),B=erlang:binary_to_term(<<131,90,0,3,119,1,110,0,0,0,3,0,0,0,42,0,0,0,0,0,0,0,0>>),A =:= B. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "CFB6CE28A7E1E8CA6D988632CF191F8202C615AD9AB390CC4D97610F30C20429",
+    "CSharpSha256": "7D99521D57B3450F1FFEF2F5B1B086BFACCC708C19AB2E0ADB2332ADD9AA55B1"
+  },
+  {
+    "Name": "erlang-etf-new-reference",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->A=erlang:binary_to_term(<<131,114,0,1,119,1,110,3,0,0,0,42>>),B=erlang:binary_to_term(<<131,90,0,1,119,1,110,0,0,0,3,0,0,0,42>>),A =:= B. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "1058C43072BAB9F43FC03A4BD3C3042AB489D35E6736BB9D4CCA0ECC288CFC71",
+    "CSharpSha256": "42946F8AB59A6762DA90B1EBDB1A5D227640910C6CA65CC049716848847C8A64"
+  },
+  {
+    "Name": "erlang-etf-five-word-reference",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->A=erlang:binary_to_term(<<131,90,0,5,119,1,110,0,0,0,9,255,255,255,255,0,0,0,2,0,0,0,3,0,0,0,4,0,0,0,5>>),erlang:binary_to_term(erlang:term_to_binary(A)) =:= A. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "D910023A275F68F6791D448611803F264749DE48986F3D04A8FAD43ECAFC1953",
+    "CSharpSha256": "777457803D2DE946C679734D9A3034895687EFB66B5F63A1E478CC3F6233652C"
+  },
+  {
+    "Name": "erlang-etf-safe-uncreated-external",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,113,119,6,101,114,108,97,110,103,119,6,108,101,110,103,116,104,97,253>>,[safe]) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "90B650C304318685A586FEB02288A90CB821AE62418DA627558C1EF3F7B7E4B3",
+    "CSharpSha256": "7F087BDAF04F5E2C5BE921580BA118869ED2F5F828ED7E43EEA2AEDAF7718D14"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-159",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,103,119,1,110,0,0,0,1,0,0,0,0,4>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "AEA01B4F4DF3F8D75A6C3A1A2B80F45DD2E9AF89156467E7AB24131551015F6A",
+    "CSharpSha256": "9204A966E31691A52F3224227C197547E1F4A123F0C9474DA3102E7D8923987B"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-160",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,102,119,1,110,0,0,0,1,4>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "47FDE8D63D9379F93D9831F07DA455D732341120A959933DD912009B5346FD8F",
+    "CSharpSha256": "1358F5CA54C3F137FFDE4402E1F00FD4A1B1E201503BC95C2777C42443C51DE1"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-161",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,101,119,1,110,0,4,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "4358BED5949A14E9A743E2293284E00F91DEFC85309C0C4F956F6DFA5A591ECB",
+    "CSharpSha256": "36E0F30DC1B83ABF226CFDE575AD209E38F218BE684B5F2840B2552D232C4E0E"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-162",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,90,0,0,119,1,110,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "3B560CF41C4C778683AE8C0E6AF72E08F4EF4A08CAC4A5694449CD39F1E0D5E6",
+    "CSharpSha256": "9B2EED36EB2506833652570F57F7F6EB1EA079D1B1222E558BFF1AD864F7B815"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-163",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,90,0,6,119,1,110,0,0,0,0,0:192>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "986B987D4732AE63C23C73C05855F6682CDBD5930D099552F174B1770951EA63",
+    "CSharpSha256": "7F3121B8C536AB78833E220304997A850C677B09D22EB3B962857864B4F59341"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-164",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,80,0,0,0,1,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "8E724D22953C253A34C6D0ACCE1D0E7F18460B95EEE99A83EAAD89587CF4992D",
+    "CSharpSha256": "9AD5C27033C3BDAB8018C3793993BBA5A49695C2066CE9C36C2EA71BB1F75F1F"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-165",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,113,97,1,97,2,97,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "435357EC3861444068F9A848C724BE6944A1DBE0274C1F5C691845054446BD7C",
+    "CSharpSha256": "32A68C6726F3CD65F120C6AA2EECBF54A25EA1CA30523409975F0EC67D0A74AB"
+  },
+  {
+    "Name": "erlang-etf-wire-identity-invalid-166",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,113,119,1,110,119,1,110,98,255,255,255,255>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "68480F97DBA8A529C7E37D5EC893BA1329F0ECD48E5EA3B9F5234CFBC37FA259",
+    "CSharpSha256": "6AC8D5FC4CE7C56AAC33CC6A3AF61367B6D5DD6BD834CFFD4F444A355E279BB4"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-167",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,99,49,46,50,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,1.25}",
+    "SourceSha256": "800EB200F953BBE2694874CF3BB1128A0BF57C285BF8767D56A419F49726D90C",
+    "CSharpSha256": "DCFA162A84946FC03AF7343BA5B60A54B7A9B66C4B20E84609C8EB9B12B7A11D"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-168",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,99,49,44,50,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,1.25}",
+    "SourceSha256": "674ACD083EA904FC5768E8CE4C550B2219CDEA3F440F8F1D1C0F9BD353869C85",
+    "CSharpSha256": "74F837BAFF486B064DB9CA81C31B90835A1B587FC7316343F5CC46F8E6DB4877"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-169",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,99,45,49,46,50,53,101,43,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,-125.0}",
+    "SourceSha256": "D3605470460C067880E7851C5B9880EF31CCDB4303FAC455A0078889F554503C",
+    "CSharpSha256": "8B91AE033903AE03C91F3C1253C403A659636778CDD9085ED39E58CEA68F775F"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-170",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->erlang:binary_to_term(<<131,99,49,46,50,53,0,105,103,110,111,114,101,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>). maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,1.25}",
+    "SourceSha256": "313E02CAA21E9DC005BD81EA19BD2C964562AB2C06633B55BD241DE01DEBB705",
+    "CSharpSha256": "DF08C625238D33244E31DEBB89D9ECC2D2DB6C28F9698F8E0489F80E6AC1B883"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-171",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,49,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "1AB0C9E46F4B01BE2A3167B5A462C8EE6BA6D29CA71AE815A08ED020648A0DB3",
+    "CSharpSha256": "66991FBB2FF40E4D3192E814C96D433C0DCB6AA2F02A78D1FBE76EE4983C63C9"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-172",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,49,101,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "0759E6998A09C62CF6A4AFB0189CD6A4E51609D65CF7CCEC75C186B0DF399D13",
+    "CSharpSha256": "AC31C9C13FF265966A9B763555B29FD4635629FBA4DD2EFC14C88A008913F238"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-173",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,32,49,46,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "4659F9ED5B4F2AFE72F921BD1815CDD84DA4E6FDA3F5957071559A558D819C14",
+    "CSharpSha256": "F61ADF2CBD48ED6D3551BB664D5A5D53F16C5724F0100915306397E705FF5C37"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-174",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,49,46,48,106,117,110,107,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "659B084427E177BE4D2FF783B92C89A47143F641F34BFB067464F0AFD65E3684",
+    "CSharpSha256": "981476C082D89E76120E2821713493004EB7454580E1888C0BE6DD86576C23DB"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-175",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,110,97,110,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "3B3E4D860CAD05B198FB8D04A24DB14B2019CCD7CF86466F6342225901DFF5C1",
+    "CSharpSha256": "37539523B3C4ED2131D08A49661B29CE8BE4AFFC82CD22F43A896A1DED4883A9"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-176",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,105,110,102,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "A8BB8CFFEE4E08B372F0C20A45A01DBC349D8023D9D23266C5BADC9F6B030375",
+    "CSharpSha256": "A1CD2975C92C25D3E807CB249A43E64F364409DEB34ED9AD741C8D501B6BA4B1"
+  },
+  {
+    "Name": "erlang-etf-legacy-float-invalid-177",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,99,49,46,48,101,57,57,57,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "DA26E7744E4B513955FF4E4A519C3966493FC331A2E58C6FA2C9A2316A0B00C0",
+    "CSharpSha256": "70DA9154EAC13CA540E9B2B0C2FC2B11163748717474B0009B633CCCD5649C4F"
+  },
+  {
+    "Name": "erlang-etf-truncated-new-fun",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,112>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,badarg}",
+    "SourceSha256": "72F9667BB5AF4A80DD6777D140EDB4C51F2D1A9CDDE6269AD83330AEA6CA61B5",
+    "CSharpSha256": "6260EAE3A139CEA7F7447946DED1A7E841DBB00A8B9DC1FE394ABFDE5416CEA5"
+  },
+  {
+    "Name": "erlang-etf-new-fun-size-ignored",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->F=maker(42),<<131,112,_Size:32,Rest/binary>>=erlang:term_to_binary(F),G=erlang:binary_to_term(<<131,112,0:32,Rest/binary>>),G() =:= 42. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "A3A7E6FFE144DBA867B42F51D452D4EEDC42BDAA3D6028684842001E8D9B9019",
+    "CSharpSha256": "E44A8DAEDD94EE5AA00AE441E517199A82944E90121F06028B90D5265EEA391A"
+  },
+  {
+    "Name": "erlang-etf-unloaded-new-fun",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()-><<131,P/binary>>=erlang:term_to_binary(self()),<<131,M/binary>>=erlang:term_to_binary(etf_unloaded),F=erlang:binary_to_term(<<131,112,0:32,0,0:128,17:32,1:32,M/binary,97,17,97,42,P/binary,97,99>>),{name,[]}=erlang:fun_info(F,name),{env,[99]}=erlang:fun_info(F,env),try F() of _->false catch error:undef->true end. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "C17B0BE7D91933451577A3C651B3C98842E1FB0B1229E30AC0C6FD1E3A51F25D",
+    "CSharpSha256": "621D6A8C87B766851B0F7EFFA2D1CC974F3CE9C46008CBABA6B6DBAF4B2137E9"
+  }
+]

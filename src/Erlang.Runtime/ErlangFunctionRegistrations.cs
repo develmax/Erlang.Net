@@ -30,21 +30,13 @@ internal static class ErlangFunctionRegistrations
         );
         Add(
             ErlangFunctionBifNames.Make,
-            (_, arguments) =>
+            (context, arguments) =>
         {
             if (arguments[0] is not Atom module || arguments[1] is not Atom function || arguments[2] is not Integer arity || arity.Value < 0 || arity.Value > ErlangFunctionParameters.MaximumFunctionArity)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             int count = (int)arity.Value;
             var identity = new ExternalFunctionIdentity(module, function, count);
-            var result = new FunctionTerm(
-                identity,
-                (context, values) => ((ProcessContext)context).Runtime.Modules.Call(
-                    (ProcessContext)context,
-                    module.Name,
-                    function.Name,
-                    values.ToArray()
-                )
-            );
+            var result = context.Runtime.Functions.External(context.Runtime, identity);
 
             return ValueTask.FromResult<Term>(result);
         }

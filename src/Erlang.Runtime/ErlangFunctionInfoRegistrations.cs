@@ -76,10 +76,11 @@ internal static class ErlangFunctionInfoRegistrations
             ErlangFunctionInfoNames.Environment => Cons.From(function.Environment),
             ErlangFunctionInfoNames.Arity => Term.I(function.Arity),
             ErlangFunctionInfoNames.Module => local?.Module ?? external!.Module,
-            ErlangFunctionInfoNames.Name => local?.Name ?? external!.Function,
+            ErlangFunctionInfoNames.Name => local is null ? external!.Function : (Term?)local.Name ?? Nil.Value,
             ErlangFunctionInfoNames.Pid => local is null ? undefined : context.Runtime.InitializationPid,
             ErlangFunctionInfoNames.References => local is null ? undefined : Term.I(1),
-            ErlangFunctionInfoNames.Index or ErlangFunctionInfoNames.NewIndex => local is null ? undefined : Term.I(local.Index),
+            ErlangFunctionInfoNames.Index => local is null ? undefined : Term.I(local.OldIndex),
+            ErlangFunctionInfoNames.NewIndex => local is null ? undefined : Term.I(local.Index),
             ErlangFunctionInfoNames.OldUnique => local is null ? undefined : Term.I(local.OldUnique),
             ErlangFunctionInfoNames.NewUnique => local is null ? undefined : local.Unique,
             _ => throw new ErlangException(ErlangErrorReasons.BadArgument)

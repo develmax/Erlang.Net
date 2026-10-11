@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-127/tests.json",
+  "ComparisonTestReport": "validation/part-128/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -15,7 +15,8 @@
         "privately owned exact-key Dictionary index with sorted read-only map entries",
         "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
         "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
-        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained"
+        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained",
+        "Part129: immutable1-5word references/FullId and zero-padding equality/hash;source-valid per-runtime3word reference allocation;nullable loaded fun names and separate old/new indexes"
       ],
       "Id": "Terms",
       "TestPrefixes": [
@@ -27,11 +28,13 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Serialization",
       "Remaining": [
-        "external functions and wide identities",
-        "full vectors/resource boundaries"
+        "Native record ETF67,complete export-arity/native identity/lazy-code/purge interoperability",
+        "Managed decode16MiB/depth256 policies;full binary_SUITE,scheduler/resource/error_info and native block-hash primitive proof",
+        "Local/compressed iovec flattening;no native fragmentation/allocation/performance parity claim"
       ],
       "Implemented": [
-        "common bounded ETF tags and compressed input"
+        "common bounded ETF tags and compressed input",
+        "Part129: eight Erlang ETF bindings;version-specific atom/float/list tags,compression and exact physical used count,safe atoms/export entries,local hash preflight,wide identities,real function code/environment,borrowed non-local iovec and counted external_size;3477/full local,original130 pending"
       ],
       "Id": "Serialization",
       "TestPrefixes": [
@@ -53,7 +56,8 @@
         "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
         "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
         "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
-        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked"
+        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
+        "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes"
       ],
       "Id": "Runtime",
       "TestPrefixes": [
@@ -121,7 +125,8 @@
         "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;verified against original2751/2751 and3207/full same-head CI122 at069b560;erlang188/351,total338",
         "Four local-function introspection/text MFAs with actual code/free environments/init owner; original124 complete2805/2808 exposes UTF8/status mismatch; whole erlang unfinished",
         "Source-directed UTF8 byte-list conversion125 plus local Unicode regression; init observation accepts actual starting/started lifecycle phase. Local3271/full; full original126 pending",
-        "Complete original1282822/2822 and same-head3284/full CI at7b5029c verifies58 function metadata modules plus module-name increment;whole erlang unfinished"
+        "Complete original1282822/2822 and same-head3284/full CI at7b5029c verifies58 function metadata modules plus module-name increment;whole erlang unfinished",
+        "Part129: term_to_binary1/2,term_to_iovec1/2,binary_to_term1/2,external_size1/2;registry350,erlang200/351,151 missing,181 compiled contracts and3477/full local"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [

@@ -29,4 +29,7 @@ internal static class EtfTags
     public const byte String = 107;
     public const byte Utf8Atom = 118;
     public const byte V4Port = 120;
+    public const byte Local = 121;
+    public const byte NewFunction = 112;
+    public const byte Export = 113;
 }
