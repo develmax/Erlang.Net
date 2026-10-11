@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–097.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–098.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 85 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
-| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, actions and lifecycle contracts | Partially compatible |
+| Core modules | 86 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, significant/auto_shutdown, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 85 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 86 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -582,3 +582,11 @@ Pinned check_childspecs/2 is_list accepts cons cells with improper tails, then v
 Local **1574/1574 and full pipeline**;32 significant modules, two additional improper-head/prefix regressions. [Tests](validation/part-097/tests.json), [integration](validation/part-097/integration-results.json), [matrix](validation/part-097/contract-matrix.json), [preservation](validation/part-097/corpus-audit.json). First build temporarily denied writing an MSBuild cache; retry with build-server reuse disabled passed, first log retained. Correction probe30/30 precedes the two added regressions, both pass in the full1574 harness.86 MFAs/delta0, supervisor10/23 and gen_server10/41 partial;222 namespace types/no violations. Consolidated package notices verified, draft excluded/no banners/new dependency.
 
 Plan **1380=778/523/79** against original/head CI; pending until098. Full startup malformed-tail stacks/init error frames, simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/resources/upstream suites/performance unfinished. Requested10% milestone remains active; coarse5% is not promoted. Publish this correction, complete098 proof, then apply prepared SimpleSupervisor/public query/stop implementation as099 and continue wider platform work.
+
+## Part 098 — Significant supervision verified against original OTP (2026-10-11)
+
+**Status:** selected increment and reference checks complete. Implementation **4992a985f692c45315205a76ad44ef1c65e2a01f** passes **1380/1380=778 expressions+523 compiled modules+79 diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-098/differential.json), [provenance](validation/part-098/remote-checkpoint.json), [preservation](validation/part-098/corpus-audit.json). Same-head **1574/1574 and full CI**, local part097 test names identical. Exact-source build/version/completeness/track counts/workflow/job/artifact/head verified; zero final mismatch, abort or infrastructure failure; one provisional source assertion corrected from retained096 and pinned source. All prior778/491/79 sources/expectations/generated hashes unchanged;32 new independent significant contracts match. Evidence-only part; no local full-pipeline repeat or executable delta.
+
+Verified never/any_significant/all_significant, standalone undefined versus startup policy, significant transient/temporary validation/error order, failed-start records, normal/shutdown/abnormal outcomes, last significant child, inactive ignore, manual/dynamic control and group restart boundaries.86 MFAs (+1 in part095), supervisor10/23 and gen_server10/41 partial API presence; supervisor122 related tests (+33), gen_server32.222 namespace types/no violations. [Source/reuse audit](validation/part-098/reference-audit.json), [contracts](validation/part-098/contract-matrix.json). Initial local9 fixture-only undef failures retained in part095; input helpers corrected before reference dispatch, expectations unchanged. Consolidated notices package-checked; draft uncommitted/unpublished/unpackaged, no banners/new dependency/production BEAM.
+
+Full simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/stacks/resources/upstream suites/performance unfinished. [Requested early platform milestone](TEN_PERCENT_MILESTONE.md) remains in progress toward10%; the coarse5% estimate is not promoted by test/API counts. Continue simple_one_for_one and wider collections/timers/source/application capabilities. Commit proof, then continue implementation; active0014 remains bounded and previous entries unchanged.

@@ -1,0 +1,21 @@
+{
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InitialOriginal": "Part0961377/1378 at93f9500, all29 other new significant cases match",
+  "AdditionalIndependentImproperCases": 2,
+  "HistoricalExpressions": 778,
+  "Baseline": "OTP-29.1.1",
+  "ExternalFixtureExpectedChanged": 0,
+  "License": "Consolidated notices packaged; draft excluded/no banners",
+  "Limits": "Full startup malformed-tail stack/error frames, simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/resources/performance unfinished",
+  "ProvisionalSourceAssertionsCorrected": 1,
+  "AllPriorSourcesExpectationsGeneratedHashesPreserved": true,
+  "Reuse": "Existing terms/exceptions/mailbox engine, no new dependency",
+  "Routines": [
+    "supervisor.erl check_childspecs/2 is_list guard",
+    "check_childspecs1 policy dispatch",
+    "check_startspec/4 head validation and missing improper-tail clause"
+  ],
+  "Correction": "Accept cons/nil shape before policy; do not traverse proper tail first; let function_clause escape rather than wrap error",
+  "HistoricalModules": 491,
+  "HistoricalDiagnostics": 79
+}

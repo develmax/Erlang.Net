@@ -1,0 +1,31 @@
+{
+  "Reference": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProvisionalSourceAssertionsCorrected": 1,
+  "OtherSignificantFixtureSourcesExpectedHashesPreserved": 29,
+  "AllPriorDiagnosticsPreserved": 79,
+  "SourceRoutines": "supervisor.erl check_childspecs/2 is_list guard and check_childspecs1 policy dispatch",
+  "ExternalFixtureExpectedChanged": 0,
+  "AllPriorModulesPreserved": 491,
+  "AllPriorExpressionsPreserved": 778,
+  "BeforeAfter": [
+    {
+      "After": {
+        "Name": "otp-supervisor-significant-check-invalid-policy-order",
+        "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()->process_flag(trap_exit,true),{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done. init({Flags,C}) when is_map(Flags)->{ok,{Flags,C}}; init({Mode,C})->{ok,{#{auto_shutdown=>Mode,intensity=>5},C}}. child(ignore)->ignore; child(fail)->{error,failed}; child({R,Id})->P=spawn_link(fun()->receive {finish,V}->exit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)->#{id=>Id,start=>{oracle_sig,child,[{R,Id}]},restart=>Restart,significant=>Significant}. start(Mode,C)->supervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)->case supervisor:which_children(P) of [{Id,undefined,worker,_}]->ok; _->gone(P,Id) end. wait_second(P,D)->case supervisor:which_children(P) of [{second,D,worker,_}]->ok; _->wait_second(P,D) end. wait_empty(P)->case supervisor:which_children(P) of []->ok; _->wait_empty(P) end. down(M,P,Reason)->receive {'DOWN',M,process,P,Reason}->ok after 2000->missing end. alive(P)->supervisor:count_children(P),true. stop(P)->ok=gen_server:stop(P),done.",
+        "FixtureExpected": "{ok,done}",
+        "SourceSha256": "7E18BC96F39B6C9192453632B50001C14346348E2ECB602C5AE53EE887F6D3D5",
+        "CSharpSha256": "B3D47E57FE905BB1FC9375659933E7FD88AC041E302DEA9507A5F319A89251DD"
+      },
+      "Before": {
+        "Name": "otp-supervisor-significant-check-invalid-policy-order",
+        "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()->process_flag(trap_exit,true),{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,[bad|tail]}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done. init({Flags,C}) when is_map(Flags)->{ok,{Flags,C}}; init({Mode,C})->{ok,{#{auto_shutdown=>Mode,intensity=>5},C}}. child(ignore)->ignore; child(fail)->{error,failed}; child({R,Id})->P=spawn_link(fun()->receive {finish,V}->exit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)->#{id=>Id,start=>{oracle_sig,child,[{R,Id}]},restart=>Restart,significant=>Significant}. start(Mode,C)->supervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)->case supervisor:which_children(P) of [{Id,undefined,worker,_}]->ok; _->gone(P,Id) end. wait_second(P,D)->case supervisor:which_children(P) of [{second,D,worker,_}]->ok; _->wait_second(P,D) end. wait_empty(P)->case supervisor:which_children(P) of []->ok; _->wait_empty(P) end. down(M,P,Reason)->receive {'DOWN',M,process,P,Reason}->ok after 2000->missing end. alive(P)->supervisor:count_children(P),true. stop(P)->ok=gen_server:stop(P),done.",
+        "FixtureExpected": "{ok,done}",
+        "SourceSha256": "A45DC7C8C712F98596AED64ACB73FAF3E441502CD36A7AC3D0346F833F394C22",
+        "CSharpSha256": "9A18FEC688406EF2B1C74885C08FCF016699E38EE51976D2661225417462BD38"
+      },
+      "Name": "otp-supervisor-significant-check-invalid-policy-order"
+    }
+  ],
+  "NativeEvidence": "docs/validation/part-096/differential.json",
+  "AdditionalIndependentCases": 2
+}

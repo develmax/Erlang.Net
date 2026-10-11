@@ -2,9 +2,9 @@
   "Baseline": "OTP-29.1.1",
   "VersionVerified": true,
   "Complete": true,
-  "Planned": 1348,
-  "Executed": 1348,
-  "Passed": 1348,
+  "Planned": 1380,
+  "Executed": 1380,
+  "Passed": 1380,
   "Failed": 0,
   "AbortedSource": null,
   "InfrastructureError": null,
@@ -18,9 +18,9 @@
   "CompiledModuleTrack": {
     "ReferenceMode": "compile:forms/default optimizations/code:load_binary",
     "ImplementationMode": "generated C#/Roslyn Release assembly/ModuleDefinition evaluator",
-    "Planned": 491,
-    "Executed": 491,
-    "Passed": 491,
+    "Planned": 523,
+    "Executed": 523,
+    "Passed": 523,
     "Failed": 0
   },
   "CompilerDiagnosticTrack": {
@@ -5807,6 +5807,326 @@
       "Source": "-module(oracle_life). -export([run/0,init/1,child/1]). run()-\u003ES=#{id=\u003Efirst,start=\u003E{oracle_life,child,[{stubborn,self()}]},restart=\u003Etransient,shutdown=\u003Einfinity},{ok,P}=supervisor:start_link(oracle_life,[S]),[{first,C,worker,_}]=supervisor:which_children(P),K=make_ref(),P!{\u0027$gen_call\u0027,{self(),K},{terminate_child,first}},receive {shutdown_started,C}-\u003Eok after 1000-\u003Emissing end,Q=make_ref(),P!{\u0027$gen_call\u0027,{self(),Q},which_children},C!finish,receive {K,ok}-\u003Eok after 1000-\u003Emissing end,receive {Q,[{first,undefined,worker,_}]}-\u003Eok after 1000-\u003Emissing end,ok=gen_server:stop(P),done. init(C)-\u003E{ok,{#{intensity=\u003E4},C}}. child(ignore)-\u003Eignore; child({existing,P})-\u003E{ok,P}; child({extra,P})-\u003E{ok,P,extra}; child(dead)-\u003E{P,M}=spawn_monitor(fun()-\u003Eok end),receive {\u0027DOWN\u0027,M,process,P,normal}-\u003E{ok,P} end; child(linked_dead)-\u003E{P,M}=spawn_monitor(fun()-\u003Ereceive finish-\u003Eok end end),link(P),P!finish,receive {\u0027DOWN\u0027,M,process,P,normal}-\u003Ereceive E={\u0027EXIT\u0027,P,normal}-\u003Eself()!E,{ok,P} end end; child(unlinked)-\u003E{ok,spawn(fun()-\u003Ereceive {ping,Q}-\u003EQ!pong,receive finish-\u003Eok end; finish-\u003Eok end end)}; child(detached)-\u003ES=self(),P=spawn_link(fun()-\u003Eunlink(S),S!{ready,self()},receive finish-\u003Eok end end),receive {ready,P}-\u003E{ok,P} end; child({stubborn,Parent})-\u003ES=self(),P=spawn_link(fun()-\u003Eprocess_flag(trap_exit,true),S!{ready,self()},receive {\u0027EXIT\u0027,S,shutdown}-\u003EParent!{shutdown_started,self()},receive finish-\u003Eok end end end),receive {ready,P}-\u003E{ok,P} end; child({manual,D})-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),ignore; _-\u003E{ok,D,extra} end; child({automatic,Parent,D})-\u003Ecase get(attempt) of undefined-\u003Eput(attempt,1),P=spawn_link(fun()-\u003Ereceive finish-\u003Eok end end),Parent!{started,P},{ok,P}; _-\u003EParent!{returned,D},{ok,D,extra} end; child({shared,Parent})-\u003EN=case get(count) of undefined-\u003E1; V-\u003EV\u002B1 end,put(count,N),P=case get(shared) of undefined-\u003EC=spawn_link(fun()-\u003Ereceive finish-\u003Eok end end),put(shared,C),C; C-\u003EC end,Parent!{started,N},{ok,P}.",
       "SourceSha256": "BF1CF6D321CB02EC4F976A8482A3099D1162E26924EE1B859D226BA95AFAF001",
       "CSharpSha256": "45387886C00D69D4F2DC029FDA363D29D132BDEB8ED80269A461B530A5260BE7",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-policy",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),transient,true),ok=supervisor:check_childspecs([S]),ok=supervisor:check_childspecs([S],undefined),ok=supervisor:check_childspecs([S],any_significant),ok=supervisor:check_childspecs([S],all_significant),{error,{bad_combination,[{auto_shutdown,never},{significant,true}]}}=supervisor:check_childspecs([S],never),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "F56D354EFDD063C100B8B3253716330230EEF5296CB435F312A6E1D7773CE035",
+      "CSharpSha256": "81EB6B76EE03BEDF0DFC2D751CAB82EEE3934579346819115A2EDE8296E251E3",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-permanent",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),permanent,true),{error,{bad_combination,[{restart,permanent},{significant,true}]}}=supervisor:check_childspecs([S]),{error,{bad_combination,[{restart,permanent},{significant,true}]}}=supervisor:check_childspecs([S],any_significant),{error,{bad_combination,[{auto_shutdown,never},{significant,true}]}}=supervisor:check_childspecs([S],never),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "065DA4BA55418955E9B27A6FD83942B94E40CE326A0B3636880C98C1BEDC8ECB",
+      "CSharpSha256": "FE2F7E5DF5B0951304CC05FB89EF24F176DCD122C45579C31C1672C5881C6173",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-invalid-boolean",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),temporary,wrong),{error,{invalid_significant,wrong}}=supervisor:check_childspecs([S],any_significant),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "7C6F9C9FC87B7D51DA116BBCE46F00F400CC81ED1D15DF8F6E33581E86527388",
+      "CSharpSha256": "5BBA6F2E269D7A57CCFEAC996F8AC4612501D92A6AA13A7F65432A17B76F4A66",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-invalid-policy-order",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "7E18BC96F39B6C9192453632B50001C14346348E2ECB602C5AE53EE887F6D3D5",
+      "CSharpSha256": "B3D47E57FE905BB1FC9375659933E7FD88AC041E302DEA9507A5F319A89251DD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-empty-and-legacy",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),ok=supervisor:check_childspecs([],all_significant),ok=supervisor:check_childspecs([{first,{oracle_sig,child,[ignore]},permanent,5000,worker,[oracle_sig]}],any_significant),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "FDC6184C39C53F4ACC9E05F8BA3DB5A2E1D6ADFE53908F2F51863AAD921DC7DE",
+      "CSharpSha256": "6594DAD90063BA62A63CBBC9DD24338EBBC18550CCF8B3CDF10DEF01624B5C03",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-startup-never-error",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),transient,true),{error,{start_spec,{bad_combination,[{auto_shutdown,never},{significant,true}]}}}=start(never,[S]),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "7296DE221390CC2DBD1F9C0ACFC41C07B6DC3CB70331549D02D07A973FFE50FE",
+      "CSharpSha256": "06D10C1B4CB3A2924513318B63B1C44A2D2F13A30E5A8D6ED66E0272033AC72F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-startup-permanent-error",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),permanent,true),{error,{start_spec,{bad_combination,[{restart,permanent},{significant,true}]}}}=start(any_significant,[S]),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "55DE5817A85D61EA7C831BBA95E01AF6FD5908DE141651920AFB28B24D2DDA35",
+      "CSharpSha256": "0B7446FA6C09116CD421B0611AA4E3C33098EF6D6EA0B210E10B690E9F929255",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-startup-invalid-policy",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{error,{supervisor_data,{invalid_auto_shutdown,wrong}}}=start(wrong,[]),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "44EA3E6FF29F87194A43CADD9BFD613BE3106CB94A1A6272E5B9296BA29DE714",
+      "CSharpSha256": "AB73E3E59D33722CAEBA094CC47D082DC5D3B0128A95ED1D16A0FF4CBADA0BC5",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-startup-empty-any",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{ok,P}=start(any_significant,[]),[]=supervisor:which_children(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "B0E925417C5A8AB1B1F9FE0D4FC9B6AEAF40D93C02F36E1AFE9AC758E0D929D9",
+      "CSharpSha256": "B2E7AC1DB0773CACC6CD0301602E9E0A0C1538E93389DFB838BF317776FBD3FD",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-startup-empty-all",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{ok,P}=start(all_significant,[]),[]=supervisor:which_children(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "CA395A481127C6E089488CE65A7EAD67B4180D765C5C08A859F924993434A2D2",
+      "CSharpSha256": "02C73026E395DC9BD149CA31F840D23EA87D2C5235E47F644E9B903A2C1CB371",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-any-transient-normal",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),T=spec(other,R,permanent,false),{ok,P}=start(any_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,normal},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "F0002BD62A24D0E28E90D3696AC8AE62F8E4C2013E926AF3544FFC50ED088C4F",
+      "CSharpSha256": "69530D4F1D5120F5EE672C69E6D82E2464E78C9501347AE49C6FCACDF38E925B",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-any-transient-shutdown",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),T=spec(other,R,permanent,false),{ok,P}=start(any_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,shutdown},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "6F076468BA7A635CB68867EAA8B80C1B96750F15910D3DDD4516517204D8D283",
+      "CSharpSha256": "ED441B7BBD754E7A7327BDD3F12267F8446F0A2CBFD48087EBE7CF64EA6B7E16",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-any-transient-shutdown-tuple",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),T=spec(other,R,permanent,false),{ok,P}=start(any_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,{shutdown,detail}},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "1ECA9FC0E9EF55A88D43ED45B87A94DAA1768042B35FA51A434B0C5BDD40AECF",
+      "CSharpSha256": "082CE004CCE1E16D7CB2EDA2C5C148EDB66E05827F81EF7E1A5D938D22D36C61",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-any-temporary-normal",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,temporary,true),T=spec(other,R,permanent,false),{ok,P}=start(any_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,normal},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "413BCD352BC2484CCD8D538EA2E2AB490975BEACC2C24EBFCAA54CB179F555FB",
+      "CSharpSha256": "7A548BC97DF436EE16D9E9FFF9DE1104FC73E2BF54DD985341F9C1CB9FD31D9F",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-any-temporary-abnormal",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,temporary,true),T=spec(other,R,permanent,false),{ok,P}=start(any_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,failed},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "C791820CB6DDA6336DEB4DDE4F3C071A24B8A7FD0F8472F3CE1CB22FCD1571C3",
+      "CSharpSha256": "23BFA3F212E7A3BFE520A0D97C4ED65B97A91743F14F194BEA78A37D3F3605C9",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-all-last-transient",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),T=spec(other,R,permanent,false),{ok,P}=start(all_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,normal},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "A670E1B2520D3D838042C85F33D3DBD90924E2B35DCD3F607F706A5FED113DDD",
+      "CSharpSha256": "D52962EFA4255771A2AEAA6C88DA5A50EC00DC4A037224F7058C254B26D4D8F0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-all-last-temporary",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,temporary,true),T=spec(other,R,permanent,false),{ok,P}=start(all_significant,[S,T]),receive {started,first,C}-\u003Eok end,receive {started,other,D}-\u003Eok end,M=monitor(process,P),N=monitor(process,D),C!{finish,failed},ok=down(M,P,shutdown),ok=down(N,D,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "6D817C519A6E6AD035F477511789E4A27C8BEF4CB953A354A364639DDE9267D5",
+      "CSharpSha256": "538383683C70E38AE05E7A8E4B5D66DD25A20C51A8772C17A4B381EBDB5F9DF3",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-all-waits-for-last",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),A=spec(first,R,temporary,true),B=spec(second,R,transient,true),{ok,P}=start(all_significant,[A,B]),receive {started,first,C}-\u003Eok end,receive {started,second,D}-\u003Eok end,M=monitor(process,P),C!{finish,normal},wait_second(P,D),true=alive(P),D!{finish,shutdown},ok=down(M,P,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "FD83FAAE46A32F0ED230B7D9192F5B2C08CDBB18153DF8E1D76096D2A37073A5",
+      "CSharpSha256": "638FDC8630119CE4553B12E0EDE8FC3E86102608B7611948AE2F47719EB0EE98",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-transient-abnormal-restarts",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),{ok,P}=start(any_significant,[S]),receive {started,first,C}-\u003Eok end,C!{finish,failed},receive {started,first,D}-\u003Etrue=C=/=D end,[{first,D,worker,_}]=supervisor:which_children(P),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "F9D4D3EE849861903DAC0511919F770879F0D042F586C5D972B7CB966E85384F",
+      "CSharpSha256": "2AA4D1F4CAEE93A205B2F4442941A77D5EF76D16F72EC2E5D8C16C4B9D9C4B32",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-non-significant-normal",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,false),{ok,P}=start(any_significant,[S]),receive {started,first,C}-\u003Eok end,C!{finish,normal},ok=gone(P,first),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "593FAC6F0C52918F3DDDF56C09F0186EE25C287FF847D7900FC8C123D605BDF6",
+      "CSharpSha256": "2B4FD0CD1337E20AF37B3F84BFC35DA8710F55625DC9A9EF7FD2C1BB55A6E9A7",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-non-significant-temporary",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,temporary,false),{ok,P}=start(all_significant,[S]),receive {started,first,C}-\u003Eok end,C!{finish,failed},wait_empty(P),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "23F004AF69D90DA9C4EE8BC40BBE0641796B142488CE1643CB1FB326B2EBF085",
+      "CSharpSha256": "E08F496CB306F122C51E6CFD424A6996FEC03BC77C30743E169259D6A40559B0",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-manual-terminate-keeps-supervisor",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,transient,true),{ok,P}=start(any_significant,[S]),receive {started,first,_}-\u003Eok end,ok=supervisor:terminate_child(P,first),ok=gone(P,first),true=alive(P),{ok,D}=supervisor:restart_child(P,first),receive {started,first,D}-\u003Eok end,M=monitor(process,P),D!{finish,normal},ok=down(M,P,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "4B9AA98EFFBDD72DDE96FA84BE81C40C646859C8CD10BF1307D1DAFEB1F41761",
+      "CSharpSha256": "7F132DB91697F3B5F87C6A36348BAD360B3B3CA5E0E4C09C90C4F31EE0298B60",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-manual-delete-keeps-supervisor",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),S=spec(first,R,temporary,true),{ok,P}=start(all_significant,[S]),receive {started,first,_}-\u003Eok end,ok=supervisor:terminate_child(P,first),[]=supervisor:which_children(P),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "E5487FE5DC02045929586CA5FAD21F5F57D7CCD40E9C86E5DBBBD643F4325B1C",
+      "CSharpSha256": "27143184C0BE095E2E0638A47CF9C721CC34466629CDE8D85E3EF708B80349B6",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-dynamic-significant-child",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),{ok,P}=start(any_significant,[]),S=spec(first,R,temporary,true),{ok,C}=supervisor:start_child(P,S),receive {started,first,C}-\u003Eok end,M=monitor(process,P),C!{finish,normal},ok=down(M,P,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "99ACF33C2BA36E0B7F359C7EB055C1F16F14067DAEF04463350AFFA84593D102",
+      "CSharpSha256": "BE90CFF405B06BE8639210389460AFEA9CE165246A50FFC3DAC0704C7F6DCD0D",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-dynamic-significant-invalid",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),{ok,P}=start(never,[]),S=spec(first,R,transient,true),{error,{bad_combination,[{auto_shutdown,never},{significant,true}]}}=supervisor:start_child(P,S),[]=supervisor:which_children(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "BCEA7B2DB6E6472D481188797B2CA21E6476A2B6AD837352B789DC6EF4CF1D30",
+      "CSharpSha256": "2654495248D3A930C27906D95AB3F31FC03C397C37602526CB660593EE1D9040",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-ignored-startup",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=#{id=\u003Efirst,start=\u003E{oracle_sig,child,[ignore]},restart=\u003Etemporary,significant=\u003Etrue},{ok,P}=start(any_significant,[S]),[]=supervisor:which_children(P),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "1A22AA6C4F8FB5F4C37830D1AD548BEFC9A5A7A9BE84A83DFCECD8279CD3E6B1",
+      "CSharpSha256": "CF64726DE9292ACB8AA9CD7C798AB4A31F883A706CABB20E791D122B80F4C5A3",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-ignored-dynamic",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=#{id=\u003Efirst,start=\u003E{oracle_sig,child,[ignore]},restart=\u003Etransient,significant=\u003Etrue},{ok,P}=start(all_significant,[]),{ok,undefined}=supervisor:start_child(P,S),[{first,undefined,worker,_}]=supervisor:which_children(P),true=alive(P),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "4D322BCD63244E8F4A270EB04CA2B797FF67C4F52B75CFB55E06E008FFD444C7",
+      "CSharpSha256": "9902C929CDEC414957564E6C94C9D075A75018D0A2211A87BF61DE144FC72B26",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-inactive-significant-not-counted",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),A=spec(first,R,transient,true),B=#{id=\u003Eignored,start=\u003E{oracle_sig,child,[ignore]},restart=\u003Etransient,significant=\u003Etrue},{ok,P}=start(all_significant,[A,B]),receive {started,first,C}-\u003Eok end,M=monitor(process,P),C!{finish,normal},ok=down(M,P,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "71068D4128777C2966131B6D60A179B51AA3DBD16DA3354FA315BD2D549D179B",
+      "CSharpSha256": "0E25A66A3A5C26D4FBCA79D367F8391ABCE41C92254443928B01B5F1E4112419",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-failed-dynamic-record",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{ok,P}=start(any_significant,[]),S=#{id=\u003Efirst,start=\u003E{oracle_sig,child,[fail]},restart=\u003Etransient,significant=\u003Etrue},{error,{failed,{child,undefined,first,{oracle_sig,child,[fail]},transient,true,5000,worker,[oracle_sig]}}}=supervisor:start_child(P,S),stop(P). init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "6C74F8540BD6AFB9ECC1D0253E6E83D8CE07217CAA322099A377FF15F8234A24",
+      "CSharpSha256": "CCE72387743332EC553E413ED08B45CE7A43D6E0F101D0BC60827324CF032B38",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-improper-invalid-head",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),{error,{invalid_child_spec,bad}}=supervisor:check_childspecs([bad|tail],any_significant),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "9A1F2F22AEE8CD9B08F5D7818540F11B3E1BAEC35FE589E3186F9D7CCC870A87",
+      "CSharpSha256": "630789F06734D500644AE0D4C93A99B1E9FE12CCA62647214A3AABECDEEDCD83",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-check-improper-valid-prefix",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),S=spec(first,self(),temporary,false),done=try supervisor:check_childspecs([S|tail],any_significant) catch error:function_clause-\u003Edone end,done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "97753B646F98680EDDFD2641E909CACFFC5F8F6EC2B7AA4FB50A1F95126FA869",
+      "CSharpSha256": "8DE43B9DC330E529251FB35B0C42F42EEEC73DFF5B7508A4CC14A9F7B5E9F44B",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "Passed": true
+    },
+    {
+      "Name": "otp-supervisor-significant-group-restart-no-auto-shutdown",
+      "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()-\u003Eprocess_flag(trap_exit,true),R=self(),A=spec(first,R,permanent,false),B=spec(second,R,transient,true),{ok,P}=start(#{strategy=\u003Eone_for_all,auto_shutdown=\u003Eany_significant,intensity=\u003E5},[A,B]),receive {started,first,C}-\u003Eok end,receive {started,second,_}-\u003Eok end,C!{finish,failed},receive {started,first,_}-\u003Eok end,receive {started,second,D}-\u003Eok end,true=alive(P),M=monitor(process,P),D!{finish,normal},ok=down(M,P,shutdown),done. init({Flags,C}) when is_map(Flags)-\u003E{ok,{Flags,C}}; init({Mode,C})-\u003E{ok,{#{auto_shutdown=\u003EMode,intensity=\u003E5},C}}. child(ignore)-\u003Eignore; child(fail)-\u003E{error,failed}; child({R,Id})-\u003EP=spawn_link(fun()-\u003Ereceive {finish,V}-\u003Eexit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)-\u003E#{id=\u003EId,start=\u003E{oracle_sig,child,[{R,Id}]},restart=\u003ERestart,significant=\u003ESignificant}. start(Mode,C)-\u003Esupervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)-\u003Ecase supervisor:which_children(P) of [{Id,undefined,worker,_}]-\u003Eok; _-\u003Egone(P,Id) end. wait_second(P,D)-\u003Ecase supervisor:which_children(P) of [{second,D,worker,_}]-\u003Eok; _-\u003Ewait_second(P,D) end. wait_empty(P)-\u003Ecase supervisor:which_children(P) of []-\u003Eok; _-\u003Ewait_empty(P) end. down(M,P,Reason)-\u003Ereceive {\u0027DOWN\u0027,M,process,P,Reason}-\u003Eok after 2000-\u003Emissing end. alive(P)-\u003Esupervisor:count_children(P),true. stop(P)-\u003Eok=gen_server:stop(P),done.",
+      "SourceSha256": "E50DA9E530B3581B05F2FDF72C0DB2ABDBD69BD422842644FA26CDA0C63CD3E5",
+      "CSharpSha256": "EDA863504CB9494ACE0498386C64073BEE11088B4F7506D488CFB2589BAD3975",
       "Expected": "{ok,done}",
       "FixtureExpected": "{ok,done}",
       "Actual": "{ok,done}",
