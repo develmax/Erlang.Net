@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "erlang-etf-wire-identity-invalid-162",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,90,0,0,119,1,110,0,0,0,0>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "SourceSha256": "3B560CF41C4C778683AE8C0E6AF72E08F4EF4A08CAC4A5694449CD39F1E0D5E6",
+    "CSharpSha256": "9B2EED36EB2506833652570F57F7F6EB1EA079D1B1222E558BFF1AD864F7B815",
+    "Expected": "{ok,unexpected}",
+    "FixtureExpected": "{ok,badarg}",
+    "Actual": "{ok,badarg}",
+    "Passed": false
+  }
+]

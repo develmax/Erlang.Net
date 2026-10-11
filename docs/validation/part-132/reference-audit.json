@@ -1,0 +1,30 @@
+{
+  "ManagedPlan": 3005,
+  "NativeStatus": "Pending132",
+  "ErlangPresent": 200,
+  "ComparablePlan": 3000,
+  "Sources": [
+    {
+      "BlobSHA1": "c8bdbded993970b0675dfdf0063e5757744f197e",
+      "Path": "erts/emulator/beam/external.c"
+    },
+    {
+      "BlobSHA1": "5e16345963efff5dca845de0474b65e95944f4e4",
+      "Path": "erts/emulator/beam/big.c"
+    }
+  ],
+  "Reuse": "Existing BigInteger/reader;no new dependency. Consolidated Ericsson big.c Apache credit;exact two notices in both locally rebuilt packages, consumer and installed CLI/readiness rechecked after notice change.",
+  "LocalTests": 3479,
+  "PriorCompleteOriginal": "1282822/2822",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Missing": 151,
+  "Registry": 350,
+  "Observed": "Part130 native local closures badarg;root external local function exit134/buffer overflow5;additional compressed external and local-iovec excluded conservatively from same source path",
+  "NewExports": 0,
+  "SignSource": "external.c4460-4488 big_loop reads full unsigned sign;big.c3424 bytes_to_big uses if(xsgn) for all nonzero values",
+  "Policy": "Do not reproduce native corruption. Keep one outer LOCAL header, actual functioning managed code and all five managed roundtrip tests. Complete comparable corpus does not imply complete reference coverage/equivalence.",
+  "Baseline": "OTP-29.1.1",
+  "LocalFunctionDefectSource": "external.c3305 recursive enc_term_int LOCAL header;3987-3988 legacy function metadata and4000 external arity recursively call enc_term;5879+ size estimator uses encode_small_size without recursive LOCAL header bytes",
+  "Declared": 351,
+  "ExplicitExclusions": 5
+}

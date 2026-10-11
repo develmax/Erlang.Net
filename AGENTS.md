@@ -459,3 +459,7 @@ Part130: original at3d0b18e**2867/2870 executed pass,complete=false**,three new 
 ## Part131 checkpoint
 
 Part131: ETF nonzero-sign normalization,one new-only expectation correction,two sign fixtures and five transparent original-defect exclusions retaining managed tests. **3479/full local**,managed plan3005/comparable3000 plus5 exclusions. [Audit](validation/part-131/reference-audit.json). All128778/1951/93 preserved;all129 sources/hashes unchanged. Registry350,erlang200/351,151missing. Publish/freeze/original132 and same-head CI pending;latest complete original1282822/2822. Whole goal continues;0019 bounded,closed0018/sibling/license draft preserved.
+
+## Part132 checkpoint
+
+Part132: complete comparable original3000 executes **2999 pass/one unsafe zero-word-reference admission mismatch**,five explicit local-function exclusions;all128778/1951/93 preserved. **3479/full same-head CI** at20332dc. [Proof](validation/part-132/remote-checkpoint.json). Registry350,erlang200/351,151missing. Publish evidence,retain managed badarg against native out-of-packet first-word read,add exact exclusion/permanent guard,integrate hash draft and repeat original. Latest completely successful original1282822/2822;whole goal continues.0019 active,closed0018/sibling/draft unchanged.
