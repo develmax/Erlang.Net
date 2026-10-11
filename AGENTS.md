@@ -372,3 +372,6 @@ Local1774/full,129MFAs (+39); maps29/34/lists31/91/erlang44/351/super14/23/gen10
 
 ## Part 104 checkpoint
 Implementation d713491 verifies1536/1536=778/674/84 and 1774/full same-headCI; prior778/558/79 preserved,116 new modules/five diagnostics/one documented provisional correction.129MFAs; maps 29/34/lists 31/91/erlang 44/351/super14/23/gen10/41 partial API presence.249types/no violations. Five early platform packages complete; overall approximately 10% coarse engineering estimate, no full OTP/performance claim. Next source/library/timer/OTP/runtime gaps.0015 active,0014 closed; draft license excluded. Publish proof and report milestone.
+
+## Part 105 checkpoint
+Maps export surface is complete 34/34; five new MFAs, 134 total. New 85 independent source modules pass locally; 1864/full pipeline, 250 types/no violations; all prior 778/674/84 sources/expectations/generated hashes retained. Publish105, run pinned1621=778/759/84 and same-head1864/full CI; preserve106. No new expectation corrections or SSA workarounds; historical two explicit no_ssa_opt sources unchanged. maps internal HAMT/opaque layout/stacks/error_info/resources/full CT/BEAM speed not claimed. Active0015, closed journals and sibling unchanged; draft license excluded.

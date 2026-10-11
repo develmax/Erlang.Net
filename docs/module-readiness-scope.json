@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-099/tests.json",
+  "ComparisonTestReport": "validation/part-103/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -104,14 +104,16 @@
         "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators",
         "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
         "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations",
-        "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial"
+        "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
+        "Complete maps exported surface34/34: intersect/intersect_with/merge_with and groups_from_list/2,3; smaller-map combiner orientation, right-to-left grouping callbacks, iterator to_list and source error precedence"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [
         "mfa/",
         "lists/",
         "oracle/compiled-module/maps-operations-",
-        "oracle/compiled-module/lists-functional-"
+        "oracle/compiled-module/lists-functional-",
+        "oracle/compiled-module/maps-completion-"
       ]
     },
     {

@@ -1,0 +1,26 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "MapsSource": "lib/stdlib/src/maps.erl",
+  "MapsSourceBlob": "30ff7fb7677a8fbd5cace5bf783286df7e186931",
+  "Inspected": [
+    "intersect/2",
+    "intersect_with/3",
+    "merge_with/3",
+    "groups_from_list/2,3",
+    "to_list/1",
+    "error_type_merge_intersect",
+    "maps_SUITE combiner, grouping, iterator numeric rank, consistency and badarg contracts"
+  ],
+  "Reuse": "Existing exact-key MapTerm index/immutable sorted entries, FunctionTerm, Cons, MapIteration and BCL Dictionary builder; no new dependency",
+  "NewMfas": 5,
+  "MapRegisteredMfas": 34,
+  "NewIndependentModules": 85,
+  "NewCasesNativeOptimization": "Default for all85; two historical explicit no_ssa_opt sources unchanged",
+  "HistoricalPreserved": "778 expressions/674 module sources, independent expected values and generated hashes/84 diagnostics",
+  "NewExpectationsCorrected": 0,
+  "LocalPassed": 1864,
+  "Original": "Pending106",
+  "License": "Consolidated Ericsson Apache notices retained; no banners; draft uncommitted/unpublished/unpackaged",
+  "Limits": "Public exported API complete; no full upstream Common Test infrastructure, native HAMT iterator identity/internal layout, stacks/error_info/resource/yield thresholds or BEAM performance parity claim"
+}

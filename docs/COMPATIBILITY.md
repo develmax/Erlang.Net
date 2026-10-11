@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **1774/1774 tests**, 129 registered-MFA contracts and full integration. [Local tests](validation/part-103/tests.json), [integration](validation/part-103/integration-results.json). Same-head 1774/full CI verified: [provenance](validation/part-104/remote-checkpoint.json).
+Current local evidence is **1864/1864 tests**, 134 direct registered-MFA contracts and full integration. [Local tests](validation/part-105/tests.json), [integration](validation/part-105/integration-results.json). Same-head CI/new 1621 original comparison pending106; latest verified original1536 and1774/full CI remains part104 atd713491.
 
 Latest exact-source oracle evidence: **1536/1536 = 778 expressions + 674 modules + 84 diagnostics** at **d713491**, zero runtime differences; one provisional record expectation correction retained in part 102. [Provenance](validation/part-104/remote-checkpoint.json). Full modules remain partial; API presence is separate from semantics.
 
@@ -596,7 +596,7 @@ All prior **778 expressions / 558 modules / 79 diagnostics** preserve sources, i
 
 Map callbacks preserve error precedence, exact keys and ordered iterator behavior; default traversal remains unspecified. Lists preserve initial versus recursive errors, left/right evaluation order and short circuit. Timers survive creator death, cancel for dead PID recipients, resolve names at delivery and do not flush delivered messages. Record update values precede base evaluation; strict record guard checks respect boolean operand boundaries. These are selected partial contracts, not full-module completion or a performance comparison. Typed/native/imported records, macros/includes, full lint/spans/stacks/resources, timer options/absolute epochs/ranges/races, sys/upgrades/distribution and full upstream suites remain unfinished.
 
-The requested approximately10% early platform milestone has all planned capability packages locally delivered. Keep that target pending until the new original and same-head checks are complete; do not derive the percentage from test/API counts. Continue exact-source verification and preserve part102, fixing any mismatch against pinned source without weakening independent expectations.
+The requested approximately 10% early platform milestone has all planned capability packages locally delivered. Keep that target pending until the new original and same-head checks are complete; do not derive the percentage from test/API counts. Continue exact-source verification and preserve part102, fixing any mismatch against pinned source without weakening independent expectations.
 
 ## Part 104 — Early functional platform milestone verified (2026-10-11)
 
@@ -607,3 +607,29 @@ The five planned capability packages are delivered and independently checked: or
 **129 directly tested registered MFAs**: maps 29/34, lists 31/91, erlang 44/351, supervisor 14/23, gen_server 10/41; these are partial API-presence counts, not semantic completion percentages. **249 namespace types/no violations.** [Module readiness](MODULE_READINESS.md), [source/reuse audit](validation/part-104/reference-audit.json), [new contracts](validation/part-104/contract-matrix.json). Initial draft failures remain immutable part 101 history; the complete 1533/1536 original failure report is retained in part 102. One provisional record expectation was corrected and two newly introduced map sources explicitly disable SSA optimization; earlier corpus expectations remain unchanged. Evidence-only part 104 reruns no local full pipeline and changes no executable code. Exact consolidated notices were verified in both local packages; no new dependency, production BEAM or source license banners. LICENSE.local.txt remains excluded/uncommitted/unpublished/unpackaged.
 
 The full work.md assignment and all OTP modules remain unfinished. Next scope includes typed/native/imported records and macros/includes, full diagnostic spans/lint/warnings, timer options/absolute epochs/ranges, remaining standard library/OTP services, distribution/ETS/ports, sys/proc_lib/upgrades, optimizer/debugger/resource/signal/clock races and full upstream suites. Relative speed versus BEAM is unmeasured; no faster-than-OTP claim. Continue subsequent increments from these verified sources and preserve the independent corpus.
+
+## Part 105 — 2026-10-11 — Complete registered maps API and iterator list conversion
+
+**Part status:** implementation complete; independent OTP/same-head CI verification pending 106. **Objective:** implement the five remaining pinned maps exports and audit public functional contracts beyond API presence.
+
+### Changes and decisions
+
+- Add intersect/2, intersect_with/3, merge_with/3, groups_from_list/2,3: maps 29/34 becomes 34/34, total 129 MFAs becomes 134. Use smaller-map traversal with original left/right callback orientation, callback-arity-before-badmap validation and immutable exact-key results. Reuse dictionary builders and create/sort the final MapTerm once rather than reconstructing a map per entry; no performance superiority claim.
+- Grouping validates the complete proper list before invoking callbacks, then invokes key/value callbacks right-to-left, key before value, while retaining original order within result groups. Callback throw/exit/error propagates unchanged. Existing to_list/1 now accepts iterators and none, preserves ordered/reversed/custom traversal and wraps malformed continuation errors as badmap with the original argument.
+- Source audit before implementation: pinned maps.erl and maps_SUITE combiners/grouping/iterator/ordering/errors; reuse existing MapTerm, FunctionTerm, Cons, MapIteration and BCL Dictionary. No new dependency or production BEAM. Applicable consolidated Ericsson Apache notices remain exact in both packages; no source license banners; LICENSE.local.txt remains excluded/uncommitted/unpublished/unpackaged. [Source/reuse audit](validation/part-105/reference-audit.json).
+- Add 85 independent compiled modules: all five API contracts, both size orientations, exact numeric/composite keys, zero calls for disjoint/empty maps, callback class/reason and side effects, proper-list validation, numeric key rank, iterator conversion/invalid continuations, 256-element iteration consistency and grouped data, 128/192-key combiners and errors of existing API. All 85 use default native optimization; the two historical no_ssa_opt sources are untouched. All prior 778/674/84 sources, expectations and generated hashes remain unchanged; no new expectation correction. [Corpus](validation/part-105/corpus-audit.json), [contracts](validation/part-105/contract-matrix.json).
+
+### Validation
+
+| Check | Command/report | Result |
+| --- | --- | --- |
+| Build/layout | dotnet build -m:1 --disable-build-servers; Erlang.Style --write and full --check | Passed;250 namespace types/no filename or multiple-type violations |
+| New compiled source cases | maps105-probe; [report](validation/part-105/maps-probe.log) | 85/85 |
+| Historical preservation | refactor-audit; [report](validation/part-105/corpus-audit.json) | All 778/674/84 preserved |
+| Full product validation | pwsh -File tools/validate.ps1; [tests](validation/part-105/tests.json), [integration](validation/part-105/integration-results.json), [log](validation/part-105/validation.log) | 1864/1864; 134 direct-MFA contracts; hybrid, negative preprocessing/oracle, incremental/clean/package consumer/local CLI/readiness passed |
+| Package notices | package-notice-audit -Part105; [report](validation/part-105/package-notices.json) | Two packages exact; draft excluded |
+| Original and remote CI | Pinned comparison 1621=778 expressions/759 compiled modules/84 diagnostics | Pending new implementation head; historical 1536/1774 proof remains part104 at d713491 |
+
+### Scope and handoff
+
+All 34 exports are registered and directly tested; this is completed public API presence, not proof of native HAMT layout, stack/error_info/resource/reduction limits or full Common Test/performance parity. Those remain explicit runtime/compiler boundaries. Overall approximately 10% engineering estimate stays unchanged. Publish the validated implementation, compare the complete corpus and same-head 1864/full CI, then preserve independent proof in106 before declaring original validation complete. Detailed journal stays in active 0015; closed volumes and reference checkout untouched.

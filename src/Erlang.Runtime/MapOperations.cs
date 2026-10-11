@@ -2,6 +2,83 @@ namespace Erlang;
 
 public static class MapOperations
 {
+    public static MapTerm Intersect(Term left, Term right)
+    {
+        var first = RequireMap(left);
+        var second = RequireMap(right);
+        var smaller = first.Entries.Count <= second.Entries.Count ? first : second;
+        var entries = new List<KeyValuePair<Term, Term>>();
+        foreach (var entry in smaller.Entries)
+            if (first.TryGet(entry.Key, out _) && second.TryGet(entry.Key, out var value))
+                entries.Add(new(entry.Key, value!));
+
+        return new MapTerm(entries);
+    }
+
+    public static async ValueTask<Term> Combine(
+        ProcessContext context,
+        Term function,
+        Term left,
+        Term right,
+        bool intersection
+    )
+    {
+        if (function is not FunctionTerm { Arity: 3 } callback)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        var first = RequireMap(left);
+        var second = RequireMap(right);
+        bool traverseFirst = intersection ? first.Entries.Count <= second.Entries.Count : first.Entries.Count < second.Entries.Count;
+        var smaller = traverseFirst ? first : second;
+        var larger = traverseFirst ? second : first;
+        var output = intersection ? new Dictionary<Term, Term>() : larger.Entries.ToDictionary(entry => entry.Key, entry => entry.Value);
+        foreach (var entry in smaller.Entries)
+        {
+            await context.ReduceAsync();
+            if (larger.TryGet(entry.Key, out var other))
+                output[entry.Key] = await callback.Invoke(context, new[] { entry.Key, traverseFirst ? entry.Value : other!, traverseFirst ? other! : entry.Value });
+            else if (!intersection)
+                output[entry.Key] = entry.Value;
+        }
+
+        return new MapTerm(output);
+    }
+
+    public static async ValueTask<Term> GroupsFromList(
+        ProcessContext context,
+        Term function,
+        Term list,
+        Term? valueFunction = null
+    )
+    {
+        if (function is not FunctionTerm { Arity: 1 } keyCallback || valueFunction is not null && valueFunction is not FunctionTerm { Arity: 1 })
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        var items = Cons.Items(list).ToArray();
+        var groups = new Dictionary<Term, Term>();
+        for (int i = items.Length - 1; i >= 0; i--)
+        {
+            await context.ReduceAsync();
+            Term item = items[i];
+            Term key = await keyCallback.Invoke(context, new[] { item });
+            Term value = valueFunction is FunctionTerm valueCallback ? await valueCallback.Invoke(context, new[] { item }) : item;
+            groups.TryGetValue(key, out var existing);
+            groups[key] = new Cons(value, existing ?? Nil.Value);
+        }
+
+        return new MapTerm(groups);
+    }
+
+    public static Term ToList(Term source)
+    {
+        try
+        {
+            return Cons.From(MapIteration.Entries(source).Select(entry => Term.Tuple(entry.Key, entry.Value)));
+        }
+        catch (ErlangException)
+        {
+            throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), source));
+        }
+    }
+
     public static MapTerm RequireMap(Term source) => source as MapTerm ?? throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), source));
 
     public static bool IsIteratorValid(Term iterator)

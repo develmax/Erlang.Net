@@ -6,6 +6,11 @@ public static class FunctionalMfaContracts
 {
     public static string? FixtureName(string module, string function, int arity) => (module, function, arity) switch
     {
+        ("maps", "intersect", 2) => "maps-completion-intersect",
+        ("maps", "intersect_with", 3) => "maps-completion-intersect-with",
+        ("maps", "merge_with", 3) => "maps-completion-merge-with",
+        ("maps", "groups_from_list", 2) => "maps-completion-groups-two",
+        ("maps", "groups_from_list", 3) => "maps-completion-groups-three",
         ("maps", "get", 3) => "maps-operations-get-default",
         ("maps", "find", 2) => "maps-operations-find",
         ("maps", "from_list", 1) => "maps-operations-from-list",

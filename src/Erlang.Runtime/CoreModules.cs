@@ -573,7 +573,7 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.ToList,
             1,
-            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => Term.Tuple(entry.Key, entry.Value)))
+            (c, a) => MapOperations.ToList(a[0])
         );
         Add(
             MapModuleNames.Module,
@@ -614,6 +614,53 @@ public static class CoreModules
                 a[1],
                 a[3],
                 a[2]
+            )
+        );
+        Add(
+            MapModuleNames.Module,
+            MapModuleNames.Intersect,
+            2,
+            (c, a) => MapOperations.Intersect(a[0], a[1])
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.IntersectWith,
+            3,
+            (c, a) => MapOperations.Combine(
+                c,
+                a[0],
+                a[1],
+                a[2],
+                true
+            )
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.MergeWith,
+            3,
+            (c, a) => MapOperations.Combine(
+                c,
+                a[0],
+                a[1],
+                a[2],
+                false
+            )
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.GroupsFromList,
+            2,
+            (c, a) => MapOperations.GroupsFromList(c, a[0], a[1])
+        );
+        r.Register(
+            MapModuleNames.Module,
+            MapModuleNames.GroupsFromList,
+            3,
+            (c, a) => MapOperations.GroupsFromList(
+                c,
+                a[0],
+                a[2],
+                a[1]
             )
         );
         foreach (string operation in new[] { MapModuleNames.Filter, MapModuleNames.FilterMap, MapModuleNames.Map, MapModuleNames.ForEach })

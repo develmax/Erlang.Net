@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-099/tests.json",
-  "LocalPassedTests": 1774,
-  "RegisteredMfas": 129,
-  "PreviousRegisteredMfas": 90,
-  "RegisteredMfaDelta": 39,
+  "ComparisonTestReport": "validation/part-103/tests.json",
+  "LocalPassedTests": 1864,
+  "RegisteredMfas": 134,
+  "PreviousRegisteredMfas": 129,
+  "RegisteredMfaDelta": 5,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -94,13 +94,14 @@
         "source-directed asynchronous lists:sort/2 with natural-run/alternating merges; maps:iterator/2 FunctionTerm comparators",
         "Twenty-four map exports: exact-key immutable updates, conversions, selection and asynchronous iterator callbacks",
         "Eleven lists functional exports: source-directed folds, short circuit, partition/filtermap/mapfold/foreach and prefix operations",
-        "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial"
+        "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
+        "Complete maps exported surface34/34: intersect/intersect_with/merge_with and groups_from_list/2,3; smaller-map combiner orientation, right-to-left grouping callbacks, iterator to_list and source error precedence"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 296
+      "RelatedPassedTests": 386
     },
     {
       "Id": "gen_server adapters",
@@ -190,7 +191,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 767
+      "RelatedPassedTests": 852
     },
     {
       "Id": "Style checks",
@@ -5460,8 +5461,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 44,
-      "PreviousRegisteredMfas": 40,
-      "Delta": 4,
+      "PreviousRegisteredMfas": 44,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 12.5,
       "RequiresPreprocessing": false,
@@ -7907,8 +7908,8 @@
       "Name": "lists",
       "Status": "Partially compatible",
       "RegisteredMfas": 31,
-      "PreviousRegisteredMfas": 20,
-      "Delta": 11,
+      "PreviousRegisteredMfas": 31,
+      "Delta": 0,
       "ReferenceDeclarations": 91,
       "ApiPresencePercent": 34.1,
       "RequiresPreprocessing": false,
@@ -8269,11 +8270,11 @@
     {
       "Name": "maps",
       "Status": "Partially compatible",
-      "RegisteredMfas": 29,
-      "PreviousRegisteredMfas": 5,
-      "Delta": 24,
+      "RegisteredMfas": 34,
+      "PreviousRegisteredMfas": 29,
+      "Delta": 5,
       "ReferenceDeclarations": 34,
-      "ApiPresencePercent": 85.3,
+      "ApiPresencePercent": 100,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/maps.erl"
@@ -8288,6 +8289,10 @@
         "maps:from_list/1",
         "maps:get/2",
         "maps:get/3",
+        "maps:groups_from_list/2",
+        "maps:groups_from_list/3",
+        "maps:intersect/2",
+        "maps:intersect_with/3",
         "maps:is_iterator_valid/1",
         "maps:is_key/2",
         "maps:iterator/1",
@@ -8295,6 +8300,7 @@
         "maps:keys/1",
         "maps:map/2",
         "maps:merge/2",
+        "maps:merge_with/3",
         "maps:new/0",
         "maps:next/1",
         "maps:put/3",
