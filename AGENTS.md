@@ -475,3 +475,7 @@ Part134: **3248/3248 comparable original** (778/2377/93),six transparent unsafe-
 ## Part135 checkpoint
 
 Part135: six real alias/send MFAs,43 independent compiled contracts,two concurrent lifecycle/priority mailbox host checks. **3784/full local**,359 MFAs,erlang209/351,142missing,59.5% API presence. [Audit](validation/part-135/reference-audit.json). All1332383 SDK/128778/1951/93 contracts and six exclusions preserved. Publish/freeze/original3291 and same-head3784 CI136 pending;whole goal continues through monitor options,ports/distribution/native records/code/host prerequisites.0019 active,closed0018/sibling/license draft unchanged.
+
+## Part136 checkpoint
+
+Part136: complete **3290/3291 comparable original** (778/2420/93),one pending alias-signal admission mismatch;six explicit unsafe-native exclusions. **3784/full same-head CI** at569cba8,359 MFAs. [Failure proof](validation/part-136/remote-checkpoint.json). erlang209/351,142missing,59.5% API presence only. Publish mismatch before repair: queue pending alias signals;unalias must discard pending delivery while admitted messages survive;retain source/hash and explicitly repair only provisional expectation. Latest successful comparable1343248/3248.0020 begins,closed0019/0018/sibling/draft preserved;whole goal active.
