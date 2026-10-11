@@ -1,0 +1,27 @@
+{
+  "Executed": 1378,
+  "FailedContract": {
+    "Name": "otp-supervisor-significant-check-invalid-policy-order",
+    "Source": "-module(oracle_sig). -export([run/0,init/1,child/1]). run()->process_flag(trap_exit,true),{error,{badarg,wrong}}=supervisor:check_childspecs([],wrong),{error,{badarg,not_list}}=supervisor:check_childspecs(not_list,wrong),{error,{badarg,[bad|tail]}}=supervisor:check_childspecs([bad|tail],wrong),{error,{badarg,wrong}}=supervisor:check_childspecs([bad],wrong),done. init({Flags,C}) when is_map(Flags)->{ok,{Flags,C}}; init({Mode,C})->{ok,{#{auto_shutdown=>Mode,intensity=>5},C}}. child(ignore)->ignore; child(fail)->{error,failed}; child({R,Id})->P=spawn_link(fun()->receive {finish,V}->exit(V) end end),R!{started,Id,P},{ok,P}. spec(Id,R,Restart,Significant)->#{id=>Id,start=>{oracle_sig,child,[{R,Id}]},restart=>Restart,significant=>Significant}. start(Mode,C)->supervisor:start_link(oracle_sig,{Mode,C}). gone(P,Id)->case supervisor:which_children(P) of [{Id,undefined,worker,_}]->ok; _->gone(P,Id) end. wait_second(P,D)->case supervisor:which_children(P) of [{second,D,worker,_}]->ok; _->wait_second(P,D) end. wait_empty(P)->case supervisor:which_children(P) of []->ok; _->wait_empty(P) end. down(M,P,Reason)->receive {'DOWN',M,process,P,Reason}->ok after 2000->missing end. alive(P)->supervisor:count_children(P),true. stop(P)->ok=gen_server:stop(P),done.",
+    "SourceSha256": "A45DC7C8C712F98596AED64ACB73FAF3E441502CD36A7AC3D0346F833F394C22",
+    "CSharpSha256": "9A18FEC688406EF2B1C74885C08FCF016699E38EE51976D2661225417462BD38",
+    "Expected": "{error,error,{badmatch,{error,{badarg,wrong}}}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  "InfrastructureError": null,
+  "CiTests": 1572,
+  "RootCause": "is_list accepts cons cells with improper tails; invalid policy validation precedes tail traversal",
+  "Head": "93f9500e98274c2e6795cd137cbf92261dda91c9",
+  "Failed": 1,
+  "Planned": 1378,
+  "VersionVerified": true,
+  "Complete": true,
+  "CiConclusion": "success",
+  "Passed": 1377,
+  "Next": "Part097 correct source assertion and C# validation order, add improper-tail regressions, then new original checkpoint098",
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CompatibilityPromotion": false
+}

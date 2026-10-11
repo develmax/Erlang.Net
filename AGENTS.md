@@ -350,3 +350,7 @@ Published9ef47ed passes exact-source1348/1348=778/491/79, same-head1541/full CI 
 
 ## Part 095 checkpoint
 Local1572/full;30 significant/auto-shutdown/check_childspecs contracts,86MFAs (+1), supervisor10/23.222types/no violations; old778/491/79 preserved, planned1378=778/521/79. Publish and verify original/headCI then096 proof. Initial9 fixture-only failures retained; no expectation corrections. Target10% requires wider platform milestone, do not merely relabel5%. Continue simple_one, collections, timers/source/application. Draft excluded;0014 active.
+
+## Part096 incomplete compatibility checkpoint
+Original1377/1378 complete/version, one new invalid-policy improper-list mismatch at93f9500;CI1572/full passes. Preserve raw096.097 fixes guard tocons/nil, policy before tail; ParseChildren improper valid prefix must raise function_clause. One provisional source assertion correction must be explicit; old778/491/79 remain unchanged. Final098 proof required before SimpleSupervisor099; prepared097-SimpleSupervisor/SupervisorSimpleCases under ignored artifacts are future099 drafts. Target10% still active, do not stop after first increment.
+
