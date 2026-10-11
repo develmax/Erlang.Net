@@ -14,6 +14,7 @@ string oracle = args[0];
 var results = new List<object>();
 var moduleResults = new List<object>();
 var diagnosticResults = new List<object>();
+IReadOnlyList<object> spawnContextDiagnostics = Array.Empty<object>();
 int moduleFailed = 0;
 int diagnosticFailed = 0;
 int failed = 0, planned = 0;
@@ -63,6 +64,7 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                     Passed = diagnosticResults.Count - diagnosticFailed,
                     Failed = diagnosticFailed
                 },
+                SpawnContextDiagnostics = spawnContextDiagnostics,
                 DiagnosticResults = diagnosticResults,
                 ModuleResults = moduleResults,
                 Results = results
@@ -103,6 +105,7 @@ try
     if (version != "29.1.1")
         throw new InvalidOperationException(OracleDiagnostics.VersionMismatch(version));
     versionVerified = true;
+    spawnContextDiagnostics = await SpawnContextDiagnosticCases.Run(command => RunOracle(command));
     string[] cases = ["1 + 2 * 3", "{1 == 1.0, 1 =:= 1.0}", "{0.0 == -0.0, 0.0 =:= -0.0}", "9007199254740993 > 9007199254740992.0", "{a, [1,2|tail]}", "lists:member(1, [1.0])", "lists:reverse([1,2,3])", "lists:sum([1,2,3])", "[1,2] ++ [3]", "[1,2,1] -- [1]", "-7 div 3", "-7 rem 3", "case {1,1} of {X,X} -> X; _ -> no end", "case a of X when hd(X) == 1; is_atom(X) -> ok end", "receive {hello, X} -> X after 0 -> timeout end", "lists:map(fun(X) -> X * 2 end, [1,2,3])", "'𐀀' > '\ufffd'", "{length([1,2]), hd([ok]), tl([1,2])}", "maps:get(a, #{a => 1, a => 42})", "case #{1 => integer, 1.0 => float} of #{1 := A, 1.0 := B} -> {A,B} end", "maps:get(a, #{}#{a => 1, a := 2})", "case #{a => {7,7}} of #{a := {X,X}} -> X end", "case 1 of K -> case #{2 => 42} of #{K + 1 := V} -> V end end", "case #{a => 1} of #{hd(atom) := X} -> wrong; _ -> ok end", "case a of K -> F = fun(#{K := K}) -> K end, F(#{a => 42}) end", "case #{} of M when M#{a := 1} =:= #{} -> wrong; _ -> ok end", "{is_map(#{}),is_map([]),map_size(#{a => 1}),is_map_key(a,#{a => 42}),map_get(a,#{a => 42})}", "map_get(1.0,#{1 => value})", "map_get(key,not_map)", "map_size([])", "is_map_key(key,42)", "case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -> ok; _ -> no end", "#{}#{missing := 1}", "atom#{a := error(blurf)}", "error(boom)", "throw(reason)", "exit(reason)", "<<>>", "<<1,2,255>>", "<<511,-1,16:4,31:4>>", "<<5:3,17:5,3:2>>", "<<4660:16/big>>", "<<4660:16/little>>", "<<291:12/little>>", "<<4660:2/unit:8>>", "<<-1:16/signed-little>>", "case 4 of S -> <<(2+3):(S+1)>> end", "<<(<<1,2,3>>):2/binary>>", "<<1:1,(<<2:2>>)/bitstring,3:2>>", "<<(<<1:1>>)/binary-unit:1>>", "<<-123:0,42:8>>", "<<atom>>", "<<1:(-1)>>", "<<(<<1>>):2/binary>>", "<<(<<1:1>>)/binary>>", "<<(<<1,2>>):all/binary>>", "<<1:8/integer-integer-big-big-unit:1-unit:1>>", "{bit_size(<<>>),byte_size(<<>>),bit_size(<<1:1>>),byte_size(<<1:1>>),byte_size(<<1:9>>)}", "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}", "bit_size(atom)", "byte_size([1,2])", "case atom of X when bit_size(X) =:= 0; byte_size(X) =:= 0; is_atom(X) -> ok end"];
     cases = [..cases,
         "case <<42>> of <<X>> -> X end",

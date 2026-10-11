@@ -1,0 +1,555 @@
+[
+  {
+    "Name": "erlang-exit-leader-inheritance-spawn_monitor",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),true=group_leader(Owner,Owner),{P,R}=erlang:spawn_monitor(fun()->Owner!{leader,group_leader()} end),true=group_leader(G,Owner),receive {leader,Owner}->ok after 1000->error(timeout) end,receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "EA51AF6FD2085DB4F046748017FA663685523B066667D07252929499F1F5B251",
+    "CSharpSha256": "10B239BEB51DC3D5A943F6E0E3C4CA4DEFDEBEC03460E70B75C85B70B8F8815B"
+  },
+  {
+    "Name": "erlang-exit-leader-inheritance-spawn_link",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),true=group_leader(Owner,Owner),P=erlang:spawn_link(fun()->Owner!{leader,group_leader()} end),true=group_leader(G,Owner),receive {leader,Owner}->ok after 1000->error(timeout) end,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B1DF04B68A8C148BF76B107B2CA5B11067604D2F223556C67DF6CD93FBF56386",
+    "CSharpSha256": "4948C59014525D30847FEC5287F161ECAA314AC0925079FA5206B5FFB6C42E79"
+  },
+  {
+    "Name": "erlang-exit-leader-inheritance-spawn",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),true=group_leader(Owner,Owner),P=erlang:spawn(fun()->Owner!{leader,group_leader()} end),true=group_leader(G,Owner),receive {leader,Owner}->ok after 1000->error(timeout) end,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D45F9774795F67EA9DA6FB43792F78C79C8BDDE85F3F0988B527829713260085",
+    "CSharpSha256": "E94E1120ACC3525A779F24AC991AE95BBC1CFC98B3393D0708F1BA4E823C0CBF"
+  },
+  {
+    "Name": "erlang-exit-signal-trap-self",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),true=erlang:exit_signal(P,normal),receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0AFADF83477E444E3B01C171DB6201FFB3640FEEF95561D3361A7D4C322CE879",
+    "CSharpSha256": "CF1E85114B008C7F57300B37BC30C3DEC4347B122444B9B9383B3167E8593F51"
+  },
+  {
+    "Name": "erlang-exit-legacy-trap-self",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),true=erlang:exit(P,normal,[]),receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "09874C6B272342E278F39863D91BE0EEEDB9462D83B5EDF4E5AE73D27A1F0900",
+    "CSharpSha256": "3888D951EAD3F7C8DD83AEDDB6868C3C29BB2E148175D39841E14E63AFA91277"
+  },
+  {
+    "Name": "erlang-exit-signal-self-normal-ignored",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->true=erlang:exit_signal(self(),normal),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C01F1CE6DE288EDC3805652244EB0C1DC819B0B11401A983A5780019F7C4E965",
+    "CSharpSha256": "F235339381C870DC53E03A4509C1BA36E6BED883974940DA5BFA1DFD4E485ABA"
+  },
+  {
+    "Name": "erlang-exit-signal-self-normal-options-ignored",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->true=erlang:exit_signal(self(),normal,[priority]),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "00643D2FFFB6565458D26A23A9153EE36E3916241F4A851223F2626F67D65ECA",
+    "CSharpSha256": "9C912A5D539E194B1F8B7708DC0351A1DFA5F14B4067717C3BA0894D56F673F1"
+  },
+  {
+    "Name": "erlang-exit-exit-self-normal",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit(self(),normal,[priority]) end),receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C87822097C7043E9EE23D36BBBB6DE5E0CFF586A3143DBE0C5EA379251010F04",
+    "CSharpSha256": "31E31B0989331CE08EA05FE898D468BC3D2B70CCFEC1B72812E4BED9CD5B0227"
+  },
+  {
+    "Name": "erlang-exit-exit-self-kill",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit(self(),kill,[priority]) end),receive {'DOWN',R,process,P,killed}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5B910478CC21513A5F9AE17D67D5809B9D66748F8A7C0B8B019E9792EAE2F232",
+    "CSharpSha256": "70824AD0F0DB63D5AB6EF835FF3CC272DF6399AB6E93D2679649EB9DF83B7119"
+  },
+  {
+    "Name": "erlang-exit-exit-self-shutdown-42",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit(self(),{shutdown,42},[priority]) end),receive {'DOWN',R,process,P,{shutdown,42}}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "EEF75D9556CEECDB67C6252840BC2BD218705EE151915BF1BCB990575FDC5B06",
+    "CSharpSha256": "EC81238E1B9D344B62EB45D2E5ABEB48606C74BC291F31F64CAAEF5C5E60DF6B"
+  },
+  {
+    "Name": "erlang-exit-exit-alias-trap",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias(),P=self(),true=erlang:exit(A,{shutdown,42},[]),receive {'EXIT',P,{shutdown,42}}->ok after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0F618733CAD1201C61F8D1ECC63FAC686B1FF2EAA37500B8C777105DA0484355",
+    "CSharpSha256": "0C945283DB601336BAE37A6E55802672F89CB314B7B268F7FD385CF5C6C6E19D"
+  },
+  {
+    "Name": "erlang-exit-exit-reply-alias-retained",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias([reply]),P=self(),true=erlang:exit(A,normal,[]),receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D28E58C1C6EDE984FFC3E3B6E0B14F68E70C8FB11218C229FA01A9FE75D62A31",
+    "CSharpSha256": "330280037643954AD9D9389E23B52849E00F198E825C5BA971516562630C2B3E"
+  },
+  {
+    "Name": "erlang-exit-exit-alias-pending-cancel",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias(),true=erlang:exit(A,kill,[]),true=erlang:unalias(A),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A844BAC9755363C5E00AF4E85C01ECB553F2D3C7ACEF814EE8DD2B8D8AEA36E0",
+    "CSharpSha256": "A59C923BED0CEA6F6D80EAACC3423C40AB62998D098E05EAD9AC48B356A14B91"
+  },
+  {
+    "Name": "erlang-exit-exit-inactive-alias",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->A=erlang:alias(),true=erlang:unalias(A),true=erlang:exit(A,kill,[]),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "7A6D572D644429AA40B3395968B5B5DCBCBFA04ADB03EB4B0C7989DDD7EF9E64",
+    "CSharpSha256": "E1AAFC4F1036BE0C419BE823CDD82EF5E932720E2FF674E8C4B6EB790C49CCB8"
+  },
+  {
+    "Name": "erlang-exit-exit-ordinary-reference",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->true=erlang:exit(make_ref(),kill,[]),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C763EA66E967F76CA5EA85D364C70B6D0FB1B0E80FBB17FDBF7489A8B078A4DF",
+    "CSharpSha256": "AA3B1E2B2017CF95DC93E4344908439F3C914411AB28FDEA286DE15B24E0E7AE"
+  },
+  {
+    "Name": "erlang-exit-exit-other-kill",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->receive never->ok end end),true=erlang:exit(P,kill,[]),receive {'DOWN',R,process,P,killed}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "53D06DBBD3497382D35516B69288301D6E63FED3E264ABC3AACFC9FE26073794",
+    "CSharpSha256": "12B2958A032A6824EE663263E0B023BF48A989A9CCACC7BA3AB012AAA32B5D7D"
+  },
+  {
+    "Name": "erlang-exit-exit-other-shutdown",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->receive never->ok end end),true=erlang:exit(P,{shutdown,42},[]),receive {'DOWN',R,process,P,{shutdown,42}}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FEE5F32009CA5BE332F470A96566F3BC1FECBFA436AC9AFD5991C0A432491C2F",
+    "CSharpSha256": "EEA54CE492D75D44A7E64445CA8B1AD4B0DE7D687CA88F51B20ECA818AF77162"
+  },
+  {
+    "Name": "erlang-exit-exit-dead",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=spawn(fun()->ok end),wait_dead(P),true=erlang:exit(P,kill,[]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E30578E65745585CC183882855247C154F2CEFC3CC4550131278DA8073798694",
+    "CSharpSha256": "029AC89E9E18166DEF5C5FC68E9858B0BF5CF41D124F9774E86E69CEC7143E8C"
+  },
+  {
+    "Name": "erlang-exit-exit-foreign",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=erlang:binary_to_term(<<131,88,119,17,\"elsewhere@invalid\",1:32,0:32,0:32>>),true=erlang:exit(P,kill,[priority]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6F207500B24FB5D029D04E24E4173ADCBE165BE021D0B452A1F8FBBA48BE95CF",
+    "CSharpSha256": "C4B533996404A0351C2E1F15528A7F94F1E3D33F2A56C067D51807AA8A80D84C"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-options-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(self(),kill,bad) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "45AA51DD90C34AE8FC41CAFEDEE1C535E26BE64C28F395A812C6CCFB5464727F",
+    "CSharpSha256": "ECE7DDB97AC92FB9D34D6239800BA20B1E32F1C2AD88D85912E2F4FFBB5DB6F5"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-options-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(self(),kill,[bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DCB8F4D36C84D2C958294DBF303BBE59D073494E75B6DEADE4961CC7470FF2E6",
+    "CSharpSha256": "57E0254337F689A64CF5C898BCD84B82C6F6D022E2A201FF83C3F4CC40DCA299"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-options-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(self(),kill,[{priority,true}]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A33725EEF941471BA39B5E88D9892316593C5CC88164085CCBB46B992BCDABD9",
+    "CSharpSha256": "38A0CCC59E4F3FF057608AF5F8CB65225F138924E15F978B2ACB21BB9E9C709B"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-options-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(self(),kill,[priority|bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "72A1CABF861DFC6E6FEA6773D9CC6E6D660701457FEED530F9ACAE6CD0969D8C",
+    "CSharpSha256": "83AC42FF1EDA99236071F1D2FEF86206D09F98BF172E3AA0474C78083922B0B2"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-options-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(self(),kill,[priority,bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1B3CEF8C87808ECFE2BA2F2EB35E79E52F38F5FCD67B0360BCB18DFAC4B90FB1",
+    "CSharpSha256": "4438DC5E5EBAFD478D64CD2B290EF4DECB624F90C835CF5D04B049D0F185D125"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-destination-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(42,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FCBE95988DC4D0C9748D896F8CC27307BFB7D537421960F0F1F34AEE086831A0",
+    "CSharpSha256": "1632A7E21830092795ECB8BF06AC4BF823491FD5B5694357B92208EE9BF418DD"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-destination-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(bad,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9FCCBB7C3D68855E7EC4C3B9D2EA16AA79479D0034E6706E0A51D214081485F8",
+    "CSharpSha256": "A6A7AE52A419F060AEF63AD41F9844711CA09BCCADCE8E3F6DEEFA862D79D827"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-destination-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit([],normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6EDE7C69A4CDE4E26A05069A6C234ACEED2D8571EB49BA9108C749A603F74237",
+    "CSharpSha256": "378E8A6CEEC715F1F05DA5BEEC707FF247BF54B7D8ADAF0E1DF00A70ACB2749B"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-destination-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit({},normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "280DC3267335F7E6B96C611166788A20BAD8C80963769E40E3773725783E43D3",
+    "CSharpSha256": "548911887965D9BB3BEC16567B9028F36823D9CD23182390241A2AC6D09D0493"
+  },
+  {
+    "Name": "erlang-exit-exit-bad-destination-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit(fun()->ok end,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4592DF97EF300BD27168E66A7D6A5A58C7656E6A4B3035ABF41F155F9E2693F8",
+    "CSharpSha256": "12AA5414A5E07554ED37E16B4E1BB56538CAC7DC98692F3981AB58E3B7377108"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-self-normal",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit_signal(self(),normal,[priority]),erlang:yield() end),receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D260783AA664FDEDF4D854DFCFB538998348B44032F1DDAF8EAA67FF67886ABB",
+    "CSharpSha256": "1675CFD61E43C547C16709CFA77189396DE8B2250B765039A005DF3F25BEB78C"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-self-kill",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit_signal(self(),kill,[priority]),receive never->ok end end),receive {'DOWN',R,process,P,killed}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DFC5C65015786A8E625829601017A0836B12D48B28314F289EEB6154A8F2875D",
+    "CSharpSha256": "29AFE27B43F47532ABC18331239AF0451E770CFAD3A2C8BD7FBC32DBDABFD380"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-self-shutdown-42",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->erlang:exit_signal(self(),{shutdown,42},[priority]),receive never->ok end end),receive {'DOWN',R,process,P,{shutdown,42}}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0EA4B411CE31E81BBC139FADFF65F2A294955B9582C95CDF960D8E692B0155E6",
+    "CSharpSha256": "0906B1C5152BA31D769E747A7B67179AD991AB0BC9F91F36BFB8AF66346FE601"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-alias-trap",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias(),P=self(),true=erlang:exit_signal(A,{shutdown,42},[]),receive {'EXIT',P,{shutdown,42}}->ok after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "98A28747EE34BE0FBED4E07EF854DA6B0E6110E9FD0B1B2D6590690ADC57C4AA",
+    "CSharpSha256": "970D6897228C6E2D4E97EE08C40CD65CC40CC4B63ACEC0E18448CCE6CCA3ABE2"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-reply-alias-retained",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias([reply]),P=self(),true=erlang:exit_signal(A,normal,[]),receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C0F03A3020252CB544CAEDF2476E4AD8DC6970942D9B735F6898403F8DB8DA4E",
+    "CSharpSha256": "BA795EDC875223CC721692CF58BC45C182BF45CE750CCF945B2FB38ADAB52147"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-alias-pending-cancel",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),A=erlang:alias(),true=erlang:exit_signal(A,kill,[]),true=erlang:unalias(A),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F01882446AF302DA16B682DBB18B42ECA83E84E12BB8B3F608B1C74916BBF98E",
+    "CSharpSha256": "82AA9C389148191762D46C7D6DD62FE31A24E0A9BE424F2F017242CC97040DEA"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-inactive-alias",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->A=erlang:alias(),true=erlang:unalias(A),true=erlang:exit_signal(A,kill,[]),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D288423AE132D755DC089660F6D8608FB70E74070B80621B132B7295DC901CE7",
+    "CSharpSha256": "50FD4F4E2D3417BF56FDD8654EC2C995B16CD83D6916EB6B273EC55B5E41B02A"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-ordinary-reference",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->true=erlang:exit_signal(make_ref(),kill,[]),erlang:yield(),true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C966D4784BFC82797208EC6082F9174EA337D876ED64DC39C9C44120384E67E6",
+    "CSharpSha256": "8EFB35C1A3764BDE881E77C06D7AE4231A98038B36727B2DC3A5DE99E8511F2B"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-other-kill",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->receive never->ok end end),true=erlang:exit_signal(P,kill,[]),receive {'DOWN',R,process,P,killed}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "73050802316FAA9951A8D613790D9D97E28595AE7C62D318C97E191F56626ED7",
+    "CSharpSha256": "6277A4EC36402A49C204746A4524EE8093CBACBA96568E257E6B4AB8521DCC5E"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-other-shutdown",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->receive never->ok end end),true=erlang:exit_signal(P,{shutdown,42},[]),receive {'DOWN',R,process,P,{shutdown,42}}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AFD1B4894DA7172733D75F785E548EE54F03E8238E2CE16DD03B88EB26095EEF",
+    "CSharpSha256": "32314C3421068E0C4FF24DD31CEDB508314755BBCD184FCBB21643137FE54B7C"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-dead",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=spawn(fun()->ok end),wait_dead(P),true=erlang:exit_signal(P,kill,[]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8EF4399133DF43A5055567D7006F16169F5F1EDCE43EC00CEB6A50B6B036E032",
+    "CSharpSha256": "784DEE7574FC5A79FCFCB17E89DE8D379DDEAE906383D5085F2414EBAC24C212"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-foreign",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=erlang:binary_to_term(<<131,88,119,17,\"elsewhere@invalid\",1:32,0:32,0:32>>),true=erlang:exit_signal(P,kill,[priority]),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "01C1801F0080D3E4B756AD584E7C57938EE3A0A01F59AF89ACBFC3C53FACF7CF",
+    "CSharpSha256": "8ED3C8C0699A56273788E0C1A47AB845582AC9707B8507878D5B7EC91A2432DF"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-options-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(self(),kill,bad) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "EB60C58D622D70AE1C810D5D6E39449ADB0A91D8F65642992CCAC117DC5EC418",
+    "CSharpSha256": "D675078E883F202FF429E0F99CDB9FF53666A3AF3A5CFCAC9F022B7714FBC11C"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-options-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(self(),kill,[bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B02E6AA158D577184CB211A15E1A23A26502E6A8D816FEC988997292D3D0ECA7",
+    "CSharpSha256": "B5188BAEB5D32AB6DE0D658060B113A23D9ABCACB3A86E9A463F8DF3FA5E75C9"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-options-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(self(),kill,[{priority,true}]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E668B9F58C177ADCE7719F07AB9372C5B22F0567DC1C8D2EB7E052A8995AFF3E",
+    "CSharpSha256": "64D815A2DFB854D9E32C3F31AE1CE989BECDDA4EDEBC84C1E7C0CCE9F9610EB0"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-options-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(self(),kill,[priority|bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E8E23FEF6A9DD38C0345F12734F288DF99CBFC8EADFB5B1E5EC8AA4AAC32283E",
+    "CSharpSha256": "ADB80918E07305536601CE02D3877E2CA79362E31F5348B9CA7BD74C179BAC2D"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-options-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(self(),kill,[priority,bad]) of _->unexpected catch error:badarg->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1534D2F2548181A625980CAAEBB426898F5D549361B08FF58DC5500D18F5E189",
+    "CSharpSha256": "C35448480FB9FE5CFF5776B9DAC0AF476B11AFD4C782CF67D821EA57B4CB91F6"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-destination-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(42,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AB6CE6E42D2293AFB5EF05ED55BBC757C5167FD79C564B67741BD7139E8BA4BA",
+    "CSharpSha256": "EB38B993706BC74C1AD043B3C6132BA958DD3E258D1DD9E1386A5BCEDB976C7F"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-destination-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(bad,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A351C1E7922F7B78B5C482725BA5C2FB1BCEFFA398EDFD772B3F70D9A38D209B",
+    "CSharpSha256": "D3386CF31427BEB4F8A0AED57EC82BF5BE71ADC50CCF2E4A538A3387CE5B311B"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-destination-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal([],normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FCED65198B9BA621456399A83E7B07365497CD875827ACA59FC82FBEFC283031",
+    "CSharpSha256": "2E09AE03EBAD632A8391878AF351617A50A2DC1AF5BB8F4A0A1896629429D689"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-destination-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal({},normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1CB44828903D90AE79CC3B1068CA26E9781C0CA2A1D97CE9AB95C881DC371BC0",
+    "CSharpSha256": "91F994F33D13534A1666B85D3DB3C6336686925077676C63E8D8A9BC3195640C"
+  },
+  {
+    "Name": "erlang-exit-exit_signal-bad-destination-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:exit_signal(fun()->ok end,normal,[]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "813935FBB609094914134BBBFDE82696113B4AD3A443919E6C211E014C187035",
+    "CSharpSha256": "F834D03481CF6831C004537E4F87422B09D212358B6AE769BB4E507ECC005F26"
+  },
+  {
+    "Name": "erlang-exit-signal-priority-alias",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),A=erlang:alias([priority]),self()!ordinary,true=erlang:exit_signal(A,normal,[priority]),{'EXIT',P,normal}=receive X->X after 1000->error(timeout) end,ordinary=receive Y->Y after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "29E8F41957BDE56D734E00151C4378CFB34555AA3D6438816093FE610EF39B6C",
+    "CSharpSha256": "90170BCD4E5975D55DF5025C76694BDEEEE9BFB8F782618AEC28CB65AC436F04"
+  },
+  {
+    "Name": "erlang-exit-signal-priority-needs-alias-permission",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),A=erlang:alias(),self()!ordinary,true=erlang:exit_signal(A,normal,[priority]),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',P,normal}=receive Y->Y after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CF469FB271DC2E064433BC26760E5BB546FEB511410F97607D5801979BDF3BF8",
+    "CSharpSha256": "A6BF127C482B0D27017B7B0A96D7533956816D280328433271CED0050692F953"
+  },
+  {
+    "Name": "erlang-exit-signal-priority-needs-request",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),A=erlang:alias([priority]),self()!ordinary,true=erlang:exit_signal(A,normal),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',P,normal}=receive Y->Y after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9B51D0B39198E6C9A50725D3BDA9D034A4F3D3BD6450B50DD0CD081853EC2224",
+    "CSharpSha256": "5652FB6B010F8DA2BE4F2A1262BFFAE43EB1DB945E8D6E0584E72E0683224E4F"
+  },
+  {
+    "Name": "erlang-exit-signal-pid-priority-ignored",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),A=erlang:alias([priority]),self()!ordinary,true=erlang:exit_signal(P,normal,[priority]),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',P,normal}=receive Y->Y after 1000->error(timeout) end,true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1EF862735052B76D2A32839B155323187ED4663F0F2C1BF8705578A7FD70D35B",
+    "CSharpSha256": "2BC1CE40E269EB7BCC90034B95BDB8C2EF4C7D22C71274343CD2E3FC342BC187"
+  },
+  {
+    "Name": "erlang-exit-signal-alias-self-normal-ignored",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->A=erlang:alias(),true=erlang:exit_signal(A,normal),erlang:yield(),true=erlang:is_process_alive(self()),true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "076E5F2BBE00EBA93F0A019D6384ECFC92919B0473C27563827CCE451B58ED87",
+    "CSharpSha256": "F9E790E58DC02BB288AB5597C878601E6BEF9C635FA91F1C7B68381C32DC33CE"
+  },
+  {
+    "Name": "erlang-exit-legacy-alias-self-normal-ignored",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->A=erlang:alias(),true=erlang:exit(A,normal,[]),erlang:yield(),true=erlang:is_process_alive(self()),true=erlang:unalias(A),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D5651C41258C72C2A1C388D9DCCAD06A444302C9B11E3C961D1410D6B13488EE",
+    "CSharpSha256": "60A1F2ABC9DAADF1DF04E3E85326C6B49A95767B8BD7D6A409EDDD1EDEE7949E"
+  },
+  {
+    "Name": "erlang-exit-signal-alias-admitted-retained",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=self(),A=erlang:alias(),true=erlang:exit_signal(A,normal),erlang:yield(),true=erlang:unalias(A),receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5753A964C87DF672AB9BA907C30123D13C1AA4017A57D818F3DD5544FC6E645A",
+    "CSharpSha256": "4C1CAA46A8D110679AC54D1464966F1378453A1B291139E2CFFCB2822925F70D"
+  },
+  {
+    "Name": "erlang-exit-signal-kill-cannot-trap",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->{P,R}=spawn_monitor(fun()->process_flag(trap_exit,true),receive never->ok end end),true=erlang:exit_signal(P,kill),receive {'DOWN',R,process,P,killed}->ok after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "9AE310C8EF208E31DBE95E46B745257600EFF33881EBBB526BF99571FC808BC0",
+    "CSharpSha256": "4F2EB620D19D8AC4F56874CA9A28CA5C57F200617EDB60B62EE3A693CC8604F9"
+  },
+  {
+    "Name": "erlang-exit-link-self",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->true=erlang:link(self(),[priority]),true=erlang:link(self(),[]),true=unlink(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1770920EA9EFC99E1EFD654742ACAD873EE460737C557ED259575823D47D0B68",
+    "CSharpSha256": "B7695124CEFB04CFFFEAFBFB0E58E63BCF20433D68B6D9F66BE60FE6AD7E6EA2"
+  },
+  {
+    "Name": "erlang-exit-link-alive",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=spawn(fun()->receive stop->ok end end),true=erlang:link(P,[priority,priority]),true=unlink(P),P!stop,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FAFFDEF81F0C7CBC29EA2B7EA3E738E11359B55653A7A3C5EDDBF65FD6E684F4",
+    "CSharpSha256": "D1BD5D2A5810CE038866DED34392BDCC72FCC605C7D856025339791F4EDDA3AE"
+  },
+  {
+    "Name": "erlang-exit-link-dead-untrapped-error",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->P=spawn(fun()->ok end),wait_dead(P),ok=try erlang:link(P,[priority]) of _->unexpected catch error:noproc->ok end,true=erlang:is_process_alive(self()),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FB3E3F395598E1BCFE2F9DCC037EEC76397D786E13006934041E6ACE5490B5AA",
+    "CSharpSha256": "12231339601BFE7D1CD0C357B8F8487C2AC527C219EC39AF588A988A812EFEB6"
+  },
+  {
+    "Name": "erlang-exit-link-dead-priority",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->ok end),wait_dead(P),self()!ordinary,true=erlang:link(P,[priority]),{'EXIT',P,noproc}=receive X->X after 1000->error(timeout) end,ordinary=receive Y->Y after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "966CADA678BFEC9B04626B44C8FE19620E47CF686DB99CF43FD985FC70969378",
+    "CSharpSha256": "E9F325D9497A57F0CC6F421CDF607C254F94A198CA13EBBCC47F92E4DB2451D5"
+  },
+  {
+    "Name": "erlang-exit-link-dead-ordinary",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->ok end),wait_dead(P),self()!ordinary,true=erlang:link(P,[]),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',P,noproc}=receive Y->Y after 1000->error(timeout) end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1EA5CCF120C2E12795FD21A5C62ABA173D8CD6D8AF64C040B2BBEF28420C3A6B",
+    "CSharpSha256": "92E830F1D7F1614277771E6DE4FB7A58733379E31BC21668279D6C453D45833C"
+  },
+  {
+    "Name": "erlang-exit-link-dead-unlink-cancels",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->ok end),wait_dead(P),true=erlang:link(P,[priority]),true=unlink(P),receive {'EXIT',P,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "17DD126BA8F57D1A86471A645C3C0AE16A1508BF91F7DD7D140DE63DF9E2D656",
+    "CSharpSha256": "AB58E859CA3C9D8EDEA274A86B1F1E4E658322659FBA1C8296E50B18328C4E39"
+  },
+  {
+    "Name": "erlang-exit-monitor-priority-is-not-alias-exit-permission",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->receive stop->ok end end),R=erlang:monitor(process,P,[priority,{alias,explicit_unalias}]),S=self(),self()!ordinary,true=erlang:exit_signal(R,normal,[priority]),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',S,normal}=receive Y->Y after 1000->error(timeout) end,true=erlang:demonitor(R,[info]),true=erlang:unalias(R),P!stop,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "EDDE6492348D15CF6C438789B5F801D4A80EFB6D3C83738C45D3CF0D71DAE21E",
+    "CSharpSha256": "887C23942719DCA95F0351AEE01352E86E73714BEEB9332A35570C662E645F04"
+  },
+  {
+    "Name": "erlang-exit-reply-monitor-alias-exit-retains-monitor",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->receive stop->ok end end),R=erlang:monitor(process,P,[{alias,reply_demonitor}]),S=self(),true=erlang:exit_signal(R,normal),receive {'EXIT',S,normal}->ok after 1000->error(timeout) end,true=erlang:demonitor(R,[info]),false=erlang:unalias(R),P!stop,wait_dead(P),done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AA1EAE2EA30AB2ECCC66D208A716E54B817DC05E28B9B017753C3D1E58F8066C",
+    "CSharpSha256": "A02B9FF60C2A835446D445D58F25FCF655D7F25D93A2BDC123183CDD05911E21"
+  },
+  {
+    "Name": "erlang-exit-link-priority-reset",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->ok end),wait_dead(P),self()!ordinary,true=erlang:link(P,[priority]),true=erlang:link(P,[]),ordinary=receive X->X after 1000->error(timeout) end,{'EXIT',P,noproc}=receive Y->Y after 1000->error(timeout) end,receive {'EXIT',P,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "95E82BCB59DCC66072BF4E76966EA3CE06BFC663218675A8922195CE28F56337",
+    "CSharpSha256": "BA643A6EF2EFF2EBBF4F7D5363BF06B9601FCD7F2A8D2CDF2C0A10F31AC141BC"
+  },
+  {
+    "Name": "erlang-exit-link-priority-upgrade",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->false=process_flag(trap_exit,true),P=spawn(fun()->ok end),wait_dead(P),self()!ordinary,true=erlang:link(P,[]),true=erlang:link(P,[priority]),{'EXIT',P,noproc}=receive X->X after 1000->error(timeout) end,ordinary=receive Y->Y after 1000->error(timeout) end,receive {'EXIT',P,_}->error(unexpected) after 0->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AD5E9A9B99695160BDC7CF4E0B7A8D6BC8DD0556ED4132A551B2D3696D4FB2A0",
+    "CSharpSha256": "16807DCB1D421D05BEF25FD8AF390B402C9107B55FBBAB9D84FBEAAD4E4E646A"
+  },
+  {
+    "Name": "erlang-exit-link-bad-options-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(self(),bad) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "01D481DE383CA4554BDC2016A4ADF72C6CF58110D196C57F85C33423452D7A87",
+    "CSharpSha256": "CC9ED4F82794EC770DAA9F3C775CEA68E428617154B4C4EB7E4F29BE458F54D6"
+  },
+  {
+    "Name": "erlang-exit-link-bad-options-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(self(),[bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "307820B909E65A129B87246B8AA2C21C97174F1A2A15AFC54C7CE554265324D6",
+    "CSharpSha256": "33293FDB8BE2FF3EB26C031173746D0E710D9E960B40DE93F96476422A7B706F"
+  },
+  {
+    "Name": "erlang-exit-link-bad-options-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(self(),[{priority,true}]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "725536ABA0DF9F0172F76140E08C95EBAE955BBA9E93640AFCAF9928ED41504A",
+    "CSharpSha256": "1E2081CDE41468049F3389D38451635C607B943C6678630BA7C1DFFCE913431F"
+  },
+  {
+    "Name": "erlang-exit-link-bad-options-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(self(),[priority|bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "710C6CC0206F9F39308AD353F4E4C1D4657976134A6314F11C1FE7A499F0BAE1",
+    "CSharpSha256": "01449445CB6EA0F7D882F1C0A089026DFEA59563DDD8F6CB37401BFF4926DB65"
+  },
+  {
+    "Name": "erlang-exit-link-bad-options-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(self(),[priority,bad]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "247E0EA91803C4D6DB8298902F724FE061ED8300EA15BE1EF4C5AA68BD8D9C1A",
+    "CSharpSha256": "069E461C88A42455B6CB0D0BFA86094226B9959CAFDF8A5E4D0AB9EE91780421"
+  },
+  {
+    "Name": "erlang-exit-link-bad-destination-0",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(42,[priority]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B1AABDCBF33B5886155352342DEB3FD7365F168C52694C179CA2E6C94B4E7753",
+    "CSharpSha256": "397675C67E8E8921971A581D370DD3F08BEA0F71DC932D377E55F54B00D06821"
+  },
+  {
+    "Name": "erlang-exit-link-bad-destination-1",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(bad,[priority]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C62F6C7050A39DE073055E0EA8B4A0315920FFEFA3CA2E19539A0BB71A496887",
+    "CSharpSha256": "18D45671C487DDFC6DA45102F5DCFA64670212C46A48B627861FD5AD652677EC"
+  },
+  {
+    "Name": "erlang-exit-link-bad-destination-2",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link([],[priority]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5B9C6202B7C2AFEFEDEA3B7C6FCAA047CBE587AC2A1BE859EC2695620122281E",
+    "CSharpSha256": "BFD9DAA10610D17084DFED7B1E72C11EADC9D73BE055A83BF2419DEDCA8B92D6"
+  },
+  {
+    "Name": "erlang-exit-link-bad-destination-3",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link({},[priority]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "36189A078D0EE6AC277863D7485DB5FA885A0F869E425CCD50641DF3EEA53491",
+    "CSharpSha256": "BC9E2F921831F07812B8E45C6531908AF8309763B40ED6C56989387764392DF2"
+  },
+  {
+    "Name": "erlang-exit-link-bad-destination-4",
+    "Source": "-module(exit_signal_contract). -export([run/0]). run()->ok=try erlang:link(make_ref(),[priority]) of _->unexpected catch error:badarg->ok end,done. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "62955A2046E8CF3D2137242B63AE70D33D84250AD4CD03F1C65EA107B6B98167",
+    "CSharpSha256": "86533E6A8BEB7C42E4386FBE35BF625604FD35811D7A30F5081B1F1666805731"
+  }
+]

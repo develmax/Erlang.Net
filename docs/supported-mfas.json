@@ -205,7 +205,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:link/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
   },
   {
     "Module": "erlang",
@@ -213,7 +213,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:unlink/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
   },
   {
     "Module": "erlang",
@@ -245,7 +245,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
   },
   {
     "Module": "erlang",
@@ -253,7 +253,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
   },
   {
     "Module": "erlang",
@@ -469,7 +469,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_monitor/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
   },
   {
     "Module": "maps",
@@ -2981,6 +2981,38 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_monitor/3",
-    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+    "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "link",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:link/2",
+    "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "exit",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:exit/3",
+    "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "exit_signal",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:exit_signal/2",
+    "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "exit_signal",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:exit_signal/3",
+    "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
   }
 ]

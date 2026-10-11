@@ -1,0 +1,26 @@
+{
+  "Part": 143,
+  "Base": "59992ef0e61075efe0a46c922017f01e319342c7",
+  "Sources": [
+    "bif.c send_exit_signal_bif and link_opt",
+    "erl_proc_sig_queue.c exit alias resolution/admission",
+    "erlang.erl wrappers"
+  ],
+  "Reuse": "Existing runtime gate, alias monitor state and selective mailbox; no new dependency",
+  "OriginalVerified": false,
+  "Plan": [
+    "Fix spawn_monitor child group-leader inheritance using observer context",
+    "Port actual exit_signal/2,3 and exit/3 with self-normal quirk and priority alias/link reception; retain explicit unfinished port/distribution scope",
+    "Preserve all2593 published module source/expectation/hashes and all six unsafe-original exclusions"
+  ],
+  "InitialFullFailure": "3969/3973;four new direct MFA fixture lookups failed because whitespace-sensitive unpublished spread replacement did not append new provider;77 separate contracts already passed;explicit marker corrected",
+  "NewModuleContracts": 79,
+  "InitialNewContractsPassed": 75,
+  "NewContractsPassed": 79,
+  "HistoricalModuleContractsPassed": 2668,
+  "ConcurrentHost": "128 children,two pending alias kills and following payload behind barrier;all killed,not alive,mailbox count zero",
+  "CorrectedFullTestsPassed": 4050,
+  "CorrectedCompiledModules": 2670,
+  "LastTwoContracts": "Monitor priority does not confer alias exit priority;exit via reply_demonitor alias does not consume the actual monitor",
+  "Full4050Scope": "Historical final runtime plus77 cases;last two independent cases passed in final79/79;main4052 full validation required"
+}

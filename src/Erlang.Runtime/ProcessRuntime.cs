@@ -93,7 +93,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         lock (gate)
         {
             RequireAlive(observer.Self);
-            var process = Spawn(body);
+            var process = Spawn(body, observer);
 
             return (process, Monitor(observer, process.Pid));
         }
@@ -252,23 +252,41 @@ public sealed class ProcessRuntime : IAsyncDisposable
 
     private ProcessContext RequireAlive(Pid pid) => processes.TryGetValue(pid, out var p) ? p : throw new ErlangException(ErlangErrorReasons.NoProcess);
 
-    public void Link(ProcessContext source, Pid target)
+    public void Link(ProcessContext source, Pid target, bool priority = false)
     {
         lock (gate)
         {
             RequireAlive(source.Self);
-            if (processes.TryGetValue(target, out var p))
+            if (source.Self.Equals(target))
+                return;
+            if (processes.TryGetValue(target, out var process))
             {
                 source.Links.Add(target);
-                p.Links.Add(source.Self);
+                process.Links.Add(source.Self);
+                if (priority)
+                    source.PriorityLinks.Add(target);
+                else
+                    source.PriorityLinks.Remove(target);
+
+                return;
             }
+            if (!source.TrapExits && target.Node == Node)
+                throw new ErlangException(ErlangErrorReasons.NoProcess);
+            source.Links.Add(target);
+            if (priority)
+                source.PriorityLinks.Add(target);
             else
-                Signal(
-                    source,
-                    target,
-                    Term.A(ErlangErrorReasons.NoProcess),
-                    false
-                );
+                source.PriorityLinks.Remove(target);
+            QueueExit(
+                source,
+                target,
+                Term.A(target.Node == Node ? ErlangErrorReasons.NoProcess : ProcessLinkFailureReasons.Disconnected),
+                false,
+                false,
+                false,
+                null,
+                true
+            );
         }
     }
 
@@ -277,8 +295,12 @@ public sealed class ProcessRuntime : IAsyncDisposable
         lock (gate)
         {
             source.Links.Remove(target);
+            source.PriorityLinks.Remove(target);
             if (processes.TryGetValue(target, out var p))
+            {
                 p.Links.Remove(source.Self);
+                p.PriorityLinks.Remove(source.Self);
+            }
         }
     }
 
@@ -417,6 +439,97 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
     }
 
+    internal void SendExitSignal(
+        ProcessContext sender,
+        Term destination,
+        Term reason,
+        bool legacy,
+        bool priority
+    )
+    {
+        if (destination is not Pid && destination is not ReferenceTerm)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        lock (gate)
+        {
+            if (destination is Pid pid)
+            {
+                if (!processes.TryGetValue(pid, out var target))
+                    return;
+                bool normalKills = legacy && pid.Equals(sender.Self);
+                if (normalKills && (reason.Equals(Term.A(ProcessExitSignals.Kill)) || !target.TrapExits))
+                {
+                    Terminate(target, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);
+                    sender.Cancellation.ThrowIfCancellationRequested();
+
+                    return;
+                }
+                QueueExit(
+                    target,
+                    sender.Self,
+                    reason,
+                    true,
+                    normalKills,
+                    false,
+                    null,
+                    false
+                );
+            }
+            else if (destination is ReferenceTerm reference && aliases.TryGetValue(reference, out var alias) && processes.TryGetValue(alias.Owner, out var target))
+                QueueExit(
+                    target,
+                    sender.Self,
+                    reason,
+                    true,
+                    false,
+                    priority,
+                    reference,
+                    false
+                );
+        }
+    }
+
+    private void QueueExit(
+        ProcessContext target,
+        Pid sender,
+        Term reason,
+        bool explicitSignal,
+        bool normalKills,
+        bool priority,
+        ReferenceTerm? alias,
+        bool linked
+    )
+    {
+        target.Mailbox.SendPending(
+            Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), sender, reason),
+            () =>
+        {
+            if (target.Terminated)
+                return null;
+            bool prioritized = false;
+            if (alias is not null)
+            {
+                if (!aliases.TryGetValue(alias, out var permission) || !permission.Owner.Equals(target.Self))
+                    return null;
+                prioritized = priority && permission.Priority;
+            }
+            if (linked)
+            {
+                if (!target.Links.Remove(sender))
+                    return null;
+                prioritized = target.PriorityLinks.Remove(sender);
+            }
+            bool kill = explicitSignal && reason.Equals(Term.A(ProcessExitSignals.Kill));
+            if (target.TrapExits && !kill)
+                return prioritized;
+            if (!kill && reason.Equals(Term.A(ProcessExitReasons.Normal)) && !normalKills)
+                return null;
+            Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);
+
+            return null;
+        }
+        );
+    }
+
     private void Signal(
         ProcessContext target,
         Pid sender,
@@ -458,6 +571,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     names.Remove(name);
                 var links = ctx.Links.ToArray();
                 ctx.Links.Clear();
+                ctx.PriorityLinks.Clear();
                 foreach (var m in monitors.ToArray())
                 {
                     if (m.Value.Target?.Equals(ctx.Self) == true)
@@ -478,11 +592,16 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 foreach (var pid in links)
                     if (processes.TryGetValue(pid, out var linked))
                     {
-                        linked.Links.Remove(ctx.Self);
-                        if (linked.TrapExits)
-                            linked.Mailbox.Send(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), ctx.Self, reason));
-                        else if (!reason.Equals(Term.A(ProcessExitReasons.Normal)))
-                            pending.Enqueue((linked, reason));
+                        QueueExit(
+                            linked,
+                            ctx.Self,
+                            reason,
+                            false,
+                            false,
+                            false,
+                            null,
+                            true
+                        );
                     }
             }
         }

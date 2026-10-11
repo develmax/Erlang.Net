@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part143: four priority link/exit exports,pending alias/link signal resolution and safe terminal cleanup;repair monitored-spawn group-leader inheritance. **4052/full local**,79 new modules and128-child host check. [Audit](validation/part-143/reference-audit.json). Registry377;erlang227/351,124 missing,64.7% API presence. All141 fixtures/six exclusions preserved;original3537 and same-head4052 CI pending144. Whole erlang goal continues;real ports/distribution/native scheduler/full metadata and resources unfinished.
+
 Part142: complete **3454/3458 original**,four new spawn discrepancies preserved;**3968/full same-head CI** at59992ef. [Failures](validation/part-142/mismatches.json), [proof](validation/part-142/remote-checkpoint.json). All old successful native results/all141 sources/six exclusions preserved. Registry373;erlang223/351,128 missing,63.5% API presence. Latest successful original140. Next: align native fresh-child execution context without altering fixtures,resolve PID outcomes,then priority signals/links and monitored-spawn inheritance. Whole goal continues.
 
 Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
@@ -8,7 +10,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.223 registered,128 missing,total373 direct MFAs.63.5% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.227 registered,124 missing,total377 direct MFAs.64.7% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -114,11 +116,11 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `error/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `error/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `error/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `exit_signal/2` | Missing; real implementation/runtime prerequisites required |
-| `exit_signal/3` | Missing; real implementation/runtime prerequisites required |
+| `exit_signal/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `exit_signal/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `exit/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `exit/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `exit/3` | Missing; real implementation/runtime prerequisites required |
+| `exit/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `external_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `external_size/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `finish_after_on_load/2` | Missing; real implementation/runtime prerequisites required |
@@ -190,7 +192,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `is_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `length/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `link/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `link/2` | Missing; real implementation/runtime prerequisites required |
+| `link/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_bitstring/1` | Registered; bounded functional evidence, see supported-mfas.json |

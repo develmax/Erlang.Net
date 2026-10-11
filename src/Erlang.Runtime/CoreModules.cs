@@ -243,7 +243,13 @@ public static class CoreModules
             2,
             (c, a) =>
  {
-     c.Runtime.Exit(c, PidValue(a[0]), a[1]);
+     c.Runtime.SendExitSignal(
+         c,
+         a[0],
+         a[1],
+         true,
+         false
+     );
 
      return Term.A(ErlangBooleanAtoms.True);
  }
@@ -725,6 +731,7 @@ public static class CoreModules
         ProcessAliasRegistrations.Register(r);
         ProcessMonitorRegistrations.Register(r);
         ProcessSpawnRegistrations.Register(r);
+        ProcessExitRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);

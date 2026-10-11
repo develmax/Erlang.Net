@@ -1,0 +1,79 @@
+{
+  "Tests": 4052,
+  "ErlangPresent": 227,
+  "NewExports": [
+    {
+      "Module": "erlang",
+      "Function": "link",
+      "Arity": 2,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:link/2",
+      "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "exit",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:exit/3",
+      "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "exit_signal",
+      "Arity": 2,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:exit_signal/2",
+      "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+    },
+    {
+      "Module": "erlang",
+      "Function": "exit_signal",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:exit_signal/3",
+      "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+    }
+  ],
+  "Registry": 377,
+  "Sources": [
+    {
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "BlobSHA1": "840127c5162b14a3b7e7eb834e28fd950755f99d",
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c"
+    },
+    {
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    },
+    {
+      "BlobSHA1": "d09a1ed23bf1da13c76180230ef357d0a14e90ba",
+      "Path": "erts/preloaded/src/init.erl"
+    }
+  ],
+  "Licensing": "Altered consolidated Ericsson Apache notices exact in two local packages;no source banners,dependency,public package or draft license",
+  "InheritedLeaderRepair": "SpawnMonitor now passes observer into Spawn;three nondefault-group-leader fun-spawn regressions",
+  "ManagedPlan": 3543,
+  "NewCompiledModules": 79,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalExclusions": 6,
+  "ComparableOriginalPlan": 3537,
+  "Boundaries": [
+    "Real ports and connected distribution unfinished",
+    "Physical scheduler/reductions/full stacks/error_info/resources/exhaustive suites and native speed superiority not established"
+  ],
+  "TerminalSafety": "Detach current pending state before callback;termination may discard remaining nodes;do not traverse removed node;recheck cancellation before selecting messages",
+  "PriorTests": 3968,
+  "Baseline": "OTP-29.1.1",
+  "ApiPresencePercent": 64.7,
+  "Missing": 124,
+  "Preservation": "All1412593 source/expectation/generated hashes and historical778/1951/93 preserved",
+  "SignalAdmission": "Receiver resolves active aliases/links and trap state;exit does not consume reply alias;priority is receiver-owned permission;legacy direct-self normal may terminate",
+  "NewHostChecks": 1,
+  "ErlangDeclared": 351,
+  "NativeStatus": "Pending144",
+  "InitialFailure": "Unpublished fixture-spread append missed whitespace marker;four direct MFA lookups failed in3969/3973 report;corrected to4050/4050 with77 contracts;last two independent contracts then passed in79/79;main4052/full is final"
+}

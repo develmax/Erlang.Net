@@ -14,6 +14,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal Pid GroupLeader { get; set; }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
+    internal HashSet<Pid> PriorityLinks { get; } = new();
     internal bool Terminated;
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();

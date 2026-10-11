@@ -6,11 +6,23 @@ public static class CompiledModuleProtocol
 {
     public static string Command(string source)
     {
-        return Forms(source) + "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings])," +
-            "{module,M}=code:load_binary(M,\"differential.erl\",Bin)," +
-            "Result=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
+        return Load(source) + "OracleOwner=self()," +
+            "{OracleRunner,OracleMonitor}=spawn_monitor(fun()->" +
+            "OracleOutcome=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
+            "OracleOwner!{" + NativeModuleResultNames.Tag + ",self(),OracleOutcome} end)," +
+            "Result=receive {" + NativeModuleResultNames.Tag + ",OracleRunner,OracleValue}->" +
+            "demonitor(OracleMonitor,[flush]),OracleValue;" +
+            "{'DOWN',OracleMonitor,process,OracleRunner,OracleReason}->{error,exit,OracleReason} end," +
             OracleResultProtocol.Command("Result");
     }
+
+    public static string InitialProcessCommand(string source) => Load(source) +
+        "Result=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
+        OracleResultProtocol.Command("Result");
+
+    private static string Load(string source) => Forms(source) +
+        "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings])," +
+        "{module,M}=code:load_binary(M,\"differential.erl\",Bin),";
 
     public static string DiagnosticCommand(string source) => Forms(source) +
         "Result=case compile:forms(Forms,[binary,return_errors,return_warnings]) of " +

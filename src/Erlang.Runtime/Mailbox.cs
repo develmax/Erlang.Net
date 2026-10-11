@@ -62,9 +62,9 @@ public sealed class Mailbox
                 var next = node.Next;
                 if (node.Value.Admission is { } admission)
                 {
-                    bool? priority = admission();
                     pending--;
                     node.Value = new Entry(node.Value.Value, null);
+                    bool? priority = admission();
                     if (priority is null)
                         RemoveNode(node);
                     else if (priority.Value)
@@ -77,7 +77,7 @@ public sealed class Mailbox
                         lastPriority = node;
                     }
                 }
-                node = next;
+                node = next is not null && next.List == messages ? next : null;
             }
         }
     }
@@ -146,6 +146,7 @@ public sealed class Mailbox
         {
             cancellation.ThrowIfCancellationRequested();
             ProcessSignals?.Invoke();
+            cancellation.ThrowIfCancellationRequested();
             Task signal;
             bool retry;
             lock (gate)

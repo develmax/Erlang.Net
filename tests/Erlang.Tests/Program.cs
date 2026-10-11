@@ -6,6 +6,7 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);
 Test("runtime/monitor-concurrent-termination-and-cancellation", Erlang.Tests.ProcessMonitorHostChecks.ConcurrentTermination);
 Test(
