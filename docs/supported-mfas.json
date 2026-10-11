@@ -521,6 +521,22 @@
   },
   {
     "Module": "erlang",
+    "Function": "error",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:error/2",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "error",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:error/3",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "exit",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -582,6 +598,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:floor/1",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "function_exported",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:function_exported/3",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -718,6 +742,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:is_boolean/1",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_builtin",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_builtin/3",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -937,6 +969,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "make_fun",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:make_fun/3",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "make_ref",
     "Arity": 0,
     "Status": "Partially compatible",
@@ -1046,6 +1086,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:monotonic_time/1",
     "Limits": "Source-directed clock/calendar and timer options; functional contracts verified against original in118 at0aabf20; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "nif_error",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:nif_error/1",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "nif_error",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:nif_error/2",
+    "Limits": "Local121 source-directed external-function identity/query/creation and error argument/error_info/nif stack contracts; original122 pending. Actual registry versus native classification,full preload/unload/local-fun code/env/init metadata,physical/native stack locations/resources/upstream suites/performance boundaries explicit"
   },
   {
     "Module": "erlang",

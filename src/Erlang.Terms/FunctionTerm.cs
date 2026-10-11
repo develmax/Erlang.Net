@@ -9,6 +9,12 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
     private static long next;
     internal long Identity { get; } = Interlocked.Increment(ref next);
     public int Arity { get; } = arity;
+    public ExternalFunctionIdentity? ExternalIdentity { get; }
+
+    public FunctionTerm(ExternalFunctionIdentity identity, Func<ITermExecutionContext, IReadOnlyList<Term>, ValueTask<Term>> invoke) : this(identity.Arity, invoke)
+    {
+        ExternalIdentity = identity;
+    }
 
     public ValueTask<Term> Invoke(ITermExecutionContext context, IReadOnlyList<Term> arguments) => arguments.Count == Arity ? invoke(context, arguments) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArity), Term.Tuple(this, Cons.From(arguments))));
 

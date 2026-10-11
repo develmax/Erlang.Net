@@ -24,6 +24,7 @@ public static class Execution
     {
         while (true)
         {
+            using var frame = context.EnterFunction(module.Name, function, arguments.Count);
             var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
             var selection = Select(
                 definition.Clauses,
@@ -568,12 +569,14 @@ public static class Execution
             case Expr.Fun f:
                 {
                     var capture = new Dictionary<string, Term>(b, StringComparer.Ordinal);
+                    string frameName = AnonymousFunctionFrames.Name(f, ctx);
 
                     return new FunctionTerm(
                         f.Clauses[0].Patterns.Count,
                         async (context, args) =>
                     {
                         var process = (ProcessContext)context;
+                        using var frame = process.EnterFunction(AnonymousFunctionFrames.Module(module), frameName, args.Count);
                         foreach (var clause in f.Clauses)
                         {
                             var scope = new Dictionary<string, Term>(capture, StringComparer.Ordinal);

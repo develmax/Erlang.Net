@@ -1,8 +1,8 @@
 # Erlang API and compatibility scope
 
-Pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.181 registered,170 missing,total331 MFAs. Local1193105/full;original1202657/2657 and3105/full same-head CI verified at4aa285d. Presence is not semantic completion.
+Pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.188 registered,163 missing,total338 MFAs. Local1213207/full;original2751/same-head CI122 pending. Presence is not semantic completion.
 
-Part120: published MD5/raise/process/node/scheduling implementation4aa285d passes **2657/2657 original and3105/full same-head CI**. [Provenance](validation/part-120/remote-checkpoint.json). Registry331,erlang181/351,170 missing. All118778/1661/84 preserved;134 new independent modules verified. Whole erlang goal active; next external-function identity/queries and remaining real runtime prerequisites.
+Part121 adds seven real external-function/query/error argument/info/nif MFAs and94 modules;erlang188/351,163 missing,total338;local3207/full. [Local evidence](validation/part-121/tests.json),[source boundaries](validation/part-121/reference-audit.json). Original2751 and same-head3207/full CI122 pending;complete historical120 remains2657/2657 at4aa285d. Whole erlang goal active.
 
 | Export | Current state |
 | --- | --- |
@@ -104,8 +104,8 @@ Part120: published MD5/raise/process/node/scheduling implementation4aa285d passe
 | `erase/0` | Registered; bounded functional evidence,see supported-mfas.json |
 | `erase/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `error/1` | Registered; bounded functional evidence,see supported-mfas.json |
-| `error/2` | Missing; real implementation/runtime prerequisites required |
-| `error/3` | Missing; real implementation/runtime prerequisites required |
+| `error/2` | Registered; bounded functional evidence,see supported-mfas.json |
+| `error/3` | Registered; bounded functional evidence,see supported-mfas.json |
 | `exit_signal/2` | Missing; real implementation/runtime prerequisites required |
 | `exit_signal/3` | Missing; real implementation/runtime prerequisites required |
 | `exit/1` | Registered; bounded functional evidence,see supported-mfas.json |
@@ -126,7 +126,7 @@ Part120: published MD5/raise/process/node/scheduling implementation4aa285d passe
 | `fun_info/1` | Missing; real implementation/runtime prerequisites required |
 | `fun_info/2` | Missing; real implementation/runtime prerequisites required |
 | `fun_to_list/1` | Missing; real implementation/runtime prerequisites required |
-| `function_exported/3` | Missing; real implementation/runtime prerequisites required |
+| `function_exported/3` | Registered; bounded functional evidence,see supported-mfas.json |
 | `garbage_collect_message_area/0` | Missing; real implementation/runtime prerequisites required |
 | `garbage_collect/0` | Missing; real implementation/runtime prerequisites required |
 | `garbage_collect/1` | Missing; real implementation/runtime prerequisites required |
@@ -162,7 +162,7 @@ Part120: published MD5/raise/process/node/scheduling implementation4aa285d passe
 | `is_binary/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `is_bitstring/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `is_boolean/1` | Registered; bounded functional evidence,see supported-mfas.json |
-| `is_builtin/3` | Missing; real implementation/runtime prerequisites required |
+| `is_builtin/3` | Registered; bounded functional evidence,see supported-mfas.json |
 | `is_float/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `is_function/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `is_function/2` | Registered; bounded functional evidence,see supported-mfas.json |
@@ -200,7 +200,7 @@ Part120: published MD5/raise/process/node/scheduling implementation4aa285d passe
 | `localtime_to_universaltime/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `localtime_to_universaltime/2` | Registered; bounded functional evidence,see supported-mfas.json |
 | `localtime/0` | Registered; bounded functional evidence,see supported-mfas.json |
-| `make_fun/3` | Missing; real implementation/runtime prerequisites required |
+| `make_fun/3` | Registered; bounded functional evidence,see supported-mfas.json |
 | `make_ref/0` | Registered; bounded functional evidence,see supported-mfas.json |
 | `make_tuple/2` | Registered; bounded functional evidence,see supported-mfas.json |
 | `make_tuple/3` | Registered; bounded functional evidence,see supported-mfas.json |
@@ -222,8 +222,8 @@ Part120: published MD5/raise/process/node/scheduling implementation4aa285d passe
 | `monitor/3` | Missing; real implementation/runtime prerequisites required |
 | `monotonic_time/0` | Registered; bounded functional evidence,see supported-mfas.json |
 | `monotonic_time/1` | Registered; bounded functional evidence,see supported-mfas.json |
-| `nif_error/1` | Missing; real implementation/runtime prerequisites required |
-| `nif_error/2` | Missing; real implementation/runtime prerequisites required |
+| `nif_error/1` | Registered; bounded functional evidence,see supported-mfas.json |
+| `nif_error/2` | Registered; bounded functional evidence,see supported-mfas.json |
 | `node/0` | Registered; bounded functional evidence,see supported-mfas.json |
 | `node/1` | Registered; bounded functional evidence,see supported-mfas.json |
 | `nodes/0` | Missing; real implementation/runtime prerequisites required |

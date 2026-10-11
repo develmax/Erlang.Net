@@ -75,6 +75,18 @@ public static class TermOrder
                     y.Id
                 );
             case (FunctionTerm x, FunctionTerm y):
+                if (x.ExternalIdentity is { } left && y.ExternalIdentity is { } right)
+                {
+                    int module = Compare(left.Module, right.Module, true);
+                    if (module != 0)
+                        return module;
+                    int function = Compare(left.Function, right.Function, true);
+
+                    return function != 0 ? function : left.Arity.CompareTo(right.Arity);
+                }
+                if (x.ExternalIdentity is not null || y.ExternalIdentity is not null)
+                    return (x.ExternalIdentity is not null).CompareTo(y.ExternalIdentity is not null);
+
                 return x.Identity.CompareTo(y.Identity);
             case (TupleTerm x, TupleTerm y):
                 {
@@ -207,7 +219,16 @@ public static class TermOrder
                 h.Add(x.Creation);
                 break;
             case FunctionTerm x:
-                h.Add(x.Identity);
+                if (x.ExternalIdentity is { } identity)
+                {
+                    h.Add(identity.Module);
+                    h.Add(identity.Function);
+                    h.Add(identity.Arity);
+                }
+                else
+                {
+                    h.Add(x.Identity);
+                }
                 break;
             case TupleTerm x:
                 foreach (var item in x.Items)

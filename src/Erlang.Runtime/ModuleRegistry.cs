@@ -26,5 +26,7 @@ public sealed class ModuleRegistry
     )
         => functions.TryGetValue((module, function, arguments.Length), out var f) ? f(context, arguments) : throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
 
+    public bool HasExport(string module, string function, int arity) => functions.ContainsKey((module, function, arity));
+
     public IReadOnlyCollection<(string Module, string Function, int Arity)> Exports => functions.Keys;
 }

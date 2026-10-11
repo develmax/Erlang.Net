@@ -1,10 +1,10 @@
 # Progress checkpoint — 2026-10-11
 
-Part120: published MD5/raise/process/node/scheduling implementation4aa285d passes **2657/2657 original and3105/full same-head CI**. [Provenance](validation/part-120/remote-checkpoint.json). Registry331,erlang181/351,170 missing. All118778/1661/84 preserved;134 new independent modules verified. Whole erlang goal active; next external-function identity/queries and remaining real runtime prerequisites.
+Part121 adds seven real external-function/query/error argument/info/nif MFAs and94 modules;erlang188/351,163 missing,total338;local3207/full. [Local evidence](validation/part-121/tests.json),[source boundaries](validation/part-121/reference-audit.json). Original2751 and same-head3207/full CI122 pending;complete historical120 remains2657/2657 at4aa285d. Whole erlang goal active.
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–120.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–121.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -12,13 +12,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades and relative timers | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, tuple records, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 331 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 338 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, significant/auto_shutdown and simple_one_for_one, public queries/stop, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 331 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 338 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 

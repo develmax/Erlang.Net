@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-119/tests.json",
-  "LocalPassedTests": 3105,
-  "RegisteredMfas": 331,
+  "ComparisonTestReport": "validation/part-120/ci-tests.json",
+  "LocalPassedTests": 3207,
+  "RegisteredMfas": 338,
   "PreviousRegisteredMfas": 331,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 7,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -56,7 +56,7 @@
         "distribution, ETS/DETS, ports/NIF/code loading",
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
       ],
-      "RelatedPassedTests": 219
+      "RelatedPassedTests": 227
     },
     {
       "Id": "Compiler",
@@ -102,13 +102,14 @@
         "Erlang basic/data increment:89 new MFAs,355 compiled contracts (116 basic,239 data) verified against exact-source OTP at2832c78; erlang133/351,218 missing; whole module remains partial",
         "Erlang text increment:13 actual atom/float-output MFAs and175 independent modules;verified against exact-source OTP at44ca437:2408/2408 and2816/full same-head CI;erlang146/351,205 missing",
         "Twenty clock/calendar exports and four timer option exports;24 new real MFAs,115 independent modules,verified against original2523/2523 and2959/full same-head CI118 at0aabf20; erlang170/351",
-        "Eleven MD5/raise/process-query/node/scheduling MFAs and134 compiled cases;verified against original2657/2657 and3105/full same-head CI120 at4aa285d;erlang181/351,total331"
+        "Eleven MD5/raise/process-query/node/scheduling MFAs and134 compiled cases;verified against original2657/2657 and3105/full same-head CI120 at4aa285d;erlang181/351,total331",
+        "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;3207/full local121;original122 pending;erlang188/351,total338"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1370
+      "RelatedPassedTests": 1377
     },
     {
       "Id": "gen_server adapters",
@@ -198,7 +199,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 1892
+      "RelatedPassedTests": 1986
     },
     {
       "Id": "Style checks",
@@ -5467,11 +5468,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 181,
+      "RegisteredMfas": 188,
       "PreviousRegisteredMfas": 181,
-      "Delta": 0,
+      "Delta": 7,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 51.6,
+      "ApiPresencePercent": 53.6,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5542,6 +5543,8 @@
         "erlang:erase/0",
         "erlang:erase/1",
         "erlang:error/1",
+        "erlang:error/2",
+        "erlang:error/3",
         "erlang:exit/1",
         "erlang:exit/2",
         "erlang:float/1",
@@ -5550,6 +5553,7 @@
         "erlang:float_to_list/1",
         "erlang:float_to_list/2",
         "erlang:floor/1",
+        "erlang:function_exported/3",
         "erlang:get/0",
         "erlang:get/1",
         "erlang:get_keys/0",
@@ -5567,6 +5571,7 @@
         "erlang:is_binary/1",
         "erlang:is_bitstring/1",
         "erlang:is_boolean/1",
+        "erlang:is_builtin/3",
         "erlang:is_float/1",
         "erlang:is_function/1",
         "erlang:is_function/2",
@@ -5594,6 +5599,7 @@
         "erlang:localtime/0",
         "erlang:localtime_to_universaltime/1",
         "erlang:localtime_to_universaltime/2",
+        "erlang:make_fun/3",
         "erlang:make_ref/0",
         "erlang:make_tuple/2",
         "erlang:make_tuple/3",
@@ -5608,6 +5614,8 @@
         "erlang:monitor/2",
         "erlang:monotonic_time/0",
         "erlang:monotonic_time/1",
+        "erlang:nif_error/1",
+        "erlang:nif_error/2",
         "erlang:node/0",
         "erlang:node/1",
         "erlang:not/1",

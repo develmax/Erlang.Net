@@ -1,0 +1,48 @@
+namespace Erlang.Differential;
+
+public static class ErrorMetadataCases
+{
+    private static CompiledModuleCase Case(string name, string body, string helpers = "") => new(
+        "erlang-error-metadata-" + name,
+        "-module(oracle_error_metadata). -export([run/0]). run()->" + body + ",done. " + helpers,
+        Term.Tuple(Term.A("ok"), Term.A("done"))
+    );
+
+    public static string? FixtureName(string function, int arity)
+    {
+        string name = "erlang-error-metadata-export-" + function + "-" + arity;
+
+        return Modules.Any(fixture => fixture.Name == name) ? name : null;
+    }
+
+    public static IReadOnlyList<CompiledModuleCase> Modules { get; } = Build();
+
+    private static IReadOnlyList<CompiledModuleCase> Build()
+    {
+        var cases = new List<CompiledModuleCase>();
+        cases.Add(Case("export-error-2", "try erlang:error(reason,[arg]) catch error:reason:[{oracle_error_metadata,run,[arg],_}|_]->ok end"));
+        cases.Add(Case("export-error-3", "M=#{module=>formatter,cause=>detail},try erlang:error(reason,[arg],[{error_info,M}]) catch error:reason:[{oracle_error_metadata,run,[arg],Loc}|_]->true=lists:member({error_info,M},Loc) end"));
+        cases.Add(Case("export-nif_error-1", "try erlang:nif_error(reason) catch error:reason:[{erlang,nif_error,[reason],_}|_]->ok end"));
+        cases.Add(Case("export-nif_error-2", "try erlang:nif_error(reason,[arg]) catch error:reason:[{erlang,nif_error,[reason,[arg]],_}|_]->ok end"));
+        foreach (string arguments in new[] { "[]", "[one]", "[one,two]", "[one|tail]" })
+            cases.Add(Case("args-list-" + cases.Count, "A=" + arguments + ",try erlang:error(reason,A) catch error:reason:[{oracle_error_metadata,run,A,_}|_]->ok end"));
+        foreach (string arguments in new[] { "bad", "1", "1.0", "{}", "#{a=>b}", "<<1>>", "self()", "erlang:make_ref()", "fun()->ok end" })
+            cases.Add(Case("args-non-list-" + cases.Count, "A=" + arguments + ",try erlang:error(reason,A) catch error:reason:[{oracle_error_metadata,run,0,_}|_]->ok end"));
+        foreach (string options in new[] { "[]", "bad", "1", "[bad]", "[{other,#{}}]", "[{error_info,bad}]", "[{error_info,#{}}|tail]", "[{error_info,#{a=>b}},bad]", "[{error_info,#{a=>b}},{error_info,bad}]", "[{error_info,#{a=>b}}|bad]" })
+            cases.Add(Case("invalid-options-fallback-" + cases.Count, "try erlang:error(reason,[arg]," + options + ") catch error:reason:[{oracle_error_metadata,run,[arg],Loc}|_]->false=lists:keymember(error_info,1,Loc) end"));
+        cases.Add(Case("last-info-wins", "M=#{cause=>last},try erlang:error(reason,[arg],[{error_info,#{cause=>first}},{error_info,M}]) catch error:reason:[{oracle_error_metadata,run,[arg],Loc}|_]->true=lists:member({error_info,M},Loc),false=lists:member({error_info,#{cause=>first}},Loc) end"));
+        cases.Add(Case("empty-info-map", "try erlang:error(reason,[],[{error_info,#{}}]) catch error:reason:[{oracle_error_metadata,run,[],Loc}|_]->true=lists:member({error_info,#{}},Loc) end"));
+        cases.Add(Case("nonlist-args-with-info", "try erlang:error(reason,bad,[{error_info,#{a=>b}}]) catch error:reason:[{oracle_error_metadata,run,0,Loc}|_]->true=lists:member({error_info,#{a=>b}},Loc) end"));
+        cases.Add(Case("nested-top-caller", "try caller(value) catch error:reason:[{oracle_error_metadata,caller,[provided],_}|_]->ok end", "caller(_)->erlang:error(reason,[provided])."));
+        cases.Add(Case("nested-nonlist-caller-arity", "try caller(value) catch error:reason:[{oracle_error_metadata,caller,1,_}|_]->ok end", "caller(_)->erlang:error(reason,bad)."));
+        cases.Add(Case("tail-current-caller", "try outer(value) catch error:reason:[{oracle_error_metadata,inner,[provided],_}|_]->ok end", "outer(X)->inner(X). inner(_)->erlang:error(reason,[provided])."));
+        cases.Add(Case("restore-context-after-call", "helper(),try erlang:error(reason,[provided]) catch error:reason:[{oracle_error_metadata,run,[provided],_}|_]->ok end", "helper()->ok."));
+        cases.Add(Case("restore-context-after-catch", "try helper() catch error:inner->ok end,try erlang:error(reason,[provided]) catch error:reason:[{oracle_error_metadata,run,[provided],_}|_]->ok end", "helper()->erlang:error(inner,[])."));
+        cases.Add(Case("cross-process-current-caller", "Parent=self(),{Child,Ref}=spawn_monitor(fun()->try child() catch error:reason:[{oracle_error_metadata,child,[provided],_}|_]->Parent!matched end end),receive matched->ok end,receive {'DOWN',Ref,process,Child,normal}->ok end", "child()->erlang:error(reason,[provided])."));
+        foreach (string reason in new[] { "[]", "{}", "#{a=>b}", "<<1>>", "[1|tail]", "self()", "erlang:make_ref()" })
+            cases.Add(Case("opaque-reason-" + cases.Count, "R=" + reason + ",try erlang:error(R,[arg]) catch error:R->ok end"));
+        cases.Add(Case("uncaught-monitored-metadata", "M=#{cause=>detail},F=fun()->erlang:error(reason,[provided],[{error_info,M}]) end,{Child,Ref}=spawn_monitor(F),receive {'DOWN',Ref,process,Child,{reason,[{_,_,[provided],Loc}|_]}}->true=lists:member({error_info,M},Loc) after 1000->error(missing) end"));
+
+        return cases;
+    }
+}

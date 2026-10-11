@@ -7,6 +7,62 @@ using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
 Test(
+    "runtime/external-function-late-binding-context-and-hash",
+    async () =>
+{
+    await using var origin = new ProcessRuntime("function_origin");
+    await using var target = new ProcessRuntime("function_target");
+    FunctionTerm? function = null;
+    var first = origin.Spawn(async context =>
+    {
+        function = (FunctionTerm)await origin.Modules.Call(
+            context,
+            "erlang",
+            "make_fun",
+            Term.A("late_function"),
+            Term.A("current"),
+            Term.I(0)
+        );
+        Check(!origin.Modules.HasExport("late_function", "current", 0));
+        origin.Modules.Register(
+            "late_function",
+            "current",
+            0,
+            (caller, _) => ValueTask.FromResult<Term>(caller.Self)
+        );
+        Equal(await function.Invoke(context, []), context.Self);
+        Term same = await origin.Modules.Call(
+            context,
+            "erlang",
+            "make_fun",
+            Term.A("late_function"),
+            Term.A("current"),
+            Term.I(0)
+        );
+        Equal(function, same);
+        Check(function.GetHashCode() == same.GetHashCode());
+        Check(new HashSet<Term> { function }.Contains(same));
+
+        return Term.A("done");
+    });
+    Equal(await first.Completion, Term.A("normal"));
+    Check(function is not null);
+    target.Modules.Register(
+        "late_function",
+        "current",
+        0,
+        (caller, _) => ValueTask.FromResult<Term>(caller.Self)
+    );
+    var second = target.Spawn(async context =>
+    {
+        Equal(await function!.Invoke(context, []), context.Self);
+
+        return Term.A("done");
+    });
+    Equal(await second.Completion, Term.A("normal"));
+}
+);
+Test(
     "runtime/md5-forged-pending-length-safety",
     async () =>
 {
