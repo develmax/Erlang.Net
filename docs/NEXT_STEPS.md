@@ -445,3 +445,5 @@ Approximately5% coarse overall; full modules/upstream suites/performance remain 
 Part 110 verifies all lists 91/91 exports, original1878/1878 and same-head2181/full CI. Next broader OTP/compiler/runtime work; lists resource/stack/error_info/performance hardening remains explicit.
 
 Current active goal: complete all erlang351 exports/BIFs;111 registers105/351 with2357/full local. Finish1993 original/same-head CI112, then binary/text/ETF/checksum/hash, time/timer options, processes/aliases/spawn/inspection, native records/code/ports/distribution/tracing/host support. No generic stubs or registration-only completion; do not stop at a partial increment.
+
+Part112 original failed/incomplete1862/1863,apply/2 tuple mismatch and missing erlang qualifiers;CI2357/full. Fix apply source semantics and tuple fixtures in113, integrate data/parser drafts, rerun exact original114. Whole erlang goal remains active,105/351,246 missing. No complete-original promotion.
