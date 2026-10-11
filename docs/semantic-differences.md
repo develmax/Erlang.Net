@@ -1,5 +1,7 @@
 # Known semantic boundaries
 
+Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
+
 All current compatibility entries are implemented or partially compatible, not globally verified compatible. Source-driven regressions do not replace running OTP 29.1.1. Latest selected proof:1380/1380 at4992a98 (778 expressions,523 compiled modules,79 diagnostics), with1574 same-head CI tests; see [part098](validation/part-098/remote-checkpoint.json). The historical exact-version 183-case corpus passed at 3990623 in run 37999487360, including float/UTF/numeric-coercion and literal-string additions; only these value/error cases are verified, not full modules, stacks, signal effects or reference suites. Earlier failed-run diagnoses remain in CHANGELOG.
 
 Anonymous fun matching now shadows captured values separately per clause, preserving a capture in fallback clauses whose own head does not bind that name. Three regressions cover tuple-head mismatch, guard failure and bit-pattern fallback. Named/external fun forms and full scope combinations remain pending.

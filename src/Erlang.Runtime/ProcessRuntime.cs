@@ -48,6 +48,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
             if (link && parent is not null)
                 RequireAlive(parent.Self);
             ctx = new(this, new Pid(Node, (ulong)++nextPid));
+            ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
             if (link && parent is not null)
             {
@@ -179,6 +180,26 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
             return processes.ContainsKey(pid);
+    }
+
+    public Pid GetGroupLeader(ProcessContext owner)
+    {
+        lock (gate)
+            return RequireAlive(owner.Self).GroupLeader;
+    }
+
+    public bool SetGroupLeader(Pid leader, Pid target)
+    {
+        lock (gate)
+        {
+            if (target.Node != Node)
+                return true;
+            if (!processes.TryGetValue(target, out var process))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            process.GroupLeader = leader;
+
+            return true;
+        }
     }
 
     public IReadOnlyList<Pid> ProcessSnapshot()

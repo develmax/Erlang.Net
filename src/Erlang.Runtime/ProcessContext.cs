@@ -6,10 +6,12 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         Runtime = runtime;
         Self = pid;
+        GroupLeader = pid;
         Mailbox = new() { ProcessSignals = () => Runtime.AdmitSignals(this) };
     }
 
     internal CancellationTokenSource Stop { get; } = new();
+    internal Pid GroupLeader { get; set; }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
     internal bool Terminated;

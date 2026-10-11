@@ -453,7 +453,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Any-arity fun or MFA tuple accepted by spawn/1 wrapper; actual apply/2 executes in child, producing child badarity/badfun when applicable. Inherits group leader; full native stacks/error_info/scheduling unfinished; original142 pending"
   },
   {
     "Module": "erlang",
@@ -2629,7 +2629,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/io:format/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Actual monitored group-leader io_request/io_reply, custom-device result/errors and selective response matching; managed initializer is default output device. Existing ~n/~~/~s/~p/~w formatter subset; full io_lib/input/file/system-process/distributed-device/error_info behavior unfinished; original142 pending"
   },
   {
     "Module": "gen_server",
@@ -2942,5 +2942,45 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:dt_restore_tag/1",
     "Limits": "Exact OTP default !USE_VM_PROBES configuration; enabled DTrace/LTTng/Systemtap behavior unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "group_leader",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:group_leader/0",
+    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "group_leader",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:group_leader/2",
+    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn/3",
+    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_link",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_link/3",
+    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_monitor",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_monitor/3",
+    "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
   }
 ]

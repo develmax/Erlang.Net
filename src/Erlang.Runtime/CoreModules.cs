@@ -418,10 +418,7 @@ public static class CoreModules
             1,
             (c, a) =>
  {
-     if (a[0] is not FunctionTerm { Arity: 0 } f)
-         throw new ErlangException(ErlangErrorReasons.BadArgument);
-
-     return c.Runtime.Spawn(child => f.Invoke(child, [])).Pid;
+     return ProcessSpawnRegistrations.StartCallback(c, a[0]);
  }
         );
         Add(
@@ -727,6 +724,7 @@ public static class CoreModules
         ErlangHashRegistrations.Register(r);
         ProcessAliasRegistrations.Register(r);
         ProcessMonitorRegistrations.Register(r);
+        ProcessSpawnRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
@@ -760,56 +758,7 @@ public static class CoreModules
             1,
             (context, arguments) => context.Runtime.Timers.Access(arguments[0], true)
         );
-        r.Register(
-            IoModuleNames.Module,
-            IoModuleNames.Format,
-            2,
-            async (c, a) =>
-        {
-            string format = Term.Text(a[0]);
-            var args = Cons.Items(a[1]).ToArray();
-            int n = 0;
-            var output = new System.Text.StringBuilder();
-            for (int i = 0; i < format.Length; i++)
-            {
-                if (format[i] != '~')
-                {
-                    output.Append(format[i]);
-                    continue;
-                }
-                if (++i == format.Length)
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
-                switch (format[i])
-                {
-                    case 'n':
-                        output.Append('\n');
-                        break;
-                    case '~':
-                        output.Append('~');
-                        break;
-                    case 's':
-                        if (n >= args.Length)
-                            throw new ErlangException(ErlangErrorReasons.BadArgument);
-                        output.Append(args[n] is Atom atom ? atom.Name : Term.Text(args[n]));
-                        n++;
-                        break;
-                    case 'p':
-                    case 'w':
-                        if (n >= args.Length)
-                            throw new ErlangException(ErlangErrorReasons.BadArgument);
-                        output.Append(args[n++]);
-                        break;
-                    default:
-                        throw new ErlangException(ErlangErrorReasons.BadArgument);
-                }
-            }
-            if (n != args.Length)
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
-            await c.Runtime.Output.WriteAsync(output.ToString());
-
-            return Term.A(IoResultAtoms.Ok);
-        }
-        );
+        IoFormatRequests.Register(r);
     }
 
 

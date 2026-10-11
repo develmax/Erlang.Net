@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-140/ci-tests.json",
-  "LocalPassedTests": 3902,
-  "RegisteredMfas": 368,
+  "LocalPassedTests": 3968,
+  "RegisteredMfas": 373,
   "PreviousRegisteredMfas": 368,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 5,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -59,7 +59,8 @@
         "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes",
         "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending",
         "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending",
-        "Part139: owned process monitor/3,demonitor/2,tag/priority/alias modes,pending DOWN and single-message flush/info; seven exact default-disabled dt_* exports; 97 compiled contracts plus concurrent128-child host check;3902/full local, original140 pending"
+        "Part139: owned process monitor/3,demonitor/2,tag/priority/alias modes,pending DOWN and single-message flush/info; seven exact default-disabled dt_* exports; 97 compiled contracts plus concurrent128-child host check;3902/full local, original140 pending",
+        "Part141: actual group-leader inheritance and five group_leader/MFA spawn exports, repaired spawn/1 child apply, monitored io:format/2 device protocol;60 module contracts and128-writer host check;3968/full local, original142 pending"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -68,7 +69,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 262
+      "RelatedPassedTests": 268
     },
     {
       "Id": "Compiler",
@@ -126,7 +127,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1407
+      "RelatedPassedTests": 1412
     },
     {
       "Id": "gen_server adapters",
@@ -222,7 +223,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 2639
+      "RelatedPassedTests": 2699
     },
     {
       "Id": "Style checks",
@@ -5491,11 +5492,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 218,
+      "RegisteredMfas": 223,
       "PreviousRegisteredMfas": 218,
-      "Delta": 0,
+      "Delta": 5,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 62.1,
+      "ApiPresencePercent": 63.5,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5599,6 +5600,8 @@
         "erlang:get/1",
         "erlang:get_keys/0",
         "erlang:get_keys/1",
+        "erlang:group_leader/0",
+        "erlang:group_leader/2",
         "erlang:hd/1",
         "erlang:insert_element/3",
         "erlang:integer_to_binary/1",
@@ -5687,8 +5690,11 @@
         "erlang:setelement/3",
         "erlang:size/1",
         "erlang:spawn/1",
+        "erlang:spawn/3",
         "erlang:spawn_link/1",
+        "erlang:spawn_link/3",
         "erlang:spawn_monitor/1",
+        "erlang:spawn_monitor/3",
         "erlang:split_binary/2",
         "erlang:start_timer/3",
         "erlang:start_timer/4",

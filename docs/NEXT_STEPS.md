@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
+
 Part140: **3398/3398 comparable original OTP and 3902/full same-head CI** at a71c034. All 51 new monitor and 46 default-disabled trace contracts match; all 139 fixtures and six exclusions remain unchanged. [Proof](validation/part-140/remote-checkpoint.json). Registry 368; erlang 218/351, 133 missing, 62.1% API presence. Next: actual group-leader inheritance, MFA spawning and monitored I/O requests, then remaining runtime prerequisites. The full erlang goal continues.
 
 Part139: process monitor options/pending DOWN/alias modes and seven exact default-disabled trace exports; **3902/full local**,97 new modules and one concurrent128-child host check. [Audit](validation/part-139/reference-audit.json). Registry368;erlang218/351,133missing,62.1% API presence. All137 fixtures preserved; six exclusions unchanged. Original3398 and same-head3902 CI pending140; latest successful original138. Whole erlang goal active; ports/clock monitors/distribution/enabled tracing/native scheduler prerequisites unfinished.

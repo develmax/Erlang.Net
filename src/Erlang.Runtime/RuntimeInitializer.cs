@@ -82,6 +82,8 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                         }
                     }
                 }
+                else if (IoDefaultDevice.IsRequest(message))
+                    await IoDefaultDevice.Execute(context, message).ConfigureAwait(false);
                 else if (message is TupleTerm { Items.Count: 2 } request && request.Items[0] is Pid from && request.Items[1] is Atom { Name: InitializationNames.GetStatus })
                 {
                     context.Runtime.Send(

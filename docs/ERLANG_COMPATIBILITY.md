@@ -1,10 +1,12 @@
 # Erlang API and compatibility scope
 
+Part141: group-leader inheritance, five group_leader/MFA spawn exports, spawn/1 child-apply repair and monitored io:format/2 protocol; **3968/full local**,60 new module contracts and128-writer host check. [Audit](validation/part-141/reference-audit.json). Registry373; erlang223/351,128 missing,63.5% API presence. All139 fixtures and six exclusions preserved. Original3458 and same-head3968 CI pending142; latest verified140. Whole erlang goal active; connected distribution/native scheduler/full I/O prerequisites unfinished.
+
 Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c034. All 51 new monitor and 46 default-disabled trace contracts match. 218/351 erlang exports present; 133 missing. Tested process monitoring/default-disabled tracing does not establish port/time_offset/connected-distribution/enabled-tracing completeness.
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.218 registered,133 missing,total368 direct MFAs.62.1% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.223 registered,128 missing,total373 direct MFAs.63.5% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -144,8 +146,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `get_module_info/2` | Missing; real implementation/runtime prerequisites required |
 | `get/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `group_leader/0` | Missing; real implementation/runtime prerequisites required |
-| `group_leader/2` | Missing; real implementation/runtime prerequisites required |
+| `group_leader/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `group_leader/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `halt/0` | Missing; real implementation/runtime prerequisites required |
 | `halt/1` | Missing; real implementation/runtime prerequisites required |
 | `halt/2` | Missing; real implementation/runtime prerequisites required |
@@ -296,11 +298,11 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `size/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/2` | Missing; real implementation/runtime prerequisites required |
-| `spawn_link/3` | Missing; real implementation/runtime prerequisites required |
+| `spawn_link/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/4` | Missing; real implementation/runtime prerequisites required |
 | `spawn_monitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_monitor/2` | Missing; real implementation/runtime prerequisites required |
-| `spawn_monitor/3` | Missing; real implementation/runtime prerequisites required |
+| `spawn_monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_monitor/4` | Missing; real implementation/runtime prerequisites required |
 | `spawn_opt/2` | Missing; real implementation/runtime prerequisites required |
 | `spawn_opt/3` | Missing; real implementation/runtime prerequisites required |
@@ -314,7 +316,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `spawn_request/5` | Missing; real implementation/runtime prerequisites required |
 | `spawn/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn/2` | Missing; real implementation/runtime prerequisites required |
-| `spawn/3` | Missing; real implementation/runtime prerequisites required |
+| `spawn/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn/4` | Missing; real implementation/runtime prerequisites required |
 | `split_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `start_timer/3` | Registered; bounded functional evidence, see supported-mfas.json |

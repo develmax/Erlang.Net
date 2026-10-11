@@ -1,0 +1,422 @@
+[
+  {
+    "Name": "erlang-spawn-group-get-leader",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->true=is_pid(erlang:group_leader()),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1A8733AF3E25E727332BD887DBFD357AE3AA7820925AE04521D8181726EE6710",
+    "CSharpSha256": "4B048ECF402AEABF48DB431668F66580A784BACF2B4A658A89573379F70ECA5A"
+  },
+  {
+    "Name": "erlang-spawn-group-set-self",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->G=group_leader(),P=self(),true=group_leader(P,P),P=group_leader(),true=group_leader(G,P),G=group_leader(),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "7E97C2DE637E7C9E2FD62D63825510ADEF1FA1E9AEBBD1DD91929AF5AA3752E6",
+    "CSharpSha256": "1A5AF50E8E365D759FBFEB0E2AA74EA63654D00C3BC8399F14643DF5D8966926"
+  },
+  {
+    "Name": "erlang-spawn-group-dead-leader-allowed",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->G=group_leader(),P=spawn(fun()->ok end),wait_dead(P),true=group_leader(P,self()),P=group_leader(),true=group_leader(G,self()),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "935288F11EFA5D9C2D431448C246A6EC434F14C3F9E0C6B9ADD067F138BEDA40",
+    "CSharpSha256": "6F5E0FE88F45020EDE2A26C41D608A34AA8785A956816AC31E1728A8536F0127"
+  },
+  {
+    "Name": "erlang-spawn-group-dead-target",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->P=spawn(fun()->ok end),wait_dead(P),ok=try group_leader(self(),P) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BE2964A07A7F7C6C38C30C96B976DED35ACE9B2FCFA9C9E016BE9345A025722C",
+    "CSharpSha256": "5AD746275E22E2D621C1FBEAD91CE51C29BC4C057EE201DDC05FC4492571E537"
+  },
+  {
+    "Name": "erlang-spawn-group-child-inherits",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->G=group_leader(),Owner=self(),true=group_leader(Owner,Owner),P=spawn(fun()->Owner!{leader,group_leader()} end),true=group_leader(G,Owner),receive {leader,Owner}->ok after 1000->error(timeout) end,wait_dead(P),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E9721465742D6596CCF478A8B5C264372C5B35C03DD5ABD3D4D9DB2A14A5E291",
+    "CSharpSha256": "7EC623DCB6D3199E29B33831DA5EC310158D5C8052D38B34F784C0525AABBD7D"
+  },
+  {
+    "Name": "erlang-spawn-group-child-change",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->Owner=self(),P=spawn(fun()->receive query->Owner!{leader,group_leader()} end end),true=group_leader(Owner,P),P!query,receive {leader,Owner}->ok after 1000->error(timeout) end,wait_dead(P),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0FF24D208C4D325C684435038DE79DB2BB5C39809C0FAA391A4DC962860B0BF1",
+    "CSharpSha256": "5E0BB090853AE84C9423773B4AF81D282F58268ABA773F8A9F72946B23723016"
+  },
+  {
+    "Name": "erlang-spawn-group-foreign-leader",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->G=group_leader(),P=erlang:binary_to_term(<<131,88,119,17,\"elsewhere@invalid\",1:32,0:32,0:32>>),true=group_leader(P,self()),P=group_leader(),true=group_leader(G,self()),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0E480017275D22153055AFFE17F9BDC51CAA0A80CA6055B9EDCA7C956BB943A7",
+    "CSharpSha256": "CE201B26E2118E8BEDDE2B9A9281CA30E866A6F15F2F47680EFF975C3B734125"
+  },
+  {
+    "Name": "erlang-spawn-group-foreign-target-disconnected",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->G=group_leader(),P=erlang:binary_to_term(<<131,88,119,17,\"elsewhere@invalid\",1:32,0:32,0:32>>),true=group_leader(self(),P),G=group_leader(),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5F62EE8074934DC4DE80B9C0224815E6295763CDEF33A35434ECACB0088713FC",
+    "CSharpSha256": "917DAEAA181F8FFE8FE119903BDAA7F999A4952E5364F0C9ADDF38F63E1B02E7"
+  },
+  {
+    "Name": "erlang-spawn-group-old-local-target",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->N=erlang:atom_to_binary(node()),S=byte_size(N),P=erlang:binary_to_term(<<131,88,119,S,N/binary,1:32,0:32,7:32>>),ok=try group_leader(self(),P) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8B9404E0B194087F7624DF1EDFF7856F5CE22BED88B37603009B5789E20CF0F4",
+    "CSharpSha256": "588944BD5A823933D6DDFFDC17794755637541365EB1A65E742198D24392CD78"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-leader-0",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(bad,self()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CC1E28A81ECFD772B7AF38DB9BDFD2262367F29D294911E866B07B46E38331CD",
+    "CSharpSha256": "C5628279A37BA05325BA93F758DDA4BF96610B9C3ABFE66598995A760D471A58"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-target-0",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(self(),bad) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C43738B01640EC87491A160CB63D50DB49F92CB9D4010A48B7D5587CB24236C3",
+    "CSharpSha256": "914361A142525D8BF0722EC73ECCDD164F7CE18C12FACB6EEFEF7AB633A02331"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-leader-1",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(42,self()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E9AF4A8876AE92E9E01661907B2EB8186C342F3FB6ED6D134DB6CFB9C64DEADA",
+    "CSharpSha256": "53CCB7E379AD6D9F92C8872DAE651DEA827D7C6AE8A6EA63C8A2AFE21F9DA4ED"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-target-1",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(self(),42) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BC02CA065DAD55DAD48314599C288728A19CB37815730665B2F0993075733AF6",
+    "CSharpSha256": "9A3857A11786251233D6B76B0DEB7159AED3B281885F7DA86A106B08719E5164"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-leader-2",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader([],self()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "25BCFCEAE469C0C717318D9A454AE67F199BCBEC193F8FEF333CC4FD51B0732C",
+    "CSharpSha256": "57A899D643FC4A4AB4E0EB87ED536AEEBB38096D0F2F28B230EFE98C38DF4C7D"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-target-2",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(self(),[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D918310ED520C59DDCC9B2A8C32EE0B47B6CC36E5ED97AAE7CF163AEE0971B26",
+    "CSharpSha256": "B0ED5355C20534FF4FDC28BB45773FBC33269C6D382E5B564A8E1B9C61568E0F"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-leader-3",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader({},self()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "EFEECE0FE1992C21B7C6C8D9BCA8EB2D5707E8971D73BB3356CAAFCE5F45A5A1",
+    "CSharpSha256": "34C8F2365996A3FD4A7F8059AD6BC92AFC7B14EB000416E1071725545774089B"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-target-3",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(self(),{}) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "042EF02E9847B80D5E246ACE9E2F78EE6619822C37392112303E5BFB863ED8F6",
+    "CSharpSha256": "50D43A155F3AF61509B014EA550D4FE3CEEDA451C5D3D155DB792C8781A6F7A4"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-leader-4",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(make_ref(),self()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "94FBA0ED13A1CDAC2C1414E54CDEAE02716A7E8344DDB47B557BC865A79CB261",
+    "CSharpSha256": "8162BA12EF8C7DD8D923D83087E2BE86BB1E985AC06F9C79B3D24725BE5693D1"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-target-4",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try group_leader(self(),make_ref()) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8E8F11702CB7FEB423DC534AA593D2C4A5C1E9B9C6E7709341D43AC63B366D25",
+    "CSharpSha256": "15F46112192CFEF3A06F1466255FC0AC6D5D5D370806CF8DC0006CF84087BE5F"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-spawn",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->Owner=self(),G=group_leader(),P=erlang:spawn(spawn_group_contract,child,[Owner,plain,#{key=>42}]),receive {plain,P,#{key:=42},G}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DA971DE44CB65637CFF71EEF82B34283C86B5B09E08072B61E6F99A2700865F5",
+    "CSharpSha256": "174912411216BF8E76B1520D6B06E4E0EC5462B874B25AC7863A758BBC853E3A"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-linked",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->false=process_flag(trap_exit,true),Owner=self(),G=group_leader(),P=erlang:spawn_link(spawn_group_contract,child,[Owner,linked,42]),receive {linked,P,42,G}->ok after 1000->error(timeout) end,P!stop,receive {'EXIT',P,normal}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4690A9211F229FE4C22603203AF12AF0D62EA88E4FA46A50B2B17DA0C0B4B4C1",
+    "CSharpSha256": "192D936995AB4A9EBD8364CB0EE26F5C453F5F090BDF3646B9D7FF359AD08291"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-monitored",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->Owner=self(),G=group_leader(),{P,R}=erlang:spawn_monitor(spawn_group_contract,child,[Owner,monitored,42]),receive {monitored,P,42,G}->ok after 1000->error(timeout) end,P!stop,receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C45445AE51C6AACC4E7E0E1891E80C57B596E3C3264D3FBC766F4D32F5BC7CD6",
+    "CSharpSha256": "7EB5E26DD28756CF79B444042672C546CDB47F02264D42DDA3AEAFF4DC8D0D70"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-missing-module-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->{P,R}=erlang:spawn_monitor(spawn_missing,run,[]),receive {'DOWN',R,process,P,{undef,_}}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "3A85AB2267E5CCD002437625B71E1B0CAD55E8F57B009FC3CEFE92B58B3CCA5A",
+    "CSharpSha256": "22E0C79EF7D601AA4A6BA8B7DB5ED7DD0B5E76A3F3F5221624ACC404AEF0C546"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-missing-export-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->{P,R}=erlang:spawn_monitor(spawn_group_contract,missing,[]),receive {'DOWN',R,process,P,{undef,_}}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F5C60290740AA99976CCCA42B1C9F1768E65EAFD9B72E4FBEBA522744CB9BDFA",
+    "CSharpSha256": "DA25AE7B1377E56B4A3178F4F693D4796306F448ADB058A60C6502B1E047897C"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-link-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->false=process_flag(trap_exit,true),P=erlang:spawn_link(spawn_missing,run,[]),receive {'EXIT',P,{undef,_}}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "ED7645436851EC166187EEDB774769911376BF9C25D324A8CE7458B6DC4F2D4B",
+    "CSharpSha256": "E6AE6FB7B226B806736DB0129BD411FCBB0D7F9D69A8C36357BC413186EB78BD"
+  },
+  {
+    "Name": "erlang-spawn-group-mfa-immediate-monitor",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->{P,R}=erlang:spawn_monitor(spawn_group_contract,callback,[]),receive {'DOWN',R,process,P,normal}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "91DF4E259EA8B77FE1D56FBDA7A5CBBFCB382117524E620D8DEFF01B41BA94E3",
+    "CSharpSha256": "6832F181C1987C02BCF2628543DC7B4CE1421286319DE7A9D1130068924750A9"
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CAF41C32BEAC6206645BE391362F06A5AA3F5C03E46C34CC2B8C69DE44C14CB8",
+    "CSharpSha256": "6D40D6AB30D4D1E57BFEAB8CDE7C3A27311C0B5BAE2C18A421CC8875008DEDB0"
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->P=erlang:spawn(fun(_)->ok end),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badarity,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FD9F34E2617C9EEEA93A5CE79092DDBBC3EBB340A22030AE981C61E3F68ED1BC",
+    "CSharpSha256": "515EBC2BA735E9F10F1E88A537BCFFF2D62CC072188C6C58DEC8FE95A3B1CFA3"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-0",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(42,run,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8BB4D7E7EE7626A9B62BE4EC697228ED8587601285AC380A03C12FD542126AC3",
+    "CSharpSha256": "F5CCE71CE9C5ACEC74917568D402790B1742B369B0CD3BD13913AB5A36505434"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-1",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_link(42,run,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A85874E2453E61AE6D263B394B07B5DA1A25955A606A06D7FC2F2D52E907DDC6",
+    "CSharpSha256": "BFB9B5BAEC2FAE21F270F10FB9C78FEC751539AA3DF03BB5DC5F59DF00D30D51"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-2",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_monitor(42,run,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BC05C223D8E626A8349651B9C1EB46E9FE543F6E5F35FC15630221E1CFD7C936",
+    "CSharpSha256": "0A956120A954D4AE01A3E99FC4BF7949517D1436089F967B0A6CA3A2AC4BBDC7"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-3",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(spawn_group_contract,42,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6F05179A390B3BF5365E77106484CACE4F4B9B8110A69D22C83D2F92CD033415",
+    "CSharpSha256": "A7C9DE5EC8BDDEA4721FC6CA225014EBBDFF8BA2401FAE15FFF82BA1E633E4F8"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-4",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_link(spawn_group_contract,42,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1669B0A8DD9F86128ED90A622A9FA6FAC7194FF56D3EE72AFB440C83DF065A16",
+    "CSharpSha256": "1F9FCEFF37A37E031F498F22D2805BEF91F94467A2B7052B668EE97804C08303"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-5",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_monitor(spawn_group_contract,42,[]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "020E153D1C1DA7BB26B309A193E20E96B8BFCD44E19700AB79D0D861DCC17DBF",
+    "CSharpSha256": "08160B413699D4A6F0FD4F75E7CCE32E7DC504062CED728980261C5A4EDFC957"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-6",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(spawn_group_contract,callback,bad) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "6A98F323A2748122F1D6545C22051CC034D4D6604F5684DDDCC2DE4E2D677012",
+    "CSharpSha256": "ABF4C1D1245D8C13589234600D4338A08BEB2A8819C5E6840E76F3D6367606D0"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-7",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_link(spawn_group_contract,callback,bad) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DB3DAB2FFD8B79F51AE4D8FE9EC5FF5308A2AA670C1ADE72213F237EDF2E7BBB",
+    "CSharpSha256": "8EBF5D17C9DFDFCEB399BADE538452870DBC25843C2F7FAD4C07C891D3AAA1FD"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-8",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_monitor(spawn_group_contract,callback,bad) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "489DD202C7D84052B1CCD5DF43276C8A0704B97471DAACE43EFC0AC579539038",
+    "CSharpSha256": "A94B0331FAE8FCA7F3A6FC6B84F755CE2780E6C45C79C37667332D1CF87FDC30"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-9",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(spawn_group_contract,callback,[a|bad]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2EBAE3AA3756D4CBC699B722645434AD83A44D8A14AB6516BD4D951772C050B0",
+    "CSharpSha256": "81CF65522BB87CD18B79ADA5E28443A996B6DF1A50ACACE763646734AACA2142"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-10",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_link(spawn_group_contract,callback,[a|bad]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DB98A5E8AEFD126A496CFEB6B2E242E856049B0A495C7610994D7ACC4D3DE43E",
+    "CSharpSha256": "2ED5E46D7DDABDF944873DDD527485F85536B881EE1EC456B2CD7BE76CB080D3"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-mfa-11",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn_monitor(spawn_group_contract,callback,[a|bad]) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5C1A7277BBA42312074323231407AE4B475A2068624D4ECAE469874FCB3781B1",
+    "CSharpSha256": "5BB5175095BB0EFAAB8571BB8524D97174569C8FE84A18A4662B140EDD670CB3"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-callback-0",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(bad) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8D27533F48C5194E9296FD7663AD56FC634DC35B8B08B34B4A8E239827412778",
+    "CSharpSha256": "0703E3D019BC81BCB2385DF144FCAAA3E03BE74A698B67186B129C1EA0FEEDFC"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-callback-1",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn(42) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "1418D65EF623460A310F67588EE78BCF7D3140E078F2D877D78C8CB6CB72F0DB",
+    "CSharpSha256": "14EFFDA08E6F1AE560E66758AF277FAB93CA2ADA283AAD84EEBB224A800191E1"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-callback-2",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn({}) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0523CC882168B34717836E1366FBE560446440949FCF0483B8A3B79AFD85D3FD",
+    "CSharpSha256": "77695F06BEF37BFD5E7096F08D0C37E43AE388B1EFED61D1B2B8A0CCFF83CA8F"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-callback-3",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn({spawn_group_contract,42}) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "63CD3EABD596AA71F5D6A9A6EB2CD09625E21E3D70E64E30E63D85F56D5719F6",
+    "CSharpSha256": "C28DB8038E34FB64D2599EC5DBD5FBA0C7A05DDDBCFA4D9D66D5C7C7B082618D"
+  },
+  {
+    "Name": "erlang-spawn-group-bad-callback-4",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->ok=try erlang:spawn({spawn_group_contract,callback,extra}) of _->unexpected catch error:badarg->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "434D200D7FBCC3BB51761197563D3073C0B295240CBA588C489F4E0C44FEC68D",
+    "CSharpSha256": "2A8BFB955FAA64680594F7BFCA451002BC0B83E65190DF342CECB9F8BFC2718A"
+  },
+  {
+    "Name": "io-group-leader-format-request",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,ok) end),true=group_leader(P,Owner),ok=io:format(\"~s\",[\"hello\"]),true=group_leader(G,Owner),receive {observed,{put_chars,unicode,io_lib,format,[\"~s\",[\"hello\"]]}}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E7F4A3D36D0A4B28017B56DA43F87648782FD058E94F5BA6B32759D1A268C740",
+    "CSharpSha256": "1E5A20631347A528036D78DA530586EC2A2E4D3A2CC53867CE5B43C0C265F43D"
+  },
+  {
+    "Name": "io-group-leader-arbitrary-device-reply",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,value) end),true=group_leader(P,Owner),42=io:format(\"\",[]),true=group_leader(G,Owner),receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "E6E52EDA78EE678E13CE2970BB20E6F0B064DBAF29519ED6735BADB79BE9DD4F",
+    "CSharpSha256": "7661E3E77B03B7260C8534ECC717D66F34168329CD740F5F41A0642C7B0024B4"
+  },
+  {
+    "Name": "io-group-leader-custom-device-validates-format",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,ok) end),true=group_leader(P,Owner),ok=io:format(42,bad),true=group_leader(G,Owner),receive {observed,{put_chars,unicode,io_lib,format,[42,bad]}}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CDE92E439BDBCE99F20D3C18C257814E24F252D963518A944A0D98B4F3AF6065",
+    "CSharpSha256": "668021BF331FE0E4D64FD4ED396B79FDBED60878E2E53619E5127F33DA74948E"
+  },
+  {
+    "Name": "io-group-leader-selective-reply-reference",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),Other=make_ref(),self()!{io_reply,Other,stray},P=spawn(fun()->device(Owner,ok) end),true=group_leader(P,Owner),ok=io:format(\"\",[]),true=group_leader(G,Owner),receive {io_reply,Other,stray}->ok after 0->error(lost) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "0CF6A202A99F972DA8070EC195B56BD9D67E43C1F6082409BE711DB883D82444",
+    "CSharpSha256": "6B8FEC87D1886AEAA4C76A808027350EFF2BCE5BCA6454C7BD2F355150298FC0"
+  },
+  {
+    "Name": "io-group-leader-calling-self",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),true=group_leader(self(),self()),ok=try io:format(\"\",[]) of _->unexpected catch error:calling_self->ok after true=group_leader(G,self()) end,done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "25D30EA1E3251F6F1655BCED3B95B2EB57E12BDAE5102ADCA9F07061C690153A",
+    "CSharpSha256": "920F8140113FDF1130FEA0A1745B11AE3412D03EAF74D95A8114047BB5B1FAB8"
+  },
+  {
+    "Name": "io-group-leader-dead-device",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),P=spawn(fun()->ok end),wait_dead(P),true=group_leader(P,self()),ok=try io:format(\"\",[]) of _->unexpected catch error:terminated->ok after true=group_leader(G,self()) end,done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D55C81D4B0AE35DACE32DD578B40EAA32FA66D3B44092432A61D35867D3ED40F",
+    "CSharpSha256": "5842F816846765F28B8F8F0D5E489BBC0118F9AB723D6DD872BDE8178A2A881C"
+  },
+  {
+    "Name": "io-group-leader-dead-device-flushes-exit",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),P=spawn(fun()->ok end),wait_dead(P),self()!{'EXIT',P,old},true=group_leader(P,self()),ok=try io:format(\"\",[]) of _->unexpected catch error:terminated->ok after true=group_leader(G,self()) end,receive {'EXIT',P,_}->error(unexpected) after 0->ok end,done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D9F9262E2982E5799D0C54BA2654FE4672A81A3AEE2F9F18D96BA4BE94BDF7C1",
+    "CSharpSha256": "2451E91DE1C9A105AA2B7BF0D1BEDDED94EDE35A27B904DF75FB12DDF17AC07C"
+  },
+  {
+    "Name": "io-group-leader-device-dies-during-request",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,die) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:terminated->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "564F12F794F77448BC17017410C347F3F55C7A45908344C4214B18F10F47ADFD",
+    "CSharpSha256": "93EB405B320A267DD6790E49971A8FBEAA1F4C4609A36167ADAAD992E191A955"
+  },
+  {
+    "Name": "io-group-leader-device-error-arguments",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,arguments) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:badarg->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "AC690ABA43D46CC1F278191E9113E3F5B826BAE704972BF26C830CC8A98113C9",
+    "CSharpSha256": "8F5D9702C5563F74BBF2B1E87BAB38EF9288B6752B61FD6AD9B857BBBFC1A73E"
+  },
+  {
+    "Name": "io-group-leader-device-error-terminated",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,terminated) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:terminated->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "4E1E5987C749A29FCB799DA0CB9B889AD53A728CE712BE0D2AF16225CB1DA86D",
+    "CSharpSha256": "67813098E5B7D39B5D247CF0D998C05354FB2FBF617C564E2348FF19073960E4"
+  },
+  {
+    "Name": "io-group-leader-device-error-calling_self",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,calling_self) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:calling_self->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "BE00C8EBC479C0468547A0C203CE96F525ECCAA5D8368F328F28DDC8C8F6A4E8",
+    "CSharpSha256": "8296BEDB7C34EA964E3DA0E8A3BF05FA06B850DD95BE9DB11DFAA024585A5748"
+  },
+  {
+    "Name": "io-group-leader-device-error-translation",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,translation) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:no_translation->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "336C57CDC19C6AE95A85069916147F56D56DE8446989AF08375BD0779F4F3FA7",
+    "CSharpSha256": "BBAF51188B638A29CC4725F2BB3CC4B412971EAD3FC7EFE1567206379B32F443"
+  },
+  {
+    "Name": "io-group-leader-device-error-other_error",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->G=group_leader(),Owner=self(),P=spawn(fun()->device(Owner,other_error) end),true=group_leader(P,Owner),ok=try io:format(\"\",[]) of _->unexpected catch error:badarg->ok after true=group_leader(G,Owner) end,receive {observed,_}->ok after 1000->error(timeout) end,P!stop,wait_dead(P),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "C3A8148323E7D3C7B6BC76F8EC3CE5ED5194502719143318AECA3B3F15F9DF38",
+    "CSharpSha256": "AC5132F2F5A95A7C1255ECD8F2192517CDCB05E0FF09C10C9634EDCD54CBEC38"
+  },
+  {
+    "Name": "io-group-leader-default-device-survives-format-error",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->ok=try io:format(\"~Q\",[]) of _->unexpected catch error:badarg->ok end,ok=io:format(\"\",[]),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2CA35C095CEE009D6A55121AC48943481C60DC9731FCE85497690932CFE63C50",
+    "CSharpSha256": "D0E7E8945EB4A191ECC61838F17CF63F1A72AB99ADC2B4BC364E4EE5BAA1EAA3"
+  },
+  {
+    "Name": "io-group-leader-default-device-rejects-extra-arguments",
+    "Source": "-module(io_group_contract). -export([run/0]). run()->ok=try io:format(\"\",[extra]) of _->unexpected catch error:badarg->ok end,ok=io:format(\"\",[]),done. device(Owner,Mode)->receive {io_request,From,Tag,Request}->Owner!{observed,Request},case Mode of die->ok;_->From!{io_reply,Tag,reply(Mode)},receive stop->ok end end end. reply(value)->42;reply(arguments)->{error,arguments};reply(terminated)->{error,terminated};reply(calling_self)->{error,calling_self};reply(translation)->{error,{no_translation,unicode,latin1}};reply(other_error)->{error,custom};reply(ok)->ok. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F68449E842E649504303E0800E3CB00B885D433730683E9C79D68206143D1527",
+    "CSharpSha256": "BDF7B9E31C16D20F00359432A4C3A805750536EFD5A1D1D82EF6EFC43522A9F1"
+  }
+]

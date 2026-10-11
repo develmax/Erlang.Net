@@ -1,0 +1,49 @@
+{
+  "Base": "Published137 plus unintegrated monitor139 draft",
+  "Sources": [
+    "bif.c group_leader and spawn_3/spawn_link_3",
+    "erl_process.c erl_create_process validates atoms/proper args and inherits parent group leader",
+    "erlang.erl spawn wrappers and group_leader wait/error handling"
+  ],
+  "OriginalVerified": false,
+  "Part": 141,
+  "Integrated": false,
+  "Plan": [
+    "Actual per-process group leader and inheritance; local/remote/dead identity validation according to pinned source",
+    "Actual spawn/3,spawn_link/3,spawn_monitor/3 with child-side undefined-module/function failure rather than caller rejection",
+    "Repair existing spawn/1 any-arity and MFA-tuple acceptance according to exact wrapper;spawn_link/monitor1 remain zero-arity only",
+    "No connected distribution,physical scheduler,full reductions or code-loader equivalence claim"
+  ],
+  "InitialLocalTests": {
+    "Passed": 43,
+    "Logs": "artifacts/part-141-prototype-initial-tests.log",
+    "Failure": "Two linked-spawn test premises matched true against process_flag old false;not runtime failure",
+    "OriginalVerified": false,
+    "ExpectedUnchanged": "{ok,done}",
+    "Planned": 45,
+    "Before": "true=process_flag(trap_exit,true)",
+    "After": "false=process_flag(trap_exit,true)"
+  },
+  "CorrectedLocalTests": 45,
+  "HistoricalTestsPassed": 2578,
+  "FullCallPathCorrection": {
+    "After": "true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end",
+    "ExpectedUnchanged": "{ok,done}",
+    "Before": "P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,Reason} when Reason=:=normal;Reason=:=noproc->ok after 1000->error(timeout) end",
+    "Runtime": "Call actual apply/2 in child,do not invoke tuple MFA directly",
+    "Scope": "Unpublished draft-only correction;all published1392533 sources unchanged;prior2578 draft pass preserved as historical",
+    "Sources": "erlang.erl spawn MFA-tuple wrapper calls erlang:apply/2;beam_common.c apply_fun/call_fun rejects non-fun with BADFUN"
+  },
+  "IoProtocolPlan": {
+    "Reuse": "Extract existing formatter unchanged in directives into named formatter/control constants; initializer is managed default output device",
+    "CoreRegistrationExtract": "r.Register(\n            IoModuleNames.Module,\n            IoModuleNames.Format,\n            2,\n            async (c, a) =>\n        {\n            string format = Term.Text(a[0]);\n            var args = Cons.Items(a[1]).ToArray();\n            int n = 0;\n            var output = new System.Text.StringBuilder();\n            for (int i = 0; i < format.Length; i++)\n            {\n                if (format[i] != '~')\n                {\n                    output.Append(format[i]);\n                    continue;\n                }\n                if (++i == format.Length)\n                    throw new ErlangException(ErlangErrorReasons.BadArgument);\n                switch (format[i])\n                {\n                    case 'n':\n                        output.Append('\\n');\n                        break;\n                    case '~':\n                        output.Append('~');\n                        break;\n                    case 's':\n                        if (n >= args.Length)\n                            throw new ErlangException(ErlangErrorReasons.BadArgument);\n                        output.Append(args[n] is Atom atom ? atom.Name : Term.Text(args[n]));\n                        n++;\n                        break;\n                    case 'p':\n                    case 'w':\n                        if (n >= args.Length)\n                            throw new ErlangException(ErlangErrorReasons.BadArgument);\n                        output.Append(args[n++]);\n                        break;\n                    default:\n                        throw new ErlangException(ErlangErrorReasons.BadArgument);\n                }\n            }\n            if (n != args.Length)\n                throw new ErlangException(ErlangErrorReasons.BadArgument);\n            await c.Runtime.Output.WriteAsync(output.ToString());\n\n            return Term.A(IoResultAtoms.Ok);",
+    "Scope": "Existing io:format/2 follows actual group leader, monitored io_request/io_reply, custom device responses, calling_self and dead device errors",
+    "Sources": "lib/stdlib/src/io.erl o_request/execute_request/io_request/conv_reason",
+    "Boundaries": "Native user/system process graph, full io_lib formatting/input/file/distribution services and detailed io error_info remain unfinished"
+  },
+  "IoLocalContractsPassed": 60,
+  "IoModuleContracts": 15,
+  "IoInitialBuildFailure": "Nullable initializer message could not flow into IsRequest(Term);preserved part-141-io-protocol-build.log;typed nullable predicate with NotNullWhen(true) corrects flow",
+  "FinalHistoricalTestsPassed": 2593,
+  "ConcurrentIoHost": "128 writers,exact line-set/no duplicates/interleaving,normal completions"
+}
