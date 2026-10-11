@@ -2,9 +2,9 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **2816/2816/full**,296 direct MFAs,erlang146/351. [Local115](validation/part-115/tests.json). New2408 original/same-head2816 CI116 pending; latest complete [2233 original/2626 full CI114](validation/part-114/remote-checkpoint.json).
+Current local evidence is **2816/2816/full**,296 direct MFAs,erlang146/351. [Local115](validation/part-115/tests.json), [same-head original/CI116](validation/part-116/remote-checkpoint.json). Whole erlang remains unfinished.
 
-Latest exact-source oracle evidence: **2233/2233=778 expressions+1371 compiled modules+84 diagnostics** at2832c78. [Provenance](validation/part-114/remote-checkpoint.json). New atom/float increment pending116.
+Latest exact-source oracle evidence: **2408/2408=778 expressions+1546 modules+84 diagnostics** at44ca437. [Provenance](validation/part-116/remote-checkpoint.json). All prior sources/independent outcomes/generated hashes preserved.
 
 Historical part-026 exact-version oracle run [37999487360](https://github.com/develmax/Erlang.Net/actions/runs/37999487360) matched **183/183** selected values/exception class/reason cases at **3990623**: the previous 160 plus 23 literal-string additions. Version confirmed; complete report; zero mismatches/aborts. [Original report](validation/part-026/differential.json), [verified artifact/head metadata](validation/part-026/remote-checkpoint.json). Same-head Windows CI [37999472859](https://github.com/develmax/Erlang.Net/actions/runs/37999472859) passed 314 tests and full integration. The initial 174-case abort is preserved in part-025; historical 160/160 at 666c4b5 remains part-017 evidence. Reference expressions run through erl_eval; compiled-reference-module/optimizer comparison is unfinished.
 
@@ -741,3 +741,5 @@ Publish113, dispatch exact-source original2233 and same-head2626/full CI114; kee
 Part114: erlang133/351,218 missing; exact-source original2233/2233=778/1371/84 and same-head2626/full CI at2832c78. [Immutable proof](validation/part-114/remote-checkpoint.json). Failed112 and ten explicitly audited113 source corrections retained. No whole-module completion/performance claim; active erlang goal continues with atom/float output and remaining real runtime families.
 
 Part115: atom/existing-name and float-output increment adds13 MFAs/175 independent modules;erlang146/351,205 missing,total296,local2816/full. [Local evidence](validation/part-115/tests.json), [source boundaries](validation/part-115/reference-audit.json). Original2408/same-head2816 CI116 pending; latest complete original114 remains2233/2233 at2832c78. Active goal continues through all remaining real runtime families.
+
+Part116: exact-source original2408/2408=778/1546/84 and same-head2816/full CI at44ca437 verify atom/float output increment. [Proof](validation/part-116/remote-checkpoint.json). All earlier114 inputs/outcomes/generated hashes preserved;175 new modules match. erlang146/351,205 missing,total296;whole goal continues with clocks/calendar/timer options and real remaining runtime families.

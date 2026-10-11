@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–115.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–116.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -776,3 +776,5 @@ Publish113, dispatch exact-source original2233 and same-head2626/full CI114; kee
 Part114: erlang133/351,218 missing; exact-source original2233/2233=778/1371/84 and same-head2626/full CI at2832c78. [Immutable proof](validation/part-114/remote-checkpoint.json). Failed112 and ten explicitly audited113 source corrections retained. No whole-module completion/performance claim; active erlang goal continues with atom/float output and remaining real runtime families.
 
 Part115: atom/existing-name and float-output increment adds13 MFAs/175 independent modules;erlang146/351,205 missing,total296,local2816/full. [Local evidence](validation/part-115/tests.json), [source boundaries](validation/part-115/reference-audit.json). Original2408/same-head2816 CI116 pending; latest complete original114 remains2233/2233 at2832c78. Active goal continues through all remaining real runtime families.
+
+Part116: exact-source original2408/2408=778/1546/84 and same-head2816/full CI at44ca437 verify atom/float output increment. [Proof](validation/part-116/remote-checkpoint.json). All earlier114 inputs/outcomes/generated hashes preserved;175 new modules match. erlang146/351,205 missing,total296;whole goal continues with clocks/calendar/timer options and real remaining runtime families.

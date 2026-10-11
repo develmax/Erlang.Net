@@ -1,0 +1,71 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_unicode.c",
+      "BlobSHA1": "e182ff08a60e4d95bfa8421252edaf16998be5eb"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.c",
+      "BlobSHA1": "a4dc975bf281019a40df03a5ba27d3a944dd9690"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.h",
+      "BlobSHA1": "066cb8aa4b332ae12e625e0e4e4c3191e2b43386"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.names",
+      "BlobSHA1": "2f943195f1105e9bf451e4ab99896c68e33afa1b"
+    },
+    {
+      "Path": "erts/emulator/beam/utils.c",
+      "BlobSHA1": "880892cc075a8969c91b930ccb09a8ac18297ec4"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_scan.erl",
+      "BlobSHA1": "edf246531e2b9871035a571e758b94514e8eea1b"
+    },
+    {
+      "Path": "erts/emulator/sys/common/erl_sys_common_misc.c",
+      "BlobSHA1": "fa2c84000cdc27384405518907c459b4d69ff40e"
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys_float.c",
+      "BlobSHA1": "911464c25a106eefe9ee58a86c9d60219111178c"
+    },
+    {
+      "Path": "erts/emulator/ryu/to_chars.h",
+      "BlobSHA1": "a4ff1459acddea995cc7b01ca1271b62ba843150"
+    }
+  ],
+  "NewMfas": 13,
+  "TotalMfas": 296,
+  "ErlangRegistered": 146,
+  "ErlangDeclared": 351,
+  "Missing": 205,
+  "NewModules": 175,
+  "TotalModules": 1546,
+  "Expressions": 778,
+  "Diagnostics": 84,
+  "PlannedOriginal": 2408,
+  "LocalTests": 2816,
+  "NamespaceTypes": 293,
+  "Historical114InputsExpectedGeneratedHashesPreserved": true,
+  "ExistingFixtureSourceCorrections": 0,
+  "DraftProbe": "100/100 initial,174/174 expanded,explicitly simulated name observation",
+  "ProductionProbe": "175/175 real integrated scenarios",
+  "BootstrapCorrection": "Use ordinal SortedSet instead of PowerShell culture/case-insensitive dedup;EXIT and exit remain distinct;956 names,permanent regression",
+  "Reuse": "SDK Unicode/ConcurrentDictionary with insertion lock;shared existing exact-rational scientific formatter;source-directed fixed rounding,SDK R digits with independently implemented shortest presentation;no copied Ryu/STL code/tables",
+  "License": "Apache credits consolidated;no banners/new dependencies/production BEAM/public packages",
+  "Original": "Pending116;latest complete114 is2233/2233 and2626/full same-head CI",
+  "Limits": "Atom names retain host lifetime and native default capacity;system_limit rather than fatal host crash on exhaustion;configurable capacity/full native loaded-module/private atom population/UTF16 host-term validation/resource ceilings/stack/error_info/exhaustive upstream CT/performance not complete;remaining205 exports require real implementations"
+}

@@ -1,6 +1,6 @@
 # Erlang API and compatibility scope
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. Explicit erlang.erl exports/bif.tab union **351**. Current **146/351 registered**, **205 missing**, **296 total MFAs**; [2816/full local115](validation/part-115/tests.json). New2408 original/same-head2816 CI116 pending; latest completed [2233/2233 and2626/full CI114](validation/part-114/remote-checkpoint.json) at2832c78. API presence is not semantic completion or weighted progress. Whole-module goal stays active; no generic error stubs.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. Explicit erlang.erl exports/bif.tab union **351**. Current **146/351 registered**, **205 missing**, **296 total MFAs**; [2816/full local115](validation/part-115/tests.json). [Original2408/2408 and2816/full same-head CI116](validation/part-116/remote-checkpoint.json) at44ca437; atom/float functional increment verified,whole module unfinished. API presence is not semantic completion or weighted progress. Whole-module goal stays active; no generic error stubs.
 
 [175 new contracts](validation/part-115/contract-matrix.json), [source/reuse/resource boundaries](validation/part-115/reference-audit.json), [all prior778/1371/84 preserved](validation/part-115/corpus-audit.json). C# production, consolidated notices, no new dependencies or BEAM. No claim of outperforming OTP without measurements.
 
