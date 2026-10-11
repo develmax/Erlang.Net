@@ -1,0 +1,17 @@
+{
+  "CrashDump": "Reported by original stderr;not included in downloaded workflow artifact",
+  "Fixture": {
+    "Name": "erlang-etf-roundtrip-141",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "FixtureExpected": "{ok,true}",
+    "SourceSha256": "38E4D49FDBAC7F0BF8C69C811A2DD30B5ABB82210F1CE9F7934C3524DFDEA79E",
+    "CSharpSha256": "F367383CC7E8626161385FD4AA0CF00E663336F07C3014A45311DFA1FF05BBBA"
+  },
+  "OriginalComplete": false,
+  "UnexecutedDiagnostics": 93,
+  "Interpretation": "Pinned original process aborts on root external function term_to_binary local;do not reproduce memory corruption in managed production",
+  "Next": "Source-audit recursive LOCAL wrappers/size accounting and the two local-fun decode rejections before choosing a safe reference contract",
+  "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+  "RemainingCompiledModules": 40,
+  "Error": "Oracle exited 134: beam/external.c, line 2317: buffer overflow: 5 word(s)\r\n\r\nCrash dump is being written to: erl_crash.dump...done\r\n "
+}

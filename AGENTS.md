@@ -451,3 +451,7 @@ Part128: **complete original2822/2822=778/1951/93 and3284/full same-head CI** at
 ## Part129 checkpoint
 
 Part129: real ETF8 exports/options/physical used/safe/local,function code reconstruction,wide references and immutable borrowed iovec/counting streams;**3477/full local**,plan3003=778/2132/93. [Source boundaries](validation/part-129/reference-audit.json). All128778/1951/93 preserved;one old host unsupported-tag exception corrected explicitly;initial3473/3474 retained. Registry350,erlang200/351,151 missing,379types/no violations. Publish/freeze/original and same-head CI130 pending;whole goal active. Native records/large export arities/BEAM code lifecycle/resources/upstream/performance unfinished;0019 active,closed0018 immutable.
+
+## Part130 checkpoint
+
+Part130: original at3d0b18e**2867/2870 executed pass,complete=false**,three new ETF mismatches and native local external-function abort;40 modules/93 diagnostics unexecuted. [Immutable failure proof](validation/part-130/remote-checkpoint.json). All128778/1951 historical native outputs match;same-head**3477/full CI**. Latest complete original1282822/2822. Registry350,erlang200/351,151 missing. Publish evidence,then source-directed sign repair/local-function bug boundary/repeat complete proof;whole goal continues.0019 active,closed0018 unchanged;ignored hash60 upstream vectors pass,not integrated/live-verified.

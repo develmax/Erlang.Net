@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "erlang-etf-malformed-127",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,110,1,2,42>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "SourceSha256": "15D993A4D9B60660BB40A980392B6C4C59D937701F2FCC3564C6EC1E7034CB21",
+    "CSharpSha256": "FD0F15904C157C711A00FF4C4D22F271CBC30E5A5B364CB2F16F2A47517A3CB7",
+    "Expected": "{ok,unexpected}",
+    "FixtureExpected": "{ok,badarg}",
+    "Actual": "{ok,badarg}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-etf-roundtrip-136",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "43196876EDDFADE44E701895DAB8FA6B5463CED278C81151CAD26E53E29B2ADC",
+    "CSharpSha256": "26C45AED190FDAA29DEE0E8419093C559790ED8C76FEB1D66609E14303011EC1",
+    "Expected": "{error,error,badarg}",
+    "FixtureExpected": "{ok,true}",
+    "Actual": "{ok,true}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-etf-roundtrip-137",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "C7C50A8C91AA87714FD4F758140AE9DD95629E93D5ED5B7C31A8534E46FD5FEE",
+    "CSharpSha256": "2032FEF1DA716233EB2811E82DFE4B24CEE304761E584E70D9F6BE5D0A56C393",
+    "Expected": "{error,error,badarg}",
+    "FixtureExpected": "{ok,true}",
+    "Actual": "{ok,true}",
+    "Passed": false
+  }
+]
