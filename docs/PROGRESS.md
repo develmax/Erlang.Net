@@ -1,10 +1,10 @@
 # Progress checkpoint — 2026-10-11
 
-Part121 adds seven real external-function/query/error argument/info/nif MFAs and94 modules;erlang188/351,163 missing,total338;local3207/full. [Local evidence](validation/part-121/tests.json),[source boundaries](validation/part-121/reference-audit.json). Original2751 and same-head3207/full CI122 pending;complete historical120 remains2657/2657 at4aa285d. Whole erlang goal active.
+Part122: published external-function/error metadata implementation069b560 passes **2751/2751 original and3207/full same-head CI**. [Provenance](validation/part-122/remote-checkpoint.json). Registry338,erlang188/351,163 missing. All120778/1795/84 preserved;94 new independent modules verified. Whole erlang goal active; next actual local code/env/init metadata and remaining runtime prerequisites.
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–121.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–122.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |

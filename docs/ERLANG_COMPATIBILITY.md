@@ -1,8 +1,8 @@
 # Erlang API and compatibility scope
 
-Pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.188 registered,163 missing,total338 MFAs. Local1213207/full;original2751/same-head CI122 pending. Presence is not semantic completion.
+Pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.188 registered,163 missing,total338 MFAs. Local1213207/full;original1222751/2751 and3207/full same-head CI verified at069b560. Presence is not semantic completion.
 
-Part121 adds seven real external-function/query/error argument/info/nif MFAs and94 modules;erlang188/351,163 missing,total338;local3207/full. [Local evidence](validation/part-121/tests.json),[source boundaries](validation/part-121/reference-audit.json). Original2751 and same-head3207/full CI122 pending;complete historical120 remains2657/2657 at4aa285d. Whole erlang goal active.
+Part122: published external-function/error metadata implementation069b560 passes **2751/2751 original and3207/full same-head CI**. [Provenance](validation/part-122/remote-checkpoint.json). Registry338,erlang188/351,163 missing. All120778/1795/84 preserved;94 new independent modules verified. Whole erlang goal active; next actual local code/env/init metadata and remaining runtime prerequisites.
 
 | Export | Current state |
 | --- | --- |

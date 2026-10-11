@@ -36,4 +36,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0016.md](docs/changelog/0016.md) — parts 111–116 — closed volume
 
-- [0017.md](docs/changelog/0017.md) — parts117–121 (active)
+- [0017.md](docs/changelog/0017.md) — parts117–121 — closed volume
+
+- [0018.md](docs/changelog/0018.md) — part122 (active)

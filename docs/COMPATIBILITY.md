@@ -1,12 +1,12 @@
 # Compatibility checkpoint — 2026-10-11
 
-Part121 adds seven real external-function/query/error argument/info/nif MFAs and94 modules;erlang188/351,163 missing,total338;local3207/full. [Local evidence](validation/part-121/tests.json),[source boundaries](validation/part-121/reference-audit.json). Original2751 and same-head3207/full CI122 pending;complete historical120 remains2657/2657 at4aa285d. Whole erlang goal active.
+Part122: published external-function/error metadata implementation069b560 passes **2751/2751 original and3207/full same-head CI**. [Provenance](validation/part-122/remote-checkpoint.json). Registry338,erlang188/351,163 missing. All120778/1795/84 preserved;94 new independent modules verified. Whole erlang goal active; next actual local code/env/init metadata and remaining runtime prerequisites.
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is3207/full121 and338 direct MFAs,erlang188/351. Original2751/same-head3207/full CI122 pending;historical1202657/2657 remains complete previous proof.
+Current local evidence is3207/full121 and338 direct MFAs,erlang188/351; [same-head original/CI122](validation/part-122/remote-checkpoint.json) completes bounded proof. Whole erlang remains unfinished.
 
-Latest exact-source oracle evidence: **2657/2657=778 expressions+1795 modules+84 diagnostics** at4aa285d. [Provenance](validation/part-120/remote-checkpoint.json). No prior fixture corrections.
+Latest exact-source oracle evidence: **2751/2751=778 expressions+1889 modules+84 diagnostics** at069b560. [Provenance](validation/part-122/remote-checkpoint.json). No prior fixture corrections.
 
 Historical part-026 exact-version oracle run [37999487360](https://github.com/develmax/Erlang.Net/actions/runs/37999487360) matched **183/183** selected values/exception class/reason cases at **3990623**: the previous 160 plus 23 literal-string additions. Version confirmed; complete report; zero mismatches/aborts. [Original report](validation/part-026/differential.json), [verified artifact/head metadata](validation/part-026/remote-checkpoint.json). Same-head Windows CI [37999472859](https://github.com/develmax/Erlang.Net/actions/runs/37999472859) passed 314 tests and full integration. The initial 174-case abort is preserved in part-025; historical 160/160 at 666c4b5 remains part-017 evidence. Reference expressions run through erl_eval; compiled-reference-module/optimizer comparison is unfinished.
 

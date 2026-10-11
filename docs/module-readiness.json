@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-120/ci-tests.json",
+  "ComparisonTestReport": "validation/part-121/tests.json",
   "LocalPassedTests": 3207,
   "RegisteredMfas": 338,
-  "PreviousRegisteredMfas": 331,
-  "RegisteredMfaDelta": 7,
+  "PreviousRegisteredMfas": 338,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -103,7 +103,7 @@
         "Erlang text increment:13 actual atom/float-output MFAs and175 independent modules;verified against exact-source OTP at44ca437:2408/2408 and2816/full same-head CI;erlang146/351,205 missing",
         "Twenty clock/calendar exports and four timer option exports;24 new real MFAs,115 independent modules,verified against original2523/2523 and2959/full same-head CI118 at0aabf20; erlang170/351",
         "Eleven MD5/raise/process-query/node/scheduling MFAs and134 compiled cases;verified against original2657/2657 and3105/full same-head CI120 at4aa285d;erlang181/351,total331",
-        "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;3207/full local121;original122 pending;erlang188/351,total338"
+        "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;verified against original2751/2751 and3207/full same-head CI122 at069b560;erlang188/351,total338"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
@@ -5469,8 +5469,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 188,
-      "PreviousRegisteredMfas": 181,
-      "Delta": 7,
+      "PreviousRegisteredMfas": 188,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 53.6,
       "RequiresPreprocessing": false,
