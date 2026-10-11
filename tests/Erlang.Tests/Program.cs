@@ -7,6 +7,11 @@ using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
 Test(
+    "runtime/initialization-ownership-atomic-registry-lifecycle",
+    async () => Check(await InitializationLifecycleChecks.Run() == 0)
+);
+Test("terms/local-function-code-environment-hash-ownership", async () => Check(await LocalFunctionIdentityChecks.Run() == 0));
+Test(
     "runtime/external-function-late-binding-context-and-hash",
     async () =>
 {

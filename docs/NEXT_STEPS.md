@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part123: actual local function code/free-env metadata,initialization ownership and four introspection/text MFAs pass **3270/full local**,57 new independent modules;registry342,erlang192/351,159 missing. [Local evidence](validation/part-123/reference-audit.json). Plan2808=778/1946/84 preserves all122 inputs/outcomes/generated hashes;original/same-head CI124 pending. Full SSA/BEAM metadata/ETF/code/init/process/resource boundaries remain explicit. Whole erlang goal continues.
+
 Part122: published external-function/error metadata implementation069b560 passes **2751/2751 original and3207/full same-head CI**. [Provenance](validation/part-122/remote-checkpoint.json). Registry338,erlang188/351,163 missing. All120778/1795/84 preserved;94 new independent modules verified. Whole erlang goal active; next actual local code/env/init metadata and remaining runtime prerequisites.
 
 Read PROGRESS and semantic-differences first; preserve existing tests/sample/package integration.

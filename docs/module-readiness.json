@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-121/tests.json",
-  "LocalPassedTests": 3207,
-  "RegisteredMfas": 338,
+  "LocalPassedTests": 3270,
+  "RegisteredMfas": 342,
   "PreviousRegisteredMfas": 338,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -20,12 +20,14 @@
         "bounded reuse of ten common immutable atom values",
         "privately owned exact-key Dictionary index with sorted read-only map entries",
         "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
-        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized"
+        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
+        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained"
       ],
       "Remaining": [
-        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity"
+        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
+        "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability"
       ],
-      "RelatedPassedTests": 34
+      "RelatedPassedTests": 35
     },
     {
       "Id": "Serialization",
@@ -49,14 +51,16 @@
         "registered core MFAs",
         "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
         "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
-        "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial"
+        "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
+        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
         "distribution, ETS/DETS, ports/NIF/code loading",
-        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
+        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
+        "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection"
       ],
-      "RelatedPassedTests": 227
+      "RelatedPassedTests": 232
     },
     {
       "Id": "Compiler",
@@ -109,7 +113,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1377
+      "RelatedPassedTests": 1381
     },
     {
       "Id": "gen_server adapters",
@@ -199,7 +203,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 1986
+      "RelatedPassedTests": 2043
     },
     {
       "Id": "Style checks",
@@ -5468,11 +5472,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 188,
+      "RegisteredMfas": 192,
       "PreviousRegisteredMfas": 188,
-      "Delta": 0,
+      "Delta": 4,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 53.6,
+      "ApiPresencePercent": 54.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5553,6 +5557,10 @@
         "erlang:float_to_list/1",
         "erlang:float_to_list/2",
         "erlang:floor/1",
+        "erlang:fun_info/1",
+        "erlang:fun_info/2",
+        "erlang:fun_info_mfa/1",
+        "erlang:fun_to_list/1",
         "erlang:function_exported/3",
         "erlang:get/0",
         "erlang:get/1",

@@ -568,15 +568,17 @@ public static class Execution
                 }
             case Expr.Fun f:
                 {
-                    var capture = new Dictionary<string, Term>(b, StringComparer.Ordinal);
-                    string frameName = AnonymousFunctionFrames.Name(f, ctx);
+                    var capture = ClosureCaptures.Capture(f, b);
+                    var identity = LocalFunctionEntries.Get(module, f, ctx);
 
                     return new FunctionTerm(
+                        identity,
                         f.Clauses[0].Patterns.Count,
+                        capture.Values,
                         async (context, args) =>
                     {
                         var process = (ProcessContext)context;
-                        using var frame = process.EnterFunction(AnonymousFunctionFrames.Module(module), frameName, args.Count);
+                        using var frame = process.EnterFunction(identity.Module.Name, identity.Name.Name, args.Count);
                         foreach (var clause in f.Clauses)
                         {
                             var scope = new Dictionary<string, Term>(capture, StringComparer.Ordinal);

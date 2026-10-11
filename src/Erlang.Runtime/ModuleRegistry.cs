@@ -4,6 +4,7 @@ namespace Erlang;
 
 public sealed class ModuleRegistry
 {
+    private readonly object gate = new();
     private readonly Dictionary<(string Module, string Function, int Arity), ErlangFunction> functions = new();
 
     public void Register(
@@ -15,7 +16,8 @@ public sealed class ModuleRegistry
     {
         AtomNameRegistry.Observe(module);
         AtomNameRegistry.Observe(function);
-        functions.Add((module, function, arity), body);
+        lock (gate)
+            functions.Add((module, function, arity), body);
     }
 
     public ValueTask<Term> Call(
@@ -24,9 +26,46 @@ public sealed class ModuleRegistry
         string function,
         params Term[] arguments
     )
-        => functions.TryGetValue((module, function, arguments.Length), out var f) ? f(context, arguments) : throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+    {
+        ErlangFunction? body;
+        lock (gate)
+            functions.TryGetValue((module, function, arguments.Length), out body);
 
-    public bool HasExport(string module, string function, int arity) => functions.ContainsKey((module, function, arity));
+        return body is not null ? body(context, arguments) : throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+    }
 
-    public IReadOnlyCollection<(string Module, string Function, int Arity)> Exports => functions.Keys;
+    public bool HasExport(string module, string function, int arity)
+    {
+        lock (gate)
+            return functions.ContainsKey((module, function, arity));
+    }
+
+    public void Apply(Action<ModuleRegistry> configure)
+    {
+        ArgumentNullException.ThrowIfNull(configure);
+        lock (gate)
+        {
+            var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
+            try
+            {
+                configure(this);
+            }
+            catch
+            {
+                functions.Clear();
+                foreach (var entry in previous)
+                    functions.Add(entry.Key, entry.Value);
+                throw;
+            }
+        }
+    }
+
+    public IReadOnlyCollection<(string Module, string Function, int Arity)> Exports
+    {
+        get
+        {
+            lock (gate)
+                return Array.AsReadOnly(functions.Keys.ToArray());
+        }
+    }
 }

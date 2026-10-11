@@ -86,6 +86,26 @@ public static class TermOrder
                 }
                 if (x.ExternalIdentity is not null || y.ExternalIdentity is not null)
                     return (x.ExternalIdentity is not null).CompareTo(y.ExternalIdentity is not null);
+                if (x.LocalIdentity is { } localLeft && y.LocalIdentity is { } localRight)
+                {
+                    int module = Compare(localLeft.Module, localRight.Module, true);
+                    if (module != 0)
+                        return module;
+                    int index = localLeft.Index.CompareTo(localRight.Index);
+                    if (index != 0)
+                        return index;
+                    int unique = Compare(localLeft.Unique, localRight.Unique, true);
+                    if (unique != 0)
+                        return unique;
+                    int arity = x.Arity.CompareTo(y.Arity);
+                    if (arity != 0)
+                        return arity;
+                    int count = x.Environment.Count.CompareTo(y.Environment.Count);
+
+                    return count != 0 ? count : Sequence(x.Environment, y.Environment, exact);
+                }
+                if (x.LocalIdentity is not null || y.LocalIdentity is not null)
+                    return (x.LocalIdentity is not null).CompareTo(y.LocalIdentity is not null);
 
                 return x.Identity.CompareTo(y.Identity);
             case (TupleTerm x, TupleTerm y):
@@ -224,6 +244,15 @@ public static class TermOrder
                     h.Add(identity.Module);
                     h.Add(identity.Function);
                     h.Add(identity.Arity);
+                }
+                else if (x.LocalIdentity is { } local)
+                {
+                    h.Add(local.Module);
+                    h.Add(local.Index);
+                    h.Add(local.Unique);
+                    h.Add(x.Arity);
+                    foreach (var value in x.Environment)
+                        h.Add(value);
                 }
                 else
                 {

@@ -8,6 +8,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
     private readonly Dictionary<ReferenceTerm, (Pid Observer, Pid Target)> monitors = new();
     private long nextPid, nextRef;
     private bool disposed;
+    private readonly RuntimeInitializer initializer;
+    public Pid InitializationPid { get; }
     public string Node
     {
         get;
@@ -27,7 +29,11 @@ public sealed class ProcessRuntime : IAsyncDisposable
         NodeAtom = Term.A(node);
         Output = output ?? Console.Out;
         Timers = new(this, gate);
-        CoreModules.Register(Modules);
+        var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
+        InitializationPid = initial.Self;
+        processes.Add(initial.Self, initial);
+        initializer = new(initial);
+        initializer.Start();
     }
 
     public ProcessHandle Spawn(Func<ProcessContext, ValueTask<Term>> body, ProcessContext? parent = null, bool link = false)
@@ -304,7 +310,23 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
     }
 
-    public ValueTask DisposeAsync()
+    public ValueTask InitializeModulesAsync(Action<ModuleRegistry> configure) => initializer.Configure(configure);
+
+    internal void InitializationEnded(ProcessContext context)
+    {
+        lock (gate)
+        {
+            Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));
+            if (disposed)
+                return;
+            disposed = true;
+            Timers.Dispose();
+            foreach (var process in processes.Values.ToArray())
+                Terminate(process, Term.A(ProcessExitReasons.Shutdown));
+        }
+    }
+
+    public async ValueTask DisposeAsync()
     {
         lock (gate)
         {
@@ -314,6 +336,6 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 Terminate(p, Term.A(ProcessExitReasons.Shutdown));
         }
 
-        return ValueTask.CompletedTask;
+        await initializer.Completion.ConfigureAwait(false);
     }
 }

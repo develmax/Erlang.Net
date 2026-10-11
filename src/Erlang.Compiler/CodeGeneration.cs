@@ -134,6 +134,12 @@ public static class CodeGeneration
     public static string CompileModule(string source, string sourcePath)
     {
         var module = new Parser(source).ParseModule();
+
+        return ModuleCode(module, sourcePath);
+    }
+
+    internal static string ModuleCode(ModuleDefinition module, string sourcePath)
+    {
         string className = "ErlangModule_" + string.Concat(module.Name.Select(c => char.IsAsciiLetterOrDigit(c) || c == '_' ? c.ToString() : "_" + ((int)c).ToString("x4", CultureInfo.InvariantCulture)));
 
         return "// Generated from " + sourcePath.Replace("\n", " ") + "\n#nullable enable\nnamespace Erlang.Generated;\npublic static class " + className + "\n{\npublic static global::Erlang.Compiler.ModuleDefinition Definition {get;} = new(" + Quote(module.Name) + ",new (string Name,int Arity)[]{" + string.Join(',', module.Exports.Select(x => "(" + Quote(x.Name) + "," + x.Arity + ")")) + "},new global::Erlang.Compiler.FunctionDefinition[]{" + string.Join(

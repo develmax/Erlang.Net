@@ -5,7 +5,8 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Terms",
       "Remaining": [
-        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity"
+        "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
+        "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability"
       ],
       "Implemented": [
         "immutable terms and exact/numeric equality",
@@ -13,7 +14,8 @@
         "bounded reuse of ten common immutable atom values",
         "privately owned exact-key Dictionary index with sorted read-only map entries",
         "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
-        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized"
+        "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
+        "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained"
       ],
       "Id": "Terms",
       "TestPrefixes": [
@@ -42,14 +44,16 @@
       "Remaining": [
         "signal races, scheduler fairness and resources",
         "distribution, ETS/DETS, ports/NIF/code loading",
-        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
+        "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
+        "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection"
       ],
       "Implemented": [
         "selective receive and local links/monitors",
         "registered core MFAs",
         "Relative send_after/3, start_timer/3, read_timer/1 and cancel_timer/1",
         "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
-        "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial"
+        "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
+        "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked"
       ],
       "Id": "Runtime",
       "TestPrefixes": [

@@ -722,6 +722,7 @@ public static class CoreModules
         ErlangRaiseRegistrations.Register(r);
         ErlangProcessQueryRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
+        ErlangFunctionInfoRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })

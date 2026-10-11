@@ -423,3 +423,7 @@ Local3207/full,338MFAs,erlang188/351,163missing;7new external function/query/err
 
 ## Part122 active checkpoint
 Original2751/2751=778/1889/84 and same-head3207/full CI pass at069b560;strict source/hash/independent/provenance guards;all120778/1795/84 unchanged.338MFAs,erlang188/351,163missing,337types. Publish122 proof,then actual local code/env/init metadata/fun_info/ETF/hash and remaining prerequisites. Ignored capture prototype32scope/1889existing compiled pass;native unrun,new registered0. OTP29 local fun_info PID is init,not creator; implement real runtime ownership/lifecycle. Start0018 after closing0017(parts117-121,working-copy DE306A885723547CEF3F8D59F16D7AA9A6E1D62B5544DD5B803FC5A3C27DE6CD;canonical/Git hashes in122);closed0016 unchanged. Whole user completion goal continues.
+
+## Part123 checkpoint
+
+Part123: actual local function code/free-env metadata,initialization ownership and four introspection/text MFAs pass **3270/full local**,57 new independent modules;registry342,erlang192/351,159 missing. [Local evidence](validation/part-123/reference-audit.json). Plan2808=778/1946/84 preserves all122 inputs/outcomes/generated hashes;original/same-head CI124 pending. Full SSA/BEAM metadata/ETF/code/init/process/resource boundaries remain explicit. Whole erlang goal continues.
