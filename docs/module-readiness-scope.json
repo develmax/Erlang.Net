@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-085/tests.json",
+  "ComparisonTestReport": "validation/part-086/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -124,14 +124,14 @@
       "Status": "Partially compatible",
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
-        "dynamic children, simple_one_for_one, significant/auto_shutdown and upgrades",
-        "full shutdown/restart/race/sys contracts and stacks"
+        "simple_one_for_one, significant/auto_shutdown and upgrades",
+        "full shutdown/restart retry/restarting/race/sys contracts and stacks"
       ],
       "Implemented": [
-        "C# strategies/policies/intensity and five standard supervisor MFAs",
+        "C# strategies/policies/intensity and nine standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
-        "serialized child queries and reverse shutdown",
-        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial"
+        "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
+        "Selected static callback contracts verified at2fd52f8; dynamic increment original comparison pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [

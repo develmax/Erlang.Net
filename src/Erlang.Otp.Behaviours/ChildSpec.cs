@@ -12,4 +12,8 @@ public sealed record ChildSpec(
     Term? Modules = null,
     bool InfiniteShutdown = false,
     bool BrutalKill = false
-);
+)
+{
+    internal Func<ProcessContext, ValueTask<Term>>? StartResult { get; init; }
+    internal Term? StartMfa { get; init; }
+}

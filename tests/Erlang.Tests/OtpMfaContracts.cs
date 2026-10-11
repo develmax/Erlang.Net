@@ -23,9 +23,13 @@ public static class OtpMfaContracts
             ("supervisor", "which_children", 1) => "otp-supervisor-child-query-order",
             ("supervisor", "count_children", 1) => "otp-supervisor-child-query-order",
             ("supervisor", "check_childspecs", 1) => "otp-supervisor-valid-check",
+            ("supervisor", "start_child", 2) => "otp-supervisor-dynamic-lifecycle",
+            ("supervisor", "terminate_child", 2) => "otp-supervisor-dynamic-lifecycle",
+            ("supervisor", "restart_child", 2) => "otp-supervisor-dynamic-restart-failure-retry",
+            ("supervisor", "delete_child", 2) => "otp-supervisor-dynamic-replacement",
             _ => throw new InvalidOperationException("Missing direct OTP contract")
         };
-        var fixture = OtpBehaviourCases.Modules.Single(f => f.Name == name);
+        var fixture = CompiledModuleCases.All.Single(f => f.Name == name);
         using var artifact = GeneratedModuleCompiler.Compile(fixture.Source);
         Term actual = await CompiledModuleExecution.Run(artifact);
         if (!actual.Equals(fixture.Expected))

@@ -1,4 +1,3 @@
-using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 
 namespace Erlang.Otp;
@@ -122,13 +121,13 @@ public static class OtpModules
                 OtpNames.Supervisor,
                 OtpNames.WhichChildren,
                 1,
-                (c, a) => GenServer.Call(c, Resolve(c, a[0], true)!, Term.A(OtpNames.WhichChildren))
+                (c, a) => SupervisorCall(c, Term.A(OtpNames.WhichChildren), a[0])
             );
             Add(
                 OtpNames.Supervisor,
                 OtpNames.CountChildren,
                 1,
-                (c, a) => GenServer.Call(c, Resolve(c, a[0], true)!, Term.A(OtpNames.CountChildren))
+                (c, a) => SupervisorCall(c, Term.A(OtpNames.CountChildren), a[0])
             );
             Add(
                 OtpNames.Supervisor,
@@ -150,6 +149,13 @@ public static class OtpModules
                 }
             }
             );
+            foreach (string operation in new[] { OtpNames.StartChild, OtpNames.TerminateChild, OtpNames.RestartChild, OtpNames.DeleteChild })
+                Add(
+                    OtpNames.Supervisor,
+                    operation,
+                    2,
+                    (c, a) => SupervisorCall(c, Term.Tuple(Term.A(operation), a[1]), a[0])
+                );
             Installed.Add(registry, new());
         }
     }
@@ -243,6 +249,9 @@ public static class OtpModules
             );
         }
     }
+
+    private static ValueTask<Term> SupervisorCall(ProcessContext context, Term request, Term supervisor)
+        => Call(context, new[] { supervisor, request, Term.A(BehaviourAtoms.Infinity) });
 
     private static IReadOnlyList<ChildSpec> Visible(SupervisorHandle handle) => handle.Specifications.Where(s => s.Restart != RestartPolicy.Temporary || handle.Children.Any(c => c.Id.Equals(s.Id))).ToArray();
 

@@ -73,7 +73,7 @@ public static class ErlangSupervisor
         return children;
     }
 
-    private static ChildSpec ParseChild(Term value)
+    internal static ChildSpec ParseChild(Term value)
     {
         MapTerm spec;
         if (value is MapTerm map)
@@ -145,7 +145,7 @@ public static class ErlangSupervisor
                     throw Error(SupervisorAtoms.InvalidModule, item);
         }
 
-        async ValueTask<ProcessHandle?> Start(ProcessContext context)
+        async ValueTask<Term> StartResult(ProcessContext context)
         {
             Term result;
             try
@@ -163,22 +163,31 @@ public static class ErlangSupervisor
             }
             catch (ErlangException ex)
             {
-                throw new ErlangException(
+                return Term.Tuple(
+                    Term.A(BehaviourAtoms.Error),
                     Term.Tuple(
                         Term.A(ProcessMessageTags.LinkedExit),
                         ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(ex.Reason, ex.StackTraceTerm)
-                    ),
-                    ErlangExceptionClasses.Exit
+                    )
                 );
             }
             if (result is Atom { Name: BehaviourAtoms.Ignore })
-                return null;
+                return Term.Tuple(Term.A(BehaviourAtoms.Ok), Term.A(SupervisorAtoms.Undefined));
             if (result is TupleTerm { Items.Count: 2 } error && error.Items[0] is Atom { Name: BehaviourAtoms.Error })
-                throw new ErlangException(error.Items[1], ErlangExceptionClasses.Exit);
+                return error;
             if (result is TupleTerm success && success.Items.Count is 2 or 3 && success.Items[0] is Atom { Name: BehaviourAtoms.Ok } && success.Items[1] is Pid pid)
-                return context.Runtime.GetProcessHandle(pid);
+                return success;
 
-            throw new ErlangException(result, ErlangExceptionClasses.Exit);
+            return Term.Tuple(Term.A(BehaviourAtoms.Error), result);
+        }
+
+        async ValueTask<ProcessHandle?> Start(ProcessContext context)
+        {
+            var result = (TupleTerm)await StartResult(context);
+            if (result.Items[0] is Atom { Name: BehaviourAtoms.Error })
+                throw new ErlangException(result.Items[1], ErlangExceptionClasses.Exit);
+
+            return result.Items[1] is Pid pid ? context.Runtime.GetProcessHandle(pid) : null;
         }
 
         return new(
@@ -191,10 +200,31 @@ public static class ErlangSupervisor
             modules,
             infinite,
             brutal
-        );
+        )
+        {
+            StartResult = StartResult,
+            StartMfa = start
+        };
     }
 
     private static Term Get(MapTerm map, string key, Term fallback) => map.TryGet(Term.A(key), out var value) ? value! : fallback;
+
+    internal static Term ChildRecord(ChildSpec spec) => Term.Tuple(
+        Term.A(SupervisorAtoms.ChildRecord),
+        Term.A(SupervisorAtoms.Undefined),
+        spec.Id,
+        spec.StartMfa!,
+        Term.A(spec.Restart switch
+        {
+            RestartPolicy.Permanent => SupervisorAtoms.Permanent,
+            RestartPolicy.Transient => SupervisorAtoms.Transient,
+            _ => SupervisorAtoms.Temporary
+        }),
+        Term.A(ErlangBooleanAtoms.False),
+        spec.InfiniteShutdown ? Term.A(BehaviourAtoms.Infinity) : spec.BrutalKill ? Term.A(SupervisorAtoms.BrutalKill) : Term.I((int)(spec.Shutdown ?? TimeSpan.FromMilliseconds(BehaviourDefaults.ChildShutdownMilliseconds)).TotalMilliseconds),
+        spec.Type ?? Term.A(SupervisorAtoms.Worker),
+        spec.Modules ?? Nil.Value
+    );
 
     private static ErlangException Flag(string reason, Term value) => Exit(Term.Tuple(Term.A(SupervisorAtoms.SupervisorData), Term.Tuple(Term.A(reason), value)));
 

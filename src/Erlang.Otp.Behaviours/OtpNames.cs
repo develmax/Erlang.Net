@@ -13,4 +13,8 @@ internal static class OtpNames
     public const string WhichChildren = "which_children";
     public const string CountChildren = "count_children";
     public const string CheckChildSpecs = "check_childspecs";
+    public const string StartChild = "start_child";
+    public const string TerminateChild = "terminate_child";
+    public const string RestartChild = "restart_child";
+    public const string DeleteChild = "delete_child";
 }

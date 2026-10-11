@@ -1,8 +1,8 @@
-# Progress checkpoint — 2026-10-10
+# Progress checkpoint — 2026-10-11
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–086.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–087.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,8 +10,8 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 81 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
-| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static child MFA/specs, actions, queries and lifecycle contracts | Partially compatible |
+| Core modules | 85 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, actions, queries and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
@@ -510,3 +510,11 @@ Published implementation **2fd52f8be2d247d3141afe4a48aca4934c58e254** passes **1
 The selected checks for init outcomes/actions/throw returns, optional callbacks, call/cast/info/deferred replies, local named registration, monitor stop/termination, permanent child restart, legacy/map flags/specs, ignored children, query order and validation/start failures are complete for this increment. The adapters add15 MFAs, total81; gen_server10/41 explicit declarations and supervisor5/23, all partial. API presence ratios do not measure semantic completion.217 namespace types/no layout violations. Consolidated exact OTP notices packaged, LICENSE.local.txt uncommitted/unpublished/unpackaged; no source banners/new dependency/production BEAM. This proof changes no executable code and reuses local1482/full pipeline from part085. Framed oracle correction resolves the initial1182/1293 incomplete transport run without changing any fixture expectation/source.
 
 Full sys/proc_lib/options/aliases/upgrades/distribution/hibernation/huge-timeout/stacks and startup/parent/dead-child/shutdown races remain unfinished. Supervisor dynamic children/simple_one_for_one/significant/auto_shutdown and full restart retry/intensity/shutdown edges need additional source-directed implementation/tests. Original complete upstream suites and BEAM performance benchmarks are unrun; whole work.md remains approximately5% coarse. Next implement selected dynamic supervisor APIs and harden lifecycle/error races, preserving pinned baseline and immutable expectations.
+
+## Part 087 — Dynamic supervisor child management (2026-10-11)
+
+Four registered Erlang APIs implement start_child/2, terminate_child/2, restart_child/2 and delete_child/2 for ordinary one_for_one/one_for_all/rest_for_one supervisors. All management runs in the owning mailbox. Preserve inactive permanent/transient specs, remove temporary children, keep source query/restart order, preserve Extra, source-shaped start failure child records and manual restart errors; validate before duplicate lookup. Supervisor requests now use gen_server infinity calls and call error context. BCL ordered lists and existing runtime/immutable terms/ValueTask adapt pinned lib/stdlib/src/supervisor.erl handle_call/start/save/del routines; consolidated Ericsson AB 1996-2026 Apache notices retained, no banners/new package/production BEAM, license draft excluded.
+
+26 independently expected compiled Erlang modules cover lifecycle/missing/running/duplicate states, legacy/named specs, ignore, extra, failed/retry/throw/exit/raw starts, shutdown acknowledgement, temporary/transient exits, query order/counts and dynamic group restart schedules. Prior778 expressions/436 compiled module sources/expectations/generated hashes and79 diagnostics are unchanged. Registry85 (+4), supervisor9/23 and gen_server10/41 explicit-declaration API presence; these are partial APIs, not compatibility percentages. Local validation/original-source checkpoints are recorded in parts087/088; source comparison is pending until part088 is complete. Historical1293/1293 belongs to2fd52f8/part086.
+
+Simple_one_for_one, significant/auto_shutdown, automatic restart retry/restarting states, returned dead/nonlinked PIDs, complete intensity/shutdown/signal races, sys/upgrades/stacks/resources and full upstream/performance suites remain unfinished. Approximately5% coarse overall. Next exact-source comparison and lifecycle/retry hardening; no full-module or BEAM speed claim.

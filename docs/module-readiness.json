@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-085/tests.json",
-  "LocalPassedTests": 1482,
-  "RegisteredMfas": 81,
+  "ComparisonTestReport": "validation/part-086/ci-tests.json",
+  "LocalPassedTests": 1512,
+  "RegisteredMfas": 85,
   "PreviousRegisteredMfas": 81,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -90,7 +90,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 183
+      "RelatedPassedTests": 187
     },
     {
       "Id": "gen_server adapters",
@@ -113,16 +113,16 @@
       "Project": "src/Erlang.Otp.Behaviours",
       "Status": "Partially compatible",
       "Implemented": [
-        "C# strategies/policies/intensity and five standard supervisor MFAs",
+        "C# strategies/policies/intensity and nine standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
-        "serialized child queries and reverse shutdown",
-        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial"
+        "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
+        "Selected static callback contracts verified at2fd52f8; dynamic increment original comparison pending"
       ],
       "Remaining": [
-        "dynamic children, simple_one_for_one, significant/auto_shutdown and upgrades",
-        "full shutdown/restart/race/sys contracts and stacks"
+        "simple_one_for_one, significant/auto_shutdown and upgrades",
+        "full shutdown/restart retry/restarting/race/sys contracts and stacks"
       ],
-      "RelatedPassedTests": 30
+      "RelatedPassedTests": 60
     },
     {
       "Id": "Hybrid and MSBuild",
@@ -164,7 +164,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 524
+      "RelatedPassedTests": 550
     },
     {
       "Id": "Style checks",
@@ -14162,11 +14162,11 @@
     {
       "Name": "supervisor",
       "Status": "Partially compatible",
-      "RegisteredMfas": 5,
+      "RegisteredMfas": 9,
       "PreviousRegisteredMfas": 5,
-      "Delta": 0,
+      "Delta": 4,
       "ReferenceDeclarations": 23,
-      "ApiPresencePercent": 21.7,
+      "ApiPresencePercent": 39.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/supervisor.erl"
@@ -14174,8 +14174,12 @@
       "Mfas": [
         "supervisor:check_childspecs/1",
         "supervisor:count_children/1",
+        "supervisor:delete_child/2",
+        "supervisor:restart_child/2",
+        "supervisor:start_child/2",
         "supervisor:start_link/2",
         "supervisor:start_link/3",
+        "supervisor:terminate_child/2",
         "supervisor:which_children/1"
       ],
       "AbsentFromReference": []

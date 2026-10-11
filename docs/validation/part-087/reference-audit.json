@@ -1,0 +1,30 @@
+{
+  "Part": 87,
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "lib/stdlib/src/supervisor.erl",
+  "Blob": "aa367e1f43c5d4ff1913d19d1f5b3e662ddb6eec",
+  "Routines": [
+    "call/2",
+    "handle_call start/terminate/restart/delete",
+    "do_start_child_i",
+    "handle_do_start_child_i_result",
+    "handle_start_child",
+    "save_child",
+    "del_child",
+    "child record"
+  ],
+  "ReferenceCheckoutModified": false,
+  "Reuse": "BCL ordered lists and existing C# mailbox/immutable terms/ValueTask; source-directed state transitions, no actor-framework semantics substitution",
+  "License": "Consolidated Ericsson Apache notices retained; no source banners, draft excluded",
+  "NewModules": 26,
+  "ExpectedValuesChanged": 0,
+  "Limitations": [
+    "simple_one_for_one",
+    "significant/auto_shutdown",
+    "restart retry/restarting states",
+    "full dead-child/link races",
+    "source stacks",
+    "full upstream suites"
+  ]
+}

@@ -6,7 +6,7 @@ Development validation now compares **778 expressions**, **436 separately compil
 
 The implemented subset runs on .NET 10 without BEAM. It includes immutable terms, selective receive, local processes/links/monitors, an Erlang parser and evaluator, generated C# modules, selected Erlang gen_server/supervisor callback adapters and a mixed C#/Erlang MSBuild preprocessor.
 
-Selected Erlang behaviour adapters expose ten gen_server and five supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
+Selected Erlang behaviour adapters expose ten gen_server and nine supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
 
 [Module readiness](docs/MODULE_READINESS.md) reports delivered/remaining component milestones, tested registered MFAs and changes from the previous checkpoint. Its API-presence percentages measure declarations, not complete compatibility. The full inventory is in [module-readiness.json](docs/module-readiness.json).
 

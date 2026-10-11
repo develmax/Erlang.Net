@@ -49,4 +49,9 @@ internal static class SupervisorAtoms
     public const string Active = "active";
     public const string Supervisors = "supervisors";
     public const string Workers = "workers";
+    public const string AlreadyPresent = "already_present";
+    public const string AlreadyStarted = "already_started";
+    public const string Running = "running";
+    public const string NotFound = "not_found";
+    public const string ChildRecord = "child";
 }
