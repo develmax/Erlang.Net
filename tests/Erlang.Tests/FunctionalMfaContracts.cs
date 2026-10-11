@@ -49,7 +49,7 @@ public static class FunctionalMfaContracts
         ("erlang", "start_timer", 3) => "runtime-timer-start-timer",
         ("erlang", "read_timer", 1) => "runtime-timer-read-cancel",
         ("erlang", "cancel_timer", 1) => "runtime-timer-read-cancel",
-        _ => module == "lists" ? ListCompletionCases.FixtureName(function, arity) : null
+        _ => module == "lists" ? ListCompletionCases.FixtureName(function, arity) : module == "erlang" ? ErlangBasicCases.FixtureName(function, arity) : null
     };
 
     public static async Task Run(string name)

@@ -3,7 +3,7 @@ namespace Erlang.Compiler;
 
 public static class Semantics
 {
-    internal static readonly HashSet<(string, int)> GuardBifs = [(ErlangModuleNames.IsAtom, 1), (ErlangModuleNames.IsInteger, 1), (ErlangModuleNames.IsFloat, 1), (ErlangModuleNames.IsNumber, 1), (ErlangModuleNames.IsTuple, 1), (ErlangModuleNames.IsBinary, 1), (ErlangModuleNames.IsBitString, 1), (ErlangModuleNames.BitSize, 1), (ErlangModuleNames.ByteSize, 1), (ErlangModuleNames.IsList, 1), (ErlangModuleNames.IsPid, 1), (ErlangModuleNames.IsMap, 1), (ErlangModuleNames.MapSize, 1), (ErlangModuleNames.MapGet, 2), (ErlangModuleNames.IsMapKey, 2), (ErlangModuleNames.Length, 1), (ErlangModuleNames.Head, 1), (ErlangModuleNames.Tail, 1), (ErlangModuleNames.Element, 2), (ErlangModuleNames.TupleSize, 1), (ErlangModuleNames.Self, 0)];
+    internal static readonly HashSet<(string, int)> GuardBifs = [.. ErlangBasicBifNames.Guards, (ErlangModuleNames.IsAtom, 1), (ErlangModuleNames.IsInteger, 1), (ErlangModuleNames.IsFloat, 1), (ErlangModuleNames.IsNumber, 1), (ErlangModuleNames.IsTuple, 1), (ErlangModuleNames.IsBinary, 1), (ErlangModuleNames.IsBitString, 1), (ErlangModuleNames.BitSize, 1), (ErlangModuleNames.ByteSize, 1), (ErlangModuleNames.IsList, 1), (ErlangModuleNames.IsPid, 1), (ErlangModuleNames.IsMap, 1), (ErlangModuleNames.MapSize, 1), (ErlangModuleNames.MapGet, 2), (ErlangModuleNames.IsMapKey, 2), (ErlangModuleNames.Length, 1), (ErlangModuleNames.Head, 1), (ErlangModuleNames.Tail, 1), (ErlangModuleNames.Element, 2), (ErlangModuleNames.TupleSize, 1), (ErlangModuleNames.Self, 0)];
 
     public static void Validate(ModuleDefinition module)
     {

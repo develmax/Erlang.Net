@@ -443,3 +443,5 @@ Initial 9dec6df original run completed 1332/1333 with one wrong-tag mismatch and
 Approximately5% coarse overall; full modules/upstream suites/performance remain unfinished. Next harden dead/nonlinked PID and shutdown/signal races, intensity/window/clock phase boundaries, then simple_one_for_one/significant/auto_shutdown and sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources. Group/scheduler/resource/clock equivalence is not established beyond the selected fixtures.
 
 Part 110 verifies all lists 91/91 exports, original1878/1878 and same-head2181/full CI. Next broader OTP/compiler/runtime work; lists resource/stack/error_info/performance hardening remains explicit.
+
+Current active goal: complete all erlang351 exports/BIFs;111 registers105/351 with2357/full local. Finish1993 original/same-head CI112, then binary/text/ETF/checksum/hash, time/timer options, processes/aliases/spawn/inspection, native records/code/ports/distribution/tracing/host support. No generic stubs or registration-only completion; do not stop at a partial increment.

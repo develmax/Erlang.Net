@@ -1,107 +1,195 @@
 [
   {
     "Module": "erlang",
-    "Function": "self",
-    "Arity": 0,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:self/0",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "length",
+    "Function": "-",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:length/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:-/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "hd",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:hd/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "tl",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:tl/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "element",
+    "Function": "-",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:element/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:-/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "tuple_size",
-    "Arity": 1,
+    "Function": "--",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:tuple_size/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:--/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_atom",
-    "Arity": 1,
+    "Function": "!",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_atom/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:!/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_integer",
-    "Arity": 1,
+    "Function": "*",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_integer/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:*/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_float",
-    "Arity": 1,
+    "Function": "/",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_float/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang://2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_number",
-    "Arity": 1,
+    "Function": "/=",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_number/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:/=/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_tuple",
+    "Function": "+",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_tuple/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:+/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_binary",
-    "Arity": 1,
+    "Function": "+",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_binary/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:+/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_bitstring",
+    "Function": "++",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:++/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "<",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:</2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "=:=",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:=:=/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "=/=",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:=/=/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "=<",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:=</2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "==",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:==/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": ">",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:>/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": ">=",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:>=/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "abs",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_bitstring/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:abs/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "and",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:and/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "append",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:append/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "append_element",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:append_element/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "apply",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:apply/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "apply",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:apply/3",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "band",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:band/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
@@ -113,6 +201,46 @@
   },
   {
     "Module": "erlang",
+    "Function": "bnot",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bnot/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "bor",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bor/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "bsl",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bsl/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "bsr",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bsr/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "bxor",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bxor/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
     "Function": "byte_size",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -121,107 +249,27 @@
   },
   {
     "Module": "erlang",
-    "Function": "is_list",
+    "Function": "cancel_timer",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_list/1",
+    "Evidence": "mfa/erlang:cancel_timer/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "is_pid",
+    "Function": "ceil",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_pid/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:ceil/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
-    "Function": "is_map",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_map/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "map_size",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:map_size/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "map_get",
+    "Function": "delete_element",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:map_get/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "is_map_key",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:is_map_key/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "make_ref",
-    "Arity": 0,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:make_ref/0",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "register",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:register/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "whereis",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:whereis/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "unregister",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:unregister/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "link",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:link/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "unlink",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:unlink/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "monitor",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:monitor/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Evidence": "mfa/erlang:delete_element/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
@@ -233,10 +281,42 @@
   },
   {
     "Module": "erlang",
-    "Function": "process_flag",
+    "Function": "div",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:process_flag/2",
+    "Evidence": "mfa/erlang:div/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "element",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:element/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "erase",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:erase/0",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "erase",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:erase/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "error",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:error/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -257,18 +337,314 @@
   },
   {
     "Module": "erlang",
-    "Function": "error",
+    "Function": "float",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:error/1",
+    "Evidence": "mfa/erlang:float/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "floor",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:floor/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "get",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:get/0",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "get",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:get/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "throw",
+    "Function": "get_keys",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:get_keys/0",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "get_keys",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:throw/1",
+    "Evidence": "mfa/erlang:get_keys/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "hd",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:hd/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "insert_element",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:insert_element/3",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_atom",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_atom/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_binary",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_binary/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_bitstring",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_bitstring/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_boolean",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_boolean/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_float",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_float/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_function",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_function/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_function",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_function/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_integer",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_integer/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_integer",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_integer/3",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_list/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_map",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_map/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_map_key",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_map_key/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_number",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_number/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_pid",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_pid/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_port",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_port/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_reference",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_reference/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_tuple",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_tuple/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "length",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:length/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "link",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:link/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "list_to_tuple",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_tuple/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "make_ref",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:make_ref/0",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "make_tuple",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:make_tuple/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "make_tuple",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:make_tuple/3",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "map_get",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:map_get/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "map_size",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:map_size/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "max",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:max/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "min",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:min/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "monitor",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monitor/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "not",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:not/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "or",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:or/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "process_flag",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:process_flag/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -281,171 +657,75 @@
   },
   {
     "Module": "erlang",
-    "Function": "get",
+    "Function": "read_timer",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:get/1",
+    "Evidence": "mfa/erlang:read_timer/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "erase",
-    "Arity": 1,
+    "Function": "register",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:erase/1",
+    "Evidence": "mfa/erlang:register/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "lists",
-    "Function": "reverse",
+    "Module": "erlang",
+    "Function": "rem",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:rem/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "round",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:reverse/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+    "Evidence": "mfa/erlang:round/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
-    "Module": "lists",
-    "Function": "reverse",
+    "Module": "erlang",
+    "Function": "self",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:self/0",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "send",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:reverse/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+    "Evidence": "mfa/erlang:send/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
-    "Module": "lists",
-    "Function": "append",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:append/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "append",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:append/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "duplicate",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:duplicate/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "flatten",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:flatten/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "flatten",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:flatten/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "member",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:member/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "sum",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:sum/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keyfind",
+    "Module": "erlang",
+    "Function": "send_after",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keyfind/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+    "Evidence": "mfa/erlang:send_after/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "lists",
-    "Function": "keymember",
+    "Module": "erlang",
+    "Function": "setelement",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keymember/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+    "Evidence": "mfa/erlang:setelement/3",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
-    "Module": "lists",
-    "Function": "keysearch",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keysearch/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "nth",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:nth/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "nthtail",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:nthtail/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "last",
+    "Module": "erlang",
+    "Function": "size",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:last/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "split",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:split/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "seq",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:seq/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "seq",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:seq/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "map",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:map/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+    "Evidence": "mfa/erlang:size/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
   },
   {
     "Module": "erlang",
@@ -472,283 +752,179 @@
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "get",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:get/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "size",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:size/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "lists",
-    "Function": "sort",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:sort/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "maps",
-    "Function": "iterator",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:iterator/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "iterator",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:iterator/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "next",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:next/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "get",
+    "Module": "erlang",
+    "Function": "start_timer",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:get/3",
+    "Evidence": "mfa/erlang:start_timer/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "new",
-    "Arity": 0,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:new/0",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "find",
+    "Module": "erlang",
+    "Function": "subtract",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:find/2",
+    "Evidence": "mfa/erlang:subtract/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "throw",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:throw/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "is_key",
+    "Module": "erlang",
+    "Function": "tl",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:tl/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "trunc",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:trunc/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "tuple_size",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:tuple_size/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "tuple_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:tuple_to_list/1",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "unlink",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:unlink/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "unregister",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:unregister/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "whereis",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:whereis/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "xor",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:is_key/2",
+    "Evidence": "mfa/erlang:xor/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/predicate/apply/dictionary contracts; original part112 pending; complete input/resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "gen_server",
+    "Function": "call",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/gen_server:call/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "put",
+    "Module": "gen_server",
+    "Function": "call",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:put/3",
+    "Evidence": "mfa/gen_server:call/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "update",
+    "Module": "gen_server",
+    "Function": "cast",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/gen_server:cast/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "gen_server",
+    "Function": "reply",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/gen_server:reply/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "gen_server",
+    "Function": "start",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:update/3",
+    "Evidence": "mfa/gen_server:start/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "remove",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:remove/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "take",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:take/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "from_list",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:from_list/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "from_keys",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:from_keys/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "merge",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:merge/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "keys",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:keys/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "values",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:values/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "to_list",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:to_list/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "with",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:with/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "without",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:without/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "is_iterator_valid",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:is_iterator_valid/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "update_with",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:update_with/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "update_with",
+    "Module": "gen_server",
+    "Function": "start",
     "Arity": 4,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:update_with/4",
+    "Evidence": "mfa/gen_server:start/4",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "intersect",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:intersect/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "intersect_with",
+    "Module": "gen_server",
+    "Function": "start_link",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:intersect_with/3",
+    "Evidence": "mfa/gen_server:start_link/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "merge_with",
+    "Module": "gen_server",
+    "Function": "start_link",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/gen_server:start_link/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "gen_server",
+    "Function": "stop",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/gen_server:stop/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "gen_server",
+    "Function": "stop",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:merge_with/3",
+    "Evidence": "mfa/gen_server:stop/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "maps",
-    "Function": "groups_from_list",
+    "Module": "io",
+    "Function": "format",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/maps:groups_from_list/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "groups_from_list",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:groups_from_list/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "filter",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:filter/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "filtermap",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:filtermap/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "map",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:map/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "foreach",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:foreach/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "maps",
-    "Function": "fold",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/maps:fold/3",
+    "Evidence": "mfa/io:format/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -769,74 +945,18 @@
   },
   {
     "Module": "lists",
-    "Function": "partition",
+    "Function": "append",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:append/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "append",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:partition/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "filtermap",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:filtermap/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "foreach",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:foreach/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "takewhile",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:takewhile/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "dropwhile",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:dropwhile/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "foldl",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:foldl/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "foldr",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:foldr/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "mapfoldl",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:mapfoldl/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "mapfoldr",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:mapfoldr/3",
+    "Evidence": "mfa/lists:append/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -865,6 +985,22 @@
   },
   {
     "Module": "lists",
+    "Function": "dropwhile",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:dropwhile/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "duplicate",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:duplicate/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
     "Function": "enumerate",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -889,10 +1025,74 @@
   },
   {
     "Module": "lists",
+    "Function": "filter",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:filter/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "filtermap",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:filtermap/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
     "Function": "flatlength",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/lists:flatlength/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "flatmap",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:flatmap/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "flatten",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:flatten/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "flatten",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:flatten/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "foldl",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:foldl/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "foldr",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:foldr/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "foreach",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:foreach/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -905,10 +1105,162 @@
   },
   {
     "Module": "lists",
+    "Function": "keydelete",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keydelete/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keyfind",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keyfind/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keymap",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keymap/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keymember",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keymember/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keymerge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keymerge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keyreplace",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keyreplace/4",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keysearch",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keysearch/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keysort",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keysort/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keystore",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keystore/4",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "keytake",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:keytake/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "last",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:last/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "map",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:map/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "mapfoldl",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:mapfoldl/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "mapfoldr",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:mapfoldr/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
     "Function": "max",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/lists:max/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "member",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:member/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "merge",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:merge/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "merge",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:merge/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "merge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:merge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "merge3",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:merge3/3",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -921,6 +1273,30 @@
   },
   {
     "Module": "lists",
+    "Function": "nth",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:nth/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "nthtail",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:nthtail/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "partition",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:partition/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
     "Function": "prefix",
     "Arity": 2,
     "Status": "Partially compatible",
@@ -929,10 +1305,138 @@
   },
   {
     "Module": "lists",
-    "Function": "suffix",
+    "Function": "reverse",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:reverse/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "reverse",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:suffix/2",
+    "Evidence": "mfa/lists:reverse/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rkeymerge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rkeymerge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rmerge",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rmerge/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rmerge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rmerge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rmerge3",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rmerge3/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rukeymerge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rukeymerge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rumerge",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rumerge/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rumerge",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rumerge/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "rumerge3",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:rumerge3/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "search",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:search/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "seq",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:seq/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "seq",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:seq/3",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "sort",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:sort/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "sort",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:sort/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "split",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:split/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "splitwith",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:splitwith/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -961,146 +1465,34 @@
   },
   {
     "Module": "lists",
-    "Function": "uniq",
-    "Arity": 1,
+    "Function": "suffix",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:uniq/1",
+    "Evidence": "mfa/lists:suffix/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
     "Module": "lists",
-    "Function": "unzip",
+    "Function": "sum",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:unzip/1",
+    "Evidence": "mfa/lists:sum/1",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
     "Module": "lists",
-    "Function": "unzip3",
-    "Arity": 1,
+    "Function": "takewhile",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:unzip3/1",
+    "Evidence": "mfa/lists:takewhile/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
     "Module": "lists",
-    "Function": "keydelete",
+    "Function": "ukeymerge",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keydelete/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keytake",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keytake/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keyreplace",
-    "Arity": 4,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keyreplace/4",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keystore",
-    "Arity": 4,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keystore/4",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keymap",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keymap/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "filter",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:filter/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "flatmap",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:flatmap/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "search",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:search/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "splitwith",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:splitwith/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "uniq",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:uniq/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "zf",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:zf/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "sort",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:sort/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "usort",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:usort/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "usort",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:usort/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keysort",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keysort/2",
+    "Evidence": "mfa/lists:ukeymerge/3",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -1113,50 +1505,10 @@
   },
   {
     "Module": "lists",
-    "Function": "merge",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:merge/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
     "Function": "umerge",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/lists:umerge/1",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "merge",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:merge/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "merge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:merge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rmerge",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rmerge/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rmerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rmerge/3",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -1177,70 +1529,6 @@
   },
   {
     "Module": "lists",
-    "Function": "rumerge",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rumerge/2",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rumerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rumerge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "keymerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:keymerge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rkeymerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rkeymerge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "ukeymerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:ukeymerge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rukeymerge",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rukeymerge/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "merge3",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:merge3/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
-    "Function": "rmerge3",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rmerge3/3",
-    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
-  },
-  {
-    "Module": "lists",
     "Function": "umerge3",
     "Arity": 3,
     "Status": "Partially compatible",
@@ -1249,10 +1537,58 @@
   },
   {
     "Module": "lists",
-    "Function": "rumerge3",
-    "Arity": 3,
+    "Function": "uniq",
+    "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/lists:rumerge3/3",
+    "Evidence": "mfa/lists:uniq/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "uniq",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:uniq/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "unzip",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:unzip/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "unzip3",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:unzip3/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "usort",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:usort/1",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "usort",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:usort/2",
+    "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
+  },
+  {
+    "Module": "lists",
+    "Function": "zf",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/lists:zf/2",
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
@@ -1320,155 +1656,275 @@
     "Limits": "Complete registered export surface91/91 and source-directed functional contracts verified against pinned OTP; native allocation/reductions/stacks/error_info/exhaustive CT/BEAM performance parity unclaimed"
   },
   {
-    "Module": "erlang",
-    "Function": "send_after",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:send_after/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "start_timer",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:start_timer/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "read_timer",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:read_timer/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
-    "Function": "cancel_timer",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:cancel_timer/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "io",
-    "Function": "format",
+    "Module": "maps",
+    "Function": "filter",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/io:format/2",
+    "Evidence": "mfa/maps:filter/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "gen_server",
-    "Function": "start",
+    "Module": "maps",
+    "Function": "filtermap",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:filtermap/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "find",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:find/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "fold",
     "Arity": 3,
     "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:start/3",
+    "Evidence": "mfa/maps:fold/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "gen_server",
-    "Function": "start",
+    "Module": "maps",
+    "Function": "foreach",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:foreach/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "from_keys",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:from_keys/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "from_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:from_list/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "get",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:get/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "get",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:get/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "groups_from_list",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:groups_from_list/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "groups_from_list",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:groups_from_list/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "intersect",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:intersect/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "intersect_with",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:intersect_with/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "is_iterator_valid",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:is_iterator_valid/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "is_key",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:is_key/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "iterator",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:iterator/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "iterator",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:iterator/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "keys",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:keys/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "map",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:map/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "merge",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:merge/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "merge_with",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:merge_with/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "new",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:new/0",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "next",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:next/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "put",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:put/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "remove",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:remove/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "size",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:size/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "take",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:take/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:to_list/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "update",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:update/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "update_with",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/maps:update_with/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "maps",
+    "Function": "update_with",
     "Arity": 4,
     "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:start/4",
+    "Evidence": "mfa/maps:update_with/4",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "gen_server",
-    "Function": "start_link",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:start_link/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "start_link",
-    "Arity": 4,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:start_link/4",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "call",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:call/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "call",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:call/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "cast",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:cast/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "reply",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:reply/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "gen_server",
-    "Function": "stop",
+    "Module": "maps",
+    "Function": "values",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:stop/1",
+    "Evidence": "mfa/maps:values/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "gen_server",
-    "Function": "stop",
-    "Arity": 3,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/gen_server:stop/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "supervisor",
-    "Function": "start_link",
+    "Module": "maps",
+    "Function": "with",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:start_link/2",
+    "Evidence": "mfa/maps:with/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
-    "Module": "supervisor",
-    "Function": "start_link",
-    "Arity": 3,
+    "Module": "maps",
+    "Function": "without",
+    "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:start_link/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "supervisor",
-    "Function": "which_children",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:which_children/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "supervisor",
-    "Function": "count_children",
-    "Arity": 1,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:count_children/1",
+    "Evidence": "mfa/maps:without/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -1489,26 +1945,10 @@
   },
   {
     "Module": "supervisor",
-    "Function": "start_child",
-    "Arity": 2,
+    "Function": "count_children",
+    "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:start_child/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "supervisor",
-    "Function": "terminate_child",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:terminate_child/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "supervisor",
-    "Function": "restart_child",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:restart_child/2",
+    "Evidence": "mfa/supervisor:count_children/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -1529,10 +1969,34 @@
   },
   {
     "Module": "supervisor",
-    "Function": "which_child",
+    "Function": "restart_child",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/supervisor:which_child/2",
+    "Evidence": "mfa/supervisor:restart_child/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "start_child",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:start_child/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "start_link",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:start_link/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "start_link",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:start_link/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -1549,6 +2013,30 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/supervisor:stop/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "terminate_child",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:terminate_child/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "which_child",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:which_child/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "supervisor",
+    "Function": "which_children",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/supervisor:which_children/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   }
 ]

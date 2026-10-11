@@ -387,3 +387,6 @@ Local2181/full,194 direct MFAs (+60), lists91/91,263 types.252 independent defau
 
 ## Part 110 checkpoint
 Implementation 9aeb8f1 verifies1878/1878=778/1016/84 and 2181/full same-head CI,194 direct MFAs, lists 91/91,252 new independent default-optimized modules,263 types. Historical778/764/84 preserved; two provisional source contracts plus one syntax corrected before original in109; failure evidence retained. Functional API scope complete; resources/stacks/error_info/exhaustive CT/performance unclaimed. No executable change; draft excluded, closed journals/sibling unchanged. Publish proof and complete lists goal.
+
+## Part111 erlang active-goal checkpoint
+Local2357/full,255 MFAs (+61), erlang105/351,115 new default-optimized modules,270 types. Historical778/1016/84 preserved. One reserved-operator syntax correction and one dictionary-order assertion correction before original; initial114/115 failure retained. Original1993=778/1131/84 and same-head CI pending112. User explicitly requests complete erlang and not to stop; active goal persists through all remaining246 exports/runtime prerequisites. No placeholder error registrations.0015 closed at110 (hash saved111);0016 active; no banners/dependencies, draft excluded. Publish111, verify112, continue next increment.

@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–110.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–111.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -10,13 +10,13 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Terms/ETF | Immutable Erlang terms, exact/numeric equality/order/signed zero, common bounded ETF formats | Partially compatible |
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades and relative timers | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, tuple records, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
-| Core modules | 194 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
+| Core modules | 255 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
 | OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, significant/auto_shutdown and simple_one_for_one, public queries/stop, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
 
-Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 194 partially compatible MFAs are not directly comparable API coverage measures.
+Source inventory: **1,289 modules / 38,622 explicit source exports / 524 BIF declarations**. Conditional/macro/generated/NIF/platform expansion remains incomplete. These counts and the 255 partially compatible MFAs are not directly comparable API coverage measures.
 
 ## Code readability checkpoint
 
@@ -728,3 +728,17 @@ Verified functional scope includes exact versus numeric equality; stable first r
 Commands: reference-checkpoint-110 -Mode Download; preserve110 strict original/source/hash/head/CI guard; readiness CLI with immutable part 109 tests; Git diff, closed-volume and sibling guards. Local product pipeline was pwsh -File tools/validate.ps1 in part 109; evidence-only part 110 does not rerun it.
 
 Publish original proof, bounded English journal and 91-function report. Preserve closed journals, sibling checkout and draft license. Continue broader OTP work separately; no measured BEAM speed claim.
+
+## Part 111 — 2026-10-11 — Erlang basic BIF and registered operator implementation
+
+**Local increment complete; whole erlang module remains unfinished.** Pinned union has351 explicit exports/BIF declarations; register61 missing MFAs, moving erlang44 to105/351 and total194 to255. Target every remaining export with actual runtime support and independent original contracts; do not count generic badarg/undef stubs. Source/reuse plan is recorded before implementation in OTP-PORTS and dependency-decisions. Audit erlang.erl, bif.tab, erl_bif_guard.c, erl_bif_op.c, bif.c, erl_arith.c and tuple arity definitions in erl_term.h.
+
+Expose29 operator MFAs through shared runtime/compiler value semantics, preserving compiler exception stack wrappers. Add explicit numeric rounding/conversion, min/max first ties, function/boolean/reference/port/ranged-integer predicates, size floor-byte behavior, immutable tuple construction/update/insert/delete/conversions, append/subtract, send, apply/2-/3 and dictionary enumeration/erase. Add guard admission consistently. Native positive bignum arity gives false, invalid arity gives badarg; float overflow is badarg rather than arithmetic error; round uses AwayFromZero, including negative ties. make_tuple initialization validates proper lists and indexes, with later duplicate index winning. Exact dictionary values distinguish integer/float keys. Reuse existing terms/order/list helpers/callbacks/dispatch plus SDK BigInteger/Math/temporary arrays; no package dependency, source banners or production BEAM.
+
+Add115 independently expected compiled modules, including61 direct exports, dynamic apply operator dispatch, numeric/composite ties, signed zero/large rounding/overflow, tuple input immutability/empty/index errors, guard execution, callback throw/badfun/badarity and list-validation precedence, dictionary exactness and named/self sending. All new native cases use default optimization. Initial isolated probe114/115: one fixture used reserved bsr/bsl atoms unquoted; retain failed log and correct source syntax. Separately correct one provisional ordered assertion before original: get_keys traversal is unspecified, so test exact membership/count instead of sorting equal integer/float keys and assuming initial order. Independent final {ok,done} is unchanged; historical fixtures are untouched.
+
+Standalone and full local pipeline **2357/2357**,255 direct MFAs, hybrid/negative preprocessing/negative missing-oracle/incremental/clean builds/package consumer/CLI/readiness pass. **270 namespace types**, zero filename or multiple-type violations; exact consolidated notices in both packages, LICENSE.local.txt excluded. Source/expected/generated-hash audit preserves all778 expressions/1016 compiled modules/84 diagnostics. [Tests](validation/part-111/tests.json), [integration](validation/part-111/integration-results.json), [115 contracts](validation/part-111/contract-matrix.json), [source/correction audit](validation/part-111/reference-audit.json), [preservation](validation/part-111/corpus-audit.json), [notices](validation/part-111/package-notices.json).
+
+Commands: dotnet build -m:1 --disable-build-servers; isolated development probe; SDK style --write; standalone harness; pwsh -File tools/validate.ps1; development corpus/layout/package-notice audits; readiness CLI. Original **1993 = 778 expressions + 1131 modules + 84 diagnostics** and same-head2357/full CI pending part112. Latest original remains1878/1878 at9aeb8f1 in immutable110; no promotion from local success. erlang remains105/351 API presence and Partially compatible; ports/distribution/native records/code/trace/host support and many ordinary BIFs still require implementation. Overall coarse10% estimate unchanged; no native performance claim.
+
+Close0015 after110 and begin0016 to preserve32KiB/400line journal bounds. Publish this increment, finish original proof and continue erlang conversion/serialization/clock/process/runtime increments without stopping at this partial checkpoint. Closed journals and sibling checkout remain untouched; draft license uncommitted/unpublished/unpackaged.

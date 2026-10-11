@@ -637,15 +637,7 @@ public static class Execution
         }
     }
 
-    private static Term UnaryValue(string op, Term value) => op switch
-    {
-        ErlangOperators.Plus when value is Integer or FloatTerm => value,
-        ErlangOperators.Minus when value is FloatTerm f => new FloatTerm(-f.Value),
-        ErlangOperators.Minus => CoreModules.Arithmetic(ErlangOperators.Minus, Term.I(0), value),
-        ErlangOperators.Not => CoreModules.Boolean(!CoreModules.Bool(value)),
-        ErlangOperators.BitwiseNot when value is Integer integer => new Integer(~integer.Value),
-        _ => throw new ErlangException(ErlangErrorReasons.BadArithmetic)
-    };
+    private static Term UnaryValue(string op, Term value) => ErlangOperatorValues.Unary(op, value);
 
     private static MapTerm EvaluateMap(Term mapBase, IReadOnlyList<(Term Key, Term Value, bool Exact)> fields)
     {
@@ -664,41 +656,13 @@ public static class Execution
 
     private static Term BinaryValue(
         string op,
-        Term a,
-        Term b,
-        ProcessContext? ctx
-    ) => op switch
-    {
-        ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(a) & CoreModules.Bool(b)),
-        ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(a) | CoreModules.Bool(b)),
-        ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(a) ^ CoreModules.Bool(b)),
-        ErlangOperators.NumericEqual => CoreModules.Boolean(a.NumericEquals(b)),
-        ErlangOperators.NumericNotEqual => CoreModules.Boolean(!a.NumericEquals(b)),
-        ErlangOperators.ExactEqual => CoreModules.Boolean(a.Equals(b)),
-        ErlangOperators.ExactNotEqual => CoreModules.Boolean(!a.Equals(b)),
-        ErlangOperators.Less => CoreModules.Boolean(a.CompareTo(b) < 0),
-        ErlangOperators.Greater => CoreModules.Boolean(a.CompareTo(b) > 0),
-        ErlangOperators.LessOrEqual => CoreModules.Boolean(a.CompareTo(b) <= 0),
-        ErlangOperators.GreaterOrEqual => CoreModules.Boolean(a.CompareTo(b) >= 0),
-        ErlangOperators.Append => Cons.From(Cons.Items(a), b),
-        ErlangOperators.SubtractList => Subtract(a, b),
-        ErlangOperators.Send when ctx is not null => ctx.Runtime.Send(
-            a is Pid p ? p : a is Atom name && ctx.Runtime.WhereIs(name.Name) is Pid registered ? registered : throw new ErlangException(ErlangErrorReasons.BadArgument),
-            b
-        ),
-        _ => CoreModules.Arithmetic(op, a, b)
-    };
-
-    private static Term Subtract(Term a, Term b)
-    {
-        var items = Cons.Items(a).ToList();
-        foreach (var x in Cons.Items(b))
-        {
-            int i = items.FindIndex(v => v.Equals(x));
-            if (i >= 0)
-                items.RemoveAt(i);
-        }
-
-        return Cons.From(items);
-    }
+        Term first,
+        Term second,
+        ProcessContext? context
+    ) => ErlangOperatorValues.Binary(
+        op,
+        first,
+        second,
+        context
+    );
 }

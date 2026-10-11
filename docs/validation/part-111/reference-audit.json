@@ -1,0 +1,33 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    "erts/preloaded/src/erlang.erl",
+    "erts/emulator/beam/bif.tab",
+    "erts/emulator/beam/erl_bif_guard.c",
+    "erts/emulator/beam/erl_bif_op.c",
+    "erts/emulator/beam/bif.c",
+    "erts/emulator/beam/erl_arith.c",
+    "erts/emulator/beam/erl_term.h"
+  ],
+  "ErlangExportsDeclared": 351,
+  "ErlangExportsRegistered": 105,
+  "NewMfas": 61,
+  "TotalMfas": 255,
+  "NewIndependentModules": 115,
+  "PriorHistoricalModulesPreserved": 1016,
+  "PriorHistoricalExpressionsPreserved": 778,
+  "PriorHistoricalDiagnosticsPreserved": 84,
+  "LocalTests": 2357,
+  "Original": "Pending part112",
+  "FixtureSyntaxCorrectionsBeforeOriginal": 1,
+  "ProvisionalSourceContractCorrectionsBeforeOriginal": 1,
+  "Corrections": [
+    "Quote reserved operator atoms bsr/bsl in dynamic apply fixture; initial probe114/115 passed",
+    "Dictionary key traversal unspecified: use exact member/length assertions for integer/float keys instead of stable sort on an unspecified equal-key input order"
+  ],
+  "IndependentExpectedSuccessUnchanged": true,
+  "Reuse": "Existing immutable terms, exact/numeric comparison, list helpers and runtime dispatch; SDK BigInteger, Math explicit AwayFromZero rounding and temporary tuple arrays; no dependency",
+  "CompilerChange": "Share runtime operator values with compiler while preserving its stack wrappers; admit source-confirmed new guard BIFs",
+  "Remaining": "246 erlang exports, including conversion/serialization/hash, clocks/options, processes/native records, code, ports/distribution, tracing and VM administration; complete resource/stack/error_info and performance contracts not claimed"
+}

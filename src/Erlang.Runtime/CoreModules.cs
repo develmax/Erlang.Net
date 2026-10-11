@@ -711,6 +711,7 @@ public static class CoreModules
                     a[1]
                 )
             );
+        ErlangBasicRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
