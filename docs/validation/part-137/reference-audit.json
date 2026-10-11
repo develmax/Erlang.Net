@@ -1,0 +1,51 @@
+{
+  "Tests": 3795,
+  "NewHostChecks": 1,
+  "OriginalExclusions": 6,
+  "Licensing": "Consolidated credits; exact notices in both local packages; license draft excluded",
+  "Sources": [
+    {
+      "BlobSHA1": "840127c5162b14a3b7e7eb834e28fd950755f99d",
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c"
+    },
+    {
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "BlobSHA1": "b490e43e6c3fbbc8bbbe3ac8de57032c1ad18cfe",
+      "Path": "erts/emulator/beam/emu/beam_emu.c"
+    },
+    {
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    }
+  ],
+  "ManagedPlan": 3307,
+  "ErlangDeclared": 351,
+  "ComparableOriginalPlan": 3301,
+  "Boundaries": [
+    "Count is a managed inspection/admission boundary, not an exported native BIF",
+    "Native scheduler timing and physical queues distinct; monitor-associated aliases and port/distribution backpressure unfinished",
+    "Latest successful native proof part134; failed part136 preserved"
+  ],
+  "PriorTests": 3784,
+  "NewModules": 10,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "HostScaffoldingCorrection": "Lifecycle explicitly inspects Count before unalias to establish receiver admission; previous send-only premise invalid",
+  "ErlangPresent": 209,
+  "Baseline": "OTP-29.1.1",
+  "Registry": 359,
+  "NativeStatus": "Pending138",
+  "Correction": {
+    "Name": "erlang-alias-admitted-survives-deactivate",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,done.",
+    "SourceSha256": "33C0AA9E9035CA1BE5255568295D036303ECE7D6897C0D73466BDD50BBDFDD11",
+    "CSharpSha256": "92B899CDFCCBA1E0B42EB989D2F116C4CFA62D816511C61C51E81FC3D3FD76B6",
+    "SourceAndGeneratedHashUnchanged": true,
+    "Before": "{ok,done}",
+    "After": "{error,error,timeout}",
+    "OriginalEvidence": "docs/validation/part-136/mismatches.json",
+    "Reason": "Provisional admission premise contradicted by original;runtime pending-signal repair preserves exact original source and outcome"
+  }
+}

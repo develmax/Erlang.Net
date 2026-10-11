@@ -145,6 +145,49 @@ public static class ProcessAliasCases
                 "A=erlang:alias([reply]),ok=try erlang:send(A,lost," + options + ") of _->unexpected catch error:badarg->ok end,true=erlang:unalias(A),receive lost->error(unexpected) after 0->ok end"
             );
 
+        int corrected = cases.FindIndex(fixture => fixture.Name == "erlang-alias-admitted-survives-deactivate");
+        cases[corrected] = cases[corrected] with { Expected = Term.Tuple(Term.A("error"), Term.A("error"), Term.A("timeout")) };
+        Add(
+            "pending-explicit-deactivation",
+            "A=erlang:alias(),A!lost,true=erlang:unalias(A),receive lost->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "pending-reply-deactivation",
+            "A=erlang:alias([reply]),A!lost,true=erlang:unalias(A),receive lost->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "barrier-admitted-survives",
+            "A=erlang:alias(),A!kept,self()!barrier,receive barrier->ok after 1000->error(timeout) end,true=erlang:unalias(A),receive kept->ok after 0->error(lost) end"
+        );
+        Add(
+            "ordinary-pending-fifo",
+            "A=erlang:alias(),A!first,self()!second,A!third,first=receive M1->M1 after 1000->error(timeout) end,second=receive M2->M2 after 1000->error(timeout) end,third=receive M3->M3 after 1000->error(timeout) end,true=erlang:unalias(A)"
+        );
+        Add(
+            "priority-pending-deactivation",
+            "A=erlang:alias([priority]),self()!normal,ok=erlang:send(A,lost,[priority]),true=erlang:unalias(A),normal=receive M1->M1 after 1000->error(timeout) end,receive lost->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "reply-pending-ordinary-first",
+            "A=erlang:alias([reply]),self()!normal,A!first,A!second,normal=receive M1->M1 after 1000->error(timeout) end,first=receive M2->M2 after 1000->error(timeout) end,false=erlang:unalias(A),receive second->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "pending-distinct-aliases",
+            "A=erlang:alias(),B=erlang:alias(),A!lost,B!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,true=erlang:unalias(B),receive lost->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "pending-selective-drop",
+            "A=erlang:alias(),A!lost,self()!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,receive lost->error(unexpected) after 0->ok end"
+        );
+        Add(
+            "explicit-yield-admission",
+            "A=erlang:alias(),A!kept,true=erlang:yield(),true=erlang:unalias(A),receive kept->ok after 0->error(lost) end"
+        );
+        Add(
+            "reply-waiter-wakeup",
+            "A=erlang:alias([reply]),spawn(fun()->A!first,A!second end),receive first->ok after 1000->error(timeout) end,false=erlang:unalias(A),receive second->error(unexpected) after 0->ok end"
+        );
+
         return cases;
     }
 }

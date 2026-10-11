@@ -1277,7 +1277,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/2",
-    "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2829,7 +2829,7 @@
     "Arity": 0,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:alias/0",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2837,7 +2837,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:alias/1",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2845,7 +2845,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:unalias/1",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2853,7 +2853,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/3",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2861,7 +2861,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/2",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   },
   {
     "Module": "erlang",
@@ -2869,6 +2869,6 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/3",
-    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
   }
 ]

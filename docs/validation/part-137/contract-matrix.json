@@ -1,0 +1,72 @@
+[
+  {
+    "Name": "erlang-alias-pending-explicit-deactivation",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!lost,true=erlang:unalias(A),receive lost->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "418C68343EE8496286D5B94C669C0843CE8A97859AC96106E7177FB69AA5162C",
+    "CSharpSha256": "89B46A09A1F825D3B315C09AD7DABB43E0DDAEA4DDA0BD299E4BF1EF60BC7E9D"
+  },
+  {
+    "Name": "erlang-alias-pending-reply-deactivation",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias([reply]),A!lost,true=erlang:unalias(A),receive lost->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "D6FC150457E6F28206FB225AECF294D330AA50CEAEFC44297CFAAF92FD7DD5C5",
+    "CSharpSha256": "A5015B38D0BEB7A6ED597DED80999A9A8ECA77BA2858D25E9072BEA99B6EF74B"
+  },
+  {
+    "Name": "erlang-alias-barrier-admitted-survives",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!kept,self()!barrier,receive barrier->ok after 1000->error(timeout) end,true=erlang:unalias(A),receive kept->ok after 0->error(lost) end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "F590DC3C2A1A25A749FDEA4F370C2AF16A8DABC6C50B6A623520A01D5FE37FFC",
+    "CSharpSha256": "0E58BC0256D664416E2728F33753ACEB872905226D2FF6165A0E0AB49F89800C"
+  },
+  {
+    "Name": "erlang-alias-ordinary-pending-fifo",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!first,self()!second,A!third,first=receive M1->M1 after 1000->error(timeout) end,second=receive M2->M2 after 1000->error(timeout) end,third=receive M3->M3 after 1000->error(timeout) end,true=erlang:unalias(A),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "97160E5A89C6F32F043A02CADF13045DF3BD32D5AE355F00F0A5126382032960",
+    "CSharpSha256": "920BBAFDC317D63CD2211C29161F791BE876DB5B5403AA14578F2B193379D5B5"
+  },
+  {
+    "Name": "erlang-alias-priority-pending-deactivation",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias([priority]),self()!normal,ok=erlang:send(A,lost,[priority]),true=erlang:unalias(A),normal=receive M1->M1 after 1000->error(timeout) end,receive lost->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "3E601FF62DB8DF4BB1E211472BB5C73BBF9F665A3CF30DC3635DB830B96756EC",
+    "CSharpSha256": "B2BE85EC18BB2B5A099FF1C4E23A072C827EFC4F2663333C58BD7221BBDF757F"
+  },
+  {
+    "Name": "erlang-alias-reply-pending-ordinary-first",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias([reply]),self()!normal,A!first,A!second,normal=receive M1->M1 after 1000->error(timeout) end,first=receive M2->M2 after 1000->error(timeout) end,false=erlang:unalias(A),receive second->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "A52C8851036BB25ABE4E38E84B3D4AA272DBE3AADD140E0621C88C49BF0B846A",
+    "CSharpSha256": "4E318B24A447253F638817C2D94E2E159C55B07F1B6C797E1A539267D78844B9"
+  },
+  {
+    "Name": "erlang-alias-pending-distinct-aliases",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),B=erlang:alias(),A!lost,B!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,true=erlang:unalias(B),receive lost->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DEAF4B3E77EBC9113AA2D59C130CC2F5D7838A8C5939214CF42C1C1B70369E44",
+    "CSharpSha256": "816EAFFE88BEB4DA87601D79D649CA5C75A0B1DA6C159D11F5C2906FC9E2E473"
+  },
+  {
+    "Name": "erlang-alias-pending-selective-drop",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!lost,self()!kept,true=erlang:unalias(A),receive kept->ok after 1000->error(timeout) end,receive lost->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "8AF5B53385E307A1694FF02578B8FB86826C06B51D5B263B758688192D644730",
+    "CSharpSha256": "387F1D0B9943F28342A957BA666C7279DAB8797BAB880A688ADB0404866EE214"
+  },
+  {
+    "Name": "erlang-alias-explicit-yield-admission",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias(),A!kept,true=erlang:yield(),true=erlang:unalias(A),receive kept->ok after 0->error(lost) end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DC6A3A5EF1E86289E715CF7CE49E296B1D8DBD9012CF367C4048AB52DDE3CF06",
+    "CSharpSha256": "700A5E93F69E157316CE7E32493D8E709951D2269D330EA65D52CF0675EEEBF1"
+  },
+  {
+    "Name": "erlang-alias-reply-waiter-wakeup",
+    "Source": "-module(alias_contract). -export([run/0]). run()->A=erlang:alias([reply]),spawn(fun()->A!first,A!second end),receive first->ok after 1000->error(timeout) end,false=erlang:unalias(A),receive second->error(unexpected) after 0->ok end,done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "DB685625EAD2B2A294E28C1AA6F20DB1D2762F1904672E8762974132CC126956",
+    "CSharpSha256": "146986C18A09B04BBDC69C3530667E914D292C8E81EEEC78BCEF717ACC3058B8"
+  }
+]

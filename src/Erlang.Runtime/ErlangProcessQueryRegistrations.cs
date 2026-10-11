@@ -45,6 +45,7 @@ internal static class ErlangProcessQueryRegistrations
             async (context, _) =>
         {
             context.Cancellation.ThrowIfCancellationRequested();
+            context.Runtime.AdmitSignals(context);
             await Task.Yield();
             context.Cancellation.ThrowIfCancellationRequested();
 

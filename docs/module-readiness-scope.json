@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-135/tests.json",
+  "ComparisonTestReport": "validation/part-136/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -59,7 +59,8 @@
         "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
         "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
         "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes",
-        "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending"
+        "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending",
+        "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending"
       ],
       "Id": "Runtime",
       "TestPrefixes": [

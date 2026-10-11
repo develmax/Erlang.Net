@@ -6,6 +6,10 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(
+    "runtime/alias-pending-signal-selective-wakeup-and-reply-consumption",
+    Erlang.Tests.ProcessAliasHostChecks.PendingWakeups
+);
 Test("runtime/alias-priority-mailbox-removal-and-wakeup", Erlang.Tests.ProcessAliasHostChecks.Mailbox);
 Test("runtime/alias-concurrent-reply-wire-identity-owner-cleanup", Erlang.Tests.ProcessAliasHostChecks.Lifecycle);
 Test("erlang/hash-iterative-deep-terms-and-no-binary-payload-copy", Erlang.Tests.ErlangHashHostChecks.Resources);

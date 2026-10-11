@@ -143,13 +143,33 @@ public sealed class ProcessRuntime : IAsyncDisposable
         {
             if (aliases.TryGetValue(reference, out var alias) && processes.TryGetValue(alias.Owner, out var owner))
             {
-                if (alias.Reply)
-                    aliases.Remove(reference);
-                owner.Mailbox.Send(message, priority && alias.Priority);
+                owner.Mailbox.SendPending(
+                    message,
+                    () =>
+                {
+                    if (!aliases.TryGetValue(reference, out var current))
+                        return null;
+                    if (current.Reply)
+                        aliases.Remove(reference);
+
+                    return priority && current.Priority;
+                }
+                );
             }
         }
 
         return message;
+    }
+
+    internal void AdmitSignals(ProcessContext owner)
+    {
+        lock (gate)
+        {
+            if (owner.Terminated)
+                owner.Mailbox.DiscardPending();
+            else
+                owner.Mailbox.AdmitPending();
+        }
     }
 
     public bool IsAlive(Pid pid)
@@ -332,6 +352,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 if (!processes.Remove(ctx.Self))
                     continue;
                 Timers.RecipientTerminated(ctx.Self);
+                ctx.Mailbox.DiscardPending();
                 foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
                     aliases.Remove(alias);
                 ctx.Terminated = true;

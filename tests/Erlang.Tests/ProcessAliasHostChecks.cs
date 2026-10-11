@@ -1,4 +1,5 @@
 using Erlang;
+using System.Threading.Channels;
 
 namespace Erlang.Tests;
 
@@ -34,7 +35,7 @@ internal static class ProcessAliasHostChecks
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Mailbox);
         var waiting = mailbox.ReceiveAsync<Term>(term => term.Equals(Term.I(8)) ? term : null, null).AsTask();
         mailbox.Send(Term.I(8), true);
-        if (!Term.I(8).Equals(await waiting.WaitAsync(TimeSpan.FromSeconds(10))) || mailbox.Count != 1)
+        if (!Term.I(8).Equals(await waiting.WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds))) || mailbox.Count != 1)
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Mailbox);
     }
 
@@ -51,20 +52,64 @@ internal static class ProcessAliasHostChecks
 
             return Term.I(0);
         });
-        var owner = await ready.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        var owner = await ready.Task.WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
         ReferenceTerm reconstructed = (ReferenceTerm)ExternalTermFormat.Decode(ExternalTermFormat.Encode(owner.Alias));
-        Parallel.For(0, 128, index => runtime.Send(reconstructed, Term.I(index), true));
+        Parallel.For(0, ProcessAliasCheckParameters.ConcurrentReplies, index => runtime.Send(reconstructed, Term.I(index), true));
         if (owner.Context.Mailbox.Count != 1 || runtime.Unalias(owner.Context, reconstructed))
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
         ReferenceTerm explicitAlias = runtime.CreateAlias(owner.Context, false, false);
         runtime.Send(explicitAlias, Term.I(1000));
+        if (owner.Context.Mailbox.Count != 2)
+            throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
         if (!runtime.Unalias(owner.Context, explicitAlias) || owner.Context.Mailbox.Count != 2)
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
         ReferenceTerm liveAtExit = runtime.CreateAlias(owner.Context, false, true);
         release.SetResult();
-        await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        await process.Completion.WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
         runtime.Send(liveAtExit, Term.I(2000), true);
         if (owner.Context.Mailbox.Count != 2 || runtime.Unalias(owner.Context, liveAtExit))
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
+    }
+
+    public static async Task PendingWakeups()
+    {
+        await using var runtime = new ProcessRuntime();
+        var aliases = Channel.CreateUnbounded<ReferenceTerm>();
+        Exception? failure = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                for (int index = 0; index < ProcessAliasCheckParameters.WakeIterations; index++)
+                {
+                    ReferenceTerm alias = runtime.CreateAlias(context, true, false);
+                    await aliases.Writer.WriteAsync(alias);
+                    Term? received = await context.ReceiveAsync<Term>(term => term, TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
+                    if (!Term.I(index).Equals(received) || runtime.Unalias(context, alias))
+                        throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
+                }
+                if (context.Mailbox.Count != 0)
+                    throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+            finally
+            {
+                aliases.Writer.TryComplete();
+            }
+
+            return Term.I(0);
+        });
+        for (int index = 0; index < ProcessAliasCheckParameters.WakeIterations; index++)
+        {
+            ReferenceTerm alias = await aliases.Reader.ReadAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
+            runtime.Send(alias, Term.I(index));
+            runtime.Send(alias, Term.I(-index - 1));
+        }
+        await process.Completion.WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
+        if (failure is not null)
+            throw failure;
     }
 }

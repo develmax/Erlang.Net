@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-135/tests.json",
-  "LocalPassedTests": 3784,
+  "ComparisonTestReport": "validation/part-136/ci-tests.json",
+  "LocalPassedTests": 3795,
   "RegisteredMfas": 359,
   "PreviousRegisteredMfas": 359,
   "RegisteredMfaDelta": 0,
@@ -57,7 +57,8 @@
         "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
         "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
         "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes",
-        "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending"
+        "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending",
+        "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -66,7 +67,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 251
+      "RelatedPassedTests": 252
     },
     {
       "Id": "Compiler",
@@ -218,7 +219,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 2532
+      "RelatedPassedTests": 2542
     },
     {
       "Id": "Style checks",

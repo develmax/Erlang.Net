@@ -6,6 +6,7 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         Runtime = runtime;
         Self = pid;
+        Mailbox = new() { ProcessSignals = () => Runtime.AdmitSignals(this) };
     }
 
     internal CancellationTokenSource Stop { get; } = new();
@@ -73,7 +74,7 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         get;
     }
-    public Mailbox Mailbox { get; } = new();
+    public Mailbox Mailbox { get; }
     public bool TrapExits
     {
         get; set;
@@ -94,6 +95,7 @@ public sealed class ProcessContext : ITermExecutionContext
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
         {
             reductions = 0;
+            Runtime.AdmitSignals(this);
             await Task.Yield();
             Cancellation.ThrowIfCancellationRequested();
         }
