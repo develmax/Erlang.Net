@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-133/tests.json",
-  "LocalPassedTests": 3733,
-  "RegisteredMfas": 353,
+  "ComparisonTestReport": "validation/part-134/ci-tests.json",
+  "LocalPassedTests": 3784,
+  "RegisteredMfas": 359,
   "PreviousRegisteredMfas": 353,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 6,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -56,15 +56,17 @@
         "Recipient PID lifecycle cancellation, creator-independent timers, atom lookup at delivery and segmented long delays",
         "Twenty independent timer modules verified against exact-source OTP at d713491; complete timer subsystem remains partial",
         "Real initialization owner performs core bootstrap/status and queued atomic registration; rollback/snapshot/reentry/shutdown checked",
-        "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes"
+        "Part129: per-runtime canonical external entries and actual local code factories recapture decoded environment;local checksum domain isolates managed runtimes",
+        "Part135: actual owned/reply/priority aliases,immutable wire reconstruction,owner death cleanup and stable priority mailbox admission/removal;43 independent compiled contracts plus two host checks;native136 pending"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
         "distribution, ETS/DETS, ports/NIF/code loading",
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
-        "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection"
+        "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
+        "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 243
+      "RelatedPassedTests": 251
     },
     {
       "Id": "Compiler",
@@ -122,7 +124,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1392
+      "RelatedPassedTests": 1398
     },
     {
       "Id": "gen_server adapters",
@@ -215,7 +217,7 @@
         "Part132: comparable original3000 complete,2999pass/one new zero-word-reference mismatch;five explicit native-defect exclusions. Source reads first reference word beyond packet for count0. Full equivalence remains unresolved;latest fully successful original1282822.",
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim."
       ],
-      "RelatedPassedTests": 2489
+      "RelatedPassedTests": 2532
     },
     {
       "Id": "Style checks",
@@ -5484,11 +5486,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 203,
+      "RegisteredMfas": 209,
       "PreviousRegisteredMfas": 203,
-      "Delta": 0,
+      "Delta": 6,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 57.8,
+      "ApiPresencePercent": 59.5,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5515,6 +5517,8 @@
         "erlang:adler32/1",
         "erlang:adler32/2",
         "erlang:adler32_combine/3",
+        "erlang:alias/0",
+        "erlang:alias/1",
         "erlang:and/2",
         "erlang:append/2",
         "erlang:append_element/2",
@@ -5661,8 +5665,11 @@
         "erlang:round/1",
         "erlang:self/0",
         "erlang:send/2",
+        "erlang:send/3",
         "erlang:send_after/3",
         "erlang:send_after/4",
+        "erlang:send_nosuspend/2",
+        "erlang:send_nosuspend/3",
         "erlang:setelement/3",
         "erlang:size/1",
         "erlang:spawn/1",
@@ -5687,6 +5694,7 @@
         "erlang:trunc/1",
         "erlang:tuple_size/1",
         "erlang:tuple_to_list/1",
+        "erlang:unalias/1",
         "erlang:unique_integer/0",
         "erlang:unique_integer/1",
         "erlang:universaltime/0",

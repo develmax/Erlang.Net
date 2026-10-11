@@ -1,0 +1,122 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Registry": 359,
+  "ManagedPlan": 3297,
+  "Delta": 51,
+  "Boundaries": [
+    "Native ports,connected distribution,monitor-associated aliases and priority link/exit work unfinished",
+    "Native signal scheduling/races,scheduler reductions,full stacks/error_info and exhaustive CT remain partial",
+    "No full module completion or native speed superiority claim"
+  ],
+  "ErlangDeclared": 351,
+  "Preservation": "All1332383 SDK fixture sources,independent expectations and generated hashes;all128778 expressions/1951 original modules/93 diagnostics unchanged",
+  "Sources": [
+    {
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "BlobSHA1": "08accfd1223d4b89c33ddcfcc8ba387ea9c3f14c",
+      "Path": "erts/emulator/beam/erl_bif_unique.c"
+    },
+    {
+      "BlobSHA1": "1a3eddb6030f384fe893e954b07c656ad1de1a3c",
+      "Path": "erts/emulator/beam/erl_bif_unique.h"
+    },
+    {
+      "BlobSHA1": "8263706dc3942ec4f45f3ed9df77b0bc3ca476bd",
+      "Path": "erts/emulator/beam/erl_term.h"
+    },
+    {
+      "BlobSHA1": "840127c5162b14a3b7e7eb834e28fd950755f99d",
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c"
+    },
+    {
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    },
+    {
+      "BlobSHA1": "51b9f4746977f5ab5737155485115e379e1c8805",
+      "Path": "erts/emulator/test/process_SUITE.erl"
+    },
+    {
+      "BlobSHA1": "facebb94fe17f446fbb3ee76a898e389f9bb8bc6",
+      "Path": "erts/emulator/test/receive_SUITE.erl"
+    }
+  ],
+  "PriorTests": 3733,
+  "ComparableOriginalPlan": 3291,
+  "Adaptations": [
+    "Alias table and reply admission serialized by runtime gate;native signal scheduling is not reproduced",
+    "Five-word owner reference uses pinned marker/immediate tag with existing managed PID identity;native process-table physical layout remains distinct",
+    "Priority permission and request separate;ordinary PID priority stays ordinary",
+    "Local named tuple with absent name silently discards per pinned do_send,unlike absent bare name badarg",
+    "No port/distribution backpressure;connected distribution remains absent"
+  ],
+  "NewHostChecks": 2,
+  "Licensing": "Altered Ericsson Apache adaptations credited in consolidated OTP-PORTS;exact two notices in both local packages;draft license excluded;no banners/public package",
+  "Tests": 3784,
+  "InitialFailures": [
+    "Runtime draft used Nil.Instance rather than existing Nil.Value;compile failure preserved",
+    "Host draft referred to internal CommonAtomNames from test assembly;compile failure preserved and return changed to integer0",
+    "Initial standalone3779/3779 preceded two host checks and three address contracts; final3784/full validates additions"
+  ],
+  "Missing": 142,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NewCompiledModules": 43,
+  "NativeStatus": "Pending136",
+  "ApiPresencePercent": 59.5,
+  "NewExports": [
+    {
+      "Module": "erlang",
+      "Function": "alias",
+      "Arity": 0,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:alias/0",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    },
+    {
+      "Module": "erlang",
+      "Function": "alias",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:alias/1",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    },
+    {
+      "Module": "erlang",
+      "Function": "unalias",
+      "Arity": 1,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:unalias/1",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    },
+    {
+      "Module": "erlang",
+      "Function": "send",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:send/3",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    },
+    {
+      "Module": "erlang",
+      "Function": "send_nosuspend",
+      "Arity": 2,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:send_nosuspend/2",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    },
+    {
+      "Module": "erlang",
+      "Function": "send_nosuspend",
+      "Arity": 3,
+      "Status": "Partially compatible",
+      "Evidence": "mfa/erlang:send_nosuspend/3",
+      "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+    }
+  ],
+  "Reuse": "SDK Dictionary and existing runtime gate;immutable references;LinkedList priority boundary;no third-party dependency",
+  "OriginalExclusions": 6,
+  "ErlangPresent": 209
+}

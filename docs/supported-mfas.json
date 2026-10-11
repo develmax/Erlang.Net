@@ -2822,5 +2822,53 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/supervisor:stop/3",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "alias",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:alias/0",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+  },
+  {
+    "Module": "erlang",
+    "Function": "alias",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:alias/1",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+  },
+  {
+    "Module": "erlang",
+    "Function": "unalias",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:unalias/1",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+  },
+  {
+    "Module": "erlang",
+    "Function": "send",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:send/3",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+  },
+  {
+    "Module": "erlang",
+    "Function": "send_nosuspend",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:send_nosuspend/2",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
+  },
+  {
+    "Module": "erlang",
+    "Function": "send_nosuspend",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:send_nosuspend/3",
+    "Limits": "Local alias owner/reply/priority admission and disconnected noconnect contracts; native port/backpressure/connected distribution/signal scheduling/error_info remain unfinished; pinned original verification pending136"
   }
 ]

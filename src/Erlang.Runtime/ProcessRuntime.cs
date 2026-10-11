@@ -6,6 +6,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
     private readonly Dictionary<Pid, ProcessContext> processes = new();
     private readonly Dictionary<string, Pid> names = new(StringComparer.Ordinal);
     private readonly Dictionary<ReferenceTerm, (Pid Observer, Pid Target)> monitors = new();
+    private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private long nextPid, nextRef;
     private bool disposed;
     private readonly RuntimeInitializer initializer;
@@ -103,6 +104,49 @@ public sealed class ProcessRuntime : IAsyncDisposable
         {
             if (processes.TryGetValue(target, out var p))
                 p.Mailbox.Send(message);
+        }
+
+        return message;
+    }
+
+    public ReferenceTerm CreateAlias(ProcessContext owner, bool reply, bool priority)
+    {
+        lock (gate)
+        {
+            RequireAlive(owner.Self);
+            ReferenceTerm ordinary = MakeReference();
+            ulong pid = (owner.Self.Id << ProcessAliasLayout.PidTagBits) | ProcessAliasLayout.PidTag;
+            var reference = new ReferenceTerm(
+                Node,
+                [ordinary.Words[0], ordinary.Words[1] | ProcessAliasLayout.PidMarker, ordinary.Words[2], (uint)pid, (uint)(pid >> ReferenceIdentityLayout.WordBits)]
+            );
+            aliases.Add(reference, new(owner.Self, reply, priority));
+
+            return reference;
+        }
+    }
+
+    public bool Unalias(ProcessContext owner, ReferenceTerm reference)
+    {
+        lock (gate)
+        {
+            if (!aliases.TryGetValue(reference, out var alias) || !alias.Owner.Equals(owner.Self))
+                return false;
+
+            return aliases.Remove(reference);
+        }
+    }
+
+    public Term Send(ReferenceTerm reference, Term message, bool priority = false)
+    {
+        lock (gate)
+        {
+            if (aliases.TryGetValue(reference, out var alias) && processes.TryGetValue(alias.Owner, out var owner))
+            {
+                if (alias.Reply)
+                    aliases.Remove(reference);
+                owner.Mailbox.Send(message, priority && alias.Priority);
+            }
         }
 
         return message;
@@ -288,6 +332,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 if (!processes.Remove(ctx.Self))
                     continue;
                 Timers.RecipientTerminated(ctx.Self);
+                foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+                    aliases.Remove(alias);
                 ctx.Terminated = true;
                 ctx.ExitReason = reason;
                 foreach (var name in names.Where(p => p.Value.Equals(ctx.Self)).Select(p => p.Key).ToArray())

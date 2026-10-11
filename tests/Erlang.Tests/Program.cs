@@ -6,6 +6,8 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test("runtime/alias-priority-mailbox-removal-and-wakeup", Erlang.Tests.ProcessAliasHostChecks.Mailbox);
+Test("runtime/alias-concurrent-reply-wire-identity-owner-cleanup", Erlang.Tests.ProcessAliasHostChecks.Lifecycle);
 Test("erlang/hash-iterative-deep-terms-and-no-binary-payload-copy", Erlang.Tests.ErlangHashHostChecks.Resources);
 Test("serialization/zero-word-references-reject-out-of-packet-first-word", EtfHostChecks.ZeroWordReferences);
 Test("serialization/iovec-borrowing-immutable-fragments-size-and-patching", EtfHostChecks.IoVec);

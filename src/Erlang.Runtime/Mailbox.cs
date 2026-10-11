@@ -6,6 +6,7 @@ public sealed class Mailbox
 {
     private readonly object gate = new();
     private readonly LinkedList<Term> messages = new();
+    private LinkedListNode<Term>? lastPriority;
     private TaskCompletionSource changed = NewSignal();
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -19,11 +20,14 @@ public sealed class Mailbox
         }
     }
 
-    public void Send(Term message)
+    public void Send(Term message, bool priority = false)
     {
         lock (gate)
         {
-            messages.AddLast(message);
+            if (priority)
+                lastPriority = lastPriority is null ? messages.AddFirst(message) : messages.AddAfter(lastPriority, message);
+            else
+                messages.AddLast(message);
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
@@ -40,7 +44,7 @@ public sealed class Mailbox
                 var next = n.Next;
                 if (predicate(n.Value))
                 {
-                    messages.Remove(n);
+                    RemoveNode(n);
                     count++;
                 }
                 n = next;
@@ -66,7 +70,7 @@ public sealed class Mailbox
                     var match = select(node.Value);
                     if (match is not null)
                     {
-                        messages.Remove(node);
+                        RemoveNode(node);
 
                         return match;
                     }
@@ -88,5 +92,12 @@ public sealed class Mailbox
                 return null;
             }
         }
+    }
+
+    private void RemoveNode(LinkedListNode<Term> node)
+    {
+        if (ReferenceEquals(node, lastPriority))
+            lastPriority = node.Previous;
+        messages.Remove(node);
     }
 }
