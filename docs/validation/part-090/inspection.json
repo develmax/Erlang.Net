@@ -1,0 +1,16 @@
+{
+  "Part089InvalidCastClaimSuperseded": true,
+  "InitialOracleRun": 38106894523,
+  "InspectedHead": "9dec6df18079dfc3b5d1bc22a98fe4927f507989",
+  "ProvisionalFixture": "otp-supervisor-retry-forged-tag",
+  "RemoteStatus": "Pending when this checkpoint recorded; retain raw initial reports in final proof part092",
+  "Part": 90,
+  "CorrectedExpectation": "{ok,done}",
+  "Discovery": "Additional source inspection before initial original comparison completed",
+  "Finding": "No fallback handle_cast clause: wrong private tag or malformed cast fails function_clause; only correctly tagged stale retries are ignored",
+  "Source": "lib/stdlib/src/supervisor.erl",
+  "PriorExpectation": "{ok,ok}",
+  "InitialCiRun": 38106893248,
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Routines": "handle_cast/2, lines1258–1272"
+}

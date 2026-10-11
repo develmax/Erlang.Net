@@ -76,10 +76,9 @@ public static class SupervisorRetryCases
         Group("rest-for-one", "rest_for_one", 2),
         Case(
             "forged-tag",
-            Setup +
-            "P!{'$gen_cast',{try_again_restart,make_ref(),first}}," + Query + "P!go," + Marker +
-            "Q=receive {started,first,3,Q0}->Q0 after 1000->missing end,3=gen_server:call(Q,get),ok=gen_server:stop(P),ok",
-            A("ok")
+            "process_flag(trap_exit,true)," + Setup +
+            "M=monitor(process,P),P!{'$gen_cast',{try_again_restart,make_ref(),first}},P!go,receive {'DOWN',M,process,P,{function_clause,_}}->done after 1000->missing end",
+            A("done")
         ),
         Case(
             "zero-intensity",

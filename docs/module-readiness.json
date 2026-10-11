@@ -2,7 +2,7 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-088/ci-tests.json",
+  "ComparisonTestReport": "validation/part-089/tests.json",
   "LocalPassedTests": 1526,
   "RegisteredMfas": 85,
   "PreviousRegisteredMfas": 85,
@@ -119,7 +119,9 @@
         "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial",
         "Automatic failure retries publish restarting and queue private tagged self-casts; control requests run between attempts",
         "Group startup aborts at first failure; rest_for_one retries failed suffix, one_for_all retries all; every attempt counts intensity",
-        "14 independent compiled retry contracts pass locally; new exact-source comparison pending"
+        "14 independent compiled retry contracts pass locally; new exact-source comparison pending",
+        "Invalid shape/private-tag casts fail function_clause; correctly tagged stale retries ignored",
+        "One provisional malformed-cast fixture corrected from pinned source;14 retry modules/full1526 pass locally; final reference proof pending"
       ],
       "Remaining": [
         "simple_one_for_one, significant/auto_shutdown and upgrades",

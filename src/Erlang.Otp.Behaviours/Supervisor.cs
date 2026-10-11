@@ -296,7 +296,9 @@ public static class Supervisor
                     }
                     if (message is TupleTerm { Items.Count: 2 } cast && cast.Items[0] is Atom { Name: GenServerMessageTags.Cast })
                     {
-                        if (cast.Items[1] is TupleTerm { Items.Count: 3 } retry && retry.Items[0] is Atom { Name: SupervisorMessageTags.TryAgainRestart } && retry.Items[1].Equals(retryTag) && restarting.Contains(retry.Items[2]))
+                        if (cast.Items[1] is not TupleTerm { Items.Count: 3 } retry || retry.Items[0] is not Atom { Name: SupervisorMessageTags.TryAgainRestart } || !retry.Items[1].Equals(retryTag))
+                            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+                        if (restarting.Contains(retry.Items[2]))
                         {
                             int index = specifications.FindIndex(s => s.Id.Equals(retry.Items[2]));
                             if (index >= 0)

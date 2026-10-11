@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–089.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–091.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -534,3 +534,9 @@ Failed automatic starts now publish restarting and append a private-reference-ta
 Local **1526/1526 and full integration**, [tests](validation/part-089/tests.json), [pipeline](validation/part-089/validation.log). **14 independently expected compiled modules** added; planned1333=778 expressions/476 modules/79 diagnostics. All prior778/462/79 sources/expectations/generated hashes preserved: [audit](validation/part-089/corpus-audit.json).219 namespace types/no violations.85 registered MFAs, delta0; supervisor9/23 and gen_server10/41 partial API presence. Source/license/reuse and package notice proof retained; draft excluded. Exact-source comparison and same-head CI are pending; historical1319/1512 proof belongs to32c827a/part088.
 
 Full modules, upstream suites and performance remain unfinished, approximately5% coarse. Clock phase/dirty optimization/full time boundaries, dead/nonlinked PIDs, shutdown/signals/sys/proc_lib/stacks/resources, simple_one_for_one and significant/auto_shutdown remain partial. Next publish this implementation and verify exact-source1333 plus same-head1526 CI, then harden lifecycle and timing boundaries.
+
+## Parts 090–091 — Invalid retry cast source correction (2026-10-11)
+
+Additional pinned supervisor handle_cast inspection found no fallback clause. Part089 incorrectly ignored a wrong-tag cast and expected successful recovery in one provisional fixture. Correctly tagged stale retries are ignored; invalid shapes/private tags now raise function_clause. [Inspection](validation/part-090/inspection.json). The forged-tag fixture now traps exits and monitors the selected function_clause reason, leaving source stack contents wildcarded as an explicit existing limitation. All prior778/462/79 and13 other retry fixtures are unchanged; one provisional expectation/source corrected before the first original run completed. Initial9dec6df run remains historical and cannot serve as final proof; raw results will be retained separately in part092.
+
+Correction passes **1526/1526 and full integration**, [tests](validation/part-091/tests.json), [log](validation/part-091/validation.log). Plan1333=778/476/79,85 MFAs/delta0,219 namespace types/no violations (layout unchanged from part089). [Audit](validation/part-091/corpus-audit.json). No new dependency/BEAM/banners; consolidated notices/draft exclusion retained. Next publish corrected implementation and inspect exact-source1333/same-head1526 CI; complete module/upstream/performance and lifecycle/time/sys/simple_one_for_one/significant/stacks/resource boundaries remain partial, approximately5% coarse.

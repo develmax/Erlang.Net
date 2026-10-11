@@ -335,3 +335,6 @@ Published32c827a verifies1319/1319=778/462/79 exact-source OTP and1512/full CI; 
 
 ## Part 089 checkpoint
 Local1526/full pipeline;14 automatic retry contracts, plan1333=778/476/79 preserves prior778/462/79.85 MFAs/delta0, supervisor9/23 and gen_server10/41 partial.219 types/no violations. Publish and verify exact-source/new-head CI before fresh proof. Restarting/tagged self-casts/control interleaving and group abort/retry now implemented; dead/nonlinked PID/shutdown/signal/clock/sys/simple_one_for_one/significant/stacks/resources/upstream/performance unfinished. Approximately5% coarse. Closed0013 immutable; active0014. Draft excluded; notices packaged.
+
+## Part 091 checkpoint
+Local correction1526/full; invalid casts fail function_clause, valid-tag stale retries ignored.14 retry modules, one provisional expectation/source corrected after pinned source inspection; prior778/462/79 plus13 new cases preserved. Publish and verify new exact-source1333/CI1526; initial9dec6df run must remain separate historical evidence.85 MFAs,219 types unchanged. Full scope approximately5%; lifecycle/clocks/sys/simple_one_for_one/significant/stacks/upstream/performance partial; draft excluded.
