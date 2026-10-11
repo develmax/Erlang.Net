@@ -377,6 +377,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "bump_reductions",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:bump_reductions/1",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "bxor",
     "Arity": 2,
     "Status": "Partially compatible",
@@ -801,6 +809,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "is_process_alive",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_process_alive/1",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "is_reference",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -977,6 +993,30 @@
   },
   {
     "Module": "erlang",
+    "Function": "md5_final",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:md5_final/1",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "md5_init",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:md5_init/0",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "md5_update",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:md5_update/2",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "min",
     "Arity": 2,
     "Status": "Partially compatible",
@@ -1006,6 +1046,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:monotonic_time/1",
     "Limits": "Source-directed clock/calendar and timer options; functional contracts verified against original in118 at0aabf20; OS warp,full timezone/native unique distribution,external ref metadata,races,resources,stack/error_info boundaries remain"
+  },
+  {
+    "Module": "erlang",
+    "Function": "node",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:node/0",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
+    "Function": "node",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:node/1",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -1049,11 +1105,27 @@
   },
   {
     "Module": "erlang",
+    "Function": "processes",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:processes/0",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
+  },
+  {
+    "Module": "erlang",
     "Function": "put",
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:put/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "raise",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:raise/3",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -1078,6 +1150,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:register/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "registered",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:registered/0",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
   },
   {
     "Module": "erlang",
@@ -1358,6 +1438,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:xor/2",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "yield",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:yield/0",
+    "Limits": "Local119 source-directed MD5/raise/process query/node/scheduling contracts; original120 pending; native64 context and deliberate corrupted-length safety,automatic stack/error_info,VM population/distribution,exact scheduler/resources boundaries explicit"
   },
   {
     "Module": "gen_server",

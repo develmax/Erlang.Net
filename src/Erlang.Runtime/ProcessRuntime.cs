@@ -12,16 +12,19 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         get;
     }
+    public Atom NodeAtom { get; }
     public TextWriter Output
     {
         get;
     }
     internal RuntimeTimers Timers { get; }
+    public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
     public ModuleRegistry Modules { get; } = new();
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null)
     {
         Node = node;
+        NodeAtom = Term.A(node);
         Output = output ?? Console.Out;
         Timers = new(this, gate);
         CoreModules.Register(Modules);
@@ -57,7 +60,10 @@ public sealed class ProcessRuntime : IAsyncDisposable
             }
             catch (ErlangException ex)
             {
-                reason = ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(ex.Reason, Nil.Value);
+                reason = ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(
+                    ex.ExceptionClass == ErlangExceptionClasses.Throw ? Term.Tuple(Term.A(ErlangErrorReasons.NoCatch), ex.Reason) : ex.Reason,
+                    ex.StackTraceTerm
+                );
             }
             catch (Exception ex)
             {
@@ -98,6 +104,18 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
             return processes.ContainsKey(pid);
+    }
+
+    public IReadOnlyList<Pid> ProcessSnapshot()
+    {
+        lock (gate)
+            return Array.AsReadOnly(processes.Keys.ToArray());
+    }
+
+    public IReadOnlyList<string> RegisteredSnapshot()
+    {
+        lock (gate)
+            return Array.AsReadOnly(names.Keys.ToArray());
     }
 
     public ProcessHandle GetProcessHandle(Pid pid)

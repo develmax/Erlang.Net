@@ -718,6 +718,9 @@ public static class CoreModules
         ErlangClockRegistrations.Register(r);
         ErlangCalendarRegistrations.Register(r);
         ErlangTimerRegistrations.Register(r);
+        ErlangMd5Registrations.Register(r);
+        ErlangRaiseRegistrations.Register(r);
+        ErlangProcessQueryRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(

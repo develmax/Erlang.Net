@@ -1,6 +1,6 @@
 # Decisions
 
-Part118: clock/calendar/timer increment at0aabf20 passes **2523/2523 original and2959/full same-head CI**. [Provenance](validation/part-118/remote-checkpoint.json). Registry320,erlang170/351,181 missing. All116778/1546/84 retained;115 new independent modules verified. Whole erlang goal active; next incremental MD5/explicit raise stacks,then real remaining runtime prerequisites.
+Part119 adds11 real MD5/raise/process/node/scheduling MFAs and134 modules;erlang181/351,170 missing,total331;local3105/full. [Local evidence](validation/part-119/tests.json),[source boundaries](validation/part-119/reference-audit.json). Original2657 and same-head3105/full CI120 pending;complete historical118 remains2523/2523 at0aabf20. Whole erlang goal active.
 
 1. Pin stable OTP-29.1.1 at ad05823719d77c8faee87348ea39513d4e2f99c5. The existing reference HEAD is newer and is not the baseline.
 2. Pin .NET SDK 10.0.400 and C# 14, net10.0. Avoid external restore dependencies in the initial runtime/test bootstrap.

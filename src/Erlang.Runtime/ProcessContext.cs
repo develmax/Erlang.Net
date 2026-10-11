@@ -33,10 +33,13 @@ public sealed class ProcessContext : ITermExecutionContext
     public CancellationToken Cancellation => Stop.Token;
     public Dictionary<Term, Term> Dictionary { get; } = new();
 
-    public async ValueTask ReduceAsync()
+    public ValueTask ReduceAsync() => ChargeAsync(1);
+
+    internal async ValueTask ChargeAsync(int count)
     {
         Cancellation.ThrowIfCancellationRequested();
-        if (++reductions >= 2000)
+        reductions += count;
+        if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
         {
             reductions = 0;
             await Task.Yield();

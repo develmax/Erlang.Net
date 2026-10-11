@@ -22,4 +22,5 @@ public static class ErlangErrorReasons
     public const string SystemLimit = "system_limit";
     public const string TimeoutValue = "timeout_value";
     public const string UndefinedFunction = "undef";
+    public const string NoCatch = "nocatch";
 }

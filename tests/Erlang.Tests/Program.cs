@@ -6,6 +6,42 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(
+    "runtime/md5-forged-pending-length-safety",
+    async () =>
+{
+    await using var runtime = new ProcessRuntime();
+    int rejected = 0;
+    var process = runtime.Spawn(async context =>
+    {
+        var initial = (BitString)await runtime.Modules.Call(context, "erlang", "md5_init");
+        byte[] corrupted = initial.ToArray();
+        System.Buffers.Binary.BinaryPrimitives.WriteUInt64LittleEndian(corrupted.AsSpan(24), 65);
+        foreach (string operation in new[] { "md5_update", "md5_final" })
+        {
+            Term[] arguments = operation == "md5_update" ? [new BitString(corrupted), Nil.Value] : [new BitString(corrupted)];
+            try
+            {
+                await runtime.Modules.Call(
+                    context,
+                    "erlang",
+                    operation,
+                    arguments
+                );
+            }
+            catch (ErlangException exception)
+            {
+                Equal(exception.Reason, Term.A("badarg"));
+                rejected++;
+            }
+        }
+
+        return Term.A("done");
+    });
+    Equal(await process.Completion, Term.A("normal"));
+    Check(rejected == 2);
+}
+);
 Test("oracle/prefetch-order-and-bound", Erlang.Tests.OracleExecutionPipelineTests.OrderingAndBound);
 Test("oracle/prefetch-failure-provenance", Erlang.Tests.OracleExecutionPipelineTests.OrderedFailureAndCleanup);
 Test("oracle/prefetch-early-dispose", Erlang.Tests.OracleExecutionPipelineTests.EarlyDisposeCleanup);

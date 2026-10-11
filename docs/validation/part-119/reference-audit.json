@@ -1,0 +1,70 @@
+{
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_md5.c",
+      "BlobSHA1": "eb156fd6351bf534b57801ddba011bb8d78565df"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_md5.h",
+      "BlobSHA1": "f9379d55ab176e9b6d837adc9fd727bcb67df023"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_chksum.c",
+      "BlobSHA1": "e1f1a23303431e233ed9a83c6ee7b5fccdccbc25"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "BlobSHA1": "0622939e65926bc614d4d045b048c5cd4d416d3c"
+    },
+    {
+      "Path": "erts/emulator/beam/error.h",
+      "BlobSHA1": "bee6656e1e00598c46de9080f3cbe77a83248ce8"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "BlobSHA1": "53cd31e9a0f3430202f91b1fad9c24471dddd493"
+    },
+    {
+      "Path": "erts/emulator/beam/register.c",
+      "BlobSHA1": "8411ca17b4feec73eb4803c65f6871016e047b58"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "BlobSHA1": "924f6f8ff7305fc4cf951dc686eac94804b47ddc"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_vm.h",
+      "BlobSHA1": "b9477af50e5d92290ca89a3cf1a22b862d635860"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_internal.erl",
+      "BlobSHA1": "a40d973b452dbed882300547893bbf3a2cb098f3"
+    }
+  ],
+  "Baseline": "OTP-29.1.1",
+  "AlteredSource": "Ericsson2026 Apache MD5 transform/update/padding and native64 context; source raise normalization/explicit propagation; source node/query/scheduling contracts",
+  "ProductionBeam": false,
+  "OriginalStatus": "Pending120",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PublicPackagePublication": false,
+  "Reuse": "Existing SDK BinaryPrimitives/BitOperations and immutable terms/iterative iodata; gate-protected process/name tables and Task scheduler; SDK MD5 remains one-shot,IncrementalHash cannot serialize/clone contexts",
+  "NewExports": 11,
+  "Boundaries": [
+    "MD5 raw context native64 little-endian ABI; other ABI/resource/reduction/trapping and segmentation bytes unclaimed",
+    "Forged MD5 pending length >64 deliberately rejects locally; no unsafe original probe",
+    "Full automatic physical-source/native frames/error_info;system_flag backtrace-depth pending",
+    "Distributed/incarnation metadata/signal queues/ports/background native process population",
+    "CLR cooperative slice2000 remains a resource policy separate from native bump clamp4000;exact accounting/fairness/performance unclaimed"
+  ],
+  "HistoricalInputsUnchanged": true,
+  "NewDependencies": 0,
+  "NewCompiledModules": 134
+}
