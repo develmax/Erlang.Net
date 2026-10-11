@@ -2,7 +2,7 @@
 
 The **full work.md assignment is not complete**. Overall completion remains approximately **5%**, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–088.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–089.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |
@@ -11,7 +11,7 @@ Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.
 | Runtime | Selective mailboxes, local names/dictionaries, links/monitors/exits, atomic spawn_monitor, iterative exit cascades | Partially compatible |
 | Compiler | Lexer/Pratt AST, guard/scope analysis, clauses/closures, case/receive/if/begin/catch/try, all ordinary operators, maybe/?=, list/binary/map comprehensions and mixed zip && groups, maps, integer/binary/float/UTF bit syntax, generated C# AST/evaluator and module-local tail-call trampoline | Partially compatible |
 | Core modules | 85 registered erlang/lists/maps/io/gen_server/supervisor MFAs, each with a direct permanent contract test | Partially compatible |
-| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, actions, queries and lifecycle contracts | Partially compatible |
+| OTP foundation | C# and registered Erlang gen_server/supervisor callbacks, static/dynamic child MFA/specs, automatic retry/restarting, actions and lifecycle contracts | Partially compatible |
 | Hybrid/build | Native receive/case/fun/if/begin/catch/maybe and mixed comprehensions in async C#, Roslyn lexical context, line mapping, preprocessing/incremental/clean | Partially compatible |
 | Local packages/tool | Real PackageReference consumer, local CLI installation and .erl compilation | Implemented |
 | Validation/performance | Permanent harness, exact-version differential runner/CI and historical exploratory benchmark harness | Implemented infrastructure; full semantic/performance equivalence unverified |
@@ -526,3 +526,11 @@ Implementation **32c827a517c7e372b0181fe08dfbde978200b16f** passes **1319/1319=7
 Ordinary-supervisor start/terminate/restart/delete transitions, errors/child-record payloads, Extra/ignore, temporary/transient exits, query order/counts, names, shutdown acknowledgement and dynamic group restart order selected contracts verified. Registry85, supervisor9/23 and gen_server10/41 partial API presence;218 namespace types/no violations. Consolidated notices packaged, draft excluded; no new dependency/BEAM/banners. Whole task approximately5% coarse, full modules/upstream suites/performance unfinished.
 
 Source inspection confirms automatic restart failures require a restarting marker and tagged retry cast that yields to the mailbox; the current automatic engine exits on these failures. Next port this retry schedule and test shutdown/control interleaving, dead/nonlinked PIDs and intensity/time boundaries. Simple_one_for_one, significant/auto_shutdown, full sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources/races remain unfinished.
+
+## Part 089 — Automatic supervisor restart retries (2026-10-11)
+
+Failed automatic starts now publish restarting and append a private-reference-tagged retry cast, returning to mailbox dispatch. Query/count, restart/delete errors, terminate cancellation, replacement and shutdown can run between attempts. Each attempt consumes intensity; zero/exhausted budgets shut down. Ignored starts clear restarting. Group startup aborts at the first failure, preserves earlier active/later inactive children, removes temporary peers and retries the whole group or failed suffix according to strategy. Active count checks process liveness. CLR lists/sets/snapshots/ValueTask and a monotonic whole-second inclusive window adapt pinned supervisor routines; no timer/backoff/new dependency/production BEAM.
+
+Local **1526/1526 and full integration**, [tests](validation/part-089/tests.json), [pipeline](validation/part-089/validation.log). **14 independently expected compiled modules** added; planned1333=778 expressions/476 modules/79 diagnostics. All prior778/462/79 sources/expectations/generated hashes preserved: [audit](validation/part-089/corpus-audit.json).219 namespace types/no violations.85 registered MFAs, delta0; supervisor9/23 and gen_server10/41 partial API presence. Source/license/reuse and package notice proof retained; draft excluded. Exact-source comparison and same-head CI are pending; historical1319/1512 proof belongs to32c827a/part088.
+
+Full modules, upstream suites and performance remain unfinished, approximately5% coarse. Clock phase/dirty optimization/full time boundaries, dead/nonlinked PIDs, shutdown/signals/sys/proc_lib/stacks/resources, simple_one_for_one and significant/auto_shutdown remain partial. Next publish this implementation and verify exact-source1333 plus same-head1526 CI, then harden lifecycle and timing boundaries.

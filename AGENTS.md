@@ -332,3 +332,6 @@ Dynamic start/terminate/restart/delete supports ordinary supervisors; local1512/
 ## Part 088 checkpoint
 
 Published32c827a verifies1319/1319=778/462/79 exact-source OTP and1512/full CI; prior778/436/79 contracts unchanged;26 independent dynamic modules, zero corrections.85 MFAs; supervisor9/23, gen_server10/41 partial;218 types/no violations. Proof part088, initial failures part087. Next automatic retry/restarting/tagged casts/mailbox yielding and dead/nonlinked PIDs/shutdown/intensity races. Full significant/simple_one_for_one/sys/options/aliases/upgrades/resources/stacks/upstream/performance unfinished; approximately5% coarse. Draft excluded; exact notices packaged. Active journal in CHANGELOG.md.
+
+## Part 089 checkpoint
+Local1526/full pipeline;14 automatic retry contracts, plan1333=778/476/79 preserves prior778/462/79.85 MFAs/delta0, supervisor9/23 and gen_server10/41 partial.219 types/no violations. Publish and verify exact-source/new-head CI before fresh proof. Restarting/tagged self-casts/control interleaving and group abort/retry now implemented; dead/nonlinked PID/shutdown/signal/clock/sys/simple_one_for_one/significant/stacks/resources/upstream/performance unfinished. Approximately5% coarse. Closed0013 immutable; active0014. Draft excluded; notices packaged.

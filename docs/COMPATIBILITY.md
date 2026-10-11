@@ -2,7 +2,7 @@
 
 Reference: **OTP-29.1.1**, commit ad05823719d77c8faee87348ea39513d4e2f99c5. The full implementation is incomplete. Production execution uses C#/.NET independently of BEAM; the reference runtime is development-only and is not installed locally.
 
-Current local evidence is **1512/1512 tests**,85 direct registered-MFA contracts and full integration. [Local tests](validation/part-087/tests.json), [integration](validation/part-087/integration-results.json). Same-head CI also passes1512/full.
+Current local evidence is **1526/1526 tests**,85 direct registered-MFA contracts and full integration. [Local tests](validation/part-089/tests.json), [integration](validation/part-089/integration-results.json). New same-head CI/original comparison pending; prior1512 CI remains historical part088.
 
 Latest exact-source oracle evidence: **1319/1319=778 expressions+462 compiled modules+79 diagnostics** at **32c827a**, zero differences/expectation corrections. [Provenance](validation/part-088/remote-checkpoint.json). All modules remain partially compatible; [readiness](MODULE_READINESS.md) separates API presence from semantic scope.
 
@@ -501,3 +501,11 @@ Implementation **32c827a517c7e372b0181fe08dfbde978200b16f** passes **1319/1319=7
 Ordinary-supervisor start/terminate/restart/delete transitions, errors/child-record payloads, Extra/ignore, temporary/transient exits, query order/counts, names, shutdown acknowledgement and dynamic group restart order selected contracts verified. Registry85, supervisor9/23 and gen_server10/41 partial API presence;218 namespace types/no violations. Consolidated notices packaged, draft excluded; no new dependency/BEAM/banners. Whole task approximately5% coarse, full modules/upstream suites/performance unfinished.
 
 Source inspection confirms automatic restart failures require a restarting marker and tagged retry cast that yields to the mailbox; the current automatic engine exits on these failures. Next port this retry schedule and test shutdown/control interleaving, dead/nonlinked PIDs and intensity/time boundaries. Simple_one_for_one, significant/auto_shutdown, full sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources/races remain unfinished.
+
+## Part 089 — Automatic supervisor restart retries (2026-10-11)
+
+Failed automatic starts now publish restarting and append a private-reference-tagged retry cast, returning to mailbox dispatch. Query/count, restart/delete errors, terminate cancellation, replacement and shutdown can run between attempts. Each attempt consumes intensity; zero/exhausted budgets shut down. Ignored starts clear restarting. Group startup aborts at the first failure, preserves earlier active/later inactive children, removes temporary peers and retries the whole group or failed suffix according to strategy. Active count checks process liveness. CLR lists/sets/snapshots/ValueTask and a monotonic whole-second inclusive window adapt pinned supervisor routines; no timer/backoff/new dependency/production BEAM.
+
+Local **1526/1526 and full integration**, [tests](validation/part-089/tests.json), [pipeline](validation/part-089/validation.log). **14 independently expected compiled modules** added; planned1333=778 expressions/476 modules/79 diagnostics. All prior778/462/79 sources/expectations/generated hashes preserved: [audit](validation/part-089/corpus-audit.json).219 namespace types/no violations.85 registered MFAs, delta0; supervisor9/23 and gen_server10/41 partial API presence. Source/license/reuse and package notice proof retained; draft excluded. Exact-source comparison and same-head CI are pending; historical1319/1512 proof belongs to32c827a/part088.
+
+Full modules, upstream suites and performance remain unfinished, approximately5% coarse. Clock phase/dirty optimization/full time boundaries, dead/nonlinked PIDs, shutdown/signals/sys/proc_lib/stacks/resources, simple_one_for_one and significant/auto_shutdown remain partial. Next publish this implementation and verify exact-source1333 plus same-head1526 CI, then harden lifecycle and timing boundaries.

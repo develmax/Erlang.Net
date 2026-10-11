@@ -54,4 +54,5 @@ internal static class SupervisorAtoms
     public const string Running = "running";
     public const string NotFound = "not_found";
     public const string ChildRecord = "child";
+    public const string Restarting = "restarting";
 }

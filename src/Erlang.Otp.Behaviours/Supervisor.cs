@@ -42,15 +42,19 @@ public static class Supervisor
             TimeSpan? period = null;
             var restarts = new Queue<long>();
             var retired = new HashSet<Pid>();
+            var restarting = new HashSet<Term>();
+            Term retryTag = await runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.MakeReference);
 
             void Publish()
             {
                 handle.Specifications = Array.AsReadOnly(specifications.ToArray());
                 handle.Publish(children.OfType<Child>().Select(c => (c.Spec.Id, c.Process.Pid)));
+                handle.PublishRestarting(restarting);
             }
 
             void RemoveChild(int index)
             {
+                restarting.Remove(specifications[index].Id);
                 specifications.RemoveAt(index);
                 children.RemoveAt(index);
                 Publish();
@@ -81,6 +85,7 @@ public static class Supervisor
 
             void InstallChild(int index, TupleTerm result)
             {
+                restarting.Remove(specifications[index].Id);
                 if (result.Items[1] is Pid pid)
                 {
                     var process = runtime.GetProcessHandle(pid);
@@ -139,6 +144,8 @@ public static class Supervisor
 
                     return Term.A(BehaviourAtoms.Ok);
                 }
+                if (restarting.Contains(argument))
+                    return Error(SupervisorAtoms.Restarting);
                 if (children[index] is not null)
                     return Error(SupervisorAtoms.Running);
                 if (operation == OtpNames.DeleteChild)
@@ -182,8 +189,13 @@ public static class Supervisor
 
             async ValueTask StopChild(int index)
             {
+                restarting.Remove(specifications[index].Id);
                 if (children[index] is not { } child)
+                {
+                    Publish();
+
                     return;
+                }
                 retired.Add(child.Process.Pid);
                 children[index] = null;
                 Publish();
@@ -199,6 +211,42 @@ public static class Supervisor
                 {
                     runtime.Exit(context, child.Process.Pid, Term.A(ProcessExitSignals.Kill));
                     await child.Process.Completion;
+                }
+            }
+
+            async ValueTask RestartAutomatically(int failed)
+            {
+                long now = Stopwatch.GetTimestamp() / Stopwatch.Frequency;
+                double window = (period ?? TimeSpan.FromSeconds(BehaviourDefaults.RestartPeriodSeconds)).TotalSeconds;
+                while (restarts.Count > 0 && restarts.Peek() < now - window)
+                    restarts.Dequeue();
+                if (restarts.Count >= intensity)
+                    context.Exit(Term.A(ProcessExitReasons.Shutdown));
+                restarts.Enqueue(now);
+                int first = strategy == RestartStrategy.OneForAll ? 0 : failed;
+                int last = strategy == RestartStrategy.OneForOne ? failed : children.Count - 1;
+                var group = specifications.Skip(first).Take(last - first + 1).Select(s => s.Id).ToArray();
+                if (strategy != RestartStrategy.OneForOne)
+                {
+                    foreach (Term id in group.Reverse())
+                        await StopChild(specifications.FindIndex(s => s.Id.Equals(id)));
+                    RemoveInactiveTemporary();
+                }
+                foreach (Term id in group)
+                {
+                    int index = specifications.FindIndex(s => s.Id.Equals(id));
+                    if (index < 0)
+                        continue;
+                    var result = (TupleTerm)await InvokeStart(specifications[index]);
+                    if (result.Items[0] is Atom { Name: BehaviourAtoms.Error })
+                    {
+                        restarting.Add(id);
+                        Publish();
+                        GenServer.Cast(context, context.Self, Term.Tuple(Term.A(SupervisorMessageTags.TryAgainRestart), retryTag, id));
+
+                        return;
+                    }
+                    InstallChild(index, result);
                 }
             }
             try
@@ -232,17 +280,28 @@ public static class Supervisor
                 ready.TrySetResult();
                 while (true)
                 {
+                    await context.ReduceAsync();
                     var message = (await context.ReceiveAsync(t => t))!;
                     if (message is TupleTerm { Items.Count: 3 } call && call.Items[0] is Atom { Name: GenServerMessageTags.Call } && call.Items[1] is TupleTerm { Items.Count: 2 } from && from.Items[0] is Pid caller && from.Items[1] is ReferenceTerm reference)
                     {
                         Term reply = call.Items[2] switch
                         {
                             Atom { Name: OtpNames.WhichChildren } => OtpModules.WhichChildren(handle),
-                            Atom { Name: OtpNames.CountChildren } => OtpModules.CountChildren(handle),
+                            Atom { Name: OtpNames.CountChildren } => OtpModules.CountChildren(handle, runtime),
                             TupleTerm { Items.Count: 2 } request when request.Items[0] is Atom { Name: OtpNames.StartChild or OtpNames.TerminateChild or OtpNames.RestartChild or OtpNames.DeleteChild } operation => await ManageChild(operation.Name, request.Items[1]),
                             _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
                         };
                         GenServer.Reply(context, new(caller, reference), reply);
+                        continue;
+                    }
+                    if (message is TupleTerm { Items.Count: 2 } cast && cast.Items[0] is Atom { Name: GenServerMessageTags.Cast })
+                    {
+                        if (cast.Items[1] is TupleTerm { Items.Count: 3 } retry && retry.Items[0] is Atom { Name: SupervisorMessageTags.TryAgainRestart } && retry.Items[1].Equals(retryTag) && restarting.Contains(retry.Items[2]))
+                        {
+                            int index = specifications.FindIndex(s => s.Id.Equals(retry.Items[2]));
+                            if (index >= 0)
+                                await RestartAutomatically(index);
+                        }
                         continue;
                     }
                     if (message is TupleTerm { Items.Count: 3 } system && system.Items[0] is Atom { Name: BehaviourAtoms.System } && system.Items[2] is TupleTerm { Items.Count: 2 } stop && stop.Items[0] is Atom { Name: BehaviourAtoms.Terminate })
@@ -279,21 +338,7 @@ public static class Supervisor
                     }
                     if (spec.Restart == RestartPolicy.Transient && normal)
                         continue;
-                    long now = Stopwatch.GetTimestamp();
-                    while (restarts.Count > 0 && Stopwatch.GetElapsedTime(restarts.Peek(), now) > (period ?? TimeSpan.FromSeconds(BehaviourDefaults.RestartPeriodSeconds)))
-                        restarts.Dequeue();
-                    restarts.Enqueue(now);
-                    if (restarts.Count > intensity)
-                        context.Exit(Term.A(ProcessExitReasons.Shutdown));
-                    int first = strategy == RestartStrategy.OneForAll ? 0 : failed;
-                    int last = strategy == RestartStrategy.OneForOne ? failed : children.Count - 1;
-                    for (int i = last; i >= first; i--)
-                        if (i != failed)
-                            await StopChild(i);
-                    for (int i = first; i <= last; i++)
-                        if (specifications[i].Restart != RestartPolicy.Temporary)
-                            await StartChild(i);
-                    RemoveInactiveTemporary();
+                    await RestartAutomatically(failed);
                 }
             }
             catch (Exception ex)

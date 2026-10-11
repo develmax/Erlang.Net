@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-087/tests.json",
+  "ComparisonTestReport": "validation/part-088/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -125,13 +125,16 @@
       "Project": "src/Erlang.Otp.Behaviours",
       "Remaining": [
         "simple_one_for_one, significant/auto_shutdown and upgrades",
-        "full shutdown/restart retry/restarting/race/sys contracts and stacks"
+        "full dead/nonlinked PID, shutdown/signal races, clock phase/sys contracts and stacks"
       ],
       "Implemented": [
         "C# strategies/policies/intensity and nine standard supervisor MFAs",
         "Erlang init/child MFA, map/legacy flags/specs, ignore/start failure",
         "serialized dynamic start/terminate/restart/delete, snapshots and ordered shutdown",
-        "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial"
+        "26 dynamic compiled contracts verified against exact-source OTP-29.1.1 at32c827a; full behaviour remains partial",
+        "Automatic failure retries publish restarting and queue private tagged self-casts; control requests run between attempts",
+        "Group startup aborts at first failure; rest_for_one retries failed suffix, one_for_all retries all; every attempt counts intensity",
+        "14 independent compiled retry contracts pass locally; new exact-source comparison pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [
