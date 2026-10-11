@@ -455,3 +455,7 @@ Part129: real ETF8 exports/options/physical used/safe/local,function code recons
 ## Part130 checkpoint
 
 Part130: original at3d0b18e**2867/2870 executed pass,complete=false**,three new ETF mismatches and native local external-function abort;40 modules/93 diagnostics unexecuted. [Immutable failure proof](validation/part-130/remote-checkpoint.json). All128778/1951 historical native outputs match;same-head**3477/full CI**. Latest complete original1282822/2822. Registry350,erlang200/351,151 missing. Publish evidence,then source-directed sign repair/local-function bug boundary/repeat complete proof;whole goal continues.0019 active,closed0018 unchanged;ignored hash60 upstream vectors pass,not integrated/live-verified.
+
+## Part131 checkpoint
+
+Part131: ETF nonzero-sign normalization,one new-only expectation correction,two sign fixtures and five transparent original-defect exclusions retaining managed tests. **3479/full local**,managed plan3005/comparable3000 plus5 exclusions. [Audit](validation/part-131/reference-audit.json). All128778/1951/93 preserved;all129 sources/hashes unchanged. Registry350,erlang200/351,151missing. Publish/freeze/original132 and same-head CI pending;latest complete original1282822/2822. Whole goal continues;0019 bounded,closed0018/sibling/license draft preserved.

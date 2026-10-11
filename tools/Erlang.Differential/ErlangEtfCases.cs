@@ -114,7 +114,16 @@ public static class ErlangEtfCases
         foreach (string option in new[] { "bad", "[bad]", "[safe|bad]", "[compressed]", "[{used,true}]" })
             Bad("bad-decode-options-" + cases.Count, "erlang:binary_to_term(<<131,97,42>>," + option + ")");
         foreach (string value in new[] { "hello", "[]", "<<>>", "<<131>>", "<<132,97,42>>", "<<131,97>>", "<<131,109,0,0,0,2,1>>", "<<131,77,0,0,0,1,0,255>>", "<<131,77,0,0,0,1,9,255>>", "<<131,70,127,240,0,0,0,0,0,0>>", "<<131,119,2,255,255>>", "<<131,255>>", "<<131,116,0,0,0,2,97,1,97,2,97,1,97,3>>", "<<131,110,1,2,42>>", "<<131,97,42,0:1>>" })
-            Bad("malformed-" + cases.Count, "erlang:binary_to_term(" + value + ")");
+        {
+            if (value == "<<131,110,1,2,42>>")
+                Add(
+                    "malformed-" + cases.Count,
+                    "try erlang:binary_to_term(" + value + ") of _->unexpected catch error:Reason->Reason end",
+                    Term.A("unexpected")
+                );
+            else
+                Bad("malformed-" + cases.Count, "erlang:binary_to_term(" + value + ")");
+        }
         foreach (string value in new[] { "{self(),erlang:make_ref()}", "maker({42,hello})", "erlang:make_fun(erlang,length,1)", "#{1=>[2|tail],1.0=><<5:3>>}" })
             foreach (string option in new[] { "[]", "[compressed]", "[local]", "[local,compressed]", "[deterministic]" })
                 Check("roundtrip-" + cases.Count, "V=" + value + ",B=erlang:term_to_binary(V," + option + "),C=erlang:binary_to_term(B),C =:= V");
@@ -178,6 +187,15 @@ public static class ErlangEtfCases
         Check(
             "unloaded-new-fun",
             "<<131,P/binary>>=erlang:term_to_binary(self()),<<131,M/binary>>=erlang:term_to_binary(etf_unloaded),F=erlang:binary_to_term(<<131,112,0:32,0,0:128,17:32,1:32,M/binary,97,17,97,42,P/binary,97,99>>),{name,[]}=erlang:fun_info(F,name),{env,[99]}=erlang:fun_info(F,env),try F() of _->false catch error:undef->true end"
+        );
+
+        Check(
+            "all-big-sign-bytes",
+            "lists:all(fun(S)->V=case S of 0->42; _->-42 end,erlang:binary_to_term(<<131,110,1,S,42>>) =:= V andalso erlang:binary_to_term(<<131,111,1:32,S,42>>) =:= V end,lists:seq(0,255))"
+        );
+        Check(
+            "noncanonical-big-sign-and-zero-padding",
+            "erlang:binary_to_term(<<131,110,5,255,0,0,0,0,1>>) =:= -4294967296 andalso erlang:binary_to_term(<<131,110,0,255>>) =:= 0 andalso erlang:binary_to_term(<<131,111,4:32,2,0,0,0,0>>) =:= 0 andalso erlang:binary_to_term(<<131,110,4,2,42,0,0,0>>) =:= -42"
         );
 
         return cases.AsReadOnly();

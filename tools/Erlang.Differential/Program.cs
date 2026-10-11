@@ -30,7 +30,9 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 Baseline = "OTP-29.1.1",
                 VersionVerified = versionVerified,
                 Complete = complete,
-                Planned = planned + CompiledModuleCases.All.Count + CompiledDiagnosticCases.All.Count,
+                Planned = planned + OriginalOtpDefects.Comparable.Count + CompiledDiagnosticCases.All.Count,
+                ReferenceCoverageComplete = OriginalOtpDefects.Exclusions.Length == 0,
+                OriginalOtpDefectExclusions = OriginalOtpDefects.Exclusions,
                 Executed = results.Count + moduleResults.Count + diagnosticResults.Count,
                 Passed = results.Count + moduleResults.Count + diagnosticResults.Count - failed,
                 Failed = failed,
@@ -48,7 +50,7 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 {
                     ReferenceMode = GeneratedModuleMetadata.ReferenceMode,
                     ImplementationMode = GeneratedModuleMetadata.ImplementationMode,
-                    Planned = CompiledModuleCases.All.Count,
+                    Planned = OriginalOtpDefects.Comparable.Count,
                     Executed = moduleResults.Count,
                     Passed = moduleResults.Count - moduleFailed,
                     Failed = moduleFailed
@@ -429,7 +431,7 @@ try
         await SaveReport(false);
     }
     await foreach (var oracleResult in OracleExecutionPipeline.Run(
-        CompiledModuleCases.All,
+        OriginalOtpDefects.Comparable,
         fixture => CompiledModuleProtocol.Command(fixture.Source),
         RunOracle,
         fixture => activeSource = fixture.Source

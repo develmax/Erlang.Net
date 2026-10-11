@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "erlang-etf-roundtrip-136",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "43196876EDDFADE44E701895DAB8FA6B5463CED278C81151CAD26E53E29B2ADC",
+    "ManagedExpected": "{ok,true}",
+    "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+    "NativeExecuted": false,
+    "OriginalEvidence": "docs/validation/part-130"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-137",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=maker({42,hello}),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "C7C50A8C91AA87714FD4F758140AE9DD95629E93D5ED5B7C31A8534E46FD5FEE",
+    "ManagedExpected": "{ok,true}",
+    "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+    "NativeExecuted": false,
+    "OriginalEvidence": "docs/validation/part-130"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-141",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "38E4D49FDBAC7F0BF8C69C811A2DD30B5ABB82210F1CE9F7934C3524DFDEA79E",
+    "ManagedExpected": "{ok,true}",
+    "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+    "NativeExecuted": false,
+    "OriginalEvidence": "docs/validation/part-130"
+  },
+  {
+    "Name": "erlang-etf-roundtrip-142",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V=erlang:make_fun(erlang,length,1),B=erlang:term_to_binary(V,[local,compressed]),C=erlang:binary_to_term(B),C =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "AFC5FE137D581E7174925DD7364C6BB0D9D881C15B379E05243019067AC1C951",
+    "ManagedExpected": "{ok,true}",
+    "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+    "NativeExecuted": false,
+    "OriginalEvidence": "docs/validation/part-130"
+  },
+  {
+    "Name": "erlang-etf-local-iovec",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->V={self(),erlang:make_ref(),maker(42)},B=erlang:iolist_to_binary(erlang:term_to_iovec(V,[local])),erlang:binary_to_term(B) =:= V. maker(Value)->fun()->Value end.",
+    "SourceSha256": "E9DDF7836BE0406D5D612E9A76401C95281E4F3EC270D1594F83EDFD5762117D",
+    "ManagedExpected": "{ok,true}",
+    "Reason": "OTP-29.1.1 external.c recursively emits LOCAL_EXT for function metadata without corresponding size/hash accounting. Part130 preserves native badarg and process exit134; managed roundtrip remains a mandatory test.",
+    "NativeExecuted": false,
+    "OriginalEvidence": "docs/validation/part-130"
+  }
+]

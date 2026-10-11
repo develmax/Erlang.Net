@@ -614,11 +614,9 @@ public static class ExternalTermFormat
                     {
                         int n = Count(tag == EtfTags.SmallBig ? Byte() : U32());
                         int sign = Byte();
-                        if (sign > EtfIntegerLayout.NegativeSign)
-                            throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var value = new BigInteger(Bytes(n), true, false);
 
-                        return new Integer(sign == EtfIntegerLayout.NegativeSign ? -value : value);
+                        return new Integer(sign != EtfIntegerLayout.NonNegativeSign ? -value : value);
                     }
                 case EtfTags.Map:
                     {

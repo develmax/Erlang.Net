@@ -1,0 +1,10 @@
+[
+  {
+    "Reason": "Preserved part130 native result and pinned big.c bytes_to_big accept every nonzero sign byte",
+    "SourceSha256": "15D993A4D9B60660BB40A980392B6C4C59D937701F2FCC3564C6EC1E7034CB21",
+    "After": "{ok,unexpected}",
+    "Before": "{ok,badarg}",
+    "Source": "-module(etf_contract). -export([run/0,maker/1]). run()->try erlang:binary_to_term(<<131,110,1,2,42>>) of _->unexpected catch error:Reason->Reason end. maker(Value)->fun()->Value end.",
+    "Name": "erlang-etf-malformed-127"
+  }
+]
