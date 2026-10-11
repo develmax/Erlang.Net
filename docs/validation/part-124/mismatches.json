@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "erlang-fun-info-local-init-status",
+    "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->P=whereis(init),P!{self(),get_status},receive {init,S}->S after 1000->timeout end. maker(Value,_Unused)->fun()->Value end. ",
+    "SourceSha256": "BC2C563D874C9E6838C6FBD0999B6684E812E079434AFA431AEEF34067478242",
+    "CSharpSha256": "C5EE42422331195E79157D8262A290DD056859D9CB87E219673D25ADE914BF9D",
+    "Expected": "{ok,{starting,started}}",
+    "FixtureExpected": "{ok,{started,started}}",
+    "Actual": "{ok,{started,started}}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-fun-info-external-text-3",
+    "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('àé','aØ_1',1)). maker(Value,_Unused)->fun()->Value end. ",
+    "SourceSha256": "51AF421C5B4FBEFE2CDF0853E153650EF5E86DDA69F6F229433E33FC3A84C343",
+    "CSharpSha256": "3DCB2ED909CEDF4D498C3FB8631E035F8C9FCF15CAF3A557D028687AC243F559",
+    "Expected": "{ok,[102,117,110,32,195,160,195,169,58,97,195,152,95,49,47,49]}",
+    "FixtureExpected": "{ok,[102,117,110,32,224,233,58,97,216,95,49,47,49]}",
+    "Actual": "{ok,[102,117,110,32,224,233,58,97,216,95,49,47,49]}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-fun-info-external-text-4",
+    "Source": "-module(fun_info_probe). -export([run/0,maker/2]). run()->erlang:fun_to_list(erlang:make_fun('λ','😀',1)). maker(Value,_Unused)->fun()->Value end. ",
+    "SourceSha256": "87FB79DFA2E46AAC13B64B7F3FF4261FB960063F4EAD056D62AE16A37C25775E",
+    "CSharpSha256": "569F2A565F85CBD79EA088D2CDF5D9126E828C88F2B5D048AF5B5E76A53E888D",
+    "Expected": "{ok,[102,117,110,32,39,206,187,39,58,39,240,159,152,128,39,47,49]}",
+    "FixtureExpected": "{ok,[102,117,110,32,39,955,39,58,39,128512,39,47,49]}",
+    "Actual": "{ok,[102,117,110,32,39,955,39,58,39,128512,39,47,49]}",
+    "Passed": false
+  }
+]

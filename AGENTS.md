@@ -427,3 +427,7 @@ Original2751/2751=778/1889/84 and same-head3207/full CI pass at069b560;strict so
 ## Part123 checkpoint
 
 Part123: actual local function code/free-env metadata,initialization ownership and four introspection/text MFAs pass **3270/full local**,57 new independent modules;registry342,erlang192/351,159 missing. [Local evidence](validation/part-123/reference-audit.json). Plan2808=778/1946/84 preserves all122 inputs/outcomes/generated hashes;original/same-head CI124 pending. Full SSA/BEAM metadata/ETF/code/init/process/resource boundaries remain explicit. Whole erlang goal continues.
+
+## Part124 failure checkpoint
+
+Part124: complete original at704485b executes2808 with **2805 passed/3 mismatches**,same-head3270/full CI;all122778/1889/84 unchanged. [Preserved failures](validation/part-124/mismatches.json). fun_to_list returns UTF8 bytes,not Unicode codepoints;native -eval init phase starting differs from completed managed bootstrap. Registry342,erlang192/351,159 missing;current function increment not fully native-verified. Latest successful original1222751/2751. Publish failure evidence,correct new-only fixtures/real UTF8 output,repeat whole original and continue erlang goal.
