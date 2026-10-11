@@ -15,11 +15,22 @@ public sealed class Parser
     private Token Current => tokens[position];
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
 
-    private bool Is(string value) => Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text == value;
+    private bool SyntaxToken => Current.Kind is LexerTokenKinds.Keyword or LexerTokenKinds.Symbol;
+
+    private bool Is(string value) => SyntaxToken && Current.Text == value;
 
     private bool Take(string value)
     {
         if (!Is(value))
+            return false;
+        position++;
+
+        return true;
+    }
+
+    private bool TakeAtom(string value)
+    {
+        if (Current.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom) || Current.Text != value)
             return false;
         position++;
 
@@ -89,7 +100,7 @@ public sealed class Parser
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     Expect(ErlangSyntaxTokens.FormTerminator);
                 }
-                else if (attr == ModuleAttributeNames.Compile && Take(CompilerOptionNames.DisableSsaOptimization))
+                else if (attr == ModuleAttributeNames.Compile && TakeAtom(CompilerOptionNames.DisableSsaOptimization))
                 {
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     Expect(ErlangSyntaxTokens.FormTerminator);
@@ -228,7 +239,7 @@ public sealed class Parser
         Expr left = Primary(stopQualifier: stopQualifier);
         while (true)
         {
-            int p = Current.Kind == LexerTokenKinds.QuotedAtom ? 0 : Precedence(Current.Text);
+            int p = SyntaxToken ? Precedence(Current.Text) : 0;
             if (p < minimum || p == 0)
                 break;
             string op = tokens[position++].Text;
@@ -237,7 +248,7 @@ public sealed class Parser
                 stopQualifier
             );
             left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
-            if (p == OperatorPrecedence.Comparison && Current.Kind != LexerTokenKinds.QuotedAtom && Precedence(Current.Text) == OperatorPrecedence.Comparison)
+            if (p == OperatorPrecedence.Comparison && SyntaxToken && Precedence(Current.Text) == OperatorPrecedence.Comparison)
                 throw Error(ParserDiagnostics.ChainedComparison);
         }
 
@@ -382,7 +393,7 @@ public sealed class Parser
 
             return new Expr.Fun(clauses);
         }
-        if (Current.Kind != LexerTokenKinds.QuotedAtom && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
+        if (SyntaxToken && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
         {
             string op = tokens[position++].Text;
 
@@ -543,7 +554,7 @@ public sealed class Parser
             Expr? size = null;
             if (Take(BitSyntaxTokens.SizeSeparator))
             {
-                if (Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
+                if (SyntaxToken && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
                     throw Error(ParserDiagnostics.UnaryBitSize);
                 size = Primary(true);
             }

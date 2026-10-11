@@ -54,7 +54,7 @@ public static class ErlangBasicCases
         cases.Add(Case(Name("erase", 0), "erase(),put(a,1),[{a,1}]=erlang:erase(),[]=get()"));
         cases.Add(Case(Name("get_keys", 0), "erase(),put(b,1),put(a,1),[a,b]=lists:sort(get_keys())"));
         cases.Add(Case(Name("get_keys", 1), "erase(),put(a,1),put(b,1.0),[a]=get_keys(1),[b]=get_keys(1.0)"));
-        cases.Add(Case(Name("apply", 2), "3=apply(fun(A,B)->A+B end,[1,2]),[b,a]=apply({lists,reverse},[[a,b]])"));
+        cases.Add(Case(Name("apply", 2), "3=apply(fun(A,B)->A+B end,[1,2])," + Error("apply({lists,reverse},[[a,b]])", "{badfun,{lists,reverse}}")));
         cases.Add(Case(Name("apply", 3), "[c,b,a]=apply(lists,reverse,[[a,b,c]])"));
         cases.AddRange(new[]
         {
@@ -83,11 +83,11 @@ public static class ErlangBasicCases
             Case("erlang-basic-size-bits", "0=size(<<7:3>>),1=size(<<7:9>>),2=byte_size(<<7:9>>),2=size({a,b})"),
             Case(
                 "erlang-basic-tuple-immutable",
-                "T={a,b},U=setelement(2,T,c),{a,b}=T,{a,c}=U,{x}=insert_element(1,{},x),{}=delete_element(1,{x}),{}=make_tuple(0,default,[])"
+                "T={a,b},U=setelement(2,T,c),{a,b}=T,{a,c}=U,{x}=erlang:insert_element(1,{},x),{}=erlang:delete_element(1,{x}),{}=erlang:make_tuple(0,default,[])"
             ),
             Case(
                 "erlang-basic-tuple-initialization",
-                "{x,b,c}=make_tuple(3,x,[{3,a},{2,b},{3,c}]),"+Error("make_tuple(0,x,[{1,y}])","badarg")+","+Error("make_tuple(2,x,[{1,a}|wrong])","badarg")
+                "{x,b,c}=erlang:make_tuple(3,x,[{3,a},{2,b},{3,c}]),"+Error("erlang:make_tuple(0,x,[{1,y}])","badarg")+","+Error("erlang:make_tuple(2,x,[{1,a}|wrong])","badarg")
             ),
             Case("erlang-basic-guards", "yes=guard(-2.5,fun(X)->X end),no=guard(wrong,wrong)"),
             Case("erlang-basic-apply-badfun", Error("apply(wrong,[])","{badfun,wrong}")),
@@ -110,7 +110,7 @@ public static class ErlangBasicCases
         });
         foreach (string function in new[] { "abs", "float", "round", "trunc", "ceil", "floor", "size", "list_to_tuple", "tuple_to_list" })
             cases.Add(Case("erlang-basic-badarg-" + function, Error("apply(erlang,'" + function + "',[wrong])", "badarg")));
-        foreach (string call in new[] { "setelement(0,{},x)", "insert_element(2,{},x)", "delete_element(1,{})", "append_element(wrong,x)", "make_tuple(-1,x)", "make_tuple(16777216,x)", "make_tuple(2,x,[wrong])", "make_tuple(2,x,[{0,y}])", "list_to_tuple([a|tail])" })
+        foreach (string call in new[] { "setelement(0,{},x)", "erlang:insert_element(2,{},x)", "erlang:delete_element(1,{})", "erlang:append_element(wrong,x)", "erlang:make_tuple(-1,x)", "erlang:make_tuple(16777216,x)", "erlang:make_tuple(2,x,[wrong])", "erlang:make_tuple(2,x,[{0,y}])", "list_to_tuple([a|tail])" })
             cases.Add(Case("erlang-basic-tuple-error-" + cases.Count, Error(call, "badarg")));
         foreach (string operation in new[] { "+", "-", "*", "/", "div", "rem", "band", "bor", "bxor", "bsl", "bsr" })
             cases.Add(Case("erlang-basic-badarith-" + operation, Error("apply(erlang,'" + operation + "',[wrong,1])", "badarith")));
@@ -124,6 +124,11 @@ public static class ErlangBasicCases
         cases.Add(Case(
             "erlang-basic-divide-zero",
             Error("apply(erlang,'/',[1,0])", "badarith") + "," + Error("apply(erlang,'div',[1,0])", "badarith")
+        ));
+
+        cases.Add(Case(
+            "erlang-basic-apply-tuple-rejection",
+            Error("apply({lists,reverse},[a|tail])", "badarg") + "," + Error("apply({1,2},[])", "{badfun,{1,2}}") + "," + Error("apply({lists,reverse,[]},[])", "{badfun,{lists,reverse,[]}}")
         ));
 
         return cases.Select(fixture => fixture.Name == "erlang-basic-guards" ? fixture with { Source = fixture.Source + " guard(X,F) when is_number(X),abs(X)=:=2.5,round(X)=:=-3,is_function(F,1),is_boolean(true),is_integer(5,0,9),size({a})=:=1,min(X,0)=:=X->yes;guard(_,_) ->no." } : fixture.Name == "erlang-basic-operator-dynamic" ? fixture with { Source = fixture.Source + " operator()->'=='." } : fixture).ToArray();

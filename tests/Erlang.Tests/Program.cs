@@ -6,6 +6,20 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(
+    "terms/identity-deep-reuse",
+    () =>
+{
+    Term value = Nil.Value;
+    for (int depth = 0; depth < 20000; depth++)
+        value = new Cons(value, Nil.Value);
+    Check(value.Equals(value));
+    Check(value.NumericEquals(value));
+    Check(value.CompareTo(value) == 0);
+
+    return Task.CompletedTask;
+}
+);
 void AddComparatorSortTests()
 {
     Test(

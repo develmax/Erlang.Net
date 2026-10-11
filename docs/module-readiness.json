@@ -3,10 +3,10 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-111/tests.json",
-  "LocalPassedTests": 2357,
-  "RegisteredMfas": 255,
+  "LocalPassedTests": 2626,
+  "RegisteredMfas": 283,
   "PreviousRegisteredMfas": 255,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 28,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -18,12 +18,13 @@
         "immutable terms and exact/numeric equality",
         "codepoint ordering and integer/float coercion",
         "bounded reuse of ten common immutable atom values",
-        "privately owned exact-key Dictionary index with sorted read-only map entries"
+        "privately owned exact-key Dictionary index with sorted read-only map entries",
+        "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms"
       ],
       "Remaining": [
         "full atom/resource limits and distributed identity"
       ],
-      "RelatedPassedTests": 31
+      "RelatedPassedTests": 32
     },
     {
       "Id": "Serialization",
@@ -54,7 +55,7 @@
         "distribution, ETS/DETS, ports/NIF/code loading",
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races"
       ],
-      "RelatedPassedTests": 142
+      "RelatedPassedTests": 170
     },
     {
       "Id": "Compiler",
@@ -97,13 +98,14 @@
         "41 maps and 24 lists modules verified against exact-source OTP at d713491; complete collection modules remain partial",
         "Complete maps exported surface 34/34 with 90 new independently expected modules verified against exact-source OTP at 6363039; full internal/resource/error_info/stack/performance parity unclaimed",
         "Complete lists 91/91 exported surface with 252 new independent functional modules verified against pinned original at 9aeb8f1; native allocation/reduction/stacks/error_info/exhaustive CT/performance contracts unclaimed",
-        "Erlang basic BIF increment: 61 newly registered exports, numeric/predicate/tuple/list/dictionary/apply/operator contracts; original part112 pending"
+        "Erlang basic BIF increment: 61 newly registered exports, numeric/predicate/tuple/list/dictionary/apply/operator contracts; original part112 pending",
+        "Erlang data increment:28 new integer/binary/iolist/float-parser/checksum exports;133/351 presence; local verification in113 and original114 pending; apply/2 tuple rejection corrected from source after failed112"
       ],
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 879
+      "RelatedPassedTests": 1147
     },
     {
       "Id": "gen_server adapters",
@@ -194,7 +196,7 @@
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals"
       ],
-      "RelatedPassedTests": 1224
+      "RelatedPassedTests": 1464
     },
     {
       "Id": "Style checks",
@@ -5463,11 +5465,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 105,
+      "RegisteredMfas": 133,
       "PreviousRegisteredMfas": 105,
-      "Delta": 0,
+      "Delta": 28,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 29.9,
+      "ApiPresencePercent": 37.9,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5491,13 +5493,24 @@
         "erlang:\u003E/2",
         "erlang:\u003E=/2",
         "erlang:abs/1",
+        "erlang:adler32/1",
+        "erlang:adler32/2",
+        "erlang:adler32_combine/3",
         "erlang:and/2",
         "erlang:append/2",
         "erlang:append_element/2",
         "erlang:apply/2",
         "erlang:apply/3",
         "erlang:band/2",
+        "erlang:binary_part/2",
+        "erlang:binary_part/3",
+        "erlang:binary_to_float/1",
+        "erlang:binary_to_integer/1",
+        "erlang:binary_to_integer/2",
+        "erlang:binary_to_list/1",
+        "erlang:binary_to_list/3",
         "erlang:bit_size/1",
+        "erlang:bitstring_to_list/1",
         "erlang:bnot/1",
         "erlang:bor/2",
         "erlang:bsl/2",
@@ -5506,6 +5519,9 @@
         "erlang:byte_size/1",
         "erlang:cancel_timer/1",
         "erlang:ceil/1",
+        "erlang:crc32/1",
+        "erlang:crc32/2",
+        "erlang:crc32_combine/3",
         "erlang:delete_element/2",
         "erlang:demonitor/1",
         "erlang:div/2",
@@ -5523,6 +5539,13 @@
         "erlang:get_keys/1",
         "erlang:hd/1",
         "erlang:insert_element/3",
+        "erlang:integer_to_binary/1",
+        "erlang:integer_to_binary/2",
+        "erlang:integer_to_list/1",
+        "erlang:integer_to_list/2",
+        "erlang:iolist_size/1",
+        "erlang:iolist_to_binary/1",
+        "erlang:iolist_to_iovec/1",
         "erlang:is_atom/1",
         "erlang:is_binary/1",
         "erlang:is_bitstring/1",
@@ -5542,6 +5565,11 @@
         "erlang:is_tuple/1",
         "erlang:length/1",
         "erlang:link/1",
+        "erlang:list_to_binary/1",
+        "erlang:list_to_bitstring/1",
+        "erlang:list_to_float/1",
+        "erlang:list_to_integer/1",
+        "erlang:list_to_integer/2",
         "erlang:list_to_tuple/1",
         "erlang:make_ref/0",
         "erlang:make_tuple/2",
@@ -5549,6 +5577,7 @@
         "erlang:map_get/2",
         "erlang:map_size/1",
         "erlang:max/2",
+        "erlang:md5/1",
         "erlang:min/2",
         "erlang:monitor/2",
         "erlang:not/1",
@@ -5567,6 +5596,7 @@
         "erlang:spawn/1",
         "erlang:spawn_link/1",
         "erlang:spawn_monitor/1",
+        "erlang:split_binary/2",
         "erlang:start_timer/3",
         "erlang:subtract/2",
         "erlang:throw/1",

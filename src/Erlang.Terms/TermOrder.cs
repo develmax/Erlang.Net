@@ -27,6 +27,8 @@ public static class TermOrder
         int rank = Rank(a).CompareTo(Rank(b));
         if (rank != 0)
             return rank;
+        if (ReferenceEquals(a, b))
+            return 0;
         switch (a, b)
         {
             case (Integer x, Integer y):

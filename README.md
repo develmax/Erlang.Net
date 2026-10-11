@@ -69,3 +69,5 @@ No packages are published. The prototype package targets net10.0. Install the lo
 Source formatting: `dotnet run --project tools/Erlang.Style -- --write .`. The full validation script checks layout with `--check`. This development tool uses the pinned SDK's Roslyn formatter and repository-specific spacing/argument rules; it does not process native-Erlang hybrid Program.cs. Detailed numbered work history is indexed in [CHANGELOG](CHANGELOG.md); append only to its latest volume, rolling over at 32 KiB or 400 lines.
 
 Tests are a dependency-free executable harness and return a failing exit code on any failed assertion. `dotnet test` is not the test entry point. A separate differential runner requires an exact OTP 29.1.1 development oracle; production execution and builds do not.
+
+The erlang module currently registers **133/351** pinned exports; [erlang scope ledger](docs/ERLANG_COMPATIBILITY.md) lists all implemented and missing APIs. Latest local113 passes2626/full; original2233/same-head CI pending114. Failed112 evidence is retained; module completion remains an active goal.

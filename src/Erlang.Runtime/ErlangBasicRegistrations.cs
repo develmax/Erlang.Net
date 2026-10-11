@@ -100,13 +100,6 @@ internal static class ErlangBasicRegistrations
             (context, arguments) =>
         {
             Term[] values = Cons.Items(arguments[1]).ToArray();
-            if (arguments[0] is TupleTerm { Items.Count: 2 } pair)
-                return context.Runtime.Modules.Call(
-                    context,
-                    CoreModules.AtomName(pair.Items[0]),
-                    CoreModules.AtomName(pair.Items[1]),
-                    values
-                );
 
             return ListCallback.Invoke(context, arguments[0], values);
         }

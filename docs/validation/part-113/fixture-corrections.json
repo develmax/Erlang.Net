@@ -1,0 +1,82 @@
+{
+  "Changes": [
+    {
+      "Name": "erlang-basic-export-apply-2",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->3=apply(fun(A,B)->A+B end,[1,2]),[b,a]=apply({lists,reverse},[[a,b]]),done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->3=apply(fun(A,B)->A+B end,[1,2]),try apply({lists,reverse},[[a,b]]) of _->unexpected catch error:{badfun,{lists,reverse}}->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Correct provisional tuple-success assertion and implementation after source-confirmed native112 rejection"
+    },
+    {
+      "Name": "erlang-basic-tuple-immutable",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->T={a,b},U=setelement(2,T,c),{a,b}=T,{a,c}=U,{x}=insert_element(1,{},x),{}=delete_element(1,{x}),{}=make_tuple(0,default,[]),done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->T={a,b},U=setelement(2,T,c),{a,b}=T,{a,c}=U,{x}=erlang:insert_element(1,{},x),{}=erlang:delete_element(1,{x}),{}=erlang:make_tuple(0,default,[]),done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-initialization",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->{x,b,c}=make_tuple(3,x,[{3,a},{2,b},{3,c}]),try make_tuple(0,x,[{1,y}]) of _->unexpected catch error:badarg->ok end,try make_tuple(2,x,[{1,a}|wrong]) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->{x,b,c}=erlang:make_tuple(3,x,[{3,a},{2,b},{3,c}]),try erlang:make_tuple(0,x,[{1,y}]) of _->unexpected catch error:badarg->ok end,try erlang:make_tuple(2,x,[{1,a}|wrong]) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-90",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try insert_element(2,{},x) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:insert_element(2,{},x) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-91",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try delete_element(1,{}) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:delete_element(1,{}) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-92",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try append_element(wrong,x) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:append_element(wrong,x) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-93",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try make_tuple(-1,x) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:make_tuple(-1,x) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-94",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try make_tuple(16777216,x) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:make_tuple(16777216,x) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-95",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try make_tuple(2,x,[wrong]) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:make_tuple(2,x,[wrong]) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    },
+    {
+      "Name": "erlang-basic-tuple-error-96",
+      "BeforeSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try make_tuple(2,x,[{0,y}]) of _->unexpected catch error:badarg->ok end,done.",
+      "AfterSource": "-module(oracle_erlang_basic). -export([run/0]). run()->try erlang:make_tuple(2,x,[{0,y}]) of _->unexpected catch error:badarg->ok end,done.",
+      "IndependentExpected": "{ok,done}",
+      "Reason": "Explicit erlang qualification per pinned erl_internal non-auto-import tuple BIF declarations"
+    }
+  ],
+  "Count": 10,
+  "AllEarlierBasicNamesAndFinalExpectationsPreserved": true,
+  "Historical778And1016And84Unchanged": true,
+  "NewModules": 240,
+  "NewDataModules": 239,
+  "NewBasicTupleRejection": 1,
+  "FinalCompiledModules": 1371,
+  "PlannedOriginal": 2233
+}
