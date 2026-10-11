@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "maps-operations-none",
+    "Source": "-module(oracle_map_operations). -export([run/0]). run()->#{}=maps:map(fun(_,V)->V end,none),#{}=maps:filter(fun(_,_)->true end,none),seed=maps:fold(fun(_,_,_)->unexpected end,seed,none),done.",
+    "SourceSha256": "E80B55A917538D5C1D2E2B47B446F16EFBF322ABBB415891CD13C451A3404293",
+    "CSharpSha256": "EE9195ACD9F3E89E22E38EE72B0A1FF9544A8DEFAFDC56437EF885CF0648C01A",
+    "Expected": "{ok,#{}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "maps-operations-duplicate-iterator-keys",
+    "Source": "-module(oracle_map_operations). -export([run/0]). run()->put(counter,0),#{a:=2}=maps:map(fun(_,_)->V=get(counter)+1,put(counter,V),V end,[ [a,a] | #{a=>old} ]),done.",
+    "SourceSha256": "013DF588D52F08FA300C4D763B8E3F1E1D3671DD2567ED65A2AEF8FA992AAF00",
+    "CSharpSha256": "6BB5C6D8A0B9F4A356A72BCD9061A3A1B94CC71906E50E13AC8FBED2C2011D92",
+    "Expected": "{ok,#{a=>2}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "records-guard-orelse-invalid-left",
+    "Source": "-module(oracle_records). -export([run/0]). -record(state,{a=first,b=second,c}). run()->yes=case wrong of X when X#state.a=:=42 orelse true->yes;_->no end,done.",
+    "SourceSha256": "7FD6C6085075E9E3DCF9C02EAF5B9206496AD1EC8577EB3D1275174D53776369",
+    "CSharpSha256": "118251E2470036E93DC94D27336D715C003D54C1AD5ADF2F9F85AB380E7839EC",
+    "Expected": "{error,error,{badmatch,no}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  }
+]
