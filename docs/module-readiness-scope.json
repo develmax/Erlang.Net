@@ -102,8 +102,7 @@
       "Project": "src/Erlang.Runtime/CoreModules.cs",
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
-        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites",
-        "fun_to_list must return UTF8 bytes; native -eval init phase differs from completed managed bootstrap; repair and repeat whole original125/126"
+        "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
       "Implemented": [
         "erlang/lists/maps/io registered subset",
@@ -119,7 +118,8 @@
         "Twenty clock/calendar exports and four timer option exports;24 new real MFAs,115 independent modules,verified against original2523/2523 and2959/full same-head CI118 at0aabf20; erlang170/351",
         "Eleven MD5/raise/process-query/node/scheduling MFAs and134 compiled cases;verified against original2657/2657 and3105/full same-head CI120 at4aa285d;erlang181/351,total331",
         "Seven external-function/query/error argument/info/nif MFAs and94 compiled cases;verified against original2751/2751 and3207/full same-head CI122 at069b560;erlang188/351,total338",
-        "Four local-function introspection/text MFAs with actual code/free environments/init owner; original124 complete2805/2808 exposes UTF8/status mismatch; whole erlang unfinished"
+        "Four local-function introspection/text MFAs with actual code/free environments/init owner; original124 complete2805/2808 exposes UTF8/status mismatch; whole erlang unfinished",
+        "Source-directed UTF8 byte-list conversion125 plus local Unicode regression; init observation accepts actual starting/started lifecycle phase. Local3271/full; full original126 pending"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [

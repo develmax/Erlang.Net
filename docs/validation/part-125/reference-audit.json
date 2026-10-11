@@ -1,0 +1,25 @@
+{
+  "CorrectionBasis": "Immutable124 native failures: raw UTF8 buf_to_intlist and actual init boot phase",
+  "Reuse": "Existing SDK Encoding.UTF8 and immutable Cons; no new dependency, consolidated source notices unchanged",
+  "Baseline": "OTP-29.1.1",
+  "OriginalStatus": "Pending126",
+  "Historical122": 1889,
+  "NewCompiledModules": 1,
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_printf_term.c",
+      "BlobSHA1": "1ade17c7621e0c87901f41dd149b0f5b516418a4"
+    },
+    {
+      "Path": "erts/preloaded/src/init.erl",
+      "BlobSHA1": "d09a1ed23bf1da13c76180230ef357d0a14e90ba"
+    }
+  ],
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NewExports": 0,
+  "UnchangedModules": 1943
+}

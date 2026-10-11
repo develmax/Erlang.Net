@@ -161,8 +161,8 @@ public static class ErlangFunctionInfoCases
         );
         Add(
             "local-init-status",
-            "P=whereis(init),P!{self(),get_status},receive {init,S}->S after 1000->timeout end",
-            Term.Tuple(Term.A("started"), Term.A("started"))
+            "P=whereis(init),P!{self(),get_status},receive {init,{Phase,Provided}}->{Phase=:=starting orelse Phase=:=started,Provided=:=started} after 1000->timeout end",
+            Term.Tuple(Term.A("true"), Term.A("true"))
         );
         Add(
             "local-text-coherence",
@@ -232,11 +232,17 @@ public static class ErlangFunctionInfoCases
             Add(
                 "external-text-" + index,
                 "erlang:fun_to_list(erlang:make_fun(" + text.Module + "," + text.Function + ",1))",
-                Term.String(text.Text)
+                Cons.From(System.Text.Encoding.UTF8.GetBytes(text.Text).Select(value => (Term)Term.I(value)))
             );
         }
         foreach (string call in new[] { "erlang:fun_info(not_fun)", "erlang:fun_info(not_fun,type)", "erlang:fun_info_mfa(not_fun)", "erlang:fun_to_list(not_fun)", "erlang:fun_info(maker(1,2),invalid)", "erlang:fun_info(maker(1,2),[])", "erlang:fun_info(erlang:make_fun(erlang,length,1),invalid)" })
             Add("invalid-" + cases.Count, "try " + call + " catch error:badarg->badarg end", Term.A("badarg"));
+
+        cases.Add(new(
+            "erlang-fun-info-local-unicode-text",
+            "-module('λ😀'). -export([run/0]). run()->F=fun()->ok end,L=erlang:fun_to_list(F),{lists:prefix([35,70,117,110,60,206,187,240,159,152,128,46],L),lists:last(L)}.",
+            Term.Tuple(Term.A("ok"), Term.Tuple(Term.A("true"), Term.I(62)))
+        ));
 
         return cases.AsReadOnly();
     }

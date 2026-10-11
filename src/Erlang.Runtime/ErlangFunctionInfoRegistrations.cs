@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Erlang;
 
 internal static class ErlangFunctionInfoRegistrations
@@ -54,7 +56,9 @@ internal static class ErlangFunctionInfoRegistrations
             ErlangModuleNames.Module,
             ErlangFunctionInfoNames.ToList,
             1,
-            (_, arguments) => ValueTask.FromResult(Term.String(FunctionText.Format(Require(arguments[0]))))
+            (_, arguments) => ValueTask.FromResult(Cons.From(
+                Encoding.UTF8.GetBytes(FunctionText.Format(Require(arguments[0]))).Select(value => (Term)Term.I(value))
+            ))
         );
     }
 
