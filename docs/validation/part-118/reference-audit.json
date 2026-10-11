@@ -1,0 +1,47 @@
+{
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_time_sup.c",
+      "BlobSHA1": "6f35902fa91d7543d1d7fc1dfc4c338810e6f17c"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_time.h",
+      "BlobSHA1": "b560fa8c64e45531ce15d04b315397f60e93d354"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_unique.c",
+      "BlobSHA1": "08accfd1223d4b89c33ddcfcc8ba387ea9c3f14c"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_hl_timer.c",
+      "BlobSHA1": "f5bd571b027468339f7307761cbd4a33df13437b"
+    },
+    {
+      "Path": "erts/emulator/test/time_SUITE.erl",
+      "BlobSHA1": "9938a3cb1ab903540d8db1f29c58ee4bdefcac31"
+    },
+    {
+      "Path": "erts/emulator/test/timer_bif_SUITE.erl",
+      "BlobSHA1": "fbe8dd5f33ad4f94790b74451b0e919340205ce2"
+    }
+  ],
+  "OracleIsolation": "Fresh VM per unchanged input; maximum two concurrent children; ordered consumption and per-case report checkpoints; cleanup tests",
+  "OriginalStatus": "Pending part118",
+  "NewCompiledModules": 115,
+  "NewExports": 24,
+  "Reuse": "Existing SDK Stopwatch,BigInteger,TimeZoneInfo,Tasks and immutable Roslyn references; no added dependencies",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AlteredSource": "Native Gregorian formulas/ranges,clock epoch/floor and timer options/bounds adapted to C# under consolidated Ericsson Apache notices",
+  "Baseline": "OTP-29.1.1",
+  "Boundaries": [
+    "OS time correction/time-warp and offset monitors",
+    "Native scheduler unique-number distribution/exhaustion",
+    "tzdb/libc historical/DST gap/ambiguity/far-future equivalence",
+    "External reference kind/scheduler metadata and precise timer races",
+    "Full stacks,error_info,resources,exhaustive Common Test and OTP performance parity"
+  ]
+}

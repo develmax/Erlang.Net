@@ -408,3 +408,6 @@ Local atom/float-output increment:146/351,total296,205missing;2816/full,175 new 
 
 ## Part117 active checkpoint
 Clock/calendar/timer24-MFA increment:170/351,181missing,total320;2959/full local,115 new modules,2523 native plan778/1661/84. All116 historical sources/outcomes/hashes preserved. Publish117,freeze executable sources for118;bounded two-fresh-VM prefetch preserves order/failure source/cleanup.0017 active,closed0016 SHA256 D58AB614455EE39C1254460DC6F760B516E6A73543212F30807E328A7B13B5B1. Goal continues through ETF/function/hash/process/native-record/code/ports/distribution/tracing/host prerequisites. No full timezone/warp/resources/stacks/performance proof.
+
+## Part118 active checkpoint
+Original2523/2523=778/1661/84 and same-head2959/full CI pass at0aabf20;strict source/hash/independent/provenance guards;all116778/1546/84 unchanged.320MFAs,erlang170/351,181missing,312types. Publish118 proof,then integrate MD5 immutable context and explicit raise normalization/propagation;MD5 ignored draft53pass,raise43compile-only. Full OS warp/timezone/ref metadata/races/stacks/resources/performance remain explicit.0017 active,closed0016 unchanged. User completion goal persists through all remaining exports.

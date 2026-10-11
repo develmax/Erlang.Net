@@ -1,10 +1,10 @@
 # Progress checkpoint — 2026-10-11
 
-Part117 adds24 real clock/calendar/timer-option MFAs and115 compiled contracts; erlang170/351,181 missing,total320; local2959/full. [Evidence](validation/part-117/tests.json),[source scope](validation/part-117/reference-audit.json). Original2523 and same-head2959/full CI118 pending; historical116 remains2408/2408 at44ca437. User goal remains active; no full compatibility/performance claim.
+Part118: clock/calendar/timer increment at0aabf20 passes **2523/2523 original and2959/full same-head CI**. [Provenance](validation/part-118/remote-checkpoint.json). Registry320,erlang170/351,181 missing. All116778/1546/84 retained;115 new independent modules verified. Whole erlang goal active; next incremental MD5/explicit raise stacks,then real remaining runtime prerequisites.
 
 The **full work.md assignment is not complete**. Overall completion is approximately **10%** after the early functional platform milestone, a coarse engineering estimate, not measured semantic compatibility. Most OTP services/exports, distribution, advanced runtime, full grammar, IDE/debugger work and reference-suite hardening remain unfinished. There is no reliable weighted contract denominator.
 
-Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–117.
+Reference: **OTP-29.1.1**, SHA ad05823719d77c8faee87348ea39513d4e2f99c5. SDK 10.0.400, C# 14, net10.0. Implementation is in this repository; the sibling reference checkout is unchanged. Production builds/execution need C#/.NET and do not require Erlang/BEAM. Detailed English history and immutable reports: [CHANGELOG](../CHANGELOG.md), parts 001–118.
 
 | Work unit | Current deliverable | Status |
 | --- | --- | --- |

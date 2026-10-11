@@ -70,4 +70,4 @@ Source formatting: `dotnet run --project tools/Erlang.Style -- --write .`. The f
 
 Tests are a dependency-free executable harness and return a failing exit code on any failed assertion. `dotnet test` is not the test entry point. A separate differential runner requires an exact OTP 29.1.1 development oracle; production execution and builds do not.
 
-The erlang module currently registers **170/351** pinned exports; [scope ledger](docs/ERLANG_COMPATIBILITY.md) lists181 missing APIs. Clock/calendar/timer increment117 passes [2959/full local](docs/validation/part-117/tests.json). Original2523/same-head2959 CI118 pending; latest complete [2408/2408 original and2816/full CI116](docs/validation/part-116/remote-checkpoint.json) remains historical. Whole-module completion is the active goal.
+The erlang module currently registers **170/351** pinned exports; [scope ledger](docs/ERLANG_COMPATIBILITY.md) lists181 missing APIs. Clock/calendar/timer head0aabf20 passes [2523/2523 original and2959/full same-head CI118](docs/validation/part-118/remote-checkpoint.json). Work continues until the whole module is complete.
