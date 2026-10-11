@@ -1,0 +1,10 @@
+{
+  "Name": "maps-completion-iterator-valid-first-only",
+  "Source": "-module(oracle_maps_completion). -export([run/0]). run()->I=[[a,missing]|#{a=>1}],true=maps:is_iterator_valid(I),try maps:to_list(I) of _->unexpected catch error:{badmap,I}->ok end,done.",
+  "SourceSha256": "A00AE6723756243721409DDD82AE3592207497DA606101A9B6B22FFC8CE6C84D",
+  "CSharpSha256": "4B581D5E6304CAA361A1A800F17C5FF634AD3B0D11C8D945EF89C08E091E0611",
+  "Expected": "{error,error,{badmatch,false}}",
+  "FixtureExpected": "{ok,done}",
+  "Actual": "{ok,done}",
+  "Passed": false
+}
