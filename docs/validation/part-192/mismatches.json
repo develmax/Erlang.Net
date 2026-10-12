@@ -1,0 +1,40 @@
+[
+  {
+    "Name": "erlang-term-display-map",
+    "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+    "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+    "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{ok,done}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+    "ExpectedStandardErrorHex": "",
+    "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+    "NativeStandardErrorHex": "",
+    "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+    "SdkStandardErrorHex": "",
+    "StandardStreamsMatch": false,
+    "Passed": false
+  },
+  {
+    "Name": "erlang-node-spawn-tuple-callback",
+    "Source": "-module(node_spawn_contract). -export([run/0,worker/1,tuple_child/0]). run()->Self=self(),true=register(node_spawn_owner,Self),P=erlang:spawn(node(),{node_spawn_contract,tuple_child}),true=is_pid(P),Ref=monitor(process,P),receive {'DOWN',Ref,process,P,{{badfun,_},_}}->ok;{'DOWN',Ref,process,P,noproc}->ok after 1000->error(no_down) end,receive {tuple_ready,_}->error(unexpected_tuple_apply) after 0->ok end,done. worker(Parent)->Parent!{ready,self(),group_leader()},receive stop->ok end. tuple_child()->whereis(node_spawn_owner)!{tuple_ready,self()}.",
+    "SourceSha256": "1FE0A6EB579160174B11A54630FA4BAD787FCEBAA5B616199CBBF5FC8424AD00",
+    "CSharpSha256": "839B884C011B15489FF410904781040EBC86CDE2A0DA3FBD3C3540930FD6029F",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{ok,<nonode@nohost.84.0>}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "NativeStandardOutputHex": null,
+    "NativeStandardErrorHex": null,
+    "SdkStandardOutputHex": null,
+    "SdkStandardErrorHex": null,
+    "StandardStreamsMatch": true,
+    "Passed": false
+  }
+]
