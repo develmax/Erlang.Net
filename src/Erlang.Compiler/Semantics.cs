@@ -16,6 +16,7 @@ public static class Semantics
         foreach (var f in module.Functions)
             foreach (var clause in f.Clauses)
                 ValidateClause(clause, [], false);
+        LocalCallValidation.Validate(module);
     }
 
     public static void Validate(Expr expression) => Walk(expression, [], false);

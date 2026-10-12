@@ -18,5 +18,6 @@ public enum DiagnosticCaseKind
     RecordPredicateGuard,
     RecordPredicateThreeGuard,
     CharacterLiteralIllegal,
-    CharacterLiteralUnterminated
+    CharacterLiteralUnterminated,
+    UndefinedFunction
 }

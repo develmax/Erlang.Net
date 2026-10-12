@@ -6,6 +6,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
     private readonly Dictionary<Pid, ProcessContext> processes = new();
     private readonly ProcessSlotTable processSlots;
     public int ProcessLimit => processSlots.Capacity;
+    public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
     private readonly Dictionary<string, Pid> names = new(StringComparer.Ordinal);
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
@@ -371,8 +372,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
             Node,
             [
             (uint)(value & ReferenceIdentityLayout.LocalFirstWordMask),
-            (uint)(value >> ReferenceIdentityLayout.LocalFirstWordBits),
-            (uint)(value >> (ReferenceIdentityLayout.LocalFirstWordBits + ReferenceIdentityLayout.WordBits))
+            (uint)value & ReferenceNumberLayout.CountMiddleMask | ReferenceNumberLayout.HostDomain,
+            (uint)(value >> ReferenceNumberLayout.CountHighShift)
         ]
         );
     }

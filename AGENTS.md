@@ -567,3 +567,7 @@ Part157:actual current-code module_loaded1/loaded0 and bounded process-table pro
 ## Part158 checkpoint
 
 Part158:incomplete source-built original **4004/4167 passed,163 unexecuted**,zero executed mismatches;erl_lint rejects unqualified loaded/0 before comparison. **4702/full same-head CI** at5128765. [Raw failure](validation/part-158/differential.json),[guard](validation/part-158/strict-guard.json). Sources/expectations/hashes/policies/exclusions unchanged;latest complete success1564121. Registry389;erlang239/351,112 missing,68.1% API presence. Preserve rejected source as a permanent diagnosis,audit compiler auto-import/call resolution and explicitly qualify only invalid fixtures before rerun. Reference text remains isolated;whole goal continues.
+
+## Part159 checkpoint
+
+Part159:local reference text/allocator carry and exact183-signature function resolution pass **4792/full local**. Three loaded sources qualified with [migration ledger](validation/part-159/fixture-migration.json);other3272 modules/all old expectations/policies,120 diagnoses,778 expressions/six exclusions preserved. Registry391;erlang241/351,110 missing,**68.7% API presence**,not completion. New-head native4253/same-head CI pending160;latest complete native1564121;158 incomplete4004/4167 retained. pre_loaded0 is auto-imported. Connected channels/magic resources/schedulers/import attributes/full suites/performance unfinished;continue whole erlang goal.

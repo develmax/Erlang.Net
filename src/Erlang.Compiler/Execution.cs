@@ -490,6 +490,8 @@ public static class Execution
                     {
                         if (RecordPredicateSyntax.TupleTest(x) is { } predicate)
                             return RecordPredicateSyntax.Test(predicate.StaticApply ? Cons.Items(args[2]).First() : args[0], predicate);
+                        if (x.Module is null && !AutoImportSignatures.Contains(x.Function, args.Length))
+                            throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
 
                         return await ctx.Runtime.Modules.Call(
                             ctx,

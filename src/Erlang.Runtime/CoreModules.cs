@@ -739,6 +739,7 @@ public static class CoreModules
         PacketDecodeRegistrations.Register(r);
         ModuleLoadingRegistrations.Register(r);
         ProcessTableRegistrations.Register(r);
+        ReferenceTextRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);

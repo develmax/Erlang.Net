@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-157/tests.json",
-  "LocalPassedTests": 4702,
-  "RegisteredMfas": 389,
+  "ComparisonTestReport": "validation/part-158/ci-tests.json",
+  "LocalPassedTests": 4792,
+  "RegisteredMfas": 391,
   "PreviousRegisteredMfas": 389,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 2,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -66,7 +66,8 @@
         "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending",
         "Part153:four actual local identifier text APIs,byte-list/unsigned wrap/NUL/header/field validation,opaque port identities without OS ports;77 independent modules;4329/full local;original154 pending",
         "Part155:source-directed decode_packet3 all selectors/framing/HTTP/TLS/options,320 independent packet modules,immutable protocol/catalog atom reuse;4650/full local",
-        "Part157:bounded sparse process table/default1048576 capacity,slot reuse/distinct opaque PID,source-shaped iterator;1001-child batched walk/capacity/stale-PID host checks;4702/full local"
+        "Part157:bounded sparse process table/default1048576 capacity,slot reuse/distinct opaque PID,source-shaped iterator;1001-child batched walk/capacity/stale-PID host checks;4702/full local",
+        "Part159:ref_to_list/list_to_ref actual local identity text;allocator carry/flags beyond262144;4792/full local;native4253 pending160"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -75,7 +76,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 287
+      "RelatedPassedTests": 290
     },
     {
       "Id": "Compiler",
@@ -101,14 +102,15 @@
         "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented",
         "Part151:literal name/integer-or-atom size restriction for is_record3 guards;exact published invalid source retained as rejection;4179/full local;original152 pending",
         "Part153:Unicode character literals/simple/control/octal/hex escapes,UTF16 offsets and malformed scanner cases;record raw-zero/unary evaluation and compiled known positive tuple tests versus weak dynamic BIF;4329/full local;original154 pending",
-        "Part157:atomic owned current-code/export publication including parsed zero-export modules;rollback/concurrent reader proof;no fabricated hot-code/on_load states"
+        "Part157:atomic owned current-code/export publication including parsed zero-export modules;rollback/concurrent reader proof;no fabricated hot-code/on_load states",
+        "Part159:exact183 pinned auto-import signatures;undefined local calls ERL005/standalone undef;three loaded fixture qualifications with hash ledger;pre_loaded0 is auto-imported"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 846
+      "RelatedPassedTests": 854
     },
     {
       "Id": "Core library modules",
@@ -138,7 +140,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1428
+      "RelatedPassedTests": 1430
     },
     {
       "Id": "gen_server adapters",
@@ -241,7 +243,8 @@
         "Part155:preserve2909 old sources/expectations/hashes/policies and120 diagnoses/778 expression inputs/six exclusions;320 new packet modules;original4121 pending156",
         "Part156:complete4121/4121 source-built original and4650/full same-head CI;155 contracts preserved;all selected comparisons match;continue remaining APIs",
         "Part157:preserve3229 modules/hashes/policies,120 diagnoses/778 expressions/six exclusions;18 current-code/28 process-table modules;original4167 pending158",
-        "Part158:4004 actual native matches before unqualified loaded0 compiler rejection;163 unexecuted/zero executed mismatches;4702/full same-head CI;no complete proof"
+        "Part158:4004 actual native matches before unqualified loaded0 compiler rejection;163 unexecuted/zero executed mismatches;4702/full same-head CI;no complete proof",
+        "Part159:3272 old modules unchanged/three qualification-only migrations;120 old diagnoses/778 expressions/six exclusions preserved;79 modules/seven diagnoses added;4253 new-head plan"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -251,7 +254,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3412
+      "RelatedPassedTests": 3498
     },
     {
       "Id": "Style checks",
@@ -5520,11 +5523,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 239,
+      "RegisteredMfas": 241,
       "PreviousRegisteredMfas": 239,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 68.1,
+      "ApiPresencePercent": 68.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5676,6 +5679,7 @@
         "erlang:list_to_integer/2",
         "erlang:list_to_pid/1",
         "erlang:list_to_port/1",
+        "erlang:list_to_ref/1",
         "erlang:list_to_tuple/1",
         "erlang:loaded/0",
         "erlang:localtime/0",
@@ -5720,6 +5724,7 @@
         "erlang:raise/3",
         "erlang:read_timer/1",
         "erlang:read_timer/2",
+        "erlang:ref_to_list/1",
         "erlang:register/2",
         "erlang:registered/0",
         "erlang:rem/2",

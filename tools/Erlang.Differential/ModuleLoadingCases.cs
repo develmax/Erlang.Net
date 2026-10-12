@@ -35,15 +35,15 @@ public static class ModuleLoadingCases
         );
         Add(
             "list-no-autoload",
-            "false=module_loaded(module_loading_not_present),L=loaded(),false=lists:member(module_loading_not_present,L),false=module_loaded(module_loading_not_present)"
+            "false=module_loaded(module_loading_not_present),L=erlang:loaded(),false=lists:member(module_loading_not_present,L),false=module_loaded(module_loading_not_present)"
         );
         Add(
             "query-pure",
-            "P=self(),true=module_loaded(module_loading_contract),undefined=get(module_loading_query_mark),put(module_loading_query_mark,kept),L1=loaded(),L2=loaded(),true=(lists:usort(L1)=:=lists:usort(L2)),kept=get(module_loading_query_mark),P=self()"
+            "P=self(),true=module_loaded(module_loading_contract),undefined=get(module_loading_query_mark),put(module_loading_query_mark,kept),L1=erlang:loaded(),L2=erlang:loaded(),true=(lists:usort(L1)=:=lists:usort(L2)),kept=get(module_loading_query_mark),P=self()"
         );
         Add(
             "child-current",
-            "Parent=self(),{P,R}=spawn_monitor(fun()->Parent!{self(),module_loaded(module_loading_contract),lists:member(module_loading_contract,loaded())} end),receive {P,true,true}->ok after 1000->error(missing) end,receive {'DOWN',R,process,P,normal}->ok after 1000->error(missing) end"
+            "Parent=self(),{P,R}=spawn_monitor(fun()->Parent!{self(),module_loaded(module_loading_contract),lists:member(module_loading_contract,erlang:loaded())} end),receive {P,true,true}->ok after 1000->error(missing) end,receive {'DOWN',R,process,P,normal}->ok after 1000->error(missing) end"
         );
         int index = 0;
         foreach (string value in new[] { "0", "-1", "576460752303423488", "1.0", "[]", "[erlang]", "<<\"erlang\">>", "{}", "#{a=>1}", "self()", "make_ref()", "fun()->ok end" })

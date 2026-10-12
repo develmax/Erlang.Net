@@ -3110,5 +3110,21 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:processes_next/1",
     "Limits": "Actual owned current-code/process state;46 modules/4702 full local tests. Original4167/CI pending158. Backend inventory/cursors differ;hot-code/on_load/NIF/native reductions/lock-free PID layout/resources/full upstream suite outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "ref_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:ref_to_list/1",
+    "Limits": "Local ordinary/tagged PID reference text;71 modules and allocation carry host check;4792/full local. Native4253/CI pending160. Managed reference domain capacity differs;connected channels/native magic resources/full upstream suite outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "list_to_ref",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_ref/1",
+    "Limits": "Local ordinary/tagged PID reference text;71 modules and allocation carry host check;4792/full local. Native4253/CI pending160. Managed reference domain capacity differs;connected channels/native magic resources/full upstream suite outside proof."
   }
 ]
