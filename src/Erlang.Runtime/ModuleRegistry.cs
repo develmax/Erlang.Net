@@ -8,6 +8,8 @@ public sealed class ModuleRegistry
     private readonly Dictionary<(string Module, string Function, int Arity), ErlangFunction> functions = new();
     private readonly Dictionary<string, Atom> loadedModules = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Atom> preloadedModules = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, ModuleCodeDescriptor> codeDescriptors = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, ModuleInformationSnapshot> informationSnapshots = new(StringComparer.Ordinal);
 
     public void Register(
         string module,
@@ -22,6 +24,7 @@ public sealed class ModuleRegistry
         {
             functions.Add((module, function, arity), body);
             PublishModule(module);
+            informationSnapshots.Remove(module);
         }
     }
 
@@ -59,6 +62,48 @@ public sealed class ModuleRegistry
     {
         lock (gate)
             return loadedModules.ContainsKey(module);
+    }
+
+    public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
+    {
+        ArgumentNullException.ThrowIfNull(descriptor);
+        lock (gate)
+        {
+            PublishModule(module);
+            codeDescriptors[module] = descriptor;
+            informationSnapshots.Remove(module);
+        }
+    }
+
+    public Term ModuleInformation(string module, string? key = null)
+    {
+        lock (gate)
+        {
+            if (!informationSnapshots.TryGetValue(module, out var snapshot))
+            {
+                if (!loadedModules.ContainsKey(module))
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                var entries = functions.Where(entry => entry.Key.Module == module).Select(entry => (Signature: (entry.Key.Function, entry.Key.Arity), Body: entry.Value)).ToArray();
+                codeDescriptors.TryGetValue(module, out var descriptor);
+                if (descriptor is null && entries.Length == 0)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                var exports = entries.Select(entry => entry.Signature).ToArray();
+                var signatures = descriptor is null ? exports : descriptor.Functions.Concat(exports);
+                var additional = descriptor is null ? entries : entries.Where(entry => !descriptor.Exports.Contains(entry.Signature)).ToArray();
+                BitString fingerprint = descriptor is not null && additional.Length == 0 ? descriptor.Fingerprint : ModuleCodeFingerprints.Registered(module, additional, descriptor?.Fingerprint);
+                Term compilation = descriptor?.Compilation ?? ModuleCodeFingerprints.Compilation(typeof(ModuleRegistry));
+                snapshot = new ModuleInformationSnapshot(
+                    module,
+                    exports,
+                    signatures,
+                    fingerprint,
+                    compilation
+                );
+                informationSnapshots.Add(module, snapshot);
+            }
+
+            return key is null ? snapshot.All : snapshot.Field(key);
+        }
     }
 
     public IReadOnlyCollection<string> LoadedModules
@@ -126,6 +171,8 @@ public sealed class ModuleRegistry
             var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
             var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
             var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
+            var previousDescriptors = new Dictionary<string, ModuleCodeDescriptor>(codeDescriptors, StringComparer.Ordinal);
+            var previousInformation = new Dictionary<string, ModuleInformationSnapshot>(informationSnapshots, StringComparer.Ordinal);
             try
             {
                 configure(this);
@@ -141,6 +188,12 @@ public sealed class ModuleRegistry
                 preloadedModules.Clear();
                 foreach (var module in previousPreloaded)
                     preloadedModules.Add(module.Key, module.Value);
+                codeDescriptors.Clear();
+                foreach (var entry in previousDescriptors)
+                    codeDescriptors.Add(entry.Key, entry.Value);
+                informationSnapshots.Clear();
+                foreach (var entry in previousInformation)
+                    informationSnapshots.Add(entry.Key, entry.Value);
                 throw;
             }
         }

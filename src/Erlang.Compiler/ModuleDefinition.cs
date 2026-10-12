@@ -1,11 +1,17 @@
 using System.Globalization;
 using System.Numerics;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace Erlang.Compiler;
 
 public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, int Arity)> Exports, IReadOnlyList<FunctionDefinition> Functions)
 {
+    public IReadOnlyList<(string Name, int Arity)> DeclaredExports { get; } = Array.AsReadOnly(Exports.ToArray());
+    public IReadOnlyList<FunctionDefinition> DeclaredFunctions { get; } = Array.AsReadOnly(Functions.ToArray());
+    public IReadOnlyList<(string Name, int Arity)> Exports { get; init; } = PredefinedModuleFunctions.Exports(Exports);
+    public IReadOnlyList<FunctionDefinition> Functions { get; init; } = PredefinedModuleFunctions.Add(Name, Functions);
+
     public void Register(ModuleRegistry registry)
     {
         Otp.OtpModules.Register(registry);
@@ -28,6 +34,15 @@ public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, i
                     )
                 );
             target.PublishModule(Name);
+            target.PublishModuleCode(
+                Name,
+                new ModuleCodeDescriptor(
+                    Functions.Select(function => (function.Name, function.Arity)),
+                    Exports,
+                    new BitString(MD5.HashData(Encoding.UTF8.GetBytes(CodeGeneration.ModuleCode(this, string.Empty)))),
+                    ModuleCodeFingerprints.Compilation(typeof(ModuleDefinition))
+                )
+            );
         });
     }
 }

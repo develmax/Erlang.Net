@@ -3,6 +3,7 @@ namespace Erlang;
 public static class ErlangModuleNames
 {
     public const string Module = "erlang";
+    public const string GetModuleInformation = "get_module_info";
     public const string Self = "self";
     public const string Length = "length";
     public const string Head = "hd";

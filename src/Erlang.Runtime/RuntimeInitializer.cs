@@ -22,6 +22,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
             {
                 CoreModules.Register(registry);
                 registry.PublishModule(InitializationNames.Module);
+                registry.PublishModuleCode(InitializationNames.Module, ModuleCodeFingerprints.Owner(typeof(RuntimeInitializer)));
             });
         Completion = Run();
     }

@@ -746,6 +746,7 @@ public static class CoreModules
         ProcessTableRegistrations.Register(r);
         ReferenceTextRegistrations.Register(r);
         PreloadedModuleRegistrations.Register(r);
+        ModuleInformationRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);
