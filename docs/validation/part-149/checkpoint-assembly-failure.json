@@ -1,0 +1,8 @@
+{
+  "Result": "First script guard rejected missing snapshot path before source audit/journal/current-state changes",
+  "Action": "Assemble immutable149 checkpoint",
+  "Repair": "Correct only artifact source path;reuse uncommitted partial snapshots without deleting;runtime/tests unchanged",
+  "ActualExistingSnapshot": "artifacts/part-145-clock-prototype-tests.log",
+  "MissingPath": "artifacts/part-145-prototype-tests.log",
+  "ComponentIdFailure": "Second guard stopped before scope/journal append because component id was Process runtime instead of actual Runtime;corrected artifact script selector only,then resumed unfinished tail"
+}

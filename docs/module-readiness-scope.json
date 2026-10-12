@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-147/tests.json",
+  "ComparisonTestReport": "validation/part-148/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -63,7 +63,8 @@
         "Part137: deferred alias signals validate live owner/reply/priority at receiver admission; pending signals discard after unalias or owner death; stable FIFO and selective wakeups; 3795/full local, original138 pending",
         "Part139: owned process monitor/3,demonitor/2,tag/priority/alias modes,pending DOWN and single-message flush/info; seven exact default-disabled dt_* exports; 97 compiled contracts plus concurrent128-child host check;3902/full local, original140 pending",
         "Part141: actual group-leader inheritance and five group_leader/MFA spawn exports, repaired spawn/1 child apply, monitored io:format/2 device protocol;60 module contracts and128-writer host check;3968/full local, original142 pending",
-        "Part143:four actual exit_signal/2,3,exit/3,link/2 exports;pending alias/link admission,priority ownership and safe terminal cleanup;repair monitored-spawn group leader;79 independent contracts and128-child host check;4052/full local,original144 pending"
+        "Part143:four actual exit_signal/2,3,exit/3,link/2 exports;pending alias/link admission,priority ownership and safe terminal cleanup;repair monitored-spawn group leader;79 independent contracts and128-child host check;4052/full local,original144 pending",
+        "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending"
       ],
       "Id": "Runtime",
       "TestPrefixes": [
@@ -97,7 +98,8 @@
         "Tuple record declarations, creation/default/wildcard field order, strict access/immutable updates, indexes and record_info",
         "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics",
         "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491",
-        "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending"
+        "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending",
+        "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented"
       ],
       "Id": "Compiler",
       "TestPrefixes": [
@@ -132,7 +134,8 @@
         "Four local-function introspection/text MFAs with actual code/free environments/init owner; original124 complete2805/2808 exposes UTF8/status mismatch; whole erlang unfinished",
         "Source-directed UTF8 byte-list conversion125 plus local Unicode regression; init observation accepts actual starting/started lifecycle phase. Local3271/full; full original126 pending",
         "Complete original1282822/2822 and same-head3284/full CI at7b5029c verifies58 function metadata modules plus module-name increment;whole erlang unfinished",
-        "Part129: term_to_binary1/2,term_to_iovec1/2,binary_to_term1/2,external_size1/2;registry350,erlang200/351,151 missing,181 compiled contracts and3477/full local"
+        "Part129: term_to_binary1/2,term_to_iovec1/2,binary_to_term1/2,external_size1/2;registry350,erlang200/351,151 missing,181 compiled contracts and3477/full local",
+        "Part149:three partial erlang exports process_info2/is_record2,3;four actual state fields and tuple-record predicates;clock monitor semantics extended;380 registry/230 erlang presence;original150 pending"
       ],
       "Id": "Core library modules",
       "TestPrefixes": [
@@ -158,7 +161,8 @@
         "C# and Erlang callbacks; ten standard gen_server MFAs",
         "init outcomes/throw returns, call/cast/info, continue/timeout and optional callbacks",
         "local names, terminate-before-stop-reply and monitor-based stop",
-        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial"
+        "Selected registered Erlang callback contracts verified against exact-source OTP-29.1.1 at2fd52f8; complete behaviour remains partial",
+        "Part149:linked monitored startup before init,actual selective ack/nack/DOWN wait,inherited leader,unlink/EXIT flush and atomic named-start races;parent death during init no orphan;4170/full local;original150 pending"
       ],
       "Id": "gen_server adapters",
       "TestPrefixes": [
@@ -193,7 +197,8 @@
         "32 independent significant modules verified against exact-source OTP-29.1.1 at4992a98; full module remains partial",
         "simple_one_for_one single MFA template, appended dynamic arguments and PID/restarting state",
         "Concurrent simple-child shutdown with one timeout budget; source query/stop public APIs",
-        "35 independent simple modules verified against exact-source OTP-29.1.1 at0d6a233; full module remains partial"
+        "35 independent simple modules verified against exact-source OTP-29.1.1 at0d6a233; full module remains partial",
+        "Part149:pre-init parent link/monitor and signal-aware handshake with actual inherited leader;normal failed named registration;static/simple engines share startup protocol;4170/full local;original150 pending"
       ],
       "Id": "supervisor adapters",
       "TestPrefixes": [
@@ -257,7 +262,8 @@
         "Part145:native investigation-only mode with36 planned evaluations and raw run/0 disassembly/outputs;one permanent ASCII/context/options protocol check;4053/full local. Zero native evaluations locally;failed144 retained;no production/fixture changes;original diagnosis146 pending",
         "Part146:36 native compiler/context diagnostic evaluations,zero corpus coverage;4053/full same-head CI. Startup trap context and optimizer-dependent removal of two spawn continuations established;original144 failures retained",
         "Part147:isolated core/SSA/post compiler pass diagnostics added;4054/full local and one transport check;90 native evaluations pending148,zero corpus coverage",
-        "Part148:90 actual native diagnoses isolate SSA continuation removal;4054/full same-head CI;zero compatibility coverage and144 default failures preserved"
+        "Part148:90 actual native diagnoses isolate SSA continuation removal;4054/full same-head CI;zero compatibility coverage and144 default failures preserved",
+        "Part149:2779 SDK modules,2773 native-comparable plus778 expressions/97 diagnoses=3648 plan;107 new modules/four diagnoses;2672 old sources/expectations/hashes,six exclusions preserved;explicit36 trapped callers/two SSA policies;4170/full local;original150 pending"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

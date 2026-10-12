@@ -49,8 +49,10 @@ public static class GenServer
         string? name
     )
     {
-        var ready = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var process = runtime.Spawn(async context =>
+        var startup = new StartupHandshake(parent);
+        var process = startup.Spawn(
+            runtime,
+            async context =>
         {
             Term? state = null;
             Term reason = Term.A(ProcessExitReasons.Normal);
@@ -68,27 +70,24 @@ public static class GenServer
             {
                 if (name is not null)
                 {
-                    if (runtime.WhereIs(name) is Pid existing)
+                    if (!runtime.TryRegisterStartupName(name, context.Self, out Pid? existing))
                     {
-                        ready.TrySetResult(Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing)));
+                        startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing!)));
 
                         return Term.A(BehaviourAtoms.Ok);
                     }
-                    runtime.Register(name, context.Self);
                 }
                 var initial = await callback.Initialize(context, arguments);
                 if (initial.Ignore || initial.Error is not null)
                 {
-                    ready.TrySetResult(initial.Ignore ? Term.A(BehaviourAtoms.Ignore) : Term.Tuple(Term.A(BehaviourAtoms.Error), initial.Error!));
+                    startup.Report(context, initial.Ignore ? Term.A(BehaviourAtoms.Ignore) : Term.Tuple(Term.A(BehaviourAtoms.Error), initial.Error!));
                     if (initial.Error is not null)
                         context.Exit(initial.StartupExitReason ?? initial.Error);
 
                     return Term.A(BehaviourAtoms.Ok);
                 }
                 state = initial.State!;
-                if (link && parent is not null)
-                    runtime.Link(context, parent.Self);
-                ready.TrySetResult(Term.Tuple(Term.A(BehaviourAtoms.Ok), context.Self));
+                startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Ok), context.Self));
                 TimeSpan? timeout = initial.Timeout;
                 Term? continuation = initial.Continue;
                 while (true)
@@ -154,22 +153,22 @@ public static class GenServer
                     ex.ExceptionClass == ErlangExceptionClasses.Throw ? Term.Tuple(Term.A(BehaviourAtoms.NoCatch), ex.Reason) : ex.Reason,
                     ex.StackTraceTerm
                 );
-                ready.TrySetResult(Term.Tuple(Term.A(BehaviourAtoms.Error), reason));
+                startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Error), reason));
                 throw;
             }
             catch (Exception ex)
             {
-                ready.TrySetException(ex);
+                startup.Fail(context, ex);
                 throw;
             }
             finally
             {
                 await Terminate();
             }
-        });
-        Term outcome = await ready.Task;
-        if (outcome is not TupleTerm { Items.Count: 2 } success || success.Items[0] is not Atom { Name: BehaviourAtoms.Ok })
-            await process.Completion;
+        },
+            link
+        );
+        Term outcome = await startup.Wait(process);
 
         return (process, outcome);
     }

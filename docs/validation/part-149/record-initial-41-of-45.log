@@ -1,0 +1,46 @@
+PASS erlang-record-predicate-weak-two
+PASS erlang-record-predicate-sized-three
+PASS erlang-record-predicate-declared-local
+PASS erlang-record-predicate-declared-remote
+PASS erlang-record-predicate-empty-declaration
+PASS erlang-record-predicate-literal-evaluates-once
+PASS erlang-record-predicate-dynamic-two
+FAIL erlang-record-predicate-external-two Expected '(', found 'erlang'
+FAIL erlang-record-predicate-external-three Expected '(', found 'erlang'
+PASS erlang-record-predicate-guard-declared
+PASS erlang-record-predicate-guard-remote
+PASS erlang-record-predicate-guard-dynamic-three
+PASS erlang-record-predicate-guard-disjunction
+PASS erlang-record-predicate-guard-comprehension
+PASS erlang-record-predicate-positive-evaluation-order
+PASS erlang-record-predicate-literal-suppresses-arguments-0
+FAIL erlang-record-predicate-literal-suppresses-arguments--1 {error,error,should_not_execute}
+FAIL erlang-record-predicate-literal-suppresses-arguments--576460752303423489 {error,error,should_not_execute}
+PASS erlang-record-predicate-non-tuple-0
+PASS erlang-record-predicate-non-tuple-1
+PASS erlang-record-predicate-non-tuple-2
+PASS erlang-record-predicate-non-tuple-3
+PASS erlang-record-predicate-non-tuple-4
+PASS erlang-record-predicate-non-tuple-5
+PASS erlang-record-predicate-non-tuple-6
+PASS erlang-record-predicate-non-tuple-7
+PASS erlang-record-predicate-non-tuple-8
+PASS erlang-record-predicate-bad-tag-two-0
+PASS erlang-record-predicate-bad-tag-three-0
+PASS erlang-record-predicate-bad-tag-two-1
+PASS erlang-record-predicate-bad-tag-three-1
+PASS erlang-record-predicate-bad-tag-two-2
+PASS erlang-record-predicate-bad-tag-three-2
+PASS erlang-record-predicate-bad-tag-two-3
+PASS erlang-record-predicate-bad-tag-three-3
+PASS erlang-record-predicate-bad-dynamic-size-0
+PASS erlang-record-predicate-bad-dynamic-size-1
+PASS erlang-record-predicate-bad-dynamic-size-2
+PASS erlang-record-predicate-bad-dynamic-size-3
+PASS erlang-record-predicate-bad-dynamic-size-4
+PASS erlang-record-predicate-valid-dynamic-size-false-0
+PASS erlang-record-predicate-valid-dynamic-size-false-1
+PASS erlang-record-predicate-valid-dynamic-size-false-2
+PASS erlang-record-predicate-valid-dynamic-size-false-3
+PASS erlang-record-predicate-native-module-name-ordinary-terms
+41/45

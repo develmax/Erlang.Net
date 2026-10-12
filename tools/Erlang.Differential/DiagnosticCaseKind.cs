@@ -14,5 +14,6 @@ public enum DiagnosticCaseKind
     NonLatin1Module,
     EmptyModule,
     BlankModule,
-    ControlModule
+    ControlModule,
+    RecordPredicateGuard
 }

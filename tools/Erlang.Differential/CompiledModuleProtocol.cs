@@ -4,10 +4,15 @@ namespace Erlang.Differential;
 
 public static class CompiledModuleProtocol
 {
-    public static string Command(string source)
+    public static string Command(
+        string source,
+        CompiledModuleCallerContext callerContext = CompiledModuleCallerContext.UntrappedFresh,
+        CompiledModuleCompilerPolicy compilerPolicy = CompiledModuleCompilerPolicy.Default
+    )
     {
-        return Load(source) + "OracleOwner=self()," +
+        return Load(source, compilerPolicy) + "OracleOwner=self()," +
             "{OracleRunner,OracleMonitor}=spawn_monitor(fun()->" +
+            "process_flag(trap_exit," + (callerContext == CompiledModuleCallerContext.TrappedFresh ? "true" : "false") + ")," +
             "OracleOutcome=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
             "OracleOwner!{" + NativeModuleResultNames.Tag + ",self(),OracleOutcome} end)," +
             "Result=receive {" + NativeModuleResultNames.Tag + ",OracleRunner,OracleValue}->" +
@@ -20,8 +25,9 @@ public static class CompiledModuleProtocol
         "Result=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end," +
         OracleResultProtocol.Command("Result");
 
-    private static string Load(string source) => Forms(source) +
-        "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings])," +
+    private static string Load(string source, CompiledModuleCompilerPolicy compilerPolicy = CompiledModuleCompilerPolicy.Default) => Forms(source) +
+        "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings" +
+        (compilerPolicy == CompiledModuleCompilerPolicy.DisableSsaOptimization ? "," + OracleInvestigationModes.DisabledSsaOptimization : string.Empty) + "])," +
         "{module,M}=code:load_binary(M,\"differential.erl\",Bin),";
 
     public static string DiagnosticCommand(string source) => Forms(source) +

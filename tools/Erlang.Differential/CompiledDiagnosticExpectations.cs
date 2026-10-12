@@ -33,6 +33,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.RecordPredicateGuard => RecordPredicateDiagnosticExpectations.GuardCode,
         DiagnosticCaseKind.NonLatin1Module or DiagnosticCaseKind.EmptyModule or DiagnosticCaseKind.BlankModule or DiagnosticCaseKind.ControlModule => ModuleDefinitionCode,
         DiagnosticCaseKind.VariableScope => VariableBindingCode,
         DiagnosticCaseKind.StacktraceBound => StacktraceFreshnessCode,
@@ -44,6 +45,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.RecordPredicateGuard => RecordPredicateDiagnosticExpectations.GuardMessage,
         DiagnosticCaseKind.NonLatin1Module => NonLatin1ModuleMessage,
         DiagnosticCaseKind.EmptyModule => EmptyModuleMessage,
         DiagnosticCaseKind.BlankModule => BlankModuleMessage,
@@ -62,6 +64,7 @@ public static class CompiledDiagnosticExpectations
 
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.RecordPredicateGuard => RecordPredicateDiagnosticExpectations.GuardOutcome,
         DiagnosticCaseKind.NonLatin1Module => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(NonLatin1ModuleTag))),
         DiagnosticCaseKind.EmptyModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(EmptyModuleTag))),
         DiagnosticCaseKind.BlankModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(BlankModuleTag))),

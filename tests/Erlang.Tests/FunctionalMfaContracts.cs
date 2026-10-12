@@ -49,14 +49,14 @@ public static class FunctionalMfaContracts
         ("erlang", "start_timer", 3) => "runtime-timer-start-timer",
         ("erlang", "read_timer", 1) => "runtime-timer-read-cancel",
         ("erlang", "cancel_timer", 1) => "runtime-timer-read-cancel",
-        _ => module == "lists" ? ListCompletionCases.FixtureName(function, arity) : module == "erlang" ? ErlangBasicCases.FixtureName(function, arity) ?? ErlangDataCases.FixtureName(function, arity) ?? ErlangTextCases.FixtureName(function, arity) ?? ErlangClockCases.FixtureName(function, arity) ?? ErlangMd5Cases.FixtureName(function, arity) ?? ErlangRaiseCases.FixtureName(function, arity) ?? ErlangProcessQueryCases.FixtureName(function, arity) ?? ExternalFunctionCases.FixtureName(function, arity) ?? ErrorMetadataCases.FixtureName(function, arity) ?? ErlangFunctionInfoCases.FixtureName(function, arity) ?? ErlangEtfCases.FixtureName(function, arity) ?? ErlangHashCases.FixtureName(function, arity) ?? ProcessAliasCases.FixtureName(function, arity) ?? ProcessMonitorCases.FixtureName(function, arity) ?? DynamicTraceCases.FixtureName(function, arity) ?? ProcessSpawnCases.FixtureName(function, arity) ?? ProcessExitCases.FixtureName(function, arity) : null
+        _ => module == "lists" ? ListCompletionCases.FixtureName(function, arity) : module == "erlang" ? ErlangBasicCases.FixtureName(function, arity) ?? ErlangDataCases.FixtureName(function, arity) ?? ErlangTextCases.FixtureName(function, arity) ?? ErlangClockCases.FixtureName(function, arity) ?? ErlangMd5Cases.FixtureName(function, arity) ?? ErlangRaiseCases.FixtureName(function, arity) ?? ErlangProcessQueryCases.FixtureName(function, arity) ?? ExternalFunctionCases.FixtureName(function, arity) ?? ErrorMetadataCases.FixtureName(function, arity) ?? ErlangFunctionInfoCases.FixtureName(function, arity) ?? ErlangEtfCases.FixtureName(function, arity) ?? ErlangHashCases.FixtureName(function, arity) ?? ProcessAliasCases.FixtureName(function, arity) ?? ProcessMonitorCases.FixtureName(function, arity) ?? DynamicTraceCases.FixtureName(function, arity) ?? ProcessSpawnCases.FixtureName(function, arity) ?? ProcessExitCases.FixtureName(function, arity) ?? ProcessInfoCases.FixtureName(function, arity) ?? RecordPredicateCases.FixtureName(module, function, arity) : null
     };
 
     public static async Task Run(string name)
     {
         var fixture = CompiledModuleCases.All.Single(fixture => fixture.Name == name);
         using var artifact = GeneratedModuleCompiler.Compile(fixture.Source);
-        Term actual = await CompiledModuleExecution.Run(artifact);
+        Term actual = await CompiledModuleExecution.Run(artifact, fixture.CallerContext);
         if (!actual.Equals(fixture.Expected))
             throw new InvalidOperationException(actual.ToString());
     }

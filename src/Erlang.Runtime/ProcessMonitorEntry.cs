@@ -6,5 +6,6 @@ internal sealed record ProcessMonitorEntry(
     Term ReportedTarget,
     Term Tag,
     bool Priority,
-    bool KeepAlias
+    bool KeepAlias,
+    ProcessMonitorSource Source = ProcessMonitorSource.Process
 );

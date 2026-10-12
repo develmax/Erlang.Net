@@ -122,6 +122,7 @@ public static class Execution
             GuardValue(x.Right, b, ctx),
             ctx
         ),
+        Expr.Call x when RecordPredicateSyntax.HasLiteralNonpositiveSize(x) => Term.A(ErlangBooleanAtoms.False),
         Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 1 && ComprehensionGuard.IsOperator(x.Function, 1) => Unary(x.Function, GuardValue(x.Arguments[0], b, ctx)),
         Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 2 && ComprehensionGuard.IsOperator(x.Function, 2) => Binary(
             x.Function,
@@ -468,6 +469,8 @@ public static class Execution
                 }
             case Expr.Call x:
                 {
+                    if (RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
+                        return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
                     if (module is not null && (x.Module is null || x.Module == module.Name && module.Exports.Contains((x.Function, args.Length))) && module.Functions.Any(f => f.Name == x.Function && f.Arity == args.Length))
                     {

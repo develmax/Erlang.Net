@@ -1,0 +1,68 @@
+{
+  "Missing": 121,
+  "ErlangDeclared": 351,
+  "NewModules": 107,
+  "NativePlan": 3648,
+  "NewMfas": 3,
+  "All143SourcesExpectationsAndHashesPreserved": true,
+  "Registry": 380,
+  "Baseline": "OTP-29.1.1",
+  "ErlangPresent": 230,
+  "NewHostProtocolChecks": 2,
+  "Inspection": "Only links/trap_exit/group_leader/registered_name from actual owned state;proper option lists/duplicates/wrapping/liveness;other native fields unimplemented",
+  "AllSixExclusionsUnchanged": true,
+  "CompilerPolicy": "Exactly two unchanged spawn sources use no_ssa_opt only,justified by immutable14890/disassembly;default-native discrepancy retained in144/146/148. No whole default-optimizer compatibility claim",
+  "Sources": [
+    {
+      "BlobSHA1": "b35930161390ac918079c3d0cde6f076a1d9239e",
+      "Path": "lib/stdlib/src/proc_lib.erl"
+    },
+    {
+      "BlobSHA1": "2da31bb870f1f066835d7ee3316ade602dd6a954",
+      "Path": "lib/stdlib/src/gen.erl"
+    },
+    {
+      "BlobSHA1": "924f6f8ff7305fc4cf951dc686eac94804b47ddc",
+      "Path": "erts/emulator/beam/erl_bif_info.c"
+    },
+    {
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "BlobSHA1": "6f35902fa91d7543d1d7fc1dfc4c338810e6f17c",
+      "Path": "erts/emulator/beam/erl_time_sup.c"
+    },
+    {
+      "BlobSHA1": "fcf68868566fd8c83af7a6dbac97e33c067ddb23",
+      "Path": "erts/preloaded/src/erts_internal.erl"
+    },
+    {
+      "BlobSHA1": "b938951490bbe00bafbe854267d24cc25536deb1",
+      "Path": "erts/emulator/beam/erl_bif_op.c"
+    },
+    {
+      "BlobSHA1": "563500eacac4038faf0e0f88425ca42ddcd6b383",
+      "Path": "lib/stdlib/src/erl_expand_records.erl"
+    },
+    {
+      "BlobSHA1": "2f4d9cbcc770f4a30002ce2ad4213a8773545657",
+      "Path": "lib/compiler/src/beam_call_types.erl"
+    }
+  ],
+  "Records": "Weak tuple is_record2/3 and literal declared-size compiler checks;lint before literal nonpositive folding/evaluation suppression;native records/is_record1 remain unimplemented",
+  "Boundaries": "Full inspection/native records/no_auto_import/external-fun grammar/time-warp/ports/connected distribution/physical scheduler,reductions,resources,stack annotations and exhaustive suites remain incomplete",
+  "Startup": "Atomic link/monitor before init;inherited group leader;actual mailbox ack/nack/DOWN waiting;unlink before startup EXIT flush;atomic named startup collision exits normally",
+  "All93DiagnosticContractsPreserved": true,
+  "OriginalStatus": "Pending150",
+  "InitialFailures": "Retained startup9/14,post-link10/14,four missing API checks,wrong boolean catalog build,record41/45 and clock27/28 fixture premises;missing prototype example files corrected as scaffolding without production/source expectation rewrite",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PriorTests": 4054,
+  "NewDiagnostics": 4,
+  "Clock": "Owned clock_service time_offset monitors with current immutable offset;active all/inactive one flush;separate immutable cached CHANGE/DOWN defaults;time-warp notifications unimplemented",
+  "Licensing": "Consolidated altered Ericsson/Apache credits and full license exact in two local packages;no banner/dependency/public package/production BEAM/license-draft publication",
+  "HistoricalContextPolicy": "36 unchanged old OTP Server/Supervisor builder fixtures explicitly trapped fresh on both engines;all other fixtures fresh untrapped;four historical returned-error expectations retained",
+  "ApiPresencePercent": 65.5,
+  "Tests": 4170,
+  "NativeExecutedHere": 0
+}

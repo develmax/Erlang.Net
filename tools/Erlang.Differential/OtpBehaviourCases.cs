@@ -16,7 +16,8 @@ public static class OtpBehaviourCases
         "handle_call(get,_,S)->{reply,S,S}; handle_call(self,_,S)->{reply,self(),S}; handle_call({stop,R},_,S)->{stop,R,done,S}; handle_call({deferred,V},From,S)->gen_server:reply(From,V),{noreply,S}; handle_call({throw,V},_,_)->throw(V); handle_call({return,V},_,_)->V. " +
         "handle_cast({set,S},_)->{noreply,S}; handle_cast({stop,R},S)->{stop,R,S}. handle_info(timeout,{notify,P})->P!timed,{noreply,timed}; handle_info(timeout,_)->{noreply,timed}; handle_info({set,S},_)->{noreply,S}; handle_info(_,S)->{noreply,S}. " +
         "handle_continue(S,_)->{noreply,S}. terminate(R,{notify,P})->P!{terminated,R}; terminate(_,_) ->ok. " + callbacks,
-        Term.Tuple(A("ok"), expected)
+        Term.Tuple(A("ok"), expected),
+        CompiledModuleCallerContext.TrappedFresh
     );
 
     private static CompiledModuleCase Supervisor(string name, string body, Term expected) => new(
@@ -25,7 +26,8 @@ public static class OtpBehaviourCases
         "init({server,S})->{ok,S}; init(ignore)->ignore; init({raw,R})->R; init({flags,F,C})->{ok,{F,C}}; init(C)->{ok,{#{},C}}. " +
         "child({notify,P,N})->R=gen_server:start_link(oracle_otp_supervisor,{server,N},[]),P!{started,N,R},R; child(ignore)->ignore; child({error,R})->{error,R}; child(S)->gen_server:start_link(oracle_otp_supervisor,{server,S},[]). " +
         "handle_call(get,_,S)->{reply,S,S}. handle_cast(_,S)->{noreply,S}.",
-        Term.Tuple(A("ok"), expected)
+        Term.Tuple(A("ok"), expected),
+        CompiledModuleCallerContext.TrappedFresh
     );
 
     public static IReadOnlyList<CompiledModuleCase> Modules { get; } = [

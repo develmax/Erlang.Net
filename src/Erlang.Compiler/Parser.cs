@@ -469,12 +469,12 @@ public sealed class Parser
                     throw Error(ParserDiagnostics.DynamicModuleCall);
                 string name = Name();
                 Expect(ErlangSyntaxTokens.OpenParenthesis);
-                result = new Expr.Call(module.Name, name, Arguments());
+                result = RecordPredicateCall(module.Name, name, Arguments());
             }
             else if (Take(ErlangSyntaxTokens.OpenParenthesis))
             {
                 var args = Arguments();
-                result = result is Expr.Literal { Value: Atom fn } ? fn.Name == RecordAtoms.RecordInfo ? RecordInfo(args) : new Expr.Call(null, fn.Name, args) : new Expr.Apply(result, args);
+                result = result is Expr.Literal { Value: Atom fn } ? fn.Name == RecordAtoms.RecordInfo ? RecordInfo(args) : RecordPredicateCall(null, fn.Name, args) : new Expr.Apply(result, args);
             }
             else
                 break;
@@ -673,6 +673,19 @@ public sealed class Parser
     }
 
     private CompileException RecordError(string message) => new(CompilerDiagnosticCodes.RecordDefinition, message, Current.Start);
+
+    private Expr RecordPredicateCall(string? module, string function, IReadOnlyList<Expr> arguments)
+    {
+        if (RecordPredicateSyntax.IsBuiltin(module, function) && arguments.Count == 2 && arguments[1] is Expr.Literal { Value: Atom name })
+        {
+            if (!records.TryGetValue(name.Name, out var definition))
+                throw RecordError(RecordDiagnostics.UndefinedRecord(name.Name));
+
+            return new Expr.Call(ErlangModuleNames.Module, function, [arguments[0], arguments[1], new Expr.Literal(Term.I(definition.Fields.Count + 1))]);
+        }
+
+        return new Expr.Call(module, function, arguments);
+    }
 
     private Expr RecordInfo(IReadOnlyList<Expr> arguments)
     {

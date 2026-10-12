@@ -1,0 +1,29 @@
+PASS erlang-clock-monitor-two-active
+PASS erlang-clock-monitor-three-active
+PASS erlang-clock-monitor-priority-tag
+PASS erlang-clock-monitor-flush-active-all
+PASS erlang-clock-monitor-flush-active-preserves-other
+PASS erlang-clock-monitor-inactive-flush-one
+PASS erlang-clock-monitor-remove-without-flush-retains
+PASS erlang-clock-monitor-alias-explicit_unalias
+PASS erlang-clock-monitor-alias-delivery-explicit_unalias
+PASS erlang-clock-monitor-alias-demonitor
+PASS erlang-clock-monitor-alias-delivery-demonitor
+PASS erlang-clock-monitor-alias-reply_demonitor
+PASS erlang-clock-monitor-alias-delivery-reply_demonitor
+FAIL erlang-clock-monitor-alias-priority-not-enabled-by-monitor {error,error,{badmatch,ok}}
+PASS erlang-clock-monitor-wrong-owner
+PASS erlang-clock-monitor-bad-target-0
+PASS erlang-clock-monitor-bad-target-1
+PASS erlang-clock-monitor-bad-target-2
+PASS erlang-clock-monitor-bad-target-3
+PASS erlang-clock-monitor-bad-target-4
+PASS erlang-clock-monitor-bad-target-5
+PASS erlang-clock-monitor-bad-options-0
+PASS erlang-clock-monitor-bad-options-1
+PASS erlang-clock-monitor-bad-options-2
+PASS erlang-clock-monitor-bad-options-3
+PASS erlang-clock-monitor-bad-options-4
+PASS erlang-clock-monitor-bad-options-5
+PASS erlang-clock-monitor-bad-options-6
+27/28

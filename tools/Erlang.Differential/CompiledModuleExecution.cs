@@ -2,13 +2,14 @@ namespace Erlang.Differential;
 
 public static class CompiledModuleExecution
 {
-    public static async Task<Term> Run(GeneratedModuleArtifact artifact)
+    public static async Task<Term> Run(GeneratedModuleArtifact artifact, CompiledModuleCallerContext callerContext = CompiledModuleCallerContext.UntrappedFresh)
     {
         await using var runtime = new ProcessRuntime();
         artifact.Definition.Register(runtime.Modules);
         Term? result = null;
         var process = runtime.Spawn(async context =>
         {
+            context.TrapExits = callerContext == CompiledModuleCallerContext.TrappedFresh;
             try
             {
                 result = Term.Tuple(
@@ -25,7 +26,7 @@ public static class CompiledModuleExecution
         });
         Term reason = await process.Completion;
         if (!reason.Equals(Term.A(ProcessExitReasons.Normal)) || result is null)
-            throw new InvalidOperationException(OracleDiagnostics.GeneratedExecution(reason));
+            return Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.A(ErlangExceptionClasses.Exit), reason);
 
         return result;
     }

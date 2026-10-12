@@ -203,7 +203,17 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             2,
-            (c, a) => AtomName(a[0]) == ProcessMonitorKinds.Process ? c.Runtime.Monitor(c, a[1], ProcessMonitorOptions.Default) : throw new ErlangException(ErlangErrorReasons.BadArgument)
+            (c, a) =>
+            {
+                string kind = AtomName(a[0]);
+
+                return c.Runtime.MonitorSource(
+                    c,
+                    kind,
+                    a[1],
+                    ProcessMonitorOptions.ForKind(kind)
+                );
+            }
         );
         Add(
             ErlangModuleNames.Module,
@@ -724,6 +734,7 @@ public static class CoreModules
         ErlangMd5Registrations.Register(r);
         ErlangRaiseRegistrations.Register(r);
         ErlangProcessQueryRegistrations.Register(r);
+        ProcessInfoRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);
@@ -732,6 +743,7 @@ public static class CoreModules
         ProcessMonitorRegistrations.Register(r);
         ProcessSpawnRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
+        RecordPredicateRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);

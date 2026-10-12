@@ -3878,7 +3878,7 @@ foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
         async () =>
     {
         using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
-        Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact), fixture.Expected);
+        Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
         Check(artifact.CSharpSha256.Length == 64);
     }
     );
@@ -3963,6 +3963,42 @@ Test(
     }
 );
 Test(
+    "oracle/explicit-compiled-caller-trap-context",
+    async () =>
+    {
+        const string source = "-module(caller_context_contract). -export([run/0]). run()->process_flag(trap_exit,true).";
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(source);
+        Equal(
+            await Erlang.Differential.CompiledModuleExecution.Run(artifact),
+            Term.Tuple(Term.A(Erlang.Differential.CompiledContractOutcomeNames.Success), Term.A(ErlangBooleanAtoms.False))
+        );
+        Equal(
+            await Erlang.Differential.CompiledModuleExecution.Run(artifact, Erlang.Differential.CompiledModuleCallerContext.TrappedFresh),
+            Term.Tuple(Term.A(Erlang.Differential.CompiledContractOutcomeNames.Success), Term.A(ErlangBooleanAtoms.True))
+        );
+        Check(Erlang.Differential.CompiledModuleProtocol.Command(source).Contains("process_flag(trap_exit,false)"));
+        Check(Erlang.Differential.CompiledModuleProtocol.Command(source, Erlang.Differential.CompiledModuleCallerContext.TrappedFresh).Contains("process_flag(trap_exit,true)"));
+    }
+);
+Test(
+    "oracle/two-preserved-spawn-ssa-policies",
+    () =>
+    {
+        var fixtures = Erlang.Differential.CompiledModuleCases.All.Where(fixture => fixture.CompilerPolicy != Erlang.Differential.CompiledModuleCompilerPolicy.Default).ToArray();
+        Check(fixtures.Length == 2);
+        Check(fixtures.Select(fixture => fixture.Name).SequenceEqual(new[] { "erlang-spawn-group-callback-tuple", "erlang-spawn-group-callback-wrong-arity-child-error" }));
+        foreach (var fixture in fixtures)
+        {
+            string command = Erlang.Differential.CompiledModuleProtocol.Command(fixture.Source, fixture.CallerContext, fixture.CompilerPolicy);
+            Check(command.Contains("return_warnings,no_ssa_opt]"));
+            Check(!command.Contains("no_copt") && !command.Contains("no_postopt"));
+            Check(!Erlang.Differential.CompiledModuleProtocol.Command(fixture.Source).Contains("no_ssa_opt"));
+        }
+
+        return Task.CompletedTask;
+    }
+);
+Test(
     "oracle/compiled-module-ascii-protocol",
     () =>
 {
@@ -3982,8 +4018,8 @@ Test(
     var fixture = Erlang.Differential.CompiledModuleCases.All[0];
     using var first = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
     using var second = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
-    Equal(await Erlang.Differential.CompiledModuleExecution.Run(first), fixture.Expected);
-    Equal(await Erlang.Differential.CompiledModuleExecution.Run(second), fixture.Expected);
+    Equal(await Erlang.Differential.CompiledModuleExecution.Run(first, fixture.CallerContext), fixture.Expected);
+    Equal(await Erlang.Differential.CompiledModuleExecution.Run(second, fixture.CallerContext), fixture.Expected);
     Check(first.CSharpSha256 == second.CSharpSha256);
 }
 );

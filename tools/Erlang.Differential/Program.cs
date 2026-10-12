@@ -456,7 +456,7 @@ try
     }
     await foreach (var oracleResult in OracleExecutionPipeline.Run(
         OriginalOtpDefects.Comparable,
-        fixture => CompiledModuleProtocol.Command(fixture.Source),
+        fixture => CompiledModuleProtocol.Command(fixture.Source, fixture.CallerContext, fixture.CompilerPolicy),
         RunOracle,
         fixture => activeSource = fixture.Source
     ))
@@ -464,7 +464,7 @@ try
         var fixture = oracleResult.Fixture;
         Term expected = OracleResultProtocol.Decode(oracleResult.Output);
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
-        Term actual = await CompiledModuleExecution.Run(generated);
+        Term actual = await CompiledModuleExecution.Run(generated, fixture.CallerContext);
         bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected);
         if (!passed)
         {
@@ -477,6 +477,8 @@ try
             fixture.Source,
             SourceSha256 = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(fixture.Source))),
             generated.CSharpSha256,
+            CallerContext = fixture.CallerContext.ToString(),
+            CompilerPolicy = fixture.CompilerPolicy.ToString(),
             Expected = expected.ToString(),
             FixtureExpected = fixture.Expected.ToString(),
             Actual = actual.ToString(),

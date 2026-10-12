@@ -10,7 +10,7 @@ internal static class SimpleSupervisor
         ProcessContext context,
         SupervisorConfiguration configuration,
         ProcessContext? parent,
-        TaskCompletionSource ready,
+        StartupHandshake startup,
         SupervisorHandle handle
     )
     {
@@ -182,9 +182,7 @@ internal static class SimpleSupervisor
         }
 
         Publish();
-        if (parent is not null)
-            runtime.Link(context, parent.Self);
-        ready.TrySetResult();
+        startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Ok), context.Self));
         try
         {
             while (true)

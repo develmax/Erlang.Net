@@ -29,9 +29,12 @@ public static class Supervisor
     )
     {
 
+        if (name is not null && runtime.WhereIs(name) is Pid existing)
+            throw new ErlangException(Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing));
         var handle = new SupervisorHandle();
-        var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        handle.Process = runtime.Spawn(
+        var startup = new StartupHandshake(parent);
+        handle.Process = startup.Spawn(
+            runtime,
             async context =>
         {
             context.TrapExits = true;
@@ -300,14 +303,17 @@ public static class Supervisor
             {
                 if (name is not null)
                 {
-                    if (runtime.WhereIs(name) is Pid existing)
-                        throw new ErlangException(Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing), ErlangExceptionClasses.Exit);
-                    runtime.Register(name, context.Self);
+                    if (!runtime.TryRegisterStartupName(name, context.Self, out Pid? existing))
+                    {
+                        startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Error), Term.Tuple(Term.A(BehaviourAtoms.AlreadyStarted), existing!)));
+
+                        return Term.A(BehaviourAtoms.Ok);
+                    }
                 }
                 var configuration = await initialize(context);
                 if (configuration.Ignore)
                 {
-                    ready.TrySetException(new ErlangException(Term.A(BehaviourAtoms.Ignore), ErlangExceptionClasses.Exit));
+                    startup.Report(context, Term.A(BehaviourAtoms.Ignore));
 
                     return Term.A(BehaviourAtoms.Ok);
                 }
@@ -320,7 +326,7 @@ public static class Supervisor
                         context,
                         configuration,
                         parent,
-                        ready,
+                        startup,
                         handle
                     );
                 }
@@ -336,9 +342,7 @@ public static class Supervisor
                     await StartChild(i);
                 RemoveInactiveTemporary();
                 Publish();
-                if (parent is not null)
-                    runtime.Link(context, parent.Self);
-                ready.TrySetResult();
+                startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Ok), context.Self));
                 while (true)
                 {
                     await context.ReduceAsync();
@@ -407,7 +411,7 @@ public static class Supervisor
             }
             catch (Exception ex)
             {
-                ready.TrySetException(ex);
+                startup.Fail(context, ex);
                 throw;
             }
             finally
@@ -418,18 +422,11 @@ public static class Supervisor
                 Publish();
             }
         },
-            null,
-            false
+            parent is not null
         );
-        try
-        {
-            await ready.Task;
-        }
-        catch
-        {
-            await handle.Process.Completion;
-            throw;
-        }
+        Term outcome = await startup.Wait(handle.Process);
+        if (outcome is not TupleTerm { Items.Count: 2 } success || success.Items[0] is not Atom { Name: BehaviourAtoms.Ok })
+            throw new ErlangException(outcome is TupleTerm error ? error.Items[1] : outcome, ErlangExceptionClasses.Exit);
 
         return handle;
     }

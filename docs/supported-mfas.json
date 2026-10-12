@@ -3014,5 +3014,29 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit_signal/3",
     "Limits": "Pending process/alias exit admission,receiver-owned priority links and legacy self-normal behavior;owned local/disconnected identity paths. Real ports,connected distribution,full physical scheduler/reductions/error_info/stacks unfinished; original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "process_info",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:process_info/2",
+    "Limits": "Four actual state fields only:links,trap_exit,group_leader,registered_name;other native fields/process_info1/physical scheduler request and resource contracts remain unsupported.18 independent new compiled cases;original150 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_record",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_record/2",
+    "Limits": "Tuple-record weak BIF and compiler-declared sized checks;native-record terms/is_record1/native-positive branches,external-fun literal grammar/no_auto_import/full diagnostic/resource scope remain incomplete.45 independent cases/four diagnoses;original150 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "is_record",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:is_record/3",
+    "Limits": "Tuple-record weak BIF and compiler-declared sized checks;native-record terms/is_record1/native-positive branches,external-fun literal grammar/no_auto_import/full diagnostic/resource scope remain incomplete.45 independent cases/four diagnoses;original150 pending"
   }
 ]

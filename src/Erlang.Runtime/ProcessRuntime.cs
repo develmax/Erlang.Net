@@ -88,12 +88,12 @@ public sealed class ProcessRuntime : IAsyncDisposable
         return new(ctx.Self, ctx.Done.Task);
     }
 
-    public (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitor(ProcessContext observer, Func<ProcessContext, ValueTask<Term>> body)
+    public (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitor(ProcessContext observer, Func<ProcessContext, ValueTask<Term>> body, bool link = false)
     {
         lock (gate)
         {
             RequireAlive(observer.Self);
-            var process = Spawn(body, observer);
+            var process = Spawn(body, observer, link);
 
             return (process, Monitor(observer, process.Pid));
         }
@@ -208,6 +208,38 @@ public sealed class ProcessRuntime : IAsyncDisposable
             return Array.AsReadOnly(processes.Keys.ToArray());
     }
 
+    internal Term ProcessInfo(Pid pid, IReadOnlyList<Atom> keys, bool singleton)
+    {
+        lock (gate)
+        {
+            if (!processes.TryGetValue(pid, out var process))
+                return ProcessInfoAtoms.Undefined;
+            if (keys.Any(key => key.Name == ProcessInfoNames.Links))
+            {
+                AdmitSignals(process);
+                if (process.Terminated)
+                    return ProcessInfoAtoms.Undefined;
+            }
+            var values = new List<Term>(keys.Count);
+            foreach (Atom key in keys)
+            {
+                Term value = key.Name switch
+                {
+                    ProcessInfoNames.Links => Cons.From(process.Links),
+                    ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
+                    ProcessInfoNames.GroupLeader => process.GroupLeader,
+                    ProcessInfoNames.RegisteredName => names.FirstOrDefault(pair => pair.Value.Equals(pid)).Key is string name ? Term.A(name) : Nil.Value,
+                    _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
+                };
+                if (singleton && key.Name == ProcessInfoNames.RegisteredName && value is Nil)
+                    return Nil.Value;
+                values.Add(Term.Tuple(key, value));
+            }
+
+            return singleton ? values[0] : Cons.From(values);
+        }
+    }
+
     public IReadOnlyList<string> RegisteredSnapshot()
     {
         lock (gate)
@@ -232,6 +264,21 @@ public sealed class ProcessRuntime : IAsyncDisposable
             if (name == ProcessRegistryAtoms.Undefined || names.ContainsKey(name) || names.ContainsValue(pid))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             names.Add(name, pid);
+        }
+    }
+
+    public bool TryRegisterStartupName(string name, Pid pid, out Pid? existing)
+    {
+        lock (gate)
+        {
+            RequireAlive(pid);
+            if (name == ProcessRegistryAtoms.Undefined || names.ContainsValue(pid))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            if (names.TryGetValue(name, out existing))
+                return false;
+            names.Add(name, pid);
+
+            return true;
         }
     }
 
@@ -372,6 +419,38 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
     }
 
+    internal ReferenceTerm MonitorSource(
+        ProcessContext observer,
+        string kind,
+        Term target,
+        ProcessMonitorOptions options
+    )
+    {
+        if (kind == ProcessMonitorKinds.Process)
+            return Monitor(observer, target, options);
+        if (kind != ProcessMonitorKinds.TimeOffset || target is not Atom { Name: ClockMonitorNames.Service })
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        lock (gate)
+        {
+            RequireAlive(observer.Self);
+            ReferenceTerm reference = options.AliasMode is null ? MakeReference() : CreateAlias(observer, options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false);
+            monitors.Add(
+                reference,
+                new ProcessMonitorEntry(
+                    observer.Self,
+                    null,
+                    target,
+                    options.Tag,
+                    options.Priority,
+                    options.AliasMode == ProcessAliasNames.Explicit,
+                    ProcessMonitorSource.TimeOffset
+                )
+            );
+
+            return reference;
+        }
+    }
+
     private void MonitorDown(
         ProcessContext observer,
         ReferenceTerm reference,
@@ -418,8 +497,10 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 if (!monitor!.KeepAlias)
                     aliases.Remove(reference);
             }
-            else if (flush)
-                observer.Mailbox.RemoveFirst(term => term is TupleTerm tuple && tuple.Items.Count == 5 && tuple.Items[1].Equals(reference));
+            if (flush && removed && monitor!.Source == ProcessMonitorSource.TimeOffset)
+                observer.Mailbox.Remove(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
+            else if (flush && !removed)
+                observer.Mailbox.RemoveFirst(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
 
             return !info || removed;
         }

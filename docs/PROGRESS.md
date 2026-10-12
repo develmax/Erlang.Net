@@ -1,4 +1,6 @@
-# Progress checkpoint — 2026-10-11
+# Progress checkpoint — 2026-10-12
+
+Part149: actual startup link/monitor/handshake,atomic named registration,four-key process_info2,owned clock monitors and tuple-record predicates pass **4170/full local**.107 new modules/four compiler diagnoses/three exports;[audit](validation/part-149/reference-audit.json). All2672 prior source/expectation/generated hashes and six exclusions preserved. Explicit36 historical trapped caller contexts and exactly two no_ssa_opt spawn policies retain failed default-native evidence. Original3648/same-head CI pending150. Registry380;erlang230/351,121 missing,65.5% API presence;native records/time-warp/full inspection/ports/distribution/resources unfinished. Continue whole goal.
 
 Part148: **90 native diagnoses completed**,zero compatibility-corpus coverage;**4054/full same-head CI** at3d9a71c. SSA optimization is isolated as the cause of missing continuation in two unchanged spawn cases;no_copt/no_postopt do not repair it. [Matrix](validation/part-148/outcome-matrix.json),[guard](validation/part-148/strict-guard.json). Four startup errors retain trap-context dependency. Preserve failed144 and default compiler outcomes. Next actual startup/state/clock/record implementation with explicit context and narrowly documented no_ssa_opt policy. Registry377;erlang227/351,124 missing;whole goal continues.
 
@@ -565,7 +567,7 @@ The selected checks for init outcomes/actions/throw returns, optional callbacks,
 
 Full sys/proc_lib/options/aliases/upgrades/distribution/hibernation/huge-timeout/stacks and startup/parent/dead-child/shutdown races remain unfinished. Supervisor dynamic children/simple_one_for_one/significant/auto_shutdown and full restart retry/intensity/shutdown edges need additional source-directed implementation/tests. Original complete upstream suites and BEAM performance benchmarks are unrun; whole work.md remains approximately5% coarse. Next implement selected dynamic supervisor APIs and harden lifecycle/error races, preserving pinned baseline and immutable expectations.
 
-## Part 087 — Dynamic supervisor child management (2026-10-11)
+## Part 087 — Dynamic supervisor child management (2026-10-12)
 
 Four registered Erlang APIs implement start_child/2, terminate_child/2, restart_child/2 and delete_child/2 for ordinary one_for_one/one_for_all/rest_for_one supervisors. All management runs in the owning mailbox. Preserve inactive permanent/transient specs, remove temporary children, keep source query/restart order, preserve Extra, source-shaped start failure child records and manual restart errors; validate before duplicate lookup. Supervisor requests now use gen_server infinity calls and call error context. BCL ordered lists and existing runtime/immutable terms/ValueTask adapt pinned lib/stdlib/src/supervisor.erl handle_call/start/save/del routines; consolidated Ericsson AB 1996-2026 Apache notices retained, no banners/new package/production BEAM, license draft excluded.
 
@@ -573,7 +575,7 @@ Four registered Erlang APIs implement start_child/2, terminate_child/2, restart_
 
 Simple_one_for_one, significant/auto_shutdown, automatic restart retry/restarting states, returned dead/nonlinked PIDs, complete intensity/shutdown/signal races, sys/upgrades/stacks/resources and full upstream/performance suites remain unfinished. Approximately5% coarse overall. Next exact-source comparison and lifecycle/retry hardening; no full-module or BEAM speed claim.
 
-## Part 088 — Exact-source dynamic supervisor verification (2026-10-11)
+## Part 088 — Exact-source dynamic supervisor verification (2026-10-12)
 
 Implementation **32c827a517c7e372b0181fe08dfbde978200b16f** passes **1319/1319=778 expressions+462 compiled modules+79 diagnostics** against OTP-29.1.1 built from exact SHAad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-088/differential.json), [provenance](validation/part-088/remote-checkpoint.json), [preservation](validation/part-088/corpus-audit.json). Same-head CI **1512/1512 and full pipeline**, test names match local part087 exactly. Original version/build/head/completeness/tracks/artifacts and independent expectations verified. All prior778/436/79 contracts/hashes unchanged;26 new dynamic child contracts match with zero expectation corrections. Initial local failures retained part087. Local full1512 execution preceded commit with the same executable sources; no repeated full pipeline in this evidence-only part.
 
@@ -581,7 +583,7 @@ Ordinary-supervisor start/terminate/restart/delete transitions, errors/child-rec
 
 Source inspection confirms automatic restart failures require a restarting marker and tagged retry cast that yields to the mailbox; the current automatic engine exits on these failures. Next port this retry schedule and test shutdown/control interleaving, dead/nonlinked PIDs and intensity/time boundaries. Simple_one_for_one, significant/auto_shutdown, full sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources/races remain unfinished.
 
-## Part 089 — Automatic supervisor restart retries (2026-10-11)
+## Part 089 — Automatic supervisor restart retries (2026-10-12)
 
 Failed automatic starts now publish restarting and append a private-reference-tagged retry cast, returning to mailbox dispatch. Query/count, restart/delete errors, terminate cancellation, replacement and shutdown can run between attempts. Each attempt consumes intensity; zero/exhausted budgets shut down. Ignored starts clear restarting. Group startup aborts at the first failure, preserves earlier active/later inactive children, removes temporary peers and retries the whole group or failed suffix according to strategy. Active count checks process liveness. CLR lists/sets/snapshots/ValueTask and a monotonic whole-second inclusive window adapt pinned supervisor routines; no timer/backoff/new dependency/production BEAM.
 
@@ -589,13 +591,13 @@ Local **1526/1526 and full integration**, [tests](validation/part-089/tests.json
 
 Full modules, upstream suites and performance remain unfinished, approximately5% coarse. Clock phase/dirty optimization/full time boundaries, dead/nonlinked PIDs, shutdown/signals/sys/proc_lib/stacks/resources, simple_one_for_one and significant/auto_shutdown remain partial. Next publish this implementation and verify exact-source1333 plus same-head1526 CI, then harden lifecycle and timing boundaries.
 
-## Parts 090–091 — Invalid retry cast source correction (2026-10-11)
+## Parts 090–091 — Invalid retry cast source correction (2026-10-12)
 
 Additional pinned supervisor handle_cast inspection found no fallback clause. Part089 incorrectly ignored a wrong-tag cast and expected successful recovery in one provisional fixture. Correctly tagged stale retries are ignored; invalid shapes/private tags now raise function_clause. [Inspection](validation/part-090/inspection.json). The forged-tag fixture now traps exits and monitors the selected function_clause reason, leaving source stack contents wildcarded as an explicit existing limitation. All prior778/462/79 and13 other retry fixtures are unchanged; one provisional expectation/source corrected before the first original run completed. Initial9dec6df run remains historical and cannot serve as final proof; raw results will be retained separately in part092.
 
 Correction passes **1526/1526 and full integration**, [tests](validation/part-091/tests.json), [log](validation/part-091/validation.log). Plan1333=778/476/79,85 MFAs/delta0,219 namespace types/no violations (layout unchanged from part089). [Audit](validation/part-091/corpus-audit.json). No new dependency/BEAM/banners; consolidated notices/draft exclusion retained. Next publish corrected implementation and inspect exact-source1333/same-head1526 CI; complete module/upstream/performance and lifecycle/time/sys/simple_one_for_one/significant/stacks/resource boundaries remain partial, approximately5% coarse.
 
-## Part 092 — Exact-source automatic supervisor retry verification (2026-10-11)
+## Part 092 — Exact-source automatic supervisor retry verification (2026-10-12)
 
 Implementation **c20e9903f367bb4c0d1c42e0bc76cb9dff4f23de** passes **1333/1333=778 expressions+476 compiled modules+79 diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-092/differential.json), [provenance](validation/part-092/remote-checkpoint.json), [preservation](validation/part-092/corpus-audit.json). Same-head CI **1526/1526 and full pipeline**, test names match local part091 exactly. All prior 778/462/79 sources/expectations/generated hashes unchanged;14 independent retry modules match with one provisional cast expectation/source corrected from pinned inspection before initial original comparison completed; final independent expectations match. Local full1526 execution preceded commit with identical executable sources; this evidence-only part does not repeat it.
 
@@ -605,7 +607,7 @@ Initial 9dec6df original run completed 1332/1333 with one wrong-tag mismatch and
 
 Approximately5% coarse overall; full modules/upstream suites/performance remain unfinished. Next harden dead/nonlinked PID and shutdown/signal races, intensity/window/clock phase boundaries, then simple_one_for_one/significant/auto_shutdown and sys/proc_lib/aliases/options/upgrades/distribution/hibernate/stacks/resources. Group/scheduler/resource/clock equivalence is not established beyond the selected fixtures.
 
-## Part 093 — Supervisor PID ownership and monitored shutdown (2026-10-11)
+## Part 093 — Supervisor PID ownership and monitored shutdown (2026-10-12)
 
 Erlang child callbacks now own their links and can return an already terminated PID, matching pinned supervisor.erl. PID identity stays in child queries and running/duplicate checks; only active counts require liveness. Shutdown monitors the child before signalling, receives the matching DOWN, escalates finite timeouts to kill, then unlinks and flushes queued EXIT. Selective shutdown preserves queued management calls. C# host startup convenience retains its live-handle/autolink contract.
 
@@ -613,7 +615,7 @@ Local **1541/1541 and full pipeline** pass: [tests](validation/part-093/tests.js
 
 85 registered MFAs unchanged, supervisor9/23 and gen_server10/41 remain partial API presence.220 namespace types/no layout violations. Consolidated notices checked in both packages; draft excluded/no banners/new dependency. Full shutdown logging/reason classification, all signal/timing races, sys/proc_lib/significant/simple_one_for_one/upgrades/stacks/resources/upstream suites/performance unfinished; approximately5% coarse overall.
 
-## Part 094 — Exact-source supervisor lifecycle verification (2026-10-11)
+## Part 094 — Exact-source supervisor lifecycle verification (2026-10-12)
 
 Implementation **9ef47eda2043529304b0e0af9f8ffb164f3c177f** passes **1348/1348=778 expressions+491 compiled modules+79 diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-094/differential.json), [provenance](validation/part-094/remote-checkpoint.json), [preservation](validation/part-094/corpus-audit.json). Same-head CI **1541/1541 and full pipeline**, test names match local part093 exactly. All prior778/476/79 sources/expectations/generated hashes unchanged;15 independently expected lifecycle modules match with zero expectation corrections. Original build/version/completeness/tracks and workflow/job/artifact head guards verified; no mismatch, abort or infrastructure failure. This evidence-only part changes no executable code and reuses the completed local1541/full pipeline.
 
@@ -621,7 +623,7 @@ Selected dead PID start/return/query/count/running contracts, callback-owned lin
 
 Full shutdown logging/reason classification, signal/priority/distribution/timing races, intensity clocks/sys/proc_lib/simple_one_for_one/significant/auto_shutdown/options/aliases/upgrades/hibernate/stacks/resources/upstream suites/performance remain unfinished. Approximately5% coarse overall. Next extend supervisor strategies/flags, keeping lifecycle/timing hardening separate from full compatibility claims.
 
-## Part 095 — Significant children and automatic shutdown (2026-10-11)
+## Part 095 — Significant children and automatic shutdown (2026-10-12)
 
 Support significant transient/temporary children, never/any_significant/all_significant and supervisor:check_childspecs/2. Standalone check_childspecs/1 uses undefined policy; startup and dynamic calls validate against their configured policy. Preserve source validation/error precedence, significant=true in failed-start child records, last remaining significant PID/restarting bookkeeping, manual termination/ignore versus unrestarted natural exits, and ordinary group restart behavior. Public positional record constructors stay unchanged via init properties. Sources: pinned supervisor.erl and selected supervisor_SUITE significant routines; reuse existing C# monitor/mailbox/immutable terms, no new dependency.
 
@@ -629,7 +631,7 @@ Local **1572/1572 and full pipeline**,86 MFAs (+1), supervisor10/23 and gen_serv
 
 Full simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/stacks/resources/upstream suites/performance unfinished. [Early platform milestone](TEN_PERCENT_MILESTONE.md) records the requested target10%; earlier approximately5% remains a coarse estimate until broader capabilities are delivered. No percentage promotion from test counts. Publish implementation, complete exact-source/same-head CI and preserve part096 proof, then continue the target milestone.
 
-## Part 097 — Improper childspec list validation correction (2026-10-11)
+## Part 097 — Improper childspec list validation correction (2026-10-12)
 
 Pinned check_childspecs/2 is_list accepts cons cells with improper tails, then validates policy. C# previously required a proper list first. Correct this guard/order and preserve check_startspec/4: invalid head returns its error, valid improper prefix reaches a missing clause and raises function_clause, which must escape the public checker. [Source audit](validation/part-097/reference-audit.json), [explicit provisional source assertion correction](validation/part-097/source-correction.json). One new invalid-policy fixture assertion changes from badarg improper-list to badarg wrong, following retained original096 and source inspection; external FixtureExpected done remains unchanged. All prior778/491/79 contracts and29 other new significant sources/expectations/generated hashes unchanged. Initial native1377/1378 stays immutable096; no claim it passed.
 
@@ -637,7 +639,7 @@ Local **1574/1574 and full pipeline**;32 significant modules, two additional imp
 
 Plan **1380=778/523/79** against original/head CI; pending until098. Full startup malformed-tail stacks/init error frames, simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/resources/upstream suites/performance unfinished. Requested10% milestone remains active; coarse5% is not promoted. Publish this correction, complete098 proof, then apply prepared SimpleSupervisor/public query/stop implementation as099 and continue wider platform work.
 
-## Part 098 — Significant supervision verified against original OTP (2026-10-11)
+## Part 098 — Significant supervision verified against original OTP (2026-10-12)
 
 **Status:** selected increment and reference checks complete. Implementation **4992a985f692c45315205a76ad44ef1c65e2a01f** passes **1380/1380=778 expressions+523 compiled modules+79 diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw proof](validation/part-098/differential.json), [provenance](validation/part-098/remote-checkpoint.json), [preservation](validation/part-098/corpus-audit.json). Same-head **1574/1574 and full CI**, local part097 test names identical. Exact-source build/version/completeness/track counts/workflow/job/artifact/head verified; zero final mismatch, abort or infrastructure failure; one provisional source assertion corrected from retained096 and pinned source. All prior778/491/79 sources/expectations/generated hashes unchanged;32 new independent significant contracts match. Evidence-only part; no local full-pipeline repeat or executable delta.
 
@@ -645,7 +647,7 @@ Verified never/any_significant/all_significant, standalone undefined versus star
 
 Full simple_one_for_one/sys/upgrades/logging/clocks/races/distribution/stacks/resources/upstream suites/performance unfinished. [Requested early platform milestone](TEN_PERCENT_MILESTONE.md) remains in progress toward10%; the coarse5% estimate is not promoted by test/API counts. Continue simple_one_for_one and wider collections/timers/source/application capabilities. Commit proof, then continue implementation; active0014 remains bounded and previous entries unchanged.
 
-## Part 099 — Simple supervisor strategies and public queries (2026-10-11)
+## Part 099 — Simple supervisor strategies and public queries (2026-10-12)
 
 Implement `simple_one_for_one`: one validated template starts no initial process; `start_child` appends arguments, PID/restarting identities retain arguments across retry, and permanent/transient/temporary policies preserve source outcomes. Dynamic simple shutdown monitors/signals all children before waiting, with one shared timeout; ordinary ordered shutdown is preserved. Add `which_child/2`, `get_childspec/2`, `stop/1,3`; temporary ordinary dynamic specs erase stored start arguments as source `save_child` does. Shared callback normalization extracted from existing ErlangSupervisor. Source/reuse/limits are recorded in [audit](validation/part-099/reference-audit.json) and [dependency decisions](dependency-decisions.md). No new dependency or production BEAM; consolidated notices packaged and draft license excluded.
 
@@ -653,7 +655,7 @@ Local **1614/1614 and full pipeline**, **90 MFAs (+4)**, supervisor **14/23**, g
 
 Full supervisor/sys/upgrades/logging/clocks/races/distribution/stacks/resources/upstream suites/performance remain unfinished. C# host simple configuration requires an Erlang MFA template; generic CLR argument factories are outside this increment. PID-map query order is unspecified and no BEAM ordering claim is made. Target10% remains active; continue collections/timers/source/application delivery after original verification, without percentage promotion from test counts.
 
-## Part 100 — Simple supervision verified against original OTP (2026-10-11)
+## Part 100 — Simple supervision verified against original OTP (2026-10-12)
 
 **Status:** selected increment and reference checks complete. Implementation **0d6a2334c17b918a2edb7bbcc39acfb93a44a418** passes **1415/1415=778 expressions+558 compiled modules+79 diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw comparison](validation/part-100/differential.json), [provenance](validation/part-100/remote-checkpoint.json), [preservation](validation/part-100/corpus-audit.json). Same-head **1614/1614 and full CI**, all local/CI names identical. Exact-source build/version/completeness/track counts/workflow/job/artifact/head verified; zero mismatch, abort, infrastructure failure or expectation correction. All prior778/523/79 source/expected/generated hashes preserved,35 independent simple modules match. Evidence-only part; no repeat local full pipeline or executable delta.
 
@@ -661,7 +663,7 @@ Selected ordinary/simple/significant supervision contracts now cover four strate
 
 Full sys/proc_lib/options/upgrades/logging/distribution/stack/resource/timing/race/upstream-suite/performance contracts remain unfinished. Target10% remains pending until collections/timers/source/application packages satisfy [milestone](TEN_PERCENT_MILESTONE.md). Continue prepared101 maps/common-list functional APIs and runtime timers, then source/application state and runnable sample. Commit proof and continue implementation.
 
-## Part 101 — Functional collections, timers, records and platform example (2026-10-11)
+## Part 101 — Functional collections, timers, records and platform example (2026-10-12)
 
 **Local increment complete; independent original verification pending.** Add 24 maps exports, 11 lists exports and four Erlang timer exports. Implement tuple record definitions, construction/access/update/index, wildcard and partial patterns, guard checks and record_info. The generated `platform_demo.erl` application combines supervisor, gen_server state in records, timer delivery and functional collections. Both the hybrid example and the installed local PackageReference consumer verify its `{platform_ready,100,[2,3]}` result without production BEAM.
 
@@ -673,13 +675,13 @@ Map callbacks preserve error precedence, exact keys and ordered iterator behavio
 
 The requested approximately 10% early platform milestone has all planned capability packages locally delivered. Keep that target pending until the new original and same-head checks are complete; do not derive the percentage from test/API counts. Continue exact-source verification and preserve part102, fixing any mismatch against pinned source without weakening independent expectations.
 
-## Part 102 — 2026-10-11 — Complete original comparison retained with three differences
+## Part 102 — 2026-10-12 — Complete original comparison retained with three differences
 
 Implementation 9ea846f54daf755e754b9a4d5c754d99611cfd7a passes 1774/full local and same-head CI. Exact-source OTP comparison completes all 1536 cases: 1533 pass, three differ. No infrastructure failure or abort. Raw original report, workflow/job/artifact metadata, independent expected results and CI report are retained in [part 102](validation/part-102/differential.json). This is not a passing reference checkpoint; milestone 10% remains pending.
 
 Differences: maps-operations-none and maps-operations-duplicate-iterator-keys return the first maps:map result in optimized OTP instead of the final done atom; records-guard-orelse-invalid-left rejects the guard in OTP while the current C# implementation accepts it. Investigate the exact pinned compiler and record expansion before changing implementation or provisional fixtures. Preserve all original failing evidence. No expected value is changed in this evidence-only part. Closed journal 0014 and LICENSE.local.txt remain untouched.
 
-## Part 103 — 2026-10-11 — Correct strict record guards and isolate pinned map optimizer limitation
+## Part 103 — 2026-10-12 — Correct strict record guards and isolate pinned map optimizer limitation
 
 The complete failed original comparison from part 102 is retained unchanged. Source audit: OTP-29.1.1 erl_expand_records bool_operand/strict_record_access/conj injects strict guard checks that fail the entire alternative on a wrong record, including a left operand before orelse. Internal C# RecordTest now raises badarg on wrong tag/arity; Guard catches it and rejects that alternative. A true short-circuit still avoids unevaluated accesses. Exactly one newly introduced provisional fixture expectation is corrected to error/badmatch/no; its source is unchanged. This is a transparent expectation correction, not a zero-correction claim.
 
@@ -687,7 +689,7 @@ Pinned beam_call_types describes maps:map arguments as map-only although maps.er
 
 Validation: 1774/1774 and full local pipeline; 129 direct MFA contracts; prior 778 expressions/558 module sources, independent expectations and generated hashes/79 diagnostics preserved; current674 modules/84 diagnostics. 249 namespace types, zero filename/multiple-type violations. Both packages contain byte-exact consolidated notices; draft license excluded. [Local report](validation/part-103/tests.json), [audit](validation/part-103/reference-audit.json), [corpus](validation/part-103/corpus-audit.json). No new dependency or production BEAM. Closed0014 and uncommitted LICENSE.local.txt untouched. Target approximately 10% remains pending until exact-source and same-head CI checkpoint104.
 
-## Part 104 — Early functional platform milestone verified (2026-10-11)
+## Part 104 — Early functional platform milestone verified (2026-10-12)
 
 **Selected milestone complete.** Published implementation **d713491b52da2bcdd0827f02133157730e917059** passes **1536/1536 = 778 expressions + 674 compiled modules + 84 compiler diagnostics** against exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. [Raw comparison](validation/part-104/differential.json), [provenance](validation/part-104/remote-checkpoint.json), [preservation](validation/part-104/corpus-audit.json). Same implementation head passes **1774/1774 and full CI**, including hybrid/preprocessing/incremental/clean/package consumer/local CLI/readiness. Local and CI test names are identical. Source build, version, complete/planned/executed counts, all tracks, jobs, artifacts and SHA256 provenance checked. Zero mismatch, infrastructure failure or abort. One provisional record expectation was corrected from source; the initial three-difference report is retained in part 102. Two new map iterator cases explicitly disable native SSA optimization due to the pinned compiler map-only type assumption. Prior 778/558/79 sources/expectations/generated hashes unchanged; 116 new independently expected modules and five diagnostics match.
 
@@ -697,7 +699,7 @@ The five planned capability packages are delivered and independently checked: or
 
 The full work.md assignment and all OTP modules remain unfinished. Next scope includes typed/native/imported records and macros/includes, full diagnostic spans/lint/warnings, timer options/absolute epochs/ranges, remaining standard library/OTP services, distribution/ETS/ports, sys/proc_lib/upgrades, optimizer/debugger/resource/signal/clock races and full upstream suites. Relative speed versus BEAM is unmeasured; no faster-than-OTP claim. Continue subsequent increments from these verified sources and preserve the independent corpus.
 
-## Part 105 — 2026-10-11 — Complete registered maps API and iterator list conversion
+## Part 105 — 2026-10-12 — Complete registered maps API and iterator list conversion
 
 **Part status:** implementation complete; independent OTP/same-head CI verification pending 106. **Objective:** implement the five remaining pinned maps exports and audit public functional contracts beyond API presence.
 
@@ -723,7 +725,7 @@ The full work.md assignment and all OTP modules remain unfinished. Next scope in
 
 All 34 exports are registered and directly tested; this is completed public API presence, not proof of native HAMT layout, stack/error_info/resource/reduction limits or full Common Test/performance parity. Those remain explicit runtime/compiler boundaries. Overall approximately 10% engineering estimate stays unchanged. Publish the validated implementation, compare the complete corpus and same-head 1864/full CI, then preserve independent proof in106 before declaring original validation complete. Detailed journal stays in active 0015; closed volumes and reference checkout untouched.
 
-## Part 106 — 2026-10-11 — Original maps comparison exposes iterator batching mismatch
+## Part 106 — 2026-10-12 — Original maps comparison exposes iterator batching mismatch
 
 **Part status: completed evidence; maps semantic completion remains blocked by one mismatch.** Original OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 was built successfully and ran the complete corpus at implementation 6aa1122a38b89e4bb7696f05c61c819e2394858f: **1620/1621 passed**, no infrastructure error or abort. Same-head CI passes **1864/1864 and full integration**. All prior 778 expressions/674 compiled module sources, independent expectations/generated hashes/84 diagnostics are preserved. Of 85 new maps modules, 84 match; maps-completion-iterator-valid-first-only fails with original {error,error,{badmatch,false}}, CLR {ok,done}, provisional independent {ok,done}.
 
@@ -731,7 +733,7 @@ All 34 exports are registered and directly tested; this is completed public API 
 
 No runtime modification in this evidence part. API presence remains 34/34; verified original semantic checkpoint remains immutable part104. English journal stays bounded; closed journals/sibling checkout untouched. LICENSE.local.txt remains uncommitted/unpublished/unpackaged. No BEAM performance or complete internal/resource/error_info/stack/Common Test claim.
 
-## Part 107 — 2026-10-11 — Port maps iterator tuple-chain validation
+## Part 107 — 2026-10-12 — Port maps iterator tuple-chain validation
 
 **Local increment complete; original verification pending.** Pinned maps.erl:next/is_iterator_valid and erts/emulator/beam/erl_map.c:erts_internal_map_next_3 resolve ordered keys into a tuple chain before returning. CLR next now validates keys/proper tails, builds that immutable chain and propagates badarg before callbacks. Existing exact-key lookup, Cons and tuple terms are reused; no external dependency. Native reduction-dependent batch boundaries and HAMT integer paths remain internal/resource limitations.
 
@@ -741,7 +743,7 @@ Full local pipeline passes **1869/1869**, **134 direct MFAs**, hybrid/negative p
 
 The next original corpus is **1626 = 778 expressions + 764 compiled modules + 84 diagnostics**. Original part108 and same-head CI are pending; no semantic promotion from local tests. All 90 new maps modules use default native optimizations; two historical explicit no_ssa_opt fixtures remain unchanged. API presence stays 34/34; full maps internal/resource/stack/error_info/Common Test/performance parity remains unclaimed. Overall approximately 10% estimate unchanged. Publish the correction and then verify the entire original corpus; closed journals/sibling checkout and uncommitted license draft preserved.
 
-## Part 108 — 2026-10-11 — Complete maps API verified against original OTP
+## Part 108 — 2026-10-12 — Complete maps API verified against original OTP
 
 **Part status: completed.** Implementation **6363039e77a5eb1a15c2ea06b30f77e2fb267023** delivers all **34/34 pinned maps exports**, including the five missing exports and iterator-aware to_list. Exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 comparison passes **1626/1626 = 778 expressions + 764 independently compiled modules + 84 diagnostics**; **90 new maps modules** match independent expectations. The same implementation head passes **1869/1869 and full CI**, with identical local/CI test names and **134 directly tested MFAs**. Source build, version, completeness/counts/tracks, jobs/artifacts/heads and archive SHA256 are checked. Zero mismatch, infrastructure failure or abort. Part106 retains the initial 1620/1621 mismatch; part107 corrected one provisional source assertion (true to false) from pinned map_next batching, leaving its final independent {ok,done} result unchanged. All prior 778/674/84 sources, expectations and generated hashes are preserved. All 90 new cases use default original optimization; the two historical explicit no_ssa_opt fixtures remain unchanged.
 
@@ -755,7 +757,7 @@ Completed functional API contracts include smaller-map traversal with original c
 - Historical 1536/1774 proof at d713491 remains immutable part104. One provisional iterator source assertion correction retained in part106/107; no new optimization workaround; prior map compiler caveat retained in part102/103/104.
 - Publish verified maps proof, bounded English journal and refreshed readiness. Next work: remaining lists/OTP/source features; map internal resources/error_info/stacks require runtime/compiler support. Closed journals and sibling checkout remain untouched; LICENSE.local.txt stays uncommitted/unpublished/unpackaged.
 
-## Part 109 — 2026-10-11 — Complete lists exported API and source-directed contracts
+## Part 109 — 2026-10-12 — Complete lists exported API and source-directed contracts
 
 Implement all **91/91 lists exports**, adding **60 registered MFAs** (194 total) and **252 independent compiled-module contracts**. Before implementation, audit pinned OTP-29.1.1 lists.erl and lists_SUITE.erl, existing terms/comparison/callback infrastructure and BCL reuse; record source/reuse choices in OTP-PORTS and dependency-decisions. No new dependency or source license banners.
 
@@ -769,7 +771,7 @@ Final local pipeline **2181/2181**, all252 new modules and194 direct MFAs; hybri
 
 Next pinned original corpus **1878 = 778 expressions + 1016 modules + 84 diagnostics**, with same-head full CI, pending part110. API presence is complete; functional promotion waits for original proof. Native allocation/reductions/stack/error_info, exhaustive Common Test and performance parity remain unclaimed. Latest complete original remains part108 (1626/1626); other modules remain partial and overall approximate10% engineering estimate is unchanged. Publish this increment and continue through original verification.
 
-## Part 110 — 2026-10-11 — Complete lists API verified against original OTP
+## Part 110 — 2026-10-12 — Complete lists API verified against original OTP
 
 **Part status: completed.** Implementation **9aeb8f1c6943dad8bbba22689e3de95e48a6d338** delivers **91/91 pinned lists exports**, including 60 newly registered MFAs and 252 independently expected compiled-module contracts. Exact-source OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 comparison passes **1878/1878 = 778 expressions + 1016 compiled modules + 84 diagnostics**. Same-head CI passes **2181/2181 and full integration**, with identical local/CI test names and 194 direct MFAs. Source build, version/completeness/counts/tracks, all independent expected outcomes, historical hashes, workflow/job/artifact/head and archive SHA256 are checked. Zero mismatch/infrastructure failure/abort.
 
@@ -783,7 +785,7 @@ Commands: reference-checkpoint-110 -Mode Download; preserve110 strict original/s
 
 Publish original proof, bounded English journal and 91-function report. Preserve closed journals, sibling checkout and draft license. Continue broader OTP work separately; no measured BEAM speed claim.
 
-## Part 111 — 2026-10-11 — Erlang basic BIF and registered operator implementation
+## Part 111 — 2026-10-12 — Erlang basic BIF and registered operator implementation
 
 **Local increment complete; whole erlang module remains unfinished.** Pinned union has351 explicit exports/BIF declarations; register61 missing MFAs, moving erlang44 to105/351 and total194 to255. Target every remaining export with actual runtime support and independent original contracts; do not count generic badarg/undef stubs. Source/reuse plan is recorded before implementation in OTP-PORTS and dependency-decisions. Audit erlang.erl, bif.tab, erl_bif_guard.c, erl_bif_op.c, bif.c, erl_arith.c and tuple arity definitions in erl_term.h.
 
@@ -797,7 +799,7 @@ Commands: dotnet build -m:1 --disable-build-servers; isolated development probe;
 
 Close0015 after110 and begin0016 to preserve32KiB/400line journal bounds. Publish this increment, finish original proof and continue erlang conversion/serialization/clock/process/runtime increments without stopping at this partial checkpoint. Closed journals and sibling checkout remain untouched; draft license uncommitted/unpublished/unpackaged.
 
-## Part 112 — 2026-10-11 — Preserve failed/incomplete original Erlang basic comparison
+## Part 112 — 2026-10-12 — Preserve failed/incomplete original Erlang basic comparison
 
 **Checkpoint published; original verification unfinished and whole erlang goal remains active.** Implementation **5f0c5597d2477bde19c0bcb77af8040d337be625** passes same-head **2357/2357/full CI**, 255 direct MFAs, erlang105/351. Exact-source OTP build/version succeed, but comparison plans1993 and executes **1863:1862 pass,1 semantic mismatch**, then aborts on a native compile failure. Expressions **778/778**, compiled modules **1084/1085** of1131 planned, diagnostics **0/84 executed**. No complete-original claim; latest successful1878/1878 remains immutable110. Workflow/job/head/artifact SHA256 and full CI names are checked. All actual prior778 expressions/1016 completed module contracts and their source/generated hashes match110; diagnostic source preservation is only the local111 audit, not native execution in112.
 
@@ -811,7 +813,7 @@ Next113: fix apply semantics and tuple fixture qualifications; integrate the alr
 
 Commands: reference-checkpoint-112 Download; strict failed-report/earlier-corpus/same-head CI guard; pinned beam_common.c and erl_internal.erl source audit; readiness CLI with111 local test snapshot. Publish this evidence checkpoint and continue implementation immediately. Closed journals/sibling checkout/draft license unchanged;0016 active.
 
-## Part 113 — 2026-10-11 — Erlang data BIFs and original-driven apply/parser/identity fixes
+## Part 113 — 2026-10-12 — Erlang data BIFs and original-driven apply/parser/identity fixes
 
 **Part status: locally complete; original verification pending114 and whole erlang goal active.** Add28 actual MFAs, moving erlang105 to **133/351**, registry255 to **283**. Reuse/source plan is recorded before production implementation. Port integer/list/binary conversions, binary/list/bitstring slicing, iodata flatten/size/iovec, strict float parsing, CRC-32/Adler-32 seeded/combine functions and MD5. Admit binary_part/2,3 in guards. Each export has a permanent direct contract; no generic error stubs.
 

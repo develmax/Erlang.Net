@@ -18,10 +18,11 @@ public static class ProcessSpawnCases
     {
         var cases = new List<CompiledModuleCase>();
 
-        void Add(string name, string body) => cases.Add(new(
+        void Add(string name, string body, CompiledModuleCompilerPolicy compilerPolicy = CompiledModuleCompilerPolicy.Default) => cases.Add(new(
             "erlang-spawn-group-" + name,
             "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->" + body + ",done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
-            Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
+            Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion)),
+            CompilerPolicy: compilerPolicy
         ));
         Add("get-leader", "true=is_pid(erlang:group_leader())");
         Add("set-self", "G=group_leader(),P=self(),true=group_leader(P,P),P=group_leader(),true=group_leader(G,P),G=group_leader()");
@@ -89,11 +90,13 @@ public static class ProcessSpawnCases
         );
         Add(
             "callback-tuple",
-            "true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end"
+            "true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end",
+            CompiledModuleCompilerPolicy.DisableSsaOptimization
         );
         Add(
             "callback-wrong-arity-child-error",
-            "P=erlang:spawn(fun(_)->ok end),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badarity,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end"
+            "P=erlang:spawn(fun(_)->ok end),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badarity,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end",
+            CompiledModuleCompilerPolicy.DisableSsaOptimization
         );
         index = 0;
         foreach (string arguments in new[] { "42,run,[]", "spawn_group_contract,42,[]", "spawn_group_contract,callback,bad", "spawn_group_contract,callback,[a|bad]" })

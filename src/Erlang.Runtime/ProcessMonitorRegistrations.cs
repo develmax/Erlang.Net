@@ -12,7 +12,8 @@ internal static class ProcessMonitorRegistrations
         {
             bool priority = false;
             string? mode = null;
-            Term tag = Term.A(ProcessMessageTags.MonitorDown);
+            string kind = CoreModules.AtomName(arguments[0]);
+            Term tag = ProcessMonitorOptions.ForKind(kind).Tag;
             foreach (Term option in Cons.Items(arguments[2]))
             {
                 if (option is Atom { Name: ProcessMonitorOptionNames.Priority })
@@ -29,10 +30,15 @@ internal static class ProcessMonitorRegistrations
                 else
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
-            if (arguments[0] is not Atom { Name: ProcessMonitorKinds.Process })
+            if (kind is not ProcessMonitorKinds.Process and not ProcessMonitorKinds.TimeOffset)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return ValueTask.FromResult<Term>(context.Runtime.Monitor(context, arguments[1], new(priority, mode, tag)));
+            return ValueTask.FromResult<Term>(context.Runtime.MonitorSource(
+                context,
+                kind,
+                arguments[1],
+                new(priority, mode, tag)
+            ));
         }
         );
         registry.Register(
