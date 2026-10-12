@@ -571,3 +571,7 @@ Part158:incomplete source-built original **4004/4167 passed,163 unexecuted**,zer
 ## Part159 checkpoint
 
 Part159:local reference text/allocator carry and exact183-signature function resolution pass **4792/full local**. Three loaded sources qualified with [migration ledger](validation/part-159/fixture-migration.json);other3272 modules/all old expectations/policies,120 diagnoses,778 expressions/six exclusions preserved. Registry391;erlang241/351,110 missing,**68.7% API presence**,not completion. New-head native4253/same-head CI pending160;latest complete native1564121;158 incomplete4004/4167 retained. pre_loaded0 is auto-imported. Connected channels/magic resources/schedulers/import attributes/full suites/performance unfinished;continue whole erlang goal.
+
+## Part160 checkpoint
+
+Part160:incomplete source-built original **4119/4253 passed,134 unexecuted**,zero executed mismatches. All18 loading queries,28 process-table and71 reference-text modules match;erl_parse rejects the next private-function fixture because done.loaded lacks form-separating whitespace. **4792/full same-head CI** at1dc4be2. [Raw failure](validation/part-160/differential.json),[guard](validation/part-160/strict-guard.json). Sources/expectations/hashes/policies/exclusions unchanged;latest complete success1564121. Registry391;erlang241/351,110 missing,68.7% API presence. Retain exact rejected source,repair scanner form-dot boundaries and ledger whitespace-only fixture corrections. Isolated pre_loaded/named-reference draft passes4823/full but remains unpromoted;whole goal continues.

@@ -1,0 +1,9 @@
+{
+  "Name": "compiler-function-resolution-private-loaded",
+  "Source": "-module(function_resolution_contract). -export([run/0]). run()->private=loaded(),done.loaded()->private.",
+  "FixtureExpected": "{ok,done}",
+  "SourceSha256": "15457D41ADFC521484B5875534A73C875988A54B005CF32F1F2FA62C301E7E7C",
+  "CSharpSha256": "C2CD14212519EB779919B885C62D9ABE5CD4BFA2BB166B1F4700C7E624500E3A",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}
