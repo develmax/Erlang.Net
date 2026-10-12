@@ -3070,5 +3070,13 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:list_to_port/1",
     "Limits": "Part153 source-directed identifier text: proper byte lists and native unsigned wrap/NUL/bounds/local identity;77 independent module contracts plus retained atom-index host check;original154 pending. Foreign channel indexes are backend specific;connected distribution and real OS ports remain unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "decode_packet",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:decode_packet/3",
+    "Limits": "All packet selectors/options with320 independent modules and full4650 local tests;new-head pinned4121/CI pending156. Managed binary copies differ from native subbinary views;resource/allocation/unsafe overflow/error-stack metadata and full upstream suite remain outside proof."
   }
 ]

@@ -551,3 +551,7 @@ Part153: record expansion/compiled tuple-test repair plus four identifier-text e
 ## Part154 checkpoint
 
 Part154: complete pinned original **3801/3801** at1122925 and **4329/full same-head CI**. all selected comparisons match;continue remaining APIs. [Proof](validation/part-154/differential.json),[strict guard](validation/part-154/strict-guard.json). All2903 sources/independent expectations/hashes/contexts/policies,120 diagnoses,778 expression inputs and six exclusions preserved from153. Registry384;erlang234/351,117 missing,66.7% API presence,not whole-module completion. Packet289/289 isolated draft remains unverified natively;whole goal continues.
+
+## Part155 checkpoint
+
+Part155: source-directed decode_packet/3 implements all packet selectors, options, framing, HTTP and TLS; **4650/full local**, 320 new independent module contracts. [Audit](validation/part-155/reference-audit.json), [preservation](validation/part-155/corpus-audit.json). All2909 old modules/120 diagnoses/778 expressions/six exclusions preserved. Registry385; erlang235/351, 116 missing, **67.0% API presence**. New-head4121 original and4650 CI pending156; latest fully successful original1543801. Managed binary copies/resources/error-stack metadata remain separate scope. Continue the whole goal.

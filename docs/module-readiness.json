@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-153/tests.json",
-  "LocalPassedTests": 4329,
-  "RegisteredMfas": 384,
+  "ComparisonTestReport": "validation/part-154/ci-tests.json",
+  "LocalPassedTests": 4650,
+  "RegisteredMfas": 385,
   "PreviousRegisteredMfas": 384,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -64,7 +64,8 @@
         "Part141: actual group-leader inheritance and five group_leader/MFA spawn exports, repaired spawn/1 child apply, monitored io:format/2 device protocol;60 module contracts and128-writer host check;3968/full local, original142 pending",
         "Part143:four actual exit_signal/2,3,exit/3,link/2 exports;pending alias/link admission,priority ownership and safe terminal cleanup;repair monitored-spawn group leader;79 independent contracts and128-child host check;4052/full local,original144 pending",
         "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending",
-        "Part153:four actual local identifier text APIs,byte-list/unsigned wrap/NUL/header/field validation,opaque port identities without OS ports;77 independent modules;4329/full local;original154 pending"
+        "Part153:four actual local identifier text APIs,byte-list/unsigned wrap/NUL/header/field validation,opaque port identities without OS ports;77 independent modules;4329/full local;original154 pending",
+        "Part155:source-directed decode_packet3 all selectors/framing/HTTP/TLS/options,320 independent packet modules,immutable protocol/catalog atom reuse;4650/full local"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -73,7 +74,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 280
+      "RelatedPassedTests": 281
     },
     {
       "Id": "Compiler",
@@ -135,7 +136,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1423
+      "RelatedPassedTests": 1424
     },
     {
       "Id": "gen_server adapters",
@@ -234,7 +235,8 @@
         "Part150:3517 actual native matches before illegal dynamic record guard abort;131 unexecuted;4170/full same-head CI;failure retained and no complete-corpus claim",
         "Part152:complete3654/3657 original and4179/full CI;103 diagnoses/guard repair/startup16/inspection18/clock28 match;three record discrepancies retained",
         "Part153:explicit erl_scan diagnostic route solely for17 lexical cases;all103 previous compiler diagnostic commands retained;3801 planned original;4329/full local;152 failures preserved",
-        "Part154:complete3801/3801 source-built original and4329/full same-head CI;153 contracts preserved;all selected comparisons match;continue remaining APIs"
+        "Part154:complete3801/3801 source-built original and4329/full same-head CI;153 contracts preserved;all selected comparisons match;continue remaining APIs",
+        "Part155:preserve2909 old sources/expectations/hashes/policies and120 diagnoses/778 expression inputs/six exclusions;320 new packet modules;original4121 pending156"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -244,7 +246,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3046
+      "RelatedPassedTests": 3366
     },
     {
       "Id": "Style checks",
@@ -5513,11 +5515,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 234,
+      "RegisteredMfas": 235,
       "PreviousRegisteredMfas": 234,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 66.7,
+      "ApiPresencePercent": 67.0,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5585,6 +5587,7 @@
         "erlang:crc32/2",
         "erlang:crc32_combine/3",
         "erlang:date/0",
+        "erlang:decode_packet/3",
         "erlang:delete_element/2",
         "erlang:demonitor/1",
         "erlang:demonitor/2",

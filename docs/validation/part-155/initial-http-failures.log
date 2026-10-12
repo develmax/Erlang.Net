@@ -1,0 +1,160 @@
+PASS erlang-packet-decode-raw
+PASS erlang-packet-decode-raw-empty
+PASS erlang-packet-decode-framed-1
+PASS erlang-packet-decode-framed-more-1
+PASS erlang-packet-decode-framed-zero-1
+PASS erlang-packet-decode-framed-limit-1
+PASS erlang-packet-decode-framed-exact-limit-1
+PASS erlang-packet-decode-framed-duplicate-1
+PASS erlang-packet-decode-framed-2
+PASS erlang-packet-decode-framed-more-2
+PASS erlang-packet-decode-framed-zero-2
+PASS erlang-packet-decode-framed-limit-2
+PASS erlang-packet-decode-framed-exact-limit-2
+PASS erlang-packet-decode-framed-duplicate-2
+PASS erlang-packet-decode-framed-4
+PASS erlang-packet-decode-framed-more-4
+PASS erlang-packet-decode-framed-zero-4
+PASS erlang-packet-decode-framed-limit-4
+PASS erlang-packet-decode-framed-exact-limit-4
+PASS erlang-packet-decode-framed-duplicate-4
+PASS erlang-packet-decode-framed-short-header
+PASS erlang-packet-decode-framed-default-signed-bound
+PASS erlang-packet-decode-line
+PASS erlang-packet-decode-line-delimiter
+PASS erlang-packet-decode-line-truncate-no-delimiter
+PASS erlang-packet-decode-line-truncate-delimiter
+PASS erlang-packet-decode-line-limit-precedes-truncation
+PASS erlang-packet-decode-line-equal-limit-still-more
+PASS erlang-packet-decode-line-duplicate-delimiter
+PASS erlang-packet-decode-asn1-short
+PASS erlang-packet-decode-asn1-indefinite-header-only
+PASS erlang-packet-decode-asn1-long-tag
+PASS erlang-packet-decode-asn1-long-length-1
+PASS erlang-packet-decode-asn1-long-length-2
+PASS erlang-packet-decode-asn1-long-length-3
+PASS erlang-packet-decode-asn1-long-length-4
+PASS erlang-packet-decode-asn1-length-five
+PASS erlang-packet-decode-asn1-more
+PASS erlang-packet-decode-sunrm
+PASS erlang-packet-decode-cdr-big
+PASS erlang-packet-decode-cdr-little
+PASS erlang-packet-decode-cdr-invalid
+PASS erlang-packet-decode-fcgi-padding
+PASS erlang-packet-decode-fcgi-padding-counts-limit
+PASS erlang-packet-decode-fcgi-invalid-version
+PASS erlang-packet-decode-tpkt
+PASS erlang-packet-decode-tpkt-invalid
+PASS erlang-packet-decode-tls
+PASS erlang-packet-decode-tls-empty
+PASS erlang-packet-decode-tls-v2-hello
+PASS erlang-packet-decode-tls-v2-empty
+PASS erlang-packet-decode-tls-more
+PASS erlang-packet-decode-bad-selector-0
+PASS erlang-packet-decode-bad-selector-1
+PASS erlang-packet-decode-bad-selector-2
+PASS erlang-packet-decode-bad-selector-3
+PASS erlang-packet-decode-bad-selector-4
+PASS erlang-packet-decode-bad-selector-5
+PASS erlang-packet-decode-bad-input-0
+PASS erlang-packet-decode-bad-input-1
+PASS erlang-packet-decode-bad-input-2
+PASS erlang-packet-decode-bad-input-3
+PASS erlang-packet-decode-bad-option-0
+PASS erlang-packet-decode-bad-option-1
+PASS erlang-packet-decode-bad-option-2
+PASS erlang-packet-decode-bad-option-3
+PASS erlang-packet-decode-bad-option-4
+PASS erlang-packet-decode-bad-option-5
+PASS erlang-packet-decode-bad-option-6
+PASS erlang-packet-decode-bad-option-7
+PASS erlang-packet-decode-bad-option-8
+PASS erlang-packet-decode-bad-line-delimiter-0
+PASS erlang-packet-decode-bad-line-delimiter-1
+PASS erlang-packet-decode-bad-line-delimiter-2
+PASS erlang-packet-decode-bad-line-delimiter-3
+PASS erlang-packet-http-request-list
+PASS erlang-packet-http-legacy-list
+PASS erlang-packet-http-legacy-tab-list
+PASS erlang-packet-http-star-list
+PASS erlang-packet-http-method-unknown-list
+PASS erlang-packet-http-method-case-list
+PASS erlang-packet-http-version-trailing-list
+PASS erlang-packet-http-response-list
+PASS erlang-packet-http-response-empty-list
+PASS erlang-packet-http-response-no-status-list
+FAIL erlang-packet-http-response-status-zero-list {error,error,{badmatch,{ok,{http_error,[72,84,84,80,47,49,46,49,32,32,114,101,97,115,111,110,13,10]},<<9>>}}}
+PASS erlang-packet-http-error-11-list
+PASS erlang-packet-http-error-12-list
+PASS erlang-packet-http-error-13-list
+PASS erlang-packet-http-error-14-list
+PASS erlang-packet-http-error-15-list
+PASS erlang-packet-http-error-16-list
+PASS erlang-packet-http-error-17-list
+PASS erlang-packet-http-error-18-list
+PASS erlang-packet-http-uri-http-list
+PASS erlang-packet-http-uri-case-https-list
+PASS erlang-packet-http-uri-port-zero-list
+PASS erlang-packet-http-uri-port-invalid-list
+PASS erlang-packet-http-uri-ipv6-list
+PASS erlang-packet-http-uri-ipv6-no-port-list
+PASS erlang-packet-http-uri-scheme-list
+PASS erlang-packet-http-uri-string-list
+PASS erlang-packet-http-uri-single-list
+FAIL erlang-packet-http-header-host-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-custom-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-empty-name-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-empty-value-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-folded-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-long-list {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-error-list {error,error,{badmatch,{more,undefined}}}
+PASS erlang-packet-http-header-eoh-list
+PASS erlang-packet-http-header-await-next-byte-list
+PASS erlang-packet-http-empty-eoh-list
+PASS erlang-packet-http-empty-start-error-list
+PASS erlang-packet-http-limit-no-newline-list
+PASS erlang-packet-http-line-limit-fallback-list
+PASS erlang-packet-http-delimiter-rejected-list
+PASS erlang-packet-http-request-binary
+PASS erlang-packet-http-legacy-binary
+PASS erlang-packet-http-legacy-tab-binary
+PASS erlang-packet-http-star-binary
+PASS erlang-packet-http-method-unknown-binary
+PASS erlang-packet-http-method-case-binary
+PASS erlang-packet-http-version-trailing-binary
+PASS erlang-packet-http-response-binary
+PASS erlang-packet-http-response-empty-binary
+PASS erlang-packet-http-response-no-status-binary
+FAIL erlang-packet-http-response-status-zero-binary {error,error,{badmatch,{ok,{http_error,<<72,84,84,80,47,49,46,49,32,32,114,101,97,115,111,110,13,10>>},<<9>>}}}
+PASS erlang-packet-http-error-53-binary
+PASS erlang-packet-http-error-54-binary
+PASS erlang-packet-http-error-55-binary
+PASS erlang-packet-http-error-56-binary
+PASS erlang-packet-http-error-57-binary
+PASS erlang-packet-http-error-58-binary
+PASS erlang-packet-http-error-59-binary
+PASS erlang-packet-http-error-60-binary
+PASS erlang-packet-http-uri-http-binary
+PASS erlang-packet-http-uri-case-https-binary
+PASS erlang-packet-http-uri-port-zero-binary
+PASS erlang-packet-http-uri-port-invalid-binary
+PASS erlang-packet-http-uri-ipv6-binary
+PASS erlang-packet-http-uri-ipv6-no-port-binary
+PASS erlang-packet-http-uri-scheme-binary
+PASS erlang-packet-http-uri-string-binary
+PASS erlang-packet-http-uri-single-binary
+FAIL erlang-packet-http-header-host-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-custom-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-empty-name-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-empty-value-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-folded-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-long-binary {error,error,{badmatch,{more,undefined}}}
+FAIL erlang-packet-http-header-error-binary {error,error,{badmatch,{more,undefined}}}
+PASS erlang-packet-http-header-eoh-binary
+PASS erlang-packet-http-header-await-next-byte-binary
+PASS erlang-packet-http-empty-eoh-binary
+PASS erlang-packet-http-empty-start-error-binary
+PASS erlang-packet-http-limit-no-newline-binary
+PASS erlang-packet-http-line-limit-fallback-binary
+PASS erlang-packet-http-delimiter-rejected-binary
+143/159
