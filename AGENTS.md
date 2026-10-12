@@ -547,3 +547,7 @@ Part152: complete original **3654/3657**,three record-predicate discrepancies pr
 ## Part153 checkpoint
 
 Part153: record expansion/compiled tuple-test repair plus four identifier-text exports and character literals pass **4329/full local**. [Three-premise correction ledger](validation/part-153/record-premise-corrections.json),[audit](validation/part-153/reference-audit.json). All2782 prior sources unchanged;three explicit expected corrections/two generated hash changes only;all103 old diagnoses/six exclusions/policies preserved.77 identifier/41 character/9 record modules,17 scanner diagnoses,two host checks. Registry384;erlang234/351,117 missing,66.7% API presence. Original3801/same-head4329 CI pending154;152 failures retained. Packet75/75 is isolated;whole goal continues.
+
+## Part154 checkpoint
+
+Part154: complete pinned original **3801/3801** at1122925 and **4329/full same-head CI**. all selected comparisons match;continue remaining APIs. [Proof](validation/part-154/differential.json),[strict guard](validation/part-154/strict-guard.json). All2903 sources/independent expectations/hashes/contexts/policies,120 diagnoses,778 expression inputs and six exclusions preserved from153. Registry384;erlang234/351,117 missing,66.7% API presence,not whole-module completion. Packet289/289 isolated draft remains unverified natively;whole goal continues.
