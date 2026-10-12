@@ -507,3 +507,7 @@ Part142: complete **3454/3458 original**,four new spawn discrepancies preserved;
 ## Part143 checkpoint
 
 Part143: four priority link/exit exports,pending alias/link signal resolution and safe terminal cleanup;repair monitored-spawn group-leader inheritance. **4052/full local**,79 new modules and128-child host check. [Audit](validation/part-143/reference-audit.json). Registry377;erlang227/351,124 missing,64.7% API presence. All141 fixtures/six exclusions preserved;original3537 and same-head4052 CI pending144. Whole erlang goal continues;real ports/distribution/native scheduler/full metadata and resources unfinished.
+
+## Part144 checkpoint
+
+Part144: complete **3531/3537 original**,six discrepancies preserved;**4052/full same-head CI** at e8a5cc9. All79 new exit/link contracts match. Fresh caller repairs two trap_exit premises;four historical linked-init outcomes change and two PID results persist. All sources,independent expectations,generated hashes and six exclusions preserved. [Failures](validation/part-144/mismatches.json),[proof](validation/part-144/remote-checkpoint.json). Registry377;erlang227/351,124 missing,64.7% API presence. Latest fully successful original140. Audit native linked-init signals and compiled PID outcomes before promoting clock/record drafts. Whole goal continues.

@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-142/ci-tests.json",
+  "ComparisonTestReport": "validation/part-144/ci-tests.json",
   "LocalPassedTests": 4052,
   "RegisteredMfas": 377,
-  "PreviousRegisteredMfas": 373,
-  "RegisteredMfaDelta": 4,
+  "PreviousRegisteredMfas": 377,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -215,7 +215,8 @@
         "Same-head2816/full CI,identical local/CI test names and296 direct MFA contracts;source build/version/completeness/independent outcomes/head/jobs/archive hashes checked",
         "Part138: original3301/3301 (778/2430/93) and same-head3795/full CI at2eb3e41; pending alias mismatch136 repaired with exact source/hash and explicit native-backed expectation correction; six exclusions unchanged",
         "Part140: 3398/3398 original (778 expressions,2527 modules,93 diagnostics) and 3902/full same-head CI at a71c034;51 new monitor and46 exact default-disabled trace contracts verified;all historical fixtures and six exclusions preserved",
-        "Part142:complete3454/3458 original with four preserved new spawn discrepancies;3968/full same-head CI at59992ef;all old successful native results and six exclusions preserved;latest fully successful original140"
+        "Part142:complete3454/3458 original with four preserved new spawn discrepancies;3968/full same-head CI at59992ef;all old successful native results and six exclusions preserved;latest fully successful original140",
+        "Part144:complete3531/3537 original,six preserved discrepancies and4052/full same-head CI at e8a5cc9;79 new exit/link contracts match;fresh context repairs two trap_exit premises but four historical linked-init results change and two PID discrepancies persist;latest fully successful original140"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -5495,8 +5496,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 227,
-      "PreviousRegisteredMfas": 223,
-      "Delta": 4,
+      "PreviousRegisteredMfas": 227,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 64.7,
       "RequiresPreprocessing": false,
