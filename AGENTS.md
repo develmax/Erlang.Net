@@ -707,3 +707,7 @@ Part192:source-built original **4605/4607** and **5186/full same-head CI** atde1
 ## Part193 checkpoint
 
 Part193:isolated native investigation now includes both retained192 failures in120 compiler/pass/context evaluations. **5186/full local**;production/MFAs/all3703 fixture contracts and six exclusions unchanged. Native matrix pending194;192 remains4605/4607. [Audit](validation/part-193/reference-audit.json),[tests](validation/part-193/tests.json). Pinned erl_utils.h confirms flatmap atoms use internal identities;display order is not name order. Registry415;erlang265/351,86 missing,75.5% API presence. Repair only after independent diagnosis;whole goal continues.
+
+## Part194 checkpoint
+
+Part194:120 native compiler/pass/context diagnoses complete,zero compatibility-corpus coverage;**5186/full same-head CI** at3e39638. Node-qualified tuple spawn returns PID after default SSA continuation removal;isolated no_ssa_opt retains done in all three contexts. Raw map printer uses internal atom identity order. [Matrix](validation/part-194/outcome-matrix.json),[guard](validation/part-194/strict-guard.json). Sources/expectations/policies/exclusions unchanged;retain1924605/4607. Registry415;erlang265/351,86 missing,75.5% API presence. Next internal map printer order and narrowly audited fixture policy;whole module continues.
