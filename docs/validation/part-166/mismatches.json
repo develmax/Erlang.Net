@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "erlang-module-attributes-improper",
+    "Source": "-module(module_attributes_contract). -export([run/0]). -custom([a|tail]). run()->[{vsn,[_]},{custom,[[a|tail]]}]=module_info(attributes),done.",
+    "SourceSha256": "5803B842AF90B5899C1332B4554ECBF6D219DD89891A033F825E6D5F0D4354FA",
+    "CSharpSha256": "D99529CB6DA187628563E025E40679B0CCB7D809A18141CBBF8DA8BB0A74ABCD",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,{badmatch,[{vsn,[185548095341360388890505589295258695733]},{custom,[a|tail]}]}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  }
+]
