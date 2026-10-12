@@ -1,0 +1,29 @@
+{
+  "Scope": "Qualified non-erlang callback static tails. Existing erlang BIF-specific stack behavior unchanged. Code-image ownership and CPC/purge pending",
+  "NativePlan": 4370,
+  "DynamicFunRule": "build_fun_call emits call_fun/call_fun2 followed by deallocate/return,retaining continuation during invocation. Canonical callback metadata alone is not proof of a statically lowered call",
+  "NewModules": 8,
+  "NewLanguageExports": 0,
+  "Missing": 105,
+  "Expressions": 778,
+  "ErlangPresent": 246,
+  "ErlangDeclared": 351,
+  "FullPipeline": true,
+  "ComparableModules": 3460,
+  "Registry": 396,
+  "Sources": [
+    {
+      "BlobSHA1": "ef27cbe78388323938ae08bbeb2e7c5026d6606a",
+      "Path": "lib/compiler/src/beam_ssa_codegen.erl"
+    }
+  ],
+  "Baseline": "OTP-29.1.1",
+  "SdkModules": 3466,
+  "NativeRunHere": false,
+  "Diagnoses": 132,
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "LocalPassed": 4920,
+  "Part": 173,
+  "Preserved": "All3458 published source/independent expectation/generated hash/context/policy contracts;132 diagnoses;778 expressions;six exclusions",
+  "StaticCallRule": "build_call call_ext_only/call_ext_last transfers without caller continuation"
+}

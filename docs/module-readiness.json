@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-171/tests.json",
-  "LocalPassedTests": 4911,
+  "ComparisonTestReport": "validation/part-172/ci-tests.json",
+  "LocalPassedTests": 4920,
   "RegisteredMfas": 396,
   "PreviousRegisteredMfas": 396,
   "RegisteredMfaDelta": 0,
@@ -72,7 +72,8 @@
         "Part163:owned current code metadata/cache/rollback and get_module_info1/2,4855/full local;original4311 pending164",
         "Part165:actual source attributes/explicit/default vsn and metadata-free code/fun fingerprints;4880/full local,original4335 pending166",
         "Part169:actual current-to-old delete_module1/check_old_code1,old-only loaded0/current-only module_loaded1,immutable callbacks/descriptors and atomic rollback;4900/full local,4352 original pending170",
-        "Part171:actual per-entry source IR ownership/static and canonical-external source tail trampoline/custom C# callback protection;4911/full local,4362 original pending172"
+        "Part171:actual per-entry source IR ownership/static and canonical-external source tail trampoline/custom C# callback protection;4911/full local,4362 original pending172",
+        "Part173:qualified non-erlang static callback tail dispatch releases the source frame;non-tail and async/error restoration guarded;4920/full local,4370 original pending174"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -81,7 +82,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 299
+      "RelatedPassedTests": 300
     },
     {
       "Id": "Compiler",
@@ -271,7 +272,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3607
+      "RelatedPassedTests": 3615
     },
     {
       "Id": "Style checks",

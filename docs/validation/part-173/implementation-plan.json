@@ -1,0 +1,11 @@
+{
+  "Design": "Introduce real immutable code-image identities associated with actual registered source/callback images and retained old snapshots. ProcessContext holds thread-safe active execution references,distinct from diagnostic stack terms. Preserve old local invocation identity across reload,choose current qualified targets,rollback publication and release scopes after return/error/cancellation",
+  "Objective": "Release source caller frames before qualified non-erlang runtime callbacks,matching static call_ext_only;prepare code-version inspection without fabricating CPC/purge",
+  "RequiredBeforeCpcPurge": "General tail handling for non-source/anonymous/local/dynamic apply calls;asynchronous admission cannot set AsyncLocal in an async helper and assume it flows back. Activation must occur in caller context and be atomic against purge. Pending old-fun callers wait without an active old-code reference",
+  "Part": 173,
+  "Reuse": "Existing registry gate/actual IR owner entries/ProcessRuntime owned contexts/immutable snapshots. Reject delegate reflection or name-only code references;no new package or assembly unloading substitute",
+  "Source": "beam_bif_load.c check_process_code/erts_check_process_code examine instruction/continuation pointers;heap-held fun values alone do not count",
+  "Validation": "Actual source old/current execution and local continuation after reload,qualified tail releases,callback ownership,rollback and exception/cancellation cleanup;preserve3458 fixtures and all prior routes/policies;full pipeline and original comparison",
+  "Scope": "Static non-source tail dispatch foundation only. Dynamic fun call_fun retains continuations in the pinned backend;do not assume arbitrary fun calls remove callers. erlang builtin-specific stack behavior remains unchanged",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

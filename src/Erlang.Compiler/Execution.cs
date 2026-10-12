@@ -24,22 +24,13 @@ public static class Execution
     {
         while (true)
         {
-            using var frame = context.EnterFunction(module.Name, function, arguments.Count);
-            var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-            var selection = Select(
-                definition.Clauses,
-                arguments,
-                [],
-                context
-            ) ?? throw new ErlangException(ErlangErrorReasons.FunctionClause);
             try
             {
-                return await Evaluate(
-                    selection.Clause.Body,
-                    context,
-                    selection.Bindings,
+                return await InvokeFrame(
                     module,
-                    true
+                    function,
+                    context,
+                    arguments
                 );
             }
             catch (TailCall next)
@@ -53,6 +44,62 @@ public static class Execution
                 function = next.Function;
                 arguments = next.Arguments;
             }
+            catch (RuntimeTailCall next)
+            {
+                return await CallRuntime(
+                    context,
+                    next.Module,
+                    next.Function,
+                    next.Arguments
+                );
+            }
+        }
+    }
+
+    private static async ValueTask<Term> InvokeFrame(
+        ModuleDefinition module,
+        string function,
+        ProcessContext context,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        using var frame = context.EnterFunction(module.Name, function, arguments.Count);
+        var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+        var selection = Select(
+            definition.Clauses,
+            arguments,
+            [],
+            context
+        ) ?? throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+        return await Evaluate(
+            selection.Clause.Body,
+            context,
+            selection.Bindings,
+            module,
+            true
+        );
+    }
+
+    private static async ValueTask<Term> CallRuntime(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments
+    )
+    {
+        try
+        {
+            return await context.Runtime.Modules.Call(
+                context,
+                module,
+                function,
+                arguments
+            );
+        }
+        catch (ErlangException exception)
+        {
+            throw exception.WithStackFrame(module, function, arguments);
         }
     }
 
@@ -495,6 +542,9 @@ public static class Execution
                     if (tail && (x.Module is not null || AutoImportSignatures.Contains(x.Function, args.Length)) &&
                         ctx.Runtime.Modules.SourceOwner(x.Module ?? ErlangModuleNames.Module, x.Function, args.Length) is ModuleDefinition source)
                         throw new SourceTailCall(source, x.Function, args);
+
+                    if (tail && x.Module is not null && x.Module != ErlangModuleNames.Module)
+                        throw new RuntimeTailCall(x.Module, x.Function, args);
 
                     try
                     {
