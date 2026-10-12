@@ -515,3 +515,7 @@ Part144: complete **3531/3537 original**,six discrepancies preserved;**4052/full
 ## Part145 checkpoint
 
 Part145: native investigation tooling passes **4053/full local**;36 targeted native compiler/context evaluations planned146,zero run locally. Source confirms adapters defer startup links incorrectly;repair follows actual native diagnosis. All production sources,2672 fixture sources/expectations/hashes and six exclusions unchanged. [Audit](validation/part-145/reference-audit.json). Failed1443531/3537 retained;latest successful original140. Registry377;erlang227/351,124 missing,64.7% API presence. Whole goal continues.
+
+## Part146 checkpoint
+
+Part146: **36/36 native diagnostic evaluations completed**,zero compatibility-corpus coverage;**4053/full same-head CI** at11f8b8e. Four startup discrepancies depend on trap_exit. Two spawn sources lose monitor/receive/done continuation in default native compiled run/0;disabled optimizations retain it and return done. [Matrix](validation/part-146/outcome-matrix.json),[guard](validation/part-146/strict-guard.json). No source/expectation/exclusion rewrite or resolved144 claim. Registry377;erlang227/351,124 missing,64.7% API presence. Continue startup repair and isolate compiler pass;whole goal remains unfinished.
