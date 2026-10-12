@@ -1,0 +1,46 @@
+{
+  "Part": 189,
+  "Decision": "Reuse owned runtime node name,actual decoded node containers,SDK weak references/CWT and iterative term traversal. Implement pinned type union/options/local/known metadata and no-connection runtime state;do not fabricate connected peers. No new package. Dynamic naming,actual transport/hidden/pending/connected channels,native node GC timing,host-import observation and full distribution/upstream/resource/performance scope remain unfinished.",
+  "Scope": "nodes0/1/2 and is_alive0 for current local/named backend and known decoded foreign containers. Connected networking remains a prerequisite;registered API presence does not complete distribution.",
+  "Baseline": "OTP-29.1.1",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Copyright": "%% Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "BlobSHA1": "53cd31e9a0f3430202f91b1fad9c24471dddd493",
+      "Copyright": " * Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_node_tables.c",
+      "BlobSHA1": "7dec81a2c1a5f989691a27e7e3074e36ebfdc0c3",
+      "Copyright": " * Copyright Ericsson AB 2001-2025. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_node_tables.h",
+      "BlobSHA1": "e3d8944462a92b5bdd65862af7bd033c01017dd1",
+      "Copyright": " * Copyright Ericsson AB 2001-2025. All Rights Reserved."
+    }
+  ],
+  "License": "Ericsson Apache-2.0 source-directed adaptation;retain consolidated notices,no banners/public packages or owner license publication.",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PrintfRepairAudit": "docs/validation/part-188/printf-newline-audit.json",
+  "PrintfRepair": "Separate source printf output conversion adds CR before every LF;leave display_string raw byte service and oracle delimiter handling untouched. Explicit37 output expectation migrations guarded against unchanged sources/hashes and native actual bytes. Existing CR stays;host test includes LF inside local fun module metadata.",
+  "PrePrintfFullDraftPassed": 5130,
+  "CurrentDraftPlan": 5130,
+  "PrintfSources": [
+    {
+      "Path": "erts/lib_src/common/erl_printf.c",
+      "BlobSHA1": "dd3bcae9851906829c93061d11a453c7c9852b9e",
+      "Copyright": " * Copyright Ericsson AB 2005-2025. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys.c",
+      "BlobSHA1": "218da5447585fd54183a75f8c46c5ee3a8f180af",
+      "Copyright": " * Copyright Ericsson AB 1996-2025. All Rights Reserved."
+    }
+  ]
+}

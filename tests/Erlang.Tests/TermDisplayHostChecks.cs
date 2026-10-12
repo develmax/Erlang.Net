@@ -19,11 +19,26 @@ public static class TermDisplayHostChecks
                 Require((await Call(context, nested)).Equals(Term.A(ErlangBooleanAtoms.True)));
                 byte[] bytes = output.ToArray();
                 int depth = TermDisplayHostParameters.NestedTuples;
-                Require(bytes.Length == depth * 2 + 2 && bytes[depth] == TermDisplayHostParameters.Zero && bytes[^1] == TermDisplayHostParameters.NewLine);
+                Require(bytes.Length == depth * 2 + 3 && bytes[depth] == TermDisplayHostParameters.Zero && bytes[^2] == TermDisplayHostParameters.CarriageReturn && bytes[^1] == TermDisplayHostParameters.NewLine);
                 Require(bytes.AsSpan(0, depth).IndexOfAnyExcept(TermDisplayHostParameters.OpenTuple) < 0 && bytes.AsSpan(depth + 1, depth).IndexOfAnyExcept(TermDisplayHostParameters.CloseTuple) < 0);
                 output.SetLength(0);
                 await Call(context, Term.List(Term.I(160), Term.I(255)));
                 Require(output.ToArray().SequenceEqual(TermDisplayHostParameters.LatinString) && error.Length == 0);
+                output.SetLength(0);
+                var identity = new LocalFunctionIdentity(
+                    Term.A(TermDisplayHostParameters.EmbeddedNewlineModule),
+                    null,
+                    0,
+                    0,
+                    new BitString(new byte[TermDisplayHostParameters.FunctionDigestBytes])
+                );
+                await Call(context, new FunctionTerm(
+                    identity,
+                    0,
+                    [],
+                    (_, _) => ValueTask.FromResult<Term>(Nil.Value)
+                ));
+                Require(output.ToArray().SequenceEqual(TermDisplayHostParameters.EmbeddedNewlineFunction));
                 output.Dispose();
                 Require((await Call(context, Term.I(0))).Equals(Term.A(ErlangBooleanAtoms.True)));
             }

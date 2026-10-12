@@ -23,6 +23,7 @@ Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run)
 Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);
 Test(Erlang.Tests.ProcessSuspensionHostNames.Test, Erlang.Tests.ProcessSuspensionHostChecks.Run);
 Test(Erlang.Tests.TermDisplayHostNames.Test, Erlang.Tests.TermDisplayHostChecks.Run);
+Test(Erlang.Tests.RuntimeNodeQueryHostNames.Test, Erlang.Tests.RuntimeNodeQueryHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.ProtocolTest, Erlang.Tests.StandardStreamProtocolChecks.Run);
 Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);

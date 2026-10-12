@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part189:owned nodes0/1/2/is_alive0 query actual local/named identity and weakly retained foreign PID/port/reference containers decoded into this runtime. Native printf output inserts CR before every LF,repairing188 byte discrepancies;raw display_string/delimiter logic unchanged. **5130/full main and draft**,33 new source cases;3621 inherited sources/outcomes/hashes/contexts/policies unchanged,37 explicit output migrations. Registry409;erlang259/351,92 missing,**73.8% API presence**,not semantic completion. [Tests](validation/part-189/tests.json),[migrations](validation/part-189/output-migrations.json). Original4558 pending190;retain1884488/4525 and1864485/4486. Networking/dynamic naming/nativeGC/host imports/platform/resources/grammar/upstream/performance unfinished. Close0027 after188;open0028.
+
 Part188:original **4488/4525** complete and **5092/full same-head CI** atc1702e7. 37 byte discrepancies retained;repair before promotion. All33 suspension/timer scenarios pass,including corrected public-reference lifetime and wrapped delivery;37 display payloads differ by added CR before LF. [Proof](validation/part-188/differential.json),[mismatches](validation/part-188/mismatches.json),[guard](validation/part-188/strict-guard.json). All3621 source/contracts and68 byte expectations preserved. Registry405;erlang255/351,96 missing,72.6% API presence,not semantic completion. Trace native printf newline layer,repair in189 and continue remaining APIs.
 
 Part187:real erlang display1 uses iterative native term formatting/raw stdout and qualified literal fun references lower through make_fun. Paused timers now invalidate old public references and resume preserved messages/deadlines with fresh private identity,repairing original186 discrepancy. **5092/full main and draft**,39 new modules and one explicit disproved fixture migration;3581 other contracts unchanged. Registry405;erlang255/351,96 missing,**72.6% API presence**,not semantic completion. [Tests](validation/part-187/tests.json),[migration](validation/part-187/fixture-migration.json). Original4525 pending188;retain1864485/4486 and latest full success1844455/4455. Native platform/metadata/HAMT/grammar/scheduler/resources/upstream/performance scope and remaining APIs continue.
@@ -100,7 +102,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.255 registered,96 missing,total405 direct MFAs.72.6% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.259 registered,92 missing,total409 direct MFAs.73.8% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -257,7 +259,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `iolist_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `iolist_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `iolist_to_iovec/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_alive/0` | Missing; real implementation/runtime prerequisites required |
+| `is_alive/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_bitstring/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -326,9 +328,9 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `nif_error/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `node/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `node/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nodes/0` | Missing; real implementation/runtime prerequisites required |
-| `nodes/1` | Missing; real implementation/runtime prerequisites required |
-| `nodes/2` | Missing; real implementation/runtime prerequisites required |
+| `nodes/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `nodes/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `nodes/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `not/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `now/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `open_port/2` | Missing; real implementation/runtime prerequisites required |

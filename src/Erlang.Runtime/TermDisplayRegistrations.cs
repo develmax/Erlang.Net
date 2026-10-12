@@ -8,7 +8,7 @@ internal static class TermDisplayRegistrations
         1,
         (context, arguments) =>
         {
-            byte[] bytes = new TermDisplayWriter(context.Runtime).Write(arguments[0]);
+            byte[] bytes = NativePrintfOutput.Encode(new TermDisplayWriter(context.Runtime).Write(arguments[0]));
             try
             {
                 context.Runtime.StandardStreams.Write(ErlangStandardStreamNames.StandardOutput, BitString.FromOwnedBytes(bytes));

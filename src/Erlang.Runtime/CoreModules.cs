@@ -752,6 +752,7 @@ public static class CoreModules
         StandardStreamRegistrations.Register(r);
         ProcessSuspensionRegistrations.Register(r);
         TermDisplayRegistrations.Register(r);
+        RuntimeNodeQueryRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);

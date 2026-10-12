@@ -103,6 +103,7 @@ internal static class ErlangEtfRegistrations
             )
         };
         EtfDecodedTerm result = ExternalTermFormat.DecodeOne(binary.ToArray(), decoding);
+        context.Runtime.KnownNodes.Observe(result.Term);
 
         return used ? Term.Tuple(result.Term, Term.I(result.Used)) : result.Term;
     }

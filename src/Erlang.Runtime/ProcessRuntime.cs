@@ -26,6 +26,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         get;
     }
     internal RuntimeTimers Timers { get; }
+    internal RuntimeKnownNodes KnownNodes { get; }
     internal ProcessSuspensions Suspensions { get; }
     public RuntimeStandardStreams StandardStreams { get; }
     private readonly bool ownsStandardStreams;
@@ -64,6 +65,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         processSlots = new(maximumProcesses);
         Node = node;
         NodeAtom = Term.A(node);
+        KnownNodes = new(node);
         Output = output ?? Console.Out;
         ownsStandardStreams = standardStreams is null;
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();

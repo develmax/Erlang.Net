@@ -1,0 +1,372 @@
+[
+  {
+    "Name": "erlang-term-display-atom",
+    "SourceSha256": "1ECBB58450B4480EE8511E8C3786DA1B54A0A601E2D426AD730DDA2AB4B16274",
+    "CSharpSha256": "EE9235EF968E375E6B73E854772F8C98DEEB71A7BC38DB3FF489A1197B3E989C",
+    "PreviousExpectedOutputHex": "6F6B0A",
+    "NewExpectedOutputHex": "6F6B0D0A",
+    "NativeOutputHex": "6F6B0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-empty-atom",
+    "SourceSha256": "60E3B055D821B52DF1F822040FFA84771D92F6BA7F352EBF5943316AC06209C4",
+    "CSharpSha256": "D42EC8D2B0B1E16A656E086C4972063C3F1C5D6432C24DC95FF8C1CE1C25AB12",
+    "PreviousExpectedOutputHex": "27270A",
+    "NewExpectedOutputHex": "27270D0A",
+    "NativeOutputHex": "27270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-quoted-atom",
+    "SourceSha256": "D41645B08D0252160B3992E8C358AF6793436802FE8758D8AE656EC2FA42311A",
+    "CSharpSha256": "36B522758E51093AB814A6A26D5B141467C198E337E321761E82A9E4ED806D40",
+    "PreviousExpectedOutputHex": "2748656C6C6F20776F726C64270A",
+    "NewExpectedOutputHex": "2748656C6C6F20776F726C64270D0A",
+    "NativeOutputHex": "2748656C6C6F20776F726C64270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-at-atom",
+    "SourceSha256": "BE7EA41FC284006FD02DCD2F38066759F994792803F1038614893DD6462E014F",
+    "CSharpSha256": "453AD46DBA7E04D9875706636B3F6385F56B4C93D1A312E01FCFEE658153ED6B",
+    "PreviousExpectedOutputHex": "27614062270A",
+    "NewExpectedOutputHex": "27614062270D0A",
+    "NativeOutputHex": "27614062270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-latin-atom",
+    "SourceSha256": "AB0C2B6BD50DABEDE3FE8C6D8540E792E7AFEDD8879BE57E7A29A9E34C79FF05",
+    "CSharpSha256": "AD2F38483EC3781492A4F895AEF8667A40BDA0DF8CB6E4F6161B19D1E800DD39",
+    "PreviousExpectedOutputHex": "C3A9C3895F390A",
+    "NewExpectedOutputHex": "C3A9C3895F390D0A",
+    "NativeOutputHex": "C3A9C3895F390D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-unicode-atom",
+    "SourceSha256": "41A2568DF21045EC2260785C4B66C6B2768E5DB674D67DADB24F835A3F43F814",
+    "CSharpSha256": "82B1292896B0D24BEDAA2078AB776AFF9D011C0B4D8C5147CF1074C594ECF3C4",
+    "PreviousExpectedOutputHex": "27CEBB270A",
+    "NewExpectedOutputHex": "27CEBB270D0A",
+    "NativeOutputHex": "27CEBB270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-atom-escape",
+    "SourceSha256": "8DA86B6EE5F5C88EA6A70C3E0A11C522DD5D81A657B5152CEE74C9982D9A595B",
+    "CSharpSha256": "542770BB8EDFBDDD1BB36A728C05EEE3DDE68FBE3EB938CB5F381566E0596D49",
+    "PreviousExpectedOutputHex": "27615C275C5C5C6E5C665C745C725C625C76270A",
+    "NewExpectedOutputHex": "27615C275C5C5C6E5C665C745C725C625C76270D0A",
+    "NativeOutputHex": "27615C275C5C5C6E5C665C745C725C625C76270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-atom-control",
+    "SourceSha256": "CFA95963DC134D9952A47E93F3FC3105D89DD6F51C385819174ADCACC219AAD4",
+    "CSharpSha256": "FF0D8284F94F798D9C1136AD2310DC3AC7A372CCF3E8D7C3FB13734AE10F8910",
+    "PreviousExpectedOutputHex": "275C3030305C3033375C3230305C323337270A",
+    "NewExpectedOutputHex": "275C3030305C3033375C3230305C323337270D0A",
+    "NativeOutputHex": "275C3030305C3033375C3230305C323337270D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-integer",
+    "SourceSha256": "6CB0E6C343AD9072A93DA41092E4838379689FA7E2485E8A9E47F1BC03FD8BBD",
+    "CSharpSha256": "BC2B14D2F4B4EBC7F06D4ED83A46548651CADEC00F6B5AEA481AFF6394A01DCE",
+    "PreviousExpectedOutputHex": "2D34320A",
+    "NewExpectedOutputHex": "2D34320D0A",
+    "NativeOutputHex": "2D34320D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-big-integer",
+    "SourceSha256": "188B79B63FFC49C297A7FB53C6CDADDC02B9F42FB903F448E2AC17FF7421340F",
+    "CSharpSha256": "CED870F944EB095A14DD17A7522E09708FBCC6D754AD2B05B9D36ABDADFB651E",
+    "PreviousExpectedOutputHex": "3132333435363738393031323334353637383930313233343536373839300A",
+    "NewExpectedOutputHex": "3132333435363738393031323334353637383930313233343536373839300D0A",
+    "NativeOutputHex": "3132333435363738393031323334353637383930313233343536373839300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-float-zero",
+    "SourceSha256": "829B08EF41D9F72BDAA3F51E8B207E3263B791A2726E6CFC55F5DDCC32F79EBB",
+    "CSharpSha256": "64CA1B343BC8ACB5560FA3E3DFEE15FEEA550A7FBC30A8FFC8F0B91BB0EEA636",
+    "PreviousExpectedOutputHex": "302E303030303030652B30300A",
+    "NewExpectedOutputHex": "302E303030303030652B30300D0A",
+    "NativeOutputHex": "302E303030303030652B30300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-float-negative-zero",
+    "SourceSha256": "19D4D73BC456671DBEF709B3EC324AB560FEF23532A146838A268472C9B084A3",
+    "CSharpSha256": "D2C402B28156603E1DD3CD4AD515F3A5FBBFEF24EB64EBCB8541BF0FA071CC76",
+    "PreviousExpectedOutputHex": "2D302E303030303030652B30300A",
+    "NewExpectedOutputHex": "2D302E303030303030652B30300D0A",
+    "NativeOutputHex": "2D302E303030303030652B30300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-float-round",
+    "SourceSha256": "B8B23DA00A3FD4528EF9692C1B2C5DC6E6C8BCBCDAF4DCBA14A05BC080045738",
+    "CSharpSha256": "383C1AA6E7EABCD98037DEE9D163EDF15014259CD3DE05606CA1D961124A7B61",
+    "PreviousExpectedOutputHex": "312E323334353638652B30300A",
+    "NewExpectedOutputHex": "312E323334353638652B30300D0A",
+    "NativeOutputHex": "312E323334353638652B30300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-float-tiny",
+    "SourceSha256": "B9B3CC969606BDD6F4237706BED4F37140E5BDA860B1C18640A4465AAE12D975",
+    "CSharpSha256": "A4E5E09FBBB62DE45DEBB3FF8398AB1C32A37DD0EC6EFE07612D109BBBB1B63E",
+    "PreviousExpectedOutputHex": "312E303030303030652D3130300A",
+    "NewExpectedOutputHex": "312E303030303030652D3130300D0A",
+    "NativeOutputHex": "312E303030303030652D3130300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-float-large",
+    "SourceSha256": "4067AD8C2701BDA3E2FCA3F5655A8BEC54D514DB27C84AE2F138835C07E128DF",
+    "CSharpSha256": "35D634E0A9D0F297699989B9DEA1EEA424BA7EDA6F5835578368851C53C4500E",
+    "PreviousExpectedOutputHex": "312E303030303030652B3130300A",
+    "NewExpectedOutputHex": "312E303030303030652B3130300D0A",
+    "NativeOutputHex": "312E303030303030652B3130300D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-nil",
+    "SourceSha256": "F75EC9FED4062DD7B5CA295F1BA13797930E7F2C7407762449B2AAF84D29E944",
+    "CSharpSha256": "14307DF55B289EC16CE4B0D7FB12A04307D98F306C862F9B899B165539C61E7D",
+    "PreviousExpectedOutputHex": "5B5D0A",
+    "NewExpectedOutputHex": "5B5D0D0A",
+    "NativeOutputHex": "5B5D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-string",
+    "SourceSha256": "68840BBA3A42779B5904E5AF3C7E7EC68E0905AA0DD5D24F7C4885FFE6E4EF69",
+    "CSharpSha256": "17CAD4A7F283AAF0611E8C9F1E7FD3294808352E3D6DEBCF1FAF4ED925B176CE",
+    "PreviousExpectedOutputHex": "224142220A",
+    "NewExpectedOutputHex": "224142220D0A",
+    "NativeOutputHex": "224142220D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-latin-string",
+    "SourceSha256": "ADCE9840465308C78813BF6A30D55E60383BC8B3E916E66B006E1A41DD180757",
+    "CSharpSha256": "368F572DB1B714CEA19F96C825FB784C95419517265116C8C3CC144C3B56066E",
+    "PreviousExpectedOutputHex": "22A0FF220A",
+    "NewExpectedOutputHex": "22A0FF220D0A",
+    "NativeOutputHex": "22A0FF220D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-string-controls",
+    "SourceSha256": "1DFD8714EA1C2BD037BFD28620FAEB4F9DCC8D4FE7EDAF6E167971BD78FFEC52",
+    "CSharpSha256": "7B4BC4EB3C38C11BCBE24DB4EB18A3256E7BA4E6DDDD534B4FE1415270B34C95",
+    "PreviousExpectedOutputHex": "220D095C6E220A",
+    "NewExpectedOutputHex": "220D095C6E220D0A",
+    "NativeOutputHex": "220D095C6E220D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-string-quote-slash",
+    "SourceSha256": "DCC317111D426DE2714CF5F1D4ABA5B507BA6069DB5433FF878F7FA5731E3F85",
+    "CSharpSha256": "A9530AECBAEA370AB15D2402DD9E25E2C5137FC36EB45CBCCEDB2ACF95FBCE86",
+    "PreviousExpectedOutputHex": "225C225C220A",
+    "NewExpectedOutputHex": "225C225C220D0A",
+    "NativeOutputHex": "225C225C220D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-list-zero",
+    "SourceSha256": "A8F669978B1BB146B5E03D9CDB840B164D372F5F2765A6517DB2B174EF9C5278",
+    "CSharpSha256": "D15C5B32FD2B9E4DB7ACB6498ECF10523B88648E9A5EF5DF5F95CF8E91973059",
+    "PreviousExpectedOutputHex": "5B302C3132372C3132382C3135395D0A",
+    "NewExpectedOutputHex": "5B302C3132372C3132382C3135395D0D0A",
+    "NativeOutputHex": "5B302C3132372C3132382C3135395D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-unicode-list",
+    "SourceSha256": "8AE500A74CE01F609C181E42BC5E862DA001DFCF6A7C9D022E2BDA4D21A7D60F",
+    "CSharpSha256": "9761FD595DCBE70D6B0B0A03ABA2D315ACB0840F17095BC25D9AC471EE594CBF",
+    "PreviousExpectedOutputHex": "5B3935352C3132383531325D0A",
+    "NewExpectedOutputHex": "5B3935352C3132383531325D0D0A",
+    "NativeOutputHex": "5B3935352C3132383531325D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-improper-list",
+    "SourceSha256": "9816F7A0DF77B6159C4777CD456DD5C6895489031AB5F3B2E29763E5BEE375E1",
+    "CSharpSha256": "47A18245F812C36632C7899A7C1C49D94F48882B2716BA91C90EEC063B601C7B",
+    "PreviousExpectedOutputHex": "5B36357C7461696C5D0A",
+    "NewExpectedOutputHex": "5B36357C7461696C5D0D0A",
+    "NativeOutputHex": "5B36357C7461696C5D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-nested-list",
+    "SourceSha256": "B607D8AE00612FE55D2AC4398822DC21178F02ADFF2DD2363AEF3C39006F52CB",
+    "CSharpSha256": "1D1A5E74D8E17FB2A97E97398CFCC3CA2B3F08071D11D0FB312149B0169D8C77",
+    "PreviousExpectedOutputHex": "5B2241222C5B305D5D0A",
+    "NewExpectedOutputHex": "5B2241222C5B305D5D0D0A",
+    "NativeOutputHex": "5B2241222C5B305D5D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-tuple",
+    "SourceSha256": "2CA34F2148929CE118DB3A2E1173A92744BED724F70A676946BEE5558925ACE5",
+    "CSharpSha256": "D4258F4BE391E9D960EF6995269739209D87D13D02DD2BFE99F71798DDC78E59",
+    "PreviousExpectedOutputHex": "7B6F6B2C34322C5B5D7D0A",
+    "NewExpectedOutputHex": "7B6F6B2C34322C5B5D7D0D0A",
+    "NativeOutputHex": "7B6F6B2C34322C5B5D7D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-empty-tuple",
+    "SourceSha256": "0C9AD9FEC6D37ED8F495DBE9263CC05F8A76B60866ED382B302E33B56B2429CC",
+    "CSharpSha256": "A21C1FE406D6F3B5042F33F75672B7F492351E598D1444DEA1B075AF8AEF66B9",
+    "PreviousExpectedOutputHex": "7B7D0A",
+    "NewExpectedOutputHex": "7B7D0D0A",
+    "NativeOutputHex": "7B7D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-empty-map",
+    "SourceSha256": "88592DBE36BA073AED778C85626FAE31F6AF0749EA1C6F42F76C7FF49FADCC76",
+    "CSharpSha256": "0C906CB5D61DF9DB3D13E07FEB6A823C53B95FD97A55C86F8AE4F3384F758000",
+    "PreviousExpectedOutputHex": "237B7D0A",
+    "NewExpectedOutputHex": "237B7D0D0A",
+    "NativeOutputHex": "237B7D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-map",
+    "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+    "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+    "PreviousExpectedOutputHex": "237B613D3E7B307D2C623D3E2241227D0A",
+    "NewExpectedOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+    "NativeOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-numeric-map",
+    "SourceSha256": "951DE2EFF9E8E95CBE88684D74F18696EA2302FAB5ECFEC686B3DADBAB52DC76",
+    "CSharpSha256": "1FF357608BA5496A8A3D35678FE70728296099C965638B3EE658F57C029913A8",
+    "PreviousExpectedOutputHex": "237B313D3E696E74656765722C312E303030303030652B30303D3E666C6F6174696E677D0A",
+    "NewExpectedOutputHex": "237B313D3E696E74656765722C312E303030303030652B30303D3E666C6F6174696E677D0D0A",
+    "NativeOutputHex": "237B313D3E696E74656765722C312E303030303030652B30303D3E666C6F6174696E677D0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-empty-binary",
+    "SourceSha256": "CB8D6AEA1CF38B0968A5E0502A5173A34C52C6E86B11FEC5817CABBBFB74F3D2",
+    "CSharpSha256": "B087EB0896F6E7D4559D129245F40E5A73782FF487DC1CCD970C6A9051C3FB04",
+    "PreviousExpectedOutputHex": "3C3C3E3E0A",
+    "NewExpectedOutputHex": "3C3C3E3E0D0A",
+    "NativeOutputHex": "3C3C3E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-binary-string",
+    "SourceSha256": "518A7653A1D49473F9826994AED9970CD96B011EF006324EB53E87538D197EC8",
+    "CSharpSha256": "7A66EC20DF3D8E160B2347E8F1449727E6DAB24C97B1305CEDC60700748E9A09",
+    "PreviousExpectedOutputHex": "3C3C224142223E3E0A",
+    "NewExpectedOutputHex": "3C3C224142223E3E0D0A",
+    "NativeOutputHex": "3C3C224142223E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-binary-quote-slash",
+    "SourceSha256": "E91D41CB22883EE4EAB81BB8856F022C2546D7356AD621BA44C23B8AABF293A3",
+    "CSharpSha256": "2F84918001DED62CE406DBBAB3830E30F5DBAF63083CEEC30C8FC6E9652B7C43",
+    "PreviousExpectedOutputHex": "3C3C225C225C223E3E0A",
+    "NewExpectedOutputHex": "3C3C225C225C223E3E0D0A",
+    "NativeOutputHex": "3C3C225C225C223E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-binary-controls",
+    "SourceSha256": "4CD031D32474860623E7C0549BAAB6143F01F7E2E2A532307265A74F51FA8454",
+    "CSharpSha256": "B6FBAB8359CBF4E96925EF025977568E55BFC3C594F245DF2C26025FE6C04A07",
+    "PreviousExpectedOutputHex": "3C3C302C31302C3235353E3E0A",
+    "NewExpectedOutputHex": "3C3C302C31302C3235353E3E0D0A",
+    "NativeOutputHex": "3C3C302C31302C3235353E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-bits",
+    "SourceSha256": "27CF52B449AFF8A5F171DCF29782B31DBE2BC4B8A2755373DD68DDE48F2F77B0",
+    "CSharpSha256": "D16F448553BB8223E8A35D5AB7ADA19053B66C6C6BD077A5FE0A7A065612989D",
+    "PreviousExpectedOutputHex": "3C3C353A333E3E0A",
+    "NewExpectedOutputHex": "3C3C353A333E3E0D0A",
+    "NativeOutputHex": "3C3C353A333E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-bytes-bits",
+    "SourceSha256": "048D2954161C13E94C90E87A3F6B949F310826A083971CA786C9FC8AA15F83DF",
+    "CSharpSha256": "80F8D5FAA2F652A6F5C07AD24A8015BF6D6180FE775D276803EAFAD06ED15617",
+    "PreviousExpectedOutputHex": "3C3C36352C333A323E3E0A",
+    "NewExpectedOutputHex": "3C3C36352C333A323E3E0D0A",
+    "NativeOutputHex": "3C3C36352C333A323E3E0D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-external-fun",
+    "SourceSha256": "56E4B8884B463AF7284218C5AAF93A1620F3E5D21BD64C13705C45F704C23C42",
+    "CSharpSha256": "B1F69F282360F0EBA30B5EBCCA71CFFE6BE21EA98FD634052E6846E61E7D6138",
+    "PreviousExpectedOutputHex": "66756E2065726C616E673A6C656E6774682F310A",
+    "NewExpectedOutputHex": "66756E2065726C616E673A6C656E6774682F310D0A",
+    "NativeOutputHex": "66756E2065726C616E673A6C656E6774682F310D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  },
+  {
+    "Name": "erlang-term-display-external-quoted-fun",
+    "SourceSha256": "0B5823142C2774BE5AF7D98638D2F30C5CCDD8A5DA69601F03A0AFC20D0156B0",
+    "CSharpSha256": "4DE5141FAED07536FAB39119AF05F8E61C4A4A471AACB07AA34B31B318E0B83E",
+    "PreviousExpectedOutputHex": "66756E2027614062273A27662078272F320A",
+    "NewExpectedOutputHex": "66756E2027614062273A27662078272F320D0A",
+    "NativeOutputHex": "66756E2027614062273A27662078272F320D0A",
+    "Evidence": "docs/validation/part-188/differential.json",
+    "SourceAudit": "docs/validation/part-188/printf-newline-audit.json"
+  }
+]

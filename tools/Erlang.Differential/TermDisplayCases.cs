@@ -26,7 +26,7 @@ public static class TermDisplayCases
             Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
         )
         {
-            ExpectedStandardOutputHex = hex ?? Convert.ToHexString(Encoding.UTF8.GetBytes(output + "\n")),
+            ExpectedStandardOutputHex = hex ?? Convert.ToHexString(Encoding.UTF8.GetBytes(output + "\r\n")),
             ExpectedStandardErrorHex = ""
         });
         Add("atom", "ok", "ok");
@@ -50,13 +50,13 @@ public static class TermDisplayCases
             "latin-string",
             "[160,255]",
             "",
-            hex: "22A0FF220A"
+            hex: "22A0FF220D0A"
         );
         Add(
             "string-controls",
             "[13,9,10]",
             "",
-            hex: "220D095C6E220A"
+            hex: "220D095C6E220D0A"
         );
         Add("string-quote-slash", "[34,92]", "\"\\\"\\\"");
         Add("list-zero", "[0,127,128,159]", "[0,127,128,159]");
