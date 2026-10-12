@@ -119,6 +119,7 @@ public static class CodeGeneration
         Expr.If i => "new " + E + "If(" + Clauses(i.Clauses) + ")",
         Expr.Receive r => "new " + E + "Receive(" + Clauses(r.Clauses) + "," + Optional(r.Timeout) + "," + Optional(r.After) + ")",
         Expr.Fun f => "new " + E + "Fun(" + Clauses(f.Clauses) + ")",
+        Expr.FunctionReference f => "new " + E + "FunctionReference(" + Quote(f.Name) + "," + f.Arity.ToString(CultureInfo.InvariantCulture) + ")",
         _ => throw new NotSupportedException()
     };
 

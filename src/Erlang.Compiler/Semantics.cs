@@ -395,6 +395,10 @@ public static class Semantics
                 if (f.Clauses.Select(c => c.Patterns.Count).Distinct().Count() != 1)
                     throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.FunClauseArityMismatch, 0);
                 break;
+            case Expr.FunctionReference:
+                if (guard)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardFun, 0);
+                break;
             case Expr.Apply a:
                 if (guard)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardDynamicCall, 0);

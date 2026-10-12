@@ -38,6 +38,14 @@ internal static class LocalCallValidation
                         );
                     PushAll(call.Arguments);
                     break;
+                case Expr.FunctionReference function:
+                    if (!locals.Contains((function.Name, function.Arity)) && !AutoImportSignatures.Contains(function.Name, function.Arity))
+                        throw new CompileException(
+                            CompilerDiagnosticCodes.FunctionDefinition,
+                            FunctionResolutionDiagnostics.Undefined(function.Name, function.Arity),
+                            0
+                        );
+                    break;
                 case Expr.Tuple tuple:
                     PushAll(tuple.Items);
                     break;

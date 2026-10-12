@@ -11,5 +11,6 @@ internal static class LexerTokenKinds
     public const string Float = "float";
     public const string Integer = "integer";
     public const string Symbol = "symbol";
+    public const string FormTerminator = "dot";
     public const string EndOfInput = "eof";
 }

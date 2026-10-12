@@ -7,6 +7,8 @@ Erlang.Generated.ErlangModule_arithmetic.Register(runtime.Modules);
 Erlang.Generated.ErlangModule_map_source.Register(runtime.Modules);
 var mapCheck = runtime.Spawn(async erlangProcess =>
 {
+    var namedReferenceValue = begin F=fun is_atom/1,{F(value),F(42)} end.
+    if (!namedReferenceValue.Equals(Term.Tuple(Term.A(ErlangBooleanAtoms.True),Term.A(ErlangBooleanAtoms.False)))) throw new InvalidOperationException(HelloHybrid.ExampleDiagnostics.NamedReferenceHybrid);
     var zipValue = begin [X+Y+V || X <:- [1,2] && <<Y>> <:= <<3,4>> && _ := V <:- maps:iterator(#{a=>10,b=>20},ordered)] end.
     if (!zipValue.Equals(Term.List(Term.I(14),Term.I(26)))) throw new InvalidOperationException(zipValue.ToString());
     var sortedKeys = begin [K || K := _ <- maps:iterator(#{1=>a,2=>b,3=>c},fun(A,B)->A>B end)] end.

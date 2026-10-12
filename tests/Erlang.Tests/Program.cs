@@ -10,6 +10,7 @@ Test(Erlang.Tests.ModuleLoadingHostNames.TestName, Erlang.Tests.ModuleLoadingHos
 Test(Erlang.Tests.ProcessTableHostNames.TestName, Erlang.Tests.ProcessTableHostChecks.Run);
 Test(Erlang.Tests.ReferenceTextHostNames.TestName, Erlang.Tests.ReferenceTextHostChecks.Run);
 Test(Erlang.Tests.FunctionResolutionHostNames.TestName, Erlang.Tests.FunctionResolutionHostChecks.Run);
+Test(Erlang.Tests.PreloadedModuleHostNames.TestName, Erlang.Tests.PreloadedModuleHostChecks.Run);
 Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);
 Test("runtime/monitor-concurrent-termination-and-cancellation", Erlang.Tests.ProcessMonitorHostChecks.ConcurrentTermination);

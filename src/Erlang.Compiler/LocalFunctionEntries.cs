@@ -14,6 +14,9 @@ internal static class LocalFunctionEntries
     private static readonly ConditionalWeakTable<ModuleDefinition, ModuleEntries> Modules = new();
     private static readonly ConditionalWeakTable<Expr.Fun, LocalFunctionIdentity> Interpreted = new();
 
+    public static LocalFunctionIdentity GetNamed(ModuleDefinition module, string name, int arity) =>
+        Modules.GetValue(module, value => new ModuleEntries(value)).NamedEntries[(name, arity)];
+
     public static LocalFunctionIdentity Get(ModuleDefinition? module, Expr.Fun expression, ProcessContext context)
     {
         if (module is not null)
@@ -48,6 +51,7 @@ internal static class LocalFunctionEntries
     private sealed class ModuleEntries
     {
         public Dictionary<Expr.Fun, LocalFunctionIdentity> Entries { get; } = new(ReferenceEqualityComparer.Instance);
+        public Dictionary<(string Name, int Arity), LocalFunctionIdentity> NamedEntries { get; } = new();
 
         public ModuleEntries(ModuleDefinition module)
         {
@@ -62,6 +66,17 @@ internal static class LocalFunctionEntries
                             Entries.Count,
                             unique
                         ));
+            foreach (var function in module.Functions)
+                NamedEntries.Add(
+                    (function.Name, function.Arity),
+                    new(
+                        Term.A(module.Name),
+                        Term.A(function.Name),
+                        Entries.Count + NamedEntries.Count,
+                        (int)(BinaryPrimitives.ReadUInt32BigEndian(unique) >> (FunctionCodeLayout.UniquePrefixBits - FunctionCodeLayout.OldUniqueBits)),
+                        new BitString(unique)
+                    )
+                );
         }
     }
 
@@ -97,7 +112,7 @@ internal static class LocalFunctionEntries
 
     private static IEnumerable<Expr> Children(Expr expression) => expression switch
     {
-        Expr.Literal or Expr.Variable => [],
+        Expr.Literal or Expr.Variable or Expr.FunctionReference => [],
         Expr.RecordConstruction record => Children(RecordExpressions.Create(record)),
         Expr.RecordAccess record => [record.Value],
         Expr.RecordTest record => [record.Value],

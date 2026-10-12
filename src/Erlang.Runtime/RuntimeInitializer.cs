@@ -18,7 +18,11 @@ internal sealed class RuntimeInitializer(ProcessContext context)
         context.TrapExits = true;
         context.Runtime.Register(InitializationNames.Module, context.Self);
         using (context.EnterFunction(InitializationNames.Module, InitializationNames.Boot, 1))
-            context.Runtime.Modules.Apply(CoreModules.Register);
+            context.Runtime.Modules.InstallPreloaded(registry =>
+            {
+                CoreModules.Register(registry);
+                registry.PublishModule(InitializationNames.Module);
+            });
         Completion = Run();
     }
 

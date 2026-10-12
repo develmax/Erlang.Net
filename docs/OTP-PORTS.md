@@ -533,3 +533,15 @@ Altered source-directed adaptation of OTP-29.1.1/ad058237 erlang.erl processes_i
 ## Auto-import and local-call resolution repair
 
 Altered source-directed adaptation of OTP-29.1.1/ad058237 erl_internal.erl bif/2 signature catalogue (Ericsson AB1998-2026) and erl_lint.erl check_call/check_undefined_functions (Ericsson AB1996-2026),Apache-2.0. AutoImportNames/Signatures retain183 exact source signatures in a frozen typed set;LocalCallValidation checks actual module-local declarations/arity and auto imports across compiler AST;Execution limits implicit calls while preserving local precedence and explicit/dynamic calls. Module-info pseudolocal compile names do not fabricate runtime metadata. Explicit import/no_auto_import grammar,complete warnings/multi-error aggregation/native annotations remain future scope. Retain exact158 rejected source as a diagnosis and ledger the three explicitly qualified loaded-call fixtures. No source banners,production BEAM,new dependency/public NuGet/owner license publication.
+
+## Actual embedded code catalogue
+
+Altered source-directed adaptation of OTP-29.1.1/ad058237 beam_bif_load.c pre_loaded_0 (Ericsson AB1999-2026) and erl_init.c erts_preloaded/sys_preloaded (Ericsson AB1997-2026),Apache-2.0. ModuleRegistry.InstallPreloaded records newly published actual embedded code owners atomically;CoreModules installs its C# code and RuntimeInitializer publishes actual init boot code. Separate retained bootstrap catalogue/fresh atom list/copied snapshots/rollback exclude later compiled user modules. CLR and BEAM embedded inventories differ;no copied native whitelist,hot code,NIF,image/resource/full-suite/performance equivalence. Consolidated license retained;no source banners/owner license publication.
+
+## Named local and auto-imported function references
+
+Altered source-directed adaptation of OTP-29.1.1/ad058237 erl_parse.yrl fun atom/integer production and erl_lint.erl function-reference local/auto-import validation,both Ericsson AB1996-2026,Apache-2.0. Expr.FunctionReference/NamedFunctionReferences preserve private module definition ownership,local name/arity/empty environment and existing local code identity/ETF restoration;auto-imported BIF captures reuse cached external function entries. Native indices/code digests are backend-specific;remote dynamic captures,explicit imports/full annotation/arity-diagnostic parity remain unfinished. Consolidated license retained;no source banners/owner license/public package.
+
+## Source form boundaries
+
+Altered source-directed adaptation of OTP-29.1.1/ad058237 erl_scan.erl scan_dot/WHITE_SPACE (Ericsson AB1996-2026),Apache-2.0. LexerFormBoundary/LexerWhitespace distinguish a terminating dot before EOF/comment/native whitespace from ordinary record selection;Parser expects an actual form token. LexerFunBoundary keeps named references from introducing an anonymous-fun end nesting level in hybrid blocks. Retain exact160 rejected source and whitespace-only five-fixture migration. Full scanner annotations,Unicode/token/remote-capture diagnostics remain unfinished. Consolidated license retained;no source banners/owner license/public package.

@@ -37,6 +37,8 @@ public static class CompiledModuleProtocol
 
     public static string DiagnosticCommand(CompiledDiagnosticCase fixture)
     {
+        if (fixture.Kind == DiagnosticCaseKind.FormBoundarySyntax)
+            return FormBoundaryProtocol.Command(fixture.Source);
         if (fixture.Kind is not (DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated))
             return DiagnosticCommand(fixture.Source);
         string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(fixture.Source));

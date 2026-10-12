@@ -19,6 +19,7 @@ internal static class ErlangSyntaxTokens
     public const string BinaryGenerator = "<=";
     public const string StrictBinaryGenerator = "<:=";
     public const string FormTerminator = ".";
+    public const string RecordSelectionSeparator = ".";
     public const string MapPrefix = "#";
     public const string MapAssociation = "=>";
     public const string MapExactField = ":=";

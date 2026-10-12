@@ -6,6 +6,11 @@ public static class CoreModules
 {
     public static void Register(ModuleRegistry r)
     {
+        r.InstallPreloaded(RegisterCode);
+    }
+
+    private static void RegisterCode(ModuleRegistry r)
+    {
         void Add(
             string module,
             string name,
@@ -740,6 +745,7 @@ public static class CoreModules
         ModuleLoadingRegistrations.Register(r);
         ProcessTableRegistrations.Register(r);
         ReferenceTextRegistrations.Register(r);
+        PreloadedModuleRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);

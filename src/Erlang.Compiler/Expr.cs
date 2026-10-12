@@ -49,5 +49,6 @@ public abstract record Expr
     public sealed record If(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;
     public sealed record Fun(IReadOnlyList<Clause> Clauses) : Expr;
+    public sealed record FunctionReference(string Name, int Arity) : Expr;
     public sealed record GuardAlternatives(IReadOnlyList<Expr> Items) : Expr;
 }

@@ -15,12 +15,12 @@ public static class Lexer
         string[] symbols = [ErlangSyntaxTokens.StrictBinaryGenerator, ErlangSyntaxTokens.BinaryGenerator, ErlangSyntaxTokens.StrictListGenerator, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangSyntaxTokens.ComprehensionSeparator, ErlangSyntaxTokens.ZipGeneratorSeparator, ErlangSyntaxTokens.ListGenerator, ErlangSyntaxTokens.FunctionArrow, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList, ErlangSyntaxTokens.BinaryOpen, ErlangSyntaxTokens.BinaryClose, ErlangSyntaxTokens.MapAssociation, ErlangSyntaxTokens.MapExactField, ErlangSyntaxTokens.ConditionalMatch];
         while (i < text.Length)
         {
-            if (char.IsWhiteSpace(text[i]))
+            if (LexerWhitespace.Is(text[i]))
             {
                 i++;
                 continue;
             }
-            if (text[i] == '%')
+            if (text[i] == LexerFormBoundary.CommentMarker)
             {
                 while (i < text.Length && text[i] != '\n')
                     i++;
@@ -28,7 +28,7 @@ public static class Lexer
             }
             int start = i;
             char c = text[i++];
-            if (blockPrefix && depth == 0 && c == '.')
+            if (blockPrefix && depth == 0 && c == LexerFormBoundary.Marker && LexerFormBoundary.Is(text, i))
                 break;
             if (c == CharacterLiteralParameters.Marker)
             {
@@ -108,7 +108,7 @@ public static class Lexer
                 ));
                 if (blockPrefix)
                 {
-                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.Fun or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Try or ErlangKeywords.Maybe)
+                    if (name is ErlangKeywords.Receive or ErlangKeywords.Case or ErlangKeywords.If or ErlangKeywords.Begin or ErlangKeywords.Try or ErlangKeywords.Maybe || name == ErlangKeywords.Fun && LexerFunBoundary.HasClauses(text, i))
                         depth++;
                     else if (name == ErlangKeywords.End && --depth == 0)
                         break;
@@ -147,7 +147,7 @@ public static class Lexer
             if (symbol is not null)
                 i = start + symbol.Length;
             tokens.Add(new(
-                LexerTokenKinds.Symbol,
+                c == LexerFormBoundary.Marker && symbol is null && LexerFormBoundary.Is(text, i) ? LexerTokenKinds.FormTerminator : LexerTokenKinds.Symbol,
                 symbol ?? c.ToString(),
                 start,
                 i

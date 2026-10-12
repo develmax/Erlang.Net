@@ -34,6 +34,7 @@ public static class CompiledDiagnosticExpectations
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Code,
+        DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Code,
         DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.Code,
         DiagnosticCaseKind.RecordPredicateGuard or DiagnosticCaseKind.RecordPredicateThreeGuard => RecordPredicateDiagnosticExpectations.GuardCode,
         DiagnosticCaseKind.NonLatin1Module or DiagnosticCaseKind.EmptyModule or DiagnosticCaseKind.BlankModule or DiagnosticCaseKind.ControlModule => ModuleDefinitionCode,
@@ -48,6 +49,7 @@ public static class CompiledDiagnosticExpectations
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Message(fixture),
+        DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Message,
         DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.IllegalMessage,
         DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.UnterminatedMessage,
         DiagnosticCaseKind.RecordPredicateGuard => RecordPredicateDiagnosticExpectations.GuardMessage,
@@ -71,6 +73,7 @@ public static class CompiledDiagnosticExpectations
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Outcome(fixture),
+        DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Outcome,
         DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.Outcome(false),
         DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.Outcome(true),
         DiagnosticCaseKind.RecordPredicateGuard or DiagnosticCaseKind.RecordPredicateThreeGuard => RecordPredicateDiagnosticExpectations.GuardOutcome,

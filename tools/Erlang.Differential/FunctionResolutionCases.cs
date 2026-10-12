@@ -16,7 +16,7 @@ public static class FunctionResolutionCases
 
     private static CompiledModuleCase Create(string name, string body, string definitions) => new(
         "compiler-function-resolution-" + name,
-        "-module(function_resolution_contract). -export([run/0]). run()->" + body + ",done." + definitions,
+        "-module(function_resolution_contract). -export([run/0]). run()->" + body + ",done." + (definitions.Length == 0 ? string.Empty : " " + definitions),
         Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
     );
 }

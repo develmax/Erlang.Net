@@ -8,6 +8,7 @@ internal static class ParserDiagnostics
     public const string ExpectedAtom = "Expected atom";
     public const string UnexpectedTrailingToken = "Unexpected trailing token";
     public const string ExpectedArity = "Expected arity";
+    public const string ExpectedFormTerminator = "Expected a form-terminating dot";
     public const string ClauseNameMismatch = "Function clauses must have the same name";
     public const string ClauseArityMismatch = "Function clauses must have the same arity";
     public const string MissingModuleAttribute = "Missing -module attribute";

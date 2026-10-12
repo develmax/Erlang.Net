@@ -7,6 +7,7 @@ public sealed class ModuleRegistry
     private readonly object gate = new();
     private readonly Dictionary<(string Module, string Function, int Arity), ErlangFunction> functions = new();
     private readonly Dictionary<string, Atom> loadedModules = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Atom> preloadedModules = new(StringComparer.Ordinal);
 
     public void Register(
         string module,
@@ -69,6 +70,42 @@ public sealed class ModuleRegistry
         }
     }
 
+    public void InstallPreloaded(Action<ModuleRegistry> configure)
+    {
+        ArgumentNullException.ThrowIfNull(configure);
+        Apply(target =>
+        {
+            var previous = loadedModules.Keys.ToHashSet(StringComparer.Ordinal);
+            configure(target);
+            foreach (var module in loadedModules)
+            {
+                if (!previous.Contains(module.Key))
+                    preloadedModules.TryAdd(module.Key, module.Value);
+            }
+        });
+    }
+
+    public IReadOnlyCollection<string> PreloadedModules
+    {
+        get
+        {
+            lock (gate)
+                return Array.AsReadOnly(preloadedModules.Keys.ToArray());
+        }
+    }
+
+    internal Term PreloadedModuleList()
+    {
+        lock (gate)
+        {
+            Term result = Nil.Value;
+            foreach (Atom module in preloadedModules.Values)
+                result = new Cons(module, result);
+
+            return result;
+        }
+    }
+
     internal Term LoadedModuleList()
     {
         lock (gate)
@@ -88,6 +125,7 @@ public sealed class ModuleRegistry
         {
             var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
             var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
+            var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
             try
             {
                 configure(this);
@@ -100,6 +138,9 @@ public sealed class ModuleRegistry
                 loadedModules.Clear();
                 foreach (var module in previousModules)
                     loadedModules.Add(module.Key, module.Value);
+                preloadedModules.Clear();
+                foreach (var module in previousPreloaded)
+                    preloadedModules.Add(module.Key, module.Value);
                 throw;
             }
         }

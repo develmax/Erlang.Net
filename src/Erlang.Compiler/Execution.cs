@@ -628,6 +628,8 @@ public static class Execution
 
                     return Create(capture.Values.ToArray());
                 }
+            case Expr.FunctionReference reference:
+                return NamedFunctionReferences.Evaluate(module, reference, ctx);
             default:
                 throw new NotSupportedException();
         }

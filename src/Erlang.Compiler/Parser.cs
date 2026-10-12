@@ -47,6 +47,13 @@ public sealed class Parser
 
     private CompileException Error(string message) => new(CompilerDiagnosticCodes.Syntax, message, Current.Start);
 
+    private void ExpectFormTerminator()
+    {
+        if (Current.Kind != LexerTokenKinds.FormTerminator)
+            throw Error(ParserDiagnostics.ExpectedFormTerminator);
+        position++;
+    }
+
     private string Name()
     {
         if (Current.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom))
@@ -79,7 +86,7 @@ public sealed class Parser
                 {
                     module = Name();
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
-                    Expect(ErlangSyntaxTokens.FormTerminator);
+                    ExpectFormTerminator();
                 }
                 else if (attr == ModuleAttributeNames.Export)
                 {
@@ -98,12 +105,12 @@ public sealed class Parser
                         Expect(ErlangSyntaxTokens.CloseList);
                     }
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
-                    Expect(ErlangSyntaxTokens.FormTerminator);
+                    ExpectFormTerminator();
                 }
                 else if (attr == ModuleAttributeNames.Compile && TakeAtom(CompilerOptionNames.DisableSsaOptimization))
                 {
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
-                    Expect(ErlangSyntaxTokens.FormTerminator);
+                    ExpectFormTerminator();
                 }
                 else if (attr == ModuleAttributeNames.Record)
                 {
@@ -127,7 +134,7 @@ public sealed class Parser
                         Expect(ErlangSyntaxTokens.CloseTuple);
                     }
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
-                    Expect(ErlangSyntaxTokens.FormTerminator);
+                    ExpectFormTerminator();
                     records.Add(name, new(name, fields));
                 }
                 else
@@ -150,7 +157,7 @@ public sealed class Parser
                     throw Error(ParserDiagnostics.ClauseArityMismatch);
                 clauses.Add(ParseClause(patterns));
             }
-            Expect(ErlangSyntaxTokens.FormTerminator);
+            ExpectFormTerminator();
             functions.Add(new(fname, count, clauses));
         }
         if (module is null)
@@ -383,6 +390,21 @@ public sealed class Parser
         }
         if (Take(ErlangKeywords.Fun))
         {
+            if (Current.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom)
+            {
+                string name = Name();
+                Expect(ErlangSyntaxTokens.AritySeparator);
+                if (Current.Kind != LexerTokenKinds.Integer || !int.TryParse(
+                    Current.Text,
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out int arity
+                ))
+                    throw Error(ParserDiagnostics.ExpectedArity);
+                position++;
+
+                return new Expr.FunctionReference(name, arity);
+            }
             var clauses = new List<Clause>();
             do
             {
@@ -714,7 +736,7 @@ public sealed class Parser
 
             throw RecordError(RecordDiagnostics.UndefinedField(name, field));
         }
-        if (Take(ErlangSyntaxTokens.FormTerminator))
+        if (Take(ErlangSyntaxTokens.RecordSelectionSeparator))
         {
             int index = FieldIndex(Name());
 

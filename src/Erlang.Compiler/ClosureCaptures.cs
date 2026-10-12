@@ -253,6 +253,8 @@ internal static class ClosureCaptures
                         Walk(item, conditionalLocal);
                     Branches(maybe.Clauses, new HashSet<string>(local, StringComparer.Ordinal));
                     break;
+                case Expr.FunctionReference:
+                    break;
                 case Expr.Fun nested:
                     foreach (var clause in nested.Clauses)
                         Clause(clause, local, true);
