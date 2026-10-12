@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-197/tests.json",
-  "LocalPassedTests": 5315,
-  "RegisteredMfas": 423,
+  "ComparisonTestReport": "validation/part-198/ci-tests.json",
+  "LocalPassedTests": 5359,
+  "RegisteredMfas": 424,
   "PreviousRegisteredMfas": 423,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -83,7 +83,8 @@
         "Part189:four owned node query exports,actual decoded foreign container weak lifetime/perruntime isolation;native printf newline conversion;5130/full local,4558 original pending190.",
         "Part191:six node-qualified spawn wrappers with actual local/unconnected owned lifecycle,atomic link/monitor,inherited leader and slot cleanup;5186/full local,4607 original pending192.",
         "Part195:four cookie wrappers into actual registered auth service;absence errors and guards,46 new source contracts;native flatmap atom identity printer order.5238/full local;automatic distribution/auth startup and full native metadata remain unfinished.",
-        "Part197:four current-state node monitor/trap/disconnect exports,actual nodedown and kernel infinity/retry calls;72 source scenarios,named host and5315/full local;connected distribution remains unfinished."
+        "Part197:four current-state node monitor/trap/disconnect exports,actual nodedown and kernel infinity/retry calls;72 source scenarios,named host and5315/full local;connected distribution remains unfinished.",
+        "Part199:real owned saved-call buffer,queued process_flag3 replacement/death cleanup andlast_calls observation;42 sourcecases and5359/full local;native physical/debug event-set parity unfinished."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -92,7 +93,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 337
+      "RelatedPassedTests": 339
     },
     {
       "Id": "Compiler",
@@ -162,7 +163,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1462
+      "RelatedPassedTests": 1463
     },
     {
       "Id": "gen_server adapters",
@@ -292,7 +293,8 @@
         "Part195:one bounded two-atom map byte alternative and one source-hash-preserving no_ssa_opt metadata migration after120 independent194 diagnoses;two permanent narrow-policy/output-byte guard tests;4653 original comparisons planned196,not yet executed.",
         "Part196:original4653/4653 and5238/full same-head CI;46 cookie scenarios,all68 finite byte contracts and exact native/SDK bytes independently retained;All selected comparisons pass;continue remaining APIs.",
         "Part197:all3749 old sources,outcomes,generated hashes,contexts,policies and finite byte contracts unchanged;72 new sources,4725 original planned198,not yet executed.",
-        "Part198:original4725/4725 and5315/full same-head CI;46 cookie scenarios,all68 finite byte contracts and exact native/SDK bytes independently retained;All selected comparisons pass;continue remaining APIs."
+        "Part198:original4725/4725 and5315/full same-head CI;46 cookie scenarios,all68 finite byte contracts and exact native/SDK bytes independently retained;All selected comparisons pass;continue remaining APIs.",
+        "Part199:all3821 old sources,outcomes,generated hashes,contexts,policies and finite byte contracts unchanged;42 new sources,4767 original planned200,not yet executed."
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -302,7 +304,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3973
+      "RelatedPassedTests": 4015
     },
     {
       "Id": "Style checks",
@@ -5571,11 +5573,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 273,
+      "RegisteredMfas": 274,
       "PreviousRegisteredMfas": 273,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 77.8,
+      "ApiPresencePercent": 78.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5784,6 +5786,7 @@
         "erlang:posixtime_to_universaltime/1",
         "erlang:pre_loaded/0",
         "erlang:process_flag/2",
+        "erlang:process_flag/3",
         "erlang:process_info/2",
         "erlang:processes/0",
         "erlang:processes_iterator/0",

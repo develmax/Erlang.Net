@@ -7,7 +7,14 @@ public sealed class ProcessContext : ITermExecutionContext
         Runtime = runtime;
         Self = pid;
         GroupLeader = pid;
-        Mailbox = new() { ProcessSignals = () => Runtime.AdmitSignals(this), WaitForExecution = WaitIfSuspended, ExecutionBlocked = () => SuspensionRequested };
+        Mailbox = new()
+        {
+            ProcessSignals = () => Runtime.AdmitSignals(this),
+            WaitForExecution = WaitIfSuspended,
+            ExecutionBlocked = () => SuspensionRequested,
+            MessageReceived = SavedCalls.Received,
+            ReceiveTimedOut = SavedCalls.TimedOut
+        };
     }
 
     internal CancellationTokenSource Stop { get; } = new();
@@ -19,6 +26,8 @@ public sealed class ProcessContext : ITermExecutionContext
     internal bool Terminated;
     internal volatile bool SuspensionRequested;
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
+    internal HashSet<ProcessSavedCallRequest> PendingSavedCallRequests { get; } = new();
+    internal ProcessSavedCalls SavedCalls { get; } = new();
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
     private readonly object codeGate = new();

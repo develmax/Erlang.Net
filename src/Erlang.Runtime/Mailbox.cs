@@ -12,6 +12,8 @@ public sealed class Mailbox
     internal Action? ProcessSignals { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
+    internal Action? MessageReceived { get; init; }
+    internal Action? ReceiveTimedOut { get; init; }
 
     private readonly record struct Entry(Term Value, Func<bool?>? Admission);
 
@@ -189,6 +191,7 @@ public sealed class Mailbox
                     if (match is not null)
                     {
                         RemoveNode(node);
+                        MessageReceived?.Invoke();
 
                         return match;
                     }
@@ -199,7 +202,11 @@ public sealed class Mailbox
                 continue;
             TimeSpan? remaining = timeout - Stopwatch.GetElapsedTime(start);
             if (remaining <= TimeSpan.Zero)
+            {
+                ReceiveTimedOut?.Invoke();
+
                 return null;
+            }
             try
             {
                 if (remaining is { } finite)

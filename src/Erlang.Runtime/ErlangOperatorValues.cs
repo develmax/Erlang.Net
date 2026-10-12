@@ -46,15 +46,21 @@ public static class ErlangOperatorValues
     )
     {
         if (target is ReferenceTerm reference)
+        {
+            context.SavedCalls.Sent();
+
             return context.Runtime.Send(reference, message, priority);
+        }
         if (target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom nameAtom && address.Items[1] is Atom nodeAtom)
         {
+            context.SavedCalls.Sent();
             if (nodeAtom.Name == context.Runtime.Node && context.Runtime.WhereIs(nameAtom.Name) is Pid namedPid)
                 context.Runtime.Send(namedPid, message);
 
             return message;
         }
         Pid recipient = target is Pid pid ? pid : target is Atom name && context.Runtime.WhereIs(name.Name) is Pid registered ? registered : throw new ErlangException(ErlangErrorReasons.BadArgument);
+        context.SavedCalls.Sent();
 
         return context.Runtime.Send(recipient, message);
     }

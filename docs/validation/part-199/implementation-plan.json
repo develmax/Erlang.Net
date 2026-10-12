@@ -1,0 +1,39 @@
+{
+  "Facts": [
+    "Auxiliary process_flag3 supports save_calls only,integer0..10000",
+    "Enabling/replacing allocates fresh empty buffer;returns previous capacity;zero disables",
+    "Other process uses actual RPC/control signal;badtype for invalid/missing target,plain badarg for invalid flags/values",
+    "last_calls is false when disabled,chronological bounded records when enabled",
+    "Actual exported calls and send/receive/timeout events are recorded;native compiler/JIT optimizations and internal MFA sets are implementation-specific",
+    "Suspended targets and target death need actual control delivery/cleanup,not direct cross-owner flag mutation"
+  ],
+  "Baseline": "OTP-29.1.1",
+  "Scope": "Full BEAM/JIT internal function sets,physical scheduling/heap/reduction/resource equivalence remain unfinished",
+  "NotImplementedYet": false,
+  "Reuse": "Existing owned control-signal admission/death cleanup,ModuleRegistry dispatch,ProcessContext execution and mailbox hooks;SDK bounded ring buffer/no package",
+  "Candidate": "process_flag/3 with real save_calls buffer,process_flag/2 save_calls enhancement and process_info/2 last_calls",
+  "Sources": [
+    {
+      "Blob": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    },
+    {
+      "Blob": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "Blob": "924f6f8ff7305fc4cf951dc686eac94804b47ddc",
+      "Path": "erts/emulator/beam/erl_bif_info.c"
+    },
+    {
+      "Blob": "fafe4cd65b1bf02ccb52cfa4a8685efdac8ddb09",
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab"
+    },
+    {
+      "Blob": "9e354bc9fa3f273121d2cac7c5ae384035ce992d",
+      "Path": "erts/emulator/beam/emu/msg_instrs.tab"
+    }
+  ],
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "DraftPassed": 5359
+}

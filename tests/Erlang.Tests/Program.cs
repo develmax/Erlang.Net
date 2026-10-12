@@ -26,6 +26,7 @@ Test(Erlang.Tests.TermDisplayHostNames.Test, Erlang.Tests.TermDisplayHostChecks.
 Test(Erlang.Tests.RuntimeNodeQueryHostNames.Test, Erlang.Tests.RuntimeNodeQueryHostChecks.Run);
 Test(Erlang.Tests.NodeSpawnHostNames.Test, Erlang.Tests.NodeSpawnHostChecks.Run);
 Test(Erlang.Tests.RuntimeNodeControlHostNames.Test, Erlang.Tests.RuntimeNodeControlHostChecks.Run);
+Test(Erlang.Tests.ProcessSavedCallHostNames.Test, Erlang.Tests.ProcessSavedCallHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.ProtocolTest, Erlang.Tests.StandardStreamProtocolChecks.Run);
 Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);

@@ -238,6 +238,8 @@ public static class CoreModules
             2,
             (c, a) =>
  {
+     if (a[0] is Atom { Name: ProcessSavedCallNames.Flag })
+         return ProcessSavedCallRegistrations.ChangeSelf(c, a);
      if (AtomName(a[0]) != ProcessFlagNames.TrapExit)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
      bool previous = c.TrapExits;
@@ -756,6 +758,7 @@ public static class CoreModules
         NodeSpawnRegistrations.Register(r);
         ErlangCookieRegistrations.Register(r);
         RuntimeNodeControlRegistrations.Register(r);
+        ProcessSavedCallRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);

@@ -228,9 +228,14 @@ public sealed class ModuleRegistry
         if (body is null)
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         if (image is null)
+        {
+            context.SavedCalls.Record(module, function, arguments.Length);
+
             return body(context, arguments);
+        }
         try
         {
+            context.SavedCalls.Record(module, function, arguments.Length);
             ValueTask<Term> pending = body(context, arguments);
             if (pending.IsCompletedSuccessfully)
             {

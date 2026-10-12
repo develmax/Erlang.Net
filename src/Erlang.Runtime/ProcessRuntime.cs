@@ -280,6 +280,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     ProcessInfoNames.Links => Cons.From(process.Links),
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.GroupLeader => process.GroupLeader,
+                    ProcessInfoNames.LastCalls => process.SavedCalls.Snapshot(),
                     ProcessInfoNames.RegisteredName => names.FirstOrDefault(pair => pair.Value.Equals(pid)).Key is string name ? Term.A(name) : Nil.Value,
                     _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
                 };
@@ -350,6 +351,63 @@ public sealed class ProcessRuntime : IAsyncDisposable
     }
 
     private ProcessContext RequireAlive(Pid pid) => processes.TryGetValue(pid, out var p) ? p : throw new ErlangException(ErlangErrorReasons.NoProcess);
+
+    internal async ValueTask<Term> ChangeSavedCalls(
+        ProcessContext requester,
+        Pid target,
+        Term flag,
+        Term value
+    )
+    {
+        requester.Cancellation.ThrowIfCancellationRequested();
+        if (target.Equals(requester.Self))
+            return ApplySavedCallFlag(requester, flag, value);
+        var id = MakeReference();
+        var request = new ProcessSavedCallRequest(
+            requester,
+            id,
+            flag,
+            value
+        );
+        lock (gate)
+        {
+            if (!processes.TryGetValue(target, out var process))
+                return Term.A(ProcessSavedCallNames.BadType);
+            process.PendingSavedCallRequests.Add(request);
+            process.Mailbox.SendPending(
+                Nil.Value,
+                () =>
+                {
+                    lock (gate)
+                    {
+                        if (process.PendingSavedCallRequests.Remove(request))
+                            ReplySavedCallRequest(request, ApplySavedCallFlag(process, request.Flag, request.Value));
+                    }
+
+                    return null;
+                }
+            );
+        }
+        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(id) ? tuple : null);
+
+        return reply!.Items[1];
+    }
+
+    private static Term ApplySavedCallFlag(ProcessContext process, Term flag, Term value)
+    {
+        if (flag is not Atom { Name: ProcessSavedCallNames.Flag })
+            return Term.A(ErlangErrorReasons.BadArgument);
+        try
+        {
+            return Term.I(process.SavedCalls.Configure(value));
+        }
+        catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+        {
+            return exception.Reason;
+        }
+    }
+
+    private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result) => Send(request.Requester.Self, Term.Tuple(request.Id, result));
 
     internal async ValueTask<Term> CheckProcessCode(
         ProcessContext requester,
@@ -858,6 +916,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 foreach (var request in ctx.PendingCodeChecks)
                     ReplyCodeCheck(request, false);
                 ctx.PendingCodeChecks.Clear();
+                foreach (var request in ctx.PendingSavedCallRequests)
+                    ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument));
+                ctx.PendingSavedCallRequests.Clear();
                 Timers.RecipientTerminated(ctx.Self);
                 Suspensions.Terminated(ctx);
                 ctx.Mailbox.DiscardPending();

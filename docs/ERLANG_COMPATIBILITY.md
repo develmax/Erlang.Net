@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part199:real owned save_calls ring and queued process_flag3 with target/death handling;extend existingprocess_flag2 and process_info2 last_calls. **5359/full main and draft**;42 new source scenarios and32 queued-death/ring host. All3821 inherited source/outcome/hash/context/policy/finite byte contracts preserved. [Audit](validation/part-199/corpus-audit.json),[tests](validation/part-199/tests.json). Registry424;erlang274/351,77 missing,78.1% API presence. Original4767 pending200;1984725/4725 with5315/full same-head CI verified separately. Native BEAM/JIT/internal/sensitive/physical scheduling/heap/resources/upstream/performance parity unfinished;whole goal continues.
+
 Part198:source-built original **4725/4725** and **5315/full same-head CI** at7b90493. All selected comparisons pass;continue remaining APIs. [Proof](validation/part-198/differential.json),[guard](validation/part-198/strict-guard.json).46 cookie contracts and all68 independent output contracts checked;one finite map-order alternative and one source-preserving SSA policy unchanged from197. Registry423;erlang273/351,78 missing,77.8% API presence. Full auth/distribution/ports/HAMT/native metadata/resources/upstream/performance remain unfinished;whole goal continues.
 
 Part197:source-guided current-state monitor_node2/3,dmonitor_node3,disconnect_node1 with actual nodedown and kernel gen_server infinity/retry protocol;**5315/full main and draft**.72 new source scenarios and named host;all3749 old contracts/policies/finite bytes preserved. [Audit](validation/part-197/corpus-audit.json),[tests](validation/part-197/tests.json). Registry423;erlang273/351,78 missing,77.8% API presence. Original4725 pending198;1964653/4653 and5238/full same-head CI remain separate proof. Connected monitor/channel lifetime,active-connect,dynamic naming,transport/resources/upstream/performance unfinished;whole goal continues.
@@ -120,7 +122,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.273 registered,78 missing,total423 direct MFAs.77.8% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.274 registered,77 missing,total424 direct MFAs.78.1% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -375,7 +377,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `prepare_loading/2` | Missing; real implementation/runtime prerequisites required |
 | `process_display/2` | Missing; real implementation/runtime prerequisites required |
 | `process_flag/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `process_flag/3` | Missing; real implementation/runtime prerequisites required |
+| `process_flag/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `process_info/1` | Missing; real implementation/runtime prerequisites required |
 | `process_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `processes_iterator/0` | Registered; bounded functional evidence, see supported-mfas.json |

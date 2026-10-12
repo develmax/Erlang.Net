@@ -1621,7 +1621,15 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:process_flag/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Owned trap_exit and real save_calls bounded buffer,fresh replacement/disable/previous capacity;42 source scenarios and5359/full local,4767 original pending200. Remaining process flags/native physical scheduling/resources unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "process_flag",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:process_flag/3",
+    "Limits": "Actual queued owner save_calls control request,self shortcut,target validation/cause badtype,death cleanup. Capacity0..10000,fresh replacement/disable/previous size.42 compiled scenarios plus32 queued-death/ring host;5359/full local,4767 original pending200. Native BEAM/JIT/internal/sensitive/physical scheduling/resource/upstream/performance parity unfinished."
   },
   {
     "Module": "erlang",
@@ -1629,7 +1637,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:process_info/2",
-    "Limits": "Four actual state fields only:links,trap_exit,group_leader,registered_name;other native fields/process_info1/physical scheduler request and resource contracts remain unsupported.18 independent new compiled cases;original150 pending"
+    "Limits": "Actual owned links/trap_exit/group_leader/registered_name pluslast_calls logical export/send/receive/timeout buffer,false if disabled. Array queries preserveorder/repeats.5359/full local;4767 original pending200. Full native inspection/internal/optimized MFA sets/sensitive/physical metadata/resources unfinished."
   },
   {
     "Module": "erlang",

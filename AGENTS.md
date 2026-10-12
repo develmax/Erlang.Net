@@ -727,3 +727,7 @@ Part197:source-guided current-state monitor_node2/3,dmonitor_node3,disconnect_no
 ## Part198 checkpoint
 
 Part198:source-built original **4725/4725** and **5315/full same-head CI** at7b90493. All selected comparisons pass;continue remaining APIs. [Proof](validation/part-198/differential.json),[guard](validation/part-198/strict-guard.json).46 cookie contracts and all68 independent output contracts checked;one finite map-order alternative and one source-preserving SSA policy unchanged from197. Registry423;erlang273/351,78 missing,77.8% API presence. Full auth/distribution/ports/HAMT/native metadata/resources/upstream/performance remain unfinished;whole goal continues.
+
+## Part199 checkpoint
+
+Part199:real owned save_calls ring and queued process_flag3 with target/death handling;extend existingprocess_flag2 and process_info2 last_calls. **5359/full main and draft**;42 new source scenarios and32 queued-death/ring host. All3821 inherited source/outcome/hash/context/policy/finite byte contracts preserved. [Audit](validation/part-199/corpus-audit.json),[tests](validation/part-199/tests.json). Registry424;erlang274/351,77 missing,78.1% API presence. Original4767 pending200;1984725/4725 with5315/full same-head CI verified separately. Native BEAM/JIT/internal/sensitive/physical scheduling/heap/resources/upstream/performance parity unfinished;whole goal continues.
