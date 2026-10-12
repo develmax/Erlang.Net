@@ -1,0 +1,21 @@
+{
+  "Sources": [
+    {
+      "Path": "erts/lib_src/common/erl_printf.c",
+      "BlobSHA1": "dd3bcae9851906829c93061d11a453c7c9852b9e",
+      "Copyright": " * Copyright Ericsson AB 2005-2025. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys.c",
+      "BlobSHA1": "218da5447585fd54183a75f8c46c5ee3a8f180af",
+      "Copyright": " * Copyright Ericsson AB 1996-2025. All Rights Reserved."
+    }
+  ],
+  "ObservedNativeTerminatorHex": "0D0A",
+  "Cause": "Unix sys_init_io342 sets erts_printf_add_cr_to_stdout=1;erts_printf chooses write_f_add_cr,which inserts CR before every LF. This occurs independently of display term formatting and of display_string raw bytes.",
+  "Discrepancies": 37,
+  "AllPayloadsEqualBeforeTrailingLineEnding": true,
+  "SdkAndOriginalExpectationTerminatorHex": "0A",
+  "Repair": "Separate printf byte conversion;explicit37 output expectation migrations,retain188 source/actual bytes and all31 raw display_string contracts,no delimiter stripping or defect exclusion.",
+  "Baseline": "OTP-29.1.1"
+}

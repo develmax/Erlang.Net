@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-186/ci-tests.json",
+  "ComparisonTestReport": "validation/part-187/tests.json",
   "LocalPassedTests": 5092,
   "RegisteredMfas": 405,
-  "PreviousRegisteredMfas": 404,
-  "RegisteredMfaDelta": 1,
+  "PreviousRegisteredMfas": 405,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -279,7 +279,8 @@
         "Part182:source-built original4424/4424 and4981/full same-head CI;all181 contracts preserved,includingtwenty purge scenarios;All selected comparisons match;continue remaining APIs",
         "Part183:raw oracle byte capture,optional independent stdout/stderr hex contracts for31 new cases;preserve trailing CR/LF/invalidUTF8/NUL and JSON roundtrip;all3520 inherited contracts unchanged",
         "Part184:4455/4455 source-built original and5016/full same-head CI;31 independent raw stdout/stderr contracts match in both runtimes.",
-        "Part186:original4485/4486 and5051/full same-head CI;31 suspension scenarios executed and all185 contracts preserved;1 native discrepancies retained;repair before promotion."
+        "Part186:original4485/4486 and5051/full same-head CI;31 suspension scenarios executed and all185 contracts preserved;1 native discrepancies retained;repair before promotion.",
+        "Part188:complete original4488/4525 with37 display newline discrepancies;all33 timer/suspension scenarios pass;5092/full same-head CI. Preserve failures and repair actual printf layer."
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -5559,8 +5560,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 255,
-      "PreviousRegisteredMfas": 254,
-      "Delta": 1,
+      "PreviousRegisteredMfas": 255,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 72.6,
       "RequiresPreprocessing": false,
