@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part153: record expansion/compiled tuple-test repair plus four identifier-text exports and character literals pass **4329/full local**. [Three-premise correction ledger](validation/part-153/record-premise-corrections.json),[audit](validation/part-153/reference-audit.json). All2782 prior sources unchanged;three explicit expected corrections/two generated hash changes only;all103 old diagnoses/six exclusions/policies preserved.77 identifier/41 character/9 record modules,17 scanner diagnoses,two host checks. Registry384;erlang234/351,117 missing,66.7% API presence. Original3801/same-head4329 CI pending154;152 failures retained. Packet75/75 is isolated;whole goal continues.
+
 Part152: complete original **3654/3657**,three record-predicate discrepancies preserved;**4179/full same-head CI** at5dae8cf. All16 startup/18 inspection/28 clock modules and103 diagnoses match;literal guard repair verified. [Failures](validation/part-152/mismatches.json),[guard](validation/part-152/strict-guard.json). Signed negative literals evaluate arguments natively;one compiled big-size apply differs from weak-BIF premise. Sources/expectations/hashes/policies/exclusions unchanged. Registry380;erlang230/351,121 missing;latest complete success140. Audit then repair;whole goal continues.
 
 Part151: repair is_record3 guard literal-name/literal-integer-or-atom-size restrictions;**4179/full local**. Preserve exact150 aborted source as a rejection diagnosis;new valid literal guard slot,four positives minusone invalid andsix diagnoses. [Migration](validation/part-151/guard-fixture-migration.json),[audit](validation/part-151/reference-audit.json). All other2778 modules/all97 old diagnoses/six exclusions/policies unchanged. Registry380;erlang230/351,121 missing. Original3657/same-head4179 CI pending152;whole goal continues.
@@ -216,8 +218,6 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `list_to_float/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_integer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_pid/1` | Missing; real implementation/runtime prerequisites required |
-| `list_to_port/1` | Missing; real implementation/runtime prerequisites required |
 | `list_to_ref/1` | Missing; real implementation/runtime prerequisites required |
 | `list_to_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `load_module/2` | Missing; real implementation/runtime prerequisites required |
@@ -262,7 +262,6 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `phash/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `phash2/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `phash2/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `pid_to_list/1` | Missing; real implementation/runtime prerequisites required |
 | `port_call/2` | Missing; real implementation/runtime prerequisites required |
 | `port_call/3` | Missing; real implementation/runtime prerequisites required |
 | `port_close/1` | Missing; real implementation/runtime prerequisites required |
@@ -274,7 +273,6 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `port_info/1` | Missing; real implementation/runtime prerequisites required |
 | `port_info/2` | Missing; real implementation/runtime prerequisites required |
 | `port_set_data/2` | Missing; real implementation/runtime prerequisites required |
-| `port_to_list/1` | Missing; real implementation/runtime prerequisites required |
 | `ports/0` | Missing; real implementation/runtime prerequisites required |
 | `posixtime_to_universaltime/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `pre_loaded/0` | Missing; real implementation/runtime prerequisites required |

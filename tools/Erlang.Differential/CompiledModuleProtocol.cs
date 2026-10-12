@@ -35,6 +35,17 @@ public static class CompiledModuleProtocol
         "{ok,_,_,_}->{ok,[]}; {error,Errors,_}->{error,lists:usort([R || {_,Es}<-Errors,{_,_,R}<-Es])} end," +
         OracleResultProtocol.Command("Result");
 
+    public static string DiagnosticCommand(CompiledDiagnosticCase fixture)
+    {
+        if (fixture.Kind is not (DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated))
+            return DiagnosticCommand(fixture.Source);
+        string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(fixture.Source));
+
+        return "Result=case erl_scan:string(unicode:characters_to_list(base64:decode(\"" + encoded +
+            "\"))) of {error,{_,_,Reason},_}->{error,[Reason]};{ok,_,_}->{ok,[]} end," +
+            OracleResultProtocol.Command("Result");
+    }
+
     internal static string Forms(string source)
     {
         string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(source));

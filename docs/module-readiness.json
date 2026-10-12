@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-151/tests.json",
-  "LocalPassedTests": 4179,
-  "RegisteredMfas": 380,
+  "ComparisonTestReport": "validation/part-152/ci-tests.json",
+  "LocalPassedTests": 4329,
+  "RegisteredMfas": 384,
   "PreviousRegisteredMfas": 380,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -22,13 +22,14 @@
         "Immutable identity shortcut follows native is_same, avoiding deep binding-merge recursion for shared terms",
         "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
         "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained",
-        "Part129: immutable1-5word references/FullId and zero-padding equality/hash;source-valid per-runtime3word reference allocation;nullable loaded fun names and separate old/new indexes"
+        "Part129: immutable1-5word references/FullId and zero-padding equality/hash;source-valid per-runtime3word reference allocation;nullable loaded fun names and separate old/new indexes",
+        "Part153:stable bounded atom-name channel indices under insertion gate,false index0,128 concurrent observers retain eight names once;ten Atom object cache unchanged;4329/full local"
       ],
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
         "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability"
       ],
-      "RelatedPassedTests": 36
+      "RelatedPassedTests": 37
     },
     {
       "Id": "Serialization",
@@ -62,7 +63,8 @@
         "Part139: owned process monitor/3,demonitor/2,tag/priority/alias modes,pending DOWN and single-message flush/info; seven exact default-disabled dt_* exports; 97 compiled contracts plus concurrent128-child host check;3902/full local, original140 pending",
         "Part141: actual group-leader inheritance and five group_leader/MFA spawn exports, repaired spawn/1 child apply, monitored io:format/2 device protocol;60 module contracts and128-writer host check;3968/full local, original142 pending",
         "Part143:four actual exit_signal/2,3,exit/3,link/2 exports;pending alias/link admission,priority ownership and safe terminal cleanup;repair monitored-spawn group leader;79 independent contracts and128-child host check;4052/full local,original144 pending",
-        "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending"
+        "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending",
+        "Part153:four actual local identifier text APIs,byte-list/unsigned wrap/NUL/header/field validation,opaque port identities without OS ports;77 independent modules;4329/full local;original154 pending"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -71,7 +73,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 276
+      "RelatedPassedTests": 280
     },
     {
       "Id": "Compiler",
@@ -95,14 +97,15 @@
         "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491",
         "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending",
         "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented",
-        "Part151:literal name/integer-or-atom size restriction for is_record3 guards;exact published invalid source retained as rejection;4179/full local;original152 pending"
+        "Part151:literal name/integer-or-atom size restriction for is_record3 guards;exact published invalid source retained as rejection;4179/full local;original152 pending",
+        "Part153:Unicode character literals/simple/control/octal/hex escapes,UTF16 offsets and malformed scanner cases;record raw-zero/unary evaluation and compiled known positive tuple tests versus weak dynamic BIF;4329/full local;original154 pending"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 828
+      "RelatedPassedTests": 846
     },
     {
       "Id": "Core library modules",
@@ -132,7 +135,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1419
+      "RelatedPassedTests": 1423
     },
     {
       "Id": "gen_server adapters",
@@ -229,7 +232,8 @@
         "Part148:90 actual native diagnoses isolate SSA continuation removal;4054/full same-head CI;zero compatibility coverage and144 default failures preserved",
         "Part149:2779 SDK modules,2773 native-comparable plus778 expressions/97 diagnoses=3648 plan;107 new modules/four diagnoses;2672 old sources/expectations/hashes,six exclusions preserved;explicit36 trapped callers/two SSA policies;4170/full local;original150 pending",
         "Part150:3517 actual native matches before illegal dynamic record guard abort;131 unexecuted;4170/full same-head CI;failure retained and no complete-corpus claim",
-        "Part152:complete3654/3657 original and4179/full CI;103 diagnoses/guard repair/startup16/inspection18/clock28 match;three record discrepancies retained"
+        "Part152:complete3654/3657 original and4179/full CI;103 diagnoses/guard repair/startup16/inspection18/clock28 match;three record discrepancies retained",
+        "Part153:explicit erl_scan diagnostic route solely for17 lexical cases;all103 previous compiler diagnostic commands retained;3801 planned original;4329/full local;152 failures preserved"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -239,7 +243,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 2902
+      "RelatedPassedTests": 3046
     },
     {
       "Id": "Style checks",
@@ -5508,11 +5512,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 230,
+      "RegisteredMfas": 234,
       "PreviousRegisteredMfas": 230,
-      "Delta": 0,
+      "Delta": 4,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 65.5,
+      "ApiPresencePercent": 66.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5661,6 +5665,8 @@
         "erlang:list_to_float/1",
         "erlang:list_to_integer/1",
         "erlang:list_to_integer/2",
+        "erlang:list_to_pid/1",
+        "erlang:list_to_port/1",
         "erlang:list_to_tuple/1",
         "erlang:localtime/0",
         "erlang:localtime_to_universaltime/1",
@@ -5691,6 +5697,8 @@
         "erlang:phash/2",
         "erlang:phash2/1",
         "erlang:phash2/2",
+        "erlang:pid_to_list/1",
+        "erlang:port_to_list/1",
         "erlang:posixtime_to_universaltime/1",
         "erlang:process_flag/2",
         "erlang:process_info/2",

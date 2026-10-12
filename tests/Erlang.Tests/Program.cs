@@ -4033,6 +4033,16 @@ Test(
 }
 );
 
+Test(
+    "compiler/character-literal/scanner-offsets-and-invalid-escapes",
+    () =>
+{
+    Erlang.Tests.CharacterLiteralScannerContracts.Run();
+
+    return Task.CompletedTask;
+}
+);
+Test("terms/atom-channel-index-concurrent-retention", Erlang.Tests.AtomChannelIndexContracts.Run);
 int failed = 0;
 foreach (var test in tests)
 {

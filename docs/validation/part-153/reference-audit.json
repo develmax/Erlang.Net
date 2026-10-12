@@ -1,0 +1,84 @@
+{
+  "NewHostChecks": 2,
+  "ErlangPresent": 234,
+  "Diagnoses": 120,
+  "Exclusions": 6,
+  "AllOtherHistoricalSourcesExpectationsHashesPoliciesPreserved": true,
+  "CharacterDiagnoses": 17,
+  "ComparableModules": 2903,
+  "RecordBoundary": "raw literal integer zero suppresses operands before Core;unary signs execute;known literal atom/positive size and proper static apply use tuple/arity/tag checks;actual weak dynamic BIF keeps small-size validation",
+  "CharacterModules": 41,
+  "Part": 153,
+  "RecordPremisesCorrected": 3,
+  "IdentifierBoundary": "actual local parse,opaque PID/Port identities,proper byte list/64 and38 byte bounds,unsigned wrap/NUL;backend atom channel indices;no connected foreign parsing or OS ports",
+  "FullPipeline": true,
+  "Baseline": "OTP-29.1.1",
+  "NativePlan": 3801,
+  "PacketDraft": "75/75 framing/TLS isolated only;HTTP/source/native/full pipeline incomplete;no packet export promotion",
+  "OriginalVerification": "pending154new-head3801/full4329 CI",
+  "PreviousFailure": "1523654/3657 preserved;latest complete native success140",
+  "RecordSourcesChanged": 0,
+  "NativeRunHere": false,
+  "Next": "Publish and inspect whole pinned3801 plus same-head4329 CI;retain any failures before repairs;continue HTTP packet/remaining physical runtime prerequisites",
+  "NewLanguageExports": 4,
+  "Missing": 117,
+  "NewRecordModules": 9,
+  "Sources": [
+    {
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Path": "erts/emulator/beam/bif.c"
+    },
+    {
+      "BlobSHA1": "880892cc075a8969c91b930ccb09a8ac18297ec4",
+      "Path": "erts/emulator/beam/utils.c"
+    },
+    {
+      "BlobSHA1": "1ade17c7621e0c87901f41dd149b0f5b516418a4",
+      "Path": "erts/emulator/beam/erl_printf_term.c"
+    },
+    {
+      "BlobSHA1": "7dec81a2c1a5f989691a27e7e3074e36ebfdc0c3",
+      "Path": "erts/emulator/beam/erl_node_tables.c"
+    },
+    {
+      "BlobSHA1": "8ec903dbab51c145f2b7b6fcd9f214f5153746dc",
+      "Path": "erts/emulator/beam/erl_node_container_utils.h"
+    },
+    {
+      "BlobSHA1": "2f943195f1105e9bf451e4ab99896c68e33afa1b",
+      "Path": "erts/emulator/beam/atom.names"
+    },
+    {
+      "BlobSHA1": "edf246531e2b9871035a571e758b94514e8eea1b",
+      "Path": "lib/stdlib/src/erl_scan.erl"
+    },
+    {
+      "BlobSHA1": "563500eacac4038faf0e0f88425ca42ddcd6b383",
+      "Path": "lib/stdlib/src/erl_expand_records.erl"
+    },
+    {
+      "BlobSHA1": "143ed35c7490846343514d987022de11485b973c",
+      "Path": "lib/compiler/src/sys_core_fold.erl"
+    },
+    {
+      "BlobSHA1": "dab8c9d5222756a958ee29cfae6aea5f360296e5",
+      "Path": "lib/compiler/src/beam_core_to_ssa.erl"
+    },
+    {
+      "BlobSHA1": "b938951490bbe00bafbe854267d24cc25536deb1",
+      "Path": "erts/emulator/beam/erl_bif_op.c"
+    }
+  ],
+  "ExplicitCompilerPolicies": 2,
+  "LexerBoundary": "character literal positive and malformed UTF8 scanner cases;invalid UTF16 offset checks local-only;quoted string escapes/full annotations/continuations unchanged",
+  "RecordGeneratedHashChanges": 2,
+  "Expressions": 778,
+  "IdentifierModules": 77,
+  "LocalPassed": 4329,
+  "SdkModules": 2909,
+  "ExplicitHistoricalCallerContexts": 36,
+  "Registry": 384,
+  "ErlangDeclared": 351,
+  "InspectionAndClockNativeProof": "part15216 startup/18 process inspection/28 clock modules all match",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

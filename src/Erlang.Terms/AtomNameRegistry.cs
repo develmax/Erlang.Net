@@ -4,13 +4,14 @@ namespace Erlang;
 
 public static class AtomNameRegistry
 {
-    private static readonly ConcurrentDictionary<string, byte> names = new(StringComparer.Ordinal);
+    private static readonly ConcurrentDictionary<string, int> names = new(StringComparer.Ordinal);
     private static readonly object gate = new();
 
     static AtomNameRegistry()
     {
+        names.TryAdd(ErlangBooleanAtoms.False, 0);
         foreach (string name in ErlangPrimordialAtomNames.All)
-            names.TryAdd(name, 0);
+            names.TryAdd(name, names.Count);
     }
 
     public static void Observe(string name)
@@ -24,7 +25,7 @@ public static class AtomNameRegistry
                 return;
             if (names.Count >= AtomTableLimits.MaximumNames)
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
-            names.TryAdd(name, 0);
+            names.TryAdd(name, names.Count);
         }
     }
 
@@ -38,4 +39,11 @@ public static class AtomNameRegistry
     public static int Count => names.Count;
 
     public static bool Exists(string name) => names.ContainsKey(name);
+
+    public static int IndexOf(string name)
+    {
+        Observe(name);
+
+        return names[name];
+    }
 }

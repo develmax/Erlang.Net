@@ -123,6 +123,7 @@ public static class Execution
             ctx
         ),
         Expr.Call x when RecordPredicateSyntax.HasLiteralNonpositiveSize(x) => Term.A(ErlangBooleanAtoms.False),
+        Expr.Call x when RecordPredicateSyntax.TupleTest(x) is { } predicate => RecordPredicateSyntax.Test(GuardValue(x.Arguments[0], b, ctx), predicate),
         Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 1 && ComprehensionGuard.IsOperator(x.Function, 1) => Unary(x.Function, GuardValue(x.Arguments[0], b, ctx)),
         Expr.Call x when x.Module == ErlangModuleNames.Module && x.Arguments.Count == 2 && ComprehensionGuard.IsOperator(x.Function, 2) => Binary(
             x.Function,
@@ -487,6 +488,9 @@ public static class Execution
 
                     try
                     {
+                        if (RecordPredicateSyntax.TupleTest(x) is { } predicate)
+                            return RecordPredicateSyntax.Test(predicate.StaticApply ? Cons.Items(args[2]).First() : args[0], predicate);
+
                         return await ctx.Runtime.Modules.Call(
                             ctx,
                             x.Module ?? ErlangModuleNames.Module,

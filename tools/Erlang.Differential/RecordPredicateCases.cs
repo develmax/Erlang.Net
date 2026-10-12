@@ -19,11 +19,12 @@ public static class RecordPredicateCases
             string name,
             string body,
             string declarations = "",
-            string helpers = ""
+            string helpers = "",
+            Term? expected = null
         ) => cases.Add(new(
             "erlang-record-predicate-" + name,
             "-module(record_predicate_contract). -export([run/0]). " + declarations + " run()->" + body + ",done. id(X)->X. " + helpers,
-            Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
+            expected ?? Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ));
         Add(
             "weak-two",
@@ -105,7 +106,12 @@ public static class RecordPredicateCases
         foreach (string size in new[] { "0", "-1", "-576460752303423489" })
             Add(
                 "literal-suppresses-arguments-" + size,
-                "false=erlang:is_record(error(should_not_execute),error(should_not_execute)," + size + "),false=is_record(error(should_not_execute),42," + size + ")"
+                "false=erlang:is_record(error(should_not_execute),error(should_not_execute)," + size + "),false=is_record(error(should_not_execute),42," + size + ")",
+                expected: size == "0" ? null : Term.Tuple(
+                    Term.A(OracleOutcomeTags.Failure),
+                    Term.A(RecordPredicateContractNames.ErrorClass),
+                    Term.A(RecordPredicateContractNames.ShouldNotExecute)
+                )
             );
         int index = 0;
         foreach (string value in new[] { "[]", "42", "r", "1.0", "#{r=>one}", "<<1>>", "self()", "make_ref()", "fun()->ok end" })
@@ -120,7 +126,12 @@ public static class RecordPredicateCases
         foreach (string size in new[] { "[]", "1.0", "{2}", "576460752303423488", "-576460752303423489" })
             Add(
                 "bad-dynamic-size-" + index++,
-                "ok=try apply(erlang,is_record,[{r},r," + size + "]) of _->unexpected catch error:badarg->ok end"
+                "ok=try apply(erlang,is_record,[{r},r," + size + "]) of _->unexpected catch error:badarg->ok end",
+                expected: size == "576460752303423488" ? Term.Tuple(
+                    Term.A(OracleOutcomeTags.Failure),
+                    Term.A(RecordPredicateContractNames.ErrorClass),
+                    Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), Term.A(RecordPredicateContractNames.Unexpected))
+                ) : null
             );
         index = 0;
         foreach (string size in new[] { "0", "-1", "576460752303423487", "-576460752303423488" })
@@ -128,6 +139,40 @@ public static class RecordPredicateCases
         Add(
             "native-module-name-ordinary-terms",
             "false=apply(erlang,is_record,[{r,one},record_predicate_contract,r]),false=apply(erlang,is_record,[{r},r,record_predicate_contract])"
+        );
+
+        Add(
+            "signed-zero-evaluates",
+            "ok=try is_record(error(evaluated),r,-0) of _->unexpected catch error:evaluated->ok end,ok=try is_record(error(evaluated),r,+0) of _->unexpected catch error:evaluated->ok end"
+        );
+        Add(
+            "negative-evaluation-order",
+            "false=is_record(begin self()!first,{r} end,begin self()!second,r end,-1),first=receive A->A end,second=receive B->B end"
+        );
+        Add(
+            "positive-big-compiled",
+            "false=erlang:is_record({r},r,576460752303423488),false=is_record({r},r,576460752303423488),false=apply(erlang,is_record,[{r},r,576460752303423488])"
+        );
+        Add(
+            "positive-big-evaluation-order",
+            "false=erlang:is_record(begin self()!first,{r} end,r,576460752303423488),first=receive A->A end"
+        );
+        Add(
+            "positive-big-static-apply-effects",
+            "false=apply(erlang,is_record,[begin self()!first,{r} end,r,576460752303423488]),first=receive A->A end"
+        );
+        Add("positive-big-signed", "false=erlang:is_record({r},r,+576460752303423488)");
+        Add(
+            "genuinely-dynamic-big-size",
+            "put(record_size,576460752303423488),S=get(record_size),ok=try erlang:is_record({r},r,S) of _->unexpected catch error:badarg->ok end"
+        );
+        Add(
+            "genuinely-dynamic-tag-big-size",
+            "put(record_tag,r),N=get(record_tag),ok=try erlang:is_record({r},N,576460752303423488) of _->unexpected catch error:badarg->ok end"
+        );
+        Add(
+            "genuinely-dynamic-apply-big-size",
+            "put(record_args,[{r},r,576460752303423488]),Args=get(record_args),ok=try apply(erlang,is_record,Args) of _->unexpected catch error:badarg->ok end"
         );
 
         return cases;

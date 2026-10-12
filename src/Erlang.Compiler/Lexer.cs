@@ -30,6 +30,17 @@ public static class Lexer
             char c = text[i++];
             if (blockPrefix && depth == 0 && c == '.')
                 break;
+            if (c == CharacterLiteralParameters.Marker)
+            {
+                int value = CharacterLiteralLexer.Read(text, ref i, start);
+                tokens.Add(new(
+                    LexerTokenKinds.Integer,
+                    value.ToString(CultureInfo.InvariantCulture),
+                    start,
+                    i
+                ));
+                continue;
+            }
             if (c is '\'' or '"')
             {
                 var value = new StringBuilder();

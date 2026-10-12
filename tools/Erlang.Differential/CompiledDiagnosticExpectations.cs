@@ -22,7 +22,7 @@ public static class CompiledDiagnosticExpectations
     public const string VariableBindingCode = "ERL006";
     public const string UnboundVariableTag = "unbound_var";
     public const string UnsafeVariableTag = "unsafe_var";
-    public const string ReferenceMode = "compile:forms/error reasons without annotations";
+    public const string ReferenceMode = "compile:forms/error reasons without annotations;erl_scan:string/error reasons for explicit character-literal kinds";
     public const string StacktraceFreshnessCode = "ERL006";
     public const string StacktraceGuardCode = "ERL007";
     public const string StacktraceBoundTag = "stacktrace_bound";
@@ -33,6 +33,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.Code,
         DiagnosticCaseKind.RecordPredicateGuard or DiagnosticCaseKind.RecordPredicateThreeGuard => RecordPredicateDiagnosticExpectations.GuardCode,
         DiagnosticCaseKind.NonLatin1Module or DiagnosticCaseKind.EmptyModule or DiagnosticCaseKind.BlankModule or DiagnosticCaseKind.ControlModule => ModuleDefinitionCode,
         DiagnosticCaseKind.VariableScope => VariableBindingCode,
@@ -45,6 +46,8 @@ public static class CompiledDiagnosticExpectations
 
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.IllegalMessage,
+        DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.UnterminatedMessage,
         DiagnosticCaseKind.RecordPredicateGuard => RecordPredicateDiagnosticExpectations.GuardMessage,
         DiagnosticCaseKind.RecordPredicateThreeGuard => RecordPredicateDiagnosticExpectations.ThreeGuardMessage,
         DiagnosticCaseKind.NonLatin1Module => NonLatin1ModuleMessage,
@@ -65,6 +68,8 @@ public static class CompiledDiagnosticExpectations
 
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.Outcome(false),
+        DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.Outcome(true),
         DiagnosticCaseKind.RecordPredicateGuard or DiagnosticCaseKind.RecordPredicateThreeGuard => RecordPredicateDiagnosticExpectations.GuardOutcome,
         DiagnosticCaseKind.NonLatin1Module => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(NonLatin1ModuleTag))),
         DiagnosticCaseKind.EmptyModule => Term.Tuple(Term.A(OracleOutcomeTags.Failure), Term.List(Term.A(EmptyModuleTag))),

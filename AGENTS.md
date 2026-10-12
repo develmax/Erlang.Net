@@ -543,3 +543,7 @@ Part151: repair is_record3 guard literal-name/literal-integer-or-atom-size restr
 ## Part152 checkpoint
 
 Part152: complete original **3654/3657**,three record-predicate discrepancies preserved;**4179/full same-head CI** at5dae8cf. All16 startup/18 inspection/28 clock modules and103 diagnoses match;literal guard repair verified. [Failures](validation/part-152/mismatches.json),[guard](validation/part-152/strict-guard.json). Signed negative literals evaluate arguments natively;one compiled big-size apply differs from weak-BIF premise. Sources/expectations/hashes/policies/exclusions unchanged. Registry380;erlang230/351,121 missing;latest complete success140. Audit then repair;whole goal continues.
+
+## Part153 checkpoint
+
+Part153: record expansion/compiled tuple-test repair plus four identifier-text exports and character literals pass **4329/full local**. [Three-premise correction ledger](validation/part-153/record-premise-corrections.json),[audit](validation/part-153/reference-audit.json). All2782 prior sources unchanged;three explicit expected corrections/two generated hash changes only;all103 old diagnoses/six exclusions/policies preserved.77 identifier/41 character/9 record modules,17 scanner diagnoses,two host checks. Registry384;erlang234/351,117 missing,66.7% API presence. Original3801/same-head4329 CI pending154;152 failures retained. Packet75/75 is isolated;whole goal continues.

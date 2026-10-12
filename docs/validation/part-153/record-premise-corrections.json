@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "erlang-record-predicate-literal-suppresses-arguments--1",
+    "Before": {
+      "Name": "erlang-record-predicate-literal-suppresses-arguments--1",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Efalse=erlang:is_record(error(should_not_execute),error(should_not_execute),-1),false=is_record(error(should_not_execute),42,-1),done. id(X)-\u003EX. ",
+      "FixtureExpected": "{ok,done}",
+      "SourceSha256": "345EA0F7CAB9102EB3717C67A80000F0A421894AF87BE1B16D3C227FF0AF6FEB",
+      "CSharpSha256": "E4A1A03D7344950FA0AA4D8582ECC2062A21D1CBCA2D887BB17F5460E3B4A7F7",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "After": {
+      "Name": "erlang-record-predicate-literal-suppresses-arguments--1",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Efalse=erlang:is_record(error(should_not_execute),error(should_not_execute),-1),false=is_record(error(should_not_execute),42,-1),done. id(X)-\u003EX. ",
+      "FixtureExpected": "{error,error,should_not_execute}",
+      "SourceSha256": "345EA0F7CAB9102EB3717C67A80000F0A421894AF87BE1B16D3C227FF0AF6FEB",
+      "CSharpSha256": "C25E898990B4550F608EEDC040B55EE931A51010AF7B97907D9F909BF2F14029",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "SourceUnchanged": true,
+    "IndependentPremiseCorrection": "{error,error,should_not_execute}",
+    "OriginalEvidence": "docs/validation/part-152/mismatches.json"
+  },
+  {
+    "Name": "erlang-record-predicate-literal-suppresses-arguments--576460752303423489",
+    "Before": {
+      "Name": "erlang-record-predicate-literal-suppresses-arguments--576460752303423489",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Efalse=erlang:is_record(error(should_not_execute),error(should_not_execute),-576460752303423489),false=is_record(error(should_not_execute),42,-576460752303423489),done. id(X)-\u003EX. ",
+      "FixtureExpected": "{ok,done}",
+      "SourceSha256": "7F915AD16635FE225438B6376CAB75DBE53531EC3A171B7853C3F9DF12FC1628",
+      "CSharpSha256": "E4A1A03D7344950FA0AA4D8582ECC2062A21D1CBCA2D887BB17F5460E3B4A7F7",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "After": {
+      "Name": "erlang-record-predicate-literal-suppresses-arguments--576460752303423489",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Efalse=erlang:is_record(error(should_not_execute),error(should_not_execute),-576460752303423489),false=is_record(error(should_not_execute),42,-576460752303423489),done. id(X)-\u003EX. ",
+      "FixtureExpected": "{error,error,should_not_execute}",
+      "SourceSha256": "7F915AD16635FE225438B6376CAB75DBE53531EC3A171B7853C3F9DF12FC1628",
+      "CSharpSha256": "D101219A8C8F12D52D222A295FBC6D7514D026157CE5640D56929EB391E19B17",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "SourceUnchanged": true,
+    "IndependentPremiseCorrection": "{error,error,should_not_execute}",
+    "OriginalEvidence": "docs/validation/part-152/mismatches.json"
+  },
+  {
+    "Name": "erlang-record-predicate-bad-dynamic-size-3",
+    "Before": {
+      "Name": "erlang-record-predicate-bad-dynamic-size-3",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Eok=try apply(erlang,is_record,[{r},r,576460752303423488]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done. id(X)-\u003EX. ",
+      "FixtureExpected": "{ok,done}",
+      "SourceSha256": "BEBA168A6DDB126D601D65FAF9157C38B47863F08843C55FA55644AD0CBFEF97",
+      "CSharpSha256": "0F3D423B7BC3B7862B0E2E0D7D174F86F6A28F77EFEAA8DD7C7093169AEA8DFC",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "After": {
+      "Name": "erlang-record-predicate-bad-dynamic-size-3",
+      "Source": "-module(record_predicate_contract). -export([run/0]).  run()-\u003Eok=try apply(erlang,is_record,[{r},r,576460752303423488]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done. id(X)-\u003EX. ",
+      "FixtureExpected": "{error,error,{badmatch,unexpected}}",
+      "SourceSha256": "BEBA168A6DDB126D601D65FAF9157C38B47863F08843C55FA55644AD0CBFEF97",
+      "CSharpSha256": "0F3D423B7BC3B7862B0E2E0D7D174F86F6A28F77EFEAA8DD7C7093169AEA8DFC",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    "SourceUnchanged": true,
+    "IndependentPremiseCorrection": "{error,error,{badmatch,unexpected}}",
+    "OriginalEvidence": "docs/validation/part-152/mismatches.json"
+  }
+]

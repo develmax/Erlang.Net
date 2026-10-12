@@ -3038,5 +3038,37 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:is_record/3",
     "Limits": "Tuple-record weak BIF and compiler-declared sized checks;native-record terms/is_record1/native-positive branches,external-fun literal grammar/no_auto_import/full diagnostic/resource scope remain incomplete.45 independent cases/four diagnoses;original150 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "pid_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:pid_to_list/1",
+    "Limits": "Part153 source-directed identifier text: proper byte lists and native unsigned wrap/NUL/bounds/local identity;77 independent module contracts plus retained atom-index host check;original154 pending. Foreign channel indexes are backend specific;connected distribution and real OS ports remain unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "list_to_pid",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_pid/1",
+    "Limits": "Part153 source-directed identifier text: proper byte lists and native unsigned wrap/NUL/bounds/local identity;77 independent module contracts plus retained atom-index host check;original154 pending. Foreign channel indexes are backend specific;connected distribution and real OS ports remain unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "port_to_list",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:port_to_list/1",
+    "Limits": "Part153 source-directed identifier text: proper byte lists and native unsigned wrap/NUL/bounds/local identity;77 independent module contracts plus retained atom-index host check;original154 pending. Foreign channel indexes are backend specific;connected distribution and real OS ports remain unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "list_to_port",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:list_to_port/1",
+    "Limits": "Part153 source-directed identifier text: proper byte lists and native unsigned wrap/NUL/bounds/local identity;77 independent module contracts plus retained atom-index host check;original154 pending. Foreign channel indexes are backend specific;connected distribution and real OS ports remain unfinished."
   }
 ]

@@ -489,7 +489,7 @@ try
     }
     await foreach (var oracleResult in OracleExecutionPipeline.Run(
         CompiledDiagnosticCases.All,
-        fixture => CompiledModuleProtocol.DiagnosticCommand(fixture.Source),
+        fixture => CompiledModuleProtocol.DiagnosticCommand(fixture),
         RunOracle,
         fixture => activeSource = fixture.Source
     ))
@@ -529,6 +529,7 @@ try
             ImplementationAccepted = accepted,
             ImplementationCode = code,
             ImplementationMessage = message,
+            DiagnosticKind = fixture.Kind.ToString(),
             Passed = passed
         });
         Console.WriteLine((passed ? "PASS diagnostic " : "FAIL diagnostic ") + fixture.Name);
