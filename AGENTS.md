@@ -667,3 +667,7 @@ Part182:source-built OTP-29.1.1 original **4424/4424** and **4981/full same-head
 ## Part183 checkpoint
 
 Part183:erlang display_string1/2 writes real raw standard streams;one-argument form defaults to stderr,flat scalar lists become UTF8,binaries remain byte-exact. **5016/full main and draft**,31 independent output/error fixtures added;all3520 inherited corpus contracts preserved. Registry401;erlang251/351,100 missing,**71.5% API presence**,not semantic completion. [Tests](validation/part-183/tests.json),[audit](validation/part-183/reference-audit.json). Original4455/output-byte comparisons pending184;latest1824424/4424. Native errno cause/resource/scheduler/partialwrite/real Unix TTY coverage and remaining APIs continue. No terminal input injected by checks.
+
+## Part184 checkpoint
+
+Part184:source-built OTP-29.1.1 original **4455/4455** and **5016/full same-head CI** at13374f5. All31 standard-stream fixtures match independent raw stdout/stderr byte expectations in both runtimes. [Proof](validation/part-184/differential.json),[guard](validation/part-184/strict-guard.json). Preserve3551 SDK/3545 comparable modules,778 expressions,132 diagnoses and six exclusions. Registry401;erlang251/351,100 missing,71.5% API presence,not semantic completion. Native errno/TTY/resources/schedulers/upstream suites/performance and remaining APIs continue.

@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-182/ci-tests.json",
+  "ComparisonTestReport": "validation/part-183/tests.json",
   "LocalPassedTests": 5016,
   "RegisteredMfas": 401,
-  "PreviousRegisteredMfas": 399,
-  "RegisteredMfaDelta": 2,
+  "PreviousRegisteredMfas": 401,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -274,7 +274,8 @@
         "Part178:complete4395/4395 source-built original and4949/full same-head CI;exact177 source/diagnostic/expectation/hash/policy contracts preserved;all selected comparisons match;continue remaining APIs",
         "Part180:source-built original4404/4404 and4959/full same-head CI;all179 contracts preserved;All selected comparisons match;continue remaining APIs",
         "Part182:source-built original4424/4424 and4981/full same-head CI;all181 contracts preserved,includingtwenty purge scenarios;All selected comparisons match;continue remaining APIs",
-        "Part183:raw oracle byte capture,optional independent stdout/stderr hex contracts for31 new cases;preserve trailing CR/LF/invalidUTF8/NUL and JSON roundtrip;all3520 inherited contracts unchanged"
+        "Part183:raw oracle byte capture,optional independent stdout/stderr hex contracts for31 new cases;preserve trailing CR/LF/invalidUTF8/NUL and JSON roundtrip;all3520 inherited contracts unchanged",
+        "Part184:4455/4455 source-built original and5016/full same-head CI;31 independent raw stdout/stderr contracts match in both runtimes."
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -5554,8 +5555,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 251,
-      "PreviousRegisteredMfas": 249,
-      "Delta": 2,
+      "PreviousRegisteredMfas": 251,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 71.5,
       "RequiresPreprocessing": false,
