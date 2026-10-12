@@ -1,0 +1,23 @@
+{
+  "Reason": "Exact retained original part166 mismatch and v3_core.erl list-tag guard",
+  "Before": {
+    "Name": "erlang-module-attributes-improper",
+    "Source": "-module(module_attributes_contract). -export([run/0]). -custom([a|tail]). run()->[{vsn,[_]},{custom,[[a|tail]]}]=module_info(attributes),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "5803B842AF90B5899C1332B4554ECBF6D219DD89891A033F825E6D5F0D4354FA",
+    "CSharpSha256": "D99529CB6DA187628563E025E40679B0CCB7D809A18141CBBF8DA8BB0A74ABCD",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "CallerContextAndPolicyUnchanged": true,
+  "After": {
+    "Name": "erlang-module-attributes-improper",
+    "Source": "-module(module_attributes_contract). -export([run/0]). -custom([a|tail]). run()->[{vsn,[_]},{custom,[a|tail]}]=module_info(attributes),done.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "2709418687E99A05455ACDD829E253F8C648D11CB019C1A7D8402FB2AC32567F",
+    "CSharpSha256": "37A2F6EBE11C884933F1848D023E62C8C6CA02547AE06C4235D402241F9147A5",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "IndependentOutcomeUnchanged": true
+}

@@ -4,14 +4,7 @@ namespace Erlang;
 
 public static class ModuleCodeAttributes
 {
-    public static Term Values(Term value)
-    {
-        Term tail = value;
-        while (tail is Cons cell)
-            tail = cell.Tail;
-
-        return tail is Nil ? value : Term.List(value);
-    }
+    public static Term Values(Term value) => value is Cons or Nil ? value : Term.List(value);
 
     internal static Term WithDefaultVersion(Term? attributes, BitString fingerprint)
     {

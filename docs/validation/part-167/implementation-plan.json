@@ -1,0 +1,9 @@
+{
+  "Reuse": "Existing immutable Term Cons/Nil classifications; .NET list enumerators cannot model improper tails; no dependency/license change",
+  "Objective": "Correct improper attribute list classification from retained native discrepancy before lifecycle implementation",
+  "Validation": "Full validate.ps1, exact corpus ledger with one authorised source correction, original OTP rerun",
+  "Reference": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "v3_core.erl attribute/1 is_list(Val0) tests list tag, including improper cons; CoreModules already models is_list as Cons or Nil",
+  "PriorFailure": "part-166 erlang-module-attributes-improper",
+  "Correction": "Preserve any Cons or Nil; wrap scalar once. Correct only the published wrong fixture assertion with explicit before/after ledger; no exclusions or oracle policies change"
+}
