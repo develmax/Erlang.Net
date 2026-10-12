@@ -539,3 +539,7 @@ Part150: incomplete original run **3517/3648 passed,131 unexecuted**,zero execut
 ## Part151 checkpoint
 
 Part151: repair is_record3 guard literal-name/literal-integer-or-atom-size restrictions;**4179/full local**. Preserve exact150 aborted source as a rejection diagnosis;new valid literal guard slot,four positives minusone invalid andsix diagnoses. [Migration](validation/part-151/guard-fixture-migration.json),[audit](validation/part-151/reference-audit.json). All other2778 modules/all97 old diagnoses/six exclusions/policies unchanged. Registry380;erlang230/351,121 missing. Original3657/same-head4179 CI pending152;whole goal continues.
+
+## Part152 checkpoint
+
+Part152: complete original **3654/3657**,three record-predicate discrepancies preserved;**4179/full same-head CI** at5dae8cf. All16 startup/18 inspection/28 clock modules and103 diagnoses match;literal guard repair verified. [Failures](validation/part-152/mismatches.json),[guard](validation/part-152/strict-guard.json). Signed negative literals evaluate arguments natively;one compiled big-size apply differs from weak-BIF premise. Sources/expectations/hashes/policies/exclusions unchanged. Registry380;erlang230/351,121 missing;latest complete success140. Audit then repair;whole goal continues.

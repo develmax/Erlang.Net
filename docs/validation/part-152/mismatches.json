@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "erlang-record-predicate-literal-suppresses-arguments--1",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->false=erlang:is_record(error(should_not_execute),error(should_not_execute),-1),false=is_record(error(should_not_execute),42,-1),done. id(X)->X. ",
+    "SourceSha256": "345EA0F7CAB9102EB3717C67A80000F0A421894AF87BE1B16D3C227FF0AF6FEB",
+    "CSharpSha256": "E4A1A03D7344950FA0AA4D8582ECC2062A21D1CBCA2D887BB17F5460E3B4A7F7",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,should_not_execute}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-record-predicate-literal-suppresses-arguments--576460752303423489",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->false=erlang:is_record(error(should_not_execute),error(should_not_execute),-576460752303423489),false=is_record(error(should_not_execute),42,-576460752303423489),done. id(X)->X. ",
+    "SourceSha256": "7F915AD16635FE225438B6376CAB75DBE53531EC3A171B7853C3F9DF12FC1628",
+    "CSharpSha256": "E4A1A03D7344950FA0AA4D8582ECC2062A21D1CBCA2D887BB17F5460E3B4A7F7",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,should_not_execute}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  },
+  {
+    "Name": "erlang-record-predicate-bad-dynamic-size-3",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->ok=try apply(erlang,is_record,[{r},r,576460752303423488]) of _->unexpected catch error:badarg->ok end,done. id(X)->X. ",
+    "SourceSha256": "BEBA168A6DDB126D601D65FAF9157C38B47863F08843C55FA55644AD0CBFEF97",
+    "CSharpSha256": "0F3D423B7BC3B7862B0E2E0D7D174F86F6A28F77EFEAA8DD7C7093169AEA8DFC",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,{badmatch,unexpected}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "Passed": false
+  }
+]
