@@ -523,3 +523,7 @@ Part146: **36/36 native diagnostic evaluations completed**,zero compatibility-co
 ## Part147 checkpoint
 
 Part147: isolated native compiler-pass tooling passes **4054/full local**,one new permanent protocol check;90 native diagnoses planned148,zero local native coverage. Pinned spawn/1 type inference conflicts with accepted fun/MFA wrappers;actual pass remains unverified. [Audit](validation/part-147/reference-audit.json). Runtime/MFAs/fixtures/expectations unchanged;144 failures retained. Registry377;erlang227/351,124 missing,64.7% API presence. Continue startup repair and whole goal.
+
+## Part148 checkpoint
+
+Part148: **90 native diagnoses completed**,zero compatibility-corpus coverage;**4054/full same-head CI** at3d9a71c. SSA optimization is isolated as the cause of missing continuation in two unchanged spawn cases;no_copt/no_postopt do not repair it. [Matrix](validation/part-148/outcome-matrix.json),[guard](validation/part-148/strict-guard.json). Four startup errors retain trap-context dependency. Preserve failed144 and default compiler outcomes. Next actual startup/state/clock/record implementation with explicit context and narrowly documented no_ssa_opt policy. Registry377;erlang227/351,124 missing;whole goal continues.

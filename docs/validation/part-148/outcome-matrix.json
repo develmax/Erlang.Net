@@ -1,0 +1,632 @@
+[
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{bad_return,{oracle_otp_supervisor,init,wrong}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{bad_return,{oracle_otp_supervisor,init,wrong}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{bad_return,{oracle_otp_supervisor,init,wrong}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{bad_return,{oracle_otp_supervisor,init,wrong}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{bad_return,{oracle_otp_supervisor,init,wrong}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,failed}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,failed}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,failed}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,failed}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,failed}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,failed}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{shutdown,{failed_to_start_child,first,failed}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{shutdown,{failed_to_start_child,first,failed}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{shutdown,{failed_to_start_child,first,failed}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{shutdown,{failed_to_start_child,first,failed}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{shutdown,{failed_to_start_child,first,failed}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{supervisor_data,{invalid_intensity,-1}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{supervisor_data,{invalid_intensity,-1}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{supervisor_data,{invalid_intensity,-1}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{supervisor_data,{invalid_intensity,-1}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{error,exit,{supervisor_data,{invalid_intensity,-1}}}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "default native compiler",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt,no_ssa_opt,no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_copt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_ssa_opt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,done}",
+    "MatchesIndependentFixture": true
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "initial command process",
+    "NativeOutcome": "{ok,<nonode@nohost.83.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=false",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "CompilerMode": "no_postopt",
+    "ProcessMode": "fresh child, trap_exit=true",
+    "NativeOutcome": "{ok,<nonode@nohost.84.0>}",
+    "MatchesIndependentFixture": false
+  }
+]
