@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-184/ci-tests.json",
+  "ComparisonTestReport": "validation/part-185/tests.json",
   "LocalPassedTests": 5051,
   "RegisteredMfas": 404,
-  "PreviousRegisteredMfas": 401,
-  "RegisteredMfaDelta": 3,
+  "PreviousRegisteredMfas": 404,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -276,7 +276,8 @@
         "Part180:source-built original4404/4404 and4959/full same-head CI;all179 contracts preserved;All selected comparisons match;continue remaining APIs",
         "Part182:source-built original4424/4424 and4981/full same-head CI;all181 contracts preserved,includingtwenty purge scenarios;All selected comparisons match;continue remaining APIs",
         "Part183:raw oracle byte capture,optional independent stdout/stderr hex contracts for31 new cases;preserve trailing CR/LF/invalidUTF8/NUL and JSON roundtrip;all3520 inherited contracts unchanged",
-        "Part184:4455/4455 source-built original and5016/full same-head CI;31 independent raw stdout/stderr contracts match in both runtimes."
+        "Part184:4455/4455 source-built original and5016/full same-head CI;31 independent raw stdout/stderr contracts match in both runtimes.",
+        "Part186:original4485/4486 and5051/full same-head CI;31 suspension scenarios executed and all185 contracts preserved;1 native discrepancies retained;repair before promotion."
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -5556,8 +5557,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 254,
-      "PreviousRegisteredMfas": 251,
-      "Delta": 3,
+      "PreviousRegisteredMfas": 254,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 72.4,
       "RequiresPreprocessing": false,

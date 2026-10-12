@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "erlang-suspension-pid-timers",
+    "Source": "-module(suspension_contract). -export([run/0,worker/1]). run()->Self=self(),P=spawn(fun()->worker(Self) end),true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),A=erlang:read_timer(T),receive after 150->ok end,A=erlang:read_timer(T),true=is_integer(A),A=erlang:cancel_timer(T),true=erlang:resume_process(P),P!ping,receive pong->ok after 1000->error(no_resume) end,P!stop,done. worker(Parent)->receive ping->Parent!pong,worker(Parent);stop->ok end.",
+    "SourceSha256": "1E01C11E5B29692260BA21E8847F4D9AFCF739AFB627A9E86C75ABBCE6D96D34",
+    "CSharpSha256": "D335183D1EF6763C2AC5B55D7C2A4EB394850EF85F271E58439AAF41D74D0764",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,{badmatch,false}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "NativeStandardOutputHex": null,
+    "NativeStandardErrorHex": null,
+    "SdkStandardOutputHex": null,
+    "SdkStandardErrorHex": null,
+    "StandardStreamsMatch": true,
+    "Passed": false
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "Source": "erts/emulator/beam/erl_hl_timer.c",
+  "BlobSHA1": "f5bd571b027468339f7307761cbd4a33df13437b",
+  "Decision": "Port actual detached paused-message lifetime and private rearm identity. Revise one disproved fixture and host assertion explicitly in187 with migration hashes;preserve4485/4486 failure,no new exclusion or semantic-success promotion.",
+  "SdkOutcome": "{ok,done}",
+  "Baseline": "OTP-29.1.1",
+  "Findings": [
+    "create_paused_bif_timer995 copies message and remaining deadline,not public reference numbers.",
+    "setup_bif_timer1846 immediately removes active timer when target already paused;pause_bif_timers2909 cancels old active entries. Public read/cancel cannot access paused message snapshots.",
+    "resume_paused_bif_timers2983 makes a fresh internal reference and rearms preserved message/deadline. Old public reference remains invalid;wrapped timeout message retains its original reference as payload."
+  ],
+  "NativeOutcome": "{error,error,{badmatch,false}}",
+  "FrozenSourceSHA256": "1E01C11E5B29692260BA21E8847F4D9AFCF739AFB627A9E86C75ABBCE6D96D34",
+  "FailedFixture": "erlang-suspension-pid-timers"
+}

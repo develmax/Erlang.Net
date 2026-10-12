@@ -675,3 +675,7 @@ Part184:source-built OTP-29.1.1 original **4455/4455** and **5016/full same-head
 ## Part185 checkpoint
 
 Part185:erlang suspend_process1/2 and resume_process1 use real execution pauses,per-owner counts/unless/asynchronous acknowledgments and owner cleanup. Paused receives/PID BIF timers freeze,name timers continue,CPC/kill controls remain admitted. **5051/full main and draft**,31 new source scenarios;all3551 prior contracts preserved. Registry404;erlang254/351,97 missing,**72.4% API presence**,not semantic completion. [Tests](validation/part-185/tests.json),[audit](validation/part-185/reference-audit.json). Original4486 pending186;latest1844455/4455. Native scheduler/preemption/signal races/cycles/resources/upstream suites/performance and remaining APIs continue.
+
+## Part186 checkpoint
+
+Part186:source-built original **4485/4486** and **5051/full same-head CI** at4c0b4a5. 1 native discrepancies retained;repair before promotion.31 process suspension scenarios and31 inherited independent raw-output fixtures executed. [Proof](validation/part-186/differential.json),[guard](validation/part-186/strict-guard.json). Preserve3582 SDK/3576 comparable modules,778 expressions,132 diagnoses and six exclusions. Registry404;erlang254/351,97 missing,72.4% API presence,not semantic completion. Native scheduler/preemption/signal races/cycles/resources/upstream/performance and remaining APIs continue.
