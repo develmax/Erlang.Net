@@ -737,6 +737,8 @@ public static class CoreModules
         ProcessInfoRegistrations.Register(r);
         ProcessIdentifierTextRegistrations.Register(r);
         PacketDecodeRegistrations.Register(r);
+        ModuleLoadingRegistrations.Register(r);
+        ProcessTableRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);

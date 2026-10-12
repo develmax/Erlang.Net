@@ -1,0 +1,12 @@
+Module loading host publication checks passed
+Unhandled exception. System.ArgumentException: An item with the same key has already been added. Key: (erlang, self, 0)
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\src\Erlang.Runtime\ModuleRegistry.cs:line 22
+   at Erlang.CoreModules.<Register>g__Add|0_0(String module, String name, Int32 arity, Func`3 f, <>c__DisplayClass0_0&) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\src\Erlang.Runtime\CoreModules.cs:line 14
+   at Erlang.CoreModules.Register(ModuleRegistry r) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\src\Erlang.Runtime\CoreModules.cs:line 20
+   at Erlang.Tests.ProcessTableHostChecks.CapacityAndReuse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\tests\Erlang.Tests\ProcessTableHostChecks.cs:line 14
+   at Erlang.Tests.ProcessTableHostChecks.CapacityAndReuse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\tests\Erlang.Tests\ProcessTableHostChecks.cs:line 79
+   at Erlang.Tests.ProcessTableHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\tests\Erlang.Tests\ProcessTableHostChecks.cs:line 7
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\module-loading-prototype\host-probe\Program.cs:line 3
+   at Program.<Main>(String[] args)

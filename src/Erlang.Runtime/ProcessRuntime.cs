@@ -4,6 +4,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
 {
     private readonly object gate = new();
     private readonly Dictionary<Pid, ProcessContext> processes = new();
+    private readonly ProcessSlotTable processSlots;
+    public int ProcessLimit => processSlots.Capacity;
     private readonly Dictionary<string, Pid> names = new(StringComparer.Ordinal);
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
@@ -26,8 +28,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
     public RuntimeFunctionEntries Functions { get; } = new();
     internal uint LocalTermSeed { get; } = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(System.Security.Cryptography.RandomNumberGenerator.GetBytes(ErlangEtfParameters.LocalSeedBytes));
 
-    public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null)
+    public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null, int maximumProcesses = ProcessTableParameters.DefaultCapacity)
     {
+        processSlots = new(maximumProcesses);
         Node = node;
         NodeAtom = Term.A(node);
         Output = output ?? Console.Out;
@@ -35,6 +38,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
+        processSlots.Add(initial.Self);
         initializer = new(initial);
         initializer.Start();
     }
@@ -47,9 +51,11 @@ public sealed class ProcessRuntime : IAsyncDisposable
             ObjectDisposedException.ThrowIf(disposed, this);
             if (link && parent is not null)
                 RequireAlive(parent.Self);
+            processSlots.RequireCapacity();
             ctx = new(this, new Pid(Node, (ulong)++nextPid));
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
+            processSlots.Add(ctx.Self);
             if (link && parent is not null)
             {
                 ctx.Links.Add(parent.Self);
@@ -206,6 +212,12 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
             return Array.AsReadOnly(processes.Keys.ToArray());
+    }
+
+    internal ProcessTableBatch? ReadProcessBatch(int cursor)
+    {
+        lock (gate)
+            return processSlots.Read(cursor);
     }
 
     internal Term ProcessInfo(Pid pid, IReadOnlyList<Atom> keys, bool singleton)
@@ -642,6 +654,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
+                processSlots.Remove(ctx.Self);
                 Timers.RecipientTerminated(ctx.Self);
                 ctx.Mailbox.DiscardPending();
                 foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())

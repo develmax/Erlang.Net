@@ -559,3 +559,7 @@ Part155: source-directed decode_packet/3 implements all packet selectors, option
 ## Part156 checkpoint
 
 Part156: complete pinned original **4121/4121** at b4db97e and **4650/full same-head CI**. all selected comparisons match;continue remaining APIs. [Proof](validation/part-156/differential.json), [strict guard](validation/part-156/strict-guard.json). All3223 sources/independent expectations/hashes/contexts/policies,120 diagnoses,778 expression inputs and six exclusions preserved from155, including320 packet sources. Registry385; erlang235/351,116 missing,67.0% API presence,not whole-module completion. Module-loading queries pass4671 local tests in an isolated draft; their native proof remains pending. Continue the whole goal.
+
+## Part157 checkpoint
+
+Part157:actual current-code module_loaded1/loaded0 and bounded process-table processes_iterator0/processes_next1 pass **4702/full local**.46 new modules/two lifecycle host checks/four exports. [Audit](validation/part-157/reference-audit.json),[preservation](validation/part-157/corpus-audit.json). All3229 old modules/120 diagnoses/778 expressions/six exclusions preserved. Registry389;erlang239/351,112 missing,**68.1% API presence**,not module completion. Original4167/same-head CI pending158;latest complete native1564121. Hot-code/on_load/NIF/lock-free/reduction/distribution/resource prerequisites unfinished;continue whole goal.

@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-155/tests.json",
-  "LocalPassedTests": 4650,
-  "RegisteredMfas": 385,
+  "ComparisonTestReport": "validation/part-156/ci-tests.json",
+  "LocalPassedTests": 4702,
+  "RegisteredMfas": 389,
   "PreviousRegisteredMfas": 385,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -65,7 +65,8 @@
         "Part143:four actual exit_signal/2,3,exit/3,link/2 exports;pending alias/link admission,priority ownership and safe terminal cleanup;repair monitored-spawn group leader;79 independent contracts and128-child host check;4052/full local,original144 pending",
         "Part149:actual pre-init link/monitor and inherited group leader;owned four-key process_info2 state;clock_service monitor ownership and active/inactive flush;4170/full local;original150 pending",
         "Part153:four actual local identifier text APIs,byte-list/unsigned wrap/NUL/header/field validation,opaque port identities without OS ports;77 independent modules;4329/full local;original154 pending",
-        "Part155:source-directed decode_packet3 all selectors/framing/HTTP/TLS/options,320 independent packet modules,immutable protocol/catalog atom reuse;4650/full local"
+        "Part155:source-directed decode_packet3 all selectors/framing/HTTP/TLS/options,320 independent packet modules,immutable protocol/catalog atom reuse;4650/full local",
+        "Part157:bounded sparse process table/default1048576 capacity,slot reuse/distinct opaque PID,source-shaped iterator;1001-child batched walk/capacity/stale-PID host checks;4702/full local"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -74,7 +75,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 281
+      "RelatedPassedTests": 287
     },
     {
       "Id": "Compiler",
@@ -99,7 +100,8 @@
         "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending",
         "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented",
         "Part151:literal name/integer-or-atom size restriction for is_record3 guards;exact published invalid source retained as rejection;4179/full local;original152 pending",
-        "Part153:Unicode character literals/simple/control/octal/hex escapes,UTF16 offsets and malformed scanner cases;record raw-zero/unary evaluation and compiled known positive tuple tests versus weak dynamic BIF;4329/full local;original154 pending"
+        "Part153:Unicode character literals/simple/control/octal/hex escapes,UTF16 offsets and malformed scanner cases;record raw-zero/unary evaluation and compiled known positive tuple tests versus weak dynamic BIF;4329/full local;original154 pending",
+        "Part157:atomic owned current-code/export publication including parsed zero-export modules;rollback/concurrent reader proof;no fabricated hot-code/on_load states"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
@@ -136,7 +138,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1424
+      "RelatedPassedTests": 1428
     },
     {
       "Id": "gen_server adapters",
@@ -237,7 +239,8 @@
         "Part153:explicit erl_scan diagnostic route solely for17 lexical cases;all103 previous compiler diagnostic commands retained;3801 planned original;4329/full local;152 failures preserved",
         "Part154:complete3801/3801 source-built original and4329/full same-head CI;153 contracts preserved;all selected comparisons match;continue remaining APIs",
         "Part155:preserve2909 old sources/expectations/hashes/policies and120 diagnoses/778 expression inputs/six exclusions;320 new packet modules;original4121 pending156",
-        "Part156:complete4121/4121 source-built original and4650/full same-head CI;155 contracts preserved;all selected comparisons match;continue remaining APIs"
+        "Part156:complete4121/4121 source-built original and4650/full same-head CI;155 contracts preserved;all selected comparisons match;continue remaining APIs",
+        "Part157:preserve3229 modules/hashes/policies,120 diagnoses/778 expressions/six exclusions;18 current-code/28 process-table modules;original4167 pending158"
       ],
       "Remaining": [
         "full resource/input contracts",
@@ -247,7 +250,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3366
+      "RelatedPassedTests": 3412
     },
     {
       "Id": "Style checks",
@@ -5516,11 +5519,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 235,
+      "RegisteredMfas": 239,
       "PreviousRegisteredMfas": 235,
-      "Delta": 0,
+      "Delta": 4,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 67.0,
+      "ApiPresencePercent": 68.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5673,6 +5676,7 @@
         "erlang:list_to_pid/1",
         "erlang:list_to_port/1",
         "erlang:list_to_tuple/1",
+        "erlang:loaded/0",
         "erlang:localtime/0",
         "erlang:localtime_to_universaltime/1",
         "erlang:localtime_to_universaltime/2",
@@ -5688,6 +5692,7 @@
         "erlang:md5_init/0",
         "erlang:md5_update/2",
         "erlang:min/2",
+        "erlang:module_loaded/1",
         "erlang:monitor/2",
         "erlang:monitor/3",
         "erlang:monotonic_time/0",
@@ -5708,6 +5713,8 @@
         "erlang:process_flag/2",
         "erlang:process_info/2",
         "erlang:processes/0",
+        "erlang:processes_iterator/0",
+        "erlang:processes_next/1",
         "erlang:put/2",
         "erlang:raise/3",
         "erlang:read_timer/1",

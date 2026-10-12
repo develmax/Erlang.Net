@@ -13,17 +13,21 @@ public sealed record ModuleDefinition(string Name, IReadOnlyList<(string Name, i
         foreach (var function in Functions)
             AtomNameRegistry.Observe(function.Name);
 
-        foreach (var export in Exports)
-            registry.Register(
-                Name,
-                export.Name,
-                export.Arity,
-                (c, a) => Execution.InvokeAsync(
-                    this,
+        registry.Apply(target =>
+        {
+            foreach (var export in Exports)
+                target.Register(
+                    Name,
                     export.Name,
-                    c,
-                    a
-                )
-            );
+                    export.Arity,
+                    (c, a) => Execution.InvokeAsync(
+                        this,
+                        export.Name,
+                        c,
+                        a
+                    )
+                );
+            target.PublishModule(Name);
+        });
     }
 }

@@ -3078,5 +3078,37 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:decode_packet/3",
     "Limits": "All packet selectors/options with320 independent modules and full4650 local tests;new-head pinned4121/CI pending156. Managed binary copies differ from native subbinary views;resource/allocation/unsafe overflow/error-stack metadata and full upstream suite remain outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "module_loaded",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:module_loaded/1",
+    "Limits": "Actual owned current-code/process state;46 modules/4702 full local tests. Original4167/CI pending158. Backend inventory/cursors differ;hot-code/on_load/NIF/native reductions/lock-free PID layout/resources/full upstream suite outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "loaded",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:loaded/0",
+    "Limits": "Actual owned current-code/process state;46 modules/4702 full local tests. Original4167/CI pending158. Backend inventory/cursors differ;hot-code/on_load/NIF/native reductions/lock-free PID layout/resources/full upstream suite outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "processes_iterator",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:processes_iterator/0",
+    "Limits": "Actual owned current-code/process state;46 modules/4702 full local tests. Original4167/CI pending158. Backend inventory/cursors differ;hot-code/on_load/NIF/native reductions/lock-free PID layout/resources/full upstream suite outside proof."
+  },
+  {
+    "Module": "erlang",
+    "Function": "processes_next",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:processes_next/1",
+    "Limits": "Actual owned current-code/process state;46 modules/4702 full local tests. Original4167/CI pending158. Backend inventory/cursors differ;hot-code/on_load/NIF/native reductions/lock-free PID layout/resources/full upstream suite outside proof."
   }
 ]
