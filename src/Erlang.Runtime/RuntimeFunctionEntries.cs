@@ -6,6 +6,12 @@ public sealed class RuntimeFunctionEntries
     private readonly Dictionary<(string Module, int Index, int Arity, string Unique), Entry> entries = new();
     private readonly Dictionary<ExternalFunctionIdentity, FunctionTerm> externalEntries = new();
 
+    public bool IsExternalEntry(FunctionTerm function)
+    {
+        lock (gate)
+            return function.ExternalIdentity is { } identity && externalEntries.TryGetValue(identity, out var entry) && ReferenceEquals(entry, function);
+    }
+
     public FunctionTerm External(ProcessRuntime runtime, ExternalFunctionIdentity identity, bool safe = false)
     {
         lock (gate)

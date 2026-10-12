@@ -28,7 +28,7 @@ public sealed record ModuleDefinition(
         registry.Apply(target =>
         {
             foreach (var export in Exports)
-                target.Register(
+                target.RegisterSource(
                     Name,
                     export.Name,
                     export.Arity,
@@ -37,7 +37,8 @@ public sealed record ModuleDefinition(
                         export.Name,
                         c,
                         a
-                    )
+                    ),
+                    this
                 );
             target.PublishModule(Name);
             target.PublishModuleCode(

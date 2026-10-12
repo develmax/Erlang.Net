@@ -12,6 +12,7 @@ public sealed class ModuleRegistry
     private readonly Dictionary<string, ModuleInformationSnapshot> informationSnapshots = new(StringComparer.Ordinal);
     private readonly HashSet<string> knownModules = new(StringComparer.Ordinal);
     private readonly Dictionary<string, ModuleCodeSnapshot> oldCode = new(StringComparer.Ordinal);
+    private readonly Dictionary<(string Module, string Function, int Arity), object> sourceOwners = new();
 
     public void Register(
         string module,
@@ -28,6 +29,33 @@ public sealed class ModuleRegistry
             PublishModule(module);
             informationSnapshots.Remove(module);
         }
+    }
+
+    public void RegisterSource(
+        string module,
+        string function,
+        int arity,
+        ErlangFunction body,
+        object sourceOwner
+    )
+    {
+        ArgumentNullException.ThrowIfNull(sourceOwner);
+        lock (gate)
+        {
+            Register(
+                module,
+                function,
+                arity,
+                body
+            );
+            sourceOwners.Add((module, function, arity), sourceOwner);
+        }
+    }
+
+    public object? SourceOwner(string module, string function, int arity)
+    {
+        lock (gate)
+            return sourceOwners.GetValueOrDefault((module, function, arity));
     }
 
     public ValueTask<Term> Call(
@@ -86,7 +114,10 @@ public sealed class ModuleRegistry
             if (entries.Length != 0 || descriptor is not null)
                 oldCode.Add(module, new ModuleCodeSnapshot(Array.AsReadOnly(entries), descriptor));
             foreach (var entry in entries)
+            {
                 functions.Remove(entry.Key);
+                sourceOwners.Remove(entry.Key);
+            }
             loadedModules.Remove(module);
             codeDescriptors.Remove(module);
             informationSnapshots.Remove(module);
@@ -207,6 +238,7 @@ public sealed class ModuleRegistry
             var previousInformation = new Dictionary<string, ModuleInformationSnapshot>(informationSnapshots, StringComparer.Ordinal);
             var previousKnown = knownModules.ToArray();
             var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
+            var previousOwners = new Dictionary<(string Module, string Function, int Arity), object>(sourceOwners);
             try
             {
                 configure(this);
@@ -233,6 +265,9 @@ public sealed class ModuleRegistry
                 oldCode.Clear();
                 foreach (var entry in previousOld)
                     oldCode.Add(entry.Key, entry.Value);
+                sourceOwners.Clear();
+                foreach (var entry in previousOwners)
+                    sourceOwners.Add(entry.Key, entry.Value);
                 throw;
             }
         }

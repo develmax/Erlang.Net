@@ -47,6 +47,12 @@ public static class Execution
                 function = next.Function;
                 arguments = next.Arguments;
             }
+            catch (SourceTailCall next)
+            {
+                module = next.Module;
+                function = next.Function;
+                arguments = next.Arguments;
+            }
         }
     }
 
@@ -486,6 +492,10 @@ public static class Execution
                         );
                     }
 
+                    if (tail && (x.Module is not null || AutoImportSignatures.Contains(x.Function, args.Length)) &&
+                        ctx.Runtime.Modules.SourceOwner(x.Module ?? ErlangModuleNames.Module, x.Function, args.Length) is ModuleDefinition source)
+                        throw new SourceTailCall(source, x.Function, args);
+
                     try
                     {
                         if (RecordPredicateSyntax.TupleTest(x) is { } predicate)
@@ -515,7 +525,13 @@ public static class Execution
                     );
                     var args = await Arguments(x.Arguments);
 
-                    return fun is FunctionTerm f ? await f.Invoke(ctx, args) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));
+                    if (fun is not FunctionTerm f)
+                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));
+                    if (tail && f.Arity == args.Length && ctx.Runtime.Functions.IsExternalEntry(f) && f.ExternalIdentity is { } identity &&
+                        ctx.Runtime.Modules.SourceOwner(identity.Module.Name, identity.Function.Name, args.Length) is ModuleDefinition source)
+                        throw new SourceTailCall(source, identity.Function.Name, args);
+
+                    return await f.Invoke(ctx, args);
                 }
             case Expr.Case x:
                 {

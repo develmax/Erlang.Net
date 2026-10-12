@@ -1,0 +1,13 @@
+{
+  "Part": 171,
+  "Validation": "Long qualified loops/source effect order/current-owner deletion and rollback;preserve all3448 existing fixture hashes/expectations;full pipeline and pinned original",
+  "Reuse": "Existing typed IR,registry lock,ValueTask and loop;no third-party actor package. C# reflection/delegate target heuristics are rejected as source-code provenance",
+  "Sources": [
+    "lib/compiler/src/v3_core.erl remote icall vs local iapply",
+    "lib/compiler/src/beam_ssa_codegen.erl call_ext_only/call_only generation"
+  ],
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scope": "Selected static/external source tail calls,not full anonymous/local-fun tail,physical BEAM stack/resource/performance equivalence. Code-version execution leases/CPC/purge follow",
+  "Approach": "Associate immutable source owner with each actually registered executable entry,transactionally. Tail calls to current source entries transfer to the owned ModuleDefinition in InvokeAsync loop;preserve argument order/errors and unqualified old local ownership. External function tails use the same actual entry owner only with valid arity",
+  "Objective": "Explicit source tail calls use current executable IR owner and a loop,avoiding a chain of CLR calls/retained source frames"
+}
