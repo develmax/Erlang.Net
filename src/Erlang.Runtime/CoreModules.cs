@@ -748,6 +748,7 @@ public static class CoreModules
         PreloadedModuleRegistrations.Register(r);
         ModuleInformationRegistrations.Register(r);
         ModuleCodeLifecycleRegistrations.Register(r);
+        ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);

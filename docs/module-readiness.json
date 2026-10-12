@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-175/tests.json",
-  "LocalPassedTests": 4921,
-  "RegisteredMfas": 396,
+  "ComparisonTestReport": "validation/part-176/ci-tests.json",
+  "LocalPassedTests": 4949,
+  "RegisteredMfas": 398,
   "PreviousRegisteredMfas": 396,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 2,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -74,7 +74,8 @@
         "Part169:actual current-to-old delete_module1/check_old_code1,old-only loaded0/current-only module_loaded1,immutable callbacks/descriptors and atomic rollback;4900/full local,4352 original pending170",
         "Part171:actual per-entry source IR ownership/static and canonical-external source tail trampoline/custom C# callback protection;4911/full local,4362 original pending172",
         "Part173:qualified non-erlang static callback tail dispatch releases the source frame;non-tail and async/error restoration guarded;4920/full local,4370 original pending174",
-        "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176"
+        "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176",
+        "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -83,7 +84,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 301
+      "RelatedPassedTests": 304
     },
     {
       "Id": "Compiler",
@@ -150,7 +151,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1435
+      "RelatedPassedTests": 1437
     },
     {
       "Id": "gen_server adapters",
@@ -275,7 +276,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3615
+      "RelatedPassedTests": 3640
     },
     {
       "Id": "Style checks",
@@ -5544,11 +5545,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 246,
+      "RegisteredMfas": 248,
       "PreviousRegisteredMfas": 246,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 70.1,
+      "ApiPresencePercent": 70.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5612,6 +5613,8 @@
         "erlang:cancel_timer/2",
         "erlang:ceil/1",
         "erlang:check_old_code/1",
+        "erlang:check_process_code/2",
+        "erlang:check_process_code/3",
         "erlang:convert_time_unit/3",
         "erlang:crc32/1",
         "erlang:crc32/2",

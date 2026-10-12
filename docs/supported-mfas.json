@@ -3166,5 +3166,21 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:check_old_code/1",
     "Limits": "Actual owned current-to-old callback/IR code and copied descriptors;qualified dispatch uses current exports,local calls/funs retain old code. Purge/process-code tracking/hot replacement/BEAM images/on_load/NIF/BIF binding/resources/full suites remain unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "check_process_code",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:check_process_code/2",
+    "Limits": "Actual owned code-image use,self or queued other/async requests,full option/cause contracts and pending target termination;native priority/dirty tasks/physical stacks/resources/distribution/full upstream parity unfinished;4395 original comparisons pending178"
+  },
+  {
+    "Module": "erlang",
+    "Function": "check_process_code",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:check_process_code/3",
+    "Limits": "Actual owned code-image use,self or queued other/async requests,full option/cause contracts and pending target termination;native priority/dirty tasks/physical stacks/resources/distribution/full upstream parity unfinished;4395 original comparisons pending178"
   }
 ]

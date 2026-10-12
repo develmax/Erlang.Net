@@ -312,6 +312,59 @@ public sealed class ProcessRuntime : IAsyncDisposable
 
     private ProcessContext RequireAlive(Pid pid) => processes.TryGetValue(pid, out var p) ? p : throw new ErlangException(ErlangErrorReasons.NoProcess);
 
+    internal async ValueTask<Term> CheckProcessCode(
+        ProcessContext requester,
+        Pid target,
+        string module,
+        bool async,
+        Term requestId
+    )
+    {
+        requester.Cancellation.ThrowIfCancellationRequested();
+        if (!async && target.Equals(requester.Self))
+            return Term.A(Modules.IsExecutingOldCode(requester, module) ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False);
+        if (!async)
+            requestId = MakeReference();
+        var request = new ProcessCodeRequest(requester, requestId, module);
+        lock (gate)
+        {
+            if (!processes.TryGetValue(target, out var process))
+                ReplyCodeCheck(request, false);
+            else
+            {
+                process.PendingCodeChecks.Add(request);
+                process.Mailbox.SendPending(
+                    Nil.Value,
+                    () =>
+                {
+                    lock (gate)
+                    {
+                        if (process.PendingCodeChecks.Remove(request))
+                            ReplyCodeCheck(request, Modules.IsExecutingOldCode(process, module));
+                    }
+
+                    return null;
+                }
+                );
+            }
+        }
+        if (async)
+            return ProcessCodeAtoms.AsyncResult;
+        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 3 } tuple &&
+            tuple.Items[0] is Atom { Name: ProcessCodeCheckNames.ReplyTag } && tuple.Items[1].Equals(requestId) ? tuple : null);
+
+        return reply!.Items[2];
+    }
+
+    private void ReplyCodeCheck(ProcessCodeRequest request, bool result) => Send(
+        request.Requester.Self,
+        Term.Tuple(
+        ProcessCodeAtoms.ReplyTag,
+        request.Id,
+        Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
+    )
+    );
+
     public void Link(ProcessContext source, Pid target, bool priority = false)
     {
         lock (gate)
@@ -656,6 +709,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 if (!processes.Remove(ctx.Self))
                     continue;
                 processSlots.Remove(ctx.Self);
+                foreach (var request in ctx.PendingCodeChecks)
+                    ReplyCodeCheck(request, false);
+                ctx.PendingCodeChecks.Clear();
                 Timers.RecipientTerminated(ctx.Self);
                 ctx.Mailbox.DiscardPending();
                 foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())

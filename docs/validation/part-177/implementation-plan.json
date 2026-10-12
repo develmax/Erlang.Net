@@ -1,0 +1,24 @@
+{
+  "Flow": [
+    "Parse entire proper option list before PID/module validation;lastasyncwins;allow_gcbooleanignoredaftervalidation",
+    "Self sync direct true/false based onactualoldimageactivecount",
+    "Async andotherPID requests queue through owned mailbox pending-control admission to preserve prior signal ordering andwakeblockedreceive",
+    "Suppresscontrolpayload from ordinarymessages;return/reply uses originalcheck_process_code tag/arbitraryRequestId/bool",
+    "Targetdeathmustcompletependingrequestsfalsebeforediscardingpendingmailboxevents;requestercancellationusesexistingselectiveReceive",
+    "UnknowndeadlocalPIDfalse,foreignPIDbadarg;heap-heldsourcefunsalonefalse",
+    "Error3 invalidoptions carriesbad_option cause inerror_info;otherbadargbasicmodulemetadata"
+  ],
+  "Objective": "Implement check_process_code2/3 against real source current/old execution images and queued owned process system requests",
+  "Validation": "Native self/current/old/localnon-tail/dynamicfun/heapfun/asyncself/remoteold/dead/options/cause corpus;host pending request termination andno-controlmessageleak beforefullpipeline;all3466oldcontracts/policies/exclusionsunchanged",
+  "Limitations": "Owned source backend only;no fake native dirty schedulers/priority/resource/physical code stack parity or purge implementation",
+  "Sources": [
+    "erlang.erl check_process_code2/3 wrappers and badarg_with_cause/error_with_info",
+    "erts_internal.erl check_process_code/get_cpc_opts",
+    "erl_process.c request_system_task check_process_code request/signal ordering/noproc response",
+    "beam_bif_load.c instruction and continuation checks"
+  ],
+  "Part": 177,
+  "Status": "Initial real CPC runtime implementation in isolated draft;build passed before callback-flow refinement;native/host cases and full validation still required",
+  "Reuse": "Existing owned process gate/table/pending signal admission/selective mailbox;immutable execution-image snapshots;no external actor framework/new package/productionBEAM",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

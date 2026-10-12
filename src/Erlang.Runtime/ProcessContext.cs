@@ -16,6 +16,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal HashSet<Pid> Links { get; } = new();
     internal HashSet<Pid> PriorityLinks { get; } = new();
     internal bool Terminated;
+    internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
     private readonly object codeGate = new();
@@ -27,6 +28,8 @@ public sealed class ProcessContext : ITermExecutionContext
     private sealed class SourceExecutionScope(ProcessContext context, SourceExecution current) : IDisposable
     {
         private int disposed;
+
+        public void RestoreFlow() => context.sourceExecution.Value = current.Parent;
 
         public void Dispose()
         {
@@ -40,7 +43,7 @@ public sealed class ProcessContext : ITermExecutionContext
                 else
                     context.activeCode[current.Image] = count - 1;
             }
-            context.sourceExecution.Value = current.Parent;
+            RestoreFlow();
         }
     }
 
@@ -68,6 +71,8 @@ public sealed class ProcessContext : ITermExecutionContext
         lock (codeGate)
             return activeCode.ContainsKey(image);
     }
+
+    internal void RestoreSourceCodeFlow(IDisposable scope) => ((SourceExecutionScope)scope).RestoreFlow();
 
     private sealed class ExecutionFrameScope(ProcessContext context, ErlangExecutionFrame? parent) : IDisposable
     {

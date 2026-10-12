@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-175/tests.json",
+  "ComparisonTestReport": "validation/part-176/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -76,7 +76,8 @@
         "Part169:actual current-to-old delete_module1/check_old_code1,old-only loaded0/current-only module_loaded1,immutable callbacks/descriptors and atomic rollback;4900/full local,4352 original pending170",
         "Part171:actual per-entry source IR ownership/static and canonical-external source tail trampoline/custom C# callback protection;4911/full local,4362 original pending172",
         "Part173:qualified non-erlang static callback tail dispatch releases the source frame;non-tail and async/error restoration guarded;4920/full local,4370 original pending174",
-        "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176"
+        "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176",
+        "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178"
       ],
       "Id": "Runtime",
       "TestPrefixes": [

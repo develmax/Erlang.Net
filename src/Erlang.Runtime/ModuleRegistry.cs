@@ -103,10 +103,44 @@ public sealed class ModuleRegistry
     )
     {
         ErlangFunction? body;
+        ModuleCodeImage? image;
         lock (gate)
+        {
             functions.TryGetValue((module, function, arguments.Length), out body);
+            image = sourceOwners.ContainsKey((module, function, arguments.Length)) ? null : codeImages.GetValueOrDefault(module);
+        }
+        if (body is null)
+            throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+        if (image is null)
+            return body(context, arguments);
+        var code = context.EnterSourceCode(image, body);
+        try
+        {
+            ValueTask<Term> pending = body(context, arguments);
+            if (pending.IsCompletedSuccessfully)
+            {
+                code.Dispose();
 
-        return body is not null ? body(context, arguments) : throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+                return pending;
+            }
+
+            return AwaitCallback(pending, code);
+        }
+        catch
+        {
+            code.Dispose();
+            throw;
+        }
+        finally
+        {
+            context.RestoreSourceCodeFlow(code);
+        }
+    }
+
+    private static async ValueTask<Term> AwaitCallback(ValueTask<Term> pending, IDisposable code)
+    {
+        using (code)
+            return await pending;
     }
 
     public bool HasExport(string module, string function, int arity)
