@@ -9,13 +9,15 @@ public sealed class ModuleCodeDescriptor
     public BitString Fingerprint { get; }
     public Term Compilation { get; }
     public Term? Attributes { get; }
+    public object? SourceOwner { get; }
 
     public ModuleCodeDescriptor(
         IEnumerable<(string Name, int Arity)> functions,
         IEnumerable<(string Name, int Arity)> exports,
         BitString fingerprint,
         Term compilation,
-        Term? attributes = null
+        Term? attributes = null,
+        object? sourceOwner = null
     )
     {
         if (!fingerprint.IsBinary || fingerprint.ToArray().Length != MD5.HashSizeInBytes)
@@ -25,5 +27,6 @@ public sealed class ModuleCodeDescriptor
         Fingerprint = fingerprint;
         Compilation = compilation;
         Attributes = attributes;
+        SourceOwner = sourceOwner;
     }
 }

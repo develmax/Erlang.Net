@@ -1,0 +1,24 @@
+{
+  "Required": [
+    "Matching canonical source code reload retargets owned named/anonymous functions to current image while already executing old local continuations keep old image",
+    "Prove actual compiler-owned function dispatcher before retarget;preserve arbitrary C# function callbacks with equal metadata",
+    "Tie descriptor to its actual source owner;resolve current owner/image/fingerprint under gate;no arbitrary equal-string or function metadata shortcut",
+    "Per-runtime purge serialization;prepare marks the actual old image and blocks NEW old-fun entry without counting waiters as executing old code",
+    "Activation and purge preparation must be atomic under registry ownership gate;AsyncLocal attachment occurs synchronously in caller flow after any await",
+    "Scan via real owned CPC requests;kill actual old-code users and await DOWN/cooperative frame unwind before release",
+    "Heap-held old functions alone do not kill holders;after purge old invocation undef if no current code,badfun if incompatible current code;matching current code may run",
+    "Current image remains usable;old slot frees for subsequent deletion;no-old/unknown purge raises badarg with native error_info",
+    "Keep global code-loading transaction rollback separate from committed purge transitions/TCS completion"
+  ],
+  "Objective": "Canonical owned source function retarget and purge admission before purge_module1",
+  "Sources": [
+    "erts_code_purger.erl prepare/check_proc_code/kill-monitor/complete and pending_purge_lambda",
+    "erlang.erl purge_module false preparation->badarg,true->true",
+    "beam_bif_load.c old code/frame checks and fun entry handling"
+  ],
+  "Reuse": "Existing image identities/registry gate/queued CPC/owned monitor and cancellation;SDK synchronization;no package/native assembly-unloading proxy",
+  "Part": 179,
+  "Status": "Source/reuse plan only;no purge/retarget implementation or native result yet",
+  "Validation": "Independent native purge old/no-old/type/kill/heap-fun/error/repeat and native-compatible reload fixtures where source tool supports them;host concurrent admission/current retention/rollback/retarget/custom callback boundaries before full pipeline",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

@@ -18,12 +18,13 @@ internal static class NamedFunctionReferences
                     identity,
                     reference.Arity,
                     environment,
-                    (execution, arguments) => Execution.InvokeAsync(
+                    (execution, arguments) => SourceFunctionInvocation.Named(
                         module,
+                        identity,
                         reference.Name,
                         (ProcessContext)execution,
-                        arguments,
-                        image
+                        image,
+                        arguments
                     )
                 );
             }

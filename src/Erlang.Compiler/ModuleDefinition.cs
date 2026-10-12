@@ -51,7 +51,8 @@ public sealed record ModuleDefinition(
                     Exports,
                     new BitString(MD5.HashData(Encoding.UTF8.GetBytes(CodeGeneration.ModuleCode(this, string.Empty, false)))),
                     ModuleCodeFingerprints.Compilation(typeof(ModuleDefinition)),
-                    Cons.From(Attributes.Select(attribute => Term.Tuple(Term.A(attribute.Name), ModuleCodeAttributes.Values(attribute.Value))))
+                    Cons.From(Attributes.Select(attribute => Term.Tuple(Term.A(attribute.Name), ModuleCodeAttributes.Values(attribute.Value)))),
+                    this
                 )
             );
         });

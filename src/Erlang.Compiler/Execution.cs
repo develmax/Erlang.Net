@@ -124,6 +124,96 @@ public static class Execution
         }
     }
 
+    internal static async ValueTask<Term> InvokeAnonymousAsync(
+        ModuleDefinition? module,
+        LocalFunctionIdentity identity,
+        Expr.Fun expression,
+        Dictionary<string, Term> environment,
+        ProcessContext context,
+        ModuleCodeImage? image,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        try
+        {
+            return await InvokeAnonymousFrame(
+                module,
+                identity,
+                expression,
+                environment,
+                context,
+                image,
+                arguments
+            );
+        }
+        catch (TailCall next) when (module is not null)
+        {
+            return await InvokeAsync(
+                module,
+                next.Function,
+                context,
+                next.Arguments,
+                next.Image
+            );
+        }
+        catch (SourceTailCall next)
+        {
+            return await InvokeAsync(
+                next.Module,
+                next.Function,
+                context,
+                next.Arguments,
+                next.Image
+            );
+        }
+        catch (RuntimeTailCall next)
+        {
+            return await CallRuntime(
+                context,
+                next.Module,
+                next.Function,
+                next.Arguments
+            );
+        }
+    }
+
+    private static async ValueTask<Term> InvokeAnonymousFrame(
+        ModuleDefinition? module,
+        LocalFunctionIdentity identity,
+        Expr.Fun expression,
+        Dictionary<string, Term> environment,
+        ProcessContext context,
+        ModuleCodeImage? image,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        using var code = image is null || module is null ? null : context.EnterSourceCode(image, module);
+        using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
+        foreach (var clause in expression.Clauses)
+        {
+            var scope = new Dictionary<string, Term>(environment, StringComparer.Ordinal);
+            foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
+                scope.Remove(name);
+            var selection = Select(
+                [clause],
+                arguments,
+                scope,
+                context,
+                environment
+            );
+            if (selection is not null)
+                return await Evaluate(
+                    selection.Clause.Body,
+                    context,
+                    selection.Bindings,
+                    module,
+                    true
+                );
+        }
+
+        throw new ErlangException(ErlangErrorReasons.FunctionClause);
+    }
+
     private static Selection? Select(
         IReadOnlyList<Clause> clauses,
         IReadOnlyList<Term> values,
@@ -681,33 +771,15 @@ public static class Execution
                             identity,
                             f.Clauses[0].Patterns.Count,
                             environment,
-                            async (context, args) =>
-                    {
-                        var process = (ProcessContext)context;
-                        using var code = image is null || module is null ? null : process.EnterSourceCode(image, module);
-                        using var frame = process.EnterFunction(identity.Module.Name, identity.Name!.Name, args.Count);
-                        foreach (var clause in f.Clauses)
-                        {
-                            var scope = new Dictionary<string, Term>(restored, StringComparer.Ordinal);
-                            foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
-                                scope.Remove(name);
-                            var selection = Select(
-                                [clause],
-                                args,
-                                scope,
-                                process,
-                                restored
-                            );
-                            if (selection is not null)
-                                return await Evaluate(
-                                    selection.Clause.Body,
-                                    process,
-                                    selection.Bindings,
-                                    module
-                                );
-                        }
-                        throw new ErlangException(ErlangErrorReasons.FunctionClause);
-                    }
+                            (context, args) => SourceFunctionInvocation.Anonymous(
+                                module,
+                                identity,
+                                f,
+                                restored,
+                                (ProcessContext)context,
+                                image,
+                                args
+                            )
                         );
                     }
                     identity = ctx.Runtime.Functions.Register(

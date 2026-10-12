@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-177/tests.json",
-  "LocalPassedTests": 4949,
+  "ComparisonTestReport": "validation/part-178/ci-tests.json",
+  "LocalPassedTests": 4959,
   "RegisteredMfas": 398,
   "PreviousRegisteredMfas": 398,
   "RegisteredMfaDelta": 0,
@@ -84,7 +84,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 304
+      "RelatedPassedTests": 305
     },
     {
       "Id": "Compiler",
@@ -114,7 +114,8 @@
         "Part159:exact183 pinned auto-import signatures;undefined local calls ERL005/standalone undef;three loaded fixture qualifications with hash ledger;pre_loaded0 is auto-imported",
         "Part161:fun Name/Arity BIF/private identities/ETF/recursion;native whitespace/form-dot distinction/record selection/hybrid named references;retain exact160 parse rejection",
         "Part163:real predefined module_info0/1 IR,exports/local/named calls and declared-source serialization preserving3389 generated hashes",
-        "Part165:literal-only attributes/farity normalization,control rejection/metadata constructor emission preserving3407 generated hashes"
+        "Part165:literal-only attributes/farity normalization,control rejection/metadata constructor emission preserving3407 generated hashes",
+        "Part179:compiler-owned saved functions select current matching canonical code/image;different code keeps old image;anonymous static tail transfers release frames;4959/full local,4404 original pending180"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
@@ -277,7 +278,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3640
+      "RelatedPassedTests": 3649
     },
     {
       "Id": "Style checks",

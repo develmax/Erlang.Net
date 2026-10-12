@@ -17,6 +17,9 @@ internal static class LocalFunctionEntries
     public static LocalFunctionIdentity GetNamed(ModuleDefinition module, string name, int arity) =>
         Modules.GetValue(module, value => new ModuleEntries(value)).NamedEntries[(name, arity)];
 
+    public static Expr.Fun Anonymous(ModuleDefinition module, int index) =>
+        Modules.GetValue(module, value => new ModuleEntries(value)).Entries.Single(entry => entry.Value.Index == index).Key;
+
     public static LocalFunctionIdentity Get(ModuleDefinition? module, Expr.Fun expression, ProcessContext context)
     {
         if (module is not null)

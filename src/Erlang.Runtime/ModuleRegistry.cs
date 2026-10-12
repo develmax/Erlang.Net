@@ -76,6 +76,18 @@ public sealed class ModuleRegistry
             return codeImages.GetValueOrDefault(module);
     }
 
+    public SourceCodeEntry? SourceForCode(string module, BitString fingerprint)
+    {
+        lock (gate)
+        {
+            if (!codeDescriptors.TryGetValue(module, out var descriptor) || descriptor.SourceOwner is null || !descriptor.Fingerprint.Equals(fingerprint) ||
+                !sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, descriptor.SourceOwner)))
+                return null;
+
+            return new SourceCodeEntry(descriptor.SourceOwner, codeImages[module]);
+        }
+    }
+
     public ModuleCodeImage? SourceImage(string module, object owner)
     {
         lock (gate)
