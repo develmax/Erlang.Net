@@ -1778,10 +1778,26 @@
   {
     "Module": "erlang",
     "Function": "spawn",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn/2",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn",
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn/3",
     "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn/4",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
   },
   {
     "Module": "erlang",
@@ -1794,10 +1810,26 @@
   {
     "Module": "erlang",
     "Function": "spawn_link",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_link/2",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_link",
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_link/3",
     "Limits": "Per-process group leader and inheritance; local identity validation and disconnected remote no-delivery path; MFA spawning validates before creation and executes in child. Connected distribution, full scheduler/error_info/code-loader behavior unfinished; original142 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_link",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_link/4",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
   },
   {
     "Module": "erlang",
@@ -1810,10 +1842,26 @@
   {
     "Module": "erlang",
     "Function": "spawn_monitor",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_monitor/2",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_monitor",
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_monitor/3",
     "Limits": "Local process signals/owned aliases and links;pending admission and cancellation;monitored spawn inherits actual parent group leader. Real ports,connected distribution,physical scheduling/reductions/full stacks/error_info unfinished;original144 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_monitor",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:spawn_monitor/4",
+    "Limits": "Actual local node callback/MFA execution and unconnected remote crasher process lifecycle,atomic monitor/link,group leader inheritance,argument/error frames.49 source scenarios and5186/full local;4607 original pending192. Connected transport/remote code/handshakes/logger warning parity/resources/upstream/performance unfinished."
   },
   {
     "Module": "erlang",

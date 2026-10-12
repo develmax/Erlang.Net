@@ -1,0 +1,28 @@
+{
+  "License": "Ericsson Apache-2.0 consolidated notices;no banners/public packages/owner license publication.",
+  "Baseline": "OTP-29.1.1",
+  "Part": 191,
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Decision": "Port node-qualified spawn/spawn_link/spawn_monitor2/4 wrappers:local node delegates real owned execution,unconnected remote follows actual owned crasher process and noconnection exit/monitor/link rather than fabricated PID or flag. Reuse existing atomic spawn/monitor and inherited group leader;no new dependency. Actual connected transport/distributed handshake/remote code execution/logger warning parity/resources/upstream/performance unfinished.",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Copyright": "%% Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/preloaded/src/erts_internal.erl",
+      "BlobSHA1": "fcf68868566fd8c83af7a6dbac97e33c067ddb23",
+      "Copyright": "%% Copyright Ericsson AB 2012-2025. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "BlobSHA1": "53cd31e9a0f3430202f91b1fad9c24471dddd493",
+      "Copyright": " * Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    }
+  ],
+  "Scope": "Six node-qualified wrappers in current unconnected runtime state;no complete distribution claim.",
+  "Corrections": [
+    "Initial focus passes18 node spawn contracts,then new tuple callback fixture incorrectly expects invocation. Pinned spawn2 delegates to spawn1->apply2;apply_fun accepts only actual functions and raises badfun for legacy tuple. Existing published ProcessSpawnCases already preserves this source quirk. Retain initial failure,revise only new unpublished fixture to assertbadfun/noproc lifecycle and no invocation. No old source contract changes."
+  ]
+}

@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part191:node-qualified spawn/spawn_link/spawn_monitor2/4 execute actual local callbacks/MFA or create owned local crasher processes for unconnected remote nodes. Atomic monitor/link,group leader inheritance,noconnection EXIT/DOWN/slot cleanup and input/error frames guarded. **5186/full main and draft**,49 new source scenarios;all3654 inherited contracts unchanged. Registry415;erlang265/351,86 missing,**75.5% API presence**,not semantic completion. [Tests](validation/part-191/tests.json),[audit](validation/part-191/reference-audit.json). Original4607 pending192;latest190 evidence is separate. Connected transport/remote execution/handshakes/logger warning parity/resources/upstream/performance and remaining APIs continue.
+
 Part190:source-built original **4558/4558** and **5130/full same-head CI** at565aa8b. All selected comparisons match;continue remaining APIs. [Proof](validation/part-190/differential.json),[guard](validation/part-190/strict-guard.json). All3654 SDK contracts/3648 comparable modules,778 expressions,132 diagnoses,six exclusions and68 independent byte expectations preserved. Registry409;erlang259/351,92 missing,73.8% API presence,not semantic completion. Preserve1884488/4525 and explicit37 output migrations;networking/dynamic naming/nativeGC/host imports/platform/resources/grammar/upstream/performance and remaining APIs continue.
 
 Part189:owned nodes0/1/2/is_alive0 query actual local/named identity and weakly retained foreign PID/port/reference containers decoded into this runtime. Native printf output inserts CR before every LF,repairing188 byte discrepancies;raw display_string/delimiter logic unchanged. **5130/full main and draft**,33 new source cases;3621 inherited sources/outcomes/hashes/contexts/policies unchanged,37 explicit output migrations. Registry409;erlang259/351,92 missing,**73.8% API presence**,not semantic completion. [Tests](validation/part-189/tests.json),[migrations](validation/part-189/output-migrations.json). Original4558 pending190;retain1884488/4525 and1864485/4486. Networking/dynamic naming/nativeGC/host imports/platform/resources/grammar/upstream/performance unfinished. Close0027 after188;open0028.
@@ -104,7 +106,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.259 registered,92 missing,total409 direct MFAs.73.8% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.265 registered,86 missing,total415 direct MFAs.75.5% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -395,13 +397,13 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `setnode/3` | Missing; real implementation/runtime prerequisites required |
 | `size/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/2` | Missing; real implementation/runtime prerequisites required |
+| `spawn_link/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/4` | Missing; real implementation/runtime prerequisites required |
+| `spawn_link/4` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_monitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/2` | Missing; real implementation/runtime prerequisites required |
+| `spawn_monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/4` | Missing; real implementation/runtime prerequisites required |
+| `spawn_monitor/4` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_opt/2` | Missing; real implementation/runtime prerequisites required |
 | `spawn_opt/3` | Missing; real implementation/runtime prerequisites required |
 | `spawn_opt/4` | Missing; real implementation/runtime prerequisites required |
@@ -413,9 +415,9 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `spawn_request/4` | Missing; real implementation/runtime prerequisites required |
 | `spawn_request/5` | Missing; real implementation/runtime prerequisites required |
 | `spawn/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn/2` | Missing; real implementation/runtime prerequisites required |
+| `spawn/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn/4` | Missing; real implementation/runtime prerequisites required |
+| `spawn/4` | Registered; bounded functional evidence, see supported-mfas.json |
 | `split_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `start_timer/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `start_timer/4` | Registered; bounded functional evidence, see supported-mfas.json |

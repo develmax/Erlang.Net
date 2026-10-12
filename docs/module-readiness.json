@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-189/tests.json",
-  "LocalPassedTests": 5130,
-  "RegisteredMfas": 409,
+  "ComparisonTestReport": "validation/part-190/ci-tests.json",
+  "LocalPassedTests": 5186,
+  "RegisteredMfas": 415,
   "PreviousRegisteredMfas": 409,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 6,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -80,7 +80,8 @@
         "Part183:display_string1/2 real raw standard streams,default stderr,flat scalar UTF8/binary bytes/error frames and borrowed ownership;5016/full local,4455 original pending184",
         "Part185:three process suspension/resumption MFAs,actual cooperative pause/owner counters/cleanup/asynchronous tags,receive/PID timer pause and CPC/kill admission;5051/full local,4486 original pending186.",
         "Part187:display1 iterative low-level term bytes;native detached paused timer identity/message lifetime repair;5092/full local,4525 original pending188.",
-        "Part189:four owned node query exports,actual decoded foreign container weak lifetime/perruntime isolation;native printf newline conversion;5130/full local,4558 original pending190."
+        "Part189:four owned node query exports,actual decoded foreign container weak lifetime/perruntime isolation;native printf newline conversion;5130/full local,4558 original pending190.",
+        "Part191:six node-qualified spawn wrappers with actual local/unconnected owned lifecycle,atomic link/monitor,inherited leader and slot cleanup;5186/full local,4607 original pending192."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -89,7 +90,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 321
+      "RelatedPassedTests": 328
     },
     {
       "Id": "Compiler",
@@ -159,7 +160,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1448
+      "RelatedPassedTests": 1454
     },
     {
       "Id": "gen_server adapters",
@@ -292,7 +293,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3804
+      "RelatedPassedTests": 3853
     },
     {
       "Id": "Style checks",
@@ -5561,11 +5562,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 259,
+      "RegisteredMfas": 265,
       "PreviousRegisteredMfas": 259,
-      "Delta": 0,
+      "Delta": 6,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 73.8,
+      "ApiPresencePercent": 75.5,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5793,11 +5794,17 @@
         "erlang:setelement/3",
         "erlang:size/1",
         "erlang:spawn/1",
+        "erlang:spawn/2",
         "erlang:spawn/3",
+        "erlang:spawn/4",
         "erlang:spawn_link/1",
+        "erlang:spawn_link/2",
         "erlang:spawn_link/3",
+        "erlang:spawn_link/4",
         "erlang:spawn_monitor/1",
+        "erlang:spawn_monitor/2",
         "erlang:spawn_monitor/3",
+        "erlang:spawn_monitor/4",
         "erlang:split_binary/2",
         "erlang:start_timer/3",
         "erlang:start_timer/4",
