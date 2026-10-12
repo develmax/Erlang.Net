@@ -1,0 +1,48 @@
+{
+  "Decision": "Port iterative native print-term traversal,Latin1 atom classification and octal/control escapes,raw printable byte lists/ASCII binaries,six-fractional scientific floats,and newline-to-stdout. Reuse owned term fields,identifier channel formatting,SDK ArrayBufferWriter/UTF8/BigInteger/scientific formatter and real standard streams;no new dependency. Separate octal radix from bits-per-byte despite equal values. Full Win native stdio/stream errors,VM metadata identity/HAMT traversal/native records/resources/upstream/performance remain unfinished.",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Part": 187,
+  "License": "Ericsson Apache-2.0,retain consolidated notices,no source banners/owner draft/public packages.",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Copyright": "%% Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "BlobSHA1": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Copyright": " * Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_printf_term.c",
+      "BlobSHA1": "1ade17c7621e0c87901f41dd149b0f5b516418a4",
+      "Copyright": " * Copyright Ericsson AB 2005-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/lib_src/common/erl_printf_format.c",
+      "BlobSHA1": "01ee5dd9b78ac6398fe348f6b9844121e882e54c",
+      "Copyright": " * Copyright Ericsson AB 2005-2025. All Rights Reserved."
+    }
+  ],
+  "Baseline": "OTP-29.1.1",
+  "Corrections": [
+    "Initial ignored focus helper referenced nonexistent CompiledModuleStreamResult.TermResult;retain build failure and correct helper to existing Result property.",
+    "Initial focus passed35 display output cases,then exposed previously unsupported qualified fun literal syntax. Retain failure;port pinned v3_core.erl lowering to make_fun rather than change fixture expectations. Unqualified named fun remains untouched.",
+    "Repaired focus passes all37 output contracts and deep10000/rawLatin1/ignored-output-error host checks. Full draft pipeline pending."
+  ],
+  "QualifiedFunSource": {
+    "Path": "lib/compiler/src/v3_core.erl",
+    "BlobSHA1": "a1ddbb977e013a860c9e0cca58c364a52e1c8a92",
+    "Scope": "Static literal Module:Function/Arity lowering to erlang:make_fun/3. Dynamic qualified syntax,guard constant folding and complete grammar remain unfinished."
+  },
+  "DraftFullPassed": 5090,
+  "NewOutputFixtures": 37,
+  "TimerRepairEvidence": "docs/validation/part-186/timer-discrepancy-audit.json",
+  "TimerRepair": "Native4485/4486 disproves preserved public timer references. Access paused timers returnsfalse;resume removes old key and rearms actual preserved message with new private reference. Old public keys stay invalid;wrapped timeout payload keeps its original reference. Revise one disproved source fixture and host assertion explicitly;add two delivery/ref-identity fixtures,retain original failure/no exclusion.",
+  "PreTimerRepairDraftFullPassed": 5090,
+  "PreTimerRepair3582ContractsPreserved": true,
+  "CurrentDraftPlan": 5092,
+  "FixtureMigrationCount": 1,
+  "NewModulesTotal": 39
+}

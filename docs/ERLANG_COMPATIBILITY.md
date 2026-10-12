@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part187:real erlang display1 uses iterative native term formatting/raw stdout and qualified literal fun references lower through make_fun. Paused timers now invalidate old public references and resume preserved messages/deadlines with fresh private identity,repairing original186 discrepancy. **5092/full main and draft**,39 new modules and one explicit disproved fixture migration;3581 other contracts unchanged. Registry405;erlang255/351,96 missing,**72.6% API presence**,not semantic completion. [Tests](validation/part-187/tests.json),[migration](validation/part-187/fixture-migration.json). Original4525 pending188;retain1864485/4486 and latest full success1844455/4455. Native platform/metadata/HAMT/grammar/scheduler/resources/upstream/performance scope and remaining APIs continue.
+
 Part186:source-built original **4485/4486** and **5051/full same-head CI** at4c0b4a5. 1 native discrepancies retained;repair before promotion.31 process suspension scenarios and31 inherited independent raw-output fixtures executed. [Proof](validation/part-186/differential.json),[guard](validation/part-186/strict-guard.json). Preserve3582 SDK/3576 comparable modules,778 expressions,132 diagnoses and six exclusions. Registry404;erlang254/351,97 missing,72.4% API presence,not semantic completion. Native scheduler/preemption/signal races/cycles/resources/upstream/performance and remaining APIs continue.
 
 Part185:erlang suspend_process1/2 and resume_process1 use real execution pauses,per-owner counts/unless/asynchronous acknowledgments and owner cleanup. Paused receives/PID BIF timers freeze,name timers continue,CPC/kill controls remain admitted. **5051/full main and draft**,31 new source scenarios;all3551 prior contracts preserved. Registry404;erlang254/351,97 missing,**72.4% API presence**,not semantic completion. [Tests](validation/part-185/tests.json),[audit](validation/part-185/reference-audit.json). Original4486 pending186;latest1844455/4455. Native scheduler/preemption/signal races/cycles/resources/upstream suites/performance and remaining APIs continue.
@@ -96,7 +98,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.254 registered,97 missing,total404 direct MFAs.72.4% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.255 registered,96 missing,total405 direct MFAs.72.6% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -179,7 +181,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `disconnect_node/1` | Missing; real implementation/runtime prerequisites required |
 | `display_string/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display_string/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `display/1` | Missing; real implementation/runtime prerequisites required |
+| `display/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dist_ctrl_get_data_notification/1` | Missing; real implementation/runtime prerequisites required |
 | `dist_ctrl_get_data/1` | Missing; real implementation/runtime prerequisites required |
 | `dist_ctrl_get_opt/2` | Missing; real implementation/runtime prerequisites required |

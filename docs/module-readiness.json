@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-185/tests.json",
-  "LocalPassedTests": 5051,
-  "RegisteredMfas": 404,
+  "ComparisonTestReport": "validation/part-186/ci-tests.json",
+  "LocalPassedTests": 5092,
+  "RegisteredMfas": 405,
   "PreviousRegisteredMfas": 404,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -78,7 +78,8 @@
         "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178",
         "Part181:purge_module1 over actual old image preparation/reservations,CPC/kill-monitor/unwind;pending old-function entry waits admit control signals;retired code rejects incompatible functions,current matching code remains usable;4981/full local,4424 original pending182",
         "Part183:display_string1/2 real raw standard streams,default stderr,flat scalar UTF8/binary bytes/error frames and borrowed ownership;5016/full local,4455 original pending184",
-        "Part185:three process suspension/resumption MFAs,actual cooperative pause/owner counters/cleanup/asynchronous tags,receive/PID timer pause and CPC/kill admission;5051/full local,4486 original pending186."
+        "Part185:three process suspension/resumption MFAs,actual cooperative pause/owner counters/cleanup/asynchronous tags,receive/PID timer pause and CPC/kill admission;5051/full local,4486 original pending186.",
+        "Part187:display1 iterative low-level term bytes;native detached paused timer identity/message lifetime repair;5092/full local,4525 original pending188."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -87,7 +88,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 314
+      "RelatedPassedTests": 316
     },
     {
       "Id": "Compiler",
@@ -119,7 +120,8 @@
         "Part163:real predefined module_info0/1 IR,exports/local/named calls and declared-source serialization preserving3389 generated hashes",
         "Part165:literal-only attributes/farity normalization,control rejection/metadata constructor emission preserving3407 generated hashes",
         "Part179:compiler-owned saved functions select current matching canonical code/image;different code keeps old image;anonymous static tail transfers release frames;4959/full local,4404 original pending180",
-        "Part181:continuous image lease across local/anonymous tails;audited erlang purge_module source wrapper static transfer releases caller;dynamic callers retain continuations"
+        "Part181:continuous image lease across local/anonymous tails;audited erlang purge_module source wrapper static transfer releases caller;dynamic callers retain continuations",
+        "Part187:qualified literal fun Module:Function/Arity uses pinned v3_core make_fun lowering;unqualified named references remain unchanged. Dynamic syntax/guard folding/full grammar incomplete."
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
@@ -156,7 +158,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1443
+      "RelatedPassedTests": 1444
     },
     {
       "Id": "gen_server adapters",
@@ -287,7 +289,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3732
+      "RelatedPassedTests": 3771
     },
     {
       "Id": "Style checks",
@@ -5556,11 +5558,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 254,
+      "RegisteredMfas": 255,
       "PreviousRegisteredMfas": 254,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 72.4,
+      "ApiPresencePercent": 72.6,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5636,6 +5638,7 @@
         "erlang:delete_module/1",
         "erlang:demonitor/1",
         "erlang:demonitor/2",
+        "erlang:display/1",
         "erlang:display_string/1",
         "erlang:display_string/2",
         "erlang:div/2",

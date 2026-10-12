@@ -44,13 +44,14 @@ internal static class ProcessSuspensionHostChecks
                 ProcessSuspensionHostNames.ReadTimer,
                 [reference]
             );
-            Require(firstRemaining.Equals(secondRemaining) && firstRemaining is Integer);
-            await runtime.Modules.Call(
+            Require(firstRemaining.Equals(secondRemaining) && firstRemaining.Equals(Term.A(ErlangBooleanAtoms.False)));
+            Term canceled = await runtime.Modules.Call(
                 context,
                 ErlangModuleNames.Module,
                 ProcessSuspensionHostNames.CancelTimer,
                 [reference]
             );
+            Require(canceled.Equals(Term.A(ErlangBooleanAtoms.False)));
             Term cpc = await runtime.Modules.Call(
                 context,
                 ErlangModuleNames.Module,
@@ -64,6 +65,13 @@ internal static class ProcessSuspensionHostChecks
                 ProcessSuspensionNames.Resume,
                 [target.Pid]
             );
+            Term afterResume = await runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                ProcessSuspensionHostNames.ReadTimer,
+                [reference]
+            );
+            Require(afterResume.Equals(Term.A(ErlangBooleanAtoms.False)));
             await received.Task.WaitAsync(ProcessSuspensionHostParameters.CompletionTimeout);
 
             return Term.A(ErlangBooleanAtoms.True);

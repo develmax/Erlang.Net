@@ -593,3 +593,9 @@ Altered source-directed CLR adaptation of OTP-29.1.1/ad058237 erlang.erl display
 ## Cooperative process suspension and timers
 
 Altered source-directed CLR adaptation of OTP-29.1.1/ad058237 erlang.erl wrappers,erl_process.c owner suspend counts/options/resume,erl_proc_sig_queue.c tagged acknowledgments and erl_hl_timer.c pause/resume deadlines,Ericsson Apache-2.0. Actual cooperative execution/mailbox pauses retain user messages,admit controls,release owner counts on death and freeze PID-targeted timers while registered-name timers run. Native scheduler/dirty/preemption/signal races/cycles/physical resources remain distinct. Consolidated notices/full license retained;no banners,new dependency,production BEAM or public packages.
+
+## Low-level term display and qualified function references
+
+Altered source-directed CLR adaptation of OTP-29.1.1/ad058237 bif.c display1,erl_printf_term.c iterative term traversal/atom/list/binary/function formatting and erl_printf_format.c numeric padding/precision,Ericsson Apache-2.0. Literal qualified function references lower to erlang:make_fun/3 as in v3_core.erl. Raw Latin1 printable lists differ from UTF8 atoms;scientific floats use six fractional digits. Native display1 ignores printf write failures. SDK byte buffers/formatters and existing owned identity fields/streams are reused;native resources,Win stdio,HAMT order/native records/full grammar and upstream/performance scope remain unfinished. Consolidated notices/full license retained;no banners,new dependency,production BEAM or public package publication.
+
+Part187 paused-timer repair follows erl_hl_timer.c detached message/deadline snapshots and fresh internal resume references. Old public references return false for read/cancel before and after resume;preserved wrapped messages retain their original reference payload. Original186 failure and explicit fixture migration remain separate evidence.

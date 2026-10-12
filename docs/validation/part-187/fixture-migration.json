@@ -1,0 +1,46 @@
+{
+  "Name": "erlang-suspension-pid-timers",
+  "OriginalReport": "docs/validation/part-186/differential.json",
+  "OriginalFailure": {
+    "Name": "erlang-suspension-pid-timers",
+    "Source": "-module(suspension_contract). -export([run/0,worker/1]). run()-\u003ESelf=self(),P=spawn(fun()-\u003Eworker(Self) end),true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),A=erlang:read_timer(T),receive after 150-\u003Eok end,A=erlang:read_timer(T),true=is_integer(A),A=erlang:cancel_timer(T),true=erlang:resume_process(P),P!ping,receive pong-\u003Eok after 1000-\u003Eerror(no_resume) end,P!stop,done. worker(Parent)-\u003Ereceive ping-\u003EParent!pong,worker(Parent);stop-\u003Eok end.",
+    "SourceSha256": "1E01C11E5B29692260BA21E8847F4D9AFCF739AFB627A9E86C75ABBCE6D96D34",
+    "CSharpSha256": "D335183D1EF6763C2AC5B55D7C2A4EB394850EF85F271E58439AAF41D74D0764",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Expected": "{error,error,{badmatch,false}}",
+    "FixtureExpected": "{ok,done}",
+    "Actual": "{ok,done}",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "NativeStandardOutputHex": null,
+    "NativeStandardErrorHex": null,
+    "SdkStandardOutputHex": null,
+    "SdkStandardErrorHex": null,
+    "StandardStreamsMatch": true,
+    "Passed": false
+  },
+  "PreviousContract": {
+    "Name": "erlang-suspension-pid-timers",
+    "Source": "-module(suspension_contract). -export([run/0,worker/1]). run()-\u003ESelf=self(),P=spawn(fun()-\u003Eworker(Self) end),true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),A=erlang:read_timer(T),receive after 150-\u003Eok end,A=erlang:read_timer(T),true=is_integer(A),A=erlang:cancel_timer(T),true=erlang:resume_process(P),P!ping,receive pong-\u003Eok after 1000-\u003Eerror(no_resume) end,P!stop,done. worker(Parent)-\u003Ereceive ping-\u003EParent!pong,worker(Parent);stop-\u003Eok end.",
+    "FixtureExpected": "{ok,done}",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "SourceSha256": "1E01C11E5B29692260BA21E8847F4D9AFCF739AFB627A9E86C75ABBCE6D96D34",
+    "CSharpSha256": "D335183D1EF6763C2AC5B55D7C2A4EB394850EF85F271E58439AAF41D74D0764",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "NewContract": {
+    "Name": "erlang-suspension-pid-timers",
+    "Source": "-module(suspension_contract). -export([run/0,worker/1]). run()-\u003ESelf=self(),P=spawn(fun()-\u003Eworker(Self) end),true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),false=erlang:read_timer(T),receive after 150-\u003Eok end,false=erlang:read_timer(T),false=erlang:cancel_timer(T),true=erlang:resume_process(P),false=erlang:read_timer(T),false=erlang:cancel_timer(T),receive pong-\u003Eok after 1000-\u003Eerror(no_timer) end,P!stop,done. worker(Parent)-\u003Ereceive ping-\u003EParent!pong,worker(Parent);stop-\u003Eok end.",
+    "FixtureExpected": "{ok,done}",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "SourceSha256": "1B8B5AE8CA99E7578B87606ADCC89ECD1E2597BD0F8A35A9E2E612F0F41692DF",
+    "CSharpSha256": "954655AB9C218074A702CDF61C0BFE955CF912604CBBECB9DC303533611B5576",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "Cause": "Pinned paused timer snapshots discard public identity and resume with new internal reference. Correct read/cancel false assertions and prove preserved actual delivery instead of demanding an integer remaining value."
+}

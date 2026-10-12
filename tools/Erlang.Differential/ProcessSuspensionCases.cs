@@ -61,7 +61,7 @@ public static class ProcessSuspensionCases
         );
         Add(
             "pid-timers",
-            start + "true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),A=erlang:read_timer(T),receive after 150->ok end,A=erlang:read_timer(T),true=is_integer(A),A=erlang:cancel_timer(T),true=erlang:resume_process(P)" + end
+            start + "true=erlang:suspend_process(P),T=erlang:send_after(100,P,ping),false=erlang:read_timer(T),receive after 150->ok end,false=erlang:read_timer(T),false=erlang:cancel_timer(T),true=erlang:resume_process(P),false=erlang:read_timer(T),false=erlang:cancel_timer(T),receive pong->ok after 1000->error(no_timer) end,P!stop"
         );
         Add(
             "name-timers",
@@ -91,6 +91,15 @@ public static class ProcessSuspensionCases
         Add(
             "dead-async-tag",
             dead + "true=erlang:suspend_process(P,[{asynchronous,tag}]),receive {tag,badarg}->ok after 1000->error(no_ack) end"
+        );
+
+        Add(
+            "existing-pid-timer",
+            start + "T=erlang:send_after(200,P,ping),true=erlang:suspend_process(P),false=erlang:read_timer(T),false=erlang:cancel_timer(T),true=erlang:resume_process(P),false=erlang:read_timer(T),receive pong->ok after 1000->error(no_timer) end,P!stop"
+        );
+        Add(
+            "wrapped-pid-timer",
+            "Self=self(),P=spawn(fun()->receive {timeout,T,ping}->Self!{timer,T} end end),true=erlang:suspend_process(P),T=erlang:start_timer(50,P,ping),false=erlang:read_timer(T),false=erlang:cancel_timer(T),true=erlang:resume_process(P),receive {timer,T}->ok after 1000->error(no_timer) end,false=erlang:read_timer(T)"
         );
 
         return cases;

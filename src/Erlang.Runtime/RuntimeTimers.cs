@@ -59,7 +59,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
         {
-            if (!timers.TryGetValue(reference, out var entry))
+            if (!timers.TryGetValue(reference, out var entry) || entry.Paused)
                 return Term.A(ErlangBooleanAtoms.False);
             long remaining = entry.Remaining;
             if (cancel)
@@ -107,10 +107,21 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     public void ResumeRecipient(Pid pid)
     {
         lock (gate)
-            foreach (Entry entry in timers.Values.Where(entry => entry.Destination.Equals(pid) && entry.Paused))
+            foreach (var pair in timers.Where(pair => pair.Value.Destination.Equals(pid) && pair.Value.Paused).ToArray())
             {
+                Entry entry = pair.Value;
+                timers.Remove(pair.Key);
+                entry.Timer.Dispose();
+                ReferenceTerm privateReference = runtime.MakeReference();
+                entry.Timer = new Timer(
+                    _ => Fire(privateReference),
+                    null,
+                    Timeout.Infinite,
+                    Timeout.Infinite
+                );
                 entry.Started = Stopwatch.GetTimestamp();
                 entry.Paused = false;
+                timers.Add(privateReference, entry);
                 Schedule(entry);
             }
     }

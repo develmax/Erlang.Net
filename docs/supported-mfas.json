@@ -561,6 +561,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "display",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:display/1",
+    "Limits": "Iterative low-level term display to raw stdout:newline,Latin1 atom rules/octal/control escapes,raw printable byte lists/ASCII binaries,scientific floats,owned identifier/function metadata.37 independent output fixtures and5092/full local;4525 original pending188. Native Win stdio/HAMT/native records/resource/upstream/performance contracts unfinished."
+  },
+  {
+    "Module": "erlang",
     "Function": "display_string",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -1645,7 +1653,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:resume_process/1",
-    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished.Part187 repairs native186 discrepancy:paused timer public references returnfalse for read/cancel;resume uses new private identity and preserves message/remaining delay. One explicit source migration and two timer delivery cases;4525 original pending188."
   },
   {
     "Module": "erlang",
@@ -1813,7 +1821,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:suspend_process/1",
-    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished.Part187 repairs native186 discrepancy:paused timer public references returnfalse for read/cancel;resume uses new private identity and preserves message/remaining delay. One explicit source migration and two timer delivery cases;4525 original pending188."
   },
   {
     "Module": "erlang",
@@ -1821,7 +1829,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:suspend_process/2",
-    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished.Part187 repairs native186 discrepancy:paused timer public references returnfalse for read/cancel;resume uses new private identity and preserves message/remaining delay. One explicit source migration and two timer delivery cases;4525 original pending188."
   },
   {
     "Module": "erlang",

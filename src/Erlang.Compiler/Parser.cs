@@ -407,6 +407,12 @@ public sealed class Parser
             if (Current.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom)
             {
                 string name = Name();
+                string? module = null;
+                if (Take(ErlangSyntaxTokens.ModuleQualifier))
+                {
+                    module = name;
+                    name = Name();
+                }
                 Expect(ErlangSyntaxTokens.AritySeparator);
                 if (Current.Kind != LexerTokenKinds.Integer || !int.TryParse(
                     Current.Text,
@@ -416,6 +422,13 @@ public sealed class Parser
                 ))
                     throw Error(ParserDiagnostics.ExpectedArity);
                 position++;
+
+                if (module is not null)
+                    return new Expr.Call(
+                        ErlangModuleNames.Module,
+                        FunctionReferenceLoweringNames.MakeFunction,
+                        [new Expr.Literal(Term.A(module)), new Expr.Literal(Term.A(name)), new Expr.Literal(Term.I(arity))]
+                    );
 
                 return new Expr.FunctionReference(name, arity);
             }
