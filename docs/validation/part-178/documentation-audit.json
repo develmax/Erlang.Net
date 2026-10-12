@@ -1,0 +1,28 @@
+{
+  "OldReadmeLine": [
+    "The erlang module currently registers **188/351** pinned exports; [scope ledger](docs/ERLANG_COMPATIBILITY.md) lists163 missing APIs. Published head069b560 passes [2751/2751 original and3207/full same-head CI122](docs/validation/part-122/remote-checkpoint.json). Work continues until the whole module is complete."
+  ],
+  "Baseline": "OTP-29.1.1",
+  "CurrentRegistered": 248,
+  "CurrentMissing": 103,
+  "Part": 178,
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "StaleMissingCount": 13,
+  "Plan": "Refresh current-status ledger and README from exact pinned declaration list and current direct-MFA registry in evidence178;closed historical journals stay immutable. API presence remains not semantic completion",
+  "StaleMissingRows": [
+    "| `check_old_code/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `check_process_code/2` | Missing; real implementation/runtime prerequisites required |",
+    "| `check_process_code/3` | Missing; real implementation/runtime prerequisites required |",
+    "| `delete_module/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `get_module_info/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `get_module_info/2` | Missing; real implementation/runtime prerequisites required |",
+    "| `list_to_ref/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `loaded/0` | Missing; real implementation/runtime prerequisites required |",
+    "| `module_loaded/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `pre_loaded/0` | Missing; real implementation/runtime prerequisites required |",
+    "| `processes_iterator/0` | Missing; real implementation/runtime prerequisites required |",
+    "| `processes_next/1` | Missing; real implementation/runtime prerequisites required |",
+    "| `ref_to_list/1` | Missing; real implementation/runtime prerequisites required |"
+  ],
+  "PinnedExportCount": 351
+}

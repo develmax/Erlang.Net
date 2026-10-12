@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part178: complete source-built pinned original **4395/4395** atfd06982 and **4949/full same-head CI**. all selected comparisons match;continue remaining APIs. [Proof](validation/part-178/differential.json),[guard](validation/part-178/strict-guard.json).3485 comparable modules/132 diagnoses/778 expressions/six exclusions preserve177 contracts,including25 new process-code scenarios and inherited static tail cases. Historical158 incomplete4004/4167 remains immutable. Registry398;erlang248/351,103 missing,**70.7% API presence**,not semantic completion. Twenty-five owned process-code scenarios match original OTP;purge admission/matching-code fun retarget remains under development. Native schedulers/magic resources/distribution/import attributes/full suites/performance unfinished;continue whole erlang goal.
+
 Part177:erlang check_process_code2/3 uses actual old-image execution and queued process requests;**4949/full local**,all3466 prior corpus contracts preserved,25 native scenarios added. Registry398;erlang248/351,103missing,**70.7% API presence**,not semantic completion. [Audit](validation/part-177/reference-audit.json),[tests](validation/part-177/tests.json). Original4395 pending178;latest1764370/4370. Self/async/other/dead/option-cause/request-identity boundaries and owned callback lifetimes guarded;native priority/dirty/physical stacks/resources/distribution/full suites,purge admission and matching-code fun retarget remain unfinished. Continue whole erlang goal.
 
 Part176: complete source-built pinned original **4370/4370** at49b9792 and **4921/full same-head CI**. all selected comparisons match;continue remaining APIs. [Proof](validation/part-176/differential.json),[guard](validation/part-176/strict-guard.json).3460 comparable modules/132 diagnoses/778 expressions/six exclusions preserve175 contracts,includingeight inherited static runtime callback scenarios. Historical158 incomplete4004/4167 remains immutable. Registry396;erlang246/351,105 missing,**70.1% API presence**,not semantic completion. All inherited callback/source/fun scenarios match original OTP;CPC/purge admission remains under development. Native schedulers/magic resources/distribution/import attributes/full suites/performance unfinished;continue whole erlang goal.
@@ -144,17 +146,18 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `cancel_timer/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `cancel_timer/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `ceil/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `check_old_code/1` | Missing; real implementation/runtime prerequisites required |
-| `check_process_code/2` | Missing; real implementation/runtime prerequisites required |
-| `check_process_code/3` | Missing; real implementation/runtime prerequisites required |
+| `check_old_code/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `check_process_code/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `check_process_code/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `convert_time_unit/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `crc32_combine/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `crc32/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `crc32/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `date/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `decode_packet/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `delay_trap/2` | Missing; real implementation/runtime prerequisites required |
 | `delete_element/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `delete_module/1` | Missing; real implementation/runtime prerequisites required |
+| `delete_module/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `demonitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `demonitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `disconnect_node/1` | Missing; real implementation/runtime prerequisites required |
@@ -213,8 +216,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `get_cookie/1` | Missing; real implementation/runtime prerequisites required |
 | `get_keys/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_keys/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_module_info/1` | Missing; real implementation/runtime prerequisites required |
-| `get_module_info/2` | Missing; real implementation/runtime prerequisites required |
+| `get_module_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `get_module_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `group_leader/0` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -253,6 +256,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `is_port/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_process_alive/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_record/1` | Missing; real implementation/runtime prerequisites required |
+| `is_record/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `is_record/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_reference/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `length/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -265,11 +270,13 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `list_to_float/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_integer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_ref/1` | Missing; real implementation/runtime prerequisites required |
+| `list_to_pid/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `list_to_port/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `list_to_ref/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `list_to_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `load_module/2` | Missing; real implementation/runtime prerequisites required |
 | `load_nif/2` | Missing; real implementation/runtime prerequisites required |
-| `loaded/0` | Missing; real implementation/runtime prerequisites required |
+| `loaded/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `localtime_to_universaltime/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `localtime_to_universaltime/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `localtime/0` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -288,7 +295,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `memory/0` | Missing; real implementation/runtime prerequisites required |
 | `memory/1` | Missing; real implementation/runtime prerequisites required |
 | `min/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `module_loaded/1` | Missing; real implementation/runtime prerequisites required |
+| `module_loaded/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monitor_node/2` | Missing; real implementation/runtime prerequisites required |
 | `monitor_node/3` | Missing; real implementation/runtime prerequisites required |
 | `monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -309,6 +316,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `phash/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `phash2/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `phash2/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `pid_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `port_call/2` | Missing; real implementation/runtime prerequisites required |
 | `port_call/3` | Missing; real implementation/runtime prerequisites required |
 | `port_close/1` | Missing; real implementation/runtime prerequisites required |
@@ -320,23 +328,25 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `port_info/1` | Missing; real implementation/runtime prerequisites required |
 | `port_info/2` | Missing; real implementation/runtime prerequisites required |
 | `port_set_data/2` | Missing; real implementation/runtime prerequisites required |
+| `port_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `ports/0` | Missing; real implementation/runtime prerequisites required |
 | `posixtime_to_universaltime/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `pre_loaded/0` | Missing; real implementation/runtime prerequisites required |
+| `pre_loaded/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `prepare_loading/2` | Missing; real implementation/runtime prerequisites required |
 | `process_display/2` | Missing; real implementation/runtime prerequisites required |
 | `process_flag/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `process_flag/3` | Missing; real implementation/runtime prerequisites required |
 | `process_info/1` | Missing; real implementation/runtime prerequisites required |
-| `processes_iterator/0` | Missing; real implementation/runtime prerequisites required |
-| `processes_next/1` | Missing; real implementation/runtime prerequisites required |
+| `process_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `processes_iterator/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `processes_next/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `processes/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `purge_module/1` | Missing; real implementation/runtime prerequisites required |
 | `put/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `raise/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `read_timer/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `read_timer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `ref_to_list/1` | Missing; real implementation/runtime prerequisites required |
+| `ref_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `register/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `registered/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `rem/2` | Registered; bounded functional evidence, see supported-mfas.json |
