@@ -1,5 +1,11 @@
 name: Pinned OTP differential oracle
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      investigate:
+        description: 'Only diagnose preserved native compiler/process-context discrepancies'
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -27,7 +33,11 @@ jobs:
         shell: bash
         run: |
           dotnet build tools/Erlang.Differential -m:1
-          dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json
+          if [ "${{ inputs.investigate }}" = "true" ]; then
+            dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json --investigate
+          else
+            dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json
+          fi
       - uses: actions/upload-artifact@v7
         if: always()
         with:

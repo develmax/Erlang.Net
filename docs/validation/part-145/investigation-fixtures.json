@@ -1,0 +1,44 @@
+[
+  {
+    "Name": "otp-supervisor-bad-init-return",
+    "Source": "-module(oracle_otp_supervisor). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2]). run()->supervisor:start_link(oracle_otp_supervisor,{raw,wrong}). init({server,S})->{ok,S}; init(ignore)->ignore; init({raw,R})->R; init({flags,F,C})->{ok,{F,C}}; init(C)->{ok,{#{},C}}. child({notify,P,N})->R=gen_server:start_link(oracle_otp_supervisor,{server,N},[]),P!{started,N,R},R; child(ignore)->ignore; child({error,R})->{error,R}; child(S)->gen_server:start_link(oracle_otp_supervisor,{server,S},[]). handle_call(get,_,S)->{reply,S,S}. handle_cast(_,S)->{noreply,S}.",
+    "FixtureExpected": "{ok,{error,{bad_return,{oracle_otp_supervisor,init,wrong}}}}",
+    "SourceSha256": "F8549584B4B3847EC03188D58A22B29574FA54156C6EB9940FE440A87F8DA0F8",
+    "CSharpSha256": "4A4F1E0595608CE8A32CA03ED9A99810CD88EFCF0FD1758106A3EE034B47A958"
+  },
+  {
+    "Name": "otp-server-init-stop",
+    "Source": "-module(oracle_otp_server). -export([run/0,init/1,handle_call/3,handle_cast/2,handle_info/2,handle_continue/2,terminate/2]). run()->gen_server:start_link(oracle_otp_server,{stop,failed},[]). init(ignore)->ignore; init({stop,R})->{stop,R}; init({error,R})->{error,R}; init({throw,V})->throw(V); init({action,S,A})->{ok,S,A}; init(S)->{ok,S}. handle_call(get,_,S)->{reply,S,S}; handle_call(self,_,S)->{reply,self(),S}; handle_call({stop,R},_,S)->{stop,R,done,S}; handle_call({deferred,V},From,S)->gen_server:reply(From,V),{noreply,S}; handle_call({throw,V},_,_)->throw(V); handle_call({return,V},_,_)->V. handle_cast({set,S},_)->{noreply,S}; handle_cast({stop,R},S)->{stop,R,S}. handle_info(timeout,{notify,P})->P!timed,{noreply,timed}; handle_info(timeout,_)->{noreply,timed}; handle_info({set,S},_)->{noreply,S}; handle_info(_,S)->{noreply,S}. handle_continue(S,_)->{noreply,S}. terminate(R,{notify,P})->P!{terminated,R}; terminate(_,_) ->ok. ",
+    "FixtureExpected": "{ok,{error,failed}}",
+    "SourceSha256": "F3ED46589D128A5B0A065BCDFCA39C33ECADD516973E026AD1B1AEBC08E3B61F",
+    "CSharpSha256": "1E68DF968519437675C6D5FC693E3EAD1BDE57468FE37A2C7D0316FACD91F853"
+  },
+  {
+    "Name": "otp-supervisor-start-failure",
+    "Source": "-module(oracle_otp_supervisor). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2]). run()->supervisor:start_link(oracle_otp_supervisor,[#{id=>first,start=>{oracle_otp_supervisor,child,[{error,failed}]}}]). init({server,S})->{ok,S}; init(ignore)->ignore; init({raw,R})->R; init({flags,F,C})->{ok,{F,C}}; init(C)->{ok,{#{},C}}. child({notify,P,N})->R=gen_server:start_link(oracle_otp_supervisor,{server,N},[]),P!{started,N,R},R; child(ignore)->ignore; child({error,R})->{error,R}; child(S)->gen_server:start_link(oracle_otp_supervisor,{server,S},[]). handle_call(get,_,S)->{reply,S,S}. handle_cast(_,S)->{noreply,S}.",
+    "FixtureExpected": "{ok,{error,{shutdown,{failed_to_start_child,first,failed}}}}",
+    "SourceSha256": "C9C1C92ABB8BB6D840FDB4643AD9C2F414471DE947CB26D0399CB407DE4BC060",
+    "CSharpSha256": "4376959F32555E871CE4AE15BAF26B7217B8DCD30B5C2E6991E144566D4CDF3B"
+  },
+  {
+    "Name": "otp-supervisor-invalid-intensity",
+    "Source": "-module(oracle_otp_supervisor). -export([run/0,init/1,child/1,handle_call/3,handle_cast/2]). run()->supervisor:start_link(oracle_otp_supervisor,{flags,#{intensity=>-1},[]}). init({server,S})->{ok,S}; init(ignore)->ignore; init({raw,R})->R; init({flags,F,C})->{ok,{F,C}}; init(C)->{ok,{#{},C}}. child({notify,P,N})->R=gen_server:start_link(oracle_otp_supervisor,{server,N},[]),P!{started,N,R},R; child(ignore)->ignore; child({error,R})->{error,R}; child(S)->gen_server:start_link(oracle_otp_supervisor,{server,S},[]). handle_call(get,_,S)->{reply,S,S}. handle_cast(_,S)->{noreply,S}.",
+    "FixtureExpected": "{ok,{error,{supervisor_data,{invalid_intensity,-1}}}}",
+    "SourceSha256": "7BC0AB0CFE7F473C335940CA93085A285CF9820D9E2EE8B08F0ADED65C40DD39",
+    "CSharpSha256": "23D49FAEB735728471E3DF8476F04144A09D78B2E2D1C4D44B376236D2431309"
+  },
+  {
+    "Name": "erlang-spawn-group-callback-tuple",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->true=register(spawn_tuple_owner,self()),P=erlang:spawn({spawn_group_contract,callback}),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badfun,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,receive tuple_was_applied->error(unexpected) after 0->ok end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "CAF41C32BEAC6206645BE391362F06A5AA3F5C03E46C34CC2B8C69DE44C14CB8",
+    "CSharpSha256": "6D40D6AB30D4D1E57BFEAB8CDE7C3A27311C0B5BAE2C18A421CC8875008DEDB0"
+  },
+  {
+    "Name": "erlang-spawn-group-callback-wrong-arity-child-error",
+    "Source": "-module(spawn_group_contract). -export([run/0,child/3,callback/0]). run()->P=erlang:spawn(fun(_)->ok end),R=erlang:monitor(process,P),receive {'DOWN',R,process,P,{{badarity,_},_}}->ok;{'DOWN',R,process,P,noproc}->ok after 1000->error(timeout) end,done. child(Owner,Tag,Value)->Owner!{Tag,self(),Value,group_leader()},receive stop->ok end. callback()->case whereis(spawn_tuple_owner) of undefined->ok;Owner->Owner!tuple_was_applied end. wait_dead(P)->case erlang:is_process_alive(P) of true->erlang:yield(),wait_dead(P);false->ok end.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "FD9F34E2617C9EEEA93A5CE79092DDBBC3EBB340A22030AE981C61E3F68ED1BC",
+    "CSharpSha256": "515EBC2BA735E9F10F1E88A537BCFFF2D62CC072188C6C58DEC8FE95A3B1CFA3"
+  }
+]

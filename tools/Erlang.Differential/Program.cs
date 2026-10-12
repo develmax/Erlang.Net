@@ -4,17 +4,19 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Differential;
 
-if (args.Length != 2)
+if (args.Length is < 2 or > 3 || args.Length == 3 && args[2] != OracleInvestigationModes.CommandLine)
 {
-    Console.Error.WriteLine("Usage: Erlang.Differential <erl-executable> <report.json>; oracle must be OTP 29.1.1");
+    Console.Error.WriteLine(OracleInvestigationDiagnostics.Usage);
 
     return 2;
 }
 string oracle = args[0];
+bool investigate = args.Length == 3;
 var results = new List<object>();
 var moduleResults = new List<object>();
 var diagnosticResults = new List<object>();
 IReadOnlyList<object> spawnContextDiagnostics = Array.Empty<object>();
+IReadOnlyList<object> nativeCompilationInvestigation = Array.Empty<object>();
 int moduleFailed = 0;
 int diagnosticFailed = 0;
 int failed = 0, planned = 0;
@@ -31,7 +33,8 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 Baseline = "OTP-29.1.1",
                 VersionVerified = versionVerified,
                 Complete = complete,
-                Planned = planned + OriginalOtpDefects.Comparable.Count + CompiledDiagnosticCases.All.Count,
+                Planned = investigate ? 0 : planned + OriginalOtpDefects.Comparable.Count + CompiledDiagnosticCases.All.Count,
+                InvestigationOnly = investigate,
                 ReferenceCoverageComplete = OriginalOtpDefects.Exclusions.Length == 0,
                 OriginalOtpDefectExclusions = OriginalOtpDefects.Exclusions,
                 Executed = results.Count + moduleResults.Count + diagnosticResults.Count,
@@ -51,7 +54,7 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 {
                     ReferenceMode = GeneratedModuleMetadata.ReferenceMode,
                     ImplementationMode = GeneratedModuleMetadata.ImplementationMode,
-                    Planned = OriginalOtpDefects.Comparable.Count,
+                    Planned = investigate ? 0 : OriginalOtpDefects.Comparable.Count,
                     Executed = moduleResults.Count,
                     Passed = moduleResults.Count - moduleFailed,
                     Failed = moduleFailed
@@ -59,12 +62,13 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 CompilerDiagnosticTrack = new
                 {
                     ReferenceMode = CompiledDiagnosticExpectations.ReferenceMode,
-                    Planned = CompiledDiagnosticCases.All.Count,
+                    Planned = investigate ? 0 : CompiledDiagnosticCases.All.Count,
                     Executed = diagnosticResults.Count,
                     Passed = diagnosticResults.Count - diagnosticFailed,
                     Failed = diagnosticFailed
                 },
                 SpawnContextDiagnostics = spawnContextDiagnostics,
+                NativeCompilationInvestigation = nativeCompilationInvestigation,
                 DiagnosticResults = diagnosticResults,
                 ModuleResults = moduleResults,
                 Results = results
@@ -73,7 +77,9 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
         )
     );
 }
-async Task<string> RunOracle(string expression, CancellationToken cancellationToken = default)
+async Task<string> RunOracle(string expression, CancellationToken cancellationToken = default) => (await RunOracleCaptured(expression, cancellationToken)).StandardOutput.Trim();
+
+async Task<OracleProcessOutput> RunOracleCaptured(string expression, CancellationToken cancellationToken = default)
 {
     var info = new ProcessStartInfo(oracle) { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
     foreach (string argument in new[] { "-noshell", "-noinput", "-eval", expression })
@@ -97,7 +103,7 @@ async Task<string> RunOracle(string expression, CancellationToken cancellationTo
     if (process.ExitCode != 0)
         throw new InvalidOperationException(OracleDiagnostics.ProcessExit(process.ExitCode, stderr, stdout));
 
-    return stdout.Trim();
+    return new(stdout, stderr, process.ExitCode);
 }
 try
 {
@@ -105,6 +111,21 @@ try
     if (version != "29.1.1")
         throw new InvalidOperationException(OracleDiagnostics.VersionMismatch(version));
     versionVerified = true;
+    if (investigate)
+    {
+        nativeCompilationInvestigation = await NativeCompilationInvestigation.Run(
+            command => RunOracleCaptured(command),
+            async (rows, source) =>
+        {
+            nativeCompilationInvestigation = rows;
+            activeSource = source;
+            await SaveReport(false);
+        }
+        );
+        await SaveReport(true);
+
+        return 0;
+    }
     spawnContextDiagnostics = await SpawnContextDiagnosticCases.Run(command => RunOracle(command));
     string[] cases = ["1 + 2 * 3", "{1 == 1.0, 1 =:= 1.0}", "{0.0 == -0.0, 0.0 =:= -0.0}", "9007199254740993 > 9007199254740992.0", "{a, [1,2|tail]}", "lists:member(1, [1.0])", "lists:reverse([1,2,3])", "lists:sum([1,2,3])", "[1,2] ++ [3]", "[1,2,1] -- [1]", "-7 div 3", "-7 rem 3", "case {1,1} of {X,X} -> X; _ -> no end", "case a of X when hd(X) == 1; is_atom(X) -> ok end", "receive {hello, X} -> X after 0 -> timeout end", "lists:map(fun(X) -> X * 2 end, [1,2,3])", "'𐀀' > '\ufffd'", "{length([1,2]), hd([ok]), tl([1,2])}", "maps:get(a, #{a => 1, a => 42})", "case #{1 => integer, 1.0 => float} of #{1 := A, 1.0 := B} -> {A,B} end", "maps:get(a, #{}#{a => 1, a := 2})", "case #{a => {7,7}} of #{a := {X,X}} -> X end", "case 1 of K -> case #{2 => 42} of #{K + 1 := V} -> V end end", "case #{a => 1} of #{hd(atom) := X} -> wrong; _ -> ok end", "case a of K -> F = fun(#{K := K}) -> K end, F(#{a => 42}) end", "case #{} of M when M#{a := 1} =:= #{} -> wrong; _ -> ok end", "{is_map(#{}),is_map([]),map_size(#{a => 1}),is_map_key(a,#{a => 42}),map_get(a,#{a => 42})}", "map_get(1.0,#{1 => value})", "map_get(key,not_map)", "map_size([])", "is_map_key(key,42)", "case #{} of M when map_get(a,M) =:= 42; map_size(M) =:= 0 -> ok; _ -> no end", "#{}#{missing := 1}", "atom#{a := error(blurf)}", "error(boom)", "throw(reason)", "exit(reason)", "<<>>", "<<1,2,255>>", "<<511,-1,16:4,31:4>>", "<<5:3,17:5,3:2>>", "<<4660:16/big>>", "<<4660:16/little>>", "<<291:12/little>>", "<<4660:2/unit:8>>", "<<-1:16/signed-little>>", "case 4 of S -> <<(2+3):(S+1)>> end", "<<(<<1,2,3>>):2/binary>>", "<<1:1,(<<2:2>>)/bitstring,3:2>>", "<<(<<1:1>>)/binary-unit:1>>", "<<-123:0,42:8>>", "<<atom>>", "<<1:(-1)>>", "<<(<<1>>):2/binary>>", "<<(<<1:1>>)/binary>>", "<<(<<1,2>>):all/binary>>", "<<1:8/integer-integer-big-big-unit:1-unit:1>>", "{bit_size(<<>>),byte_size(<<>>),bit_size(<<1:1>>),byte_size(<<1:1>>),byte_size(<<1:9>>)}", "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}", "bit_size(atom)", "byte_size([1,2])", "case atom of X when bit_size(X) =:= 0; byte_size(X) =:= 0; is_atom(X) -> ok end"];
     cases = [..cases,

@@ -1,0 +1,65 @@
+{
+  "ComparableOriginalPlan": 3537,
+  "StartupFinding": "Pinned proc_lib start_link atomically creates link before init;untrapped caller may die on startup failure. Current CLR adapters defer link until success;repair/context decision pending investigation",
+  "Tests": 4053,
+  "InitialBuildFailure": "New permanent protocol check omitted namespace qualification;record failure log;qualified reference repaired and4053/full passed",
+  "NativeStatus": "Pending146",
+  "OriginalExclusions": 6,
+  "Sources": [
+    {
+      "BlobSHA1": "b35930161390ac918079c3d0cde6f076a1d9239e",
+      "Path": "lib/stdlib/src/proc_lib.erl"
+    },
+    {
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    },
+    {
+      "BlobSHA1": "c2ae791bcb358ec58a098c501de8e716c3472f1a",
+      "Path": "lib/compiler/src/beam_disasm.erl"
+    },
+    {
+      "BlobSHA1": "94544f0a495fc4bdb7ae2d80bb961f8f7aebc923",
+      "Path": "lib/compiler/src/beam_disasm.hrl"
+    }
+  ],
+  "All143SourcesExpectationsAndHashesPreserved": true,
+  "NativeInvestigationExecutedHere": 0,
+  "Licensing": "Existing consolidated notices unchanged/exact in two local packages;native beam_disasm called only in development oracle,no implementation copied",
+  "ErlangPresent": 227,
+  "InvestigatedFixtureNames": [
+    "otp-supervisor-bad-init-return",
+    "otp-server-init-stop",
+    "otp-supervisor-start-failure",
+    "otp-supervisor-invalid-intensity",
+    "erlang-spawn-group-callback-tuple",
+    "erlang-spawn-group-callback-wrong-arity-child-error"
+  ],
+  "Registry": 377,
+  "InvestigationCountsAsCorpus": false,
+  "Baseline": "OTP-29.1.1",
+  "Missing": 124,
+  "CompilerModes": [
+    "default",
+    "no_copt,no_ssa_opt,no_postopt"
+  ],
+  "Modes": [
+    "initial command process",
+    "fresh child trap_exit=false",
+    "fresh child trap_exit=true"
+  ],
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PidFinding": "Still unresolved;disable optimizations only as diagnosis,not proof or altered default reference",
+  "NewHostProtocolChecks": 1,
+  "ProductionSourcesUnchanged": true,
+  "UnavailableGuardCorrection": "First draft expected mismatch exit1;existing infrastructure failures return2. Both actual reports zero/unverified;implementation unchanged",
+  "PriorTests": 4052,
+  "SdkModules": 2672,
+  "NewExports": 0,
+  "NativeInvestigationPlan": 36,
+  "ErlangDeclared": 351,
+  "Boundaries": "No native results inferred,no fixture/expectation/exclusion rewrite,no production BEAM/dependency/banner/public package/license draft",
+  "ApiPresencePercent": 64.7,
+  "Payload": "Exact source/hash/independent expected;actual command,raw stdout/stderr,exit code and native run/0 disassembly",
+  "Checkpointing": "Persist rows/source before and after every native invocation;infrastructure failure retains partial evidence"
+}

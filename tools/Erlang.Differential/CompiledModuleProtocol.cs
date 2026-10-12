@@ -29,7 +29,7 @@ public static class CompiledModuleProtocol
         "{ok,_,_,_}->{ok,[]}; {error,Errors,_}->{error,lists:usort([R || {_,Es}<-Errors,{_,_,R}<-Es])} end," +
         OracleResultProtocol.Command("Result");
 
-    private static string Forms(string source)
+    internal static string Forms(string source)
     {
         string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(source));
 

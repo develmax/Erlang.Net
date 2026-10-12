@@ -3917,6 +3917,31 @@ Test(
 }
 );
 Test(
+    "oracle/native-investigation-ascii-context-and-compiler-modes",
+    () =>
+    {
+        const string source = "-module(investigation_unicode). -export([run/0]). run()->'𐀀'.";
+        var commands = new HashSet<string>(StringComparer.Ordinal);
+        foreach (bool disableOptimizations in new[] { false, true })
+        {
+            foreach (bool? trapExits in new bool?[] { null, false, true })
+            {
+                string command = Erlang.Differential.NativeCompilationInvestigation.Command(source, disableOptimizations, trapExits);
+                Check(command.All(character => character <= 127));
+                Check(command.Contains("beam_disasm:file(Bin)"));
+                Check(command.Contains("Result={Outcome,Disassembly}"));
+                Check(command.Contains("no_copt,no_ssa_opt,no_postopt") == disableOptimizations);
+                Check(command.Contains("spawn_monitor") == (trapExits is not null));
+                if (trapExits is not null)
+                    Check(command.Contains(trapExits.Value ? "process_flag(trap_exit,true)" : "process_flag(trap_exit,false)"));
+                Check(commands.Add(command));
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+);
+Test(
     "oracle/compiled-module-ascii-protocol",
     () =>
 {
