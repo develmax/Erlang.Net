@@ -1,0 +1,9 @@
+{
+  "Name": "erlang-module-loading-list-no-autoload",
+  "Source": "-module(module_loading_contract). -export([run/0]). run()->false=module_loaded(module_loading_not_present),L=loaded(),false=lists:member(module_loading_not_present,L),false=module_loaded(module_loading_not_present),done.",
+  "FixtureExpected": "{ok,done}",
+  "SourceSha256": "081FF8616C7AA5BCDCA740DF5ACC3A07B530F7C9A2F6C605B72309F7A9693C9E",
+  "CSharpSha256": "B4706E7BAF1104A922ACE0C540FC5EF6B9CF9D6441DD589B239AC775F5E40D59",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}

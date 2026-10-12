@@ -563,3 +563,7 @@ Part156: complete pinned original **4121/4121** at b4db97e and **4650/full same-
 ## Part157 checkpoint
 
 Part157:actual current-code module_loaded1/loaded0 and bounded process-table processes_iterator0/processes_next1 pass **4702/full local**.46 new modules/two lifecycle host checks/four exports. [Audit](validation/part-157/reference-audit.json),[preservation](validation/part-157/corpus-audit.json). All3229 old modules/120 diagnoses/778 expressions/six exclusions preserved. Registry389;erlang239/351,112 missing,**68.1% API presence**,not module completion. Original4167/same-head CI pending158;latest complete native1564121. Hot-code/on_load/NIF/lock-free/reduction/distribution/resource prerequisites unfinished;continue whole goal.
+
+## Part158 checkpoint
+
+Part158:incomplete source-built original **4004/4167 passed,163 unexecuted**,zero executed mismatches;erl_lint rejects unqualified loaded/0 before comparison. **4702/full same-head CI** at5128765. [Raw failure](validation/part-158/differential.json),[guard](validation/part-158/strict-guard.json). Sources/expectations/hashes/policies/exclusions unchanged;latest complete success1564121. Registry389;erlang239/351,112 missing,68.1% API presence. Preserve rejected source as a permanent diagnosis,audit compiler auto-import/call resolution and explicitly qualify only invalid fixtures before rerun. Reference text remains isolated;whole goal continues.
