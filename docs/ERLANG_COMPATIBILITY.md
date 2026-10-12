@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part197:source-guided current-state monitor_node2/3,dmonitor_node3,disconnect_node1 with actual nodedown and kernel gen_server infinity/retry protocol;**5315/full main and draft**.72 new source scenarios and named host;all3749 old contracts/policies/finite bytes preserved. [Audit](validation/part-197/corpus-audit.json),[tests](validation/part-197/tests.json). Registry423;erlang273/351,78 missing,77.8% API presence. Original4725 pending198;1964653/4653 and5238/full same-head CI remain separate proof. Connected monitor/channel lifetime,active-connect,dynamic naming,transport/resources/upstream/performance unfinished;whole goal continues.
+
 Part196:source-built original **4653/4653** and **5238/full same-head CI** ateb24acd. All selected comparisons pass;continue remaining APIs. [Proof](validation/part-196/differential.json),[guard](validation/part-196/strict-guard.json).46 cookie contracts and all68 independent output contracts checked;one finite map-order alternative and one source-preserving SSA policy unchanged from195. Registry419;erlang269/351,82 missing,76.6% API presence. Full auth/distribution/ports/HAMT/native metadata/resources/upstream/performance remain unfinished;whole goal continues.
 
 Part195:actual auth-service cookie wrappers get_cookie0/1,set_cookie1/2 and source-guided internal atom-key map printing;**5238/full main and draft**.46 new compiled cases;3703 old sources/outcomes/generated hashes/contexts/primary bytes preserved,exactly two194-backed metadata migrations. [Audit](validation/part-195/corpus-audit.json),[tests](validation/part-195/tests.json). Registry419;erlang269/351,82 missing,76.6% API presence. Original4653 pending196;1924605/4607 and194120 diagnoses remain separate. Automatic auth startup/cookie initialization/networking/HAMT/platform/resources/upstream/performance unfinished;whole goal continues.
@@ -116,7 +118,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.269 registered,82 missing,total419 direct MFAs.76.6% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.273 registered,78 missing,total423 direct MFAs.77.8% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -196,7 +198,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `delete_module/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `demonitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `demonitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `disconnect_node/1` | Missing; real implementation/runtime prerequisites required |
+| `disconnect_node/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display_string/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display_string/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -208,7 +210,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `dist_ctrl_set_opt/3` | Missing; real implementation/runtime prerequisites required |
 | `dist_get_stat/1` | Missing; real implementation/runtime prerequisites required |
 | `div/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dmonitor_node/3` | Missing; real implementation/runtime prerequisites required |
+| `dmonitor_node/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dt_append_vm_tag_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dt_get_tag_data/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dt_get_tag/0` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -332,8 +334,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `memory/1` | Missing; real implementation/runtime prerequisites required |
 | `min/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `module_loaded/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor_node/2` | Missing; real implementation/runtime prerequisites required |
-| `monitor_node/3` | Missing; real implementation/runtime prerequisites required |
+| `monitor_node/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `monitor_node/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `monotonic_time/0` | Registered; bounded functional evidence, see supported-mfas.json |

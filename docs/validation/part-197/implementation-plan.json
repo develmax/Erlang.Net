@@ -1,0 +1,36 @@
+{
+  "NotImplementedYet": false,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Blob": "53cd31e9a0f3430202f91b1fad9c24471dddd493",
+      "Path": "erts/emulator/beam/dist.c"
+    },
+    {
+      "Blob": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Path": "erts/preloaded/src/erlang.erl"
+    },
+    {
+      "Blob": "8513f490916c73d2d2c3311937656aaec395eb03",
+      "Path": "lib/kernel/src/net_kernel.erl"
+    }
+  ],
+  "Reuse": "Actual runtime identity,mailbox,node/service name lookup and existing gen_server protocol;no actor-framework default semantics or new package",
+  "Scope": "Current195 full validation and4653 original comparison must be completed before next component publication;connected transport/dynamic naming/full monitor lifetime remain prerequisites",
+  "Baseline": "OTP-29.1.1",
+  "Findings": [
+    "monitor options are validated first;allow_passive_connect duplicates allowed;bad options carry badopt",
+    "non-atom node is badarg;foreign atom on unnamed runtime gives notalive before checking boolean",
+    "same local node true/false returns true without fabricating monitors",
+    "unconnected named node trap sends actual nodedown;connected lifetime/refcount needs real distribution backend",
+    "disconnect delegates net_kernel request;absence and non-dynamic name gives ignored,without atom validation",
+    "existing kernel service uses actual gen_server infinity request;retry only noproc/shutdown/killed"
+  ],
+  "CandidateApis": [
+    "monitor_node/2",
+    "monitor_node/3",
+    "dmonitor_node/3",
+    "disconnect_node/1"
+  ],
+  "DraftFullPassed": 5315
+}

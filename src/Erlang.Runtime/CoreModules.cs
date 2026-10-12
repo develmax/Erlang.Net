@@ -755,6 +755,7 @@ public static class CoreModules
         RuntimeNodeQueryRegistrations.Register(r);
         NodeSpawnRegistrations.Register(r);
         ErlangCookieRegistrations.Register(r);
+        RuntimeNodeControlRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);

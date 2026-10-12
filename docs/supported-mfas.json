@@ -561,6 +561,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "disconnect_node",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:disconnect_node/1",
+    "Limits": "Current unnamed,self and unconnected monitor validation/notalive/badopt;actual nodedown,source trap lists-member semantics and actual kernel infinity requests. Retry only noproc/shutdown/killed,normal propagates.72 source cases/named host;5315/full local,4725 original pending198. Connected monitor refcounts/lifetime,active-connect/dynamic naming/networking/resources/full upstream/performance unfinished."
+  },
+  {
+    "Module": "erlang",
     "Function": "display",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -590,6 +598,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:div/2",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dmonitor_node",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dmonitor_node/3",
+    "Limits": "Current unnamed,self and unconnected monitor validation/notalive/badopt;actual nodedown,source trap lists-member semantics and actual kernel infinity requests. Retry only noproc/shutdown/killed,normal propagates.72 source cases/named host;5315/full local,4725 original pending198. Connected monitor refcounts/lifetime,active-connect/dynamic naming/networking/resources/full upstream/performance unfinished."
   },
   {
     "Module": "erlang",
@@ -1430,6 +1446,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:monitor/3",
     "Limits": "Owned process monitors with tag/priority/alias modes, pending DOWN and single-message flush/info; port/time_offset/connected distribution and full physical scheduling/error_info unfinished; original140 pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "monitor_node",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monitor_node/2",
+    "Limits": "Current unnamed,self and unconnected monitor validation/notalive/badopt;actual nodedown,source trap lists-member semantics and actual kernel infinity requests. Retry only noproc/shutdown/killed,normal propagates.72 source cases/named host;5315/full local,4725 original pending198. Connected monitor refcounts/lifetime,active-connect/dynamic naming/networking/resources/full upstream/performance unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "monitor_node",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:monitor_node/3",
+    "Limits": "Current unnamed,self and unconnected monitor validation/notalive/badopt;actual nodedown,source trap lists-member semantics and actual kernel infinity requests. Retry only noproc/shutdown/killed,normal propagates.72 source cases/named host;5315/full local,4725 original pending198. Connected monitor refcounts/lifetime,active-connect/dynamic naming/networking/resources/full upstream/performance unfinished."
   },
   {
     "Module": "erlang",
