@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part185:erlang suspend_process1/2 and resume_process1 use real execution pauses,per-owner counts/unless/asynchronous acknowledgments and owner cleanup. Paused receives/PID BIF timers freeze,name timers continue,CPC/kill controls remain admitted. **5051/full main and draft**,31 new source scenarios;all3551 prior contracts preserved. Registry404;erlang254/351,97 missing,**72.4% API presence**,not semantic completion. [Tests](validation/part-185/tests.json),[audit](validation/part-185/reference-audit.json). Original4486 pending186;latest1844455/4455. Native scheduler/preemption/signal races/cycles/resources/upstream suites/performance and remaining APIs continue.
+
 Part184:source-built OTP-29.1.1 original **4455/4455** and **5016/full same-head CI** at13374f5. All31 standard-stream fixtures match independent raw stdout/stderr byte expectations in both runtimes. [Proof](validation/part-184/differential.json),[guard](validation/part-184/strict-guard.json). Preserve3551 SDK/3545 comparable modules,778 expressions,132 diagnoses and six exclusions. Registry401;erlang251/351,100 missing,71.5% API presence,not semantic completion. Native errno/TTY/resources/schedulers/upstream suites/performance and remaining APIs continue.
 
 Part183:erlang display_string1/2 writes real raw standard streams;one-argument form defaults to stderr,flat scalar lists become UTF8,binaries remain byte-exact. **5016/full main and draft**,31 independent output/error fixtures added;all3520 inherited corpus contracts preserved. Registry401;erlang251/351,100 missing,**71.5% API presence**,not semantic completion. [Tests](validation/part-183/tests.json),[audit](validation/part-183/reference-audit.json). Original4455/output-byte comparisons pending184;latest1824424/4424. Native errno cause/resource/scheduler/partialwrite/real Unix TTY coverage and remaining APIs continue. No terminal input injected by checks.
@@ -92,7 +94,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.251 registered,100 missing,total401 direct MFAs.71.5% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.254 registered,97 missing,total404 direct MFAs.72.4% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -362,7 +364,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `register/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `registered/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `rem/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `resume_process/1` | Missing; real implementation/runtime prerequisites required |
+| `resume_process/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `round/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `self/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `send_after/3` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -409,8 +411,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `start_timer/4` | Registered; bounded functional evidence, see supported-mfas.json |
 | `statistics/1` | Missing; real implementation/runtime prerequisites required |
 | `subtract/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `suspend_process/1` | Missing; real implementation/runtime prerequisites required |
-| `suspend_process/2` | Missing; real implementation/runtime prerequisites required |
+| `suspend_process/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `suspend_process/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `system_flag/2` | Missing; real implementation/runtime prerequisites required |
 | `system_info/1` | Missing; real implementation/runtime prerequisites required |
 | `system_monitor/0` | Missing; real implementation/runtime prerequisites required |

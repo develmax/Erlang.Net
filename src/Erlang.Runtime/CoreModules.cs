@@ -750,6 +750,7 @@ public static class CoreModules
         ModuleCodeLifecycleRegistrations.Register(r);
         CodePurgeRegistrations.Register(r);
         StandardStreamRegistrations.Register(r);
+        ProcessSuspensionRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);

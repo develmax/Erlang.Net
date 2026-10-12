@@ -1641,6 +1641,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "resume_process",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:resume_process/1",
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
+  },
+  {
+    "Module": "erlang",
     "Function": "round",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -1798,6 +1806,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:subtract/2",
     "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "suspend_process",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:suspend_process/1",
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "suspend_process",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:suspend_process/2",
+    "Limits": "Actual cooperative process suspension,per-owner counters/unless/asynchronous tags,synchronous pause acknowledgment,owner exit cleanup,receive/PID timer pause,name timers unchanged,CPC/kill admission.31 independent source scenarios and5051/full local;4486 original pending186. Native dirty/preemption/signal races/cycles/resource/full suite/performance contracts remain unfinished."
   },
   {
     "Module": "erlang",

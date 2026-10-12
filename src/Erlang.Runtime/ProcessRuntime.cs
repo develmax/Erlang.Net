@@ -26,6 +26,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         get;
     }
     internal RuntimeTimers Timers { get; }
+    internal ProcessSuspensions Suspensions { get; }
     public RuntimeStandardStreams StandardStreams { get; }
     private readonly bool ownsStandardStreams;
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
@@ -67,6 +68,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         ownsStandardStreams = standardStreams is null;
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
         Timers = new(this, gate);
+        Suspensions = new(gate, processes, Timers);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
@@ -855,6 +857,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     ReplyCodeCheck(request, false);
                 ctx.PendingCodeChecks.Clear();
                 Timers.RecipientTerminated(ctx.Self);
+                Suspensions.Terminated(ctx);
                 ctx.Mailbox.DiscardPending();
                 foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
                     aliases.Remove(alias);

@@ -6,13 +6,14 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
 {
     private sealed class Entry(long milliseconds, Term destination, Term message)
     {
-        public long Milliseconds { get; } = milliseconds;
-        public long Started { get; } = Stopwatch.GetTimestamp();
+        public long Milliseconds { get; set; } = milliseconds;
+        public long Started { get; set; } = Stopwatch.GetTimestamp();
+        public bool Paused { get; set; }
         public Term Destination { get; } = destination;
         public Term Message { get; } = message;
         public Timer Timer { get; set; } = null!;
 
-        public long Remaining => Math.Max(0, Milliseconds - Stopwatch.GetElapsedTime(Started).Ticks / TimeSpan.TicksPerMillisecond);
+        public long Remaining => Paused ? Milliseconds : Math.Max(0, Milliseconds - Stopwatch.GetElapsedTime(Started).Ticks / TimeSpan.TicksPerMillisecond);
     }
 
     private readonly Dictionary<ReferenceTerm, Entry> timers = new();
@@ -43,7 +44,10 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
                 Timeout.Infinite
             );
             timers.Add(reference, entry);
-            entry.Timer.Change((int)Math.Min(entry.Remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
+            if (destination is Pid recipient && runtime.Suspensions.IsActive(recipient))
+                entry.Paused = true;
+            else
+                Schedule(entry);
         }
 
         return reference;
@@ -72,7 +76,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     {
         lock (gate)
         {
-            if (!timers.TryGetValue(reference, out var entry))
+            if (!timers.TryGetValue(reference, out var entry) || entry.Paused)
                 return;
             long remaining = entry.Remaining;
             if (remaining > 0)
@@ -88,6 +92,30 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
                 runtime.Send(target, entry.Message);
         }
     }
+
+    public void PauseRecipient(Pid pid)
+    {
+        lock (gate)
+            foreach (Entry entry in timers.Values.Where(entry => entry.Destination.Equals(pid) && !entry.Paused))
+            {
+                entry.Milliseconds = entry.Remaining;
+                entry.Paused = true;
+                entry.Timer.Change(Timeout.Infinite, Timeout.Infinite);
+            }
+    }
+
+    public void ResumeRecipient(Pid pid)
+    {
+        lock (gate)
+            foreach (Entry entry in timers.Values.Where(entry => entry.Destination.Equals(pid) && entry.Paused))
+            {
+                entry.Started = Stopwatch.GetTimestamp();
+                entry.Paused = false;
+                Schedule(entry);
+            }
+    }
+
+    private static void Schedule(Entry entry) => entry.Timer.Change((int)Math.Min(entry.Remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
 
     public void RecipientTerminated(Pid pid)
     {

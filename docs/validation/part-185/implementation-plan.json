@@ -1,0 +1,42 @@
+{
+  "PreBuildCommandFailure": "Initial log redirection targeted a not-yet-created ignored draft artifacts directory; no build executed. Created directory and initial actual build passed with zero warnings/errors.",
+  "Part": 185,
+  "Decision": "Reuse actual owned process registry, mailbox control wakeups, cancellation, per-owner counts and SDK completion sources/timers. No actor framework/new dependency. Acknowledge synchronous suspension only at actual execution pause; preserve remaining receive and PID BIF timer deadlines. Registered-name timers continue. Cooperative CLR checkpoint scheduling is distinct from native scheduler/dirty/preemption/resources. System limits/cycles/ordering need boundaries; full module and performance unverified.",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "BlobSHA1": "8e38a056819e114b89dbd90d6734c163573b0fdb",
+      "Copyright": "%% Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "BlobSHA1": "0201ea38d25b67d08bc5115d6763f6b57f4b376a",
+      "Copyright": " * Copyright Ericsson AB 1996-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "BlobSHA1": "840127c5162b14a3b7e7eb834e28fd950755f99d",
+      "Copyright": " * Copyright Ericsson AB 2018-2026. All Rights Reserved."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_hl_timer.c",
+      "BlobSHA1": "f5bd571b027468339f7307761cbd4a33df13437b",
+      "Copyright": " * Copyright Ericsson AB 2015-2026. All Rights Reserved."
+    }
+  ],
+  "License": "Ericsson Apache-2.0 source-guided behavior;consolidated OTP notices,no banners,no public package or owner license publication",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Baseline": "OTP-29.1.1",
+  "Corrections": [
+    "Focused test build initially referenced internal TimerModuleNames from a different assembly;retain compiler failure log,replace with test-owned semantic constants.",
+    "First focused run passed29 compiled contracts but host setup registered already preloaded CoreModules twice and threw duplicate MFA. Retain full original log;remove redundant registration.",
+    "Final focused run passes31 compiled contracts plus host receive timeout/PID timer/control and owner cleanup check;full draft pipeline pending.",
+    "First full draft run passed5051/5051 but readiness failed because copied draft omitted immutable183 comparison report. Retain full failure log;copy exact published report,then rerun full pipeline at stable parent HEAD."
+  ],
+  "SourceSemantics": [
+    "Reject self/nonlocal/foreign-creation PID before option validation. Options accept duplicate unless_suspending/bare asynchronous/last arbitrary tagged asynchronous; improper tails are badopt.",
+    "Owner counter increments,unless avoids duplicate increment,synchronous waits for actual target pause,asynchronous tags report actual local pause/death or cancellation. Different owners remain independent;owner exit releases its complete count.",
+    "Paused target retains queued user messages,admits CPC/kill controls,and freezes receive timeout and PID-targeted BIF timers;name timers remain running. Newly created PID timers on paused target start paused.",
+    "Cooperative .NET execution checkpoints are the backend mechanism. Dirty/native scheduler signal timing,arbitrary uncooperative host code,cross-owner asynchronous races,cycle diagnostics,counter exhaustion and native resources/upstream/performance remain unfinished."
+  ]
+}

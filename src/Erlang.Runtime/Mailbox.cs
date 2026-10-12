@@ -10,10 +10,22 @@ public sealed class Mailbox
     private int pending;
     private TaskCompletionSource changed = NewSignal();
     internal Action? ProcessSignals { get; init; }
+    internal Func<ValueTask<long>>? WaitForExecution { get; init; }
+    internal Func<bool>? ExecutionBlocked { get; init; }
 
     private readonly record struct Entry(Term Value, Func<bool?>? Admission);
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+    internal void Pulse()
+    {
+        lock (gate)
+        {
+            var previous = changed;
+            changed = NewSignal();
+            previous.TrySetResult();
+        }
+    }
 
     internal async ValueTask WaitForControlCompletion(Task completion, CancellationToken cancellation)
     {
@@ -164,6 +176,8 @@ public sealed class Mailbox
             cancellation.ThrowIfCancellationRequested();
             ProcessSignals?.Invoke();
             cancellation.ThrowIfCancellationRequested();
+            if (WaitForExecution is not null)
+                start += await WaitForExecution();
             Task signal;
             bool retry;
             lock (gate)
@@ -181,7 +195,7 @@ public sealed class Mailbox
                 }
                 signal = changed.Task;
             }
-            if (retry)
+            if (retry || ExecutionBlocked?.Invoke() == true)
                 continue;
             TimeSpan? remaining = timeout - Stopwatch.GetElapsedTime(start);
             if (remaining <= TimeSpan.Zero)
@@ -195,7 +209,7 @@ public sealed class Mailbox
             }
             catch (TimeoutException)
             {
-                return null;
+                continue;
             }
         }
     }

@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-183/tests.json",
-  "LocalPassedTests": 5016,
-  "RegisteredMfas": 401,
+  "ComparisonTestReport": "validation/part-184/ci-tests.json",
+  "LocalPassedTests": 5051,
+  "RegisteredMfas": 404,
   "PreviousRegisteredMfas": 401,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 3,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -77,7 +77,8 @@
         "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176",
         "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178",
         "Part181:purge_module1 over actual old image preparation/reservations,CPC/kill-monitor/unwind;pending old-function entry waits admit control signals;retired code rejects incompatible functions,current matching code remains usable;4981/full local,4424 original pending182",
-        "Part183:display_string1/2 real raw standard streams,default stderr,flat scalar UTF8/binary bytes/error frames and borrowed ownership;5016/full local,4455 original pending184"
+        "Part183:display_string1/2 real raw standard streams,default stderr,flat scalar UTF8/binary bytes/error frames and borrowed ownership;5016/full local,4455 original pending184",
+        "Part185:three process suspension/resumption MFAs,actual cooperative pause/owner counters/cleanup/asynchronous tags,receive/PID timer pause and CPC/kill admission;5051/full local,4486 original pending186."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -86,7 +87,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 310
+      "RelatedPassedTests": 314
     },
     {
       "Id": "Compiler",
@@ -155,7 +156,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1440
+      "RelatedPassedTests": 1443
     },
     {
       "Id": "gen_server adapters",
@@ -285,7 +286,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3701
+      "RelatedPassedTests": 3732
     },
     {
       "Id": "Style checks",
@@ -5554,11 +5555,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 251,
+      "RegisteredMfas": 254,
       "PreviousRegisteredMfas": 251,
-      "Delta": 0,
+      "Delta": 3,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 71.5,
+      "ApiPresencePercent": 72.4,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5769,6 +5770,7 @@
         "erlang:register/2",
         "erlang:registered/0",
         "erlang:rem/2",
+        "erlang:resume_process/1",
         "erlang:round/1",
         "erlang:self/0",
         "erlang:send/2",
@@ -5789,6 +5791,8 @@
         "erlang:start_timer/3",
         "erlang:start_timer/4",
         "erlang:subtract/2",
+        "erlang:suspend_process/1",
+        "erlang:suspend_process/2",
         "erlang:system_time/0",
         "erlang:system_time/1",
         "erlang:term_to_binary/1",

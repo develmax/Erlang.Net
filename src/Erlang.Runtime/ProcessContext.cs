@@ -7,7 +7,7 @@ public sealed class ProcessContext : ITermExecutionContext
         Runtime = runtime;
         Self = pid;
         GroupLeader = pid;
-        Mailbox = new() { ProcessSignals = () => Runtime.AdmitSignals(this) };
+        Mailbox = new() { ProcessSignals = () => Runtime.AdmitSignals(this), WaitForExecution = WaitIfSuspended, ExecutionBlocked = () => SuspensionRequested };
     }
 
     internal CancellationTokenSource Stop { get; } = new();
@@ -17,6 +17,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal HashSet<Pid> Links { get; } = new();
     internal HashSet<Pid> PriorityLinks { get; } = new();
     internal bool Terminated;
+    internal volatile bool SuspensionRequested;
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
@@ -178,6 +179,8 @@ public sealed class ProcessContext : ITermExecutionContext
     internal async ValueTask ChargeAsync(int count)
     {
         Cancellation.ThrowIfCancellationRequested();
+        if (SuspensionRequested)
+            await WaitIfSuspended();
         reductions += count;
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
         {
@@ -186,6 +189,24 @@ public sealed class ProcessContext : ITermExecutionContext
             await Task.Yield();
             Cancellation.ThrowIfCancellationRequested();
         }
+    }
+
+    internal async ValueTask<long> WaitIfSuspended()
+    {
+        if (!SuspensionRequested)
+            return 0;
+        long start = System.Diagnostics.Stopwatch.GetTimestamp();
+        while (SuspensionRequested)
+        {
+            Cancellation.ThrowIfCancellationRequested();
+            Runtime.AdmitSignals(this);
+            Task? resumed = Runtime.Suspensions.EnterPause(this);
+            if (resumed is null)
+                break;
+            await Mailbox.WaitForControlCompletion(resumed, Cancellation);
+        }
+
+        return System.Diagnostics.Stopwatch.GetTimestamp() - start;
     }
 
     public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class => Mailbox.ReceiveAsync(select, timeout, Cancellation);
