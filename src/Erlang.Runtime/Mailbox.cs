@@ -15,6 +15,23 @@ public sealed class Mailbox
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
 
+    internal async ValueTask WaitForControlCompletion(Task completion, CancellationToken cancellation)
+    {
+        while (!completion.IsCompleted)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            Task changedTask;
+            lock (gate)
+                changedTask = changed.Task;
+            ProcessSignals?.Invoke();
+            if (completion.IsCompleted)
+                break;
+            await Task.WhenAny(completion, changedTask).WaitAsync(cancellation);
+        }
+        cancellation.ThrowIfCancellationRequested();
+        await completion;
+    }
+
     public int Count
     {
         get

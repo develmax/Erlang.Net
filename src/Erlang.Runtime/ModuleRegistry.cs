@@ -14,6 +14,108 @@ public sealed class ModuleRegistry
     private readonly Dictionary<string, ModuleCodeSnapshot> oldCode = new(StringComparer.Ordinal);
     private readonly Dictionary<(string Module, string Function, int Arity), object> sourceOwners = new();
     private readonly Dictionary<string, ModuleCodeImage> codeImages = new(StringComparer.Ordinal);
+    private readonly System.Runtime.CompilerServices.ConditionalWeakTable<ModuleCodeImage, ModuleCodePurgeState> purgeStates = new();
+
+    public SourceCodeLease ReserveSourceCode(ProcessContext context, ModuleCodeImage image)
+    {
+        lock (gate)
+        {
+            var state = purgeStates.GetOrCreateValue(image);
+            if (state.Retired || state.Pending is not null && !context.IsExecutingCode(image))
+                throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+
+            return context.ReserveSourceCode(image);
+        }
+    }
+
+    public async ValueTask<SourceCodeLease> AcquireSourceCode(ProcessContext context, ModuleCodeImage image)
+    {
+        while (true)
+        {
+            Task? pending;
+            lock (gate)
+            {
+                var state = purgeStates.GetOrCreateValue(image);
+                if (state.Retired)
+                    throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+                pending = state.Pending?.Task;
+                if (pending is null || context.IsExecutingCode(image))
+                    return context.ReserveSourceCode(image);
+            }
+            await context.Mailbox.WaitForControlCompletion(pending, context.Cancellation);
+        }
+    }
+
+    public async ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
+        ProcessContext context,
+        string module,
+        BitString fingerprint,
+        object owner,
+        ModuleCodeImage? capturedImage,
+        FunctionTerm function
+    )
+    {
+        while (true)
+        {
+            Task? pending;
+            lock (gate)
+            {
+                var current = SourceForCode(module, fingerprint);
+                if (current is not null && current.Owner.GetType() != owner.GetType())
+                    current = null;
+                var image = current?.Image ?? capturedImage;
+                var selectedOwner = current?.Owner ?? owner;
+                if (image is null)
+                    return new(selectedOwner, null, null);
+                var state = purgeStates.GetOrCreateValue(image);
+                if (state.Retired)
+                    throw new ErlangException(loadedModules.ContainsKey(module) ? Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), function) : Term.A(ErlangErrorReasons.UndefinedFunction));
+                pending = state.Pending?.Task;
+                if (pending is null)
+                    return new(selectedOwner, image, context.ReserveSourceCode(image));
+            }
+            await context.Mailbox.WaitForControlCompletion(pending, context.Cancellation);
+        }
+    }
+
+    internal ModuleCodeImage? PreparePurge(string module)
+    {
+        lock (gate)
+        {
+            if (!oldCode.TryGetValue(module, out var old))
+                return null;
+            var state = purgeStates.GetOrCreateValue(old.Image);
+            if (state.Pending is not null)
+                throw new InvalidOperationException();
+            state.Pending = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            return old.Image;
+        }
+    }
+
+    public Task? PendingPurge(ModuleCodeImage image)
+    {
+        lock (gate)
+            return purgeStates.GetOrCreateValue(image).Pending?.Task;
+    }
+
+    internal void FinishPurge(string module, ModuleCodeImage image, bool complete)
+    {
+        lock (gate)
+        {
+            var state = purgeStates.GetOrCreateValue(image);
+            var pending = state.Pending ?? throw new InvalidOperationException();
+            if (complete)
+            {
+                if (!oldCode.TryGetValue(module, out var old) || !ReferenceEquals(old.Image, image))
+                    throw new InvalidOperationException();
+                oldCode.Remove(module);
+                state.Retired = true;
+            }
+            state.Pending = null;
+            pending.TrySetResult();
+        }
+    }
 
     public void Register(
         string module,
@@ -116,36 +218,37 @@ public sealed class ModuleRegistry
     {
         ErlangFunction? body;
         ModuleCodeImage? image;
+        IDisposable? code;
         lock (gate)
         {
             functions.TryGetValue((module, function, arguments.Length), out body);
             image = sourceOwners.ContainsKey((module, function, arguments.Length)) ? null : codeImages.GetValueOrDefault(module);
+            code = image is null || body is null ? null : context.EnterSourceCode(image, body);
         }
         if (body is null)
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         if (image is null)
             return body(context, arguments);
-        var code = context.EnterSourceCode(image, body);
         try
         {
             ValueTask<Term> pending = body(context, arguments);
             if (pending.IsCompletedSuccessfully)
             {
-                code.Dispose();
+                code!.Dispose();
 
                 return pending;
             }
 
-            return AwaitCallback(pending, code);
+            return AwaitCallback(pending, code!);
         }
         catch
         {
-            code.Dispose();
+            code!.Dispose();
             throw;
         }
         finally
         {
-            context.RestoreSourceCodeFlow(code);
+            context.RestoreSourceCodeFlow(code!);
         }
     }
 

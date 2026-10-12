@@ -655,3 +655,7 @@ Part179: saved compiler-owned functions select the current image when canonical 
 ## Part180 checkpoint
 
 Part180:source-built OTP-29.1.1 original **4404/4404** and **4959/full same-head CI** at0198891. All selected comparisons match;continue remaining APIs. [Proof](validation/part-180/differential.json),[guard](validation/part-180/strict-guard.json). All3500 SDK fixture contracts/3494 comparable modules,778 expressions,132 diagnoses and six exclusions preserved. Nine anonymous static-tail cases added in179 match native outcomes;host matching-code reload checks remain distinct. Registry398;erlang248/351,103 missing,70.7% API presence,not semantic completion. Actual purge admission/old-user termination and remaining APIs continue;native resources/full suites/performance unfinished.
+
+## Part181 checkpoint
+
+Part181:real owned erlang:purge_module/1 prepares the old image,blocks new old-function entries,checks actual executing images,kills old users and waits for monitor/managed unwind before retiring only the old slot. **4981/full main and draft**,twenty native fixtures added;all3500 prior corpus contracts preserved. Registry399;erlang249/351,102 missing,**70.9% API presence**,not semantic completion. [Tests](validation/part-181/final-owner-guard/tests.json),[audit](validation/part-181/reference-audit.json). Original4424 pending182;latest1804404/4404. Current matching functions remain usable;incompatible retired functions fail. Native system actor/process capacity/autoload/physical resources/full suites/performance and remaining APIs continue.

@@ -2,55 +2,75 @@ namespace Erlang.Compiler;
 
 internal static class SourceFunctionInvocation
 {
-    public static ValueTask<Term> Named(
+    public static async ValueTask<Term> Named(
         ModuleDefinition module,
         LocalFunctionIdentity identity,
         string function,
         ProcessContext context,
         ModuleCodeImage? image,
-        IReadOnlyList<Term> arguments
+        IReadOnlyList<Term> arguments,
+        FunctionTerm functionTerm
     )
     {
-        if (context.Runtime.Modules.SourceForCode(module.Name, identity.Unique) is { Owner: ModuleDefinition current } entry)
-        {
-            module = current;
-            image = entry.Image;
-        }
+        var admission = await context.Runtime.Modules.AdmitSourceFunction(
+            context,
+            module.Name,
+            identity.Unique,
+            module,
+            image,
+            functionTerm
+        );
+        module = (ModuleDefinition)admission.Owner;
+        image = admission.Image;
 
-        return Execution.InvokeAsync(
+        return await Execution.InvokeAsync(
             module,
             function,
             context,
             arguments,
-            image
+            image,
+            admission.Lease
         );
     }
 
-    public static ValueTask<Term> Anonymous(
+    public static async ValueTask<Term> Anonymous(
         ModuleDefinition? module,
         LocalFunctionIdentity identity,
         Expr.Fun expression,
         Dictionary<string, Term> environment,
         ProcessContext context,
         ModuleCodeImage? image,
-        IReadOnlyList<Term> arguments
+        IReadOnlyList<Term> arguments,
+        FunctionTerm functionTerm
     )
     {
-        if (module is not null && context.Runtime.Modules.SourceForCode(module.Name, identity.Unique) is { Owner: ModuleDefinition current } entry)
+        SourceCodeLease? lease = null;
+        if (module is not null)
         {
-            module = current;
-            image = entry.Image;
-            expression = LocalFunctionEntries.Anonymous(current, identity.Index);
+            var admission = await context.Runtime.Modules.AdmitSourceFunction(
+                context,
+                module.Name,
+                identity.Unique,
+                module,
+                image,
+                functionTerm
+            );
+            if (!ReferenceEquals(module, admission.Owner))
+                expression = LocalFunctionEntries.Anonymous((ModuleDefinition)admission.Owner, identity.Index);
+            module = (ModuleDefinition)admission.Owner;
+            image = admission.Image;
+            lease = admission.Lease;
         }
 
-        return Execution.InvokeAnonymousAsync(
+        return await Execution.InvokeAnonymousAsync(
             module,
             identity,
             expression,
             environment,
             context,
             image,
-            arguments
+            arguments,
+            lease
         );
     }
 }

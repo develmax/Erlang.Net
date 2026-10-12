@@ -34,44 +34,61 @@ public static class Execution
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments,
-        ModuleCodeImage? image
+        ModuleCodeImage? image,
+        SourceCodeLease? lease = null
     )
     {
         image ??= context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
-        while (true)
+        try
         {
-            try
+            while (true)
             {
-                return await InvokeFrame(
-                    module,
-                    function,
-                    context,
-                    arguments,
-                    image
-                );
+                if (lease is null && image is not null)
+                    lease = await context.Runtime.Modules.AcquireSourceCode(context, image);
+                try
+                {
+                    using var flow = lease?.Attach(module);
+
+                    return await InvokeFrame(
+                        module,
+                        function,
+                        context,
+                        arguments,
+                        image
+                    );
+                }
+                catch (TailCall next)
+                {
+                    function = next.Function;
+                    arguments = next.Arguments;
+                    image = next.Image;
+                }
+                catch (SourceTailCall next)
+                {
+                    lease?.Dispose();
+                    lease = null;
+                    module = next.Module;
+                    function = next.Function;
+                    arguments = next.Arguments;
+                    image = next.Image;
+                }
+                catch (RuntimeTailCall next)
+                {
+                    lease?.Dispose();
+                    lease = null;
+
+                    return await CallRuntime(
+                        context,
+                        next.Module,
+                        next.Function,
+                        next.Arguments
+                    );
+                }
             }
-            catch (TailCall next)
-            {
-                function = next.Function;
-                arguments = next.Arguments;
-                image = next.Image;
-            }
-            catch (SourceTailCall next)
-            {
-                module = next.Module;
-                function = next.Function;
-                arguments = next.Arguments;
-                image = next.Image;
-            }
-            catch (RuntimeTailCall next)
-            {
-                return await CallRuntime(
-                    context,
-                    next.Module,
-                    next.Function,
-                    next.Arguments
-                );
-            }
+        }
+        finally
+        {
+            lease?.Dispose();
         }
     }
 
@@ -83,7 +100,6 @@ public static class Execution
         ModuleCodeImage? image
     )
     {
-        using var code = image is null ? null : context.EnterSourceCode(image, module);
         using var frame = context.EnterFunction(module.Name, function, arguments.Count);
         var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         var selection = Select(
@@ -131,11 +147,16 @@ public static class Execution
         Dictionary<string, Term> environment,
         ProcessContext context,
         ModuleCodeImage? image,
-        IReadOnlyList<Term> arguments
+        IReadOnlyList<Term> arguments,
+        SourceCodeLease? lease = null
     )
     {
         try
         {
+            if (lease is null && image is not null)
+                lease = await context.Runtime.Modules.AcquireSourceCode(context, image);
+            using var flow = module is null ? null : lease?.Attach(module);
+
             return await InvokeAnonymousFrame(
                 module,
                 identity,
@@ -148,16 +169,23 @@ public static class Execution
         }
         catch (TailCall next) when (module is not null)
         {
+            var transferred = lease;
+            lease = null;
+
             return await InvokeAsync(
                 module,
                 next.Function,
                 context,
                 next.Arguments,
-                next.Image
+                next.Image,
+                transferred
             );
         }
         catch (SourceTailCall next)
         {
+            lease?.Dispose();
+            lease = null;
+
             return await InvokeAsync(
                 next.Module,
                 next.Function,
@@ -168,12 +196,19 @@ public static class Execution
         }
         catch (RuntimeTailCall next)
         {
+            lease?.Dispose();
+            lease = null;
+
             return await CallRuntime(
                 context,
                 next.Module,
                 next.Function,
                 next.Arguments
             );
+        }
+        finally
+        {
+            lease?.Dispose();
         }
     }
 
@@ -187,7 +222,6 @@ public static class Execution
         IReadOnlyList<Term> arguments
     )
     {
-        using var code = image is null || module is null ? null : context.EnterSourceCode(image, module);
         using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
         foreach (var clause in expression.Clauses)
         {
@@ -659,8 +693,8 @@ public static class Execution
                             entry.Image
                         );
 
-                    if (tail && x.Module is not null && x.Module != ErlangModuleNames.Module)
-                        throw new RuntimeTailCall(x.Module, x.Function, args);
+                    if (tail && (x.Module is not null && x.Module != ErlangModuleNames.Module || x.Function == ModuleCodeLifecycleNames.PurgeModule && args.Length == 1))
+                        throw new RuntimeTailCall(x.Module ?? ErlangModuleNames.Module, x.Function, args);
 
                     try
                     {
@@ -767,7 +801,8 @@ public static class Execution
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var restored = names.Select((name, index) => new KeyValuePair<string, Term>(name, environment[index])).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
 
-                        return new FunctionTerm(
+                        FunctionTerm? result = null;
+                        result = new FunctionTerm(
                             identity,
                             f.Clauses[0].Patterns.Count,
                             environment,
@@ -778,9 +813,12 @@ public static class Execution
                                 restored,
                                 (ProcessContext)context,
                                 image,
-                                args
+                                args,
+                                result!
                             )
                         );
+
+                        return result;
                     }
                     identity = ctx.Runtime.Functions.Register(
                         identity,

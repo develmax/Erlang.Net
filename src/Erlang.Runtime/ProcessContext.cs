@@ -13,6 +13,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal CancellationTokenSource Stop { get; } = new();
     internal Pid GroupLeader { get; set; }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
     internal HashSet<Pid> PriorityLinks { get; } = new();
     internal bool Terminated;
@@ -35,15 +36,18 @@ public sealed class ProcessContext : ITermExecutionContext
         {
             if (Interlocked.Exchange(ref disposed, 1) != 0)
                 return;
-            lock (context.codeGate)
-            {
-                int count = context.activeCode[current.Image];
-                if (count == 1)
-                    context.activeCode.Remove(current.Image);
-                else
-                    context.activeCode[current.Image] = count - 1;
-            }
             RestoreFlow();
+        }
+    }
+
+    private sealed class SourceCodeScope(SourceCodeLease lease, IDisposable flow) : IDisposable
+    {
+        public void RestoreFlow() => ((SourceExecutionScope)flow).RestoreFlow();
+
+        public void Dispose()
+        {
+            flow.Dispose();
+            lease.Dispose();
         }
     }
 
@@ -58,12 +62,37 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         ArgumentNullException.ThrowIfNull(image);
         ArgumentNullException.ThrowIfNull(owner);
-        var current = new SourceExecution(image, owner, sourceExecution.Value);
+        var lease = Runtime.Modules.ReserveSourceCode(this, image);
+
+        return new SourceCodeScope(lease, lease.Attach(owner));
+    }
+
+    internal SourceCodeLease ReserveSourceCode(ModuleCodeImage image)
+    {
         lock (codeGate)
             activeCode[image] = activeCode.GetValueOrDefault(image) + 1;
+
+        return new SourceCodeLease(this, image);
+    }
+
+    internal IDisposable AttachSourceCode(ModuleCodeImage image, object owner)
+    {
+        var current = new SourceExecution(image, owner, sourceExecution.Value);
         sourceExecution.Value = current;
 
         return new SourceExecutionScope(this, current);
+    }
+
+    internal void ReleaseSourceCode(ModuleCodeImage image)
+    {
+        lock (codeGate)
+        {
+            int count = activeCode[image];
+            if (count == 1)
+                activeCode.Remove(image);
+            else
+                activeCode[image] = count - 1;
+        }
     }
 
     internal bool IsExecutingCode(ModuleCodeImage image)
@@ -72,7 +101,7 @@ public sealed class ProcessContext : ITermExecutionContext
             return activeCode.ContainsKey(image);
     }
 
-    internal void RestoreSourceCodeFlow(IDisposable scope) => ((SourceExecutionScope)scope).RestoreFlow();
+    internal void RestoreSourceCodeFlow(IDisposable scope) => ((SourceCodeScope)scope).RestoreFlow();
 
     private sealed class ExecutionFrameScope(ProcessContext context, ErlangExecutionFrame? parent) : IDisposable
     {

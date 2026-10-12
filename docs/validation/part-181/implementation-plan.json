@@ -1,0 +1,34 @@
+{
+  "Required": [
+    "Matching canonical source code reload retargets owned named/anonymous functions to current image while already executing old local continuations keep old image",
+    "Prove actual compiler-owned function dispatcher before retarget;preserve arbitrary C# function callbacks with equal metadata",
+    "Tie descriptor to its actual source owner;resolve current owner/image/fingerprint under gate;no arbitrary equal-string or function metadata shortcut",
+    "Per-runtime purge serialization;prepare marks the actual old image and blocks NEW old-fun entry without counting waiters as executing old code",
+    "Activation and purge preparation must be atomic under registry ownership gate;AsyncLocal attachment occurs synchronously in caller flow after any await",
+    "Scan via real owned CPC requests;kill actual old-code users and await DOWN/cooperative frame unwind before release",
+    "Heap-held old functions alone do not kill holders;after purge old invocation undef if no current code,badfun if incompatible current code;matching current code may run",
+    "Current image remains usable;old slot frees for subsequent deletion;no-old/unknown purge raises badarg with native error_info",
+    "Keep global code-loading transaction rollback separate from committed purge transitions/TCS completion"
+  ],
+  "Objective": "Implement purge_module1 with actual old-image preparation,atomic execution/fun admission,old user termination and final release",
+  "Sources": [
+    "erts_code_purger.erl prepare/check_proc_code/kill-monitor/complete and pending_purge_lambda",
+    "erlang.erl purge_module false preparation->badarg,true->true",
+    "beam_bif_load.c old code/frame checks and fun entry handling"
+  ],
+  "Reuse": "Existing image identities/registry gate/queued CPC/owned monitor and cancellation;SDK synchronization;no package/native assembly-unloading proxy",
+  "Part": 181,
+  "Status": "Source/reuse plan only before implementation. Keep leases across local-tail transitions;attach AsyncLocal synchronously after asynchronous reservation. New old-fun waiters must not become active old-code references",
+  "Validation": "Independent native purge old/no-old/type/kill/heap-fun/error/repeat and native-compatible reload fixtures where source tool supports them;host concurrent admission/current retention/rollback/retarget/custom callback boundaries before full pipeline",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AdmissionDesign": [
+    "Keep an actual image lease across local source-tail transitions;do not expose a transient zero-count interval between old local frames",
+    "Separate active-image reservation from caller AsyncLocal owner-flow attachment;reserve under registry gate and attach synchronously after waiting",
+    "Qualified/static current-source transfer releases the caller image before selecting target execution;generic fun caller continuation remains live",
+    "Fun invocation uses a distinct entry admission flag:prepare blocks every NEW old-fun entry before its activation,even if caller already has old frames;old local continuations can run until cancellation",
+    "Registry purge state must be external to immutable image identity and transactional snapshots;rollback must not resurrect completed purge TCS/transitions",
+    "After completion,matching current owned canonical code can be chosen;otherwise captured old-fun invocation raises native undef/no current or badfun/incompatible current using the original FunctionTerm",
+    "Hard purge serializes per owned runtime,uses actual CPC/monitor lifecycle,awaits killed processes and cooperative frame release;do not claim arbitrary uncooperative CLR callback preemption",
+    "Use actual old-code snapshot identity,not equal module/code names or heap fun values;keep current code intact and release only the exact prepared old slot"
+  ]
+}

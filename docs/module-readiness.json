@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-179/tests.json",
-  "LocalPassedTests": 4959,
-  "RegisteredMfas": 398,
+  "ComparisonTestReport": "validation/part-180/ci-tests.json",
+  "LocalPassedTests": 4981,
+  "RegisteredMfas": 399,
   "PreviousRegisteredMfas": 398,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -75,7 +75,8 @@
         "Part171:actual per-entry source IR ownership/static and canonical-external source tail trampoline/custom C# callback protection;4911/full local,4362 original pending172",
         "Part173:qualified non-erlang static callback tail dispatch releases the source frame;non-tail and async/error restoration guarded;4920/full local,4370 original pending174",
         "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176",
-        "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178"
+        "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178",
+        "Part181:purge_module1 over actual old image preparation/reservations,CPC/kill-monitor/unwind;pending old-function entry waits admit control signals;retired code rejects incompatible functions,current matching code remains usable;4981/full local,4424 original pending182"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -84,7 +85,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 305
+      "RelatedPassedTests": 307
     },
     {
       "Id": "Compiler",
@@ -115,7 +116,8 @@
         "Part161:fun Name/Arity BIF/private identities/ETF/recursion;native whitespace/form-dot distinction/record selection/hybrid named references;retain exact160 parse rejection",
         "Part163:real predefined module_info0/1 IR,exports/local/named calls and declared-source serialization preserving3389 generated hashes",
         "Part165:literal-only attributes/farity normalization,control rejection/metadata constructor emission preserving3407 generated hashes",
-        "Part179:compiler-owned saved functions select current matching canonical code/image;different code keeps old image;anonymous static tail transfers release frames;4959/full local,4404 original pending180"
+        "Part179:compiler-owned saved functions select current matching canonical code/image;different code keeps old image;anonymous static tail transfers release frames;4959/full local,4404 original pending180",
+        "Part181:continuous image lease across local/anonymous tails;audited erlang purge_module source wrapper static transfer releases caller;dynamic callers retain continuations"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
@@ -152,7 +154,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1437
+      "RelatedPassedTests": 1438
     },
     {
       "Id": "gen_server adapters",
@@ -279,7 +281,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3649
+      "RelatedPassedTests": 3669
     },
     {
       "Id": "Style checks",
@@ -5548,11 +5550,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 248,
+      "RegisteredMfas": 249,
       "PreviousRegisteredMfas": 248,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 70.7,
+      "ApiPresencePercent": 70.9,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5752,6 +5754,7 @@
         "erlang:processes/0",
         "erlang:processes_iterator/0",
         "erlang:processes_next/1",
+        "erlang:purge_module/1",
         "erlang:put/2",
         "erlang:raise/3",
         "erlang:read_timer/1",

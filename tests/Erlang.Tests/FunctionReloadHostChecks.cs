@@ -8,6 +8,54 @@ public static class FunctionReloadHostChecks
     {
         await Check(false);
         await Check(true);
+        await DifferentOwnerType();
+    }
+
+    private static async Task DifferentOwnerType()
+    {
+        await using var runtime = new ProcessRuntime();
+        var module = new Parser("-module(function_reload_host). -export([make/0]). make()->fun hidden/0. hidden()->kept.").ParseModule();
+        module.Register(runtime.Modules);
+        Exception? failure = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                var held = (FunctionTerm)await runtime.Modules.Call(context, FunctionReloadHostNames.Module, FunctionReloadHostNames.Make);
+                runtime.Modules.DeleteModule(FunctionReloadHostNames.Module);
+                var owner = new object();
+                runtime.Modules.RegisterSource(
+                    FunctionReloadHostNames.Module,
+                    FunctionReloadHostNames.Make,
+                    0,
+                    (_, _) => ValueTask.FromResult<Term>(Term.A(FunctionReloadHostNames.Custom)),
+                    owner
+                );
+                runtime.Modules.PublishModuleCode(
+                    FunctionReloadHostNames.Module,
+                    new ModuleCodeDescriptor(
+                        [(FunctionReloadHostNames.Make, 0)],
+                        [(FunctionReloadHostNames.Make, 0)],
+                        held.LocalIdentity!.Unique,
+                        Nil.Value,
+                        null,
+                        owner
+                    )
+                );
+                if (!(await held.Invoke(context, [])).Equals(Term.A(FunctionReloadHostNames.Kept)))
+                    throw new InvalidOperationException(FunctionReloadHostNames.Broken);
+
+                return Nil.Value;
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+                throw;
+            }
+        });
+        await process.Completion.WaitAsync(FunctionReloadHostParameters.Deadline);
+        if (failure is not null)
+            throw failure;
     }
 
     private static async Task Check(bool changedCode)

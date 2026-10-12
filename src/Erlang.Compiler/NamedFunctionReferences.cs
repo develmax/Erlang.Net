@@ -14,7 +14,8 @@ internal static class NamedFunctionReferences
                 if (environment.Count != 0)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                return new FunctionTerm(
+                FunctionTerm? result = null;
+                result = new FunctionTerm(
                     identity,
                     reference.Arity,
                     environment,
@@ -24,9 +25,12 @@ internal static class NamedFunctionReferences
                         reference.Name,
                         (ProcessContext)execution,
                         image,
-                        arguments
+                        arguments,
+                        result!
                     )
                 );
+
+                return result;
             }
             identity = context.Runtime.Functions.Register(
                 identity,

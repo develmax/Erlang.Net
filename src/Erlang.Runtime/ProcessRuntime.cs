@@ -4,6 +4,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
 {
     private readonly object gate = new();
     private readonly Dictionary<Pid, ProcessContext> processes = new();
+    private readonly HashSet<ProcessContext> executingProcesses = new();
+    private readonly SemaphoreSlim codePurger = new(1, 1);
     private readonly ProcessSlotTable processSlots;
     public int ProcessLimit => processSlots.Capacity;
     public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
@@ -56,6 +58,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
             ctx = new(this, new Pid(Node, (ulong)++nextPid));
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
+            executingProcesses.Add(ctx);
             processSlots.Add(ctx.Self);
             if (link && parent is not null)
             {
@@ -89,6 +92,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
             finally
             {
                 Terminate(ctx, reason);
+                lock (gate)
+                    executingProcesses.Remove(ctx);
+                ctx.Unwound.TrySetResult();
             }
         });
 
@@ -364,6 +370,113 @@ public sealed class ProcessRuntime : IAsyncDisposable
         Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
     )
     );
+
+    internal async ValueTask<bool> PurgeModule(ProcessContext requester, string module)
+    {
+        var reference = MakeReference();
+        Spawn(async worker =>
+        {
+            Term result;
+            try
+            {
+                var admission = codePurger.WaitAsync(worker.Cancellation);
+                try
+                {
+                    await worker.Mailbox.WaitForControlCompletion(admission, worker.Cancellation);
+                    result = Term.A(await PurgeOldCode(worker, module) ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False);
+                }
+                finally
+                {
+                    try
+                    {
+                        await admission;
+                        codePurger.Release();
+                    }
+                    catch (OperationCanceledException) when (worker.Cancellation.IsCancellationRequested)
+                    {
+                    }
+                }
+            }
+            catch (ErlangException exception)
+            {
+                result = Term.Tuple(Term.A(ErlangExceptionClasses.Error), exception.Reason);
+            }
+            catch (OperationCanceledException) when (worker.Cancellation.IsCancellationRequested)
+            {
+                result = Term.Tuple(Term.A(ErlangExceptionClasses.Error), Term.A(ErlangErrorReasons.NoProcess));
+            }
+            catch (Exception exception)
+            {
+                result = Term.Tuple(
+                    Term.A(ErlangExceptionClasses.Error),
+                    Term.Tuple(Term.A(ProcessExitReasons.ClrError), Term.String(exception.GetType().Name))
+                );
+            }
+            Send(requester.Self, Term.Tuple(Term.A(CodePurgeNames.ReplyTag), reference, result));
+
+            return Term.A(ErlangBooleanAtoms.True);
+        });
+        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 3 } tuple &&
+            tuple.Items[0] is Atom { Name: CodePurgeNames.ReplyTag } && tuple.Items[1].Equals(reference) ? tuple : null);
+        if (reply!.Items[2] is TupleTerm failure)
+            throw new ErlangException(failure.Items[1]);
+
+        return reply.Items[2].Equals(Term.A(ErlangBooleanAtoms.True));
+    }
+
+    private async ValueTask<bool> PurgeOldCode(ProcessContext worker, string module)
+    {
+        var image = Modules.PreparePurge(module);
+        if (image is null)
+            return false;
+        bool completed = false;
+        try
+        {
+            ProcessContext[] candidates;
+            lock (gate)
+                candidates = processes.Values.Concat(executingProcesses).Distinct().ToArray();
+            foreach (var candidate in candidates)
+            {
+                if (ReferenceEquals(candidate, worker))
+                    continue;
+                bool terminated;
+                lock (gate)
+                    terminated = candidate.Terminated;
+                if (terminated)
+                {
+                    if (candidate.IsExecutingCode(image))
+                        await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
+                    continue;
+                }
+                if (!(await CheckProcessCode(
+                    worker,
+                    candidate.Self,
+                    module,
+                    false,
+                    Nil.Value
+                )).Equals(Term.A(ErlangBooleanAtoms.True)))
+                {
+                    if (candidate.IsExecutingCode(image))
+                        await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
+                    continue;
+                }
+                var monitor = Monitor(worker, candidate.Self);
+                Exit(worker, candidate.Self, Term.A(ProcessExitSignals.Kill));
+                await worker.ReceiveAsync(message => message is TupleTerm { Items.Count: 5 } tuple &&
+                    tuple.Items[0] is Atom { Name: ProcessMessageTags.MonitorDown } && tuple.Items[1].Equals(monitor) ? tuple : null);
+                await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
+            }
+            Modules.FinishPurge(module, image, true);
+            completed = true;
+
+            return true;
+        }
+        finally
+        {
+            if (!completed)
+                Modules.FinishPurge(module, image, false);
+        }
+    }
 
     public void Link(ProcessContext source, Pid target, bool priority = false)
     {

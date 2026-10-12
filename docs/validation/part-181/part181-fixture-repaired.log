@@ -1,0 +1,25 @@
+Purge host checks passed
+erlang-code-purge-deleted-tail passed
+erlang-code-purge-heap-named passed
+erlang-code-purge-heap-anonymous passed
+erlang-code-purge-badarg-3 passed
+erlang-code-purge-badarg-4 passed
+erlang-code-purge-badarg-5 passed
+erlang-code-purge-badarg-6 passed
+erlang-code-purge-badarg-7 passed
+erlang-code-purge-badarg-8 passed
+erlang-code-purge-badarg-9 passed
+erlang-code-purge-badarg-10 passed
+erlang-code-purge-badarg-11 passed
+erlang-code-purge-badarg-12 passed
+erlang-code-purge-badarg-13 passed
+erlang-code-purge-badarg-14 passed
+Unhandled exception. Erlang.Compiler.CompileException: Stacktrace must be a variable
+   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\src\Erlang.Compiler\Parser.cs:line 333
+   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\src\Erlang.Compiler\Parser.cs:line 260
+   at Erlang.Compiler.Parser.Body() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\src\Erlang.Compiler\Parser.cs:line 226
+   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList`1 patterns) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\src\Erlang.Compiler\Parser.cs:line 207
+   at Erlang.Compiler.Parser.ParseModule() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\src\Erlang.Compiler\Parser.cs:line 158
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\artifacts\purge-focused\Program.cs:line 1
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\code-purge-prototype\artifacts\purge-focused\Program.cs:line 1
+   at Program.<Main>(String[] args)

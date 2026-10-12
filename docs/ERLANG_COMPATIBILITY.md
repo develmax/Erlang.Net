@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part181:real owned erlang:purge_module/1 prepares the old image,blocks new old-function entries,checks actual executing images,kills old users and waits for monitor/managed unwind before retiring only the old slot. **4981/full main and draft**,twenty native fixtures added;all3500 prior corpus contracts preserved. Registry399;erlang249/351,102 missing,**70.9% API presence**,not semantic completion. [Tests](validation/part-181/tests.json),[audit](validation/part-181/reference-audit.json). Original4424 pending182;latest1804404/4404. Current matching functions remain usable;incompatible retired functions fail. Native system actor/process capacity/autoload/physical resources/full suites/performance and remaining APIs continue.
+
 Part180:source-built OTP-29.1.1 original **4404/4404** and **4959/full same-head CI** at0198891. All selected comparisons match;continue remaining APIs. [Proof](validation/part-180/differential.json),[guard](validation/part-180/strict-guard.json). All3500 SDK fixture contracts/3494 comparable modules,778 expressions,132 diagnoses and six exclusions preserved. Nine anonymous static-tail cases added in179 match native outcomes;host matching-code reload checks remain distinct. Registry398;erlang248/351,103 missing,70.7% API presence,not semantic completion. Actual purge admission/old-user termination and remaining APIs continue;native resources/full suites/performance unfinished.
 
 Part179: saved compiler-owned functions select the current image when canonical code matches; different code keeps the captured old image. Anonymous static tail transfers unwind their frames. **4959/full local**, all3491 previous corpus contracts preserved; nine native fixtures added,4404 comparisons pending180. Registry398;erlang248/351,103 missing,**70.7% API presence**,not semantic completion. [Tests](validation/part-179/tests.json),[audit](validation/part-179/reference-audit.json). Latest original1784395/4395 remains historical. Atomic purge admission,old-code-user termination,retired fun errors,native resources/full suites/performance remain unfinished.
@@ -84,7 +86,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.227 registered,124 missing,total377 direct MFAs.64.7% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.249 registered,102 missing,total399 direct MFAs.70.9% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -345,7 +347,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `processes_iterator/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `processes_next/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `processes/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `purge_module/1` | Missing; real implementation/runtime prerequisites required |
+| `purge_module/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `put/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `raise/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `read_timer/1` | Registered; bounded functional evidence, see supported-mfas.json |
