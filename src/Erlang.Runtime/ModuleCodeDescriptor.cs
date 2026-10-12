@@ -8,12 +8,14 @@ public sealed class ModuleCodeDescriptor
     public IReadOnlyList<(string Name, int Arity)> Exports { get; }
     public BitString Fingerprint { get; }
     public Term Compilation { get; }
+    public Term? Attributes { get; }
 
     public ModuleCodeDescriptor(
         IEnumerable<(string Name, int Arity)> functions,
         IEnumerable<(string Name, int Arity)> exports,
         BitString fingerprint,
-        Term compilation
+        Term compilation,
+        Term? attributes = null
     )
     {
         if (!fingerprint.IsBinary || fingerprint.ToArray().Length != MD5.HashSizeInBytes)
@@ -22,5 +24,6 @@ public sealed class ModuleCodeDescriptor
         Exports = Array.AsReadOnly(exports.ToArray());
         Fingerprint = fingerprint;
         Compilation = compilation;
+        Attributes = attributes;
     }
 }

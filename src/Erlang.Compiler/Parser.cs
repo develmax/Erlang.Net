@@ -76,6 +76,7 @@ public sealed class Parser
         string? module = null;
         var exports = new List<(string, int)>();
         var functions = new List<FunctionDefinition>();
+        var attributes = new List<ModuleAttribute>();
         while (Current.Kind != LexerTokenKinds.EndOfInput)
         {
             if (Take(ErlangSyntaxTokens.AttributeIntroducer))
@@ -137,6 +138,14 @@ public sealed class Parser
                     ExpectFormTerminator();
                     records.Add(name, new(name, fields));
                 }
+                else if (!AttributeControls.IsReserved(attr))
+                {
+                    int offset = Current.Start;
+                    Term value = AttributeLiteral.Normalize(Expression(), offset);
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    ExpectFormTerminator();
+                    attributes.Add(new ModuleAttribute(attr, value));
+                }
                 else
                     throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedAttribute(attr), Current.Start);
                 continue;
@@ -162,7 +171,12 @@ public sealed class Parser
         }
         if (module is null)
             throw Error(ParserDiagnostics.MissingModuleAttribute);
-        var result = new ModuleDefinition(module, exports, functions);
+        var result = new ModuleDefinition(
+            module,
+            exports,
+            functions,
+            attributes
+        );
         Semantics.Validate(result);
 
         return result;

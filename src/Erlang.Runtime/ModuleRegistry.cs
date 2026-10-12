@@ -97,7 +97,8 @@ public sealed class ModuleRegistry
                     exports,
                     signatures,
                     fingerprint,
-                    compilation
+                    compilation,
+                    descriptor?.Attributes
                 );
                 informationSnapshots.Add(module, snapshot);
             }

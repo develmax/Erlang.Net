@@ -13,7 +13,8 @@ internal sealed class ModuleInformationSnapshot
         IEnumerable<(string Name, int Arity)> exports,
         IEnumerable<(string Name, int Arity)> functions,
         BitString fingerprint,
-        Term compilation
+        Term compilation,
+        Term? attributes = null
     )
     {
         fields = new Dictionary<string, Term>(StringComparer.Ordinal)
@@ -23,10 +24,7 @@ internal sealed class ModuleInformationSnapshot
             [ModuleInformationKeys.Functions] = Signatures(functions),
             [ModuleInformationKeys.Md5] = fingerprint,
             [ModuleInformationKeys.Compile] = compilation,
-            [ModuleInformationKeys.Attributes] = Term.List(Term.Tuple(
-                Term.A(ModuleInformationKeys.VersionAttribute),
-                Term.List(new Integer(new BigInteger(fingerprint.ToArray(), isUnsigned: true, isBigEndian: true)))
-            )),
+            [ModuleInformationKeys.Attributes] = ModuleCodeAttributes.WithDefaultVersion(attributes, fingerprint),
             [ModuleInformationKeys.Nifs] = Nil.Value,
             [ModuleInformationKeys.Native] = Term.A(ErlangBooleanAtoms.False),
             [ModuleInformationKeys.NativeAddresses] = Nil.Value

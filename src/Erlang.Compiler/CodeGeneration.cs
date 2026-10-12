@@ -140,14 +140,18 @@ public static class CodeGeneration
         return ModuleCode(module, sourcePath);
     }
 
-    internal static string ModuleCode(ModuleDefinition module, string sourcePath)
+    internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
     {
         string className = "ErlangModule_" + string.Concat(module.Name.Select(c => char.IsAsciiLetterOrDigit(c) || c == '_' ? c.ToString() : "_" + ((int)c).ToString("x4", CultureInfo.InvariantCulture)));
 
         return "// Generated from " + sourcePath.Replace("\n", " ") + "\n#nullable enable\nnamespace Erlang.Generated;\npublic static class " + className + "\n{\npublic static global::Erlang.Compiler.ModuleDefinition Definition {get;} = new(" + Quote(module.Name) + ",new (string Name,int Arity)[]{" + string.Join(',', module.DeclaredExports.Select(x => "(" + Quote(x.Name) + "," + x.Arity + ")")) + "},new global::Erlang.Compiler.FunctionDefinition[]{" + string.Join(
             ',',
             module.DeclaredFunctions.Select(f => "new global::Erlang.Compiler.FunctionDefinition(" + Quote(f.Name) + "," + f.Arity + "," + Clauses(f.Clauses) + ")")
-        ) + "});\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+        ) + "}" + (includeAttributes && module.Attributes.Count != 0 ? "," + Array(
+            module.Attributes,
+            attribute => ModuleAttributeCodeNames.Constructor + Quote(attribute.Name) + "," + TermCode(attribute.Value) + ")",
+            "global::Erlang.Compiler.ModuleAttribute"
+        ) : string.Empty) + ");\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
     }
 
     public static string Preprocess(string source, string path, string nullableContext = "enable")

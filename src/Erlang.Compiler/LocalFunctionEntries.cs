@@ -55,7 +55,7 @@ internal static class LocalFunctionEntries
 
         public ModuleEntries(ModuleDefinition module)
         {
-            byte[] unique = MD5.HashData(Encoding.UTF8.GetBytes(CodeGeneration.ModuleCode(module, string.Empty)));
+            byte[] unique = MD5.HashData(Encoding.UTF8.GetBytes(CodeGeneration.ModuleCode(module, string.Empty, false)));
             foreach (var function in module.Functions)
                 foreach (var expression in Clauses(function.Clauses).SelectMany(Walk))
                     if (expression is Expr.Fun fun && !Entries.ContainsKey(fun))
