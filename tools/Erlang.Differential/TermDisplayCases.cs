@@ -67,6 +67,10 @@ public static class TermDisplayCases
         Add("empty-tuple", "{}", "{}");
         Add("empty-map", "#{}", "#{}");
         Add("map", "#{b=>[65],a=>{0}}", "#{a=>{0},b=>\"A\"}");
+        cases[^1] = cases[^1] with
+        {
+            ExpectedStandardOutputAlternatives = Array.AsReadOnly(new[] { Convert.ToHexString(Encoding.UTF8.GetBytes("#{b=>\"A\",a=>{0}}\r\n")) })
+        };
         Add("numeric-map", "#{1=>integer,1.0=>floating}", "#{1=>integer,1.000000e+00=>floating}");
         Add("empty-binary", "<<>>", "<<>>");
         Add("binary-string", "<<65,66>>", "<<\"AB\">>");

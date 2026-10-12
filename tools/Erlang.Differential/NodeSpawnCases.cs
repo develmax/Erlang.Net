@@ -79,6 +79,12 @@ public static class NodeSpawnCases
             "try erlang:spawn_monitor(42,fun()->ok end) of _->error(accepted) catch error:badarg:S->[{erlang,spawn_monitor,[42,_],L}|_]=S,{error_info,#{module:=erl_erts_errors}}=lists:keyfind(error_info,1,L) end"
         );
 
+        int tupleCallback = cases.FindIndex(fixture => fixture.Name == "erlang-node-spawn-tuple-callback");
+        cases[tupleCallback] = cases[tupleCallback] with
+        {
+            CompilerPolicy = CompiledModuleCompilerPolicy.DisableSsaOptimization
+        };
+
         return cases;
     }
 }

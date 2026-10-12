@@ -3,6 +3,7 @@ namespace Erlang;
 internal static class TermDisplayParameters
 {
     public const int ByteMaximum = byte.MaxValue;
+    public const int NativeFlatMapMaximumEntries = 32;
     public const int Space = 32;
     public const int Delete = 127;
     public const int ExtendedControlStart = 128;

@@ -1,0 +1,44 @@
+{
+  "Part": 195,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PriorNativeDiagnosis": 120,
+  "SourceMfaAdded": 4,
+  "SourceBlobs": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Blob": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "lib/kernel/src/auth.erl",
+      "Blob": "d8b6f38e7ddb474eb1d62005d46888603703c027"
+    },
+    {
+      "Path": "lib/kernel/src/erl_distribution.erl",
+      "Blob": "cd4f1cf584470f3bda5283286940140db63d138e"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_utils.h",
+      "Blob": "f34c5a67bad024339d19da7f125eb66a04efd7af"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_printf_term.c",
+      "Blob": "1ade17c7621e0c87901f41dd149b0f5b516418a4"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_map.h",
+      "Blob": "4700411be9a4bf5e3b11df354bec1b24eef1198e"
+    },
+    {
+      "Path": "lib/compiler/src/beam_call_types.erl",
+      "Blob": "2f4d9cbcc770f4a30002ce2ad4213a8773545657"
+    }
+  ],
+  "NativePlan": 4653,
+  "SourceDirectedChanges": "Release flatmap direct atom identities up to32 entries;erlang cookie wrappers dispatch into actual registered auth service",
+  "NewCookieModules": 46,
+  "Scope": "Cookie file/command-line/automatic auth startup/distribution handshake/supervision and native HAMT/platform/resources/full upstream/performance unfinished",
+  "NativeComparisonExecutedHere": 0,
+  "ExplicitMetadataMigrations": "One exact node-spawn tuple source no_ssa_opt after194;one exact map stdout allows second complete legal order while primary bytes unchanged",
+  "Reuse": "Owned atom registry/immutable terms/iterative printer/name registry/real gen_server monitor-reply protocol;no dependency or production BEAM",
+  "Baseline": "OTP-29.1.1"
+}

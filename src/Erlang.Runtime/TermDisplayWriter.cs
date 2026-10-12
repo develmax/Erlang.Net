@@ -71,11 +71,12 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                 case MapTerm map:
                     Text(TermDisplaySyntax.OpenMap);
                     stack.Push(new(null, TermDisplaySyntax.CloseTuple));
-                    for (int i = map.Entries.Count - 1; i >= 0; i--)
+                    var entries = TermDisplayMapOrder.Entries(map);
+                    for (int i = entries.Count - 1; i >= 0; i--)
                     {
-                        stack.Push(new(map.Entries[i].Value));
+                        stack.Push(new(entries[i].Value));
                         stack.Push(new(null, TermDisplaySyntax.Association));
-                        stack.Push(new(map.Entries[i].Key));
+                        stack.Push(new(entries[i].Key));
                         if (i != 0)
                             stack.Push(new(null, TermDisplaySyntax.Comma));
                     }

@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part195:actual auth-service cookie wrappers get_cookie0/1,set_cookie1/2 and source-guided internal atom-key map printing;**5238/full main and draft**.46 new compiled cases;3703 old sources/outcomes/generated hashes/contexts/primary bytes preserved,exactly two194-backed metadata migrations. [Audit](validation/part-195/corpus-audit.json),[tests](validation/part-195/tests.json). Registry419;erlang269/351,82 missing,76.6% API presence. Original4653 pending196;1924605/4607 and194120 diagnoses remain separate. Automatic auth startup/cookie initialization/networking/HAMT/platform/resources/upstream/performance unfinished;whole goal continues.
+
 Part194:120 native compiler/pass/context diagnoses complete,zero compatibility-corpus coverage;**5186/full same-head CI** at3e39638. Node-qualified tuple spawn returns PID after default SSA continuation removal;isolated no_ssa_opt retains done in all three contexts. Raw map printer uses internal atom identity order. [Matrix](validation/part-194/outcome-matrix.json),[guard](validation/part-194/strict-guard.json). Sources/expectations/policies/exclusions unchanged;retain1924605/4607. Registry415;erlang265/351,86 missing,75.5% API presence. Next internal map printer order and narrowly audited fixture policy;whole module continues.
 
 Part193:isolated native investigation now includes both retained192 failures in120 compiler/pass/context evaluations. **5186/full local**;production/MFAs/all3703 fixture contracts and six exclusions unchanged. Native matrix pending194;192 remains4605/4607. [Audit](validation/part-193/reference-audit.json),[tests](validation/part-193/tests.json). Pinned erl_utils.h confirms flatmap atoms use internal identities;display order is not name order. Registry415;erlang265/351,86 missing,75.5% API presence. Repair only after independent diagnosis;whole goal continues.
@@ -112,7 +114,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.265 registered,86 missing,total415 direct MFAs.75.5% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.269 registered,82 missing,total419 direct MFAs.76.6% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -244,8 +246,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `garbage_collect/1` | Missing; real implementation/runtime prerequisites required |
 | `garbage_collect/2` | Missing; real implementation/runtime prerequisites required |
 | `gather_gc_info_result/1` | Missing; real implementation/runtime prerequisites required |
-| `get_cookie/0` | Missing; real implementation/runtime prerequisites required |
-| `get_cookie/1` | Missing; real implementation/runtime prerequisites required |
+| `get_cookie/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `get_cookie/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_keys/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_keys/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_module_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -395,8 +397,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `seq_trace_print/1` | Missing; real implementation/runtime prerequisites required |
 | `seq_trace_print/2` | Missing; real implementation/runtime prerequisites required |
 | `seq_trace/2` | Missing; real implementation/runtime prerequisites required |
-| `set_cookie/1` | Missing; real implementation/runtime prerequisites required |
-| `set_cookie/2` | Missing; real implementation/runtime prerequisites required |
+| `set_cookie/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `set_cookie/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `set_cpu_topology/1` | Missing; real implementation/runtime prerequisites required |
 | `setelement/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `setnode/2` | Missing; real implementation/runtime prerequisites required |

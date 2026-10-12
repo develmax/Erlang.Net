@@ -25,6 +25,13 @@ public static class TermDisplayHostChecks
                 await Call(context, Term.List(Term.I(160), Term.I(255)));
                 Require(output.ToArray().SequenceEqual(TermDisplayHostParameters.LatinString) && error.Length == 0);
                 output.SetLength(0);
+                Atom first = Term.A(TermDisplayHostParameters.FirstMapAtom);
+                Atom second = Term.A(TermDisplayHostParameters.SecondMapAtom);
+                var map = new MapTerm([new(second, Term.I(2)), new(first, Term.I(1)), new(Term.I(0), Term.I(0))]);
+                Require(map.Entries[1].Key.Equals(second));
+                await Call(context, map);
+                Require(output.ToArray().SequenceEqual(TermDisplayHostParameters.InternalMapOrder));
+                output.SetLength(0);
                 var identity = new LocalFunctionIdentity(
                     Term.A(TermDisplayHostParameters.EmbeddedNewlineModule),
                     null,

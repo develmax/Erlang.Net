@@ -3891,6 +3891,23 @@ Test(
     return Task.CompletedTask;
 }
 );
+Test(
+    "oracle/map-display-output-contract-keeps-exact-byte-boundaries",
+    () =>
+{
+    var map = Erlang.Differential.TermDisplayCases.Modules.Single(fixture => fixture.Name == "erlang-term-display-map");
+    Check(Erlang.Differential.CompiledStandardOutputContract.Matches(map, map.ExpectedStandardOutputHex!, ""));
+    Check(Erlang.Differential.CompiledStandardOutputContract.Matches(map, map.ExpectedStandardOutputAlternatives!.Single(), ""));
+    foreach (string output in new[] { "", map.ExpectedStandardOutputHex![..^4] + "0A", map.ExpectedStandardOutputHex + "00", map.ExpectedStandardOutputAlternatives!.Single() + "0A" })
+        Check(!Erlang.Differential.CompiledStandardOutputContract.Matches(map, output, ""));
+    Check(!Erlang.Differential.CompiledStandardOutputContract.Matches(map, map.ExpectedStandardOutputHex!, "00"));
+    var atom = Erlang.Differential.TermDisplayCases.Modules.Single(fixture => fixture.Name == "erlang-term-display-atom");
+    Check(atom.ExpectedStandardOutputAlternatives is null);
+    Check(!Erlang.Differential.CompiledStandardOutputContract.Matches(atom, map.ExpectedStandardOutputAlternatives!.Single(), ""));
+
+    return Task.CompletedTask;
+}
+);
 foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
 {
     Test(
@@ -3902,7 +3919,7 @@ foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
         {
             var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
             Equal(captured.Result, fixture.Expected);
-            Check(captured.StandardOutputHex == fixture.ExpectedStandardOutputHex && captured.StandardErrorHex == fixture.ExpectedStandardErrorHex);
+            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
         }
         else
             Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
@@ -4011,7 +4028,7 @@ Test(
     "oracle/two-preserved-spawn-ssa-policies",
     () =>
     {
-        var fixtures = Erlang.Differential.CompiledModuleCases.All.Where(fixture => fixture.CompilerPolicy != Erlang.Differential.CompiledModuleCompilerPolicy.Default).ToArray();
+        var fixtures = Erlang.Differential.CompiledModuleCases.All.Where(fixture => fixture.Name != "erlang-node-spawn-tuple-callback" && fixture.CompilerPolicy != Erlang.Differential.CompiledModuleCompilerPolicy.Default).ToArray();
         Check(fixtures.Length == 2);
         Check(fixtures.Select(fixture => fixture.Name).SequenceEqual(new[] { "erlang-spawn-group-callback-tuple", "erlang-spawn-group-callback-wrong-arity-child-error" }));
         foreach (var fixture in fixtures)
@@ -4021,6 +4038,20 @@ Test(
             Check(!command.Contains("no_copt") && !command.Contains("no_postopt"));
             Check(!Erlang.Differential.CompiledModuleProtocol.Command(fixture.Source).Contains("no_ssa_opt"));
         }
+
+        return Task.CompletedTask;
+    }
+);
+Test(
+    "oracle/node-qualified-tuple-spawn-ssa-policy-is-narrow-and-source-preserving",
+    () =>
+    {
+        var fixture = Erlang.Differential.NodeSpawnCases.Modules.Single(fixture => fixture.Name == "erlang-node-spawn-tuple-callback");
+        Check(fixture.CompilerPolicy == Erlang.Differential.CompiledModuleCompilerPolicy.DisableSsaOptimization);
+        Check(Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(fixture.Source))) == "1FE0A6EB579160174B11A54630FA4BAD787FCEBAA5B616199CBBF5FC8424AD00");
+        Check(Erlang.Differential.CompiledModuleCases.All.Count(fixture => fixture.CompilerPolicy != Erlang.Differential.CompiledModuleCompilerPolicy.Default) == 3);
+        Check(Erlang.Differential.CompiledModuleProtocol.Command(fixture.Source, fixture.CallerContext, fixture.CompilerPolicy).Contains("return_warnings,no_ssa_opt]"));
+        Check(!Erlang.Differential.CompiledModuleProtocol.Command(fixture.Source).Contains("no_ssa_opt"));
 
         return Task.CompletedTask;
     }

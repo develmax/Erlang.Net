@@ -492,8 +492,8 @@ try
         if (sdk is not null)
         {
             (nativeOutputHex, nativeErrorHex) = OracleStandardStreamProtocol.Capture(captured);
-            streamsMatch = nativeOutputHex == fixture.ExpectedStandardOutputHex && nativeErrorHex == fixture.ExpectedStandardErrorHex &&
-                sdk.StandardOutputHex == fixture.ExpectedStandardOutputHex && sdk.StandardErrorHex == fixture.ExpectedStandardErrorHex;
+            streamsMatch = CompiledStandardOutputContract.Matches(fixture, nativeOutputHex, nativeErrorHex) &&
+                CompiledStandardOutputContract.Matches(fixture, sdk.StandardOutputHex, sdk.StandardErrorHex);
         }
         bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected) && streamsMatch;
         if (!passed)
@@ -513,11 +513,13 @@ try
             FixtureExpected = fixture.Expected.ToString(),
             Actual = actual.ToString(),
             fixture.ExpectedStandardOutputHex,
+            fixture.ExpectedStandardOutputAlternatives,
             fixture.ExpectedStandardErrorHex,
             NativeStandardOutputHex = nativeOutputHex,
             NativeStandardErrorHex = nativeErrorHex,
             SdkStandardOutputHex = sdk?.StandardOutputHex,
             SdkStandardErrorHex = sdk?.StandardErrorHex,
+            NativeAndSdkStandardOutputExactlyMatch = nativeOutputHex == sdk?.StandardOutputHex,
             StandardStreamsMatch = streamsMatch,
             Passed = passed
         });

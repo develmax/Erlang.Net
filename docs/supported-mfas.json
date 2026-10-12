@@ -565,7 +565,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:display/1",
-    "Limits": "Iterative low-level term display to raw stdout:newline,Latin1 atom rules/octal/control escapes,raw printable byte lists/ASCII binaries,scientific floats,owned identifier/function metadata.37 independent output fixtures and5092/full local;4525 original pending188. Native Win stdio/HAMT/native records/resource/upstream/performance contracts unfinished.Part189 ports Unix native printf CR insertion before every LF,including raw metadata;37 explicit output migrations against original188 actualbytes. Raw display_string and oracle delimiter stripping unchanged;4558 original pending190."
+    "Limits": "Iterative source-guided printer;release flatmaps up to32 entries use real atom registry identity order,other key comparison exact;larger native HAMT representation unfinished. One two-atom map byte contract explicitly permits only two complete legal orders after192/194,primary bytes unchanged. Native/SDK exact output fields separately retained;5238/full local,4653 original pending196. Full metadata/platform/upstream/resources unfinished."
   },
   {
     "Module": "erlang",
@@ -854,6 +854,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:get/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "get_cookie",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:get_cookie/0",
+    "Limits": "Source-guided cookie wrappers use actual registered auth PID and existing gen_server infinity requests;absence yields nocookie/distribution_not_started,atom/nonode guards and error frames.46 compiled scenarios;5238/full local,4653 original pending196. Automatic auth startup,cookie-file/CLI initialization,distribution handshake/auth supervision/full upstream/resources unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "get_cookie",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:get_cookie/1",
+    "Limits": "Source-guided cookie wrappers use actual registered auth PID and existing gen_server infinity requests;absence yields nocookie/distribution_not_started,atom/nonode guards and error frames.46 compiled scenarios;5238/full local,4653 original pending196. Automatic auth startup,cookie-file/CLI initialization,distribution handshake/auth supervision/full upstream/resources unfinished."
   },
   {
     "Module": "erlang",
@@ -1750,6 +1766,22 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/3",
     "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+  },
+  {
+    "Module": "erlang",
+    "Function": "set_cookie",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:set_cookie/1",
+    "Limits": "Source-guided cookie wrappers use actual registered auth PID and existing gen_server infinity requests;absence yields nocookie/distribution_not_started,atom/nonode guards and error frames.46 compiled scenarios;5238/full local,4653 original pending196. Automatic auth startup,cookie-file/CLI initialization,distribution handshake/auth supervision/full upstream/resources unfinished."
+  },
+  {
+    "Module": "erlang",
+    "Function": "set_cookie",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:set_cookie/2",
+    "Limits": "Source-guided cookie wrappers use actual registered auth PID and existing gen_server infinity requests;absence yields nocookie/distribution_not_started,atom/nonode guards and error frames.46 compiled scenarios;5238/full local,4653 original pending196. Automatic auth startup,cookie-file/CLI initialization,distribution handshake/auth supervision/full upstream/resources unfinished."
   },
   {
     "Module": "erlang",

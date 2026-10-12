@@ -711,3 +711,7 @@ Part193:isolated native investigation now includes both retained192 failures in1
 ## Part194 checkpoint
 
 Part194:120 native compiler/pass/context diagnoses complete,zero compatibility-corpus coverage;**5186/full same-head CI** at3e39638. Node-qualified tuple spawn returns PID after default SSA continuation removal;isolated no_ssa_opt retains done in all three contexts. Raw map printer uses internal atom identity order. [Matrix](validation/part-194/outcome-matrix.json),[guard](validation/part-194/strict-guard.json). Sources/expectations/policies/exclusions unchanged;retain1924605/4607. Registry415;erlang265/351,86 missing,75.5% API presence. Next internal map printer order and narrowly audited fixture policy;whole module continues.
+
+## Part195 checkpoint
+
+Part195:actual auth-service cookie wrappers get_cookie0/1,set_cookie1/2 and source-guided internal atom-key map printing;**5238/full main and draft**.46 new compiled cases;3703 old sources/outcomes/generated hashes/contexts/primary bytes preserved,exactly two194-backed metadata migrations. [Audit](validation/part-195/corpus-audit.json),[tests](validation/part-195/tests.json). Registry419;erlang269/351,82 missing,76.6% API presence. Original4653 pending196;1924605/4607 and194120 diagnoses remain separate. Automatic auth startup/cookie initialization/networking/HAMT/platform/resources/upstream/performance unfinished;whole goal continues.

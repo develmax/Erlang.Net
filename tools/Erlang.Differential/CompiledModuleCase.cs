@@ -9,5 +9,6 @@ public sealed record CompiledModuleCase(
 )
 {
     public string? ExpectedStandardOutputHex { get; init; }
+    public IReadOnlyList<string>? ExpectedStandardOutputAlternatives { get; init; }
     public string? ExpectedStandardErrorHex { get; init; }
 }
