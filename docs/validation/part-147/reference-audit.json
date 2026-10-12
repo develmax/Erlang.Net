@@ -1,0 +1,30 @@
+{
+  "CorpusCountsAsCoverage": false,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeEvaluationsPlanned": 90,
+  "NewTransportChecks": 1,
+  "CompilerModes": [
+    "default",
+    "no_copt,no_ssa_opt,no_postopt",
+    "no_copt",
+    "no_ssa_opt",
+    "no_postopt"
+  ],
+  "Finding": "Pinned compiler spawn/1 argument type is zero-arity fun;runtime wrapper accepts any fun and MFA tuple. Suspected unreachable-continuation inference requires per-pass native verification",
+  "PinnedSources": [
+    "lib/compiler/src/beam_call_types.erl",
+    "lib/compiler/src/beam_ssa_type.erl",
+    "erts/preloaded/src/erlang.erl"
+  ],
+  "FixtureSources": 6,
+  "NativeExecutedLocally": 0,
+  "FixturesAndExpectationsUnchanged": true,
+  "Contexts": 3,
+  "PriorTests": 4053,
+  "Licensing": "Existing consolidated notices exact in two local packages;no dependency/banner/production BEAM/license draft publication",
+  "Registry": 377,
+  "Baseline": "OTP-29.1.1",
+  "ProductionSourcesUnchanged": true,
+  "Tests": 4054,
+  "NativeStatus": "Pending148"
+}

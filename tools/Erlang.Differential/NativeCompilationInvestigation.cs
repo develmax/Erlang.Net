@@ -16,8 +16,11 @@ public static class NativeCompilationInvestigation
     ];
 
     public static string Command(string source, bool disableOptimizations, bool? trapExits)
+        => Command(source, disableOptimizations ? OracleInvestigationModes.DisabledOptimizations : string.Empty, trapExits);
+
+    public static string Command(string source, string disabledPasses, bool? trapExits)
     {
-        string compileOptions = disableOptimizations ? ",no_copt,no_ssa_opt,no_postopt" : string.Empty;
+        string compileOptions = disabledPasses.Length == 0 ? string.Empty : "," + disabledPasses;
         string load = CompiledModuleProtocol.Forms(source) +
             "{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings" + compileOptions + "])," +
             "{module,M}=code:load_binary(M,\"differential.erl\",Bin)," +
@@ -43,12 +46,19 @@ public static class NativeCompilationInvestigation
         foreach (string name in fixtureNames)
         {
             CompiledModuleCase fixture = CompiledModuleCases.All.Single(fixture => fixture.Name == name);
-            foreach (bool disableOptimizations in new[] { false, true })
+            foreach (string disabledPasses in new[]
+            {
+                string.Empty,
+                OracleInvestigationModes.DisabledOptimizations,
+                OracleInvestigationModes.DisabledCoreOptimization,
+                OracleInvestigationModes.DisabledSsaOptimization,
+                OracleInvestigationModes.DisabledPostOptimization
+            })
             {
                 foreach (bool? trapExits in new bool?[] { null, false, true })
                 {
                     await checkpoint(rows, fixture.Source);
-                    string command = Command(fixture.Source, disableOptimizations, trapExits);
+                    string command = Command(fixture.Source, disabledPasses, trapExits);
                     OracleProcessOutput output = await execute(command);
                     if (OracleResultProtocol.Decode(output.StandardOutput) is not TupleTerm { Items.Count: 2 } result || result.Items[1] is not BitString disassembly)
                         throw new InvalidOperationException(OracleInvestigationDiagnostics.InvalidNativeResult);
@@ -58,7 +68,7 @@ public static class NativeCompilationInvestigation
                         fixture.Source,
                         SourceSha256 = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(fixture.Source))),
                         FixtureExpected = fixture.Expected.ToString(),
-                        CompilerMode = disableOptimizations ? OracleInvestigationModes.DisabledOptimizations : OracleInvestigationModes.DefaultCompiler,
+                        CompilerMode = disabledPasses.Length == 0 ? OracleInvestigationModes.DefaultCompiler : disabledPasses,
                         ProcessMode = trapExits is null ? OracleInvestigationModes.InitialProcess : trapExits.Value ? OracleInvestigationModes.TrappedFreshProcess : OracleInvestigationModes.FreshProcess,
                         NativeOutcome = result.Items[0].ToString(),
                         MatchesIndependentFixture = result.Items[0].Equals(fixture.Expected),

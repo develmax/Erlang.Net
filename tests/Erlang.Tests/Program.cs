@@ -3942,6 +3942,27 @@ Test(
     }
 );
 Test(
+    "oracle/native-investigation-isolated-compiler-passes",
+    () =>
+    {
+        const string source = "-module(pass_investigation). -export([run/0]). run()->done.";
+        string[] passes = [
+            Erlang.Differential.OracleInvestigationModes.DisabledCoreOptimization,
+            Erlang.Differential.OracleInvestigationModes.DisabledSsaOptimization,
+            Erlang.Differential.OracleInvestigationModes.DisabledPostOptimization
+        ];
+        foreach (string pass in passes)
+        {
+            string command = Erlang.Differential.NativeCompilationInvestigation.Command(source, pass, false);
+            Check(command.Contains("return_warnings," + pass + "]"));
+            Check(passes.Where(other => other != pass).All(other => !command.Contains(other)));
+            Check(command.Contains("process_flag(trap_exit,false)"));
+        }
+
+        return Task.CompletedTask;
+    }
+);
+Test(
     "oracle/compiled-module-ascii-protocol",
     () =>
 {

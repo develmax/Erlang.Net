@@ -519,3 +519,7 @@ Part145: native investigation tooling passes **4053/full local**;36 targeted nat
 ## Part146 checkpoint
 
 Part146: **36/36 native diagnostic evaluations completed**,zero compatibility-corpus coverage;**4053/full same-head CI** at11f8b8e. Four startup discrepancies depend on trap_exit. Two spawn sources lose monitor/receive/done continuation in default native compiled run/0;disabled optimizations retain it and return done. [Matrix](validation/part-146/outcome-matrix.json),[guard](validation/part-146/strict-guard.json). No source/expectation/exclusion rewrite or resolved144 claim. Registry377;erlang227/351,124 missing,64.7% API presence. Continue startup repair and isolate compiler pass;whole goal remains unfinished.
+
+## Part147 checkpoint
+
+Part147: isolated native compiler-pass tooling passes **4054/full local**,one new permanent protocol check;90 native diagnoses planned148,zero local native coverage. Pinned spawn/1 type inference conflicts with accepted fun/MFA wrappers;actual pass remains unverified. [Audit](validation/part-147/reference-audit.json). Runtime/MFAs/fixtures/expectations unchanged;144 failures retained. Registry377;erlang227/351,124 missing,64.7% API presence. Continue startup repair and whole goal.
