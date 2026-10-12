@@ -68,10 +68,28 @@ public static class RecordPredicateCases
             "check(X) when erlang:is_record(X,r)->yes;check(_)->no."
         );
         Add(
-            "guard-dynamic-three",
-            "yes=check({r,one},r,2),no=check({r},r,2),no=check({r},42,1),no=check({r},r,1.0)",
+            "guard-literal-three",
+            "yes=check({r,one}),no=check({r}),no=check({other,one}),no=check(42)",
             "",
-            "check(X,N,S) when is_record(X,N,S)->yes;check(_,_,_)->no."
+            "check(X) when is_record(X,r,2)->yes;check(_)->no."
+        );
+        Add(
+            "guard-literal-three-remote",
+            "yes=check({r,one}),no=check({r})",
+            "",
+            "check(X) when erlang:is_record(X,r,2)->yes;check(_)->no."
+        );
+        Add(
+            "guard-literal-zero",
+            "no=check({r}),no=check(42)",
+            "",
+            "check(X) when is_record(X,r,0)->yes;check(_)->no."
+        );
+        Add(
+            "guard-literal-module",
+            "no=check({r}),no=check(42)",
+            "",
+            "check(X) when is_record(X,r,record_predicate_contract)->yes;check(_)->no."
         );
         Add(
             "guard-disjunction",

@@ -15,5 +15,6 @@ public enum DiagnosticCaseKind
     EmptyModule,
     BlankModule,
     ControlModule,
-    RecordPredicateGuard
+    RecordPredicateGuard,
+    RecordPredicateThreeGuard
 }

@@ -1,0 +1,36 @@
+{
+  "NewPositiveFixtures": 4,
+  "Other2778FixturesUnchanged": true,
+  "ReplacementValidPositive": {
+    "Name": "erlang-record-predicate-guard-literal-three",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->yes=check({r,one}),no=check({r}),no=check({other,one}),no=check(42),done. id(X)->X. check(X) when is_record(X,r,2)->yes;check(_)->no.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "687DE03395076E64C0322B3A66DDB3B01512D9A63B3BC02FC363E204F0EBBA3B",
+    "CSharpSha256": "BBC30D07558B1693449F80A7B98D4878BB62184A8FE9981253393327084259D2",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "PreviousPositive": {
+    "Name": "erlang-record-predicate-guard-dynamic-three",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->yes=check({r,one},r,2),no=check({r},r,2),no=check({r},42,1),no=check({r},r,1.0),done. id(X)->X. check(X,N,S) when is_record(X,N,S)->yes;check(_,_,_)->no.",
+    "FixtureExpected": "{ok,done}",
+    "SourceSha256": "B2E955A2758C6D1DFF66471A9A3B87D1A42570964284CC90D2004AE2138726A6",
+    "CSharpSha256": "D130D45F1FB5FBFF16ABEE157EE1F93B684F245952BE1462A717D1AA472EADBC",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default"
+  },
+  "Historical97DiagnosesUnchanged": true,
+  "PreservedSourceNowRejection": {
+    "Name": "record-predicate-three-published-dynamic-guard",
+    "Source": "-module(record_predicate_contract). -export([run/0]).  run()->yes=check({r,one},r,2),no=check({r},r,2),no=check({r},42,1),no=check({r},r,1.0),done. id(X)->X. check(X,N,S) when is_record(X,N,S)->yes;check(_,_,_)->no.",
+    "Variable": "is_record",
+    "SourceSha256": "B2E955A2758C6D1DFF66471A9A3B87D1A42570964284CC90D2004AE2138726A6",
+    "ExpectedCode": "ERL007",
+    "ExpectedMessage": "Illegal guard call 'is_record/3'",
+    "Expected": "{error,[illegal_guard_expr]}"
+  },
+  "RetiredInvalidPositiveFixtures": 1,
+  "ExclusionsAdded": 0,
+  "Reason": "Native erl_lint requires literal atom name and literal integer or atom third argument in guards;published dynamic source is invalid",
+  "AddedDiagnoses": 6
+}

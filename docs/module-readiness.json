@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-149/tests.json",
-  "LocalPassedTests": 4170,
+  "ComparisonTestReport": "validation/part-150/ci-tests.json",
+  "LocalPassedTests": 4179,
   "RegisteredMfas": 380,
   "PreviousRegisteredMfas": 380,
   "RegisteredMfaDelta": 0,
@@ -94,14 +94,15 @@
         "Record patterns and comprehensions, strict guard tests at boolean operand boundaries, five independent record diagnostics",
         "Thirty tuple-record modules and five independent record diagnostics verified against exact-source OTP at d713491",
         "Source-directed module-name Latin1/visible/control admission;four valid names/nine independent diagnostics and corrected local UTF8 function regression127;3284/full local,full original128 pending",
-        "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented"
+        "Part149:declared literal record predicate sizing,nonpositive-size suppression after lint,guard validation and107 new compiled modules/four diagnoses;4170/full local;native150 pending;native records/full no_auto_import/external-fun grammar unimplemented",
+        "Part151:literal name/integer-or-atom size restriction for is_record3 guards;exact published invalid source retained as rejection;4179/full local;original152 pending"
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
       ],
-      "RelatedPassedTests": 822
+      "RelatedPassedTests": 828
     },
     {
       "Id": "Core library modules",
@@ -237,7 +238,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 2893
+      "RelatedPassedTests": 2902
     },
     {
       "Id": "Style checks",

@@ -352,7 +352,7 @@ public static class Semantics
                 }
                 break;
             case Expr.Call call:
-                if (guard && (call.Module is not null and not ErlangModuleNames.Module || !GuardBifs.Contains((call.Function, call.Arguments.Count))))
+                if (guard && (call.Module is not null and not ErlangModuleNames.Module || !GuardBifs.Contains((call.Function, call.Arguments.Count)) || !RecordPredicateSyntax.IsLegalGuard(call)))
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.IllegalGuardCall(call.Function, call.Arguments.Count), 0);
                 ExpressionBindings.ValidateList(call.Arguments, bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
