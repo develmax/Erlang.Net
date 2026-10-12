@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part150: incomplete original run **3517/3648 passed,131 unexecuted**,zero executed mismatches;native erl_lint rejects dynamic is_record3 guard before comparison. **4170/full same-head CI** at f42149b. [Raw failure](validation/part-150/differential.json),[guard](validation/part-150/strict-guard.json). No source/expected/policy/exclusion changes;latest complete native success140. Registry380;erlang230/351,121 missing,65.5% API presence. Repair guard restrictions and rerun full pinned corpus;whole goal continues.
+
 Part149: actual startup link/monitor/handshake,atomic named registration,four-key process_info2,owned clock monitors and tuple-record predicates pass **4170/full local**.107 new modules/four compiler diagnoses/three exports;[audit](validation/part-149/reference-audit.json). All2672 prior source/expectation/generated hashes and six exclusions preserved. Explicit36 historical trapped caller contexts and exactly two no_ssa_opt spawn policies retain failed default-native evidence. Original3648/same-head CI pending150. Registry380;erlang230/351,121 missing,65.5% API presence;native records/time-warp/full inspection/ports/distribution/resources unfinished. Continue whole goal.
 
 Part148: **90 native diagnoses completed**,zero compatibility-corpus coverage;**4054/full same-head CI** at3d9a71c. SSA optimization is isolated as the cause of missing continuation in two unchanged spawn cases;no_copt/no_postopt do not repair it. [Matrix](validation/part-148/outcome-matrix.json),[guard](validation/part-148/strict-guard.json). Four startup errors retain trap-context dependency. Preserve failed144 and default compiler outcomes. Next actual startup/state/clock/record implementation with explicit context and narrowly documented no_ssa_opt policy. Registry377;erlang227/351,124 missing;whole goal continues.
@@ -198,8 +200,6 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `is_port/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_process_alive/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_record/1` | Missing; real implementation/runtime prerequisites required |
-| `is_record/2` | Missing; real implementation/runtime prerequisites required |
-| `is_record/3` | Missing; real implementation/runtime prerequisites required |
 | `is_reference/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `is_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `length/1` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -279,7 +279,6 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `process_flag/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `process_flag/3` | Missing; real implementation/runtime prerequisites required |
 | `process_info/1` | Missing; real implementation/runtime prerequisites required |
-| `process_info/2` | Missing; real implementation/runtime prerequisites required |
 | `processes_iterator/0` | Missing; real implementation/runtime prerequisites required |
 | `processes_next/1` | Missing; real implementation/runtime prerequisites required |
 | `processes/0` | Registered; bounded functional evidence, see supported-mfas.json |

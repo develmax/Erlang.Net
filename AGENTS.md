@@ -531,3 +531,7 @@ Part148: **90 native diagnoses completed**,zero compatibility-corpus coverage;**
 ## Part149 checkpoint
 
 Part149: actual startup link/monitor/handshake,atomic named registration,four-key process_info2,owned clock monitors and tuple-record predicates pass **4170/full local**.107 new modules/four compiler diagnoses/three exports;[audit](validation/part-149/reference-audit.json). All2672 prior source/expectation/generated hashes and six exclusions preserved. Explicit36 historical trapped caller contexts and exactly two no_ssa_opt spawn policies retain failed default-native evidence. Original3648/same-head CI pending150. Registry380;erlang230/351,121 missing,65.5% API presence;native records/time-warp/full inspection/ports/distribution/resources unfinished. Continue whole goal.
+
+## Part150 checkpoint
+
+Part150: incomplete original run **3517/3648 passed,131 unexecuted**,zero executed mismatches;native erl_lint rejects dynamic is_record3 guard before comparison. **4170/full same-head CI** at f42149b. [Raw failure](validation/part-150/differential.json),[guard](validation/part-150/strict-guard.json). No source/expected/policy/exclusion changes;latest complete native success140. Registry380;erlang230/351,121 missing,65.5% API presence. Repair guard restrictions and rerun full pinned corpus;whole goal continues.

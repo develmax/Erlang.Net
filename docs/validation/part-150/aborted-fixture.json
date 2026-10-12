@@ -1,0 +1,9 @@
+{
+  "Name": "erlang-record-predicate-guard-dynamic-three",
+  "Source": "-module(record_predicate_contract). -export([run/0]).  run()->yes=check({r,one},r,2),no=check({r},r,2),no=check({r},42,1),no=check({r},r,1.0),done. id(X)->X. check(X,N,S) when is_record(X,N,S)->yes;check(_,_,_)->no.",
+  "FixtureExpected": "{ok,done}",
+  "SourceSha256": "B2E955A2758C6D1DFF66471A9A3B87D1A42570964284CC90D2004AE2138726A6",
+  "CSharpSha256": "D130D45F1FB5FBFF16ABEE157EE1F93B684F245952BE1462A717D1AA472EADBC",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}
