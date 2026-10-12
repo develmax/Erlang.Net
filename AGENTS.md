@@ -663,3 +663,7 @@ Part181:real owned erlang:purge_module/1 prepares the old image,blocks new old-f
 ## Part182 checkpoint
 
 Part182:source-built OTP-29.1.1 original **4424/4424** and **4981/full same-head CI** at2513736. All selected comparisons match;continue remaining APIs. [Proof](validation/part-182/differential.json),[guard](validation/part-182/strict-guard.json). All3520 SDK fixture contracts/3514 comparable modules,778 expressions,132 diagnoses and six exclusions preserved. Twenty purge scenarios match original outcomes;host concurrent admission/current retention/owner type checks remain distinct from native hot-load tests. Registry399;erlang249/351,102 missing,70.9% API presence,not semantic completion. Native resources/global system actor/capacity/autoload/full suites/performance and remaining APIs continue. Close0026 after181;open0027.
+
+## Part183 checkpoint
+
+Part183:erlang display_string1/2 writes real raw standard streams;one-argument form defaults to stderr,flat scalar lists become UTF8,binaries remain byte-exact. **5016/full main and draft**,31 independent output/error fixtures added;all3520 inherited corpus contracts preserved. Registry401;erlang251/351,100 missing,**71.5% API presence**,not semantic completion. [Tests](validation/part-183/tests.json),[audit](validation/part-183/reference-audit.json). Original4455/output-byte comparisons pending184;latest1824424/4424. Native errno cause/resource/scheduler/partialwrite/real Unix TTY coverage and remaining APIs continue. No terminal input injected by checks.

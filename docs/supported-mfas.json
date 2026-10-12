@@ -561,6 +561,22 @@
   },
   {
     "Module": "erlang",
+    "Function": "display_string",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:display_string/1",
+    "Limits": "Real standard streams:default stderr,flat scalar UTF8/raw byte-aligned binaries,validation/error frames,borrowed stream ownership.31 independent stdout/stderr byte contracts;4455 original comparisons pending184. Native errno cause atom/resource/scheduler/partial-write/real Unix TTY behavior remain unfinished;development checks never inject terminal input."
+  },
+  {
+    "Module": "erlang",
+    "Function": "display_string",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:display_string/2",
+    "Limits": "Real standard streams:default stderr,flat scalar UTF8/raw byte-aligned binaries,validation/error frames,borrowed stream ownership.31 independent stdout/stderr byte contracts;4455 original comparisons pending184. Native errno cause atom/resource/scheduler/partial-write/real Unix TTY behavior remain unfinished;development checks never inject terminal input."
+  },
+  {
+    "Module": "erlang",
     "Function": "div",
     "Arity": 2,
     "Status": "Partially compatible",

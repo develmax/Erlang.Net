@@ -693,7 +693,7 @@ public static class Execution
                             entry.Image
                         );
 
-                    if (tail && (x.Module is not null && x.Module != ErlangModuleNames.Module || x.Function == ModuleCodeLifecycleNames.PurgeModule && args.Length == 1))
+                    if (tail && (x.Module is not null && x.Module != ErlangModuleNames.Module || ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
                         throw new RuntimeTailCall(x.Module ?? ErlangModuleNames.Module, x.Function, args);
 
                     try

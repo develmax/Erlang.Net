@@ -85,8 +85,16 @@ async Task<OracleProcessOutput> RunOracleCaptured(string expression, Cancellatio
     foreach (string argument in new[] { "-noshell", "-noinput", "-eval", expression })
         info.ArgumentList.Add(argument);
     using var process = Process.Start(info)!;
-    var output = process.StandardOutput.ReadToEndAsync();
-    var error = process.StandardError.ReadToEndAsync();
+
+    async Task<byte[]> ReadBytes(Stream stream)
+    {
+        using var buffer = new MemoryStream();
+        await stream.CopyToAsync(buffer);
+
+        return buffer.ToArray();
+    }
+    var output = ReadBytes(process.StandardOutput.BaseStream);
+    var error = ReadBytes(process.StandardError.BaseStream);
     try
     {
         await process.WaitForExitAsync(cancellationToken).WaitAsync(TimeSpan.FromSeconds(OracleExecutionLimits.ProcessTimeoutSeconds), cancellationToken);
@@ -99,11 +107,16 @@ async Task<OracleProcessOutput> RunOracleCaptured(string expression, Cancellatio
         await Task.WhenAll(output, error);
         throw;
     }
-    string stdout = await output, stderr = await error;
+    byte[] outputBytes = await output, errorBytes = await error;
+    string stdout = System.Text.Encoding.UTF8.GetString(outputBytes), stderr = System.Text.Encoding.UTF8.GetString(errorBytes);
     if (process.ExitCode != 0)
         throw new InvalidOperationException(OracleDiagnostics.ProcessExit(process.ExitCode, stderr, stdout));
 
-    return new(stdout, stderr, process.ExitCode);
+    return new(stdout, stderr, process.ExitCode)
+    {
+        StandardOutputBytes = outputBytes,
+        StandardErrorBytes = errorBytes
+    };
 }
 try
 {
@@ -457,15 +470,32 @@ try
     await foreach (var oracleResult in OracleExecutionPipeline.Run(
         OriginalOtpDefects.Comparable,
         fixture => CompiledModuleProtocol.Command(fixture.Source, fixture.CallerContext, fixture.CompilerPolicy),
-        RunOracle,
+        async (command, token) =>
+        {
+            var output = await RunOracleCaptured(command, token);
+
+            return System.Text.Json.JsonSerializer.Serialize(output);
+        },
         fixture => activeSource = fixture.Source
     ))
     {
         var fixture = oracleResult.Fixture;
-        Term expected = OracleResultProtocol.Decode(oracleResult.Output);
+        var captured = System.Text.Json.JsonSerializer.Deserialize<OracleProcessOutput>(oracleResult.Output)!;
+        Term expected = OracleResultProtocol.Decode(captured.StandardOutput);
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
-        Term actual = await CompiledModuleExecution.Run(generated, fixture.CallerContext);
-        bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected);
+        var sdk = fixture.ExpectedStandardOutputHex is null && fixture.ExpectedStandardErrorHex is null ? null :
+            await CompiledModuleExecution.RunCaptured(generated, fixture.CallerContext);
+        Term actual = sdk?.Result ?? await CompiledModuleExecution.Run(generated, fixture.CallerContext);
+        string? nativeOutputHex = null;
+        string? nativeErrorHex = null;
+        bool streamsMatch = true;
+        if (sdk is not null)
+        {
+            (nativeOutputHex, nativeErrorHex) = OracleStandardStreamProtocol.Capture(captured);
+            streamsMatch = nativeOutputHex == fixture.ExpectedStandardOutputHex && nativeErrorHex == fixture.ExpectedStandardErrorHex &&
+                sdk.StandardOutputHex == fixture.ExpectedStandardOutputHex && sdk.StandardErrorHex == fixture.ExpectedStandardErrorHex;
+        }
+        bool passed = actual.Equals(expected) && expected.Equals(fixture.Expected) && streamsMatch;
         if (!passed)
         {
             failed++;
@@ -482,6 +512,13 @@ try
             Expected = expected.ToString(),
             FixtureExpected = fixture.Expected.ToString(),
             Actual = actual.ToString(),
+            fixture.ExpectedStandardOutputHex,
+            fixture.ExpectedStandardErrorHex,
+            NativeStandardOutputHex = nativeOutputHex,
+            NativeStandardErrorHex = nativeErrorHex,
+            SdkStandardOutputHex = sdk?.StandardOutputHex,
+            SdkStandardErrorHex = sdk?.StandardErrorHex,
+            StandardStreamsMatch = streamsMatch,
             Passed = passed
         });
         Console.WriteLine((passed ? "PASS module " : "FAIL module ") + fixture.Name);

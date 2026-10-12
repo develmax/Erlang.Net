@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part183:erlang display_string1/2 writes real raw standard streams;one-argument form defaults to stderr,flat scalar lists become UTF8,binaries remain byte-exact. **5016/full main and draft**,31 independent output/error fixtures added;all3520 inherited corpus contracts preserved. Registry401;erlang251/351,100 missing,**71.5% API presence**,not semantic completion. [Tests](validation/part-183/tests.json),[audit](validation/part-183/reference-audit.json). Original4455/output-byte comparisons pending184;latest1824424/4424. Native errno cause/resource/scheduler/partialwrite/real Unix TTY coverage and remaining APIs continue. No terminal input injected by checks.
+
 Part182:source-built OTP-29.1.1 original **4424/4424** and **4981/full same-head CI** at2513736. All selected comparisons match;continue remaining APIs. [Proof](validation/part-182/differential.json),[guard](validation/part-182/strict-guard.json). All3520 SDK fixture contracts/3514 comparable modules,778 expressions,132 diagnoses and six exclusions preserved. Twenty purge scenarios match original outcomes;host concurrent admission/current retention/owner type checks remain distinct from native hot-load tests. Registry399;erlang249/351,102 missing,70.9% API presence,not semantic completion. Native resources/global system actor/capacity/autoload/full suites/performance and remaining APIs continue. Close0026 after181;open0027.
 
 Part181:real owned erlang:purge_module/1 prepares the old image,blocks new old-function entries,checks actual executing images,kills old users and waits for monitor/managed unwind before retiring only the old slot. **4981/full main and draft**,twenty native fixtures added;all3500 prior corpus contracts preserved. Registry399;erlang249/351,102 missing,**70.9% API presence**,not semantic completion. [Tests](validation/part-181/tests.json),[audit](validation/part-181/reference-audit.json). Original4424 pending182;latest1804404/4404. Current matching functions remain usable;incompatible retired functions fail. Native system actor/process capacity/autoload/physical resources/full suites/performance and remaining APIs continue.
@@ -88,7 +90,7 @@ Part140: original **3398/3398** and same-head **3902/full CI** verified at a71c0
 
 Part139: nine new process-monitor/default-disabled-trace exports;3902/full local. Original3398 and same-head3902 CI pending140. Port/time_offset monitors,connected distribution and enabled tracing remain unfinished; API presence is not semantic completion.
 
-Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.249 registered,102 missing,total399 direct MFAs.70.9% API presence is not semantic completion.
+Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.351 explicit erlang.erl/bif.tab union exports.251 registered,100 missing,total401 direct MFAs.71.5% API presence is not semantic completion.
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
@@ -169,8 +171,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `demonitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `demonitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `disconnect_node/1` | Missing; real implementation/runtime prerequisites required |
-| `display_string/1` | Missing; real implementation/runtime prerequisites required |
-| `display_string/2` | Missing; real implementation/runtime prerequisites required |
+| `display_string/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `display_string/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display/1` | Missing; real implementation/runtime prerequisites required |
 | `dist_ctrl_get_data_notification/1` | Missing; real implementation/runtime prerequisites required |
 | `dist_ctrl_get_data/1` | Missing; real implementation/runtime prerequisites required |

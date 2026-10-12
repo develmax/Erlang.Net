@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-181/final-owner-guard/tests.json",
+  "ComparisonTestReport": "validation/part-182/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -78,7 +78,8 @@
         "Part173:qualified non-erlang static callback tail dispatch releases the source frame;non-tail and async/error restoration guarded;4920/full local,4370 original pending174",
         "Part175:actual source publication images/old continuation references/exact rollback;generic fun caller retention/return-error-cancellation cleanup;4921/full local,4370 original pending176",
         "Part177:check_process_code2/3 actual image/queued signal requests,target death replies,option/error cause contracts;owned C# callback image lifetime/flow preserved;4949/full local,4395 original pending178",
-        "Part181:purge_module1 over actual old image preparation/reservations,CPC/kill-monitor/unwind;pending old-function entry waits admit control signals;retired code rejects incompatible functions,current matching code remains usable;4981/full local,4424 original pending182"
+        "Part181:purge_module1 over actual old image preparation/reservations,CPC/kill-monitor/unwind;pending old-function entry waits admit control signals;retired code rejects incompatible functions,current matching code remains usable;4981/full local,4424 original pending182",
+        "Part183:display_string1/2 real raw standard streams,default stderr,flat scalar UTF8/binary bytes/error frames and borrowed ownership;5016/full local,4455 original pending184"
       ],
       "Id": "Runtime",
       "TestPrefixes": [
@@ -309,7 +310,8 @@
         "Part176:complete4370/4370 source-built original and4921/full same-head CI;exact175 source/diagnostic/expectation/hash/policy contracts preserved;all selected comparisons match;continue remaining APIs",
         "Part178:complete4395/4395 source-built original and4949/full same-head CI;exact177 source/diagnostic/expectation/hash/policy contracts preserved;all selected comparisons match;continue remaining APIs",
         "Part180:source-built original4404/4404 and4959/full same-head CI;all179 contracts preserved;All selected comparisons match;continue remaining APIs",
-        "Part182:source-built original4424/4424 and4981/full same-head CI;all181 contracts preserved,includingtwenty purge scenarios;All selected comparisons match;continue remaining APIs"
+        "Part182:source-built original4424/4424 and4981/full same-head CI;all181 contracts preserved,includingtwenty purge scenarios;All selected comparisons match;continue remaining APIs",
+        "Part183:raw oracle byte capture,optional independent stdout/stderr hex contracts for31 new cases;preserve trailing CR/LF/invalidUTF8/NUL and JSON roundtrip;all3520 inherited contracts unchanged"
       ],
       "Id": "Differential validation",
       "TestPrefixes": [

@@ -20,6 +20,8 @@ Test(Erlang.Tests.CodeImageHostNames.Test, Erlang.Tests.CodeImageHostChecks.Run)
 Test(Erlang.Tests.ProcessCodeHostNames.Test, Erlang.Tests.ProcessCodeHostChecks.Run);
 Test(Erlang.Tests.FunctionReloadHostNames.Test, Erlang.Tests.FunctionReloadHostChecks.Run);
 Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run);
+Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);
+Test(Erlang.Tests.StandardStreamHostNames.ProtocolTest, Erlang.Tests.StandardStreamProtocolChecks.Run);
 Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);
 Test("runtime/monitor-concurrent-termination-and-cancellation", Erlang.Tests.ProcessMonitorHostChecks.ConcurrentTermination);
@@ -3892,7 +3894,14 @@ foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
         async () =>
     {
         using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
-        Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
+        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
+        {
+            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
+            Equal(captured.Result, fixture.Expected);
+            Check(captured.StandardOutputHex == fixture.ExpectedStandardOutputHex && captured.StandardErrorHex == fixture.ExpectedStandardErrorHex);
+        }
+        else
+            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
         Check(artifact.CSharpSha256.Length == 64);
     }
     );

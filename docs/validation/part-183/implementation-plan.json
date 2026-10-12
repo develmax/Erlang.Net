@@ -1,0 +1,13 @@
+{
+  "Sources": [
+    "erts/preloaded/src/erlang.erl",
+    "erts/emulator/beam/bif.c",
+    "erts/emulator/beam/utils.c"
+  ],
+  "Limitations": "Native physical allocator/scheduler/syscall/error-cause parity and actual Unix TTY injection need separate platform checks;do not substitute TextWriter transcoding for binary bytes",
+  "Status": "Plan before implementation",
+  "Part": 183,
+  "Objective": "Implement real erlang display_string1/2 using flat scalar-to-UTF8 conversion and raw stdout/stderr bytes,default stderr;preserve native source-wrapper error frames",
+  "Reuse": ".NET10 Stream/ArrayBufferWriter/Rune plus actual platform input injection only where supported;no production BEAM/new package",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

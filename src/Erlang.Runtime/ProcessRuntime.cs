@@ -26,17 +26,46 @@ public sealed class ProcessRuntime : IAsyncDisposable
         get;
     }
     internal RuntimeTimers Timers { get; }
+    public RuntimeStandardStreams StandardStreams { get; }
+    private readonly bool ownsStandardStreams;
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
     public ModuleRegistry Modules { get; } = new();
     public RuntimeFunctionEntries Functions { get; } = new();
     internal uint LocalTermSeed { get; } = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(System.Security.Cryptography.RandomNumberGenerator.GetBytes(ErlangEtfParameters.LocalSeedBytes));
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null, int maximumProcesses = ProcessTableParameters.DefaultCapacity)
+        : this(
+            node,
+            output,
+            maximumProcesses,
+            null
+        )
+    {
+    }
+
+    public ProcessRuntime(RuntimeStandardStreams standardStreams)
+        : this(
+            ProcessNodeDefaults.Local,
+            null,
+            ProcessTableParameters.DefaultCapacity,
+            standardStreams
+        )
+    {
+    }
+
+    public ProcessRuntime(
+        string node,
+        TextWriter? output,
+        int maximumProcesses,
+        RuntimeStandardStreams? standardStreams
+    )
     {
         processSlots = new(maximumProcesses);
         Node = node;
         NodeAtom = Term.A(node);
         Output = output ?? Console.Out;
+        ownsStandardStreams = standardStreams is null;
+        StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
         Timers = new(this, gate);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
@@ -898,5 +927,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         }
 
         await initializer.Completion.ConfigureAwait(false);
+        if (ownsStandardStreams)
+            StandardStreams.Dispose();
     }
 }
