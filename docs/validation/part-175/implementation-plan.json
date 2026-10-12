@@ -1,0 +1,31 @@
+{
+  "Part": 175,
+  "Source": [
+    "erts/emulator/beam/beam_bif_load.c check_process_code examines instruction/nfunc/continuation pointers,not heap-held fun terms",
+    "erts/preloaded/src/erts_internal.erl get_cpc_opts proper list,last async wins,allow_gc boolean validated and ignored",
+    "lib/compiler/src/beam_ssa_codegen.erl build_fun_call retains caller continuation for generic fun calls"
+  ],
+  "Validation": [
+    "Blocked real old source execution observed from another thread",
+    "Current/new and old executions distinguished after same-module reload",
+    "Old local non-tail continuation and local tail preserve image;qualified static tail releases it",
+    "Same IR object republished does not relabel already executing old code",
+    "Publication rollback restores image/owners;return/error/cancellation release counts",
+    "Actual CPC true/false original modules only after ownership exists"
+  ],
+  "Design": [
+    "Give actual module publications opaque immutable image objects;retain source owners and image in old snapshot;rollback exact image objects",
+    "Maintain thread-safe ProcessContext active-image counts separate from AsyncLocal diagnostic strings;one disposable activation per real source frame",
+    "Local continuations and local tail transfers keep the exact originating image,even if identical IR owner object is later republished",
+    "Resolve qualified source owner and code-image together under registry gate;tail transfer discards prior source activation",
+    "Synchronous caller-scope activation is essential;AsyncLocal mutations inside async helper do not flow back to caller",
+    "Generic fun applications must retain continuation as pinned call_fun does. Reassess part171 canonical external metadata optimisation before exposing CPC",
+    "Do not count retained heap closures or exception terms as active executing code. Do not fake unknown-code answers",
+    "Never-registered host IR Execution.InvokeAsync remains supported;document ownerless extension scope",
+    "Plan CPC response scheduling with actual owned process signals;do not implement async check by arbitrary mailbox timing"
+  ],
+  "Scope": "Code-image foundation first. Purge admission and blocked old fun invocations need later atomic transition;no placeholder CPC/purge registration or full scheduler/resource claim",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Objective": "Track real immutable current/old code images and active per-process execution before CPC",
+  "Reuse": "Existing registry gate,source IR owners,immutable snapshots,owned ProcessContext,SDK collections/Interlocked;no package/BEAM/assembly-unload substitute"
+}

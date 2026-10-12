@@ -3,9 +3,10 @@ namespace Erlang.Compiler;
 public static class Execution
 {
     private sealed record Selection(Clause Clause, Dictionary<string, Term> Bindings);
-    private sealed class TailCall(string function, IReadOnlyList<Term> arguments) : Exception
+    private sealed class TailCall(string function, IReadOnlyList<Term> arguments, ModuleCodeImage? image) : Exception
     {
         public string Function { get; } = function; public IReadOnlyList<Term> Arguments { get; } = arguments;
+        public ModuleCodeImage? Image { get; } = image;
     }
 
     public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context) => Evaluate(
@@ -15,13 +16,28 @@ public static class Execution
         null
     );
 
-    public static async ValueTask<Term> InvokeAsync(
+    public static ValueTask<Term> InvokeAsync(
         ModuleDefinition module,
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments
+    ) => InvokeAsync(
+        module,
+        function,
+        context,
+        arguments,
+        null
+    );
+
+    internal static async ValueTask<Term> InvokeAsync(
+        ModuleDefinition module,
+        string function,
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        ModuleCodeImage? image
     )
     {
+        image ??= context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
         while (true)
         {
             try
@@ -30,19 +46,22 @@ public static class Execution
                     module,
                     function,
                     context,
-                    arguments
+                    arguments,
+                    image
                 );
             }
             catch (TailCall next)
             {
                 function = next.Function;
                 arguments = next.Arguments;
+                image = next.Image;
             }
             catch (SourceTailCall next)
             {
                 module = next.Module;
                 function = next.Function;
                 arguments = next.Arguments;
+                image = next.Image;
             }
             catch (RuntimeTailCall next)
             {
@@ -60,9 +79,11 @@ public static class Execution
         ModuleDefinition module,
         string function,
         ProcessContext context,
-        IReadOnlyList<Term> arguments
+        IReadOnlyList<Term> arguments,
+        ModuleCodeImage? image
     )
     {
+        using var code = image is null ? null : context.EnterSourceCode(image, module);
         using var frame = context.EnterFunction(module.Name, function, arguments.Count);
         var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         var selection = Select(
@@ -529,7 +550,7 @@ public static class Execution
                     if (module is not null && x.Module is null && module.Functions.Any(f => f.Name == x.Function && f.Arity == args.Length))
                     {
                         if (tail)
-                            throw new TailCall(x.Function, args);
+                            throw new TailCall(x.Function, args, ctx.ExecutingSourceImage(module));
 
                         return await InvokeAsync(
                             module,
@@ -540,8 +561,13 @@ public static class Execution
                     }
 
                     if (tail && (x.Module is not null || AutoImportSignatures.Contains(x.Function, args.Length)) &&
-                        ctx.Runtime.Modules.SourceOwner(x.Module ?? ErlangModuleNames.Module, x.Function, args.Length) is ModuleDefinition source)
-                        throw new SourceTailCall(source, x.Function, args);
+                        ctx.Runtime.Modules.SourceEntry(x.Module ?? ErlangModuleNames.Module, x.Function, args.Length) is { Owner: ModuleDefinition source } entry)
+                        throw new SourceTailCall(
+                            source,
+                            x.Function,
+                            args,
+                            entry.Image
+                        );
 
                     if (tail && x.Module is not null && x.Module != ErlangModuleNames.Module)
                         throw new RuntimeTailCall(x.Module, x.Function, args);
@@ -577,9 +603,6 @@ public static class Execution
 
                     if (fun is not FunctionTerm f)
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));
-                    if (tail && f.Arity == args.Length && ctx.Runtime.Functions.IsExternalEntry(f) && f.ExternalIdentity is { } identity &&
-                        ctx.Runtime.Modules.SourceOwner(identity.Module.Name, identity.Function.Name, args.Length) is ModuleDefinition source)
-                        throw new SourceTailCall(source, identity.Function.Name, args);
 
                     return await f.Invoke(ctx, args);
                 }
@@ -645,6 +668,7 @@ public static class Execution
                 {
                     var capture = ClosureCaptures.Capture(f, b);
                     var identity = LocalFunctionEntries.Get(module, f, ctx);
+                    var image = module is null ? null : ctx.ExecutingSourceImage(module) ?? ctx.Runtime.Modules.SourceImage(module.Name, module);
                     string[] names = capture.Keys.ToArray();
 
                     FunctionTerm Create(IReadOnlyList<Term> environment)
@@ -660,6 +684,7 @@ public static class Execution
                             async (context, args) =>
                     {
                         var process = (ProcessContext)context;
+                        using var code = image is null || module is null ? null : process.EnterSourceCode(image, module);
                         using var frame = process.EnterFunction(identity.Module.Name, identity.Name!.Name, args.Count);
                         foreach (var clause in f.Clauses)
                         {

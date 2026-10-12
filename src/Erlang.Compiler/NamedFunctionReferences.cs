@@ -7,6 +7,7 @@ internal static class NamedFunctionReferences
         if (module is not null && module.Functions.Any(function => function.Name == reference.Name && function.Arity == reference.Arity))
         {
             var identity = LocalFunctionEntries.GetNamed(module, reference.Name, reference.Arity);
+            var image = context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
 
             FunctionTerm Create(IReadOnlyList<Term> environment)
             {
@@ -21,7 +22,8 @@ internal static class NamedFunctionReferences
                         module,
                         reference.Name,
                         (ProcessContext)execution,
-                        arguments
+                        arguments,
+                        image
                     )
                 );
             }

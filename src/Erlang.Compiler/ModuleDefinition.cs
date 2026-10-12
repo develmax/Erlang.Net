@@ -27,6 +27,8 @@ public sealed record ModuleDefinition(
 
         registry.Apply(target =>
         {
+            target.PublishModule(Name);
+            var image = target.CurrentCodeImage(Name)!;
             foreach (var export in Exports)
                 target.RegisterSource(
                     Name,
@@ -36,7 +38,8 @@ public sealed record ModuleDefinition(
                         this,
                         export.Name,
                         c,
-                        a
+                        a,
+                        image
                     ),
                     this
                 );

@@ -18,6 +18,56 @@ public sealed class ProcessContext : ITermExecutionContext
     internal bool Terminated;
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
+    private readonly object codeGate = new();
+    private readonly Dictionary<ModuleCodeImage, int> activeCode = new();
+    private readonly AsyncLocal<SourceExecution?> sourceExecution = new();
+
+    private sealed record SourceExecution(ModuleCodeImage Image, object Owner, SourceExecution? Parent);
+
+    private sealed class SourceExecutionScope(ProcessContext context, SourceExecution current) : IDisposable
+    {
+        private int disposed;
+
+        public void Dispose()
+        {
+            if (Interlocked.Exchange(ref disposed, 1) != 0)
+                return;
+            lock (context.codeGate)
+            {
+                int count = context.activeCode[current.Image];
+                if (count == 1)
+                    context.activeCode.Remove(current.Image);
+                else
+                    context.activeCode[current.Image] = count - 1;
+            }
+            context.sourceExecution.Value = current.Parent;
+        }
+    }
+
+    public ModuleCodeImage? ExecutingSourceImage(object owner)
+    {
+        var current = sourceExecution.Value;
+
+        return current is not null && ReferenceEquals(current.Owner, owner) ? current.Image : null;
+    }
+
+    public IDisposable EnterSourceCode(ModuleCodeImage image, object owner)
+    {
+        ArgumentNullException.ThrowIfNull(image);
+        ArgumentNullException.ThrowIfNull(owner);
+        var current = new SourceExecution(image, owner, sourceExecution.Value);
+        lock (codeGate)
+            activeCode[image] = activeCode.GetValueOrDefault(image) + 1;
+        sourceExecution.Value = current;
+
+        return new SourceExecutionScope(this, current);
+    }
+
+    internal bool IsExecutingCode(ModuleCodeImage image)
+    {
+        lock (codeGate)
+            return activeCode.ContainsKey(image);
+    }
 
     private sealed class ExecutionFrameScope(ProcessContext context, ErlangExecutionFrame? parent) : IDisposable
     {

@@ -13,6 +13,7 @@ public sealed class ModuleRegistry
     private readonly HashSet<string> knownModules = new(StringComparer.Ordinal);
     private readonly Dictionary<string, ModuleCodeSnapshot> oldCode = new(StringComparer.Ordinal);
     private readonly Dictionary<(string Module, string Function, int Arity), object> sourceOwners = new();
+    private readonly Dictionary<string, ModuleCodeImage> codeImages = new(StringComparer.Ordinal);
 
     public void Register(
         string module,
@@ -58,6 +59,42 @@ public sealed class ModuleRegistry
             return sourceOwners.GetValueOrDefault((module, function, arity));
     }
 
+    public SourceCodeEntry? SourceEntry(string module, string function, int arity)
+    {
+        lock (gate)
+        {
+            if (!sourceOwners.TryGetValue((module, function, arity), out var owner))
+                return null;
+
+            return new SourceCodeEntry(owner, codeImages[module]);
+        }
+    }
+
+    public ModuleCodeImage? CurrentCodeImage(string module)
+    {
+        lock (gate)
+            return codeImages.GetValueOrDefault(module);
+    }
+
+    public ModuleCodeImage? SourceImage(string module, object owner)
+    {
+        lock (gate)
+        {
+            if (sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, owner)))
+                return codeImages[module];
+            if (oldCode.TryGetValue(module, out var old) && old.SourceOwners.Any(value => ReferenceEquals(value, owner)))
+                return old.Image;
+
+            return null;
+        }
+    }
+
+    public bool IsExecutingOldCode(ProcessContext context, string module)
+    {
+        lock (gate)
+            return oldCode.TryGetValue(module, out var old) && context.IsExecutingCode(old.Image);
+    }
+
     public ValueTask<Term> Call(
         ProcessContext context,
         string module,
@@ -86,6 +123,8 @@ public sealed class ModuleRegistry
             knownModules.Add(module);
             if (!loadedModules.ContainsKey(module))
                 loadedModules.Add(module, Term.A(module));
+            if (!codeImages.ContainsKey(module))
+                codeImages.Add(module, new ModuleCodeImage(module));
         }
     }
 
@@ -112,7 +151,15 @@ public sealed class ModuleRegistry
             var entries = functions.Where(entry => entry.Key.Module == module).Select(entry => (entry.Key, entry.Value)).ToArray();
             codeDescriptors.TryGetValue(module, out var descriptor);
             if (entries.Length != 0 || descriptor is not null)
-                oldCode.Add(module, new ModuleCodeSnapshot(Array.AsReadOnly(entries), descriptor));
+                oldCode.Add(
+                    module,
+                    new ModuleCodeSnapshot(
+                        Array.AsReadOnly(entries),
+                        descriptor,
+                        codeImages[module],
+                        Array.AsReadOnly(sourceOwners.Where(entry => entry.Key.Module == module).Select(entry => entry.Value).ToArray())
+                    )
+                );
             foreach (var entry in entries)
             {
                 functions.Remove(entry.Key);
@@ -120,6 +167,7 @@ public sealed class ModuleRegistry
             }
             loadedModules.Remove(module);
             codeDescriptors.Remove(module);
+            codeImages.Remove(module);
             informationSnapshots.Remove(module);
 
             return Term.A(ErlangBooleanAtoms.True);
@@ -239,6 +287,7 @@ public sealed class ModuleRegistry
             var previousKnown = knownModules.ToArray();
             var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
             var previousOwners = new Dictionary<(string Module, string Function, int Arity), object>(sourceOwners);
+            var previousImages = new Dictionary<string, ModuleCodeImage>(codeImages, StringComparer.Ordinal);
             try
             {
                 configure(this);
@@ -268,6 +317,9 @@ public sealed class ModuleRegistry
                 sourceOwners.Clear();
                 foreach (var entry in previousOwners)
                     sourceOwners.Add(entry.Key, entry.Value);
+                codeImages.Clear();
+                foreach (var entry in previousImages)
+                    codeImages.Add(entry.Key, entry.Value);
                 throw;
             }
         }
