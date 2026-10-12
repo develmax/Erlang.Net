@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-167/tests.json",
-  "LocalPassedTests": 4884,
-  "RegisteredMfas": 394,
+  "ComparisonTestReport": "validation/part-168/ci-tests.json",
+  "LocalPassedTests": 4900,
+  "RegisteredMfas": 396,
   "PreviousRegisteredMfas": 394,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 2,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -70,7 +70,8 @@
         "Part159:ref_to_list/list_to_ref actual local identity text;allocator carry/flags beyond262144;4792/full local;native4253 pending160",
         "Part161:actual pre_loaded bootstrap code catalogue/real init,atomic install/rollback/snapshots/concurrency/fresh lists/cached atoms;4834/full local",
         "Part163:owned current code metadata/cache/rollback and get_module_info1/2,4855/full local;original4311 pending164",
-        "Part165:actual source attributes/explicit/default vsn and metadata-free code/fun fingerprints;4880/full local,original4335 pending166"
+        "Part165:actual source attributes/explicit/default vsn and metadata-free code/fun fingerprints;4880/full local,original4335 pending166",
+        "Part169:actual current-to-old delete_module1/check_old_code1,old-only loaded0/current-only module_loaded1,immutable callbacks/descriptors and atomic rollback;4900/full local,4352 original pending170"
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -79,7 +80,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 295
+      "RelatedPassedTests": 298
     },
     {
       "Id": "Compiler",
@@ -146,7 +147,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1433
+      "RelatedPassedTests": 1435
     },
     {
       "Id": "gen_server adapters",
@@ -267,7 +268,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 3584
+      "RelatedPassedTests": 3597
     },
     {
       "Id": "Style checks",
@@ -5536,11 +5537,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 244,
+      "RegisteredMfas": 246,
       "PreviousRegisteredMfas": 244,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 69.5,
+      "ApiPresencePercent": 70.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5603,6 +5604,7 @@
         "erlang:cancel_timer/1",
         "erlang:cancel_timer/2",
         "erlang:ceil/1",
+        "erlang:check_old_code/1",
         "erlang:convert_time_unit/3",
         "erlang:crc32/1",
         "erlang:crc32/2",
@@ -5610,6 +5612,7 @@
         "erlang:date/0",
         "erlang:decode_packet/3",
         "erlang:delete_element/2",
+        "erlang:delete_module/1",
         "erlang:demonitor/1",
         "erlang:demonitor/2",
         "erlang:div/2",

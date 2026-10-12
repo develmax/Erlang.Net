@@ -3150,5 +3150,21 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:get_module_info/2",
     "Limits": "Current owned backend code/literal source attributes/explicit vsn;BEAM checksum/compiler/private optimizer inventories,remote fun attributes/docs/type/compiler directives,hot code/NIF/resources/full upstream suites unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "delete_module",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:delete_module/1",
+    "Limits": "Actual owned current-to-old callback/IR code and copied descriptors;qualified dispatch uses current exports,local calls/funs retain old code. Purge/process-code tracking/hot replacement/BEAM images/on_load/NIF/BIF binding/resources/full suites remain unfinished"
+  },
+  {
+    "Module": "erlang",
+    "Function": "check_old_code",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:check_old_code/1",
+    "Limits": "Actual owned current-to-old callback/IR code and copied descriptors;qualified dispatch uses current exports,local calls/funs retain old code. Purge/process-code tracking/hot replacement/BEAM images/on_load/NIF/BIF binding/resources/full suites remain unfinished"
   }
 ]

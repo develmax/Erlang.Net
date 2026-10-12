@@ -473,7 +473,7 @@ public static class Execution
                     if (RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
                         return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
-                    if (module is not null && (x.Module is null || x.Module == module.Name && module.Exports.Contains((x.Function, args.Length))) && module.Functions.Any(f => f.Name == x.Function && f.Arity == args.Length))
+                    if (module is not null && x.Module is null && module.Functions.Any(f => f.Name == x.Function && f.Arity == args.Length))
                     {
                         if (tail)
                             throw new TailCall(x.Function, args);

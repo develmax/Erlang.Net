@@ -1,0 +1,10 @@
+{
+  "Reference": "OTP-29.1.1/ad058237 beam_bif_load.c check_old_code_1/delete_module_1/delete_code",
+  "Part": 169,
+  "States": "Unknown delete -> undefined; known current or empty -> true; old code present -> badarg; delete removes current exports/loaded metadata and retains immutable real callbacks/descriptor as old code",
+  "Reuse": "Existing registry gate/Apply rollback/immutable copied snapshots; no new dependency. .NET assembly unloading cannot model Erlang per-module export deletion, so use actual owned callbacks/IR identity",
+  "Validation": "Permanent native own-module delete/old-state/type/unknown/local-fun/current-metadata cases; host rollback/delete/re-register/deleting-old rejection; full pipeline and original OTP",
+  "Objective": "Actual current-to-old module deletion and old-code queries, retaining real callbacks/descriptors",
+  "Scope": "Two APIs only; purge and process-code scanning follow after active-code/tail-call ownership is implemented; no fake false answers for pending APIs",
+  "RemoteDispatchAudit": "Existing Execution incorrectly treats explicitly qualified same-module exports as local. Deletion exposes this: Mod:run must use current export table and raise undef after deletion. Add a permanent comparison and remove self-qualified local shortcut. General tail/code-frame ownership remains pending before CPC/purge."
+}

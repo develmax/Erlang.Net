@@ -10,6 +10,8 @@ public sealed class ModuleRegistry
     private readonly Dictionary<string, Atom> preloadedModules = new(StringComparer.Ordinal);
     private readonly Dictionary<string, ModuleCodeDescriptor> codeDescriptors = new(StringComparer.Ordinal);
     private readonly Dictionary<string, ModuleInformationSnapshot> informationSnapshots = new(StringComparer.Ordinal);
+    private readonly HashSet<string> knownModules = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, ModuleCodeSnapshot> oldCode = new(StringComparer.Ordinal);
 
     public void Register(
         string module,
@@ -53,6 +55,7 @@ public sealed class ModuleRegistry
         AtomNameRegistry.Observe(module);
         lock (gate)
         {
+            knownModules.Add(module);
             if (!loadedModules.ContainsKey(module))
                 loadedModules.Add(module, Term.A(module));
         }
@@ -62,6 +65,34 @@ public sealed class ModuleRegistry
     {
         lock (gate)
             return loadedModules.ContainsKey(module);
+    }
+
+    public bool HasOldCode(string module)
+    {
+        lock (gate)
+            return oldCode.ContainsKey(module);
+    }
+
+    public Term DeleteModule(string module)
+    {
+        lock (gate)
+        {
+            if (!knownModules.Contains(module))
+                return Term.A(ModuleCodeLifecycleNames.UnknownModule);
+            if (oldCode.ContainsKey(module))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            var entries = functions.Where(entry => entry.Key.Module == module).Select(entry => (entry.Key, entry.Value)).ToArray();
+            codeDescriptors.TryGetValue(module, out var descriptor);
+            if (entries.Length != 0 || descriptor is not null)
+                oldCode.Add(module, new ModuleCodeSnapshot(Array.AsReadOnly(entries), descriptor));
+            foreach (var entry in entries)
+                functions.Remove(entry.Key);
+            loadedModules.Remove(module);
+            codeDescriptors.Remove(module);
+            informationSnapshots.Remove(module);
+
+            return Term.A(ErlangBooleanAtoms.True);
+        }
     }
 
     public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
@@ -157,8 +188,8 @@ public sealed class ModuleRegistry
         lock (gate)
         {
             Term result = Nil.Value;
-            foreach (Atom module in loadedModules.Values)
-                result = new Cons(module, result);
+            foreach (string module in loadedModules.Keys.Concat(oldCode.Keys).Distinct(StringComparer.Ordinal))
+                result = new Cons(Term.A(module), result);
 
             return result;
         }
@@ -174,6 +205,8 @@ public sealed class ModuleRegistry
             var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
             var previousDescriptors = new Dictionary<string, ModuleCodeDescriptor>(codeDescriptors, StringComparer.Ordinal);
             var previousInformation = new Dictionary<string, ModuleInformationSnapshot>(informationSnapshots, StringComparer.Ordinal);
+            var previousKnown = knownModules.ToArray();
+            var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
             try
             {
                 configure(this);
@@ -195,6 +228,11 @@ public sealed class ModuleRegistry
                 informationSnapshots.Clear();
                 foreach (var entry in previousInformation)
                     informationSnapshots.Add(entry.Key, entry.Value);
+                knownModules.Clear();
+                knownModules.UnionWith(previousKnown);
+                oldCode.Clear();
+                foreach (var entry in previousOld)
+                    oldCode.Add(entry.Key, entry.Value);
                 throw;
             }
         }
