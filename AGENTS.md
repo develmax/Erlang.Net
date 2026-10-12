@@ -703,3 +703,7 @@ Part191:node-qualified spawn/spawn_link/spawn_monitor2/4 execute actual local ca
 ## Part192 checkpoint
 
 Part192:source-built original **4605/4607** and **5186/full same-head CI** atde1ea33. 2 discrepancies retained;repair before promotion. [Proof](validation/part-192/differential.json),[guard](validation/part-192/strict-guard.json). All3703 SDK contracts/3697 comparable modules,778 expressions,132 diagnoses,six exclusions and68 independent byte expectations preserved. Registry415;erlang265/351,86 missing,75.5% API presence,not semantic completion. Preserve1884488/4525 and explicit37 output migrations;networking/dynamic naming/nativeGC/host imports/platform/resources/grammar/upstream/performance and remaining APIs continue.
+
+## Part193 checkpoint
+
+Part193:isolated native investigation now includes both retained192 failures in120 compiler/pass/context evaluations. **5186/full local**;production/MFAs/all3703 fixture contracts and six exclusions unchanged. Native matrix pending194;192 remains4605/4607. [Audit](validation/part-193/reference-audit.json),[tests](validation/part-193/tests.json). Pinned erl_utils.h confirms flatmap atoms use internal identities;display order is not name order. Registry415;erlang265/351,86 missing,75.5% API presence. Repair only after independent diagnosis;whole goal continues.

@@ -12,7 +12,9 @@ public static class NativeCompilationInvestigation
         "otp-supervisor-start-failure",
         "otp-supervisor-invalid-intensity",
         "erlang-spawn-group-callback-tuple",
-        "erlang-spawn-group-callback-wrong-arity-child-error"
+        "erlang-spawn-group-callback-wrong-arity-child-error",
+        "erlang-node-spawn-tuple-callback",
+        "erlang-term-display-map"
     ];
 
     public static string Command(string source, bool disableOptimizations, bool? trapExits)
