@@ -107,7 +107,32 @@ public sealed class ProcessRuntime : IAsyncDisposable
             try
             {
                 ctx.Cancellation.ThrowIfCancellationRequested();
-                await body(ctx);
+                Func<ProcessContext, ValueTask<Term>> current = body;
+                body = null!;
+                while (true)
+                {
+                    try
+                    {
+                        await current(ctx);
+                        break;
+                    }
+                    catch (ProcessHibernateTransfer transfer)
+                    {
+                        current = child =>
+                        {
+                            if (transfer.Arguments.Count > ProcessHibernateParameters.MaximumResumeArity)
+                                throw new ErlangException(ErlangErrorReasons.SystemLimit);
+
+                            return child.Runtime.Modules.Call(
+                                child,
+                                transfer.Module,
+                                transfer.Function,
+                                transfer.Arguments.ToArray()
+                            );
+                        };
+                        await ctx.Mailbox.WaitForMessage(ctx.Cancellation);
+                    }
+                }
             }
             catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
             {

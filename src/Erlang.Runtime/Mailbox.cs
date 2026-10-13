@@ -168,6 +168,30 @@ public sealed class Mailbox
         }
     }
 
+    internal async Task WaitForMessage(CancellationToken cancellation)
+    {
+        while (true)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            ProcessSignals?.Invoke();
+            cancellation.ThrowIfCancellationRequested();
+            if (WaitForExecution is not null)
+                await WaitForExecution();
+            Task signal;
+            bool retry;
+            lock (gate)
+            {
+                retry = pending != 0;
+                if (!retry && messages.Count != 0)
+                    return;
+                signal = changed.Task;
+            }
+            if (retry || ExecutionBlocked?.Invoke() == true)
+                continue;
+            await signal.WaitAsync(cancellation);
+        }
+    }
+
     public async ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout, CancellationToken cancellation = default) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -210,7 +234,10 @@ public sealed class Mailbox
             try
             {
                 if (remaining is { } finite)
-                    await signal.WaitAsync(finite, cancellation);
+                    await signal.WaitAsync(
+                        finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
+                        cancellation
+                    );
                 else
                     await signal.WaitAsync(cancellation);
             }

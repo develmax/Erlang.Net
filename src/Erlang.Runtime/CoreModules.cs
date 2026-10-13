@@ -778,6 +778,8 @@ public static class CoreModules
         ProcessMonitorRegistrations.Register(r);
         ProcessSpawnRegistrations.Register(r);
         ProcessSpawnOptionRegistrations.Register(r);
+        ProcessHibernateRegistrations.Register(r);
+        ProcessDelayRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);

@@ -15,6 +15,7 @@ internal static class TryExpressionExecution
     {
         var incoming = CompiledBindingScope.Copy(bindings);
         var bodyScope = CompiledBindingScope.Copy(incoming);
+        bool runAfter = true;
         try
         {
             Term value;
@@ -53,9 +54,14 @@ internal static class TryExpressionExecution
 
             throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.TryClause), value));
         }
+        catch (ProcessHibernateTransfer)
+        {
+            runAfter = false;
+            throw;
+        }
         finally
         {
-            if (expression.After is not null)
+            if (runAfter && expression.After is not null)
                 await evaluate(expression.After, CompiledBindingScope.Copy(incoming));
         }
     }
