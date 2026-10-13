@@ -1,0 +1,222 @@
+{
+  "ReferenceTag": "OTP-29.1.1",
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "BaselineProductionCommit": "7f3925f49cbb6135afa3d7c3b0e932877678d31c",
+  "ReviewReadOnly": true,
+  "BuildsRun": false,
+  "PrototypeFilesChangedByReview": false,
+  "AccessMatchesPinnedLocalAndQualifiedGetter": true,
+  "AccessLine": 59,
+  "LocalAnonymousAndUnderscoreChecks": "Native record type + actual field lookup; no module/export/name check for wildcard.",
+  "LocalNamedChecks": "Native record type + name only; no module/export check.",
+  "QualifiedChecks": "Actual module/name identity + export before actual field lookup.",
+  "ErrorIdentity": "badrecord uses operand; badfield uses actual captured module/name and requested field.",
+  "UnchangedChecks": {
+    "Construct": {
+      "ExactUnchanged": true,
+      "BaselineSha256": "E2426D87578C840143BDC143038A5762CC2D2D139CC9F0C73D9439842A585312",
+      "CurrentSha256": "E2426D87578C840143BDC143038A5762CC2D2D139CC9F0C73D9439842A585312"
+    },
+    "Require": {
+      "ExactUnchanged": true,
+      "BaselineSha256": "A5B66898F8C267ACC44BF16B8E905DC8EDC1B0C10CA7C0324C5B035D682049C7",
+      "CurrentSha256": "A5B66898F8C267ACC44BF16B8E905DC8EDC1B0C10CA7C0324C5B035D682049C7"
+    },
+    "Update": {
+      "ExactUnchanged": true,
+      "BaselineSha256": "4A3410516A4E93BDD0C44F31F589B989769ACEA868FF9A7635C3C124A0C53A62",
+      "CurrentSha256": "4A3410516A4E93BDD0C44F31F589B989769ACEA868FF9A7635C3C124A0C53A62"
+    },
+    "Pattern": {
+      "ExactUnchanged": true,
+      "BaselineSha256": "F70126398129CCD7C192FBA1DCCA7AA53565CF032133C626C44BD617BE7E2DAE",
+      "CurrentSha256": "F70126398129CCD7C192FBA1DCCA7AA53565CF032133C626C44BD617BE7E2DAE"
+    },
+    "Parser": {
+      "ExactUnchanged": true,
+      "BaselineSha256": "87330176B07E511F1038F88E8BBC0904E5CCC5A3B998E17484AF4F9021D18E94",
+      "CurrentSha256": "87330176B07E511F1038F88E8BBC0904E5CCC5A3B998E17484AF4F9021D18E94"
+    }
+  },
+  "SemanticsRestriction": {
+    "GuardConstructionBeforeRule": 198,
+    "RequiredFieldAndUnknownFieldLintBeforeRule": 206,
+    "ChildBindingValidationBeforeRule": 223,
+    "ConstructorRule": 224,
+    "OnlyLocalLiteralConstruction": true,
+    "UnusedDeclarationsUpdatesQualifiedImportsNotRejectedByThisRule": true
+  },
+  "FixtureCount": 8,
+  "FixturesReviewed": [
+    {
+      "Name": "erlang-native-record-access-anonymous-foreign-private",
+      "Contract": "Foreign private anonymous access succeeds while nonempty private field pattern fails and empty succeeds."
+    },
+    {
+      "Name": "erlang-native-record-access-anonymous-missing-field-actual-identity",
+      "Contract": "Missing field returns badfield with actual other/s identity."
+    },
+    {
+      "Name": "erlang-native-record-access-anonymous-non-record-types",
+      "Contract": "Integer,tuple,list,map,function return badrecord with the original operand."
+    },
+    {
+      "Name": "erlang-native-record-access-anonymous-local-private-update-and-pattern",
+      "Contract": "Same module private anonymous update/pattern allowed; qualified private access denied."
+    },
+    {
+      "Name": "erlang-native-record-access-anonymous-qualified-identity-and-export",
+      "Contract": "Exported qualified access succeeds; wrong module/name badrecord; missing field actual identity."
+    },
+    {
+      "Name": "erlang-native-record-access-anonymous-read-keeps-update-permission",
+      "Contract": "Foreign private anonymous read does not authorize anonymous/empty update or qualified access."
+    },
+    {
+      "Name": "erlang-native-record-access-local-name-foreign-private-access-only",
+      "Contract": "Local named getter ignores foreign module/export; named pattern/update and qualified private access remain denied."
+    },
+    {
+      "Name": "erlang-native-record-access-local-name-mismatch-and-actual-field-identity",
+      "Contract": "Different local name badrecord; matching local name uses actual field layout and actual badfield identity."
+    }
+  ],
+  "Issues": [
+    {
+      "Severity": "Documentation correction",
+      "File": "docs/OTP-PORTS.md",
+      "Line": 673,
+      "Issue": "New paragraph incorrectly labels beam_core_to_ssa copyright2018-2026; pinned source is Ericsson AB2023-2026. ops.tab is omitted from the explicit added source attribution although its dispatch is relied on. erl_record.c2024-2026 is correctly attributed in inherited paragraph654; beam_validator2004-2026 is correct.",
+      "SuggestedSourceClause": "erl_record.c (Copyright Ericsson AB2024-2026), erts/emulator/beam/emu/ops.tab (1997-2026), lib/compiler/src/beam_core_to_ssa.erl (2023-2026), lib/compiler/src/beam_validator.erl (2004-2026), Apache-2.0; altered C# adaptation and full original license in OTP-LICENSE.txt."
+    }
+  ],
+  "RuntimeOrFixtureIssuesFound": 0,
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/erl_record.c",
+      "GitBlobSourceSha256": "845A5EBCD55C90FFA5BD95A11DD2613983B3752ECCC309EDC0EE410DD8569A48",
+      "Copyright": "Copyright Ericsson AB 2024-2026. All Rights Reserved.",
+      "Locations": [
+        {
+          "Text": "bool erl_is_wildcard_record_accessible",
+          "Line": 461
+        },
+        {
+          "Text": "Eterm erl_get_local_record_field",
+          "Line": 470
+        },
+        {
+          "Text": "if (name != am_Underscore",
+          "Line": 488
+        },
+        {
+          "Text": "Eterm erl_get_record_field",
+          "Line": 512
+        },
+        {
+          "Text": "if (defp->is_exported == am_false)",
+          "Line": 547
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "GitBlobSourceSha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857",
+      "Copyright": "Copyright Ericsson AB 1997-2026. All Rights Reserved.",
+      "Locations": [
+        {
+          "Text": "get_record_field Fail Src Id=a Field Dst",
+          "Line": 1672
+        },
+        {
+          "Text": "get_record_field Fail Src Id Field Dst",
+          "Line": 1674
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/beam_core_to_ssa.erl",
+      "GitBlobSourceSha256": "BB0B219345B962C4F00CDEBDAE7995DF0529A7E2B3E6E273DC4B3457A5A23527",
+      "Copyright": "Copyright Ericsson AB 2023-2026. All Rights Reserved.",
+      "Locations": [
+        {
+          "Text": "primop(record_field",
+          "Line": 473
+        },
+        {
+          "Text": "select_record_pairs_val(_Scope",
+          "Line": 3174
+        },
+        {
+          "Text": "select_record_pairs_val(Scope",
+          "Line": 3170
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/beam_validator.erl",
+      "GitBlobSourceSha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B",
+      "Copyright": "Copyright Ericsson AB 2004-2026. All Rights Reserved.",
+      "Locations": [
+        {
+          "Text": "put_record_type(Src",
+          "Line": 1432
+        },
+        {
+          "Text": "error(invalid_underscore_name)",
+          "Line": 1442
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/v3_core.erl",
+      "GitBlobSourceSha256": "B406F7F4C6F7B58DC9AA4608703C82EAF302714C874F38DD1C7FEC62D4017637",
+      "Copyright": "Copyright Ericsson AB 1999-2026. All Rights Reserved.",
+      "Locations": [
+        {
+          "Text": "expr({record_field=Op",
+          "Line": 975
+        },
+        {
+          "Text": "expr_record_id(A, Rec, Body, #c_literal{val=[]}",
+          "Line": 1246
+        }
+      ]
+    }
+  ],
+  "ObservedFileHashes": [
+    {
+      "Path": "src/Erlang.Runtime/NativeRecordLanguage.cs",
+      "Sha256": "C827CF8AED97F9C59DE730B326B5822DC778A547071BF58F92F6795DD6AB8475"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeRecordLanguageNames.cs",
+      "Sha256": "D084C17A663ADBC7F83AE9AD607061BC29545D64A5445420DDEEBA613E56DFEC"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NativeRecordPattern.cs",
+      "Sha256": "F70126398129CCD7C192FBA1DCCA7AA53565CF032133C626C44BD617BE7E2DAE"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Sha256": "87330176B07E511F1038F88E8BBC0904E5CCC5A3B998E17484AF4F9021D18E94"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Sha256": "6AC548F5C7F4407FFB6BC6777C93B1D6A2EDCEA736E8694B3C9C0B9470CE9FFB"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NativeAnonymousAccessCases.cs",
+      "Sha256": "DE42B888E9937817CFAC5AD18C43103FDCD45CF8F9ADCA3A5ADD52715F3208F1"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NativeRecordSyntaxCases.cs",
+      "Sha256": "64E2B1C1863695A5D4F9B37CF6C01F93D9B11586EE88290A70A9F6CA62C0AC46"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Sha256": "15C38573746EE2DE7C89336D095D4CC765D351D44E21E6E8BB3D700EE13E126A"
+    }
+  ],
+  "Scope": "Source review only; current Root full run64582 and original comparisons are separate evidence, not claimed here."
+}

@@ -1,0 +1,58 @@
+{
+  "ReadOnly": true,
+  "Prototype": "original-225-repair-prototype",
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestRegistrations.cs",
+      "Sha256": "EBE19A0A3144F3F967E8A84387A8F5A1436E92DDB3E18D9A74A537F52EC48376"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestOptions.cs",
+      "Sha256": "34A8B3E89D78F9AFEE76FA2779BAA09A080CD4CB8250F8F95BC72FD48DC93584"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnRequestCases.cs",
+      "Sha256": "56C6005D98406F68E5E2558E67C9B23FD14985323530C6B4FEA50D8BBEE127C9"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnRequestWrapperCases.cs",
+      "Sha256": "5FEC0A711206F7C9F6D1B5BE86CE65031C5F87607224883FE7130F37829B437C"
+    }
+  ],
+  "NormalizationReview": "No defect found in3->4,atom-third4->5,current-node5->4 normalization or initialfun precedence. Terminal args/options andSequenceSpawnDescription use normalized MFA; Invalid captures originalpublic arguments.",
+  "NewEightFixtures": "All8 source contracts independently expect{ok,done};threebadarg cases assert exact original3/5 supplied argument lists. They do not testcallback3 cause dropping.",
+  "ResourceScope": "No arbitrarynormalizationguard; appendedNIL ensures logicaltermination. Native physicalstack/heap resource equivalence unclaimed.",
+  "SourceReferences": [
+    "erts/preloaded/src/erlang.erl:11133-11138 callback2 inherits",
+    "erts/preloaded/src/erlang.erl:11196-11201 callback3 replaces info",
+    "erts/preloaded/src/erlang.erl:11203-11208 generic3",
+    "erts/preloaded/src/erlang.erl:11249-11263 four-argument redispatch",
+    "erts/preloaded/src/erlang.erl:11436-11448 five-argument redispatch",
+    "erts/preloaded/src/erlang.erl:13485-13503 inherited/info/cause helpers",
+    "erts/emulator/beam/bif.c:1090-1108 local validation"
+  ],
+  "DiscoveredIssues": [
+    {
+      "Id": "callback3-improper-options-cause",
+      "Classification": "Inherited existing metadata mismatch, repair227 scoped followup",
+      "Trigger": "spawn_request(node(),Fun0,wrong)",
+      "Native": "badarg headframe args remain [Node,Fun,wrong]; error_info moduleerl_erts_errors WITHOUTcausebadopt",
+      "Managed": "badarg args arecorrect butadds causebadopt viaunconditional localbadOption",
+      "Proposal": "Suppress causeonly originalcallback==1/count3; callback2/localMFA4/localMFA5 keepcause",
+      "FixturesProposed": 2,
+      "Patch": "artifacts/part227-spawn-metadata.patch",
+      "Applied": false
+    }
+  ],
+  "BuildsRun": false,
+  "OriginalVerified": false,
+  "FrozenSourceEdited": false,
+  "ProposedHashes": {
+    "RuntimeBefore": "EBE19A0A3144F3F967E8A84387A8F5A1436E92DDB3E18D9A74A537F52EC48376",
+    "RuntimeAfter": "D5E7CC5077E48361BC62894C4940A06D08894570CEA1E59AF96BD8A31EE23882",
+    "NewProvider": "75AA3F9E9AD5DDDBEC6C206685C2946F92E78AA71105EEBA7D0D697B1B0D078F"
+  },
+  "ManifestUpdateProposal": "Rootrefresh runtimehash afterapplyingpatch/style;addmetadata provider/hash+2fixtures. Original8source andallpriorfixtureSource/outcomes unchanged. No oldexpected/source correction."
+}

@@ -1,0 +1,16 @@
+{
+  "Name": "erlang-native-underscore-runtime-create",
+  "OldSource": "-module(native_underscore_contract). -export([run/0]).  run()->R=records:create(native_underscore_contract,'_',[{x,1}],#{is_exported=>false}),'_'=records:get_name(R),1=records:get(R,x),true=is_record(R),done.",
+  "NewSource": "-module(native_underscore_contract). -export([run/0]).  run()->R=records:create(native_underscore_contract,'_',[{x,1}],#{is_exported=>false}),'_'=records:get_name(R),1=records:get(x,R),true=is_record(R),done.",
+  "OldSourceSha256": "D5EFEB86ADC1C7A1DD4BE4BE9028DB6526E62D92958C1516A947DEE2C38943E5",
+  "NewSourceSha256": "A3CF75AE846A5307F5770098980BE7E13D92E83DDA578DB97A67EAF5F42D8CCB",
+  "OldCSharpSha256": "764C5724AE799199BCD1B6C330F01919008D462F811A95CE95B6600044E664FF",
+  "OldExpected": "{ok,done}",
+  "NewExpected": "{ok,done}",
+  "InitialFullEvidence": "Root initial repair6053/6054 session64582 exit1 retained; runtime-create onlybadarg failure",
+  "Reason": "Pinned OTP-29.1.1 records.erl get(Key, Record): fixture reversed field/record arguments; SDK badarg correct",
+  "ProductionRuntimeChanged": false,
+  "OriginalVerified": false,
+  "OldProviderSha256": "6F8D05C7FE8D0462C42F9DB188432633AC3BBAE9D74EB9AB105B7A7B6406991F",
+  "NewProviderSha256": "567AC329039B70887BB92BD28512BFDACC0F731C74B1A9AA12B3A20487B6A10B"
+}

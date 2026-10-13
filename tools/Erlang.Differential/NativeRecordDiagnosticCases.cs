@@ -137,6 +137,37 @@ public static class NativeRecordDiagnosticCases
             Term.Tuple(Term.A(NativeRecordDiagnosticNames.RedefineImported), Term.Tuple(Term.A("ext"), Term.A("r")))
         );
 
+        cases.Add(new(
+            new CompiledDiagnosticCase(
+                "native-record-quoted-underscore-construction-validator",
+                "-module(native_record_syntax_contract). -export([run/0]). -record #'_'{x=1}. run()->R=#'_'{},1=R#'_'.x,'_'=records:get_name(R),done. ",
+                "_",
+                Kind: DiagnosticCaseKind.NativeRecord
+            ),
+            NativeRecordDiagnosticNames.RecordCode,
+            "native record construction cannot use the literal underscore name",
+            Term.Tuple(
+                Term.Tuple(
+                    Term.A(NativeRecordDiagnosticNames.AbortedModule),
+                    Term.A(NativeRecordDiagnosticNames.AbortedFunction),
+                    Term.I(NativeRecordDiagnosticNames.AbortedFunctionArity)
+                ),
+                Term.Tuple(
+                    Term.Tuple(
+                        Term.A(NativeRecordDiagnosticNames.PutRecord),
+                        Term.Tuple(Term.A(NativeRecordDiagnosticNames.FailRegister), Term.I(NativeRecordDiagnosticNames.AbortedFailLabel)),
+                        Term.Tuple(Term.A(NativeRecordDiagnosticNames.AtomOperand), Term.A("_")),
+                        Term.A(NativeRecordDiagnosticNames.NilOperand),
+                        Term.Tuple(Term.A(NativeRecordDiagnosticNames.DestinationRegister), Term.I(NativeRecordDiagnosticNames.AbortedDestinationIndex)),
+                        Term.I(NativeRecordDiagnosticNames.AbortedLiveRegisters),
+                        Term.Tuple(Term.A(NativeRecordDiagnosticNames.ListOperand), Nil.Value)
+                    ),
+                    Term.I(NativeRecordDiagnosticNames.AbortedInstructionIndex),
+                    Term.A(NativeRecordDiagnosticNames.InvalidUnderscoreName)
+                )
+            )
+        ));
+
         return cases;
     }
 }

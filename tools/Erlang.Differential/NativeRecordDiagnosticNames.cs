@@ -2,6 +2,20 @@ namespace Erlang.Differential;
 
 internal static class NativeRecordDiagnosticNames
 {
+    public const string InvalidUnderscoreName = "invalid_underscore_name";
+    public const string PutRecord = "put_record";
+    public const string FailRegister = "f";
+    public const string DestinationRegister = "x";
+    public const string AtomOperand = "atom";
+    public const string ListOperand = "list";
+    public const string NilOperand = "nil";
+    public const string AbortedModule = "native_record_syntax_contract";
+    public const string AbortedFunction = "run";
+    public const int AbortedFunctionArity = 0;
+    public const int AbortedInstructionIndex = 6;
+    public const int AbortedLiveRegisters = 0;
+    public const int AbortedFailLabel = 0;
+    public const int AbortedDestinationIndex = 0;
     public const string RecordCode = "ERL009";
     public const string GuardCode = "ERL007";
     public const string NoValue = "novalue";

@@ -221,6 +221,8 @@ public static class Semantics
                             );
                 }
                 ExpressionBindings.ValidateList(record.Children, bound, (expression, scope) => Walk(expression, scope, guard));
+                if (record.Operation == NativeRecordOperation.Construct && record.Value is null && !record.External && record.Name == NativeRecordGrammarNames.AnonymousRecord)
+                    throw new CompileException(CompilerDiagnosticCodes.RecordDefinition, NativeRecordDiagnostics.InvalidUnderscoreConstruction, record.SourceOffset);
                 break;
             case Expr.RecordConstruction record:
                 Walk(RecordExpressions.Create(record), bound, guard);

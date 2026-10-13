@@ -2,6 +2,7 @@ namespace Erlang.Compiler;
 
 internal static class NativeRecordDiagnostics
 {
+    public const string InvalidUnderscoreConstruction = "native record construction cannot use the literal underscore name";
     public const string MultiField = "multi-field initialization (assigning to _) is only supported for tuple records";
     public const string GuardConstruction = "creating a record in a guard is only supported for tuple records";
     public const string RecordInfo = "record_info/2 is only supported for tuple records";

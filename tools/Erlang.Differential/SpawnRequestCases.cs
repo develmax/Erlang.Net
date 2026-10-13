@@ -94,7 +94,15 @@ public static class SpawnRequestCases
                 "try spawn_request(spawn_request_contract,empty,[]," + options + ") of _->error(accepted) catch error:badarg:S->[{erlang,spawn_request,[_,_,_,_],L}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,L) end"
             );
         foreach (string call in new[] { "spawn_request(wrong)", "spawn_request(fun(_)->ok end)", "spawn_request({spawn_request_contract,empty})", "spawn_request(42,fun()->ok end)", "spawn_request(wrong,[])", "spawn_request(42,empty,[])", "spawn_request(spawn_request_contract,42,[])", "spawn_request(spawn_request_contract,empty,wrong)", "spawn_request(spawn_request_contract,empty,[a|tail])", "spawn_request(42,spawn_request_contract,empty,[],[])" })
-            Add("invalid-types-" + cases.Count, "try " + call + " of _->error(accepted) catch error:badarg->ok end");
+        {
+            if (call == "spawn_request(spawn_request_contract,empty,wrong)")
+                Add(
+                    "invalid-types-" + cases.Count,
+                    "R=spawn_request(spawn_request_contract,empty,wrong),true=is_reference(R),receive {spawn_reply,R,error,noconnection}->ok after 5000->error(no_reply) end"
+                );
+            else
+                Add("invalid-types-" + cases.Count, "try " + call + " of _->error(accepted) catch error:badarg->ok end");
+        }
         Add(
             "link-monitor",
             "process_flag(trap_exit,true),S=self(),R=spawn_request(fun()->worker(S) end,[link,monitor]),receive {spawn_reply,R,ok,P}->{links,L}=process_info(P,links),true=lists:member(S,L),P!stop,receive {'EXIT',P,normal}->ok after 5000->error(no_exit) end,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end after 5000->error(no_reply) end"

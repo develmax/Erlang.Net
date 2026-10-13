@@ -65,14 +65,23 @@ public static class NativeRecordLanguage
         Atom field
     )
     {
-        var record = Require(
-            value,
-            module,
-            name,
-            caller,
-            external,
-            true
-        );
+        NativeRecordTerm record;
+        if (external)
+            record = Require(
+                value,
+                module,
+                name,
+                caller,
+                external,
+                true
+            );
+        else
+        {
+            if (value is not NativeRecordTerm local ||
+                name is not null && name != NativeRecordLanguageNames.LocalAccessWildcard && local.Name.Name != name)
+                throw Failure(NativeRecordLanguageNames.BadRecord, value);
+            record = local;
+        }
         for (int index = 0; index < record.FieldNames.Count; index++)
         {
             if (record.FieldNames[index].Equals(field))
