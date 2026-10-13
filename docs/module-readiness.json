@@ -2,8 +2,8 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-205/tests.json",
-  "LocalPassedTests": 5469,
+  "ComparisonTestReport": "validation/part-206/ci-tests.json",
+  "LocalPassedTests": 5481,
   "RegisteredMfas": 437,
   "PreviousRegisteredMfas": 437,
   "RegisteredMfaDelta": 0,
@@ -87,7 +87,8 @@
         "Part199:real owned saved-call buffer,queued process_flag3 replacement/death cleanup andlast_calls observation;42 sourcecases and5359/full local;native physical/debug event-set parity unfinished.",
         "Part201:13 port MFAs over real external-process resources;owner links/shared names,actual data/EOF/exit status,packet1/2/4,data storage/callback rejection;5401/full local,original4795 pending202;native driver/platform/busy/monitor/full signal scheduling parity unfinished.",
         "Part203:original four-state byte line reader,CRLF/exact-cap/eol/noeol/EOF;explicit close discards partial tail;21 sourcecases,5422/full main/draft;4816 original pending204.",
-        "Part205:actual port monitor/name/ref/alias/tag/priority/demonitor/observer-death entries;exit/exit_signal normal/custom/kill,priority/dead/foreign links and monitored_by;47 new cases,5469/full main/draft;4863 original pending206."
+        "Part205:actual port monitor/name/ref/alias/tag/priority/demonitor/observer-death entries;exit/exit_signal normal/custom/kill,priority/dead/foreign links and monitored_by;47 new cases,5469/full main/draft;4863 original pending206.",
+        "Part207:packet1/2 maximum/overflow driver failure semantics,real einval EXIT/DOWN,empty frames and invalid iodata distinction;12 cases,5481/full main/draft;4875 original pending208."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -96,7 +97,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 449
+      "RelatedPassedTests": 461
     },
     {
       "Id": "Compiler",
@@ -308,7 +309,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 4111
+      "RelatedPassedTests": 4123
     },
     {
       "Id": "Style checks",

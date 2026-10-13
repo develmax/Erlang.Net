@@ -2349,7 +2349,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_command/2",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208."
   },
   {
     "Module": "erlang",
@@ -2357,7 +2357,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_command/3",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208."
   },
   {
     "Module": "erlang",

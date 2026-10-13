@@ -303,7 +303,15 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             if (width != 0)
             {
                 if ((ulong)bytes.Length >= (1UL << (width * PortParameters.ByteBits)))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                {
+                    lock (gate)
+                    {
+                        port.OutputBytes += bytes.Length;
+                        Close(port, Term.A(PortNames.InvalidValue));
+                    }
+
+                    return Term.A(ErlangBooleanAtoms.True);
+                }
                 var header = new byte[width];
                 uint length = (uint)bytes.Length;
                 for (int index = width - 1; index >= 0; index--)

@@ -51,4 +51,5 @@ public static class PortNames
     public const string Closed = "closed";
     public const string MonitoredBy = "monitored_by";
     public const string Monitors = "monitors";
+    public const string InvalidValue = "einval";
 }
