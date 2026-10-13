@@ -24,6 +24,12 @@ public static class PortNames
     public const string Eof = "eof";
     public const string Hide = "hide";
     public const string UseStdio = "use_stdio";
+    public const string NoUseStdio = "nouse_stdio";
+    public const string ReadOnlyOption = "in";
+    public const string WriteOnlyOption = "out";
+    public const string MergeStandardError = "stderr_to_stdout";
+    public const string ArgumentZero = "arg0";
+    public const string OverlappedIo = "overlapped_io";
     public const string Input = "input";
     public const string Output = "output";
     public const string Name = "name";
@@ -52,6 +58,8 @@ public static class PortNames
     public const string MonitoredBy = "monitored_by";
     public const string Monitors = "monitors";
     public const string InvalidValue = "einval";
+    public const string BadDescriptor = "ebadf";
+    public const string BrokenPipe = "epipe";
     public const string BusyLimitsPort = "busy_limits_port";
     public const string BusyLimitsMessageQueue = "busy_limits_msgq";
     public const string Disabled = "disabled";

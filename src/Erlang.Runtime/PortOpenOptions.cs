@@ -15,6 +15,15 @@ internal sealed class PortOpenOptions
     public ulong HighWatermark { get; private set; } = PortParameters.DefaultHighWatermark;
     public ulong LowWatermark { get; private set; } = PortParameters.DefaultLowWatermark;
     public bool Parallelism { get; private set; }
+    public bool UseStdio { get; private set; } = true;
+    public bool MergeStandardError { get; private set; }
+    public bool OverlappedIo { get; private set; }
+    public string? ArgumentZero { get; private set; }
+    public PortDirectionFlags Directions { get; private set; }
+    public bool Read => (Directions & PortDirectionFlags.Read) != 0;
+    public bool Write => (Directions & PortDirectionFlags.Write) != 0;
+    public bool NativeRequired => !Read || !Write || MergeStandardError || ArgumentZero is not null ||
+        !UseStdio || OperatingSystem.IsWindows() && OverlappedIo;
     public ulong MessageHighWatermark { get; private set; } = PortMessageParameters.DefaultHighWatermark;
     public ulong MessageLowWatermark { get; private set; } = PortMessageParameters.DefaultLowWatermark;
 
@@ -36,6 +45,22 @@ internal sealed class PortOpenOptions
                     options.LineBytes = PortParameters.DefaultLineBytes;
                     break;
                 case Atom { Name: PortNames.UseStdio }:
+                    options.UseStdio = true;
+                    break;
+                case Atom { Name: PortNames.NoUseStdio }:
+                    options.UseStdio = false;
+                    break;
+                case Atom { Name: PortNames.ReadOnlyOption }:
+                    options.Directions |= PortDirectionFlags.Read;
+                    break;
+                case Atom { Name: PortNames.WriteOnlyOption }:
+                    options.Directions |= PortDirectionFlags.Write;
+                    break;
+                case Atom { Name: PortNames.MergeStandardError }:
+                    options.MergeStandardError = true;
+                    break;
+                case Atom { Name: PortNames.OverlappedIo }:
+                    options.OverlappedIo = true;
                     break;
                 case Atom { Name: PortNames.Hide }:
                     options.Start.CreateNoWindow = true;
@@ -54,6 +79,9 @@ internal sealed class PortOpenOptions
                             break;
                         case Atom { Name: PortNames.BusyLimitsPort }:
                             (options.LowWatermark, options.HighWatermark) = Watermarks(tuple.Items[1]);
+                            break;
+                        case Atom { Name: PortNames.ArgumentZero }:
+                            options.ArgumentZero = Text(tuple.Items[1]);
                             break;
                         case Atom { Name: PortNames.BusyLimitsMessageQueue }:
                             (options.MessageLowWatermark, options.MessageHighWatermark) = Watermarks(tuple.Items[1]);
@@ -95,7 +123,9 @@ internal sealed class PortOpenOptions
                     throw BadOption();
             }
         }
-        if (options.LineBytes != 0 && options.PacketBytes != 0)
+        if (options.Directions == PortDirectionFlags.None)
+            options.Directions = PortDirectionFlags.Both;
+        if (options.LineBytes != 0 && options.PacketBytes != 0 || options.MergeStandardError && !options.UseStdio)
             throw BadOption();
         if (specification is not TupleTerm { Items.Count: 2 } name)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -107,7 +137,7 @@ internal sealed class PortOpenOptions
                 foreach (string argument in arguments)
                     options.Start.ArgumentList.Add(argument);
         }
-        else if (name.Items[0] is Atom { Name: PortNames.Spawn } && arguments is null)
+        else if (name.Items[0] is Atom { Name: PortNames.Spawn } && arguments is null && options.ArgumentZero is null)
         {
             options.Start.FileName = OperatingSystem.IsWindows() ? PortParameters.WindowsShell : PortParameters.UnixShell;
             options.Start.ArgumentList.Add(OperatingSystem.IsWindows() ? PortParameters.WindowsShellSwitch : PortParameters.UnixShellSwitch);

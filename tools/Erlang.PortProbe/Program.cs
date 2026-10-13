@@ -1,8 +1,45 @@
 using System.Text;
 using Erlang.PortProbe;
 
-using Stream input = Console.OpenStandardInput();
-using Stream output = Console.OpenStandardOutput();
+using Stream input = args.FirstOrDefault() == PortProbeParameters.Auxiliary && OperatingSystem.IsLinux()
+    ? new FileStream(new Microsoft.Win32.SafeHandles.SafeFileHandle(PortProbeParameters.AuxiliaryInputDescriptor, false), FileAccess.Read)
+    : Console.OpenStandardInput();
+using Stream output = args.FirstOrDefault() == PortProbeParameters.Auxiliary && OperatingSystem.IsLinux()
+    ? new FileStream(new Microsoft.Win32.SafeHandles.SafeFileHandle(PortProbeParameters.AuxiliaryOutputDescriptor, false), FileAccess.Write)
+    : Console.OpenStandardOutput();
+if (args.FirstOrDefault() == PortProbeParameters.Streams)
+{
+    using Stream error = Console.OpenStandardError();
+    await output.WriteAsync(PortProbeParameters.OutputFirst);
+    await output.FlushAsync();
+    await error.WriteAsync(PortProbeParameters.ErrorFirst);
+    await error.FlushAsync();
+    await output.WriteAsync(PortProbeParameters.OutputSecond);
+    await output.FlushAsync();
+    await error.WriteAsync(PortProbeParameters.ErrorSecond);
+    await error.FlushAsync();
+
+    return 0;
+}
+if (args.FirstOrDefault() == PortProbeParameters.ArgumentZero)
+{
+    byte[] first = PortProbeNativeArguments.First();
+    await output.WriteAsync(new byte[] { checked((byte)first.Length) });
+    await output.WriteAsync(first);
+    await output.FlushAsync();
+
+    return 0;
+}
+if (args.FirstOrDefault() == PortProbeParameters.InputEof)
+{
+    int count = await input.ReadAsync(new byte[1]);
+    if (count != 0)
+        return PortProbeParameters.ExitCode;
+    await output.WriteAsync(PortProbeParameters.InputClosedPacket);
+    await output.FlushAsync();
+
+    return 0;
+}
 if (args.FirstOrDefault() is PortProbeParameters.SlowEcho or PortProbeParameters.DrainFile)
 {
     await output.WriteAsync(PortProbeParameters.ReadyPacket);

@@ -5,15 +5,15 @@ namespace Erlang;
 internal sealed class RuntimePort(
     PortTerm identity,
     Pid connected,
-    Process process,
+    PortChildProcess process,
     PortOpenOptions options
 )
 {
     public PortTerm Identity { get; } = identity;
     public Pid Connected { get; set; } = connected;
-    public Process Process { get; } = process;
-    public Stream Input { get; } = process.StandardInput.BaseStream;
-    public Stream Output { get; } = process.StandardOutput.BaseStream;
+    public PortChildProcess Process { get; } = process;
+    public Stream Input { get; } = process.Input;
+    public Stream Output { get; } = process.Output;
     public int OsPid { get; } = process.Id;
     public PortOpenOptions Options { get; } = options;
     public PortLineBuffer? Lines { get; } = options.LineBytes == 0 ? null : new(options.LineBytes);

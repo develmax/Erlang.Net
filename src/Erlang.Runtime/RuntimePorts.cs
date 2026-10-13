@@ -12,22 +12,21 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     public Term Open(ProcessContext owner, Term specification, Term settings)
     {
         PortOpenOptions options = PortOpenOptions.Parse(specification, settings);
-        var process = new Process { StartInfo = options.Start };
+        PortChildProcess process;
         try
         {
-            process.Start();
+            process = PortChildProcess.Start(options);
         }
         catch (Win32Exception exception)
         {
-            process.Dispose();
             throw new ErlangException(exception.NativeErrorCode == PortParameters.FileNotFoundError || OperatingSystem.IsWindows() && exception.NativeErrorCode == PortParameters.WindowsPathNotFoundError ? PortNames.NoEntry : PortNames.AccessDenied);
         }
         lock (gate)
         {
             if (owner.Terminated)
             {
-                process.StandardInput.Close();
-                process.StandardOutput.Close();
+                process.Input.Close();
+                process.Output.Close();
                 process.Dispose();
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
@@ -343,6 +342,8 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         try
         {
             await previous;
+            if (!port.Options.Write && (frame.Length != 0 || OperatingSystem.IsLinux()))
+                throw new NativePortIOException(NativePortIoParameters.BadDescriptor);
             await port.Input.WriteAsync(frame, port.Stop.Token);
             await port.Input.FlushAsync(port.Stop.Token);
         }
@@ -350,7 +351,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         {
             lock (gate)
                 if (!port.Closed)
-                    Close(port, Term.A(PortNames.IoError));
+                    Close(port, Term.A(NativePortIoErrors.Reason(exception)));
         }
         finally
         {
@@ -389,6 +390,27 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         try
         {
+            if (!port.Options.Read)
+            {
+                if (!OperatingSystem.IsWindows() || !port.Options.ExitStatus)
+                    await Task.Delay(Timeout.Infinite, port.Stop.Token);
+                else
+                {
+                    await port.Process.WaitForExitAsync(port.Stop.Token);
+                    lock (gate)
+                    {
+                        if (port.Closed)
+                            return;
+                        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
+                        if (port.Options.Eof)
+                            runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
+                        else
+                            Close(port, Term.A(ProcessExitReasons.Normal));
+                    }
+                }
+
+                return;
+            }
             Stream stream = port.Output;
             byte[] buffer = new byte[PortParameters.ReadBufferBytes];
             while (true)
