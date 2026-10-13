@@ -1,0 +1,17 @@
+2026-10-13T22:48:17.0290441Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d2e2e034fe5d0ff618184bd45eac49cec360fd57:refs/remotes/origin/main
+2026-10-13T22:48:21.3935232Z  * [new ref]         d2e2e034fe5d0ff618184bd45eac49cec360fd57 -> origin/main
+2026-10-13T22:48:21.4011712Z d2e2e034fe5d0ff618184bd45eac49cec360fd57
+2026-10-13T22:48:22.1775566Z d2e2e034fe5d0ff618184bd45eac49cec360fd57
+2026-10-13T22:48:33.1487924Z make -j2
+2026-10-13T22:48:33.1488138Z make install
+2026-10-13T22:48:43.3343760Z Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'.
+2026-10-13T22:48:48.1658130Z checking OTP version... 29.1.1
+2026-10-13T22:49:01.8741599Z checking OTP version... 29.1.1
+2026-10-13T22:56:35.2788042Z /usr/bin/install -c -m 644 "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/otp-source/OTP_VERSION" "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/otp-oracle/lib/erlang/releases/29"
+2026-10-13T23:13:12.4149755Z FAIL module erlang-cpu-state-invalid-query-36
+2026-10-13T23:13:15.1601578Z FAIL module erlang-match-spec-table-empty-body
+2026-10-13T23:13:25.0361913Z FAIL module erlang-process-trace-function-query
+2026-10-13T23:13:25.8170761Z FAIL module erlang-process-trace-mfa-arity-boundaries
+2026-10-13T23:13:31.6299856Z FAIL module erlang-process-trace-event-return-action-rejected
+2026-10-13T23:13:51.5900067Z FAIL module erlang-seq-exit-dying-tracer-self-counter-suppression
+2026-10-13T23:14:19.3247338Z Artifact differential successfully finalized. Artifact ID 11857752019

@@ -1,4 +1,6 @@
-# Progress checkpoint — 2026-10-13
+# Progress checkpoint — 2026-10-14
+
+Part232 preserves FAILED original231/d2e2e03 complete5664/5670 with6 source discrepancies,4741modules/151diagnoses/778expressions and no abort;independentfd8/8 passes. WindowsCI6346/6347 failed inherited4096 allocation host with actualbytesunknown, fullpipelinefalse. Exact4747 SDK contracts/order/hashes/outcomes/context/policy/finitebytes/151diagnoses/sixexclusions and pinnedsource/artifact/log/extractedreport provenance retained. Registry482;erlang324/35192.3% presence,wholemodulepartial. Source-guided repairs isolated; no Main behavior/outcome/exclusion change. Failed evidence remains immutable.
 
 Part231 integrates actual CPU configuration,match-spec/local process tracing,queue monitoring,wall/userCPU statistics,owner diagnostic display andEXIT token/origin semantics. Main and isolated6347/6347/full pass;4496 inherited ordered complete contracts,151 diagnoses and six exclusions unchanged,251 new sources and eight hosts. Registry482;erlang324/35192.3% API presence. Original5670+fd8/same-headCI pending232;2305419/5419+fd8/CI6076 remains previous proof. Closed0033 unchanged,new0034; no historical107 snapshot import. Whole erlang/physical resources/scheduler/heaps/loading/distribution/upstream/performance partial.
 

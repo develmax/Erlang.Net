@@ -1,0 +1,9 @@
+# Part232 CI allocation failure investigation
+
+Exact published231/d2e2e03 WindowsCI run38480174285/job115580543615 failed one inherited host assertion:6346/6347. Artifact11856793804, ZIP/API digest and exact ordered6347 names are verified in part-232-ci-failure-audit.json. The immutable source assertion uses one warmed4MiB phash2 module call and4096-byte thread-local allocation budget. It reports neither actual byte delta nor thread identity/synchronous completion. No full CI pipeline proof exists for this run; native232 remains a separate active comparison.
+
+Source hashing uses BitString.ByteSpan with no payload ToArray at the binary branch. Actual registered phash2 body returns a synchronously completed ValueTask. New untraced ProcessTracing.Called returnsnull before allocating a match subject when no pattern exists. These facts do not establish the observed CI delta or its cause.
+
+A tooling-only direct-DLL probe against the existing Main build measured twenty same-thread synchronously completed4MiB calls: first1128bytes, remaining440bytes. Five further separate executions measured100calls with minimum440 and maximum1128. Reports are hash-allocation-probe/results.log and repeated-results.log. These are local diagnostic measurements, not CI reproduction, performance comparisons or native compatibility proof. The unchanged inherited host also passed both Main/isolated6347 and the isolated profile-combined6375 suite.
+
+Preserve the failedCI evidence. Do not increase the4096 budget, select minimum/retry measurements, remove the check or reinterpret pass/fail. A next measured test should explicitly require synchronous completion and unchanged thread identity and report actual allocated bytes/result type on failure. Await independent source review before altering production or test code. Successful local probes do not erase the original CI failure.

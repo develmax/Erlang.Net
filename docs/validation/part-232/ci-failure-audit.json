@@ -1,0 +1,21 @@
+{
+  "Head": "d2e2e034fe5d0ff618184bd45eac49cec360fd57",
+  "Run": 38480174285,
+  "Job": 115580543615,
+  "Artifact": 11856793804,
+  "Passed": 6346,
+  "Failed": 1,
+  "OrderedNamesPreserved": true,
+  "ZipDigestsMatch": true,
+  "FullPipelinePassed": false,
+  "Failures": [
+    {
+      "Name": "erlang/hash-iterative-deep-terms-and-no-binary-payload-copy",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Portable hash allocated a copy of the binary payload\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 65\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 65\r\n   at Program.<Main>$(String[] args) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4189",
+      "Milliseconds": 78
+    }
+  ],
+  "AllocationBytesObservedInCI": false,
+  "OriginalPending": true
+}
