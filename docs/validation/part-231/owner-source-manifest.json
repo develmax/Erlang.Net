@@ -1,0 +1,966 @@
+{
+  "Status": "Source frozen; no build",
+  "SeedHead": "029aa007fba17f3d23bb1c0884b0468a15d3a8e2",
+  "CanonicalExampleSha256": "DFA1B1F665BDB836730F9EAB859ED945EF8B8D4649DB024E6B4D9E910527D2D3",
+  "InheritedSources": 4496,
+  "InheritedDiagnostics": 151,
+  "InheritedExclusions": 6,
+  "FeatureSources": 245,
+  "JointSources": 6,
+  "FeatureHosts": 7,
+  "JointHosts": 1,
+  "NewMfas": 12,
+  "ExpectedRegistryMfas": 482,
+  "ExpectedErlangMfas": 324,
+  "PredictedTests": 6347,
+  "ExpectedModules": 4747,
+  "ExpectedComparableModules": 4741,
+  "ProviderOrder": [
+    "CpuTopologyStateCases40",
+    "MatchSpecCases55",
+    "ProcessTraceCases47",
+    "SystemMonitorCases35",
+    "RuntimeStatisticsCases24",
+    "ProcessDisplayCases20",
+    "SequenceExitCases24",
+    "JointPlatformCases6"
+  ],
+  "JointProvider": "JointPlatformCases.Modules",
+  "JointHostType": "Erlang.Tests.JointPlatformHostChecks.Run",
+  "JointHostName": "runtime/joint-display-origin-token-monitor-and-public-exit",
+  "JointLedger": "artifacts/platform-repaired-joint-source-plan.json",
+  "JointNames": [
+    "erlang-platform-joint-display-owner-reply-origin-token",
+    "erlang-platform-joint-display-self-no-rpc-token",
+    "erlang-platform-joint-display-dead-no-rpc-token",
+    "erlang-platform-joint-display-async-spawn-clock",
+    "erlang-platform-joint-monitor-ordinary-nil-rpc",
+    "erlang-platform-joint-monitor-priority-alias-nil-rpc"
+  ],
+  "ActualRebaseRejects": [
+    "src/Erlang.Runtime/ProcessRuntime.cs hunk7: repaired sequential targetPID preserved alongside ordinary-address trace metadata",
+    "tools/Erlang.Differential/CompiledModuleCases.cs: repair tail retained,245features appended",
+    "docs/OTP-PORTS.md: append suffix after repaired notice",
+    "docs/dependency-decisions.md: append suffix after repaired notice"
+  ],
+  "HistoricalRejectFiles": "Old paused .rej files retained; apply log distinguishes four actual new failures. No frozen files edited.",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyValidation.cs",
+      "BaseSha256": null,
+      "Sha256": "6ADE0DB49E61115ADA996EA2305A57C718D5F2596A0CC77A203CCDEA84CC80E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyStateRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "52562F3461A77EA13FAD38E051DAC0FE2308C31794259ADB6B7A504E2660B1A0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyStateNames.cs",
+      "BaseSha256": null,
+      "Sha256": "54C4B2A3B6C0EA6AAA1524DE86B0766613E3C4016424F80B17DBBFB04CE3C01A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyState.cs",
+      "BaseSha256": null,
+      "Sha256": "B8D7E57AC47FB0F374C60CB4388FBB9397C37E3139751E3AFF94B532CF15332E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologySettingParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "F324ABAF8AB193CA3207E87D40A671FA067439A111556CF2E871881D70DF630F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyFormatting.cs",
+      "BaseSha256": "F6CD6036CB64427D28C56D58CCD1D1293CD821A82B3699FCE07026278D88BDCE",
+      "Sha256": "EDE53488C761937BA66C1E6EDB46120752520A835EB73692743D13FF9FA6DBEE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyEntry.cs",
+      "BaseSha256": null,
+      "Sha256": "5B0B683C5F589535759888EB7F3C62AE005570B07D51981A473F693BC818E062"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyConversion.cs",
+      "BaseSha256": null,
+      "Sha256": "8B17C2B8D2BD390BB70EE8745E36FFB018E77D728E189A8D4E4387C16400DF22"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "BaseSha256": "AA679FD3B4F1CC1C7A99B862554C0DC95C0862E8243FB1D7B1597AB16F33ADEF",
+      "Sha256": "9B6F99EC5307584B20D595CFCE7AAD72F3BBB840A3465657E4F696BBA536EF1B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IMatchSpecTraceActions.cs",
+      "BaseSha256": null,
+      "Sha256": "CDA6038A288CF749D98C0F45CD39EC070071CB478FECE46B962A7BA1410836B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangTimerRegistrations.cs",
+      "BaseSha256": "FD4CB9567F7E54C347FAA1D5600717026B6DABDCA4295657CC3E512DF604A045",
+      "Sha256": "FA3199DEC5620D2B01E34DC58625EF704C342B458894E5BB31E87A604B407121"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "BaseSha256": "1129B16B7268DE682C520FB496755ECAFFC9BEA128CAC805E90FB008036830D6",
+      "Sha256": "57A067AEF28A99063EE3F322AE16FBD15F44DCD0C792CAD2DEF746537B2C857C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecTraceAction.cs",
+      "BaseSha256": null,
+      "Sha256": "1E95D95CC3B1E4D9A5B989275D8885DB3AF5BC77B7C5AF374B49AA0D9C3E0D56"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecRunMode.cs",
+      "BaseSha256": null,
+      "Sha256": "A660812FCE404B88AC80BEEA9210B508EDCDD0030B52A1B469E88AC59003F281"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecResult.cs",
+      "BaseSha256": null,
+      "Sha256": "D11A16282D2914E6EDEE003F481E5FBE2FD9DAE4FC9A5AD3AD4F14AA7D8039FF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "677F3F0B7ED4B12139841EDD7D1871A88A4627A10254DD95428347751367B1C8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "BaseSha256": null,
+      "Sha256": "B37D784E64C4EEB116C738EB9755ADBE4B762E88F5758A13AB3846952ABC0A95"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+      "BaseSha256": null,
+      "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecNames.cs",
+      "BaseSha256": null,
+      "Sha256": "079A00D6A09C97082DE4C30BA01BC4313323A2824F9F1A3445B308C9B9BC7139"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecDialect.cs",
+      "BaseSha256": null,
+      "Sha256": "A8A528A18FA54B895AF63B9C71C4342EE85BA3D91E7BCDA2D86E49A524DAAA34"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecDiagnostics.cs",
+      "BaseSha256": null,
+      "Sha256": "EB255AF84CE0080DEEF501A49FBC61F3C0F686E84A3396241BA577DF93F982F2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+      "BaseSha256": null,
+      "Sha256": "676FBF7CF88F497C90F59E8938F08793DF4EED0ACE8FE175064D18838DC4EF87"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompilation.cs",
+      "BaseSha256": null,
+      "Sha256": "FC1DBBCCF2FDD837BD50A48382AD4289FC0A2EDEDA4077EAC108B20A99DE9A3D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "BaseSha256": "454C8F99D3DAEFE9BAF55D43BCF49CB9A3611B5F8E079FE928F9FF7865D1DFD3",
+      "Sha256": "1451DAEECF2ED6EB9511BA3583AB024925F54531ED5E410F0C54948AF39BC690"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessDisplayText.cs",
+      "BaseSha256": null,
+      "Sha256": "613E766A301B4C9C5F5D39213CB10A6F9D2537C4DFA2A14C7FC361C67D859C6A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessDisplayRequest.cs",
+      "BaseSha256": null,
+      "Sha256": "D4811ADA9B39D4E00970C0999350BFD0CFD4C9CF172D109399C9A6F06EAAEE18"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessDisplayRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "C41D521B34FA7BF9CB9434485D399EE004496DE53720F6F72931E11680807E14"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessDisplayNames.cs",
+      "BaseSha256": null,
+      "Sha256": "D00C9C3ED2D7839A9E8D6623BAA11EA3BC1A822B7F223DF163F98652CB2489B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "BaseSha256": "920D2E92E6627D6C725B4CB292FC287D622B514BFD9BDD70A9E3DBA98CF0CB09",
+      "Sha256": "56BFB1251A605FE475FED86F34E1633AA68BC59F4B0C33739226595940F41E16"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ProcessInfo.cs",
+      "BaseSha256": "0BACB2E7B693F82B8AB349B9C1C63327B4721A7A6EB096E6871370BE85CFEACD",
+      "Sha256": "42C2AA8542A09C6AA1DD933C736D6CEA91B1E6592AB9AF594873C133464C7F0F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ProcessDisplay.cs",
+      "BaseSha256": null,
+      "Sha256": "8280E1AADEBE7BBC4DD58246788512EFBDA18CF8126EEF8A6BE13FEE8DB9AAD5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollection.cs",
+      "BaseSha256": "E39054F00952E3E99BDDFD32C0639F225A996B36336F9392B600105799C34562",
+      "Sha256": "ADD72114DA6956DA7B466D1FC1BE1C7C07DDB9C5A244805F8DA732B92CD21FDD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "BaseSha256": "1880B48C74708C1D5CB7EFB11C9A2F3BC5802DD67A7AAB3B8E9C9DEAA33F81D6",
+      "Sha256": "19B4813BDC1DAD3E021D87B13F3AFBEE0D3F3BCB9A38D12505780EEC202AE563"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTracing.cs",
+      "BaseSha256": null,
+      "Sha256": "01206E9DB9D9719F0121460AC033B30152135D0DBAFC496EBED8351D4C08ACE2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceSettings.cs",
+      "BaseSha256": null,
+      "Sha256": "F04010A8E0EB60E669F755DCDD689FB2DFC3C842D4BDD1E68934377D152F1DF9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "A4E5449298EBA091461806F0CBF026EF52F08AB671EFEC922AA7507C4526DFDB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTracePattern.cs",
+      "BaseSha256": null,
+      "Sha256": "99D606885CB1016C05FD69EE9982D2055A3D5984C7A0E359C5A92EF7C2F94755"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "EE0DB34214799E0755C336C5A26D0C6CDB9B7F919B6419B3D25EF03D1CFD5CED"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceNames.cs",
+      "BaseSha256": null,
+      "Sha256": "2D3AED0842B29BCAD12FB8B5A08F84E0F65F88353E21E448CD0B2DC8A735DDE2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSuspensions.cs",
+      "BaseSha256": "FB10184713623C80ABC29564F5C09F35892F3DBA01B681A4BE24F25B87F77997",
+      "Sha256": "3E850D92040D093625D22DDB32CED54E8D500238A534A22007CB51624B3AC923"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceInvocation.cs",
+      "BaseSha256": null,
+      "Sha256": "A3D5171EA3D16D3461F8291102AC388DA0D62DC10372828E9AD1058204150294"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceFlags.cs",
+      "BaseSha256": null,
+      "Sha256": "A865F46C9CD578A5B2AD8A2180A153DA1090E2D206BBC314BDC2DBAEE3DB0024"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessTraceActions.cs",
+      "BaseSha256": null,
+      "Sha256": "3B6E695BBEADEE7A20407A0DD246787F4088BC05DC5A14A70A78701FF142041E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "6E29A466DEE04FAD45A435DBB8D1DB65442EE525A37C450B2356D92B7993CE38"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "68D704D7BC684329B5260897927CA1C1723378D42F8ADF74919E0F05CC515FF9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsNames.cs",
+      "BaseSha256": null,
+      "Sha256": "3CBAFA195B2AC1F70A557F23A9D88A640FEAF226DA5A3D636AA79D9322BAC1E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatistics.cs",
+      "BaseSha256": null,
+      "Sha256": "CBB4D5F615185C61070CF9719D64B32584AC4346BE86230382FEC9569E946DBE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeTimers.cs",
+      "BaseSha256": "9F8C4E12AC1E1617FBB22E17AEBA440489F0041EFA90AFCD355656BE71C265B8",
+      "Sha256": "BFC21BA921742215CFFBA3EFAC85C1E883E266A9292C37F0D7267CC3BD4788C7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeSystemMonitor.cs",
+      "BaseSha256": null,
+      "Sha256": "51D61A2EA4EC119255345BE91C6AB8784ED8DB5BBDD6A017A9179E67DBAA0DDD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTracing.cs",
+      "BaseSha256": "E2F8DEE3AE68B563E24A752174FDBC12C49F999DD2928660FCA70AA89CE8B1C3",
+      "Sha256": "513F239E2B350DB4DDD598F7449D0AF722E7DEE882270DA2BCAA9397B1BCEF55"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "BaseSha256": "1725E747BBB0E414DB29BD26707A712ED76CA5786C265C2E6440336FC2C10D0B",
+      "Sha256": "064485A7C18ACF9F3D2970BF46F3885C83FE9AE6993651C1B6E5D1FC9CAE8BF8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemMonitorRegistrations.cs",
+      "BaseSha256": null,
+      "Sha256": "88365FCAF789B9762641272A0F49A8F1805578ED6F1ACA4D378DA93BF7E8152D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemMonitorOptions.cs",
+      "BaseSha256": null,
+      "Sha256": "7A0680015AA9EE8AA14C97A91A35D243FEE9C9287AEDB3FE7847A4F15E5D6F7A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemMonitorNames.cs",
+      "BaseSha256": null,
+      "Sha256": "E8F11F5A2B4D0692BE4D26E10318F7D2CD60BDF4917CBE11503DE858CC6603EA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/CpuTopologyStateHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "6F9AF5D241A42EDC5E127FC8561BAA36CF83DF5E2570B75D4858972F7704AA15"
+    },
+    {
+      "Path": "tests/Erlang.Tests/CpuTopologyStateHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "82EE665C8A5B169FFD9897BF089EBF0CC8C62286C2B0E7AA92C590B442523F44"
+    },
+    {
+      "Path": "tests/Erlang.Tests/CpuTopologyStateHostParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "5C8C7C5F224C76C4F8DFBC4D3DA5FF20603F83EF52597FE15D2684BC527573F2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SystemMonitorHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "B1B6071F3E992EF3E2518B2906318AEC6C314314B4500BB7F3103A5A2686364D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SystemMonitorHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "2E8D640C8E7A251AFF2791083659ECCFC9BF2CC988EE972B35C97DAE3F3533C8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SequenceExitHostParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "3D5543971B29ADD31C5849BBCA834413B8E0064B3BA5ED02452DBA24D926F54A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SequenceExitHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "74F8F01595AA4B8DEA49EB9B84A36010B21FF8BD97165E189F4EDA414A7B8B4D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeStatisticsHostParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "908DAEEFA34811B71398BEE1A5305CC9A692975A4BED25E8158208D63FA7233C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeStatisticsHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "A5354C80A6A55E6781B81F747B3179F93A991D4CF647D7581CA0AF3B7FDA5EDA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "BaseSha256": "28F17D7DF25969447BDAAE5D7A6CA02697C82976CE7B83B0F86E0471CD105994",
+      "Sha256": "2F693B214B35E745D786F96810AFC8A0017656EF2BBC57A0191EE0E99064DC50"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessTraceSystemOriginParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "360CCD61A9ABA770B6765C26CF1E55EBBA799FAB4456C2C6542651D3C066B505"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessTraceSystemOriginChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "FE72AC95E816E827B38E7EE26095156E3323597E8CFFCCEC6C2030AAA5693850"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessTraceHostParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "74F524D2B476EB4E0DC1ACAEFE4ABDB0323E58D732F2D1FF9C948CF1DB761AE5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessTraceHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "AB8FFC865113FEE71385968C0661A81AC4C908280CA2E685CED992AA99D294EE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessDisplayHostParameters.cs",
+      "BaseSha256": null,
+      "Sha256": "FF622582A1DC4F4F471F96BCF3B4D0021DCC0BF44BD958AE69CB7BF8AA056CD7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessDisplayHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "9CCB118D176FD3D538E74D33BABE6A85AF5AFEED4CA935187C5F5B35B7E6F4B4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessDisplayHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "8601F642FDD536F29F6776BB6B0CC57F52767A0D02B865F2D7B07C4CD31381A8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/MatchSpecHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "2B34873E9E9F53A7F2CF7FA6CDA8754CE40D8C856EC60E7339612E843965BF7A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/MatchSpecHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "532E35658C3A6BB34C3569BEDA1E4C815F5150788F6A25FEC74290324936D619"
+    },
+    {
+      "Path": "tests/Erlang.Tests/JointPlatformHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "59B3EFCC9B40BFEFAEFD2747C92B9610E90B37202A3F96A438F165062CB81766"
+    },
+    {
+      "Path": "tests/Erlang.Tests/JointPlatformHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "9E9C666ACE13EB11CA22F56A9D5C2FDD2FF2509193DBC5BAC562E96B5752D4D3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/FunctionalMfaContracts.cs",
+      "BaseSha256": "2597E445C368910E8D06A6EC0C9D71C281A7CDE54BDF81E804ADC49842849C66",
+      "Sha256": "A7228605C20A47E4FFD7F91D377D55D3B423A6F72353CA9E359C67CE14475ACC"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CpuTopologyStateCases.cs",
+      "BaseSha256": null,
+      "Sha256": "ADB04FCAAC8978D9A32125DDD86C27FA5E1991E3F083F836EAD799749AD034D5"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "BaseSha256": "C62CF76AE03BE2F61B466FFFACCF1D74EA0D7D8CEA1488932FDB8B3F55072E6D",
+      "Sha256": "DB9D392D13FE3607A6B34EC6A2F645DEA87E82FB1B8D8030F4F2D63F5B289233"
+    },
+    {
+      "Path": "tools/Erlang.Differential/JointPlatformCases.cs",
+      "BaseSha256": null,
+      "Sha256": "BBD1F98BFA029931F598CDFCC6425B6EECA5274D46297458A6AB3802C55B3ECC"
+    },
+    {
+      "Path": "tools/Erlang.Differential/MatchSpecCases.cs",
+      "BaseSha256": null,
+      "Sha256": "95FEB7ECDC07A99C8D5F647F2F742D29E1E729FA3C181F726AE6BFAB179AC1B8"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SystemMonitorCases.cs",
+      "BaseSha256": null,
+      "Sha256": "B065E564734044B4D8014648EBEF226D6F85530F05C4AD8E6FA2393339944B06"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SequenceExitCases.cs",
+      "BaseSha256": null,
+      "Sha256": "A7ABD2357DE0E9BEB6C96FD6073B553003544150E35E3F1B26D2854CF6EE975B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/RuntimeStatisticsCases.cs",
+      "BaseSha256": null,
+      "Sha256": "A816B85A5CD17A8CDF40A3E65EF12D3A29FD16941527BDC408C87ADA2F7CE6E4"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessTraceCases.cs",
+      "BaseSha256": null,
+      "Sha256": "0B62957A3CCAD60B01DBA238BC776877278461CD7976E2DCC33DA72B17ED6FE5"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessDisplayCases.cs",
+      "BaseSha256": null,
+      "Sha256": "945C82D32C25B88BECCE4DD96ACB158D2BB053BCDF2CF98CCB4D3319161B54B2"
+    },
+    {
+      "Path": "docs/dependency-decisions.md",
+      "BaseSha256": "A97A2F4D177937D6D3205C32A6AB458233866236360A7858BF9C3BF97325F44C",
+      "Sha256": "E20FCE020E10D8C098CFABEA401CB7208E7EFF92BCD1D0E17FDFDBE8214233E3"
+    },
+    {
+      "Path": "docs/cpu-topology-state-prototype.md",
+      "BaseSha256": null,
+      "Sha256": "CE9773896EE4B7125F4DC763BEFB558D71939EDE8D3C732485FF0931FE2B96A8"
+    },
+    {
+      "Path": "docs/CPU-TOPOLOGY-COMPOSITION.md",
+      "BaseSha256": null,
+      "Sha256": "51099C76CBAA27936D078ADEF28BF9A59C55910576D2B2993C0332B7C7AF8021"
+    },
+    {
+      "Path": "docs/process-display-prototype.md",
+      "BaseSha256": null,
+      "Sha256": "2EC1EAB5ABAD5AD5FBDA611253835B4F5A145EAC3261C47C7025B63C2965BDF8"
+    },
+    {
+      "Path": "docs/platform-repaired-composition.md",
+      "BaseSha256": null,
+      "Sha256": "2B32791DFD9EF6C15EAFE4EE5AA5C44939468E296BC63C64032CF2F7F73AB64F"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "BaseSha256": "F509C1770CBABBD260BF2092D962F614F81AF0D9DD7F6A40CBB0031828DF3B4A",
+      "Sha256": "F15E3BF50D993896EA119B8B67CD0D3080C1E31149DFF9308809300D6CB07287"
+    },
+    {
+      "Path": "docs/OTP-MATCH-TRACE-INTEGRATION.md",
+      "BaseSha256": null,
+      "Sha256": "11C125A50F05BE988331BA794AC9E8428A81F876DB22FFD1087FD468CAF1E732"
+    },
+    {
+      "Path": "docs/OTP-MATCH-SPEC.md",
+      "BaseSha256": null,
+      "Sha256": "F20A4AB290C150E1917A0264A4AE8E353AC491549EBE9571E3E4941640044964"
+    },
+    {
+      "Path": "docs/validation/part-107/package-notices.json",
+      "BaseSha256": "91DBF68608E859F4A0B0DA3D9E0D4A05D47E21CFF45BB68AD07CCB011959045B",
+      "Sha256": "03040646C02923567D863094418FEF2720FE6BFE9ACBD3D5E5EDF4F53BD6FAA3"
+    },
+    {
+      "Path": "docs/validation/part-107/layout-inventory.json",
+      "BaseSha256": "0D11F4248E6702948745C7702E1C9AAEFF983FF4585022FF0D065AEFB3C9C5DB",
+      "Sha256": "7721F67743641D7F7B9339478362CA46086B921512DE3C586EBD6137422E1C16"
+    },
+    {
+      "Path": "docs/validation/part-107/integration-results.json",
+      "BaseSha256": "023A48536653D0F2E82C4DF79EDEAD9DF96A66E20602BD46E7E85B3F5D962769",
+      "Sha256": "61AFD849B64EA72F6F8106B13B364A5BAC32BD4751D083E5FF1BF64F79972C9C"
+    }
+  ],
+  "CanonicalInheritedLineEndingRestorations": [
+    "docs/OTP-GARBAGE-COLLECTION.md",
+    "docs/NEXT_STEPS.md",
+    "docs/native-records-prototype.md",
+    "docs/native-record-syntax-prototype.md",
+    "docs/native-record-completion-prototype.md",
+    "docs/native-anonymous-access-repair-audit.md",
+    "docs/MODULE_READINESS.md",
+    "docs/module-readiness.json",
+    "docs/MAPS_COMPATIBILITY.md",
+    "docs/LISTS_COMPATIBILITY.md",
+    "docs/license-audit.md",
+    "docs/implementation-roadmap.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DOTNET-LICENSE.txt",
+    "docs/DECISIONS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/compatibility-matrix.md",
+    "docs/changelog-entry-template.md",
+    "docs/architecture.md",
+    "docs/benchmarks.md",
+    "docs/spawn-request-wrapper-repair-audit.md",
+    "docs/sequence-system-message-audit.md",
+    "docs/semantic-differences.md",
+    "docs/ROSLYN-LICENSE.txt",
+    "docs/quoted-underscore-validator-repair.md",
+    "docs/PROGRESS.md",
+    "docs/process-info-context-repair-audit.md",
+    "docs/PERFORMANCE.md",
+    "docs/OTP_ADAPTERS.md",
+    "docs/OTP-SPAWN-REQUEST-SEQUENCE-INTEGRATION.md",
+    "docs/OTP-PROCESS-INFO.md",
+    "docs/OTP-LICENSE.txt",
+    "docs/otp-inventory.md",
+    "docs/validation/differential.json",
+    "docs/TEN_PERCENT_MILESTONE.md",
+    "docs/spawn-sequence-wrapper-source-audit.md",
+    "docs/changelog/0033.md",
+    "docs/changelog/0032.md",
+    "docs/changelog/0031.md",
+    "docs/changelog/0030.md",
+    "docs/changelog/0029.md",
+    "docs/changelog/0028.md",
+    "docs/changelog/0027.md",
+    "docs/changelog/0026.md",
+    "docs/changelog/0025.md",
+    "docs/changelog/0024.md",
+    "docs/changelog/0023.md",
+    "docs/changelog/0022.md",
+    "docs/changelog/0021.md",
+    "docs/changelog/0020.md",
+    "docs/changelog/0019.md",
+    "docs/changelog/0018.md",
+    "docs/changelog/0017.md",
+    "docs/changelog/0016.md",
+    "docs/changelog/0015.md",
+    "docs/changelog/0014.md",
+    "docs/changelog/0013.md",
+    "docs/changelog/0012.md",
+    "docs/changelog/0011.md",
+    "docs/changelog/0010.md",
+    "docs/changelog/0009.md",
+    "docs/changelog/0008.md",
+    "docs/changelog/0007.md",
+    "docs/changelog/0006.md",
+    "docs/changelog/0005.md",
+    "docs/changelog/0004.md",
+    "docs/changelog/0003.md",
+    "docs/changelog/0002.md",
+    "docs/changelog/0001.md",
+    "docs/validation/part-009/remote-checkpoint.json",
+    "docs/validation/part-009/oracle-4a8c379.json",
+    "docs/validation/part-008/remote-oracle-attempt.json",
+    "docs/validation/part-014/float-differential.json",
+    "docs/validation/part-017/differential.json",
+    "docs/validation/part-016/utf-partial.json",
+    "docs/validation/part-012/remote-checkpoint.json",
+    "docs/validation/part-012/differential.json",
+    "docs/validation/part-011/remote-checkpoint.json",
+    "docs/validation/part-011/oracle-8d35ea8.json",
+    "docs/validation/part-085/validation.log",
+    "docs/validation/part-085/tests.json",
+    "docs/validation/part-085/repeat-tests.json",
+    "docs/validation/part-085/MODULE_READINESS.md",
+    "docs/validation/part-085/module-readiness.json",
+    "docs/validation/part-085/layout-audit.json",
+    "docs/validation/part-085/integration-results.json",
+    "docs/validation/part-085/initial-oracle-metadata.json",
+    "docs/validation/part-085/initial-differential.json",
+    "docs/validation/part-085/initial-ci-tests.json",
+    "docs/validation/part-085/initial-ci-metadata.json",
+    "docs/validation/part-085/initial-ci-integration-results.json",
+    "docs/validation/part-085/frame-probe.log",
+    "docs/validation/part-085/corpus-preservation.json",
+    "docs/validation/part-045/MODULE_READINESS.md",
+    "docs/validation/part-045/module-readiness.json",
+    "docs/validation/part-045/differential.json",
+    "docs/validation/part-049/differential.json",
+    "docs/validation/part-053/MODULE_READINESS.md",
+    "docs/validation/part-053/module-readiness.json",
+    "docs/validation/part-053/differential.json",
+    "docs/validation/part-044/MODULE_READINESS.md",
+    "docs/validation/part-044/module-readiness.json",
+    "docs/validation/part-057/differential.json",
+    "docs/validation/part-043/MODULE_READINESS.md",
+    "docs/validation/part-043/module-readiness.json",
+    "docs/validation/part-084/validation.log",
+    "docs/validation/part-084/third-validation.log",
+    "docs/validation/part-084/third-tests.json",
+    "docs/validation/part-084/tests.json",
+    "docs/validation/part-084/second-tests.json",
+    "docs/validation/part-084/reference-audit.json",
+    "docs/validation/part-084/MODULE_READINESS.md",
+    "docs/validation/part-084/module-readiness.json",
+    "docs/validation/part-084/layout-audit.json",
+    "docs/validation/part-084/integration-results.json",
+    "docs/validation/part-084/initial-tests.json",
+    "docs/validation/part-084/corpus-audit.json",
+    "docs/validation/part-061/differential.json",
+    "docs/validation/part-042/MODULE_READINESS.md",
+    "docs/validation/part-042/module-readiness.json",
+    "docs/validation/part-042/differential.json",
+    "docs/validation/part-083/differential.json",
+    "docs/validation/part-037/MODULE_READINESS.md",
+    "docs/validation/part-037/module-readiness.json",
+    "docs/validation/part-114/READINESS.md",
+    "docs/validation/part-114/readiness.json",
+    "docs/validation/part-052/MODULE_READINESS.md",
+    "docs/validation/part-052/module-readiness.json",
+    "docs/validation/part-114/differential.json",
+    "docs/validation/part-041/MODULE_READINESS.md",
+    "docs/validation/part-041/module-readiness.json",
+    "docs/validation/part-069/differential.json",
+    "docs/validation/part-082/initial-differential.json",
+    "docs/validation/part-048/MODULE_READINESS.md",
+    "docs/validation/part-048/module-readiness.json",
+    "docs/validation/part-040/MODULE_READINESS.md",
+    "docs/validation/part-040/module-readiness.json",
+    "docs/validation/part-040/differential.json",
+    "docs/validation/part-055/differential.json",
+    "docs/validation/part-052/benchmark/README.md",
+    "docs/validation/part-052/benchmark/Program.cs",
+    "docs/validation/part-052/benchmark/Benchmark.csproj",
+    "docs/validation/part-039/MODULE_READINESS.md",
+    "docs/validation/part-039/module-readiness.json",
+    "docs/validation/part-036/MODULE_READINESS.md",
+    "docs/validation/part-036/module-readiness.json",
+    "docs/validation/part-036/differential.json",
+    "docs/validation/part-080/differential.json",
+    "docs/validation/part-047/MODULE_READINESS.md",
+    "docs/validation/part-113/source-plan.md",
+    "docs/validation/part-047/module-readiness.json",
+    "docs/validation/part-113/module-readiness.json",
+    "docs/validation/part-047/differential.json",
+    "docs/validation/part-113/deep-stack-failure.txt",
+    "docs/validation/part-038/MODULE_READINESS.md",
+    "docs/validation/part-038/module-readiness.json",
+    "docs/validation/part-038/differential.json",
+    "docs/validation/part-054/MODULE_READINESS.md",
+    "docs/validation/part-054/module-readiness.json",
+    "docs/validation/part-051/MODULE_READINESS.md",
+    "docs/validation/part-051/module-readiness.json",
+    "docs/validation/part-051/differential.json",
+    "docs/validation/part-050/MODULE_READINESS.md",
+    "docs/validation/part-050/module-readiness.json",
+    "docs/validation/part-067/differential.json",
+    "docs/validation/part-035/MODULE_READINESS.md",
+    "docs/validation/part-035/module-readiness.json",
+    "docs/validation/part-035/initial-aborted-differential.json",
+    "docs/validation/part-046/MODULE_READINESS.md",
+    "docs/validation/part-046/module-readiness.json",
+    "docs/validation/part-078/differential.json",
+    "docs/validation/part-112/module-readiness.json",
+    "docs/validation/part-112/differential.json",
+    "docs/validation/part-065/differential.json",
+    "docs/validation/part-034/MODULE_READINESS.md",
+    "docs/validation/part-034/module-readiness.json",
+    "docs/validation/part-077/initial-differential.json",
+    "docs/validation/part-059/differential.json",
+    "docs/validation/part-099/module-readiness.json",
+    "docs/validation/part-089/MODULE_READINESS.md",
+    "docs/validation/part-089/module-readiness.json",
+    "docs/validation/part-111/module-readiness.json",
+    "docs/validation/part-063/differential.json",
+    "docs/validation/part-092/MODULE_READINESS.md",
+    "docs/validation/part-092/module-readiness.json",
+    "docs/validation/part-098/module-readiness.json",
+    "docs/validation/part-098/differential.json",
+    "docs/validation/part-088/MODULE_READINESS.md",
+    "docs/validation/part-088/module-readiness.json",
+    "docs/validation/part-088/differential.json",
+    "docs/validation/part-033/MODULE_READINESS.md",
+    "docs/validation/part-033/module-readiness.json",
+    "docs/validation/part-075/differential.json",
+    "docs/validation/part-092/initial-9dec6df/differential.json",
+    "docs/validation/part-092/differential.json",
+    "docs/validation/part-110/module-readiness.json",
+    "docs/validation/part-110/differential.json",
+    "docs/validation/part-087/MODULE_READINESS.md",
+    "docs/validation/part-087/module-readiness.json",
+    "docs/validation/part-071/differential.json",
+    "docs/validation/part-032/MODULE_READINESS.md",
+    "docs/validation/part-032/module-readiness.json",
+    "docs/validation/part-032/differential.json",
+    "docs/validation/part-097/module-readiness.json",
+    "docs/validation/part-129/module-readiness.json",
+    "docs/validation/part-086/remote-checkpoint.json",
+    "docs/validation/part-086/reference-audit.json",
+    "docs/validation/part-086/oracle-metadata.json",
+    "docs/validation/part-086/MODULE_READINESS.md",
+    "docs/validation/part-086/module-readiness.json",
+    "docs/validation/part-086/local-tests.json",
+    "docs/validation/part-086/local-corpus-audit.json",
+    "docs/validation/part-086/differential.json",
+    "docs/validation/part-086/corpus-audit.json",
+    "docs/validation/part-086/contract-matrix.json",
+    "docs/validation/part-086/ci-tests.json",
+    "docs/validation/part-086/ci-metadata.json",
+    "docs/validation/part-086/ci-integration-results.json",
+    "docs/validation/part-091/MODULE_READINESS.md",
+    "docs/validation/part-091/module-readiness.json",
+    "docs/validation/part-073/differential.json",
+    "docs/validation/part-128/module-readiness.json",
+    "docs/validation/part-128/differential.json",
+    "docs/validation/part-031/MODULE_READINESS.md",
+    "docs/validation/part-031/module-readiness.json",
+    "docs/validation/part-096/differential.json",
+    "docs/validation/part-109/module-readiness.json",
+    "docs/validation/part-093/module-readiness.json",
+    "docs/validation/part-121/source-plan.md",
+    "docs/validation/part-121/module-readiness.json",
+    "docs/validation/part-121/initial-error-fixtures.txt",
+    "docs/validation/part-119/source-plan.md",
+    "docs/validation/part-119/module-readiness.json",
+    "docs/validation/part-094/module-readiness.json",
+    "docs/validation/part-126/module-readiness.json",
+    "docs/validation/part-126/differential.json",
+    "docs/validation/part-094/differential.json",
+    "docs/validation/part-127/module-readiness.json",
+    "docs/validation/part-030/MODULE_READINESS.md",
+    "docs/validation/part-030/module-readiness.json",
+    "docs/validation/part-030/differential.json",
+    "docs/validation/part-102/differential.json",
+    "docs/validation/part-095/module-readiness.json",
+    "docs/validation/part-136/module-readiness.json",
+    "docs/validation/part-136/differential.json",
+    "docs/validation/part-108/module-readiness.json",
+    "docs/validation/part-108/differential.json",
+    "docs/validation/part-106/differential.json",
+    "docs/validation/part-029/MODULE_READINESS.md",
+    "docs/validation/part-029/module-readiness.json",
+    "docs/validation/part-125/module-readiness.json",
+    "docs/validation/part-120/source-plan.md",
+    "docs/validation/part-120/module-readiness.json",
+    "docs/validation/part-120/differential.json",
+    "docs/validation/part-101/module-readiness.json",
+    "docs/validation/part-135/module-readiness.json",
+    "docs/validation/part-118/source-plan.md",
+    "docs/validation/part-118/module-readiness.json",
+    "docs/validation/part-118/differential.json",
+    "docs/validation/part-107/module-readiness.json",
+    "docs/validation/part-134/module-readiness.json",
+    "docs/validation/part-134/differential.json",
+    "docs/validation/part-100/module-readiness.json",
+    "docs/validation/part-100/differential.json",
+    "docs/validation/part-028/MODULE_READINESS.md",
+    "docs/validation/part-028/module-readiness.json",
+    "docs/validation/part-028/differential.json",
+    "docs/validation/part-105/module-readiness.json",
+    "docs/validation/part-124/module-readiness.json",
+    "docs/validation/part-124/differential.json",
+    "docs/validation/part-116/READINESS.md",
+    "docs/validation/part-116/readiness.json",
+    "docs/validation/part-116/differential.json",
+    "docs/validation/part-116/corrected-source-plan.md",
+    "docs/validation/part-115/corrected-source-plan.md",
+    "docs/validation/part-115/readiness.json",
+    "docs/validation/part-122/differential.json",
+    "docs/validation/part-122/module-readiness.json",
+    "docs/validation/part-122/source-plan.md",
+    "docs/validation/part-104/module-readiness.json",
+    "docs/validation/part-104/differential.json",
+    "docs/validation/part-130/differential.json",
+    "docs/validation/part-131/module-readiness.json",
+    "docs/validation/part-027/MODULE_READINESS.md",
+    "docs/validation/part-027/module-readiness.json",
+    "docs/validation/part-115/source-plan.md",
+    "docs/validation/part-115/READINESS.md",
+    "docs/validation/part-133/module-readiness.json",
+    "docs/validation/part-130/module-readiness.json",
+    "docs/validation/part-123/module-readiness.json",
+    "docs/validation/part-123/MODULE_READINESS.md",
+    "docs/validation/part-140/differential.json",
+    "docs/validation/part-132/differential.json",
+    "docs/validation/part-138/module-readiness.json",
+    "docs/validation/part-132/module-readiness.json",
+    "docs/validation/part-138/differential.json",
+    "docs/validation/part-123/source-plan.md",
+    "docs/validation/part-142/differential.json",
+    "docs/validation/part-140/module-readiness.json",
+    "docs/validation/part-026/differential.json",
+    "docs/validation/part-142/module-readiness.json",
+    "docs/validation/part-143/module-readiness.json",
+    "docs/validation/part-139/module-readiness.json",
+    "docs/validation/part-137/module-readiness.json",
+    "docs/validation/part-025/initial-differential.json",
+    "docs/validation/part-117/module-readiness.json",
+    "docs/validation/part-141/module-readiness.json",
+    "docs/validation/part-117/source-plan.md",
+    "docs/validation/part-141/unpublished-before-full-call-path-cases.txt",
+    "docs/validation/part-147/module-readiness.json",
+    "docs/validation/part-146/module-readiness.json",
+    "docs/validation/part-146/differential.json",
+    "docs/validation/part-144/module-readiness.json",
+    "docs/validation/part-144/differential.json",
+    "docs/validation/part-145/module-readiness.json",
+    "docs/validation/part-152/module-readiness.json",
+    "docs/validation/part-152/differential.json",
+    "docs/validation/part-158/module-readiness.json",
+    "docs/validation/part-158/differential.json",
+    "docs/validation/part-170/module-readiness.json",
+    "docs/validation/part-170/differential.json",
+    "docs/validation/part-148/module-readiness.json",
+    "docs/validation/part-148/differential.json",
+    "docs/validation/part-164/module-readiness.json",
+    "docs/validation/part-164/differential.json",
+    "docs/validation/part-151/module-readiness.json",
+    "docs/validation/part-169/module-readiness.json",
+    "docs/validation/part-157/module-readiness.json",
+    "docs/validation/part-157/implementation-plan.md",
+    "docs/validation/part-150/module-readiness.json",
+    "docs/validation/part-150/differential.json",
+    "docs/validation/part-149/module-readiness.json",
+    "docs/validation/part-229/module-readiness.json",
+    "docs/validation/part-156/differential.json",
+    "docs/validation/part-156/module-readiness.json",
+    "docs/validation/part-163/module-readiness.json",
+    "docs/validation/part-168/module-readiness.json",
+    "docs/validation/part-163/implementation-plan.md",
+    "docs/validation/part-168/differential.json",
+    "docs/validation/part-228/process-info-context-audit.md",
+    "docs/validation/part-228/fd-differential.json",
+    "docs/validation/part-228/differential.json",
+    "docs/validation/part-160/module-readiness.json",
+    "docs/validation/part-160/differential.json",
+    "docs/validation/part-161/implementation-plan.md",
+    "docs/validation/part-161/module-readiness.json",
+    "docs/validation/part-162/module-readiness.json",
+    "docs/validation/part-162/differential.json",
+    "docs/validation/part-159/preparation-failure.log",
+    "docs/validation/part-159/module-readiness.json",
+    "docs/validation/part-159/implementation-plan.md",
+    "docs/validation/part-155/module-readiness.json",
+    "docs/validation/part-155/implementation-plan.md",
+    "docs/validation/part-167/v3_core.erl.txt",
+    "docs/validation/part-167/module-readiness.json",
+    "docs/validation/part-166/module-readiness.json",
+    "docs/validation/part-166/differential.json",
+    "docs/validation/part-200/module-readiness.json",
+    "docs/validation/part-200/differential.json",
+    "docs/validation/part-227/prior-registry.json",
+    "docs/validation/part-227/new-fixture-correction.json",
+    "docs/validation/part-227/module-readiness.json",
+    "docs/validation/part-227/access-source-review.json",
+    "docs/validation/part-154/module-readiness.json",
+    "docs/validation/part-154/differential.json",
+    "docs/validation/part-165/module-readiness.json",
+    "docs/validation/part-165/implementation-plan.md",
+    "docs/validation/part-177/module-readiness.json",
+    "docs/validation/part-226/fd-differential.json",
+    "docs/validation/part-226/differential.json",
+    "docs/validation/part-199/module-readiness.json",
+    "docs/validation/part-176/module-readiness.json",
+    "docs/validation/part-176/differential.json",
+    "docs/validation/part-185/module-readiness.json",
+    "docs/validation/part-216/initial-b2528c5/fd-differential.json",
+    "docs/validation/part-216/initial-b2528c5/differential.json",
+    "docs/validation/part-153/module-readiness.json",
+    "docs/validation/part-153/identifier-plan.md",
+    "docs/validation/part-198/module-readiness.json",
+    "docs/validation/part-198/differential.json",
+    "docs/validation/part-183/module-readiness.json",
+    "docs/validation/part-184/module-readiness.json",
+    "docs/validation/part-184/differential.json",
+    "docs/validation/part-224/fd-differential.json",
+    "docs/validation/part-224/differential.json",
+    "docs/validation/part-172/module-readiness.json",
+    "docs/validation/part-172/differential.json",
+    "docs/validation/part-175/module-readiness.json",
+    "docs/validation/part-182/module-readiness.json",
+    "docs/validation/part-182/differential.json",
+    "docs/validation/part-197/module-readiness.json",
+    "docs/validation/part-214/differential.json",
+    "docs/validation/part-174/module-readiness.json",
+    "docs/validation/part-174/differential.json",
+    "docs/validation/part-191/module-readiness.json",
+    "docs/validation/part-196/module-readiness.json",
+    "docs/validation/part-196/differential.json",
+    "docs/validation/part-171/module-readiness.json",
+    "docs/validation/part-190/module-readiness.json",
+    "docs/validation/part-190/differential.json",
+    "docs/validation/part-222/fd-differential.json",
+    "docs/validation/part-222/differential.json",
+    "docs/validation/part-173/module-readiness.json",
+    "docs/validation/part-181/module-readiness.json",
+    "docs/validation/part-195/module-readiness.json",
+    "docs/validation/part-181/final-owner-guard/module-readiness.json",
+    "docs/validation/part-212/differential.json",
+    "docs/validation/part-221/initial-fd24d46/fd-differential.json",
+    "docs/validation/part-221/initial-fd24d46/differential.json",
+    "docs/validation/part-189/module-readiness.json",
+    "docs/validation/part-180/module-readiness.json",
+    "docs/validation/part-180/differential.json",
+    "docs/validation/part-195/isolated/display-OTP-PORTS.md",
+    "docs/validation/part-194/module-readiness.json",
+    "docs/validation/part-194/differential.json",
+    "docs/validation/part-219/fd-differential.json",
+    "docs/validation/part-219/differential.json",
+    "docs/validation/part-188/module-readiness.json",
+    "docs/validation/part-188/differential.json",
+    "docs/validation/part-210/differential.json",
+    "docs/validation/part-193/module-readiness.json",
+    "docs/validation/part-217/fd-differential.json",
+    "docs/validation/part-217/differential.json",
+    "docs/validation/part-179/module-readiness.json",
+    "docs/validation/part-202/differential.json",
+    "docs/validation/part-187/module-readiness.json",
+    "docs/validation/part-204/differential.json",
+    "docs/validation/part-186/module-readiness.json",
+    "docs/validation/part-186/differential.json",
+    "docs/validation/part-206/differential.json",
+    "docs/validation/part-192/differential.json",
+    "docs/validation/part-192/module-readiness.json",
+    "docs/validation/part-178/differential.json",
+    "docs/validation/part-178/module-readiness.json",
+    "docs/validation/part-208/differential.json"
+  ]
+}

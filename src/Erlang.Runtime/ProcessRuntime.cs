@@ -11,7 +11,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
     private readonly Dictionary<string, Term> names = new(StringComparer.Ordinal);
     internal RuntimePorts Ports { get; }
+    internal CpuTopologyState CpuTopology { get; } = new();
     internal SequenceTracing SequenceTracing { get; }
+    internal ProcessTracing ProcessTracing { get; }
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private readonly Dictionary<ReferenceTerm, ProcessSpawnRequestEntry> spawnRequests = new();
@@ -28,9 +30,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         get;
     }
+    internal RuntimeStatistics Statistics { get; } = new();
     internal RuntimeTimers Timers { get; }
     internal RuntimeKnownNodes KnownNodes { get; }
     internal ProcessSuspensions Suspensions { get; }
+    internal RuntimeSystemMonitor SystemMonitoring { get; }
     public RuntimeStandardStreams StandardStreams { get; }
     private readonly bool ownsStandardStreams;
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
@@ -74,8 +78,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
         Timers = new(this, gate);
         Suspensions = new(gate, processes, Timers);
+        SystemMonitoring = new(this, gate, processes);
         Ports = new(this, gate);
         SequenceTracing = new(this, gate, processes);
+        ProcessTracing = new(this, gate, processes);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
@@ -314,7 +320,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                             failure!
                         ),
                         null,
-                        preserve: true
+                        preserve: true,
+                        from: NodeAtom
                     );
 
                 return reference;
@@ -348,7 +355,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
                     return request.Options.SuccessReply ? request.Options.Spawn.MonitorOptions.Priority : null;
                 },
-                replyToken
+                replyToken,
+                from: child.Pid
             );
 
             return reference;
@@ -400,12 +408,17 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         return message;
     }
 
-    internal void SendSystem(Pid target, Term message)
+    internal void SendSystem(Pid target, Term message, Term? from = null)
     {
         lock (gate)
         {
             if (processes.TryGetValue(target, out var receiver))
-                receiver.Mailbox.SendTraced(message, null, preserve: true);
+                receiver.Mailbox.SendTraced(
+                    message,
+                    null,
+                    preserve: true,
+                    from: from
+                );
         }
     }
 
@@ -418,10 +431,16 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
         {
+            ProcessTracing.Sent(
+                sender,
+                destination ?? target,
+                message,
+                processes.ContainsKey(target)
+            );
             if (processes.TryGetValue(target, out var receiver))
             {
                 SequenceTraceToken? token = SequenceTracing.Sent(sender, target, message);
-                receiver.Mailbox.SendTraced(message, token);
+                receiver.Mailbox.SendTraced(message, token, from: sender.Self);
             }
         }
 
@@ -476,6 +495,13 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         lock (gate)
         {
             Pid? traceOwner = ResolveAliasOwner(reference);
+            if (sender is not null)
+                ProcessTracing.Sent(
+                    sender,
+                    reference,
+                    message,
+                    true
+                );
             SequenceTraceToken? token = sender is null || traceOwner is null || !processes.ContainsKey(traceOwner) ? null : SequenceTracing.Sent(sender, reference, message);
             if (aliases.TryGetValue(reference, out var alias) && processes.TryGetValue(alias.Owner, out var owner))
             {
@@ -493,7 +519,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
                     return priority && current.Priority;
                 },
-                    token
+                    token,
+                    from: sender?.Self
                 );
             }
         }
@@ -698,7 +725,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     lock (gate)
                     {
                         if (process.PendingSavedCallRequests.Remove(request))
-                            ReplySavedCallRequest(request, ApplySavedCallFlag(process, request.Flag, request.Value));
+                            ReplySavedCallRequest(request, ApplySavedCallFlag(process, request.Flag, request.Value), process.Self);
                     }
 
                     return null;
@@ -724,7 +751,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
     }
 
-    private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result));
+    private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result, Term? from = null) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result), from);
 
     internal async ValueTask<Term> CheckProcessCode(
         ProcessContext requester,
@@ -754,7 +781,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     lock (gate)
                     {
                         if (process.PendingCodeChecks.Remove(request))
-                            ReplyCodeCheck(request, Modules.IsExecutingOldCode(process, module));
+                            ReplyCodeCheck(request, Modules.IsExecutingOldCode(process, module), process.Self);
                     }
 
                     return null;
@@ -770,13 +797,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         return reply!.Items[2];
     }
 
-    private void ReplyCodeCheck(ProcessCodeRequest request, bool result) => SendSystem(
+    private void ReplyCodeCheck(ProcessCodeRequest request, bool result, Term? from = null) => SendSystem(
         request.Requester.Self,
         Term.Tuple(
         ProcessCodeAtoms.ReplyTag,
         request.Id,
         Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
-    )
+    ),
+        from
     );
 
     internal async ValueTask<bool> PurgeModule(ProcessContext requester, string module)
@@ -1075,7 +1103,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
             return current.Priority;
         },
-            preserve: true
+            preserve: true,
+            from: entry.Target is { } target ? target.Node == Node ? target : Term.A(target.Node) : Term.A(ProcessTraceNames.System)
         );
     }
 
@@ -1184,7 +1213,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool normalKills,
         bool priority,
         ReferenceTerm? alias,
-        bool linked
+        bool linked,
+        SequenceTraceToken? token = null
     )
     {
         target.Mailbox.SendPending(
@@ -1214,7 +1244,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);
 
             return null;
-        }
+        },
+            token: token,
+            from: sender
         );
     }
 
@@ -1228,7 +1260,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool kill = explicitSignal && reason.Equals(Term.A(ProcessExitSignals.Kill));
         if (target.TrapExits && !kill)
         {
-            target.Mailbox.Send(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), sender, reason));
+            target.Mailbox.SendTraced(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), sender, reason), null, from: sender);
 
             return;
         }
@@ -1249,18 +1281,23 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
+                ProcessTracing.Terminated(ctx.Self);
+                SystemMonitoring.Terminated(ctx.Self);
                 processSlots.Remove(ctx.Self);
                 foreach (var request in ctx.PendingCodeChecks)
-                    ReplyCodeCheck(request, false);
+                    ReplyCodeCheck(request, false, ctx.Self);
                 ctx.PendingCodeChecks.Clear();
                 foreach (var request in ctx.PendingInfoRequests)
-                    ReplyProcessInfo(request, ProcessInfoAtoms.Undefined);
+                    ReplyProcessInfo(request, ProcessInfoAtoms.Undefined, ctx.Self);
                 ctx.PendingInfoRequests.Clear();
+                foreach (var request in ctx.PendingDisplayRequests)
+                    ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument));
+                ctx.PendingDisplayRequests.Clear();
                 foreach (var request in ctx.PendingGarbageCollections)
-                    ReplyGarbageCollection(request, false);
+                    ReplyGarbageCollection(request, false, ctx.Self);
                 ctx.PendingGarbageCollections.Clear();
                 foreach (var request in ctx.PendingSavedCallRequests)
-                    ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument));
+                    ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self);
                 ctx.PendingSavedCallRequests.Clear();
                 Timers.RecipientTerminated(ctx.Self);
                 Suspensions.Terminated(ctx);
@@ -1295,6 +1332,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 ctx.Stop.Cancel();
                 ctx.Done.TrySetResult(reason);
                 foreach (var pid in links)
+                {
+                    SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, pid, reason);
                     if (processes.TryGetValue(pid, out var linked))
                     {
                         QueueExit(
@@ -1305,9 +1344,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                             false,
                             false,
                             null,
-                            true
+                            true,
+                            exitToken
                         );
                     }
+                }
             }
         }
     }

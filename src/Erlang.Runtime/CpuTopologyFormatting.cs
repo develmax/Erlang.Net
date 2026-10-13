@@ -10,7 +10,7 @@ internal static class CpuTopologyFormatting
         {
             try
             {
-                Term result = arguments[0] is Atom { Name: ProcessRegistryAtoms.Undefined } ? arguments[0] : Convert(arguments[0], true, CpuTopologyLevel.Node);
+                Term result = Format(arguments[0]);
 
                 return ValueTask.FromResult(result);
             }
@@ -24,6 +24,8 @@ internal static class CpuTopologyFormatting
             }
         }
     );
+
+    internal static Term Format(Term rows) => rows is Atom { Name: ProcessRegistryAtoms.Undefined } ? rows : Convert(rows, true, CpuTopologyLevel.Node);
 
     private static Term Convert(Term rows, bool first, CpuTopologyLevel level)
     {

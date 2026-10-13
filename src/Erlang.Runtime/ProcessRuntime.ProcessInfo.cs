@@ -30,7 +30,7 @@ public sealed partial class ProcessRuntime
                 lock (gate)
                 {
                     if (process.PendingInfoRequests.Remove(request))
-                        ReplyProcessInfo(request, ProcessInfo(target, request.Keys, request.Singleton));
+                        ReplyProcessInfo(request, ProcessInfo(target, request.Keys, request.Singleton), process.Self);
                 }
 
                 return null;
@@ -42,7 +42,7 @@ public sealed partial class ProcessRuntime
         return reply!.Items[1];
     }
 
-    private void ReplyProcessInfo(ProcessInfoRequest request, Term result) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result));
+    private void ReplyProcessInfo(ProcessInfoRequest request, Term result, Term? from = null) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result), from);
 
     private Term SnapshotOriginMonitors(Pid observer) => Cons.From(monitors.Values.Where(monitor => monitor.Observer.Equals(observer)).Select(monitor => Term.Tuple(
         Term.A(monitor.Source switch

@@ -47,7 +47,8 @@ internal static class ErlangTimerRegistrations
                     if (options.Info)
                         context.Runtime.SendSystem(
                             context.Self,
-                            Term.Tuple(Term.A(cancel ? TimerReplyAtoms.Cancel : TimerReplyAtoms.Read), arguments[0], result)
+                            Term.Tuple(Term.A(cancel ? TimerReplyAtoms.Cancel : TimerReplyAtoms.Read), arguments[0], result),
+                            Term.A(ProcessTraceNames.ClockService)
                         );
 
                     return Term.A(TimerReplyAtoms.Ok);

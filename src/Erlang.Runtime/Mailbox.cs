@@ -14,6 +14,8 @@ public sealed class Mailbox
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
     internal Action? MessageReceived { get; init; }
+    internal Action<Term, Term?>? MessageAdmitted { get; init; }
+    internal Action<int>? QueueLengthChanged { get; init; }
     internal Action<Term, SequenceTraceToken?, bool>? TraceReceived { get; init; }
     internal Action? ReceiveTimedOut { get; init; }
     internal Action<bool>? WaitingStateChanged { get; init; }
@@ -23,7 +25,9 @@ public sealed class Mailbox
         Func<bool?>? Admission,
         bool Control = false,
         SequenceTraceToken? TraceToken = null,
-        bool PreserveTrace = false
+        bool PreserveTrace = false,
+        Term? From = null,
+        bool TraceAdmission = true
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -79,7 +83,9 @@ public sealed class Mailbox
         Term message,
         SequenceTraceToken? token,
         bool preserve = false,
-        bool priority = false
+        bool priority = false,
+        Term? from = null,
+        bool traceAdmission = true
     )
     {
         lock (gate)
@@ -90,13 +96,17 @@ public sealed class Mailbox
                     null,
                     false,
                     token,
-                    preserve
+                    preserve,
+                    from,
+                    traceAdmission
                 )) : messages.AddAfter(lastPriority, new Entry(
                     message,
                     null,
                     false,
                     token,
-                    preserve
+                    preserve,
+                    from,
+                    traceAdmission
                 ));
             else
                 messages.AddLast(new Entry(
@@ -104,20 +114,27 @@ public sealed class Mailbox
                     null,
                     false,
                     token,
-                    preserve
+                    preserve,
+                    from,
+                    traceAdmission
                 ));
             admittedCount++;
+            QueueLengthChanged?.Invoke(admittedCount);
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
         }
+        if (traceAdmission)
+            MessageAdmitted?.Invoke(message, from);
     }
 
     internal void SendPending(
         Term message,
         Func<bool?> admission,
         SequenceTraceToken? token = null,
-        bool preserve = false
+        bool preserve = false,
+        Term? from = null,
+        bool traceAdmission = true
     )
     {
         lock (gate)
@@ -127,7 +144,9 @@ public sealed class Mailbox
                 admission,
                 true,
                 token,
-                preserve
+                preserve,
+                from,
+                traceAdmission
             ));
             pending++;
             var previous = changed;
@@ -138,6 +157,7 @@ public sealed class Mailbox
 
     internal void AdmitPending()
     {
+        var admitted = new List<(Term Message, Term? From)>();
         lock (gate)
         {
             if (pending == 0)
@@ -156,6 +176,9 @@ public sealed class Mailbox
                     {
                         node.Value = node.Value with { Control = false };
                         admittedCount++;
+                        QueueLengthChanged?.Invoke(admittedCount);
+                        if (node.Value.TraceAdmission)
+                            admitted.Add((node.Value.Value, node.Value.From));
                         if (priority.Value)
                         {
                             messages.Remove(node);
@@ -170,6 +193,8 @@ public sealed class Mailbox
                 node = next is not null && next.List == messages ? next : null;
             }
         }
+        foreach (var admission in admitted)
+            MessageAdmitted?.Invoke(admission.Message, admission.From);
     }
 
     internal void DiscardPending()
@@ -349,11 +374,14 @@ public sealed class Mailbox
 
     private void RemoveNode(LinkedListNode<Entry> node)
     {
-        if (!node.Value.Control)
+        bool ordinary = !node.Value.Control;
+        if (ordinary)
             admittedCount--;
         if (ReferenceEquals(node, lastPriority))
             lastPriority = node.Previous;
         messages.Remove(node);
+        if (ordinary)
+            QueueLengthChanged?.Invoke(admittedCount);
     }
 
     internal IReadOnlyList<Term> Snapshot()

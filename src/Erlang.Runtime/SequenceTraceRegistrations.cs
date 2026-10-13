@@ -34,6 +34,13 @@ internal static class SequenceTraceRegistrations
             2,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
+            : CpuTopologyStateRegistrations.TrySystemFlag(
+                context,
+                arguments[0],
+                arguments[1],
+                out Term result
+            )
+            ? ValueTask.FromResult(result)
             : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         registry.Register(
@@ -42,6 +49,8 @@ internal static class SequenceTraceRegistrations
             1,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(SequenceTraceNames.SystemTracer), context.Runtime.SequenceTracing.Tracer()))
+            : CpuTopologyStateRegistrations.TrySystemInfo(context, arguments[0], out Term result)
+            ? ValueTask.FromResult(result)
             : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
     }

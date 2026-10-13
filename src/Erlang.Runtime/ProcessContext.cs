@@ -13,14 +13,20 @@ public sealed class ProcessContext : ITermExecutionContext
             WaitForExecution = WaitIfSuspended,
             ExecutionBlocked = () => SuspensionRequested,
             MessageReceived = SavedCalls.Received,
+            MessageAdmitted = (message, from) => Runtime.ProcessTracing.Admitted(this, message, from),
             TraceReceived = (message, token, preserve) => Runtime.SequenceTracing.Received(
                 this,
                 message,
                 token,
                 preserve
             ),
-            ReceiveTimedOut = SavedCalls.TimedOut,
-            WaitingStateChanged = waiting => WaitingForMessage = waiting
+            ReceiveTimedOut = () =>
+            {
+                SavedCalls.TimedOut();
+                Runtime.ProcessTracing.Admitted(this, Term.A(ProcessTraceNames.Timeout), Term.A(ProcessTraceNames.ClockService));
+            },
+            WaitingStateChanged = waiting => WaitingForMessage = waiting,
+            QueueLengthChanged = count => Runtime.SystemMonitoring.QueueChanged(Self, count)
         };
     }
 
@@ -37,6 +43,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
     internal HashSet<ProcessGarbageCollectionRequest> PendingGarbageCollections { get; } = new();
     internal HashSet<ProcessInfoRequest> PendingInfoRequests { get; } = new();
+    internal HashSet<ProcessDisplayRequest> PendingDisplayRequests { get; } = new();
     internal volatile bool WaitingForMessage;
     internal volatile bool ExecutionStarted;
     internal volatile bool Yielding;
@@ -144,6 +151,19 @@ public sealed class ProcessContext : ITermExecutionContext
     internal Term SnapshotCurrentFunction() => ProcessInfoFrames.Current(Volatile.Read(ref visibleExecutionFrame));
 
     internal Term SnapshotCurrentStackTrace() => ProcessInfoFrames.Stack(Volatile.Read(ref visibleExecutionFrame), Runtime.BacktraceDepth);
+
+    internal IReadOnlyList<ErlangExecutionFrame> SnapshotDisplayFrames()
+    {
+        var frames = new List<ErlangExecutionFrame>();
+        ErlangExecutionFrame? frame = Volatile.Read(ref visibleExecutionFrame);
+        while (frame is not null)
+        {
+            frames.Add(frame);
+            frame = frame.Parent;
+        }
+
+        return frames;
+    }
 
     public IDisposable EnterFunction(string module, string function, int arity)
     {

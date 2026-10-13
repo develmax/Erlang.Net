@@ -68,7 +68,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
             if (options.Tag is not null)
                 owner.Tags.Add(options.Tag);
             if (target.Active)
-                Acknowledge(owner, Term.A(ProcessSuspensionNames.Suspended));
+                Acknowledge(owner, Term.A(ProcessSuspensionNames.Suspended), pid);
             context.Mailbox.Pulse();
             acknowledgement = options.Async ? null : owner.Acknowledged.Task;
         }
@@ -92,7 +92,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
             if (--owner.Count == 0)
             {
                 target.Owners.Remove(caller.Self);
-                Acknowledge(owner, Term.A(ProcessSuspensionNames.NotSuspended));
+                Acknowledge(owner, Term.A(ProcessSuspensionNames.NotSuspended), pid);
                 ReleaseIfEmpty(pid, target);
             }
 
@@ -112,7 +112,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
                 timers.PauseRecipient(context.Self);
             }
             foreach (var owner in target.Owners.Values)
-                Acknowledge(owner, Term.A(ProcessSuspensionNames.Suspended));
+                Acknowledge(owner, Term.A(ProcessSuspensionNames.Suspended), context.Self);
 
             return target.Resumed.Task;
         }
@@ -127,24 +127,29 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
                 if (pair.Key.Equals(context.Self))
                 {
                     foreach (var owner in pair.Value.Owners.Values)
-                        Acknowledge(owner, Term.A(ProcessSuspensionNames.Exited));
+                        Acknowledge(owner, Term.A(ProcessSuspensionNames.Exited), pair.Key);
                     pair.Value.Owners.Clear();
                     ReleaseIfEmpty(pair.Key, pair.Value);
                 }
                 else if (pair.Value.Owners.Remove(context.Self, out var owner))
                 {
-                    Acknowledge(owner, Term.A(ProcessSuspensionNames.NotSuspended));
+                    Acknowledge(owner, Term.A(ProcessSuspensionNames.NotSuspended), pair.Key);
                     ReleaseIfEmpty(pair.Key, pair.Value);
                 }
             }
         }
     }
 
-    private static void Acknowledge(Owner owner, Atom result)
+    private static void Acknowledge(Owner owner, Atom result, Pid from)
     {
         owner.Acknowledged.TrySetResult(result);
         foreach (Term tag in owner.Tags)
-            owner.Context.Mailbox.SendTraced(Term.Tuple(tag, result), null, preserve: true);
+            owner.Context.Mailbox.SendTraced(
+                Term.Tuple(tag, result),
+                null,
+                preserve: true,
+                from: from
+            );
         owner.Tags.Clear();
     }
 

@@ -4,6 +4,25 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
 {
     private Pid? tracer;
 
+    public SequenceTraceToken? LinkedExit(ProcessContext sender, Pid destination, Term reason)
+    {
+        lock (gate)
+        {
+            SequenceTraceToken? token = tracer?.Equals(sender.Self) == true ? sender.SequentialTrace.Token : Advance(sender);
+            if (processes.ContainsKey(destination))
+                Output(
+                    sender,
+                    token,
+                    SequenceTraceFlags.Send,
+                    destination,
+                    Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), sender.Self, reason)
+                );
+
+            return token;
+        }
+    }
+
+
     public Term Set(ProcessContext context, Term component, Term value)
     {
         lock (gate)
@@ -311,7 +330,12 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
             );
         else
             notification = Term.Tuple(Term.A(SequenceTraceNames.Message), token.Label, details);
-        processes[recipient].Mailbox.SendTraced(notification, null, true);
+        processes[recipient].Mailbox.SendTraced(
+            notification,
+            null,
+            true,
+            traceAdmission: false
+        );
     }
 
     private static SequenceTraceFlags Flag(string name) => name switch

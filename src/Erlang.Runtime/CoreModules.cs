@@ -761,6 +761,7 @@ public static class CoreModules
         ErlangRaiseRegistrations.Register(r);
         ErlangProcessQueryRegistrations.Register(r);
         ProcessInfoRegistrations.Register(r);
+        ProcessDisplayRegistrations.Register(r);
         ProcessIdentifierTextRegistrations.Register(r);
         PacketDecodeRegistrations.Register(r);
         ModuleLoadingRegistrations.Register(r);
@@ -793,11 +794,16 @@ public static class CoreModules
         ProcessHibernateRegistrations.Register(r);
         ProcessDelayRegistrations.Register(r);
         CpuTopologyFormatting.Register(r);
+        CpuTopologyStateRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
         NativeRecordRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         SequenceTraceRegistrations.Register(r);
+        SystemMonitorRegistrations.Register(r);
+        ProcessTraceRegistrations.Register(r);
+        MatchSpecRegistrations.Register(r);
+        RuntimeStatisticsRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })

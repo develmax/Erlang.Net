@@ -209,6 +209,31 @@ public sealed class ModuleRegistry
             return oldCode.TryGetValue(module, out var old) && context.IsExecutingCode(old.Image);
     }
 
+    internal Term CallMatchSpecGuard(ProcessContext context, string function, Term[] arguments)
+    {
+        if (!MatchSpecOperations.Pure.Contains((function, arguments.Length)))
+            throw MatchSpecNames.UnsupportedAction(function, arguments.Length);
+        if (function == ErlangModuleNames.IsInteger && arguments.Length == 3)
+        {
+            if (arguments[1] is not Integer minimum || arguments[2] is not Integer maximum)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+            return CoreModules.Boolean(arguments[0] is Integer number && number.Value >= minimum.Value && number.Value <= maximum.Value);
+        }
+        ErlangFunction body;
+        lock (gate)
+        {
+            if (!functions.TryGetValue((ErlangModuleNames.Module, function, arguments.Length), out body!))
+                throw MatchSpecNames.UnsupportedAction(function, arguments.Length);
+        }
+
+        ValueTask<Term> pending = body(context, arguments);
+        if (!pending.IsCompleted)
+            throw MatchSpecNames.UnsupportedAction(function, arguments.Length);
+
+        return pending.GetAwaiter().GetResult();
+    }
+
     public ValueTask<Term> Call(
         ProcessContext context,
         string module,
@@ -227,16 +252,29 @@ public sealed class ModuleRegistry
         }
         if (body is null)
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+        ProcessTraceInvocation? invocation = context.Runtime.ProcessTracing.Called(
+            context,
+            module,
+            function,
+            arguments
+        );
         if (image is null)
         {
             context.SavedCalls.Record(module, function, arguments.Length);
-
-            return body(context, arguments);
+            try
+            {
+                return context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments));
+            }
+            catch (ErlangException exception)
+            {
+                context.Runtime.ProcessTracing.Failed(context, invocation, exception);
+                throw;
+            }
         }
         try
         {
             context.SavedCalls.Record(module, function, arguments.Length);
-            ValueTask<Term> pending = body(context, arguments);
+            ValueTask<Term> pending = context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments));
             if (pending.IsCompletedSuccessfully)
             {
                 code!.Dispose();
@@ -246,9 +284,11 @@ public sealed class ModuleRegistry
 
             return AwaitCallback(pending, code!);
         }
-        catch
+        catch (Exception exception)
         {
             code!.Dispose();
+            if (exception is ErlangException failure)
+                context.Runtime.ProcessTracing.Failed(context, invocation, failure);
             throw;
         }
         finally

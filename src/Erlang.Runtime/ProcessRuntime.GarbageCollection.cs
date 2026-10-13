@@ -30,7 +30,7 @@ public sealed partial class ProcessRuntime
                         if (process.PendingGarbageCollections.Remove(request))
                         {
                             CollectManagedHeap(request.Major);
-                            ReplyGarbageCollection(request, true);
+                            ReplyGarbageCollection(request, true, process.Self);
                         }
                     }
 
@@ -57,12 +57,13 @@ public sealed partial class ProcessRuntime
         );
     }
 
-    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result) => SendSystem(
+    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result, Term? from = null) => SendSystem(
         request.Requester.Self,
         Term.Tuple(
             Term.A(ProcessGarbageCollectionNames.ReplyTag),
             request.Id,
             Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
-        )
+        ),
+        from
     );
 }

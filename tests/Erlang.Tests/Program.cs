@@ -6,7 +6,15 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.CpuTopologyStateHostNames.Test, Erlang.Tests.CpuTopologyStateHostChecks.Run);
+Test(Erlang.Tests.RuntimeStatisticsHostParameters.Test, Erlang.Tests.RuntimeStatisticsHostChecks.Run);
+Test(Erlang.Tests.MatchSpecHostNames.Test, Erlang.Tests.MatchSpecHostChecks.Run);
+Test(Erlang.Tests.ProcessTraceHostParameters.Test, Erlang.Tests.ProcessTraceHostChecks.Run);
 Test(Erlang.Tests.SequenceTraceHostParameters.Test, Erlang.Tests.SequenceTraceHostChecks.Run);
+Test(Erlang.Tests.SystemMonitorHostNames.Test, Erlang.Tests.SystemMonitorHostChecks.Run);
+Test(Erlang.Tests.ProcessDisplayHostNames.Test, Erlang.Tests.ProcessDisplayHostChecks.Run);
+Test(Erlang.Tests.SequenceExitHostParameters.Test, Erlang.Tests.SequenceExitHostChecks.Run);
+Test(Erlang.Tests.JointPlatformHostNames.Test, Erlang.Tests.JointPlatformHostChecks.Run);
 Test(Erlang.Tests.SpawnRequestHostParameters.Test, Erlang.Tests.SpawnRequestHostChecks.Run);
 Test(Erlang.Tests.NativeRecordHostNames.Test, Erlang.Tests.NativeRecordHostChecks.Run);
 Test(Erlang.Tests.NativeRecordDefinitionHostNames.Test, Erlang.Tests.NativeRecordDefinitionHostChecks.Run);
