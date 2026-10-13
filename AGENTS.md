@@ -755,3 +755,7 @@ Part204:source-built original **4816/4816** and **5422/full same-head CI** atd86
 ## Part205 checkpoint
 
 Part205:source-directed port monitors/DOWN/name/alias/tag/priority/demonitor and observer/owner death cleanup;explicit exit/exit_signal normal/custom/kill=>killed,priority/dead/foreign links and actual monitored_by. **5469/full main/draft**,47 new source scenarios. [Tests](validation/part-205/tests.json),[corpus](validation/part-205/corpus-audit.json). Registry437/erlang287/351 unchanged (81.8% presence,64 missing). Original4863 pending206;2044816/4816 with5422/full same-head CI remains historical proof. Native ABI/fd/other options/metadata/busy/full signals/platform/distribution/resources/upstream/performance unfinished;continue the whole goal.
+
+## Part206 checkpoint
+
+Part206:source-built original **4863/4863** and **5469/full same-head CI** at7485cd7. All selected comparisons pass;continue remaining erlang/port contracts. [Proof](validation/part-206/differential.json),[guard](validation/part-206/strict-guard.json).96 port scenarios (28base/21line/47lifecycle) execute actual owned probes,monitors/aliases/tags/priority/demonitor/death/exit/links. Registry437;erlang287/351,64missing,81.8% API presence,not semantic completion. Native ABI/fd/other options/metadata/busy/full signal/platform/distribution/resource/upstream/performance remain unfinished.
