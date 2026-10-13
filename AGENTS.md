@@ -827,3 +827,7 @@ Part222: repaired221 head **5036/5036** original corpus comparisons plus **8/8 i
 ## Part223 checkpoint
 
 Part223: pure format_cpu_topology/1 and real garbage_collect/0,1,2 sync/async process requests;garbage_collect_message_area/0 follows actual original undefined stub. **5720/5720/full Windows main and isolated composite draft**,54 new compiled scenarios plus actual GC/death-race host check;all4132 inherited source/outcome/generated hash/context/policy/finite byte contracts,132 diagnoses and six exclusions preserved. Registry449;erlang299/351 (85.2% API presence,52 missing),lists91/91,maps34/34,gen_server10/41,supervisor14/23,io1/53 unchanged. Original5090 corpus plus8 fd and exact-head CI pending224;2225036/5036+8/8 and5660/full CI historical. Global CLR collection differs from BEAM per-process heaps;physical scheduling/resources/distribution/full upstream contracts remain partial. Continue whole erlang with completed isolated spawn_request/native-record foundation and further agent slices.
+
+## Part224 checkpoint
+
+Part224: frozen223 original5090/5090 + independent inherited fd8/8; same-head Linux CI5720/5720/full with identical ordered Windows test names. Selected CPU formatter and major/minor managed GC request/reply cases agree with OTP. Registry449;erlang299/351 (85.2% API presence,52 missing),lists91/91,maps34/34,gen_server10/41,supervisor14/23,io1/53 unchanged. Full module,physical BEAM heap/scheduler/resources/distribution/upstream and performance remain partial.

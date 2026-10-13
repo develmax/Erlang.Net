@@ -1,6 +1,6 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **5720 passed**. Runtime MFAs **449** (previous snapshot **444**, delta **+5**), in **6** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Local tests **5720 passed**. Runtime MFAs **449** (previous snapshot **449**, delta **0**), in **6** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
@@ -29,7 +29,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | binary | 0 | 0 | 31 | 0.0% | Not started |
 | code | 0 | 0 | 69 | 0.0% | Not started |
 | dets | 0 | 0 | 64 | 0.0% | Not started |
-| erlang | 299 | +5 | 351 | 85.2% | Partially compatible |
+| erlang | 299 | 0 | 351 | 85.2% | Partially compatible |
 | ets | 0 | 0 | 76 | 0.0% | Not started |
 | file | 0 | 0 | 69 | 0.0% | Not started |
 | gen_event | 0 | 0 | 43 | 0.0% | Not started |
