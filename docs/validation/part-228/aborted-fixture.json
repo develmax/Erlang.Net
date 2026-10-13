@@ -1,0 +1,12 @@
+{
+  "Name": "erlang-spawn-request-seq-callback-protocol",
+  "Source": "-module(spawn_request_seq_contract). -export([run/0,hold/0,report/1,collector/2]). run()->S=self(),T=spawn(fun()->collector(S,[]) end),false=erlang:system_flag(sequential_tracer,T),erlang:seq_trace(label,label),erlang:seq_trace(send,true),erlang:seq_trace('receive',true),F=fun()->receive stop->ok end end,R=spawn_request(F),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {spawn_reply,R,ok,P}->{serial,{1,2}}=erlang:seq_trace_info(serial),erlang:seq_trace(sequential_trace_token,[]),P!stop,erlang:seq_trace(sequential_trace_token,[]),T!{take,S},receive Events when is_list(Events)->[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erlang,apply,2},[],spawn_reply,[F,[]]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{spawn_reply,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{spawn_reply,R,ok,P}}}]=Events after 5000->error(no_events) end after 5000->error(no_reply) end,done. hold()->receive stop->ok end. report(S)->{serial,Before}=erlang:seq_trace_info(serial),true=erlang:seq_trace_print(child),{serial,After}=erlang:seq_trace_info(serial),erlang:seq_trace(sequential_trace_token,[]),S!{child_serials,self(),Before,After},receive stop->ok end. collector(S,L)->receive {seq_trace,_,_}=E->collector(S,[E|L]);{seq_trace,_,_,_}=E->collector(S,[E|L]);{take,S}->S!lists:reverse(L) end.",
+  "FixtureExpected": "{ok,done}",
+  "ExpectedStandardOutputHex": null,
+  "ExpectedStandardErrorHex": null,
+  "ExpectedStandardOutputAlternatives": null,
+  "SourceSha256": "00E269E81B440C5E129EF372799121EF4AA3B5DC6EB461E56E32B7FAFCE35163",
+  "CSharpSha256": "B9DCA5B112B2433A93E638CD7A8242517876F3753307C0236F3F4E66E703B200",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}
