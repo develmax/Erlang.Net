@@ -1,0 +1,29 @@
+{
+  "Reuse": "SDK byte accumulator/Process/Stream,not StreamReader.ReadLineAsync which loses bytes/noeol boundaries",
+  "Adaptation": "read_linebuf/flush_linebuf/driver_failure_term and line/packet validation;modified C# state machine and owned Process/Stream",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ResourceScope": "Separate managed16MiB packet/line policies;native allocator/driver/platform/upstream/performance remain unfinished",
+  "Sources": [
+    {
+      "Blob": "24468adbe35712bdb751349b0484df3c3ead76c1",
+      "Path": "erts/emulator/beam/io.c"
+    },
+    {
+      "Blob": "cfa351a7550e11ce360aaf2d1103cc997488a1e2",
+      "Path": "erts/emulator/beam/erl_bif_port.c"
+    },
+    {
+      "Blob": "421acafd1c5cb99c4e74b88ceacba687e9ed2c1f",
+      "Path": "erts/emulator/beam/erl_port.h"
+    },
+    {
+      "Blob": "bdd6528412393d3bb85b2d4ac64a27a226a1a1d3",
+      "Path": "erts/emulator/sys/unix/sys_drivers.c"
+    },
+    {
+      "Blob": "25c49b5c685f2048c3ac91f815432b4007fe7eb7",
+      "Path": "erts/emulator/sys/win32/sys.c"
+    }
+  ],
+  "Baseline": "OTP-29.1.1"
+}

@@ -4,6 +4,10 @@ public static class PortHostChecks
 {
     public static async Task Run()
     {
+        Require(ErlangSourceWrapperSignatures.Contains(PortNames.Open, 2));
+        Require(!ErlangSourceWrapperSignatures.Contains(PortNames.Open, 3));
+        Require(ErlangSourceWrapperSignatures.Contains(PortNames.Control, 3));
+        Require(!ErlangSourceWrapperSignatures.Contains(PortNames.Control, 2));
         await using var runtime = new ProcessRuntime();
         Exception? failure = null;
         PortTerm? identity = null;

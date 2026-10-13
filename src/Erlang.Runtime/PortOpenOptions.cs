@@ -11,6 +11,7 @@ internal sealed class PortOpenOptions
     public bool Eof { get; private set; }
     public bool ExitStatus { get; private set; }
     public int PacketBytes { get; private set; }
+    public int LineBytes { get; private set; }
 
     public static PortOpenOptions Parse(Term specification, Term settings)
     {
@@ -40,6 +41,11 @@ internal sealed class PortOpenOptions
                 case TupleTerm { Items.Count: 2 } tuple:
                     switch (tuple.Items[0])
                     {
+                        case Atom { Name: PortLineNames.Option } when tuple.Items[1] is Integer line && line.Value > 0:
+                            if (line.Value > PortLineParameters.MaximumBufferBytes)
+                                throw new ErlangException(ErlangErrorReasons.SystemLimit);
+                            options.LineBytes = (int)line.Value;
+                            break;
                         case Atom { Name: PortNames.Packet } when tuple.Items[1] is Integer width && (width.Value == PortParameters.PacketOne || width.Value == PortParameters.PacketTwo || width.Value == PortParameters.PacketFour):
                             options.PacketBytes = (int)width.Value;
                             break;
@@ -72,6 +78,8 @@ internal sealed class PortOpenOptions
                     throw BadOption();
             }
         }
+        if (options.LineBytes != 0 && options.PacketBytes != 0)
+            throw BadOption();
         if (specification is not TupleTerm { Items.Count: 2 } name)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         options.Name = Text(name.Items[1]);

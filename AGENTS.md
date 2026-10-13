@@ -743,3 +743,7 @@ Part201: implement13 port MFAs over real owned external-process resources;spawn/
 ## Part202 checkpoint
 
 Part202:source-built original **4795/4795** and **5401/full same-head CI** at2e345a1. All selected comparisons pass;continue remaining contracts. [Proof](validation/part-202/differential.json),[guard](validation/part-202/strict-guard.json).28 new port scenarios execute actual portable child processes,IO/packet/EOF/status,ownership/names/data,callback rejection and command information barrier. Registry437;erlang287/351,64 missing,81.8% API presence,not semantic completion. Full native drivers/fd/all options/metadata/port monitors/exit2/priority links/busy/platform errno/distribution/resources/upstream/performance remain unfinished. Source-directed line mode is being validated in an isolated prototype;whole goal continues.
+
+## Part203 checkpoint
+
+Part203:source-directed {line,N} mode with original four byte states,CRLF/exact-cap eol/noeol,EOF tail delivery and explicit-close discard. **5422/full main and draft**,21 new source scenarios;437 MFAs unchanged,erlang287/351 (81.8% presence,64 missing). [Tests](validation/part-203/tests.json),[corpus](validation/part-203/corpus-audit.json). Original4816 pending204;2024795/4795 with5401/full CI verified independently. Native drivers/fd/all settings/metadata/monitors/exit2/priority links/busy/platform errno/distribution/resources/upstream/performance remain unfinished. Continue port lifecycle and the whole erlang goal.

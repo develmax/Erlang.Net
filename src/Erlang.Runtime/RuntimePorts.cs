@@ -351,13 +351,20 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                     if (port.Closed)
                         return;
                     port.InputBytes += payload.Length;
-                    Term data = port.Options.Binary ? new BitString(payload) : Cons.From(payload.Select(octet => Term.I(octet)));
-                    runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), data)));
+                    if (port.Lines is null)
+                        Deliver(port, payload, null);
+                    else
+                        foreach (PortLineResult line in port.Lines.Read(payload))
+                            Deliver(port, line.Data, line.EndOfLine);
                 }
             }
             lock (gate)
-                if (!port.Closed && port.Options.Eof)
-                    runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
+                if (!port.Closed)
+                {
+                    FlushLines(port);
+                    if (port.Options.Eof)
+                        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
+                }
             await port.Process.WaitForExitAsync(port.Stop.Token);
             lock (gate)
             {
@@ -381,6 +388,22 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         foreach (RuntimePort port in ports.Values.ToArray())
             Close(port, Term.A(ProcessExitReasons.Shutdown));
+    }
+
+    private void FlushLines(RuntimePort port)
+    {
+        if (port.Lines is null)
+            return;
+        foreach (PortLineResult line in port.Lines.Flush())
+            Deliver(port, line.Data, line.EndOfLine);
+    }
+
+    private void Deliver(RuntimePort port, byte[] payload, bool? endOfLine)
+    {
+        Term data = port.Options.Binary ? new BitString(payload) : Cons.From(payload.Select(octet => Term.I(octet)));
+        if (endOfLine is bool eol)
+            data = Term.Tuple(Term.A(eol ? PortLineNames.EndOfLine : PortLineNames.NoEndOfLine), data);
+        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), data)));
     }
 
     public Term Send(Term identity, Term message)

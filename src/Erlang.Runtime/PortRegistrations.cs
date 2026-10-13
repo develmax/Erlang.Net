@@ -78,7 +78,8 @@ internal static class PortRegistrations
         Add(PortNames.Command, 2, (context, arguments) => context.Runtime.Ports.Command(arguments[0], arguments[1], Nil.Value));
         Add(PortNames.Command, 3, (context, arguments) => context.Runtime.Ports.Command(arguments[0], arguments[1], arguments[2]));
 
-        // The spawned-process driver has neither a call nor a control callback.
+        // Ordinary guest call/control operations are unsupported by this backend.
+        // The Unix driver's private forker/SIGCHLD memory protocol is not a guest handler.
         ValueTask<Term> Unsupported(ProcessContext context, IReadOnlyList<Term> arguments) => throw new ErlangException(ErlangErrorReasons.BadArgument);
         Add(PortNames.Call, 2, Unsupported);
         Add(PortNames.Call, 3, Unsupported);

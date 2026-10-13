@@ -16,6 +16,7 @@ internal sealed class RuntimePort(
     public Stream Output { get; } = process.StandardOutput.BaseStream;
     public int OsPid { get; } = process.Id;
     public PortOpenOptions Options { get; } = options;
+    public PortLineBuffer? Lines { get; } = options.LineBytes == 0 ? null : new(options.LineBytes);
     public HashSet<Pid> Links { get; } = new() { connected };
     public Term Data { get; set; } = Term.A(ProcessRegistryAtoms.Undefined);
     public long InputBytes;
