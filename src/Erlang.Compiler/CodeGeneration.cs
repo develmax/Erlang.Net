@@ -47,6 +47,7 @@ public static class CodeGeneration
 
     private static string PatternCode(Pattern p) => p switch
     {
+        NativeRecordPattern record => NativePatternCode(record),
         AliasPattern alias => "new global::Erlang.AliasPattern(" + PatternCode(alias.Left) + "," + PatternCode(alias.Right) + ")",
         Pattern.Any => "new " + P + "Any()",
         Pattern.Variable v => "new " + P + "Variable(" + Quote(v.Name) + ")",
@@ -78,6 +79,7 @@ public static class CodeGeneration
 
     public static string ExpressionCode(Expr expression) => expression switch
     {
+        NativeRecordExpression record => NativeExpressionCode(record),
         Expr.RecordConstruction record => ExpressionCode(RecordExpressions.Create(record)),
         Expr.RecordAccess record => "new " + E + "RecordAccess(" + ExpressionCode(record.Value) + "," + Quote(record.Name) + "," + record.Arity + "," + record.Index + ")",
         Expr.RecordUpdate record => "new " + E + "RecordUpdate(" + ExpressionCode(record.Value) + "," + Quote(record.Name) + "," + record.Arity + "," + Array(
@@ -151,7 +153,7 @@ public static class CodeGeneration
             module.Attributes,
             attribute => ModuleAttributeCodeNames.Constructor + Quote(attribute.Name) + "," + TermCode(attribute.Value) + ")",
             "global::Erlang.Compiler.ModuleAttribute"
-        ) : string.Empty) + ");\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+        ) : string.Empty) + ")" + NativeModuleInitializer(module) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
     }
 
     public static string Preprocess(string source, string path, string nullableContext = "enable")
@@ -293,4 +295,28 @@ public static class CodeGeneration
             return false;
         }
     }
+
+    private static string NativeDefinitionCode(NativeRecordDefinition definition) => "new global::Erlang.NativeRecordDefinition(" + Quote(definition.Name) + "," + (definition.IsExported ? "true" : "false") + "," + Array(
+        definition.Fields,
+        field => "new global::System.Collections.Generic.KeyValuePair<global::Erlang.Atom,global::Erlang.Term?>(global::Erlang.Term.A(" + Quote(field.Key.Name) + ")," + (field.Value is null ? "null" : TermCode(field.Value)) + ")",
+        "global::System.Collections.Generic.KeyValuePair<global::Erlang.Atom,global::Erlang.Term?>"
+    ) + (definition.FieldTypes.Count == 0 ? string.Empty : "," + Array(
+        definition.FieldTypes,
+        field => "new global::Erlang.NativeRecordFieldType(global::Erlang.Term.A(" + Quote(field.Field.Name) + ")," + TermCode(field.Syntax) + "," + field.SourceOffset.ToString(CultureInfo.InvariantCulture) + ")",
+        "global::Erlang.NativeRecordFieldType"
+    )) + ")";
+
+    private static string NativeModuleInitializer(ModuleDefinition module) => module.NativeRecords.Count == 0 ? string.Empty : "{NativeRecords=" + Array(module.NativeRecords, NativeDefinitionCode, "global::Erlang.NativeRecordDefinition") + "}";
+
+    private static string NativeExpressionCode(NativeRecordExpression expression) => "new global::Erlang.Compiler.NativeRecordExpression(global::Erlang.Compiler.NativeRecordOperation." + expression.Operation + "," + Quote(expression.Module) + "," + (expression.Name is null ? "null" : Quote(expression.Name)) + "," + Quote(expression.Caller) + "," + (expression.External ? "true" : "false") + "," + Optional(expression.Value) + "," + Array(
+        expression.Fields,
+        field => "new global::Erlang.Compiler.RecordField(" + Quote(field.Name) + "," + ExpressionCode(field.Value) + ")",
+        "global::Erlang.Compiler.RecordField"
+    ) + ")" + (expression.Declaration is null ? string.Empty : "{Declaration=" + NativeDefinitionCode(expression.Declaration) + "}");
+
+    private static string NativePatternCode(NativeRecordPattern pattern) => "new global::Erlang.Compiler.NativeRecordPattern(" + Quote(pattern.Module) + "," + (pattern.Name is null ? "null" : Quote(pattern.Name)) + "," + Quote(pattern.Caller) + "," + (pattern.External ? "true" : "false") + "," + Array(
+        pattern.Fields,
+        field => "new global::Erlang.Compiler.NativeRecordPatternField(" + Quote(field.Name) + "," + PatternCode(field.Value) + ")",
+        "global::Erlang.Compiler.NativeRecordPatternField"
+    ) + ")";
 }

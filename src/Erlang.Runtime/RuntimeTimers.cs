@@ -89,7 +89,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             entry.Timer.Dispose();
             Term destination = entry.Destination is Atom name ? runtime.WhereIs(name.Name) : entry.Destination;
             if (destination is Pid target)
-                runtime.Send(target, entry.Message);
+                runtime.SendSystem(target, entry.Message);
         }
     }
 

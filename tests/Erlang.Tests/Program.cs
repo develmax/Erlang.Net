@@ -6,6 +6,11 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.SequenceTraceHostParameters.Test, Erlang.Tests.SequenceTraceHostChecks.Run);
+Test(Erlang.Tests.SpawnRequestHostParameters.Test, Erlang.Tests.SpawnRequestHostChecks.Run);
+Test(Erlang.Tests.NativeRecordHostNames.Test, Erlang.Tests.NativeRecordHostChecks.Run);
+Test(Erlang.Tests.NativeRecordDefinitionHostNames.Test, Erlang.Tests.NativeRecordDefinitionHostChecks.Run);
+Test(Erlang.Tests.NativeRecordCompletionHostNames.Test, Erlang.Tests.NativeRecordCompletionHostChecks.Run);
 Test(Erlang.Tests.ModuleLoadingHostNames.TestName, Erlang.Tests.ModuleLoadingHostChecks.Run);
 Test(Erlang.Tests.ProcessTableHostNames.TestName, Erlang.Tests.ProcessTableHostChecks.Run);
 Test(Erlang.Tests.ReferenceTextHostNames.TestName, Erlang.Tests.ReferenceTextHostChecks.Run);
@@ -19,6 +24,7 @@ Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.
 Test(Erlang.Tests.CodeImageHostNames.Test, Erlang.Tests.CodeImageHostChecks.Run);
 Test(Erlang.Tests.ProcessCodeHostNames.Test, Erlang.Tests.ProcessCodeHostChecks.Run);
 Test(Erlang.Tests.ProcessGarbageCollectionHostNames.Test, Erlang.Tests.ProcessGarbageCollectionHostChecks.Run);
+Test(Erlang.Tests.ProcessInfoObservableHostNames.Test, Erlang.Tests.ProcessInfoObservableHostChecks.Run);
 Test(Erlang.Tests.FunctionReloadHostNames.Test, Erlang.Tests.FunctionReloadHostChecks.Run);
 Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);

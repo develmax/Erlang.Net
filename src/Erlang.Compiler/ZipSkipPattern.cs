@@ -30,6 +30,8 @@ internal static class ZipSkipPattern
 
             return tail;
         }
+        if (pattern is NativeRecordPattern record)
+            return Collapse(record with { Fields = record.Fields.Select(field => field with { Value = Rewrite(field.Value, strictVariables) }).Where(field => Semantics.Variables(field.Value).Any()).ToArray() });
         if (pattern is MapPattern map)
             return Collapse(new MapPattern(map.Fields.Select(field => field with { Value = Rewrite(field.Value, strictVariables) }).Where(field => Semantics.Variables(field.Value).Any()).ToArray()));
 

@@ -1,0 +1,22 @@
+[
+  {
+    "Copy": ".",
+    "Provider": "SpawnRequestSequenceCases",
+    "OldName": "erlang-spawn-request-seq-error-clears-on-receive",
+    "NewName": "erlang-spawn-request-seq-error-preserves-on-receive",
+    "OldSourceSHA256": "4B3ECA94EC981A1F2E90B17DF433DF426B0135CC3D952A0243E039DDA54749BB",
+    "NewSourceSHA256": "06B89DF29D98D43D3BA841BFEFEFDC30F2B230BEAE142E17DDC2DFD3ED2D30EB",
+    "IndependentOutcomeUnchanged": "{ok,done}",
+    "Reason": "Pinned child-null error path calls erts_queue_message,which sets message token am_undefined;matched receive preserves caller token. NIL token branch applies to ordinary traceable sends."
+  },
+  {
+    "Copy": "artifacts/integration-observables-prototype",
+    "Provider": "SpawnRequestSequenceCases",
+    "OldName": "erlang-spawn-request-seq-error-clears-on-receive",
+    "NewName": "erlang-spawn-request-seq-error-preserves-on-receive",
+    "OldSourceSHA256": "4B3ECA94EC981A1F2E90B17DF433DF426B0135CC3D952A0243E039DDA54749BB",
+    "NewSourceSHA256": "06B89DF29D98D43D3BA841BFEFEFDC30F2B230BEAE142E17DDC2DFD3ED2D30EB",
+    "IndependentOutcomeUnchanged": "{ok,done}",
+    "Reason": "Pinned child-null error path calls erts_queue_message,which sets message token am_undefined;matched receive preserves caller token. NIL token branch applies to ordinary traceable sends."
+  }
+]

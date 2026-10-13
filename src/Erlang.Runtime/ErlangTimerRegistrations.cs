@@ -45,7 +45,10 @@ internal static class ErlangTimerRegistrations
                 if (options.Async)
                 {
                     if (options.Info)
-                        context.Runtime.Send(context.Self, Term.Tuple(Term.A(cancel ? TimerReplyAtoms.Cancel : TimerReplyAtoms.Read), arguments[0], result));
+                        context.Runtime.SendSystem(
+                            context.Self,
+                            Term.Tuple(Term.A(cancel ? TimerReplyAtoms.Cancel : TimerReplyAtoms.Read), arguments[0], result)
+                        );
 
                     return Term.A(TimerReplyAtoms.Ok);
                 }

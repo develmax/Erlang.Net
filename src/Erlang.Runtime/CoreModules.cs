@@ -462,7 +462,12 @@ public static class CoreModules
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-     return c.Runtime.Spawn(child => f.Invoke(child, []), c, true).Pid;
+     return c.Runtime.SpawnTraced(
+         child => f.Invoke(child, []),
+         c,
+         true,
+         SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnLink))
+     ).Pid;
  }
         );
         Add(
@@ -473,7 +478,12 @@ public static class CoreModules
  {
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
-     var spawned = c.Runtime.SpawnMonitor(c, child => f.Invoke(child, []));
+     var spawned = c.Runtime.SpawnMonitorTraced(
+         c,
+         child => f.Invoke(child, []),
+         false,
+         SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnMonitor))
+     );
 
      return Term.Tuple(spawned.Process.Pid, spawned.Reference);
  }
@@ -779,12 +789,15 @@ public static class CoreModules
         ProcessMonitorRegistrations.Register(r);
         ProcessSpawnRegistrations.Register(r);
         ProcessSpawnOptionRegistrations.Register(r);
+        ProcessSpawnRequestRegistrations.Register(r);
         ProcessHibernateRegistrations.Register(r);
         ProcessDelayRegistrations.Register(r);
         CpuTopologyFormatting.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
+        NativeRecordRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
+        SequenceTraceRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })

@@ -11,8 +11,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
     private readonly Dictionary<string, Term> names = new(StringComparer.Ordinal);
     internal RuntimePorts Ports { get; }
+    internal SequenceTracing SequenceTracing { get; }
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
+    private readonly Dictionary<ReferenceTerm, ProcessSpawnRequestEntry> spawnRequests = new();
     private long nextPid, nextRef;
     private bool disposed;
     private readonly RuntimeInitializer initializer;
@@ -73,15 +75,35 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         Timers = new(this, gate);
         Suspensions = new(gate, processes, Timers);
         Ports = new(this, gate);
+        SequenceTracing = new(this, gate, processes);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
         processSlots.Add(initial.Self);
         initializer = new(initial);
+        initial.ExecutionStarted = true;
         initializer.Start();
     }
 
     public ProcessHandle Spawn(Func<ProcessContext, ValueTask<Term>> body, ProcessContext? parent = null, bool link = false)
+    {
+        return SpawnTraced(
+            body,
+            parent,
+            link,
+            null
+        );
+    }
+
+    internal ProcessHandle SpawnTraced(
+        Func<ProcessContext, ValueTask<Term>> body,
+        ProcessContext? parent,
+        bool link,
+        SequenceSpawnDescription? description,
+        ReferenceTerm? spawnReference = null,
+        bool asynchronousSpawn = false,
+        bool successSpawnReply = true
+    )
     {
         ProcessContext ctx;
         lock (gate)
@@ -100,9 +122,19 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 ctx.Links.Add(parent.Self);
                 parent.Links.Add(ctx.Self);
             }
+            if (parent is not null)
+                SequenceTracing.Spawned(
+                    parent,
+                    ctx,
+                    description,
+                    spawnReference,
+                    asynchronousSpawn,
+                    successSpawnReply
+                );
         }
         _ = Task.Run(async () =>
         {
+            ctx.ExecutionStarted = true;
             Term reason = Term.A(ProcessExitReasons.Normal);
             try
             {
@@ -158,16 +190,33 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         return new(ctx.Self, ctx.Done.Task);
     }
 
-    internal Term SpawnWithOptions(ProcessContext parent, Func<ProcessContext, ValueTask<Term>> body, ProcessSpawnOptions options)
+    internal Term SpawnWithOptions(
+        ProcessContext parent,
+        Func<ProcessContext, ValueTask<Term>> body,
+        ProcessSpawnOptions options,
+        SequenceSpawnDescription? description = null
+    )
     {
         lock (gate)
         {
             RequireAlive(parent.Self);
-            var process = Spawn(body, parent, options.Link);
+            ReferenceTerm? reference = options.Monitor ? ReserveMonitorReference(parent, options.MonitorOptions) : null;
+            var process = SpawnTraced(
+                body,
+                parent,
+                options.Link,
+                description,
+                reference
+            );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
             if (options.Monitor)
-                return Term.Tuple(process.Pid, Monitor(parent, process.Pid, options.MonitorOptions));
+                return Term.Tuple(process.Pid, Monitor(
+                    parent,
+                    process.Pid,
+                    options.MonitorOptions,
+                    reference
+                ));
 
             return process.Pid;
         }
@@ -175,12 +224,168 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitor(ProcessContext observer, Func<ProcessContext, ValueTask<Term>> body, bool link = false)
     {
+        return SpawnMonitorTraced(
+            observer,
+            body,
+            link,
+            null
+        );
+    }
+
+    internal (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitorTraced(
+        ProcessContext observer,
+        Func<ProcessContext, ValueTask<Term>> body,
+        bool link,
+        SequenceSpawnDescription? description
+    )
+    {
         lock (gate)
         {
             RequireAlive(observer.Self);
-            var process = Spawn(body, observer, link);
+            ReferenceTerm reference = ReserveMonitorReference(observer, ProcessMonitorOptions.Default);
+            var process = SpawnTraced(
+                body,
+                observer,
+                link,
+                description,
+                reference
+            );
 
-            return (process, Monitor(observer, process.Pid));
+            return (process, Monitor(
+                observer,
+                process.Pid,
+                ProcessMonitorOptions.Default,
+                reference
+            ));
+        }
+    }
+
+    internal ReferenceTerm SpawnRequest(
+        ProcessContext owner,
+        Func<ProcessContext, ValueTask<Term>> body,
+        ProcessSpawnRequestOptions options,
+        Term? failure,
+        SequenceSpawnDescription description
+    )
+    {
+        lock (gate)
+        {
+            RequireAlive(owner.Self);
+            ReferenceTerm ordinaryReference = MakeReference();
+            ReferenceTerm reference = ordinaryReference;
+            ProcessHandle? child = null;
+            if (failure is null)
+            {
+                try
+                {
+                    processSlots.RequireCapacity();
+                    if (options.Spawn.Monitor && options.Spawn.MonitorOptions.AliasMode is not null)
+                    {
+                        ulong ownerPid = (owner.Self.Id << ProcessAliasLayout.PidTagBits) | ProcessAliasLayout.PidTag;
+                        reference = new ReferenceTerm(
+                            Node,
+                            [reference.Words[0], reference.Words[1] | ProcessAliasLayout.PidMarker, reference.Words[2], (uint)ownerPid, (uint)(ownerPid >> ReferenceIdentityLayout.WordBits)]
+                        );
+                    }
+                    child = SpawnTraced(
+                        body,
+                        owner,
+                        options.Spawn.Link,
+                        description,
+                        reference,
+                        true,
+                        options.SuccessReply
+                    );
+                }
+                catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))
+                {
+                    failure = exception.Reason;
+                    reference = ordinaryReference;
+                }
+            }
+            if (child is null)
+            {
+                if (options.ErrorReply)
+                    owner.Mailbox.SendTraced(
+                        Term.Tuple(
+                            options.Tag,
+                            reference,
+                            Term.A(ProcessSpawnRequestNames.Error),
+                            failure!
+                        ),
+                        null,
+                        preserve: true
+                    );
+
+                return reference;
+            }
+            if (options.Spawn.Monitor)
+            {
+                if (options.Spawn.MonitorOptions.AliasMode is not null)
+                    aliases.Add(reference, new(owner.Self, options.Spawn.MonitorOptions.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false));
+                Monitor(
+                    owner,
+                    child.Pid,
+                    options.Spawn.MonitorOptions,
+                    reference
+                );
+            }
+            SequenceTraceToken? replyToken = processes[child.Pid].SequentialTrace.Token;
+            if (options.Spawn.PriorityLink)
+                owner.PriorityLinks.Add(child.Pid);
+            spawnRequests.Add(reference, new(owner.Self, child.Pid, options));
+            owner.Mailbox.SendPending(
+                Term.Tuple(
+                    options.Tag,
+                    reference,
+                    Term.A(ProcessSpawnRequestNames.Success),
+                    child.Pid
+                ),
+                () =>
+                {
+                    if (!spawnRequests.Remove(reference, out var request))
+                        return null;
+
+                    return request.Options.SuccessReply ? request.Options.Spawn.MonitorOptions.Priority : null;
+                },
+                replyToken
+            );
+
+            return reference;
+        }
+    }
+
+    internal bool AbandonSpawnRequest(ProcessContext owner, ReferenceTerm reference)
+    {
+        lock (gate)
+        {
+            RequireAlive(owner.Self);
+            if (!spawnRequests.TryGetValue(reference, out var request) || !request.Owner.Equals(owner.Self))
+                return false;
+            spawnRequests.Remove(reference);
+            monitors.Remove(reference);
+            aliases.Remove(reference);
+            if (request.Options.Spawn.Link)
+            {
+                owner.Links.Remove(request.Child);
+                owner.PriorityLinks.Remove(request.Child);
+                if (processes.TryGetValue(request.Child, out var child))
+                {
+                    child.Links.Remove(owner.Self);
+                    QueueExit(
+                        child,
+                        owner.Self,
+                        Term.A(ProcessSpawnRequestNames.Abandoned),
+                        false,
+                        false,
+                        false,
+                        null,
+                        false
+                    );
+                }
+            }
+
+            return true;
         }
     }
 
@@ -190,6 +395,34 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             if (processes.TryGetValue(target, out var p))
                 p.Mailbox.Send(message);
+        }
+
+        return message;
+    }
+
+    internal void SendSystem(Pid target, Term message)
+    {
+        lock (gate)
+        {
+            if (processes.TryGetValue(target, out var receiver))
+                receiver.Mailbox.SendTraced(message, null, preserve: true);
+        }
+    }
+
+    internal Term SendTraced(
+        ProcessContext sender,
+        Pid target,
+        Term message,
+        Term? destination = null
+    )
+    {
+        lock (gate)
+        {
+            if (processes.TryGetValue(target, out var receiver))
+            {
+                SequenceTraceToken? token = SequenceTracing.Sent(sender, destination ?? target, message);
+                receiver.Mailbox.SendTraced(message, token);
+            }
         }
 
         return message;
@@ -225,8 +458,25 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public Term Send(ReferenceTerm reference, Term message, bool priority = false)
     {
+        return SendAlias(
+            reference,
+            message,
+            priority,
+            null
+        );
+    }
+
+    internal Term SendAlias(
+        ReferenceTerm reference,
+        Term message,
+        bool priority,
+        ProcessContext? sender
+    )
+    {
         lock (gate)
         {
+            Pid? traceOwner = ResolveAliasOwner(reference);
+            SequenceTraceToken? token = sender is null || traceOwner is null || !processes.ContainsKey(traceOwner) ? null : SequenceTracing.Sent(sender, reference, message);
             if (aliases.TryGetValue(reference, out var alias) && processes.TryGetValue(alias.Owner, out var owner))
             {
                 owner.Mailbox.SendPending(
@@ -242,12 +492,24 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     }
 
                     return priority && current.Priority;
-                }
+                },
+                    token
                 );
             }
         }
 
         return message;
+    }
+
+    private Pid? ResolveAliasOwner(ReferenceTerm reference)
+    {
+        if (aliases.TryGetValue(reference, out var alias))
+            return alias.Owner;
+        if (reference.Node != Node || reference.Words.Count <= ProcessAliasLayout.OwnerHighWord || (reference.Words[1] & ProcessAliasLayout.PidMarker) == 0)
+            return null;
+        ulong encoded = reference.Words[ProcessAliasLayout.OwnerLowWord] | ((ulong)reference.Words[ProcessAliasLayout.OwnerHighWord] << ReferenceIdentityLayout.WordBits);
+
+        return new Pid(Node, encoded >> ProcessAliasLayout.PidTagBits);
     }
 
     internal void AdmitSignals(ProcessContext owner)
@@ -299,20 +561,21 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             return processSlots.Read(cursor);
     }
 
-    internal Term ProcessInfo(Pid pid, IReadOnlyList<Atom> keys, bool singleton)
+    internal Term ProcessInfo(Pid pid, IReadOnlyList<ProcessInfoItem> keys, bool singleton)
     {
         lock (gate)
         {
             if (!processes.TryGetValue(pid, out var process))
                 return ProcessInfoAtoms.Undefined;
-            if (keys.Any(key => key.Name == ProcessInfoNames.Links))
+            if (keys.Any(key => key.Name == ProcessInfoNames.Links || key.RequiresOwnerSnapshot || key.Name == ProcessInfoNames.MessageQueueLength))
             {
                 AdmitSignals(process);
                 if (process.Terminated)
                     return ProcessInfoAtoms.Undefined;
             }
             var values = new List<Term>(keys.Count);
-            foreach (Atom key in keys)
+            IReadOnlyList<Term>? messages = keys.Any(key => key.Name is ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength) ? process.Mailbox.Snapshot() : null;
+            foreach (ProcessInfoItem key in keys)
             {
                 Term value = key.Name switch
                 {
@@ -320,12 +583,22 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.GroupLeader => process.GroupLeader,
                     ProcessInfoNames.LastCalls => process.SavedCalls.Snapshot(),
+                    ProcessInfoNames.Dictionary when key.DictionaryKey is { } dictionaryKey => process.Dictionary.GetValueOrDefault(dictionaryKey, ProcessInfoAtoms.Undefined),
+                    ProcessInfoNames.Dictionary => Cons.From(process.Dictionary.Select(pair => Term.Tuple(pair.Key, pair.Value))),
+                    ProcessInfoNames.Messages => Cons.From(messages!),
+                    ProcessInfoNames.MessageQueueLength => Term.I(messages!.Count),
+                    ProcessInfoNames.Monitors => SnapshotOriginMonitors(process.Self),
+                    ProcessInfoNames.MonitoredBy => Cons.From(monitors.Values.Where(monitor => monitor.Target?.Equals(process.Self) == true).Select(monitor => (Term)monitor.Observer)),
+                    ProcessInfoNames.Status => Term.A(process.SuspensionRequested ? ProcessInfoStatusNames.Suspended : process.WaitingForMessage ? ProcessInfoStatusNames.Waiting :
+                        !process.ExecutionStarted || process.Yielding ? ProcessInfoStatusNames.Runnable : ProcessInfoStatusNames.Running),
+                    ProcessInfoNames.CurrentFunction => process.SnapshotCurrentFunction(),
+                    ProcessInfoNames.CurrentStackTrace => process.SnapshotCurrentStackTrace(),
                     ProcessInfoNames.RegisteredName => names.FirstOrDefault(pair => pair.Value.Equals(pid)).Key is string name ? Term.A(name) : Nil.Value,
                     _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
                 };
                 if (singleton && key.Name == ProcessInfoNames.RegisteredName && value is Nil)
                     return Nil.Value;
-                values.Add(Term.Tuple(key, value));
+                values.Add(Term.Tuple(key.Key, value));
             }
 
             return singleton ? values[0] : Cons.From(values);
@@ -451,7 +724,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
     }
 
-    private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result) => Send(request.Requester.Self, Term.Tuple(request.Id, result));
+    private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result));
 
     internal async ValueTask<Term> CheckProcessCode(
         ProcessContext requester,
@@ -497,7 +770,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         return reply!.Items[2];
     }
 
-    private void ReplyCodeCheck(ProcessCodeRequest request, bool result) => Send(
+    private void ReplyCodeCheck(ProcessCodeRequest request, bool result) => SendSystem(
         request.Requester.Self,
         Term.Tuple(
         ProcessCodeAtoms.ReplyTag,
@@ -681,7 +954,17 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public ReferenceTerm Monitor(ProcessContext observer, Pid target) => Monitor(observer, target, ProcessMonitorOptions.Default);
 
-    internal ReferenceTerm Monitor(ProcessContext observer, Term target, ProcessMonitorOptions options)
+    private ReferenceTerm ReserveMonitorReference(ProcessContext observer, ProcessMonitorOptions options)
+    {
+        return options.AliasMode is null ? MakeReference() : CreateAlias(observer, options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false);
+    }
+
+    internal ReferenceTerm Monitor(
+        ProcessContext observer,
+        Term target,
+        ProcessMonitorOptions options,
+        ReferenceTerm? reservedReference = null
+    )
     {
         lock (gate)
         {
@@ -705,7 +988,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             }
             else
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            ReferenceTerm reference = options.AliasMode is null ? MakeReference() : CreateAlias(observer, options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false);
+            ReferenceTerm reference = reservedReference ?? ReserveMonitorReference(observer, options);
             if (recipient?.Equals(observer.Self) == true)
             {
                 aliases.Remove(reference);
@@ -791,7 +1074,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 aliases.Remove(reference);
 
             return current.Priority;
-        }
+        },
+            preserve: true
         );
     }
 
@@ -806,7 +1090,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             if (reference.Node != Node)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            bool removed = monitors.TryGetValue(reference, out var monitor) && monitor.Observer.Equals(observer.Self);
+            monitors.TryGetValue(reference, out var monitor);
+            bool removed = !spawnRequests.ContainsKey(reference) && monitor is not null && monitor.Observer.Equals(observer.Self);
             if (removed)
             {
                 monitors.Remove(reference);
@@ -968,6 +1253,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 foreach (var request in ctx.PendingCodeChecks)
                     ReplyCodeCheck(request, false);
                 ctx.PendingCodeChecks.Clear();
+                foreach (var request in ctx.PendingInfoRequests)
+                    ReplyProcessInfo(request, ProcessInfoAtoms.Undefined);
+                ctx.PendingInfoRequests.Clear();
                 foreach (var request in ctx.PendingGarbageCollections)
                     ReplyGarbageCollection(request, false);
                 ctx.PendingGarbageCollections.Clear();
@@ -977,6 +1265,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 Timers.RecipientTerminated(ctx.Self);
                 Suspensions.Terminated(ctx);
                 ctx.Mailbox.DiscardPending();
+                foreach (var request in spawnRequests.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+                    spawnRequests.Remove(request);
                 foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
                     aliases.Remove(alias);
                 ctx.Terminated = true;

@@ -6,23 +6,26 @@ internal static class ProcessInfoRegistrations
         ErlangModuleNames.Module,
         ProcessInfoNames.Function,
         2,
-        (context, arguments) =>
+        async (context, arguments) =>
         {
-            bool singleton = arguments[1] is Atom;
+            bool singleton = arguments[1] is Atom or TupleTerm { Items.Count: 2 };
             Term[] options = singleton ? [arguments[1]] : Cons.Items(arguments[1]).ToArray();
-            var keys = new Atom[options.Length];
+            var keys = new ProcessInfoItem[options.Length];
             for (int index = 0; index < options.Length; index++)
             {
-                if (options[index] is not Atom key || !ProcessInfoAtoms.IsSupported(key))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
-                keys[index] = key;
+                keys[index] = ProcessInfoItem.Parse(options[index]);
             }
             if (arguments[0] is not Pid pid || pid.Node != context.Runtime.Node)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            Term result = context.Runtime.ProcessInfo(pid, keys, singleton);
+            Term result = await context.Runtime.QueryProcessInfo(
+                context,
+                pid,
+                keys,
+                singleton
+            );
             context.Cancellation.ThrowIfCancellationRequested();
 
-            return ValueTask.FromResult(result);
+            return result;
         }
     );
 }

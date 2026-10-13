@@ -12,4 +12,7 @@ public sealed record BitSegment(
     string Endian = BitByteOrders.Big,
     bool Signed = false,
     bool IsStringLiteral = false
-);
+)
+{
+    public bool SourceStringLiteral { get; init; }
+}

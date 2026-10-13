@@ -37,12 +37,32 @@ internal static class ProcessSpawnRegistrations
                 );
                 if (name == ErlangModuleNames.SpawnMonitor)
                 {
-                    var monitored = context.Runtime.SpawnMonitor(context, Body);
+                    var monitored = context.Runtime.SpawnMonitorTraced(
+                        context,
+                        Body,
+                        false,
+                        SequenceSpawnDescription.Module(
+                            (Atom)arguments[0],
+                            (Atom)arguments[1],
+                            arguments[2],
+                            SequenceSpawnDescription.DefaultOptions(name)
+                        )
+                    );
 
                     return ValueTask.FromResult<Term>(Term.Tuple(monitored.Process.Pid, monitored.Reference));
                 }
 
-                return ValueTask.FromResult<Term>(context.Runtime.Spawn(Body, context, name == ErlangModuleNames.SpawnLink).Pid);
+                return ValueTask.FromResult<Term>(context.Runtime.SpawnTraced(
+                    Body,
+                    context,
+                    name == ErlangModuleNames.SpawnLink,
+                    SequenceSpawnDescription.Module(
+                        (Atom)arguments[0],
+                        (Atom)arguments[1],
+                        arguments[2],
+                        SequenceSpawnDescription.DefaultOptions(name)
+                    )
+                ).Pid);
             }
             );
     }
@@ -52,12 +72,17 @@ internal static class ProcessSpawnRegistrations
         if (callback is not FunctionTerm && callback is not TupleTerm { Items: [Atom, Atom] })
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-        return context.Runtime.Spawn(child => child.Runtime.Modules.Call(
-            child,
-            ErlangModuleNames.Module,
-            ErlangBasicBifNames.Apply,
-            callback,
-            Nil.Value
-        ), context).Pid;
+        return context.Runtime.SpawnTraced(
+            child => child.Runtime.Modules.Call(
+                child,
+                ErlangModuleNames.Module,
+                ErlangBasicBifNames.Apply,
+                callback,
+                Nil.Value
+            ),
+            context,
+            false,
+            SequenceSpawnDescription.Callback(callback)
+        ).Pid;
     }
 }

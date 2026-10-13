@@ -95,6 +95,7 @@ internal static class LocalFunctionEntries
 
     private static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
     {
+        NativeRecordPattern record => record.Fields.SelectMany(field => PatternExpressions(field.Value)),
         AliasPattern alias => PatternExpressions(alias.Left).Concat(PatternExpressions(alias.Right)),
         Pattern.Tuple tuple => tuple.Items.SelectMany(PatternExpressions),
         Pattern.List list => list.Items.SelectMany(PatternExpressions).Concat(list.Tail is null ? [] : PatternExpressions(list.Tail)),
@@ -116,6 +117,7 @@ internal static class LocalFunctionEntries
     private static IEnumerable<Expr> Children(Expr expression) => expression switch
     {
         Expr.Literal or Expr.Variable or Expr.FunctionReference => [],
+        NativeRecordExpression record => record.Children,
         Expr.RecordConstruction record => Children(RecordExpressions.Create(record)),
         Expr.RecordAccess record => [record.Value],
         Expr.RecordTest record => [record.Value],

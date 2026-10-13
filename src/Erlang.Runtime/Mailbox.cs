@@ -8,14 +8,23 @@ public sealed class Mailbox
     private readonly LinkedList<Entry> messages = new();
     private LinkedListNode<Entry>? lastPriority;
     private int pending;
+    private int admittedCount;
     private TaskCompletionSource changed = NewSignal();
     internal Action? ProcessSignals { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
     internal Action? MessageReceived { get; init; }
+    internal Action<Term, SequenceTraceToken?, bool>? TraceReceived { get; init; }
     internal Action? ReceiveTimedOut { get; init; }
+    internal Action<bool>? WaitingStateChanged { get; init; }
 
-    private readonly record struct Entry(Term Value, Func<bool?>? Admission);
+    private readonly record struct Entry(
+        Term Value,
+        Func<bool?>? Admission,
+        bool Control = false,
+        SequenceTraceToken? TraceToken = null,
+        bool PreserveTrace = false
+    );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
 
@@ -52,29 +61,74 @@ public sealed class Mailbox
         {
             ProcessSignals?.Invoke();
             lock (gate)
-                return messages.Count - pending;
+                return admittedCount;
         }
     }
 
     public void Send(Term message, bool priority = false)
     {
+        SendTraced(
+            message,
+            null,
+            false,
+            priority
+        );
+    }
+
+    internal void SendTraced(
+        Term message,
+        SequenceTraceToken? token,
+        bool preserve = false,
+        bool priority = false
+    )
+    {
         lock (gate)
         {
             if (priority)
-                lastPriority = lastPriority is null ? messages.AddFirst(new Entry(message, null)) : messages.AddAfter(lastPriority, new Entry(message, null));
+                lastPriority = lastPriority is null ? messages.AddFirst(new Entry(
+                    message,
+                    null,
+                    false,
+                    token,
+                    preserve
+                )) : messages.AddAfter(lastPriority, new Entry(
+                    message,
+                    null,
+                    false,
+                    token,
+                    preserve
+                ));
             else
-                messages.AddLast(new Entry(message, null));
+                messages.AddLast(new Entry(
+                    message,
+                    null,
+                    false,
+                    token,
+                    preserve
+                ));
+            admittedCount++;
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
         }
     }
 
-    internal void SendPending(Term message, Func<bool?> admission)
+    internal void SendPending(
+        Term message,
+        Func<bool?> admission,
+        SequenceTraceToken? token = null,
+        bool preserve = false
+    )
     {
         lock (gate)
         {
-            messages.AddLast(new Entry(message, admission));
+            messages.AddLast(new Entry(
+                message,
+                admission,
+                true,
+                token,
+                preserve
+            ));
             pending++;
             var previous = changed;
             changed = NewSignal();
@@ -94,18 +148,23 @@ public sealed class Mailbox
                 if (node.Value.Admission is { } admission)
                 {
                     pending--;
-                    node.Value = new Entry(node.Value.Value, null);
+                    node.Value = node.Value with { Admission = null, Control = true };
                     bool? priority = admission();
                     if (priority is null)
                         RemoveNode(node);
-                    else if (priority.Value)
+                    else
                     {
-                        messages.Remove(node);
-                        if (lastPriority is null)
-                            messages.AddFirst(node);
-                        else
-                            messages.AddAfter(lastPriority, node);
-                        lastPriority = node;
+                        node.Value = node.Value with { Control = false };
+                        admittedCount++;
+                        if (priority.Value)
+                        {
+                            messages.Remove(node);
+                            if (lastPriority is null)
+                                messages.AddFirst(node);
+                            else
+                                messages.AddAfter(lastPriority, node);
+                            lastPriority = node;
+                        }
                     }
                 }
                 node = next is not null && next.List == messages ? next : null;
@@ -136,7 +195,7 @@ public sealed class Mailbox
         lock (gate)
         {
             for (var node = messages.First; node is not null; node = node.Next)
-                if (node.Value.Admission is null && predicate(node.Value.Value))
+                if (!node.Value.Control && predicate(node.Value.Value))
                 {
                     RemoveNode(node);
 
@@ -156,7 +215,7 @@ public sealed class Mailbox
             for (var n = messages.First; n != null;)
             {
                 var next = n.Next;
-                if (n.Value.Admission is null && predicate(n.Value.Value))
+                if (!n.Value.Control && predicate(n.Value.Value))
                 {
                     RemoveNode(n);
                     count++;
@@ -169,6 +228,18 @@ public sealed class Mailbox
     }
 
     internal async Task WaitForMessage(CancellationToken cancellation)
+    {
+        try
+        {
+            await WaitForMessageCore(cancellation);
+        }
+        finally
+        {
+            WaitingStateChanged?.Invoke(false);
+        }
+    }
+
+    private async Task WaitForMessageCore(CancellationToken cancellation)
     {
         while (true)
         {
@@ -188,11 +259,24 @@ public sealed class Mailbox
             }
             if (retry || ExecutionBlocked?.Invoke() == true)
                 continue;
+            WaitingStateChanged?.Invoke(true);
             await signal.WaitAsync(cancellation);
         }
     }
 
     public async ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout, CancellationToken cancellation = default) where T : class
+    {
+        try
+        {
+            return await ReceiveCore(select, timeout, cancellation);
+        }
+        finally
+        {
+            WaitingStateChanged?.Invoke(false);
+        }
+    }
+
+    private async ValueTask<T?> ReceiveCore<T>(Func<Term, T?> select, TimeSpan? timeout, CancellationToken cancellation) where T : class
     {
         if (timeout < TimeSpan.Zero)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -206,6 +290,8 @@ public sealed class Mailbox
                 start += await WaitForExecution();
             Task signal;
             bool retry;
+            T? selected = null;
+            Entry received = default;
             lock (gate)
             {
                 retry = pending != 0;
@@ -214,13 +300,20 @@ public sealed class Mailbox
                     var match = select(node.Value.Value);
                     if (match is not null)
                     {
+                        selected = match;
+                        received = node.Value;
                         RemoveNode(node);
-                        MessageReceived?.Invoke();
-
-                        return match;
+                        break;
                     }
                 }
                 signal = changed.Task;
+            }
+            if (selected is not null)
+            {
+                MessageReceived?.Invoke();
+                TraceReceived?.Invoke(received.Value, received.TraceToken, received.PreserveTrace);
+
+                return selected;
             }
             if (retry || ExecutionBlocked?.Invoke() == true)
                 continue;
@@ -234,12 +327,18 @@ public sealed class Mailbox
             try
             {
                 if (remaining is { } finite)
+                {
+                    WaitingStateChanged?.Invoke(true);
                     await signal.WaitAsync(
                         finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
                         cancellation
                     );
+                }
                 else
+                {
+                    WaitingStateChanged?.Invoke(true);
                     await signal.WaitAsync(cancellation);
+                }
             }
             catch (TimeoutException)
             {
@@ -250,8 +349,16 @@ public sealed class Mailbox
 
     private void RemoveNode(LinkedListNode<Entry> node)
     {
+        if (!node.Value.Control)
+            admittedCount--;
         if (ReferenceEquals(node, lastPriority))
             lastPriority = node.Previous;
         messages.Remove(node);
+    }
+
+    internal IReadOnlyList<Term> Snapshot()
+    {
+        lock (gate)
+            return messages.Where(entry => !entry.Control).Select(entry => entry.Value).ToArray();
     }
 }

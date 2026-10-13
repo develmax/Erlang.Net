@@ -58,6 +58,22 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                     stack.Push(new(null, TermDisplaySyntax.CloseList));
                     stack.Push(new(list, ConsCell: true));
                     break;
+                case NativeRecordTerm record:
+                    Text(NativeRecordSyntax.Prefix);
+                    Atom(record.Module.Name);
+                    Text(NativeRecordSyntax.ModuleSeparator);
+                    Atom(record.Name.Name);
+                    Text(NativeRecordSyntax.OpenFields);
+                    stack.Push(new(null, NativeRecordSyntax.CloseFields));
+                    for (int i = record.FieldNames.Count - 1; i >= 0; i--)
+                    {
+                        stack.Push(new(record.Values[i]));
+                        stack.Push(new(null, NativeRecordSyntax.FieldAssignment));
+                        stack.Push(new(record.FieldNames[i]));
+                        if (i != 0)
+                            stack.Push(new(null, NativeRecordSyntax.FieldSeparator));
+                    }
+                    break;
                 case TupleTerm tuple:
                     Text(TermDisplaySyntax.OpenTuple);
                     stack.Push(new(null, TermDisplaySyntax.CloseTuple));

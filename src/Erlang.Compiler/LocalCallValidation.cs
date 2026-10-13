@@ -129,6 +129,9 @@ internal static class LocalCallValidation
                     Push(clause.Guard);
                     Push(clause.Body);
                     break;
+                case NativeRecordExpression record:
+                    PushAll(record.Children);
+                    break;
                 case Expr.RecordConstruction record:
                     PushAll(record.Definition.Fields);
                     PushAll(record.Fields);
@@ -179,6 +182,9 @@ internal static class LocalCallValidation
                     break;
                 case ComprehensionQualifier.Zip zip:
                     PushAll(zip.Generators);
+                    break;
+                case NativeRecordPattern record:
+                    PushAll(record.Fields.Select(field => field.Value));
                     break;
                 case Pattern.Tuple tuple:
                     PushAll(tuple.Items);

@@ -57,7 +57,7 @@ public sealed partial class ProcessRuntime
         );
     }
 
-    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result) => Send(
+    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result) => SendSystem(
         request.Requester.Self,
         Term.Tuple(
             Term.A(ProcessGarbageCollectionNames.ReplyTag),

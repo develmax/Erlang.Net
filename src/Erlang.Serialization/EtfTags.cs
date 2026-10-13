@@ -2,6 +2,7 @@ namespace Erlang;
 
 internal static class EtfTags
 {
+    public const byte Record = 67;
     public const byte Binary = 109;
     public const byte BitBinary = 77;
     public const byte Compressed = 80;

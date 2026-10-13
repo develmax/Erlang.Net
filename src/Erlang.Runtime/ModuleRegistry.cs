@@ -328,6 +328,14 @@ public sealed class ModuleRegistry
         }
     }
 
+    public NativeRecordDefinition? NativeRecordDefinition(string module, string name)
+    {
+        lock (gate)
+        {
+            return codeDescriptors.TryGetValue(module, out var descriptor) ? descriptor.NativeRecords.FirstOrDefault(definition => definition.Name == name) : null;
+        }
+    }
+
     public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
     {
         ArgumentNullException.ThrowIfNull(descriptor);

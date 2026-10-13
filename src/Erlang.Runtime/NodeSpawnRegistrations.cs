@@ -17,6 +17,7 @@ internal static class NodeSpawnRegistrations
     private static ValueTask<Term> Start(ProcessContext context, string function, IReadOnlyList<Term> arguments)
     {
         Func<ProcessContext, ValueTask<Term>> body;
+        SequenceSpawnDescription description;
         if (arguments[0] is not Atom node)
             throw Invalid(context, function, arguments);
         if (arguments.Count == 2)
@@ -32,6 +33,7 @@ internal static class NodeSpawnRegistrations
                 callback,
                 Nil.Value
             );
+            description = SequenceSpawnDescription.Callback(callback, SequenceSpawnDescription.DefaultOptions(function));
         }
         else
         {
@@ -52,6 +54,12 @@ internal static class NodeSpawnRegistrations
                 name.Name,
                 values
             );
+            description = SequenceSpawnDescription.Module(
+                module,
+                name,
+                arguments[3],
+                SequenceSpawnDescription.DefaultOptions(function)
+            );
         }
         if (node.Name != context.Runtime.Node)
             body = child =>
@@ -64,12 +72,22 @@ internal static class NodeSpawnRegistrations
         {
             if (function == ErlangModuleNames.SpawnMonitor)
             {
-                var monitored = context.Runtime.SpawnMonitor(context, body);
+                var monitored = context.Runtime.SpawnMonitorTraced(
+                    context,
+                    body,
+                    false,
+                    node.Name == context.Runtime.Node ? description : null
+                );
 
                 return ValueTask.FromResult<Term>(Term.Tuple(monitored.Process.Pid, monitored.Reference));
             }
 
-            return ValueTask.FromResult<Term>(context.Runtime.Spawn(body, context, function == ErlangModuleNames.SpawnLink).Pid);
+            return ValueTask.FromResult<Term>(context.Runtime.SpawnTraced(
+                body,
+                context,
+                function == ErlangModuleNames.SpawnLink,
+                node.Name == context.Runtime.Node ? description : null
+            ).Pid);
         }
         catch (ErlangException exception)
         {

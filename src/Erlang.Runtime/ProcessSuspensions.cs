@@ -38,7 +38,11 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
                 if (!options.Async)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 if (options.Tag is not null)
-                    caller.Mailbox.Send(Term.Tuple(options.Tag, Term.A(ErlangErrorReasons.BadArgument)));
+                    caller.Mailbox.SendTraced(
+                        Term.Tuple(options.Tag, Term.A(ErlangErrorReasons.BadArgument)),
+                        null,
+                        preserve: true
+                    );
 
                 return Term.A(ErlangBooleanAtoms.True);
             }
@@ -140,7 +144,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
     {
         owner.Acknowledged.TrySetResult(result);
         foreach (Term tag in owner.Tags)
-            owner.Context.Mailbox.Send(Term.Tuple(tag, result));
+            owner.Context.Mailbox.SendTraced(Term.Tuple(tag, result), null, preserve: true);
         owner.Tags.Clear();
     }
 

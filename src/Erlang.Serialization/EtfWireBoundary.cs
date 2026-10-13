@@ -37,6 +37,13 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed)
                 break;
             case EtfTags.Nil:
                 break;
+            case EtfTags.Record:
+                {
+                    int count = Count(U32(), EtfRecordLayout.TermsPerField);
+                    Byte();
+                    Terms(checked(count + EtfRecordLayout.IdentityTerms), depth);
+                    break;
+                }
             case EtfTags.SmallTuple:
                 Terms(Byte(), depth);
                 break;

@@ -13,6 +13,11 @@ internal static class ErlangLegacyHash
         {
             while (stack.TryPop(out Frame frame))
             {
+                if (frame.Kind == FrameKind.RecordEnd)
+                {
+                    hash = hash * NativeRecordHash.LegacyInstancePrime + frame.Count;
+                    continue;
+                }
                 if (frame.Kind == FrameKind.TupleEnd)
                 {
                     hash = hash * ErlangLegacyHashPrimes.Prime9 + frame.Count;
@@ -70,6 +75,10 @@ internal static class ErlangLegacyHash
                     case ReferenceTerm reference:
                         Word(ref hash, reference.Words[0], ErlangLegacyHashPrimes.Prime9);
                         hash *= ErlangLegacyHashPrimes.Prime10;
+                        break;
+                    case NativeRecordTerm record:
+                        stack.Push(new Frame(FrameKind.RecordEnd, null, (uint)record.FieldNames.Count + 1));
+                        Push(stack, new Term[] { NativeRecordHash.LegacyDefinition(record) }.Concat(NativeRecordHash.Values(record)).ToArray());
                         break;
                     case TupleTerm tuple:
                         stack.Push(new Frame(FrameKind.TupleEnd, null, (uint)tuple.Items.Count));
@@ -140,6 +149,7 @@ internal static class ErlangLegacyHash
     private enum FrameKind
     {
         Term,
+        RecordEnd,
         TupleEnd,
         Tail,
         TailEnd

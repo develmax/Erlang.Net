@@ -15,10 +15,11 @@ public static class TermOrder
         PortTerm => 4,
         Pid => 5,
         TupleTerm => 6,
-        MapTerm => 7,
-        Nil => 8,
-        Cons => 9,
-        BitString => 10,
+        NativeRecordTerm => 7,
+        MapTerm => 8,
+        Nil => 9,
+        Cons => 10,
+        BitString => 11,
         _ => throw new NotSupportedException()
     };
 
@@ -113,6 +114,24 @@ public static class TermOrder
                     int c = x.Items.Count.CompareTo(y.Items.Count);
 
                     return c != 0 ? c : Sequence(x.Items, y.Items, exact);
+                }
+            case (NativeRecordTerm x, NativeRecordTerm y):
+                {
+                    int c = Compare(x.Module, y.Module, true);
+                    if (c != 0)
+                        return c;
+                    c = Compare(x.Name, y.Name, true);
+                    if (c != 0)
+                        return c;
+                    c = x.IsExported.CompareTo(y.IsExported);
+                    if (c != 0)
+                        return c;
+                    c = x.FieldNames.Count.CompareTo(y.FieldNames.Count);
+                    if (c != 0)
+                        return c;
+                    c = Sequence(x.FieldNames, y.FieldNames, true);
+
+                    return c != 0 ? c : Sequence(x.Values, y.Values, exact);
                 }
             case (MapTerm x, MapTerm y):
                 {
@@ -262,6 +281,15 @@ public static class TermOrder
             case TupleTerm x:
                 foreach (var item in x.Items)
                     h.Add(item);
+                break;
+            case NativeRecordTerm x:
+                h.Add(x.Module);
+                h.Add(x.Name);
+                h.Add(x.IsExported);
+                foreach (var field in x.FieldNames)
+                    h.Add(field);
+                foreach (var value in x.Values)
+                    h.Add(value);
                 break;
             case MapTerm x:
                 foreach (var item in x.Entries)

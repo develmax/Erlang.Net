@@ -121,6 +121,15 @@ internal static class ErlangNativeHash
                             );
                             break;
                         }
+                    case NativeRecordTerm record:
+                        Mix(
+                            ref hash,
+                            (uint)record.FieldNames.Count,
+                            NativeRecordHash.Definition(record),
+                            NativeRecordHash.InstanceMix
+                        );
+                        Push(stack, NativeRecordHash.Values(record));
+                        break;
                     case TupleTerm tuple:
                         Mix(
                             ref hash,

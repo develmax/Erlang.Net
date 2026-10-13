@@ -20,5 +20,6 @@ public enum DiagnosticCaseKind
     CharacterLiteralIllegal,
     CharacterLiteralUnterminated,
     UndefinedFunction,
-    FormBoundarySyntax
+    FormBoundarySyntax,
+    NativeRecord
 }

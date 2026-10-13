@@ -20,6 +20,7 @@ internal static class ProcessSpawnOptionRegistrations
         if (remote)
             node = arguments[0] is Atom address ? address.Name : throw Invalid(context, arguments);
         Func<ProcessContext, ValueTask<Term>> body;
+        SequenceSpawnDescription description;
         if (arguments.Count is 2 or 3)
         {
             Term callback = arguments[remote ? 1 : 0];
@@ -35,6 +36,7 @@ internal static class ProcessSpawnOptionRegistrations
                 callback,
                 Nil.Value
             );
+            description = SequenceSpawnDescription.Callback(callback, arguments[^1]);
         }
         else
         {
@@ -56,6 +58,12 @@ internal static class ProcessSpawnOptionRegistrations
                 function.Name,
                 values
             );
+            description = SequenceSpawnDescription.Module(
+                module,
+                function,
+                arguments[offset + 2],
+                arguments[^1]
+            );
         }
         ProcessSpawnOptions options;
         try
@@ -74,7 +82,12 @@ internal static class ProcessSpawnOptionRegistrations
                 return ValueTask.FromResult<Term>(Nil.Value);
             };
 
-        return ValueTask.FromResult(context.Runtime.SpawnWithOptions(context, body, options));
+        return ValueTask.FromResult(context.Runtime.SpawnWithOptions(
+            context,
+            body,
+            options,
+            node == context.Runtime.Node ? description : null
+        ));
     }
 
     private static ErlangException Invalid(ProcessContext context, IReadOnlyList<Term> arguments, bool badOption = false)

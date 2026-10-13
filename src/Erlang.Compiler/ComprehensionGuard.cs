@@ -7,6 +7,7 @@ internal static class ComprehensionGuard
     public static bool IsTest(Expr expression, ModuleDefinition? module) => expression switch
     {
         Expr.Literal or Expr.Variable => true,
+        NativeRecordExpression { Operation: NativeRecordOperation.Access } record => IsTest(record.Value!, module),
         Expr.RecordConstruction record => IsTest(RecordExpressions.Create(record), module),
         Expr.RecordAccess record => IsTest(record.Value, module),
         Expr.Tuple t => t.Items.All(e => IsTest(e, module)),

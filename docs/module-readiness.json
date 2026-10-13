@@ -2,13 +2,13 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-223/tests.json",
-  "LocalPassedTests": 5720,
-  "RegisteredMfas": 449,
+  "ComparisonTestReport": "validation/part-224/ci-tests.json",
+  "LocalPassedTests": 6033,
+  "RegisteredMfas": 470,
   "PreviousRegisteredMfas": 449,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 21,
   "SourceModuleRows": 1289,
-  "ImplementedApiModules": 6,
+  "ImplementedApiModules": 7,
   "Components": [
     {
       "Id": "Terms",
@@ -23,13 +23,15 @@
         "VM-wide ordinal atom-name retention,956 pinned primordial/export names,term/scanner/module/function observation;ten Atom objects cached separately;capacity insertion serialized",
         "Local source functions have immutable canonical CLR code/free environments with coherent exact/numeric equality and hashes; external MFA identity retained",
         "Part129: immutable1-5word references/FullId and zero-padding equality/hash;source-valid per-runtime3word reference allocation;nullable loaded fun names and separate old/new indexes",
-        "Part153:stable bounded atom-name channel indices under insertion gate,false index0,128 concurrent observers retain eight names once;ten Atom object cache unchanged;4329/full local"
+        "Part153:stable bounded atom-name channel indices under insertion gate,false index0,128 concurrent observers retain eight names once;ten Atom object cache unchanged;4329/full local",
+        "Part225: composed source-guided spawn_request,native records including typed declaration metadata/scalar defaults,observable process_info,actual sequential tracing and actual asynchronous/system reply token protocols;6033/full main/draft. Original5376\u002B8fd pending226."
       ],
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
-        "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability"
+        "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability",
+        "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;two SDK-derived native hash assertions await original proof."
       ],
-      "RelatedPassedTests": 37
+      "RelatedPassedTests": 38
     },
     {
       "Id": "Serialization",
@@ -37,12 +39,14 @@
       "Status": "Partially compatible",
       "Implemented": [
         "common bounded ETF tags and compressed input",
-        "Part129: eight Erlang ETF bindings;version-specific atom/float/list tags,compression and exact physical used count,safe atoms/export entries,local hash preflight,wide identities,real function code/environment,borrowed non-local iovec and counted external_size;3477/full local,original130 pending"
+        "Part129: eight Erlang ETF bindings;version-specific atom/float/list tags,compression and exact physical used count,safe atoms/export entries,local hash preflight,wide identities,real function code/environment,borrowed non-local iovec and counted external_size;3477/full local,original130 pending",
+        "Part225: composed source-guided spawn_request,native records including typed declaration metadata/scalar defaults,observable process_info,actual sequential tracing and actual asynchronous/system reply token protocols;6033/full main/draft. Original5376\u002B8fd pending226."
       ],
       "Remaining": [
         "Native record ETF67,complete export-arity/native identity/lazy-code/purge interoperability",
         "Managed decode16MiB/depth256 policies;full binary_SUITE,scheduler/resource/error_info and native block-hash primitive proof",
-        "Local/compressed iovec flattening;no native fragmentation/allocation/performance parity claim"
+        "Local/compressed iovec flattening;no native fragmentation/allocation/performance parity claim",
+        "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;two SDK-derived native hash assertions await original proof."
       ],
       "RelatedPassedTests": 4
     },
@@ -94,7 +98,8 @@
         "Part218: spawn_opt2/3/4/5 links/monitors are installed under the runtime gate before child termination;monitor tags/aliases/priority delivery/options ordering/errors.46 new source cases,5618/full Windows main/draft,registry441 and erlang291/351. Original proof pending219.",
         "Part220: hibernate0/3 real mailbox wake and continuation/stack transfer;delay_trap2 timeout/yield,large receive timer waits;37 new source scenarios,5658/full main/draft Windows. Original proof pending221.",
         "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222.",
-        "Part223: CPU topology pure formatter and real global CLR collection with per-process request protocol,option/error/death/duplicate async identities;original message-area exported undefined stub.54 source cases,actual GC host checks,5720/full main/draft Windows. Original pending224."
+        "Part223: CPU topology pure formatter and real global CLR collection with per-process request protocol,option/error/death/duplicate async identities;original message-area exported undefined stub.54 source cases,actual GC host checks,5720/full main/draft Windows. Original pending224.",
+        "Part225: composed source-guided spawn_request,native records including typed declaration metadata/scalar defaults,observable process_info,actual sequential tracing and actual asynchronous/system reply token protocols;6033/full main/draft. Original5376\u002B8fd pending226."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -105,9 +110,10 @@
         "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility.",
         "Non-link/monitor spawn options: CPU priority,heap/GC/message-queue allocation,scheduler/async_dist and connected distribution/physical resources.",
         "Hibernate BEAM per-process heap shrinking/GC and physical scheduling/resource contracts.",
-        "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished."
+        "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
+        "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;two SDK-derived native hash assertions await original proof."
       ],
-      "RelatedPassedTests": 559
+      "RelatedPassedTests": 574
     },
     {
       "Id": "Compiler",
@@ -140,14 +146,16 @@
         "Part165:literal-only attributes/farity normalization,control rejection/metadata constructor emission preserving3407 generated hashes",
         "Part179:compiler-owned saved functions select current matching canonical code/image;different code keeps old image;anonymous static tail transfers release frames;4959/full local,4404 original pending180",
         "Part181:continuous image lease across local/anonymous tails;audited erlang purge_module source wrapper static transfer releases caller;dynamic callers retain continuations",
-        "Part187:qualified literal fun Module:Function/Arity uses pinned v3_core make_fun lowering;unqualified named references remain unchanged. Dynamic syntax/guard folding/full grammar incomplete."
+        "Part187:qualified literal fun Module:Function/Arity uses pinned v3_core make_fun lowering;unqualified named references remain unchanged. Dynamic syntax/guard folding/full grammar incomplete.",
+        "Part225: composed source-guided spawn_request,native records including typed declaration metadata/scalar defaults,observable process_info,actual sequential tracing and actual asynchronous/system reply token protocols;6033/full main/draft. Original5376\u002B8fd pending226."
       ],
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
-        "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy"
+        "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy",
+        "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;two SDK-derived native hash assertions await original proof."
       ],
-      "RelatedPassedTests": 860
+      "RelatedPassedTests": 879
     },
     {
       "Id": "Core library modules",
@@ -177,7 +185,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1488
+      "RelatedPassedTests": 1509
     },
     {
       "Id": "gen_server adapters",
@@ -319,7 +327,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 4339
+      "RelatedPassedTests": 4625
     },
     {
       "Id": "Style checks",
@@ -5588,11 +5596,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 299,
+      "RegisteredMfas": 312,
       "PreviousRegisteredMfas": 299,
-      "Delta": 0,
+      "Delta": 13,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 85.2,
+      "ApiPresencePercent": 88.9,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5750,6 +5758,7 @@
         "erlang:is_pid/1",
         "erlang:is_port/1",
         "erlang:is_process_alive/1",
+        "erlang:is_record/1",
         "erlang:is_record/2",
         "erlang:is_record/3",
         "erlang:is_reference/1",
@@ -5845,6 +5854,10 @@
         "erlang:send_after/4",
         "erlang:send_nosuspend/2",
         "erlang:send_nosuspend/3",
+        "erlang:seq_trace/2",
+        "erlang:seq_trace_info/1",
+        "erlang:seq_trace_print/1",
+        "erlang:seq_trace_print/2",
         "erlang:set_cookie/1",
         "erlang:set_cookie/2",
         "erlang:setelement/3",
@@ -5865,12 +5878,20 @@
         "erlang:spawn_opt/3",
         "erlang:spawn_opt/4",
         "erlang:spawn_opt/5",
+        "erlang:spawn_request/1",
+        "erlang:spawn_request/2",
+        "erlang:spawn_request/3",
+        "erlang:spawn_request/4",
+        "erlang:spawn_request/5",
+        "erlang:spawn_request_abandon/1",
         "erlang:split_binary/2",
         "erlang:start_timer/3",
         "erlang:start_timer/4",
         "erlang:subtract/2",
         "erlang:suspend_process/1",
         "erlang:suspend_process/2",
+        "erlang:system_flag/2",
+        "erlang:system_info/1",
         "erlang:system_time/0",
         "erlang:system_time/1",
         "erlang:term_to_binary/1",
@@ -11658,17 +11679,26 @@
     },
     {
       "Name": "records",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 8,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 8,
       "ReferenceDeclarations": 8,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 100,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/records.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "records:create/4",
+        "records:get/2",
+        "records:get_definition/2",
+        "records:get_field_names/1",
+        "records:get_module/1",
+        "records:get_name/1",
+        "records:is_exported/1",
+        "records:update/4"
+      ],
       "AbsentFromReference": []
     },
     {

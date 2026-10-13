@@ -273,6 +273,37 @@ public static class ExternalTermFormat
             case Nil:
                 s.WriteByte(EtfTags.Nil);
                 break;
+            case NativeRecordTerm record:
+                s.WriteByte(EtfTags.Record);
+                U32(s, (uint)record.FieldNames.Count);
+                s.WriteByte(record.IsExported ? EtfRecordLayout.Exported : EtfRecordLayout.Private);
+                Write(
+                    s,
+                    record.Module,
+                    depth + 1,
+                    options
+                );
+                Write(
+                    s,
+                    record.Name,
+                    depth + 1,
+                    options
+                );
+                foreach (var field in record.FieldNames)
+                    Write(
+                        s,
+                        field,
+                        depth + 1,
+                        options
+                    );
+                foreach (var value in record.Values)
+                    Write(
+                        s,
+                        value,
+                        depth + 1,
+                        options
+                    );
+                break;
             case TupleTerm t:
                 if (t.Items.Count < EtfTupleLayout.LargeTupleMinimumArity)
                 {
@@ -569,6 +600,32 @@ public static class ExternalTermFormat
                     }
                 case EtfTags.Nil:
                     return Nil.Value;
+                case EtfTags.Record:
+                    {
+                        int count = Count(U32());
+                        byte flags = Byte();
+                        if (flags != EtfRecordLayout.Private && flags != EtfRecordLayout.Exported)
+                            throw new ErlangException(ErlangErrorReasons.BadArgument);
+                        if (Read(depth + 1) is not Atom module || Read(depth + 1) is not Atom name)
+                            throw new ErlangException(ErlangErrorReasons.BadArgument);
+                        var keys = new Atom[count];
+                        for (int index = 0; index < count; index++)
+                        {
+                            if (Read(depth + 1) is not Atom key)
+                                throw new ErlangException(ErlangErrorReasons.BadArgument);
+                            keys[index] = key;
+                        }
+                        var fields = new KeyValuePair<Atom, Term>[count];
+                        for (int index = 0; index < count; index++)
+                            fields[index] = new(keys[index], Read(depth + 1));
+
+                        return new NativeRecordTerm(
+                            module,
+                            name,
+                            flags == EtfRecordLayout.Exported,
+                            fields
+                        );
+                    }
                 case EtfTags.SmallTuple:
                 case EtfTags.LargeTuple:
                     {

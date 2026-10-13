@@ -831,3 +831,7 @@ Part223: pure format_cpu_topology/1 and real garbage_collect/0,1,2 sync/async pr
 ## Part224 checkpoint
 
 Part224: frozen223 original5090/5090 + independent inherited fd8/8; same-head Linux CI5720/5720/full with identical ordered Windows test names. Selected CPU formatter and major/minor managed GC request/reply cases agree with OTP. Registry449;erlang299/351 (85.2% API presence,52 missing),lists91/91,maps34/34,gen_server10/41,supervisor14/23,io1/53 unchanged. Full module,physical BEAM heap/scheduler/resources/distribution/upstream and performance remain partial.
+
+## Part225 checkpoint
+
+Part225: source-guided spawn_request,native records/types/defaults/definitions,observable process_info and actual sequential/system reply tracing.6033/6033/full Windows main/draft,470 directMFAs;all4186 inherited contracts preserved,268 appended modules and18 new diagnoses.4454 SDK/4448 comparable/150 diagnoses;original5376+8fd and same-head CI pending226. Registry470;erlang312/35188.9% API presence,records8/8,lists91/91,maps34/34,gen_server10/41,supervisor14/23,io1/53. Native2 numeric hash assertions remain SDK-derived pending original proof;physical heaps/scheduler/resources,complete lint/warnings/stacks/code staging/distribution/upstream/performance partial. Unpublished token assertion corrected from original producer sentinel;raw prior/cancelled evidence retained,no published outcome/exclusion changed. Closed0032 unchanged,new0033 active. Whole erlang goal continues.

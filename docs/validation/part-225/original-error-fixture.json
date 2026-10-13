@@ -1,0 +1,12 @@
+{
+  "Name": "erlang-spawn-request-seq-error-clears-on-receive",
+  "Source": "-module(spawn_request_seq_contract). -export([run/0,hold/0,report/1,collector/2]). run()->erlang:seq_trace(label,label),true=erlang:seq_trace_print(before_error),R=spawn_request(fun()->error(executed) end,[wrong]),{serial,{0,1}}=erlang:seq_trace_info(serial),receive unrelated->error(unexpected) after 0->ok end,{label,label}=erlang:seq_trace_info(label),receive {spawn_reply,R,error,badopt}->[]=erlang:seq_trace_info(label) after 5000->error(no_error) end,erlang:seq_trace(label,again),true=erlang:seq_trace_print(after_error),{serial,{0,2}}=erlang:seq_trace_info(serial),done. hold()->receive stop->ok end. report(S)->{serial,Before}=erlang:seq_trace_info(serial),true=erlang:seq_trace_print(child),{serial,After}=erlang:seq_trace_info(serial),erlang:seq_trace(sequential_trace_token,[]),S!{child_serials,self(),Before,After},receive stop->ok end. collector(S,L)->receive {seq_trace,_,_}=E->collector(S,[E|L]);{seq_trace,_,_,_}=E->collector(S,[E|L]);{take,S}->S!lists:reverse(L) end.",
+  "FixtureExpected": "{ok,done}",
+  "ExpectedStandardOutputHex": null,
+  "ExpectedStandardErrorHex": null,
+  "ExpectedStandardOutputAlternatives": null,
+  "SourceSha256": "2D8706F429A38DC1D44AD01112C21BE7AB9F29AF29106BB9D04EC0C85D9F2CBC",
+  "CSharpSha256": "96942E99277AA2CD3B1D10EB44A33CFCA74F789827D55CB757229C34E260CD76",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}

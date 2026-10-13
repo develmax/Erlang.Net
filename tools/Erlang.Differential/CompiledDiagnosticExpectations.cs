@@ -33,6 +33,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NativeRecord => NativeRecordDiagnosticCases.Contracts.Single(contract => contract.Case.Name == fixture.Name).Code,
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Code,
         DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Code,
         DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated => CharacterLiteralDiagnosticExpectations.Code,
@@ -48,6 +49,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NativeRecord => NativeRecordDiagnosticCases.Contracts.Single(contract => contract.Case.Name == fixture.Name).Message,
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Message(fixture),
         DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Message,
         DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.IllegalMessage,
@@ -72,6 +74,10 @@ public static class CompiledDiagnosticExpectations
 
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NativeRecord => Term.Tuple(
+            Term.A(OracleOutcomeTags.Failure),
+            Term.List(NativeRecordDiagnosticCases.Contracts.Single(contract => contract.Case.Name == fixture.Name).Reason)
+        ),
         DiagnosticCaseKind.UndefinedFunction => FunctionResolutionDiagnosticExpectations.Outcome(fixture),
         DiagnosticCaseKind.FormBoundarySyntax => FormBoundaryExpectations.Outcome,
         DiagnosticCaseKind.CharacterLiteralIllegal => CharacterLiteralDiagnosticExpectations.Outcome(false),

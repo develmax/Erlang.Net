@@ -297,6 +297,14 @@ public static class Execution
         Expr.Literal l => l.Value,
         Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
         Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : throw new ErlangException(ErlangErrorReasons.BadArgument),
+        NativeRecordExpression { Operation: NativeRecordOperation.Access } record => NativeRecordLanguage.Access(
+            GuardValue(record.Value!, b, ctx),
+            record.Module,
+            record.Name,
+            record.Caller,
+            record.External,
+            Term.A(record.Fields[0].Name)
+        ),
         Expr.RecordConstruction record => GuardValue(RecordExpressions.Create(record), b, ctx),
         Expr.RecordAccess record => RecordExpressions.Access(
             GuardValue(record.Value, b, ctx),
@@ -394,6 +402,44 @@ public static class Execution
                 return l.Value;
             case Expr.Variable v:
                 return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name)));
+            case NativeRecordExpression record:
+                {
+                    if (record.Operation == NativeRecordOperation.Access)
+                        return NativeRecordLanguage.Access(
+                            await Evaluate(
+                                record.Value!,
+                                ctx,
+                                b,
+                                module
+                            ),
+                            record.Module,
+                            record.Name,
+                            record.Caller,
+                            record.External,
+                            Term.A(record.Fields[0].Name)
+                        );
+                    var inputs = await Arguments(record.Children.ToArray());
+                    int valueOffset = record.Value is null ? 0 : 1;
+                    var fields = record.Fields.Select((field, index) => new KeyValuePair<Atom, Term>(Term.A(field.Name), inputs[index + valueOffset])).ToArray();
+                    if (record.Operation == NativeRecordOperation.Update)
+                        return NativeRecordLanguage.Update(
+                            inputs[0],
+                            record.Module,
+                            record.Name,
+                            record.Caller,
+                            record.External,
+                            fields
+                        );
+                    var definition = record.External ? ctx.Runtime.Modules.NativeRecordDefinition(record.Module, record.Name!) : module?.NativeRecords.FirstOrDefault(value => value.Name == record.Name);
+
+                    return NativeRecordLanguage.Construct(
+                        record.Module,
+                        definition,
+                        record.Name!,
+                        fields,
+                        record.External
+                    );
+                }
             case Expr.RecordConstruction record:
                 return await Evaluate(
                     RecordExpressions.Create(record),

@@ -38,6 +38,10 @@ internal sealed class RuntimeKnownNodes(string localNode)
                         pending.Push(list.Head);
                         pending.Push(list.Tail);
                         break;
+                    case NativeRecordTerm record:
+                        foreach (Term item in record.Values)
+                            pending.Push(item);
+                        break;
                     case TupleTerm tuple:
                         foreach (Term item in tuple.Items)
                             pending.Push(item);

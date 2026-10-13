@@ -10,7 +10,13 @@ public sealed class Parser
     private readonly Dictionary<string, RecordDefinition> records = new(StringComparer.Ordinal);
     private readonly List<Token> tokens; private int position;
 
-    public Parser(string text, bool blockPrefix = false) => tokens = Lexer.Scan(text, blockPrefix);
+    private readonly string source;
+
+    public Parser(string text, bool blockPrefix = false)
+    {
+        source = text;
+        tokens = Lexer.Scan(text, blockPrefix);
+    }
 
     private Token Current => tokens[position];
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
@@ -82,10 +88,21 @@ public sealed class Parser
             if (Take(ErlangSyntaxTokens.AttributeIntroducer))
             {
                 string attr = Name();
+                if (attr == ModuleAttributeNames.Record && (Is(ErlangSyntaxTokens.MapPrefix) || Is(ErlangSyntaxTokens.OpenParenthesis) && tokens[position + 1].Text == ErlangSyntaxTokens.MapPrefix))
+                {
+                    NativeDeclaration();
+                    continue;
+                }
                 Expect(ErlangSyntaxTokens.OpenParenthesis);
+                if (attr is NativeRecordAttributeNames.Export or NativeRecordAttributeNames.Import)
+                {
+                    NativeRecordAttribute(attr);
+                    continue;
+                }
                 if (attr == ModuleAttributeNames.Module)
                 {
                     module = Name();
+                    parsingModule = module;
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     ExpectFormTerminator();
                 }
@@ -116,7 +133,7 @@ public sealed class Parser
                 else if (attr == ModuleAttributeNames.Record)
                 {
                     string name = Name();
-                    if (records.ContainsKey(name))
+                    if (records.ContainsKey(name) || nativeRecords.ContainsKey(name))
                         throw RecordError(RecordDiagnostics.DuplicateRecord(name));
                     Expect(ErlangSyntaxTokens.Comma);
                     Expect(ErlangSyntaxTokens.OpenTuple);
@@ -176,7 +193,20 @@ public sealed class Parser
             exports,
             functions,
             attributes
-        );
+        )
+        {
+            NativeRecords = Array.AsReadOnly(nativeRecords.Values.Select(definition => new NativeRecordDefinition(
+                definition.Name,
+                exportedRecords.Contains(definition.Name),
+                definition.Fields,
+                definition.FieldTypes
+            )).ToArray())
+        };
+        foreach (var name in exportedRecords)
+        {
+            if (!nativeRecords.ContainsKey(name))
+                throw RecordError(records.ContainsKey(name) ? NativeRecordDiagnostics.TupleExport : NativeRecordDiagnostics.Undefined(name));
+        }
         Semantics.Validate(result);
 
         return result;
@@ -689,12 +719,13 @@ public sealed class Parser
                         1,
                         endian,
                         signed
-                    ));
+                    )
+                    { SourceStringLiteral = true });
             }
             else if (value is Expr.Literal { Value: Cons or Nil } && categories.Count == 0 && size is null)
             {
                 foreach (var item in Cons.Items(((Expr.Literal)value).Value))
-                    segments.Add(new(new Expr.Literal(item), null));
+                    segments.Add(new(new Expr.Literal(item), null) { SourceStringLiteral = true });
             }
             else if (value is Expr.Literal { Value: Cons or Nil })
                 segments.Add(new(
@@ -727,6 +758,12 @@ public sealed class Parser
     {
         if (RecordPredicateSyntax.IsBuiltin(module, function) && arguments.Count == 2 && arguments[1] is Expr.Literal { Value: Atom name })
         {
+            if (nativeRecords.ContainsKey(name.Name) || importedRecords.ContainsKey(name.Name))
+                return new Expr.Call(
+                    ErlangModuleNames.Module,
+                    RecordPredicateNames.IsRecord,
+                    [arguments[0], new Expr.Literal(Term.A(importedRecords.GetValueOrDefault(name.Name) ?? parsingModule ?? string.Empty)), arguments[1]]
+                );
             if (!records.TryGetValue(name.Name, out var definition))
                 throw RecordError(RecordDiagnostics.UndefinedRecord(name.Name));
 
@@ -738,6 +775,8 @@ public sealed class Parser
 
     private Expr RecordInfo(IReadOnlyList<Expr> arguments)
     {
+        if (arguments.Count == 2 && arguments[1] is Expr.Literal { Value: Atom native } && nativeRecords.ContainsKey(native.Name))
+            throw RecordError(NativeRecordDiagnostics.RecordInfo);
         if (arguments.Count != 2 || arguments[0] is not Expr.Literal { Value: Atom info } || arguments[1] is not Expr.Literal { Value: Atom name } || !records.TryGetValue(name.Name, out var definition))
             throw RecordError(RecordDiagnostics.InvalidInfo);
 
@@ -751,6 +790,10 @@ public sealed class Parser
 
     private Expr ParseRecord(Expr? recordBase)
     {
+        if (Current.Kind is LexerTokenKinds.Variable or LexerTokenKinds.Keyword ||
+            nativeRecords.ContainsKey(Current.Text) || importedRecords.ContainsKey(Current.Text) ||
+            position + 1 < tokens.Count && tokens[position + 1].Text == ErlangSyntaxTokens.ModuleQualifier)
+            return ParseNativeRecord(recordBase);
         string name = Name();
         if (!records.TryGetValue(name, out var definition))
             throw RecordError(RecordDiagnostics.UndefinedRecord(name));
@@ -858,6 +901,13 @@ public sealed class Parser
 
     public static Pattern ToPattern(Expr e) => e switch
     {
+        NativeRecordExpression { Operation: NativeRecordOperation.Construct } record => new NativeRecordPattern(
+            record.Module,
+            record.Name,
+            record.Caller,
+            record.External,
+            record.Fields.Select(field => new NativeRecordPatternField(field.Name, ToPattern(field.Value))).ToArray()
+        ),
         Expr.RecordConstruction record => RecordExpressions.Pattern(record),
         Expr.Match match => new AliasPattern(match.Pattern, ToPattern(match.Value)),
         Expr.Binary { Operator: ErlangOperators.Append } prefix => PrefixPattern(prefix.Left, prefix.Right),
@@ -906,4 +956,174 @@ public sealed class Parser
 
         return list.Tail is null || PrefixItems(list.Tail, items);
     }
+
+    private readonly Dictionary<string, NativeRecordDefinition> nativeRecords = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, string> importedRecords = new(StringComparer.Ordinal);
+    private readonly HashSet<string> exportedRecords = new(StringComparer.Ordinal);
+    private string? parsingModule;
+
+    private string NativeName()
+    {
+        if (Current.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom or LexerTokenKinds.Variable or LexerTokenKinds.Keyword))
+            throw Error(ParserDiagnostics.ExpectedAtom);
+
+        return tokens[position++].Text;
+    }
+
+    private void NativeDeclaration()
+    {
+        bool parenthesized = Take(ErlangSyntaxTokens.OpenParenthesis);
+        Expect(ErlangSyntaxTokens.MapPrefix);
+        if (Current.Kind == LexerTokenKinds.Variable && Current.Text == NativeRecordGrammarNames.AnonymousRecord)
+            throw Error(ParserDiagnostics.ExpectedAtom);
+        string name = NativeName();
+        if (nativeRecords.ContainsKey(name) || records.ContainsKey(name))
+            throw RecordError(RecordDiagnostics.DuplicateRecord(name));
+        if (importedRecords.TryGetValue(name, out var importedModule))
+            throw RecordError(NativeRecordDiagnostics.RedefineImported(importedModule, name));
+        Expect(ErlangSyntaxTokens.OpenTuple);
+        var fields = new List<KeyValuePair<Atom, Term?>>();
+        var fieldTypes = new List<NativeRecordFieldType>();
+        if (!Take(ErlangSyntaxTokens.CloseTuple))
+        {
+            do
+            {
+                int fieldOffset = Current.Start;
+                string field = Name();
+                if (fields.Any(value => value.Key.Name == field))
+                    throw RecordError(RecordDiagnostics.DuplicateField(field));
+                Term? value = null;
+                if (Take(ErlangOperators.Match))
+                {
+                    try
+                    {
+                        value = NativeRecordDefault.Read(Expression(), Current.Start);
+                    }
+                    catch (Exception exception) when (exception is CompileException or ErlangException)
+                    {
+                        throw new CompileException(CompilerDiagnosticCodes.RecordDefinition, NativeRecordDiagnostics.InvalidDefault(name, field), fieldOffset);
+                    }
+                }
+                if (Take(NativeRecordTypeTokens.Annotation))
+                {
+                    var parser = new NativeRecordTypeParser(tokens, source, position);
+                    Term type = parser.Parse();
+                    position = parser.Position;
+                    fieldTypes.Add(new(Term.A(field), type, fieldOffset));
+                }
+                fields.Add(new(Term.A(field), value));
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseTuple);
+        }
+        if (parenthesized)
+            Expect(ErlangSyntaxTokens.CloseParenthesis);
+        ExpectFormTerminator();
+        nativeRecords.Add(name, new(
+            name,
+            false,
+            fields,
+            fieldTypes
+        ));
+    }
+
+    private void NativeRecordAttribute(string attribute)
+    {
+        string? module = null;
+        if (attribute == NativeRecordAttributeNames.Import)
+        {
+            module = Name();
+            Expect(ErlangSyntaxTokens.Comma);
+        }
+        Expect(ErlangSyntaxTokens.OpenList);
+        if (!Take(ErlangSyntaxTokens.CloseList))
+        {
+            do
+            {
+                string name = Name();
+                if (module is null)
+                {
+                    if (!exportedRecords.Add(name))
+                        throw RecordError(NativeRecordDiagnostics.DuplicateExport(name));
+                }
+                else
+                {
+                    if (importedRecords.ContainsKey(name))
+                        throw RecordError(NativeRecordDiagnostics.RedefineImported(module, name));
+                    if (nativeRecords.ContainsKey(name) || records.ContainsKey(name))
+                        throw RecordError(NativeRecordDiagnostics.RedefineLocal(name));
+                    importedRecords.Add(name, module);
+                }
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseList);
+        }
+        Expect(ErlangSyntaxTokens.CloseParenthesis);
+        ExpectFormTerminator();
+    }
+
+    private Expr ParseNativeRecord(Expr? recordBase)
+    {
+        int sourceOffset = tokens[position - 1].Start;
+        string firstKind = Current.Kind;
+        bool anonymous = firstKind == LexerTokenKinds.Variable && Current.Text == NativeRecordGrammarNames.AnonymousRecord;
+        string first = NativeName();
+        bool external = Take(ErlangSyntaxTokens.ModuleQualifier);
+        if (external && firstKind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom))
+            throw Error(ParserDiagnostics.ExpectedAtom);
+        string module = external ? first : importedRecords.GetValueOrDefault(first) ?? parsingModule ?? string.Empty;
+        string? name = external ? NativeName() : anonymous ? null : first;
+        external |= name is not null && importedRecords.ContainsKey(name);
+        if (!external && name is not null && !nativeRecords.ContainsKey(name))
+            throw RecordError(NativeRecordDiagnostics.Undefined(name));
+        if (Take(ErlangSyntaxTokens.RecordSelectionSeparator))
+        {
+            string field = Name();
+            if (recordBase is null)
+                throw RecordError(NativeRecordDiagnostics.Index(name ?? NativeRecordGrammarNames.AnonymousRecord, field));
+
+            return new NativeRecordExpression(
+                NativeRecordOperation.Access,
+                module,
+                name,
+                parsingModule ?? string.Empty,
+                external,
+                recordBase,
+                [new(field, new Expr.Literal(Nil.Value))]
+            );
+        }
+        Expect(ErlangSyntaxTokens.OpenTuple);
+        var fields = new List<RecordField>();
+        var fieldOffsets = new Dictionary<string, int>(StringComparer.Ordinal);
+        if (!Take(ErlangSyntaxTokens.CloseTuple))
+        {
+            do
+            {
+                if (Current.Kind == LexerTokenKinds.Variable && Current.Text == NativeRecordGrammarNames.MultiFieldInitializer)
+                    throw RecordError(NativeRecordDiagnostics.MultiField);
+                int fieldOffset = Current.Start;
+                string field = Name();
+                if (fields.Any(value => value.Name == field))
+                    throw RecordError(RecordDiagnostics.DuplicateField(field));
+                Expect(ErlangOperators.Match);
+                fieldOffsets.Add(field, fieldOffset);
+                fields.Add(new(field, Expression()));
+            } while (Take(ErlangSyntaxTokens.Comma));
+            Expect(ErlangSyntaxTokens.CloseTuple);
+        }
+
+        return new NativeRecordExpression(
+            recordBase is null ? NativeRecordOperation.Construct : NativeRecordOperation.Update,
+            module,
+            name,
+            parsingModule ?? string.Empty,
+            external,
+            recordBase,
+            fields
+        )
+        {
+            FieldOffsets = new System.Collections.ObjectModel.ReadOnlyDictionary<string, int>(fieldOffsets),
+            SourceOffset = sourceOffset,
+            Declaration = !external && name is not null ? nativeRecords[name] : null
+        };
+    }
+
 }

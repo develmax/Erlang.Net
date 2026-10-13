@@ -13,7 +13,14 @@ public sealed class ProcessContext : ITermExecutionContext
             WaitForExecution = WaitIfSuspended,
             ExecutionBlocked = () => SuspensionRequested,
             MessageReceived = SavedCalls.Received,
-            ReceiveTimedOut = SavedCalls.TimedOut
+            TraceReceived = (message, token, preserve) => Runtime.SequenceTracing.Received(
+                this,
+                message,
+                token,
+                preserve
+            ),
+            ReceiveTimedOut = SavedCalls.TimedOut,
+            WaitingStateChanged = waiting => WaitingForMessage = waiting
         };
     }
 
@@ -29,10 +36,16 @@ public sealed class ProcessContext : ITermExecutionContext
     internal volatile bool SuspensionRequested;
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
     internal HashSet<ProcessGarbageCollectionRequest> PendingGarbageCollections { get; } = new();
+    internal HashSet<ProcessInfoRequest> PendingInfoRequests { get; } = new();
+    internal volatile bool WaitingForMessage;
+    internal volatile bool ExecutionStarted;
+    internal volatile bool Yielding;
     internal HashSet<ProcessSavedCallRequest> PendingSavedCallRequests { get; } = new();
     internal ProcessSavedCalls SavedCalls { get; } = new();
+    internal SequenceTraceState SequentialTrace { get; } = new();
     private int reductions;
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
+    private ErlangExecutionFrame? visibleExecutionFrame;
     private readonly object codeGate = new();
     private readonly Dictionary<ModuleCodeImage, int> activeCode = new();
     private readonly AsyncLocal<SourceExecution?> sourceExecution = new();
@@ -118,11 +131,19 @@ public sealed class ProcessContext : ITermExecutionContext
 
     private sealed class ExecutionFrameScope(ProcessContext context, ErlangExecutionFrame? parent) : IDisposable
     {
-        public void Dispose() => context.executionFrame.Value = parent;
+        public void Dispose()
+        {
+            context.executionFrame.Value = parent;
+            Volatile.Write(ref context.visibleExecutionFrame, parent);
+        }
     }
 
     public string? CurrentFunction => executionFrame.Value?.Function;
     public int CurrentFunctionArity => executionFrame.Value?.Arity ?? 0;
+
+    internal Term SnapshotCurrentFunction() => ProcessInfoFrames.Current(Volatile.Read(ref visibleExecutionFrame));
+
+    internal Term SnapshotCurrentStackTrace() => ProcessInfoFrames.Stack(Volatile.Read(ref visibleExecutionFrame), Runtime.BacktraceDepth);
 
     public IDisposable EnterFunction(string module, string function, int arity)
     {
@@ -133,6 +154,7 @@ public sealed class ProcessContext : ITermExecutionContext
             arity,
             previous
         );
+        Volatile.Write(ref visibleExecutionFrame, executionFrame.Value);
 
         return new ExecutionFrameScope(this, previous);
     }
@@ -198,7 +220,15 @@ public sealed class ProcessContext : ITermExecutionContext
         {
             reductions = 0;
             Runtime.AdmitSignals(this);
-            await Task.Yield();
+            Yielding = true;
+            try
+            {
+                await Task.Yield();
+            }
+            finally
+            {
+                Yielding = false;
+            }
             Cancellation.ThrowIfCancellationRequested();
         }
     }

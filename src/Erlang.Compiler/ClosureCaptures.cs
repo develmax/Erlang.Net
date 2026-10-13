@@ -58,6 +58,10 @@ internal static class ClosureCaptures
                         Keys(field.Value, local, shadow);
                     }
                     break;
+                case NativeRecordPattern record:
+                    foreach (var field in record.Fields)
+                        Keys(field.Value, local, shadow);
+                    break;
                 case Pattern.Tuple tuple:
                     foreach (var item in tuple.Items)
                         Keys(item, local, shadow);
@@ -153,6 +157,9 @@ internal static class ClosureCaptures
                     break;
                 case Expr.Variable variable:
                     Read(variable.Name, local);
+                    break;
+                case NativeRecordExpression record:
+                    Parallel(record.Children, local);
                     break;
                 case Expr.RecordConstruction record:
                     Walk(RecordExpressions.Create(record), local);

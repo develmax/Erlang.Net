@@ -19,6 +19,7 @@ internal static class RecordGuards
 
     private static Expr Expand(Expr expression) => expression switch
     {
+        NativeRecordExpression record => record with { Value = record.Value is null ? null : Expand(record.Value) },
         Expr.RecordConstruction record => Expand(RecordExpressions.Create(record)),
         Expr.RecordAccess record => record with { Value = Expand(record.Value) },
         Expr.Binary binary when BooleanBoundary(binary.Operator) => binary with { Left = Wrap(Expand(binary.Left)), Right = Wrap(Expand(binary.Right)) },
@@ -38,6 +39,7 @@ internal static class RecordGuards
             yield break;
         IEnumerable<Expr> children = expression switch
         {
+            NativeRecordExpression record => record.Children,
             Expr.RecordAccess record => new[] { record.Value },
             Expr.Binary binary => new[] { binary.Left, binary.Right },
             Expr.Unary unary => new[] { unary.Operand },

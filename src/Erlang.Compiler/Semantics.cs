@@ -3,7 +3,7 @@ namespace Erlang.Compiler;
 
 public static class Semantics
 {
-    internal static readonly HashSet<(string, int)> GuardBifs = [(RecordPredicateNames.IsRecord, 3), .. ErlangBasicBifNames.Guards, .. ErlangProcessQueryNames.Guards, (ErlangDataBifNames.BinaryPart, 2), (ErlangDataBifNames.BinaryPart, 3), (ErlangModuleNames.IsAtom, 1), (ErlangModuleNames.IsInteger, 1), (ErlangModuleNames.IsFloat, 1), (ErlangModuleNames.IsNumber, 1), (ErlangModuleNames.IsTuple, 1), (ErlangModuleNames.IsBinary, 1), (ErlangModuleNames.IsBitString, 1), (ErlangModuleNames.BitSize, 1), (ErlangModuleNames.ByteSize, 1), (ErlangModuleNames.IsList, 1), (ErlangModuleNames.IsPid, 1), (ErlangModuleNames.IsMap, 1), (ErlangModuleNames.MapSize, 1), (ErlangModuleNames.MapGet, 2), (ErlangModuleNames.IsMapKey, 2), (ErlangModuleNames.Length, 1), (ErlangModuleNames.Head, 1), (ErlangModuleNames.Tail, 1), (ErlangModuleNames.Element, 2), (ErlangModuleNames.TupleSize, 1), (ErlangModuleNames.Self, 0)];
+    internal static readonly HashSet<(string, int)> GuardBifs = [(RecordPredicateNames.IsRecord, 1), (RecordPredicateNames.IsRecord, 3), .. ErlangBasicBifNames.Guards, .. ErlangProcessQueryNames.Guards, (ErlangDataBifNames.BinaryPart, 2), (ErlangDataBifNames.BinaryPart, 3), (ErlangModuleNames.IsAtom, 1), (ErlangModuleNames.IsInteger, 1), (ErlangModuleNames.IsFloat, 1), (ErlangModuleNames.IsNumber, 1), (ErlangModuleNames.IsTuple, 1), (ErlangModuleNames.IsBinary, 1), (ErlangModuleNames.IsBitString, 1), (ErlangModuleNames.BitSize, 1), (ErlangModuleNames.ByteSize, 1), (ErlangModuleNames.IsList, 1), (ErlangModuleNames.IsPid, 1), (ErlangModuleNames.IsMap, 1), (ErlangModuleNames.MapSize, 1), (ErlangModuleNames.MapGet, 2), (ErlangModuleNames.IsMapKey, 2), (ErlangModuleNames.Length, 1), (ErlangModuleNames.Head, 1), (ErlangModuleNames.Tail, 1), (ErlangModuleNames.Element, 2), (ErlangModuleNames.TupleSize, 1), (ErlangModuleNames.Self, 0)];
 
     public static void Validate(ModuleDefinition module)
     {
@@ -23,6 +23,7 @@ public static class Semantics
 
     internal static IEnumerable<string> Variables(Pattern p) => p switch
     {
+        NativeRecordPattern record => record.Fields.SelectMany(field => Variables(field.Value)),
         AliasPattern alias => Variables(alias.Left).Concat(Variables(alias.Right)),
         BitPattern bits => bits.Segments.SelectMany(s => Variables(s.Value)),
         MapPattern m => m.Fields.SelectMany(f => Variables(f.Value)),
@@ -36,6 +37,10 @@ public static class Semantics
     {
         switch (pattern)
         {
+            case NativeRecordPattern record:
+                foreach (var field in record.Fields)
+                    PatternKeys(field.Value, bound);
+                break;
             case AliasPattern alias:
                 PatternKeys(alias.Left, bound);
                 PatternKeys(alias.Right, bound);
@@ -188,6 +193,34 @@ public static class Semantics
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardStacktrace(v.Name), 0);
                 if (v.Name == VariableScopeNames.Wildcard || !bound.Contains(v.Name))
                     throw new CompileException(CompilerDiagnosticCodes.VariableBinding, SemanticDiagnostics.UnboundOrUnsafeVariable(v.Name), 0);
+                break;
+            case NativeRecordExpression record:
+                if (guard && record.Operation != NativeRecordOperation.Access)
+                    throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, NativeRecordDiagnostics.GuardConstruction, record.SourceOffset);
+                if (record.Operation == NativeRecordOperation.Construct && record.Name is null)
+                    throw new CompileException(
+                        CompilerDiagnosticCodes.RecordDefinition,
+                        NativeRecordDiagnostics.Undefined(NativeRecordGrammarNames.AnonymousRecord),
+                        record.SourceOffset
+                    );
+                if (record.Operation == NativeRecordOperation.Construct && record.Declaration is { } declaration)
+                {
+                    foreach (var field in record.Fields)
+                        if (!declaration.Fields.Any(value => value.Key.Name == field.Name))
+                            throw new CompileException(
+                                CompilerDiagnosticCodes.RecordDefinition,
+                                RecordDiagnostics.UndefinedField(declaration.Name, field.Name),
+                                record.FieldOffsets.GetValueOrDefault(field.Name, record.SourceOffset)
+                            );
+                    foreach (var field in declaration.Fields)
+                        if (field.Value is null && !record.Fields.Any(value => value.Name == field.Key.Name))
+                            throw new CompileException(
+                                CompilerDiagnosticCodes.RecordDefinition,
+                                NativeRecordDiagnostics.MissingValue(declaration.Name, field.Key.Name),
+                                record.SourceOffset
+                            );
+                }
+                ExpressionBindings.ValidateList(record.Children, bound, (expression, scope) => Walk(expression, scope, guard));
                 break;
             case Expr.RecordConstruction record:
                 Walk(RecordExpressions.Create(record), bound, guard);

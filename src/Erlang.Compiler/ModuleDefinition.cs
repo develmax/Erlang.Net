@@ -18,6 +18,13 @@ public sealed record ModuleDefinition(
     public IReadOnlyList<FunctionDefinition> Functions { get; init; } = PredefinedModuleFunctions.Add(Name, Functions);
     public IReadOnlyList<ModuleAttribute> Attributes { get; init; } = Array.AsReadOnly((Attributes ?? []).ToArray());
 
+    private IReadOnlyList<NativeRecordDefinition> nativeRecords = Array.Empty<NativeRecordDefinition>();
+    public IReadOnlyList<NativeRecordDefinition> NativeRecords
+    {
+        get => nativeRecords;
+        init => nativeRecords = Array.AsReadOnly(value.ToArray());
+    }
+
     public void Register(ModuleRegistry registry)
     {
         Otp.OtpModules.Register(registry);
@@ -52,7 +59,8 @@ public sealed record ModuleDefinition(
                     new BitString(MD5.HashData(Encoding.UTF8.GetBytes(CodeGeneration.ModuleCode(this, string.Empty, false)))),
                     ModuleCodeFingerprints.Compilation(typeof(ModuleDefinition)),
                     Cons.From(Attributes.Select(attribute => Term.Tuple(Term.A(attribute.Name), ModuleCodeAttributes.Values(attribute.Value)))),
-                    this
+                    this,
+                    NativeRecords
                 )
             );
         });
