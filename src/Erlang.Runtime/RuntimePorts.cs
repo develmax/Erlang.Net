@@ -151,11 +151,26 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         return Term.A(ErlangBooleanAtoms.True);
     }
 
-    public void Link(ProcessContext owner, PortTerm identity)
+    public void Link(ProcessContext owner, PortTerm identity, bool priority = false)
     {
         lock (gate)
         {
-            RuntimePort port = Require(identity);
+            if (identity.Node != runtime.Node)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            RuntimePort? port = Find(identity);
+            if (port is null && !owner.TrapExits)
+                throw new ErlangException(ErlangErrorReasons.NoProcess);
+            if (priority)
+                owner.PriorityPortLinks.Add(identity);
+            else
+                owner.PriorityPortLinks.Remove(identity);
+            if (port is null)
+            {
+                owner.PortLinks.Add(identity);
+                runtime.PortRemoved(identity, new[] { owner.Self }, Term.A(ErlangErrorReasons.NoProcess));
+
+                return;
+            }
             port.Links.Add(owner.Self);
             owner.PortLinks.Add(identity);
         }
@@ -165,7 +180,10 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         lock (gate)
         {
+            if (identity.Node != runtime.Node)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
             owner.PortLinks.Remove(identity);
+            owner.PriorityPortLinks.Remove(identity);
             Find(identity)?.Links.Remove(owner.Self);
         }
     }
@@ -182,6 +200,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                 Close(port, reason);
         }
         owner.PortLinks.Clear();
+        owner.PriorityPortLinks.Clear();
     }
 
     public Term Info(Term identity, Term? item)
@@ -216,6 +235,8 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         {
             PortNames.Name => Cons.From(port.Options.Name.Select(character => Term.I(character))),
             PortNames.Links => Cons.From(port.Links),
+            PortNames.MonitoredBy => runtime.PortMonitoredBy(port.Identity),
+            PortNames.Monitors => Nil.Value,
             PortNames.Id => new Integer(port.Identity.Id),
             PortNames.Connected => port.Connected,
             PortNames.Input => Term.I(port.InputBytes),
@@ -388,6 +409,18 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         foreach (RuntimePort port in ports.Values.ToArray())
             Close(port, Term.A(ProcessExitReasons.Shutdown));
+    }
+
+    public void SendExit(ProcessContext sender, PortTerm identity, Term reason)
+    {
+        lock (gate)
+        {
+            if (identity.Node != runtime.Node)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            RuntimePort? port = Find(identity);
+            if (port is not null)
+                Close(port, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);
+        }
     }
 
     private void FlushLines(RuntimePort port)

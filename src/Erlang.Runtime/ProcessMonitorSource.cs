@@ -3,5 +3,6 @@ namespace Erlang;
 internal enum ProcessMonitorSource
 {
     Process,
-    TimeOffset
+    TimeOffset,
+    Port
 }

@@ -30,7 +30,7 @@ internal static class ProcessMonitorRegistrations
                 else
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
-            if (kind is not ProcessMonitorKinds.Process and not ProcessMonitorKinds.TimeOffset)
+            if (kind is not ProcessMonitorKinds.Process and not ProcessMonitorKinds.TimeOffset and not ProcessMonitorKinds.Port)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
             return ValueTask.FromResult<Term>(context.Runtime.MonitorSource(

@@ -705,6 +705,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
     {
         if (kind == ProcessMonitorKinds.Process)
             return Monitor(observer, target, options);
+        if (kind == ProcessMonitorKinds.Port)
+            return MonitorPort(observer, target, options);
         if (kind != ProcessMonitorKinds.TimeOffset || target is not Atom { Name: ClockMonitorNames.Service })
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
@@ -739,7 +741,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
             Term.Tuple(
                 entry.Tag,
                 reference,
-                Term.A(ProcessMonitorKinds.Process),
+                Term.A(entry.Source == ProcessMonitorSource.Port ? ProcessMonitorKinds.Port : ProcessMonitorKinds.Process),
                 entry.ReportedTarget,
                 reason
             ),
@@ -805,6 +807,12 @@ public sealed class ProcessRuntime : IAsyncDisposable
         bool priority
     )
     {
+        if (destination is PortTerm port)
+        {
+            Ports.SendExit(sender, port, reason);
+
+            return;
+        }
         if (destination is not Pid && destination is not ReferenceTerm)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
@@ -1063,8 +1071,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
             {
                 if (process.Terminated || !process.PortLinks.Remove(port))
                     return null;
+                bool priority = process.PriorityPortLinks.Remove(port);
                 if (process.TrapExits)
-                    return false;
+                    return priority;
                 if (!reason.Equals(Term.A(ProcessExitReasons.Normal)))
                     Terminate(process, reason);
 
@@ -1072,5 +1081,63 @@ public sealed class ProcessRuntime : IAsyncDisposable
             }
             );
         }
+        foreach (var pair in monitors.Where(pair => pair.Value.PortTarget?.Equals(port) == true).ToArray())
+            if (processes.TryGetValue(pair.Value.Observer, out var observer))
+                MonitorDown(
+                    observer,
+                    pair.Key,
+                    pair.Value,
+                    reason
+                );
     }
+
+    private ReferenceTerm MonitorPort(ProcessContext observer, Term target, ProcessMonitorOptions options)
+    {
+        lock (gate)
+        {
+            RequireAlive(observer.Self);
+            Term reported;
+            PortTerm? recipient;
+            if (target is PortTerm identity && identity.Node == Node)
+            {
+                recipient = identity;
+                reported = identity;
+            }
+            else if (target is Atom name)
+            {
+                recipient = WhereIs(name.Name) as PortTerm;
+                reported = Term.Tuple(name, NodeAtom);
+            }
+            else if (target is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0] is Atom registered && tuple.Items[1] is Atom node && node.Name == Node)
+            {
+                recipient = WhereIs(registered.Name) as PortTerm;
+                reported = Term.Tuple(registered, NodeAtom);
+            }
+            else
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            ReferenceTerm reference = options.AliasMode is null ? MakeReference() : CreateAlias(observer, options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false);
+            var entry = new ProcessMonitorEntry(
+                observer.Self,
+                null,
+                reported,
+                options.Tag,
+                options.Priority,
+                options.AliasMode == ProcessAliasNames.Explicit,
+                ProcessMonitorSource.Port,
+                recipient
+            );
+            monitors.Add(reference, entry);
+            if (recipient is null || !Ports.Alive(recipient))
+                MonitorDown(
+                    observer,
+                    reference,
+                    entry,
+                    Term.A(ErlangErrorReasons.NoProcess)
+                );
+
+            return reference;
+        }
+    }
+
+    internal Term PortMonitoredBy(PortTerm port) => Cons.From(monitors.Values.Where(entry => entry.PortTarget?.Equals(port) == true).Select(entry => entry.Observer));
 }

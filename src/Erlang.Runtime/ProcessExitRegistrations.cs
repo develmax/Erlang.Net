@@ -11,7 +11,10 @@ internal static class ProcessExitRegistrations
             (context, arguments) =>
         {
             bool priority = Priority(arguments[1], ProcessLinkOptionNames.Priority);
-            context.Runtime.Link(context, CoreModules.PidValue(arguments[0]), priority);
+            if (arguments[0] is PortTerm port)
+                context.Runtime.Ports.Link(context, port, priority);
+            else
+                context.Runtime.Link(context, CoreModules.PidValue(arguments[0]), priority);
 
             return ValueTask.FromResult<Term>(Term.A(ErlangBooleanAtoms.True));
         }

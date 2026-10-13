@@ -49,4 +49,6 @@ public static class PortNames
     public const string ProtocolConnect = "connect";
     public const string ProtocolClose = "close";
     public const string Closed = "closed";
+    public const string MonitoredBy = "monitored_by";
+    public const string Monitors = "monitors";
 }

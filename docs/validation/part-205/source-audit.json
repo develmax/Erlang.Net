@@ -1,0 +1,29 @@
+{
+  "Reuse": "Owned port table,shared process monitor/ref/alias/gate/mailbox priority and death cleanup;no dependency",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Baseline": "OTP-29.1.1",
+  "Scope": "Selected logical port lifecycle;full native drivers,busy/cross-sender/OS/resource/upstream/performance unfinished",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Blob": "cfb013f98303838e8a30e2688eac1122eb9865f2"
+    },
+    {
+      "Path": "erts/emulator/beam/io.c",
+      "Blob": "24468adbe35712bdb751349b0484df3c3ead76c1"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_monitor_link.c",
+      "Blob": "8cb1d125ff6fd2f9ae3d2bc3bdedfc75b9ffc847"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Blob": "924f6f8ff7305fc4cf951dc686eac94804b47ddc"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Blob": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    }
+  ],
+  "Adaptation": "Port monitor/name/local tuple,monitor options/aliases,port link/unlink,send_exit_signal_bif,erts_deliver_port_exit and actual monitored_by"
+}

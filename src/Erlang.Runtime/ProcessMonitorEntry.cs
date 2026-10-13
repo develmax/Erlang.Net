@@ -7,5 +7,6 @@ internal sealed record ProcessMonitorEntry(
     Term Tag,
     bool Priority,
     bool KeepAlias,
-    ProcessMonitorSource Source = ProcessMonitorSource.Process
+    ProcessMonitorSource Source = ProcessMonitorSource.Process,
+    PortTerm? PortTarget = null
 );
