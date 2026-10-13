@@ -1,0 +1,11 @@
+{
+  "Name": "erlang-hibernate-arity-256-after-wake",
+  "OldSource": "-module(hibernate_contract). -export([run/0,resume/1,again/1,finish/1]). run()->{P,R}=spawn_monitor(fun()->self()!wake,try erlang:hibernate(hibernate_contract,resume,lists:duplicate(256,x)) catch _:_ ->error(caught_old) end end),receive {'DOWN',R,process,P,{system_limit,_}}->ok after 5000->error(no_system_limit) end,done. resume(S)->receive wake->S!{resumed,self(),get(mark)} end. again(S)->receive first->S!{again,self()} end,erlang:hibernate(hibernate_contract,finish,[S]),S!unreachable_again. finish(S)->receive second->S!{finished,self()} end.",
+  "NewSource": "-module(hibernate_contract). -export([run/0,resume/1,again/1,finish/1]). run()->{P,R}=spawn_monitor(fun()->self()!wake,try erlang:hibernate(hibernate_contract,resume,lists:duplicate(256,x)) catch _:_ ->error(caught_old) end end),receive {'DOWN',R,process,P,{undef,_}}->ok after 5000->error(no_undef) end,done. resume(S)->receive wake->S!{resumed,self(),get(mark)} end. again(S)->receive first->S!{again,self()} end,erlang:hibernate(hibernate_contract,finish,[S]),S!unreachable_again. finish(S)->receive second->S!{finished,self()} end.",
+  "OldSourceSha256": "64FC5E82E88D18091694DD833B2A2ADD844FBC7ADA897EAB38F68003C634C857",
+  "NewSourceSha256": "7B7EDD826016EB401327D5C40133AA85EAEF07B9D6EA2A41C23CA5BB3C0767AE",
+  "OldCSharpSha256": "95F9D04231856B5E3426042A0A309828727ACFC311145B738C08D8A5CDFD4224",
+  "NewCSharpSha256": "EA7A4975CCBB4593BD369DE41D85846EC69EC2FE6DDCFFD7D7F4B95CE5C2728F",
+  "FixtureExpectedUnchanged": "{ok,done}",
+  "Reason": "Original5033/5034:MAX_ARG255 courtesy scan permits exactly256 proper arguments;apply MAX_REG1024 resolves missing export as undef after wake"
+}

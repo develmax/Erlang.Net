@@ -1,0 +1,21 @@
+{
+  "Name": "erlang-hibernate-arity-256-after-wake",
+  "Source": "-module(hibernate_contract). -export([run/0,resume/1,again/1,finish/1]). run()->{P,R}=spawn_monitor(fun()->self()!wake,try erlang:hibernate(hibernate_contract,resume,lists:duplicate(256,x)) catch _:_ ->error(caught_old) end end),receive {'DOWN',R,process,P,{system_limit,_}}->ok after 5000->error(no_system_limit) end,done. resume(S)->receive wake->S!{resumed,self(),get(mark)} end. again(S)->receive first->S!{again,self()} end,erlang:hibernate(hibernate_contract,finish,[S]),S!unreachable_again. finish(S)->receive second->S!{finished,self()} end.",
+  "SourceSha256": "64FC5E82E88D18091694DD833B2A2ADD844FBC7ADA897EAB38F68003C634C857",
+  "CSharpSha256": "95F9D04231856B5E3426042A0A309828727ACFC311145B738C08D8A5CDFD4224",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default",
+  "Expected": "{error,error,no_system_limit}",
+  "FixtureExpected": "{ok,done}",
+  "Actual": "{ok,done}",
+  "ExpectedStandardOutputHex": null,
+  "ExpectedStandardOutputAlternatives": null,
+  "ExpectedStandardErrorHex": null,
+  "NativeStandardOutputHex": null,
+  "NativeStandardErrorHex": null,
+  "SdkStandardOutputHex": null,
+  "SdkStandardErrorHex": null,
+  "NativeAndSdkStandardOutputExactlyMatch": true,
+  "StandardStreamsMatch": true,
+  "Passed": false
+}

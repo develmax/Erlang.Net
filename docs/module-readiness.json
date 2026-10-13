@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-219/ci-tests.json",
-  "LocalPassedTests": 5658,
+  "ComparisonTestReport": "validation/part-220/tests.json",
+  "LocalPassedTests": 5660,
   "RegisteredMfas": 444,
-  "PreviousRegisteredMfas": 441,
-  "RegisteredMfaDelta": 3,
+  "PreviousRegisteredMfas": 444,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -92,7 +92,8 @@
         "Part215: actual borrowed fd/Windows-handle IO, no child PID/status;8 pipe/file source contracts and idle reader cancellation with5567/full Windows local pipeline. Original comparisons pending216.",
         "Part216 corrects fd PID metadata and exit_status rejection from original failures;5568/full Windows local repair. Patched original proof pending217;prior Part215 claims corrected.",
         "Part218: spawn_opt2/3/4/5 links/monitors are installed under the runtime gate before child termination;monitor tags/aliases/priority delivery/options ordering/errors.46 new source cases,5618/full Windows main/draft,registry441 and erlang291/351. Original proof pending219.",
-        "Part220: hibernate0/3 real mailbox wake and continuation/stack transfer;delay_trap2 timeout/yield,large receive timer waits;37 new source scenarios,5658/full main/draft Windows. Original proof pending221."
+        "Part220: hibernate0/3 real mailbox wake and continuation/stack transfer;delay_trap2 timeout/yield,large receive timer waits;37 new source scenarios,5658/full main/draft Windows. Original proof pending221.",
+        "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -316,7 +317,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 4283
+      "RelatedPassedTests": 4285
     },
     {
       "Id": "Style checks",
@@ -5586,8 +5587,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 294,
-      "PreviousRegisteredMfas": 291,
-      "Delta": 3,
+      "PreviousRegisteredMfas": 294,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 83.8,
       "RequiresPreprocessing": false,

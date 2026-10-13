@@ -25,13 +25,13 @@ internal static class ProcessHibernateRegistrations
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             var values = new List<Term>();
             Term remaining = arguments[2];
-            while (remaining is Cons list && values.Count <= ProcessHibernateParameters.MaximumResumeArity)
+            while (remaining is Cons list && values.Count <= ProcessHibernateParameters.MaximumCourtesyArity)
             {
                 values.Add(list.Head);
                 remaining = list.Tail;
             }
             if (remaining is not Nil)
-                throw new ErlangException(values.Count > ProcessHibernateParameters.MaximumResumeArity ? ErlangErrorReasons.SystemLimit : ErlangErrorReasons.BadArgument);
+                throw new ErlangException(values.Count > ProcessHibernateParameters.MaximumCourtesyArity ? ErlangErrorReasons.SystemLimit : ErlangErrorReasons.BadArgument);
 
             throw new ProcessHibernateTransfer(module.Name, function.Name, values);
         }

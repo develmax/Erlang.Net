@@ -69,7 +69,7 @@ public static class HibernateCases
         );
         Add(
             "arity-256-after-wake",
-            "{P,R}=spawn_monitor(fun()->self()!wake,try erlang:hibernate(hibernate_contract,resume,lists:duplicate(256,x)) catch _:_ ->error(caught_old) end end),receive {'DOWN',R,process,P,{system_limit,_}}->ok after 5000->error(no_system_limit) end"
+            "{P,R}=spawn_monitor(fun()->self()!wake,try erlang:hibernate(hibernate_contract,resume,lists:duplicate(256,x)) catch _:_ ->error(caught_old) end end),receive {'DOWN',R,process,P,{undef,_}}->ok after 5000->error(no_undef) end"
         );
         Add(
             "pending-message-order",
@@ -83,6 +83,26 @@ public static class HibernateCases
             "killed-idle",
             "S=self(),{P,R}=spawn_monitor(fun()->S!{ready,self()},erlang:hibernate(hibernate_contract,resume,[S]) end),receive {ready,P}->ok after 5000->error(no_ready) end,exit(P,kill),receive {'DOWN',R,process,P,killed}->ok after 5000->error(no_kill) end"
         );
+
+        return cases;
+    }
+
+    public static IReadOnlyList<CompiledModuleCase> BoundaryModules { get; } = BuildBoundaries();
+
+    private static IReadOnlyList<CompiledModuleCase> BuildBoundaries()
+    {
+        var cases = new List<CompiledModuleCase>();
+
+        void Add(string name, string body) => cases.Add(new(
+            "erlang-hibernate-" + name,
+            "-module(hibernate_contract). -export([run/0,resume/1,again/1,finish/1]). run()->" + body + ",done. resume(S)->receive wake->S!{resumed,self(),get(mark)} end. again(S)->receive first->S!{again,self()} end,erlang:hibernate(hibernate_contract,finish,[S]),S!unreachable_again. finish(S)->receive second->S!{finished,self()} end.",
+            Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ));
+        foreach (string arity in new[] { "255", "256" })
+            Add(
+                "arity-" + arity + "-waits-before-undef",
+                "S=self(),{P,R}=spawn_monitor(fun()->S!{ready,self()},try erlang:hibernate(hibernate_contract,resume,lists:duplicate(" + arity + ",x)) catch _:_ ->error(caught_old) end end),receive {ready,P}->ok after 5000->error(no_ready) end,receive {'DOWN',R,process,P,_}->error(early_failure) after 20->ok end,P!wake,receive {'DOWN',R,process,P,{undef,_}}->ok after 5000->error(no_undef) end"
+            );
 
         return cases;
     }

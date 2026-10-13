@@ -120,9 +120,6 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     {
                         current = child =>
                         {
-                            if (transfer.Arguments.Count > ProcessHibernateParameters.MaximumResumeArity)
-                                throw new ErlangException(ErlangErrorReasons.SystemLimit);
-
                             return child.Runtime.Modules.Call(
                                 child,
                                 transfer.Module,

@@ -2,5 +2,5 @@ namespace Erlang;
 
 internal static class ProcessHibernateParameters
 {
-    public const int MaximumResumeArity = 255;
+    public const int MaximumCourtesyArity = 255;
 }
