@@ -15,6 +15,8 @@ internal sealed class PortOpenOptions
     public ulong HighWatermark { get; private set; } = PortParameters.DefaultHighWatermark;
     public ulong LowWatermark { get; private set; } = PortParameters.DefaultLowWatermark;
     public bool Parallelism { get; private set; }
+    public ulong MessageHighWatermark { get; private set; } = PortMessageParameters.DefaultHighWatermark;
+    public ulong MessageLowWatermark { get; private set; } = PortMessageParameters.DefaultLowWatermark;
 
     public static PortOpenOptions Parse(Term specification, Term settings)
     {
@@ -52,6 +54,9 @@ internal sealed class PortOpenOptions
                             break;
                         case Atom { Name: PortNames.BusyLimitsPort }:
                             (options.LowWatermark, options.HighWatermark) = Watermarks(tuple.Items[1]);
+                            break;
+                        case Atom { Name: PortNames.BusyLimitsMessageQueue }:
+                            (options.MessageLowWatermark, options.MessageHighWatermark) = Watermarks(tuple.Items[1]);
                             break;
                         case Atom { Name: PortLineNames.Option } when tuple.Items[1] is Integer line && line.Value > 0:
                             if (line.Value > PortLineParameters.MaximumBufferBytes)

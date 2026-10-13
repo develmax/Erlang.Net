@@ -659,6 +659,13 @@ public static class Execution
                             b[binding.Key] = binding.Value;
                     }
 
+                    if (x.Operator == ErlangOperators.Send)
+                    {
+                        await ErlangOperatorValues.TrySendAsync(ctx, left, right);
+
+                        return right;
+                    }
+
                     return x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse ? right : Binary(
                         x.Operator,
                         left,

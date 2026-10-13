@@ -45,39 +45,49 @@ internal static class ProcessAliasRegistrations
             ? CoreModules.Boolean(context.Runtime.Unalias(context, reference))
             : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
-        Add(ErlangBasicBifNames.Send, 3, (context, arguments) => Send(
-            context,
-            arguments[0],
-            arguments[1],
-            arguments[2]
-        ));
-        Add(
-            ProcessSendNames.NoSuspend,
-            2,
-            (context, arguments) => CoreModules.Boolean(Send(
-                context,
-                arguments[0],
-                arguments[1],
-                Nil.Value
-            ).Equals(Term.A(CommonAtomNames.Ok)))
-        );
-        Add(
-            ProcessSendNames.NoSuspend,
+        registry.Register(
+            ErlangModuleNames.Module,
+            ErlangBasicBifNames.Send,
             3,
-            (context, arguments) => CoreModules.Boolean(Send(
+            async (context, arguments) => await Send(
                 context,
                 arguments[0],
                 arguments[1],
                 arguments[2]
-            ).Equals(Term.A(CommonAtomNames.Ok)))
+            )
+        );
+        registry.Register(
+            ErlangModuleNames.Module,
+            ProcessSendNames.NoSuspend,
+            2,
+            async (context, arguments) => CoreModules.Boolean((await Send(
+                context,
+                arguments[0],
+                arguments[1],
+                Nil.Value,
+                true
+            )).Equals(Term.A(CommonAtomNames.Ok)))
+        );
+        registry.Register(
+            ErlangModuleNames.Module,
+            ProcessSendNames.NoSuspend,
+            3,
+            async (context, arguments) => CoreModules.Boolean((await Send(
+                context,
+                arguments[0],
+                arguments[1],
+                arguments[2],
+                true
+            )).Equals(Term.A(CommonAtomNames.Ok)))
         );
     }
 
-    private static Term Send(
+    private static async ValueTask<Term> Send(
         ProcessContext context,
         Term target,
         Term message,
-        Term options
+        Term options,
+        bool noSuspend = false
     )
     {
         bool priority = false, noConnect = false;
@@ -92,6 +102,7 @@ internal static class ProcessAliasRegistrations
                     noConnect = true;
                     break;
                 case Atom { Name: ProcessSendOptionNames.NoSuspend }:
+                    noSuspend = true;
                     break;
                 default:
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -99,13 +110,14 @@ internal static class ProcessAliasRegistrations
         }
         if (noConnect && (target is Pid remotePid && remotePid.Node != context.Runtime.Node || target is ReferenceTerm remoteReference && remoteReference.Node != context.Runtime.Node || target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom && address.Items[1] is Atom remoteNode && remoteNode.Name != context.Runtime.Node))
             return Term.A(ProcessSendResultNames.NoConnect);
-        ErlangOperatorValues.Send(
+        bool sent = await ErlangOperatorValues.TrySendAsync(
             context,
             target,
             message,
-            priority
+            priority,
+            noSuspend
         );
 
-        return Term.A(CommonAtomNames.Ok);
+        return Term.A(sent ? CommonAtomNames.Ok : ProcessSendResultNames.NoSuspend);
     }
 }

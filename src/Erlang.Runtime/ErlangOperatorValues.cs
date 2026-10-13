@@ -38,6 +38,35 @@ public static class ErlangOperatorValues
         _ => CoreModules.Arithmetic(operation, first, second)
     };
 
+    public static async ValueTask<bool> TrySendAsync(
+        ProcessContext context,
+        Term target,
+        Term message,
+        bool priority = false,
+        bool noSuspend = false
+    )
+    {
+        if (target is PortTerm || target is Atom name && context.Runtime.WhereIs(name.Name) is PortTerm)
+        {
+            context.SavedCalls.Sent();
+
+            return await context.Runtime.Ports.SendAsync(
+                target,
+                message,
+                noSuspend,
+                context.Cancellation
+            );
+        }
+        Send(
+            context,
+            target,
+            message,
+            priority
+        );
+
+        return true;
+    }
+
     public static Term Send(
         ProcessContext context,
         Term target,

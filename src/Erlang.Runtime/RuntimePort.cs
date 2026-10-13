@@ -25,6 +25,9 @@ internal sealed class RuntimePort(
     public Task Writes { get; set; } = Task.CompletedTask;
     public ulong QueuedBytes { get; set; }
     public bool Busy { get; set; }
+    public ulong MessageBytes { get; set; }
+    public bool MessagesBusy { get; set; }
+    public TaskCompletionSource MessageWritable { get; set; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     public TaskCompletionSource Writable { get; set; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     public CancellationTokenSource Stop { get; } = new();
     public Task? Pump { get; set; }

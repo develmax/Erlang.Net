@@ -1,0 +1,18 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    "erts/emulator/sys/unix/sys_drivers.c",
+    "erts/emulator/sys/win32/sys.c",
+    "erts/emulator/beam/erl_bif_port.c"
+  ],
+  "Implemented": false,
+  "Findings": [
+    "Unix in/out initially create both handshake pipes then close disabled parent descriptors;Windows substitutes NUL child handles for disabled directions. Inheriting the host console is not equivalent.",
+    "stderr_to_stdout assigns child stderr to the same OS stdout descriptor/handle;two managed reader tasks cannot preserve original inter-stream order.",
+    "arg0 is child argv[0],independent from executable lookup;Windows CreateProcess needs application name separated from command line.",
+    "nouse_stdio requires child descriptors3/4;ProcessStartInfo alone cannot assign arbitrary descriptors.",
+    "overlapped_io is a Windows transport setting with real native pipe flags;not an ordinary data-format option."
+  ],
+  "Next": "Implement a typed owned native spawn transport for descriptor/handle setup and custom argv0,then independently verify options and cleanup;do not silently accept unsupported settings."
+}

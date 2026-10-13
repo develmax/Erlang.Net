@@ -3,7 +3,7 @@ using Erlang.PortProbe;
 
 using Stream input = Console.OpenStandardInput();
 using Stream output = Console.OpenStandardOutput();
-if (args.FirstOrDefault() == PortProbeParameters.SlowEcho)
+if (args.FirstOrDefault() is PortProbeParameters.SlowEcho or PortProbeParameters.DrainFile)
 {
     await output.WriteAsync(PortProbeParameters.ReadyPacket);
     await output.FlushAsync();
@@ -24,13 +24,15 @@ if (args.FirstOrDefault() == PortProbeParameters.Emit)
     return PortProbeParameters.ExitCode;
 }
 var buffer = new byte[PortProbeParameters.BufferBytes];
+using Stream? capture = args.FirstOrDefault() == PortProbeParameters.DrainFile ? File.Create(args[1]) : null;
 while (true)
 {
     int count = await input.ReadAsync(buffer);
     if (count == 0)
         break;
-    await output.WriteAsync(buffer.AsMemory(0, count));
-    await output.FlushAsync();
+    Stream destination = capture ?? output;
+    await destination.WriteAsync(buffer.AsMemory(0, count));
+    await destination.FlushAsync();
 }
 
 return 0;

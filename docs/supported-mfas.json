@@ -1065,14 +1065,6 @@
   },
   {
     "Module": "erlang",
-    "Function": "!",
-    "Arity": 2,
-    "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:!/2",
-    "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished"
-  },
-  {
-    "Module": "erlang",
     "Function": "abs",
     "Arity": 1,
     "Status": "Partially compatible",
@@ -1277,7 +1269,15 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/2",
-    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138. Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
+  },
+  {
+    "Module": "erlang",
+    "Function": "!",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:!/2",
+    "Limits": "Source-directed basic BIF/operator/tuple/apply contracts;tuple callable rejection corrected after failed112;functional/error contracts verified against pinned original in114;complete resource/stack/error_info contracts unfinished Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
   },
   {
     "Module": "erlang",
@@ -2285,7 +2285,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:open_port/2",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished. Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
   },
   {
     "Module": "erlang",
@@ -2573,7 +2573,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/3",
-    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138. Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
   },
   {
     "Module": "erlang",
@@ -2581,7 +2581,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/2",
-    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138. Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
   },
   {
     "Module": "erlang",
@@ -2589,7 +2589,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/3",
-    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138."
+    "Limits": "Local owned/reply/priority aliases with pending signals checked at receiver admission; disconnected send paths. Native monitor-associated aliases, ports, connected distribution, physical signal scheduling and backpressure unfinished. Pinned original verification pending138. Part211:distinct process-to-port signal byte queue and busy_limits_msgq hysteresis;async language send admission,nosuspend declines without sending;18 source cases plus real protocol-close file drain;native physical scheduling remains partial."
   },
   {
     "Module": "erlang",

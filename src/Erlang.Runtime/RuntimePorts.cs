@@ -122,6 +122,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         port.Links.Clear();
         port.Stop.Cancel();
         port.Writable.TrySetResult();
+        port.MessageWritable.TrySetResult();
         // Resource disposal can block in the OS; it must not hold the runtime gate.
         Task cleanup = Task.Run(async () =>
         {
@@ -493,6 +494,41 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), data)));
     }
 
+    public async ValueTask<bool> SendAsync(
+        Term identity,
+        Term message,
+        bool noSuspend,
+        CancellationToken cancellation
+    )
+    {
+        while (true)
+        {
+            Task? wait;
+            bool accepted = false;
+            lock (gate)
+            {
+                RuntimePort? port = Find(identity);
+                if (port is null)
+                    return true;
+                wait = port.Busy ? port.Writable.Task : port.MessagesBusy ? port.MessageWritable.Task : null;
+                if (wait is null)
+                {
+                    Send(identity, message);
+                    accepted = true;
+                    if (!noSuspend && port.MessagesBusy)
+                        wait = port.MessageWritable.Task;
+                    else
+                        return true;
+                }
+                else if (noSuspend)
+                    return false;
+            }
+            await wait.WaitAsync(cancellation);
+            if (accepted)
+                return true;
+        }
+    }
+
     public Term Send(Term identity, Term message)
     {
         lock (gate)
@@ -514,6 +550,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                 port.Commands = Task.Run(async () =>
                 {
                     await previous;
+                    await port.Writes;
                     lock (gate)
                     {
                         Close(port, Term.A(ProcessExitReasons.Normal));
@@ -524,6 +561,15 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             }
             else if (operation is TupleTerm { Items.Count: 2 } command && command.Items[0] is Atom { Name: PortNames.ProtocolCommand })
             {
+                ulong size = 0;
+                try
+                {
+                    size = (ulong)ErlangIoData.Flatten(command.Items[1], false, false).BitLength / PortParameters.ByteBits;
+                }
+                catch (ErlangException) { }
+                port.MessageBytes += size;
+                if (port.MessageBytes > port.Options.MessageHighWatermark)
+                    port.MessagesBusy = true;
                 Task previous = port.Commands;
                 port.Commands = Task.Run(async () =>
                 {
@@ -537,6 +583,20 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                         lock (gate)
                             if (!port.Closed)
                                 runtime.PortBadSignal(port);
+                    }
+                    finally
+                    {
+                        lock (gate)
+                        {
+                            port.MessageBytes -= size;
+                            if (port.MessagesBusy && port.MessageBytes < port.Options.MessageLowWatermark)
+                            {
+                                port.MessagesBusy = false;
+                                TaskCompletionSource ready = port.MessageWritable;
+                                port.MessageWritable = new(TaskCreationOptions.RunContinuationsAsynchronously);
+                                ready.TrySetResult();
+                            }
+                        }
                     }
                 });
                 Track(port.Commands);
