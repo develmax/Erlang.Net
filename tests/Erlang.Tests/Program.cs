@@ -18,6 +18,7 @@ Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Ru
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);
 Test(Erlang.Tests.CodeImageHostNames.Test, Erlang.Tests.CodeImageHostChecks.Run);
 Test(Erlang.Tests.ProcessCodeHostNames.Test, Erlang.Tests.ProcessCodeHostChecks.Run);
+Test(Erlang.Tests.ProcessGarbageCollectionHostNames.Test, Erlang.Tests.ProcessGarbageCollectionHostChecks.Run);
 Test(Erlang.Tests.FunctionReloadHostNames.Test, Erlang.Tests.FunctionReloadHostChecks.Run);
 Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);

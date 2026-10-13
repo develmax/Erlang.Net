@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-221/tests.json",
-  "LocalPassedTests": 5660,
-  "RegisteredMfas": 444,
+  "ComparisonTestReport": "validation/part-222/ci-tests.json",
+  "LocalPassedTests": 5720,
+  "RegisteredMfas": 449,
   "PreviousRegisteredMfas": 444,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 5,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -93,7 +93,8 @@
         "Part216 corrects fd PID metadata and exit_status rejection from original failures;5568/full Windows local repair. Patched original proof pending217;prior Part215 claims corrected.",
         "Part218: spawn_opt2/3/4/5 links/monitors are installed under the runtime gate before child termination;monitor tags/aliases/priority delivery/options ordering/errors.46 new source cases,5618/full Windows main/draft,registry441 and erlang291/351. Original proof pending219.",
         "Part220: hibernate0/3 real mailbox wake and continuation/stack transfer;delay_trap2 timeout/yield,large receive timer waits;37 new source scenarios,5658/full main/draft Windows. Original proof pending221.",
-        "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222."
+        "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222.",
+        "Part223: CPU topology pure formatter and real global CLR collection with per-process request protocol,option/error/death/duplicate async identities;original message-area exported undefined stub.54 source cases,actual GC host checks,5720/full main/draft Windows. Original pending224."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -103,9 +104,10 @@
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure",
         "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility.",
         "Non-link/monitor spawn options: CPU priority,heap/GC/message-queue allocation,scheduler/async_dist and connected distribution/physical resources.",
-        "Hibernate BEAM per-process heap shrinking/GC and physical scheduling/resource contracts."
+        "Hibernate BEAM per-process heap shrinking/GC and physical scheduling/resource contracts.",
+        "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished."
       ],
-      "RelatedPassedTests": 554
+      "RelatedPassedTests": 559
     },
     {
       "Id": "Compiler",
@@ -175,7 +177,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1483
+      "RelatedPassedTests": 1488
     },
     {
       "Id": "gen_server adapters",
@@ -317,7 +319,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 4285
+      "RelatedPassedTests": 4339
     },
     {
       "Id": "Style checks",
@@ -5586,11 +5588,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 294,
+      "RegisteredMfas": 299,
       "PreviousRegisteredMfas": 294,
-      "Delta": 0,
+      "Delta": 5,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 83.8,
+      "ApiPresencePercent": 85.2,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5699,11 +5701,16 @@
         "erlang:float_to_list/1",
         "erlang:float_to_list/2",
         "erlang:floor/1",
+        "erlang:format_cpu_topology/1",
         "erlang:fun_info/1",
         "erlang:fun_info/2",
         "erlang:fun_info_mfa/1",
         "erlang:fun_to_list/1",
         "erlang:function_exported/3",
+        "erlang:garbage_collect/0",
+        "erlang:garbage_collect/1",
+        "erlang:garbage_collect/2",
+        "erlang:garbage_collect_message_area/0",
         "erlang:get/0",
         "erlang:get/1",
         "erlang:get_cookie/0",

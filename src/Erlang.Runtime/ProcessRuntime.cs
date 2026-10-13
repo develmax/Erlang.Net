@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class ProcessRuntime : IAsyncDisposable
+public sealed partial class ProcessRuntime : IAsyncDisposable
 {
     private readonly object gate = new();
     private readonly Dictionary<Pid, ProcessContext> processes = new();
@@ -968,6 +968,9 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 foreach (var request in ctx.PendingCodeChecks)
                     ReplyCodeCheck(request, false);
                 ctx.PendingCodeChecks.Clear();
+                foreach (var request in ctx.PendingGarbageCollections)
+                    ReplyGarbageCollection(request, false);
+                ctx.PendingGarbageCollections.Clear();
                 foreach (var request in ctx.PendingSavedCallRequests)
                     ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument));
                 ctx.PendingSavedCallRequests.Clear();

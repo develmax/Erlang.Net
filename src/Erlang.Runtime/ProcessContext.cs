@@ -28,6 +28,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal bool Terminated;
     internal volatile bool SuspensionRequested;
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();
+    internal HashSet<ProcessGarbageCollectionRequest> PendingGarbageCollections { get; } = new();
     internal HashSet<ProcessSavedCallRequest> PendingSavedCallRequests { get; } = new();
     internal ProcessSavedCalls SavedCalls { get; } = new();
     private int reductions;

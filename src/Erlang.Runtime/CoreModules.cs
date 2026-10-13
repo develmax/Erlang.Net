@@ -770,6 +770,7 @@ public static class CoreModules
         ProcessSavedCallRegistrations.Register(r);
         PortRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
+        ProcessGarbageCollectionRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);
@@ -780,6 +781,7 @@ public static class CoreModules
         ProcessSpawnOptionRegistrations.Register(r);
         ProcessHibernateRegistrations.Register(r);
         ProcessDelayRegistrations.Register(r);
+        CpuTopologyFormatting.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);

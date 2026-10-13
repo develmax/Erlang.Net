@@ -2401,6 +2401,38 @@
   },
   {
     "Module": "erlang",
+    "Function": "garbage_collect",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:garbage_collect/0",
+    "Limits": "Part223: source-guided pure CPU topology formatter,actual global CLR major/minor garbage collection and sync/async target requests,duplicates/options/errors/dead-target reply protocols;message-area preloaded stub follows original error:undefined (no GC claim).54 source scenarios and actual GC/death host check;5720/full main/draft Windows. Original5090 plus8 fd pending224. CLR global heap differs from per-process BEAM heap/GC;physical scheduler/reductions/dirty tasks/max_heap/resource/distribution/full upstream contracts partial."
+  },
+  {
+    "Module": "erlang",
+    "Function": "garbage_collect",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:garbage_collect/1",
+    "Limits": "Part223: source-guided pure CPU topology formatter,actual global CLR major/minor garbage collection and sync/async target requests,duplicates/options/errors/dead-target reply protocols;message-area preloaded stub follows original error:undefined (no GC claim).54 source scenarios and actual GC/death host check;5720/full main/draft Windows. Original5090 plus8 fd pending224. CLR global heap differs from per-process BEAM heap/GC;physical scheduler/reductions/dirty tasks/max_heap/resource/distribution/full upstream contracts partial."
+  },
+  {
+    "Module": "erlang",
+    "Function": "garbage_collect",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:garbage_collect/2",
+    "Limits": "Part223: source-guided pure CPU topology formatter,actual global CLR major/minor garbage collection and sync/async target requests,duplicates/options/errors/dead-target reply protocols;message-area preloaded stub follows original error:undefined (no GC claim).54 source scenarios and actual GC/death host check;5720/full main/draft Windows. Original5090 plus8 fd pending224. CLR global heap differs from per-process BEAM heap/GC;physical scheduler/reductions/dirty tasks/max_heap/resource/distribution/full upstream contracts partial."
+  },
+  {
+    "Module": "erlang",
+    "Function": "garbage_collect_message_area",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:garbage_collect_message_area/0",
+    "Limits": "Part223: source-guided pure CPU topology formatter,actual global CLR major/minor garbage collection and sync/async target requests,duplicates/options/errors/dead-target reply protocols;message-area preloaded stub follows original error:undefined (no GC claim).54 source scenarios and actual GC/death host check;5720/full main/draft Windows. Original5090 plus8 fd pending224. CLR global heap differs from per-process BEAM heap/GC;physical scheduler/reductions/dirty tasks/max_heap/resource/distribution/full upstream contracts partial."
+  },
+  {
+    "Module": "erlang",
     "Function": "function_exported",
     "Arity": 3,
     "Status": "Partially compatible",
@@ -2702,6 +2734,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:delay_trap/2",
     "Limits": "Part220: real hibernate0 wait/continuation, hibernate3 discarded catch/after stack and MFA transfer after wake without consuming messages; delay_trap2 yield/selective wait, unsigned32 timeout boundaries and segmented CLR waits.37 permanent source scenarios;5658/full main/draft Windows. Original5034 plus8 fd pending221. Per-process BEAM heap shrinking/GC,physical scheduling/resources/full upstream contracts remain partial."
+  },
+  {
+    "Module": "erlang",
+    "Function": "format_cpu_topology",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:format_cpu_topology/1",
+    "Limits": "Part223: source-guided pure CPU topology formatter,actual global CLR major/minor garbage collection and sync/async target requests,duplicates/options/errors/dead-target reply protocols;message-area preloaded stub follows original error:undefined (no GC claim).54 source scenarios and actual GC/death host check;5720/full main/draft Windows. Original5090 plus8 fd pending224. CLR global heap differs from per-process BEAM heap/GC;physical scheduler/reductions/dirty tasks/max_heap/resource/distribution/full upstream contracts partial."
   },
   {
     "Module": "erlang",

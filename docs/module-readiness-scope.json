@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-221/tests.json",
+  "ComparisonTestReport": "validation/part-222/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -53,7 +53,8 @@
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure",
         "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility.",
         "Non-link/monitor spawn options: CPU priority,heap/GC/message-queue allocation,scheduler/async_dist and connected distribution/physical resources.",
-        "Hibernate BEAM per-process heap shrinking/GC and physical scheduling/resource contracts."
+        "Hibernate BEAM per-process heap shrinking/GC and physical scheduling/resource contracts.",
+        "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished."
       ],
       "Implemented": [
         "selective receive and local links/monitors",
@@ -98,7 +99,8 @@
         "Part216 corrects fd PID metadata and exit_status rejection from original failures;5568/full Windows local repair. Patched original proof pending217;prior Part215 claims corrected.",
         "Part218: spawn_opt2/3/4/5 links/monitors are installed under the runtime gate before child termination;monitor tags/aliases/priority delivery/options ordering/errors.46 new source cases,5618/full Windows main/draft,registry441 and erlang291/351. Original proof pending219.",
         "Part220: hibernate0/3 real mailbox wake and continuation/stack transfer;delay_trap2 timeout/yield,large receive timer waits;37 new source scenarios,5658/full main/draft Windows. Original proof pending221.",
-        "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222."
+        "Part221: original5033/5034 revealed one hibernate256 wake mismatch;corrected courtesy versus apply limit and undef after wake. Initial original/CI preserved,5660/full repair,one explicit source correction plus2 new boundary scenarios;original proof pending222.",
+        "Part223: CPU topology pure formatter and real global CLR collection with per-process request protocol,option/error/death/duplicate async identities;original message-area exported undefined stub.54 source cases,actual GC host checks,5720/full main/draft Windows. Original pending224."
       ],
       "Id": "Runtime",
       "TestPrefixes": [
