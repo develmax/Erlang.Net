@@ -160,7 +160,10 @@ public static class CoreModules
             2,
             (c, a) =>
  {
-     c.Runtime.Register(AtomName(a[0]), PidValue(a[1]));
+     if (a[1] is PortTerm port)
+         c.Runtime.RegisterPort(AtomName(a[0]), port);
+     else
+         c.Runtime.Register(AtomName(a[0]), PidValue(a[1]));
 
      return Term.A(ErlangBooleanAtoms.True);
  }
@@ -188,7 +191,10 @@ public static class CoreModules
             1,
             (c, a) =>
  {
-     c.Runtime.Link(c, PidValue(a[0]));
+     if (a[0] is PortTerm port)
+         c.Runtime.Ports.Link(c, port);
+     else
+         c.Runtime.Link(c, PidValue(a[0]));
 
      return Term.A(ErlangBooleanAtoms.True);
  }
@@ -199,7 +205,10 @@ public static class CoreModules
             1,
             (c, a) =>
  {
-     c.Runtime.Unlink(c, PidValue(a[0]));
+     if (a[0] is PortTerm port)
+         c.Runtime.Ports.Unlink(c, port);
+     else
+         c.Runtime.Unlink(c, PidValue(a[0]));
 
      return Term.A(ErlangBooleanAtoms.True);
  }
@@ -759,6 +768,7 @@ public static class CoreModules
         ErlangCookieRegistrations.Register(r);
         RuntimeNodeControlRegistrations.Register(r);
         ProcessSavedCallRegistrations.Register(r);
+        PortRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);

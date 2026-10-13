@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-199/tests.json",
-  "LocalPassedTests": 5359,
-  "RegisteredMfas": 424,
+  "ComparisonTestReport": "validation/part-200/ci-tests.json",
+  "LocalPassedTests": 5401,
+  "RegisteredMfas": 437,
   "PreviousRegisteredMfas": 424,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 13,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 6,
   "Components": [
@@ -84,7 +84,8 @@
         "Part191:six node-qualified spawn wrappers with actual local/unconnected owned lifecycle,atomic link/monitor,inherited leader and slot cleanup;5186/full local,4607 original pending192.",
         "Part195:four cookie wrappers into actual registered auth service;absence errors and guards,46 new source contracts;native flatmap atom identity printer order.5238/full local;automatic distribution/auth startup and full native metadata remain unfinished.",
         "Part197:four current-state node monitor/trap/disconnect exports,actual nodedown and kernel infinity/retry calls;72 source scenarios,named host and5315/full local;connected distribution remains unfinished.",
-        "Part199:real owned saved-call buffer,queued process_flag3 replacement/death cleanup andlast_calls observation;42 sourcecases and5359/full local;native physical/debug event-set parity unfinished."
+        "Part199:real owned saved-call buffer,queued process_flag3 replacement/death cleanup andlast_calls observation;42 sourcecases and5359/full local;native physical/debug event-set parity unfinished.",
+        "Part201:13 port MFAs over real external-process resources;owner links/shared names,actual data/EOF/exit status,packet1/2/4,data storage/callback rejection;5401/full local,original4795 pending202;native driver/platform/busy/monitor/full signal scheduling parity unfinished."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -93,7 +94,7 @@
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
       ],
-      "RelatedPassedTests": 339
+      "RelatedPassedTests": 353
     },
     {
       "Id": "Compiler",
@@ -163,7 +164,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1463
+      "RelatedPassedTests": 1476
     },
     {
       "Id": "gen_server adapters",
@@ -305,7 +306,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 4015
+      "RelatedPassedTests": 4043
     },
     {
       "Id": "Style checks",
@@ -5574,11 +5575,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 274,
+      "RegisteredMfas": 287,
       "PreviousRegisteredMfas": 274,
-      "Delta": 0,
+      "Delta": 13,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 78.1,
+      "ApiPresencePercent": 81.8,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5778,12 +5779,25 @@
         "erlang:nodes/2",
         "erlang:not/1",
         "erlang:now/0",
+        "erlang:open_port/2",
         "erlang:or/2",
         "erlang:phash/2",
         "erlang:phash2/1",
         "erlang:phash2/2",
         "erlang:pid_to_list/1",
+        "erlang:port_call/2",
+        "erlang:port_call/3",
+        "erlang:port_close/1",
+        "erlang:port_command/2",
+        "erlang:port_command/3",
+        "erlang:port_connect/2",
+        "erlang:port_control/3",
+        "erlang:port_get_data/1",
+        "erlang:port_info/1",
+        "erlang:port_info/2",
+        "erlang:port_set_data/2",
         "erlang:port_to_list/1",
+        "erlang:ports/0",
         "erlang:posixtime_to_universaltime/1",
         "erlang:pre_loaded/0",
         "erlang:process_flag/2",

@@ -1,0 +1,52 @@
+namespace Erlang;
+
+public static class PortNames
+{
+    public const string Open = "open_port";
+    public const string Command = "port_command";
+    public const string Close = "port_close";
+    public const string Connect = "port_connect";
+    public const string Info = "port_info";
+    public const string GetData = "port_get_data";
+    public const string SetData = "port_set_data";
+    public const string Call = "port_call";
+    public const string Control = "port_control";
+    public const string Ports = "ports";
+    public const string Spawn = "spawn";
+    public const string SpawnExecutable = "spawn_executable";
+    public const string Binary = "binary";
+    public const string Stream = "stream";
+    public const string Packet = "packet";
+    public const string Args = "args";
+    public const string WorkingDirectory = "cd";
+    public const string Environment = "env";
+    public const string ExitStatus = "exit_status";
+    public const string Eof = "eof";
+    public const string Hide = "hide";
+    public const string UseStdio = "use_stdio";
+    public const string Input = "input";
+    public const string Output = "output";
+    public const string Name = "name";
+    public const string Links = "links";
+    public const string Id = "id";
+    public const string Connected = "connected";
+    public const string OsPid = "os_pid";
+    public const string RegisteredName = "registered_name";
+    public const string Data = "data";
+    public const string BadOption = "badopt";
+    public const string BadType = "badtype";
+    public const string NoSuspend = "nosuspend";
+    public const string Force = "force";
+    public const string NotSupported = "notsup";
+    public const string NoEntry = "enoent";
+    public const string AccessDenied = "eacces";
+    public const string IoError = "eio";
+    public const string ErrorModule = "module";
+    public const string ErrorFormatter = "erl_erts_errors";
+    public const string Cause = "cause";
+    public const string BadSignal = "badsig";
+    public const string ProtocolCommand = "command";
+    public const string ProtocolConnect = "connect";
+    public const string ProtocolClose = "close";
+    public const string Closed = "closed";
+}

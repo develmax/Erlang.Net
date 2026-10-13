@@ -9,7 +9,8 @@ public sealed class ProcessRuntime : IAsyncDisposable
     private readonly ProcessSlotTable processSlots;
     public int ProcessLimit => processSlots.Capacity;
     public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
-    private readonly Dictionary<string, Pid> names = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Term> names = new(StringComparer.Ordinal);
+    internal RuntimePorts Ports { get; }
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private long nextPid, nextRef;
@@ -71,6 +72,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
         Timers = new(this, gate);
         Suspensions = new(gate, processes, Timers);
+        Ports = new(this, gate);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
@@ -277,7 +279,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
             {
                 Term value = key.Name switch
                 {
-                    ProcessInfoNames.Links => Cons.From(process.Links),
+                    ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.GroupLeader => process.GroupLeader,
                     ProcessInfoNames.LastCalls => process.SavedCalls.Snapshot(),
@@ -327,8 +329,13 @@ public sealed class ProcessRuntime : IAsyncDisposable
             RequireAlive(pid);
             if (name == ProcessRegistryAtoms.Undefined || names.ContainsValue(pid))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            if (names.TryGetValue(name, out existing))
+            if (names.TryGetValue(name, out var registered))
+            {
+                existing = registered as Pid;
+
                 return false;
+            }
+            existing = null;
             names.Add(name, pid);
 
             return true;
@@ -926,6 +933,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                     aliases.Remove(alias);
                 ctx.Terminated = true;
                 ctx.ExitReason = reason;
+                Ports.OwnerTerminated(ctx, reason);
                 foreach (var name in names.Where(p => p.Value.Equals(ctx.Self)).Select(p => p.Key).ToArray())
                     names.Remove(name);
                 var links = ctx.Links.ToArray();
@@ -977,6 +985,7 @@ public sealed class ProcessRuntime : IAsyncDisposable
                 return;
             disposed = true;
             Timers.Dispose();
+            Ports.Shutdown();
             foreach (var process in processes.Values.ToArray())
                 Terminate(process, Term.A(ProcessExitReasons.Shutdown));
         }
@@ -988,12 +997,80 @@ public sealed class ProcessRuntime : IAsyncDisposable
         {
             disposed = true;
             Timers.Dispose();
+            Ports.Shutdown();
             foreach (var p in processes.Values.ToArray())
                 Terminate(p, Term.A(ProcessExitReasons.Shutdown));
         }
 
         await initializer.Completion.ConfigureAwait(false);
+        await Ports.Drain().ConfigureAwait(false);
         if (ownsStandardStreams)
             StandardStreams.Dispose();
+    }
+
+    internal bool AddPortLink(Pid pid, PortTerm port)
+    {
+        if (!processes.TryGetValue(pid, out var process))
+            return false;
+        process.PortLinks.Add(port);
+
+        return true;
+    }
+
+    internal string? PortRegisteredName(PortTerm port) => names.FirstOrDefault(pair => pair.Value.Equals(port)).Key;
+
+    internal void PortBadSignal(RuntimePort port)
+    {
+        if (!processes.TryGetValue(port.Connected, out var process))
+            return;
+        Term reason = Term.A(PortNames.BadSignal);
+        process.Mailbox.SendPending(
+            Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), port.Identity, reason),
+            () =>
+        {
+            if (process.Terminated)
+                return null;
+            if (process.TrapExits)
+                return false;
+            Terminate(process, reason);
+
+            return null;
+        }
+        );
+    }
+
+    internal void RegisterPort(string name, PortTerm port)
+    {
+        lock (gate)
+        {
+            if (!Ports.Alive(port) || name == ProcessRegistryAtoms.Undefined || names.ContainsKey(name) || names.ContainsValue(port))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            names.Add(name, port);
+        }
+    }
+
+    internal void PortRemoved(PortTerm port, IReadOnlyList<Pid> links, Term reason)
+    {
+        foreach (string name in names.Where(pair => pair.Value.Equals(port)).Select(pair => pair.Key).ToArray())
+            names.Remove(name);
+        foreach (Pid pid in links)
+        {
+            if (!processes.TryGetValue(pid, out var process))
+                continue;
+            process.Mailbox.SendPending(
+                Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), port, reason),
+                () =>
+            {
+                if (process.Terminated || !process.PortLinks.Remove(port))
+                    return null;
+                if (process.TrapExits)
+                    return false;
+                if (!reason.Equals(Term.A(ProcessExitReasons.Normal)))
+                    Terminate(process, reason);
+
+                return null;
+            }
+            );
+        }
     }
 }

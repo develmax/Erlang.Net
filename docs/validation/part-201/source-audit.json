@@ -1,0 +1,53 @@
+{
+  "NotImplementedYet": false,
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Baseline": "OTP-29.1.1",
+  "Sources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Blob": "8e38a056819e114b89dbd90d6734c163573b0fdb"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_port.c",
+      "Blob": "cfa351a7550e11ce360aaf2d1103cc997488a1e2"
+    },
+    {
+      "Path": "erts/emulator/beam/io.c",
+      "Blob": "24468adbe35712bdb751349b0484df3c3ead76c1"
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys.c",
+      "Blob": "218da5447585fd54183a75f8c46c5ee3a8f180af"
+    },
+    {
+      "Path": "erts/emulator/sys/win32/sys.c",
+      "Blob": "25c49b5c685f2048c3ac91f815432b4007fe7eb7"
+    },
+    {
+      "Path": "erts/emulator/test/port_bif_SUITE.erl",
+      "Blob": "c11f63f5d5da05f56eb2d3a9081d95a0d9ea6d91"
+    },
+    {
+      "Blob": "421acafd1c5cb99c4e74b88ceacba687e9ed2c1f",
+      "Path": "erts/emulator/beam/erl_port.h"
+    },
+    {
+      "Blob": "924f6f8ff7305fc4cf951dc686eac94804b47ddc",
+      "Path": "erts/emulator/beam/erl_bif_info.c"
+    }
+  ],
+  "Reuse": "SDK Process/Stream and current immutable terms,mailbox/name/signal infrastructure;no actor framework/new package/production BEAM",
+  "CandidateBackend": "SDK System.Diagnostics.Process and Stream with real owned port table,actual input/output pumps and lifecycle",
+  "Scope": "Full native driver ABI/NIF/distribution/backend timing/platform/resource equivalence remains future work;port API readiness unchanged during audit",
+  "Requirements": [
+    "open_port validates specification/options before actual resource creation;source wrapper error_info/cause",
+    "Every table identity represents a real live driver/resource;not fabricated ETF PortTerm",
+    "Opening/reconnecting links actual owner processes;close delivers real port exit and cleans registrations/links/resources",
+    "Actual IO emits source-shaped data/eof/exit-status to current connected owner with preserved ordering",
+    "Separate port data term storage from child OS process state",
+    "Real driver capabilities determine unsupported port_call/control;do not return synthetic success",
+    "Names share process/port registry uniqueness;process_info links and owner death require integration",
+    "Use owned portable probe executable in comparisons;never invoke user-reserved tests or arbitrary external programs"
+  ],
+  "CandidatePart": 201
+}

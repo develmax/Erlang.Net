@@ -45,6 +45,12 @@ public static class ErlangOperatorValues
         bool priority = false
     )
     {
+        if (target is PortTerm || target is Atom portName && context.Runtime.WhereIs(portName.Name) is PortTerm)
+        {
+            context.SavedCalls.Sent();
+
+            return context.Runtime.Ports.Send(target, message);
+        }
         if (target is ReferenceTerm reference)
         {
             context.SavedCalls.Sent();

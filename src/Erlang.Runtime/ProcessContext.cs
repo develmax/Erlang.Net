@@ -22,6 +22,7 @@ public sealed class ProcessContext : ITermExecutionContext
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
+    internal HashSet<PortTerm> PortLinks { get; } = new();
     internal HashSet<Pid> PriorityLinks { get; } = new();
     internal bool Terminated;
     internal volatile bool SuspensionRequested;
