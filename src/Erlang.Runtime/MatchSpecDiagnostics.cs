@@ -10,6 +10,7 @@ public static class MatchSpecDiagnostics
     public const string VariableMapKey = "Variable found in map key.";
     public const string WildcardMapKey = "Underscore found in map key.";
     public const string InvalidHead = "Match head is invalid in this context.";
+    public const string EmptyTableBody = "Body clause does not return anything.";
 
     public static string Unbound(int variable) => $"Variable ${variable} is unbound.";
 

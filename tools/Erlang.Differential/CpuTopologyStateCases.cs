@@ -73,7 +73,10 @@ public static class CpuTopologyStateCases
             );
 
         foreach (string query in new[] { "{cpu_topology,wrong}", "{internal_cpu_topology,wrong}", "{cpu_topology,0}", "{internal_cpu_topology}", "internal_cpu_topology" })
-            Add("invalid-query-" + cases.Count, "try erlang:system_info(" + query + ") of _->error(accepted) catch error:badarg->ok end");
+        {
+            string reason = query == "{internal_cpu_topology,wrong}" ? "[]" : "badarg";
+            Add("invalid-query-" + cases.Count, "try erlang:system_info(" + query + ") of _->error(accepted) catch error:" + reason + "->ok end");
+        }
 
         return cases;
     }

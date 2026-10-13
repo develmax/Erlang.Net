@@ -41,7 +41,10 @@ public static class MatchSpecCases
             "{ok,{value,7,[7|tail]},[],[]}=erlang:match_spec_test({7},[{{'$1'},[],[{{value,'$1',['$1'|tail]}}]}],table)"
         );
         Add("table-constant", "{ok,{'$1',[]},[],[]}=erlang:match_spec_test(any,[{'_',[],[{const,{'$1',[]}}]}],table)");
-        Add("table-empty-body", "{ok,true,[],[]}=erlang:match_spec_test(any,[{'_',[],[]}],table)");
+        Add(
+            "table-empty-body",
+            "{error,[{error,\"Body clause does not return anything.\"}]}=erlang:match_spec_test(any,[{'_',[],[]}],table)"
+        );
         Add("table-body-exit", "{ok,'EXIT',[],[]}=erlang:match_spec_test(any,[{'_',[],[{'div',1,0}]}],table)");
         Add("table-body-recover", "{ok,kept,[],[]}=erlang:match_spec_test(any,[{'_',[],[{'div',1,0},kept]}],table)");
         Add(

@@ -1,0 +1,61 @@
+{
+  "Review": "PASS source-only",
+  "SourceFrozen": true,
+  "BuildPerformed": false,
+  "OriginalVerified": false,
+  "InitialFailedFull": "6389/6391; inherited mapkey2 produced extra newEmptyTableBody",
+  "HardPatternPin": "erl_db_util.c1794/1801 and1846/1854 direct gotoerror after mapkeydiagnostic beforeguard/body",
+  "GateScope": "Only diagnostics emitted by ValidatePattern (currently variable/wildcard mapkey hardfail) suppress newly added emptybodydiagnostic. Recoverableguard/expression diagnostics are not blanket-suppressed.",
+  "OldFixtureCorrectionsStillExactly": 6,
+  "OldRegressionSourcesChanged": false,
+  "Prior8NewSourcesPreserved": true,
+  "AddedPrecedenceSources": [
+    {
+      "Name": "erlang-match-repair-nested-variable-map-key-before-empty-body",
+      "Source": "-module(match_repair_contract). -export([run/0]). run()->{error,[{error,\"Variable found in map key.\"}]}=erlang:match_spec_test({#{}},[{{#{'$1'=>a}},[],[]}],table),done.",
+      "SourceSha256": "81073792925E4A4016315863EBB1FB9A869A955D046631BF86BD5661D2D1B60A",
+      "Expected": "{ok,done}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null
+    },
+    {
+      "Name": "erlang-match-repair-nested-underscore-map-key-before-empty-body",
+      "Source": "-module(match_repair_contract). -export([run/0]). run()->{error,[{error,\"Underscore found in map key.\"}]}=erlang:match_spec_test({#{}},[{{#{'_'=>a}},[],[]}],table),done.",
+      "SourceSha256": "BA39084BBCC446CB71BCEEC228AC9BD4DA54F5244C27F187835742FE7EB9C5C8",
+      "Expected": "{ok,done}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null
+    }
+  ],
+  "MatchProviderCount": 10,
+  "TotalAppend": 43,
+  "ExpectedFocus": 57,
+  "ExpectedFull": 6393,
+  "ExpectedSdkSources": 4790,
+  "ExpectedComparable": 4784,
+  "ExpectedNativePlan": 5713,
+  "Diagnoses": 151,
+  "Exclusions": 6,
+  "Registry": 484,
+  "ChangedCandidateFiles": [
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+      "Sha256": "D136F6FA83521410F7D4209406C10E24C3FC1AA0D2D1845A630F5AC4D83452B8"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Part232MatchRepairCases.cs",
+      "Sha256": "AE5AF274E120661DCDB23282BC8D6DB0077FAEE99B5B34C69B370FA4315BC094"
+    },
+    {
+      "Path": "docs/part232-match-repair-audit.md",
+      "Sha256": "CB29A50F2ABCCF4B14E66FD219E2407C5485F444EFA815BAD62B717A95CC709C"
+    }
+  ],
+  "HelperContractExecutionLockedUntilRootRebuild": true
+}

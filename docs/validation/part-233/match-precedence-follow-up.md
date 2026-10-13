@@ -1,0 +1,9 @@
+# Follow-up after bounded233 publication
+
+The frozen233 revision restores the two measured inherited invalid-map-key/empty-body diagnostic contracts and adds two nested precedence probes. It deliberately suppresses only the newly introduced EmptyTableBody diagnostic after a hard pattern failure. Isolated6393/full and focus57 passed; Main full and future exact-head original comparison are distinct evidence.
+
+A concrete pre-existing gap remains: MatchSpecCompiler still invokes guard validation and nonempty body validation after ValidatePattern reports a variable/underscore map-key hard error. Pinned OTP-29.1.1 erl_db_util.c1794/1801 and1846/1854 immediately goes to error before either phase. A source-guided, not yet oracle-executed probe is `erlang:match_spec_test(#{},[{#{'$1'=>a},[{does_not_exist}],[true]}],table)`: native source yields only the map-key error, while current SDK validation can accumulate an additional guard diagnostic.
+
+After preserving frozen233 publication/evidence, use a new isolated candidate to implement actual hard-pattern early-error propagation. Add independent probes combining direct/nested variable and wildcard map keys with invalid guards and nonempty bodies, plus valid-pattern recoverable guard errors to protect the original accumulation distinction. Determine clause/program short-circuit ordering from the pinned compiler before using a generic diagnostics-count gate. Do not rewrite six corrected fixtures, diagnostics/exclusions, or original232 failure evidence. Guard all prior source/outcome/codegen/context/stream contracts and rerun focused/full/original comparisons.
+
+This follow-up is a bounded compiler diagnostic-ordering task. It does not establish full match-spec grammar, production trace actions, physical profile event delivery, BEAM loading or whole erlang completeness. No source edits/builds were performed while documenting it.

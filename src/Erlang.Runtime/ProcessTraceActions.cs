@@ -1,8 +1,8 @@
 namespace Erlang;
 
-internal sealed class ProcessTraceActions(bool calls) : IMatchSpecTraceActions
+internal sealed class ProcessTraceActions : IMatchSpecTraceActions
 {
-    public bool Supports(string name, int arity) => name == MatchSpecNames.Message && arity == 1 || calls && arity == 0 && name is MatchSpecNames.ReturnTrace or MatchSpecNames.ExceptionTrace;
+    public bool Supports(string name, int arity) => name == MatchSpecNames.Message && arity == 1 || arity == 0 && name is MatchSpecNames.ReturnTrace or MatchSpecNames.ExceptionTrace;
 
     public Term Execute(ProcessContext context, string name, IReadOnlyList<Term> arguments)
     {

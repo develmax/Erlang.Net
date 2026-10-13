@@ -36,9 +36,16 @@ internal static class CpuTopologyStateRegistrations
         bool external;
         if (query is Atom { Name: CpuTopologyStateNames.External })
             external = true;
-        else if (query is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0] is Atom { Name: CpuTopologyStateNames.Internal or CpuTopologyStateNames.External } type && tuple.Items[1] is Atom which)
+        else if (query is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0] is Atom { Name: CpuTopologyStateNames.Internal or CpuTopologyStateNames.External } type)
         {
             external = type.Name == CpuTopologyStateNames.External;
+            if (tuple.Items[1] is not Atom which)
+            {
+                if (external)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+                throw InvalidInternalSelector();
+            }
             selector = which.Name;
         }
         else
@@ -47,9 +54,16 @@ internal static class CpuTopologyStateRegistrations
 
             return false;
         }
+        if (!external && selector is not (CpuTopologyStateNames.Used or CpuTopologyStateNames.Defined or CpuTopologyStateNames.Detected))
+            throw InvalidInternalSelector();
         Term topology = context.Runtime.CpuTopology.Get(selector);
         result = external ? CpuTopologyFormatting.Format(topology) : topology;
 
         return true;
     }
+
+    private static ErlangException InvalidInternalSelector() => new(Nil.Value)
+    {
+        ExplicitStackTrace = true
+    };
 }

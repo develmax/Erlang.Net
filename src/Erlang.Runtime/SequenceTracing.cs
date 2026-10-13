@@ -8,7 +8,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
-            SequenceTraceToken? token = tracer?.Equals(sender.Self) == true ? sender.SequentialTrace.Token : Advance(sender);
+            SequenceTraceToken? token = Advance(sender);
             if (processes.ContainsKey(destination))
                 Output(
                     sender,

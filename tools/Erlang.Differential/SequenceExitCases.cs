@@ -101,7 +101,7 @@ public static class SequenceExitCases
         );
         Add(
             "dying-tracer-self-counter-suppression",
-            trap + ",P=spawn_link(fun()->receive go->false=erlang:system_flag(sequential_tracer,self())," + token + ",erlang:seq_trace(send,true),ok end end),_=erlang:send_after(0,P,go),receive {'EXIT',P,normal}->{serial,{3,10}}=erlang:seq_trace_info(serial),{1,child,10,P,3}=" + reset + " after 5000->error(no_exit) end"
+            trap + ",P=spawn_link(fun()->receive go->false=erlang:system_flag(sequential_tracer,self())," + token + ",erlang:seq_trace(send,true),ok end end),_=erlang:send_after(0,P,go),receive {'EXIT',P,normal}->{serial,{3,11}}=erlang:seq_trace_info(serial),{1,child,11,P,3}=" + reset + " after 5000->error(no_exit) end"
         );
 
         return cases.AsReadOnly();

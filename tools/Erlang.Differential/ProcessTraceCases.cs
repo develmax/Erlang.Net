@@ -59,7 +59,7 @@ public static class ProcessTraceCases
         );
         Add(
             "function-query",
-            "{traced,false}=erlang:trace_info({process_trace_contract,identity,1},traced),{match_spec,false}=erlang:trace_info({process_trace_contract,identity,1},match_spec),1=erlang:trace_pattern({process_trace_contract,identity,1},true),{traced,global}=erlang:trace_info({process_trace_contract,identity,1},traced),{match_spec,[]}=erlang:trace_info({process_trace_contract,identity,1},match_spec),1=erlang:trace_pattern({process_trace_contract,identity,1},false),undefined=erlang:trace_info({process_trace_contract,missing,1},traced),0=erlang:trace_pattern({process_trace_contract,missing,1},true)"
+            "{traced,false}=erlang:trace_info({process_trace_contract,identity,1},traced),{match_spec,false}=erlang:trace_info({process_trace_contract,identity,1},match_spec),1=erlang:trace_pattern({process_trace_contract,identity,1},true),{traced,global}=erlang:trace_info({process_trace_contract,identity,1},traced),{match_spec,[]}=erlang:trace_info({process_trace_contract,identity,1},match_spec),1=erlang:trace_pattern({process_trace_contract,identity,1},false),{traced,undefined}=erlang:trace_info({process_trace_contract,missing,1},traced),0=erlang:trace_pattern({process_trace_contract,missing,1},true)"
         );
         Add(
             "event-query",
@@ -75,7 +75,7 @@ public static class ProcessTraceCases
         );
         Add(
             "mfa-arity-boundaries",
-            "0=erlang:trace_pattern({process_trace_contract,identity,-1},true),0=erlang:trace_pattern({process_trace_contract,identity,576460752303423487},true),undefined=erlang:trace_info({process_trace_contract,identity,-1},traced),undefined=erlang:trace_info({process_trace_contract,identity,576460752303423487},traced),ok=try erlang:trace_pattern({process_trace_contract,identity,576460752303423488},true) of _->unexpected catch error:badarg->ok end"
+            "0=erlang:trace_pattern({process_trace_contract,identity,-1},true),0=erlang:trace_pattern({process_trace_contract,identity,576460752303423487},true),{traced,undefined}=erlang:trace_info({process_trace_contract,identity,-1},traced),{traced,undefined}=erlang:trace_info({process_trace_contract,identity,576460752303423487},traced),ok=try erlang:trace_pattern({process_trace_contract,identity,576460752303423488},true) of _->unexpected catch error:badarg->ok end"
         );
         Add(
             "badopt-metadata",
@@ -160,7 +160,7 @@ public static class ProcessTraceCases
         Add("existing-no-flags", "0=erlang:trace(existing,true,[]),0=erlang:trace(existing_processes,false,[])");
         Add(
             "event-return-action-rejected",
-            "ok=try erlang:trace_pattern(send,[{'_',[],[{return_trace}]}]) of _->unexpected catch error:badarg->ok end"
+            "MS=[{'_',[],[{return_trace}]}],1=erlang:trace_pattern(send,MS),{match_spec,MS}=erlang:trace_info(send,match_spec),1=erlang:trace_pattern(send,false)"
         );
 
         Add(

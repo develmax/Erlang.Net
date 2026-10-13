@@ -8,8 +8,8 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     private bool traceReceive = true;
     private ProcessTracePattern? sendPattern;
     private ProcessTracePattern? receivePattern;
-    private readonly ProcessTraceActions callActions = new(true);
-    private readonly ProcessTraceActions eventActions = new(false);
+    private readonly ProcessTraceActions callActions = new();
+    private readonly ProcessTraceActions eventActions = new();
 
     public Term Configure(ProcessContext caller, IReadOnlyList<Term> arguments)
     {
@@ -123,13 +123,6 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         {
             if (options is not Nil)
                 throw Invalid(caller, arguments, ProcessTraceNames.Pattern);
-            if (program?.RequiredTraceActions.Any(action => action.Name is MatchSpecNames.ReturnTrace or MatchSpecNames.ExceptionTrace) == true)
-                throw Invalid(
-                    caller,
-                    arguments,
-                    ProcessTraceNames.Pattern,
-                    ProcessTraceNames.MatchSpec
-                );
             RequireActions(program, eventActions);
             lock (gate)
             {
@@ -192,10 +185,10 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
                 if (key.Name is not (ProcessTraceNames.Traced or ProcessTraceNames.MatchSpec))
                     throw Invalid(caller, arguments, ProcessTraceNames.Info);
                 if (arity.Value < 0 || arity.Value > int.MaxValue)
-                    return Term.A(ProcessTraceNames.Undefined);
+                    return Term.Tuple(key, Term.A(ProcessTraceNames.Undefined));
                 var mfa = (module.Name, function.Name, (int)arity.Value);
                 if (!runtime.Modules.HasExport(module.Name, function.Name, (int)arity.Value))
-                    return Term.A(ProcessTraceNames.Undefined);
+                    return Term.Tuple(key, Term.A(ProcessTraceNames.Undefined));
                 bool enabled = patterns.TryGetValue(mfa, out ProcessTracePattern? functionPattern);
                 value = key.Name == ProcessTraceNames.Traced ? enabled ? Term.A(ProcessTraceNames.Global) : CoreModules.Boolean(false) : enabled ? functionPattern!.Source : CoreModules.Boolean(false);
             }

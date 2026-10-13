@@ -15,22 +15,30 @@ internal static class ErlangHashHostChecks
                 var binary = new BitString(new byte[ErlangHashCheckParameters.BinaryBytes]);
                 await runtime.Modules.Call(
                     context,
-                    "erlang",
-                    "phash2",
+                    ErlangModuleNames.Module,
+                    ErlangHashCheckParameters.ImprovedFunction,
                     binary,
                     Term.I(ErlangHashCheckParameters.FullRange)
                 );
+                int startingThread = Environment.CurrentManagedThreadId;
                 long before = GC.GetAllocatedBytesForCurrentThread();
-                Term result = await runtime.Modules.Call(
+                ValueTask<Term> pending = runtime.Modules.Call(
                     context,
-                    "erlang",
-                    "phash2",
+                    ErlangModuleNames.Module,
+                    ErlangHashCheckParameters.ImprovedFunction,
                     binary,
                     Term.I(ErlangHashCheckParameters.FullRange)
                 );
+                bool synchronous = pending.IsCompletedSuccessfully;
+                if (!synchronous)
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AsynchronousMeasurement);
+                Term result = pending.GetAwaiter().GetResult();
                 long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+                int endingThread = Environment.CurrentManagedThreadId;
+                if (startingThread != endingThread)
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.ThreadChanged(startingThread, endingThread));
                 if (result is not Integer || allocated > ErlangHashCheckParameters.AllocationBudgetBytes)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.BinaryCopied);
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AllocationExceeded(allocated, result.GetType().Name, startingThread));
 
                 Term tuple = Nil.Value;
                 for (int index = 0; index < ErlangHashCheckParameters.TupleDepth; index++)
@@ -39,11 +47,11 @@ internal static class ErlangHashHostChecks
                 for (int index = 0; index < ErlangHashCheckParameters.MapDepth; index++)
                     map = new MapTerm(new[] { new KeyValuePair<Term, Term>(Term.I(0), map) });
                 foreach (Term value in new[] { tuple, map })
-                    foreach (string function in new[] { "phash2", "phash" })
+                    foreach (string function in new[] { ErlangHashCheckParameters.ImprovedFunction, ErlangHashCheckParameters.LegacyFunction })
                     {
                         Term hash = await runtime.Modules.Call(
                             context,
-                            "erlang",
+                            ErlangModuleNames.Module,
                             function,
                             value,
                             Term.I(ErlangHashCheckParameters.FullRange)

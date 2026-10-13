@@ -42,12 +42,14 @@ public static class MatchSpecCompiler
                 {
                     clauses.Add(clause);
                     var bound = new HashSet<int>();
+                    int patternDiagnosticsBefore = errors.Count;
                     ValidatePattern(
                         clause.Items[0],
                         bound,
                         errors,
                         0
                     );
+                    bool patternCompilationFailed = errors.Count != patternDiagnosticsBefore;
                     if (dialect == MatchSpecDialect.Trace && clause.Items[0] is not Cons && clause.Items[0] is not Nil && clause.Items[0] is not TupleTerm && clause.Items[0] is not Atom { Name: MatchSpecNames.Wildcard } && !Variable(clause.Items[0], out _))
                         errors.Add(MatchSpecDiagnostics.InvalidHead);
                     if (dialect == MatchSpecDialect.Trace && clause.Items[0] is Cons)
@@ -66,14 +68,24 @@ public static class MatchSpecCompiler
                         actions,
                         errors
                     );
-                    ValidateExpressions(
-                        clause.Items[2],
-                        false,
-                        dialect,
-                        bound,
-                        actions,
-                        errors
-                    );
+                    if (dialect == MatchSpecDialect.Table && clause.Items[2] is Nil)
+                    {
+                        if (!patternCompilationFailed)
+                        {
+                            errors.Add(MatchSpecDiagnostics.EmptyTableBody);
+                        }
+                    }
+                    else
+                    {
+                        ValidateExpressions(
+                            clause.Items[2],
+                            false,
+                            dialect,
+                            bound,
+                            actions,
+                            errors
+                        );
+                    }
                 }
                 tail = cell.Tail;
             }

@@ -801,6 +801,7 @@ public static class CoreModules
         DynamicTraceRegistrations.Register(r);
         SequenceTraceRegistrations.Register(r);
         SystemMonitorRegistrations.Register(r);
+        SystemProfileRegistrations.Register(r);
         ProcessTraceRegistrations.Register(r);
         MatchSpecRegistrations.Register(r);
         RuntimeStatisticsRegistrations.Register(r);

@@ -13,6 +13,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     internal RuntimePorts Ports { get; }
     internal CpuTopologyState CpuTopology { get; } = new();
     internal SequenceTracing SequenceTracing { get; }
+    internal RuntimeSystemProfile SystemProfiling { get; }
     internal ProcessTracing ProcessTracing { get; }
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
@@ -81,6 +82,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         SystemMonitoring = new(this, gate, processes);
         Ports = new(this, gate);
         SequenceTracing = new(this, gate, processes);
+        SystemProfiling = new(this, gate, processes);
         ProcessTracing = new(this, gate, processes);
         var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
@@ -1284,6 +1286,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 ProcessTracing.Terminated(ctx.Self);
                 SystemMonitoring.Terminated(ctx.Self);
                 processSlots.Remove(ctx.Self);
+                SystemProfiling.Terminated(ctx.Self);
                 foreach (var request in ctx.PendingCodeChecks)
                     ReplyCodeCheck(request, false, ctx.Self);
                 ctx.PendingCodeChecks.Clear();
@@ -1430,6 +1433,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal void PortRemoved(PortTerm port, IReadOnlyList<Pid> links, Term reason)
     {
+        SystemProfiling.Terminated(port);
         foreach (string name in names.Where(pair => pair.Value.Equals(port)).Select(pair => pair.Key).ToArray())
             names.Remove(name);
         foreach (Pid pid in links)

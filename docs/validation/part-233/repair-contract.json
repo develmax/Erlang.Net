@@ -1,0 +1,66 @@
+{
+  "OwnerFreezeAccepted": true,
+  "SourceHead": "d2e2e034fe5d0ff618184bd45eac49cec360fd57",
+  "BaselineModules": 4747,
+  "BaselineComparable": 4741,
+  "BaselineDiagnoses": 151,
+  "BaselineExclusions": 6,
+  "BaselineRegistry": 482,
+  "CorrectionFiles": [
+    "artifacts/original-232-repair-prototype/artifacts/part232-match-source-corrections.json",
+    "artifacts/original-232-repair-prototype/artifacts/part232-cpu-trace-corrections.json",
+    "artifacts/part232-exit-source-correction.json"
+  ],
+  "Providers": [
+    {
+      "Provider": "Part232CpuTraceRepairCases",
+      "Count": 6,
+      "ProviderSHA256": "914A5C8A447ADB8E4CE1210018459FE46CB7B141E9D3C7989B8536551C25B66B",
+      "FixtureLedger": "artifacts/original-232-repair-prototype/artifacts/part232-cpu-trace-new-fixtures.json"
+    },
+    {
+      "Provider": "Part232MatchRepairCases",
+      "Count": 10,
+      "ProviderSHA256": "45933BB2A6CE9E58D8E4874B22F20D073F6292F58294EA87183DD80A12E64B22",
+      "FixtureLedger": "artifacts/original-232-repair-prototype/artifacts/part232-match-new-source-plan.json"
+    },
+    {
+      "Provider": "Part232ExitRepairCases",
+      "Count": 2,
+      "ProviderSHA256": "7CB778844D634037AD4AF8701C33B736F2355482C2BDD1873F58A45D055FB1D7",
+      "FixtureLedger": "artifacts/part232-exit-repair-fixtures.json"
+    },
+    {
+      "Provider": "SystemProfileCases",
+      "Count": 23,
+      "ProviderSHA256": "D2A1A9332D32832FD95A2504987EF5036468CF61166697B7E6B11004970F71BF",
+      "FixtureLedger": "artifacts/part233-repair-audit/frozen-profile23-fixtures.json"
+    },
+    {
+      "Provider": "SystemProfileMonitorCases",
+      "Count": 2,
+      "ProviderSHA256": "51BE1EF7A381ADA51F1F1B58BA843C8AD3CF9905FD9D7FC735C4F6A45E0D71FC",
+      "FixtureLedger": "artifacts/part233-repair-audit/frozen-profile-monitor2-fixtures.json"
+    }
+  ],
+  "AddedHostCount": 1,
+  "AddedHostTypes": [
+    "SystemProfileHostChecks"
+  ],
+  "AddedHostTestNames": [
+    "runtime/system-profile-real-shared-state-isolation-death-and-validation"
+  ],
+  "ProfilerCompositionDeclared": true,
+  "Status": "Root revised source43 and candidatebuild3378 passed0/0 accepted. Helper must rebuild directDLLcopies, then audit/focus57/full6393/postfull. Originalproof remains pending.",
+  "AddedMfaTestNames": [
+    "mfa/erlang:system_profile/0",
+    "mfa/erlang:system_profile/2"
+  ],
+  "FrozenProfileLedgerOrigin": "artifacts/system-profile-combined-prototype/artifacts/system-profile-new-fixtures.json",
+  "FrozenProfileLedgerOriginSha256": "1BAB9CB92A7DDA72C7D011ACA57820CB9CBC31893EA815C1CF4B3F763A2E3CBD",
+  "SourceReady": true,
+  "CandidateBuildAccepted": true,
+  "CandidateBuildSession": 3378,
+  "FinalSourceManifest": "artifacts/part-233-final-source-manifest.json",
+  "FinalSourceManifestSha256": "9DA013D77B1F096BE86FB219F5FF3E218E1BDEF2D40F6015B751757248AA5C8C"
+}
