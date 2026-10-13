@@ -6,7 +6,7 @@ namespace Erlang;
 internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
 {
     private readonly Dictionary<PortTerm, RuntimePort> ports = new();
-    private readonly List<Task> pumps = new();
+    private readonly HashSet<Task> pumps = new();
     private ulong nextId;
 
     public Term Open(ProcessContext owner, Term specification, Term settings)
@@ -41,7 +41,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             ports.Add(identity, port);
             owner.PortLinks.Add(identity);
             port.Pump = Task.Run(() => Pump(port));
-            pumps.Add(port.Pump);
+            Track(port.Pump);
 
             return identity;
         }
@@ -90,6 +90,10 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
     public async ValueTask<Term> CloseOrdered(Term identity)
     {
         await AwaitCommands(identity);
+        Task writes;
+        lock (gate)
+            writes = Require(identity).Writes;
+        await writes;
 
         return Close(identity);
     }
@@ -117,6 +121,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         runtime.PortRemoved(port.Identity, port.Links.ToArray(), reason);
         port.Links.Clear();
         port.Stop.Cancel();
+        port.Writable.TrySetResult();
         // Resource disposal can block in the OS; it must not hold the runtime gate.
         Task cleanup = Task.Run(async () =>
         {
@@ -132,9 +137,10 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             catch (IOException) { }
             if (port.Pump is not null)
                 await port.Pump;
+            await port.Writes;
             port.Process.Dispose();
         });
-        pumps.Add(cleanup);
+        Track(cleanup);
     }
 
     public Term Connect(Term identity, Term destination)
@@ -234,6 +240,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         Term value = key.Name switch
         {
             PortNames.Name => Cons.From(port.Options.Name.Select(character => Term.I(character))),
+            PortNames.QueueSize => new Integer(port.QueuedBytes),
             PortNames.Links => Cons.From(port.Links),
             PortNames.MonitoredBy => runtime.PortMonitoredBy(port.Identity),
             PortNames.Monitors => Nil.Value,
@@ -286,56 +293,95 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         if (force)
             throw new ErlangException(PortNames.NotSupported);
         byte[] bytes = ErlangIoData.Flatten(data, false, false).ToArray();
-        bool entered;
-        try
+        while (true)
         {
-            entered = noSuspend ? port.WriteGate.Wait(0) : await port.WriteGate.WaitAsync(Timeout.Infinite, port.Stop.Token);
-        }
-        catch (OperationCanceledException)
-        {
-            throw new ErlangException(ErlangErrorReasons.BadArgument);
-        }
-        if (!entered)
-            return Term.A(ErlangBooleanAtoms.False);
-        try
-        {
-            int width = port.Options.PacketBytes;
-            if (width != 0)
+            Task writable;
+            lock (gate)
             {
-                if ((ulong)bytes.Length >= (1UL << (width * PortParameters.ByteBits)))
+                if (port.Closed)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                if (!port.Busy)
                 {
-                    lock (gate)
+                    int width = port.Options.PacketBytes;
+                    port.OutputBytes += bytes.Length;
+                    if (width != 0 && (ulong)bytes.Length >= (1UL << (width * PortParameters.ByteBits)))
                     {
-                        port.OutputBytes += bytes.Length;
                         Close(port, Term.A(PortNames.InvalidValue));
+
+                        return Term.A(ErlangBooleanAtoms.True);
                     }
+                    var frame = new byte[checked(bytes.Length + width)];
+                    uint length = (uint)bytes.Length;
+                    for (int index = width - 1; index >= 0; index--)
+                    {
+                        frame[index] = (byte)length;
+                        length >>= PortParameters.ByteBits;
+                    }
+                    bytes.CopyTo(frame, width);
+                    port.QueuedBytes += (ulong)frame.Length;
+                    if (port.QueuedBytes >= port.Options.HighWatermark)
+                        port.Busy = true;
+                    Task previous = port.Writes;
+                    port.Writes = port.Options.Parallelism
+                        ? Task.Run(() => Write(port, previous, frame))
+                        : Write(port, previous, frame);
+                    Track(port.Writes);
 
                     return Term.A(ErlangBooleanAtoms.True);
                 }
-                var header = new byte[width];
-                uint length = (uint)bytes.Length;
-                for (int index = width - 1; index >= 0; index--)
-                {
-                    header[index] = (byte)length;
-                    length >>= PortParameters.ByteBits;
-                }
-                await port.Input.WriteAsync(header, port.Stop.Token);
+                if (noSuspend)
+                    return Term.A(ErlangBooleanAtoms.False);
+                writable = port.Writable.Task;
             }
-            await port.Input.WriteAsync(bytes, port.Stop.Token);
-            await port.Input.FlushAsync(port.Stop.Token);
-            lock (gate)
-                port.OutputBytes += bytes.Length;
+            await writable;
+        }
+    }
 
-            return Term.A(ErlangBooleanAtoms.True);
+    private async Task Write(RuntimePort port, Task previous, byte[] frame)
+    {
+        try
+        {
+            await previous;
+            await port.Input.WriteAsync(frame, port.Stop.Token);
+            await port.Input.FlushAsync(port.Stop.Token);
         }
         catch (Exception exception) when (exception is IOException or ObjectDisposedException or OperationCanceledException)
         {
-            throw new ErlangException(ErlangErrorReasons.BadArgument);
+            lock (gate)
+                if (!port.Closed)
+                    Close(port, Term.A(PortNames.IoError));
         }
         finally
         {
-            port.WriteGate.Release();
+            lock (gate)
+            {
+                port.QueuedBytes -= (ulong)frame.Length;
+                if (port.Busy && (port.QueuedBytes == 0 || port.QueuedBytes < port.Options.LowWatermark))
+                {
+                    port.Busy = false;
+                    TaskCompletionSource ready = port.Writable;
+                    port.Writable = new(TaskCreationOptions.RunContinuationsAsynchronously);
+                    ready.TrySetResult();
+                }
+            }
         }
+    }
+
+    private void Track(Task task)
+    {
+        if (task.IsCompleted)
+            return;
+        pumps.Add(task);
+        _ = task.ContinueWith(
+            completed =>
+        {
+            lock (gate)
+                pumps.Remove(completed);
+        },
+            CancellationToken.None,
+            TaskContinuationOptions.ExecuteSynchronously,
+            TaskScheduler.Default
+        );
     }
 
     private async Task Pump(RuntimePort port)
@@ -474,7 +520,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                         runtime.Send(connected, Term.Tuple(port.Identity, Term.A(PortNames.Closed)));
                     }
                 });
-                pumps.Add(port.Commands);
+                Track(port.Commands);
             }
             else if (operation is TupleTerm { Items.Count: 2 } command && command.Items[0] is Atom { Name: PortNames.ProtocolCommand })
             {
@@ -493,7 +539,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                                 runtime.PortBadSignal(port);
                     }
                 });
-                pumps.Add(port.Commands);
+                Track(port.Commands);
             }
             else if (operation is TupleTerm { Items.Count: 2 } connect && connect.Items[0] is Atom { Name: PortNames.ProtocolConnect } && connect.Items[1] is Pid destination)
             {

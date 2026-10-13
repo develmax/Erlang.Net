@@ -52,4 +52,8 @@ public static class PortNames
     public const string MonitoredBy = "monitored_by";
     public const string Monitors = "monitors";
     public const string InvalidValue = "einval";
+    public const string BusyLimitsPort = "busy_limits_port";
+    public const string Disabled = "disabled";
+    public const string QueueSize = "queue_size";
+    public const string Parallelism = "parallelism";
 }

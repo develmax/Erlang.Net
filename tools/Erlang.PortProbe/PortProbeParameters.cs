@@ -8,4 +8,7 @@ internal static class PortProbeParameters
     public const string LinePayload = "abc\n1234\r\n\nend\r";
     public const string Payload = "port-probe";
     public const int ExitCode = 7;
+    public const string SlowEcho = "slow-echo";
+    public const int StartDelayMilliseconds = 2000;
+    public static readonly byte[] ReadyPacket = [0, 0, 0, 1, 1];
 }

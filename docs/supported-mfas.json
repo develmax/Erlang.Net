@@ -2285,7 +2285,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:open_port/2",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
   },
   {
     "Module": "erlang",
@@ -2333,7 +2333,7 @@
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_info/1",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part205 extends port identity/local-name monitor targets,actual DOWN/alias/tag/priority/death/demonitor cleanup,explicit exit/exit_signal normal/custom/kill=>killed,priority links/dead/foreign validation and actual monitored_by.47 new sourcecases,5469/full main/draft,4863 original pending206;native drivers/full busy/cross-sender scheduling/metadata/platform/resources unfinished."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part205 extends port identity/local-name monitor targets,actual DOWN/alias/tag/priority/death/demonitor cleanup,explicit exit/exit_signal normal/custom/kill=>killed,priority links/dead/foreign validation and actual monitored_by.47 new sourcecases,5469/full main/draft,4863 original pending206;native drivers/full busy/cross-sender scheduling/metadata/platform/resources unfinished. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
   },
   {
     "Module": "erlang",
@@ -2341,7 +2341,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_info/2",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part205 extends port identity/local-name monitor targets,actual DOWN/alias/tag/priority/death/demonitor cleanup,explicit exit/exit_signal normal/custom/kill=>killed,priority links/dead/foreign validation and actual monitored_by.47 new sourcecases,5469/full main/draft,4863 original pending206;native drivers/full busy/cross-sender scheduling/metadata/platform/resources unfinished."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part205 extends port identity/local-name monitor targets,actual DOWN/alias/tag/priority/death/demonitor cleanup,explicit exit/exit_signal normal/custom/kill=>killed,priority links/dead/foreign validation and actual monitored_by.47 new sourcecases,5469/full main/draft,4863 original pending206;native drivers/full busy/cross-sender scheduling/metadata/platform/resources unfinished. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
   },
   {
     "Module": "erlang",
@@ -2349,7 +2349,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_command/2",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
   },
   {
     "Module": "erlang",
@@ -2357,7 +2357,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:port_command/3",
-    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208."
+    "Limits": "Part201/202:real external-process ports,28 scenarios verified in4795/4795 original comparison. Part203 adds source-directed line N/eol/noeol/CRLF/EOF and explicit-close discard;21 new scenarios,5422/full main/draft,4816 original pending204. Native drivers/fd/all options/metadata/monitors/exit/busy/platform/full resources unfinished;separate managed packet/line16MiB limits. Part207:packet1/2 overflow is accepted then driver closes with einval and real EXIT/DOWN;inclusive255/65535 and empty packets,invalid iodata preserving resource;12 cases,5481/full main/draft,4875 original pending208. Part209:async byte queue and busy_limits_port hysteresis,queue_size,parallelism,atom line;19 source scenarios;managed pending writes differ from native partial-write measurements;busy_limits_msgq/fd/arg0/shared stderr remain unfinished."
   },
   {
     "Module": "erlang",

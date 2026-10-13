@@ -3,6 +3,9 @@ namespace Erlang;
 internal static class PortParameters
 {
     public const int ReadBufferBytes = 4096;
+    public const ulong DefaultHighWatermark = 8192;
+    public const ulong DefaultLowWatermark = 4096;
+    public const int DefaultLineBytes = 512;
     public const int ByteBits = 8;
     public const int MaximumUnicodeCodepoint = 0x10ffff;
     public const int MaximumPacketBytes = 16 * 1024 * 1024;

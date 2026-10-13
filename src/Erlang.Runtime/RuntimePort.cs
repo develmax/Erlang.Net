@@ -22,7 +22,10 @@ internal sealed class RuntimePort(
     public long InputBytes;
     public long OutputBytes;
     public bool Closed;
-    public SemaphoreSlim WriteGate { get; } = new(1, 1);
+    public Task Writes { get; set; } = Task.CompletedTask;
+    public ulong QueuedBytes { get; set; }
+    public bool Busy { get; set; }
+    public TaskCompletionSource Writable { get; set; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     public CancellationTokenSource Stop { get; } = new();
     public Task? Pump { get; set; }
     public Task Commands { get; set; } = Task.CompletedTask;

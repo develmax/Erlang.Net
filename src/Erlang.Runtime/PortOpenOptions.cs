@@ -12,6 +12,9 @@ internal sealed class PortOpenOptions
     public bool ExitStatus { get; private set; }
     public int PacketBytes { get; private set; }
     public int LineBytes { get; private set; }
+    public ulong HighWatermark { get; private set; } = PortParameters.DefaultHighWatermark;
+    public ulong LowWatermark { get; private set; } = PortParameters.DefaultLowWatermark;
+    public bool Parallelism { get; private set; }
 
     public static PortOpenOptions Parse(Term specification, Term settings)
     {
@@ -27,6 +30,9 @@ internal sealed class PortOpenOptions
                 case Atom { Name: PortNames.Stream }:
                     options.PacketBytes = 0;
                     break;
+                case Atom { Name: PortLineNames.Option }:
+                    options.LineBytes = PortParameters.DefaultLineBytes;
+                    break;
                 case Atom { Name: PortNames.UseStdio }:
                     break;
                 case Atom { Name: PortNames.Hide }:
@@ -41,6 +47,12 @@ internal sealed class PortOpenOptions
                 case TupleTerm { Items.Count: 2 } tuple:
                     switch (tuple.Items[0])
                     {
+                        case Atom { Name: PortNames.Parallelism } when tuple.Items[1] is Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False } boolean:
+                            options.Parallelism = boolean.Name == ErlangBooleanAtoms.True;
+                            break;
+                        case Atom { Name: PortNames.BusyLimitsPort }:
+                            (options.LowWatermark, options.HighWatermark) = Watermarks(tuple.Items[1]);
+                            break;
                         case Atom { Name: PortLineNames.Option } when tuple.Items[1] is Integer line && line.Value > 0:
                             if (line.Value > PortLineParameters.MaximumBufferBytes)
                                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
@@ -117,6 +129,18 @@ internal sealed class PortOpenOptions
     }
 
     private static ErlangException BadOption() => new(PortNames.BadOption);
+
+    private static (ulong Low, ulong High) Watermarks(Term term)
+    {
+        if (term is Atom { Name: PortNames.Disabled })
+            return (ulong.MaxValue, ulong.MaxValue);
+        if (term is not TupleTerm { Items.Count: 2 } pair ||
+            pair.Items[0] is not Integer low || pair.Items[1] is not Integer high ||
+            low.Value < 1 || high.Value < 1 || low.Value >= ulong.MaxValue || high.Value >= ulong.MaxValue)
+            throw BadOption();
+
+        return ((ulong)System.Numerics.BigInteger.Min(low.Value, high.Value), (ulong)high.Value);
+    }
 
     private static Term[] Settings(Term term)
     {
