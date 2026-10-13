@@ -1,0 +1,95 @@
+{
+  "Review": "Part229 final independent read-only source review",
+  "Baseline": "6ca6e97 published failure checkpoint; implementation baseline9f716f4",
+  "SourcePin": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceEdits": false,
+  "BuildsRun": false,
+  "BlockingIssues": [],
+  "Checks": [
+    {
+      "Area": "Synchronous tagged clock",
+      "Result": "Consistent with pinned 64-bit producer",
+      "Evidence": "erl_process.c12987-12999 stores tagged SEQ_TRACE_T_SERIAL directly into Uint clocks. SequenceSpawnSerialLayout.TaggedWord explicitly wraps ulong conversion/shift and tag4/0xF. Advance unchecked ulong increment plus SequenceTraceParameters.Signed mask/sign60 is equivalent to native make_small followed by observable signed integer decoding.",
+      "IndependentBoundary": "Reply2 tagged47 ->print{47,48}; reply12 tagged207 ->print{207,208}; replymax=576460752303423487 tagged0x7FFFFFFFFFFFFFFF ->next clock0x8000000000000000, observed last=-1,current=0. No native large allocation involved."
+    },
+    {
+      "Area": "Async wrapper description",
+      "Result": "Selected only by asynchronous Spawned branch",
+      "Evidence": "SequenceTracing.Spawned converts its local description copy if asynchronous. Callback/Module constructors remain unchanged. Actual Func body and ProcessSpawnRequestRegistrations normalized user MFA/args unchanged; no runtime initialization or initial_call path modified. Description is immutable with-copy preserving options/reply_tag. bif.c1113-1126 actual wrapper spawn_init/1 payload independently matches retained native result."
+    },
+    {
+      "Area": "Resolved local destination",
+      "Result": "Sequential trace now actual recipient PID",
+      "Evidence": "SendTraced selected Sent(sender,target,message), retains optional destination argument/signature and ordinary user return message. ErlangOperatorValues still resolves registered local tuple before call. Live-recipient lookup and dead-target no-admission behavior unchanged. No ordinary trace hook exists in this Main baseline; future combined ordinary tracing must retain caller-address metadata separately."
+    },
+    {
+      "Area": "Raw abort diagnostics",
+      "Result": "No decoder or comparison criteria change",
+      "Evidence": "Program resets evidence in pipeline starting callback before awaiting current fixture, captures exact stdout/stderr/exit plus named fixture before native Decode, advances stage only after successful decode/compile, and clears after appended module result. OracleExecutionPipeline starting callback belongs to dequeued fixture, not prefetched execution; no concurrent source reset ambiguity. SaveReport exposes evidence only when infrastructureError exists. Decode/standard-stream match/pass expression remain byte-for-byte unchanged.",
+      "Limit": "Capture is available only after native execution returns captured output and JSON deserialize succeeds. Native process failure before yield has null evidence; no claim this diagnostic change captures every native failure. Stage ManagedModuleExecute also covers later contract comparison until clear, so a later exception would retain that broad stage label."
+    },
+    {
+      "Area": "Historical contracts",
+      "Result": "Five spawn source corrections explicit and independent done unchanged",
+      "Evidence": "Eight new scenarios include sync callback/MFA/monitor/link, explicit serial reset, numeric boundary wrap, async node MFA/callback wrapper payload. Existing 512-record concurrent host assertions unchanged. Root owns final corpus/generated hashes and completed full validation; this review performs no new build or original comparison."
+    }
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/SequenceTracing.cs",
+      "Sha256": "E2F8DEE3AE68B563E24A752174FDBC12C49F999DD2928660FCA70AA89CE8B1C3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceParameters.cs",
+      "Sha256": "CF1E914E937C2285BE791B5A37959B1B7F5C66E1B39139BBCD0AD8AFD4ADFFF1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceSpawnSerialLayout.cs",
+      "Sha256": "5056986AFC4B6F08021D1A8C9D5B466EC162E9A7E33BA2F8EA0F1A3A0B789141"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceSpawnDescription.cs",
+      "Sha256": "B6A1178F3532E2D0469B725A5ADB78E930CD13272B3CFBEC812C6A8E9271805A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceSpawnProtocolNames.cs",
+      "Sha256": "964D77194F07BBE3204A7477E2F2A59EC72B3D5C6F6E82A1A1209FB501CE0ABF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "1880B48C74708C1D5CB7EFB11C9A2F3BC5802DD67A7AAB3B8E9C9DEAA33F81D6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestRegistrations.cs",
+      "Sha256": "D5E7CC5077E48361BC62894C4940A06D08894570CEA1E59AF96BD8A31EE23882"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
+      "Sha256": "F938E107C26A6F2B4B12F9290858001008D0481CFEB55B1FB42FA1C49A07533B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Program.cs",
+      "Sha256": "5B94088EDC4171D337F3F67949719014B6E94500BF4B27F215AE1433627407C0"
+    },
+    {
+      "Path": "tools/Erlang.Differential/OracleExecutionPipeline.cs",
+      "Sha256": "0D8CFA8613B5F7B507703B5C350525482BE2FC6C21C2533981CD9D34D7E834E2"
+    },
+    {
+      "Path": "tools/Erlang.Differential/OracleAbortEvidence.cs",
+      "Sha256": "71D6E22BB6A4A12ED75FD8084BF20EE68E7E28DF87B9B3D47CD8EA751CA97938"
+    },
+    {
+      "Path": "tools/Erlang.Differential/OracleExecutionStages.cs",
+      "Sha256": "6A47EB0F791699333F848B36BAF7F5F39B8D1A4E2425EBC2EC7679185A7D7660"
+    },
+    {
+      "Path": "tools/Erlang.Differential/OracleResultProtocol.cs",
+      "Sha256": "3C762F248DDAB74D861A0183D96FA779C784CC9561A332574A533372D6D4D0CB"
+    },
+    {
+      "Path": "src/Erlang.Serialization/ExternalTermFormat.cs",
+      "Sha256": "D7C8D0071BB1EF012670F4A52B6E1675C9B2903F5D706BA45E0173D2C690925F"
+    }
+  ]
+}

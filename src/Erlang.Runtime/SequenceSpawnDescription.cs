@@ -7,6 +7,21 @@ internal sealed record SequenceSpawnDescription(
     Term? ReplyTag = null
 )
 {
+    public SequenceSpawnDescription Asynchronous()
+    {
+        var mfa = (TupleTerm)Mfa;
+
+        return this with
+        {
+            Mfa = Term.Tuple(
+                Term.A(SequenceSpawnProtocolNames.InternalModule),
+                Term.A(SequenceSpawnProtocolNames.Initializer),
+                Term.I(SequenceSpawnProtocolNames.InitializerArity)
+            ),
+            Arguments = Term.List(Term.Tuple(mfa.Items[0], mfa.Items[1], Arguments))
+        };
+    }
+
     public static Term DefaultOptions(string function) => function switch
     {
         ErlangModuleNames.SpawnLink => Term.List(Term.A(ProcessSpawnOptionNames.Link)),

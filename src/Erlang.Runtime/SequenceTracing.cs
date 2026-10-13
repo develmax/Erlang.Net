@@ -167,6 +167,8 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
+            if (asynchronous && description is not null)
+                description = description.Asynchronous();
             SequenceTraceToken? requestToken = Advance(parent);
             if (requestToken is null)
                 return;
@@ -206,7 +208,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
             {
                 if (!asynchronous)
                 {
-                    parent.SequentialTrace.LastCount = SequenceTraceParameters.Unsigned(replyToken.Serial);
+                    parent.SequentialTrace.LastCount = SequenceSpawnSerialLayout.TaggedWord(replyToken.Serial);
                     parent.SequentialTrace.Clock = parent.SequentialTrace.LastCount;
                 }
                 if (description is not null && successReply)

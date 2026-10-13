@@ -420,7 +420,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             if (processes.TryGetValue(target, out var receiver))
             {
-                SequenceTraceToken? token = SequenceTracing.Sent(sender, destination ?? target, message);
+                SequenceTraceToken? token = SequenceTracing.Sent(sender, target, message);
                 receiver.Mailbox.SendTraced(message, token);
             }
         }

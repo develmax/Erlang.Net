@@ -63,10 +63,13 @@ public static class ProcessInfoObservableCases
         Add("current-self", "{current_function,{info_observable,run,0}}=process_info(self(),current_function)");
         Add("stack-self", "{current_stacktrace,[{info_observable,stack_probe,0,_}|_]}=stack_probe()");
         Add("stack-default-depth", "{current_stacktrace,Stack}=stack_probe(),true=length(Stack)>0,true=length(Stack)=<8");
-        Add("monitors-empty", "{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by)");
+        Add(
+            "monitors-empty",
+            "S=self(),P=spawn(fun()->Outcome=try {monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),done catch Class:Reason->{Class,Reason} end,S!{probe,self(),Outcome},receive finish->ok end end),receive {probe,P,done}->ok;{probe,P,Failure}->error({probe_failed,Failure}) after 5000->error(no_probe) end,M=monitor(process,P),P!finish,receive {'DOWN',M,process,P,normal}->ok after 5000->error(no_down) end"
+        );
         Add(
             "self-monitor",
-            "R=monitor(process,self()),{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),true=demonitor(R)"
+            "S=self(),P=spawn(fun()->Outcome=try R=monitor(process,self()),{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),true=demonitor(R),done catch Class:Reason->{Class,Reason} end,S!{probe,self(),Outcome},receive finish->ok end end),receive {probe,P,done}->ok;{probe,P,Failure}->error({probe_failed,Failure}) after 5000->error(no_probe) end,M=monitor(process,P),P!finish,receive {'DOWN',M,process,P,normal}->ok after 5000->error(no_down) end"
         );
         Add(
             "clock-monitor",

@@ -1,0 +1,36 @@
+[
+  {
+    "Name": "erlang-process-info-observable-monitors-empty",
+    "OldSource": "-module(info_observable). -export([run/0]). run()->{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),done. worker(Parent)->put(kept,{value,[1,2]}),Parent!{ready,self()},receive finish->ok end. stack_probe()->S=process_info(self(),current_stacktrace),put(stack_marker,seen),S. wait_status(P,State,0)->error({no_state,P,State});wait_status(P,State,N)->case process_info(P,status) of {status,State}->ok;_->receive after 1->ok end,wait_status(P,State,N-1) end.",
+    "NewSource": "-module(info_observable). -export([run/0]). run()->S=self(),P=spawn(fun()->Outcome=try {monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),done catch Class:Reason->{Class,Reason} end,S!{probe,self(),Outcome},receive finish->ok end end),receive {probe,P,done}->ok;{probe,P,Failure}->error({probe_failed,Failure}) after 5000->error(no_probe) end,M=monitor(process,P),P!finish,receive {'DOWN',M,process,P,normal}->ok after 5000->error(no_down) end,done. worker(Parent)->put(kept,{value,[1,2]}),Parent!{ready,self()},receive finish->ok end. stack_probe()->S=process_info(self(),current_stacktrace),put(stack_marker,seen),S. wait_status(P,State,0)->error({no_state,P,State});wait_status(P,State,N)->case process_info(P,status) of {status,State}->ok;_->receive after 1->ok end,wait_status(P,State,N-1) end.",
+    "OldSourceSha256": "4D807A982E27C84020E8898180FD6305678B55ED1E87D1BAFF95EE81879AC94B",
+    "NewSourceSha256": "BA346DF7A313299EBC1820477FE84D80D128430ED7FD421F80C51BCAD91DD6C6",
+    "OldCSharpSha256": "B4869CEC948711EB38F2A953E7A555FAB6BBBBF4202FD9835ED6D9C60E4637F0",
+    "NewCSharpSha256": "8118FAEEFFA5EE3AA1963C4241A2A8C53647D0E17071D01D73B47A34215DEDB5",
+    "FixtureExpected": "{ok,done}",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "ExpectedStandardOutputAlternatives": null,
+    "MeasuredNativeOutcome": "{error,error,{badmatch,{monitored_by,[<nonode@nohost.10.0>]}}}",
+    "Reason": "Native oracle monitors outer runner; plain child assertions run before parent cleanup monitor, preserving real observer semantics"
+  },
+  {
+    "Name": "erlang-process-info-observable-self-monitor",
+    "OldSource": "-module(info_observable). -export([run/0]). run()->R=monitor(process,self()),{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),true=demonitor(R),done. worker(Parent)->put(kept,{value,[1,2]}),Parent!{ready,self()},receive finish->ok end. stack_probe()->S=process_info(self(),current_stacktrace),put(stack_marker,seen),S. wait_status(P,State,0)->error({no_state,P,State});wait_status(P,State,N)->case process_info(P,status) of {status,State}->ok;_->receive after 1->ok end,wait_status(P,State,N-1) end.",
+    "NewSource": "-module(info_observable). -export([run/0]). run()->S=self(),P=spawn(fun()->Outcome=try R=monitor(process,self()),{monitors,[]}=process_info(self(),monitors),{monitored_by,[]}=process_info(self(),monitored_by),true=demonitor(R),done catch Class:Reason->{Class,Reason} end,S!{probe,self(),Outcome},receive finish->ok end end),receive {probe,P,done}->ok;{probe,P,Failure}->error({probe_failed,Failure}) after 5000->error(no_probe) end,M=monitor(process,P),P!finish,receive {'DOWN',M,process,P,normal}->ok after 5000->error(no_down) end,done. worker(Parent)->put(kept,{value,[1,2]}),Parent!{ready,self()},receive finish->ok end. stack_probe()->S=process_info(self(),current_stacktrace),put(stack_marker,seen),S. wait_status(P,State,0)->error({no_state,P,State});wait_status(P,State,N)->case process_info(P,status) of {status,State}->ok;_->receive after 1->ok end,wait_status(P,State,N-1) end.",
+    "OldSourceSha256": "85C2D746143FD832BF363661C95ECE224D04F1320A1B3EFD69B1C86BE2248779",
+    "NewSourceSha256": "E79C8CB12420C05E099FEA446E070554C40FB41422AD61A0FE45FFD7A51E320B",
+    "OldCSharpSha256": "CCD7F1AED8347F85A2FD632A70629AC96B8A22784C6A5FA615FC86EB09ED49A1",
+    "NewCSharpSha256": "DC7D806CCDF05E5A5DE1BD7678704A17790D077B9B843A1D57E0F3C3375CC7F5",
+    "FixtureExpected": "{ok,done}",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "ExpectedStandardOutputHex": null,
+    "ExpectedStandardErrorHex": null,
+    "ExpectedStandardOutputAlternatives": null,
+    "MeasuredNativeOutcome": "{error,error,{badmatch,{monitored_by,[<nonode@nohost.10.0>]}}}",
+    "Reason": "Native oracle monitors outer runner; plain child assertions run before parent cleanup monitor, preserving real observer semantics"
+  }
+]

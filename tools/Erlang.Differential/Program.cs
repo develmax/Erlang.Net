@@ -24,6 +24,7 @@ int moduleFailed = 0;
 int diagnosticFailed = 0;
 int failed = 0, planned = 0;
 string? activeSource = null;
+OracleAbortEvidence? activeNativeEvidence = null;
 bool versionVerified = false;
 var checkpoints = new OracleReportCheckpoint();
 async Task SaveReport(bool complete, string? infrastructureError = null)
@@ -53,6 +54,7 @@ async Task SaveReport(bool complete, string? infrastructureError = null)
                 Failed = failed,
                 AbortedSource = infrastructureError is null ? null : activeSource,
                 InfrastructureError = infrastructureError,
+                AbortedNativeEvidence = infrastructureError is null ? null : activeNativeEvidence,
                 ExpressionTrack = new
                 {
                     Mode = OracleProtocol.EvaluationMode,
@@ -487,13 +489,26 @@ try
 
             return System.Text.Json.JsonSerializer.Serialize(output);
         },
-        fixture => activeSource = fixture.Source
+        fixture =>
+        {
+            activeSource = fixture.Source;
+            activeNativeEvidence = null;
+        }
     ))
     {
         var fixture = oracleResult.Fixture;
         var captured = System.Text.Json.JsonSerializer.Deserialize<OracleProcessOutput>(oracleResult.Output)!;
+        activeNativeEvidence = new(
+            fixture.Name,
+            OracleExecutionStages.NativeResultDecode,
+            captured.StandardOutput,
+            captured.StandardError,
+            captured.ExitCode
+        );
         Term expected = OracleResultProtocol.Decode(captured.StandardOutput);
+        activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleCompile };
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
+        activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleExecute };
         var sdk = fixture.ExpectedStandardOutputHex is null && fixture.ExpectedStandardErrorHex is null ? null :
             await CompiledModuleExecution.RunCaptured(generated, fixture.CallerContext);
         Term actual = sdk?.Result ?? await CompiledModuleExecution.Run(generated, fixture.CallerContext);
@@ -535,6 +550,7 @@ try
             Passed = passed
         });
         Console.WriteLine((passed ? "PASS module " : "FAIL module ") + fixture.Name);
+        activeNativeEvidence = null;
         await SaveReport(false);
     }
     await foreach (var oracleResult in OracleExecutionPipeline.Run(

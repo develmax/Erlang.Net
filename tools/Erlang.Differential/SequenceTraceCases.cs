@@ -146,7 +146,7 @@ public static class SequenceTraceCases
         );
         Add(
             "local-name-tuple-send-destination",
-            setup + ",P=spawn(fun()->receive payload->S!reply end end),true=register(seq_trace_target,P),Target={seq_trace_target,node()},erlang:seq_trace(label,label),erlang:seq_trace(send,true),Target!payload,receive reply->ok after 5000->error(no_reply) end," + collect + "[{seq_trace,label,{send,{0,1},S,Target,payload}},{seq_trace,label,{send,{1,2},P,S,reply}}]=Events after 5000->error(no_trace_events) end"
+            setup + ",P=spawn(fun()->receive payload->S!reply end end),true=register(seq_trace_target,P),Target={seq_trace_target,node()},erlang:seq_trace(label,label),erlang:seq_trace(send,true),Target!payload,receive reply->ok after 5000->error(no_reply) end," + collect + "[{seq_trace,label,{send,{0,1},S,P,payload}},{seq_trace,label,{send,{1,2},P,S,reply}}]=Events after 5000->error(no_trace_events) end"
         );
         Add(
             "strict-timestamp-order",
@@ -155,7 +155,7 @@ public static class SequenceTraceCases
 
         Add(
             "spawn-opt-callback-payload",
-            setup + ",F=fun()->receive stop->ok end end,erlang:seq_trace(label,label),erlang:seq_trace(send,true),erlang:seq_trace('receive',true),{P,R}=spawn_opt(F,[link,monitor]),{serial,{0,1}}=erlang:seq_trace_info(serial),true=erlang:seq_trace_print(hidden),{serial,{2,3}}=erlang:seq_trace_info(serial)," + clear + ",P!stop,T!{take,S},receive Events when is_list(Events)->[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erlang,apply,2},[link,monitor],spawn_reply,[F,[]]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{spawn_reply,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{spawn_reply,R,ok,P}}}|_]=Events after 5000->error(no_spawn_trace) end"
+            setup + ",F=fun()->receive stop->ok end end,erlang:seq_trace(label,label),erlang:seq_trace(send,true),erlang:seq_trace('receive',true),{P,R}=spawn_opt(F,[link,monitor]),{serial,{0,1}}=erlang:seq_trace_info(serial),true=erlang:seq_trace_print(hidden),{serial,{47,48}}=erlang:seq_trace_info(serial)," + clear + ",P!stop,T!{take,S},receive Events when is_list(Events)->[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erlang,apply,2},[link,monitor],spawn_reply,[F,[]]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{spawn_reply,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{spawn_reply,R,ok,P}}}|_]=Events after 5000->error(no_spawn_trace) end"
         );
         Add(
             "unmatched-receive-preserves-token",

@@ -30,11 +30,11 @@ public static class SpawnRequestSequenceCases
         );
         Add(
             "custom-tag-protocol",
-            setup + ",Tag={custom,7},Options=[monitor,{reply_tag,Tag}],R=spawn_request(spawn_request_seq_contract,hold,[],Options),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {Tag,R,ok,P}->{serial,{1,2}}=erlang:seq_trace_info(serial)," + clear + ",P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{spawn_request_seq_contract,hold,0},Options,Tag,[]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{Tag,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{Tag,R,ok,P}}}]=Events after 5000->error(no_events) end after 5000->error(no_reply) end"
+            setup + ",Tag={custom,7},Options=[monitor,{reply_tag,Tag}],R=spawn_request(spawn_request_seq_contract,hold,[],Options),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {Tag,R,ok,P}->{serial,{1,2}}=erlang:seq_trace_info(serial)," + clear + ",P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erts_internal,spawn_init,1},Options,Tag,[{spawn_request_seq_contract,hold,[]}]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{Tag,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{Tag,R,ok,P}}}]=Events after 5000->error(no_events) end after 5000->error(no_reply) end"
         );
         Add(
             "callback-protocol",
-            setup + ",F=fun()->receive stop->ok end end,R=spawn_request(F),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {spawn_reply,R,ok,P}->{serial,{1,2}}=erlang:seq_trace_info(serial)," + clear + ",P!stop," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erlang,apply,2},[],spawn_reply,[F,[]]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{spawn_reply,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{spawn_reply,R,ok,P}}}]=Events after 5000->error(no_events) end after 5000->error(no_reply) end"
+            setup + ",F=fun()->receive stop->ok end end,R=spawn_request(F),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {spawn_reply,R,ok,P}->{serial,{1,2}}=erlang:seq_trace_info(serial)," + clear + ",P!stop," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erts_internal,spawn_init,1},[],spawn_reply,[{erlang,apply,[F,[]]}]}}},{seq_trace,label,{'receive',{0,1},S,P,_}},{seq_trace,label,{send,{1,2},P,S,{spawn_reply,R,ok,P}}},{seq_trace,label,{'receive',{1,2},P,S,{spawn_reply,R,ok,P}}}]=Events after 5000->error(no_events) end after 5000->error(no_reply) end"
         );
         Add(
             "monitor-reference",
@@ -43,7 +43,7 @@ public static class SpawnRequestSequenceCases
         foreach (string mode in new[] { "no", "error_only" })
             Add(
                 "suppressed-" + mode,
-                setup + ",Options=[monitor,{reply," + mode + "}],R=spawn_request(spawn_request_seq_contract,report,[S],Options),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {spawn_reply,R,_,_}->error(unexpected_reply) after 0->ok end,{serial,{0,1}}=erlang:seq_trace_info(serial),receive {child_serials,P,{1,2},{1,3}}->[]=erlang:seq_trace_info(label),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(wrong_reference) end," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{spawn_request_seq_contract,report,1},Options,spawn_reply,[S]}}},{seq_trace,label,{'receive',{0,1},S,P,_}}]=Events after 5000->error(no_events) end after 5000->error(no_child_serials) end"
+                setup + ",Options=[monitor,{reply," + mode + "}],R=spawn_request(spawn_request_seq_contract,report,[S],Options),{serial,{0,1}}=erlang:seq_trace_info(serial),receive {spawn_reply,R,_,_}->error(unexpected_reply) after 0->ok end,{serial,{0,1}}=erlang:seq_trace_info(serial),receive {child_serials,P,{1,2},{1,3}}->[]=erlang:seq_trace_info(label),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(wrong_reference) end," + take + "[{seq_trace,label,{send,{0,1},S,P,{spawn_request,R,S,_,{erts_internal,spawn_init,1},Options,spawn_reply,[{spawn_request_seq_contract,report,[S]}]}}},{seq_trace,label,{'receive',{0,1},S,P,_}}]=Events after 5000->error(no_events) end after 5000->error(no_child_serials) end"
             );
         Add(
             "error-preserves-on-receive",

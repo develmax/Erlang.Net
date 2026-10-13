@@ -1,0 +1,13 @@
+{
+  "Name": "erlang-seq-trace-local-name-tuple-send-destination",
+  "OldSource": "-module(seq_trace_contract). -export([run/0,collector/2,empty/0]). run()->S=self(),T=spawn(fun()->collector(S,[]) end),false=erlang:system_flag(sequential_tracer,T),P=spawn(fun()->receive payload->S!reply end end),true=register(seq_trace_target,P),Target={seq_trace_target,node()},erlang:seq_trace(label,label),erlang:seq_trace(send,true),Target!payload,receive reply->ok after 5000->error(no_reply) end,erlang:seq_trace(sequential_trace_token,[]),T!{take,S},receive Events->[{seq_trace,label,{send,{0,1},S,Target,payload}},{seq_trace,label,{send,{1,2},P,S,reply}}]=Events after 5000->error(no_trace_events) end,done. empty()->ok. collector(S,L)->receive {seq_trace,_,_}=E->collector(S,[E|L]);{seq_trace,_,_,_}=E->collector(S,[E|L]);{take,S}->S!lists:reverse(L) end.",
+  "NewSource": "-module(seq_trace_contract). -export([run/0,collector/2,empty/0]). run()->S=self(),T=spawn(fun()->collector(S,[]) end),false=erlang:system_flag(sequential_tracer,T),P=spawn(fun()->receive payload->S!reply end end),true=register(seq_trace_target,P),Target={seq_trace_target,node()},erlang:seq_trace(label,label),erlang:seq_trace(send,true),Target!payload,receive reply->ok after 5000->error(no_reply) end,erlang:seq_trace(sequential_trace_token,[]),T!{take,S},receive Events->[{seq_trace,label,{send,{0,1},S,P,payload}},{seq_trace,label,{send,{1,2},P,S,reply}}]=Events after 5000->error(no_trace_events) end,done. empty()->ok. collector(S,L)->receive {seq_trace,_,_}=E->collector(S,[E|L]);{seq_trace,_,_,_}=E->collector(S,[E|L]);{take,S}->S!lists:reverse(L) end.",
+  "OldSourceSha256": "78745A02DD7A1EDA4AE557A6EEE32BA86A436B8C4228F46937CFCEE3A7531145",
+  "NewSourceSha256": "B452B5F73AAF928FA5D8FEF7B5DD74ABC88398B8E61C527DDC7B565A584E3582",
+  "OldAnchor": "{send,{0,1},S,Target,payload}",
+  "NewAnchor": "{send,{0,1},S,P,payload}",
+  "IndependentExpected": "{ok,done}",
+  "IndependentOutcomeUnchanged": true,
+  "RawFailedRow": "sequence-destination-failed-original-row.json",
+  "NativeCandidateProof": "not run"
+}
