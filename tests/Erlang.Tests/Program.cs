@@ -4108,6 +4108,63 @@ Test(
 }
 );
 Test("terms/atom-channel-index-concurrent-retention", Erlang.Tests.AtomChannelIndexContracts.Run);
+Test(
+    "oracle/report-checkpoint-retains-failure-final-and-abort-progress",
+    () =>
+{
+    var checkpoints = new Erlang.Differential.OracleReportCheckpoint();
+    Check(checkpoints.ShouldSave(
+        0,
+        0,
+        false,
+        null
+    ));
+    Check(!checkpoints.ShouldSave(
+        1,
+        0,
+        false,
+        null
+    ));
+    Check(!checkpoints.ShouldSave(
+        63,
+        0,
+        false,
+        null
+    ));
+    Check(checkpoints.ShouldSave(
+        64,
+        0,
+        false,
+        null
+    ));
+    Check(checkpoints.ShouldSave(
+        65,
+        1,
+        false,
+        null
+    ));
+    Check(!checkpoints.ShouldSave(
+        66,
+        1,
+        false,
+        null
+    ));
+    Check(checkpoints.ShouldSave(
+        67,
+        1,
+        true,
+        null
+    ));
+    Check(checkpoints.ShouldSave(
+        68,
+        1,
+        false,
+        "owned-infrastructure-failure"
+    ));
+
+    return Task.CompletedTask;
+}
+);
 int failed = 0;
 foreach (var test in tests)
 {

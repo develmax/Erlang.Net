@@ -24,10 +24,13 @@ public static class PortDescriptorCases
                 "try open_port({fd,0,1},[out," + setting + "]) of _->error(accepted) catch error:badarg->ok end"
             );
         foreach (string settings in new[] { "out", "out,binary", "out,exit_status", "out,nouse_stdio", "out,overlapped_io" })
-            Add(
-                "metadata-" + cases.Count,
-                "P=open_port({fd,0,1},[" + settings + "]),{name,\"0/1\"}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,<<>>),true=erlang:port_close(P),undefined=erlang:port_info(P)"
-            );
+            if (settings.Contains(PortNames.ExitStatus, StringComparison.Ordinal))
+                Add("metadata-" + cases.Count, "try open_port({fd,0,1},[out,exit_status]) of _->error(accepted) catch error:badarg->ok end");
+            else
+                Add(
+                    "metadata-" + cases.Count,
+                    "P=open_port({fd,0,1},[" + settings + "]),{name,\"0/1\"}=erlang:port_info(P,name),{os_pid,undefined}=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,<<>>),true=erlang:port_close(P),undefined=erlang:port_info(P)"
+                );
 
         return cases;
     }

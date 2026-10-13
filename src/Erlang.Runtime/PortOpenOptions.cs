@@ -132,7 +132,7 @@ internal sealed class PortOpenOptions
             throw BadOption();
         if (specification is TupleTerm { Items.Count: 3 } descriptor && descriptor.Items[0] is Atom { Name: PortDescriptorNames.Kind })
         {
-            if (arguments is not null || options.ArgumentZero is not null ||
+            if (options.ExitStatus || arguments is not null || options.ArgumentZero is not null ||
                 descriptor.Items[1] is not Integer input || descriptor.Items[2] is not Integer output ||
                 input.Value < DescriptorPortParameters.MinimumSmallInteger || input.Value > DescriptorPortParameters.MaximumSmallInteger ||
                 output.Value < DescriptorPortParameters.MinimumSmallInteger || output.Value > DescriptorPortParameters.MaximumSmallInteger ||

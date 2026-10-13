@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "erlang-port-fd-metadata-9",
+    "Before": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out]),{name,\u00220/1\u0022}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "After": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out]),{name,\u00220/1\u0022}=erlang:port_info(P,name),{os_pid,undefined}=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "BeforeCSharpSha256": "67642C584C17E2979BAA4D0AD8D75D312FF81824E02CA4A604B77889EF82D6DD",
+    "AfterCSharpSha256": "72DBD063EEAB7ACBCBB303B024DCE707270748626CB61624F991C5F5606A1D9C"
+  },
+  {
+    "Name": "erlang-port-fd-metadata-10",
+    "Before": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,binary]),{name,\u00220/1\u0022}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "After": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,binary]),{name,\u00220/1\u0022}=erlang:port_info(P,name),{os_pid,undefined}=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "BeforeCSharpSha256": "F37406F238B97ED01B5F51E1580FED0A0C280016F8DCAB31544F380790D0CDFD",
+    "AfterCSharpSha256": "E157EED102EF3ADEB62C560683CE48886F7C3D9EC10006092A21BADC3C3412E0"
+  },
+  {
+    "Name": "erlang-port-fd-metadata-11",
+    "Before": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,exit_status]),{name,\u00220/1\u0022}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "After": "-module(port_descriptor). -export([run/0]). run()-\u003Etry open_port({fd,0,1},[out,exit_status]) of _-\u003Eerror(accepted) catch error:badarg-\u003Eok end,done.",
+    "BeforeCSharpSha256": "BFBAC6EDE1213E86819DF7B4EF5AA90A45B5C07CF8646BDEF4023B5507E513BA",
+    "AfterCSharpSha256": "11A8F8A167FF30CEFB1D6B07BF7FAFDD34863BCF3329D4008E6E1A56E0CBA466"
+  },
+  {
+    "Name": "erlang-port-fd-metadata-12",
+    "Before": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,nouse_stdio]),{name,\u00220/1\u0022}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "After": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,nouse_stdio]),{name,\u00220/1\u0022}=erlang:port_info(P,name),{os_pid,undefined}=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "BeforeCSharpSha256": "AAF468143A331DB7FFE97F490BD7FD2CEE53D799B279CE09758323EC533FD67C",
+    "AfterCSharpSha256": "DEC9E95FCD3EB8EFB2F1E3B5896573B764A7AC91897B4371BB14D6E0D32A5AEC"
+  },
+  {
+    "Name": "erlang-port-fd-metadata-13",
+    "Before": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,overlapped_io]),{name,\u00220/1\u0022}=erlang:port_info(P,name),[]=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "After": "-module(port_descriptor). -export([run/0]). run()-\u003EP=open_port({fd,0,1},[out,overlapped_io]),{name,\u00220/1\u0022}=erlang:port_info(P,name),{os_pid,undefined}=erlang:port_info(P,os_pid),{output,0}=erlang:port_info(P,output),true=erlang:port_command(P,\u003C\u003C\u003E\u003E),true=erlang:port_close(P),undefined=erlang:port_info(P),done.",
+    "BeforeCSharpSha256": "B9B1E39167A8BE5321173A14DAC288E2D87CAAD8821962C40A927D590988D312",
+    "AfterCSharpSha256": "E23DF50F3BC7DEB49D1FDB6A08C3F7E0AF8927BCCF67B8871B201B5455165643"
+  }
+]

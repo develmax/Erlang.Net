@@ -20,7 +20,7 @@ public static class DescriptorIoCases
         })
             cases.Add(new(
                 name,
-                open + settings + "])," + receive + eof + "[]=erlang:port_info(P,os_pid),true=erlang:port_command(P,<<67,68>>)," + close,
+                open + settings + "])," + receive + eof + "{os_pid,undefined}=erlang:port_info(P,os_pid),true=erlang:port_command(P,<<67,68>>)," + close,
                 input,
                 output,
                 settings
@@ -40,8 +40,8 @@ public static class DescriptorIoCases
             "eof"
         ));
         cases.Add(new(
-            "ignored-exit-status",
-            open + "binary,eof,exit_status])," + receive + eof + "receive {P,{exit_status,_}}->error(unexpected_status) after 20->ok end," + close,
+            "reject-exit-status",
+            "try open_port({fd,$INPUT$,$OUTPUT$},[binary,eof,exit_status]) of _->error(accepted) catch error:badarg->ok end",
             "4142",
             "",
             "binary,eof,exit_status"

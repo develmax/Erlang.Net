@@ -225,8 +225,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             if (registered is not null)
                 result.Add(Term.Tuple(Term.A(PortNames.RegisteredName), Term.A(registered)));
             foreach (string key in new[] { PortNames.Name, PortNames.Links, PortNames.Id, PortNames.Connected, PortNames.Input, PortNames.Output, PortNames.OsPid })
-                if (key != PortNames.OsPid || port.Process.HasChild)
-                    result.Add(InfoItem(port, Term.A(key)));
+                result.Add(InfoItem(port, Term.A(key)));
 
             return Cons.From(result);
         }
@@ -237,8 +236,6 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         if (item is not Atom key)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (key.Name == PortNames.RegisteredName && runtime.PortRegisteredName(port.Identity) is null)
-            return Nil.Value;
-        if (key.Name == PortNames.OsPid && !port.Process.HasChild)
             return Nil.Value;
         Term value = key.Name switch
         {
@@ -251,7 +248,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             PortNames.Connected => port.Connected,
             PortNames.Input => Term.I(port.InputBytes),
             PortNames.Output => Term.I(port.OutputBytes),
-            PortNames.OsPid => Term.I(port.OsPid),
+            PortNames.OsPid => port.Process.HasChild ? Term.I(port.OsPid) : Term.A(ProcessRegistryAtoms.Undefined),
             PortNames.RegisteredName => runtime.PortRegisteredName(port.Identity) is string name ? Term.A(name) : Nil.Value,
             _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
         };

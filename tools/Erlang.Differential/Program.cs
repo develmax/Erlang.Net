@@ -25,8 +25,16 @@ int diagnosticFailed = 0;
 int failed = 0, planned = 0;
 string? activeSource = null;
 bool versionVerified = false;
+var checkpoints = new OracleReportCheckpoint();
 async Task SaveReport(bool complete, string? infrastructureError = null)
 {
+    if (!checkpoints.ShouldSave(
+        results.Count + moduleResults.Count + diagnosticResults.Count,
+        failed,
+        complete,
+        infrastructureError
+    ))
+        return;
     Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(args[1]))!);
     await File.WriteAllTextAsync(
         args[1],
