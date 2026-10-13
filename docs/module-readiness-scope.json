@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-216/tests.json",
+  "ComparisonTestReport": "validation/part-217/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -51,7 +51,8 @@
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
         "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure",
-        "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility."
+        "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility.",
+        "Non-link/monitor spawn options: CPU priority,heap/GC/message-queue allocation,scheduler/async_dist and connected distribution/physical resources."
       ],
       "Implemented": [
         "selective receive and local links/monitors",
@@ -93,7 +94,8 @@
         "Part205:actual port monitor/name/ref/alias/tag/priority/demonitor/observer-death entries;exit/exit_signal normal/custom/kill,priority/dead/foreign links and monitored_by;47 new cases,5469/full main/draft;4863 original pending206.",
         "Part207:packet1/2 maximum/overflow driver failure semantics,real einval EXIT/DOWN,empty frames and invalid iodata distinction;12 cases,5481/full main/draft;4875 original pending208.",
         "Part215: actual borrowed fd/Windows-handle IO, no child PID/status;8 pipe/file source contracts and idle reader cancellation with5567/full Windows local pipeline. Original comparisons pending216.",
-        "Part216 corrects fd PID metadata and exit_status rejection from original failures;5568/full Windows local repair. Patched original proof pending217;prior Part215 claims corrected."
+        "Part216 corrects fd PID metadata and exit_status rejection from original failures;5568/full Windows local repair. Patched original proof pending217;prior Part215 claims corrected.",
+        "Part218: spawn_opt2/3/4/5 links/monitors are installed under the runtime gate before child termination;monitor tags/aliases/priority delivery/options ordering/errors.46 new source cases,5618/full Windows main/draft,registry441 and erlang291/351. Original proof pending219."
       ],
       "Id": "Runtime",
       "TestPrefixes": [

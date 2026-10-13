@@ -136,6 +136,21 @@ public sealed class ProcessRuntime : IAsyncDisposable
         return new(ctx.Self, ctx.Done.Task);
     }
 
+    internal Term SpawnWithOptions(ProcessContext parent, Func<ProcessContext, ValueTask<Term>> body, ProcessSpawnOptions options)
+    {
+        lock (gate)
+        {
+            RequireAlive(parent.Self);
+            var process = Spawn(body, parent, options.Link);
+            if (options.PriorityLink)
+                parent.PriorityLinks.Add(process.Pid);
+            if (options.Monitor)
+                return Term.Tuple(process.Pid, Monitor(parent, process.Pid, options.MonitorOptions));
+
+            return process.Pid;
+        }
+    }
+
     public (ProcessHandle Process, ReferenceTerm Reference) SpawnMonitor(ProcessContext observer, Func<ProcessContext, ValueTask<Term>> body, bool link = false)
     {
         lock (gate)

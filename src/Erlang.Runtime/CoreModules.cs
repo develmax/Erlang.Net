@@ -777,6 +777,7 @@ public static class CoreModules
         ProcessAliasRegistrations.Register(r);
         ProcessMonitorRegistrations.Register(r);
         ProcessSpawnRegistrations.Register(r);
+        ProcessSpawnOptionRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
