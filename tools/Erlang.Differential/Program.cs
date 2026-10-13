@@ -4,6 +4,9 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Differential;
 
+if (args.Length == 3 && args[2] == DescriptorIoNames.Command)
+    return await DescriptorIoContracts.RunReference(args[0], args[1]);
+
 if (args.Length is < 2 or > 3 || args.Length == 3 && args[2] != OracleInvestigationModes.CommandLine)
 {
     Console.Error.WriteLine(OracleInvestigationDiagnostics.Usage);

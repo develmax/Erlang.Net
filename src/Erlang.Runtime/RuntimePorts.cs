@@ -225,7 +225,8 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             if (registered is not null)
                 result.Add(Term.Tuple(Term.A(PortNames.RegisteredName), Term.A(registered)));
             foreach (string key in new[] { PortNames.Name, PortNames.Links, PortNames.Id, PortNames.Connected, PortNames.Input, PortNames.Output, PortNames.OsPid })
-                result.Add(InfoItem(port, Term.A(key)));
+                if (key != PortNames.OsPid || port.Process.HasChild)
+                    result.Add(InfoItem(port, Term.A(key)));
 
             return Cons.From(result);
         }
@@ -236,6 +237,8 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         if (item is not Atom key)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (key.Name == PortNames.RegisteredName && runtime.PortRegisteredName(port.Identity) is null)
+            return Nil.Value;
+        if (key.Name == PortNames.OsPid && !port.Process.HasChild)
             return Nil.Value;
         Term value = key.Name switch
         {
@@ -392,7 +395,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         {
             if (!port.Options.Read)
             {
-                if (!OperatingSystem.IsWindows() || !port.Options.ExitStatus)
+                if (!port.Process.HasChild || !OperatingSystem.IsWindows() || !port.Options.ExitStatus)
                     await Task.Delay(Timeout.Infinite, port.Stop.Token);
                 else
                 {
@@ -468,7 +471,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             {
                 if (port.Closed)
                     return;
-                if (port.Options.ExitStatus)
+                if (port.Process.HasChild && port.Options.ExitStatus)
                     runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
                 if (!port.Options.Eof)
                     Close(port, Term.A(ProcessExitReasons.Normal));

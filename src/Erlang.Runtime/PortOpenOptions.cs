@@ -7,6 +7,9 @@ internal sealed class PortOpenOptions
 {
     public ProcessStartInfo Start { get; } = new() { UseShellExecute = false, RedirectStandardInput = true, RedirectStandardOutput = true };
     public string Name { get; private set; } = string.Empty;
+    public bool IsDescriptor { get; private set; }
+    public int InputDescriptor { get; private set; }
+    public int OutputDescriptor { get; private set; }
     public bool Binary { get; private set; }
     public bool Eof { get; private set; }
     public bool ExitStatus { get; private set; }
@@ -127,6 +130,21 @@ internal sealed class PortOpenOptions
             options.Directions = PortDirectionFlags.Both;
         if (options.LineBytes != 0 && options.PacketBytes != 0 || options.MergeStandardError && !options.UseStdio)
             throw BadOption();
+        if (specification is TupleTerm { Items.Count: 3 } descriptor && descriptor.Items[0] is Atom { Name: PortDescriptorNames.Kind })
+        {
+            if (arguments is not null || options.ArgumentZero is not null ||
+                descriptor.Items[1] is not Integer input || descriptor.Items[2] is not Integer output ||
+                input.Value < DescriptorPortParameters.MinimumSmallInteger || input.Value > DescriptorPortParameters.MaximumSmallInteger ||
+                output.Value < DescriptorPortParameters.MinimumSmallInteger || output.Value > DescriptorPortParameters.MaximumSmallInteger ||
+                OperatingSystem.IsLinux() && (options.Read && (input.Value < 0 || input.Value > int.MaxValue) || options.Write && (output.Value < 0 || output.Value > int.MaxValue)))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            options.IsDescriptor = true;
+            options.InputDescriptor = unchecked((int)(long)input.Value);
+            options.OutputDescriptor = unchecked((int)(long)output.Value);
+            options.Name = FormattableString.Invariant($"{options.InputDescriptor}/{options.OutputDescriptor}");
+
+            return options;
+        }
         if (specification is not TupleTerm { Items.Count: 2 } name)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         options.Name = Text(name.Items[1]);

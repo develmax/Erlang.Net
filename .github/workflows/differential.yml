@@ -38,8 +38,14 @@ jobs:
           else
             dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/differential.json
           fi
+      - name: Compare inherited descriptor IO against the original fd driver
+        if: always()
+        shell: bash
+        run: dotnet run --project tools/Erlang.Differential --no-build -- "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" artifacts/fd-differential.json --fd
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: differential
-          path: artifacts/differential.json
+          path: |
+            artifacts/differential.json
+            artifacts/fd-differential.json

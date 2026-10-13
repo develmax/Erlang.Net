@@ -1,0 +1,22 @@
+PASS erlang-port-fd-invalid-specification-0
+PASS erlang-port-fd-invalid-specification-1
+PASS erlang-port-fd-invalid-specification-2
+PASS erlang-port-fd-invalid-specification-3
+PASS erlang-port-fd-invalid-specification-4
+PASS erlang-port-fd-invalid-specification-5
+PASS erlang-port-fd-invalid-specification-6
+PASS erlang-port-fd-spawn-only-argument-7
+PASS erlang-port-fd-spawn-only-argument-8
+PASS erlang-port-fd-metadata-9
+PASS erlang-port-fd-metadata-10
+PASS erlang-port-fd-metadata-11
+PASS erlang-port-fd-metadata-12
+PASS erlang-port-fd-metadata-13
+Unhandled exception. System.IO.IOException: The process cannot access the file 'C:\Users\Maksim\AppData\Local\Temp\erlang-net-fd-714693c5-eab2-46bc-8954-e710861b03b7\output.bin' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.OpenHandle(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.File.ReadAllBytesAsync(String path, CancellationToken cancellationToken)
+   at Erlang.Differential.DescriptorIoContracts.RunSdk(DescriptorIoCase fixture) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Differential\DescriptorIoContracts.cs:line 27
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\part215-focus\Program.cs:line 3
+   at Program.<Main>(String[] args)

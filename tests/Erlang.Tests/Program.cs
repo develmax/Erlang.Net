@@ -29,6 +29,9 @@ Test(Erlang.Tests.RuntimeNodeControlHostNames.Test, Erlang.Tests.RuntimeNodeCont
 Test(Erlang.Tests.ProcessSavedCallHostNames.Test, Erlang.Tests.ProcessSavedCallHostChecks.Run);
 Test(Erlang.Tests.PortHostParameters.Test, Erlang.Tests.PortHostChecks.Run);
 Test(Erlang.Tests.PortDrainHostParameters.Test, Erlang.Tests.PortDrainHostChecks.Run);
+Test(Erlang.Differential.DescriptorIoNames.CancellationTest, Erlang.Differential.DescriptorIoContracts.RunCancellation);
+foreach (var fixture in Erlang.Differential.DescriptorIoCases.All)
+    Test("runtime/port-fd-io/" + fixture.Name, async () => await Erlang.Differential.DescriptorIoContracts.RunSdk(fixture));
 Test(Erlang.Tests.StandardStreamHostNames.ProtocolTest, Erlang.Tests.StandardStreamProtocolChecks.Run);
 Test("runtime/exit-pending-kill-cleans-concurrent-alias-signals", Erlang.Tests.ProcessExitHostChecks.PendingKillCleanup);
 Test("runtime/io-monitored-group-leader-concurrent-output", Erlang.Tests.IoProtocolHostChecks.ConcurrentOutput);

@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-213/tests.json",
+  "ComparisonTestReport": "validation/part-214/ci-tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -50,7 +50,8 @@
         "distribution, ETS/DETS, ports/NIF/code loading",
         "Timer absolute/async/info options, monotonic range/epoch, pause/distributed delivery and full clock/resource races",
         "Complete native init/kernel/arguments/exit statuses/background process protocols and inspection",
-        "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure"
+        "Monitor-associated aliases,native signal scheduling and priority links/exits;port/connected-distribution backpressure",
+        "FD TTY/window-size/flag restoration and concurrent external descriptor close/reuse/read; Windows native original execution; general platform/driver ABI/resource compatibility."
       ],
       "Implemented": [
         "selective receive and local links/monitors",
@@ -90,7 +91,8 @@
         "Part201:13 port MFAs over real external-process resources;owner links/shared names,actual data/EOF/exit status,packet1/2/4,data storage/callback rejection;5401/full local,original4795 pending202;native driver/platform/busy/monitor/full signal scheduling parity unfinished.",
         "Part203:original four-state byte line reader,CRLF/exact-cap/eol/noeol/EOF;explicit close discards partial tail;21 sourcecases,5422/full main/draft;4816 original pending204.",
         "Part205:actual port monitor/name/ref/alias/tag/priority/demonitor/observer-death entries;exit/exit_signal normal/custom/kill,priority/dead/foreign links and monitored_by;47 new cases,5469/full main/draft;4863 original pending206.",
-        "Part207:packet1/2 maximum/overflow driver failure semantics,real einval EXIT/DOWN,empty frames and invalid iodata distinction;12 cases,5481/full main/draft;4875 original pending208."
+        "Part207:packet1/2 maximum/overflow driver failure semantics,real einval EXIT/DOWN,empty frames and invalid iodata distinction;12 cases,5481/full main/draft;4875 original pending208.",
+        "Part215: actual borrowed fd/Windows-handle IO, no child PID/status;8 pipe/file source contracts and idle reader cancellation with5567/full Windows local pipeline. Original comparisons pending216."
       ],
       "Id": "Runtime",
       "TestPrefixes": [
