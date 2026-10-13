@@ -1,0 +1,18 @@
+{
+  "Head": "7f3925f49cbb6135afa3d7c3b0e932877678d31c",
+  "Complete": false,
+  "Planned": 5376,
+  "Executed": 5071,
+  "Passed": 5069,
+  "Failed": 2,
+  "AbortedSource": "-module(native_record_syntax_contract). -export([run/0]). -record #'_'{x=1}. run()->R=#'_'{},1=R#'_'.x,'_'=records:get_name(R),done. ",
+  "InfrastructureError": "Oracle exited 1: Error! Failed to eval: {ok,Ts,_}=erl_scan:string(unicode:characters_to_list(base64:decode(\"LW1vZHVsZShuYXRpdmVfcmVjb3JkX3N5bnRheF9jb250cmFjdCkuIC1leHBvcnQoW3J1bi8wXSkuIC1yZWNvcmQgIydfJ3t4PTF9LiBydW4oKS0+Uj0jJ18ne30sMT1SIydfJy54LCdfJz1yZWNvcmRzOmdldF9uYW1lKFIpLGRvbmUuIA==\"))), Split=fun Split([],[],Fs)->lists:reverse(Fs); Split([T|Rest],Acc,Fs)->case T of {dot,_}->{ok,F}=erl_parse:parse_form(lists:reverse([T|Acc])),Split(Rest,[],[F|Fs]); _->Split(Rest,[T|Acc],Fs) end end,Forms=Split(Ts,[],[]),{ok,M,Bin,_}=compile:forms(Forms,[binary,return_errors,return_warnings]),{module,M}=code:load_binary(M,\"differential.erl\",Bin),OracleOwner=self(),{OracleRunner,OracleMonitor}=spawn_monitor(fun()->process_flag(trap_exit,false),OracleOutcome=try apply(M,run,[]) of V->{ok,V} catch C:R->{error,C,R} end,OracleOwner!{erlang_net_compiled_result,self(),OracleOutcome} end),Result=receive {erlang_net_compiled_result,OracleRunner,OracleValue}->demonitor(OracleMonitor,[flush]),OracleValue;{'DOWN',OracleMonitor,process,OracleRunner,OracleReason}->{error,exit,OracleReason} end,io:format(\"~nERLANG_NET_ETF_BEGIN:~s:ERLANG_NET_ETF_END~n\",[base64:encode(term_to_binary(Result))]),halt().\r\n\r\nRuntime terminating during boot ({{badmatch,{error,[{\"native_record_syntax_contract\",[{1,beam_validator,{{native_record_syntax_contract,run,0},{{put_record,{f,0},{atom,'_'},nil,{x,0},0,{list,[]}},6,invalid_underscore_name}}}]}],[]}},[{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,796}]},{erl_eval,exprs,6,[{file,\"erl_eval.erl\"},{line,276}]},{init,start_it,1,[]},{init,start_em,1,[]},{init,do_boot,3,[]}]})\r\n\r\nCrash dump is being written to: erl_crash.dump...done\r\n ",
+  "RetainedModules": 4293,
+  "RetainedDiagnoses": 0,
+  "AllRetainedSourceOutcomeGeneratedHashContextPolicyAndByteContractsPreserved": true,
+  "IndependentFdPassed": 8,
+  "CiPassed": 6033,
+  "DigestsAndHeadsMatch": true,
+  "NoNewExclusion": true,
+  "PositiveProofPromoted": false
+}

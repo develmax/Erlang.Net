@@ -1,0 +1,12 @@
+{
+  "Name": "erlang-native-record-syntax-quoted-underscore-name",
+  "Source": "-module(native_record_syntax_contract). -export([run/0]). -record #'_'{x=1}. run()->R=#'_'{},1=R#'_'.x,'_'=records:get_name(R),done. ",
+  "FixtureExpected": "{ok,done}",
+  "ExpectedStandardOutputHex": null,
+  "ExpectedStandardErrorHex": null,
+  "ExpectedStandardOutputAlternatives": null,
+  "SourceSha256": "63248F232AD6071C107BC52EDC50D2EE94B8F0DB4B779412CD79E613DE5CCC26",
+  "CSharpSha256": "2F0F9CAC5BD79EF68F62A508B97EF35F14B0677D3513ECF9C1846DFED5F5975B",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default"
+}

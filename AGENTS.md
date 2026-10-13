@@ -835,3 +835,7 @@ Part224: frozen223 original5090/5090 + independent inherited fd8/8; same-head Li
 ## Part225 checkpoint
 
 Part225: source-guided spawn_request,native records/types/defaults/definitions,observable process_info and actual sequential/system reply tracing.6033/6033/full Windows main/draft,470 directMFAs;all4186 inherited contracts preserved,268 appended modules and18 new diagnoses.4454 SDK/4448 comparable/150 diagnoses;original5376+8fd and same-head CI pending226. Registry470;erlang312/35188.9% API presence,records8/8,lists91/91,maps34/34,gen_server10/41,supervisor14/23,io1/53. Native2 numeric hash assertions remain SDK-derived pending original proof;physical heaps/scheduler/resources,complete lint/warnings/stacks/code staging/distribution/upstream/performance partial. Unpublished token assertion corrected from original producer sentinel;raw prior/cancelled evidence retained,no published outcome/exclusion changed. Closed0032 unchanged,new0033 active. Whole erlang goal continues.
+
+## Part226 investigation checkpoint
+
+Part226: original225 FAILED/ABORTED planned5376/executed5071,5069pass2fail,4293module rows/no diagnoses;305unexecuted. Wrapper atom-argument redispatch and anonymous-private field access differ;quoted underscore local construction originalvalidatorabort. Raw failures/provenance retained;fd8/8 andCI6033/full separatelypass. Source repair in isolatedcopy,Main225 frozen. Registry470;erlang312/35188.9% presence notfullcompatibility. No exclusions/outcomeweakening;whole erlang continues.
