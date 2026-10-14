@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part258 verifies published255/babb093 sourcebuilt5774/5774+fd8 andsame-headWindowsCI6470/full. Strict historicalrawrow guard FAIL preserved: one map-print native keyorder/equality observation changed within two previouslydeclared alternatives; allhistoricalsemantic/source/generated/context/policycontracts exact, fullrawequalityfalse. Bothfullrawrows/pin/artifact/log/ZIP proofs retained,no fixtures/outcomes/exclusions normalized. Current487/erlang32935193.7 APIpresence wholepartial; standalone257 native10 running.
+
 Part257: standalone original loader contrast exporter ten scenarios/elevenfreshVMs published afterMain target0warnings/errors, rawnonUTF8/exit3 andbounded incompletepipe child controls/five CLI rejection gates. Fivegenuine inputs/compileddirectwrapper/staticexpected sources unchanged; actualnative11 observations pending. Source14+2ownednoticecomposition/runtimeMFAchanges0; current6470/full prior255 andnative24/5774proof256 retained. erlang32935193.7% APIpresence wholepartial. Close0037 immutable/new0038.
 
 Part256 verifies original2535774/5774+fd8 andsame-headCI6469, plus published254 genuine24 metadata mutations20accept/fourreject. Exactstaticterm/rawETF/IFF/sourcehash/pin/head/run/ZIP/joblog checks pass; retained6compiler/fivebody/fouronload outputs preserved. Mutatedonload executionfalse, full loader/exportordering/distribution/physical parity unproved. Current2556470/full andlive resource foundation separate; APIerlang32935193.7% wholepartial.

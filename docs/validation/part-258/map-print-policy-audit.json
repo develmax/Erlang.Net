@@ -1,0 +1,89 @@
+{
+  "Status": "PASS",
+  "ObservedRows": {
+    "Historical243": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": false,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    "Published255": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  },
+  "FixturePolicyPredatesCurrentObservation": true,
+  "BothRawNativeOutputsWithinUnchangedSourceDeclaredAlternatives": true,
+  "NoRawOutputNormalization": true,
+  "AllHistoricalRowsExactlyEqual": false,
+  "Sources": [
+    {
+      "Head": "babb093864c1025d3a9dd8a1d1327d381fc5d7dd",
+      "Path": "tools/Erlang.Differential/TermDisplayCases.cs",
+      "Sha256": "240D54D2B97A1E0DB80D83775372E1405938418761ABB09BDF8DB39A4AE194F9"
+    },
+    {
+      "Head": "babb093864c1025d3a9dd8a1d1327d381fc5d7dd",
+      "Path": "tools/Erlang.Differential/CompiledStandardOutputContract.cs",
+      "Sha256": "0F8F396BEF58B01830F408CF8BD1A0792566B73EA89B10448F9E109B8D17EF38"
+    },
+    {
+      "Head": "babb093864c1025d3a9dd8a1d1327d381fc5d7dd",
+      "Path": "tools/Erlang.Differential/Program.cs",
+      "Sha256": "4CFF5B25FA33D1612988BDD372C9ACA6153F145317BE82B671A9D5F834A71EBC"
+    },
+    {
+      "Head": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_utils.h",
+      "Sha256": "DAD589935F12DACF7004F68588417DF30E041B34499A8DC1E6336A0A292E78C4"
+    },
+    {
+      "Head": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_map.c",
+      "Sha256": "47F77A3456ED1D17BAB547F50427ACA109564ED072D0945096790D84F998EA69"
+    },
+    {
+      "Head": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_printf_term.c",
+      "Sha256": "9DBB488F273BC2D84230F2EB2FF815448B4C19C3E916E1C617370C25E84C861B"
+    }
+  ],
+  "NativeSourceContext": "Flatmap keys use internal raw atom term ordering (erl_utils.h:267), validate/sort with that comparator (erl_map.c:3187), and printer traverses stored flatmap keys (erl_printf_term.c MAP_DEF).",
+  "PhysicalCauseLimit": "These two executions did not capture atom table IDs or BEAM disassembly, so the precise reason for the changed atom insertion order remains unproved."
+}
