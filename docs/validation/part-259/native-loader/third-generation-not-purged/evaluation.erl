@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("third-generation-not-purged","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/third-generation-not-purged").

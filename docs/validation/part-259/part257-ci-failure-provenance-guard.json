@@ -1,0 +1,30 @@
+{
+  "AuditStatus": "PASS",
+  "CiStatus": "FAIL",
+  "Head": "b111d6de5a5d19ec16d0f491c1fa10d406327b73",
+  "Run": 38541910397,
+  "Job": 115778448279,
+  "Artifact": 11882309042,
+  "ZipSha256": "042D74A30423F8A65743833419117652933D5E0DB469E438DAC58ACD017AC9B4",
+  "LogSha256": "B3256EC6ECA247FD2C2D49FAB79F9441AB2F395CC6B71BE8B86B4AC3006A5EF2",
+  "Passed": 6469,
+  "Failed": 1,
+  "FailedRows": [
+    {
+      "Name": "erlang/hash-iterative-deep-terms-and-no-binary-payload-copy",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Portable hash allocation budget exceeded: 25128 bytes, budget 4096, result Integer, thread 29, synchronous completion\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 73\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 73\r\n   at Program.<Main>$(String[] args) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4218",
+      "Milliseconds": 74
+    }
+  ],
+  "FirstFailedStep": {
+    "name": "Run ./tools/validate.ps1",
+    "status": "completed",
+    "conclusion": "failure",
+    "number": 4,
+    "started_at": "2026-10-14T09:23:29Z",
+    "completed_at": "2026-10-14T09:27:33Z"
+  },
+  "FullIntegrationCompleted": false,
+  "NoFixtureOrBudgetChanges": true
+}

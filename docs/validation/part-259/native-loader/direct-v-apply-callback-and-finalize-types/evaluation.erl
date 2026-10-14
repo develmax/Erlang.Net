@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("direct-v-apply-callback-and-finalize-types","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/direct-v-apply-callback-and-finalize-types").

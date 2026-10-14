@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("batch-list-before-onload-limit","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/batch-list-before-onload-limit").
