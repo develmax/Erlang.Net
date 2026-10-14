@@ -1,0 +1,64 @@
+{
+  "Status": "SourceCorrectionProposalOnly",
+  "PublishedHead": "b111d6de5a5d19ec16d0f491c1fa10d406327b73",
+  "OriginalNativeRun": 38541961997,
+  "OriginalNativeResult": "Complete9of11Passed2Failed",
+  "NoMainChanges": true,
+  "NoReplacementNativeExecution": true,
+  "SourceAnchors": [
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "lib/kernel/src/code.erl",
+      "Sha256": "774B2307E0F49FE2974F3E9D10C870F8F8F59A6AE5073F133908A99756332F17"
+    },
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "lib/kernel/src/code_server.erl",
+      "Sha256": "160BF6A3AA23A9CC60043D4BFB0F1FF1475C11607E8E4E97E6C4C0806D825F9B"
+    },
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/preloaded/src/erts_code_purger.erl",
+      "Sha256": "2A9A4D8642BE168AD818BAF29CFD4F4FF913D0F9BD5F1F669947B575BFFC443D"
+    },
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/beam_bif_load.c",
+      "Sha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D"
+    },
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/jit/x86/ops.tab",
+      "Sha256": "BF6C0F5CB09DB030486713B3923BF0BBA1A9FBC98FE2684F425AB60B8FCAD711"
+    },
+    {
+      "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "lib/compiler/src/compile.erl",
+      "Sha256": "C386A2B42181D7E1EF8964893E415FC723B374D697400D678BC15D70C4722541"
+    }
+  ],
+  "Corrections": [
+    {
+      "Scenario": "third-generation-not-purged",
+      "OldExpected": "{{not_purged,[beam_fixture_constant]},\n {ok,42,[alpha,beta]},\n false,false,false,true,ok}\n",
+      "OriginalActual": "{{not_purged,[beam_fixture_constant]},\n {ok,42,[alpha,beta]},\n false,false,false,false,ok}\n",
+      "ProposedExpected": "{{not_purged,[beam_fixture_constant]},{ok,42,[alpha,beta]},false,false,false,false,ok}",
+      "Reason": "code:purge returns DidKill, not WasOld; no process owns old code in this scenario. Source code_server.erl1202-1204 and erts_code_purger.erl107-128 independently establish false while removing the old generation.",
+      "InputHash": "6C4B568447095A2E3AAB22F623415DB9DFE4ADE2E8A81559CE449F671F6A2DC4"
+    },
+    {
+      "Scenario": "direct-v-apply-callback-and-finalize-types",
+      "OldExpected": "{badarg,badarg,badarg}\n",
+      "OriginalActual": "{{badmatch,false},badarg,badarg}\n",
+      "OriginalPathProof": "Actual -scenario/1-fun-14-/0 at source line99 contains call_ext_only1 erlang:call_on_load_function; source apply with all literal target information compiled to direct JIT instruction. The raw callback stack includes beam_on_load_fresh_success:init/0 with badmatch,false.",
+      "ProposedSource": "-export([run/3,direct/1,dynamic_apply/3]).\n-compile(no_inline).\ndynamic_apply(Module,Function,Arguments) -> erlang:apply(Module,Function,Arguments).\n% Replace scenario literal apply with ?MODULE:dynamic_apply(erlang,call_on_load_function,[M]).",
+      "ProposedExpectedForNewUnknownTargetPath": "{badarg,badarg,badarg}",
+      "RequiredNewDisassemblyGate": "Find exported dynamic_apply/3 function; require generic call_ext/call_ext_only/call_ext_last to erlang:apply/3 (three arbitrary arguments). Reject any call_on_load_function target in this function. Independently retain direct/1 call_on_load_function gate. Fail before scenarios if actual native compiler chooses a different instruction shape; do not silently accept optimized direct call.",
+      "IndependentExpectationSource": "beam_bif_load.c793-799 BEAMASM C-BIF always BADARG; x86 ops.tab576-584 turns direct call_ext into i_call_on_load_function.",
+      "InputHash": "AC4A187B056ACD099DB36D4B991B4F1E1CBD982288FD0EF383E579E121A3E3AF"
+    }
+  ],
+  "ActualDisassemblySha256": "3B55BB630608C8FC0B7D7C9B5B62A6A306B0DC8892E7777F3466D050413109F0",
+  "RequireNewSourceRevisionLedger": true,
+  "RequireFreshPinnedNativeRunBeforePromotion": true
+}

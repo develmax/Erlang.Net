@@ -71,20 +71,36 @@ internal static class LoaderExporter
             throw new InvalidDataException("Actual invoked runtime differs from the pinned JIT build; raw version evidence retained");
         string sourcePath = Path.Combine(output, LoaderContrastNames.Source);
         await File.WriteAllBytesAsync(sourcePath, await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, LoaderContrastNames.Source)));
-        LoaderProcessResult compile = await LoaderProcess.Run(erlc, ["-Werror", "+debug_info", "-o", output, sourcePath], Path.Combine(output, "compile"));
+        string callerSource = Path.Combine(output, LoaderContrastNames.CallerSource);
+        await File.WriteAllBytesAsync(callerSource, await File.ReadAllBytesAsync(Path.Combine(AppContext.BaseDirectory, LoaderContrastNames.CallerSource)));
+        LoaderProcessResult compile = await LoaderProcess.Run(erlc, ["-Werror", "+debug_info", "-o", output, sourcePath, callerSource], Path.Combine(output, "compile"));
         if (compile.ExitCode != 0 || compile.TimedOut || !compile.RawComplete)
             throw new InvalidDataException("Compiled direct wrapper is unavailable; raw compile evidence retained");
         string wrapperBeam = Path.Combine(output, LoaderContrastNames.Wrapper + ".beam");
         string disassembly = Path.Combine(output, "wrapper-disassembly.txt");
+        string callerBeam = Path.Combine(output, LoaderContrastNames.Caller + ".beam");
+        string callerDisassembly = Path.Combine(output, "caller-disassembly.txt");
         string disassemble = "D=beam_disasm:file(" + Quote(wrapperBeam) + "),ok=file:write_file(" + Quote(disassembly) + ",iolist_to_binary(io_lib:format(\"~tp~n\",[D])))," +
             "{beam_file,loader_contrast_wrapper,_,_,_,Fs}=D,{function,direct,1,_,Is}=lists:keyfind(direct,2,Fs)," +
             "true=lists:any(fun({call_ext,1,{extfunc,erlang,call_on_load_function,1}})->true;" +
             "({call_ext_only,1,{extfunc,erlang,call_on_load_function,1}})->true;" +
-            "({call_ext_last,1,{extfunc,erlang,call_on_load_function,1},_})->true;(_)->false end,Is),halt(0).";
+            "({call_ext_last,1,{extfunc,erlang,call_on_load_function,1},_})->true;(_)->false end,Is)," +
+            "{function,dynamic_apply,3,_,As}=lists:keyfind(dynamic_apply,2,Fs)," +
+            "true=lists:any(fun({call_ext,3,{extfunc,erlang,apply,3}})->true;" +
+            "({call_ext_only,3,{extfunc,erlang,apply,3}})->true;" +
+            "({call_ext_last,3,{extfunc,erlang,apply,3},_})->true;(_)->false end,As)," +
+            "false=lists:any(fun({call_ext,_,{extfunc,erlang,call_on_load_function,1}})->true;" +
+            "({call_ext_only,_,{extfunc,erlang,call_on_load_function,1}})->true;" +
+            "({call_ext_last,_,{extfunc,erlang,call_on_load_function,1},_})->true;(_)->false end,As)," +
+            "CD=beam_disasm:file(" + Quote(callerBeam) + "),ok=file:write_file(" + Quote(callerDisassembly) + ",iolist_to_binary(io_lib:format(\"~tp~n\",[CD])))," +
+            "{beam_file,loader_direct_caller,_,_,_,CFs}=CD,{function,direct,1,_,CIs}=lists:keyfind(direct,2,CFs)," +
+            "true=lists:any(fun({call_ext,1,{extfunc,erlang,call_on_load_function,1}})->true;" +
+            "({call_ext_only,1,{extfunc,erlang,call_on_load_function,1}})->true;" +
+            "({call_ext_last,1,{extfunc,erlang,call_on_load_function,1},_})->true;(_)->false end,CIs),halt(0).";
         await File.WriteAllTextAsync(Path.Combine(output, "disassembly-evaluation.erl"), disassemble + "\n");
         LoaderProcessResult disasm = await LoaderProcess.Run(erl, ["-noshell", "-eval", disassemble], Path.Combine(output, "disassemble"));
-        if (disasm.ExitCode != 0 || disasm.TimedOut || !disasm.RawComplete || !File.Exists(disassembly))
-            throw new InvalidDataException("Actual compiled direct call_on_load instruction evidence missing");
+        if (disasm.ExitCode != 0 || disasm.TimedOut || !disasm.RawComplete || !File.Exists(disassembly) || !File.Exists(callerDisassembly))
+            throw new InvalidDataException("Actual compiled direct call_on_load and generic apply instruction evidence missing");
         var results = new List<LoaderCaseResult>();
         foreach (JsonElement scenario in scenarios)
         {
@@ -157,6 +173,8 @@ internal static class LoaderExporter
             PredeclaredSha256 = Hash(declarations),
             WrapperSourceSha256 = Hash(await File.ReadAllBytesAsync(source)),
             WrapperBeamSha256 = Hash(await File.ReadAllBytesAsync(beam)),
+            CallerSourceSha256 = Hash(await File.ReadAllBytesAsync(Path.Combine(output, LoaderContrastNames.CallerSource))),
+            CallerBeamSha256 = Hash(await File.ReadAllBytesAsync(Path.Combine(output, LoaderContrastNames.Caller + ".beam"))),
             CaseCount = LoaderContrastNames.CaseCount,
             FreshVmExecutions = rows.Count,
             ExpectedFreshVmExecutions = LoaderContrastNames.CaseCount + 1,

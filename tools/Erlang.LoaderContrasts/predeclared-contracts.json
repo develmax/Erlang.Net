@@ -75,9 +75,9 @@
         "finish_loading/1",
         "load_module/2"
       ],
-      "Procedure": "Fresh VM finish same genuine constant twice using fresh handles; prepare third. finish third returns not_purged and preserves current run; query consumed flags of prior handles false, third false. Purge via original code:purge only after snapshot, then third finish succeeds.",
-      "IndependentExpectedTermOrFacts": "{{not_purged,[beam_fixture_constant]},{ok,42,[alpha,beta]},false,false,false,true,ok}",
-      "SourceAnchors": "beam_bif_load.c438-459; code:purge used only cleanup/retry barrier",
+      "Procedure": "Fresh VM finish same genuine constant twice using fresh handles; prepare third. finish third returns not_purged and preserves current run; query consumed flags of prior handles false, third false. Purge via original code:purge only after snapshot, then third finish succeeds. code:purge returns DidKill rather than WasOld: no process is retaining this old generation, so the independently pinned result is false even though code is removed and retry finish succeeds.",
+      "IndependentExpectedTermOrFacts": "{{not_purged,[beam_fixture_constant]},{ok,42,[alpha,beta]},false,false,false,false,ok}",
+      "SourceAnchors": "beam_bif_load.c438-459; code:purge used only cleanup/retry barrier; code.erl purge return documentation; code_server.erl1202-1204; erts_code_purger.erl107-128",
       "NativeExecuted": false,
       "SdkDerivedExpected": false
     },
@@ -130,8 +130,8 @@
         "call_on_load_function/1",
         "finish_after_on_load/2"
       ],
-      "Procedure": "Compile explicit direct remote wrapper to generate special instruction; separate apply/3 path on actual pending module. For BEAMASM apply C-BIF always badarg; ordinary interpreter differs, record backend and use separately pinned contract. Invalid Boolean finalize badarg before module lookup, nonexistent module true badarg; no pending callback side effects for invalid calls.",
-      "IndependentExpectedTermOrFacts": "BEAMASM: {apply_badarg,boolean_badarg,module_badarg}; direct callback actual result covered prior scenarios",
+      "Procedure": "Compile explicit direct remote wrapper and exported dynamic_apply/3 with unknown module/function/argument-list parameters and no_inline. Before scenarios require direct/1 actual call_on_load_function instruction and dynamic_apply/3 generic erlang:apply/3 call with no fixed call_on_load_function target. Invoke helper through external module-qualified call on pending module. BEAMASM generic C-BIF always badarg; retain actual backend and full class/reason/stack. Invalid Boolean finalize badarg before module lookup; nonexistent module true badarg. Published257 literal apply was optimized into direct instruction and is retained separately as failed fixture evidence.",
+      "IndependentExpectedTermOrFacts": "BEAMASM verified generic apply/3: {badarg,badarg,badarg}; direct callback actual result covered prior scenarios",
       "SourceAnchors": "beam_bif_load.c793 BEAMASM branch; jit/x86/ops.tab576+ and instr_bif.cpp1152+; finish_after secondarg first",
       "NativeExecuted": false,
       "SdkDerivedExpected": false

@@ -1,7 +1,10 @@
 -module(loader_contrast_wrapper).
--export([run/3,direct/1]).
+-export([run/3,direct/1,dynamic_apply/3]).
+-compile(no_inline).
 
 direct(M) -> erlang:call_on_load_function(M).
+
+dynamic_apply(Module,Function,Arguments) -> erlang:apply(Module,Function,Arguments).
 
 run(Name,Root,Out) ->
     put(root,Root),put(out,Out),put(sequence,0),
@@ -96,14 +99,14 @@ scenario("replacement-onload-reject") ->
 scenario("direct-v-apply-callback-and-finalize-types") ->
     M=beam_on_load_fresh_success,P=prepare(M,fresh()),{on_load,[M]}=finish([P]),
     Flavor=value("backend",fun()->erlang:system_info(emu_flavor) end),jit=Flavor,
-    {reason(value("apply",fun()->apply(erlang,call_on_load_function,[M]) end)),
+    {reason(value("apply",fun()->?MODULE:dynamic_apply(erlang,call_on_load_function,[M]) end)),
      reason(value("boolean",fun()->erlang:finish_after_on_load(M,wrong) end)),
      reason(value("missing",fun()->erlang:finish_after_on_load(loader_missing,true) end))}.
 
 load_constant(B) ->
     {value("load-module",fun()->erlang:load_module(beam_fixture_constant,B) end),invoke(beam_fixture_constant)}.
 callback(M,Kind) ->
-    {_Worker,Ref}=spawn_monitor(fun()->exit(direct(M)) end),
+    {_Worker,Ref}=spawn_monitor(fun()->exit(loader_direct_caller:direct(M)) end),
     Notice=receive N={on_load_notice,M,_,_,_}->N;
         Early={'DOWN',Ref,process,_,_}->term("early-down",Early),error({missing_notice,Early})
         after 10000->error(notice_timeout) end,
@@ -120,7 +123,7 @@ expected("wrapper-gzip-and-real-load-raw") -> {{module,beam_fixture_constant},{o
 expected("wrapper-gzip-and-real-load-gzip") -> expected("wrapper-gzip-and-real-load-raw");
 expected("batch-list-before-onload-limit") -> {ok,badarg,badarg,system_limit,system_limit,false,true};
 expected("duplicate-batch-order") -> {{duplicated,[beam_fixture_add,beam_fixture_constant]},false,false,ok,{ok,42,[alpha,beta]},42};
-expected("third-generation-not-purged") -> {{not_purged,[beam_fixture_constant]},{ok,42,[alpha,beta]},false,false,false,true,ok};
+expected("third-generation-not-purged") -> {{not_purged,[beam_fixture_constant]},{ok,42,[alpha,beta]},false,false,false,false,ok};
 expected("local-etf-magic-extra-word") -> {true,false,true,false,ok,false,false,badarg};
 expected("fresh-onload-private-commit") -> {true,{on_load,[beam_on_load_fresh_success]},true,false,ok,true,new_image,true,badarg};
 expected("replacement-onload-reject") -> {{module,beam_on_load_replace_failure},{error,on_load},old_image,not_ok,true,old_image,true};

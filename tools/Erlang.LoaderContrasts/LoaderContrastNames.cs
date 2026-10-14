@@ -10,6 +10,8 @@ internal static class LoaderContrastNames
     internal const string Wrapper = "loader_contrast_wrapper";
     internal const string Declarations = "predeclared-contracts.json";
     internal const string Source = "loader_contrast_wrapper.erl";
+    internal const string Caller = "loader_direct_caller";
+    internal const string CallerSource = "loader_direct_caller.erl";
     internal const string Report = "loader-contrasts.json";
     internal const int ArgumentCount = 4;
     internal const int TimeoutSeconds = 45;

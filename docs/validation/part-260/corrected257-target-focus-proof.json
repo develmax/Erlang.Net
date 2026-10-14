@@ -1,0 +1,50 @@
+{
+  "Status": "ManagedTargetAndProcessControlsPassed",
+  "FrozenSourceUnchanged": true,
+  "SourceFreezeSha256": "1D64A3BAB2FE53DABBE0B884A0BC80B1BA096880320B4E457917699A0AD322D4",
+  "ToolBuildWarnings": 0,
+  "ToolBuildErrors": 0,
+  "FocusBuildWarnings": 0,
+  "FocusBuildErrors": 0,
+  "SourceChangedPaths": 7,
+  "UnchangedSeedPaths": 5254,
+  "TargetDllSha256": "63AFF27D43E8F5B82961DDBFCB4370C5EDB8FF84D28867BE5B81889E06A50406",
+  "FocusCopiedToolDllExact": true,
+  "CopiedErlangSourcesAndDeclarationsExact": true,
+  "ActualProcessControls": {
+    "Scope": "Managed process/writer controls only",
+    "NativeExecuted": false,
+    "RawBytesExact": true,
+    "ExitCode": 3,
+    "IncompleteInheritedPipe": true,
+    "IncompleteExitCode": 0,
+    "ElapsedMilliseconds": 5975,
+    "ArgumentGate": true
+  },
+  "ActualCliControls": {
+    "Status": "PASS",
+    "NativeExecuted": false,
+    "ToolSha256": "63AFF27D43E8F5B82961DDBFCB4370C5EDB8FF84D28867BE5B81889E06A50406",
+    "Cases": [
+      {
+        "Name": "invalid-arity",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "99DFAF814F46FEFE496DF645DA174434FA959E47D20A76A66582B7DF196043A5",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "wrong-source-pin",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "2A62A010BAD0E4DB874B4B643C1CCA10F45DA743FDDF3C99DCF02B3A6CB28D0D",
+        "OutputDirectoryCreated": false
+      }
+    ]
+  },
+  "NativeExecuted": false,
+  "ErlangSyntaxVerifiedByOriginalCompiler": false,
+  "GenuineTinyCallerBeamAvailable": false,
+  "FiveGenuineInputsExact": true,
+  "SeedHeadHeld": "32ae9d43feb15314d2991161345cc4ba794f3ce4"
+}
