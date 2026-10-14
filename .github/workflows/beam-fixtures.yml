@@ -37,7 +37,7 @@ jobs:
             make -j2
             echo 'PINNED_BEAM_INSTALL'
             make install
-            test "$(cat "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/releases/29/OTP_VERSION")" = 29.1.1
+            test "$(cat "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang/releases/29/OTP_VERSION")" = 29.1.1
             echo 'PINNED_BEAM_INSTALL_VERIFIED 29.1.1'
           } 2>&1 | tee artifacts/beam-otp-build.log
           python3 - <<'PY'
@@ -48,7 +48,7 @@ jobs:
               'SourceCommit': 'ad05823719d77c8faee87348ea39513d4e2f99c5',
               'SourceTag': 'OTP-29.1.1',
               'SourceBuildCompleted': True,
-              'InstalledOtpRoot': str(root / 'artifacts/beam-otp-oracle'),
+              'InstalledOtpRoot': str(root / 'artifacts/beam-otp-oracle/lib/erlang'),
               'SourceBuildLog': str(log),
               'SourceBuildLogSha256': hashlib.sha256(log.read_bytes()).hexdigest().upper(),
               'HarnessCommit': os.environ['GITHUB_SHA'],
@@ -66,7 +66,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet tools/Erlang.BeamFixtures/bin/Debug/net10.0/BeamFixtureExport.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle" "$GITHUB_WORKSPACE/artifacts/beam-fixtures" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" --execute 2>&1 | tee artifacts/beam-fixture-export.log
+          dotnet tools/Erlang.BeamFixtures/bin/Debug/net10.0/BeamFixtureExport.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" "$GITHUB_WORKSPACE/artifacts/beam-fixtures" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" --execute 2>&1 | tee artifacts/beam-fixture-export.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:

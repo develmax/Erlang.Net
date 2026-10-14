@@ -8,6 +8,8 @@ Build the project, then run its DLL with:
 BeamFixtureExport <installed-otp-root> <new-output-directory> <source-build-evidence.json> [--execute]
 ```
 
+For this source-build layout, the runtime root is `PREFIX/lib/erlang`, containing its `bin` and `releases` directories. The workflow records and passes this root consistently.
+
 The evidence must bind the source commit/tag, successful source build, installation root and complete build-log digest. The tool verifies the supplied fields, exact installed OTP_VERSION and digest; it retains that evidence unchanged. Independent workflow/job/artifact verification is still required before treating it as original proof. A pre-existing output directory is rejected.
 
 The export retains source, compiler flags and captured exit/stdout/stderr, raw compiler-produced BEAM, every IFF chunk payload digest, original beam_disasm output and the installed oracle version. The chunk reader inventories this compiler output; it is not a production loader or general BEAM acceptance contract.

@@ -1,0 +1,21 @@
+2026-10-14T00:19:38.9687693Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +75ec3fd6b0b62541c40c21d6fb563985c37a92b6:refs/remotes/origin/main
+2026-10-14T00:19:40.7751356Z  * [new ref]         75ec3fd6b0b62541c40c21d6fb563985c37a92b6 -> origin/main
+2026-10-14T00:19:40.7824319Z 75ec3fd6b0b62541c40c21d6fb563985c37a92b6
+2026-10-14T00:19:41.5984620Z 75ec3fd6b0b62541c40c21d6fb563985c37a92b6
+2026-10-14T00:19:54.9139509Z   echo "PINNED_BEAM_SOURCE_BEGIN $GITHUB_SHA"
+2026-10-14T00:19:54.9141675Z   echo "PINNED_BEAM_SOURCE_VERIFIED $source_commit"
+2026-10-14T00:19:54.9142596Z   echo 'PINNED_BEAM_CONFIGURE --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et'
+2026-10-14T00:19:54.9144374Z   echo 'PINNED_BEAM_MAKE -j2'
+2026-10-14T00:19:54.9144851Z   echo 'PINNED_BEAM_INSTALL'
+2026-10-14T00:19:54.9146041Z   echo 'PINNED_BEAM_INSTALL_VERIFIED 29.1.1'
+2026-10-14T00:19:54.9312235Z PINNED_BEAM_SOURCE_BEGIN 75ec3fd6b0b62541c40c21d6fb563985c37a92b6
+2026-10-14T00:20:03.1427608Z Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'.
+2026-10-14T00:20:04.2676681Z PINNED_BEAM_SOURCE_VERIFIED ad05823719d77c8faee87348ea39513d4e2f99c5
+2026-10-14T00:20:04.2677556Z PINNED_BEAM_CONFIGURE --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+2026-10-14T00:20:06.8775625Z checking OTP version... 29.1.1
+2026-10-14T00:20:19.7524397Z checking OTP version... 29.1.1
+2026-10-14T00:20:19.7904261Z PINNED_BEAM_MAKE -j2
+2026-10-14T00:27:49.7223648Z PINNED_BEAM_INSTALL
+2026-10-14T00:27:55.0437201Z /usr/bin/install -c -m 644 "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-source/OTP_VERSION" "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/releases/29"
+2026-10-14T00:27:55.0675267Z cat: /home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/releases/29/OTP_VERSION: No such file or directory
+2026-10-14T00:27:55.7782459Z Artifact beam-fixtures successfully finalized. Artifact ID 11860934395

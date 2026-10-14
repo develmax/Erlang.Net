@@ -1,0 +1,305 @@
+{
+  "Head": "75ec3fd6b0b62541c40c21d6fb563985c37a92b6",
+  "Tracks": [
+    {
+      "Kind": "original",
+      "Run": 38489508719,
+      "Job": 115611119315,
+      "Terminal": "failure",
+      "Artifact": 11861796685,
+      "ZipSHA256": "4BC9E6D020E38C93642B969D80CF447665EBD08AD77C56332D606C643297288A",
+      "RawLogSHA256": "57BD789FD0790A7D8DDB846968DE7D2CC72C0ED1271C9C15BD3C24D596B0A517",
+      "ActualSteps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T00:19:33Z",
+          "completed_at": "2026-10-14T00:19:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T00:19:35Z",
+          "completed_at": "2026-10-14T00:19:38Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T00:19:38Z",
+          "completed_at": "2026-10-14T00:19:47Z"
+        },
+        {
+          "name": "Build development oracle from the exact reference commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T00:19:47Z",
+          "completed_at": "2026-10-14T00:25:18Z"
+        },
+        {
+          "name": "Compare the supported language corpus",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 5,
+          "started_at": "2026-10-14T00:25:18Z",
+          "completed_at": "2026-10-14T00:36:45Z"
+        },
+        {
+          "name": "Compare inherited descriptor IO against the original fd driver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T00:36:45Z",
+          "completed_at": "2026-10-14T00:36:48Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T00:36:48Z",
+          "completed_at": "2026-10-14T00:36:49Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-14T00:36:49Z",
+          "completed_at": "2026-10-14T00:36:49Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T00:36:49Z",
+          "completed_at": "2026-10-14T00:36:49Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T00:36:49Z",
+          "completed_at": "2026-10-14T00:36:49Z"
+        }
+      ]
+    },
+    {
+      "Kind": "ci",
+      "Run": 38489506935,
+      "Job": 115611110677,
+      "Terminal": "success",
+      "Artifact": 11861346584,
+      "ZipSHA256": "7E0FFF10120C5F7775C815BFD803E73BCE66E8E320342F9F7308F6B85847CAD1",
+      "RawLogSHA256": "74BC5B77DBC31C375C58C23FA01126F83B646EED1C8E118077E8729465C2CFFD",
+      "ActualSteps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T00:19:33Z",
+          "completed_at": "2026-10-14T00:19:34Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T00:19:34Z",
+          "completed_at": "2026-10-14T00:19:44Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T00:19:44Z",
+          "completed_at": "2026-10-14T00:20:16Z"
+        },
+        {
+          "name": "Run ./tools/validate.ps1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T00:20:16Z",
+          "completed_at": "2026-10-14T00:23:55Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T00:23:55Z",
+          "completed_at": "2026-10-14T00:23:57Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-14T00:23:57Z",
+          "completed_at": "2026-10-14T00:23:57Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-14T00:23:57Z",
+          "completed_at": "2026-10-14T00:24:00Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-14T00:24:00Z",
+          "completed_at": "2026-10-14T00:24:00Z"
+        }
+      ]
+    },
+    {
+      "Kind": "beam",
+      "Run": 38489515438,
+      "Job": 115611140611,
+      "Terminal": "failure",
+      "Artifact": 11860934395,
+      "ZipSHA256": "19D67C7A4A4B3AF47D379FA4374BA49E68B8D84E7BA2FFF09B2B882EAC5C0C4B",
+      "RawLogSHA256": "A80CF3454E53F78BB4DA36F479B18DCF1D507882605CC7B2C569B242C74A39A1",
+      "ActualSteps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T00:19:37Z",
+          "completed_at": "2026-10-14T00:19:38Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T00:19:38Z",
+          "completed_at": "2026-10-14T00:19:41Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T00:19:41Z",
+          "completed_at": "2026-10-14T00:19:50Z"
+        },
+        {
+          "name": "Build fixture evidence tool",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T00:19:50Z",
+          "completed_at": "2026-10-14T00:19:54Z"
+        },
+        {
+          "name": "Build and attest the pinned development compiler",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 5,
+          "started_at": "2026-10-14T00:19:54Z",
+          "completed_at": "2026-10-14T00:27:55Z"
+        },
+        {
+          "name": "Compile disassemble and independently execute fixture modules",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-14T00:27:55Z",
+          "completed_at": "2026-10-14T00:27:55Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T00:27:55Z",
+          "completed_at": "2026-10-14T00:27:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-14T00:27:55Z",
+          "completed_at": "2026-10-14T00:27:55Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T00:27:55Z",
+          "completed_at": "2026-10-14T00:27:55Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T00:27:55Z",
+          "completed_at": "2026-10-14T00:27:56Z"
+        }
+      ]
+    }
+  ],
+  "Files": [
+    {
+      "Track": "differential",
+      "File": "differential.json",
+      "SHA256": "72DBBF76AA523B7147D652F3D9EF123C744618895EF9B336C303C09200414DCC"
+    },
+    {
+      "Track": "differential",
+      "File": "fd-differential.json",
+      "SHA256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7"
+    },
+    {
+      "Track": "validation",
+      "File": "tests.json",
+      "SHA256": "EE168B545B751FB43A7141EEB4CB8574713733B50CC8D6A47730469FF35B01DB"
+    },
+    {
+      "Track": "validation",
+      "File": "integration-results.json",
+      "SHA256": "29E19EDF5C2BD67F083BBC6595D121971271C0C819CBD1F8A4A24E460BEB2C03"
+    },
+    {
+      "Track": "beam-fixtures",
+      "File": "beam-otp-build.log",
+      "SHA256": "CD96F1B324C0C007EF1830690C62DB7CEE64EE72E65C80F03D749FE44C95F579"
+    },
+    {
+      "Track": "beam-fixtures",
+      "File": "beam-fixture-tool-build.log",
+      "SHA256": "EB06AFAAA011754ECDD6F4ED96990CFFDBAE7D45156FE2E576A5EFDA7C49B746"
+    }
+  ],
+  "OriginalComplete": true,
+  "OriginalPassed": 5726,
+  "OriginalFailed": 1,
+  "IndependentFdPassed": 8,
+  "CiPassed": 6407,
+  "CiFullPipeline": true,
+  "OriginalPinnedBuildVerified": true,
+  "BeamAttestationFailed": true,
+  "ActualBeamFixturesCompiled": 0,
+  "ActualBeamFixturesExecuted": 0,
+  "NoNativeSuccessPromotion": true
+}
