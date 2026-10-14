@@ -1,0 +1,78 @@
+{
+  "Status": "PASS",
+  "Head": "f26e1a15320553eb9d725764ec2260f3c262e1da",
+  "OriginalPassed": 5785,
+  "FdPassed": 8,
+  "NewIdentifierContracts": 11,
+  "AllOld4837RowsExact": false,
+  "HistoricalSemanticContractsExact": true,
+  "RawDifferences": [
+    {
+      "Index": 3605,
+      "Delta": {
+        "NativeAndSdkStandardOutputExactlyMatch": {
+          "Actual": true,
+          "Historical": false
+        },
+        "NativeStandardOutputHex": {
+          "Actual": "237B613D3E7B307D2C623D3E2241227D0D0A",
+          "Historical": "237B623D3E2241222C613D3E7B307D7D0D0A"
+        }
+      },
+      "Current": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      },
+      "Historical": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": false,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "FullReferenceCoverage": false,
+  "ExclusionsUnchanged": 6,
+  "Run": 38596894388,
+  "Job": 115965831492,
+  "Artifact": 11913621047,
+  "ZipSha256": "5D4BDEF589801349A7CE8C6BF1983CFEC12A250A733D575EF0D5259799AA2100",
+  "JobLogSha256": "1FE004ED870BA14220F17A9D4682522E180133497FAA1C09757053F501352212",
+  "NoSourcesOrExpectedChanges": true
+}

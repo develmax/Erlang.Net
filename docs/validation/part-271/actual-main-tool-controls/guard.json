@@ -1,0 +1,296 @@
+{
+  "Status": "PASS_ActualMainToolCliAndProcessControls",
+  "Rows": [
+    {
+      "Tool": "Erlang.DistributionPacketContrasts",
+      "ActualMainAssemblySha256": "B8EBADC74E6A8B38D9F307F96F6E04AE0D0F578B4428C35A3E44BF3F5C2F8724",
+      "ActualMainAssemblyMvid": "fe641367-687d-480a-a3ea-2906118b2393",
+      "CopiedClosureBeforeDeliberateRefusalMutations": [
+        {
+          "Name": "distribution_packet_probe.erl",
+          "Sha256": "3D260848B3CDE7AED1F92048B9B72CE5BB7900070183B0928987CF164482DD01"
+        },
+        {
+          "Name": "Erlang.DistributionPacketContrasts.deps.json",
+          "Sha256": "F6F4829F4C8F4A6C097A84785F449687F8B940A5DC12348E410979EC6EB79ED1"
+        },
+        {
+          "Name": "Erlang.DistributionPacketContrasts.dll",
+          "Sha256": "B8EBADC74E6A8B38D9F307F96F6E04AE0D0F578B4428C35A3E44BF3F5C2F8724"
+        },
+        {
+          "Name": "Erlang.DistributionPacketContrasts.exe",
+          "Sha256": "20900CD9D706F8DC982353EB5272E3155CAC6B7726EFC34994138AD0698F6F65"
+        },
+        {
+          "Name": "Erlang.DistributionPacketContrasts.pdb",
+          "Sha256": "BF1421A9C9589DDD919C29B048B42A3C591DB7DA71AA532CB2050602C8937536"
+        },
+        {
+          "Name": "Erlang.DistributionPacketContrasts.runtimeconfig.json",
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Name": "source-plan.json",
+          "Sha256": "E95CE7F96B01FA9EFCCDC0E2567973243EE812D0C5B43D741983FD7FC29A3267"
+        }
+      ],
+      "CliRefusals": [
+        {
+          "Name": "wrong-pin",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-tag",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "not-built",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-root",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-log-hash",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-version",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-source-hash",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "duplicate-artifact",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-scenario",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-plan-pin",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "existing-output",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-argument-count",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        }
+      ],
+      "ActualMainProcessControls": {
+        "Status": "PASS",
+        "ActualMainAssembly": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionPacketContrasts\\bin\\Debug\\net10.0\\Erlang.DistributionPacketContrasts.dll",
+        "ActualMainSha256": "B8EBADC74E6A8B38D9F307F96F6E04AE0D0F578B4428C35A3E44BF3F5C2F8724",
+        "ActualMainMvid": "fe641367-687d-480a-a3ea-2906118b2393",
+        "ActualMethod": "DistributionPacketContrasts.PacketProcess.Run",
+        "ReflectionActualMainMethodInvoked": true,
+        "Raw": {
+          "ExitCode": 3,
+          "TimedOut": false,
+          "RawComplete": true
+        },
+        "InheritedPipes": {
+          "ExitCode": 0,
+          "TimedOut": false,
+          "RawComplete": false
+        },
+        "Milliseconds": 5111,
+        "OwnedChildTerminated": true,
+        "NativeExecuted": false
+      },
+      "NativeExecuted": false
+    },
+    {
+      "Tool": "Erlang.MixedMapIdentityContrasts",
+      "ActualMainAssemblySha256": "F79A6C6CD24F1686594E325B873D2FE475161C722B261ED89B6172BD245906A3",
+      "ActualMainAssemblyMvid": "f6856bf8-b47e-4848-8449-c8b435c33325",
+      "CopiedClosureBeforeDeliberateRefusalMutations": [
+        {
+          "Name": "Erlang.MixedMapIdentityContrasts.deps.json",
+          "Sha256": "0291FF2ED64B8D963FD3677A2C9A756B46F9CF90A08AD7265600D91350ABB938"
+        },
+        {
+          "Name": "Erlang.MixedMapIdentityContrasts.dll",
+          "Sha256": "F79A6C6CD24F1686594E325B873D2FE475161C722B261ED89B6172BD245906A3"
+        },
+        {
+          "Name": "Erlang.MixedMapIdentityContrasts.exe",
+          "Sha256": "531DE8BF9D61EE17BBC53BB7BD1EB22D5146759E7E2C2343A1CB898D63AA9205"
+        },
+        {
+          "Name": "Erlang.MixedMapIdentityContrasts.pdb",
+          "Sha256": "3D55E2646C8EE92F0D55D5917A5E0F83986A92E7639AA7233BE0041457CF8349"
+        },
+        {
+          "Name": "Erlang.MixedMapIdentityContrasts.runtimeconfig.json",
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Name": "mixed_map_identity_probe.erl",
+          "Sha256": "AE12BC7EB02B1EE17EDB445C8DD38D08A3B59ACE208743B249A2B13400CACE1F"
+        },
+        {
+          "Name": "source-plan.json",
+          "Sha256": "58F0367AD190B39F5A74CFCC22CEA915E58F911A1B7CCEBC587D8702E5083FFA"
+        }
+      ],
+      "CliRefusals": [
+        {
+          "Name": "wrong-pin",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-tag",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "not-built",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-root",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-log-hash",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-version",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-source-hash",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "duplicate-artifact",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-scenario",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-plan-pin",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "existing-output",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        },
+        {
+          "Name": "wrong-argument-count",
+          "ExitCode": 1,
+          "RefusedBeforeWriting": true,
+          "SyntheticEvidence": true,
+          "NativeExecuted": false
+        }
+      ],
+      "ActualMainProcessControls": {
+        "Status": "PASS",
+        "ActualMainAssembly": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.MixedMapIdentityContrasts\\bin\\Debug\\net10.0\\Erlang.MixedMapIdentityContrasts.dll",
+        "ActualMainSha256": "F79A6C6CD24F1686594E325B873D2FE475161C722B261ED89B6172BD245906A3",
+        "ActualMainMvid": "f6856bf8-b47e-4848-8449-c8b435c33325",
+        "ActualMethod": "NodeIdentityContrasts.NodeProcess.Run",
+        "ReflectionActualMainMethodInvoked": true,
+        "Raw": {
+          "ExitCode": 3,
+          "TimedOut": false,
+          "RawComplete": true
+        },
+        "InheritedPipes": {
+          "ExitCode": 0,
+          "TimedOut": false,
+          "RawComplete": false
+        },
+        "Milliseconds": 5108,
+        "OwnedChildTerminated": true,
+        "NativeExecuted": false
+      },
+      "NativeExecuted": false
+    }
+  ],
+  "MainTools": 2,
+  "CliRefusals": 24,
+  "ActualMainMethodsInvoked": true,
+  "NoCopiedCaptureImplementationCompiled": true,
+  "NativeExecuted": false
+}

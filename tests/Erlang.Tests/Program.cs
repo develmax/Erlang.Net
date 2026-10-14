@@ -4236,6 +4236,8 @@ Test(Erlang.Tests.HostDistributionTestNames.Test, Erlang.Tests.HostDistributionC
 
 Test(Erlang.Tests.DistributionPendingTestNames.Test, Erlang.Tests.DistributionPendingChecks.Run);
 
+Test(Erlang.Tests.DistributionPacketTestNames.Test, Erlang.Tests.DistributionPacketChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

@@ -1,0 +1,280 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_REVIEW_REVISION3_NATIVE_UNEXECUTED",
+  "ReviewedFreezeSha256": "F235CE14080EA5C8D5EFA13A9D79376DA53E8D54960A4635061E20A4CB2275A7",
+  "ReviewedPaths": 9,
+  "NativeSourceSha256": "AE12BC7EB02B1EE17EDB445C8DD38D08A3B59ACE208743B249A2B13400CACE1F",
+  "RequiredArtifacts": 32,
+  "NativeFreshVms": 1,
+  "CombinedWorkflowFreshVms": 2,
+  "CombinedWorkflowSourceBuilds": 1,
+  "PublishedLinkedHelpers": [
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcess.cs",
+      "Sha256": "F96219E200C5753C294CD5FB15EDF67B65F7ECFB14A8785F2DC2BFBD9A4CF970"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcessResult.cs",
+      "Sha256": "A1056E0A05EA560C2387D33C870C52E0A51DB5D696F0CE02401352C8D1375FB9"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs",
+      "Sha256": "178CC9A3A4160018D2372DD5F702C66E1AD6CB8E11D609F0C4FC0888B8BB477B"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeDiagnostics.cs",
+      "Sha256": "58EB31CD3FA0F980E312A224E7500F8081AB9E18B2AAC01BE805B19C065E8999"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeNames.cs",
+      "Sha256": "FFF7E693DFFCC156906BECCE811D38F11C9012FD7A6103E8C35214A2920362D4"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeErlangString.cs",
+      "Sha256": "F17FA674A3A1F4943696A0D73DA5B09DE2B4594F83098AC474333859755BCBC7"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeStringSyntax.cs",
+      "Sha256": "2A982940337F791EBD60F01D65A0BB4C02E7FBA0D3F24FD62945042547500152"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeFields.cs",
+      "Sha256": "BC929CC6290BA73FD71D59D483CAC0DD74DA8C2E211D9550D632851A37AB11D1"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeModuleSource.cs",
+      "Sha256": "0A9D1171F90053B5A933A6235FD688FE622D05D661161A31523AABFEED526611"
+    }
+  ],
+  "Checks": [
+    {
+      "Check": "Exact frozen9 sourcepaths; nestedCompile links resolvepublished9 Node helpers",
+      "Status": "PASS"
+    },
+    {
+      "Check": "Pin/sourcebuildlog/hash/root/OTP29.1.1/JIT17.1 runtime guards and sourceAE12 checks beforeoutput",
+      "Status": "PASS"
+    },
+    {
+      "Check": "Exactly32unique required rawartifact names/ordereddeclarations; nativeETFreference literalindependent byte reconstruction",
+      "Status": "PASS"
+    },
+    {
+      "Check": "Separatefresh mixedVM only; no oldfourprobe invocation; semanticexpectationsnull/hypothesesobserved0",
+      "Status": "PASS"
+    },
+    {
+      "Check": "Fullclass/reason/stack observation for probefailures, initialstage and bounded cleanup; inherited bounded rawprocesshelper unchanged",
+      "Status": "PASS"
+    },
+    {
+      "Check": "Captured gate requires exit0/notimeout/rawcomplete/stagecomplete/all32files; inventory snapshots before reportfirstwrite",
+      "Status": "PASS"
+    },
+    {
+      "Check": "One sourcebuild/two VM invocations; mixedstep independent of packetfailure but requiresbothbuildsuccess; jobfailurenotnormalized",
+      "Status": "PASS"
+    },
+    {
+      "Check": "New correctUsage/Arguments semanticowner; linkedpublishedhelpers unmodified",
+      "Status": "PASS"
+    }
+  ],
+  "InitialConcreteDefects": [
+    "Default mixed step success gate skipped observation if precedingpacket failed",
+    "Copied NodeIdentity CLI usage named wrongtool"
+  ],
+  "DefectsCorrectedInRevision2": true,
+  "RemainingConcreteDefects": [],
+  "NativeExecuted": false,
+  "BuildOrCliExecutionByThisReview": false,
+  "Packet25FreezeMustRemainImmutable": true,
+  "RootCombinedFreezeMustBindJointWorkflow": true,
+  "ScopeLimits": [
+    "File presence and complete capture do not establish semantic matches; independently inspect every native rawresult afterpublication.",
+    "No network/handshake/nativeheap/statistic or Main semantic readiness proof.",
+    "Root must merge33unique sourcepaths (packet25 plusmixed8 withsinglejointworkflowrecord) and bind final jointworkflow bytes."
+  ],
+  "PreviousReviewSha256": "5E69C2DC6D721459B7FACF67BDF5370CD2FE16ADDF68EB5838691EF244221F3E",
+  "SourceChangesFromRevision2": [
+    ".github/workflows/distribution-packet-contrasts.yml"
+  ],
+  "IndependentWorkflowConditionsTruthTable": [
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": true,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": true,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": false,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": true,
+      "PinnedBuildRuns": true,
+      "PacketCaptureRuns": true,
+      "MixedCaptureRuns": true,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": false,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": false,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": false,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    },
+    {
+      "Cancelled": true,
+      "PacketToolSuccess": true,
+      "MixedToolSuccess": true,
+      "PinnedBuildSuccess": true,
+      "MixedBuildRuns": false,
+      "PinnedBuildRuns": false,
+      "PacketCaptureRuns": false,
+      "MixedCaptureRuns": false,
+      "OtherCaptureFailureDoesNotGateOwnCapture": true
+    }
+  ],
+  "OtherToolOrCaptureFailureCannotSuppressEligibleFreshProbe": true
+}

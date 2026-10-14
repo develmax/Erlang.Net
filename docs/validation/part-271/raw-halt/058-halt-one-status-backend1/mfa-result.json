@@ -1,0 +1,32 @@
+{
+  "Name": "halt-one-status",
+  "Backend": 1,
+  "Stage": "halt-request-observed",
+  "RawExitCode": 41,
+  "StandardOutput": [],
+  "StandardError": [],
+  "TimedOut": false,
+  "Evidence": {
+    "Stage": "halt-request-observed",
+    "Backend": "compiled",
+    "RequestKind": 0,
+    "LogicalStatus": 41,
+    "Slogan": null,
+    "EntryExitReason": null,
+    "Error": null,
+    "DumpFormat": null,
+    "SourceSha256": [
+      "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+    ],
+    "LogicalStack": null
+  },
+  "InfrastructureError": null,
+  "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\f209c41bb03345eb97b40db36285f265",
+  "Sources": [
+    {
+      "Module": "halt_one_status",
+      "Source": "-module(halt_one_status).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+      "SourceSha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+    }
+  ]
+}

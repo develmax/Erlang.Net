@@ -1,0 +1,82 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_SUBSET",
+  "SourceFreezeSha256": "74c270f384c84d20de1720d8182179453c3e5413a484abcd95951a42fc1b3fcb",
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+      "Sha256": "9ebda9c5de2eb291ce8f73e7505ec2c160f9793b0c9c6bfa254dce94467531ca"
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughDiagnostics.cs",
+      "Sha256": "346e3bb857da9e54cce36bc75f794838ae564ca9cba80fc756900de4e095c0d2"
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+      "Sha256": "5684e2384c6775afa7922d72548816875896cfb85f19461787c832b164c8637d"
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughLayout.cs",
+      "Sha256": "3a946a1b071dc5f8f7998f7a9a88a0836ba3efcd68a364e317617c31c4747772"
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughMessage.cs",
+      "Sha256": "6c2940855fccbc0b2a1c1e74f1e58ed0efb71a10d1f69aeaabe42a56122b9fe0"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/dist.h",
+      "Sha256": "3a44065b5004819acf1eca68d99a8bfda3d9e002c6cbb1bd64af695e9bca7091"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711ab6a7c9fce0f4d5b40b06d4dde5f61e9c8bdfaafb1d0a22988d04657eeb"
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "Sha256": "cbfdfcef0f756c468c6f2fc8a23d478a01daeddb3a4db8e240a8590252a4414b"
+    }
+  ],
+  "Checks": [
+    {
+      "Area": "Mandatory and rejected flags",
+      "Evidence": "dist.h DFLAG_DIST_MANDATORY_25|26, constants all bits exact; cache header/fragments/send_sender explicitly rejected by bounded codec",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Pass-through envelope",
+      "Evidence": "external.c PASS_THROUGH p; no cache/no fragments skip p then VERSION_MAGIC for control, separate versioned payload. Encode 112/control/payload; Decode consumed-boundary plus trailing rejection",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Send control",
+      "Evidence": "dist.c DOP_SEND tuplearity3 and Pid recipient; compatibility ignores empty-cookie field testing, native ASSERT is debug invariant. Factory emits empty atom cookie",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Registered send control",
+      "Evidence": "dist.c DOP_REG_SEND arity4, pid sender and atom recipient, explicitly no cookie testing R9B onward",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Feature isolation",
+      "Evidence": "NativeRecords notmandatory; iterative traversal rejects nested native record unless flagnegotiated, including function environments. Compressed/local ETF outer envelopes rejected. Core/admission/framing/network absent asdeclared",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Byte cap",
+      "Evidence": "EncodedSize bound before ETF writes and actual byte length checked again; Decode outertotal maxBytes and exact consumed term boundaries",
+      "Result": "PASS"
+    },
+    {
+      "Area": "Evidence scope",
+      "Evidence": "Independent source audit only; no compiler/native execution during root heavy validation. No genuine transport, localnode transition, ERTS statistic or hash parity claims",
+      "Result": "PASS"
+    }
+  ],
+  "ConcreteDefects": [],
+  "NativeExecuted": false,
+  "BuiltOrExecuted": false,
+  "FullDistributionCompatibility": false
+}

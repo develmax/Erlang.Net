@@ -1,0 +1,7 @@
+# Pinned distribution pass-through observations
+
+Build the standalone collector and run it with three arguments: the source-built OTP root, a fresh output directory, and the source-build evidence JSON. The manual distribution-packet-contrasts workflow builds exactly OTP-29.1.1 at ad05823719d77c8faee87348ea39513d4e2f99c5 and attests OTP29/ERTS17.1/JIT before compiling the genuine probe.
+
+One fresh VM registers a fixture kernel process, adopts a real process controller through setnode/3, designates the input handler, injects SEND and REG_SEND packets, receives the actual payloads, and captures outgoing REG_SEND bytes. It captures exact input control/payload ETFs, dynamic owner/controller/node identities, kernel notice and complete class/reason/stack on failure, with actual monitored controller cleanup. Networking, TCP, epmd, handshake, and SDK-derived expected outputs are absent. Statistics are native observations, not a claimed SDK counter mapping.
+
+The source plan binds the probe and all seventeen required raw artifacts. Raw stdout/stderr/exit and bounded timeout/drain state accompany runtime, compile, disassembly and probe invocations. Capture completion is separate from semantic compatibility; neither collector compilation nor SDK packet tests prove original execution. Native outcomes require publishing and dispatching the exact commit, then independently verifying its artifacts against the unchanged source plan.

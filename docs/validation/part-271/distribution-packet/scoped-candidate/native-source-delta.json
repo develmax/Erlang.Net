@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_SOURCE_DELTA",
+  "InitialRequiredArtifacts": [
+    "inputs.etf",
+    "incoming-send.packet",
+    "incoming-send-result.etf",
+    "incoming-send-delivered.etf",
+    "incoming-reg-send.packet",
+    "incoming-reg-send-result.etf",
+    "incoming-reg-send-delivered.etf",
+    "outgoing-reg-send.packet",
+    "outgoing-reg-send-control.etf",
+    "stats.etf",
+    "stage"
+  ],
+  "FinalRequiredArtifacts": [
+    "inputs.etf",
+    "incoming-send.packet",
+    "incoming-send-result.etf",
+    "incoming-send-delivered.etf",
+    "incoming-reg-send.packet",
+    "incoming-reg-send-result.etf",
+    "incoming-reg-send-delivered.etf",
+    "outgoing-reg-send.packet",
+    "outgoing-reg-send-control.etf",
+    "stats.etf",
+    "stage",
+    "payload.etf",
+    "identities.etf",
+    "incoming-send-control.etf",
+    "incoming-reg-send-control.etf",
+    "cleanup-controller.etf",
+    "kernel-notice.etf"
+  ],
+  "AddedRawArtifacts": [
+    "payload.etf",
+    "identities.etf",
+    "incoming-send-control.etf",
+    "incoming-reg-send-control.etf",
+    "cleanup-controller.etf",
+    "kernel-notice.etf"
+  ],
+  "PriorHypothesesTextAndOrderExact": true,
+  "ProbeSha256": "3D260848B3CDE7AED1F92048B9B72CE5BB7900070183B0928987CF164482DD01",
+  "ProbeUtf8NoBomLf": true,
+  "NativeExecuted": false,
+  "ProductionCodec5Unchanged": true,
+  "AdditiveObservationEdits": [
+    "independent inputControl ETFs",
+    "payload ETF",
+    "owner/controller/current node+is_alive ETF",
+    "exact matched kernelnotice ETF",
+    "real monitored cleanupreason ETF"
+  ],
+  "NativeOutcomeNoNormalization": true
+}
