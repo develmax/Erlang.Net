@@ -32,6 +32,9 @@ internal static class ErlangNativeHash
 
     public static uint Portable2(Term term)
     {
+        if (term is BitString rootBinary)
+            return BinaryHash(rootBinary, 0);
+
         uint hash = 0, pairs = 0;
         var stack = new Stack<Frame>();
         stack.Push(new Frame(FrameKind.Term, term));
@@ -201,20 +204,8 @@ internal static class ErlangNativeHash
                             break;
                         }
                     case BitString binary:
-                        {
-                            ReadOnlySpan<byte> bytes = binary.ByteSpan;
-                            int full = binary.BitLength / ErlangHashParameters.ByteBits;
-                            int tail = binary.BitLength % ErlangHashParameters.ByteBits;
-                            uint seed = ErlangHashParameters.BinaryMix + hash;
-                            hash = full == 0 && tail == 0 ? seed : ErlangBlockHash.Hash(bytes[..full], seed);
-                            if (tail != 0) Mix(
-                                ref hash,
-                                (uint)tail,
-                                (uint)(bytes[full] >> (ErlangHashParameters.ByteBits - tail)),
-                                ErlangHashParameters.BitTailMix
-                            );
-                            break;
-                        }
+                        hash = BinaryHash(binary, hash);
+                        break;
                     case Pid pid:
                         Mix(
                             ref hash,
@@ -284,6 +275,26 @@ internal static class ErlangNativeHash
             value |= (uint)bytes[offset + index] << (index * ErlangHashParameters.ByteBits);
 
         return value;
+    }
+
+    private static uint BinaryHash(BitString binary, uint hash)
+    {
+        unchecked
+        {
+            ReadOnlySpan<byte> bytes = binary.ByteSpan;
+            int full = binary.BitLength / ErlangHashParameters.ByteBits;
+            int tail = binary.BitLength % ErlangHashParameters.ByteBits;
+            uint seed = ErlangHashParameters.BinaryMix + hash;
+            hash = full == 0 && tail == 0 ? seed : ErlangBlockHash.Hash(bytes[..full], seed);
+            if (tail != 0) Mix(
+                ref hash,
+                (uint)tail,
+                (uint)(bytes[full] >> (ErlangHashParameters.ByteBits - tail)),
+                ErlangHashParameters.BitTailMix
+            );
+
+            return hash;
+        }
     }
 
     private static void Mix(
