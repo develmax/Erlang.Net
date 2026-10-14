@@ -570,3 +570,5 @@ Actual bounded BEAM receive reuses Mailbox.ReceiveAsync for atomic exact-node co
 ## Based integer scanner prerequisite, 2026-10-14
 
 No new dependency is introduced. Existing System.Numerics.BigInteger holds the selected based integer value; OTP-29.1.1 erl_scan source guides radix/digit/separator/error semantics with existing third-party attribution retained. Independent source fixtures and scanner error terms are declared separately from production conversion/diagnostics. Based floats, full scanner continuation and physical native resource limits are not promoted as complete. See OTP-BASED-INTEGER-SCANNER.md.
+
+Captured closure host extension: immutable captures and known-target call_fun2 execute the verified original239 closure; original six/five provenance uses two retained batches. Runtime publication, generic fun execution, on_load, native function ETF and full frame/lease parity remain outside this subset. Source notices: Ericsson AB beam_file.c2020-2026, erl_fun.h2000-2026, erl_term.h2000-2026, beam_asm.erl1996-2026, beam_dict.erl1998-2026, jit/x86/instr_fun.cpp2021-2026, jit/asm_load.c2020-2026, emu/ops.tab1997-2026, Apache-2.0.

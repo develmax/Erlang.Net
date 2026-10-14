@@ -7,6 +7,7 @@ internal static class BeamLinkedCodeReader
     internal static BeamLinkedCode Read(BeamStructure structure)
     {
         BeamTypeTable types = BeamTypeTableReader.Read(structure);
+        IReadOnlyList<BeamLambdaEntry> lambdas = BeamLambdaReader.Read(structure);
         IReadOnlyList<BeamInstruction> instructions = BeamInstructionReader.Read(structure);
         Require(structure.Atoms.Count > 1 && structure.Atoms[1] is not null, BeamLinkDiagnostics.ModuleIdentity);
         string module = structure.Atoms[1]!;
@@ -68,6 +69,16 @@ internal static class BeamLinkedCodeReader
         var byEntry = new Dictionary<int, BeamLinkedFunction>();
         foreach (BeamLinkedFunction function in functions)
             Require(byEntry.TryAdd(function.EntryLabel, function), BeamLinkDiagnostics.FunctionBoundary);
+        foreach (BeamLambdaEntry lambda in lambdas)
+        {
+            Require(
+                byEntry.TryGetValue(lambda.Label, out BeamLinkedFunction? target)
+                && target.Name == structure.Atoms[lambda.FunctionAtomIndex]
+                && target.Arity == lambda.TotalArity
+                && lambda.FreeVariables >= 0 && lambda.FreeVariables <= lambda.TotalArity,
+                BeamLambdaDiagnostics.Target
+            );
+        }
         int? onLoad = null;
         for (int index = 0; index < instructions.Count; index++)
         {
@@ -75,7 +86,12 @@ internal static class BeamLinkedCodeReader
             foreach (BeamOperand operand in instruction.Operands)
                 if (operand.Kind == BeamOperandParameters.Label)
                     Require(labels.ContainsKey((int)operand.Value), BeamLinkDiagnostics.LabelReference);
-            ValidateRoles(instruction, structure, byEntry);
+            ValidateRoles(
+                instruction,
+                structure,
+                byEntry,
+                lambdas
+            );
             if (instruction.Definition.Name == BeamLinkNames.OnLoad)
             {
                 BeamLinkedFunction? owner = functions.SingleOrDefault(function => index >= function.FirstInstructionIndex && index < function.EndInstructionIndex);
@@ -100,11 +116,17 @@ internal static class BeamLinkedCodeReader
             functions.AsReadOnly(),
             new ReadOnlyDictionary<int, int>(labels),
             exports.AsReadOnly(),
-            onLoad
+            onLoad,
+            lambdas
         );
     }
 
-    private static void ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary<int, BeamLinkedFunction> functions)
+    private static void ValidateRoles(
+        BeamInstruction instruction,
+        BeamStructure structure,
+        IReadOnlyDictionary<int, BeamLinkedFunction> functions,
+        IReadOnlyList<BeamLambdaEntry> lambdas
+    )
     {
         var operands = instruction.Operands;
         switch (instruction.Definition.Name)
@@ -193,6 +215,41 @@ internal static class BeamLinkedCodeReader
             case BeamLinkNames.Bif:
                 CheckImport(structure, Unsigned(operands[0]), 0);
                 Destination(operands[1]);
+                break;
+            case BeamLambdaNames.Create:
+                int creationIndex = Unsigned(operands[0]);
+                Require(creationIndex < lambdas.Count, BeamLambdaDiagnostics.Creation);
+                Destination(operands[1]);
+                Require(
+                    operands[2].Kind == BeamOperandParameters.Count
+                    && operands[2].Value == operands.Count - BeamLambdaNames.EnvironmentPrefixOperands
+                    && operands[2].Value == lambdas[creationIndex].FreeVariables,
+                    BeamLambdaDiagnostics.Creation
+                );
+                foreach (BeamOperand operand in operands.Skip(BeamLambdaNames.EnvironmentPrefixOperands))
+                    Source(operand);
+                break;
+            case BeamLambdaNames.Call:
+                int funArity = Unsigned(operands[1]);
+                Require(funArity <= BeamLinkParameters.MaximumFunctionArity, BeamLambdaDiagnostics.Call);
+                if (operands[0].Kind == BeamOperandParameters.Unsigned)
+                {
+                    int lambdaIndex = Unsigned(operands[0]);
+                    Require(
+                        lambdaIndex < lambdas.Count
+                        && funArity == lambdas[lambdaIndex].TotalArity - lambdas[lambdaIndex].FreeVariables,
+                        BeamLambdaDiagnostics.Call
+                    );
+                }
+                else
+                {
+                    Require(
+                        operands[0].Kind == BeamOperandParameters.Atom
+                        && structure.Atoms[(int)operands[0].Value] is BeamLambdaNames.Safe or BeamLambdaNames.Unsafe,
+                        BeamLambdaDiagnostics.Call
+                    );
+                }
+                Destination(operands[2]);
                 break;
             default:
                 throw new NotSupportedException(BeamLinkDiagnostics.OpcodeRole);

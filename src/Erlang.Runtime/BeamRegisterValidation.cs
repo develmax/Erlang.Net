@@ -8,6 +8,10 @@ internal static class BeamRegisterValidation
         {
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
         }
+        if (code.Lambdas.Count != 0)
+        {
+            _ = BeamChecksumReader.Read(code);
+        }
         var visited = new HashSet<int>();
         var pending = new Stack<BeamLinkedFunction>();
         pending.Push(entry);
@@ -65,6 +69,22 @@ internal static class BeamRegisterValidation
                     case BeamLinkNames.Move:
                         Source(operands[0]);
                         Destination(operands[1]);
+                        break;
+                    case BeamLambdaNames.Create:
+                        Destination(operands[1]);
+                        foreach (BeamOperand operand in operands.Skip(BeamLambdaNames.EnvironmentPrefixOperands))
+                        {
+                            Source(operand);
+                        }
+                        pending.Push(code.Functions.Single(target => target.EntryLabel == code.Lambdas[(int)operands[0].Value].Label));
+                        break;
+                    case BeamLambdaNames.Call:
+                        if (operands[0].Kind != BeamOperandParameters.Unsigned)
+                        {
+                            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+                        }
+                        Source(operands[2]);
+                        pending.Push(code.Functions.Single(target => target.EntryLabel == code.Lambdas[(int)operands[0].Value].Label));
                         break;
                     case BeamRegisterNames.Call:
                     case BeamLinkNames.LocalCall:

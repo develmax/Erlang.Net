@@ -35,6 +35,14 @@ internal static class BeamZeroFrameValidation
                         throw new InvalidDataException(BeamReceiveNames.InvalidFrame);
                     Next(current.Pc + 1, depth - 1);
                     break;
+                case BeamRegisterNames.Call:
+                case BeamLambdaNames.Call:
+                    if (depth == 0)
+                    {
+                        throw new NotSupportedException(BeamReceiveNames.InvalidFrame);
+                    }
+                    Next(current.Pc + 1, depth);
+                    break;
                 case BeamLinkNames.Return:
                 case BeamLinkNames.LocalCall:
                 case BeamLinkNames.ExternalTailCall:

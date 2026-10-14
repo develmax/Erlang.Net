@@ -715,3 +715,5 @@ Bounded BEAM receive adaptation2026-10-14: OTP29.1.1/ad05823719d77c8faee87348ea3
 ## Based integer scanner adaptation, 2026-10-14
 
 BasedIntegerLexer adapts the selected decimal radix/BASED_DIGIT/scan_based_num integer branch from pinned OTP-29.1.1 lib/stdlib/src/erl_scan.erl (ad05823719d77c8faee87348ea39513d4e2f99c5). Existing Erlang/OTP notices and license attribution remain applicable. Based floats and complete scanner semantics remain partial. See OTP-BASED-INTEGER-SCANNER.md for exact selected behavior and unrun gates.
+
+Captured closure host extension: immutable captures and known-target call_fun2 execute the verified original239 closure; original six/five provenance uses two retained batches. Runtime publication, generic fun execution, on_load, native function ETF and full frame/lease parity remain outside this subset. Source notices: Ericsson AB beam_file.c2020-2026, erl_fun.h2000-2026, erl_term.h2000-2026, beam_asm.erl1996-2026, beam_dict.erl1998-2026, jit/x86/instr_fun.cpp2021-2026, jit/asm_load.c2020-2026, emu/ops.tab1997-2026, Apache-2.0.

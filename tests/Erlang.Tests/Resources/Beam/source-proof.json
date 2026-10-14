@@ -2,13 +2,89 @@
   "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "SourceTag": "OTP-29.1.1",
   "InstalledVersion": "29.1.1",
-  "SourceBuildEvidenceSha256": "F9F639575BA9AF0AF212DE741B9A9E6F73329EC9050AD38BF9175FAAA2A39936",
-  "OriginalNativeRun": 38491968358,
-  "OriginalCompiledFixtures": 5,
-  "OriginalNativeExecutedFixtures": 4,
+  "OriginalCompiledFixtures": 6,
+  "OriginalNativeExecutedFixtures": 5,
   "OnLoadExecuted": false,
-  "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json",
-  "FixtureDeclaredLedger": "artifacts/beam-fixture-declared-ledger/declared-fixtures.json",
+  "ProvenanceScope": "Mixed retained batches: firstfive original237; addedclosure original239, verifiedandpublished241. No new original run.",
+  "HistoricalOriginalFiveProof": {
+    "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SourceTag": "OTP-29.1.1",
+    "InstalledVersion": "29.1.1",
+    "SourceBuildEvidenceSha256": "F9F639575BA9AF0AF212DE741B9A9E6F73329EC9050AD38BF9175FAAA2A39936",
+    "OriginalNativeRun": 38491968358,
+    "OriginalCompiledFixtures": 5,
+    "OriginalNativeExecutedFixtures": 4,
+    "OnLoadExecuted": false,
+    "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json",
+    "FixtureDeclaredLedger": "artifacts/beam-fixture-declared-ledger/declared-fixtures.json",
+    "Fixtures": [
+      {
+        "Module": "beam_fixture_constant",
+        "BeamFile": "beam_fixture_constant.beam",
+        "BeamSha256": "8CD86BC82C94112EDA79B6E784B31BF473934744A42433030F32C6D08BECB0A3",
+        "SourceFile": "beam_fixture_constant.erl",
+        "SourceSha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507",
+        "IndependentExpectedExpression": "{ok,42,[alpha,beta]}",
+        "NativeActualEtfFile": "beam_fixture_constant.actual.etf",
+        "NativeActualEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
+        "NativeExpectedEtfFile": "beam_fixture_constant.expected.etf",
+        "NativeExpectedEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
+        "NativeExecuted": true
+      },
+      {
+        "Module": "beam_fixture_add",
+        "BeamFile": "beam_fixture_add.beam",
+        "BeamSha256": "707B8F2DE3267B543CC866E1DAB739C3B0A85A9820C63F4CC603D40A55E391B9",
+        "SourceFile": "beam_fixture_add.erl",
+        "SourceSha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552",
+        "IndependentExpectedExpression": "42",
+        "NativeActualEtfFile": "beam_fixture_add.actual.etf",
+        "NativeActualEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
+        "NativeExpectedEtfFile": "beam_fixture_add.expected.etf",
+        "NativeExpectedEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
+        "NativeExecuted": true
+      },
+      {
+        "Module": "beam_fixture_local",
+        "BeamFile": "beam_fixture_local.beam",
+        "BeamSha256": "416FAD0864C315006459121BDA80A36475EFC67B49EFE7B6DC247DC1CA0D702B",
+        "SourceFile": "beam_fixture_local.erl",
+        "SourceSha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE",
+        "IndependentExpectedExpression": "{ok,[1,2,3]}",
+        "NativeActualEtfFile": "beam_fixture_local.actual.etf",
+        "NativeActualEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
+        "NativeExpectedEtfFile": "beam_fixture_local.expected.etf",
+        "NativeExpectedEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
+        "NativeExecuted": true
+      },
+      {
+        "Module": "beam_fixture_receive",
+        "BeamFile": "beam_fixture_receive.beam",
+        "BeamSha256": "658E4F3CE581EA553F105D3EF916D7A571FF326A757588299FC5C2E4C29549F8",
+        "SourceFile": "beam_fixture_receive.erl",
+        "SourceSha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7",
+        "IndependentExpectedExpression": "{ok,ping}",
+        "NativeActualEtfFile": "beam_fixture_receive.actual.etf",
+        "NativeActualEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
+        "NativeExpectedEtfFile": "beam_fixture_receive.expected.etf",
+        "NativeExpectedEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
+        "NativeExecuted": true
+      },
+      {
+        "Module": "beam_fixture_on_load",
+        "BeamFile": "beam_fixture_on_load.beam",
+        "BeamSha256": "7055414B8F40BF0E864C0076C83B0D27127A2B431C238A6CA271E8160AC061C9",
+        "SourceFile": "beam_fixture_on_load.erl",
+        "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+        "IndependentExpectedExpression": null,
+        "NativeActualEtfFile": null,
+        "NativeActualEtfSha256": null,
+        "NativeExpectedEtfFile": null,
+        "NativeExpectedEtfSha256": null,
+        "NativeExecuted": false
+      }
+    ]
+  },
   "Fixtures": [
     {
       "Module": "beam_fixture_constant",
@@ -21,7 +97,9 @@
       "NativeActualEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
       "NativeExpectedEtfFile": "beam_fixture_constant.expected.etf",
       "NativeExpectedEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
-      "NativeExecuted": true
+      "NativeExecuted": true,
+      "OriginalNativeRun": 38491968358,
+      "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
     },
     {
       "Module": "beam_fixture_add",
@@ -34,7 +112,9 @@
       "NativeActualEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
       "NativeExpectedEtfFile": "beam_fixture_add.expected.etf",
       "NativeExpectedEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
-      "NativeExecuted": true
+      "NativeExecuted": true,
+      "OriginalNativeRun": 38491968358,
+      "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
     },
     {
       "Module": "beam_fixture_local",
@@ -47,7 +127,9 @@
       "NativeActualEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
       "NativeExpectedEtfFile": "beam_fixture_local.expected.etf",
       "NativeExpectedEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
-      "NativeExecuted": true
+      "NativeExecuted": true,
+      "OriginalNativeRun": 38491968358,
+      "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
     },
     {
       "Module": "beam_fixture_receive",
@@ -60,7 +142,9 @@
       "NativeActualEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
       "NativeExpectedEtfFile": "beam_fixture_receive.expected.etf",
       "NativeExpectedEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
-      "NativeExecuted": true
+      "NativeExecuted": true,
+      "OriginalNativeRun": 38491968358,
+      "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
     },
     {
       "Module": "beam_fixture_on_load",
@@ -73,7 +157,28 @@
       "NativeActualEtfSha256": null,
       "NativeExpectedEtfFile": null,
       "NativeExpectedEtfSha256": null,
-      "NativeExecuted": false
+      "NativeExecuted": false,
+      "OriginalNativeRun": 38491968358,
+      "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
+    },
+    {
+      "Module": "beam_fixture_closure",
+      "BeamFile": "beam_fixture_closure.beam",
+      "BeamSha256": "99A54BA32C5BD185F23550303E7036F451D52609376D8A738CF19EA3BBDD76F9",
+      "SourceFile": "beam_fixture_closure.erl",
+      "SourceSha256": "1B29BD3330DE0DFC4BA7DF19FCA667FFACD78B6DE622E0B22186B5B3B8E2AD4D",
+      "IndependentExpectedExpression": "{ok,12,true}",
+      "NativeActualEtfFile": "beam_fixture_closure.actual.etf",
+      "NativeActualEtfSha256": "6614D0C9AFAE87830B95DFFD3CFA64551DB3CD8B6A9894A981105CABBF2CFEA2",
+      "NativeExpectedEtfFile": "beam_fixture_closure.expected.etf",
+      "NativeExpectedEtfSha256": "6614D0C9AFAE87830B95DFFD3CFA64551DB3CD8B6A9894A981105CABBF2CFEA2",
+      "NativeExecuted": true,
+      "OriginalNativeRun": 38495531713,
+      "OriginalNativeJob": 115630326131,
+      "OriginalArtifact": 11863905725,
+      "SourceBuildEvidenceSha256": "B6A478E61A99999BB02B44CC5652A345D2FEBDB92E144AA5B4A135414C9273BC",
+      "MetadataEtfSha256": "34CB2CF62263BE120130B24F82E6A3F6E3D29345F433BDA0DEE1A3DA8676BE6F",
+      "ProvenanceGuard": "artifacts/part239-beam-ci-provenance-guard.json"
     }
   ]
 }

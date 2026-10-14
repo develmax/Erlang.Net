@@ -2,7 +2,7 @@ namespace Erlang;
 
 internal static class BeamRegisterInterpreter
 {
-    public static async ValueTask<Term> Execute(
+    public static ValueTask<Term> Execute(
         ProcessContext context,
         BeamLinkedCode code,
         string name,
@@ -12,11 +12,35 @@ internal static class BeamRegisterInterpreter
     {
         BeamLinkedFunction function = code.Exports.SingleOrDefault(value => value.Name == name && value.Arity == arguments.Count)
             ?? throw new InvalidDataException(BeamModuleDiagnostics.MissingExport);
+
+        return ExecuteLocal(
+            context,
+            code,
+            function,
+            arguments,
+            Array.Empty<Term>(),
+            diagnosticInstructionBudget
+        );
+    }
+
+    internal static async ValueTask<Term> ExecuteLocal(
+        ProcessContext context,
+        BeamLinkedCode code,
+        BeamLinkedFunction function,
+        IReadOnlyList<Term> arguments,
+        IReadOnlyList<Term> environment,
+        long? diagnosticInstructionBudget = null
+    )
+    {
         BeamRegisterValidation.Validate(code, function);
         var registers = new BeamRegisterState();
         for (int index = 0; index < arguments.Count; index++)
         {
             registers.Write(index, arguments[index]);
+        }
+        for (int index = 0; index < environment.Count; index++)
+        {
+            registers.Write(arguments.Count + index, environment[index]);
         }
         var continuations = new Stack<BeamCallContinuation>();
         var zeroFrames = new Stack<BeamZeroFrame>();
@@ -53,6 +77,20 @@ internal static class BeamRegisterInterpreter
                         _ = continuations.Pop();
                         continuations.Push(frame.SavedContinuation);
                     }
+                    break;
+                case BeamLambdaNames.Create:
+                    Term[] captured = operands.Skip(BeamLambdaNames.EnvironmentPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();
+                    FunctionTerm closure = BeamClosureFactory.Create(code, (int)operands[0].Value, captured);
+                    registers.Write((int)operands[1].Value, closure);
+                    break;
+                case BeamLambdaNames.Call:
+                    registers.CheckLive((int)operands[1].Value);
+                    Term callee = Read(code, registers, operands[2]);
+                    BeamClosureFactory.RequireKnownTarget(callee, code, (int)operands[0].Value);
+                    int arity = (int)operands[1].Value;
+                    Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
+                    Term funResult = await ((FunctionTerm)callee).Invoke(context, Array.AsReadOnly(funArguments));
+                    registers.Write(0, funResult);
                     break;
                 case BeamLinkNames.Bif:
                     BeamRegisterValidation.SelfImport(code, (int)operands[0].Value);

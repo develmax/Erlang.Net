@@ -7,5 +7,6 @@ internal sealed record BeamLinkedCode(
     IReadOnlyList<BeamLinkedFunction> Functions,
     IReadOnlyDictionary<int, int> Labels,
     IReadOnlyList<BeamLinkedFunction> Exports,
-    int? OnLoadEntryLabel
+    int? OnLoadEntryLabel,
+    IReadOnlyList<BeamLambdaEntry> Lambdas
 );

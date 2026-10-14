@@ -64,6 +64,11 @@ internal static class BeamInstructionReader
                         operands.Add(operand with { TypeIndex = type });
                         continue;
                     }
+                    if (extension == BeamOperandParameters.AllocationList)
+                    {
+                        operands.Add(new(BeamOperandParameters.Unsigned, ReadAllocation(cursor)));
+                        continue;
+                    }
                     throw new NotSupportedException(BeamOperandParameters.Unsupported);
                 }
                 operands.Add(Scalar(raw, structure));
@@ -115,6 +120,38 @@ internal static class BeamInstructionReader
         }
 
         return new(kind, raw.Value);
+    }
+
+    private static int ReadAllocation(BeamCursor cursor)
+    {
+        int count = Unsigned(cursor);
+        AllocationRequire(count <= BeamAllocationWire.MaximumEntries);
+        int total = 0;
+        for (int index = 0; index < count; index++)
+        {
+            int kind = Unsigned(cursor);
+            int number = Unsigned(cursor);
+            AllocationRequire(number <= BeamAllocationWire.NativeMaximumNumber);
+            int words = kind switch
+            {
+                BeamAllocationWire.Words => number,
+                BeamAllocationWire.Floats => number * BeamAllocationWire.NativeFloatWords64,
+                BeamAllocationWire.Funs => number * BeamAllocationWire.NativeFunWords64,
+                _ => throw new InvalidDataException(BeamAllocationDiagnostics.Invalid)
+            };
+            AllocationRequire(total <= int.MaxValue - words);
+            total += words;
+        }
+
+        return total;
+    }
+
+    private static void AllocationRequire(bool condition)
+    {
+        if (!condition)
+        {
+            throw new InvalidDataException(BeamAllocationDiagnostics.Invalid);
+        }
     }
 
     private static int Unsigned(BeamCursor cursor)
