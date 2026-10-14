@@ -46,7 +46,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                     Track(rejectedCleanup);
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 }
-                var identity = new PortTerm(runtime.Node, ++nextId);
+                var identity = new PortTerm(runtime.LocalIdentity, ++nextId);
                 var port = new RuntimePort(
                     identity,
                     owner.Self,

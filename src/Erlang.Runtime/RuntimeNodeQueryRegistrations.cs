@@ -8,7 +8,7 @@ internal static class RuntimeNodeQueryRegistrations
             ErlangModuleNames.Module,
             RuntimeNodeQueryNames.IsAlive,
             0,
-            (context, _) => ValueTask.FromResult<Term>(Term.A(context.Runtime.Node == ProcessNodeDefaults.Local ? ErlangBooleanAtoms.False : ErlangBooleanAtoms.True))
+            (context, _) => ValueTask.FromResult<Term>(Term.A(context.Runtime.IsDistributionAlive ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False))
         );
         foreach (int arity in new[] { 0, 1, 2 })
             registry.Register(

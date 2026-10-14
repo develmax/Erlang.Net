@@ -28,7 +28,9 @@
     "incoming-reg-send-control.etf",
     "cleanup-controller.etf",
     "kernel-notice.etf",
-    "pending-handle.etf"
+    "pending-handle.etf",
+    "registered-sink-identities.etf",
+    "cleanup-sink.etf"
   ],
   "Hypotheses": [
     "SEND opcode2 incoming packet is delivered to the real local pid",
@@ -37,7 +39,7 @@
     "Pass-through output is marker112 followed by separately versioned control and payload ETFs"
   ],
   "ObservedExpectations": false,
-  "SourceSha256": "85E06380AFDE1629717ECCCDF8C11C93A04F67A403DD102F041F34A71B01EEA4",
+  "SourceSha256": "DBB538924ECC0F67F3130606B82C742E0C752D774AD885BE05164B8C534C562C",
   "Bounds": {
     "OperationTimeoutMs": 5000,
     "CleanupTimeoutMs": 5000,
@@ -54,11 +56,12 @@
     "pass-through-send-registered"
   ],
   "PriorProbeSourceSha256": "AB357D0BA0318D04DD5B45406B89E11DB0150410F20CFC1DF84B91B1349067E6",
-  "RevisionNote": "Create pending dist entry before process-controller adoption. Capture and retain pending handle through inputs after adoption; observe monitored ready DOWN immediately and preserve its full reason without a cleanup timeout replacing it. Original271 idle-entry failure remains unchanged.",
-  "PreviousPublishedSourceSha256": "3D260848B3CDE7AED1F92048B9B72CE5BB7900070183B0928987CF164482DD01",
+  "RevisionNote": "Retain registered net_kernel owner and use a separately monitored registered packet_sink process. Verify ready registration and exact payload forwarded from its identity; preserve owned sink and controller cleanup on all paths. Both original271 and272 failures remain immutable; no old workflow retry.",
+  "PreviousPublishedSourceSha256": "85E06380AFDE1629717ECCCDF8C11C93A04F67A403DD102F041F34A71B01EEA4",
   "OptionalFailureArtifacts": [
     "controller-ready-failure.etf",
-    "exception.etf"
+    "exception.etf",
+    "registered-sink-ready-failure.etf"
   ],
   "InputsSchema": "{RemoteNode,Flags,RemoteCreation,PendingHandle}; first three original fields retained, pending handle added for explicit liveness across adoption"
 }

@@ -23,7 +23,7 @@ internal static class ProcessSavedCallRegistrations
 
     private static async ValueTask<Term> Change(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        if (arguments[0] is not Pid { Creation: 0 } pid || pid.Node != context.Runtime.Node)
+        if (arguments[0] is not Pid pid || !context.Runtime.IsCurrentLocal(pid))
             throw Invalid(context, arguments, true);
         Term result = await context.Runtime.ChangeSavedCalls(
             context,

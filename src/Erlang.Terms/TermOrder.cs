@@ -25,6 +25,23 @@ public static class TermOrder
 
     public static int Compare(Term a, Term b, bool exact = false)
     {
+        NodeComparisonContext context = default;
+
+        return CompareSnapshot(
+            a,
+            b,
+            exact,
+            ref context
+        );
+    }
+
+    internal static int CompareSnapshot(
+        Term a,
+        Term b,
+        bool exact,
+        ref NodeComparisonContext context
+    )
+    {
         int rank = Rank(a).CompareTo(Rank(b));
         if (rank != 0)
             return rank;
@@ -49,39 +66,61 @@ public static class TermOrder
             case (Nil, Nil):
                 return 0;
             case (Pid x, Pid y):
-                return PidIdentity(
-                    x.Node,
-                    x.Creation,
-                    x.Id,
-                    y.Node,
-                    y.Creation,
-                    y.Id
-                );
+                {
+                    var leftNode = context.Read(x.LocalIdentity, x.WireIdentity);
+                    var rightNode = context.Read(y.LocalIdentity, y.WireIdentity);
+
+                    return PidIdentity(
+                        leftNode.Node,
+                        leftNode.Creation,
+                        x.Id,
+                        rightNode.Node,
+                        rightNode.Creation,
+                        y.Id
+                    );
+                }
             case (ReferenceTerm x, ReferenceTerm y):
                 {
-                    int node = Codepoints(x.Node, y.Node);
+                    var leftNode = context.Read(x.LocalIdentity, x.WireIdentity);
+                    var rightNode = context.Read(y.LocalIdentity, y.WireIdentity);
+                    int node = Codepoints(leftNode.Node, rightNode.Node);
                     if (node != 0)
                         return node;
-                    int creation = x.Creation.CompareTo(y.Creation);
+                    int creation = leftNode.Creation.CompareTo(rightNode.Creation);
 
                     return creation != 0 ? creation : x.FullId.CompareTo(y.FullId);
                 }
             case (PortTerm x, PortTerm y):
-                return PortIdentity(
-                    x.Node,
-                    x.Creation,
-                    x.Id,
-                    y.Node,
-                    y.Creation,
-                    y.Id
-                );
+                {
+                    var leftNode = context.Read(x.LocalIdentity, x.WireIdentity);
+                    var rightNode = context.Read(y.LocalIdentity, y.WireIdentity);
+
+                    return PortIdentity(
+                        leftNode.Node,
+                        leftNode.Creation,
+                        x.Id,
+                        rightNode.Node,
+                        rightNode.Creation,
+                        y.Id
+                    );
+                }
             case (FunctionTerm x, FunctionTerm y):
                 if (x.ExternalIdentity is { } left && y.ExternalIdentity is { } right)
                 {
-                    int module = Compare(left.Module, right.Module, true);
+                    int module = CompareSnapshot(
+                        left.Module,
+                        right.Module,
+                        true,
+                        ref context
+                    );
                     if (module != 0)
                         return module;
-                    int function = Compare(left.Function, right.Function, true);
+                    int function = CompareSnapshot(
+                        left.Function,
+                        right.Function,
+                        true,
+                        ref context
+                    );
 
                     return function != 0 ? function : left.Arity.CompareTo(right.Arity);
                 }
@@ -89,13 +128,23 @@ public static class TermOrder
                     return (x.ExternalIdentity is not null).CompareTo(y.ExternalIdentity is not null);
                 if (x.LocalIdentity is { } localLeft && y.LocalIdentity is { } localRight)
                 {
-                    int module = Compare(localLeft.Module, localRight.Module, true);
+                    int module = CompareSnapshot(
+                        localLeft.Module,
+                        localRight.Module,
+                        true,
+                        ref context
+                    );
                     if (module != 0)
                         return module;
                     int index = localLeft.Index.CompareTo(localRight.Index);
                     if (index != 0)
                         return index;
-                    int unique = Compare(localLeft.Unique, localRight.Unique, true);
+                    int unique = CompareSnapshot(
+                        localLeft.Unique,
+                        localRight.Unique,
+                        true,
+                        ref context
+                    );
                     if (unique != 0)
                         return unique;
                     int arity = x.Arity.CompareTo(y.Arity);
@@ -103,7 +152,12 @@ public static class TermOrder
                         return arity;
                     int count = x.Environment.Count.CompareTo(y.Environment.Count);
 
-                    return count != 0 ? count : Sequence(x.Environment, y.Environment, exact);
+                    return count != 0 ? count : Sequence(
+                        x.Environment,
+                        y.Environment,
+                        exact,
+                        ref context
+                    );
                 }
                 if (x.LocalIdentity is not null || y.LocalIdentity is not null)
                     return (x.LocalIdentity is not null).CompareTo(y.LocalIdentity is not null);
@@ -113,14 +167,29 @@ public static class TermOrder
                 {
                     int c = x.Items.Count.CompareTo(y.Items.Count);
 
-                    return c != 0 ? c : Sequence(x.Items, y.Items, exact);
+                    return c != 0 ? c : Sequence(
+                        x.Items,
+                        y.Items,
+                        exact,
+                        ref context
+                    );
                 }
             case (NativeRecordTerm x, NativeRecordTerm y):
                 {
-                    int c = Compare(x.Module, y.Module, true);
+                    int c = CompareSnapshot(
+                        x.Module,
+                        y.Module,
+                        true,
+                        ref context
+                    );
                     if (c != 0)
                         return c;
-                    c = Compare(x.Name, y.Name, true);
+                    c = CompareSnapshot(
+                        x.Name,
+                        y.Name,
+                        true,
+                        ref context
+                    );
                     if (c != 0)
                         return c;
                     c = x.IsExported.CompareTo(y.IsExported);
@@ -129,30 +198,62 @@ public static class TermOrder
                     c = x.FieldNames.Count.CompareTo(y.FieldNames.Count);
                     if (c != 0)
                         return c;
-                    c = Sequence(x.FieldNames, y.FieldNames, true);
+                    c = Sequence(
+                        x.FieldNames,
+                        y.FieldNames,
+                        true,
+                        ref context
+                    );
 
-                    return c != 0 ? c : Sequence(x.Values, y.Values, exact);
+                    return c != 0 ? c : Sequence(
+                        x.Values,
+                        y.Values,
+                        exact,
+                        ref context
+                    );
                 }
             case (MapTerm x, MapTerm y):
                 {
-                    int c = x.Entries.Count.CompareTo(y.Entries.Count);
+                    var leftEntries = x.Entries;
+                    var rightEntries = y.Entries;
+                    int c = leftEntries.Count.CompareTo(rightEntries.Count);
                     if (c != 0)
                         return c;
-                    c = Sequence(x.Entries.Select(e => e.Key).ToArray(), y.Entries.Select(e => e.Key).ToArray(), true);
+                    c = Sequence(
+                        leftEntries.Select(e => e.Key).ToArray(),
+                        rightEntries.Select(e => e.Key).ToArray(),
+                        true,
+                        ref context
+                    );
 
-                    return c != 0 ? c : Sequence(x.Entries.Select(e => e.Value).ToArray(), y.Entries.Select(e => e.Value).ToArray(), exact);
+                    return c != 0 ? c : Sequence(
+                        leftEntries.Select(e => e.Value).ToArray(),
+                        rightEntries.Select(e => e.Value).ToArray(),
+                        exact,
+                        ref context
+                    );
                 }
             case (Cons, Cons):
                 while (a is Cons x && b is Cons y)
                 {
-                    int c = Compare(x.Head, y.Head, exact);
+                    int c = CompareSnapshot(
+                        x.Head,
+                        y.Head,
+                        exact,
+                        ref context
+                    );
                     if (c != 0)
                         return c;
                     a = x.Tail;
                     b = y.Tail;
                 }
 
-                return Compare(a, b, exact);
+                return CompareSnapshot(
+                    a,
+                    b,
+                    exact,
+                    ref context
+                );
             case (BitString x, BitString y):
                 for (int i = 0; i < Math.Min(x.BitLength, y.BitLength); i++)
                 {
@@ -216,11 +317,21 @@ public static class TermOrder
         }
     }
 
-    private static int Sequence(IReadOnlyList<Term> a, IReadOnlyList<Term> b, bool exact)
+    private static int Sequence(
+        IReadOnlyList<Term> a,
+        IReadOnlyList<Term> b,
+        bool exact,
+        ref NodeComparisonContext context
+    )
     {
         for (int i = 0; i < a.Count; i++)
         {
-            int c = Compare(a[i], b[i], exact);
+            int c = CompareSnapshot(
+                a[i],
+                b[i],
+                exact,
+                ref context
+            );
             if (c != 0)
                 return c;
         }
@@ -260,19 +371,13 @@ public static class TermOrder
                 h.Add(x.Name, StringComparer.Ordinal);
                 break;
             case Pid x:
-                h.Add(x.Node);
                 h.Add(x.Id);
-                h.Add(x.Creation);
                 break;
             case ReferenceTerm x:
-                h.Add(x.Node);
                 h.Add(x.FullId);
-                h.Add(x.Creation);
                 break;
             case PortTerm x:
-                h.Add(x.Node);
                 h.Add(x.Id);
-                h.Add(x.Creation);
                 break;
             case FunctionTerm x:
                 if (x.ExternalIdentity is { } identity)
@@ -309,11 +414,11 @@ public static class TermOrder
                     h.Add(value);
                 break;
             case MapTerm x:
+                int pairs = 0;
                 foreach (var item in x.Entries)
-                {
-                    h.Add(item.Key);
-                    h.Add(item.Value);
-                }
+                    pairs = unchecked(pairs + HashCode.Combine(item.Key, item.Value));
+                h.Add(x.Entries.Count);
+                h.Add(pairs);
                 break;
             case Cons:
                 while (t is Cons c)

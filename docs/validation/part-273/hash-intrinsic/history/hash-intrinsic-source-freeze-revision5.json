@@ -1,0 +1,136 @@
+{
+  "Stage": "IntrinsicHashFinalFormattedSource",
+  "BaseHead": "477d037aa1bc71f6d7be9020c5adc78ea0930b39",
+  "CurrentMain273ImportsIncluded": true,
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Intrinsics.cs",
+      "BeforeSha256": null,
+      "Sha256": "1CC64596D52CB5B61DF004FB763F47FDA9D6721D85FD92662E29497C6835B437"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "BeforeSha256": "454F7341FF7FFF758FC4D51E4350DDA26929DF1E6E7E5E30D02C9365611756D6",
+      "Sha256": "6E944C34B0F5179190C85CF4D1BF8AE09B3805A60C75C09A7B9732C235B972B5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangHashRegistrations.cs",
+      "BeforeSha256": "A741EE6D9DFBB0117439E9B472A984A0F2B13BA159217C12307C2FCD54A27708",
+      "Sha256": "2F93AE01CF74901D4B3DB64F80BF611AEB67894BC110A85CE158C93B4DBFD7CA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "6DDF860958D09B2CD57DC1216826072FF48219D3F6A0F971AC252E60EFBEECB1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "F96B38388841F382DCC52C9BE209194129F3CBA407456A67D280DFF1B6984072"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostParameters.cs",
+      "BeforeSha256": null,
+      "Sha256": "92AE50BE2B769E56E5216522D03AAA8DFF3E8134C0B71AB70DBD9D99C2B701A0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "BeforeSha256": "D49127B9385FF14B1CC963EE3B47B79AE5E705FC571DD31F3FA370C9BB5E7F01",
+      "Sha256": "0516A403FA7927CCA3D207E612D84DC6BDF7497B92F1BA57C1DEDD44E1FEFC5E"
+    }
+  ],
+  "SeedUnownedFilesExact": 1554,
+  "SourceMismatches": [],
+  "HashBodiesUnchangedExceptRegisterIntrinsic": true,
+  "ExactBinding": "MFA key + delegate ReferenceEquals + current ModuleCodeImage ReferenceEquals",
+  "OrdinaryRegistrationClearsKind": true,
+  "DeleteClearsKind": true,
+  "ApplyRollbackRestoresKind": true,
+  "OnlyProductionMarkedIntrinsics": [
+    "erlang:phash2/1",
+    "erlang:phash2/2",
+    "erlang:phash/2"
+  ],
+  "OriginalAllocationTestAndBudgetSourceExact": true,
+  "BuildExecuted": false,
+  "HostControlsPrepared": [
+    "64/128/256 ambient slots using original4096 budget and one warm measurement",
+    "Apply rollback restores primitive kind and codeimage before ambient256 measurement",
+    "Actual call/return traces and saved_calls capture",
+    "Ordinary same-MFA override retains codelease; source override preserves explicit own-image execution",
+    "Pending generic HOST callback retains old generation across deletion/replacement/await",
+    "Same-runtime actual halt triggered by an observed original hash call trace"
+  ],
+  "MainMutation": false,
+  "BudgetOrOriginalWarmupChanged": false,
+  "SourceConsultationSha256": "D1C7F29F4B8B491F5BF4AA97F06DF6C82E35D1D0002BE85976E9F19490D18CE6",
+  "PriorFreezeSha256": "99E96A01E729E240BDBB7F27F9A05F086AB31F7E8401F19028677FF24427A28D",
+  "FormatterLedger": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Intrinsics.cs",
+      "Before": "1164EC03351CA5F063E45CE4A7B114E20C9AE6A3E6EC1371B9A6C39242E81BDA",
+      "After": "1CC64596D52CB5B61DF004FB763F47FDA9D6721D85FD92662E29497C6835B437",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Before": "0DA50E1C19F3B9DBEABEBD71EA31DBEAB578A38AB5AD21C846AAD4988F23C7C7",
+      "After": "6E944C34B0F5179190C85CF4D1BF8AE09B3805A60C75C09A7B9732C235B972B5",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangHashRegistrations.cs",
+      "Before": "E28269C53405BB164BF72D940D5E8398C2B0BF808C49D69BF64C5BF78FDF0EAE",
+      "After": "2F93AE01CF74901D4B3DB64F80BF611AEB67894BC110A85CE158C93B4DBFD7CA",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostChecks.cs",
+      "Before": "5C09D4C4DA608C28B413D68502195DC59B4059EE77DAB4E01E8BAB6C099103E1",
+      "After": "01B47E013FC0DD11F364060C078507A67CF4A717529130F4E73237225BA5399A",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostNames.cs",
+      "Before": "9EDA219803D9F63F9416EBF1C5FE392EA3ABF837C57AD4550DE3B6D5D3154032",
+      "After": "F96B38388841F382DCC52C9BE209194129F3CBA407456A67D280DFF1B6984072",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostParameters.cs",
+      "Before": "59C5D9E967F77E0A06F22E5E154127D47463BD465660BECDEAD7217D695E6EB0",
+      "After": "92AE50BE2B769E56E5216522D03AAA8DFF3E8134C0B71AB70DBD9D99C2B701A0",
+      "WhitespaceOnly": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Before": "2D03BDF723080EE12C992695B3E9A600BD09E28D61047E71096B6AF9A41A1E5E",
+      "After": "0516A403FA7927CCA3D207E612D84DC6BDF7497B92F1BA57C1DEDD44E1FEFC5E",
+      "WhitespaceOnly": true
+    }
+  ],
+  "FocusFiles": [
+    {
+      "Path": "probe/FocusNames.cs",
+      "Sha256": "ECC5F20A19E1DCFB9B5CA3665A965A259B844B23AA9300CA56DF2AE96E93E130"
+    },
+    {
+      "Path": "probe/IntrinsicFocus.csproj",
+      "Sha256": "74B7F318C934EBD982DFEDFA0C71FDBC592005341B006655642B362235062F60"
+    },
+    {
+      "Path": "probe/Program.cs",
+      "Sha256": "E6762C0E9131EA4B18C2C45B58CA606DA437A35340E51A0A47ADB4C324CE260C"
+    }
+  ],
+  "Repair": "Preserved CS1061 initial build: Mailbox.Snapshot is internal. Consume the actual trace using public RemoveFirst instead; assert controller startup signal.",
+  "FocusRepair": "Existing original allocation group exposes Resources, not Run; invoke exact declared method. Preserve null-ref raw log and former runner. Catch failures in runner to record terminal exit.",
+  "FinalFormatterLedger": [
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostChecks.cs",
+      "Before": "FDA7149F828D79768BAB1E42375E4155A695508BE35E6E32DF16484BFD00003B",
+      "After": "6DDF860958D09B2CD57DC1216826072FF48219D3F6A0F971AC252E60EFBEECB1",
+      "WhitespaceTokenExact": true
+    }
+  ]
+}

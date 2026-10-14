@@ -1,0 +1,69 @@
+{
+  "Stage": "SourceOnlyIntrinsicHashRegistrationConsultation",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/bif.tab",
+      "Sha256": "55C88258E90745E701D00702266C6422E35C31C6796CE2086EA00FA00F9D8816"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    }
+  ],
+  "CurrentSources": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "454F7341FF7FFF758FC4D51E4350DDA26929DF1E6E7E5E30D02C9365611756D6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "B32CCF15062FB0693E64AA2472C7D1C7F4AB3446BB3526EC96C2DE97794489D0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceCodeLease.cs",
+      "Sha256": "9ED64B70D41436C98DD6E0C38AEFBE622D16E24456D62A10B8D00CB70CFBDCD5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangHashRegistrations.cs",
+      "Sha256": "A741EE6D9DFBB0117439E9B472A984A0F2B13BA159217C12307C2FCD54A27708"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangNativeHash.cs",
+      "Sha256": "F45DD43525616577D2E26A375090C102665D581A25A9437784C24E819374E40A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ErlangHashHostChecks.cs",
+      "Sha256": "572F5FF3F755D1D035D849C460FF89BFE58CF138EDF27C3921FE22FEAFECF4A8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ErlangHashCheckParameters.cs",
+      "Sha256": "1CB9E5F6D63E2308DAEE25FA511FEA9034891490F58F6777016C0B79AD9906FE"
+    }
+  ],
+  "ConfirmedSourceFacts": [
+    "phash2/1,2 are explicit C BIFs; implementations directly call trapping_make_hash2, return masked/modulo values or use BIF_TRAP",
+    "Register publishes a ModuleCodeImage for every callback; Call enters code lease for non-sourceOwners entries",
+    "Each EnterSourceCode allocates SourceCodeLease, SourceExecution, SourceExecutionScope and SourceCodeScope, and writes/restores AsyncLocal state",
+    "The actual large-binary allocation check performs one warm call then one synchronous same-thread measured call; budget remains4096",
+    "Portable2(BitString) directly returns BinaryHash using ByteSpan; no generic Stack allocation in that fast path"
+  ],
+  "AllocationCauseConfirmed": false,
+  "RecommendedProductionDirection": "Explicit internal RegisterIntrinsic kind on exact implemented primitive body entries; Call selects existing tracing/savedcalls/halt path without fictitious Erlang code generation lease. No phash2-name hardcoded bypass.",
+  "MandatoryMetadataRules": [
+    "Match current MFA registration and exact body reference under registry.gate; do not classify arbitrary callbacks by method name or module name",
+    "Ordinary Register and RegisterSource preserve current semantics and cannot inherit intrinsic status from removed generations",
+    "DeleteModule removes intrinsic metadata for affected entries; Apply rollback restores metadata atomically with functions/owners/images",
+    "Check captured-generation paths and oldCode lifecycle; retain old HOST callbacks and compiled-source lease behavior",
+    "Primitive body stays byte/semantic exact except registration call; preserve range validation, hash algorithm, error reasons and halt guards"
+  ],
+  "RequiredActualEvidence": [
+    "Original failed full run retained with exact DLL/source identity",
+    "Default primitive measured before/after through ordinary ModuleRegistry.Call under identical test body and budget",
+    "Actual tracing and saved_calls captures still include primitive call; async/halt boundary contracts unchanged",
+    "Generic HOST callback overriding same MFA retains lease and code lifetime; deleted/new/rolled-back entries never inherit stale intrinsic marking",
+    "Old/current source callback generation/purge tests pass; no test-only dispatch or mocked flag injection"
+  ],
+  "MainMutation": false,
+  "HeavyExecuted": false,
+  "BudgetChanged": false
+}

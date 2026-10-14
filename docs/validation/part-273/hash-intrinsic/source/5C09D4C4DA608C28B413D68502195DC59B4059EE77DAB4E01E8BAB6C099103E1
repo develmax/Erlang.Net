@@ -1,0 +1,262 @@
+using System.Reflection;
+using System.Diagnostics;
+
+namespace Erlang.Tests;
+
+internal static class HashIntrinsicHostChecks
+{
+    internal static async Task Run()
+    {
+        await AmbientAndRollback();
+        await TraceAndSavedCalls();
+        await OverridesAndGeneration();
+        await HaltBoundary();
+    }
+
+    private static async Task AmbientAndRollback()
+    {
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        var binary = new BitString(new byte[ErlangHashCheckParameters.BinaryBytes]);
+        Check(await actor.Invoke(context =>
+        {
+            foreach (int count in HashIntrinsicHostParameters.AmbientCounts)
+                Measure(context, binary, count);
+            ModuleCodeImage initial = runtime.Modules.CurrentCodeImage(ErlangModuleNames.Module)!;
+            bool rollbackObserved = false;
+            try
+            {
+                runtime.Modules.Apply(registry =>
+                {
+                    registry.DeleteModule(ErlangModuleNames.Module);
+                    registry.Register(
+                        ErlangModuleNames.Module,
+                        ErlangHashCheckParameters.ImprovedFunction,
+                        HashIntrinsicHostParameters.HashArity,
+                        (_, _) => ValueTask.FromResult<Term>(Term.I(HashIntrinsicHostParameters.OverrideValue))
+                    );
+                    throw new InvalidOperationException(HashIntrinsicHostNames.Rollback);
+                });
+            }
+            catch (InvalidOperationException exception) when (exception.Message == HashIntrinsicHostNames.Rollback)
+            {
+                rollbackObserved = true;
+            }
+            Check(rollbackObserved);
+            Check(ReferenceEquals(initial, runtime.Modules.CurrentCodeImage(ErlangModuleNames.Module)));
+            Check(!runtime.Modules.HasOldCode(ErlangModuleNames.Module));
+            Measure(context, binary, HashIntrinsicHostParameters.AmbientCounts[^1]);
+            try
+            {
+                runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangHashCheckParameters.ImprovedFunction, binary, Term.I(0)).GetAwaiter().GetResult();
+            }
+            catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+            {
+                return true;
+            }
+
+            return false;
+        }));
+    }
+
+    private static void Measure(ProcessContext context, BitString binary, int count)
+    {
+        var slots = new AsyncLocal<object>[count];
+        object marker = new();
+        try
+        {
+            for (int index = 0; index < slots.Length; index++)
+            {
+                slots[index] = new();
+                slots[index].Value = marker;
+            }
+            ValueTask<Term> warm = Hash(context, binary);
+            Check(warm.IsCompletedSuccessfully);
+            Term expected = warm.GetAwaiter().GetResult();
+            int startingThread = Environment.CurrentManagedThreadId;
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            ValueTask<Term> pending = Hash(context, binary);
+            bool synchronous = pending.IsCompletedSuccessfully;
+            Term result = pending.GetAwaiter().GetResult();
+            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+            Check(synchronous && Environment.CurrentManagedThreadId == startingThread);
+            Check(result is Integer && result.Equals(expected));
+            Check(allocated <= ErlangHashCheckParameters.AllocationBudgetBytes);
+            Console.WriteLine(string.Format(HashIntrinsicHostNames.Allocation, count, allocated));
+        }
+        finally
+        {
+            foreach (var slot in slots)
+                if (slot is not null)
+                    slot.Value = null!;
+        }
+        GC.KeepAlive(slots);
+    }
+
+    private static ValueTask<Term> Hash(ProcessContext context, Term value) => context.Runtime.Modules.Call(
+        context,
+        ErlangModuleNames.Module,
+        ErlangHashCheckParameters.ImprovedFunction,
+        value,
+        Term.I(ErlangHashCheckParameters.FullRange)
+    );
+
+    private static async Task TraceAndSavedCalls()
+    {
+        await using var runtime = new ProcessRuntime();
+        await using var caller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var tracer = new RuntimeNodeFoundationHostActor(runtime);
+        await caller.InvokeAsync(async context =>
+        {
+            await ConfigureTrace(context, tracer.Process.Pid, true);
+            await runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.ProcessFlag, Term.A(ProcessSavedCallNames.Flag), Term.I(HashIntrinsicHostParameters.SavedCallsCapacity));
+            Term result = await Hash(context, Term.I(HashIntrinsicHostParameters.OverrideValue));
+            Term calls = await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function, context.Self, Term.A(ProcessInfoNames.LastCalls));
+            Check(calls is TupleTerm { Items.Count: 2 } tuple && Cons.Items(tuple.Items[1]).Any(item => item.Equals(Signature())));
+            Check(result is Integer);
+
+            return true;
+        });
+        await tracer.InvokeAsync(async context =>
+        {
+            Check(await context.ReceiveAsync<Term>(message => IsTrace(message, caller.Process.Pid, ProcessTraceNames.Call) ? message : null, HashIntrinsicHostParameters.Deadline) is not null);
+            Check(await context.ReceiveAsync<Term>(message => IsTrace(message, caller.Process.Pid, ProcessTraceNames.Return) ? message : null, HashIntrinsicHostParameters.Deadline) is not null);
+
+            return true;
+        });
+    }
+
+    private static async Task ConfigureTrace(ProcessContext context, Pid tracer, bool returnTrace)
+    {
+        Term actions = returnTrace ? Term.List(Term.Tuple(Term.A(MatchSpecNames.ReturnTrace))) : Nil.Value;
+        Term specification = Term.List(Term.Tuple(Term.A(MatchSpecNames.Wildcard), Nil.Value, actions));
+        await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessTraceNames.Pattern, Signature(), specification, Term.List(Term.A(ProcessTraceNames.Global)));
+        await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessTraceNames.Configure, context.Self, Term.A(ErlangBooleanAtoms.True), Term.List(Term.A(ProcessTraceNames.Call), Term.Tuple(Term.A(ProcessTraceNames.Tracer), tracer)));
+    }
+
+    private static Term Signature() => Term.Tuple(Term.A(ErlangModuleNames.Module), Term.A(ErlangHashCheckParameters.ImprovedFunction), Term.I(HashIntrinsicHostParameters.HashArity));
+
+    private static bool IsTrace(Term value, Pid caller, string eventName) => value is TupleTerm tuple && tuple.Items.Count == (eventName == ProcessTraceNames.Call ? HashIntrinsicHostParameters.CallTraceFields : HashIntrinsicHostParameters.ReturnTraceFields) &&
+        tuple.Items[0] is Atom { Name: ProcessTraceNames.Message } && tuple.Items[1].Equals(caller) &&
+        tuple.Items[2] is Atom eventAtom && eventAtom.Name == eventName && tuple.Items[3] is TupleTerm { Items.Count: 3 } function &&
+        function.Items[0] is Atom { Name: ErlangModuleNames.Module } && function.Items[1] is Atom { Name: ErlangHashCheckParameters.ImprovedFunction };
+
+    private static async Task OverridesAndGeneration()
+    {
+        await using (var runtime = new ProcessRuntime())
+        {
+            await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+            runtime.Modules.DeleteModule(ErlangModuleNames.Module);
+            runtime.Modules.Register(ErlangModuleNames.Module, ErlangHashCheckParameters.ImprovedFunction, HashIntrinsicHostParameters.HashArity, (context, _) =>
+                ValueTask.FromResult<Term>(CoreModules.Boolean(Executing(context, runtime.Modules.CurrentCodeImage(ErlangModuleNames.Module)!))));
+            Check((await actor.InvokeAsync(async context => await Hash(context, Term.I(1)))).Equals(Term.A(ErlangBooleanAtoms.True)));
+        }
+        await using (var runtime = new ProcessRuntime())
+        {
+            await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+            runtime.Modules.DeleteModule(ErlangModuleNames.Module);
+            object owner = new();
+            ModuleCodeImage? image = null;
+            runtime.Modules.RegisterSource(ErlangModuleNames.Module, ErlangHashCheckParameters.ImprovedFunction, HashIntrinsicHostParameters.HashArity, (context, _) =>
+            {
+                using var scope = context.EnterSourceCode(image!, owner);
+
+                return ValueTask.FromResult<Term>(CoreModules.Boolean(ReferenceEquals(context.ExecutingSourceImage(owner), image)));
+            }, owner);
+            image = runtime.Modules.CurrentCodeImage(ErlangModuleNames.Module);
+            Check(ReferenceEquals(runtime.Modules.SourceOwner(ErlangModuleNames.Module, ErlangHashCheckParameters.ImprovedFunction, HashIntrinsicHostParameters.HashArity), owner));
+            Check((await actor.InvokeAsync(async context => await Hash(context, Term.I(1)))).Equals(Term.A(ErlangBooleanAtoms.True)));
+        }
+        await using (var runtime = new ProcessRuntime())
+        {
+            await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+            var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            ModuleCodeImage? initial = null;
+            runtime.Modules.Register(HashIntrinsicHostNames.HostModule, HashIntrinsicHostNames.HostCallback, 0, async (context, _) =>
+            {
+                Check(Executing(context, initial!));
+                entered.SetResult();
+                await release.Task;
+                Check(Executing(context, initial!));
+
+                return Nil.Value;
+            });
+            initial = runtime.Modules.CurrentCodeImage(HashIntrinsicHostNames.HostModule);
+            ProcessContext active = await actor.Ready;
+            Task<Term> pending = actor.InvokeAsync(async context => await runtime.Modules.Call(context, HashIntrinsicHostNames.HostModule, HashIntrinsicHostNames.HostCallback));
+            await entered.Task.WaitAsync(HashIntrinsicHostParameters.Deadline);
+            runtime.Modules.DeleteModule(HashIntrinsicHostNames.HostModule);
+            runtime.Modules.Register(HashIntrinsicHostNames.HostModule, HashIntrinsicHostNames.HostCallback, 0, (_, _) => ValueTask.FromResult<Term>(Term.I(HashIntrinsicHostParameters.ReplacementValue)));
+            Check(!ReferenceEquals(initial, runtime.Modules.CurrentCodeImage(HashIntrinsicHostNames.HostModule)));
+            Check(Executing(active, initial!) && !pending.IsCompleted);
+            release.SetResult();
+            Check((await pending).Equals(Nil.Value));
+            Check(!Executing(active, initial!));
+        }
+    }
+
+    private static async Task HaltBoundary()
+    {
+        await using var runtime = new ProcessRuntime();
+        await using var caller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var tracer = new RuntimeNodeFoundationHostActor(runtime);
+        await caller.InvokeAsync(async context =>
+        {
+            await ConfigureTrace(context, tracer.Process.Pid, false);
+
+            return true;
+        });
+        ProcessContext observer = await tracer.Ready;
+        using var ready = new ManualResetEventSlim();
+        Exception? controllerFailure = null;
+        var controller = new Thread(() =>
+        {
+            try
+            {
+                ready.Set();
+                long started = Stopwatch.GetTimestamp();
+                while (!observer.Mailbox.Snapshot().Any(message => IsTrace(message, caller.Process.Pid, ProcessTraceNames.Call)))
+                {
+                    if (Stopwatch.GetElapsedTime(started) > HashIntrinsicHostParameters.Deadline)
+                        throw new InvalidOperationException(HashIntrinsicHostNames.HaltObservation);
+                    Thread.Yield();
+                }
+                runtime.RequestImmediateHalt(HashIntrinsicHostParameters.HaltStatus);
+            }
+            catch (Exception exception)
+            {
+                controllerFailure = exception;
+            }
+        }) { IsBackground = true, Name = HashIntrinsicHostNames.HaltThread };
+        var binary = new BitString(new byte[ErlangHashCheckParameters.BinaryBytes * HashIntrinsicHostParameters.HaltHashSizeMultiplier]);
+        controller.Start();
+        ready.Wait(HashIntrinsicHostParameters.Deadline);
+        bool halted = false;
+        try
+        {
+            await caller.InvokeAsync(async context => await Hash(context, binary));
+        }
+        catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, runtime))
+        {
+            halted = true;
+        }
+        Check(controller.Join(HashIntrinsicHostParameters.Deadline));
+        Check(controllerFailure is null && halted);
+        await runtime.HaltCompletion.WaitAsync(HashIntrinsicHostParameters.Deadline);
+    }
+
+    private static bool Executing(ProcessContext context, ModuleCodeImage image)
+    {
+        MethodInfo method = typeof(ProcessContext).GetMethod(HashIntrinsicHostNames.Executing, BindingFlags.Instance | BindingFlags.NonPublic)
+            ?? throw new InvalidOperationException(HashIntrinsicHostNames.Failure);
+
+        return (bool)method.Invoke(context, [image])!;
+    }
+
+    private static void Check(bool condition)
+    {
+        if (!condition)
+            throw new InvalidOperationException(HashIntrinsicHostNames.Failure);
+    }
+}

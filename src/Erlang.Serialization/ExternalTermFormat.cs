@@ -184,6 +184,15 @@ public static class ExternalTermFormat
         s.Write(b);
     }
 
+    private static LocalNodeSnapshot EncodingNodeIdentity(
+        LocalNodeIdentity? identity,
+        LocalNodeSnapshot current,
+        EtfEncodingOptions options
+    )
+    {
+        return identity is not null && ReferenceEquals(identity, options.NodeIdentity) ? options.NodeSnapshot ?? current : current;
+    }
+
     private static bool WriteNode(
         Stream stream,
         string node,
@@ -358,9 +367,13 @@ public static class ExternalTermFormat
                     break;
                 }
             case MapTerm m:
+                NodeComparisonContext nodeContext = default;
+                if (options.NodeIdentity is { } identity && options.NodeSnapshot is { } snapshot)
+                    nodeContext.Read(identity, snapshot);
+                var entries = m.Entries;
                 s.WriteByte(EtfTags.Map);
-                U32(s, (uint)m.Entries.Count);
-                foreach (var e in m.Entries)
+                U32(s, (uint)entries.Count);
+                foreach (var e in entries)
                 {
                     Write(
                         s,
@@ -462,49 +475,52 @@ public static class ExternalTermFormat
                 }
             case Pid p:
                 {
+                    var wire = EncodingNodeIdentity(p.LocalIdentity, p.WireIdentity, options);
                     s.WriteByte(EtfTags.NewPid);
                     bool local = WriteNode(
                         s,
-                        p.Node,
-                        p.Creation,
+                        wire.Node,
+                        wire.Creation,
                         depth + 1,
                         options
                     );
                     U32(s, (uint)p.Id);
                     U32(s, (uint)(p.Id >> EtfPidLayout.SerialBitShift));
-                    U32(s, local ? 0 : p.Creation);
+                    U32(s, local ? 0 : wire.Creation);
                     break;
                 }
             case PortTerm p:
                 {
+                    var wire = EncodingNodeIdentity(p.LocalIdentity, p.WireIdentity, options);
                     s.WriteByte(EtfTags.V4Port);
                     bool local = WriteNode(
                         s,
-                        p.Node,
-                        p.Creation,
+                        wire.Node,
+                        wire.Creation,
                         depth + 1,
                         options
                     );
                     Span<byte> id = stackalloc byte[EtfFieldWidths.UInt64Bytes];
                     BinaryPrimitives.WriteUInt64BigEndian(id, p.Id);
                     s.Write(id);
-                    U32(s, local ? 0 : p.Creation);
+                    U32(s, local ? 0 : wire.Creation);
                     break;
                 }
             case ReferenceTerm r:
                 {
                     if (r is IReferenceResourceSerialization resource)
                         resource.SaveReferenceIdentity();
+                    var wire = EncodingNodeIdentity(r.LocalIdentity, r.WireIdentity, options);
                     s.WriteByte(EtfTags.NewerReference);
                     U16(s, r.Words.Count);
                     bool local = WriteNode(
                         s,
-                        r.Node,
-                        r.Creation,
+                        wire.Node,
+                        wire.Creation,
                         depth + 1,
                         options
                     );
-                    U32(s, local ? 0 : r.Creation);
+                    U32(s, local ? 0 : wire.Creation);
                     foreach (uint word in r.Words)
                         U32(s, word);
                     break;
@@ -563,6 +579,8 @@ public static class ExternalTermFormat
                     reference = new ReferenceTerm(reference.Node, words, reference.Creation);
                 }
             }
+            if (options.NodeIdentity is { } identity && reference.Node == options.LocalNode && reference.Creation == options.LocalCreation)
+                reference = new ReferenceTerm(identity, reference.Words);
             ReferenceTerm restored = options.ReferenceFactory?.Invoke(reference) ?? reference;
             if (!restored.Equals(reference))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -759,7 +777,9 @@ public static class ExternalTermFormat
                         if (node == options.LocalNode && creation == options.LocalCreation && id > EtfNodeLayout.MaximumLocalPidNumber)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                        return new Pid(node, id | ((ulong)serial << EtfPidLayout.SerialBitShift), creation);
+                        var pid = new Pid(node, id | ((ulong)serial << EtfPidLayout.SerialBitShift), creation);
+
+                        return options.PidFactory?.Invoke(pid) ?? pid;
                     }
                 case EtfTags.V4Port:
                 case EtfTags.NewPort:
@@ -774,7 +794,9 @@ public static class ExternalTermFormat
                         if (node == options.LocalNode && creation == options.LocalCreation && id > EtfNodeLayout.MaximumLocalPortNumber)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                        return new PortTerm(node, id, creation);
+                        var port = new PortTerm(node, id, creation);
+
+                        return options.PortFactory?.Invoke(port) ?? port;
                     }
                 case EtfTags.NewerReference:
                 case EtfTags.NewReference:

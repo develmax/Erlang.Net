@@ -8,18 +8,26 @@ public sealed class MapTerm : Term
 {
     private readonly Dictionary<Term, Term> lookup;
 
-    public IReadOnlyList<KeyValuePair<Term, Term>> Entries
-    {
-        get;
-    }
+    public IReadOnlyList<KeyValuePair<Term, Term>> Entries { get; }
 
     public MapTerm(IEnumerable<KeyValuePair<Term, Term>> entries)
     {
         var d = new Dictionary<Term, Term>();
-        foreach (var e in entries)
-            d[e.Key] = e.Value;
+        foreach (var entry in entries)
+            d[entry.Key] = entry.Value;
         lookup = d;
-        Entries = Array.AsReadOnly(d.OrderBy(e => e.Key, Comparer<Term>.Create((a, b) => TermOrder.Compare(a, b, true))).ToArray());
+        NodeComparisonContext context = default;
+        foreach (var node in NodeIdentityTraversal.KeyNodes(d))
+            context.Read(node, node.Snapshot);
+        Entries = Array.AsReadOnly(d.OrderBy(
+            entry => entry.Key,
+            Comparer<Term>.Create((left, right) => TermOrder.CompareSnapshot(
+                left,
+                right,
+                true,
+                ref context
+            ))
+        ).ToArray());
     }
 
     public Term Get(Term key) => lookup.TryGetValue(key, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));

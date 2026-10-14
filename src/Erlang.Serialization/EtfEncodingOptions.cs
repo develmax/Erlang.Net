@@ -2,6 +2,8 @@ namespace Erlang;
 
 public sealed record EtfEncodingOptions
 {
+    internal LocalNodeIdentity? NodeIdentity { get; init; }
+    internal LocalNodeSnapshot? NodeSnapshot { get; init; }
     public int MinorVersion { get; init; } = EtfEncodingParameters.DefaultMinorVersion;
     public int CompressionLevel { get; init; }
     public bool Deterministic { get; init; }

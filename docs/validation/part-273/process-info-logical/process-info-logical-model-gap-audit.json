@@ -1,0 +1,60 @@
+{
+  "Status": "SOURCE_MODEL_GAPS_REMAIN",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OtpTag": "OTP-29.1.1",
+  "SourcePath": "erts/emulator/beam/erl_bif_info.c",
+  "PinnedSourceSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+  "ExactDefaultOrder": [
+    "registered_name",
+    "current_function",
+    "initial_call",
+    "status",
+    "message_queue_len",
+    "links",
+    "dictionary",
+    "trap_exit",
+    "error_handler",
+    "priority",
+    "group_leader",
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "reductions",
+    "garbage_collection",
+    "suspending"
+  ],
+  "ExistingSupportedDefaultKeys": [
+    "registered_name",
+    "current_function",
+    "status",
+    "message_queue_len",
+    "links",
+    "dictionary",
+    "trap_exit",
+    "group_leader"
+  ],
+  "ProposedLogicalFields": [
+    "initial_call",
+    "error_handler",
+    "priority",
+    "reductions",
+    "suspending"
+  ],
+  "MissingDefaultKeys": [
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "garbage_collection"
+  ],
+  "RegisteredNameOmittedWhenUnregistered": true,
+  "ListFormProcessInfo2KeepsRegisteredNameEmptyTuple": true,
+  "PhysicalMetricsNote": "No process-local managed allocation heap/stack/GC model exists. Global CLR GC values are not substituted for process metrics.",
+  "ReductionModelNote": "Cumulative counter records actual cooperative runtime charges; exact native numeric counts depend on execution implementation and are not claimed.",
+  "PriorityModelNote": "Current normal scheduler state only; priority flags/options and relative scheduling remain unsupported.",
+  "ErrorHandlerModelNote": "Current default handler state only; custom handler flag/undefined-dispatch adaptation remains unsupported.",
+  "InitialCallModelNote": "Readonly entry MFA from actual Erlang spawn descriptions; bare host callbacks have no native MFA and return undefined. Disconnected local surrogate children also have no description and remain explicitly unmodeled.",
+  "ProcessInfo1Registered": false,
+  "NativeExecuted": false,
+  "SuspendingModelNote": "Existing targets/Owners per requesting process; long Count and Active split match native tuple; snapshots under shared gate.",
+  "NativeCasesDeclared": 7
+}

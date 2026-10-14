@@ -1,0 +1,25 @@
+{
+  "Status": "PASS_FORMATTED_SOURCE_ONLY_TARGET_PENDING",
+  "FreezeSha256": "708F82BCF8FFCEC761D7254C4DE973E868C60D05777D024D2B3D6DF9A7CA3D83",
+  "OwnedPaths": 7,
+  "ExactMfaDelegateImageUnderRegistryGate": true,
+  "OrdinaryRegisterSuccessClearsOnlyItsKey": true,
+  "FailedDuplicateRegisterDoesNotClearMarker": true,
+  "DeleteRemovesAffectedMarkers": true,
+  "ApplyRollbackRestoresBodyAndImageMarkerReferences": true,
+  "SourceGenerationImageChangeInvalidatesOldBinding": true,
+  "TraceSavedCallsHaltAndExceptionBranchTokensExact": true,
+  "HashMathBodyTokensExactAfterRegistrationNameSubstitution": true,
+  "OriginalResourceBudgetAndWarmupUnchanged": true,
+  "HostContractsSourceReviewed": [
+    "ambient64/128/256 budget and rollback",
+    "trace call/return and saved calls",
+    "ordinary same-MFA source code lease",
+    "source owner explicit admission",
+    "async generation old lease retained",
+    "halt after trace-observed native body"
+  ],
+  "ActualRuntimeTargetClaim": false,
+  "HistoricalAllocationFailureCauseClaim": false,
+  "OldCI267CauseClaim": false
+}

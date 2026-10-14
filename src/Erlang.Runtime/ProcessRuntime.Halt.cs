@@ -59,6 +59,8 @@ public sealed partial class ProcessRuntime
             selectedAt = Stopwatch.GetTimestamp();
             Volatile.Write(ref haltState, (int)RuntimeLifecycleState.Stopping);
             Volatile.Write(ref haltResult, result);
+            StopLocalNode();
+            localNodeEvents?.Close();
             disposed = true;
             distributionPending?.Close();
             ReferenceResources.Close();

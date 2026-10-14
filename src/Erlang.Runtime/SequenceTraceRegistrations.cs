@@ -51,6 +51,7 @@ internal static class SequenceTraceRegistrations
             ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(SequenceTraceNames.SystemTracer), context.Runtime.SequenceTracing.Tracer()))
             : arguments[0] is Atom { Name: AtomRegistryInfoNames.AtomCount }
             ? ValueTask.FromResult<Term>(Term.I(AtomNameRegistry.Count))
+            : arguments[0] is Atom { Name: RuntimeLocalNodeAdmissionNames.Creation } ? ValueTask.FromResult<Term>(Term.I(context.Runtime.LocalIdentity.Snapshot.Creation))
             : CpuTopologyStateRegistrations.TrySystemInfo(context, arguments[0], out Term result)
             ? ValueTask.FromResult(result)
             : throw new ErlangException(ErlangErrorReasons.BadArgument)

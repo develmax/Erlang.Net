@@ -1,0 +1,9 @@
+Recorded from actual tool transcripts, not a newly executed runtime test:
+The first metadata-only IL reader failed with "Unknown IL opcode".
+The next metadata-only reader added offset/value diagnostics and failed:
+Unknown IL opcode offset=57 value=65301 keys=226
+Cause: reader used 0xff00 for the 0xfe two-byte opcode prefix.
+Correction: 65280 changed to 65024 (0xfe00). Original reader source is
+read-hash-caller-il-initial.ps1. The corrected complete actual IL records are
+hash-caller-actual-main-il.json and hash-term-actual-main-il.json.
+No Main/runtime source or native execution was involved in this decoder repair.

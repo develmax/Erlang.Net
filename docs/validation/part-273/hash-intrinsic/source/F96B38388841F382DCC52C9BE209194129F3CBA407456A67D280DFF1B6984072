@@ -1,0 +1,14 @@
+namespace Erlang.Tests;
+
+internal static class HashIntrinsicHostNames
+{
+    internal const string Test = "runtime/intrinsic-hash-ambient-allocation-tracing-and-generation-contracts";
+    internal const string Executing = "IsExecutingCode";
+    internal const string Failure = "Intrinsic hash registration contract failed.";
+    internal const string Rollback = "intrinsic registration rollback marker";
+    internal const string HostModule = "hash_intrinsic_host";
+    internal const string HostCallback = "callback";
+    internal const string Allocation = "Intrinsic hash with {0} ambient slots: {1} bytes on one synchronous thread";
+    internal const string HaltThread = "intrinsic-hash-halt-observer";
+    internal const string HaltObservation = "Hash call trace was not observed before the halt deadline.";
+}

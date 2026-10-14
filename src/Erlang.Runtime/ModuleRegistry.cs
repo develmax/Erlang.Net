@@ -129,6 +129,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             functions.Add((module, function, arity), body);
+            intrinsicBindings.Remove((module, function, arity));
             PublishModule(module);
             informationSnapshots.Remove(module);
         }
@@ -248,7 +249,9 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             functions.TryGetValue((module, function, arguments.Length), out body);
-            image = sourceOwners.ContainsKey((module, function, arguments.Length)) ? null : codeImages.GetValueOrDefault(module);
+            var signature = (module, function, arguments.Length);
+            ModuleCodeImage? currentImage = codeImages.GetValueOrDefault(module);
+            image = sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
             code = image is null || body is null ? null : context.EnterSourceCode(image, body);
         }
         if (body is null)
@@ -386,6 +389,7 @@ public sealed partial class ModuleRegistry
             foreach (var entry in entries)
             {
                 functions.Remove(entry.Key);
+                intrinsicBindings.Remove(entry.Key);
                 sourceOwners.Remove(entry.Key);
             }
             loadedModules.Remove(module);
@@ -512,6 +516,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
+            var previousIntrinsics = new Dictionary<(string Module, string Function, int Arity), IntrinsicBinding>(intrinsicBindings);
             var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
             var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
             var previousDescriptors = new Dictionary<string, ModuleCodeDescriptor>(codeDescriptors, StringComparer.Ordinal);
@@ -526,6 +531,9 @@ public sealed partial class ModuleRegistry
             }
             catch
             {
+                intrinsicBindings.Clear();
+                foreach (var entry in previousIntrinsics)
+                    intrinsicBindings.Add(entry.Key, entry.Value);
                 functions.Clear();
                 foreach (var entry in previous)
                     functions.Add(entry.Key, entry.Value);

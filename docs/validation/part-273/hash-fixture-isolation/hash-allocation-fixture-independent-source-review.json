@@ -1,0 +1,54 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_REVIEW_HASH_FIXTURE_ARGUMENT_BOUNDARY_AND_REAL_COPY_CONTROL",
+  "MainEdited": false,
+  "BuildExecutedByReviewer": false,
+  "ProposedFiles": [
+    {
+      "Path": "artifacts/hash-allocation-fixture-proposal/ErlangHashHostChecks.cs",
+      "Sha256": "C55493DE664E8DFD2596B439C6D6972ADF52E3B5921D737BA9A94429F86E5C26"
+    },
+    {
+      "Path": "artifacts/hash-allocation-fixture-proposal/ErlangHashCheckDiagnostics.cs",
+      "Sha256": "96B84A66442D799A70FE5F4A5986432E531DEAABEDDA0BABF1E36DB0EF8F5101"
+    },
+    {
+      "Path": "artifacts/hash-allocation-fixture-proposal/ErlangHashAllocationControlNames.cs",
+      "Sha256": "11B55BE871DA09084C0D914D46C482BFFF072F800A859401D02AF25EED8A09FD"
+    }
+  ],
+  "OriginalResourcesBodyRetainedExceptPreparedSameArguments": true,
+  "UnchangedParameters": {
+    "BinaryBytes": 4194304,
+    "AllocationBudgetBytes": 4096,
+    "TupleDepth": 20000,
+    "MapDepth": 5000,
+    "FullRange": 4294967296,
+    "OriginalWarmupCalls": 1
+  },
+  "OriginalMeasuredBoundary": "Actual registry Call and hash computation/result stay inside same-thread allocation interval; caller params vector and range Integer construction move before original warmup and are reused for measurement. No cache mutation/minimum/retry/new warmup.",
+  "PositiveControl": "Separate actual registered callback calls public BitString.ToArray (Clone) and public BitString constructor (data.ToArray) then actual erlang phash2; one copy warmup then one measured synchronous same-thread copy call. Must exceed unchanged4096 AND allocate at least4MiB; exact resulting hash must equal actual original hash. Existing zero-copy Resources test retained.",
+  "PositiveControlActualCopySource": {
+    "Path": "src/Erlang.Terms/BitString.cs",
+    "Sha256": "4F67353AEE9EC35B29D09833CAB8CEBF8C63CABEEE4A32F66AC53DCC9290EA31",
+    "ToArray": "private bytes.Clone()",
+    "Constructor": "data.ToArray()"
+  },
+  "ActualNonmutatingDiagnostic": {
+    "Path": "artifacts/hash-cast-cache-diagnostic-outcomes.json",
+    "Sha256": "8CA2F56EE76B9D6DF99D4BC94340B1A8A40C040E1DE4E3C24DF089D3B43728B8",
+    "MeasuredBinarySlotStoreBytes": 12336,
+    "OldTableIntLength": 18,
+    "NewTableIntLength": 3078,
+    "HashTraversalBytes": 0,
+    "TableReadOnly": true,
+    "HistoricalThread19OrCI267CauseProved": false,
+    "FlushTriggerObserved": false,
+    "GetterJitPerturbationPossible": true
+  },
+  "BoundedLimits": [
+    "Source-only review does not claim new tests executed",
+    "Positive control demonstrates detection of payload copying, not an independent native hash correctness oracle",
+    "Preparing args narrows measurement to dispatch/hash allocation, not end-to-end caller argument creation",
+    "Full70/6527 gates and proof of any Main/CI integration remain Root responsibility"
+  ]
+}

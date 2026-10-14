@@ -1,0 +1,10 @@
+using System.Reflection;
+
+Assembly tests = Assembly.Load(FocusNames.Assembly);
+foreach (string name in FocusNames.Groups)
+{
+    Type group = tests.GetType(name, true)!;
+    MethodInfo run = group.GetMethod(FocusNames.Run, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)!;
+    await (Task)run.Invoke(null, null)!;
+    Console.WriteLine(name);
+}

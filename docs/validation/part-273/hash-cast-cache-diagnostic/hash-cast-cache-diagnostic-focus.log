@@ -1,0 +1,64 @@
+PASS runtime/halt-foundation-transfer-admission-and-independent-runtime
+PASS runtime/halt-platform-trace-display-monitor-dispatch-quiescence
+PASS runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership
+PASS runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump
+PASS cpu topology configured state isolation and exchange
+PASS runtime/statistics-two-owners-real-clock-user-cpu-cursors
+PASS match-spec-shared-program-real-actions
+PASS runtime/process-trace-concurrent-admission-barrier-sequence-composition
+PASS runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation
+PASS system-monitor-concurrent-queue-hysteresis
+PASS runtime/system-profile-real-shared-state-isolation-death-and-validation
+PASS runtime/process-display-real-owner-output-death-and-requester-cancellation
+PASS runtime/seq-exit-asynchronous-linked-token-snapshots
+PASS runtime/joint-display-origin-token-monitor-and-public-exit
+PASS runtime/spawn-request-abandon-owner-identity-death-order-and-resource-failure
+PASS terms/native-record-immutable-snapshot-and-wire-rejection
+PASS compiler/native-record-cross-module-current-definitions-and-captured-values
+PASS native record typed metadata and source annotations
+PASS runtime/module-loading-owned-zero-export-rollback-and-snapshots
+PASS runtime/process-table-capacity-reuse-stale-pid-and-batched-walk
+PASS runtime/reference-allocation-carry-preserves-markers-domain-and-text
+PASS compiler/standalone-auto-imports-qualified-and-dynamic-calls
+PASS runtime/preloaded-ownership-rollback-snapshot-concurrency-boot
+PASS runtime/module-information-cache-code-ownership-and-rollback
+PASS compiler/source-attributes-literal-only-and-code-fingerprint-isolation
+PASS runtime/module-deletion-real-old-code-and-atomic-rollback
+PASS runtime/source-tail-owned-entry-version-and-rollback
+PASS runtime/qualified-callback-tail-releases-source-frame
+PASS runtime/source-code-images-old-continuations-and-fun-calls
+PASS runtime/process-code-queued-death-and-heap-function-boundaries
+PASS process-gc-actual-collection-and-pending-death
+PASS process-info-owner-request-and-death-races
+PASS runtime/owned-local-function-matching-code-retarget
+PASS runtime/code-purge-old-users-pending-funs-and-current-retention
+PASS runtime/standard-stream-raw-bytes-utf8-errors-and-borrowed-ownership
+PASS runtime/suspension-pauses-receive-timeout-and-admits-control
+PASS runtime/display-iterative-depth-raw-bytes-and-ignored-stream-errors
+PASS runtime/known-nodes-weak-lifetime-isolation-and-named-identity
+PASS runtime/node-spawn-atomic-down-no-remote-callback-and-slot-release
+PASS runtime/node-control-named-unconnected-real-down-and-self-noop
+PASS runtime/saved-calls-chronological-ring-and-queued-death-cleanup
+PASS runtime/ports-real-executable-ownership-and-resource-cleanup
+PASS runtime/port-protocol-close-drains-pending-bytes
+PASS runtime/port-fd-io/cancel-idle-borrowed-reader
+PASS runtime/port-fd-io/stream
+PASS runtime/port-fd-io/packet-one
+PASS runtime/port-fd-io/packet-two
+PASS runtime/port-fd-io/packet-four
+PASS runtime/port-fd-io/line
+PASS runtime/port-fd-io/list
+PASS runtime/port-fd-io/reject-exit-status
+PASS runtime/port-fd-io/eof-closes
+PASS oracle/standard-stream-raw-frame-json-and-delimiter-preservation
+PASS runtime/exit-pending-kill-cleans-concurrent-alias-signals
+PASS runtime/io-monitored-group-leader-concurrent-output
+PASS runtime/monitor-concurrent-termination-and-cancellation
+PASS runtime/alias-pending-signal-selective-wakeup-and-reply-consumption
+PASS runtime/alias-priority-mailbox-removal-and-wakeup
+PASS runtime/alias-concurrent-reply-wire-identity-owner-cleanup
+FAIL erlang/hash-iterative-deep-terms-and-no-binary-payload-copy: System.IO.InvalidDataException: Portable hash allocation budget exceeded: 12472 bytes, budget 4096, result Integer, thread 12, synchronous completion
+   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\HashCastCacheAllocationDiagnostic\ErlangHashHostChecks.cs:line 95
+   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\HashCastCacheAllocationDiagnostic\ErlangHashHostChecks.cs:line 95
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\HashCastCacheAllocationDiagnostic\Program.cs:line 4256
+59/60 executed; 6526 registered

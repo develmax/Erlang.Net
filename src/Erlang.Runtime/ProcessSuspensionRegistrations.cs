@@ -17,7 +17,7 @@ internal static class ProcessSuspensionRegistrations
             1,
             (context, arguments) =>
         {
-            if (arguments[0] is not Pid { Creation: 0 } pid || pid.Node != context.Runtime.Node || pid.Equals(context.Self))
+            if (arguments[0] is not Pid pid || !context.Runtime.IsCurrentLocal(pid) || pid.Equals(context.Self))
                 throw Invalid(
                     context,
                     arguments,
@@ -43,7 +43,7 @@ internal static class ProcessSuspensionRegistrations
 
     private static async ValueTask<Term> Suspend(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        if (arguments[0] is not Pid { Creation: 0 } pid || pid.Node != context.Runtime.Node || pid.Equals(context.Self))
+        if (arguments[0] is not Pid pid || !context.Runtime.IsCurrentLocal(pid) || pid.Equals(context.Self))
             throw Invalid(
                 context,
                 arguments,

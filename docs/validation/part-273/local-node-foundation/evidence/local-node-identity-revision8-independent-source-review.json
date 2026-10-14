@@ -1,0 +1,66 @@
+{
+  "Status": "PASS_BOUNDED_FOUNDATION_SOURCE_REVIEW_NATIVE_MIXED_UNEXECUTED",
+  "ReviewedFreezeSha256": "39083FC85DF9A3A78E9185942A74F315879D1400115EB50556378C0118DAAE1C",
+  "LocalReceiptSha256": "FCF74D9340E68A4B04E7D25A500C2747D8B5363B55FC0E4C1AD4C658F01E6E15",
+  "OwnedPaths": 23,
+  "VerifiedReceiptRawFiles": 40,
+  "Checks": [
+    {
+      "Id": "coherent-comparison-epoch",
+      "Status": "PASS",
+      "Evidence": "Stack struct NodeComparisonContext caches first identity/snapshot inline; anotherowner only lazily allocates dictionary. All recursive CompareSnapshot and map key/value sequences share ref context. SortEntries seeds every discovered key identity before copied comparatorcontext, preventing sameowner A/B view mixing."
+    },
+    {
+      "Id": "dynamic-map-order-and-stable-hash",
+      "Status": "PASS",
+      "Evidence": "MapTerm tracks local identities recursively in keys including nested map values/functionenv. OrderedEntries gates cache by immutable node snapshots, resorts one capturedview, and returns local readonlyview. Hash uses unordered bindings with commutative pairhash addition and count; mutable identifier node/creation excluded. Outer maps as keys remain hashstable across local wire transitions."
+    },
+    {
+      "Id": "captured-decode-admission-A-to-B",
+      "Status": "PASS",
+      "Evidence": "Runtime ETF decode captures wire once then PID/port/reference factories close over capturedwire; reference localbinding establishedbeforefactory, ReferenceResources accepts intrinsic owneridentity. Reader nestedPID paths includingfunctioncreator use same PIDfactory. Whole functioncreator semantics not asserted."
+    },
+    {
+      "Id": "captured-ETF-map-wire-and-order",
+      "Status": "PASS",
+      "Evidence": "Runtime encoding closes over identity+NodeSnapshot. ExternalTermFormat maps seed NodeComparisonContext from those options and take one OrderedEntries view; identifier writes select same capturedwire. Actual sourcecontrol compares full mixedmap bytes and size before/after A\u2192B using capturedA."
+    },
+    {
+      "Id": "coherent-identifier-text",
+      "Status": "PASS",
+      "Evidence": "Pid,PortTerm,ReferenceTerm ToString capture WireIdentity once before formatting node/creation together."
+    },
+    {
+      "Id": "ordinary-map-allocation-scope",
+      "Status": "PASS",
+      "Evidence": "Nonlocal keys reuse one sorted/raw view and allocate no orderGate; primitive fixed-key traversal skips Stack/HashSet; hotcomparison single-owner structpath allocatesnone. Actual retained0B/1024measurements reviewed separately, not generalperformance proof."
+    },
+    {
+      "Id": "preserve-published-PID-port-comparators",
+      "Status": "PASS",
+      "Evidence": "PidIdentity and PortIdentity sourcebodies exactlypublishedMainf26e; unsigned packed PIDserial-before-number then Unicode node/creation retained."
+    },
+    {
+      "Id": "raw-source-and-existing-evidence-bindings",
+      "Status": "PASS",
+      "Evidence": "All23 frozenSourceContent hashes match candidatefiles;40 receiptlisted rawfiles hashverified; revision8build0/0,style0,focused1380 output andoldDLLcachedmapfailure retained. Review didnotexecutebuild/test."
+    }
+  ],
+  "PriorDecodeSnapshotAndMapCacheDefectsSourceRepaired": true,
+  "CapturedMapEncodingAndTextRaceSourceRepaired": true,
+  "RemainingConcreteDefectsInDeclaredFoundation": [],
+  "ActualSetnodeExecutedByReview": false,
+  "NativeMixedMapExecuted": false,
+  "NoMainWritesBuildOrExecutionByReview": true,
+  "MissingAdmission": [
+    "registered true net_kernel role",
+    "uint32 creation collision reservation across all live external identifiers rather than observed decoded terms only",
+    "kernel death/disposal/halt atomic node reset",
+    "nodeup/nodedown admission and transport connection integration"
+  ],
+  "ImportantLimits": [
+    "Source fixes and HOST controls prove a bounded C# identity foundation only. Independent mixedmap original observation32artifacts remains required before any crossnative semantic expectation or distribution activation claim.",
+    "Observed decoded external epoch selection is not a complete ERTS retained-node collision reservation or atomic admission.",
+    "No registered realkernel role, kerneldeath/halt/dispose atomicnodereset, nodeup/nodedown transport integration, full functioncreator/owner parity, complete upstream or globalperformance claim."
+  ]
+}

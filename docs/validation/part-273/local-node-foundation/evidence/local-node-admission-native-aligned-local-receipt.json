@@ -1,0 +1,72 @@
+{
+  "Status": "ActualNativeAlignedAdmissionDependencyBoundedPass",
+  "FinalFreeze": "artifacts\\local-node-admission-source-freeze-revision5.json",
+  "FinalFreezeSha256": "16F24CAB8203343E5726DF2F021341E1D9FF9408D30263945516BF608DE90103",
+  "IdentityBaseFreeze": "local-node-identity-source-freeze-revision11.json",
+  "IdentityBaseSha256": "FD40501F1CD68D9462F8599DF0B8FF4C29BE34B2F2ACD4650B516980CF232022",
+  "OwnedAdmissionPathsExact": 19,
+  "UnownedIdentityBasePathsExact": 607,
+  "SourceMismatches": [],
+  "BuildExecutedOnRebasedCandidate": true,
+  "BuildErrors": 0,
+  "BuildWarnings": 0,
+  "ActualOwnedRoleLifecycleControlsPassed": 31,
+  "ActualInheritedNamedHostBodiesPassed": 2,
+  "InheritedAssertionsUnchanged": true,
+  "InheritedFixtureSetup": "Real registered live owned kernel role; no fake remote peer",
+  "HistoricalSourceValidationRetainedSeparately": true,
+  "StyleRerunForRebasedCandidate": false,
+  "ParentFrozenSourceStylesAlreadyValidated": true,
+  "FocusSources": [
+    {
+      "Path": "probe/IdentityActor.cs",
+      "Sha256": "E33F7CADBE8BEE22C4D7029D4DE09DA7D2B940C0AB62087A3DE078485005AE4E",
+      "ExactHistoricalSource": true
+    },
+    {
+      "Path": "probe/IdentityProbe.csproj",
+      "Sha256": "A53DB14D000D92D9A8ACBB2B7A3741997F44F3F71B0BB4CDEBB3610A1AA1660E",
+      "ExactHistoricalSource": true
+    },
+    {
+      "Path": "probe/Names.cs",
+      "Sha256": "BF7AF7B40359266DB7AE74939D295B3DB21E7125EA308D1909081F4438DF0E63",
+      "ExactHistoricalSource": true
+    },
+    {
+      "Path": "probe/Program.cs",
+      "Sha256": "19F55647DA069D1582E5EEC191E78640100D2153284E8ABC3E79864805BA841A",
+      "ExactHistoricalSource": true
+    }
+  ],
+  "CoreSetnodeRegistered": false,
+  "NativeAdmissionExecuted": false,
+  "ActualInternalKernelRoleLifecycleExecuted": true,
+  "ObservedEpochAdmissionOnly": true,
+  "MainMutations": false,
+  "HeavyReleased": true,
+  "Files": [
+    {
+      "Path": "artifacts/local-node-admission-revision5-build.log",
+      "Sha256": "71BE6DF928B82D5F41084C31176379E3F7C96587D50A2D67AB443A298D112F76"
+    },
+    {
+      "Path": "artifacts/local-node-admission-revision5-focus.log",
+      "Sha256": "A7A9D7D80E69482AF50F026B09872D9DD8EB247DD7F46DD832679C2AA9E23C16"
+    },
+    {
+      "Path": "artifacts/local-node-admission-host-assertion-guard.json",
+      "Sha256": "53044858CDBC219A74BB8A660A58D9B5D705082BD891E3DD8AB9281F4D5E6B31"
+    },
+    {
+      "Path": "artifacts/local-node-admission-local-receipt.json",
+      "Sha256": "3FBFEE6FC9E26C078E8D9F628EB2B632DC30CF054C7C9C9D9842440EA92FBE56"
+    }
+  ],
+  "MissingContracts": [
+    "Full retained external epoch attribution/reservation including BEAM literals and HOST ingress",
+    "monitor_nodes options and Erlang process_flag subscriber adapters",
+    "Dynamic node name is_alive persistent-term mode",
+    "Pinned independent admission/error-info/role/lifetime observations"
+  ]
+}

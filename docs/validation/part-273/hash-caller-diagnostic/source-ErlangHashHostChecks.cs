@@ -1,0 +1,97 @@
+using Erlang;
+
+namespace Erlang.Tests;
+
+internal static class ErlangHashHostChecks
+{
+    public static async Task Resources()
+    {
+        await using var runtime = new ProcessRuntime();
+        Exception? failure = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                var binary = new BitString(new byte[ErlangHashCheckParameters.BinaryBytes]);
+                HashDiagnosticCheckpoints.Begin(1);
+                HashDiagnosticCheckpoints.Mark(1);
+                ModuleRegistry warmupRegistry = runtime.Modules;
+                HashDiagnosticCheckpoints.Mark(40);
+                Term[] warmupArguments = new Term[2];
+                HashDiagnosticCheckpoints.Mark(41);
+                warmupArguments[0] = binary;
+                HashDiagnosticCheckpoints.Mark(42);
+                warmupArguments[1] = Term.I(ErlangHashCheckParameters.FullRange);
+                HashDiagnosticCheckpoints.Mark(43);
+                await warmupRegistry.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ErlangHashCheckParameters.ImprovedFunction,
+                    warmupArguments
+                );
+                HashDiagnosticCheckpoints.Mark(2);
+                HashDiagnosticCheckpoints.End();
+                HashDiagnosticCheckpoints.Begin(2);
+                int startingThread = Environment.CurrentManagedThreadId;
+                long before = GC.GetAllocatedBytesForCurrentThread();
+                HashDiagnosticCheckpoints.Mark(3);
+                ModuleRegistry measuredRegistry = runtime.Modules;
+                HashDiagnosticCheckpoints.Mark(40);
+                Term[] measuredArguments = new Term[2];
+                HashDiagnosticCheckpoints.Mark(41);
+                measuredArguments[0] = binary;
+                HashDiagnosticCheckpoints.Mark(42);
+                measuredArguments[1] = Term.I(ErlangHashCheckParameters.FullRange);
+                HashDiagnosticCheckpoints.Mark(43);
+                ValueTask<Term> pending = measuredRegistry.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ErlangHashCheckParameters.ImprovedFunction,
+                    measuredArguments
+                );
+                bool synchronous = pending.IsCompletedSuccessfully;
+                if (!synchronous)
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AsynchronousMeasurement);
+                Term result = pending.GetAwaiter().GetResult();
+                HashDiagnosticCheckpoints.Mark(4);
+                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+                HashDiagnosticCheckpoints.End();
+                int endingThread = Environment.CurrentManagedThreadId;
+                if (startingThread != endingThread)
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.ThreadChanged(startingThread, endingThread));
+                if (result is not Integer || allocated > ErlangHashCheckParameters.AllocationBudgetBytes)
+                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AllocationExceeded(allocated, result.GetType().Name, startingThread));
+
+                Term tuple = Nil.Value;
+                for (int index = 0; index < ErlangHashCheckParameters.TupleDepth; index++)
+                    tuple = Term.Tuple(tuple);
+                Term map = Nil.Value;
+                for (int index = 0; index < ErlangHashCheckParameters.MapDepth; index++)
+                    map = new MapTerm(new[] { new KeyValuePair<Term, Term>(Term.I(0), map) });
+                foreach (Term value in new[] { tuple, map })
+                    foreach (string function in new[] { ErlangHashCheckParameters.ImprovedFunction, ErlangHashCheckParameters.LegacyFunction })
+                    {
+                        Term hash = await runtime.Modules.Call(
+                            context,
+                            ErlangModuleNames.Module,
+                            function,
+                            value,
+                            Term.I(ErlangHashCheckParameters.FullRange)
+                        );
+                        if (hash is not Integer)
+                            throw new InvalidDataException(ErlangHashCheckDiagnostics.DeepTraversal);
+                    }
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+                throw;
+            }
+
+            return Nil.Value;
+        });
+        await process.Completion;
+        if (failure is not null)
+            throw failure;
+    }
+}

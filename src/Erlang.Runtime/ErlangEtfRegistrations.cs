@@ -32,10 +32,13 @@ internal static class ErlangEtfRegistrations
 
     private static EtfEncodingOptions Encoding(ProcessContext context, Term options)
     {
+        var wire = context.Runtime.LocalIdentity.Snapshot;
         var result = new EtfEncodingOptions
         {
-            LocalNode = context.Runtime.Node,
-            LocalCreation = context.Self.Creation,
+            LocalNode = wire.Node,
+            LocalCreation = wire.Creation,
+            NodeIdentity = context.Runtime.LocalIdentity,
+            NodeSnapshot = wire,
             LocalSeed = context.Runtime.LocalTermSeed,
             FunctionOwner = context.Runtime.InitializationPid
         };
@@ -81,13 +84,17 @@ internal static class ErlangEtfRegistrations
         }
         if (value is not BitString { IsBinary: true } binary)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
+        var wire = context.Runtime.LocalIdentity.Snapshot;
         var decoding = new EtfDecodeOptions
         {
             Safe = safe,
-            LocalNode = context.Runtime.Node,
-            LocalCreation = context.Self.Creation,
+            LocalNode = wire.Node,
+            LocalCreation = wire.Creation,
             LocalSeed = context.Runtime.LocalTermSeed,
-            ReferenceFactory = context.Runtime.ReferenceResources.Rehydrate,
+            NodeIdentity = context.Runtime.LocalIdentity,
+            PidFactory = pid => context.Runtime.RehydratePid(pid, wire),
+            PortFactory = port => context.Runtime.RehydratePort(port, wire),
+            ReferenceFactory = reference => context.Runtime.ReferenceResources.Rehydrate(reference, wire),
             ExternalFunctionFactory = (identity, requireSafe) => context.Runtime.Functions.External(context.Runtime, identity, requireSafe),
             LocalFunctionFactory = (code, arity, environment) => context.Runtime.Functions.Restore(
                 context.Runtime,

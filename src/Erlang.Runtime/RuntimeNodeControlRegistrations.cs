@@ -54,7 +54,7 @@ internal static class RuntimeNodeControlRegistrations
                 ErlangErrorReasons.BadArgument,
                 false
             );
-        if (node.Name != ProcessNodeDefaults.Local && context.Runtime.Node == ProcessNodeDefaults.Local)
+        if (node.Name != ProcessNodeDefaults.Local && !context.Runtime.IsDistributionAlive)
             throw Invalid(
                 context,
                 arguments,

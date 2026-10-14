@@ -1,0 +1,64 @@
+{
+  "Status": "SOURCE_ONLY_PROPOSED_ACTUAL_IL_ORDER_AWAITING_ROOT_REVIEW",
+  "NativeExecuted": false,
+  "MainModified": false,
+  "HeavyExecuted": false,
+  "OriginalBudget": 4096,
+  "OriginalWarmupCalls": 1,
+  "Registered": 6526,
+  "ExecutedPrefix": 60,
+  "ActualMainCallerIlSha256": "198059A64CE2DD5796198D8700E0289E25E3ADBC4CA9CC9A0CCDEAA8F24A48DB",
+  "ActualMainTermIlSha256": "C36C6CDFF583B26BEA22E674F7BDEC6E8E998D4E341E0B65459B5481C859A76D",
+  "ActualMainTestDllSha256": "EED56141CD1F967717821BD24F7F36E280CB38AD2BF603EB77DD34B2AA5094D4",
+  "ActualMainTermsDllSha256": "EC0DE63C6384F0EF5C4B31B9594F230DB589F5F7AB72830659C468FB45CB8324",
+  "OriginalTermSourceSha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644",
+  "OrderPreserved": [
+    "runtime.Modules getter",
+    "new Term[2]",
+    "store binary at index0",
+    "Term.I(full range) implicit BigInteger conversion then Integer allocation",
+    "store integer at index1",
+    "ModuleRegistry.Call"
+  ],
+  "NewStageNames": {
+    "40": "after Modules getter/before params-array allocation",
+    "41": "after params-array allocation",
+    "42": "after binary slot store/before Term.I",
+    "43": "after Term.I and integer slot store/before Call",
+    "50": "Term.I entry/before BigInteger implicit conversion",
+    "52": "after BigInteger implicit conversion/before Integer newobj",
+    "53": "after Integer newobj"
+  },
+  "CollectorMovesFromIsolatedRuntimeToIsolatedTerms": true,
+  "NoCircularDependencyIntroduced": true,
+  "IsolatedTermsRuntimeTestAssembliesRequired": true,
+  "NoAllocatingReflectionOrSerializationInsideInterval": true,
+  "SourceAndJitShapePerturbationPossible": true,
+  "HistoricalCauseUnproved": true,
+  "CandidateFiles": [
+    {
+      "Path": "ErlangHashHostChecks.cs",
+      "Sha256": "417248CDBF9EAA204EA6D551847B28571A1A5504A3ED641B4A453B894EB4E6C8"
+    },
+    {
+      "Path": "ErlangHashRegistrations.cs",
+      "Sha256": "3C1FD2CC1D31A4065CC61B12FFF535C758F67515B6859EC6F8D4E0EEBE4772FB"
+    },
+    {
+      "Path": "HashDiagnosticCheckpoints.cs",
+      "Sha256": "85C65DDED2979E0E0277F501DF7F516B82D6581DE7A468009AE7603E6CC15DA4"
+    },
+    {
+      "Path": "ModuleRegistry.cs",
+      "Sha256": "F60BF0BF032CF92A205A2B7A2D5E0C423E754E89C0A37025BE1D0145C7DBABF8"
+    },
+    {
+      "Path": "Program.cs",
+      "Sha256": "A3F7F3CD9ADEF0A23BACE73EC3E0DB656C2F0FA8A59E41B3C7639F598A1950D1"
+    },
+    {
+      "Path": "Term.cs",
+      "Sha256": "2783B81FFCE8304A7EEDD829C7FF66D84E88102D66101657180BDDF464BBB750"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "Status": "PASS",
+  "Head": "477d037aa1bc71f6d7be9020c5adc78ea0930b39",
+  "Run": 38610253811,
+  "Job": 116011446406,
+  "Artifact": 11918119122,
+  "OriginalPassed": 5802,
+  "FdPassed": 8,
+  "NewAtomNativeModules": 13,
+  "NewTypedScannerDiagnoses": 4,
+  "Old4848ModuleContractsExact": false,
+  "Old159DiagnosticsExact": true,
+  "Old778ScalarContractsExact": true,
+  "SixDefectExclusionsUnchanged": true,
+  "RawDifferences": [
+    {
+      "Index": 3605,
+      "Delta": {
+        "NativeStandardOutputHex": {
+          "Actual": "237B623D3E2241222C613D3E7B307D7D0D0A",
+          "Historical": "237B613D3E7B307D2C623D3E2241227D0D0A"
+        },
+        "NativeAndSdkStandardOutputExactlyMatch": {
+          "Actual": false,
+          "Historical": true
+        }
+      },
+      "Current": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": false,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      },
+      "Historical": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "NoSourceOrExpectedChanges": true,
+  "ReferenceCoverageComplete": false,
+  "RawJobVerificationPending": false,
+  "ZipSha256": "2B2C9FA79F5A27465F742EFACB643E33F84629E1ABE674B9565E2FE85ACA239F",
+  "JobLogSha256": "F31F7D395CA83AB6F098FAE4020499426F947B8804B8BA28956239ED18B37E32",
+  "NativeDiagnosticOffsetClaim": false
+}

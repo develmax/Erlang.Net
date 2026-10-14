@@ -3,7 +3,7 @@ namespace Erlang;
 public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSerialization
 {
     internal ResourceReferenceTerm(ReferenceResourceEntry entry)
-        : base(entry.Identity.Node, entry.Identity.Words, entry.Identity.Creation)
+        : base(entry.Identity)
     {
         Entry = entry;
     }

@@ -1,0 +1,66 @@
+{
+  "Status": "SOURCE_ONLY_NONMUTATING_CACHE_GETTER_PROPOSAL",
+  "MainModified": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "CacheMutated": false,
+  "Getter": "Reflection.Emit DynamicMethod direct ldsfld,ret; field metadata and delegate construction/JIT before original warmup",
+  "Sampling": "preallocated struct rows keep table reference and length; ordinal identity comparison and JSON allocated after measured interval",
+  "NativeAddressesPrinted": false,
+  "TableContentsPrinted": false,
+  "OriginalWarmupCalls": 1,
+  "OriginalBudget": 4096,
+  "SourceJitShapeCanPerturbCacheState": true,
+  "ActualObservedTableReplacementNotClaimed": true,
+  "Sources": [
+    {
+      "Url": "https://raw.githubusercontent.com/dotnet/runtime/v10.0.11/src/coreclr/vm/castcache.cpp",
+      "RelevantLines": "15-36,70-87",
+      "Finding": "CreateCastCache uses managed int array sized (bucketCount+1)*sizeof(entry)/4; replacement publishes new table reference"
+    },
+    {
+      "Url": "https://raw.githubusercontent.com/dotnet/runtime/v10.0.11/src/coreclr/vm/castcache.h",
+      "RelevantLines": "50-68,171-176,227-240",
+      "Finding": "DWORD then two pointer-sized fields; x64 alignment gives24-byte entries. Growth doubles buckets, x64 source documents98304 bytes for4096 entries."
+    },
+    {
+      "Url": "https://raw.githubusercontent.com/dotnet/runtime/v10.0.11/src/coreclr/System.Private.CoreLib/src/System/Runtime/CompilerServices/CastHelpers.cs",
+      "RelevantLines": "12-13,404-456",
+      "Finding": "StelemRef nonexact element type uses static cast table and cache-miss type-test helper"
+    }
+  ],
+  "X64Cache512SizeInference": {
+    "PayloadBytes": 12312,
+    "IntArrayLength": 3078,
+    "ArrayHeaderBytes": 24,
+    "TotalBytes": 12336,
+    "ExactMeasuredStoreWindowExcess": 12336,
+    "InferenceOnly": true
+  },
+  "Files": [
+    {
+      "Path": "ErlangHashHostChecks.cs",
+      "Sha256": "417248CDBF9EAA204EA6D551847B28571A1A5504A3ED641B4A453B894EB4E6C8"
+    },
+    {
+      "Path": "ErlangHashRegistrations.cs",
+      "Sha256": "3C1FD2CC1D31A4065CC61B12FFF535C758F67515B6859EC6F8D4E0EEBE4772FB"
+    },
+    {
+      "Path": "HashDiagnosticCheckpoints.cs",
+      "Sha256": "41A6EC457C58896E959AD391840485F2CE7A56F7E819C201E9EE235A73A368B9"
+    },
+    {
+      "Path": "ModuleRegistry.cs",
+      "Sha256": "F60BF0BF032CF92A205A2B7A2D5E0C423E754E89C0A37025BE1D0145C7DBABF8"
+    },
+    {
+      "Path": "Program.cs",
+      "Sha256": "A3F7F3CD9ADEF0A23BACE73EC3E0DB656C2F0FA8A59E41B3C7639F598A1950D1"
+    },
+    {
+      "Path": "Term.cs",
+      "Sha256": "2783B81FFCE8304A7EEDD829C7FF66D84E88102D66101657180BDDF464BBB750"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeExecuted": false,
+  "FreshVmRequired": true,
+  "Networking": {
+    "TcpListener": false,
+    "Epmd": false,
+    "Handshake": false,
+    "PeerSocket": false,
+    "Controller": "actual ERTS process adopted by erlang:setnode/3",
+    "Kernel": "registered fixture process activated by actual erlang:setnode/2"
+  },
+  "RequiredArtifacts": [
+    "inputs.etf",
+    "incoming-send.packet",
+    "incoming-send-result.etf",
+    "incoming-send-delivered.etf",
+    "incoming-reg-send.packet",
+    "incoming-reg-send-result.etf",
+    "incoming-reg-send-delivered.etf",
+    "outgoing-reg-send.packet",
+    "outgoing-reg-send-control.etf",
+    "stats.etf",
+    "stage",
+    "payload.etf",
+    "identities.etf",
+    "incoming-send-control.etf",
+    "incoming-reg-send-control.etf",
+    "cleanup-controller.etf",
+    "kernel-notice.etf",
+    "pending-handle.etf",
+    "registered-sink-identities.etf",
+    "cleanup-sink.etf"
+  ],
+  "Hypotheses": [
+    "SEND opcode2 incoming packet is delivered to the real local pid",
+    "REG_SEND opcode6 incoming packet is delivered to the registered local name",
+    "Outgoing registered send control is {6,OwnerPid,EmptyCookie,packet_sink}",
+    "Pass-through output is marker112 followed by separately versioned control and payload ETFs"
+  ],
+  "ObservedExpectations": false,
+  "SourceSha256": "DBB538924ECC0F67F3130606B82C742E0C752D774AD885BE05164B8C534C562C",
+  "Bounds": {
+    "OperationTimeoutMs": 5000,
+    "CleanupTimeoutMs": 5000,
+    "RecommendedFreshVmDeadlineSeconds": 45
+  },
+  "Gates": [
+    "Capture raw stdout, stderr, exit, complete stage, compiled probe beam, source hash and exact pinned runtime provenance",
+    "Require all declared packet/result/delivery files; partial execution is failure",
+    "Compare SDK decode and independently generated incoming ETF control/payload bytes; do not normalize PID identities or streams",
+    "Keep process-controller adoption separate from remote handshake or runtime implementation claims"
+  ],
+  "SourceTag": "OTP-29.1.1",
+  "Scenarios": [
+    "pass-through-send-registered"
+  ],
+  "PriorProbeSourceSha256": "AB357D0BA0318D04DD5B45406B89E11DB0150410F20CFC1DF84B91B1349067E6",
+  "RevisionNote": "Retain registered net_kernel owner and use a separately monitored registered packet_sink process. Verify ready registration and exact payload forwarded from its identity; preserve owned sink and controller cleanup on all paths. Both original271 and272 failures remain immutable; no old workflow retry.",
+  "PreviousPublishedSourceSha256": "85E06380AFDE1629717ECCCDF8C11C93A04F67A403DD102F041F34A71B01EEA4",
+  "OptionalFailureArtifacts": [
+    "controller-ready-failure.etf",
+    "exception.etf",
+    "registered-sink-ready-failure.etf"
+  ],
+  "InputsSchema": "{RemoteNode,Flags,RemoteCreation,PendingHandle}; first three original fields retained, pending handle added for explicit liveness across adoption"
+}

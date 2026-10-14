@@ -1,0 +1,88 @@
+{
+  "Status": "CONTROLLED_AMBIENT_ALLOCATION_MECHANISM_PROVED_HISTORICAL_CAUSE_UNPROVEN",
+  "FailedFullPassed": 6524,
+  "FailedFullFailed": 1,
+  "FailedFullBytes": 12688,
+  "FailedFullBudget": 4096,
+  "FailedFullThread": 19,
+  "ActualCurrentMainRuntimeSha256": "C0B9895A0D2564E84ED40AB76149C82A9808E58693C940E8AD1DED89D3D9DB5D",
+  "ActualMainTestsSha256": "B9C923B08C937AD6D4C244357FD0038D916D6E10FF98F32177A5AF63D84619C2",
+  "ActualMainTestsMvid": "a9ca8afb-5d2b-4dee-b84a-21665bcc357d",
+  "AllRows": [
+    {
+      "AmbientCount": 0,
+      "RegistryBytes": 352,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": true,
+      "MapType": null,
+      "LocalValuesField": null
+    },
+    {
+      "AmbientCount": 16,
+      "RegistryBytes": 1272,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": true,
+      "MapType": "System.Threading.AsyncLocalValueMap+MultiElementAsyncLocalValueMap",
+      "LocalValuesField": "m_localValues"
+    },
+    {
+      "AmbientCount": 32,
+      "RegistryBytes": 2696,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": true,
+      "MapType": "System.Threading.AsyncLocalValueMap+ManyElementAsyncLocalValueMap",
+      "LocalValuesField": "m_localValues"
+    },
+    {
+      "AmbientCount": 64,
+      "RegistryBytes": 4600,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": false,
+      "MapType": "System.Threading.AsyncLocalValueMap+ManyElementAsyncLocalValueMap",
+      "LocalValuesField": "m_localValues"
+    },
+    {
+      "AmbientCount": 128,
+      "RegistryBytes": 7960,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": false,
+      "MapType": "System.Threading.AsyncLocalValueMap+ManyElementAsyncLocalValueMap",
+      "LocalValuesField": "m_localValues"
+    },
+    {
+      "AmbientCount": 256,
+      "RegistryBytes": 17032,
+      "DirectNativeBodyBytesArgsOutside": 32,
+      "RegistryThread": 4,
+      "NativeThread": 4,
+      "ExactOriginalResourcePassed": false,
+      "MapType": "System.Threading.AsyncLocalValueMap+ManyElementAsyncLocalValueMap",
+      "LocalValuesField": "m_localValues"
+    }
+  ],
+  "NoMinimumSelection": true,
+  "OriginalWarmupCalls": 1,
+  "ExactOriginalResourcesViaActualMainTestsReflection": true,
+  "AmbientValuesPrinted": false,
+  "SnapshotOutsideMeasurement": true,
+  "CoreNativeBodyAmbientIndependent": true,
+  "HistoricalThread19AmbientMapNotCaptured": true,
+  "OldCI267CauseUnproved": true,
+  "PossibleProductionFix": "Avoid mutable SourceExecution AsyncLocal leases for accurately marked immutable native hash BIFs; preserve source/code-image admission for ordinary/dynamic registrations and rollback behavior; do not dispatch by module/function name alone.",
+  "NoMainOrBudgetChanges": true,
+  "UnresolvedMetadataFirstMatrixPreserved": true,
+  "InitialHelperCompilationErrorsPreserved": [
+    "CS8625 nullable AsyncLocal cleanup",
+    "CS0826 direct argument array common type"
+  ]
+}

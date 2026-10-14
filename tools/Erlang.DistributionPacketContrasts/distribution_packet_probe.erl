@@ -35,7 +35,8 @@ run(Output) ->
         after 5000 -> error(input_result_timeout) end,
         receive Payload -> save("incoming-send-delivered.etf", term_to_binary(Payload))
         after 5000 -> error(send_delivery_timeout) end,
-        true = register(packet_sink, self()),
+        Sink = start_sink(Owner),
+        save("registered-sink-identities.etf", term_to_binary({Owner, Sink, whereis(net_kernel), whereis(packet_sink)})),
         Registered = {6, self(), '', packet_sink},
         RegisteredPacket = packet(Registered, Payload),
         save("incoming-reg-send-control.etf", term_to_binary(Registered)),
@@ -43,7 +44,8 @@ run(Output) ->
         Controller ! {input, RegisteredPacket},
         receive {input_result, RegisteredResult} -> save("incoming-reg-send-result.etf", term_to_binary(RegisteredResult))
         after 5000 -> error(input_result_timeout) end,
-        receive Payload -> save("incoming-reg-send-delivered.etf", term_to_binary(Payload))
+        receive {sink_delivery, Sink, Payload} ->
+            save("incoming-reg-send-delivered.etf", term_to_binary(Payload))
         after 5000 -> error(registered_delivery_timeout) end,
         {packet_sink, packet_remote@localhost} ! Payload,
         Controller ! drain,
@@ -60,7 +62,50 @@ run(Output) ->
         save("stage", <<"complete">>),
         ok
     after
-        cleanup_controller(Controller, Monitor)
+        try cleanup_sink()
+        after cleanup_controller(Controller, Monitor) end
+    end.
+
+start_sink(Owner) ->
+    {Sink, SinkMonitor} = spawn_monitor(fun() ->
+        true = register(packet_sink, self()),
+        Owner ! {sink_ready, self(), whereis(packet_sink)},
+        sink_loop(Owner)
+    end),
+    put(packet_owned_sink, {Sink, SinkMonitor}),
+    receive
+        {sink_ready, Sink, Sink} -> Sink;
+        {'DOWN', SinkMonitor, process, Sink, SinkReadyReason} ->
+            put(packet_owned_sink_down, {observed, SinkReadyReason}),
+            save("registered-sink-ready-failure.etf", term_to_binary(SinkReadyReason)),
+            error({sink_died_before_ready, SinkReadyReason})
+    after 5000 -> error(sink_ready_timeout) end.
+
+sink_loop(Owner) ->
+    receive
+        stop -> ok;
+        Message ->
+            Owner ! {sink_delivery, self(), Message},
+            sink_loop(Owner)
+    end.
+
+cleanup_sink() ->
+    case erase(packet_owned_sink) of
+        undefined -> ok;
+        {Sink, SinkMonitor} ->
+            case erase(packet_owned_sink_down) of
+                {observed, ObservedSinkReason} ->
+                    save("cleanup-sink.etf", term_to_binary(ObservedSinkReason));
+                undefined ->
+                    Sink ! stop,
+                    receive {'DOWN', SinkMonitor, process, Sink, SinkCleanupReason} ->
+                        save("cleanup-sink.etf", term_to_binary(SinkCleanupReason))
+                    after 5000 -> exit(Sink, kill),
+                                  receive {'DOWN', SinkMonitor, process, Sink, SinkForcedReason} ->
+                                      save("cleanup-sink.etf", term_to_binary({forced, SinkForcedReason}))
+                                  after 5000 -> error(sink_cleanup_timeout) end
+                    end
+            end
     end.
 
 cleanup_controller(Controller, Monitor) ->

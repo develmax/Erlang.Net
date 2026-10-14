@@ -22,11 +22,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     private bool disposed;
     private readonly RuntimeInitializer initializer;
     public Pid InitializationPid { get; }
-    public string Node
-    {
-        get;
-    }
-    public Atom NodeAtom { get; }
+    internal LocalNodeIdentity LocalIdentity { get; }
+    public string Node => LocalIdentity.Snapshot.Node;
+    public Atom NodeAtom => Term.A(LocalIdentity.Snapshot.Node);
     public TextWriter Output
     {
         get;
@@ -72,10 +70,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     )
     {
         processSlots = new(maximumProcesses);
-        Node = node;
-        ReferenceResources = new(Modules, node);
-        NodeAtom = Term.A(node);
-        KnownNodes = new(node);
+        LocalIdentity = new(node);
+        ReferenceResources = new(Modules, LocalIdentity);
+        KnownNodes = new(LocalIdentity);
         Output = output ?? Console.Out;
         ownsStandardStreams = standardStreams is null;
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
@@ -86,7 +83,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         SequenceTracing = new(this, gate, processes);
         SystemProfiling = new(this, gate, processes);
         ProcessTracing = new(this, gate, processes);
-        var initial = new ProcessContext(this, new Pid(Node, InitializationNames.ProcessId));
+        var initial = new ProcessContext(this, new Pid(LocalIdentity, InitializationNames.ProcessId));
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
         processSlots.Add(initial.Self);
@@ -122,7 +119,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             if (link && parent is not null)
                 RequireAlive(parent.Self);
             processSlots.RequireCapacity();
-            ctx = new(this, new Pid(Node, (ulong)++nextPid));
+            ctx = new(
+                this,
+                new Pid(LocalIdentity, (ulong)++nextPid),
+                description?.Mfa
+            );
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
             executingProcesses.Add(ctx);
@@ -301,7 +302,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     {
                         ulong ownerPid = (owner.Self.Id << ProcessAliasLayout.PidTagBits) | ProcessAliasLayout.PidTag;
                         reference = new ReferenceTerm(
-                            Node,
+                            LocalIdentity,
                             [reference.Words[0], reference.Words[1] | ProcessAliasLayout.PidMarker, reference.Words[2], (uint)ownerPid, (uint)(ownerPid >> ReferenceIdentityLayout.WordBits)]
                         );
                     }
@@ -472,7 +473,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             ReferenceTerm ordinary = MakeReference();
             ulong pid = (owner.Self.Id << ProcessAliasLayout.PidTagBits) | ProcessAliasLayout.PidTag;
             var reference = new ReferenceTerm(
-                Node,
+                LocalIdentity,
                 [ordinary.Words[0], ordinary.Words[1] | ProcessAliasLayout.PidMarker, ordinary.Words[2], (uint)pid, (uint)(pid >> ReferenceIdentityLayout.WordBits)]
             );
             aliases.Add(reference, new(owner.Self, reply, priority));
@@ -553,7 +554,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             return null;
         ulong encoded = reference.Words[ProcessAliasLayout.OwnerLowWord] | ((ulong)reference.Words[ProcessAliasLayout.OwnerHighWord] << ReferenceIdentityLayout.WordBits);
 
-        return new Pid(Node, encoded >> ProcessAliasLayout.PidTagBits);
+        return new Pid(LocalIdentity, encoded >> ProcessAliasLayout.PidTagBits);
     }
 
     internal void AdmitSignals(ProcessContext owner)
@@ -623,6 +624,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             {
                 Term value = key.Name switch
                 {
+                    ProcessInfoLogicalNames.Suspending => Suspensions.SnapshotOwned(process.Self),
+                    ProcessInfoLogicalNames.InitialCall => process.InitialCall,
+                    ProcessInfoLogicalNames.ErrorHandler => process.ErrorHandler,
+                    ProcessInfoLogicalNames.Priority => process.SchedulingPriority,
+                    ProcessInfoLogicalNames.Reductions => Term.I(process.CumulativeReductions),
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
                     ProcessInfoNames.PriorityMessages => Term.A(PriorityPermissionCount(process) != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
@@ -1026,7 +1032,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         ulong value = unchecked((ulong)Interlocked.Increment(ref nextRef));
 
         return new ReferenceTerm(
-            Node,
+            LocalIdentity,
             [
             (uint)(value & ReferenceIdentityLayout.LocalFirstWordMask),
             (uint)value & ReferenceNumberLayout.CountMiddleMask | ReferenceNumberLayout.HostDomain,
@@ -1337,6 +1343,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
+                LocalNodeProcessTerminated(ctx);
                 distributionPending?.ProcessTerminated(ctx);
                 ProcessTracing.Terminated(ctx.Self);
                 SystemMonitoring.Terminated(ctx.Self);
@@ -1430,6 +1437,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));
             if (disposed)
                 return;
+            StopLocalNode();
+            localNodeEvents?.Close();
             disposed = true;
             Timers.Dispose();
             distributionPending?.Close();
@@ -1448,6 +1457,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             haltWait = haltResult is null ? null : haltQuiescence.Task;
             if (haltWait is null)
             {
+                StopLocalNode();
+                localNodeEvents?.Close();
                 disposed = true;
                 Timers.Dispose();
                 distributionPending?.Close();

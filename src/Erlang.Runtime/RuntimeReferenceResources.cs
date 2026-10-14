@@ -7,14 +7,14 @@ public sealed partial class RuntimeReferenceResources
 {
     private readonly object gate = new();
     private readonly ModuleRegistry modules;
-    private readonly string node;
+    private readonly LocalNodeIdentity localIdentity;
     private readonly Dictionary<ReferenceTerm, WeakReference<ReferenceResourceEntry>> entries = new();
     private bool closed;
 
-    internal RuntimeReferenceResources(ModuleRegistry modules, string node)
+    internal RuntimeReferenceResources(ModuleRegistry modules, LocalNodeIdentity localIdentity)
     {
         this.modules = modules;
-        this.node = node;
+        this.localIdentity = localIdentity;
     }
 
     public ResourceReferenceTerm CreatePrepared(PreparedBeamImage image)
@@ -87,15 +87,22 @@ public sealed partial class RuntimeReferenceResources
 
     public ReferenceTerm Rehydrate(ReferenceTerm reference)
     {
+        return Rehydrate(reference, localIdentity.Snapshot);
+    }
+
+    internal ReferenceTerm Rehydrate(ReferenceTerm reference, LocalNodeSnapshot wire)
+    {
         ArgumentNullException.ThrowIfNull(reference);
         lock (gate)
         {
-            if (!closed && reference.Node == node && reference.Creation == ReferenceResourceParameters.LocalCreation &&
+            bool local = ReferenceEquals(reference.LocalIdentity, localIdentity) || reference.Node == wire.Node && reference.Creation == wire.Creation;
+            ReferenceTerm restored = local ? new ReferenceTerm(localIdentity, reference.Words) : new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
+            if (!closed && local &&
                 reference.Words.Count == ReferenceIdentityLayout.LocalWords && (reference.Words[1] & ReferenceNumberLayout.MagicMarker) != 0 &&
-                entries.TryGetValue(reference, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
+                entries.TryGetValue(restored, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
                 return new ResourceReferenceTerm(entry);
 
-            return new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
+            return restored;
         }
     }
 
@@ -129,13 +136,12 @@ public sealed partial class RuntimeReferenceResources
             {
                 byte[] bytes = RandomNumberGenerator.GetBytes(ReferenceResourceParameters.IdentityBytes);
                 identity = new ReferenceTerm(
-                    node,
+                    localIdentity,
                     [
                         BinaryPrimitives.ReadUInt32LittleEndian(bytes) & ReferenceIdentityLayout.LocalFirstWordMask,
                         BinaryPrimitives.ReadUInt32LittleEndian(bytes.AsSpan(sizeof(uint))) & ReferenceNumberLayout.CountMiddleMask | ReferenceNumberLayout.MagicMarker,
                         BinaryPrimitives.ReadUInt32LittleEndian(bytes.AsSpan(2 * sizeof(uint)))
-                    ],
-                    ReferenceResourceParameters.LocalCreation
+                    ]
                 );
             }
             while (entries.ContainsKey(identity));

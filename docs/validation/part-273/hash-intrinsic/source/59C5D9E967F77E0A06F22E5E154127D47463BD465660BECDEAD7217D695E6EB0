@@ -1,0 +1,16 @@
+namespace Erlang.Tests;
+
+internal static class HashIntrinsicHostParameters
+{
+    internal const int CallTraceFields = 4;
+    internal const int ReturnTraceFields = 5;
+    internal const int HashArity = 2;
+    internal const int SavedCallsCapacity = 16;
+    internal const int OverrideValue = 7;
+    internal const int ReplacementValue = 9;
+    internal const int DeadlineSeconds = 10;
+    internal const int HaltHashSizeMultiplier = 16;
+    internal const int HaltStatus = 0;
+    internal static readonly int[] AmbientCounts = [64, 128, 256];
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(DeadlineSeconds);
+}

@@ -1,0 +1,147 @@
+{
+  "Status": "Immutable272PacketFailureWithSuccessfulPrecedingStagesVerified",
+  "Head": "477d037aa1bc71f6d7be9020c5adc78ea0930b39",
+  "Run": 38610258342,
+  "Job": 116011460434,
+  "Artifact": 11918370907,
+  "ZipSha256": "13BF9EC64C79F4086050928B2B20BC67220CCF2FADF1DCB2F98FAB0D5DBFA01C",
+  "JobLogSha256": "F2A23373BB8D1EF5F46C83A7FFC3E20565393D44DEDF232F5CADBCF9ABC6A35B",
+  "ControllerAdopted": true,
+  "PendingHandleCapturedAndRetained": true,
+  "KernelNoticeExact": true,
+  "IncomingSendResult": "ok",
+  "IncomingSendWireBytesAndDeliveredPayloadExact": true,
+  "RegisteredSendNotAttempted": true,
+  "Failure": "register(packet_sink, already registered net_kernel owner): badarg cause registered_name",
+  "FullException": [
+    "error",
+    "badarg",
+    [
+      [
+        "erlang",
+        "register",
+        [
+          "packet_sink",
+          {
+            "Pid": [
+              "packet_local@localhost",
+              10,
+              0,
+              4
+            ]
+          }
+        ],
+        [
+          [
+            "error_info",
+            {
+              "cause": "registered_name",
+              "module": "erl_erts_errors"
+            }
+          ]
+        ]
+      ],
+      [
+        "distribution_packet_probe",
+        "run",
+        1,
+        [
+          [
+            "file",
+            "artifacts/distribution-packet/distribution_packet_probe.erl"
+          ],
+          [
+            "line",
+            38
+          ]
+        ]
+      ],
+      [
+        "erl_eval",
+        "do_apply",
+        7,
+        [
+          [
+            "file",
+            "erl_eval.erl"
+          ],
+          [
+            "line",
+            1044
+          ]
+        ]
+      ],
+      [
+        "erl_eval",
+        "expr",
+        6,
+        [
+          [
+            "file",
+            "erl_eval.erl"
+          ],
+          [
+            "line",
+            792
+          ]
+        ]
+      ],
+      [
+        "erl_eval",
+        "exprs",
+        6,
+        [
+          [
+            "file",
+            "erl_eval.erl"
+          ],
+          [
+            "line",
+            276
+          ]
+        ]
+      ],
+      [
+        "erl_eval",
+        "try_clauses",
+        10,
+        [
+          [
+            "file",
+            "erl_eval.erl"
+          ],
+          [
+            "line",
+            1690
+          ]
+        ]
+      ],
+      [
+        "init",
+        "start_it",
+        1,
+        []
+      ],
+      [
+        "init",
+        "start_em",
+        1,
+        []
+      ]
+    ]
+  ],
+  "ControllerCleanup": "normal",
+  "MissingRequiredFiles": [
+    "incoming-reg-send.packet",
+    "incoming-reg-send-result.etf",
+    "incoming-reg-send-delivered.etf",
+    "outgoing-reg-send.packet",
+    "outgoing-reg-send-control.etf",
+    "stats.etf",
+    "stage",
+    "incoming-reg-send-control.etf"
+  ],
+  "SemanticCompatibilityClaim": false,
+  "MixedRerun": false,
+  "NoRetryOrNormalization": true
+}

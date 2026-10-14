@@ -10,6 +10,26 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
             return targets.TryGetValue(pid, out var target) && target.Active;
     }
 
+    internal Term SnapshotOwned(Pid owner)
+    {
+        lock (gate)
+        {
+            var entries = new List<Term>();
+            foreach (var pair in targets)
+            {
+                if (!pair.Value.Owners.TryGetValue(owner, out var suspension))
+                    continue;
+                entries.Add(Term.Tuple(
+                    pair.Key,
+                    Term.I(pair.Value.Active ? suspension.Count : 0),
+                    Term.I(pair.Value.Active ? 0 : suspension.Count)
+                ));
+            }
+
+            return Cons.From(entries);
+        }
+    }
+
     private sealed class Owner(ProcessContext context)
     {
         public ProcessContext Context { get; } = context;

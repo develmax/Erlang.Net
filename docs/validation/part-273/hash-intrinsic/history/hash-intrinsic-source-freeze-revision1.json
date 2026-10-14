@@ -1,0 +1,67 @@
+{
+  "Stage": "IntrinsicHashProductionOptimizationPrebuild",
+  "BaseHead": "477d037aa1bc71f6d7be9020c5adc78ea0930b39",
+  "CurrentMain273ImportsIncluded": true,
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Intrinsics.cs",
+      "BeforeSha256": null,
+      "Sha256": "1164EC03351CA5F063E45CE4A7B114E20C9AE6A3E6EC1371B9A6C39242E81BDA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "BeforeSha256": "454F7341FF7FFF758FC4D51E4350DDA26929DF1E6E7E5E30D02C9365611756D6",
+      "Sha256": "0DA50E1C19F3B9DBEABEBD71EA31DBEAB578A38AB5AD21C846AAD4988F23C7C7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangHashRegistrations.cs",
+      "BeforeSha256": "A741EE6D9DFBB0117439E9B472A984A0F2B13BA159217C12307C2FCD54A27708",
+      "Sha256": "E28269C53405BB164BF72D940D5E8398C2B0BF808C49D69BF64C5BF78FDF0EAE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "5C09D4C4DA608C28B413D68502195DC59B4059EE77DAB4E01E8BAB6C099103E1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "9EDA219803D9F63F9416EBF1C5FE392EA3ABF837C57AD4550DE3B6D5D3154032"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HashIntrinsicHostParameters.cs",
+      "BeforeSha256": null,
+      "Sha256": "59C5D9E967F77E0A06F22E5E154127D47463BD465660BECDEAD7217D695E6EB0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "BeforeSha256": "D49127B9385FF14B1CC963EE3B47B79AE5E705FC571DD31F3FA370C9BB5E7F01",
+      "Sha256": "2D03BDF723080EE12C992695B3E9A600BD09E28D61047E71096B6AF9A41A1E5E"
+    }
+  ],
+  "SeedUnownedFilesExact": 1554,
+  "SourceMismatches": [],
+  "HashBodiesUnchangedExceptRegisterIntrinsic": true,
+  "ExactBinding": "MFA key + delegate ReferenceEquals + current ModuleCodeImage ReferenceEquals",
+  "OrdinaryRegistrationClearsKind": true,
+  "DeleteClearsKind": true,
+  "ApplyRollbackRestoresKind": true,
+  "OnlyProductionMarkedIntrinsics": [
+    "erlang:phash2/1",
+    "erlang:phash2/2",
+    "erlang:phash/2"
+  ],
+  "OriginalAllocationTestAndBudgetSourceExact": true,
+  "BuildExecuted": false,
+  "HostControlsPrepared": [
+    "64/128/256 ambient slots using original4096 budget and one warm measurement",
+    "Apply rollback restores primitive kind and codeimage before ambient256 measurement",
+    "Actual call/return traces and saved_calls capture",
+    "Ordinary same-MFA override retains codelease; source override preserves explicit own-image execution",
+    "Pending generic HOST callback retains old generation across deletion/replacement/await",
+    "Same-runtime actual halt triggered by an observed original hash call trace"
+  ],
+  "MainMutation": false,
+  "BudgetOrOriginalWarmupChanged": false,
+  "SourceConsultationSha256": "D1C7F29F4B8B491F5BF4AA97F06DF6C82E35D1D0002BE85976E9F19490D18CE6"
+}

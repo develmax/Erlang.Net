@@ -171,6 +171,16 @@ public sealed class RuntimeDistributionPending
         }
     }
 
+    internal void LocalKernelStopped()
+    {
+        lock (gate)
+        {
+            kernelSetup = null;
+            foreach (var entry in pending.Values.ToArray())
+                RetirePending(entry);
+        }
+    }
+
     internal void Close()
     {
         lock (gate)

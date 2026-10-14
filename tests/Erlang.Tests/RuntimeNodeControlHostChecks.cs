@@ -10,6 +10,7 @@ public static class RuntimeNodeControlHostChecks
         {
             try
             {
+                RuntimeNodeAdmissionHostSetup.Attach(context, RuntimeNodeControlHostNames.Node);
                 Term peer = Term.A(RuntimeNodeControlHostNames.Peer);
                 foreach (Term options in new Term[] { Nil.Value, Term.List(Term.A(RuntimeNodeControlNames.AllowPassive)) })
                 {

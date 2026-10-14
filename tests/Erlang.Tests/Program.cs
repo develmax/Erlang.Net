@@ -4239,6 +4239,14 @@ Test(Erlang.Tests.DistributionPendingTestNames.Test, Erlang.Tests.DistributionPe
 Test(Erlang.Tests.DistributionPacketTestNames.Test, Erlang.Tests.DistributionPacketChecks.Run);
 
 Test(Erlang.Tests.AtomNameValidationTestNames.Test, Erlang.Tests.AtomNameValidationChecks.Run);
+Test(Erlang.Tests.RuntimeNodeIdentityFoundationHostNames.Test, Erlang.Tests.RuntimeNodeIdentityFoundationHostChecks.Run);
+Test(Erlang.Tests.RuntimeNodeAdmissionFoundationHostNames.Test, Erlang.Tests.RuntimeNodeAdmissionFoundationHostChecks.Run);
+Test(Erlang.Tests.HashIntrinsicHostNames.Test, Erlang.Tests.HashIntrinsicHostChecks.Run);
+Test(Erlang.Tests.ProcessInfoLogicalHostNames.Test, Erlang.Tests.ProcessInfoLogicalHostChecks.Run);
+Test(
+    Erlang.Tests.ErlangHashAllocationControlNames.Test,
+    Erlang.Tests.ErlangHashHostChecks.AllocationPositiveControl
+);
 
 int failed = 0;
 foreach (var test in tests)

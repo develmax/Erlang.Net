@@ -30,7 +30,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     )
     {
         var time = (Integer)ErlangTimerDeadline.Delay(duration, absolute);
-        if (destination is not Atom && destination is not Pid { Creation: 0 } || destination is Pid pid && pid.Node != runtime.Node)
+        if (destination is not Atom && destination is not Pid || destination is Pid pid && !runtime.IsCurrentLocal(pid))
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
         {

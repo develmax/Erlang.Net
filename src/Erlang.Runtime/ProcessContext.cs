@@ -2,9 +2,14 @@ namespace Erlang;
 
 public sealed class ProcessContext : ITermExecutionContext
 {
-    internal ProcessContext(ProcessRuntime runtime, Pid pid)
+    internal ProcessContext(
+        ProcessRuntime runtime,
+        Pid pid,
+        Term? initialCall = null
+    )
     {
         Runtime = runtime;
+        InitialCall = initialCall ?? ProcessInfoAtoms.Undefined;
         Self = pid;
         GroupLeader = pid;
         Mailbox = new()
@@ -54,6 +59,11 @@ public sealed class ProcessContext : ITermExecutionContext
     internal ProcessSavedCalls SavedCalls { get; } = new();
     internal SequenceTraceState SequentialTrace { get; } = new();
     private int reductions;
+    private long cumulativeReductions;
+    internal Term InitialCall { get; }
+    internal Atom ErrorHandler { get; } = ProcessInfoLogicalAtoms.DefaultErrorHandler;
+    internal Atom SchedulingPriority { get; } = ProcessInfoLogicalAtoms.NormalPriority;
+    internal long CumulativeReductions => Interlocked.Read(ref cumulativeReductions);
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
     private ErlangExecutionFrame? visibleExecutionFrame;
     private readonly object codeGate = new();
@@ -219,6 +229,7 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         get;
     }
+    internal RuntimeDistributionRole DistributionRole { get; set; }
     public Mailbox Mailbox { get; }
     public bool TrapExits
     {
@@ -242,6 +253,7 @@ public sealed class ProcessContext : ITermExecutionContext
         Cancellation.ThrowIfCancellationRequested();
         if (SuspensionRequested)
             await WaitIfSuspended();
+        Interlocked.Add(ref cumulativeReductions, count);
         reductions += count;
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
         {

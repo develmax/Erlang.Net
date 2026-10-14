@@ -1,0 +1,15 @@
+# Allocation counter investigation — unpublished
+
+The actual second Main failure is 12,472 bytes, versus a 4,096-byte limit. The intrinsic dispatcher reduces the first observation by 216 bytes but does not explain the remaining 12,336 bytes. No threshold, warmup or expected outcome has changed.
+
+Primary runtime source: [.NET 10.0.11 counter implementation](https://github.com/dotnet/runtime/blob/v10.0.11/src/coreclr/vm/comutilnative.cpp). The counter includes allocation-context bookkeeping. [GC context repair](https://github.com/dotnet/runtime/blob/v10.0.11/src/coreclr/gc/gc.cpp) adjusts that bookkeeping during collection. These sources alone do not prove overcounting in our interval.
+
+[Runtime issue 134724](https://github.com/dotnet/runtime/issues/134724) reports nonzero deltas in empty measured intervals with a separate collection worker, including Windows X64. Its author explicitly leaves bookkeeping versus runtime allocation unresolved. Different workloads and runtimes prevent treating it as our root cause.
+
+The exact ordered 60-test prefix with only those registrations measured 136 bytes. Retaining all 6,526 Main registrations reproduced 12,472 bytes, with no ambient context map or change in GC counters. Neither diagnostic is a successful Main validation.
+
+A further diagnostic retains all registrations and executes the original 60-test prefix. Preallocated checkpoints locate 12,440 bytes between the caller's initial counter and entry into ModuleRegistry.Call; the warmup's corresponding interval is 104 bytes. All measured dispatch, tracing, range handling, hash traversal and halt-boundary checkpoints are unchanged; result construction adds 32 bytes. All GC checkpoints stay 21/10/7. This locates the excess 12,336 bytes before dispatcher execution, without establishing which object or counter effect causes it. The instrumented source and actual closures are archived; no production source or original allocation threshold changed.
+
+Subsequent caller checkpoints locate the excess at the binary reference store into Term[]. A nonmutating, pre-resolved getter observes the CoreLib cast table change from an 18-int sentinel to a new 3,078-int array at the same store, with exactly 12,336 bytes allocated. The [.NET cast-cache allocator](https://github.com/dotnet/runtime/blob/v10.0.11/src/coreclr/vm/castcache.cpp) and [entry layout](https://github.com/dotnet/runtime/blob/v10.0.11/src/coreclr/vm/castcache.h) account for this size. The triggering flush and historical Main/CI instances were not observed; these conclusions concern the frozen diagnostic execution.
+
+The corrected fixture prepares the same arguments before its existing single warmup and measures the actual hash call using those arguments. The budget stays 4,096 bytes. A separate copying callback returns the same actual hash and allocates 8,397,144 bytes, exceeding both the budget and the 4-MiB payload size. Actual Main passes 6,527/6,527 and the complete integration/package pipeline. The before/after fixture, independent source review, both negative full attempts and all diagnostic closures remain retained.

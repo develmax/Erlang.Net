@@ -4,13 +4,13 @@ internal static class ErlangHashRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterIntrinsic(
             ErlangModuleNames.Module,
             ErlangHashNames.Improved,
             1,
             (_, arguments) => ValueTask.FromResult<Term>(Term.I(ErlangNativeHash.Portable2(arguments[0]) & ErlangHashRanges.DefaultMask))
         );
-        registry.Register(
+        registry.RegisterIntrinsic(
             ErlangModuleNames.Module,
             ErlangHashNames.Improved,
             2,
@@ -21,7 +21,7 @@ internal static class ErlangHashRegistrations
             return ValueTask.FromResult<Term>(Term.I((long)(ErlangNativeHash.Portable2(arguments[0]) % range)));
         }
         );
-        registry.Register(
+        registry.RegisterIntrinsic(
             ErlangModuleNames.Module,
             ErlangHashNames.Legacy,
             2,

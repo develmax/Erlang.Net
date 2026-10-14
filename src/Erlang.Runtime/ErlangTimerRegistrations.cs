@@ -54,7 +54,7 @@ internal static class ErlangTimerRegistrations
                     return Term.A(TimerReplyAtoms.Ok);
                 }
 
-                return options.Info ? result : arguments[0] is ReferenceTerm reference && reference.Node == context.Runtime.Node && reference.Creation == 0 ? Term.A(TimerReplyAtoms.Ok) : Term.A(ErlangBooleanAtoms.False);
+                return options.Info ? result : arguments[0] is ReferenceTerm reference && context.Runtime.IsCurrentLocal(reference) ? Term.A(TimerReplyAtoms.Ok) : Term.A(ErlangBooleanAtoms.False);
             }
             );
         }

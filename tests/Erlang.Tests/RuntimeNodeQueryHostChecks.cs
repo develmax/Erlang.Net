@@ -12,6 +12,7 @@ public static class RuntimeNodeQueryHostChecks
         {
             try
             {
+                RuntimeNodeAdmissionHostSetup.Attach(context, RuntimeNodeQueryHostNames.Node);
                 Require((await Call(context, RuntimeNodeQueryNames.IsAlive)).Equals(Term.A(ErlangBooleanAtoms.True)));
                 Require((await Call(context, RuntimeNodeQueryNames.Nodes, Term.A(RuntimeNodeQueryNames.This))).Equals(Term.List(runtime.NodeAtom)));
                 Term retained = await Call(
