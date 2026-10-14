@@ -1,0 +1,131 @@
+{
+  "Status": "FAILED_ORIGINAL_PROOF_VERIFIED",
+  "Head": "90bade7bd3e4d1b63f8c350b71f11418f973e5ef",
+  "Run": 38516451751,
+  "Job": 115696233718,
+  "Artifact": 11872069918,
+  "ZipSha256": "40DBC44BF3FAA86622C114C5EC4326A8ADAF19DC34C96809FCF0C5D40CE9F5BE",
+  "RawJobLogSha256": "45690181E42251E3B267B958D23522EEAB729CBFA84E101535B52708291892D0",
+  "Complete": true,
+  "Executed": 24,
+  "ComparablePassed": 15,
+  "ComparableFailed": 7,
+  "PhysicalEndpointPassed": 2,
+  "PhysicalFormatComparisonComplete": false,
+  "AllDeclaredAndSdkSourceContractsExact": true,
+  "AllRawChildSourceStreamExitFilesExact": true,
+  "Failures": [
+    {
+      "Name": "halt-uint32-overflow",
+      "Errors": [
+        "raw-exit-code:255",
+        "raw-standard-output",
+        "native-stage:entry-execute"
+      ],
+      "Stage": "entry-execute",
+      "RawExitCode": 255,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "SourceHashes": [
+        "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+      ]
+    },
+    {
+      "Name": "halt-two-plain-status",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-output",
+        "raw-standard-error",
+        "native-stage:entry-execute"
+      ],
+      "Stage": "entry-execute",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "3E7A69E801F180732ACFF0675611849216AC4AC1503FA89BCAD5732319D09045",
+      "SourceHashes": [
+        "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+      ]
+    },
+    {
+      "Name": "halt-negative-big-status",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-output",
+        "raw-standard-error",
+        "native-stage:entry-execute"
+      ],
+      "Stage": "entry-execute",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "304B2CDA2212AEA8B8A89A3FDEA6F8D81AEE9116BD98A33EDE0589B69364F3C8",
+      "SourceHashes": [
+        "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+      ]
+    },
+    {
+      "Name": "halt-invalid-slogan-prefix",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-output",
+        "raw-standard-error",
+        "native-stage:entry-execute"
+      ],
+      "Stage": "entry-execute",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "886445E6C010ECA3B5A7C0682A449143185D8B5BDE897E9763B2932925681304",
+      "SourceHashes": [
+        "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+      ]
+    },
+    {
+      "Name": "halt-module-chain",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-error",
+        "native-stage:process-exited"
+      ],
+      "Stage": "process-exited",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "D53DEA172AE5751E557723C91C25E0B85044D8D46C20786DC7314F3C5155565A",
+      "SourceHashes": [
+        "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D",
+        "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      ]
+    },
+    {
+      "Name": "halt-server-init",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-error",
+        "native-stage:process-exited"
+      ],
+      "Stage": "process-exited",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "B48C1CEB71FACE4DA70EC6FACC95808EFD9307EFBD090663F0EDCE45107D4C44",
+      "SourceHashes": [
+        "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461",
+        "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      ]
+    },
+    {
+      "Name": "halt-supervisor-init",
+      "Errors": [
+        "raw-exit-code:1",
+        "raw-standard-error",
+        "native-stage:process-exited"
+      ],
+      "Stage": "process-exited",
+      "RawExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "3A87D9EB1E523B89C42482AC59FECABE8D590CF89D8DCAE82A1D729EAE488D31",
+      "SourceHashes": [
+        "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4",
+        "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      ]
+    }
+  ],
+  "NormalizationOrExclusionsAdded": false
+}
