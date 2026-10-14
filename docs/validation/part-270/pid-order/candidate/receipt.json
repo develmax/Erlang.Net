@@ -1,0 +1,175 @@
+{
+  "Status": "PASS",
+  "SeedHead": "783088ff0b6095c1e984e913b385a1cfceae6d7c",
+  "CurrentMainHead": "783088ff0b6095c1e984e913b385a1cfceae6d7c",
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OwnedPaths": [
+    "src/Erlang.Terms/TermOrder.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tools/Erlang.Differential/IdentifierOrderCases.cs"
+  ],
+  "OldGenerated": {
+    "Passed": 5,
+    "Failed": 6,
+    "Rows": [
+      {
+        "Name": "identifier-order-pid-serial-before-node",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-number-before-node",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-serial-before-number",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-number-before-creation",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-node-after-payload",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-creation-after-payload",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-unicode-node",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-unicode-node",
+        "Pass": false,
+        "Result": "{error,error,{badmatch,false}}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-node-before-id",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-creation-before-id",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-equal-payload-node-creation",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      }
+    ]
+  },
+  "NewGenerated": {
+    "Passed": 11,
+    "Failed": 0,
+    "Rows": [
+      {
+        "Name": "identifier-order-pid-serial-before-node",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-number-before-node",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-serial-before-number",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-number-before-creation",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-node-after-payload",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-creation-after-payload",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-unicode-node",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-unicode-node",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-node-before-id",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-port-creation-before-id",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      },
+      {
+        "Name": "identifier-order-pid-equal-payload-node-creation",
+        "Pass": true,
+        "Result": "{ok,done}",
+        "Expected": "{ok,done}"
+      }
+    ]
+  },
+  "OriginalNativeExecuted": false,
+  "OldCaseDeclarationsTextExactAfterRemovingAppend": true,
+  "OtherSeedFilesExact": 1497,
+  "UnexpectedMutations": [],
+  "StyleOwnedZero": "Source layout: 0 files need formatting\n",
+  "MvidOldThenFinal": [
+    "e92ca24c-e591-4268-8b09-04c885586510",
+    "72b165f6-8df5-4766-877d-7ba74db64707"
+  ],
+  "FinalBuildLogTail": [
+    "  Erlang.Differential -> D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-prototype\\tools\\Erlang.Differential\\bin\\Release\\net10.0\\Erlang.Differential.dll",
+    "  IdentifierOrderProbe -> D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-prototype\\tools\\IdentifierOrderProbe\\bin\\Release\\net10.0\\IdentifierOrderProbe.dll",
+    "",
+    "\u0421\u0431\u043e\u0440\u043a\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0430.",
+    "    \u041f\u0440\u0435\u0434\u0443\u043f\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439: 0",
+    "    \u041e\u0448\u0438\u0431\u043e\u043a: 0",
+    "",
+    "\u041f\u0440\u043e\u0448\u043b\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 00:00:06.20"
+  ],
+  "ProductionFullRun": false
+}

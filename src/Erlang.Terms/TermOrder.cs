@@ -49,7 +49,7 @@ public static class TermOrder
             case (Nil, Nil):
                 return 0;
             case (Pid x, Pid y):
-                return Identity(
+                return PidIdentity(
                     x.Node,
                     x.Creation,
                     x.Id,
@@ -67,7 +67,7 @@ public static class TermOrder
                     return creation != 0 ? creation : x.FullId.CompareTo(y.FullId);
                 }
             case (PortTerm x, PortTerm y):
-                return Identity(
+                return PortIdentity(
                     x.Node,
                     x.Creation,
                     x.Id,
@@ -167,7 +167,7 @@ public static class TermOrder
         }
     }
 
-    private static int Identity(
+    private static int PidIdentity(
         string an,
         uint ac,
         ulong ai,
@@ -176,7 +176,24 @@ public static class TermOrder
         ulong bi
     )
     {
-        int c = string.CompareOrdinal(an, bn);
+        int c = ai.CompareTo(bi);
+        if (c != 0)
+            return c;
+        c = Codepoints(an, bn);
+
+        return c != 0 ? c : ac.CompareTo(bc);
+    }
+
+    private static int PortIdentity(
+        string an,
+        uint ac,
+        ulong ai,
+        string bn,
+        uint bc,
+        ulong bi
+    )
+    {
+        int c = Codepoints(an, bn);
         if (c != 0)
             return c;
         c = ac.CompareTo(bc);

@@ -1,0 +1,17 @@
+{
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalPath": "erts/emulator/beam/erl_bif_info.c",
+  "SourceSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+  "DefaultKeysOriginalSource": "static Eterm pi_1_keys[] = {\n    am_registered_name,\n    am_current_function,\n    am_initial_call,\n    am_status,\n    am_message_queue_len,\n    am_links,\n    am_dictionary,\n    am_trap_exit,\n    am_error_handler,\n    am_priority,\n    am_group_leader,\n    am_total_heap_size,\n    am_heap_size,\n    am_stack_size,\n    am_reductions,\n    am_garbage_collection,\n    am_suspending\n};",
+  "MissingRuntimePrerequisites": [
+    "initial_call metadata",
+    "priority observable state",
+    "total_heap_size physical accounting",
+    "heap_size physical accounting",
+    "stack_size physical accounting",
+    "garbage_collection process heap configuration",
+    "suspending real scheduler information"
+  ],
+  "Decision": "Do not register process_info/1 as a partial list or invented zero-valued physical counters. Default original contract requires all 17 keys and conditional registered_name omission.",
+  "ApiRegistered": false
+}

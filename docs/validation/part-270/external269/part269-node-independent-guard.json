@@ -1,0 +1,174 @@
+{
+  "Status": "FourNativeNodeObservationsIndependentlyVerified",
+  "Head": "783088ff0b6095c1e984e913b385a1cfceae6d7c",
+  "Run": 38582865798,
+  "Job": 115917049900,
+  "Artifact": 11904790808,
+  "ZipSha256": "3E5B545FE55CBDE25038B7E77A8A9679465971035F0D0CFBFE4619E851FB59BC",
+  "SourceBuildVerified": true,
+  "CommittedSourceBytesExact": true,
+  "RawFilesVerified": 93,
+  "Runtime": [
+    "29",
+    "17.1",
+    "jit"
+  ],
+  "LocalEncodingStable": true,
+  "IntrinsicHashesAndMapKeysStable": true,
+  "StandardEncodingTracksCurrentWireIdentity": true,
+  "OldNonodeStandardDecodeExternalWhileStarted": true,
+  "NativePendingActual": [
+    "ok",
+    "flat_typed_handle",
+    "same_pending_identity",
+    "next_connection_id",
+    [
+      "ok",
+      [
+        "ok",
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      "ok",
+      [
+        "ok",
+        0,
+        0,
+        0
+      ]
+    ],
+    [
+      "error",
+      "badarg"
+    ],
+    [
+      "error",
+      "badarg"
+    ],
+    [
+      "error",
+      "badarg"
+    ],
+    [
+      "ok",
+      [
+        "ok",
+        0,
+        0,
+        0
+      ]
+    ]
+  ],
+  "Transitions": [
+    {
+      "Case": "start",
+      "Phases": [
+        {
+          "Phase": "before",
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Hashes": [
+            300788,
+            56813908,
+            106227694
+          ]
+        },
+        {
+          "Phase": "started",
+          "Node": "erl_net_identity_83320_start@runnervmmprz5",
+          "Creation": 2485638128,
+          "Hashes": [
+            300788,
+            56813908,
+            106227694
+          ]
+        }
+      ]
+    },
+    {
+      "Case": "start-stop",
+      "Phases": [
+        {
+          "Phase": "before",
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Hashes": [
+            300788,
+            56813908,
+            78971204
+          ]
+        },
+        {
+          "Phase": "started",
+          "Node": "erl_net_identity_83354_start-stop@runnervmmprz5",
+          "Creation": 1316365510,
+          "Hashes": [
+            300788,
+            56813908,
+            78971204
+          ]
+        },
+        {
+          "Phase": "stopped",
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Hashes": [
+            300788,
+            56813908,
+            78971204
+          ]
+        }
+      ]
+    },
+    {
+      "Case": "start-stop-restart",
+      "Phases": [
+        {
+          "Phase": "before",
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Hashes": [
+            300788,
+            56813908,
+            80409680
+          ]
+        },
+        {
+          "Phase": "started",
+          "Node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          "Creation": 2399932354,
+          "Hashes": [
+            300788,
+            56813908,
+            80409680
+          ]
+        },
+        {
+          "Phase": "stopped",
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Hashes": [
+            300788,
+            56813908,
+            80409680
+          ]
+        },
+        {
+          "Phase": "restarted",
+          "Node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          "Creation": 2402355174,
+          "Hashes": [
+            300788,
+            56813908,
+            80409680
+          ]
+        }
+      ]
+    }
+  ],
+  "SdkCompatibilityClaim": false,
+  "NoOutcomeNormalization": true
+}

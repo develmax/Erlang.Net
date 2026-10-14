@@ -1,0 +1,226 @@
+{
+  "Status": "PASS SourceReviewNativeExecutionPending",
+  "FreezeSha256": "789FE623EF34D5B744C18CAD19B03BFCACCFEBF7FDDB8A868B9E29471136861E",
+  "SeedHead": "783088ff0b6095c1e984e913b385a1cfceae6d7c",
+  "OwnedPaths": [
+    "src/Erlang.Terms/TermOrder.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tools/Erlang.Differential/IdentifierOrderCases.cs"
+  ],
+  "OnlyPidAndPortComparisonChanged": true,
+  "ExistingCasesUnchanged": true,
+  "NewDeclaredCases": 11,
+  "AllHandmadeEtfPacketsDecodedIndependently": true,
+  "PackedUnsignedPidSerialThenNumber": true,
+  "NodeOrderUnicodeScalarsThenUnsignedCreation": true,
+  "PortNodeCreationThenUnsignedIdPreserved": true,
+  "OriginalNativeExecuted": false,
+  "PriorOldGeneratedFailures": 6,
+  "NewGeneratedPasses": 11,
+  "Cases": [
+    {
+      "Name": "identifier-order-pid-serial-before-node",
+      "Left": [
+        "pid",
+        "z@host",
+        0,
+        0,
+        9
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        0,
+        1,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "A6113178FAF2CAA1F50B3848F5BF087B4D5463E57AF0136B49E868FF948EE639"
+    },
+    {
+      "Name": "identifier-order-pid-number-before-node",
+      "Left": [
+        "pid",
+        "z@host",
+        1,
+        0,
+        9
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        2,
+        0,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "8C17AFA650BCB86717573E31DD529F3E263673864E494D3DBC159A5D561F9CA5"
+    },
+    {
+      "Name": "identifier-order-pid-serial-before-number",
+      "Left": [
+        "pid",
+        "z@host",
+        4294967295,
+        0,
+        0
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        0,
+        1,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "CD8C99D6AE22BFFBBE03ADDC7C568F4AEA514BCD09BD6B610A9C5BD4BBB3541E"
+    },
+    {
+      "Name": "identifier-order-pid-number-before-creation",
+      "Left": [
+        "pid",
+        "a@host",
+        1,
+        2,
+        9
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        2,
+        2,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "293C9573CBF1FFFDEFF47DE362EC14BFC2179C7E5D843787C3A09850688A1646"
+    },
+    {
+      "Name": "identifier-order-pid-node-after-payload",
+      "Left": [
+        "pid",
+        "a@host",
+        3,
+        4,
+        9
+      ],
+      "Right": [
+        "pid",
+        "z@host",
+        3,
+        4,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "BF5E203CF451B1F369B210DC6ECEFB1FB0E6C2B18AC26650EDCDBCD5FC6442B7"
+    },
+    {
+      "Name": "identifier-order-pid-creation-after-payload",
+      "Left": [
+        "pid",
+        "a@host",
+        3,
+        4,
+        0
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        3,
+        4,
+        4294967295
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "72FE905CAAB0B391305916F498A4A567B3DACF06ECB20A6642E1836A0FD5CD5F"
+    },
+    {
+      "Name": "identifier-order-pid-unicode-node",
+      "Left": [
+        "pid",
+        "\ue000@host",
+        3,
+        4,
+        0
+      ],
+      "Right": [
+        "pid",
+        "\ud800\udc00@host",
+        3,
+        4,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "C0B7F8049E2403735A071CCC3203F697F14AB29F123C57A1A01C975A33A3CA02"
+    },
+    {
+      "Name": "identifier-order-port-unicode-node",
+      "Left": [
+        "port",
+        "\ue000@host",
+        9,
+        9
+      ],
+      "Right": [
+        "port",
+        "\ud800\udc00@host",
+        0,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "16F408A264C1B5F587704E574BD30C21EF997B5623225F2C7053C4190FD46FE1"
+    },
+    {
+      "Name": "identifier-order-port-node-before-id",
+      "Left": [
+        "port",
+        "a@host",
+        18446744073709551615,
+        9
+      ],
+      "Right": [
+        "port",
+        "z@host",
+        0,
+        0
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "25267EBEFABE202BEC74944B245159E3CF4AA395980E60213CF4DF1D41F2EFB3"
+    },
+    {
+      "Name": "identifier-order-port-creation-before-id",
+      "Left": [
+        "port",
+        "a@host",
+        9,
+        0
+      ],
+      "Right": [
+        "port",
+        "a@host",
+        0,
+        9
+      ],
+      "SourceBasedOrder": -1,
+      "SourceSha256": "F3E3B14AD14A141496D08CCE5AF985225F0695D022A4F66A0105CE13ED3E870C"
+    },
+    {
+      "Name": "identifier-order-pid-equal-payload-node-creation",
+      "Left": [
+        "pid",
+        "a@host",
+        3,
+        4,
+        5
+      ],
+      "Right": [
+        "pid",
+        "a@host",
+        3,
+        4,
+        5
+      ],
+      "SourceBasedOrder": 0,
+      "SourceSha256": "FE20CE165D643B8C6B9DFC3A1F7C6A5EDE41693A842BB7C6FF8652242FA92474"
+    }
+  ],
+  "NodeMigrationConstraint": "Keep stable intrinsic identity and dictionary hash while changing node/creation wire views; actual native269 local encoding stable and intrinsic phash/map identity stable. No naive mutable Node participation in dictionary hashes."
+}

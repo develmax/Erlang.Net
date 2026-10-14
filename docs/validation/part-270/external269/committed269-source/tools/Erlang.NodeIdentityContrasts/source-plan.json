@@ -1,0 +1,41 @@
+{
+  "Status": "SourceOnlyNativeUnobserved",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceSha256": "8717200DDCC03E652257B84F542ED6949F4AEE800CFD589A00680AB75BA83A44",
+  "PinnedSources": {
+    "erts/preloaded/src/erlang.erl": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+    "lib/kernel/src/net_kernel.erl": "D207F1CB01933A288D90C20CF5545C754213814BAE95A3BA9638316AA25FDAA6",
+    "erts/emulator/beam/dist.c": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+  },
+  "Scenarios": [
+    "start",
+    "start-stop",
+    "start-stop-restart"
+  ],
+  "ExpectedOutcome": null,
+  "NativeExecuted": false,
+  "SdkDerived": false,
+  "ListeningEnabled": false,
+  "Observations": [
+    "actual owner/child/ref nodes and creation before/after",
+    "standard and local ETF phase bytes",
+    "retained map key lookup",
+    "hashes",
+    "old standard/local decode identity and alive",
+    "actual child ping and monitored cleanup",
+    "complete exceptions class/reason/stack"
+  ],
+  "Hypotheses": [
+    "retained intrinsic local identifiers preserve ownership across transitions",
+    "standard wire identity changes with node creation",
+    "local encoding binds runtime identity independently"
+  ],
+  "Scope": "Prepare real identity migration observations; no channel handshake/setnode success/semantic completion claim",
+  "RevisionNote": "Capture owner/child liveness exceptions independently so either does not erase decoded node/equality observations",
+  "PreviousSourceSha256": "932F7CB85AA3053E346BD8335AB0FE8F2E3AD163CECF51F1CC14F9A611EDD067",
+  "PeerRevisionNote": "Require captured start/stop success before phase observations; protect initial snapshot and all construction by child cleanup; kernel cleanup cannot bypass child cleanup; forced child death bounded DOWN join",
+  "PendingSourceSha256": "00D0DBD104E1EFCEC6262D3402CACBE3894E1F22AB33B9DFA82EA12FBBBD3C11",
+  "PendingScenario": "pending-handle",
+  "PendingAssertionsSdkDerived": false,
+  "PendingNativeExecuted": false
+}

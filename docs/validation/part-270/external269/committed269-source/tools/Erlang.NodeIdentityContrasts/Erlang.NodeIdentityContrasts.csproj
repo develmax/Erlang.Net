@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="node_identity_probe.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="source-plan.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="distribution_pending_probe.erl" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

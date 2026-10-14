@@ -1,0 +1,32 @@
+{
+  "Name": "halt-two-flush-false",
+  "Backend": 1,
+  "Stage": "halt-request-observed",
+  "RawExitCode": 43,
+  "StandardOutput": [],
+  "StandardError": [],
+  "TimedOut": false,
+  "Evidence": {
+    "Stage": "halt-request-observed",
+    "Backend": "compiled",
+    "RequestKind": 0,
+    "LogicalStatus": 43,
+    "Slogan": null,
+    "EntryExitReason": null,
+    "Error": null,
+    "DumpFormat": null,
+    "SourceSha256": [
+      "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+    ],
+    "LogicalStack": null
+  },
+  "InfrastructureError": null,
+  "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\ee3aedf51c45425e8536e6de2b9e9b78",
+  "Sources": [
+    {
+      "Module": "halt_two_flush_false",
+      "Source": "-module(halt_two_flush_false).\n-export([run/0]).\nrun()-\u003Eerlang:halt(43,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+      "SourceSha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+    }
+  ]
+}

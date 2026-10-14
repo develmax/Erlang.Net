@@ -1,0 +1,68 @@
+[
+  {
+    "Name": "identifier-order-pid-serial-before-node",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-number-before-node",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-serial-before-number",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-number-before-creation",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-node-after-payload",
+    "Pass": true,
+    "Result": "{ok,done}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-creation-after-payload",
+    "Pass": true,
+    "Result": "{ok,done}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-unicode-node",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-port-unicode-node",
+    "Pass": false,
+    "Result": "{error,error,{badmatch,false}}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-port-node-before-id",
+    "Pass": true,
+    "Result": "{ok,done}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-port-creation-before-id",
+    "Pass": true,
+    "Result": "{ok,done}",
+    "Expected": "{ok,done}"
+  },
+  {
+    "Name": "identifier-order-pid-equal-payload-node-creation",
+    "Pass": true,
+    "Result": "{ok,done}",
+    "Expected": "{ok,done}"
+  }
+]

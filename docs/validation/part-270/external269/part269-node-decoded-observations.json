@@ -1,0 +1,2119 @@
+{
+  "start": {
+    "before-facts.etf": {
+      "alive": "false",
+      "creation": 0,
+      "node": "nonode@nohost",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "nonode@nohost",
+      "child_ping": [
+        "pong",
+        "nonode@nohost"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        106227694
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "nonode@nohost",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "nonode@nohost",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ]
+    },
+    "before-standard.etf": [
+      {
+        "Pid": [
+          "nonode@nohost",
+          10,
+          0,
+          0
+        ]
+      },
+      {
+        "Pid": [
+          "nonode@nohost",
+          83,
+          0,
+          0
+        ]
+      },
+      {
+        "Ref": [
+          "nonode@nohost",
+          0,
+          [
+            193685,
+            344719361,
+            1976109246
+          ]
+        ]
+      }
+    ],
+    "cleanup-child.etf": [
+      "graceful",
+      "normal"
+    ],
+    "cleanup-kernel.etf": [
+      "result",
+      "ok"
+    ],
+    "inputs.etf": [
+      "start",
+      [
+        [
+          "started",
+          "start"
+        ]
+      ],
+      "erl_net_identity_83320_start",
+      {
+        "name_domain": "shortnames",
+        "dist_listen": "false"
+      },
+      {
+        "BinaryHex": "83680358770d6e6f6e6f6465406e6f686f73740000000a000000000000000058770d6e6f6e6f6465406e6f686f73740000005300000000000000005a0003770d6e6f6e6f6465406e6f686f7374000000000002f495148c000175c908be"
+      },
+      {
+        "BinaryHex": "83793dcdc1e66803586a0000000a0000000000000000586a0000005300000000000000005a00036a000000000002f495148c000175c908be"
+      }
+    ],
+    "started-facts.etf": {
+      "alive": "true",
+      "creation": 2485638128,
+      "node": "erl_net_identity_83320_start@runnervmmprz5",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "erl_net_identity_83320_start@runnervmmprz5",
+      "child_ping": [
+        "pong",
+        "erl_net_identity_83320_start@runnervmmprz5"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        106227694
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "erl_net_identity_83320_start@runnervmmprz5",
+            "erl_net_identity_83320_start@runnervmmprz5",
+            "erl_net_identity_83320_start@runnervmmprz5"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "erl_net_identity_83320_start@runnervmmprz5",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "erl_net_identity_83320_start@runnervmmprz5",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "false",
+          "child_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      83,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-1-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "owner_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      10,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-0-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "started-operation.etf": [
+      "ok",
+      {
+        "Pid": [
+          "erl_net_identity_83320_start@runnervmmprz5",
+          84,
+          0,
+          2485638128
+        ]
+      }
+    ],
+    "started-standard.etf": [
+      {
+        "Pid": [
+          "erl_net_identity_83320_start@runnervmmprz5",
+          10,
+          0,
+          2485638128
+        ]
+      },
+      {
+        "Pid": [
+          "erl_net_identity_83320_start@runnervmmprz5",
+          83,
+          0,
+          2485638128
+        ]
+      },
+      {
+        "Ref": [
+          "erl_net_identity_83320_start@runnervmmprz5",
+          2485638128,
+          [
+            193685,
+            344719361,
+            1976109246
+          ]
+        ]
+      }
+    ]
+  },
+  "start-stop": {
+    "before-facts.etf": {
+      "alive": "false",
+      "creation": 0,
+      "node": "nonode@nohost",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "nonode@nohost",
+      "child_ping": [
+        "pong",
+        "nonode@nohost"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        78971204
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "nonode@nohost",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "nonode@nohost",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ]
+    },
+    "before-standard.etf": [
+      {
+        "Pid": [
+          "nonode@nohost",
+          10,
+          0,
+          0
+        ]
+      },
+      {
+        "Pid": [
+          "nonode@nohost",
+          83,
+          0,
+          0
+        ]
+      },
+      {
+        "Ref": [
+          "nonode@nohost",
+          0,
+          [
+            140793,
+            344981505,
+            3321786963
+          ]
+        ]
+      }
+    ],
+    "cleanup-child.etf": [
+      "graceful",
+      "normal"
+    ],
+    "cleanup-kernel.etf": [
+      "result",
+      [
+        "error",
+        "not_found"
+      ]
+    ],
+    "inputs.etf": [
+      "start-stop",
+      [
+        [
+          "started",
+          "start"
+        ],
+        [
+          "stopped",
+          "stop"
+        ]
+      ],
+      "erl_net_identity_83354_start-stop",
+      {
+        "name_domain": "shortnames",
+        "dist_listen": "false"
+      },
+      {
+        "BinaryHex": "83680358770d6e6f6e6f6465406e6f686f73740000000a000000000000000058770d6e6f6e6f6465406e6f686f73740000005300000000000000005a0003770d6e6f6e6f6465406e6f686f737400000000000225f914900001c5fe7253"
+      },
+      {
+        "BinaryHex": "837947689d1a6803586a0000000a0000000000000000586a0000005300000000000000005a00036a00000000000225f914900001c5fe7253"
+      }
+    ],
+    "started-facts.etf": {
+      "alive": "true",
+      "creation": 1316365510,
+      "node": "erl_net_identity_83354_start-stop@runnervmmprz5",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "erl_net_identity_83354_start-stop@runnervmmprz5",
+      "child_ping": [
+        "pong",
+        "erl_net_identity_83354_start-stop@runnervmmprz5"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        78971204
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "erl_net_identity_83354_start-stop@runnervmmprz5",
+            "erl_net_identity_83354_start-stop@runnervmmprz5",
+            "erl_net_identity_83354_start-stop@runnervmmprz5"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "erl_net_identity_83354_start-stop@runnervmmprz5",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "erl_net_identity_83354_start-stop@runnervmmprz5",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "false",
+          "child_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      83,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-1-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "owner_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      10,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-0-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "started-operation.etf": [
+      "ok",
+      {
+        "Pid": [
+          "erl_net_identity_83354_start-stop@runnervmmprz5",
+          84,
+          0,
+          1316365510
+        ]
+      }
+    ],
+    "started-standard.etf": [
+      {
+        "Pid": [
+          "erl_net_identity_83354_start-stop@runnervmmprz5",
+          10,
+          0,
+          1316365510
+        ]
+      },
+      {
+        "Pid": [
+          "erl_net_identity_83354_start-stop@runnervmmprz5",
+          83,
+          0,
+          1316365510
+        ]
+      },
+      {
+        "Ref": [
+          "erl_net_identity_83354_start-stop@runnervmmprz5",
+          1316365510,
+          [
+            140793,
+            344981505,
+            3321786963
+          ]
+        ]
+      }
+    ],
+    "stopped-facts.etf": {
+      "alive": "false",
+      "creation": 0,
+      "node": "nonode@nohost",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "nonode@nohost",
+      "child_ping": [
+        "pong",
+        "nonode@nohost"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        78971204
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "nonode@nohost",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "nonode@nohost",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ]
+    },
+    "stopped-operation.etf": "ok",
+    "stopped-standard.etf": [
+      {
+        "Pid": [
+          "nonode@nohost",
+          10,
+          0,
+          0
+        ]
+      },
+      {
+        "Pid": [
+          "nonode@nohost",
+          83,
+          0,
+          0
+        ]
+      },
+      {
+        "Ref": [
+          "nonode@nohost",
+          0,
+          [
+            140793,
+            344981505,
+            3321786963
+          ]
+        ]
+      }
+    ]
+  },
+  "start-stop-restart": {
+    "before-facts.etf": {
+      "alive": "false",
+      "creation": 0,
+      "node": "nonode@nohost",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "nonode@nohost",
+      "child_ping": [
+        "pong",
+        "nonode@nohost"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        80409680
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "nonode@nohost",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "nonode@nohost",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ]
+    },
+    "before-standard.etf": [
+      {
+        "Pid": [
+          "nonode@nohost",
+          10,
+          0,
+          0
+        ]
+      },
+      {
+        "Pid": [
+          "nonode@nohost",
+          83,
+          0,
+          0
+        ]
+      },
+      {
+        "Ref": [
+          "nonode@nohost",
+          0,
+          [
+            68259,
+            345243650,
+            3811854387
+          ]
+        ]
+      }
+    ],
+    "cleanup-child.etf": [
+      "graceful",
+      "normal"
+    ],
+    "cleanup-kernel.etf": [
+      "result",
+      "ok"
+    ],
+    "inputs.etf": [
+      "start-stop-restart",
+      [
+        [
+          "started",
+          "start"
+        ],
+        [
+          "stopped",
+          "stop"
+        ],
+        [
+          "restarted",
+          "start"
+        ]
+      ],
+      "erl_net_identity_83388_start-stop-restart",
+      {
+        "name_domain": "shortnames",
+        "dist_listen": "false"
+      },
+      {
+        "BinaryHex": "83680358770d6e6f6e6f6465406e6f686f73740000000a000000000000000058770d6e6f6e6f6465406e6f686f73740000005300000000000000005a0003770d6e6f6e6f6465406e6f686f73740000000000010aa314940002e3344833"
+      },
+      {
+        "BinaryHex": "8379d61087426803586a0000000a0000000000000000586a0000005300000000000000005a00036a0000000000010aa314940002e3344833"
+      }
+    ],
+    "restarted-facts.etf": {
+      "alive": "true",
+      "creation": 2402355174,
+      "node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "child_ping": [
+        "pong",
+        "erl_net_identity_83388_start-stop-restart@runnervmmprz5"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        80409680
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "false",
+          "child_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      83,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-1-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "owner_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      10,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-0-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "restarted-operation.etf": [
+      "ok",
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          90,
+          0,
+          2402355174
+        ]
+      }
+    ],
+    "restarted-standard.etf": [
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          10,
+          0,
+          2402355174
+        ]
+      },
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          83,
+          0,
+          2402355174
+        ]
+      },
+      {
+        "Ref": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          2402355174,
+          [
+            68259,
+            345243650,
+            3811854387
+          ]
+        ]
+      }
+    ],
+    "started-facts.etf": {
+      "alive": "true",
+      "creation": 2399932354,
+      "node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "child_ping": [
+        "pong",
+        "erl_net_identity_83388_start-stop-restart@runnervmmprz5"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        80409680
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+            "erl_net_identity_83388_start-stop-restart@runnervmmprz5"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "false",
+          "child_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      83,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-1-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    100
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "owner_alive": [
+            "exception",
+            "error",
+            "badarg",
+            [
+              [
+                "erlang",
+                "is_process_alive",
+                [
+                  {
+                    "Pid": [
+                      "nonode@nohost",
+                      10,
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                [
+                  [
+                    "error_info",
+                    {
+                      "module": "erl_erts_errors"
+                    }
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-0-",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "-decode/2-fun-2-",
+                2,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    99
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "outcome",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    104
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "snapshot",
+                5,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    90
+                  ]
+                ]
+              ],
+              [
+                "lists",
+                "foreach_1",
+                2,
+                [
+                  [
+                    "file",
+                    "lists.erl"
+                  ],
+                  [
+                    "line",
+                    2641
+                  ]
+                ]
+              ],
+              [
+                "node_identity_probe",
+                "observe",
+                1,
+                [
+                  [
+                    "file",
+                    "artifacts/node-identity/node_identity_probe.erl"
+                  ],
+                  [
+                    "line",
+                    31
+                  ]
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "started-operation.etf": [
+      "ok",
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          84,
+          0,
+          2399932354
+        ]
+      }
+    ],
+    "started-standard.etf": [
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          10,
+          0,
+          2399932354
+        ]
+      },
+      {
+        "Pid": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          83,
+          0,
+          2399932354
+        ]
+      },
+      {
+        "Ref": [
+          "erl_net_identity_83388_start-stop-restart@runnervmmprz5",
+          2399932354,
+          [
+            68259,
+            345243650,
+            3811854387
+          ]
+        ]
+      }
+    ],
+    "stopped-facts.etf": {
+      "alive": "false",
+      "creation": 0,
+      "node": "nonode@nohost",
+      "child_lookup": [
+        "ok",
+        "child"
+      ],
+      "child_node": "nonode@nohost",
+      "child_ping": [
+        "pong",
+        "nonode@nohost"
+      ],
+      "hashes": [
+        300788,
+        56813908,
+        80409680
+      ],
+      "local_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ],
+      "owner_lookup": [
+        "ok",
+        "owner"
+      ],
+      "owner_same": "true",
+      "pid_node": "nonode@nohost",
+      "reference_lookup": [
+        "ok",
+        "reference"
+      ],
+      "reference_node": "nonode@nohost",
+      "standard_decode": [
+        "result",
+        {
+          "nodes": [
+            "nonode@nohost",
+            "nonode@nohost",
+            "nonode@nohost"
+          ],
+          "same": "true",
+          "child_alive": [
+            "result",
+            "true"
+          ],
+          "owner_alive": [
+            "result",
+            "true"
+          ]
+        }
+      ]
+    },
+    "stopped-operation.etf": "ok",
+    "stopped-standard.etf": [
+      {
+        "Pid": [
+          "nonode@nohost",
+          10,
+          0,
+          0
+        ]
+      },
+      {
+        "Pid": [
+          "nonode@nohost",
+          83,
+          0,
+          0
+        ]
+      },
+      {
+        "Ref": [
+          "nonode@nohost",
+          0,
+          [
+            68259,
+            345243650,
+            3811854387
+          ]
+        ]
+      }
+    ]
+  },
+  "pending-handle": {
+    "actual.etf": [
+      "ok",
+      "flat_typed_handle",
+      "same_pending_identity",
+      "next_connection_id",
+      [
+        "ok",
+        [
+          "ok",
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        "ok",
+        [
+          "ok",
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        "error",
+        "badarg"
+      ],
+      [
+        "error",
+        "badarg"
+      ],
+      [
+        "error",
+        "badarg"
+      ],
+      [
+        "ok",
+        [
+          "ok",
+          0,
+          0,
+          0
+        ]
+      ]
+    ]
+  },
+  "Runtime": [
+    "29",
+    "17.1",
+    "jit",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang"
+  ]
+}

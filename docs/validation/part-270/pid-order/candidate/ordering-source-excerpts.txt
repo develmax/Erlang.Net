@@ -1,0 +1,78 @@
+1714: #undef  CMP_NODES
+1715: #define CMP_NODES(AN, BN)						\
+1716:     do {								\
+1717: 	if((AN) != (BN)) {						\
+1718:             if((AN)->sysname != (BN)->sysname)				\
+1719:                 RETURN_NEQ(erts_cmp_atoms((AN)->sysname, (BN)->sysname));	\
+1720: 	    ASSERT((AN)->creation != (BN)->creation);			\
+1721: 	    RETURN_NEQ(((AN)->creation < (BN)->creation) ? -1 : 1);	\
+1722: 	}								\
+1723:     } while (0)
+1724: 
+1725: 
+1726: bodyrecur:
+
+1777:         pid_common:
+1778:         {
+1779:             Uint32 a_pid_num, a_pid_ser;
+1780:             Uint32 b_pid_num, b_pid_ser;
+1781: 
+1782:             if (is_internal_pid(a)) {
+1783:                 a_pid_num = internal_pid_number(a);
+1784:                 a_pid_ser = internal_pid_serial(a);
+1785:                 anode = erts_this_node;
+1786:             }
+1787:             else {
+1788:                 ASSERT(is_external_pid(a));
+1789:                 a_pid_num = external_pid_number(a);
+1790:                 a_pid_ser = external_pid_serial(a);
+1791:                 anode = external_pid_node(a);
+1792:             }
+1793:             if (is_internal_pid(b)) {
+1794:                 b_pid_num = internal_pid_number(b);
+1795:                 b_pid_ser = internal_pid_serial(b);
+1796:                 bnode = erts_this_node;
+1797:             }
+1798:             else {
+1799:                 ASSERT(is_external_pid(b));
+1800:                 b_pid_num = external_pid_number(b);
+1801:                 b_pid_ser = external_pid_serial(b);
+1802:                 bnode = external_pid_node(b);
+1803:             }
+1804: 
+1805: 	    if (a_pid_ser != b_pid_ser)
+1806:                 RETURN_NEQ(a_pid_ser < b_pid_ser ? -1 : 1);
+1807:             if (a_pid_num != b_pid_num)
+1808: 		RETURN_NEQ(a_pid_num < b_pid_num ? -1 : 1);
+1809: 	    CMP_NODES(anode, bnode);
+1810: 	    goto pop_next;
+1811:         }
+1812: 	case (_TAG_IMMED1_SMALL >> _TAG_PRIMARY_SIZE):
+
+2217:                 goto pid_common;
+2218: 
+2219: 	    case (_TAG_HEADER_EXTERNAL_PORT >> _TAG_PRIMARY_SIZE):
+2220: 		if (is_internal_port(b)) {
+2221: 		    anode = external_port_node(a);
+2222: 		    bnode = erts_this_node;
+2223: 		    CMP_NODES(anode, bnode);
+2224: 		    ERTS_INTERNAL_ERROR("different nodes compared equal");
+2225: 		} else if (is_external_port(b)) {
+2226: 		    Uint64 anum, bnum;
+2227: 		    anode = external_port_node(a);
+2228: 		    bnode = external_port_node(b);
+2229: 		    CMP_NODES(anode, bnode);
+2230: 		    anum = external_port_number(a);
+2231: 		    bnum = external_port_number(b);
+2232: 		    if (anum == bnum)
+2233: 			goto pop_next;
+2234: 		    RETURN_NEQ(anum < bnum ? -1 : 1);
+2235: 		} else {
+2236: 		    a_tag = EXTERNAL_PORT_DEF;
+2237: 		    goto mixed_types;
+2238: 		}
+2239: 	    case (_TAG_HEADER_REF >> _TAG_PRIMARY_SIZE):
+2240: 		/*
+2241: 		 * Note! When comparing refs we need to compare ref numbers
+2242: 		 * (32-bit words), *not* ref data words.
+2243: 		 */

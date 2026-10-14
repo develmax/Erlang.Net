@@ -1,0 +1,12 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PidPackedRepresentation": "ExternalTermFormat reader id | ((ulong)serial << EtfPidLayout.SerialBitShift); SerialBitShift32. Unsigned ulong ordering therefore serial then number.",
+  "PidNativeOrder": "utils.c pid_common serial, number, CMP_NODES atom codepoint ordering then uint32 creation",
+  "PortNativeOrder": "external-port CMP_NODES then unsigned uint64 number; distinct from PID",
+  "OwnedPaths": [
+    "src/Erlang.Terms/TermOrder.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tools/Erlang.Differential/IdentifierOrderCases.cs"
+  ],
+  "NativeExecuted": false
+}
