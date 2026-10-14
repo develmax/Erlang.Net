@@ -1,0 +1,45 @@
+{
+  "Revision": 2,
+  "SourceOnly": true,
+  "FreezeSha256": "23e2111536fd8a7a9054f7ff87cd70b4ee746a66838b26b2bc3e06b9536542cb",
+  "SourceFilesVerified": 22,
+  "Builds": 0,
+  "NativeExecutions": 0,
+  "MainWrites": false,
+  "ResolvedPreviousBlockers": [
+    "actual compiled source names/hash verified before output mutation",
+    "safe exact ordered unique9 name set plus module/function mapping checked",
+    "most evidence/CLI/artifact/marker literals moved domainowners"
+  ],
+  "CompiledSourceFacts": [
+    {
+      "Path": "apply_optimizer_probe.erl",
+      "DeclaredWorkingSha256": "A1524773F5D33EB11E57FDF0CC766DFFC2D461E2E8953D0668B7391034098B10",
+      "CanonicalLfSha256": "EC453859162C6CC72AFFB7B26E8E4F0D77CBFCBEFB4EF15377FE35F32F9560FA",
+      "CrLfLines": 34
+    },
+    {
+      "Path": "apply_optimizer_local.erl",
+      "DeclaredWorkingSha256": "36FAE9D8CEEEFD23E02FDFEE8DDB96BEC66708ECC6DDE021C12F814D38DF571C",
+      "CanonicalLfSha256": "D3BFACC6C7E39F70033B76317F8B01922A58BA2BFC78C1B51876E8561BBC94E0",
+      "CrLfLines": 5
+    }
+  ],
+  "RemainingBlockers": [
+    {
+      "Id": "publication-LF-source-hash-binding",
+      "Reason": "Actual new source files are CRLF (34/5 lines); Sources hashes match CRLF. Git Linux archive normalizes .erl to LF, yielding different hashes shown above. Existing archive LF binding ledger covers old11/16 only and does not bind these new sources. Verify before native dispatch and update declaration hashes with explicit original/new line-ending ledger; no runtime outcome normalization."
+    },
+    {
+      "Id": "remaining-inline-artifact-prefix",
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyExporter.cs",
+      "Reason": "Path.Combine(directory,\"process\") still inline executable artifact protocol string. Move to ApplyArtifactNames.ProcessPrefix. Empty executable suffix can use string.Empty; quotation builder literals have protocol-owner context."
+    }
+  ],
+  "SafeScenarioBindingsVerified": true,
+  "ObservationScope": "fresh noObserver9 captures/fullstack/messages/functiondisasm; captured != semantic pass; no callback DOWN claim",
+  "NativeExpectedFromSdk": false,
+  "OriginalPlanSourceHashesRetained": true,
+  "ExistingLoader11Iodata16SourceFilesChanged": false,
+  "NativeObservations": 0
+}

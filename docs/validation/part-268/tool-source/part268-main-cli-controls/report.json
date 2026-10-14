@@ -1,0 +1,69 @@
+{
+  "Status": "MainSevenActualRefusalControlsPassed",
+  "Rows": [
+    {
+      "Name": "wrong-pin",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Verified pinned source-build evidence is required\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 17\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "7AAC3AD8E3E482DB01A74F67235DD2EA6595CF2137608A698F3F99F38130AB2F",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "wrong-installed-version",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Verified pinned source-build evidence is required\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 26\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "AB8A29FD6B931FCB74AC5F02C37CB9A7096B1EBCC3BC06188D0099F7F6F45463",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "bad-source-hash",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Compiled source bytes differ from independent declarations\r\n   at ApplyOptimizerContrasts.ApplySourceVerifier.Verify(JsonElement declarations) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplySourceVerifier.cs:line 33\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 32\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "8146DEDB6A250AAF339AFD5035B9FE356D7ED5CBA2417276406D098ED7C59A59",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "duplicate-names",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Nine independent observational declarations required\r\n   at ApplyOptimizerContrasts.ApplySourceVerifier.Verify(JsonElement declarations) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplySourceVerifier.cs:line 11\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 32\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "2EBE7E41D76A0F8C4CE5EA52E2CBFDD9A05C8543CADF08234BA38893B110B1A0",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "unsafe-name",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Nine independent observational declarations required\r\n   at ApplyOptimizerContrasts.ApplySourceVerifier.Verify(JsonElement declarations) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplySourceVerifier.cs:line 11\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 32\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "2EBE7E41D76A0F8C4CE5EA52E2CBFDD9A05C8543CADF08234BA38893B110B1A0",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "wrong-native-function-map",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Nine independent observational declarations required\r\n   at ApplyOptimizerContrasts.ApplySourceVerifier.Verify(JsonElement declarations) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplySourceVerifier.cs:line 20\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 32\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "E988D5B0DC4395A2F766B2E78CB30EF06EADB84AC5AE122F9DE6C7EDD02DEBCF",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    },
+    {
+      "Name": "wrong-source-name",
+      "ExitCode": 1,
+      "OutputCreated": false,
+      "ErrorText": "System.IO.InvalidDataException: Compiled source bytes differ from independent declarations\r\n   at ApplyOptimizerContrasts.ApplySourceVerifier.Verify(JsonElement declarations) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplySourceVerifier.cs:line 30\r\n   at ApplyOptimizerContrasts.ApplyExporter.Run(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\ApplyExporter.cs:line 32\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.ApplyOptimizerContrasts\\Program.cs:line 4\r\n",
+      "StderrSha256": "A1F0BF21060BE539AB0FF399D3DCABB385DB595D9D5E6649FC064474BD436953",
+      "NativeExecuted": false,
+      "DllSha256": "F04546E8A6A36433C1E11DB37EC2951230675F908B38C419436F12D618143E7D"
+    }
+  ],
+  "NativeExecuted": false
+}

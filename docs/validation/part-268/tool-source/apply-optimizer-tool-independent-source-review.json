@@ -1,0 +1,107 @@
+{
+  "Status": "SourceOnlyReviewConcreteCorrectionsRequired",
+  "FreezeSha256": "3a438b1cd18056500cf345d9e49786c302f7e66d74311572cf3d390118925e4e",
+  "VerifiedFiles": [
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyDiagnostics.cs",
+      "Sha256": "F8A4E3388F4742E8782DD6C55B21CE4B23DD374773BF9B0F2B0F9DE5F8E06172"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyExporter.cs",
+      "Sha256": "CDEC99227105B21625AD843BA8AA5047F606864A7BE4F09698F5C0F5663B3274"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyNames.cs",
+      "Sha256": "097D0B882E077FD877593DD6E02DC43E9155F59C3D18878F50B2F653F2167169"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyObservation.cs",
+      "Sha256": "C3A19A13F78042D180B96E8D3685972685B9BD17AB6B6A34832A95FAB4AC9466"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyProcess.cs",
+      "Sha256": "142537CCFABF91A2F6BC0D975A78C4DAECDB99B1C955FAF1307E3B66D3F8CD88"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/ApplyProcessResult.cs",
+      "Sha256": "2496E02FFC3050826EB09B78CBA388F90F10D54349076ADD80CBB135A81BB28F"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/apply_optimizer_local.erl",
+      "Sha256": "36FAE9D8CEEEFD23E02FDFEE8DDB96BEC66708ECC6DDE021C12F814D38DF571C"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/apply_optimizer_probe.erl",
+      "Sha256": "A1524773F5D33EB11E57FDF0CC766DFFC2D461E2E8953D0668B7391034098B10"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/Erlang.ApplyOptimizerContrasts.csproj",
+      "Sha256": "3C092FCE4E792148CB622267629139646D14AD83C5EFDCE76D4BF46C97EDDB7D"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/predeclared-contracts.json",
+      "Sha256": "7AE182166F3431554BC1865DC87F86A1800E167A8EE53FF62CC9190E6B5A922E"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/Program.cs",
+      "Sha256": "6A64148A92D8C4C4CD7398037014CA1B0B733F83FD69B2D6EAC2D9691109F466"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/README.md",
+      "Sha256": "446EA5452E26195F089FF26FE17B29144891F08CF24A3F26B18984AE7BEACF68"
+    },
+    {
+      "Path": ".github/workflows/apply-optimizer-contrasts.yml",
+      "Sha256": "DD98715A85270F56D56CFEAE756985F68BB977873767FFCDB84A4878A8D78C52"
+    }
+  ],
+  "Builds": 0,
+  "NativeExecutions": 0,
+  "MainWrites": false,
+  "PositiveFacts": [
+    "nine fresh OS VM invocations use actual prevalidated genuine on_load image",
+    "actual source-built installed root/log hash/OTP version/JIT runtime tuple verified before probes",
+    "full function disassembly and raw ETF exception stack captured",
+    "result/mailbox side effects captured before report; Captured explicitly not semantic match",
+    "no observer intentional callback routing signature, no lifecycle or DOWN parity claim",
+    "process argument list avoids shell interpolation; stdout/stderr captured bytes and bounded wait/drain/kill skeleton",
+    "same namespace-level types each in matching file; notices referenced without per-file banners"
+  ],
+  "ConcreteBlockers": [
+    {
+      "Id": "declaration-source-provenance-stale",
+      "Reason": "Declarations Sources lists static_apply_* filenames and hashes, but compiled source files are apply_optimizer_probe.erl/apply_optimizer_local.erl with different bytes. Exporter copies declarations without validating Sources against the actual compiled files.",
+      "ActualCompiledSources": [
+        {
+          "Path": "apply_optimizer_local.erl",
+          "ActualSha256": "36FAE9D8CEEEFD23E02FDFEE8DDB96BEC66708ECC6DDE021C12F814D38DF571C"
+        },
+        {
+          "Path": "apply_optimizer_probe.erl",
+          "ActualSha256": "A1524773F5D33EB11E57FDF0CC766DFFC2D461E2E8953D0668B7391034098B10"
+        }
+      ],
+      "Required": "Refresh explicit declaration source ledger with actual tool sources and exact hash verification before compilation, retaining old plan source provenance separately."
+    },
+    {
+      "Id": "semantic-protocol-literals",
+      "Reason": "ApplyExporter/ApplyProcess contain numerous inline source-build property keys, artifact names/extensions, CLI arguments, report status, newline/raw markers and Erlang evaluation templates. User requires semantic constants in domain owner files; ApplyNames currently covers only a subset.",
+      "Required": "Extract protocol/evidence/artifact/CLI/diagnostic literals into corresponding separate owner files and preserve literal-expansion semantic equality."
+    },
+    {
+      "Id": "scenario-name-validation",
+      "Reason": "Exporter checks Names length9 only; duplicates/path traversal/unknown names can overwrite scenario directories or produce repeat/missing observations. Declarations human-authored trusted currently but completeness claim should validate nine unique bounded known scenarios against source/declaration mapping.",
+      "Required": "Validate unique exact name set, mapping declaration underscore names to execution hyphen names explicitly, reject unsafe names before output creation."
+    }
+  ],
+  "NonBlockingLimits": [
+    "capture file bytes and compiled sources listed by report files, but current report lists prior report file itself causing self-referential stale digest; independent verifier should exclude report/temp from raw file inventory",
+    "if kill wait fails process may remain alive; raw capture false/exception retained but no successful bounded child cleanup guarantee",
+    "post-drain timeout may leave cancelled pipe-copy tasks unjoined; source returns RawComplete false and downstream must never accept this as successful capture",
+    "full raw stream size unbounded on disk while process wall time is bounded; output-size bound not claimed",
+    "syntax formatting tool unrun; malformed SDK declaration warnings may emerge from -Werror native compilation, not inferred now"
+  ],
+  "SemanticScope": "Native observations only, no expected SDK outcome or compiler implementation promotion; genuine nine results remain pending",
+  "ExistingNative11AndIodata16ToolsChanged": false,
+  "NativeObservationPolicyReviewed": "noObserver badmatch,false callback route signature; full actual stack/message snapshot, not monitor DOWN"
+}
