@@ -1,0 +1,105 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "Sources": [
+    {
+      "File": "creation_boundary_probe.erl",
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    }
+  ],
+  "Scenarios": [
+    "truncated_zero",
+    "truncated_one",
+    "maximum_small",
+    "first_big",
+    "retained_four",
+    "retained_max_wrap"
+  ],
+  "RequiredArtifacts": {
+    "truncated_zero": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ],
+    "truncated_one": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ],
+    "maximum_small": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ],
+    "first_big": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ],
+    "retained_four": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ],
+    "retained_max_wrap": [
+      "inputs.etf",
+      "runtime-profile.etf",
+      "before.etf",
+      "retained-before.etf",
+      "call-outcome.etf",
+      "active.etf",
+      "owner-after.etf",
+      "retained-after.etf",
+      "kernel-down.etf",
+      "inactive.etf",
+      "stage"
+    ]
+  },
+  "FreshVmPerScenario": true,
+  "FreshScenarioVMs": 6,
+  "AdditionalRuntimeAttestationVM": 1,
+  "NativeExecuted": false,
+  "SdkExpectedUsed": false,
+  "SemanticCompatibilityClaim": false
+}
+ 

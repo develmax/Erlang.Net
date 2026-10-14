@@ -1,0 +1,1980 @@
+{
+  "Status": "Actual Main standalone tool gates pass; original six scenarios pending",
+  "ParentHead": "c2302e11af57b1fa75f4f9ab51455e3187b34c24",
+  "SourceFiles": 11,
+  "SharedHelpers": 9,
+  "SourceFreeze": "2FCA0DA21037458A46297E6B1457DF1B2D6CCDB5F5A16B379E7FC73778521279",
+  "MainTargetErrors": 0,
+  "MainTargetWarnings": 0,
+  "MainStyleChanges": 0,
+  "MainPreWriteRefusals": 12,
+  "MainRawControls": {
+    "Status": "PASS",
+    "ActualMainAssembly": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.NodeCreationContrasts\\bin\\Debug\\net10.0\\Erlang.NodeCreationContrasts.dll",
+    "ActualMainSha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803",
+    "ActualMainMvid": "b8495006-ea37-427d-9577-7c6873d66185",
+    "ActualMethod": "NodeIdentityContrasts.NodeProcess.Run",
+    "ReflectionActualMainMethodInvoked": true,
+    "Raw": {
+      "ExitCode": 3,
+      "TimedOut": false,
+      "RawComplete": true
+    },
+    "InheritedPipes": {
+      "ExitCode": 0,
+      "TimedOut": false,
+      "RawComplete": false
+    },
+    "Milliseconds": 5105,
+    "OwnedChildTerminated": true,
+    "NativeExecuted": false
+  },
+  "RuntimeSourceUnchanged": true,
+  "PreviousMainTests": 6544,
+  "NewFullSuiteExecuted": false,
+  "NativeExecuted": false,
+  "ScenarioVmsPlanned": 6,
+  "LP64Attested": false,
+  "Files": [
+    {
+      "Path": "actual-main-output/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "actual-main-output/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "actual-main-output/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "actual-main-output/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "actual-main-output/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "actual-main-output/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "actual-main-output/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-actual-local-receipt.json",
+      "Bytes": 3788,
+      "Sha256": "AAE4F699E7C42761327581F495E07A9ED51FCC32B0C0A62CBAFDDE81AE6EAA23"
+    },
+    {
+      "Path": "creation-boundary-collector-cli-controls.py",
+      "Bytes": 4391,
+      "Sha256": "CDFAF05CE61FE806C9AFEE3BF83393074007131C3AB162A86E27DF41E4763B05"
+    },
+    {
+      "Path": "creation-boundary-collector-executed-closure-revision2.json",
+      "Bytes": 1583,
+      "Sha256": "31039E91BA0F5E75B4F446A84D58446FCE54F24EAC12D365E319A3E16472F43C"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "55B977559DA98447B8BB7EC6404D822316AAD79081F88CE161D1994DB7294C46"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25736,
+      "Sha256": "EF0FBF74C29410AB0DF9B24CA69B88AD73965E96B673055A2A271E48377407D0"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-initial-build-closure.json",
+      "Bytes": 1294,
+      "Sha256": "3C3246BF67AA2AA4867118A72CD60FE40E76DDB959DA7B1546DF0DDDC2AA081D"
+    },
+    {
+      "Path": "creation-boundary-collector-revision1-style-before.log",
+      "Bytes": 96,
+      "Sha256": "076EE95C000B545F74216EC105D9B295E8DB273858A9C03C1DAB2C5E37CCD734"
+    },
+    {
+      "Path": "creation-boundary-collector-revision1-style-write.log",
+      "Bytes": 32,
+      "Sha256": "22708DD90501B6C16B79F76AF7848FED313FF665F44A79EDB71E77CBB809714C"
+    },
+    {
+      "Path": "creation-boundary-collector-revision1-target.log",
+      "Bytes": 651,
+      "Sha256": "C47A057F0BAA8EF48B47E7558553A2E41E92D101CB7A8A5FD87AC50F0F2B7E6C"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/creation_boundary_probe.erl",
+      "Bytes": 2527,
+      "Sha256": "383776F5C4E0BDC791A88023EA1867D8D84706DBAA86132124C54142E15E2901"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/stderr.raw",
+      "Bytes": 517,
+      "Sha256": "1D6F4746909D22F30BE042A943AD452B93EDC36B1776BE4755DB6CCBBF3DE13F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/synthetic-negative-evidence.json",
+      "Bytes": 614,
+      "Sha256": "B8CF2F6499CC4E1BB545966730B84EA99218FFBB15DDC5F01915E430F4019172"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/altered-probe/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "F7599F21752E50715FE818B970B826020E7B43C77758B33DCB445B4C383CC047"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/synthetic-negative-build.log",
+      "Bytes": 85,
+      "Sha256": "DDCAC633A10E5D1162D3DC13877F1B9888919D7FB5746EF7E01BBB308D68B958"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/synthetic-negative-evidence.json",
+      "Bytes": 610,
+      "Sha256": "616B96B5199287DBC0CD8D48A21F217C2173B315E2A96D7CD26DFC49E8E73695"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/changed-log/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/refused-output/sentinel.raw",
+      "Bytes": 3,
+      "Sha256": "5240672D7B51756B829AD0EF8D9468B7A078AFA2F410484FD3892DAB47BECB72"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/stderr.raw",
+      "Bytes": 488,
+      "Sha256": "E14B51C41E2FEE5ADDC6D8314D17779A91DA72AAE8E9D510185C1312CC9A640B"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/synthetic-negative-evidence.json",
+      "Bytes": 618,
+      "Sha256": "7543CD047BBD97D50618D40A8FD254E40D8B232C6C6DF48200DD07E03FB3B5C1"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/existing-output/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "073F06F245049B3EDA1A317150844976BA51A40BDD829DE394CC64DE7CF59825"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/synthetic-negative-evidence.json",
+      "Bytes": 623,
+      "Sha256": "4D1DC9CD8DFD3255A724F9457BA5CED16A9E2E612B972793BE0EB29D797E005E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/incomplete-source/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "5C6394404EABD9D240750FE23B2798FC412A0C4D1BF0E456EAEDD4AAA24D2342"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/synthetic-negative-evidence.json",
+      "Bytes": 626,
+      "Sha256": "19C02D866CC9D2EF89930936D701A4D7857DD6B1655BF3E4329621489A4244BE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/missing-executables/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/collector/source-plan.json",
+      "Bytes": 2340,
+      "Sha256": "96AD4B687AD6EB4C32AB153B3CC47A6EB06AC6AFF3DE0B4E5C39813D815D86CA"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/stderr.raw",
+      "Bytes": 517,
+      "Sha256": "A4378D6502F7EDDFA766DE23C11151AD1BC133FD6717532BA338789949B0004F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/synthetic-negative-evidence.json",
+      "Bytes": 614,
+      "Sha256": "9AD2E768087FAB3FB8CD842259C5D2885FB86D96FF32F8FADCBDBB6BC5A42361"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-fresh-vm/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/collector/source-plan.json",
+      "Bytes": 2340,
+      "Sha256": "85B97B6AB351F8BEE5D578C3468FB17A9043B5DD54D2EE6C5E01D68B2B194F55"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/stderr.raw",
+      "Bytes": 517,
+      "Sha256": "A4378D6502F7EDDFA766DE23C11151AD1BC133FD6717532BA338789949B0004F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/synthetic-negative-evidence.json",
+      "Bytes": 618,
+      "Sha256": "8CB884F78AEBAC7CB69A9F268227C396CEED54D98F28B3E69B92654ABD372BBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-whitespace/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/collector/source-plan.json",
+      "Bytes": 2353,
+      "Sha256": "029AAE3A025B21AE2AAA234CFD6B2970F2C0F0F7578CEB28457729C0D371EEA5"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/stderr.raw",
+      "Bytes": 517,
+      "Sha256": "A4378D6502F7EDDFA766DE23C11151AD1BC133FD6717532BA338789949B0004F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/synthetic-negative-evidence.json",
+      "Bytes": 616,
+      "Sha256": "175EEA250D5B304C46B58B9CC037E2D467D4448B49C5F2D31E551ED80E16D54C"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/plan-wrong-tag/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/proof.json",
+      "Bytes": 8147,
+      "Sha256": "45CF73AC354CDA64F085B278255161398A90D851EF1F7366B60CD2E3272C6C09"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "073F06F245049B3EDA1A317150844976BA51A40BDD829DE394CC64DE7CF59825"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/synthetic-negative-evidence.json",
+      "Bytes": 590,
+      "Sha256": "854A8B1B7FA61236D8BFD17D4971959FBCC300449500F7E23E26892D30CD40B1"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-pin/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "073F06F245049B3EDA1A317150844976BA51A40BDD829DE394CC64DE7CF59825"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/synthetic-negative-evidence.json",
+      "Bytes": 608,
+      "Sha256": "96140E16CE249F4D1E9EF7FA747DB20DCF2EAC2901557926DED59C5FE3D4EBC3"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-root/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "073F06F245049B3EDA1A317150844976BA51A40BDD829DE394CC64DE7CF59825"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/synthetic-negative-evidence.json",
+      "Bytes": 620,
+      "Sha256": "6EF2AF673C26243D3545949FC769C5779B63F1E685D75396F2F12E24CDEFC694"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-tag/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "C9BFEC74825BD02C17B79234B14C093069338A64AD2F1EE74CCF0C6146FEDFE9"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 25740,
+      "Sha256": "A2070F22B5E684F8C835FB01196EBDA3BA3C4B5F06A511D6A88D658A5AE3F3EE"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/stderr.raw",
+      "Bytes": 499,
+      "Sha256": "F7599F21752E50715FE818B970B826020E7B43C77758B33DCB445B4C383CC047"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/synthetic-negative-evidence.json",
+      "Bytes": 614,
+      "Sha256": "665B0FA0FFC356094EA71FD800B28FACAD47A39B895482D8F4A7A06E9336B686"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-cli-controls/wrong-version/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 29,
+      "Sha256": "4214BE7ED31510BA145F6E17CD0C35052AFF024BE69DE15C5F3198E55A9051E3"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/child.pid",
+      "Bytes": 4,
+      "Sha256": "90A2E778E9A182C58AFEFA8C93ECDD2BCDA65A9B6E994FF1BAC677CEE5CE464B"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/pipes.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/pipes.raw-complete",
+      "Bytes": 6,
+      "Sha256": "2ED27C1421E6928DBE13DBFDB5C59E1045B30341FE7EBE05700006BC5AC572C0"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/pipes.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/pipes.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/raw.exit",
+      "Bytes": 2,
+      "Sha256": "1121CFCCD5913F0A63FEC40A6FFD44EA64F9DC135C66634BA001D10BCF4302A2"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/raw.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/raw.stderr",
+      "Bytes": 3,
+      "Sha256": "29ED6F32A64414DC6EE3FBB6B79DFEDCF60DD45978A6726532F9944869E912A6"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls/raw.stdout",
+      "Bytes": 3,
+      "Sha256": "5240672D7B51756B829AD0EF8D9468B7A078AFA2F410484FD3892DAB47BECB72"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-raw-controls.log",
+      "Bytes": 666,
+      "Sha256": "1082F9F3560F2249E2627076D7AB067346FD11977B49147491C50E1A5D3E129E"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-style-check.log",
+      "Bytes": 40,
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Path": "creation-boundary-collector-revision2-target.log",
+      "Bytes": 526,
+      "Sha256": "5E29AFB28A54D6508CDC29052B23F383C165936E9F0CEB910B0D762199E9762A"
+    },
+    {
+      "Path": "creation-boundary-collector-source-freeze-final-revision3.json",
+      "Bytes": 54948,
+      "Sha256": "2FCA0DA21037458A46297E6B1457DF1B2D6CCDB5F5A16B379E7FC73778521279"
+    },
+    {
+      "Path": "creation-boundary-collector-source-freeze-revision1.json",
+      "Bytes": 30481,
+      "Sha256": "A3E9C64D8CCF9F8A4C774032E714D964B114A3AC5D02FC4D4F54AF4BD3938DF3"
+    },
+    {
+      "Path": "creation-boundary-collector-source-freeze-revision2.json",
+      "Bytes": 49597,
+      "Sha256": "9602CF57A8BC1C440AAB1CA87D8C573E17853E3F68D19E72B5D83B8B72A54547"
+    },
+    {
+      "Path": "creation-boundary-collector11-independent-source-review.json",
+      "Bytes": 2526,
+      "Sha256": "668BF4F726C6D6532B9BC862FACB4EE361005C2ECF05A17456EB52CFA026CF0A"
+    },
+    {
+      "Path": "creation-boundary-native-observer-source-freeze-revision1.json",
+      "Bytes": 7723,
+      "Sha256": "22C0C302A54AB757325396CA7B633A061641FD40A0B4C0349EA4EBD7D92D2EF3"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/creation_boundary_probe.erl",
+      "Bytes": 2527,
+      "Sha256": "383776F5C4E0BDC791A88023EA1867D8D84706DBAA86132124C54142E15E2901"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/stderr.raw",
+      "Bytes": 421,
+      "Sha256": "4CADD7EB1A7E0E18395CB337D452C0EC61EBCC382DA46AE00F6443E3A585F43B"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/synthetic-negative-evidence.json",
+      "Bytes": 564,
+      "Sha256": "B53ABBE633BF5758939DD73B1D3598158B9DFB6B9D987ED3E86DBED02F49A377"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/altered-probe/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "583C9C13E59201DAECC262A191511ECA2C4DBF7B0363CAE0A5D5CF1BF3A96EE9"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/synthetic-negative-build.log",
+      "Bytes": 85,
+      "Sha256": "DDCAC633A10E5D1162D3DC13877F1B9888919D7FB5746EF7E01BBB308D68B958"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/synthetic-negative-evidence.json",
+      "Bytes": 560,
+      "Sha256": "4BB2BCF04A23948628445A094DB3C827C1E0259959507BF13756931B597E3A1C"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/changed-log/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/refused-output/sentinel.raw",
+      "Bytes": 3,
+      "Sha256": "5240672D7B51756B829AD0EF8D9468B7A078AFA2F410484FD3892DAB47BECB72"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/stderr.raw",
+      "Bytes": 392,
+      "Sha256": "38A90A2BACEBF2FD3C1F3C399E486EC4D89BB587333E7E5BB95C3DAF917655DC"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/synthetic-negative-evidence.json",
+      "Bytes": 568,
+      "Sha256": "2BCBC370592B845EFB8296B5B39E37835EAA0525E47408EAE10E8E08AE42B71C"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/existing-output/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "4D2ECF7B806AAABDB40E9123B88CDB77E0E0A1CB2D24498E0682918B25FD0805"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/synthetic-negative-evidence.json",
+      "Bytes": 573,
+      "Sha256": "0874173D64947967B2AA01A04AAB6C4040CC511558C0EE53702AD9D1D0F1DE99"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/incomplete-source/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "31EA33831B8C9ABF2725E83D6D497927CCF1DF6AB790893A6C366F5C1C9E4D79"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/synthetic-negative-evidence.json",
+      "Bytes": 576,
+      "Sha256": "59948D4440E9531997ECDB011DD27171998AA73A7275D3F3476A89858B2E308C"
+    },
+    {
+      "Path": "part276-main-cli-controls/missing-executables/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/collector/source-plan.json",
+      "Bytes": 2340,
+      "Sha256": "96AD4B687AD6EB4C32AB153B3CC47A6EB06AC6AFF3DE0B4E5C39813D815D86CA"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/stderr.raw",
+      "Bytes": 421,
+      "Sha256": "846B6F9B6618DB655739C3603E2C121EB91E3E66A991C245E0CE8F99C010C9DD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/synthetic-negative-evidence.json",
+      "Bytes": 564,
+      "Sha256": "9FF82035BC2FEB96F7EFD3FA00BEFBFA7459C37F4217AFEFF3209C41A04A0919"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-fresh-vm/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/collector/source-plan.json",
+      "Bytes": 2340,
+      "Sha256": "85B97B6AB351F8BEE5D578C3468FB17A9043B5DD54D2EE6C5E01D68B2B194F55"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/stderr.raw",
+      "Bytes": 421,
+      "Sha256": "846B6F9B6618DB655739C3603E2C121EB91E3E66A991C245E0CE8F99C010C9DD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/synthetic-negative-evidence.json",
+      "Bytes": 568,
+      "Sha256": "51F4C712D4396EDB6AECBE56CC8A27A3AC2CBBBF5CE07815BF96DABA0113EC32"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-whitespace/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/collector/source-plan.json",
+      "Bytes": 2353,
+      "Sha256": "029AAE3A025B21AE2AAA234CFD6B2970F2C0F0F7578CEB28457729C0D371EEA5"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/stderr.raw",
+      "Bytes": 421,
+      "Sha256": "846B6F9B6618DB655739C3603E2C121EB91E3E66A991C245E0CE8F99C010C9DD"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/synthetic-negative-evidence.json",
+      "Bytes": 566,
+      "Sha256": "EBF2F67852FF47EE96EB75E596393AE9473A70073D72581C7BDC6A05846FE03F"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/plan-wrong-tag/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/proof.json",
+      "Bytes": 8097,
+      "Sha256": "1BC28B7ED3E6844D349DEA3F1DC3CBB0490F155E3CBA849F1BF4E4042EC297F2"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "4D2ECF7B806AAABDB40E9123B88CDB77E0E0A1CB2D24498E0682918B25FD0805"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/synthetic-negative-evidence.json",
+      "Bytes": 540,
+      "Sha256": "3C57DA56DAEDE27254FA22BC95F395032005B5ECB0DD0C1CA6D5A1EC3A9ACCAE"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-pin/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "4D2ECF7B806AAABDB40E9123B88CDB77E0E0A1CB2D24498E0682918B25FD0805"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/synthetic-negative-evidence.json",
+      "Bytes": 558,
+      "Sha256": "031ADDCEB229F6B2E48D15F4AFFC7CCD52F902C585B4C1C88DEE205B96998064"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-root/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "4D2ECF7B806AAABDB40E9123B88CDB77E0E0A1CB2D24498E0682918B25FD0805"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/synthetic-negative-evidence.json",
+      "Bytes": 570,
+      "Sha256": "698C08CA703CF381BFFB791DCAEA027285CD4A0F1B5C88BCAECDB1C0CCCD14D7"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-tag/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 7,
+      "Sha256": "744D21462FDDCE81CA82770789D5ECCB8C94CDE90D412399A1514AFFF0815A0E"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/creation_boundary_probe.erl",
+      "Bytes": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.deps.json",
+      "Bytes": 478,
+      "Sha256": "C284CE796DF0A26809CA257D1B2E96DF3ABFD828AB7C5E1D62D7EA54F2E1ADBD"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.dll",
+      "Bytes": 47616,
+      "Sha256": "1136042F540E40877F8B2F6F2BB2772E77AB8B22960EE268F7E6901F4E1FB803"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.exe",
+      "Bytes": 162816,
+      "Sha256": "7370D728E8569B30B0E60BA588A107CBEE4A36ADC85ADBD3919C9F221815275F"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.pdb",
+      "Bytes": 17836,
+      "Sha256": "9095D819D4FA0A3DF8885CE82E174A955E11B18EC0ECD2E4C2D1CF5EF198FC75"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/Erlang.NodeCreationContrasts.runtimeconfig.json",
+      "Bytes": 270,
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/collector/source-plan.json",
+      "Bytes": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/stderr.raw",
+      "Bytes": 403,
+      "Sha256": "583C9C13E59201DAECC262A191511ECA2C4DBF7B0363CAE0A5D5CF1BF3A96EE9"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/stdout.raw",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/synthetic-negative-build.log",
+      "Bytes": 77,
+      "Sha256": "492FEE797C5A1DFD80B52D7BC09456903BC6678E06880CC6120442DD7B644298"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/synthetic-negative-evidence.json",
+      "Bytes": 564,
+      "Sha256": "5659D78322803F4E363B3FC9069FD4ECC29E1070487A1EAADD5751F856C20E10"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/synthetic-negative-root/bin/erl.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/synthetic-negative-root/bin/erlc.exe",
+      "Bytes": 67,
+      "Sha256": "0769ECC0BE9C8804C1E74BD4A5D26164D739B6F3301369F82636F2082CC4D99A"
+    },
+    {
+      "Path": "part276-main-cli-controls/wrong-version/synthetic-negative-root/releases/29/OTP_VERSION",
+      "Bytes": 29,
+      "Sha256": "4214BE7ED31510BA145F6E17CD0C35052AFF024BE69DE15C5F3198E55A9051E3"
+    },
+    {
+      "Path": "part276-main-raw-controls/child.pid",
+      "Bytes": 5,
+      "Sha256": "5616B74428768526BCD716607EDDD0CF5B837DBA2B043F5CE9245F7F6B1398C1"
+    },
+    {
+      "Path": "part276-main-raw-controls/pipes.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "part276-main-raw-controls/pipes.raw-complete",
+      "Bytes": 6,
+      "Sha256": "2ED27C1421E6928DBE13DBFDB5C59E1045B30341FE7EBE05700006BC5AC572C0"
+    },
+    {
+      "Path": "part276-main-raw-controls/pipes.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-raw-controls/pipes.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "part276-main-raw-controls/raw.exit",
+      "Bytes": 2,
+      "Sha256": "1121CFCCD5913F0A63FEC40A6FFD44EA64F9DC135C66634BA001D10BCF4302A2"
+    },
+    {
+      "Path": "part276-main-raw-controls/raw.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "part276-main-raw-controls/raw.stderr",
+      "Bytes": 3,
+      "Sha256": "29ED6F32A64414DC6EE3FBB6B79DFEDCF60DD45978A6726532F9944869E912A6"
+    },
+    {
+      "Path": "part276-main-raw-controls/raw.stdout",
+      "Bytes": 3,
+      "Sha256": "5240672D7B51756B829AD0EF8D9468B7A078AFA2F410484FD3892DAB47BECB72"
+    },
+    {
+      "Path": "part276-main-raw-controls.log",
+      "Bytes": 616,
+      "Sha256": "C0D8478ED7DC5DB03CEF78C6646ED551DC308F77B919F5919A1E7524D6179FB6"
+    },
+    {
+      "Path": "part276-main-style.log",
+      "Bytes": 40,
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Path": "part276-main-target.log",
+      "Bytes": 555,
+      "Sha256": "0DFE2A925D4BB711C531459D9D28DE2C170471FEBF2CD390A52231DA371DF371"
+    },
+    {
+      "Path": "raw-helper-source.cs",
+      "Bytes": 3588,
+      "Sha256": "FF07EF513D4817B245A0F22B13630321F4215957920F900644819E7791C8A735"
+    },
+    {
+      "Path": "raw-helper.dll",
+      "Bytes": 18944,
+      "Sha256": "C920E252FEF17624C309E67ADEE7BB9DC2AAD4045F814E4AA7B0B6D19C39BBDE"
+    }
+  ]
+}

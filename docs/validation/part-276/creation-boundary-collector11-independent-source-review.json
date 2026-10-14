@@ -1,0 +1,43 @@
+{
+  "Status": "PASSIndependentSourceReview",
+  "SourceFreezeSha256": "A3E9C64D8CCF9F8A4C774032E714D964B114A3AC5D02FC4D4F54AF4BD3938DF3",
+  "NewPathsVerified": 11,
+  "SharedExactPathsVerified": 9,
+  "Historical274RawInputsExact": 4,
+  "Cases": [
+    "truncated_zero",
+    "truncated_one",
+    "maximum_small",
+    "first_big",
+    "retained_four",
+    "retained_max_wrap"
+  ],
+  "FreshScenarioVMs": 6,
+  "MetadataVMs": 1,
+  "RequiredFilesEach": 11,
+  "Checks": [
+    "All prewrite pin/tag/source-build-log/root/version/rawplan/probe/scenario/inventory validation precedes Directory.CreateDirectory(output).",
+    "Raw plan SHA hardcoded prevents extra/dropped fields from weakening per-field guards.",
+    "One metadata process enforces OTP29/ERTS17.1/JIT/installedroot; each scenario launches independent erl process, no persistent VM reuse.",
+    "Each scenario probe separately records wordsize/build_type/system_architecture; profile is raw observation, not asserted ABI equality.",
+    "Probe captures full call exception {exception,Class,Reason,Stack}; outer evaluation captures full {Class,Reason,Stack}.",
+    "Failed call can still be complete capture; no SDK expectations or semantic compatibility asserted.",
+    "Capture exception rows leave unknown process exit/timeout/drain fields null, save complete exception text and continue next capture attempt.",
+    "Runtime/compile prerequisites stop run deliberately; directory/eval preparation errors are outside per-capture catch and are not claimed recoverable scenario errors.",
+    "Retained reference used after selection, actual registered live separate kernel killed/monitored and is_alive reset awaited.",
+    "Workflow pins source SHA, sourcebuild/attestation log; onebuild/sixfreshVM plus metadata, alwaysupload; no credential persistence.",
+    "Nine csproj shared paths resolve exactly and shared helper bytes remain currentMain exact."
+  ],
+  "RequiredPublicationGitAttributes": [
+    "tools/Erlang.NodeCreationContrasts/*.erl binary",
+    "tools/Erlang.NodeCreationContrasts/source-plan.json binary"
+  ],
+  "ScopeLimits": [
+    "Unbuilt source-only; bounded actual refusals/rawprocess and new original execution remain pending.",
+    "Metadata/per-case ABI observations do not prove native allocator/buffer parity.",
+    "No setnode3 creation variants or nonempty queue semantics are covered by these six setnode2 cases."
+  ],
+  "MainOrGitModified": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false
+}
