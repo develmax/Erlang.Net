@@ -1,0 +1,11 @@
+{
+  "Module": "beam_fixture_closure",
+  "Source": "-module(beam_fixture_closure).\n-export([run/0,make/1]).\nrun() -> F=make(5), {ok,F(7),is_function(F,1)}.\nmake(N) -> fun(X) -> N+X end.\n",
+  "SourceSha256": "1B29BD3330DE0DFC4BA7DF19FCA667FFACD78B6DE622E0B22186B5B3B8E2AD4D",
+  "IndependentExpectedExpression": "{ok,12,true}",
+  "OriginalObservationPerformed": false,
+  "ValuesDerivedFromOriginalObservation": false,
+  "RequiredChunk": "FunT",
+  "CapturedEnvironment": "N",
+  "Purpose": "Actual captured closure; checksum filter must zero OldUniq fields"
+}

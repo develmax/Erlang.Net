@@ -62,7 +62,7 @@ internal static class FixtureExporter
         );
         string[] flags = [FixtureExportNames.WarningsAsErrors, FixtureExportNames.DebugInformation];
         var fixtures = new List<object>();
-        foreach (FixtureDefinition fixture in FixtureCases.All)
+        foreach (FixtureDefinition fixture in FixtureCases.All.Concat(FixtureClosureCases.All))
         {
             string sourcePath = Path.Combine(output, fixture.Module + FixtureExportNames.SourceExtension);
             await File.WriteAllTextAsync(sourcePath, fixture.Source.Replace("\r\n", "\n") + "\n", new UTF8Encoding(false));
@@ -79,6 +79,12 @@ internal static class FixtureExporter
                 erl,
                 [OracleCommandNames.NoShell, OracleCommandNames.Evaluate, expression],
                 Path.Combine(output, fixture.Module + FixtureExportNames.DisassemblyLogSuffix)
+            );
+            FixtureMetadataEvidence metadata = await FixtureMetadata.Run(
+                erl,
+                output,
+                fixture,
+                beamPath
             );
             FixtureExecutionEvidence execution = await FixtureExecution.Run(
                 erl,
@@ -98,6 +104,7 @@ internal static class FixtureExporter
                 Chunks = BeamChunkReader.Read(beam),
                 DisassemblyFile = Path.GetFileName(disassemblyPath),
                 DisassemblySha256 = Hash(await File.ReadAllBytesAsync(disassemblyPath)),
+                Metadata = metadata,
                 Execution = execution
             });
         }
@@ -116,7 +123,7 @@ internal static class FixtureExporter
             ProvenanceScope = FixtureExportNames.ProvenanceScope,
             LoaderExecutionPerformed = false,
             OriginalFixtureExecutionRequested = execute,
-            OriginalFixturesExecuted = execute ? FixtureCases.All.Count(fixture => fixture.IndependentExpectedExpression is not null) : 0,
+            OriginalFixturesExecuted = execute ? FixtureCases.All.Concat(FixtureClosureCases.All).Count(fixture => fixture.IndependentExpectedExpression is not null) : 0,
             Fixtures = fixtures
         };
         await File.WriteAllTextAsync(
