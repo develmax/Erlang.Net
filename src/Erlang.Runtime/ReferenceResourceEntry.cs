@@ -46,6 +46,16 @@ internal sealed class ReferenceResourceEntry
         return result;
     }
 
+    internal bool TryReadPreparedMetadata(out PreparedBeamImage? image)
+    {
+        lock (gate)
+        {
+            image = payload as PreparedBeamImage;
+
+            return image is not null;
+        }
+    }
+
     public void Close()
     {
         lock (gate)

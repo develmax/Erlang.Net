@@ -34,6 +34,41 @@ public sealed class RuntimeReferenceResources
     public ReferenceResourceLease<PreparedBeamImage>? AcquirePrepared(ReferenceTerm reference)
         => Acquire<PreparedBeamImage>(reference, ReferenceResourceKind.PreparedBeam);
 
+    internal bool TryReadPreparedMetadata(ReferenceTerm reference, out PreparedBeamImage? image)
+    {
+        lock (gate)
+            return TryReadPreparedMetadataLocked(reference, out image);
+    }
+
+    internal Term FinishPreparedReferences(IReadOnlyList<ReferenceTerm> references)
+        => modules.FinishLoaderReferences(this, references);
+
+    internal Term AdmitPreparedReferences(IReadOnlyList<ReferenceTerm> references)
+    {
+        lock (gate)
+        {
+            var images = new List<PreparedBeamImage>();
+            foreach (ReferenceTerm reference in references)
+            {
+                if (!TryReadPreparedMetadataLocked(reference, out PreparedBeamImage? image))
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                images.Add(image!);
+            }
+
+            return modules.FinishLoaderImages(images.ToArray());
+        }
+    }
+
+    private bool TryReadPreparedMetadataLocked(ReferenceTerm reference, out PreparedBeamImage? image)
+    {
+        image = null;
+        if (closed || reference is not ResourceReferenceTerm resource ||
+            !ReferenceEquals(resource.Entry.Owner, this) || resource.ResourceKind != ReferenceResourceKind.PreparedBeam)
+            return false;
+
+        return resource.Entry.TryReadPreparedMetadata(out image);
+    }
+
     public ReferenceResourceLease<BitString>? AcquireBinary(ReferenceTerm reference)
         => Acquire<BitString>(reference, ReferenceResourceKind.BinarySnapshot);
 

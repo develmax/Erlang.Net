@@ -546,6 +546,23 @@ public static class ExternalTermFormat
 
         private ReferenceTerm RestoreReference(ReferenceTerm reference)
         {
+            if (reference.Node == options.LocalNode && reference.Creation == options.LocalCreation)
+            {
+                bool pidReference = reference.Words.Count == ReferenceIdentityLayout.PidWordCount &&
+                    (reference.Words[ReferenceIdentityLayout.PidMarkerWord] & ReferenceIdentityLayout.PidMarker) != 0;
+                if (pidReference)
+                {
+                    if ((reference.Words[ReferenceIdentityLayout.PidOwnerLowWord] & ReferenceIdentityLayout.PidTagMask) != ReferenceIdentityLayout.PidTag)
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+                }
+                else if (reference.Words.Count != ReferenceIdentityLayout.LocalWords)
+                {
+                    uint[] words = new uint[ReferenceIdentityLayout.LocalWords];
+                    for (int index = 0; index < Math.Min(words.Length, reference.Words.Count); index++)
+                        words[index] = reference.Words[index];
+                    reference = new ReferenceTerm(reference.Node, words, reference.Creation);
+                }
+            }
             ReferenceTerm restored = options.ReferenceFactory?.Invoke(reference) ?? reference;
             if (!restored.Equals(reference))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);

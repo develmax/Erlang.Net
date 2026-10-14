@@ -2,9 +2,9 @@ namespace Erlang;
 
 internal static class ProcessAliasLayout
 {
-    public const uint PidMarker = 1u << 16;
-    public const int PidTagBits = 4;
-    public const uint PidTag = 3;
-    public const int OwnerLowWord = 3;
-    public const int OwnerHighWord = 4;
+    public const uint PidMarker = ReferenceIdentityLayout.PidMarker;
+    public const int PidTagBits = ReferenceIdentityLayout.PidTagBits;
+    public const uint PidTag = ReferenceIdentityLayout.PidTag;
+    public const int OwnerLowWord = ReferenceIdentityLayout.PidOwnerLowWord;
+    public const int OwnerHighWord = ReferenceIdentityLayout.PidOwnerHighWord;
 }

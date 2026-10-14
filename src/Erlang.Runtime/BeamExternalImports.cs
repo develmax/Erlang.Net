@@ -9,7 +9,7 @@ internal static class BeamExternalImports
         string function = code.Structure.Atoms[source.FunctionAtomIndex]!;
         bool supported = module == ErlangModuleNames.Module && (
             source.Arity == 0 && function == ErlangModuleNames.Self
-            || source.Arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error
+            || source.Arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error or BeamLoaderNames.CallOnLoad
             || source.Arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract
         ) || module == BeamOnLoadNames.CodeModule && function == BeamOnLoadNames.IsLoaded && source.Arity == 1;
         if (!supported)
@@ -20,6 +20,8 @@ internal static class BeamExternalImports
 
     internal static ValueTask<Term> Invoke(ProcessContext context, BeamExternalImport import, Term[] arguments)
     {
+        if (import.Module == ErlangModuleNames.Module && import.Function == BeamLoaderNames.CallOnLoad && import.Arity == 1)
+            return context.Runtime.Modules.InvokeLoaderOnLoad(context, arguments[0]);
         if (import.Module == BeamOnLoadNames.CodeModule)
         {
             if (arguments[0] is not Atom module)

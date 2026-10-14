@@ -223,14 +223,9 @@ internal static class BeamRegisterInterpreter
                     break;
                 case BeamLinkNames.ExternalTailCall:
                     registers.CheckLive((int)operands[0].Value);
-                    string externalArithmetic = BeamRegisterValidation.ArithmeticImport(code, (int)operands[1].Value);
-                    Term externalResult = await context.Runtime.Modules.Call(
-                        context,
-                        BeamRegisterNames.Erlang,
-                        externalArithmetic,
-                        registers.Read(0),
-                        registers.Read(1)
-                    );
+                    BeamExternalImport tailImport = BeamExternalImports.Resolve(code, (int)operands[1].Value);
+                    Term[] tailArguments = Enumerable.Range(0, tailImport.Arity).Select(registers.Read).ToArray();
+                    Term externalResult = await BeamExternalImports.Invoke(context, tailImport, tailArguments);
                     registers.Write(0, externalResult);
                     if (!continuations.TryPop(out BeamCallContinuation? externalContinuation))
                     {

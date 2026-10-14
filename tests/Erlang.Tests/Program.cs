@@ -1706,7 +1706,7 @@ Test(
 var exportRegistry = new ModuleRegistry();
 CoreModules.Register(exportRegistry);
 OtpModules.Register(exportRegistry);
-foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.FunctionalMfaContracts.SubprocessContract(export.Module, export.Function, export.Arity) is null).OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
+foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.FunctionalMfaContracts.SubprocessContract(export.Module, export.Function, export.Arity) is null && !Erlang.Tests.BeamLoaderMfaChecks.Owns(export.Module, export.Function, export.Arity)).OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
     Test(
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
@@ -4205,6 +4205,28 @@ Test(Erlang.Tests.BeamPreparedHostNames.Test, Erlang.Tests.BeamPreparedHostCheck
 Test(Erlang.Tests.BeamOnLoadHostNames.Test, Erlang.Tests.BeamOnLoadHostChecks.Run);
 
 Test(Erlang.Tests.ReferenceResourceHostNames.Test, Erlang.Tests.ReferenceResourceHostChecks.Run);
+
+Test(
+    Erlang.Tests.BeamLoaderMfaNames.Prepare,
+    () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Prepare)
+);
+Test(Erlang.Tests.BeamLoaderMfaNames.Query, () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Query));
+Test(Erlang.Tests.BeamLoaderMfaNames.Finish, () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Finish));
+Test(
+    Erlang.Tests.BeamLoaderMfaNames.Callback,
+    () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Callback)
+);
+Test(
+    Erlang.Tests.BeamLoaderMfaNames.Finalize,
+    () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Finalize)
+);
+Test(Erlang.Tests.BeamLoaderMfaNames.Load, () => Erlang.Tests.BeamLoaderMfaChecks.Run(Erlang.Tests.BeamLoaderMfaCase.Load));
+
+Test(Erlang.Tests.BeamLoaderMfaNames.AdmissionHost, Erlang.Tests.BeamLoaderMfaChecks.Admission);
+Test(Erlang.Tests.BeamLoaderMfaNames.RaceHost, Erlang.Tests.BeamLoaderMfaChecks.Races);
+Test(Erlang.Tests.BeamLoaderMfaNames.PaddedHost, Erlang.Tests.BeamLoaderMfaChecks.Padded);
+Test(Erlang.Tests.BeamLoaderMfaNames.DirectHost, Erlang.Tests.BeamLoaderMfaChecks.Direct);
+Test(Erlang.Tests.BeamLoaderMfaNames.LifecycleHost, Erlang.Tests.BeamLoaderLifecycleChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

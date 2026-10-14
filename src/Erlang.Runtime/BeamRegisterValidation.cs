@@ -122,7 +122,7 @@ internal static class BeamRegisterValidation
                         Source(operands[2]);
                         break;
                     case BeamLinkNames.ExternalTailCall:
-                        _ = ArithmeticImport(code, (int)operands[1].Value);
+                        _ = BeamExternalImports.Resolve(code, (int)operands[1].Value);
                         break;
                     case BeamLinkNames.GuardBif:
                         _ = ArithmeticImport(code, (int)operands[2].Value);

@@ -839,6 +839,7 @@ public static class CoreModules
         );
         IoFormatRequests.Register(r);
         HaltRegistrations.Register(r);
+        BeamLoaderRegistrations.Register(r);
     }
 
 

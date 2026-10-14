@@ -757,6 +757,9 @@ public static class Execution
                         if (x.Module is null && !AutoImportSignatures.Contains(x.Function, args.Length))
                             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
 
+                        if (x.Module == ErlangModuleNames.Module && x.Function == CompilerLoaderNames.CallOnLoad && args.Length == 1)
+                            return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, args[0]);
+
                         return await ctx.Runtime.Modules.Call(
                             ctx,
                             x.Module ?? ErlangModuleNames.Module,

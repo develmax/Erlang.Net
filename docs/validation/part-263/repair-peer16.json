@@ -1,0 +1,31 @@
+{
+  "Status": "SourcePeerPassedSevenRepairAndTwoRootNamingEdits",
+  "FreezeSha256": "ec7285325d7d7c1c7d880b4f86f7c3d486e77c828075ff91ab4c54d13ec0dac6",
+  "VerifiedFrozenDeltaPaths": 7,
+  "VerifiedRootNamedChanges": 2,
+  "MainFullRetryPending": true,
+  "Checks": [
+    "LocalfivewordPIDmarker recognized beforemagic lookup; numericlowword tagmask3 validation equivalentto pinnedis_internal_pid test, noliveprocess/tableexists requirement",
+    "ValidlocalfivewordPID identityretainsallwords; invalidlocalnumericPIDtag throwsbadarg; PIDandmagicflags priority staysPID",
+    "FourwordPIDflag cannotqualifyasPIDreference, followsfirst3ordinary/magicfallback; foreignnode/creation retainswords includinginvalidlocalnumeric tag",
+    "Localordinary/magic first3pad/truncate policy remains; first18bitguard stillprecedesRestoreReference",
+    "ReferenceFactory result exact Equals validatedidentity alwaysrequired, malicious5\u21923factorysubstitutionrejected",
+    "Shared ProcessAliasLayout andReferenceNumberLayout aliases reference samePIDwirefieldconstants bymeaning, notmereequalvalue",
+    "Default493/optionalIO495 counts follow6real registrations and2optionalbindings; previous487/489 snapshots historical, existingexpectedtestgroups unchanged",
+    "Root names PidMarkerWord1/PidMarkerBitOffset2 only; restoredtexts exactlybefore; no wirevaluechange"
+  ],
+  "PreviousReviewCorrection": "The earlier inherited PID live-table gap wording was inaccurate. Pinned erl_bif_unique.h259\u2013277 lookup combinesrefn3/4 and checksnumericinternalPIDtag only; it does not require a currently live PID. Initialunconditional5wordcanonicalization introduced aliasidentityregression and is repaired here.",
+  "MeaningfulAdversaries": [
+    "UnknownvalidnumericPIDowner accepted",
+    "BothPID/magicflags precedence",
+    "InvalidnumericPIDtag rejectedlocally",
+    "Foreigninvalidtag preserved",
+    "Wrongwordlengthfallback",
+    "Factoryidentitysubstitution rejected"
+  ],
+  "OwnerFocusedEvidence": "Revision16 focusedchecks reportedpassed; reviewer didnotexecuteorconvertthisintoMainfullsuccess",
+  "BuildExecutedByReviewer": false,
+  "MainEdits": false,
+  "GitMutation": false,
+  "NativeExecuted": false
+}

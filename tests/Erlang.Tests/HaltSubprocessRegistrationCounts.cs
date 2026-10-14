@@ -2,6 +2,6 @@ namespace Erlang.Tests;
 
 internal static class HaltSubprocessRegistrationCounts
 {
-    public const int DefaultCoreAndOtp = 487;
-    public const int WithOptionalIo = 489;
+    public const int DefaultCoreAndOtp = 493;
+    public const int WithOptionalIo = 495;
 }

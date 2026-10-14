@@ -1,0 +1,63 @@
+{
+  "Revision": 16,
+  "Status": "source-frozen-before-focused-repair-build",
+  "DeltaFiles": [
+    {
+      "Path": "src/Erlang.Terms/ReferenceIdentityLayout.cs",
+      "BeforeRevision15Sha256": "6bcbe0a65e7fbf11c6ae74185dc350a745b7ac1bc8998cf2bbc895cd7ce1831a",
+      "AfterRevision16Sha256": "c9452c33fcb6e76bb07278d58b36e89c4a73a7183404ea56223da49e0593412a",
+      "Bytes": 659
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessAliasLayout.cs",
+      "BeforeRevision15Sha256": "bfabdde68293797dff23e23745b15c7fdb30474b8c5fe6eafacbc74605f224e7",
+      "AfterRevision16Sha256": "e30b4e9bb39f26eda1ca85467862dbcf8a6e43ef756c9bfd93df262d55a8ffe0",
+      "Bytes": 422
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReferenceNumberLayout.cs",
+      "BeforeRevision15Sha256": "664503943f5bd4d480edf09f0be897d2ae492ffd928c2e918c19ff23b9045783",
+      "AfterRevision16Sha256": "c83191fd063fd1df4368af997be94b82cf7d6da2ff031aee563aa63729205154",
+      "Bytes": 485
+    },
+    {
+      "Path": "src/Erlang.Serialization/ExternalTermFormat.cs",
+      "BeforeRevision15Sha256": "066b3ab52bf980c63a02120f801b0857b3bf2f80017f5baab75e118a3895f193",
+      "AfterRevision16Sha256": "bc53acda4168036cee94cda8b3374d58a27d63f534ef733950bc0e24e84c6306",
+      "Bytes": 35774
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "BeforeRevision15Sha256": "4d24d562093d51c682fa9d31cd0784a6d295367d454ffab560c4657605e8393f",
+      "AfterRevision16Sha256": "ebf613082da3c9d7b2ab75a68445de88ab5903aa4b9a0c8568338cac9f4adfe4",
+      "Bytes": 173
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderPaddedReferenceChecks.cs",
+      "BeforeRevision15Sha256": "66fa627a7b100d66703d19c17ab5c9806ab8f53e3535bffcba88382367ec838c",
+      "AfterRevision16Sha256": "a613bc000b9dcd87953e43d523b45fc8c4480ec5d01accd676da7ac20d1bfc8e",
+      "Bytes": 6954
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderPaddedReferenceNames.cs",
+      "BeforeRevision15Sha256": "bce177133918930c66fe09aecedb5c3a9f8537eeb87ff8d63594ae96ee70e751",
+      "AfterRevision16Sha256": "d54e2b6f527bf72eb94aeef551fdd81eda05705c6f20212153dd4fa5dfe2148e",
+      "Bytes": 409
+    }
+  ],
+  "NativeExpectedTermsChanged": false,
+  "ExistingTestGroupCountUnchanged": true,
+  "ExpectedFullTests": 6481,
+  "SemanticCountCorrections": {
+    "DefaultCoreAndOtp": {
+      "Before": 487,
+      "After": 493
+    },
+    "WithOptionalIo": {
+      "Before": 489,
+      "After": 495
+    }
+  },
+  "PidReferenceContract": "five words plus PID marker requires internal-PID numeric tag3; valid identities preserved, invalid local tag badarg; no live PID lookup requirement",
+  "TestsExecuted": 0
+}
