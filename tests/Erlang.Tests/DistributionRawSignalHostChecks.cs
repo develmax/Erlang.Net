@@ -1,0 +1,258 @@
+using Erlang;
+
+namespace Erlang.Tests;
+
+internal static class DistributionRawSignalHostChecks
+{
+    internal static async Task Run()
+    {
+        int checks = 0;
+        await using var runtime = new ProcessRuntime();
+        await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+        await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var input = new RuntimeNodeFoundationHostActor(runtime);
+        await using var target = new RuntimeNodeFoundationHostActor(runtime);
+        await using var foreign = new ProcessRuntime();
+        await using var foreignKernel = new RuntimeNodeFoundationHostActor(foreign);
+        await using var foreignSender = new RuntimeNodeFoundationHostActor(foreign);
+        await kernel.InvokeAsync(async context =>
+        {
+            runtime.Register(ConnectedDistributionHostNames.Kernel, context.Self);
+            _ = await runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                ConnectedIngressHostNames.SetNode,
+                Term.A(DistributionRawSignalHostNames.Local),
+                Term.I(0)
+            );
+
+            return true;
+        });
+        var pending = runtime.DistributionPending;
+        Term host = pending.BeginPending(Term.A(DistributionRawSignalHostNames.Remote));
+        Term opaque = await controller.InvokeAsync(async context =>
+            await DistributionControllerAdapters.SetNode(
+                context,
+                Term.A(DistributionRawSignalHostNames.Remote),
+                context.Self,
+                Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory), Term.I(0))
+            ));
+        await controller.Invoke(context =>
+            DistributionControllerAdapters.SetInputHandler(context, opaque, input.Process.Pid));
+        await target.Invoke(context =>
+        {
+            context.TrapExits = true;
+
+            return true;
+        });
+        await foreignKernel.InvokeAsync(async context =>
+        {
+            foreign.Register(ConnectedDistributionHostNames.Kernel, context.Self);
+            _ = await foreign.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                ConnectedIngressHostNames.SetNode,
+                Term.A(DistributionRawSignalHostNames.Remote),
+                Term.I(0)
+            );
+
+            return true;
+        });
+        await input.Invoke(context =>
+        {
+            Reject(() => pending.ApplyConnectedLinkSignal(
+                host,
+                context,
+                foreignSender.Process.Pid,
+                target.Process.Pid
+            ));
+
+            return true;
+        });
+        await target.Invoke(context =>
+        {
+            Reject(() => pending.BeginConnectedUnlinkSignal(host, context, foreignSender.Process.Pid));
+
+            return true;
+        });
+        Check((await Links()).Equals(Nil.Value));
+        Check(pending.ConnectedSnapshot(host).RawInputAttempts == 0);
+        var remote = new Pid(foreignSender.Process.Pid.Node, foreignSender.Process.Pid.Id,
+            foreignSender.Process.Pid.Creation);
+        byte[] serializedForeign = DistributionPassThroughCodec.EncodeProcessControl(
+            Term.Tuple(Term.I(DistributionControlOpcodes.Link), foreignSender.Process.Pid, target.Process.Pid));
+        Check((await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque,
+            new BitString(serializedForeign)))).Equals(Term.A(ConnectedDistributionHostNames.Success)));
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        Check(pending.ConnectedSnapshot(host).RawInputAttempts == 1);
+        Check(pending.ConnectedSnapshot(host).AcceptedInputPackets == 1);
+        await Send(Link());
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkId),
+            new Integer(DistributionRawSignalHostNames.UnlinkId),
+            remote,
+            target.Process.Pid
+        ));
+        await Drain();
+        Check((await Links()).Equals(Nil.Value));
+        Check((await TakeControl()).Equals(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            new Integer(DistributionRawSignalHostNames.UnlinkId),
+            target.Process.Pid,
+            remote
+        )));
+        await Send(Link());
+        await Drain();
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkId),
+            new Integer(ulong.MaxValue),
+            remote,
+            target.Process.Pid
+        ));
+        await Drain();
+        Check((await Links()).Equals(Nil.Value));
+        Check((await TakeControl()).Equals(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            new Integer(ulong.MaxValue),
+            target.Process.Pid,
+            remote
+        )));
+        await Send(Link());
+        await Drain();
+        object runtimeGate = typeof(ProcessRuntime).GetField(
+            DistributionRawSignalHostNames.RuntimeGate,
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic
+        )!.GetValue(runtime)!;
+        lock (runtimeGate)
+            typeof(ProcessRuntime).GetField(
+                DistributionRawSignalHostNames.NextUnlinkId,
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic
+            )!.SetValue(runtime, ulong.MaxValue);
+        ulong? unlinkId = await target.Invoke(context =>
+            pending.BeginConnectedUnlinkSignal(host, context, remote));
+        Check(unlinkId == 1);
+        ulong id = unlinkId ?? throw new InvalidOperationException(DistributionRawSignalHostNames.Failure);
+        Check((await TakeControl()).Equals(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkId),
+            new Integer(id),
+            target.Process.Pid,
+            remote
+        )));
+        Check((await Links()).Equals(Nil.Value));
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            new Integer(id + 1),
+            remote,
+            target.Process.Pid
+        ));
+        await Drain();
+        await Send(Link());
+        await Drain();
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            new Integer(id),
+            remote,
+            target.Process.Pid
+        ));
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        Term reason = Term.A(DistributionRawSignalHostNames.Reason);
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.Exit),
+            remote,
+            target.Process.Pid,
+            reason
+        ));
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, reason)) == true);
+        Check((await Links()).Equals(Nil.Value));
+        Check(!target.Process.Completion.IsCompleted);
+        await Send(Term.Tuple(
+            Term.I(DistributionControlOpcodes.Exit2),
+            remote,
+            target.Process.Pid,
+            reason
+        ));
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, reason)) == true);
+        Check(!target.Process.Completion.IsCompleted);
+        await Send(Link());
+        pending.CloseConnected(host);
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote,
+            Term.A(DistributionRawSignalHostNames.Disconnected))) == true);
+        Check((await Links()).Equals(Nil.Value));
+        Check(!target.Process.Completion.IsCompleted);
+        if (checks != DistributionRawSignalHostNames.ExpectedAssertions)
+            throw new InvalidOperationException(DistributionRawSignalHostNames.Failure);
+
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new
+        {
+            RawSignalAssertions = checks,
+            NativeExecuted = false
+        }));
+
+        TupleTerm Link() => Term.Tuple(Term.I(DistributionControlOpcodes.Link), remote, target.Process.Pid);
+
+        async Task Send(TupleTerm control)
+        {
+            byte[] frame = DistributionPassThroughCodec.EncodeProcessControl(control);
+            Check((await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque,
+                new BitString(frame)))).Equals(Term.A(ConnectedDistributionHostNames.Success)));
+        }
+
+        async Task Drain() => await target.InvokeAsync(async context =>
+        {
+            Check(await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero) is null);
+
+            return true;
+        });
+
+        Task<Term> Links() => target.InvokeAsync(async context =>
+        {
+            Term result = await runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                ProcessInfoNames.Function,
+                context.Self,
+                Term.A(ProcessInfoNames.Links)
+            );
+            Check(result is TupleTerm { Items.Count: 2 });
+
+            return ((TupleTerm)result).Items[1];
+        });
+
+        Task<Term?> ExitMessage() => target.InvokeAsync(async context =>
+            await context.ReceiveAsync<Term>(message => message, DistributionRawSignalHostNames.Deadline));
+
+        Task<Term> TakeControl() => controller.Invoke(context =>
+        {
+            var buffer = pending.TakeConnectedOutput(host, context, out _);
+            Check(buffer is { SegmentCount: 1 });
+            byte[] frame = buffer!.Segments[0].ToArray();
+            Check(frame[0] == DistributionPassThroughLayout.Marker);
+
+            return ExternalTermFormat.Decode(frame.AsSpan(DistributionPassThroughLayout.MarkerBytes));
+        });
+
+        void Reject(Action action)
+        {
+            try
+            {
+                action();
+                Check(false);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+            {
+                Check(true);
+            }
+        }
+
+        void Check(bool condition)
+        {
+            if (!condition)
+                throw new InvalidOperationException(DistributionRawSignalHostNames.Failure);
+            checks++;
+        }
+    }
+}

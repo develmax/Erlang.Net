@@ -1,0 +1,18 @@
+from pathlib import Path
+import hashlib,json
+r=Path.cwd();a=r/'artifacts';p=a/'native269-distribution-queue-collector-source-freeze-revision1.json';j=lambda p:json.loads(p.read_text(encoding='utf-8-sig'));sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper();f=j(p);b=r/f['Candidate']
+assert len(f['Files'])==15 and len(f['ExactSharedSources'])==9
+for x in f['Files']:assert sha(b/x['Path'])==x['Sha256']
+for x in f['ExactSharedSources']:assert sha(r/x['Path'])==x['Sha256'] and sha(b/x['Path'])==x['Sha256']
+assert sha(r/f['DerivationLedgerPath'])==f['DerivationLedgerSha256']
+t=b/'tools/Erlang.DistributionQueueContrasts';plan=j(t/'source-plan.json');assert sha(t/'source-plan.json')==f['PlanSha256'];assert plan['Pin']=='ad05823719d77c8faee87348ea39513d4e2f99c5' and plan['SourceTag']=='OTP-29.1.1'
+cases=plan['Scenarios'];assert len(cases)==len(set(cases))==7
+assert sum(len(plan['RequiredArtifacts'][x]) for x in cases)==132
+assert sha(t/'distribution_queue_stat_probe.erl')==sha(a/'distribution-queue-stat-observer-proposal/distribution_queue_stat_probe.erl')
+for x in plan['Sources']:assert sha(t/x['File'])==x['Sha256']
+exporter=(t/'QueueExporter.cs').read_text();assert exporter.index('Directory.CreateDirectory(output)')>exporter.index('foreach (string scenario in QueueNames.Scenarios)')
+assert 'for (int index = 0; index < QueueNames.Scenarios.Length; index++)' in exporter and 'await NodeProcess.Run(' in exporter and 'exception.ToString()' in exporter
+evaluation=(t/'QueueEvaluation.cs').read_text();assert 'QueueNames.ScenarioModules[scenario]' in evaluation
+workflow=(b/'.github/workflows/distribution-queue-contrasts.yml').read_text();assert workflow.count('git clone --depth 1 --branch OTP-29.1.1')==1 and 'if: always()' in workflow
+proof={'Status':'PASSRootIndependentCollectorSourceReview','FreezeSha256':sha(p),'NewPaths':15,'ExactSharedSources':9,'FreshCases':7,'RequiredArtifacts':132,'RawSourcePlanAndInventoriesBound':True,'PreWriteValidationReviewed':True,'FreshCaseInvocationAndOuterExceptionReviewed':True,'BuildWorkflowSinglePinnedBuildAlwaysUpload':True,'NativeExecuted':False,'BuildExecutedByReviewer':False,'Scope':'Collector/workflow and raw closure review only; original proposal semantic source audits remain separate. No queue ABI parity or expected SDK values claimed.'}
+(a/'root-queue-collector-independent-source-review.json').write_text(json.dumps(proof,indent=2)+'\n',encoding='utf-8');print(proof['Status'])

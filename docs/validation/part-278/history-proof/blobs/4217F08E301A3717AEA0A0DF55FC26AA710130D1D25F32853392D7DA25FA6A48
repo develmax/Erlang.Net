@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json,re
+r=Path.cwd();a=r/'artifacts';d=json.loads((a/'part278-main-source-import.json').read_text());old=a/'part278-main-initial-style-failure/source';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper();rows=[];changed=[]
+for x in d['Files']:
+    p=r/x['Path'];before=(old/x['Path']).read_text(encoding='utf-8-sig');after=p.read_text(encoding='utf-8-sig')
+    if sha(p)!=x['Sha256']:
+        assert re.sub(r'\s','',before)==re.sub(r'\s','',after)
+        assert re.findall(r'"(?:[^"\\]|\\.)*"',before)==re.findall(r'"(?:[^"\\]|\\.)*"',after)
+        changed.append(x['Path'])
+    rows.append({**x,'BeforeFormattingSha256':x['Sha256'],'Sha256':sha(p)})
+assert set(changed)=={'tests/Erlang.Tests/'+n for n in ['DistributionRawInputHostChecks.cs','DistributionRawInputHostNames.cs','DistributionRawSignalHostChecks.cs','DistributionRawSignalHostNames.cs','Program.cs']}
+proof={'Status':'PASSActualMainSDKFormatterOnly','ChangedPaths':changed,'NonWhitespaceExact':True,'QuotedValuesExact':True,'Files':rows,'RuntimeSourceUnchangedByFormatter':True,'FullMainExecuted':False}
+(a/'part278-main-source-freeze-after-style.json').write_text(json.dumps(proof,indent=2)+'\n',encoding='utf-8');print('Exact formatting-only5; final source39 freeze')

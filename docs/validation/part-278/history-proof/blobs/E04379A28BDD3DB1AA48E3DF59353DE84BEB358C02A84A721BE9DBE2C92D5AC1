@@ -1,0 +1,176 @@
+using Erlang;
+using Erlang.Tests;
+
+internal static class DistributionRawSignalProbe
+{
+    internal static async Task Run()
+    {
+        int checks = 0;
+        await using var runtime = new ProcessRuntime();
+        await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+        await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var input = new RuntimeNodeFoundationHostActor(runtime);
+        await using var target = new RuntimeNodeFoundationHostActor(runtime);
+        await using var foreign = new ProcessRuntime();
+        await using var foreignKernel = new RuntimeNodeFoundationHostActor(foreign);
+        await using var foreignSender = new RuntimeNodeFoundationHostActor(foreign);
+        await kernel.InvokeAsync(async context =>
+        {
+            runtime.Register(ConnectedProbeNames.Kernel, context.Self);
+            _ = await runtime.Modules.Call(context, ErlangModuleNames.Module,
+                ConnectedIngressProbeNames.SetNode, Term.A(DistributionRawSignalProbeNames.Local), Term.I(0));
+
+            return true;
+        });
+        var pending = runtime.DistributionPending;
+        Term host = pending.BeginPending(Term.A(DistributionRawSignalProbeNames.Remote));
+        Term opaque = await controller.InvokeAsync(async context =>
+            await DistributionControllerAdapters.SetNode(context,
+                Term.A(DistributionRawSignalProbeNames.Remote), context.Self,
+                Term.Tuple(Term.I(DistributionPassThroughFlags.Mandatory), Term.I(0))));
+        await controller.Invoke(context =>
+            DistributionControllerAdapters.SetInputHandler(context, opaque, input.Process.Pid));
+        await target.Invoke(context =>
+        {
+            context.TrapExits = true;
+
+            return true;
+        });
+        await foreignKernel.InvokeAsync(async context =>
+        {
+            foreign.Register(ConnectedProbeNames.Kernel, context.Self);
+            _ = await foreign.Modules.Call(context, ErlangModuleNames.Module,
+                ConnectedIngressProbeNames.SetNode, Term.A(DistributionRawSignalProbeNames.Remote), Term.I(0));
+
+            return true;
+        });
+        await input.Invoke(context =>
+        {
+            Reject(() => pending.ApplyConnectedLinkSignal(host, context, foreignSender.Process.Pid, target.Process.Pid));
+
+            return true;
+        });
+        await target.Invoke(context =>
+        {
+            Reject(() => pending.BeginConnectedUnlinkSignal(host, context, foreignSender.Process.Pid));
+
+            return true;
+        });
+        Check((await Links()).Equals(Nil.Value));
+        Check(pending.ConnectedSnapshot(host).RawInputAttempts == 0);
+        var remote = new Pid(foreignSender.Process.Pid.Node, foreignSender.Process.Pid.Id,
+            foreignSender.Process.Pid.Creation);
+        byte[] serializedForeign = DistributionPassThroughCodec.EncodeProcessControl(
+            Term.Tuple(Term.I(DistributionControlOpcodes.Link), foreignSender.Process.Pid, target.Process.Pid));
+        Check((await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque,
+            new BitString(serializedForeign)))).Equals(Term.A(ConnectedProbeNames.Success)));
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        Check(pending.ConnectedSnapshot(host).RawInputAttempts == 1);
+        Check(pending.ConnectedSnapshot(host).AcceptedInputPackets == 1);
+        await Send(Link());
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        await Send(Term.Tuple(Term.I(DistributionControlOpcodes.UnlinkId),
+            Term.I(DistributionRawSignalProbeNames.UnlinkId), remote, target.Process.Pid));
+        await Drain();
+        Check((await Links()).Equals(Nil.Value));
+        Check((await TakeControl()).Equals(Term.Tuple(Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            Term.I(DistributionRawSignalProbeNames.UnlinkId), target.Process.Pid, remote)));
+        await Send(Link());
+        await Drain();
+        ulong? unlinkId = await target.Invoke(context =>
+            pending.BeginConnectedUnlinkSignal(host, context, remote));
+        Check(unlinkId is > 0);
+        ulong id = unlinkId ?? throw new InvalidOperationException(DistributionRawSignalProbeNames.Failure);
+        Check((await TakeControl()).Equals(Term.Tuple(Term.I(DistributionControlOpcodes.UnlinkId),
+            Term.I(id), target.Process.Pid, remote)));
+        Check((await Links()).Equals(Nil.Value));
+        await Send(Term.Tuple(Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            Term.I(id + 1), remote, target.Process.Pid));
+        await Drain();
+        await Send(Link());
+        await Drain();
+        await Send(Term.Tuple(Term.I(DistributionControlOpcodes.UnlinkIdAck),
+            Term.I(id), remote, target.Process.Pid));
+        await Drain();
+        Check((await Links()).Equals(Term.List(remote)));
+        Term reason = Term.A(DistributionRawSignalProbeNames.Reason);
+        await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Exit), remote, target.Process.Pid, reason));
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, reason)) == true);
+        Check((await Links()).Equals(Nil.Value));
+        Check(!target.Process.Completion.IsCompleted);
+        await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Exit2), remote, target.Process.Pid, reason));
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, reason)) == true);
+        Check(!target.Process.Completion.IsCompleted);
+        await Send(Link());
+        pending.CloseConnected(host);
+        Check((await ExitMessage())?.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote,
+            Term.A(DistributionRawSignalProbeNames.Disconnected))) == true);
+        Check((await Links()).Equals(Nil.Value));
+        Check(!target.Process.Completion.IsCompleted);
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new
+        {
+            RawSignalAssertions = checks,
+            NativeExecuted = false
+        }));
+
+        TupleTerm Link() => Term.Tuple(Term.I(DistributionControlOpcodes.Link), remote, target.Process.Pid);
+
+        async Task Send(TupleTerm control)
+        {
+            byte[] frame = DistributionPassThroughCodec.EncodeProcessControl(control);
+            Check((await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque,
+                new BitString(frame)))).Equals(Term.A(ConnectedProbeNames.Success)));
+        }
+
+        async Task Drain() => await target.InvokeAsync(async context =>
+        {
+            Check(await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero) is null);
+
+            return true;
+        });
+
+        Task<Term> Links() => input.InvokeAsync(async context =>
+        {
+            Term result = await runtime.Modules.Call(context, ErlangModuleNames.Module,
+                ProcessInfoNames.Function, target.Process.Pid, Term.A(ProcessInfoNames.Links));
+            Check(result is TupleTerm { Items.Count: 2 });
+
+            return ((TupleTerm)result).Items[1];
+        });
+
+        Task<Term?> ExitMessage() => target.InvokeAsync(async context =>
+            await context.ReceiveAsync<Term>(message => message, DistributionRawSignalProbeNames.Deadline));
+
+        Task<Term> TakeControl() => controller.Invoke(context =>
+        {
+            var buffer = pending.TakeConnectedOutput(host, context, out _);
+            Check(buffer is { SegmentCount: 1 });
+            byte[] frame = buffer!.Segments[0].ToArray();
+            Check(frame[0] == DistributionPassThroughLayout.Marker);
+
+            return ExternalTermFormat.Decode(frame.AsSpan(DistributionPassThroughLayout.MarkerBytes));
+        });
+
+        void Reject(Action action)
+        {
+            try
+            {
+                action();
+                Check(false);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+            {
+                Check(true);
+            }
+        }
+
+        void Check(bool condition)
+        {
+            if (!condition)
+                throw new InvalidOperationException(DistributionRawSignalProbeNames.Failure);
+            checks++;
+        }
+    }
+}

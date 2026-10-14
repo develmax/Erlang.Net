@@ -1,0 +1,70 @@
+{
+  "Stage": "READ_ONLY_INDEPENDENT_PERMANENT_RAW_PROMOTION_SOURCE_PEER_PASS",
+  "Reviewer": "dist_next",
+  "Freeze": "artifacts\\distribution-raw-router-permanent-promotion-source-freeze-prebuild-revision2.json",
+  "FreezeSha256": "366C81C62D34653B7FD436689B24B3D06310CBF13DAB04E104D125CCBF5584EC",
+  "Production19ExactFinal8": true,
+  "Overlay24RawHashesAndSourceContentExact": true,
+  "Dependencies5ExactCurrentMain": true,
+  "Extraction": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "OriginalSha256": "78D9EF95BCA72C787B0904DD6EE717A7BA2DEF35ECD48C495149E7A29DC0F61F",
+      "ActionsAssertionsOrderingExactAfterDeclaredNamespaceUsingAndNamesSubstitutions": true,
+      "OneNoncountingGuard": 41,
+      "ReferencedConstantMeaningBindings": [
+        "ConnectedDistributionHostNames.Kernel",
+        "ConnectedIngressHostNames.CookieModule",
+        "ConnectedIngressHostNames.FunctionArity",
+        "ConnectedIngressHostNames.FunctionEnvironment",
+        "ConnectedIngressHostNames.FunctionIndex",
+        "ConnectedIngressHostNames.FunctionOldUnique",
+        "ConnectedIngressHostNames.SetNode",
+        "ConnectedIngressHostNames.UniqueBytes",
+        "DistributionRawInputHostNames.Deadline",
+        "DistributionRawInputHostNames.ExitingControllers",
+        "DistributionRawInputHostNames.Failure",
+        "DistributionRawInputHostNames.Local",
+        "DistributionRawInputHostNames.MonitorOpcode",
+        "DistributionRawInputHostNames.Ok",
+        "DistributionRawInputHostNames.PartialBits",
+        "DistributionRawInputHostNames.PassThrough",
+        "DistributionRawInputHostNames.Payload",
+        "DistributionRawInputHostNames.Remote",
+        "DistributionRawInputHostNames.StopLocalNode"
+      ]
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawSignalHostChecks.cs",
+      "OriginalSha256": "7854803CAE9B9B77D0092F743002F142F4752E8734AB52DB6FDFE76762861C65",
+      "ActionsAssertionsOrderingExactAfterDeclaredNamespaceUsingAndNamesSubstitutions": true,
+      "OneNoncountingGuard": 60,
+      "ReferencedConstantMeaningBindings": [
+        "ConnectedDistributionHostNames.Kernel",
+        "ConnectedDistributionHostNames.Success",
+        "ConnectedIngressHostNames.SetNode",
+        "DistributionRawSignalHostNames.Deadline",
+        "DistributionRawSignalHostNames.Disconnected",
+        "DistributionRawSignalHostNames.Failure",
+        "DistributionRawSignalHostNames.Local",
+        "DistributionRawSignalHostNames.NextUnlinkId",
+        "DistributionRawSignalHostNames.Reason",
+        "DistributionRawSignalHostNames.Remote",
+        "DistributionRawSignalHostNames.RuntimeGate",
+        "DistributionRawSignalHostNames.UnlinkId"
+      ]
+    }
+  ],
+  "ProgramOnlyTwoAppendsExactBefore": true,
+  "OldRowsAndExisting132And24SourcePreserved": true,
+  "PreservedCritical6ExactCurrentMain": true,
+  "SparseOverlayVerifierCorrection": "Dependencies belong to current Main, not absent sparse-overlay files. Namespace insertion also removes redundant using Erlang.Tests; actor tokens/actions otherwise exact. No candidate correction required.",
+  "PriorActualReceipt": "artifacts/distribution-raw-router-revision8-executed/receipt.json",
+  "PriorActualReceiptSha256": "3631F22D57E38806A9805B6C41766AE7343FF89F59F95BE768A08771D61A5E6E",
+  "ActualNewBuildExecutedByReviewer": false,
+  "NativeExecutedByReviewer": false,
+  "MainMutated": false,
+  "GitMutated": false,
+  "Findings": [],
+  "Limit": "Source peer of permanent extraction only; inherited bounded execution remains prior final8 scope and unsupported native distribution controls remain blockers."
+}

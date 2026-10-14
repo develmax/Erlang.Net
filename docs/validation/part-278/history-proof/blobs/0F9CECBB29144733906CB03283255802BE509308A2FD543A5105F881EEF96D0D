@@ -1,0 +1,78 @@
+name: Pinned OTP distribution queue observations
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build standalone distribution queue observation tool
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          dotnet build tools/Erlang.DistributionQueueContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
+      - name: Build and attest the pinned original OTP compiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "PINNED_BEAM_SOURCE_BEGIN $GITHUB_SHA"
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/beam-otp-source
+            source_commit="$(git -C artifacts/beam-otp-source rev-parse HEAD)"
+            test "$source_commit" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            echo "PINNED_BEAM_SOURCE_VERIFIED $source_commit"
+            cd artifacts/beam-otp-source
+            echo 'PINNED_BEAM_CONFIGURE --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et'
+            ./configure --prefix="$GITHUB_WORKSPACE/artifacts/beam-otp-oracle" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            echo 'PINNED_BEAM_MAKE -j2'
+            make -j2
+            echo 'PINNED_BEAM_INSTALL'
+            make install
+            test "$(cat "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang/releases/29/OTP_VERSION")" = 29.1.1
+            echo 'PINNED_BEAM_INSTALL_VERIFIED 29.1.1'
+          } 2>&1 | tee artifacts/beam-otp-build.log
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib
+          root = pathlib.Path(os.environ['GITHUB_WORKSPACE'])
+          log = root / 'artifacts/beam-otp-build.log'
+          evidence = {
+              'SourceCommit': 'ad05823719d77c8faee87348ea39513d4e2f99c5',
+              'SourceTag': 'OTP-29.1.1',
+              'SourceBuildCompleted': True,
+              'InstalledOtpRoot': str(root / 'artifacts/beam-otp-oracle/lib/erlang'),
+              'SourceBuildLog': str(log),
+              'SourceBuildLogSha256': hashlib.sha256(log.read_bytes()).hexdigest().upper(),
+              'HarnessCommit': os.environ['GITHUB_SHA'],
+              'RunId': os.environ['GITHUB_RUN_ID'],
+              'RunAttempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'Job': os.environ['GITHUB_JOB'],
+              'RunnerOs': os.environ['RUNNER_OS'],
+              'ConfigureOptions': ['--without-javac','--without-wx','--without-odbc','--without-debugger','--without-observer','--without-et'],
+              'BuildArguments': ['make','-j2'],
+              'InstallArguments': ['make','install']
+          }
+          (root / 'artifacts/beam-source-build-evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
+          PY
+      - name: Capture seven original queue cases in separate fresh VMs
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet run --project tools/Erlang.DistributionQueueContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-queue-contrasts artifacts/beam-source-build-evidence.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pinned-distribution-queue-contrasts
+          path: |
+            artifacts/distribution-queue-contrasts
+            artifacts/beam-otp-build.log
+            artifacts/beam-source-build-evidence.json
+            artifacts/beam-fixture-tool-build.log

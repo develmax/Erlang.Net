@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../tests/Erlang.Tests/Erlang.Tests.csproj" />
+    <Compile Include="../tests/Erlang.Tests/RuntimeNodeFoundationHostActor.cs" Link="RuntimeNodeFoundationHostActor.cs" />
+    <Compile Include="../tests/Erlang.Tests/RuntimeNodeFoundationHostActorParameters.cs" Link="RuntimeNodeFoundationHostActorParameters.cs" />
+  </ItemGroup>
+</Project>

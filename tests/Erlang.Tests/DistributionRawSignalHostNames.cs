@@ -1,0 +1,16 @@
+namespace Erlang.Tests;
+
+internal static class DistributionRawSignalHostNames
+{
+    internal const string Test = "runtime/distribution-raw-signal-link-unlink-exit-owned-process-signals";
+    internal const int ExpectedAssertions = 60;
+    internal const string Local = "raw_signal_local@localhost";
+    internal const string Remote = "raw_signal_remote@localhost";
+    internal const string RuntimeGate = "gate";
+    internal const string NextUnlinkId = "nextDistributionUnlinkId";
+    internal const string Failure = "Raw distribution signal assertion failed";
+    internal const string Reason = "remote_exit_reason";
+    internal const string Disconnected = "noconnection";
+    internal const ulong UnlinkId = 101;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+}

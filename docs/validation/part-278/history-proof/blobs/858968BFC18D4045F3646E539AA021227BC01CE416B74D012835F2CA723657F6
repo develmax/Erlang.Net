@@ -1,0 +1,23 @@
+namespace Erlang;
+
+public sealed partial class ProcessRuntime
+{
+    internal void QueueDistributionControllerKill(ProcessContext controller)
+    {
+        lock (gate)
+        {
+            if (!IsOwnedLiveNodeProcess(controller))
+                return;
+            QueueExit(
+                controller,
+                InitializationPid,
+                Term.A(ProcessExitSignals.Kill),
+                true,
+                false,
+                false,
+                null,
+                false
+            );
+        }
+    }
+}

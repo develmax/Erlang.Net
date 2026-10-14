@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,hashlib,subprocess,sys,re
+if len(sys.argv)!=2 or not re.fullmatch('[0-9a-f]{40}',sys.argv[1]): raise SystemExit('One exact published head is required')
+head=sys.argv[1]
+A=Path('artifacts')
+f=A/'native269-distribution-queue-collector-source-freeze-final-revision2.json'
+j=json.loads(f.read_bytes())
+sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+assert sha(f.read_bytes())=='2567386A977A1C73FD74B87073E46A28E1594FA9962C562A77DB97CD823C9DE6'
+blob=lambda p:subprocess.check_output(['git','cat-file','blob',head+':'+p])
+rows=[]
+for r in j['Files']+j['ExactSharedSources']:
+    p=r['Path']
+    if p.endswith('/README.md'):continue
+    actual=blob(p);expected=r['SourceContent'].encode()
+    strict=p.endswith('.erl') or p.endswith('source-plan.json')
+    assert actual==expected if strict else actual.replace(b'\r\n',b'\n')==expected.replace(b'\r\n',b'\n'),p
+    rows.append({'Path':p,'CommittedSha256':sha(actual),'ReviewedRawSha256':r['Sha256'],'RawExact':actual==expected,'OnlyCrLfAllowance':not strict})
+planbytes=blob('tools/Erlang.DistributionQueueContrasts/source-plan.json')
+plan=json.loads(planbytes)
+assert sha(planbytes)=='7330C72086B9E1522438BECED9E9A4FB17AAA172F1DBBE4727C9C7910E443726'
+assert plan['Pin']=='ad05823719d77c8faee87348ea39513d4e2f99c5' and plan['SourceTag']=='OTP-29.1.1'
+assert plan['FreshScenarioVMs']==7 and plan['AdditionalRuntimeAttestationVM']==1 and plan['FreshVmPerScenario']
+assert len(plan['Scenarios'])==len(set(plan['Scenarios']))==7 and sum(map(len,plan['RequiredArtifacts'].values()))==132
+assert not plan['SdkExpectedUsed'] and not plan['SemanticCompatibilityClaim'] and not plan['PhysicalQueueAllocatorParityClaim']
+for r in plan['Sources']:assert sha(blob('tools/Erlang.DistributionQueueContrasts/'+r['File']))==r['Sha256']
+assert len(rows)==23
+proof={'Status':'PASS_EXACT_COMMITTED_QUEUE_SOURCE_CLOSURE','Head':head,'SourceBindings':rows,'FreshScenarioVMs':7,'MetadataVMs':1,'RequiredCaseArtifacts':132,'OnlyOneQueueWorkflowIntended':True,'Original275Rerun':False,'ReadmeMetadataExcludedExplicitly':True,'NativeExecuted':False,'NoPostPerformedByGuard':True}
+out=A/'part-278-native269-queue-committed-source-guard.json'
+if out.exists():assert json.loads(out.read_bytes())==proof,'Existing head/source guard differs; do not replace'
+else:out.write_bytes((json.dumps(proof,indent=2)+'\n').encode())
+print('Committed source PASS',head,sha(out.read_bytes()))

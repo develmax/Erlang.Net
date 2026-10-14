@@ -1,0 +1,16 @@
+internal static class GatewayFocusNames
+{
+    internal const string Assembly = "Erlang.Tests";
+    internal const string Run = "Run";
+    internal const string ResourceGroup = "Erlang.Tests.ErlangHashHostChecks";
+    internal const string Resources = "Resources";
+    internal static readonly string[] Groups = [
+        "Erlang.Tests.RuntimeSetNodeHostChecks",
+        "Erlang.Tests.RuntimeNodeAdmissionFoundationHostChecks",
+        "Erlang.Tests.RuntimeNodeIdentityFoundationHostChecks",
+        "Erlang.Tests.ModuleRegistryLeaseChecks",
+        "Erlang.Tests.HashIntrinsicHostChecks",
+        "Erlang.Tests.ErlangHashHostChecks",
+        "LocalFunctionIdentityChecks"
+    ];
+}

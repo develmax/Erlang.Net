@@ -13,5 +13,6 @@ public sealed record DistributionConnectedSnapshot(
     long ConsumedOutputPackets,
     long QueuedPacketBytes,
     int QueuedPackets,
-    int QueuedSegments
+    int QueuedSegments,
+    long RawInputAttempts
 );

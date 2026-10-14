@@ -1,0 +1,28 @@
+{
+  "Status": "SOURCE_ONLY",
+  "OriginalProbeSha256": "D2C1DB014761E431C8B463AEEDF2E21DEB484C93BDE912E2ED739C4FB5E7FB53",
+  "OriginalPlanSha256": "A2D0238AA5AB4827723CC7E8D4723407A168464C949069D7C51886A9F678CAC6",
+  "AdditiveProbeSha256": "C3CCADF2350B4D98CAEE03A16D177551807FEABDE35309C59F03A46F75A72A0C",
+  "AdditivePlanSha256": "DABEF167F52C25FE880C84D743635D65962D42CCFDDB8B9E4766BF652AF30FC1",
+  "FreshProbeSha256": "E45AD946E31E8CD2D10A685AC651CAEE575268834A8B37A4473AAAAD8C3999BF",
+  "OriginalObserveAndBelowRawBytesExact": true,
+  "OriginalObserveTriple": "        observe(small, {small, 17}, Controller, Handle),\n        observe(large_binary, {large_binary, binary:copy(<<0, 128, 255, 1>>, 16384)}, Controller, Handle),\n        observe(two_binaries, {two_binaries, binary:copy(<<2>>, 8192), binary:copy(<<3>>, 8192)}, Controller, Handle),",
+  "NewCaseSelection": "        save(\"case.etf\", Case),\n        case Case of\n            small -> observe(small, {small, 17}, Controller, Handle);\n            large_binary -> observe(large_binary, {large_binary, binary:copy(<<0, 128, 255, 1>>, 16384)}, Controller, Handle);\n            two_binaries -> observe(two_binaries, {two_binaries, binary:copy(<<2>>, 8192), binary:copy(<<3>>, 8192)}, Controller, Handle)\n        end,",
+  "Original33Union": 33,
+  "FreshPrimaryRequired": {
+    "small": 16,
+    "large_binary": 16,
+    "two_binaries": 16
+  },
+  "AdditiveRequired": {
+    "two_buffers": 30,
+    "handle_domain": 22,
+    "input_counter": 17,
+    "input_malformed": 15
+  },
+  "TotalRequiredPerCaseFiles": 132,
+  "OriginalProposalsUnmodified": true,
+  "MainWritten": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false
+}

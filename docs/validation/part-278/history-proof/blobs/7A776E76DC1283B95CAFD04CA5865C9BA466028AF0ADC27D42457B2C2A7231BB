@@ -1,0 +1,18 @@
+using Erlang;
+
+internal static class DistributionRawInputProbeNames
+{
+    internal const string Local = "raw_input_local@localhost";
+    internal const string Remote = "raw_input_remote@localhost";
+    internal const string ExitingControllers = "exitingInputControllers";
+    internal const string StopLocalNode = "StopLocalNode";
+    internal const string Payload = "raw_input_payload";
+    internal const string Failure = "Raw distribution input assertion failed";
+    internal const int LinkOpcode = 1;
+    internal const int ExitOpcode = 3;
+    internal const int MonitorOpcode = 19;
+    internal const byte PassThrough = 112;
+    internal const int PartialBits = 1;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+    internal static readonly Atom Ok = Term.A(ConnectedProbeNames.Success);
+}

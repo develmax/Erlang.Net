@@ -14,4 +14,5 @@ internal sealed class DistributionConnectedEntry(
     internal ulong Flags { get; } = flags;
     internal uint RemoteCreation { get; } = remoteCreation;
     internal Pid? InputHandler { get; set; }
+    internal long RawInputAttempts { get; set; }
 }

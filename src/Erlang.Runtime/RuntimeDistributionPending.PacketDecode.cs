@@ -21,7 +21,8 @@ public sealed partial class RuntimeDistributionPending
 
     private static IReadOnlyList<EtfNodeEpoch> CollectConnectedPacketEpochs(
         ReadOnlySpan<byte> packet,
-        EtfDecodeOptions options
+        EtfDecodeOptions options,
+        bool allowControlOnly = false
     )
     {
         if (packet.Length > ExternalTermFormat.DefaultMaxBytes || packet.IsEmpty ||
@@ -30,6 +31,8 @@ public sealed partial class RuntimeDistributionPending
         var epochs = new List<EtfNodeEpoch>();
         int controlBytes = MeasureConnectedVersionedTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, epochs);
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + controlBytes);
+        if (allowControlOnly && payloadOffset == packet.Length)
+            return epochs;
         int payloadBytes = MeasureConnectedVersionedTerm(packet[payloadOffset..], options, epochs);
         if (payloadOffset + payloadBytes != packet.Length)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));

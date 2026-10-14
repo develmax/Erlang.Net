@@ -160,6 +160,8 @@ public sealed partial class RuntimeDistributionPending
     {
         lock (gate)
         {
+            exitingInputControllers.Remove(process);
+            runtime.ConnectedLinkProcessTerminated(process, reason);
             RetireControllerAdoptions(controller: process);
             if (ReferenceEquals(kernelSetup, process))
             {

@@ -1,0 +1,52 @@
+namespace Erlang;
+
+public static class DistributionControlOpcodes
+{
+    public const int Link = 1;
+    public const int Exit = 3;
+    public const int Exit2 = 8;
+    public const int UnlinkId = 35;
+    public const int UnlinkIdAck = 36;
+    public const int Send = DistributionPassThroughLayout.SendOpcode;
+    public const int LegacyUnlink = 4;
+    public const int RegisteredSend = DistributionPassThroughLayout.RegisteredSendOpcode;
+    public const int GroupLeader = 7;
+    public const int SendTrace = 12;
+    public const int ExitTrace = 13;
+    public const int RegisteredSendTrace = 16;
+    public const int Exit2Trace = 18;
+    public const int Monitor = 19;
+    public const int Demonitor = 20;
+    public const int MonitorExit = 21;
+    public const int SendSender = 22;
+    public const int SendSenderTrace = 23;
+    public const int PayloadExit = 24;
+    public const int PayloadExitTrace = 25;
+    public const int PayloadExit2 = 26;
+    public const int PayloadExit2Trace = 27;
+    public const int PayloadMonitorExit = 28;
+    public const int SpawnRequest = 29;
+    public const int SpawnRequestTrace = 30;
+    public const int SpawnReply = 31;
+    public const int SpawnReplyTrace = 32;
+    public const int AliasSend = 33;
+    public const int AliasSendTrace = 34;
+    public const int AlternativeActionSend = 37;
+    public const int OpcodeIndex = 0;
+    public const int FromIndex = 1;
+    public const int TargetIndex = 2;
+    public const int LinkArity = 3;
+    public const int ExitArity = 4;
+    public const int ExitReasonIndex = 3;
+    public const int UnlinkArity = 4;
+    public const int UnlinkIdIndex = 1;
+    public const int UnlinkFromIndex = 2;
+    public const int UnlinkTargetIndex = 3;
+
+    public static bool IsKnown(int opcode) => opcode is
+        Link or Send or Exit or LegacyUnlink or RegisteredSend or GroupLeader or Exit2 or
+        SendTrace or ExitTrace or RegisteredSendTrace or Exit2Trace or Monitor or Demonitor or
+        MonitorExit or SendSender or SendSenderTrace or PayloadExit or PayloadExitTrace or
+        PayloadExit2 or PayloadExit2Trace or PayloadMonitorExit or SpawnRequest or SpawnRequestTrace or
+        SpawnReply or SpawnReplyTrace or AliasSend or AliasSendTrace or UnlinkId or UnlinkIdAck or AlternativeActionSend;
+}

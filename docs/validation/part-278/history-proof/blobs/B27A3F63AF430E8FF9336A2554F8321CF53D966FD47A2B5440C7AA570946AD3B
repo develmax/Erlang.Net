@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess
+r=Path.cwd();a=r/'artifacts';j=lambda p:json.loads(p.read_text(encoding='utf-8-sig'));sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()=='911c73f67c6339149f6eadd7b7a6255400abd053'
+assert not subprocess.check_output(['git','diff','--name-only'],text=True).strip()
+raw=j(a/'distribution-raw-router-permanent-promotion-source-freeze-prebuild-revision2.json');queue=j(a/'native269-distribution-queue-collector-source-freeze-final-revision2.json');rows=[]
+for declaration in [raw,queue]:
+    base=r/declaration['Candidate']
+    for x in declaration['Files']:
+        source=base/x['Path'];target=r/x['Path'];assert sha(source)==x['Sha256']
+        before=sha(target) if target.exists() else None
+        if 'BeforeSha256' in x:assert before==x['BeforeSha256'],x['Path']
+        else:assert before is None,x['Path']
+        rows.append({'Path':x['Path'],'BeforeSha256':before,'Sha256':x['Sha256'],'Source':str(source.relative_to(r))})
+assert len(rows)==39 and len({x['Path'] for x in rows})==39
+for x in rows:
+    target=r/x['Path'];target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(r/x['Source'],target)
+p=r/'.gitattributes';p.write_text(p.read_text(encoding='utf-8-sig').rstrip()+'\ntools/Erlang.DistributionQueueContrasts/*.erl binary\ntools/Erlang.DistributionQueueContrasts/*source-plan.json binary\ndocs/validation/part-278/** binary\n',encoding='utf-8')
+(a/'part278-main-source-import.json').write_text(json.dumps({'Status':'Exact reviewed39 source paths imported; actual Main gates pending','ParentHead':raw['MainHead'],'RawFreezeSha256':sha(a/'distribution-raw-router-permanent-promotion-source-freeze-prebuild-revision2.json'),'QueueFreezeSha256':sha(a/'native269-distribution-queue-collector-source-freeze-final-revision2.json'),'ExpectedMainTests':6546,'DefaultMfas':500,'Files':rows},indent=2)+'\n',encoding='utf-8');print('Imported exact39 source paths; tests6546 planned')

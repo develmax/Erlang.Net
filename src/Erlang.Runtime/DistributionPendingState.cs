@@ -5,5 +5,6 @@ public enum DistributionPendingState
     Idle,
     Pending,
     Closed,
-    Connected
+    Connected,
+    Exiting
 }

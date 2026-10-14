@@ -1,0 +1,19 @@
+namespace Erlang;
+
+internal sealed class DistributionProcessLink(
+    RuntimeDistributionPendingEntry entry,
+    DistributionConnectedEntry connection,
+    uint connectionId,
+    ProcessContext local,
+    Pid remote
+)
+{
+    internal RuntimeDistributionPendingEntry Entry { get; } = entry;
+    internal DistributionConnectedEntry Connection { get; } = connection;
+    internal uint ConnectionId { get; } = connectionId;
+    internal ProcessContext Local { get; } = local;
+    internal Pid Remote { get; } = remote;
+    internal ProcessLinkIdentity Identity { get; } = new();
+    internal bool Established { get; set; }
+    internal ulong? UnlinkId { get; set; }
+}

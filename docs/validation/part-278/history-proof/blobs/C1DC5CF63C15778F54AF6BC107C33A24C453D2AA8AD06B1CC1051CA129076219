@@ -1,0 +1,160 @@
+{
+  "Status": "PASS_BOUNDED_ORIGINAL_OTP_DIFFERENTIAL",
+  "Head": "c2302e11af57b1fa75f4f9ab51455e3187b34c24",
+  "Run": 38646658740,
+  "Job": 116135066247,
+  "Artifact": 11933428868,
+  "CompletedSuccessfulSteps": 10,
+  "OriginalPassed": 5812,
+  "OriginalFailed": 0,
+  "FdPassed": 8,
+  "Old5809NamesOrderExceptExactlyThreeAdditions": true,
+  "Old778ExpressionRowsExact": true,
+  "Old163DiagnosticRowsExact": true,
+  "Old4868ModuleRowsExactExceptDeclaredCorrectionAndRawVariance": true,
+  "UnchangedOldModuleRows": 4867,
+  "DeclaredSourceCorrection": [
+    {
+      "Name": "process-info-logical-charged-reductions-monotonic",
+      "Delta": {
+        "Passed": {
+          "Historical": false,
+          "Actual": true
+        },
+        "SourceSha256": {
+          "Historical": "BA96A0AC11CE062BB52F27BDBEF41537A33621E1965DAB8DB477C6EB7D7440EE",
+          "Actual": "E2981999F7982730F8B2E536F51E44264444527B6185A3E6ACB7A9DF82E56909"
+        },
+        "Expected": {
+          "Historical": "{error,error,{badmatch,false}}",
+          "Actual": "{ok,done}"
+        },
+        "CSharpSha256": {
+          "Historical": "8C24F821093D45F4D39B0F4E61E589D9C57D150E6B4E8AFFF8EC3593398CC178",
+          "Actual": "61790924DED102EF13128DC5A9349E19EC28D4A339C2157F579D592C63C814E1"
+        },
+        "Source": {
+          "Historical": "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=(B>=A+4000),done.",
+          "Actual": "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=is_integer(B),true=(B>=A),done."
+        }
+      },
+      "HistoricalFullRow": {
+        "Name": "process-info-logical-charged-reductions-monotonic",
+        "Source": "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=(B>=A+4000),done.",
+        "SourceSha256": "BA96A0AC11CE062BB52F27BDBEF41537A33621E1965DAB8DB477C6EB7D7440EE",
+        "CSharpSha256": "8C24F821093D45F4D39B0F4E61E589D9C57D150E6B4E8AFFF8EC3593398CC178",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{error,error,{badmatch,false}}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": false
+      },
+      "CurrentFullRow": {
+        "Name": "process-info-logical-charged-reductions-monotonic",
+        "Source": "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=is_integer(B),true=(B>=A),done.",
+        "SourceSha256": "E2981999F7982730F8B2E536F51E44264444527B6185A3E6ACB7A9DF82E56909",
+        "CSharpSha256": "61790924DED102EF13128DC5A9349E19EC28D4A339C2157F579D592C63C814E1",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "NewThreeNames": [
+    "process-info-logical-bump-after-yield",
+    "process-info-logical-bump-error-domain",
+    "process-info-logical-small-bump"
+  ],
+  "AllTenLogicalCasesSourceNativeSdkPass": true,
+  "SixDefectExclusionsExact": true,
+  "CallerContextAndCompilerPolicyUnchanged": true,
+  "SourceAndGeneratedCSharpHashesExceptDeclaredCorrectionExact": true,
+  "Raw5812PassLinesSourceNamesOrderExact": true,
+  "PredeclaredMapRawVariance": [],
+  "NoNormalization": true,
+  "ReferenceCoverageComplete": false,
+  "HistoricalFailed273ReportSha256": "BBCA65C26BAC61AC0CAE51A3E0B1D9B3049113F55A13275DCEBFE52D7171841E",
+  "HistoricalFailed273Immutable": true,
+  "ZipSha256": "8C7BF2A2233316982EC96DF9FF9D29281DA04F685F05CAAB28BA6EA3463BB197",
+  "RawJobSha256": "999602D87174539BB6E5103A087C7FDDF0697E5F33D666369F26DA4152FD92DA",
+  "CommittedSourceBindings": [
+    {
+      "Path": ".github/workflows/differential.yml",
+      "Bytes": 2292,
+      "Sha256": "8FC611C9EE501A23F4608E66D3E163CA55B26602D005B436727D2FD5D3AE33E1"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoLogicalCases.cs",
+      "Bytes": 4878,
+      "Sha256": "046D4E80A342A927A4003F24DAB94EAE5367BE8BAD8DACE7BE1452606D649F09"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleProtocol.cs",
+      "Bytes": 3491,
+      "Sha256": "2A024BE90F5CEC2BD8D1F5A383080ACC52F435337681B46BBB4285C97140C963"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCase.cs",
+      "Bytes": 516,
+      "Sha256": "E65B9DD354A9006CFE5AC9A6F557565E577B7745C3D9E8B90113A66E65C087E6"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Program.cs",
+      "Bytes": 30981,
+      "Sha256": "4CFF5B25FA33D1612988BDD372C9ACA6153F145317BE82B671A9D5F834A71EBC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 11486,
+      "Sha256": "FA7817BD3F7C48CEDD2A1E3E360C05639B0487D1BF88AAD03B758AA5084DA856"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSchedulingLimits.cs",
+      "Bytes": 219,
+      "Sha256": "EC867DAD2F30F97AE607364EADBA346D0F6C0E61D900E11105300563618DD5AE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 29593,
+      "Sha256": "E11F348BB2038C4BF3CFB5E7ABDABBEC26F3A0ADA7AC7C4287B9FCF9950F0FEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
+      "Bytes": 2572,
+      "Sha256": "0A1A3F6A52AED376204ED203AC8D2FD5927078A1E715B61192E196FA24050E32"
+    }
+  ],
+  "ProgressFileScope": "Last compiled module precomparison snapshot completed5648; final complete5812 report and all5812 rawPASS lines establish terminal coverage. Progress is not falsely relabelled completed report.",
+  "ExactPhysicalReductionCountClaim": false,
+  "GeneratedCSharpRecompiledByReviewer": false,
+  "SdkEntireModuleCompatibilityClaim": false,
+  "MainWritten": false,
+  "GitWritten": false,
+  "NativeRerun": false,
+  "ReviewerCorrections": [
+    "Initial standalone-collector install marker assumption replaced by ordinary workflow actual source-build version marker; initial script retained",
+    "Initial guessed parameter file name replaced by inspected actual ProcessSchedulingLimits.cs; initial script retained"
+  ]
+}

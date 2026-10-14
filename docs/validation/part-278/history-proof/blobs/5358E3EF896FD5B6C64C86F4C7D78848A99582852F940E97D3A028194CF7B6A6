@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,hashlib,shutil
+r=Path.cwd();a=r/'artifacts';o=a/'part278-main-initial-style-failure';o.mkdir();sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper();d=json.loads((a/'part278-main-source-import.json').read_text());rows=[]
+for x in d['Files']:
+    p=r/x['Path'];assert sha(p)==x['Sha256'];t=o/'source'/x['Path'];t.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,t)
+for n in ['part278-main-source-import.json','part278-main-style.log','part278-main-queue-target.log']:shutil.copyfile(a/n,o/n)
+shutil.copytree(r/'tools/Erlang.DistributionQueueContrasts/bin/Debug/net10.0',o/'produced-queue-output')
+for p in sorted(o.rglob('*')):
+    if p.is_file():rows.append({'Path':p.relative_to(o).as_posix(),'Bytes':p.stat().st_size,'Sha256':sha(p)})
+(o/'manifest.json').write_text(json.dumps({'Status':'Actual target0/0; Main style5 failure; runtime tests and Main CLI/raw unexecuted','Files':rows},indent=2)+'\n',encoding='utf-8');print('Preserved source39 + actual produced queue11; style failure')

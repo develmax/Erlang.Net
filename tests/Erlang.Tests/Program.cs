@@ -4261,6 +4261,8 @@ Test(Erlang.Tests.RuntimeNodeCreationHostNames.Test, Erlang.Tests.RuntimeNodeCre
 Test(Erlang.Tests.DistributionRegisteredHostNames.Test, Erlang.Tests.DistributionRegisteredHostChecks.Run);
 Test(Erlang.Tests.ConnectedDistributionHostNames.Test, Erlang.Tests.ConnectedDistributionHostChecks.Run);
 Test(Erlang.Tests.ConnectedIngressHostNames.Test, Erlang.Tests.ConnectedIngressHostChecks.Run);
+Test(Erlang.Tests.DistributionRawInputHostNames.Test, Erlang.Tests.DistributionRawInputHostChecks.Run);
+Test(Erlang.Tests.DistributionRawSignalHostNames.Test, Erlang.Tests.DistributionRawSignalHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

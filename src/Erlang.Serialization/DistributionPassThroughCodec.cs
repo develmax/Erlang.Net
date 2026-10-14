@@ -39,7 +39,8 @@ public static class DistributionPassThroughCodec
         ReadOnlySpan<byte> packet,
         EtfDecodeOptions? options = null,
         int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
-        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory
+        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
+        Action<TupleTerm>? unsupportedControlValidator = null
     )
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
@@ -50,7 +51,7 @@ public static class DistributionPassThroughCodec
         var control = ReadTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, maximumBytes);
         if (control.Term is not TupleTerm tuple)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
-        ValidateControl(tuple);
+        ValidateControl(tuple, unsupportedControlValidator);
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
         if (payloadOffset + payload.Used != packet.Length)
@@ -60,6 +61,102 @@ public static class DistributionPassThroughCodec
         ValidateFeatures(payload.Term, negotiatedFlags);
 
         return new(tuple, payload.Term);
+    }
+
+    public static DistributionDecodedProcessPacket DecodeProcessPacket(
+        ReadOnlySpan<byte> packet,
+        EtfDecodeOptions? options = null,
+        int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
+        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
+        Action<TupleTerm>? unsupportedControlValidator = null
+    )
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
+        ValidateFlags(negotiatedFlags);
+        if (packet.Length > maximumBytes || packet.IsEmpty || packet[0] != DistributionPassThroughLayout.Marker)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        options ??= new EtfDecodeOptions();
+        var control = ReadTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, maximumBytes);
+        if (control.Term is not TupleTerm tuple || tuple.Items.Count == 0 ||
+            tuple.Items[DistributionControlOpcodes.OpcodeIndex] is not Integer opcode)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        if (opcode.Value < int.MinValue || opcode.Value > int.MaxValue ||
+            !DistributionControlOpcodes.IsKnown((int)opcode.Value))
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
+        bool link = opcode.Value == DistributionControlOpcodes.Link;
+        bool exit = opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2;
+        bool unlink = opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck;
+        if (link || exit || unlink)
+        {
+            bool valid = link || exit
+                ? tuple.Items.Count == (link ? DistributionControlOpcodes.LinkArity : DistributionControlOpcodes.ExitArity) &&
+                    tuple.Items[DistributionControlOpcodes.FromIndex] is Pid &&
+                    tuple.Items[DistributionControlOpcodes.TargetIndex] is Pid
+                : tuple.Items.Count == DistributionControlOpcodes.UnlinkArity &&
+                    tuple.Items[DistributionControlOpcodes.UnlinkIdIndex] is Integer id &&
+                    id.Value >= (opcode.Value == DistributionControlOpcodes.UnlinkId ? 1 : 0) && id.Value <= ulong.MaxValue &&
+                    tuple.Items[DistributionControlOpcodes.UnlinkFromIndex] is Pid &&
+                    tuple.Items[DistributionControlOpcodes.UnlinkTargetIndex] is Pid;
+            if (!valid || payloadOffset != packet.Length)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            ValidateFeatures(tuple, negotiatedFlags);
+
+            return new(tuple, null);
+        }
+        ValidateControl(tuple, unsupportedControlValidator);
+        var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
+        if (payloadOffset + payload.Used != packet.Length)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        ValidateFeatures(tuple, negotiatedFlags);
+        ValidateFeatures(payload.Term, negotiatedFlags);
+
+        return new(tuple, payload.Term);
+    }
+
+    public static byte[] EncodeProcessControl(
+        TupleTerm control,
+        int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
+        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
+        EtfEncodingOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(control);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
+        ValidateFlags(negotiatedFlags);
+        if (control.Items.Count == 0 || control.Items[DistributionControlOpcodes.OpcodeIndex] is not Integer opcode)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        bool valid = false;
+        if (opcode.Value == DistributionControlOpcodes.Link)
+            valid = control.Items.Count == DistributionControlOpcodes.LinkArity &&
+                control.Items[DistributionControlOpcodes.FromIndex] is Pid &&
+                control.Items[DistributionControlOpcodes.TargetIndex] is Pid;
+        else if (opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2)
+            valid = control.Items.Count == DistributionControlOpcodes.ExitArity &&
+                control.Items[DistributionControlOpcodes.FromIndex] is Pid &&
+                control.Items[DistributionControlOpcodes.TargetIndex] is Pid;
+        else if (opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck)
+            valid = control.Items.Count == DistributionControlOpcodes.UnlinkArity &&
+                control.Items[DistributionControlOpcodes.UnlinkIdIndex] is Integer id &&
+                id.Value >= (opcode.Value == DistributionControlOpcodes.UnlinkId ? 1 : 0) && id.Value <= ulong.MaxValue &&
+                control.Items[DistributionControlOpcodes.UnlinkFromIndex] is Pid &&
+                control.Items[DistributionControlOpcodes.UnlinkTargetIndex] is Pid;
+        if (!valid)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        ValidateFeatures(control, negotiatedFlags);
+        options ??= new EtfEncodingOptions();
+        long required = checked(DistributionPassThroughLayout.MarkerBytes + ExternalTermFormat.EncodedSize(control, options));
+        if (required > maximumBytes)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketLimit, nameof(control));
+        byte[] encoded = ExternalTermFormat.Encode(control, options);
+        int actualBytes = checked(DistributionPassThroughLayout.MarkerBytes + encoded.Length);
+        if (actualBytes > maximumBytes)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketLimit, nameof(control));
+        byte[] packet = new byte[actualBytes];
+        packet[0] = DistributionPassThroughLayout.Marker;
+        encoded.CopyTo(packet, DistributionPassThroughLayout.MarkerBytes);
+
+        return packet;
     }
 
     public static DistributionPassThroughMessage Send(Pid recipient, Term payload)
@@ -153,7 +250,7 @@ public static class DistributionPassThroughCodec
         }
     }
 
-    private static void ValidateControl(TupleTerm control)
+    private static void ValidateControl(TupleTerm control, Action<TupleTerm>? unsupportedControlValidator = null)
     {
         ArgumentNullException.ThrowIfNull(control);
         if (control.Items.Count == 0 || control.Items[DistributionPassThroughLayout.OpcodeIndex] is not Integer opcode)
@@ -175,6 +272,8 @@ public static class DistributionPassThroughCodec
 
             return;
         }
+
+        unsupportedControlValidator?.Invoke(control);
 
         throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
     }

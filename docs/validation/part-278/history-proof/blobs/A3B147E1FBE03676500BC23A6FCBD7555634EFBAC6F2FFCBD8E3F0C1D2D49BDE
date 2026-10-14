@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_PEER_AFTER_DOMAIN_CORRECTION",
+  "FreezeSha256": "D1B21412ECECDA1B8FB635281826C3E7F8D221F166AFDDD253528D132FF75674",
+  "Candidate": "artifacts/distribution-raw-router-main276-prototype-revision3",
+  "ProductionPaths": 19,
+  "FocusPaths": 13,
+  "UnownedPaths": 1627,
+  "CriticalPaths": 6,
+  "AllCandidateBytesAndSourceContentExact": true,
+  "BeforeBindingsInheritedExactReviewedRevision2": true,
+  "PreviousDefectReceiptSha256": "0B6E6F9A50BFEA97B4D13DC6574B4A17221D8E32F9B819A959D0BBD6A3851C9D",
+  "ChangedPaths": {
+    "Files": [
+      "src/Erlang.Runtime/RuntimeDistributionPending.LinkSignals.cs",
+      "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs"
+    ],
+    "FocusSourceContent": [
+      "probe/DistributionRawInputProbeNames.cs",
+      "probe/DistributionRawSignalProbe.cs"
+    ]
+  },
+  "ProductionDeltaOnly": "Three fixed-external remote LocalIdentity guards in typed helper paths and raw route; no other source semantic change",
+  "ForeignDynamicDomainCorrectionSourceChecked": true,
+  "NewControlsSourceOnly": [
+    "Real second runtime admitted under remote node name",
+    "ApplyConnectedLinkSignal foreign dynamic PID rejects badarg",
+    "BeginConnectedUnlinkSignal foreign dynamic PID rejects badarg",
+    "No link/attempt mutation after negatives",
+    "Same actual foreign PID serialized/imported as fixed external remote is accepted and linked"
+  ],
+  "FocusVisibilityCorrection": "Previously unbuilt internal CommonAtomNames references use existing owned ConnectedProbeNames.Success, same ok atom",
+  "KnownNativeRoutingSourceScopes": [
+    "LINK noproc for local stale/absent target",
+    "UNLINK_ID/ACK unsigned64 domain and actual local signal ordering",
+    "Linked EXIT identity/unlink suppression versus explicit EXIT2 kill/trap semantics",
+    "Exiting doomed lifetime/init queued kill/role reuse barrier",
+    "Unsupported negotiated controls remain private feature gap, not fake native result"
+  ],
+  "CurrentRootFixtureFullProof": "artifacts/part277-creation-pair-additive-independent-guard.json",
+  "RegistrationBlockers": [
+    "MONITOR/DEMONITOR/DOWN/GROUP_LEADER not routed; TT/payload/alias/spawn/alternative-action controls unimplemented; no Core put_data registration",
+    "Known unsupported complex control shapes are not fully classified; private feature-gap instead of guessed malformed/fabricated native result",
+    "No native raw nil/attempt/counter/fatal/link/unlink/exit traces executed; fresh source-predeclared original contrasts required",
+    "Unnegotiated feature violations still share private feature-gap paths; complete native malformed scope absent",
+    "Existing bounded HOST output queue overflow/backpressure and native allocator stat accounting absent; no dist_get_stat",
+    "Current codec eagerly decodes supported payloads; native lazy message/dead-target malformed payload boundary still requires audit",
+    "Control output encodes under runtime gate; basic controls have no user factories, richer function reason encoding requires lock/epoch audit",
+    "No TCP/handshake/epmd/network transport claim; no performance/allocation claim"
+  ],
+  "OriginalRawProtocolObserved": false,
+  "GcSchedulerPrerequisiteImplemented": false,
+  "CoreRegistered": false,
+  "ReviewerBuildExecuted": false,
+  "MainWritten": false,
+  "GitWritten": false
+}

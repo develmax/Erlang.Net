@@ -1,0 +1,260 @@
+using System.Reflection;
+using System.Numerics;
+using Erlang;
+using Erlang.Tests;
+
+internal static class ConnectedNodeEventsProbe
+{
+    internal static async Task<int> Run()
+    {
+        int checks = 0;
+        await using var runtime = new ProcessRuntime();
+        await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+        await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var observer = new RuntimeNodeFoundationHostActor(runtime);
+        await kernel.Invoke(context =>
+        {
+            runtime.Register(ConnectedProbeNames.Kernel, context.Self);
+            var admission = typeof(ProcessRuntime).GetMethod(ConnectedProbeNames.Admission, BindingFlags.Instance | BindingFlags.NonPublic)!;
+            _ = admission.Invoke(runtime, [context, Term.A(ConnectedProbeNames.Local), Term.I(0)]);
+
+            return true;
+        });
+        var options = new MapTerm([
+            new(Term.A(ConnectedNodeEventsProbeNames.ConnectionId), Term.A(ErlangBooleanAtoms.True)),
+            new(Term.A(ConnectedNodeEventsProbeNames.Reason), Term.A(ErlangBooleanAtoms.True)),
+            new(Term.A(ConnectedNodeEventsProbeNames.NodeType), Term.A(ConnectedNodeEventsProbeNames.All))
+        ]);
+        Type type = typeof(ProcessRuntime).Assembly.GetType(ConnectedNodeEventsProbeNames.OptionsType)!;
+        object parsed = type.GetMethod(ConnectedNodeEventsProbeNames.Parse, BindingFlags.Static | BindingFlags.NonPublic)!.Invoke(null, [options])!;
+        MethodInfo monitor = typeof(RuntimeLocalNodeEvents).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Single(method => method.Name == ConnectedNodeEventsProbeNames.Monitor && method.GetParameters().Length == ConnectedNodeEventsProbeNames.MonitorArguments);
+        await observer.Invoke(context =>
+        {
+            Check(runtime.LocalNodeEvents.Monitor(context, true) == 0);
+            Check(runtime.LocalNodeEvents.Monitor(context, true) == 1);
+            Check((BigInteger)monitor.Invoke(runtime.LocalNodeEvents, [context, true, parsed])! == BigInteger.Zero);
+            Check((BigInteger)monitor.Invoke(runtime.LocalNodeEvents, [context, true, parsed])! == BigInteger.One);
+
+            return true;
+        });
+        Atom remote = Term.A(ConnectedProbeNames.Remote);
+        var pending = runtime.DistributionPending;
+        TupleTerm handle = pending.BeginPending(remote);
+        await controller.Invoke(context => pending.AdoptConnected(
+            handle,
+            context,
+            DistributionPassThroughFlags.Mandatory,
+            1
+        ));
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await ExpectEmpty();
+        pending.CloseConnected(handle);
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.Closed),
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.Closed),
+            handle
+        );
+        await ExpectEmpty();
+        handle = pending.BeginPending(remote);
+        await controller.Invoke(context => pending.AdoptConnected(
+            handle,
+            context,
+            DistributionPassThroughFlags.Mandatory | ConnectedNodeEventsProbeNames.Published,
+            2
+        ));
+        await ExpectDefault(ConnectedNodeEventsProbeNames.NodeUp);
+        await ExpectDefault(ConnectedNodeEventsProbeNames.NodeUp);
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Visible,
+            null,
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Visible,
+            null,
+            handle
+        );
+        await ExpectEmpty();
+        await kernel.Invoke(context =>
+        {
+            runtime.Exit(
+                context,
+                controller.Process.Pid,
+                Term.Tuple(Term.A(ProcessExitReasons.Shutdown), Term.A(ConnectedNodeEventsProbeNames.Reset))
+            );
+
+            return true;
+        });
+        _ = await controller.Process.Completion.WaitAsync(ConnectedProbeNames.Deadline);
+        await ExpectDefault(ConnectedNodeEventsProbeNames.NodeDown);
+        await ExpectDefault(ConnectedNodeEventsProbeNames.NodeDown);
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Visible,
+            Term.A(ConnectedNodeEventsProbeNames.Reset),
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Visible,
+            Term.A(ConnectedNodeEventsProbeNames.Reset),
+            handle
+        );
+        await ExpectEmpty();
+        await using var normalController = new RuntimeNodeFoundationHostActor(runtime);
+        handle = pending.BeginPending(remote);
+        await normalController.Invoke(context => pending.AdoptConnected(
+            handle,
+            context,
+            DistributionPassThroughFlags.Mandatory,
+            3
+        ));
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await normalController.DisposeAsync();
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.Closed),
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.Closed),
+            handle
+        );
+        await ExpectEmpty();
+        await using var secondController = new RuntimeNodeFoundationHostActor(runtime);
+        handle = pending.BeginPending(remote);
+        await secondController.Invoke(context => pending.AdoptConnected(
+            handle,
+            context,
+            DistributionPassThroughFlags.Mandatory,
+            3
+        ));
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeUp,
+            ConnectedNodeEventsProbeNames.Hidden,
+            null,
+            handle
+        );
+        await observer.Invoke(context =>
+        {
+            runtime.Exit(context, kernel.Process.Pid, Term.A(ConnectedNodeEventsProbeNames.NoNetwork));
+
+            return true;
+        });
+        _ = await kernel.Process.Completion.WaitAsync(ConnectedProbeNames.Deadline);
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.NoNetwork),
+            handle
+        );
+        await ExpectInfo(
+            ConnectedNodeEventsProbeNames.NodeDown,
+            ConnectedNodeEventsProbeNames.Hidden,
+            Term.A(ConnectedNodeEventsProbeNames.NoNetwork),
+            handle
+        );
+        await ExpectEmpty();
+        Atom local = Term.A(ConnectedProbeNames.Local);
+        await Expect(Term.Tuple(Term.A(ConnectedNodeEventsProbeNames.NodeDown), local));
+        await Expect(Term.Tuple(Term.A(ConnectedNodeEventsProbeNames.NodeDown), local));
+        var localInfo = new MapTerm([
+            new(Term.A(ConnectedNodeEventsProbeNames.ConnectionId), Term.A(ConnectedNodeEventsProbeNames.Undefined)),
+            new(Term.A(ConnectedNodeEventsProbeNames.NodeType), Term.A(ConnectedNodeEventsProbeNames.Visible)),
+            new(Term.A(ConnectedNodeEventsProbeNames.Reason), Term.A(ConnectedNodeEventsProbeNames.NoNetwork))
+        ]);
+        await Expect(Term.Tuple(Term.A(ConnectedNodeEventsProbeNames.NodeDown), local, localInfo));
+        await Expect(Term.Tuple(Term.A(ConnectedNodeEventsProbeNames.NodeDown), local, localInfo));
+        await observer.Invoke(context =>
+        {
+            Check((BigInteger)monitor.Invoke(runtime.LocalNodeEvents, [context, false, parsed])! == new BigInteger(2));
+            Check((BigInteger)monitor.Invoke(runtime.LocalNodeEvents, [context, false, parsed])! == BigInteger.Zero);
+
+            return true;
+        });
+
+        return checks;
+
+        void Check(bool value)
+        {
+            checks++;
+            if (!value)
+                throw new Exception(ConnectedProbeNames.Failure);
+        }
+
+        async Task ExpectEmpty() => await observer.InvokeAsync(async context =>
+        {
+            Check(await context.ReceiveAsync<Term>(message => message is TupleTerm tuple && tuple.Items.Count >= 2 &&
+                tuple.Items[1].Equals(remote) ? message : null, TimeSpan.Zero) is null);
+
+            return true;
+        });
+
+        async Task ExpectDefault(string eventName) => await Expect(Term.Tuple(Term.A(eventName), remote));
+
+        async Task ExpectInfo(
+            string eventName,
+            string visibility,
+            Term? reason,
+            TupleTerm captured
+        )
+        {
+            var fields = new List<KeyValuePair<Term, Term>>
+            {
+                new(Term.A(ConnectedNodeEventsProbeNames.ConnectionId), captured.Items[0]),
+                new(Term.A(ConnectedNodeEventsProbeNames.NodeType), Term.A(visibility))
+            };
+            if (reason is not null)
+                fields.Add(new(Term.A(ConnectedNodeEventsProbeNames.Reason), reason));
+            await Expect(Term.Tuple(Term.A(eventName), remote, new MapTerm(fields)));
+        }
+
+        async Task Expect(Term expected) => await observer.InvokeAsync(async context =>
+        {
+            Check(await context.ReceiveAsync<Term>(message => message.Equals(expected) ? message : null, ConnectedProbeNames.Deadline) is not null);
+
+            return true;
+        });
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "Status": "PASS_SOURCE_INPUTS_AND_PROBE_DERIVATION_AUDIT_ONLY",
+  "Scope": "Self-author source input/derivation audit requested by Parent; independent collector/workflow review belongs Parent/dist_next, not claimed here",
+  "CollectorFreezeSha256": "D36BF6B53FDDE86AC2ABA2A7C371A5B6FA5454E09DF2B74BD479D106FF3A108E",
+  "OwnedPathsRawBindings": 15,
+  "ExactSharedHelperBindings": 9,
+  "Original33AndAdditive4ProposalsUnmodified": true,
+  "FreshDerivedProbeExactReversionToOriginal": true,
+  "OriginalObserveLoopFlagsSaveHelpersRawExact": true,
+  "Original33ArtifactUnionRetained": true,
+  "FreshPrimaryCaseMarkersExtra": 3,
+  "PerCaseRequiredCounts": {
+    "small": 16,
+    "large_binary": 16,
+    "two_binaries": 16,
+    "two_buffers": 30,
+    "handle_domain": 22,
+    "input_counter": 17,
+    "input_malformed": 15
+  },
+  "RequiredTotal": 132,
+  "FreshScenarioVMs": 7,
+  "MetadataVMs": 1,
+  "PinnedDistSourceSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+  "SourceObservations": [
+    "Real net_kernel registration plus local setnode, pending new_connection before actual monitored controller setnode3",
+    "Empty/queued/drained stat snapshots occur before/after explicit drain; two_buffers records each queued/drain/empty stage",
+    "Native dist_get_stat reads in/out/total_qsize; no guessed payload-size/allocator constants in probe or plan",
+    "Controller set_opt get_size previous flag and raw get_data vectors recorded; payload/control are exact self-generated messages",
+    "Handle type/owner/controller/third caller/closed/reopened calls capture raw full outcomes without asserted zero counters",
+    "Valid input has exact raw SEND packet and delivered payload; malformed empty control captures actual outcome/death/window without invented post-death count",
+    "Full outer collector Class/Reason/Stack plus partial inventories remain available if setup/native assumption fails",
+    "Previous get_size option values in three independent sample VMs may differ from old sequential run; no old sequential native execution claimed"
+  ],
+  "UnimplementedScope": [
+    "No original execution/build/style performed",
+    "No physical allocator parity, no queue overflow/backpressure completion",
+    "No additional get_opt/set_opt exhaustive defaults/domain cases in initial seven scenarios"
+  ],
+  "MainWritten": false,
+  "GitWritten": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false
+}

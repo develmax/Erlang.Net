@@ -1,0 +1,88 @@
+{
+  "Status": "PASSIndependentBoundedRawRouterSourceReview",
+  "SourceFreezeSha256": "D1B21412ECECDA1B8FB635281826C3E7F8D221F166AFDDD253528D132FF75674",
+  "OwnedProductionPaths": 19,
+  "FocusSourcePaths": 13,
+  "InheritedUnownedPaths": 1627,
+  "PreservedCriticalPaths": 6,
+  "OriginalPinnedSources": [
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Bytes": 220150,
+      "ArtifactPath": "artifacts/distribution-raw-router-pinned-source-revision1/dist.c"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.h",
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.h",
+      "Sha256": "3A44065B5004819ACF1ECA68D99A8BFDA3D9E002C6CBB1BD64AF695E9BCA7091",
+      "Bytes": 16598,
+      "ArtifactPath": "artifacts/distribution-raw-router-pinned-source-revision1/dist.h"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519",
+      "Bytes": 344508,
+      "ArtifactPath": "artifacts/distribution-raw-router-pinned-source-revision1/erl_proc_sig_queue.c"
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/external.c",
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B",
+      "Bytes": 212461,
+      "ArtifactPath": "artifacts/distribution-raw-router-pinned-source-revision1/external.c"
+    },
+    {
+      "Path": "erts/preloaded/src/erts_internal.erl",
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/preloaded/src/erts_internal.erl",
+      "Sha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+      "Bytes": 36419,
+      "ArtifactPath": "artifacts/distribution-raw-router-pinned-source-revision1/erts_internal.erl"
+    }
+  ],
+  "ExactNativeOpcodeSetVerified": true,
+  "ClosedSourceFindings": [
+    {
+      "Finding": "Two focus references to internal Terms.CommonAtomNames inaccessible to GatewayFocus",
+      "Correction": "Existing owned ConnectedProbeNames.Success, no friend/public widening",
+      "ObservedCompileFailure": false
+    },
+    {
+      "Finding": "Native peer foreign dynamic remote identity could be injected by typed HOST helper",
+      "Correction": "remote.LocalIdentity!=null rejects before typed/raw route, actualserialized fixed-wire positive source control added",
+      "ExecutedByReviewer": false
+    }
+  ],
+  "ReviewedSemantics": [
+    "Native dist_ctrl_put_data list trap/flatten precedes handle/input checks; authorized input attempts count before nil/scalar/partial/tick validation. RawInputAttempts explicit separated from accepteddecodedbuffer count, no stats parity claimed.",
+    "Stale generation ignored before decode, current malformed only queues actual initialization-origin kill and marks Exiting; doomedcontroller retained untilactual ProcessTerminated, freshcontroller separate.",
+    "Owned immutable wholeframe preflight collects control/payload epochs before function factory, captured snapshot/cid/input rechecked beforedecode and delivery, whole graph observed while reservation held; factories outside runtime gate.",
+    "RuntimeDistributionPending uses SAME ProcessRuntime gate object, nested link/control/lifecycle locks are reentrant single-gate, not two-lock inversion.",
+    "Pinned LINK remote external dep; oldlocal target produces noproc; EXIT currentinternal target required; EXIT2 oldlocal dropped. Current fixed external vs foreigndynamic HOST ownership preserved.",
+    "UNLINK_ID unsigned64 positive; ACK unsigned64 zero allowed; native peculiar external-target condition preserved byrejecting oldexternal forordinaryremote dep.",
+    "Pending link and target mailbox admission, per-link identity/connection generation correlation, pendingunlink ACK mismatch/relinkoldACK protection and explicit-vs-linked queuedexit/cleanup paths checked.",
+    "Outgoing noproc/ACK/EXIT basic control encoding binds captured generation and actual local sender/wire snapshot; closedgeneration emission refused.",
+    "Known unsupported controls retain private CLR feature gap, do not fabricate native notsup/success/autokill. Unknown opcode or legacymandatory-unlink malformed classification separated.",
+    "Existing SEND/REG sender/targetshape/order/drop paths remain bounded and eagerpayload handling is still explicit native-lazy limitation."
+  ],
+  "FocusSourceOnly": "Actualactor intended LINKduplicate/unlinkcorrelation/EXIT/EXIT2/retirement, foreigndynamicnegative+serializedpositive, originalgateway/132/24 and rawinputnil/stale/fatal controls reachable before Program return. No execution certified.",
+  "OpenRegistrationBlockers": [
+    "MONITOR/DEMONITOR/DOWN/GROUP_LEADER not routed; TT/payload/alias/spawn/alternative-action controls unimplemented; no Core put_data registration",
+    "Known unsupported complex control shapes are not fully classified; private feature-gap instead of guessed malformed/fabricated native result",
+    "No native raw nil/attempt/counter/fatal/link/unlink/exit traces executed; fresh source-predeclared original contrasts required",
+    "Unnegotiated feature violations still share private feature-gap paths; complete native malformed scope absent",
+    "Existing bounded HOST output queue overflow/backpressure and native allocator stat accounting absent; no dist_get_stat",
+    "Current codec eagerly decodes supported payloads; native lazy message/dead-target malformed payload boundary still requires audit",
+    "Control output encodes under runtime gate; basic controls have no user factories, richer function reason encoding requires lock/epoch audit",
+    "No TCP/handshake/epmd/network transport claim; no performance/allocation claim"
+  ],
+  "CoreRegistered": false,
+  "PublicPutDataStatCompletion": false,
+  "AbiQueueOrNetworkParityClaim": false,
+  "MainOrGitModified": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "Scope": "Supports one bounded actor build/focus only; unpromoted foundation. No whole native rawrouter compatibility or API completion claim."
+}

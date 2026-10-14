@@ -39,7 +39,8 @@ public sealed partial class RuntimeDistributionPending
             if ((negotiatedFlags & DistributionPassThroughFlags.Mandatory) != DistributionPassThroughFlags.Mandatory ||
                 (negotiatedFlags & DistributionPassThroughFlags.Unsupported) != 0)
                 throw new NotSupportedException(DistributionConnectedDiagnostics.Flags);
-            if (controller.DistributionRole != RuntimeDistributionRole.None || ReferenceEquals(controller, kernel))
+            if (exitingInputControllers.Contains(controller) ||
+                controller.DistributionRole != RuntimeDistributionRole.None || ReferenceEquals(controller, kernel))
                 throw new InvalidOperationException(DistributionConnectedDiagnostics.Controller);
             var entry = ReadHandle(handle, out uint connectionId, out var resource);
             using (resource)
@@ -114,7 +115,8 @@ public sealed partial class RuntimeDistributionPending
                     snapshot.ConsumedOutputPackets,
                     snapshot.QueuedPayloadBytes,
                     snapshot.QueuedBuffers,
-                    snapshot.QueuedSegments
+                    snapshot.QueuedSegments,
+                    connected.RawInputAttempts
                 );
             }
         }
@@ -256,8 +258,26 @@ public sealed partial class RuntimeDistributionPending
         Term handle,
         ProcessContext caller,
         ReadOnlySpan<byte> packet
+    ) => AcceptConnectedInput(
+        handle,
+        caller,
+        packet,
+        false
+    );
+
+    private void AcceptConnectedInput(
+        Term handle,
+        ProcessContext caller,
+        ReadOnlySpan<byte> packet,
+        bool rawInput
     )
     {
+        if (rawInput)
+        {
+            AcceptRawConnectedProcessPacket(handle, caller, packet);
+
+            return;
+        }
         RuntimeDistributionPendingEntry entry;
         ReferenceResourceLease<RuntimeDistributionPendingEntry> resource;
         uint connectionId;
@@ -301,7 +321,7 @@ public sealed partial class RuntimeDistributionPending
             if (packet.Length > ExternalTermFormat.DefaultMaxBytes)
                 throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
             byte[] ownedPacket = packet.ToArray();
-            var epochs = CollectConnectedPacketEpochs(ownedPacket, options);
+            var epochs = CollectConnectedPacketEpochs(ownedPacket, options, rawInput);
             using var admission = runtime.AdmitExternalDecode(options, epochs);
             lock (gate)
             {
@@ -312,7 +332,14 @@ public sealed partial class RuntimeDistributionPending
                     wire
                 );
             }
-            var message = DistributionPassThroughCodec.Decode(ownedPacket, admission.Options, negotiatedFlags: flags);
+            var message = DistributionPassThroughCodec.Decode(
+                ownedPacket,
+                admission.Options,
+                negotiatedFlags: flags,
+                unsupportedControlValidator: rawInput
+                    ? control => ValidateUnsupportedConnectedControl(control, entry.Node, wire)
+                    : null
+            );
             admission.Observe(Term.Tuple(message.Control, message.Payload));
             lock (gate)
             {
@@ -388,6 +415,7 @@ public sealed partial class RuntimeDistributionPending
         RetireControllerAdoptions(entry: entry);
         if (entry.Connected is not { } connected)
             return;
+        runtime.RetireConnectedProcessLinks(entry, connected);
         entry.Connected = null;
         connected.Controller.DistributionRole = RuntimeDistributionRole.None;
         connected.Queue.Dispose();
