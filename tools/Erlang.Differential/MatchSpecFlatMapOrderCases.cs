@@ -21,12 +21,12 @@ public static class MatchSpecFlatMapOrderCases
         ),
         new(
             "erlang-match-flatmap-dynamic-z-before-a",
-            "-module(match_flatmap_order_contract). -export([run/0]). run()->{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_z_first\"),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_a_second\"),K1=erlang:list_to_atom(\"match_flatmap_z_first\"),K2=erlang:list_to_atom(\"match_flatmap_a_second\"),true=K1>K2,{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{K2=>{message,second},K1=>{message,first}}]}],trace),done.",
+            "-module(match_flatmap_order_contract). -export([run/0]). run()->S=erlang:integer_to_list(erlang:unique_integer([positive,monotonic])),N1=\"match_flatmap_z_first_\"++S,N2=\"match_flatmap_a_second_\"++S,{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N1),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N2),K1=erlang:list_to_atom(N1),K2=erlang:list_to_atom(N2),true=K1>K2,{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{K2=>{message,second},K1=>{message,first}}]}],trace),done.",
             Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ),
         new(
             "erlang-match-flatmap-dynamic-a-before-z",
-            "-module(match_flatmap_order_contract). -export([run/0]). run()->{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_a_first_inverse\"),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_z_second_inverse\"),K1=erlang:list_to_atom(\"match_flatmap_a_first_inverse\"),K2=erlang:list_to_atom(\"match_flatmap_z_second_inverse\"),true=K1<K2,{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{K2=>{message,second},K1=>{message,first}}]}],trace),done.",
+            "-module(match_flatmap_order_contract). -export([run/0]). run()->S=erlang:integer_to_list(erlang:unique_integer([positive,monotonic])),N1=\"match_flatmap_a_first_inverse_\"++S,N2=\"match_flatmap_z_second_inverse_\"++S,{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N1),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N2),K1=erlang:list_to_atom(N1),K2=erlang:list_to_atom(N2),true=K1<K2,{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{K2=>{message,second},K1=>{message,first}}]}],trace),done.",
             Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ),
         new(
@@ -36,7 +36,7 @@ public static class MatchSpecFlatMapOrderCases
         ),
         new(
             "erlang-match-flatmap-dynamic-diagnostic-order",
-            "-module(match_flatmap_order_contract). -export([run/0]). run()->{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_z_first_diagnostic\"),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(\"match_flatmap_a_second_diagnostic\"),K1=erlang:list_to_atom(\"match_flatmap_z_first_diagnostic\"),K2=erlang:list_to_atom(\"match_flatmap_a_second_diagnostic\"),{error,[{error,\"Variable $2 is unbound.\"},{error,\"Variable $1 is unbound.\"}]}=erlang:match_spec_test(any,[{'_',[],[#{K1=>'$1',K2=>'$2'}]}],table),done.",
+            "-module(match_flatmap_order_contract). -export([run/0]). run()->S=erlang:integer_to_list(erlang:unique_integer([positive,monotonic])),N1=\"match_flatmap_z_first_diagnostic_\"++S,N2=\"match_flatmap_a_second_diagnostic_\"++S,{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N1),{'EXIT',{badarg,_}}=catch erlang:list_to_existing_atom(N2),K1=erlang:list_to_atom(N1),K2=erlang:list_to_atom(N2),{error,[{error,\"Variable $2 is unbound.\"},{error,\"Variable $1 is unbound.\"}]}=erlang:match_spec_test(any,[{'_',[],[#{K1=>'$1',K2=>'$2'}]}],table),done.",
             Term.Tuple(Term.A(CompiledContractOutcomeNames.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ),
         new(

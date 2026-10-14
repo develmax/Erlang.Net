@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part241 preservesFAILED2385751/5754(fd8/CI6435pass), repairsEXACT3dynamicatomfixtureSources usingruntimeunique suffix, no runtime/compiler/harness/outcome/exclusion changes. Isolated6438/full, Main36focus+4831contractguard, oneproviderexact; freshoriginal5754pendingpublication. Original2396BEAM/5nativeexec/6filemetadata/MD56/6 and1765provenanceguards verified; no onload/CLRloadercompletion. Registry484/erlang326/35192.9% presence,wholepartial.
+
 Part240 Main and isolated6438/full;41frozen haltfoundationpaths,4831/4825/151/6/484 unchanged,three real hosts. Actual logical completion vs resource quiescence/acceptedportdrain/deadline255/callbackjoining; no erlanghalt exports/nativehalt proof. Original238FAILED5751/5754 three new atom-absence scenarios,fd8/CI6435pass; preservesrawrows. Metadata239sixBEAM/five nativeexec succeeds,pendingfullprovenance. Registryerlang326/35192.9% presence,wholepartial.
 
 Part238 Main and isolated6435/6435/full,57focus;23frozen files;4831SDK/4825comparable/151diagnoses/six exclusions/484exports/erlang326. Priority19 thenmap8, oneexplicitnumeric-sourcecorrection, exactoldcontracts/order. Real priority LINK/UNLINK/ACK ownership and cached<=32flatmap atom-index order; HAMT/wholeerlang partial. Fresh original5754+fd8/CI pendingpublication. Part237 genuineBEAM proof retained, noCLRexecution.
