@@ -1,0 +1,243 @@
+{
+  "Status": "STANDALONE_TOOL_AND_MANAGED_GATES_PASSED_NATIVE_UNOBSERVED",
+  "Seed": "11e44f934c2c3b78f372eeabfa9497846a7b5bd0",
+  "SourceFreezeSha256": "4BB4933BCF069A7B78E3536C004DAE29894805060731555DFE72880829D2C8FC",
+  "OwnedFilesExact": 11,
+  "ContextFilesExact": 28,
+  "TargetBuildExit": 0,
+  "TargetBuildWarnings": 0,
+  "TargetBuildErrors": 0,
+  "HelperBuildExit": 0,
+  "SourceContracts": {
+    "Status": "Passed",
+    "OriginalDefinitions": 6,
+    "IndependentExecutionExpectations": 5,
+    "DeclaredCases": 24,
+    "ExpectedAccepted": 20,
+    "ExpectedRejected": 4,
+    "OwnedFiles": 11,
+    "InheritedToolFiles": 28,
+    "EvaluationBindings": 24,
+    "NativeExecuted": false,
+    "ObservedAcceptance": false
+  },
+  "ArgumentRouting": {
+    "Status": "Passed",
+    "Controls": 10,
+    "Rows": [
+      {
+        "Arguments": [],
+        "RoutingAccepted": true,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Installed OTP compiler/oracle is unavailable",
+        "StderrSha256": "0C6748C54566C64CB0F49E7B7E004C72316FDA242F3B4DEEADBFF494C81DE9C6",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--execute"
+        ],
+        "RoutingAccepted": true,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Installed OTP compiler/oracle is unavailable",
+        "StderrSha256": "0C6748C54566C64CB0F49E7B7E004C72316FDA242F3B4DEEADBFF494C81DE9C6",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--metadata-mutations"
+        ],
+        "RoutingAccepted": true,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Installed OTP compiler/oracle is unavailable",
+        "StderrSha256": "0C6748C54566C64CB0F49E7B7E004C72316FDA242F3B4DEEADBFF494C81DE9C6",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--execute",
+          "--metadata-mutations"
+        ],
+        "RoutingAccepted": true,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Installed OTP compiler/oracle is unavailable",
+        "StderrSha256": "0C6748C54566C64CB0F49E7B7E004C72316FDA242F3B4DEEADBFF494C81DE9C6",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--unknown"
+        ],
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Usage: BeamFixtureExport",
+        "StderrSha256": "21A8718FCE2E30E6CA1489E868C25C28C2FBD8AB550DB3E1E6FBD12B1681090B",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--metadata-mutations",
+          "--execute"
+        ],
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Usage: BeamFixtureExport",
+        "StderrSha256": "21A8718FCE2E30E6CA1489E868C25C28C2FBD8AB550DB3E1E6FBD12B1681090B",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--execute",
+          "--unknown"
+        ],
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Usage: BeamFixtureExport",
+        "StderrSha256": "21A8718FCE2E30E6CA1489E868C25C28C2FBD8AB550DB3E1E6FBD12B1681090B",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--execute",
+          "--metadata-mutations",
+          "--metadata-mutations"
+        ],
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Usage: BeamFixtureExport",
+        "StderrSha256": "21A8718FCE2E30E6CA1489E868C25C28C2FBD8AB550DB3E1E6FBD12B1681090B",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [
+          "--metadata-mutations",
+          "--metadata-mutations"
+        ],
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "ExpectedDiagnostic": "Usage: BeamFixtureExport",
+        "StderrSha256": "21A8718FCE2E30E6CA1489E868C25C28C2FBD8AB550DB3E1E6FBD12B1681090B",
+        "NativeProcessStarted": false
+      },
+      {
+        "Arguments": [],
+        "BaseArgumentsPresent": false,
+        "RoutingAccepted": false,
+        "TerminalExit": 1,
+        "NativeProcessStarted": false
+      }
+    ],
+    "OriginalProcessesStarted": 0,
+    "NoOutputCreated": true,
+    "DispatcherSourceScope": "Actual compiled Program routes to existing FixtureExporter validation; observer/metadata invocation branches remain conditional and are covered separately by source guard."
+  },
+  "IndependentVerifierControls": {
+    "Status": "Passed",
+    "Rows": [
+      {
+        "Name": "complete24-synthetic-model",
+        "Status": "Passed",
+        "NativeObserved": false
+      },
+      {
+        "Name": "both-result-files-identically-wrong",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "wrong-selected-metadata-chunk",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "wrong-nonselected-chunk",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "missing24-prefix-only",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "incomplete-flag",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "altered-declared-term-expression",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "stale-result-hash",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "wrong-source-pin",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "wrong-job-head",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      },
+      {
+        "Name": "altered-static-independent-term",
+        "Status": "RejectedAsExpected",
+        "NativeObserved": false
+      }
+    ],
+    "Controls": 11,
+    "SyntheticOnly": true,
+    "OriginalProcessesStarted": 0,
+    "MetadataNativeObservations": 0
+  },
+  "MutationCasesPredeclared": 24,
+  "ExpectedAcceptedHypotheses": 20,
+  "ExpectedRejectedHypotheses": 4,
+  "MutationNativeObservations": 0,
+  "OriginalProcessesStarted": 0,
+  "HeavySlotReleased": true,
+  "InitialManagedFailuresPreserved": [
+    "metadata-verifier-initial-canonical-hash-failure.log",
+    "metadata-verifier-controls-second.log"
+  ],
+  "Evidence": [
+    {
+      "Path": "metadata-part254-target-build.log",
+      "Sha256": "D1B12B0C242320F90674D6C4BC13A0C737EAECF034B7AE2A0DB5AF3519C841F0"
+    },
+    {
+      "Path": "metadata-part254-helper-build.log",
+      "Sha256": "09EBCA2D527045D5DF4291E4DD8C95CA09D13A8114E107D590C78250FF846D6C"
+    },
+    {
+      "Path": "metadata-part254-source-focused.log",
+      "Sha256": "1FE831FA200426DC75641923206596BB1FA797B371F5137F882990480DEADE7F"
+    },
+    {
+      "Path": "metadata-part254-argument-focused.log",
+      "Sha256": "DCB173AF5A698E6DBC771B970FC0CD87E84F7516959906293DBA7956AC4EDEF7"
+    },
+    {
+      "Path": "metadata-verifier-controls-third.log",
+      "Sha256": "966D7DF44EA76EC55C736EBB53D8980711DAEA66098EE77E28642D8B2C82BC69"
+    },
+    {
+      "Path": "metadata-verifier-managed-controls.json",
+      "Sha256": "8C6915A820F9409F3F6DB8CB7174B3295E40F187C0AF6F2081D4824B580FE0BE"
+    },
+    {
+      "Path": "metadata-final-source-style.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    }
+  ],
+  "SourceScope": "Tooling-only archive; no Runtime/ordinary fixture/MFA source imports. Baseline counts below are reference Main253 published counts, not newly executed registry/corpus gates.",
+  "BaselineDefaultRuntimeMfasUnchanged": 487,
+  "BaselineOrdinaryModulesUnchanged": 4843,
+  "BaselineOrdinaryDiagnosesUnchanged": 159,
+  "BaselineExclusionsUnchanged": 6
+}

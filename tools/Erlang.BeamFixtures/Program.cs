@@ -2,11 +2,16 @@ using BeamFixtureExport;
 
 try
 {
-    await FixtureExporter.Run(args);
-    if (args.Length == FixtureArgumentLayout.ArgumentsWithExecution)
+    bool metadataMutations = args.Length != 0 && args[^1] == MetadataMutationNames.Option;
+    string[] fixtureArguments = metadataMutations ? args[..^1] : args;
+    await FixtureExporter.Run(fixtureArguments);
+    if (fixtureArguments.Length == FixtureArgumentLayout.ArgumentsWithExecution)
     {
-        await OnLoadObserverExporter.Append(args[FixtureArgumentLayout.OracleRoot], args[FixtureArgumentLayout.NewOutput]);
+        await OnLoadObserverExporter.Append(fixtureArguments[FixtureArgumentLayout.OracleRoot], fixtureArguments[FixtureArgumentLayout.NewOutput]);
     }
+
+    if (metadataMutations)
+        await MetadataMutationExporter.Append(fixtureArguments[FixtureArgumentLayout.OracleRoot], fixtureArguments[FixtureArgumentLayout.NewOutput]);
 
     return 0;
 }

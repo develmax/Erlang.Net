@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-metadata-part254-prototype\artifacts\verifier-controls.py", line 118, in <module>
+    result = v.verify(baseline, authoring_path, '0' * 40, 'synthetic', '0', control_only=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-metadata-part254-prototype\tools\Erlang.BeamFixtures\verify-metadata-mutations.py", line 142, in verify
+    require(digest(authoring_path.read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode('utf-8')) == AUTHORING_SHA256, 'Static authoring source digest')
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-metadata-part254-prototype\tools\Erlang.BeamFixtures\verify-metadata-mutations.py", line 18, in require
+    raise ValueError(message)
+ValueError: Static authoring source digest
