@@ -838,6 +838,7 @@ public static class CoreModules
             (context, arguments) => context.Runtime.Timers.Access(arguments[0], true)
         );
         IoFormatRequests.Register(r);
+        HaltRegistrations.Register(r);
     }
 
 

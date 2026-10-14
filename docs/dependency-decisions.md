@@ -584,3 +584,13 @@ Mailbox callback isolation reuses BCL linked-list node identity, immutable entry
 
 
 Halt original247 repair adapts pinned OTP29.1.1 big.c term_to_Uint32 (ETERM8 nonnegative native small with32-bit cast), erl_term.h small bounds, beam_common.c BIF formatter metadata, and erl_process.c/erl_init.c halt timer ordering into owned C# semantics. Reuse is source-guided adaptation, with existing OTP notices retained and no new dependency. The64-bit native small bound is2^59-1; native physical timer/run-queue races and BEAM crash-dump format remain explicit differences. Failed original24 evidence is immutable; corrected28 contracts require a fresh original run. Default Core remains484.
+
+
+Part249 source-only default halt registration candidate: reuse the already adapted pinned OTP29.1.1 halt wrapper/BIF protocol through actual existing C# logical-VM/subprocess behavior. No new dependency/source adaptation is introduced. Planned default registration487 requires genuine repaired28 native proof and full exact-head gates; failed24724 remains immutable. Three typed owned-child MFA tests are distinct from ordinary returned-Term contracts; physical dump format equality remains unsupported.
+
+
+
+Host prepared BEAM publication reuses existing C# ExternalTermFormat, immutable terms, native-significant-chunk BeamChecksumReader and ModuleRegistry image leases/rollback under its gate. IncrementalHash is actual .NET BCL MD5 for the native ordered input, not a whole-file fingerprint. Whole-batch preflight precedes registry mutation and purge-state changes are excluded. No production Erlang/BEAM dependency or extra package. On-load/native records/lambda resources and Erlang magic-reference wire restoration remain unsupported.
+
+
+Prepared metadata first-term parsing reuses actual ExternalTermFormat.DecodeOne and immutable terms, with no extra native dependency. Used/trailing byte provenance stays distinct from native MD5 and whole-file source provenance. Existing descriptor default-version policy remains unchanged. Non-BIF function table order is preserved; native global export-index history requires separate real observations.

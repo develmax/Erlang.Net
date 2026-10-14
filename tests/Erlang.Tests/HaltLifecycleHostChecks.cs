@@ -25,7 +25,7 @@ internal static class HaltLifecycleHostChecks
         int afters = 0;
         ProcessContext? caller = null;
         for (int arity = 0; arity <= 2; arity++)
-            Require(!runtime.Modules.HasExport(ErlangModuleNames.Module, HaltLifecycleHostNames.Halt, arity));
+            Require(runtime.Modules.HasExport(ErlangModuleNames.Module, HaltLifecycleHostNames.Halt, arity));
         runtime.Modules.Register(
             HaltLifecycleHostNames.Module,
             HaltLifecycleHostNames.Stop,

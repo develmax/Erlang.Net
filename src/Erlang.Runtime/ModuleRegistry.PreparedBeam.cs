@@ -1,0 +1,92 @@
+namespace Erlang;
+
+public sealed partial class ModuleRegistry
+{
+    public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes)
+    {
+        byte[] owned = bytes.ToArray();
+        BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned));
+        if (code.OnLoadEntryLabel is not null)
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+        BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code);
+        var bodies = new List<ErlangFunction>();
+        foreach (BeamLinkedFunction function in code.Exports)
+        {
+            if (BeamGeneratedMetadata.IsGenerated(code, function))
+            {
+                bodies.Add((context, arguments) => BeamGeneratedMetadata.Invoke(context, function.Module, arguments));
+            }
+            else
+            {
+                BeamRegisterValidation.Validate(code, function);
+                bodies.Add((context, arguments) => BeamRegisterInterpreter.Execute(
+                    context,
+                    code,
+                    function.Name,
+                    Array.AsReadOnly(arguments.ToArray())
+                ));
+            }
+        }
+
+        return new PreparedBeamImage(
+            this,
+            code,
+            metadata,
+            bodies.AsReadOnly()
+        );
+    }
+
+    public BeamPublicationResult PublishPreparedBeam(params PreparedBeamImage[] images)
+    {
+        ArgumentNullException.ThrowIfNull(images);
+        PreparedBeamImage[] owned = images.ToArray();
+        lock (gate)
+        {
+            foreach (PreparedBeamImage image in owned)
+            {
+                ArgumentNullException.ThrowIfNull(image);
+                if (!ReferenceEquals(image.Owner, this))
+                    throw new ArgumentException(BeamPreparationNames.ForeignImage, nameof(images));
+                if (image.Consumed)
+                    throw new InvalidOperationException(BeamPreparationNames.ConsumedImage);
+            }
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+            string[] duplicates = owned.Where(image => !seen.Add(image.Name)).Select(image => image.Name).Reverse().ToArray();
+            if (duplicates.Length != 0)
+                return new(BeamPublicationStatus.Duplicated, Array.AsReadOnly(duplicates));
+            string[] blocked = owned.Where(image => loadedModules.ContainsKey(image.Name) && oldCode.ContainsKey(image.Name))
+                .Select(image => image.Name).Reverse().ToArray();
+            if (blocked.Length != 0)
+                return new(BeamPublicationStatus.NotPurged, Array.AsReadOnly(blocked));
+            Apply(registry =>
+            {
+                foreach (PreparedBeamImage image in owned)
+                {
+                    if (loadedModules.ContainsKey(image.Name))
+                        registry.DeleteModule(image.Name);
+                    for (int index = 0; index < image.Code.Exports.Count; index++)
+                    {
+                        BeamLinkedFunction function = image.Code.Exports[index];
+                        registry.Register(
+                            image.Name,
+                            function.Name,
+                            function.Arity,
+                            image.Bodies[index]
+                        );
+                    }
+                    registry.PublishModuleCode(image.Name, image.Descriptor);
+                }
+            });
+            foreach (PreparedBeamImage image in owned)
+                image.Consumed = true;
+
+            return new(BeamPublicationStatus.Published, Array.AsReadOnly(owned.Select(image => image.Name).ToArray()));
+        }
+    }
+
+    internal bool IsPreparedBeamConsumed(PreparedBeamImage image)
+    {
+        lock (gate)
+            return image.Consumed;
+    }
+}

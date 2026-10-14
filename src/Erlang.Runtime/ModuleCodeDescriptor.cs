@@ -9,6 +9,7 @@ public sealed class ModuleCodeDescriptor
     public BitString Fingerprint { get; }
     public Term Compilation { get; }
     public Term? Attributes { get; }
+    public ModuleAttributePolicy AttributePolicy { get; }
     public object? SourceOwner { get; }
     public IReadOnlyList<NativeRecordDefinition> NativeRecords { get; }
 
@@ -19,11 +20,15 @@ public sealed class ModuleCodeDescriptor
         Term compilation,
         Term? attributes = null,
         object? sourceOwner = null,
-        IEnumerable<NativeRecordDefinition>? nativeRecords = null
+        IEnumerable<NativeRecordDefinition>? nativeRecords = null,
+        ModuleAttributePolicy attributePolicy = ModuleAttributePolicy.AddDefaultVersion
     )
     {
         if (!fingerprint.IsBinary || fingerprint.ToArray().Length != MD5.HashSizeInBytes)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
+        if (!Enum.IsDefined(attributePolicy))
+            throw new ArgumentOutOfRangeException(nameof(attributePolicy));
+        AttributePolicy = attributePolicy;
         Functions = Array.AsReadOnly(functions.ToArray());
         Exports = Array.AsReadOnly(exports.ToArray());
         Fingerprint = fingerprint;

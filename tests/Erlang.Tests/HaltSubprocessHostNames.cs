@@ -8,6 +8,9 @@ internal static class HaltSubprocessHostNames
     public const string Report = "artifacts/halt-subprocess-host-results.json";
     public const string Dump = "requested-clr.dmp";
     public const string Failure = "Dedicated halt process contract failed";
+    public const string ContractSeparator = ":";
+    public const string BackendSeparator = "/";
+    public const string FailureListSeparator = ",";
     public const int HeaderBytes = 4;
     public const int OwnedProcessBudgetSeconds = 300;
     public const int OuterHostBudgetSeconds = 330;

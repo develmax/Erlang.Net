@@ -1,0 +1,44 @@
+namespace Erlang;
+
+internal static class BeamPublicationMetadata
+{
+    internal static BeamPreparedMetadata Read(BeamLinkedCode code)
+    {
+        if (code.Structure.Chunks.Any(chunk => chunk.Id == BeamPreparationNames.RecordsChunk && chunk.Payload.Length != 0))
+            throw new NotSupportedException(BeamPreparationNames.UnsupportedRecords);
+        if (code.Structure.Chunks.Any(chunk => chunk.Id == BeamLambdaWire.Chunk && chunk.Payload.Length != 0))
+            throw new NotSupportedException(BeamPreparationNames.UnsupportedLambdas);
+        BeamDecodedMetadata attributes = ReadTerm(code, BeamPreparationNames.AttributesChunk);
+        BeamDecodedMetadata compilation = ReadTerm(code, BeamPreparationNames.CompilationChunk);
+        var descriptor = new ModuleCodeDescriptor(
+            code.Functions.Select(value => (value.Name, value.Arity)),
+            code.Exports.Select(value => (value.Name, value.Arity)),
+            BeamChecksumReader.Read(code),
+            compilation.Value,
+            attributes.Value,
+            attributePolicy: ModuleAttributePolicy.PreserveDecoded
+        );
+
+        return new(descriptor, attributes.Provenance, compilation.Provenance);
+    }
+
+    private static BeamDecodedMetadata ReadTerm(BeamLinkedCode code, string id)
+    {
+        BeamChunk? chunk = code.Structure.Chunks.LastOrDefault(value => value.Id == id);
+        if (chunk is null || chunk.Payload.Length == 0)
+            return new(Nil.Value, new(chunk is not null, 0, 0));
+        if (chunk.Payload.Length > BeamMetadataWire.ExternalTermTagOffset
+            && chunk.Payload.Span[BeamMetadataWire.ExternalTermTagOffset] == BeamMetadataWire.CompressedExternalTermTag)
+            throw new InvalidDataException(BeamPreparationNames.InvalidMetadata);
+        try
+        {
+            EtfDecodedTerm decoded = ExternalTermFormat.DecodeOne(chunk.Payload.Span, new EtfDecodeOptions());
+
+            return new(decoded.Term, new(true, chunk.Payload.Length, decoded.Used));
+        }
+        catch (ErlangException exception)
+        {
+            throw new InvalidDataException(BeamPreparationNames.InvalidMetadata, exception);
+        }
+    }
+}

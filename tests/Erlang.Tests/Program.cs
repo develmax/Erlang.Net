@@ -1706,7 +1706,7 @@ Test(
 var exportRegistry = new ModuleRegistry();
 CoreModules.Register(exportRegistry);
 OtpModules.Register(exportRegistry);
-foreach (var export in exportRegistry.Exports.OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
+foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.FunctionalMfaContracts.SubprocessContract(export.Module, export.Function, export.Arity) is null).OrderBy(x => x.Module).ThenBy(x => x.Function).ThenBy(x => x.Arity))
     Test(
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
@@ -4193,6 +4193,14 @@ Test(Erlang.Tests.BeamClosureHostNames.Test, Erlang.Tests.BeamClosureHostChecks.
 Test(Erlang.Tests.MailboxSelectionCheckNames.Test, Erlang.Tests.MailboxSelectionChecks.Run);
 
 Test(Erlang.Tests.ModuleRegistryLeaseCheckNames.Test, Erlang.Tests.ModuleRegistryLeaseChecks.Run);
+
+foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.FunctionalMfaContracts.SubprocessContract(export.Module, export.Function, export.Arity) is not null).OrderBy(export => export.Arity))
+    Test(
+        $"mfa/{export.Module}:{export.Function}/{export.Arity}",
+        () => Erlang.Tests.FunctionalMfaContracts.RunSubprocess(Erlang.Tests.FunctionalMfaContracts.SubprocessContract(export.Module, export.Function, export.Arity)!)
+    );
+
+Test(Erlang.Tests.BeamPreparedHostNames.Test, Erlang.Tests.BeamPreparedHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

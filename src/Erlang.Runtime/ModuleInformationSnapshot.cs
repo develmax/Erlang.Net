@@ -14,7 +14,8 @@ internal sealed class ModuleInformationSnapshot
         IEnumerable<(string Name, int Arity)> functions,
         BitString fingerprint,
         Term compilation,
-        Term? attributes = null
+        Term? attributes = null,
+        ModuleAttributePolicy attributePolicy = ModuleAttributePolicy.AddDefaultVersion
     )
     {
         fields = new Dictionary<string, Term>(StringComparer.Ordinal)
@@ -24,7 +25,7 @@ internal sealed class ModuleInformationSnapshot
             [ModuleInformationKeys.Functions] = Signatures(functions),
             [ModuleInformationKeys.Md5] = fingerprint,
             [ModuleInformationKeys.Compile] = compilation,
-            [ModuleInformationKeys.Attributes] = ModuleCodeAttributes.WithDefaultVersion(attributes, fingerprint),
+            [ModuleInformationKeys.Attributes] = attributePolicy == ModuleAttributePolicy.PreserveDecoded ? attributes ?? Nil.Value : ModuleCodeAttributes.WithDefaultVersion(attributes, fingerprint),
             [ModuleInformationKeys.Nifs] = Nil.Value,
             [ModuleInformationKeys.Native] = Term.A(ErlangBooleanAtoms.False),
             [ModuleInformationKeys.NativeAddresses] = Nil.Value

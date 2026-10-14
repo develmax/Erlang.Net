@@ -729,3 +729,13 @@ Mailbox selection callback lock repair, 2026-10-14: original C# snapshot/revalid
 
 
 Halt original247 repair adapts pinned OTP29.1.1 big.c term_to_Uint32 (ETERM8 nonnegative native small with32-bit cast), erl_term.h small bounds, beam_common.c BIF formatter metadata, and erl_process.c/erl_init.c halt timer ordering into owned C# semantics. Reuse is source-guided adaptation, with existing OTP notices retained and no new dependency. The64-bit native small bound is2^59-1; native physical timer/run-queue races and BEAM crash-dump format remain explicit differences. Failed original24 evidence is immutable; corrected28 contracts require a fresh original run. Default Core remains484.
+
+
+Part249 source-only default halt registration candidate: reuse the already adapted pinned OTP29.1.1 halt wrapper/BIF protocol through actual existing C# logical-VM/subprocess behavior. No new dependency/source adaptation is introduced. Planned default registration487 requires genuine repaired28 native proof and full exact-head gates; failed24724 remains immutable. Three typed owned-child MFA tests are distinct from ordinary returned-Term contracts; physical dump format equality remains unsupported.
+
+
+
+Host prepared BEAM publication, 2026-10-14: source-guided validation ordering/current-plus-old generation staging from pinned OTP-29.1.1 beam_bif_load.c232–575 (Copyright Ericsson AB1999–2026), beam_load.c (Ericsson AB1996–2026), and native file metadata/significant checksum rules from beam_file.c (Ericsson AB2020–2026), Apache-2.0 with the full existing OTP-LICENSE.txt retained. Original C# opaque host resources and registry transactions differ from native magic-reference and code-index staging; no Erlang loading export, native on-load finalization or lambda publication claim. Shared checksum source reused exactly from the isolated closure candidate; no unfinished closure execution imported.
+
+
+Prepared metadata revision3 follows first-term/raw-term behavior from pinned OTP-29.1.1 emu/emu_load.c and erl_bif_info.c, and external.c1252–1257/6530–6538. Existing consolidated Ericsson/Apache-2.0 notices remain applicable. This altered host port exposes ignored-byte provenance and keeps global runtime export-index ordering explicitly unverified; file-only beam_lib normalized lists are not promoted as native runtime metadata.

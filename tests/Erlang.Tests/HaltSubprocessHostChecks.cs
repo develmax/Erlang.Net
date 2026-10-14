@@ -30,7 +30,7 @@ internal static class HaltSubprocessHostChecks
                 await File.WriteAllTextAsync(HaltSubprocessHostNames.Report, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
                 IReadOnlyList<string> errors = HaltSubprocessVerifier.Check(contract, result);
                 if (errors.Count != 0)
-                    throw new InvalidOperationException(HaltSubprocessHostNames.Failure + ":" + contract.Name + "/" + backend + ":" + string.Join(",", errors));
+                    throw new InvalidOperationException(HaltSubprocessHostNames.Failure + HaltSubprocessHostNames.ContractSeparator + contract.Name + HaltSubprocessHostNames.BackendSeparator + backend + HaltSubprocessHostNames.ContractSeparator + string.Join(HaltSubprocessHostNames.FailureListSeparator, errors));
                 if (contract.ExpectedRequestKind == RuntimeHaltKind.CrashDump)
                 {
                     string path = Path.Combine(result.WorkingDirectory, HaltSubprocessHostNames.Dump);
@@ -39,13 +39,13 @@ internal static class HaltSubprocessHostChecks
                     await stream.ReadExactlyAsync(header);
                     byte[] expected = OperatingSystem.IsWindows() ? HaltSubprocessHostNames.WindowsDumpHeader : HaltSubprocessHostNames.LinuxDumpHeader;
                     if (!header.SequenceEqual(expected) || stream.Length <= header.Length || result.Evidence?.LogicalStack is null)
-                        throw new InvalidOperationException(HaltSubprocessHostNames.Failure + ":" + path);
+                        throw new InvalidOperationException(HaltSubprocessHostNames.Failure + HaltSubprocessHostNames.ContractSeparator + path);
                 }
             }
         }
         foreach (int arity in new[] { 0, 1, 2 })
         {
-            HaltSubprocessContract direct = HaltSubprocessCases.Direct(ErlangModuleNames.Module, "halt", arity);
+            HaltSubprocessContract direct = HaltSubprocessCases.Direct(ErlangModuleNames.Module, HaltSubprocessMfaNames.Function, arity);
             if (!results.Any(result => result.Name == direct.Name && result.Backend == HaltProcessBackend.Compiled))
                 throw new InvalidOperationException(HaltSubprocessHostNames.Failure);
         }

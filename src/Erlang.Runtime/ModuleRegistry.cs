@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-public sealed class ModuleRegistry
+public sealed partial class ModuleRegistry
 {
     private readonly object gate = new();
     private readonly Dictionary<(string Module, string Function, int Arity), ErlangFunction> functions = new();
@@ -439,7 +439,8 @@ public sealed class ModuleRegistry
                     signatures,
                     fingerprint,
                     compilation,
-                    descriptor?.Attributes
+                    descriptor?.Attributes,
+                    descriptor?.AttributePolicy ?? ModuleAttributePolicy.AddDefaultVersion
                 );
                 informationSnapshots.Add(module, snapshot);
             }

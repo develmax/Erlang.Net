@@ -1,0 +1,10 @@
+# Default halt registration candidate on repaired249
+
+Current source-only candidate: exact published part2498a72ad88f907a34d424ecc23648bc45c315213a4, whose6464/full passed. Repaired28 halt contracts and56 SDK child executions are inherited unchanged. Fresh original24928 results are pending; default registration build/promotion is blocked until26 comparable and two physical endpoints are terminal and verified. The failed original24724 evidence is retained and is not relabeled as proof. Default Core is still484 on published249.
+
+This candidate installs existing real HaltRegistrations once in Core, removes the probe's duplicate explicit registration, plans default487/erlang329 and optional-IO runner489, and appends three typed compiled child-MFA tests after all old6464 tests, for expected6467. Successful halt never returns a fake Term or halts the parent test process. No parser/lifecycle/timeout/metadata/native-track/corpus change is introduced by this registration delta; strict28 sources/outcomes/sentinels and default ordinary4843/159/six contracts remain unchanged. Native physical dump format and scheduling differences remain explicit.
+
+Every old6464 test keeps its order and outer budget. The ordinary MFA loop excludes only the three typed subprocess bindings, then appends those three child tests after the complete old list. Runtime initialization installs Core synchronously; removing the duplicate Probe installation is required. Optional character IO remains runner-only. All repaired parser bounds/watchdog ordering/module-only error_info and hygienic original compilation variables remain inherited exact. No build or native execution has occurred in this source-only candidate.
+
+
+Revision2 explicitly changes the inherited foundation assertion from absence of all three halt exports to presence of all three, as required by intended registration. Initial failed focus and frozen15 remain immutable. All other foundation nonreturn/catch/after/admission/resource assertions are unchanged; typed child-MFA checks independently prove callability. No ordinary fixture source/outcome is corrected.

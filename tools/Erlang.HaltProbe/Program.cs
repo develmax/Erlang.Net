@@ -15,7 +15,6 @@ try
 {
     options = HaltProbeOptions.Parse(args);
     var runtime = new ProcessRuntime();
-    HaltRegistrations.Register(runtime.Modules);
     Erlang.Otp.OtpModules.Register(runtime.Modules);
     IoCharacterRequests.Register(runtime);
     string? module = options.Module;

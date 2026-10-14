@@ -1,9 +1,15 @@
 using Erlang.Differential;
+using Erlang.HaltProbe;
 
 namespace Erlang.Tests;
 
 public static class FunctionalMfaContracts
 {
+    public static HaltSubprocessContract? SubprocessContract(string module, string function, int arity)
+        => HaltSubprocessMfaContracts.Find(module, function, arity);
+
+    public static Task RunSubprocess(HaltSubprocessContract contract) => HaltSubprocessMfaContracts.Run(contract);
+
     public static string? FixtureName(string module, string function, int arity) => (module, function, arity) switch
     {
         ("erlang", "is_record", 1) => "erlang-native-record-predicate-one",

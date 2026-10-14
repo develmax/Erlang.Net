@@ -17,10 +17,10 @@ internal static class IoCharacterHostChecks
             streams
         );
         Erlang.Otp.OtpModules.Register(runtime.Modules);
-        if (runtime.Modules.Exports.Count != 484)
+        if (runtime.Modules.Exports.Count != HaltSubprocessRegistrationCounts.DefaultCoreAndOtp)
             throw new InvalidOperationException(HaltSubprocessHostNames.Failure);
         IoCharacterRequests.Register(runtime);
-        if (runtime.Modules.Exports.Count != 486)
+        if (runtime.Modules.Exports.Count != HaltSubprocessRegistrationCounts.WithOptionalIo)
             throw new InvalidOperationException(HaltSubprocessHostNames.Failure);
         ProcessHandle custom = runtime.Spawn(async context =>
         {
