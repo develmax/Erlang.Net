@@ -1,0 +1,59 @@
+{
+  "Status": "PASS",
+  "FullSession": 87629,
+  "TerminalExitCode": 0,
+  "FullPassed": 6439,
+  "FullFailed": 0,
+  "SourceOwnedFiles": 72,
+  "IntegrationPatchFiles": 71,
+  "InheritedSourceContracts": 4831,
+  "Comparable": 4825,
+  "Diagnoses": 151,
+  "Exclusions": 6,
+  "RegisteredMfas": 484,
+  "NoMfaDelta": true,
+  "GitApplyCheckExitCode": 0,
+  "MainEdited": false,
+  "NewNativeProofClaimed": false,
+  "ExecutionScope": "actual3constant/add/local exports; non-tailcall/model broad parity not demonstrated",
+  "Limits": [
+    "NoModuleRegistryPublication",
+    "NoGeneratedModuleInfo",
+    "NoNativeMd5Property",
+    "NoOnLoadOrReceiveExecution",
+    "NoPhysicalHeapParity",
+    "NoNativeExceptionStackFrameParity",
+    "NoNativeNonTailCallProof",
+    "NoSourceCodeLeaseOrTraceInvocationIntegration"
+  ],
+  "Evidence": [
+    {
+      "Path": "beam-host-source-freeze-revision4.json",
+      "Sha256": "E7206E4288003A7E681C3CABC1A83643F9D10CEC07A61D2F87A25FB009F808B4"
+    },
+    {
+      "Path": "beam-host-full-validation.log",
+      "Sha256": "F3B50B00A3F679BCDB0A1469C08A1AF66B9B3FEB24B62B1F6752A10008DBFD51"
+    },
+    {
+      "Path": "beam-host-postguard.json",
+      "Sha256": "C6CBF683E9F6BCD2E9D86F84673065D81AC633AE6907CF96AB569E19D4B1A106"
+    },
+    {
+      "Path": "beam-host-focused-guard.json",
+      "Sha256": "6FBDBD6347A03490F3662316E52213FF2E6D2B90A02E34660BCEC71FC6BFDB6F"
+    },
+    {
+      "Path": "beam-host-postfull-focused-guard.log",
+      "Sha256": "D1345F2BD805CB5F9CFA2F16069FB851FFD99FF28D4BFED9E25A939C04550D42"
+    },
+    {
+      "Path": "beam-host-integration.patch",
+      "Sha256": "907CC3F2B7F512D26E7C35BC04E69E3A1E4E198D29C1EF316330D8AC967F7A26"
+    },
+    {
+      "Path": "beam-host-integration-patch-manifest.json",
+      "Sha256": "02E7C1025CD16840CE34CED55EFE8596C140F16FA8C5D00A0C8DB16516A5BDB5"
+    }
+  ]
+}

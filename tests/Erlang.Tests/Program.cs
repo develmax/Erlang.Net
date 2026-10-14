@@ -4185,6 +4185,8 @@ Test(
 }
 );
 Test(Erlang.Tests.PriorityPermissionHostNames.Test, Erlang.Tests.PriorityPermissionHostChecks.Run);
+Test(Erlang.Tests.BeamHostCheckNames.Test, Erlang.Tests.BeamHostChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {
