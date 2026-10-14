@@ -8,7 +8,7 @@ internal static class PacketNames
     internal const string Release = "29";
     internal const string Module = "distribution_packet_probe";
     internal const string Source = "distribution_packet_probe.erl";
-    internal const string SourceSha256 = "3D260848B3CDE7AED1F92048B9B72CE5BB7900070183B0928987CF164482DD01";
+    internal const string SourceSha256 = "85E06380AFDE1629717ECCCDF8C11C93A04F67A403DD102F041F34A71B01EEA4";
     internal const string Scenario = "pass-through-send-registered";
     internal const string Plan = "source-plan.json";
     internal const string Report = "distribution-packet.json";
@@ -62,6 +62,7 @@ internal static class PacketNames
         "incoming-send-control.etf",
         "incoming-reg-send-control.etf",
         "cleanup-controller.etf",
-        "kernel-notice.etf"
+        "kernel-notice.etf",
+        "pending-handle.etf"
     ];
 }

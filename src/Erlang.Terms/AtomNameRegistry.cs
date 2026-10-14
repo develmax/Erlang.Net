@@ -19,6 +19,7 @@ public static class AtomNameRegistry
         ArgumentNullException.ThrowIfNull(name);
         if (names.ContainsKey(name))
             return;
+        AtomNameValidation.Validate(name);
         lock (gate)
         {
             if (names.ContainsKey(name))

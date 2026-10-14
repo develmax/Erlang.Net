@@ -1,0 +1,74 @@
+{
+  "Status": "ActualCopiedToolRouteReproducedNewAtomCoreLeakAsERL999",
+  "Rows": [
+    {
+      "Name": "quoted-256",
+      "AssemblySet": "old-main",
+      "ExitCode": 0,
+      "StderrUtf8": "",
+      "OutputCreated": true,
+      "SourceSha256": "E187BB1128A07601DCB0DA030F7826A4383EA7BE300B548F7511563543619759"
+    },
+    {
+      "Name": "quoted-256",
+      "AssemblySet": "new-atoms",
+      "ExitCode": 1,
+      "StderrUtf8": "erlang: error ERL999: system_limit\r\n",
+      "OutputCreated": false,
+      "SourceSha256": "E187BB1128A07601DCB0DA030F7826A4383EA7BE300B548F7511563543619759"
+    },
+    {
+      "Name": "bare-256",
+      "AssemblySet": "old-main",
+      "ExitCode": 0,
+      "StderrUtf8": "",
+      "OutputCreated": true,
+      "SourceSha256": "31E285E21FF58A857DF3334A90026F55B2E722E2F05795C8F10B5BC628287D93"
+    },
+    {
+      "Name": "bare-256",
+      "AssemblySet": "new-atoms",
+      "ExitCode": 1,
+      "StderrUtf8": "erlang: error ERL999: system_limit\r\n",
+      "OutputCreated": false,
+      "SourceSha256": "31E285E21FF58A857DF3334A90026F55B2E722E2F05795C8F10B5BC628287D93"
+    },
+    {
+      "Name": "variable-256",
+      "AssemblySet": "old-main",
+      "ExitCode": 0,
+      "StderrUtf8": "",
+      "OutputCreated": true,
+      "SourceSha256": "F10D44500632B08442C0598D5D9E2BB2427795FF0BFC3800A4EC5A5C0C4FEA24"
+    },
+    {
+      "Name": "variable-256",
+      "AssemblySet": "new-atoms",
+      "ExitCode": 1,
+      "StderrUtf8": "erlang: error ERL999: system_limit\r\n",
+      "OutputCreated": false,
+      "SourceSha256": "F10D44500632B08442C0598D5D9E2BB2427795FF0BFC3800A4EC5A5C0C4FEA24"
+    },
+    {
+      "Name": "quoted-255",
+      "AssemblySet": "old-main",
+      "ExitCode": 0,
+      "StderrUtf8": "",
+      "OutputCreated": true,
+      "SourceSha256": "E420540E40731B5B5BCA9CBD8716570CED1E786B7E54855414A92718879C0D0E"
+    },
+    {
+      "Name": "quoted-255",
+      "AssemblySet": "new-atoms",
+      "ExitCode": 0,
+      "StderrUtf8": "",
+      "OutputCreated": true,
+      "SourceSha256": "E420540E40731B5B5BCA9CBD8716570CED1E786B7E54855414A92718879C0D0E"
+    }
+  ],
+  "RuntimeNoBuild": true,
+  "NoMainChanges": true,
+  "RootCompilerByteExactAcrossOldAndNew": true,
+  "OldTermsSha256": "9077135064B78AA09780CC37540596F8E9EBD9569610CBF20D3497E5753867FE",
+  "NewTermsSha256": "A5EC7AE4C1D3E35EBC1E667D5436DD295AFFD889B4F70371F22EAD7E37C69170"
+}

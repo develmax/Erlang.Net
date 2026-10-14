@@ -85,7 +85,7 @@ public static class Lexer
                     offset += rune.Utf16SequenceLength;
                 }
                 if (c == '\'')
-                    AtomNameRegistry.Observe(literal);
+                    Observe(literal, false, start);
                 tokens.Add(new(
                     c == '\'' ? LexerTokenKinds.QuotedAtom : LexerTokenKinds.String,
                     literal,
@@ -99,9 +99,10 @@ public static class Lexer
                 while (i < text.Length && (char.IsLetterOrDigit(text[i]) || text[i] is '_' or '@'))
                     i++;
                 string name = text[start..i];
-                AtomNameRegistry.Observe(name);
+                bool variable = char.IsUpper(c) || c == '_';
+                Observe(name, variable, start);
                 tokens.Add(new(
-                    char.IsUpper(c) || c == '_' ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom,
+                    variable ? LexerTokenKinds.Variable : Keywords.Contains(name) ? LexerTokenKinds.Keyword : LexerTokenKinds.Atom,
                     name,
                     start,
                     i
@@ -172,5 +173,21 @@ public static class Lexer
         ));
 
         return tokens;
+    }
+
+    private static void Observe(string name, bool variable, int offset)
+    {
+        try
+        {
+            AtomNameRegistry.Observe(name);
+        }
+        catch (ErlangException)
+        {
+            throw new CompileException(
+                CompilerDiagnosticCodes.InvalidLiteral,
+                variable ? LexerDiagnostics.IllegalVariable : LexerDiagnostics.IllegalAtom,
+                offset
+            );
+        }
     }
 }

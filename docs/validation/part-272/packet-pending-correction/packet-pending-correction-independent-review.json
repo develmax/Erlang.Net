@@ -1,0 +1,40 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_REVIEW",
+  "ReviewedFreezeSha256": "8ED32F54DD083E2BEF38C689264D1FDCC4E21489B1B2D83726A52CEC28828961",
+  "Files": [
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/distribution_packet_probe.erl",
+      "Sha256": "F8C9A245B6A1E2169B9B2E1D52F362133DA6CBD01AEA05E0FCCF61ACD289CC1A"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/PacketNames.cs",
+      "Sha256": "6805679953099CD219AC60D6AB6B5764D80A79DB10E2542392C94D6591F97513"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/source-plan.json",
+      "Sha256": "73876F1577AC0DEEC1BC73DE2BBEACA269AFC6039702775AFCF5D2AFBC5F4A22"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/README.md",
+      "Sha256": "13EB5F85DB473728690D041718FCE88C87B4BC93599D458991BF2C7A733850F3"
+    },
+    {
+      "Path": ".github/workflows/distribution-packet-contrasts.yml",
+      "Sha256": "EE4F903A8FE536BD60D629477331814E37A0372B53A4A1916AF20BB5D835F8A5"
+    }
+  ],
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedDistSourceSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+  "KernelActivationAndPendingBeforeAdoption": true,
+  "MonitoredReadyFailureFullReasonPreserved": true,
+  "ConsumedMonitorCleanupRetainsOriginalReason": true,
+  "RequiredArtifacts18AndProbeHashBound": true,
+  "OnePinnedBuildIndependentCaptureConditions": true,
+  "CaptureMixedDefaultTrueFalseSkipsMixedBuildCaptureUpload": true,
+  "Prior271RawFailureUnmodifiedByThisReview": true,
+  "ProductionCodecChanges": 0,
+  "NativeExecuted": false,
+  "BuildExecutedByReviewer": false,
+  "MainOrGitMutation": false,
+  "Limits": "Source review only; pending adoption and packet behavior require new published native run. This does not change original271 outcomes or claim TCP/epmd/handshake compatibility."
+}

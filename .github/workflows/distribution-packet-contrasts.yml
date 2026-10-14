@@ -1,6 +1,11 @@
 name: Pinned OTP distribution packet observations
 on:
   workflow_dispatch:
+    inputs:
+      capture_mixed:
+        description: Capture the independent mixed-map probe as well
+        type: boolean
+        default: true
 permissions:
   contents: read
 jobs:
@@ -23,7 +28,7 @@ jobs:
           dotnet build tools/Erlang.DistributionPacketContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
       - name: Build standalone mixed map observation tool
         id: mixed-tool
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && inputs.capture_mixed }}
         shell: bash
         run: |
           set -euo pipefail
@@ -80,7 +85,7 @@ jobs:
           set -euo pipefail
           dotnet run --project tools/Erlang.DistributionPacketContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-packet artifacts/beam-source-build-evidence.json
       - name: Capture one mixed map transition in a separate fresh VM
-        if: ${{ !cancelled() && steps.mixed-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        if: ${{ !cancelled() && inputs.capture_mixed && steps.mixed-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -95,7 +100,7 @@ jobs:
             artifacts/beam-source-build-evidence.json
             artifacts/beam-fixture-tool-build.log
       - uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && inputs.capture_mixed
         with:
           name: pinned-mixed-map-identity
           path: |

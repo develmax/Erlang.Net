@@ -4238,6 +4238,8 @@ Test(Erlang.Tests.DistributionPendingTestNames.Test, Erlang.Tests.DistributionPe
 
 Test(Erlang.Tests.DistributionPacketTestNames.Test, Erlang.Tests.DistributionPacketChecks.Run);
 
+Test(Erlang.Tests.AtomNameValidationTestNames.Test, Erlang.Tests.AtomNameValidationChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

@@ -1,0 +1,9 @@
+from pathlib import Path
+import json,hashlib
+r=Path.cwd();p=r/'artifacts/atom-name-validation-prototype';old=json.loads((r/'artifacts/atom-name-validation-source-freeze-final.json').read_text());owned=[x['Path'] for x in old['Files']]+['tools/Erlang.Differential/IdentifierOrderCases.cs'];changes=[]
+for name in ['tools/Erlang.Differential/AtomScalarValidationCases.cs','tools/Erlang.Differential/IdentifierOrderCases.cs']:
+ f=p/name;before=f.read_bytes();s=f.read_text();assert s.count('    private const string Completion = "done";')==1;s=s.replace('    private const string Completion = "done";\n\n','').replace('Term.A(Completion)','Term.A(CompiledContractOutcomeNames.Completion)');f.write_text(s);changes.append({'Path':name,'BeforeSource':before.decode(),'BeforeSha256':hashlib.sha256(before).hexdigest().upper(),'AfterSha256':hashlib.sha256(f.read_bytes()).hexdigest().upper(),'Reason':'Reuse existing semantic compiledcontract Completion constant; case source/name/outcome values unchanged.'})
+rows=[]
+for name in owned:
+ original=r/name;raw=(p/name).read_bytes();rows.append({'Path':name,'BeforeSha256':hashlib.sha256(original.read_bytes()).hexdigest().upper() if original.exists() else None,'Sha256':hashlib.sha256(raw).hexdigest().upper(),'BeforeSource':original.read_text() if original.exists() else None,'SourceContent':raw.decode()})
+freeze={'Stage':'Revision4ReuseCompiledContractCompletionPreBuild','Files':rows,'Previous11FreezeSha256':hashlib.sha256((r/'artifacts/atom-name-validation-source-freeze-final.json').read_bytes()).hexdigest().upper(),'CompletionAliasRefinements':changes,'NativeExecuted':False,'NewCompiledCases':9,'PriorIdentifierCases11SourcesExpectedNamesUnchanged':True,'PublishedBase':'2c1f6dadcf97b7301b60ea153dd6895a6a1a4687'};f=r/'artifacts/atom-name-validation-source-freeze-revision4.json';f.write_text(json.dumps(freeze,indent=2));print('Revision4prebuildSHA',hashlib.sha256(f.read_bytes()).hexdigest().upper())

@@ -8,10 +8,18 @@ run(Output) ->
     true = register(net_kernel, self()),
     true = erlang:setnode(packet_local@localhost, 1),
     Owner = self(),
+    Pending = erts_internal:new_connection(packet_remote@localhost),
+    save("pending-handle.etf", term_to_binary(Pending)),
     {Controller, Monitor} = spawn_monitor(fun() -> controller(Owner) end),
     try
-        Handle = receive {ready, Controller, H} -> H after 5000 -> error(controller_timeout) end,
-        save("inputs.etf", term_to_binary({packet_remote@localhost, flags(), 1})),
+        Handle = receive
+                     {ready, Controller, H} -> H;
+                     {'DOWN', Monitor, process, Controller, ReadyReason} ->
+                         put(packet_ready_down, {observed, ReadyReason}),
+                         save("controller-ready-failure.etf", term_to_binary(ReadyReason)),
+                         error({controller_died_before_ready, ReadyReason})
+                 after 5000 -> error(controller_timeout) end,
+        save("inputs.etf", term_to_binary({packet_remote@localhost, flags(), 1, Pending})),
         receive Notice = {dist_ctrlr, Controller, packet_remote@localhost, Controller} ->
             save("kernel-notice.etf", term_to_binary(Notice))
         after 5000 -> error(kernel_notice_timeout) end,
@@ -52,14 +60,22 @@ run(Output) ->
         save("stage", <<"complete">>),
         ok
     after
-        Controller ! stop,
-        receive {'DOWN', Monitor, process, Controller, Reason} ->
-            save("cleanup-controller.etf", term_to_binary(Reason))
-        after 5000 -> exit(Controller, kill),
-                      receive {'DOWN', Monitor, process, Controller, Reason} ->
-                          save("cleanup-controller.etf", term_to_binary({forced, Reason}))
-                      after 5000 -> error(cleanup_timeout) end
-        end
+        cleanup_controller(Controller, Monitor)
+    end.
+
+cleanup_controller(Controller, Monitor) ->
+    case erase(packet_ready_down) of
+        {observed, ObservedReason} ->
+            save("cleanup-controller.etf", term_to_binary(ObservedReason));
+        undefined ->
+            Controller ! stop,
+            receive {'DOWN', Monitor, process, Controller, CleanupReason} ->
+                save("cleanup-controller.etf", term_to_binary(CleanupReason))
+            after 5000 -> exit(Controller, kill),
+                          receive {'DOWN', Monitor, process, Controller, ForcedReason} ->
+                              save("cleanup-controller.etf", term_to_binary({forced, ForcedReason}))
+                          after 5000 -> error(cleanup_timeout) end
+            end
     end.
 
 controller(Owner) ->

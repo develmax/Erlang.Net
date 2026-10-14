@@ -1,0 +1,32 @@
+{
+  "Name": "halt-zero",
+  "Backend": 1,
+  "Stage": "halt-request-observed",
+  "RawExitCode": 0,
+  "StandardOutput": [],
+  "StandardError": [],
+  "TimedOut": false,
+  "Evidence": {
+    "Stage": "halt-request-observed",
+    "Backend": "compiled",
+    "RequestKind": 0,
+    "LogicalStatus": 0,
+    "Slogan": null,
+    "EntryExitReason": null,
+    "Error": null,
+    "DumpFormat": null,
+    "SourceSha256": [
+      "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+    ],
+    "LogicalStack": null
+  },
+  "InfrastructureError": null,
+  "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\aa46bddd8e2e4e3b8caefa14614d9592",
+  "Sources": [
+    {
+      "Module": "halt_zero",
+      "Source": "-module(halt_zero).\n-export([run/0]).\nrun()-\u003Eerlang:halt(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+      "SourceSha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+    }
+  ]
+}

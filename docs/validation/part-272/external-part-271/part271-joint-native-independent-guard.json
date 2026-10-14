@@ -1,0 +1,209 @@
+{
+  "Status": "PacketFailureAndIndependentMixedSuccessPreserved",
+  "Head": "2c1f6dadcf97b7301b60ea153dd6895a6a1a4687",
+  "Run": 38604609255,
+  "Job": 115992171586,
+  "JobConclusion": "failure",
+  "PinnedRuntimeVerified": [
+    "29",
+    "17.1",
+    "jit"
+  ],
+  "ArtifactSummaries": [
+    {
+      "Artifact": "pinned-distribution-packet",
+      "Id": 11915611565,
+      "ZipSha256": "903A07D68949E8191F1D82A312F2F4A2DC6F9AB0252198C0984DB76B97782EAD",
+      "Captured": 0,
+      "DeclaredFilesVerified": 26
+    },
+    {
+      "Artifact": "pinned-mixed-map-identity",
+      "Id": 11915661445,
+      "ZipSha256": "89222B846984C781045646AC174074BE364158A7F13EB4D0130529F6F3846282",
+      "Captured": 1,
+      "DeclaredFilesVerified": 56
+    }
+  ],
+  "PacketCaptured": 0,
+  "PacketOuterFailure": [
+    "error",
+    "controller_timeout"
+  ],
+  "PacketControllerFailure": "badarg at setnode/3",
+  "PacketMissingRequiredFiles": [
+    "inputs.etf",
+    "incoming-send.packet",
+    "incoming-send-result.etf",
+    "incoming-send-delivered.etf",
+    "incoming-reg-send.packet",
+    "incoming-reg-send-result.etf",
+    "incoming-reg-send-delivered.etf",
+    "outgoing-reg-send.packet",
+    "outgoing-reg-send-control.etf",
+    "stats.etf",
+    "stage",
+    "payload.etf",
+    "identities.etf",
+    "incoming-send-control.etf",
+    "incoming-reg-send-control.etf",
+    "kernel-notice.etf"
+  ],
+  "SourceCause": "Published probe adopts controller on idle dist entry without erts_internal:new_connection; pinned setup_connection_distctrl requires pending state",
+  "MixedCaptured": 1,
+  "MixedRequiredFiles": 32,
+  "MixedObservedNativeCachedMapOrderingDivergence": true,
+  "ObservedPairs": [
+    {
+      "Phase": "before",
+      "Kind": "reference",
+      "IdentifierOrder": [
+        "false",
+        "true",
+        "false"
+      ],
+      "ExactEqual": "true",
+      "MapOrder": [
+        "false",
+        "false"
+      ],
+      "Hashes": [
+        41952497,
+        41952497
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        [
+          "ok",
+          "retained_reference_map"
+        ]
+      ]
+    },
+    {
+      "Phase": "before",
+      "Kind": "pid",
+      "IdentifierOrder": [
+        "false",
+        "true",
+        "false"
+      ],
+      "ExactEqual": "true",
+      "MapOrder": [
+        "false",
+        "false"
+      ],
+      "Hashes": [
+        33916388,
+        33916388
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        [
+          "ok",
+          "retained_pid_map"
+        ]
+      ]
+    },
+    {
+      "Phase": "started",
+      "Kind": "reference",
+      "IdentifierOrder": [
+        "true",
+        "false",
+        "false"
+      ],
+      "ExactEqual": "false",
+      "MapOrder": [
+        "false",
+        "true"
+      ],
+      "Hashes": [
+        41952497,
+        41952497
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        "error"
+      ]
+    },
+    {
+      "Phase": "started",
+      "Kind": "pid",
+      "IdentifierOrder": [
+        "true",
+        "false",
+        "false"
+      ],
+      "ExactEqual": "false",
+      "MapOrder": [
+        "false",
+        "true"
+      ],
+      "Hashes": [
+        33916388,
+        33916388
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        "error"
+      ]
+    },
+    {
+      "Phase": "stopped",
+      "Kind": "reference",
+      "IdentifierOrder": [
+        "false",
+        "true",
+        "false"
+      ],
+      "ExactEqual": "true",
+      "MapOrder": [
+        "false",
+        "false"
+      ],
+      "Hashes": [
+        41952497,
+        41952497
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        [
+          "ok",
+          "retained_reference_map"
+        ]
+      ]
+    },
+    {
+      "Phase": "stopped",
+      "Kind": "pid",
+      "IdentifierOrder": [
+        "false",
+        "true",
+        "false"
+      ],
+      "ExactEqual": "true",
+      "MapOrder": [
+        "false",
+        "false"
+      ],
+      "Hashes": [
+        33916388,
+        33916388
+      ],
+      "RebuiltMapKeyLookup": [
+        "result",
+        [
+          "ok",
+          "retained_pid_map"
+        ]
+      ]
+    }
+  ],
+  "MixedFullFactsFile": "part271-mixed-decoded-facts.json",
+  "CanonicalEqualityTrueAssumptionContradicted": true,
+  "NoSemanticExpectationsOrRowsChanged": true,
+  "NoRetries": true,
+  "RawJobLogVerificationPending": false,
+  "RawJobLogSha256": "6D2B028AF42D55016DF97D5279483786851BAAA1660F32ADBEB3F235CD4D697E",
+  "ActualJobStepsVerified": 13
+}

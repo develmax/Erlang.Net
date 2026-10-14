@@ -39,7 +39,7 @@ public static class CompiledModuleProtocol
     {
         if (fixture.Kind == DiagnosticCaseKind.FormBoundarySyntax)
             return FormBoundaryProtocol.Command(fixture.Source);
-        if (fixture.Kind is not (DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated or DiagnosticCaseKind.BasedInteger))
+        if (fixture.Kind is not (DiagnosticCaseKind.CharacterLiteralIllegal or DiagnosticCaseKind.CharacterLiteralUnterminated or DiagnosticCaseKind.BasedInteger or DiagnosticCaseKind.IllegalAtomName or DiagnosticCaseKind.IllegalVariableName))
             return DiagnosticCommand(fixture.Source);
         string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(fixture.Source));
 
