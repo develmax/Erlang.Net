@@ -37,5 +37,3 @@ internal static class BeamOnLoadHostNames
     internal const string ProofFailure = "Genuine BEAM pending callback host contract failed";
     internal const int WatchdogSeconds = 10;
 }
-
-

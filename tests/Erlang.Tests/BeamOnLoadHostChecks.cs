@@ -275,7 +275,3 @@ public static class BeamOnLoadHostChecks
         throw new InvalidOperationException(BeamOnLoadHostNames.ProofFailure);
     }
 }
-
-
-
-
