@@ -1,0 +1,54 @@
+{
+  "Status": "SourcePeerPassedDeclaredExporterScope",
+  "FreezeSha256": "B44E2EC31A544403D8E9B7D2032807F7C78FC2EA58172F6EF88401E44D4E0509",
+  "VerifiedPaths": 14,
+  "Authorship": "Standalone exporter authored by spawn_requests; independent review by native_records, who previously authored the source-only contract plan",
+  "ConcreteBlockers": [],
+  "Checks": [
+    "Compiled direct/1 contains real remote erlang:call_on_load_function call; beam_disasm pinned resolve_inst preserves call_ext/call_ext_only/call_ext_last extfunc operands before JIT load-time rewrite; structural gate targets direct/1 rather than any atom text",
+    "Actual source-built installed runtime probe captures full OTP/ERTS/architecture/build/flavor/root ETF and text before exact pinned JIT assertion",
+    "Five original input hashes verified once, copied, and fresh VMs use captured input tree; no reread of mutable repository during scenario execution",
+    "Actual callback executes in spawn_monitor worker; monitor created with worker before source emits notice; raw notice before ACK, actual matching monitor DOWN and full raw failure stacks preserved",
+    "Local ETF scenario asserts NEWER_REFERENCE_EXT length3 before mutation, captures both length4 extra0/extra1 bytes and returned terms before equality projection; native first3 magic-number lookup source pinned",
+    "Consumed has_onload query, duplicate flagged list order, list/resource validation before system_limit, third generation not_purged, low-level load_module on_load mapping and repeat false declared source expectations remain unobserved",
+    "External45s process deadline, bounded5s post-kill/stream-drain/cancel-join, raw byte streams, exit sidecar before drain, false completeness before cancel cleanup; exporter refuses timeout/incomplete captures",
+    "Atomic report/tmp update after each observed VM; workflow always uploads raw output/tree/build provenance; failures cannot become passed badarg projections"
+  ],
+  "PinnedSupplementalSourceHashes": [
+    {
+      "Path": "lib/compiler/src/beam_disasm.erl",
+      "Sha256": "719679DF589ECA009C0B7327C7C7FEEBA2F503A77E71CE69945AD5DA2DCD2FBA"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/ops.tab",
+      "Sha256": "BF6C0F5CB09DB030486713B3923BF0BBA1A9FBC98FE2684F425AB60B8FCAD711"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_bif_load.c",
+      "Sha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_unique.h",
+      "Sha256": "2CD8CB50C5FDE120F4D7319AFCC3258BA2F06DF0A6B4E79BA30F38CF6155F66D"
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B"
+    }
+  ],
+  "RequiredActualTargetChecks": [
+    "Compile wrapper with actual pinned erlc -Werror and execute direct structural disassembly gate",
+    "Negative raw nonUTF8 bytes and inherited descendant stdout controls, preserving captured bytes/incomplete marker and bounded terminal",
+    "Actual11freshVM original observations still required; all10predeclared summaries must match or preserve failure without expected weakening"
+  ],
+  "ScopeLimits": [
+    "Not absolute OS process/filesystem liveness guarantee; FlushAsync/DisposeAsync and process stream Close remain OS dependent",
+    "Callback expected projections retain raw PID/reference/stack evidence but are not ordinary corpus harness changes",
+    "No full loader validator/export/resource compatibility or six-MFA registration claim",
+    "Current source-only review does not prove compiler syntax, production success or native outcomes"
+  ],
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "MainEdits": false,
+  "LoadingMfaDelta": 0
+}

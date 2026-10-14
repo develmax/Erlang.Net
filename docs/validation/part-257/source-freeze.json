@@ -1,0 +1,89 @@
+{
+  "Status": "Revision5AwaitByteArraysAndSdkLayout",
+  "RawBeforeComparison": true,
+  "Files": [
+    {
+      "Path": "tools/Erlang.LoaderContrasts/Erlang.LoaderContrasts.csproj",
+      "Sha256": "6AB1DD3653B1EBDE667B8A1BE39C85AD7F0835D72A6783D0E9B14A05DA6E2281"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/LoaderContrastNames.cs",
+      "Sha256": "AAFA0D34C1B1E260516CB4C945E76C86530D922230480F381405318ED2507729"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/LoaderProcessResult.cs",
+      "Sha256": "2E483C630E67BF50C4F63B247D70626E298924C39CE5A14953D5FA3C8CD3B9D2"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/LoaderProcess.cs",
+      "Sha256": "5A20EC8220D24F55E6A65DAEE91044BB4673E9FC8549464FF1AD79AE2D4BBC52"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/Program.cs",
+      "Sha256": "64E17B6FF4B38B6327C92F5D75FC8E46D005E418C37ECB551AFEEEE5FE569508"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/LoaderCaseResult.cs",
+      "Sha256": "239F1EBF23310E56E28BBE0D50F089A065C18217CDD29566B2989ACAAAA4AC63"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/LoaderExporter.cs",
+      "Sha256": "839162FF2526BA12159D2C3A87AB276F08347CA62F4FBE213577AE677A5CCCA3"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/loader_contrast_wrapper.erl",
+      "Sha256": "EC38B5438F183C84113D5F70A6A8A21E14217401EBFF6E7B1DC5680D1B2C1C04"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/predeclared-contracts.json",
+      "Sha256": "779EA7B93472F4A3570ADA1829A2DEF9F1FB4E74FD57F4FE74FB291F345389EE"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/pinned-source-provenance.json",
+      "Sha256": "3E3DCFD243499A785D67793EF1226CCE67C8D58D6F4C6D512751B7556F46E26A"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/README.md",
+      "Sha256": "20EF89297C63825BF94E2543834352BC14D7B3ABE3C0EBC0D84A6B265C038D18"
+    },
+    {
+      "Path": ".github/workflows/loader-contrasts.yml",
+      "Sha256": "4F54CE788BBEFD8AE824120891C1B1F3701B47337D37572AA3741889ECE1F986"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Sha256": "0750564B0FB7C9D2653A03C0A0632DBD441438B41C76B20D056ECF99EA5D8F24"
+    },
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Sha256": "5A51319B6BA94843A0EB8CBFE576476B7894BD3CE0E1DDE624499B401485E2D6"
+    }
+  ],
+  "MfaRegistrations": 0,
+  "Plan": "artifacts/native-loader-contrast-plan/predeclared-contracts.json",
+  "ImmutableInputs": 5,
+  "IndependentExpected": true,
+  "FreshVmExecutions": 11,
+  "PathsCount": 14,
+  "RuntimeEdits": 0,
+  "Seed": "a9a616ef9142cb87d564fdd10a6c39f1d182c8f1",
+  "Cases": 10,
+  "BuildPerformed": false,
+  "NewProject": "tools/Erlang.LoaderContrasts",
+  "SourceWrapperDirectCall": true,
+  "Candidate": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\loader-native-contrast-tool-revision3-prototype",
+  "NativeExecuted": false,
+  "StyleCheck": 0,
+  "Revision3FreezeSha256": "B44E2EC31A544403D8E9B7D2032807F7C78FC2EA58172F6EF88401E44D4E0509",
+  "Correction": {
+    "Path": "tools/Erlang.LoaderContrasts/LoaderExporter.cs",
+    "BeforeSha256": "5EFAC9C89D9BCD9D436FDAB94FC9A7FEBE66AE8A88553FAC59FACE48D04D6FA9",
+    "AfterSha256": "01E4552AF34745157F49343198C4D5530A8BC49B5D963EF4A03790DA67B2A09B",
+    "Reason": "Actual CS4007 target build: await both byte arrays before synchronous SequenceEqual; retain existing required-file and raw-complete success gates",
+    "NativeExecuted": false,
+    "FinalFormattedSha256": "839162FF2526BA12159D2C3A87AB276F08347CA62F4FBE213577AE677A5CCCA3"
+  },
+  "Revision4FreezeSha256": "E28FD8C8B259D259212524BF8A18320F00B56B39294FDB493DD08345749E4CC4",
+  "PriorRevision3ExporterSource": "artifacts/loader-native-contrast-tool-revision3-initial-exporter.cs.txt",
+  "PriorRevision3SourceRecoveredExact": true
+}

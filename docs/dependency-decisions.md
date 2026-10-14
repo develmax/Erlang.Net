@@ -600,3 +600,7 @@ On-load HOST candidate remains pure managed code with existing BCL/runtime facil
 
 
 Owned reference resource foundation is source-guided adaptation of pinned OTP29.1.1 external.c3644/4845-4854, erl_bif_unique.c198-291/295 onward and bif.c4792-4798 live magic-reference serialization/text lookup, with beam_bif_load.c loader-resource validation guiding the typed prepared payload. It introduces no native dependency, source banners or loading MFAs. Per-runtime weak lookup/live strong terms and typed leases are real managed ownership; exact3word/local creation0, physical native destructor/ABI, broader reference encodings and whole loading semantics remain explicit gaps. Source-only unbuilt foundation; existing notices retained.
+
+## Native loader contrast exporter source proposal (2026-10-14)
+
+Standalone tools/Erlang.LoaderContrasts adapts control-flow guidance from pinned OTP-29.1.1 beam_bif_load.c (Ericsson AB1999-2026), beam_load.c (Ericsson AB1996-2026), external.c (Ericsson AB1996-2026), erl_bif_unique.h (Ericsson AB2014-2025), erlang.erl and code_server.erl (Ericsson AB1998-2026), under Apache-2.0. Original notices and pinned source provenance are consolidated here; no source banners or private license are copied. Ten independent source-declared loader contrasts (eleven disposable VMs) are unobserved until a future authorized original workflow. No runtime, registered MFA, corpus, exclusion or physical compatibility promotion is made.
