@@ -1,0 +1,74 @@
+{
+  "Stage": "Native273LatestApiAndRawJobLogIndependentProvenancePass",
+  "Run": 38631315716,
+  "Job": 116083382339,
+  "Head": "fa1a0e6ad4aea2fb86a51ea4008724510d8fb89a",
+  "LatestApiSha256": "7BEA10AB195C3D80022598684C8F1313FB93A9ABE04AB0A8AA8DAEB35E7F417F",
+  "LatestJobMatchesDownloadedArtifactApiExactly": true,
+  "RawJobLogSha256": "997A65AE7C6EC975C1537A7C17BE6B50F15D2DFAD802EF83CBB6B6D8B2CB2A2B",
+  "DeclaredJobLogDigestMatches": true,
+  "Artifact": 11926727020,
+  "UploadFileCount": 48,
+  "UploadZipBytes": 114265,
+  "LogAndApiZipDigest": "53CB2156C9270A38ABF6875DB70231BAC68501A218FA91F50E7EB4799C5C0CA6",
+  "Anchors": [
+    {
+      "Line": 325,
+      "RawText": "2026-10-14T20:21:52.3143371Z PINNED_BEAM_SOURCE_VERIFIED ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Line": 246,
+      "RawText": "2026-10-14T20:21:41.3555266Z Build succeeded."
+    },
+    {
+      "Line": 247,
+      "RawText": "2026-10-14T20:21:41.3556262Z     0 Warning(s)"
+    },
+    {
+      "Line": 248,
+      "RawText": "2026-10-14T20:21:41.3556599Z     0 Error(s)"
+    },
+    {
+      "Line": 5629,
+      "RawText": "2026-10-14T20:29:47.1511763Z \u001b[36;1mdotnet run --project tools/Erlang.DistributionPacketContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-packet artifacts/beam-source-build-evidence.json\u001b[0m"
+    },
+    {
+      "Line": 5652,
+      "RawText": "2026-10-14T20:29:49.0504766Z With the provided path, there will be 48 files uploaded"
+    },
+    {
+      "Line": 5657,
+      "RawText": "2026-10-14T20:29:49.8509251Z Uploaded bytes 114265"
+    },
+    {
+      "Line": 5659,
+      "RawText": "2026-10-14T20:29:49.9110139Z SHA256 digest of uploaded artifact is 53cb2156c9270a38abf6875db70231bac68501a218fa91f50e7eb4799c5c0ca6"
+    },
+    {
+      "Line": 5661,
+      "RawText": "2026-10-14T20:29:50.3199665Z Artifact pinned-distribution-packet successfully finalized. Artifact ID 11926727020"
+    }
+  ],
+  "ImmutablePrecedingGuards": [
+    {
+      "Path": "artifacts/part273-packet-independent-guard.json",
+      "Sha256": "D2FE38C10D7A88FEC1338577B378ECF49194E9ECEFA04EDEC26AC56AC416340D"
+    },
+    {
+      "Path": "artifacts/part273-packet-independent-typed-facts.json",
+      "Sha256": "8230B7CDB460628534E4E84BEBCE398EC02042AEEF3D509043D2BF26A0AB9F53"
+    },
+    {
+      "Path": "artifacts/part273-packet-independent-stat-digest-supplement.json",
+      "Sha256": "2C5E9C8579A89F6C91F8880C313A0D298AD55F20D8E76E04EAD5C6B20C5531E3"
+    }
+  ],
+  "MixedStepsSkipped": [
+    5,
+    8,
+    10
+  ],
+  "NativeCapturePass": true,
+  "SdkCompatibilityClaim": false,
+  "Scope": "Latest success API record and genuine job raw log independently bind checked-in source, pinned source-build verification, tool build, exact capture command, upload count/size/digest/id. Previously verified raw ETF facts remain immutable. No new runtime build or original probe execution."
+}

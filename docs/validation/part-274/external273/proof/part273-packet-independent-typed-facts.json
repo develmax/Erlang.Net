@@ -1,0 +1,443 @@
+{
+  "Source": "artifacts/part-273-pinned-distribution-packet",
+  "Runtime": {
+    "Tag": 104,
+    "Tuple": [
+      {
+        "Tag": 107,
+        "StringBytesHex": "3239"
+      },
+      {
+        "Tag": 107,
+        "StringBytesHex": "31372e31"
+      },
+      {
+        "Tag": 119,
+        "Atom": "jit"
+      },
+      {
+        "Tag": 107,
+        "StringBytesHex": "2f686f6d652f72756e6e65722f776f726b2f45726c616e672e4e65742f45726c616e672e4e65742f6172746966616374732f6265616d2d6f74702d6f7261636c652f6c69622f65726c616e67"
+      }
+    ]
+  },
+  "RawTypedTerms": {
+    "cleanup-controller.etf": {
+      "Tag": 119,
+      "Atom": "normal"
+    },
+    "cleanup-sink.etf": {
+      "Tag": 119,
+      "Atom": "normal"
+    },
+    "identities.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 83,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 119,
+          "Atom": "packet_local@localhost"
+        },
+        {
+          "Tag": 119,
+          "Atom": "true"
+        }
+      ]
+    },
+    "incoming-reg-send-control.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 97,
+          "Integer": 6
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 119,
+          "Atom": ""
+        },
+        {
+          "Tag": 119,
+          "Atom": "packet_sink"
+        }
+      ]
+    },
+    "incoming-reg-send-delivered.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "packet_payload"
+        },
+        {
+          "Tag": 109,
+          "BinaryHex": "0080ff"
+        },
+        {
+          "Tag": 108,
+          "List": [
+            {
+              "Tag": 119,
+              "Atom": "a"
+            }
+          ],
+          "Tail": {
+            "Tag": 119,
+            "Atom": "binary_tail"
+          }
+        }
+      ]
+    },
+    "incoming-reg-send-result.etf": {
+      "Tag": 119,
+      "Atom": "ok"
+    },
+    "incoming-send-control.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 97,
+          "Integer": 2
+        },
+        {
+          "Tag": 119,
+          "Atom": ""
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        }
+      ]
+    },
+    "incoming-send-delivered.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "packet_payload"
+        },
+        {
+          "Tag": 109,
+          "BinaryHex": "0080ff"
+        },
+        {
+          "Tag": 108,
+          "List": [
+            {
+              "Tag": 119,
+              "Atom": "a"
+            }
+          ],
+          "Tail": {
+            "Tag": 119,
+            "Atom": "binary_tail"
+          }
+        }
+      ]
+    },
+    "incoming-send-result.etf": {
+      "Tag": 119,
+      "Atom": "ok"
+    },
+    "inputs.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "packet_remote@localhost"
+        },
+        {
+          "Tag": 110,
+          "Integer": 17230663572
+        },
+        {
+          "Tag": 97,
+          "Integer": 1
+        },
+        {
+          "Tag": 104,
+          "Tuple": [
+            {
+              "Tag": 98,
+              "Integer": 2749754
+            },
+            {
+              "Tag": 90,
+              "Reference": {
+                "Node": {
+                  "Tag": 119,
+                  "Atom": "packet_local@localhost"
+                },
+                "Creation": 4,
+                "Words": [
+                  140931,
+                  2008416257,
+                  4240121752
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "kernel-notice.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "dist_ctrlr"
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 83,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 119,
+          "Atom": "packet_remote@localhost"
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 83,
+            "Serial": 0,
+            "Creation": 4
+          }
+        }
+      ]
+    },
+    "outgoing-reg-send-control.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 97,
+          "Integer": 6
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 119,
+          "Atom": ""
+        },
+        {
+          "Tag": 119,
+          "Atom": "packet_sink"
+        }
+      ]
+    },
+    "payload.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "packet_payload"
+        },
+        {
+          "Tag": 109,
+          "BinaryHex": "0080ff"
+        },
+        {
+          "Tag": 108,
+          "List": [
+            {
+              "Tag": 119,
+              "Atom": "a"
+            }
+          ],
+          "Tail": {
+            "Tag": 119,
+            "Atom": "binary_tail"
+          }
+        }
+      ]
+    },
+    "pending-handle.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 98,
+          "Integer": 2749754
+        },
+        {
+          "Tag": 90,
+          "Reference": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Creation": 4,
+            "Words": [
+              140931,
+              2008416257,
+              4240121752
+            ]
+          }
+        }
+      ]
+    },
+    "registered-sink-identities.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 10,
+            "Serial": 0,
+            "Creation": 4
+          }
+        },
+        {
+          "Tag": 88,
+          "Pid": {
+            "Node": {
+              "Tag": 119,
+              "Atom": "packet_local@localhost"
+            },
+            "Number": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        }
+      ]
+    },
+    "stats.etf": {
+      "Tag": 104,
+      "Tuple": [
+        {
+          "Tag": 119,
+          "Atom": "ok"
+        },
+        {
+          "Tag": 97,
+          "Integer": 2
+        },
+        {
+          "Tag": 97,
+          "Integer": 1
+        },
+        {
+          "Tag": 97,
+          "Integer": 0
+        }
+      ]
+    }
+  },
+  "Wire": [
+    {
+      "Name": "incoming-send",
+      "Bytes": 93,
+      "Sha256": "6D0009F915539EA9482FF788CD26E246C48AC59CAAB476445696978055E66EF6",
+      "Marker": 112,
+      "ExactSavedControlAndPayloadBytes": true,
+      "RawHex": "70836803610277005877167061636b65745f6c6f63616c406c6f63616c686f73740000000a0000000000000004836803770e7061636b65745f7061796c6f61646d000000030080ff6c00000001770161770b62696e6172795f7461696c"
+    },
+    {
+      "Name": "incoming-reg-send",
+      "Bytes": 106,
+      "Sha256": "B067D7093DE97176A3DB6E42C7FE6D0DEADACD86534B0673B802CDB222992192",
+      "Marker": 112,
+      "ExactSavedControlAndPayloadBytes": true,
+      "RawHex": "7083680461065877167061636b65745f6c6f63616c406c6f63616c686f73740000000a00000000000000047700770b7061636b65745f73696e6b836803770e7061636b65745f7061796c6f61646d000000030080ff6c00000001770161770b62696e6172795f7461696c"
+    },
+    {
+      "Name": "outgoing-reg-send",
+      "Bytes": 106,
+      "Sha256": "B067D7093DE97176A3DB6E42C7FE6D0DEADACD86534B0673B802CDB222992192",
+      "Marker": 112,
+      "ExactSavedControlAndPayloadBytes": true,
+      "RawHex": "7083680461065877167061636b65745f6c6f63616c406c6f63616c686f73740000000a00000000000000047700770b7061636b65745f73696e6b836803770e7061636b65745f7061796c6f61646d000000030080ff6c00000001770161770b62696e6172795f7461696c"
+    }
+  ],
+  "Readme": "ETF tags, tuple/list distinctions, PID numbers/serials/creation and improper-list tails are retained. No PID identity substitution, re-encoding, or decoded normalization."
+}

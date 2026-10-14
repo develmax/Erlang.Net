@@ -1,0 +1,24 @@
+{
+  "Stage": "AdditiveNativeCollectorIntegration12IndependentSourceReviewPass",
+  "SourceFreezeSha256": "83BE94836BDEEE906CE488479C11138F9DF528E01FD1C9908DA02E842447282B",
+  "BaseHead": "fa1a0e6ad4aea2fb86a51ea4008724510d8fb89a",
+  "Files": 12,
+  "LinkedSharedSources": 9,
+  "AllFrozenSourceBytesExact": true,
+  "RuntimeAndProbePlanFilesExactFinalCollector3": true,
+  "NineLinksResolveSameRawSourceBytes": true,
+  "WorkflowChangesOnlyTwoStepLabels": [
+    "-      - name: Build standalone node identity observation tool",
+    "+      - name: Build standalone local-node admission observation tool",
+    "-      - name: Build and attest the pinned development compiler",
+    "+      - name: Build and attest the pinned original OTP compiler"
+  ],
+  "SinglePinnedSourceBuildAndAlwaysUpload": true,
+  "Packet20SourceAndWorkflowPublishedBytesPreserved": true,
+  "ReadmeScopeCorrect": "Isolated collector source/build/negative/raw gates; genuine native remains pending publication and dispatch. Relocated integration remains unbuilt.",
+  "RawPlanSha256": "8E67B33365842F0D29156AD2B44F227481CC68A800D38F46E131E9F8B5F5198E",
+  "MainModified": false,
+  "BuildExecutedByReviewer": false,
+  "NativeExecuted": false,
+  "InitialReviewScriptCorrection": "Preserved packet paths are ledger-bound Main/published inputs, not files copied into the additive12 prototype; review checks actual Main and committed bytes."
+}

@@ -1,0 +1,62 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "Sources": [
+    {
+      "File": "local_node_admission_probe.erl",
+      "Sha256": "602C79F6C5F117BB2891FA2975FD80B6077CD3CCD794B0FD36890194CE83033F"
+    },
+    {
+      "File": "setnode_compiled_driver.erl",
+      "Sha256": "BD6DABB2021ADACCD7193C0992F03BF460390D9B234CBA4671252DE61D00F494"
+    },
+    {
+      "File": "setnode_gateway_probe.erl",
+      "Sha256": "BD9C14C6D586EAB395E2D8EA9F1B3EC0824C2783BB69F5556C565B42B4F30685"
+    }
+  ],
+  "Scenarios": [
+    "admission",
+    "compiled"
+  ],
+  "RequiredArtifacts": {
+    "admission": [
+      "before.etf",
+      "missing-kernel.etf",
+      "retained-external.etf",
+      "invalid-name.etf",
+      "invalid-type.etf",
+      "forbidden-nonode.etf",
+      "negative-creation.etf",
+      "overflow-creation.etf",
+      "admitted.etf",
+      "active.etf",
+      "nodeup-first.etf",
+      "nodeup-second.etf",
+      "already-active.etf",
+      "kernel-down.etf",
+      "nodedown-first.etf",
+      "nodedown-second.etf",
+      "inactive.etf",
+      "retained-after.etf",
+      "stage"
+    ],
+    "compiled": [
+      "missing.etf",
+      "inactive.etf",
+      "watch.etf",
+      "started.etf",
+      "active.etf",
+      "already-active.etf",
+      "nodeup.etf",
+      "kernel-down.etf",
+      "nodedown.etf",
+      "stopped.etf",
+      "cleanup.etf",
+      "stage"
+    ]
+  },
+  "NativeExecuted": true,
+  "SemanticCompatibilityClaim": false,
+  "SdkExpectedUsed": false
+}

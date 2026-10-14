@@ -1,0 +1,25 @@
+{
+  "Stage": "Native273ArtifactDigestAndPinnedStatFieldSupplement",
+  "BaseGuardPath": "artifacts/part273-packet-independent-guard.json",
+  "BaseGuardSha256": "D2FE38C10D7A88FEC1338577B378ECF49194E9ECEFA04EDEC26AC56AC416340D",
+  "ApiArtifactDigest": "sha256:53cb2156c9270a38abf6875db70231bac68501a218fa91f50e7eb4799c5c0ca6",
+  "DownloadedZipSha256": "53CB2156C9270A38ABF6875DB70231BAC68501A218FA91F50E7EB4799C5C0CA6",
+  "ArtifactDigestMatchesRawZip": true,
+  "ArtifactWorkflowHeadAndRunMatch": true,
+  "PinnedDistSource": "OTP-29.1.1:erts/emulator/beam/dist.c",
+  "PinnedDistSourceSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+  "StatNativeFields": [
+    "dep->in",
+    "dep->out",
+    "dep->total_qsize"
+  ],
+  "ActualStatResult": [
+    "ok",
+    2,
+    1,
+    0
+  ],
+  "StatInterpretation": "Actual read/in count2, write/out count1, total_qsize0 after drain. No payload-byte substitution, estimated queue total, or generic zero result. Source validates captured handle connection id before reading counters.",
+  "NoExtraOptionProbe": "Fixture input-handler installation, get_data_notification and default get_data are executed; explicit get_opt/set_opt variants are absent.",
+  "NetworkAndQueueLoadClaim": false
+}
