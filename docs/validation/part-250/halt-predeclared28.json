@@ -1,0 +1,866 @@
+[
+  {
+    "Name": "halt-zero",
+    "Sources": [
+      {
+        "Module": "halt_zero",
+        "Source": "-module(halt_zero).\n-export([run/0]).\nrun()-\u003Eerlang:halt(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+      }
+    ],
+    "Module": "halt_zero",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 0,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-one-status",
+    "Sources": [
+      {
+        "Module": "halt_one_status",
+        "Source": "-module(halt_one_status).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+      }
+    ],
+    "Module": "halt_one_status",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-two-flush-false",
+    "Sources": [
+      {
+        "Module": "halt_two_flush_false",
+        "Source": "-module(halt_two_flush_false).\n-export([run/0]).\nrun()-\u003Eerlang:halt(43,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+      }
+    ],
+    "Module": "halt_two_flush_false",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 43,
+    "ExpectedPosixExit": 43,
+    "ExpectedWindowsExit": 43,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-low-word-big",
+    "Sources": [
+      {
+        "Module": "halt_low_word_big",
+        "Source": "-module(halt_low_word_big).\n-export([run/0]).\nrun()-\u003Eerlang:halt(18446744073709551663),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+      }
+    ],
+    "Module": "halt_low_word_big",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 47,
+    "ExpectedPosixExit": 47,
+    "ExpectedWindowsExit": 47,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-low31-wrap",
+    "Sources": [
+      {
+        "Module": "halt_low31_wrap",
+        "Source": "-module(halt_low31_wrap).\n-export([run/0]).\nrun()-\u003Eerlang:halt(2147483648),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+      }
+    ],
+    "Module": "halt_low31_wrap",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 0,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-os-width",
+    "Sources": [
+      {
+        "Module": "halt_os_width",
+        "Source": "-module(halt_os_width).\n-export([run/0]).\nrun()-\u003Eerlang:halt(257),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+      }
+    ],
+    "Module": "halt_os_width",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 257,
+    "ExpectedPosixExit": 1,
+    "ExpectedWindowsExit": 257,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-last-options-uint32",
+    "Sources": [
+      {
+        "Module": "halt_last_options_uint32",
+        "Source": "-module(halt_last_options_uint32).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41,[{flush,false},{flush,true},{flush_timeout,0},{flush_timeout,4294967295}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+      }
+    ],
+    "Module": "halt_last_options_uint32",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-catch-after",
+    "Sources": [
+      {
+        "Module": "halt_catch_after",
+        "Source": "-module(halt_catch_after).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(41) catch _:_ -\u003E io:put_chars(\u0022CATCH\\n\u0022) after io:put_chars(\u0022AFTER\\n\u0022) end,io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+      }
+    ],
+    "Module": "halt_catch_after",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-generator",
+    "Sources": [
+      {
+        "Module": "halt_generator",
+        "Source": "-module(halt_generator).\n-export([run/0]).\nrun()-\u003E[begin erlang:halt(43), io:put_chars(\u0022CONTINUE\\n\u0022) end || _ \u003C- [ok]],io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+      }
+    ],
+    "Module": "halt_generator",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 43,
+    "ExpectedPosixExit": 43,
+    "ExpectedWindowsExit": 43,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-both-streams",
+    "Sources": [
+      {
+        "Module": "halt_both_streams",
+        "Source": "-module(halt_both_streams).\n-export([run/0]).\nrun()-\u003Eio:put_chars(standard_error,\u0022ERROR-BEFORE\\n\u0022), io:put_chars(\u0022BEFORE\\n\u0022), erlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+      }
+    ],
+    "Module": "halt_both_streams",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [
+      69,
+      82,
+      82,
+      79,
+      82,
+      45,
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "ExpectedWindowsStandardError": [
+      69,
+      82,
+      82,
+      79,
+      82,
+      45,
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-options-first",
+    "Sources": [
+      {
+        "Module": "halt_options_first",
+        "Source": "-module(halt_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,broken),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,broken],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+      }
+    ],
+    "Module": "halt_options_first",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-improper-options",
+    "Sources": [
+      {
+        "Module": "halt_improper_options",
+        "Source": "-module(halt_improper_options).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush,true}|broken]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[0,[{flush,true}|broken]],I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+      }
+    ],
+    "Module": "halt_improper_options",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-infinity-invalid",
+    "Sources": [
+      {
+        "Module": "halt_infinity_invalid",
+        "Source": "-module(halt_infinity_invalid).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,infinity}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+      }
+    ],
+    "Module": "halt_infinity_invalid",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-uint32-overflow",
+    "Sources": [
+      {
+        "Module": "halt_uint32_overflow",
+        "Source": "-module(halt_uint32_overflow).\n-export([run/0]).\nrun()-\u003Eerlang:halt(0,[{flush_timeout,4294967296}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "3EC8D0998CFBE3B1D04D70DBD89F17FE48AB2813DCD588D17C617E318E1519A4"
+      }
+    ],
+    "Module": "halt_uint32_overflow",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 255,
+    "ExpectedPosixExit": 255,
+    "ExpectedWindowsExit": 255,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-one-error-wrapper",
+    "Sources": [
+      {
+        "Module": "halt_one_error_wrapper",
+        "Source": "-module(halt_one_error_wrapper).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+      }
+    ],
+    "Module": "halt_one_error_wrapper",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-two-plain-status",
+    "Sources": [
+      {
+        "Module": "halt_two_plain_status",
+        "Source": "-module(halt_two_plain_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "C42FD2987708A4138F9B27DB01A3756D6465D2B8AF3A2E07BEDB83FB72B02E37"
+      }
+    ],
+    "Module": "halt_two_plain_status",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-negative-big-status",
+    "Sources": [
+      {
+        "Module": "halt_negative_big_status",
+        "Source": "-module(halt_negative_big_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "E3007CBF9C1214A304CD88703D4EE61B6013C73BDA8FD15873DC0509C5ECD4AB"
+      }
+    ],
+    "Module": "halt_negative_big_status",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-valid-abort-invalid-options-first",
+    "Sources": [
+      {
+        "Module": "halt_valid_abort_invalid_options_first",
+        "Source": "-module(halt_valid_abort_invalid_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(abort,[{flush,wrong}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+      }
+    ],
+    "Module": "halt_valid_abort_invalid_options_first",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-invalid-slogan-prefix",
+    "Sources": [
+      {
+        "Module": "halt_invalid_slogan_prefix",
+        "Source": "-module(halt_invalid_slogan_prefix).\n-export([run/0]).\nrun()-\u003Etry erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "740557259EDF929CD773D96ABC1995991C50609F6EDCD09150A7A6EADF376587"
+      }
+    ],
+    "Module": "halt_invalid_slogan_prefix",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-direct-zero-watchdog",
+    "Sources": [
+      {
+        "Module": "halt_direct_zero_watchdog",
+        "Source": "-module(halt_direct_zero_watchdog).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41,[{flush_timeout,0}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "F2B3B0AFA5423CA761E2AED2C9623002FBE57C182F7E5B3F8E541756DFC50F02"
+      }
+    ],
+    "Module": "halt_direct_zero_watchdog",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 255,
+    "ExpectedPosixExit": 255,
+    "ExpectedWindowsExit": 255,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-maximum-native-small-timeout",
+    "Sources": [
+      {
+        "Module": "halt_maximum_native_small_timeout",
+        "Source": "-module(halt_maximum_native_small_timeout).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41,[{flush_timeout,576460752303423487}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "ABF8CE99BD6C2ED9F191BE2AE9B6229EC3EF870884BBE8385DF6423CDE8268E7"
+      }
+    ],
+    "Module": "halt_maximum_native_small_timeout",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-native-small-boundary-rejected",
+    "Sources": [
+      {
+        "Module": "halt_native_small_boundary_rejected",
+        "Source": "-module(halt_native_small_boundary_rejected).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,576460752303423488}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[0,[{flush_timeout,576460752303423488}]],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "47105BE7599346C3A94A789E127B48D34CDE3BF9F910E8442632D66D68C9D735"
+      }
+    ],
+    "Module": "halt_native_small_boundary_rejected",
+    "Entry": "run",
+    "ExpectedObservation": 1,
+    "ExpectedRequestKind": null,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 0,
+    "ExpectedWindowsExit": 0,
+    "ExpectedStandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-wrapped-one-flush-false",
+    "Sources": [
+      {
+        "Module": "halt_wrapped_one_flush_false",
+        "Source": "-module(halt_wrapped_one_flush_false).\n-export([run/0]).\nrun()-\u003Eerlang:halt(43,[{flush_timeout,4294967297},{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "A6E667FE6D45FCAA05F8FCDC70E73A766B78005D2ABABA237AA911B25FCFBCB4"
+      }
+    ],
+    "Module": "halt_wrapped_one_flush_false",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 43,
+    "ExpectedPosixExit": 43,
+    "ExpectedWindowsExit": 43,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-module-chain",
+    "Sources": [
+      {
+        "Module": "halt_probe_callee",
+        "Source": "-module(halt_probe_callee).\n-export([stop/0]).\nstop()-\u003Eerlang:halt(47).\n",
+        "SourceSha256": "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D"
+      },
+      {
+        "Module": "halt_module_chain",
+        "Source": "-module(halt_module_chain).\n-export([run/0]).\nrun()-\u003Ehalt_probe_callee:stop(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      }
+    ],
+    "Module": "halt_module_chain",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 47,
+    "ExpectedPosixExit": 47,
+    "ExpectedWindowsExit": 47,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER",
+      "TERMINATE"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-server-init",
+    "Sources": [
+      {
+        "Module": "halt_probe_server",
+        "Source": "-module(halt_probe_server).\n-behaviour(gen_server).\n-export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).\ninit(_)-\u003Eerlang:halt(41).\nhandle_call(_,_,S)-\u003E{reply,ok,S}.\nhandle_cast(_,S)-\u003E{noreply,S}.\nhandle_info(_,S)-\u003E{noreply,S}.\nterminate(_,_) -\u003E io:put_chars(\u0022TERMINATE\\n\u0022).\ncode_change(_,S,_)-\u003E{ok,S}.\n",
+        "SourceSha256": "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461"
+      },
+      {
+        "Module": "halt_server_init",
+        "Source": "-module(halt_server_init).\n-export([run/0]).\nrun()-\u003Egen_server:start_link(halt_probe_server,[],[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      }
+    ],
+    "Module": "halt_server_init",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 41,
+    "ExpectedPosixExit": 41,
+    "ExpectedWindowsExit": 41,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER",
+      "TERMINATE"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-supervisor-init",
+    "Sources": [
+      {
+        "Module": "halt_probe_supervisor",
+        "Source": "-module(halt_probe_supervisor).\n-behaviour(supervisor).\n-export([init/1]).\ninit(_)-\u003Eerlang:halt(43).\n",
+        "SourceSha256": "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4"
+      },
+      {
+        "Module": "halt_supervisor_init",
+        "Source": "-module(halt_supervisor_init).\n-export([run/0]).\nrun()-\u003Esupervisor:start_link(halt_probe_supervisor,[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      }
+    ],
+    "Module": "halt_supervisor_init",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 0,
+    "ExpectedLogicalStatus": 43,
+    "ExpectedPosixExit": 43,
+    "ExpectedWindowsExit": 43,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": [],
+    "ExpectedWindowsStandardError": [],
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER",
+      "TERMINATE"
+    ],
+    "ComparableToOriginal": true,
+    "PhysicalFormatGap": null
+  },
+  {
+    "Name": "halt-actual-abort",
+    "Sources": [
+      {
+        "Module": "halt_actual_abort",
+        "Source": "-module(halt_actual_abort).\n-export([run/0]).\nrun()-\u003Eerlang:halt(abort),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+      }
+    ],
+    "Module": "halt_actual_abort",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 1,
+    "ExpectedLogicalStatus": null,
+    "ExpectedPosixExit": 134,
+    "ExpectedWindowsExit": 3,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": null,
+    "ExpectedWindowsStandardError": null,
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": false,
+    "PhysicalFormatGap": "Raw abort stderr/reporting differs by CRT; Windows report-fault UI disabled explicitly"
+  },
+  {
+    "Name": "halt-real-clr-dump",
+    "Sources": [
+      {
+        "Module": "halt_real_clr_dump",
+        "Source": "-module(halt_real_clr_dump).\n-export([run/0]).\nrun()-\u003Eerlang:halt(\u0022CLR-DUMP\u0022,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+      }
+    ],
+    "Module": "halt_real_clr_dump",
+    "Entry": "run",
+    "ExpectedObservation": 0,
+    "ExpectedRequestKind": 2,
+    "ExpectedLogicalStatus": 1,
+    "ExpectedPosixExit": 1,
+    "ExpectedWindowsExit": 1,
+    "ExpectedStandardOutput": [],
+    "ExpectedPosixStandardError": null,
+    "ExpectedWindowsStandardError": null,
+    "ForbiddenMarkers": [
+      "CONTINUE",
+      "CATCH",
+      "AFTER"
+    ],
+    "ComparableToOriginal": false,
+    "PhysicalFormatGap": "CLR/OS minidump; not a BEAM crash dump"
+  }
+]
