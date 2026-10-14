@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json
+root=Path.cwd(); art=root/'artifacts'; out=art/'part275-main-initial-style-failure'; assert not out.exists(); out.mkdir(); sha=lambda b:hashlib.sha256(b).hexdigest().upper(); rows=[]
+def save(p,name):
+    raw=p.read_bytes(); target=out/name; target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(raw); rows.append({'Path':name,'Bytes':len(raw),'Sha256':sha(raw)})
+freeze=json.loads((art/'activation-ingress-six-bump-source-freeze-revision5.json').read_text())
+for r in freeze['Files']:save(root/r['Path'],'source/'+r['Path'])
+save(art/'part275-main-full.log','actual-full.log')
+for folder in ['src/Erlang.Terms','src/Erlang.Serialization','src/Erlang.Runtime','src/Erlang.Compiler','tests/Erlang.Tests','tools/Erlang.Differential','tools/Erlang.Style']:
+    base=root/folder/'bin/Debug/net10.0'
+    for p in sorted(base.rglob('*')):
+        if p.is_file():save(p,'produced/'+folder+'/'+p.relative_to(base).as_posix())
+(out/'manifest.json').write_text(json.dumps({'Status':'Actual Main build0/0 then one style failure; tests/integration unexecuted','FailedStylePath':'tests/Erlang.Tests/DistributionRegisteredHostNames.cs','SourceFreeze':'revision5','ProducedOutputPresenceIsNotExecution':True,'Files':rows},indent=2)+'\n',encoding='utf-8'); print(json.dumps({'PreservedFiles':len(rows),'Bytes':sum(r['Bytes'] for r in rows)}))

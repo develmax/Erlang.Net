@@ -1,0 +1,8 @@
+namespace Erlang;
+
+internal static class RuntimeExternalTermDiagnostics
+{
+    internal const string ResourceFactory = "Runtime ETF imports bind identifier factories to the owning runtime.";
+    internal const string ForeignRegistry = "The module registry already belongs to another runtime.";
+    internal const string ForeignIdentity = "A foreign runtime local identity must be imported as a fixed wire value before reservation.";
+}

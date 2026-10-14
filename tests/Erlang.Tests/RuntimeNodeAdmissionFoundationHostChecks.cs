@@ -69,7 +69,7 @@ internal static class RuntimeNodeAdmissionFoundationHostChecks
                     runtime,
                     context,
                     Term.A(RuntimeNodeAdmissionFoundationHostNames.FirstNode),
-                    new Integer((System.Numerics.BigInteger)uint.MaxValue + 1)
+                    new Integer(System.Numerics.BigInteger.One << RuntimeNodeCreationHostParameters.FirstNonSmallShift)
                 ));
 
                 return true;

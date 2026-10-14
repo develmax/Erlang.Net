@@ -1,0 +1,71 @@
+{
+  "Status": "PASS_FINAL4_REPAIR_FORMATTER_AND_FINAL5_SEMANTIC_NAMES_DELTA_SOURCE_PEER",
+  "Final4ReceiptSha256": "E38E780E4A9869E0695DACD57332B9C0E7B8DE0F763489C96739B61A5ABD8524",
+  "FreezeHashes": {
+    "3": "D2277B62CB4DC4C7D2A0D1DBB2528BE25B769CBFAD6AA3639754ABBA2D9F633E",
+    "4": "1C603565095743AA0B4F204F2DE0C4F616784B3DAB7CE634D9A68C2FBB8C6C1F",
+    "5": "6987A8F62554AF24EDD4D815C6B418518A0B34C6EBF1115F97491B0B155B892F"
+  },
+  "RepairAndFormatterChanges": [
+    {
+      "Path": "tests/Erlang.Tests/ConnectedDistributionHostChecks.cs",
+      "BeforeSha256": "731F215613293DBDAF5711583437A7BA6E6AB7337510F5DB250E00EB479BED7C",
+      "AfterSha256": "7344F89564C6DFEEFCC894C487DC381BF89202806CB566C5A69AB0247E3F3A56",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostChecks.cs",
+      "BeforeSha256": "E714A2C5F4ED72032CE47930DFCE481FE22BE95E20A93158E34F46C085306B7D",
+      "AfterSha256": "6123ADE360715799DBFC6D89500DD7C3F2892E0CEDDED4DBF3949E0D5D8A0086",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostNames.cs",
+      "BeforeSha256": "CFF1F3F9CB17A8ABF85FCF87657C7E2AAB726B39AEA0B1F12882F7BF162FDBA9",
+      "AfterSha256": "23CB15AD718C09FCC4F283AF394EA6A527A3BBD7C11BED2B48C3C3FB8164374B",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeCreationHostChecks.cs",
+      "BeforeSha256": "D022CF390D8AA50B56BD3AD0456DE9A8796160F751E798B40E6E05ECE3B3A67B",
+      "AfterSha256": "1A20D64B390B665DAF5513949B4990BE6E0C05F025FF2B5DE0775B310984601D",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeTextActivationHostChecks.cs",
+      "BeforeSha256": "DDEFE984368D57E4C1514CA49CB7C1DF31BF70C2FE3ABEB9323BF9F08F6CC081",
+      "AfterSha256": "6B691190534DA61E2B5C037350D5CDF50476FDB762B5BAE4A8846230A7190CEF",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeTextActivationHostNames.cs",
+      "BeforeSha256": "3149C9E5FBCB66F3417B58D8EDAE5F81FA8BA27342A6B4E0DB1C1F30C8BD2A29",
+      "AfterSha256": "A66BFBF17532BB0367256CC86A31D6D019D55106E8F28C16F7A75D7F85FA02EA",
+      "Change": "Only declared three inaccessible test constant references repair / local Success=ok plus quoted-token-exact formatting; all actor actions/assertions retained"
+    }
+  ],
+  "PostGateTwoChanges": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostChecks.cs",
+      "BeforeSha256": "6123ADE360715799DBFC6D89500DD7C3F2892E0CEDDED4DBF3949E0D5D8A0086",
+      "AfterSha256": "76975360D5E30F4925C881E7967D71546ADDF3B38B8F5B2E31DC179A1DC0C22E",
+      "SameLiteralValue": "ok",
+      "Meaning": "Operation success and arbitrary payload marker remain distinct semantic constants; expected wire bytes/actions unchanged."
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostNames.cs",
+      "BeforeSha256": "23CB15AD718C09FCC4F283AF394EA6A527A3BBD7C11BED2B48C3C3FB8164374B",
+      "AfterSha256": "D4D176DEB103081D640DD8F29B3D94EAAACD4D35DBFAD3506DDCB5DFA9AF8169",
+      "SameLiteralValue": "ok",
+      "Meaning": "Operation success and arbitrary payload marker remain distinct semantic constants; expected wire bytes/actions unchanged."
+    }
+  ],
+  "AllProductionFilesByteExact3To4To5": true,
+  "Permanent132ActorActionsAndAssertTokensRetained": true,
+  "Permanent24SourceExact": true,
+  "HistoricalFirstCS0122And224FileClosurePreserved": true,
+  "Final5OwnStandaloneExecutionClaim": false,
+  "MainOrGitModified": false,
+  "BuildOrNativeExecutedByReviewer": false,
+  "Scope": "Source delta only. Actual final4 individual bounded gates do not become uninterrupted fullMainPASS; subsequent6534/6544 failure is immutable and Root owns its fixes. Postgate5 field naming shares literal value only, not semantic constant meaning."
+}

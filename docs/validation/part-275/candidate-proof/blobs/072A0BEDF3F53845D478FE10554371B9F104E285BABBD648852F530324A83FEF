@@ -1,0 +1,62 @@
+{
+  "Stage": "MinimalOldHostSetupFixSourceOnly",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "BeforeSha256": "EBF613082DA3C9D7B2AB75A68445DE88AB5903AA4B9A0C8568338CAC9F4ADFE4",
+      "BeforeSourceContent": "namespace Erlang.Tests;\n\ninternal static class HaltSubprocessRegistrationCounts\n{\n    public const int DefaultCoreAndOtp = 493;\n    public const int WithOptionalIo = 495;\n}\n",
+      "Sha256": "F6B48D294DDDF212AA494E5FD99F1FFF4989404F47182494B69696482F7EF2BA",
+      "SourceContent": "namespace Erlang.Tests;\n\ninternal static class HaltSubprocessRegistrationCounts\n{\n    public const int DefaultCoreAndOtp = 500;\n    public const int WithOptionalIo = 502;\n}\n",
+      "Reason": "Exact golden registration counts include seven newly registered erlang MFAs: setnode2 plus six connected controller APIs. Optional IO contributes the same two as before; no count assertion removed."
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamOnLoadModeledBytes.cs",
+      "BeforeSha256": "1EA9EA4C8760BE61959EFA71204BC880673F7544EEC1670350EA822729C69885",
+      "BeforeSourceContent": "using System.Collections;\nusing System.Reflection;\nusing Erlang;\nnamespace Erlang.Tests;\n\ninternal static class BeamOnLoadModeledBytes\n{\n    internal static byte[] UnownedY(byte[] original) => Mutation(\n        original,\n        BeamOnLoadMutationParameters.InitY,\n        BeamOnLoadMutationParameters.OpcodeBytes + BeamOnLoadMutationParameters.ExtendedListBytes + BeamOnLoadMutationParameters.ListCountBytes,\n        (BeamOnLoadMutationParameters.OutsideTwoSlotFrame << BeamOnLoadMutationParameters.SmallPayloadShift) | BeamOnLoadMutationParameters.YTag\n    );\n\n    internal static byte[] MismatchedFrame(byte[] original) => Mutation(\n        original,\n        BeamOnLoadMutationParameters.Allocate,\n        BeamOnLoadMutationParameters.OpcodeBytes,\n        (BeamOnLoadMutationParameters.UnknownFrameSlotCount << BeamOnLoadMutationParameters.SmallPayloadShift) | BeamOnLoadMutationParameters.SmallUnsignedTag\n    );\n\n    private static byte[] Mutation(\n        byte[] original,\n        string opcode,\n        int operandOffset,\n        int encoded\n    )\n    {\n        Assembly assembly = typeof(BeamModule).Assembly;\n        Type reader = assembly.GetType(BeamOnLoadMutationParameters.StructureType)!;\n        object structure = reader.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [new ReadOnlyMemory<byte>(original)])!;\n        object header = structure.GetType().GetProperty(BeamOnLoadMutationParameters.Code)!.GetValue(structure)!;\n        ReadOnlyMemory<byte> instructions = (ReadOnlyMemory<byte>)header.GetType().GetProperty(BeamOnLoadMutationParameters.Instructions)!.GetValue(header)!;\n        int origin = original.AsSpan().IndexOf(instructions.Span);\n        if (origin < 0 || original.AsSpan(origin + 1).IndexOf(instructions.Span) >= 0)\n            throw new InvalidOperationException(BeamOnLoadHostNames.ProofFailure);\n        Type decoder = assembly.GetType(BeamOnLoadMutationParameters.InstructionType)!;\n        IEnumerable decoded = (IEnumerable)decoder.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [structure])!;\n        object selected = decoded.Cast<object>().First(instruction =>\n        {\n            object definition = instruction.GetType().GetProperty(BeamOnLoadMutationParameters.Definition)!.GetValue(instruction)!;\n\n            return (string)definition.GetType().GetProperty(BeamOnLoadMutationParameters.Name)!.GetValue(definition)! == opcode;\n        });\n        int offset = (int)selected.GetType().GetProperty(BeamOnLoadMutationParameters.Offset)!.GetValue(selected)!;\n        byte[] changed = original.ToArray();\n        changed[origin + offset + operandOffset] = (byte)encoded;\n\n        return changed;\n    }\n}\n",
+      "Sha256": "9048F1DAC61E9996E2AB3881FE787026A34CF5C2F3F27ACC2C0F49A8B1A32A0A",
+      "SourceContent": "using System.Collections;\nusing System.Reflection;\nusing Erlang;\nnamespace Erlang.Tests;\n\ninternal static class BeamOnLoadModeledBytes\n{\n    internal static byte[] UnownedY(byte[] original) => Mutation(\n        original,\n        BeamOnLoadMutationParameters.InitY,\n        BeamOnLoadMutationParameters.OpcodeBytes + BeamOnLoadMutationParameters.ExtendedListBytes + BeamOnLoadMutationParameters.ListCountBytes,\n        (BeamOnLoadMutationParameters.OutsideTwoSlotFrame << BeamOnLoadMutationParameters.SmallPayloadShift) | BeamOnLoadMutationParameters.YTag\n    );\n\n    internal static byte[] MismatchedFrame(byte[] original) => Mutation(\n        original,\n        BeamOnLoadMutationParameters.Allocate,\n        BeamOnLoadMutationParameters.OpcodeBytes,\n        (BeamOnLoadMutationParameters.UnknownFrameSlotCount << BeamOnLoadMutationParameters.SmallPayloadShift) | BeamOnLoadMutationParameters.SmallUnsignedTag\n    );\n\n    private static byte[] Mutation(\n        byte[] original,\n        string opcode,\n        int operandOffset,\n        int encoded\n    )\n    {\n        Assembly assembly = typeof(BeamModule).Assembly;\n        Type reader = assembly.GetType(BeamOnLoadMutationParameters.StructureType)!;\n        object structure = reader.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [new ReadOnlyMemory<byte>(original), null])!;\n        object header = structure.GetType().GetProperty(BeamOnLoadMutationParameters.Code)!.GetValue(structure)!;\n        ReadOnlyMemory<byte> instructions = (ReadOnlyMemory<byte>)header.GetType().GetProperty(BeamOnLoadMutationParameters.Instructions)!.GetValue(header)!;\n        int origin = original.AsSpan().IndexOf(instructions.Span);\n        if (origin < 0 || original.AsSpan(origin + 1).IndexOf(instructions.Span) >= 0)\n            throw new InvalidOperationException(BeamOnLoadHostNames.ProofFailure);\n        Type decoder = assembly.GetType(BeamOnLoadMutationParameters.InstructionType)!;\n        IEnumerable decoded = (IEnumerable)decoder.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [structure])!;\n        object selected = decoded.Cast<object>().First(instruction =>\n        {\n            object definition = instruction.GetType().GetProperty(BeamOnLoadMutationParameters.Definition)!.GetValue(instruction)!;\n\n            return (string)definition.GetType().GetProperty(BeamOnLoadMutationParameters.Name)!.GetValue(definition)! == opcode;\n        });\n        int offset = (int)selected.GetType().GetProperty(BeamOnLoadMutationParameters.Offset)!.GetValue(selected)!;\n        byte[] changed = original.ToArray();\n        changed[origin + offset + operandOffset] = (byte)encoded;\n\n        return changed;\n    }\n}\n",
+      "Reason": "Reflection invocation supplies the new optional EtfDecodeOptions argument explicitly null; default decoding semantics preserved. Instruction decoder invocation, selected malformed opcode byte mutations and rejection expectations unchanged."
+    }
+  ],
+  "ActualFailedFullReportSha256": "4CFA11CEA23E0B2245365193BC8AFF8476BC02CF48DEC6685F8221ED47588142",
+  "FailedRows": [
+    {
+      "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Dedicated halt process contract failed\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 21\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 99\r\n   at Erlang.Tests.HaltSubprocessHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltSubprocessHostChecks.cs:line 11\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4268",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "host/BEAM-pending-on-load-actual-observers",
+      "Status": "Failed",
+      "Error": "System.Reflection.TargetParameterCountException: Parameter count mismatch.\r\n   at System.Reflection.MethodBaseInvoker.ThrowTargetParameterCountException()\r\n   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)\r\n   at Erlang.Tests.BeamOnLoadModeledBytes.Mutation(Byte[] original, String opcode, Int32 operandOffset, Int32 encoded) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadModeledBytes.cs:line 31\r\n   at Erlang.Tests.BeamOnLoadModeledBytes.UnownedY(Byte[] original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadModeledBytes.cs:line 8\r\n   at Erlang.Tests.BeamOnLoadHostChecks.<>c__DisplayClass1_1.<Observe>b__1() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 69\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Reject[T](Action action) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 270\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Observe(BeamOnLoadHostScenario scenario, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 69\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Observe(BeamOnLoadHostScenario scenario, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 179\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Observe(BeamOnLoadHostScenario scenario, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 179\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Observe(BeamOnLoadHostScenario scenario, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 179\r\n   at Erlang.Tests.BeamOnLoadHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamOnLoadHostChecks.cs:line 38\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4268",
+      "Milliseconds": 8
+    }
+  ],
+  "ExactIoBehaviorExpectationsUnchanged": true,
+  "ExactMalformedBeamMutationsAndInvalidDataExceptionsUnchanged": true,
+  "NewMfasCount7": [
+    "erlang:setnode/2",
+    "erlang:setnode/3",
+    "erlang:dist_ctrl_get_opt/2",
+    "erlang:dist_ctrl_set_opt/3",
+    "erlang:dist_ctrl_get_data_notification/1",
+    "erlang:dist_ctrl_get_data/1",
+    "erlang:dist_ctrl_input_handler/2"
+  ],
+  "BeforeAfterCounts": {
+    "DefaultCoreAndOtp": [
+      493,
+      500
+    ],
+    "WithOptionalIo": [
+      495,
+      502
+    ]
+  },
+  "NewRuntimeReaderSignature": "BeamStructureReader.Read(ReadOnlyMemory<byte> input, EtfDecodeOptions? decoding = null)",
+  "RuntimeChanged": false,
+  "MainOrGitModified": false,
+  "BuildOrTestExecuted": false,
+  "Scope": "Test-setup alignment to real registered API inventory and optional reflection parameter; does not alter IO protocol bytes, halt outcomes, BEAM rejection domain or runtime behavior."
+}

@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace Erlang;
 
-internal sealed class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
+internal sealed partial class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
 {
     private readonly object gate = new();
     private readonly Dictionary<string, List<WeakReference<Term>>> nodes = new(StringComparer.Ordinal);
@@ -72,6 +72,8 @@ internal sealed class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
     {
         lock (gate)
         {
+            if (reservedEpochs.ContainsKey((name, creation)))
+                return true;
             if (!nodes.TryGetValue(name, out var references))
                 return false;
 

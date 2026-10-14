@@ -59,7 +59,7 @@ internal static class ErlangProcessQueryRegistrations
         {
             if (arguments[0] is not Integer value || value.Value < 0 || value.Value > ProcessSchedulingLimits.MaximumSmallBump)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            await context.ChargeAsync((int)System.Numerics.BigInteger.Min(value.Value, ProcessSchedulingLimits.NativeMaximumBump));
+            await context.BumpReductionsAsync((int)System.Numerics.BigInteger.Min(value.Value, ProcessSchedulingLimits.NativeMaximumBump));
 
             return Term.A(ErlangBooleanAtoms.True);
         }

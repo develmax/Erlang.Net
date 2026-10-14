@@ -1,0 +1,6 @@
+        if (Erlang.Tests.DistributionMfaSmokeContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.DistributionMfaSmokeContracts.Run(export.Module, export.Function, export.Arity);
+
+            return;
+        }

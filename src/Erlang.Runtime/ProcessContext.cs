@@ -14,6 +14,7 @@ public sealed class ProcessContext : ITermExecutionContext
         GroupLeader = pid;
         Mailbox = new()
         {
+            IncomingTerm = Runtime.ObserveIncomingTerm,
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
             WaitForExecution = WaitIfSuspended,
@@ -247,12 +248,18 @@ public sealed class ProcessContext : ITermExecutionContext
 
     public ValueTask ReduceAsync() => ChargeAsync(1);
 
-    internal async ValueTask ChargeAsync(int count)
+    internal ValueTask ChargeAsync(int count) => ChargeAsync(count, capToRemainingSlice: false);
+
+    internal ValueTask BumpReductionsAsync(int count) => ChargeAsync(count, capToRemainingSlice: true);
+
+    private async ValueTask ChargeAsync(int count, bool capToRemainingSlice)
     {
         Runtime.ThrowIfHalted();
         Cancellation.ThrowIfCancellationRequested();
         if (SuspensionRequested)
             await WaitIfSuspended();
+        if (capToRemainingSlice)
+            count = Math.Min(count, ProcessSchedulingLimits.CooperativeSlice - reductions);
         Interlocked.Add(ref cumulativeReductions, count);
         reductions += count;
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)

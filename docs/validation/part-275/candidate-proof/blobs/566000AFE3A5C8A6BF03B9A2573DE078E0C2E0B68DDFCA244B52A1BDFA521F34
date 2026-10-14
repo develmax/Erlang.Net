@@ -1,0 +1,22 @@
+namespace Erlang.Tests;
+
+internal static class ConnectedDistributionEventsHostNames
+{
+    internal const string OptionsType = "Erlang.RuntimeNodeMonitorOptions";
+    internal const string Parse = "Parse";
+    internal const string Monitor = "Monitor";
+    internal const string NodeUp = "nodeup";
+    internal const string NodeDown = "nodedown";
+    internal const string ConnectionId = "connection_id";
+    internal const string NodeType = "node_type";
+    internal const string Reason = "nodedown_reason";
+    internal const string Undefined = "undefined";
+    internal const string All = "all";
+    internal const string Hidden = "hidden";
+    internal const string Visible = "visible";
+    internal const string Closed = "connection_closed";
+    internal const string Reset = "connection_reset";
+    internal const string NoNetwork = "no_network";
+    internal const int MonitorArguments = 3;
+    internal const ulong Published = 0x01;
+}

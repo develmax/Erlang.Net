@@ -1,0 +1,58 @@
+{
+  "Status": "PASS_SEVEN_DIRECT_MFA_SMOKE_SOURCE_PEER",
+  "FreezeSha256": "2948C61716347EC15348945AA5EDF18DB5CFCCA661165C7CE4C6B2FB0804C86D",
+  "NewTestClasses": 2,
+  "ProgramBeforeSha256": "98F408192C27F62566BD35F7B7A8F43E1CB58070FA63AB08219883E6E11CD9F0",
+  "ProgramAfterExpectedSha256": "91B640B09D7D9940AEEC2DB2774C252E7B5A4C3105411914EE44181F2A8EB259",
+  "ProgramAnchorUnique": true,
+  "ExactInsertionOnly": true,
+  "OriginalAllRowNamesOrderAndEnumerationRetained": true,
+  "SelectedSevenMfas": [
+    {
+      "Constant": "RuntimeSetNodeHostNames.SetNode",
+      "Arity": 2
+    },
+    {
+      "Constant": "RuntimeSetNodeHostNames.SetNode",
+      "Arity": 3
+    },
+    {
+      "Constant": "DistributionControllerNames.GetOption",
+      "Arity": 2
+    },
+    {
+      "Constant": "DistributionControllerNames.SetOption",
+      "Arity": 3
+    },
+    {
+      "Constant": "DistributionControllerNames.RequestDataNotification",
+      "Arity": 1
+    },
+    {
+      "Constant": "DistributionControllerNames.GetData",
+      "Arity": 1
+    },
+    {
+      "Constant": "DistributionControllerNames.InputHandler",
+      "Arity": 2
+    }
+  ],
+  "ActualPublicApiScope": [
+    "setnode2 registers real live kernel and verifies actual node",
+    "setnode3 uses actual controller and pending generation, verifies opaque handle and remote creation",
+    "getopt returns actual prior defaultFalse; setopt changes state and verifies getterTrue",
+    "handler observes exact configured process",
+    "notification enqueues actual typed packet and waits actual dist_data",
+    "getdata verifies empty state, queued byte-exact actual wire and second empty state"
+  ],
+  "ExplicitSetupDependencies": [
+    "RuntimeNodeFoundationHostActor existing real processes",
+    "BeginPending/EnqueueConnectedOutput typed setup; these are not new_connection/put_data/stat exports or original transport proof"
+  ],
+  "SourceRowsRemoved": false,
+  "RuntimeProductionModified": false,
+  "NativeExecuted": false,
+  "BuildOrTestsExecutedByReviewer": false,
+  "MainOrGitModified": false,
+  "Scope": "Direct single valid contract for seven newly exported automatic MFA rows, preserving existing outer reporting and all nonowned default fixtures. This is functional SDK smoke setup, not a full OTP compatibility claim."
+}

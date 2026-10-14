@@ -1,0 +1,1 @@
+try local_node_admission_probe:run("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/local-node-admission/admission"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/local-node-admission/admission/exception.etf",term_to_binary({C,R,S})),halt(1) end.

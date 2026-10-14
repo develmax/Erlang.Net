@@ -1,0 +1,18 @@
+namespace Erlang;
+
+public sealed class RuntimeExternalTermReservation : IDisposable
+{
+    private Term? value;
+
+    internal RuntimeExternalTermReservation(Term value)
+    {
+        this.value = value;
+    }
+
+    public Term Value => Volatile.Read(ref value) ?? throw new ObjectDisposedException(nameof(RuntimeExternalTermReservation));
+
+    public void Dispose()
+    {
+        Interlocked.Exchange(ref value, null);
+    }
+}

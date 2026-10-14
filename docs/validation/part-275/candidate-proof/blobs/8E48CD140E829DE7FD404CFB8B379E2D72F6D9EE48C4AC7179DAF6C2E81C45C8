@@ -1,0 +1,20 @@
+from pathlib import Path
+import hashlib,json
+root=Path.cwd(); art=root/'artifacts'; sha=lambda b:hashlib.sha256(b).hexdigest().upper(); planned=[]
+setup=json.loads((art/'full275-old-host-setup-fix-source-freeze-revision1.json').read_text())
+for row in setup['Files']:
+    target=root/row['Path']; raw=row['SourceContent'].encode('utf-8'); assert sha(target.read_bytes())==row['BeforeSha256'] and sha(raw)==row['Sha256']; planned.append((target,raw,row['BeforeSha256'],'Exact count/signature fixture update; behavior/malformed-byte assertions unchanged'))
+s=json.loads((art/'distribution-mfa-smoke-source-freeze-prebuild-revision3.json').read_text())
+for row in s['Files']:
+    target=root/row['Path']; raw=row['SourceContent'].encode('utf-8'); assert sha(raw)==row['Sha256']
+    if row['Path'].endswith('/Program.cs'):assert sha(target.read_bytes())==row['BeforeSha256']
+    else:assert not target.exists()
+    planned.append((target,raw,sha(target.read_bytes()) if target.exists() else None,'Meaningful seven actual public MFA smoke scenarios; precise Program routing, no skips'))
+p=root/'src/Erlang.Runtime/HostDistribution.cs'; overlay=art/'host-distribution-owner-guard-proposal/HostDistribution.cs'; assert sha(p.read_bytes())=='0C32A4F51F3C10D08B917A13A77A5ACD21EAFCA69F7DDD45D06DAEAAE100D9FF'; assert sha(overlay.read_bytes())=='9734F9F28E0C75D74ED21B32CCD6B6DAF400B79AAC8489EA463A7ED474DA2A25'
+planned.append((p,overlay.read_bytes(),sha(p.read_bytes()),'Actual foreign dynamic PID rejection; existing test unchanged'))
+proof=[]
+for target,raw,before,reason in planned:
+    target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(raw); proof.append({'Path':target.relative_to(root).as_posix(),'BeforeSha256':before,'AfterSha256':sha(raw),'Reason':reason})
+assert len(proof)==6
+(art/'part275-functional-repair-import.json').write_text(json.dumps({'Status':'Exact six-path repair import; full Main required','Changes':proof,'ActualFailed6534of6544Preserved':True,'OldForeignPidExpectationUnchanged':True,'ExpectedFullCount':6544},indent=2)+'\n',encoding='utf-8')
+print('Imported smoke3, setup2, owner guard1; old failures preserved')

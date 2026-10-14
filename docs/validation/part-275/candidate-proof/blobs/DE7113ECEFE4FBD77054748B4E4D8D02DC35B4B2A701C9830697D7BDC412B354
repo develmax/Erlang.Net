@@ -1,0 +1,23 @@
+using System.Reflection;
+
+try
+{
+    Assembly tests = Assembly.Load(GatewayFocusNames.Assembly);
+    foreach (string name in GatewayFocusNames.Groups)
+    {
+        Type group = tests.GetType(name, true)!;
+        string method = name == GatewayFocusNames.ResourceGroup ? GatewayFocusNames.Resources : GatewayFocusNames.Run;
+        MethodInfo run = group.GetMethod(method, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static) ?? throw new MissingMethodException(name, method);
+        Task pending = (Task)run.Invoke(null, null)!;
+        await pending;
+        if (pending is Task<int> status && status.Result != 0)
+            return status.Result;
+        Console.WriteLine(name);
+    }
+    return 0;
+}
+catch (Exception exception)
+{
+    Console.Error.WriteLine(exception);
+    return 1;
+}

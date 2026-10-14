@@ -84,34 +84,7 @@ internal static class ErlangEtfRegistrations
         }
         if (value is not BitString { IsBinary: true } binary)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
-        var wire = context.Runtime.LocalIdentity.Snapshot;
-        var decoding = new EtfDecodeOptions
-        {
-            Safe = safe,
-            LocalNode = wire.Node,
-            LocalCreation = wire.Creation,
-            LocalSeed = context.Runtime.LocalTermSeed,
-            NodeIdentity = context.Runtime.LocalIdentity,
-            PidFactory = pid => context.Runtime.RehydratePid(pid, wire),
-            PortFactory = port => context.Runtime.RehydratePort(port, wire),
-            ReferenceFactory = reference => context.Runtime.ReferenceResources.Rehydrate(reference, wire),
-            ExternalFunctionFactory = (identity, requireSafe) => context.Runtime.Functions.External(context.Runtime, identity, requireSafe),
-            LocalFunctionFactory = (code, arity, environment) => context.Runtime.Functions.Restore(
-                context.Runtime,
-                new LocalFunctionIdentity(
-                    code.Module,
-                    null,
-                    code.Index,
-                    code.OldUnique,
-                    code.Unique,
-                    code.OldIndex
-                ),
-                arity,
-                environment
-            )
-        };
-        EtfDecodedTerm result = ExternalTermFormat.DecodeOne(binary.ToArray(), decoding);
-        context.Runtime.KnownNodes.Observe(result.Term);
+        EtfDecodedTerm result = context.Runtime.ImportExternalTerm(binary.ByteSpan, new EtfDecodeOptions { Safe = safe });
 
         return used ? Term.Tuple(result.Term, Term.I(result.Used)) : result.Term;
     }

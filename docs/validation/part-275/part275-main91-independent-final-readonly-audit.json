@@ -1,0 +1,1542 @@
+{
+  "Status": "PASSNoConcreteRegressionFoundInReadOnlyAudit",
+  "SourceFreezeSha256": "5BC7A47C1ABF31A7B83358BE28A5438E40A963A3BADF2279A4DEAC1795DD5ECD",
+  "VerifiedMainOwnedPaths": 91,
+  "FinalFullLogSha256": "699FAA354809524298210DA6F93B6D93EA1043355BD3EA0571BFE56A71A3E692",
+  "TestsSha256": "D61CF27353A09F8120B6BCFD379CC901A7FF1C68CFAAE398713AC7378C06C9BD",
+  "AllOld6527NamesAndOrderExact": true,
+  "NewCount": 6544,
+  "NewRows": [
+    "mfa/erlang:dist_ctrl_get_data/1",
+    "mfa/erlang:dist_ctrl_get_data_notification/1",
+    "mfa/erlang:dist_ctrl_get_opt/2",
+    "mfa/erlang:dist_ctrl_input_handler/2",
+    "mfa/erlang:dist_ctrl_set_opt/3",
+    "mfa/erlang:setnode/2",
+    "mfa/erlang:setnode/3",
+    "oracle/compiled-module/process-info-logical-bump-after-yield",
+    "oracle/compiled-module/process-info-logical-bump-error-domain",
+    "oracle/compiled-module/process-info-logical-small-bump",
+    "runtime/connected-distribution-controller-queue-lifecycle-node-events",
+    "runtime/connected-distribution-ingress-snapshot-epoch-admission",
+    "runtime/distribution-six-registered-public-controller-contracts",
+    "runtime/local-text-identifiers-retain-epoch-and-owned-registration",
+    "runtime/node-creation-small-domain-low32-conversion",
+    "runtime/process-bump-current-logical-slice-boundaries",
+    "runtime/setnode-local-admitted-ingress-and-node-monitor-options"
+  ],
+  "Host56RawClosure": [
+    {
+      "Name": "halt-zero",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/270da6a0e4014413b0fc88273f2baaf3/halt_zero.erl",
+          "Sha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/270da6a0e4014413b0fc88273f2baaf3/probe-evidence.json",
+          "Sha256": "F31C35B7E4F168A8732D99F00E366D184C482D7CAAA68713600334F164FB9EFA"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/270da6a0e4014413b0fc88273f2baaf3/process-raw-evidence.json",
+          "Sha256": "678EF762AF705DC53ACB0D225EFE92A4AC0B7A757DA2F7384C3556DA198301A0"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/270da6a0e4014413b0fc88273f2baaf3/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/270da6a0e4014413b0fc88273f2baaf3/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-one-status",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/76083bec4b6d4ce090f4b587da475405/halt_one_status.erl",
+          "Sha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/76083bec4b6d4ce090f4b587da475405/probe-evidence.json",
+          "Sha256": "DB6B9AF47A9F53DC7D691059E9B3DC1D30738608A6F0C5FEE113624853ECE84A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/76083bec4b6d4ce090f4b587da475405/process-raw-evidence.json",
+          "Sha256": "6E9EEC7D12C61D5632D87BC58EF2AED1A448922BB5DAD9163D4E2A089DBC9AE5"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/76083bec4b6d4ce090f4b587da475405/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/76083bec4b6d4ce090f4b587da475405/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-two-flush-false",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8986c67def2b423792bf98c426e2f1ec/halt_two_flush_false.erl",
+          "Sha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8986c67def2b423792bf98c426e2f1ec/probe-evidence.json",
+          "Sha256": "E8EE247C2E4E0CF4ECB1A3F8EE0386B149AF6C027FA5DCCBCDE324F4AF272017"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8986c67def2b423792bf98c426e2f1ec/process-raw-evidence.json",
+          "Sha256": "125FEED48AD66B355521D6F4F91293F65F148BA4E864ADFBEAEFC9F4E25585B9"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8986c67def2b423792bf98c426e2f1ec/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8986c67def2b423792bf98c426e2f1ec/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-low-word-big",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/67f2d70e601f482389d5c8aad4475f65/halt_low_word_big.erl",
+          "Sha256": "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/67f2d70e601f482389d5c8aad4475f65/probe-evidence.json",
+          "Sha256": "F3A9FE5D42E3BDBDD5C65CB6FCB99C15040FBDC37F6E27F5E0651238D519A9D1"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/67f2d70e601f482389d5c8aad4475f65/process-raw-evidence.json",
+          "Sha256": "833C3F61A79FC2311D29C320983FC1830C7E3CAB9EB0CBC990A5A10C0C1BC1EE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/67f2d70e601f482389d5c8aad4475f65/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/67f2d70e601f482389d5c8aad4475f65/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-low31-wrap",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/21c4f7fb526d4795bb586b50901b8110/halt_low31_wrap.erl",
+          "Sha256": "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/21c4f7fb526d4795bb586b50901b8110/probe-evidence.json",
+          "Sha256": "192B05B2191CC81784F74367BE442D93FC6B78F488BEEE2E91321A8F0828E8D2"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/21c4f7fb526d4795bb586b50901b8110/process-raw-evidence.json",
+          "Sha256": "9C9A450E4FE7C2DED826AA1377C8D3BABC71360E75BAF922813B81A0D1504D0F"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/21c4f7fb526d4795bb586b50901b8110/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/21c4f7fb526d4795bb586b50901b8110/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-os-width",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5ead79ef15da48e7967a269fe74b15a1/halt_os_width.erl",
+          "Sha256": "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5ead79ef15da48e7967a269fe74b15a1/probe-evidence.json",
+          "Sha256": "87C2FF66ED6A48A51DA5E22EA6C2B9E6B712E3479175065400C613FC07478D67"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5ead79ef15da48e7967a269fe74b15a1/process-raw-evidence.json",
+          "Sha256": "85EA1B387AAEA5B043ECE39430AD94603EB68754CAFD80308ED3C760E1EF61E9"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5ead79ef15da48e7967a269fe74b15a1/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5ead79ef15da48e7967a269fe74b15a1/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-last-options-uint32",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb32f986b54540aea4d528b2f9347843/halt_last_options_uint32.erl",
+          "Sha256": "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb32f986b54540aea4d528b2f9347843/probe-evidence.json",
+          "Sha256": "19AC2E2EE987E52A03B41207F67D70C97EAE263F2F352C5100FDD566960EB904"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb32f986b54540aea4d528b2f9347843/process-raw-evidence.json",
+          "Sha256": "6C2894D3EF0D1D19ED095086D8EFD2505D35EF9F730D34E3796F4D258FB5EB52"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb32f986b54540aea4d528b2f9347843/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb32f986b54540aea4d528b2f9347843/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-catch-after",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b5d9a5cd03af465da90685e930c64733/halt_catch_after.erl",
+          "Sha256": "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b5d9a5cd03af465da90685e930c64733/probe-evidence.json",
+          "Sha256": "B41C400364DF1198CB81562B0080B6927F338A81A67652AD0334EFBF8438C631"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b5d9a5cd03af465da90685e930c64733/process-raw-evidence.json",
+          "Sha256": "BACF08F494752DE0EB2091046E6486AEEBA409E3C27505E962DE16DCF6BB1C51"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b5d9a5cd03af465da90685e930c64733/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b5d9a5cd03af465da90685e930c64733/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-generator",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19c9516f4ee34595abbe654fa7162e5b/halt_generator.erl",
+          "Sha256": "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19c9516f4ee34595abbe654fa7162e5b/probe-evidence.json",
+          "Sha256": "E7F93F377F712BAB9C94E4B86E916361635CC383EB9FF3DC793E8BF193F484E8"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19c9516f4ee34595abbe654fa7162e5b/process-raw-evidence.json",
+          "Sha256": "A06E7266329E9C1866C69FCD92D9B6662AB33CBBD91A3026DE514AEF843C469C"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19c9516f4ee34595abbe654fa7162e5b/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19c9516f4ee34595abbe654fa7162e5b/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-both-streams",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/17e29375e3f447e2bbb851ebd00a153e/halt_both_streams.erl",
+          "Sha256": "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/17e29375e3f447e2bbb851ebd00a153e/probe-evidence.json",
+          "Sha256": "EE11D5F2572106C1D1E916DD765D5F2744A123D23E29DED5BCC8BD93CDE5C6D1"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/17e29375e3f447e2bbb851ebd00a153e/process-raw-evidence.json",
+          "Sha256": "1B208DA1FD86105C35E119CD6D31562DDA49A7CBC457D09F56AD2AC11CD1531B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/17e29375e3f447e2bbb851ebd00a153e/process-stderr.raw",
+          "Sha256": "FBD7EC319B8E5EF22C9DC2FBF20CC0DAC59E04FF919D8984D89B2CBEA657B2AD"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/17e29375e3f447e2bbb851ebd00a153e/process-stdout.raw",
+          "Sha256": "BE9351741A8155D01FD028D158546F1005E73CEEB0BB2D093335FEAC4144E450"
+        }
+      ]
+    },
+    {
+      "Name": "halt-options-first",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3d093ef0f7de44babc1b25f573088b47/halt_options_first.erl",
+          "Sha256": "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3d093ef0f7de44babc1b25f573088b47/probe-evidence.json",
+          "Sha256": "51D3E3171C0500B2AD7FBD35EF1D78AAD24FF8AA82C1FF62AE8773844EF4C8C4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3d093ef0f7de44babc1b25f573088b47/process-raw-evidence.json",
+          "Sha256": "84768615982FD9F94E4D83BE1A51A777EB7AFF160F55354C79578C783585E76A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3d093ef0f7de44babc1b25f573088b47/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3d093ef0f7de44babc1b25f573088b47/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-improper-options",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b4ba24041f2492b958d147b4727a2fb/halt_improper_options.erl",
+          "Sha256": "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b4ba24041f2492b958d147b4727a2fb/probe-evidence.json",
+          "Sha256": "538F4B8FD986D5FBD02E92AB82E64091ED5EFF696FE0912A3FCF142E19C72916"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b4ba24041f2492b958d147b4727a2fb/process-raw-evidence.json",
+          "Sha256": "006F14EC9185B4D3E3AD00253B539AE5D189FC41DF09B3E23B67DF7C0A6A2087"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b4ba24041f2492b958d147b4727a2fb/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b4ba24041f2492b958d147b4727a2fb/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-infinity-invalid",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b2455f8cb2a4f2b8ff407a3216319a4/halt_infinity_invalid.erl",
+          "Sha256": "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b2455f8cb2a4f2b8ff407a3216319a4/probe-evidence.json",
+          "Sha256": "03B467D787AC089C677F4599E605D7253D51AFC763E778FD8BB2F9F86D2FFF3A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b2455f8cb2a4f2b8ff407a3216319a4/process-raw-evidence.json",
+          "Sha256": "B733F8BA12AD77E1280FF472853594963BF3060D03019F4EAA1A09E299F0CE4D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b2455f8cb2a4f2b8ff407a3216319a4/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6b2455f8cb2a4f2b8ff407a3216319a4/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-uint32-overflow",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5c4ce2d532ed4b91ac769581f5f54752/halt_uint32_overflow.erl",
+          "Sha256": "3EC8D0998CFBE3B1D04D70DBD89F17FE48AB2813DCD588D17C617E318E1519A4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5c4ce2d532ed4b91ac769581f5f54752/probe-evidence.json",
+          "Sha256": "07A816C1D2BDACCB027674E7EEEDB8F3013A7968820E1190DAF2063A5578CF33"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5c4ce2d532ed4b91ac769581f5f54752/process-raw-evidence.json",
+          "Sha256": "E005D5549E33DA37E532137CF70F2CFD26EB52F40374ADE43AE0B9CE9EE8FF1A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5c4ce2d532ed4b91ac769581f5f54752/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/5c4ce2d532ed4b91ac769581f5f54752/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-one-error-wrapper",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a0d03a54220546448c231f1f25781b35/halt_one_error_wrapper.erl",
+          "Sha256": "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a0d03a54220546448c231f1f25781b35/probe-evidence.json",
+          "Sha256": "21D5A409765026E094B3A759245BAA8DCC084A74305973ED68B6AE75ABF472F5"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a0d03a54220546448c231f1f25781b35/process-raw-evidence.json",
+          "Sha256": "0326068D1C10BE8355169E8A49734FE137BE5DEAEFDF13EF73F1B771F076438D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a0d03a54220546448c231f1f25781b35/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a0d03a54220546448c231f1f25781b35/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-two-plain-status",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/026fe2863ec4478d88e3e72a0f5414b4/halt_two_plain_status.erl",
+          "Sha256": "C42FD2987708A4138F9B27DB01A3756D6465D2B8AF3A2E07BEDB83FB72B02E37"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/026fe2863ec4478d88e3e72a0f5414b4/probe-evidence.json",
+          "Sha256": "79E2164B0EC67D12F76E10EB1DFE9B45741B30939F154DEA31EA11D2B10A57F2"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/026fe2863ec4478d88e3e72a0f5414b4/process-raw-evidence.json",
+          "Sha256": "0BA272892F941E1701ACA29ED243E3AEC25A6C9642B84692E1407FA02EB237AE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/026fe2863ec4478d88e3e72a0f5414b4/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/026fe2863ec4478d88e3e72a0f5414b4/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-negative-big-status",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ce14008f08834494b29c6451e9ef68c6/halt_negative_big_status.erl",
+          "Sha256": "E3007CBF9C1214A304CD88703D4EE61B6013C73BDA8FD15873DC0509C5ECD4AB"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ce14008f08834494b29c6451e9ef68c6/probe-evidence.json",
+          "Sha256": "B12B5D0EE4A20D5F80AEBB10DD6A6CFC4566DF18268DD48C3780F6A2C652971A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ce14008f08834494b29c6451e9ef68c6/process-raw-evidence.json",
+          "Sha256": "706AFFE88FBDF426CB062512A9D6D6E45DD2579E0E375DF4A54067206B5A1207"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ce14008f08834494b29c6451e9ef68c6/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ce14008f08834494b29c6451e9ef68c6/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-valid-abort-invalid-options-first",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/409ff1342bd54414b108a20d9ccbd893/halt_valid_abort_invalid_options_first.erl",
+          "Sha256": "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/409ff1342bd54414b108a20d9ccbd893/probe-evidence.json",
+          "Sha256": "EFAB5A578C05CF75FA92C92E360A5B360C0B5385870DCB698234E045DB4175AA"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/409ff1342bd54414b108a20d9ccbd893/process-raw-evidence.json",
+          "Sha256": "533A3C1B85B68A48ADC87766892D4323A485F03B2BF63224B2CA5D197EA2A044"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/409ff1342bd54414b108a20d9ccbd893/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/409ff1342bd54414b108a20d9ccbd893/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-invalid-slogan-prefix",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6247da4d04b8466b8ef32778a5ed73bd/halt_invalid_slogan_prefix.erl",
+          "Sha256": "740557259EDF929CD773D96ABC1995991C50609F6EDCD09150A7A6EADF376587"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6247da4d04b8466b8ef32778a5ed73bd/probe-evidence.json",
+          "Sha256": "86EEA2518C3CE28D0EC40BF63C2439C64ED0F2EACFF04224D048129FAD4FDA81"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6247da4d04b8466b8ef32778a5ed73bd/process-raw-evidence.json",
+          "Sha256": "E7CA3638668B8639E8863C5D12371FE7573D08799D6B1F47618D9E1651D694B6"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6247da4d04b8466b8ef32778a5ed73bd/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/6247da4d04b8466b8ef32778a5ed73bd/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-direct-zero-watchdog",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/304dbdd6cb2542db9172c9ab69295556/halt_direct_zero_watchdog.erl",
+          "Sha256": "F2B3B0AFA5423CA761E2AED2C9623002FBE57C182F7E5B3F8E541756DFC50F02"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/304dbdd6cb2542db9172c9ab69295556/probe-evidence.json",
+          "Sha256": "82758CBB9E6CC7BE026653F4B0D61FE49C5C5871C639DFF2B665DD8382C96AB9"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/304dbdd6cb2542db9172c9ab69295556/process-raw-evidence.json",
+          "Sha256": "BBF5E24C95F77BC61716B0F03259C04AB41051596BD0952AE92D04BB4E83B026"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/304dbdd6cb2542db9172c9ab69295556/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/304dbdd6cb2542db9172c9ab69295556/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-maximum-native-small-timeout",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a185a1d9ab244b60b9733b52aae6b044/halt_maximum_native_small_timeout.erl",
+          "Sha256": "ABF8CE99BD6C2ED9F191BE2AE9B6229EC3EF870884BBE8385DF6423CDE8268E7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a185a1d9ab244b60b9733b52aae6b044/probe-evidence.json",
+          "Sha256": "CCCBAB9C8DA7463976C7A6710A23D24AB61C77E2098EA35A721048B4CFAAB86E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a185a1d9ab244b60b9733b52aae6b044/process-raw-evidence.json",
+          "Sha256": "F338A3742AA77751B899A37D3E6365247A56FE3A386D6A21610B4D7266F5D359"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a185a1d9ab244b60b9733b52aae6b044/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a185a1d9ab244b60b9733b52aae6b044/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-native-small-boundary-rejected",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bcc121201e6f49d1b6e020ca0577e374/halt_native_small_boundary_rejected.erl",
+          "Sha256": "47105BE7599346C3A94A789E127B48D34CDE3BF9F910E8442632D66D68C9D735"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bcc121201e6f49d1b6e020ca0577e374/probe-evidence.json",
+          "Sha256": "E785625C313E73A27DB3BF5C348F0663963DD31E3518E1DBCD9BA4D831794011"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bcc121201e6f49d1b6e020ca0577e374/process-raw-evidence.json",
+          "Sha256": "AA957F843E3D5589EB95F6ACFFBD430C3B4D83363950F2A640D134A17F990C32"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bcc121201e6f49d1b6e020ca0577e374/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bcc121201e6f49d1b6e020ca0577e374/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-wrapped-one-flush-false",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8fd9aaf7be2649cc8d3473d69df4c5c6/halt_wrapped_one_flush_false.erl",
+          "Sha256": "A6E667FE6D45FCAA05F8FCDC70E73A766B78005D2ABABA237AA911B25FCFBCB4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8fd9aaf7be2649cc8d3473d69df4c5c6/probe-evidence.json",
+          "Sha256": "1E7D7C9FC358685F26D8C60CEBF560958B056980EF8816B5A785D283585376C6"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8fd9aaf7be2649cc8d3473d69df4c5c6/process-raw-evidence.json",
+          "Sha256": "F96CE44B96BF682E1ED24FC7EBDBF84CB19CF4CD62F3D801ED972F7A22F4B9A1"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8fd9aaf7be2649cc8d3473d69df4c5c6/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/8fd9aaf7be2649cc8d3473d69df4c5c6/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-module-chain",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/halt_module_chain.erl",
+          "Sha256": "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/halt_probe_callee.erl",
+          "Sha256": "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/probe-evidence.json",
+          "Sha256": "81B5FCEE7055BF7F3D7BD04509AA0BC80D51924827D32B75E87844C13A9937CC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/process-raw-evidence.json",
+          "Sha256": "55DC51D75DBE4D3169DC2156E2AC5D6A9872F7656F1605974C9FD1B17D486336"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/d376937fa57c41d5ad27f85684a8ef85/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-server-init",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/halt_probe_server.erl",
+          "Sha256": "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/halt_server_init.erl",
+          "Sha256": "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/probe-evidence.json",
+          "Sha256": "E94D838D937D358E0587DE54AAF5B53B1F5FDF06A21C377648802E1913D202C7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/process-raw-evidence.json",
+          "Sha256": "8C39C68036F272664610793E7BF3484FC9CD9A8D4D6984F4777F4DEC71A723B3"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/202e28f97ca44162839ac146519f8892/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-supervisor-init",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/halt_probe_supervisor.erl",
+          "Sha256": "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/halt_supervisor_init.erl",
+          "Sha256": "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/probe-evidence.json",
+          "Sha256": "659C11B70FD4F2C8A94902CFC07B9BBBB44BCD37C164AD6C76AC6C4D7D4C7848"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/process-raw-evidence.json",
+          "Sha256": "2A999949D70974A82FD79F2CD02FE7AB1F3CF1C8743880893ECDC11C3A03FDE0"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b9f5b720d274cc68d198ef564379e34/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-actual-abort",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/90af3ece8e754fd09603c19b5355f6e7/halt_actual_abort.erl",
+          "Sha256": "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/90af3ece8e754fd09603c19b5355f6e7/probe-evidence.json",
+          "Sha256": "FC891E5FF52CEF277F31B161A8DFED1E76332FEF7C916C583B70F57DB07E015E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/90af3ece8e754fd09603c19b5355f6e7/process-raw-evidence.json",
+          "Sha256": "A68302621482985ED97F567CBE85A2AF291905C9B21F648BEB87FCC64B00E6BB"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/90af3ece8e754fd09603c19b5355f6e7/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/90af3ece8e754fd09603c19b5355f6e7/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-real-clr-dump",
+      "Backend": 0,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/halt_real_clr_dump.erl",
+          "Sha256": "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/probe-evidence.json",
+          "Sha256": "95B7F6D36207C77F3056A2B996445CC0C674DF5FFDD998DA170E05648626C2A7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/process-raw-evidence.json",
+          "Sha256": "1796C475EE1239CDFFE9AD288A61AABD8E3C5D8A9B7AAB798185DBD51CBE44A2"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/process-stderr.raw",
+          "Sha256": "C7DDB92A6F1B301AF657057023D090857B7BCEA7F0C9ADD83F465CEF8DE99FA4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/9bf297443f16407eb2f6e1c814b5b610/requested-clr.dmp",
+          "Sha256": "9B87F977BE6230CE623F6A3B16416B9889250F18D504B1B8B06557365D731363"
+        }
+      ]
+    },
+    {
+      "Name": "halt-zero",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b098734e15047cf91ef21b275223b3b/halt_zero.erl",
+          "Sha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b098734e15047cf91ef21b275223b3b/probe-evidence.json",
+          "Sha256": "32E023E61E238BB4173EB8F6542AD9A09985FA2862A2B3ECF9FC07C2728D3ED4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b098734e15047cf91ef21b275223b3b/process-raw-evidence.json",
+          "Sha256": "4E4658CD835C2C9747FFD8EA4259D793DFC6418B9F3DC8BA38F9C48E7B8AD4D1"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b098734e15047cf91ef21b275223b3b/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b098734e15047cf91ef21b275223b3b/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-one-status",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0bb2a4a4ecd2438da21265b1cbfc691f/halt_one_status.erl",
+          "Sha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0bb2a4a4ecd2438da21265b1cbfc691f/probe-evidence.json",
+          "Sha256": "6CEFBB109260CB67ACB1200EC5E269DD86916F706D3444EB0C893A517DCC707F"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0bb2a4a4ecd2438da21265b1cbfc691f/process-raw-evidence.json",
+          "Sha256": "88F6A25136C97287C1FA5B7416EB8A4C9C7A762AA8CC76D179F5708A6460949D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0bb2a4a4ecd2438da21265b1cbfc691f/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0bb2a4a4ecd2438da21265b1cbfc691f/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-two-flush-false",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0f4d1d34b33f4ce4bd6b3267df254809/halt_two_flush_false.erl",
+          "Sha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0f4d1d34b33f4ce4bd6b3267df254809/probe-evidence.json",
+          "Sha256": "18F6605E3E06467CD918B156A2F765EB187CE2DAA050FB4A3EF375F0448FDFDE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0f4d1d34b33f4ce4bd6b3267df254809/process-raw-evidence.json",
+          "Sha256": "2B20E5FAE6D4C815D6BBF4320AB7A6DEBFD958E86BCD34CE55AFB2939B22A29E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0f4d1d34b33f4ce4bd6b3267df254809/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/0f4d1d34b33f4ce4bd6b3267df254809/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-low-word-big",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b56cce45d214772a658e6f9c2c7bc33/halt_low_word_big.erl",
+          "Sha256": "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b56cce45d214772a658e6f9c2c7bc33/probe-evidence.json",
+          "Sha256": "39C5CE5C410BE91EC9F231FD54392D876B8CB6EEF1903BDF7BB5717DA9934D00"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b56cce45d214772a658e6f9c2c7bc33/process-raw-evidence.json",
+          "Sha256": "036AA9C7E9E9326D6574A7026F5EA177816D3B8D8BFCE1EBCCDA0C4C7DE99AAD"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b56cce45d214772a658e6f9c2c7bc33/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/7b56cce45d214772a658e6f9c2c7bc33/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-low31-wrap",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b3839ed6f71a4c81987b646905387b9d/halt_low31_wrap.erl",
+          "Sha256": "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b3839ed6f71a4c81987b646905387b9d/probe-evidence.json",
+          "Sha256": "6EDE694329C7778C4FD054896CC7D056DCB3D3B0B44556063772D6216A256E8F"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b3839ed6f71a4c81987b646905387b9d/process-raw-evidence.json",
+          "Sha256": "C4C50CEA498A5E4272120C92DD9900BFC6318E760E9D1BAFE622F8A48F1C5981"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b3839ed6f71a4c81987b646905387b9d/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b3839ed6f71a4c81987b646905387b9d/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-os-width",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/f35002ef6ede433aa782ede4e605b746/halt_os_width.erl",
+          "Sha256": "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/f35002ef6ede433aa782ede4e605b746/probe-evidence.json",
+          "Sha256": "9FCA27A868815537300AE519ED3D1DCD960DC4CF479CD5A74C4CA6AEAD1B4F59"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/f35002ef6ede433aa782ede4e605b746/process-raw-evidence.json",
+          "Sha256": "20C2A231558592113013F7EE73602471A83B3658DDEC0B8EA2EBB0E0C8C650C4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/f35002ef6ede433aa782ede4e605b746/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/f35002ef6ede433aa782ede4e605b746/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-last-options-uint32",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b00643c47f0e499ea1f75a6774bdcd59/halt_last_options_uint32.erl",
+          "Sha256": "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b00643c47f0e499ea1f75a6774bdcd59/probe-evidence.json",
+          "Sha256": "10E527E09D413F3B23E92C009C95C9CC7E9667C279C1A478560917FA5BA2F9AA"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b00643c47f0e499ea1f75a6774bdcd59/process-raw-evidence.json",
+          "Sha256": "F8145215BBB4C7C7B3E10CF26C7D6ACA5BAE81BAE363230AC8AB0F06503E80CC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b00643c47f0e499ea1f75a6774bdcd59/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/b00643c47f0e499ea1f75a6774bdcd59/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-catch-after",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/dcf38604b0a348e991f01c9ce33571b0/halt_catch_after.erl",
+          "Sha256": "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/dcf38604b0a348e991f01c9ce33571b0/probe-evidence.json",
+          "Sha256": "7E86328E3EC0691C53081917E9CF909307D677B1F8B7806E3B1F7CA200F47EF3"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/dcf38604b0a348e991f01c9ce33571b0/process-raw-evidence.json",
+          "Sha256": "CE6025E8BB61CE7EEA32A2312AFF119610C9330D490B9D7A9B7DCC1D94430949"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/dcf38604b0a348e991f01c9ce33571b0/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/dcf38604b0a348e991f01c9ce33571b0/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-generator",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/2f900159ca764fa6a2afbeb690c51aaa/halt_generator.erl",
+          "Sha256": "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/2f900159ca764fa6a2afbeb690c51aaa/probe-evidence.json",
+          "Sha256": "0252860CBD0B45081B865209B0F4B61D13FE6EC2DC993F2002B2249506BD76C5"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/2f900159ca764fa6a2afbeb690c51aaa/process-raw-evidence.json",
+          "Sha256": "5E4CB5882168B7075A27DA439E79E195118564E3593F2CEB83A0D46D5B59414C"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/2f900159ca764fa6a2afbeb690c51aaa/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/2f900159ca764fa6a2afbeb690c51aaa/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-both-streams",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/c97f75569f034dd1b6ffde87351e54ed/halt_both_streams.erl",
+          "Sha256": "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/c97f75569f034dd1b6ffde87351e54ed/probe-evidence.json",
+          "Sha256": "CC8DD4CA0A9206CA709147679E92CA4CFE771BA7368622CD2FA60225E5801D5D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/c97f75569f034dd1b6ffde87351e54ed/process-raw-evidence.json",
+          "Sha256": "60E57240C8DFE58B065EFB99D190009BB3E9C606B636B602C417442886CD2F13"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/c97f75569f034dd1b6ffde87351e54ed/process-stderr.raw",
+          "Sha256": "FBD7EC319B8E5EF22C9DC2FBF20CC0DAC59E04FF919D8984D89B2CBEA657B2AD"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/c97f75569f034dd1b6ffde87351e54ed/process-stdout.raw",
+          "Sha256": "BE9351741A8155D01FD028D158546F1005E73CEEB0BB2D093335FEAC4144E450"
+        }
+      ]
+    },
+    {
+      "Name": "halt-options-first",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3865f5bd6fa244faa274751433c26772/halt_options_first.erl",
+          "Sha256": "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3865f5bd6fa244faa274751433c26772/probe-evidence.json",
+          "Sha256": "A0A74E109D01354B25F13C0D94C01C4674EF5906F3841BA2F7703964D3C2784F"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3865f5bd6fa244faa274751433c26772/process-raw-evidence.json",
+          "Sha256": "D19552E8AF3235AD8D62019E2B7DC730962BE192377BAABA5923410E7A2BE831"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3865f5bd6fa244faa274751433c26772/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/3865f5bd6fa244faa274751433c26772/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-improper-options",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a341e494225c4339a2c9b7a36475dc49/halt_improper_options.erl",
+          "Sha256": "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a341e494225c4339a2c9b7a36475dc49/probe-evidence.json",
+          "Sha256": "13033DDAA808B99971BA0F2FA4A2B1BFEC649834F083BB3A7FA4D771208FA878"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a341e494225c4339a2c9b7a36475dc49/process-raw-evidence.json",
+          "Sha256": "61EB04B9A6FDF9F8B5423582B1FEA51AFBFC2CFFA50C533DBB425F7A5F22BBBA"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a341e494225c4339a2c9b7a36475dc49/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/a341e494225c4339a2c9b7a36475dc49/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-infinity-invalid",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19575bd0e0e145a69467867b3486d7af/halt_infinity_invalid.erl",
+          "Sha256": "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19575bd0e0e145a69467867b3486d7af/probe-evidence.json",
+          "Sha256": "F231162A567CA92FB2592C122A7BDCCA166F1B033000BC88E1DACE5CDB6CF7EC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19575bd0e0e145a69467867b3486d7af/process-raw-evidence.json",
+          "Sha256": "F47E1E2A6A6B422BB3203BB6D247125A83DEC7EC54983F6548E8F3EBF781C148"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19575bd0e0e145a69467867b3486d7af/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/19575bd0e0e145a69467867b3486d7af/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-uint32-overflow",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/076693cf83c64ddeb658bdd76b75155a/halt_uint32_overflow.erl",
+          "Sha256": "3EC8D0998CFBE3B1D04D70DBD89F17FE48AB2813DCD588D17C617E318E1519A4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/076693cf83c64ddeb658bdd76b75155a/probe-evidence.json",
+          "Sha256": "AF4BBADD562A75CA67AABABA1B3AB1BC438A82A5EFF68A0A7AE09AA278DC9CA5"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/076693cf83c64ddeb658bdd76b75155a/process-raw-evidence.json",
+          "Sha256": "688F047F6E86379189515F1265FFCB99CF2EF41F788691B2DBDB5A1758128793"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/076693cf83c64ddeb658bdd76b75155a/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/076693cf83c64ddeb658bdd76b75155a/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-one-error-wrapper",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ed50ba7cf4394000b43a90f08e528b8a/halt_one_error_wrapper.erl",
+          "Sha256": "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ed50ba7cf4394000b43a90f08e528b8a/probe-evidence.json",
+          "Sha256": "309E357B8B08D0EF136367DA7B101F6CEC9AD1A9C198998FE01A719CF960F3EC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ed50ba7cf4394000b43a90f08e528b8a/process-raw-evidence.json",
+          "Sha256": "870AA3DE70881796FA8314E372F5AA7514B61B279A5A289801E2D109DF806E4E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ed50ba7cf4394000b43a90f08e528b8a/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/ed50ba7cf4394000b43a90f08e528b8a/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-two-plain-status",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb7afb0cbfc94861b98f8e0a01baf32a/halt_two_plain_status.erl",
+          "Sha256": "C42FD2987708A4138F9B27DB01A3756D6465D2B8AF3A2E07BEDB83FB72B02E37"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb7afb0cbfc94861b98f8e0a01baf32a/probe-evidence.json",
+          "Sha256": "A15F4F006A3ADA3774F1947ADA3677D55802B492247B79464EDF340E48B0D5C7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb7afb0cbfc94861b98f8e0a01baf32a/process-raw-evidence.json",
+          "Sha256": "B40D03C4520DDE73FE58B1D7C607AEAA60A1B22486977DF10E08FD809FB5898D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb7afb0cbfc94861b98f8e0a01baf32a/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/bb7afb0cbfc94861b98f8e0a01baf32a/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-negative-big-status",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e7a50b988d914662829993d70018e08f/halt_negative_big_status.erl",
+          "Sha256": "E3007CBF9C1214A304CD88703D4EE61B6013C73BDA8FD15873DC0509C5ECD4AB"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e7a50b988d914662829993d70018e08f/probe-evidence.json",
+          "Sha256": "61B9242B88A35F2DF7E270EE7370786B93BA7E0C9A82FEFDA9B12AA94F316D06"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e7a50b988d914662829993d70018e08f/process-raw-evidence.json",
+          "Sha256": "C8CBF94BD32B5084AA7F8465CE27D59F6425F051BE92E58AE5AE4EFF3238EC6D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e7a50b988d914662829993d70018e08f/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e7a50b988d914662829993d70018e08f/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-valid-abort-invalid-options-first",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/86a327bd6a124c7db0e177430c20cbd6/halt_valid_abort_invalid_options_first.erl",
+          "Sha256": "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/86a327bd6a124c7db0e177430c20cbd6/probe-evidence.json",
+          "Sha256": "7A020DB27C1ED355649D67A300BEF891AC68B7BBA41F975865A57DEA94F627DF"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/86a327bd6a124c7db0e177430c20cbd6/process-raw-evidence.json",
+          "Sha256": "4157B7CF0405CA45F370A547081EDB30914F9BFA1EE632AB52203876FBABFA98"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/86a327bd6a124c7db0e177430c20cbd6/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/86a327bd6a124c7db0e177430c20cbd6/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-invalid-slogan-prefix",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/906eed841ebf4823897edc9c6c85368e/halt_invalid_slogan_prefix.erl",
+          "Sha256": "740557259EDF929CD773D96ABC1995991C50609F6EDCD09150A7A6EADF376587"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/906eed841ebf4823897edc9c6c85368e/probe-evidence.json",
+          "Sha256": "64496628B952C04726519B630B5A610E64877DCD1A523ACEC8FA27A1D689311E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/906eed841ebf4823897edc9c6c85368e/process-raw-evidence.json",
+          "Sha256": "DC76647CD0604FECECE223271D0908089ABE6AFFCE689C25A458ABE44CD6328B"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/906eed841ebf4823897edc9c6c85368e/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/906eed841ebf4823897edc9c6c85368e/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-direct-zero-watchdog",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/4ee78ab716234f0a8805e6c6913c671b/halt_direct_zero_watchdog.erl",
+          "Sha256": "F2B3B0AFA5423CA761E2AED2C9623002FBE57C182F7E5B3F8E541756DFC50F02"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/4ee78ab716234f0a8805e6c6913c671b/probe-evidence.json",
+          "Sha256": "57ACC89A5CAD7E3F21275380903FB24B82B9DBD2DB20501F5E443F788FB0D380"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/4ee78ab716234f0a8805e6c6913c671b/process-raw-evidence.json",
+          "Sha256": "34F2DFE928A2EDF65D0763130885706C76B0D6A0A50D4D166748D0EB69E4039D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/4ee78ab716234f0a8805e6c6913c671b/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/4ee78ab716234f0a8805e6c6913c671b/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-maximum-native-small-timeout",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/11aa7995a7a6442cb22446467fb501f5/halt_maximum_native_small_timeout.erl",
+          "Sha256": "ABF8CE99BD6C2ED9F191BE2AE9B6229EC3EF870884BBE8385DF6423CDE8268E7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/11aa7995a7a6442cb22446467fb501f5/probe-evidence.json",
+          "Sha256": "7F7E9E8FB884C2A3F0CE112CC17B394EDB957643C62CD5FE33D36575D44574BF"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/11aa7995a7a6442cb22446467fb501f5/process-raw-evidence.json",
+          "Sha256": "37A12AED89122431CE003C57A5DC0807C8C0EA953A08C3FABC4574F2F6E051B2"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/11aa7995a7a6442cb22446467fb501f5/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/11aa7995a7a6442cb22446467fb501f5/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-native-small-boundary-rejected",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/446986e591ea42b6a3f07b8599091695/halt_native_small_boundary_rejected.erl",
+          "Sha256": "47105BE7599346C3A94A789E127B48D34CDE3BF9F910E8442632D66D68C9D735"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/446986e591ea42b6a3f07b8599091695/probe-evidence.json",
+          "Sha256": "25DEAC171CD112DBC52B36C2EC5AC43297474B2E5800750198239EA4A6D79166"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/446986e591ea42b6a3f07b8599091695/process-raw-evidence.json",
+          "Sha256": "539D53A77FD1B7DA7D3CD588323166FFED067B99BD4F7FC40E450FE9D98023A3"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/446986e591ea42b6a3f07b8599091695/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/446986e591ea42b6a3f07b8599091695/process-stdout.raw",
+          "Sha256": "8221AC66BE71558C921FB44CFB66F7997699AEA754D917763882D6D9EDDC836E"
+        }
+      ]
+    },
+    {
+      "Name": "halt-wrapped-one-flush-false",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/22e92ed85a3a46ff91edadde2801f7af/halt_wrapped_one_flush_false.erl",
+          "Sha256": "A6E667FE6D45FCAA05F8FCDC70E73A766B78005D2ABABA237AA911B25FCFBCB4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/22e92ed85a3a46ff91edadde2801f7af/probe-evidence.json",
+          "Sha256": "10660950BC843DE0820046931EE69E0641B9107986CD70BD21E857E746211566"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/22e92ed85a3a46ff91edadde2801f7af/process-raw-evidence.json",
+          "Sha256": "C5BD4FEC4A5565DD12FE7AA3F4B2FC8ADA2868F3EDB1BD136131518EC706FD6D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/22e92ed85a3a46ff91edadde2801f7af/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/22e92ed85a3a46ff91edadde2801f7af/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-module-chain",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/halt_module_chain.erl",
+          "Sha256": "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/halt_probe_callee.erl",
+          "Sha256": "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/probe-evidence.json",
+          "Sha256": "CB0E3629E8215D4E60D0D99B17A7B6B31C7CE4813964EB41CC81D2048FCFFA95"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/process-raw-evidence.json",
+          "Sha256": "A98A2A0784DBF70464A7B16356A7E5F1C9E54671FDAD659BDD7A3CCA5E7105FF"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/600b65ba1c404f03a8e6c97ab377fdc9/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-server-init",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/halt_probe_server.erl",
+          "Sha256": "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/halt_server_init.erl",
+          "Sha256": "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/probe-evidence.json",
+          "Sha256": "D4814F3D22B9BD39D034CD953233B6F9E68021E845B114DC3C343D5903E45F35"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/process-raw-evidence.json",
+          "Sha256": "5EF0C4366D800440DE233F92745E9D5DC350E371E00FE002A2EA9CF3D57D67FC"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/e328e60379d4471c8544ec0be7cc7977/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-supervisor-init",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/halt_probe_supervisor.erl",
+          "Sha256": "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/halt_supervisor_init.erl",
+          "Sha256": "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/probe-evidence.json",
+          "Sha256": "8B94A110CA2633F740E626F85EA92A11B5AB248FEE401A8987D497608B9073FD"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/process-raw-evidence.json",
+          "Sha256": "DF2E37155190119C217821477665884F638343D383B9049ED1C0E9EF7FE2AA12"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/64b02e1836464146bf1e2d025afe7973/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-actual-abort",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/56d41cd94e7843debea47e3b577d0d38/halt_actual_abort.erl",
+          "Sha256": "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/56d41cd94e7843debea47e3b577d0d38/probe-evidence.json",
+          "Sha256": "1E786161E0E9154201A2F4FBB040330A5787CD4B9D18CD13BE4BF75D7E6E86AE"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/56d41cd94e7843debea47e3b577d0d38/process-raw-evidence.json",
+          "Sha256": "05C479F469B83681E807619F9A58157316241E85D6B9A1CE0BF912954B31B480"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/56d41cd94e7843debea47e3b577d0d38/process-stderr.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/56d41cd94e7843debea47e3b577d0d38/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ]
+    },
+    {
+      "Name": "halt-real-clr-dump",
+      "Backend": 1,
+      "Files": [
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/halt_real_clr_dump.erl",
+          "Sha256": "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/probe-evidence.json",
+          "Sha256": "BE73A08C618A0F84BA1A2F50778E4026A814F959E20EDB2BA8FC61C19379D738"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/process-raw-evidence.json",
+          "Sha256": "3AEA76EE3A8667F26781BFA9CE9A134F8F4A042C6B17DAEB65ADAA17CE87C993"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/process-stderr.raw",
+          "Sha256": "C7DDB92A6F1B301AF657057023D090857B7BCEA7F0C9ADD83F465CEF8DE99FA4"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/process-stdout.raw",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/halt-subprocess-cases/69eee10415b64a75b075974d73fb4576/requested-clr.dmp",
+          "Sha256": "E76A234C0AF64260526C0F7A3BCB05E45EEE67542BA9545A1CC600165DC4B034"
+        }
+      ]
+    }
+  ],
+  "HaltGuardSha256": "113584C1B413AF1A4BDE4B718E4A892C920518EAC0EB5F83FA9466595A33010C",
+  "ChildCount": 59,
+  "PackageIntegration": "Actual full log terminates Validation passed after package/consumer/tool installation.",
+  "FirstStyleAndTenFunctionalFailuresPreserved": true,
+  "MainOrGitModified": false,
+  "BuildExecutedByReviewer": false,
+  "NewNativeExecuted": false,
+  "WorkflowReuse": {
+    "ScriptPattern": "artifacts/reference-checkpoint273.ps1",
+    "DoNotExecuteOldScriptUnmodified": "Its frozen273 receipt/head/source guard and two-workflow loop are deliberately bound to prior part.",
+    "Workflow": ".github/workflows/differential.yml",
+    "DispatchBodyAfterPublishedHeadGuard": {
+      "ref": "main"
+    },
+    "Inputs": "investigate omitted -> default false; alternatively explicit investigate=false. No count or fd input exists.",
+    "ExpectedOrdinaryCorpus": 5812,
+    "ExpectedFd": 8,
+    "FdStep": "Always runs --fd separately, even if ordinary comparison fails.",
+    "SafePattern": "Read credential provider only into memory, verify remote main==new committed SHA; write new275 DispatchAttemptRecorded receipt before POST; never duplicate unknown outcome; use fresh part275 frozen path/receipt/source guards."
+  },
+  "ScopeNotes": [
+    "Count5812 comes from prior complete5809 plus three declared new Erlang modules; raw native result remains future.",
+    "No source expectations, report normalization, Main files, Git, builds or workflow dispatch altered by review."
+  ]
+}

@@ -146,28 +146,48 @@ public static class ExternalTermFormat
                 if (output.Length != expected)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 var bytes = output.ToArray();
-                var compressedBoundary = new EtfWireBoundary(bytes, options.LocalSeed);
-                compressedBoundary.Measure();
-                var compressedReader = new Reader(bytes, maxBytes, options);
-                var result = compressedReader.Read(0);
-                if (strict && !compressedReader.AtEnd)
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                EtfDecodedTerm result = ReadMeasured(
+                    bytes,
+                    options,
+                    maxBytes,
+                    strict
+                );
 
-                return new EtfDecodedTerm(result, used);
+                return new EtfDecodedTerm(result.Term, used);
             }
-            var boundary = new EtfWireBoundary(data[EtfHeaderLayout.PlainPayloadOffset..], options.LocalSeed);
-            boundary.Measure();
-            var reader = new Reader(data[EtfHeaderLayout.PlainPayloadOffset..], maxBytes, options);
-            var term = reader.Read(0);
-            if (strict && !reader.AtEnd)
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            EtfDecodedTerm decoded = ReadMeasured(
+                data[EtfHeaderLayout.PlainPayloadOffset..],
+                options,
+                maxBytes,
+                strict
+            );
 
-            return new EtfDecodedTerm(term, EtfHeaderLayout.PlainPayloadOffset + reader.Position);
+            return new EtfDecodedTerm(decoded.Term, EtfHeaderLayout.PlainPayloadOffset + decoded.Used);
         }
         catch (Exception ex) when (ex is EndOfStreamException or OverflowException or DecoderFallbackException or InvalidDataException or FormatException or ArgumentException)
         {
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         }
+    }
+
+    private static EtfDecodedTerm ReadMeasured(
+        ReadOnlySpan<byte> data,
+        EtfDecodeOptions options,
+        int maxBytes,
+        bool strict
+    )
+    {
+        List<EtfNodeEpoch>? epochs = options.NodeAdmission is null ? null : new();
+        var boundary = new EtfWireBoundary(data, options.LocalSeed, epochs is null ? null : epochs.Add);
+        boundary.Measure();
+        using EtfDecodeAdmission? admission = options.NodeAdmission?.Invoke(epochs!);
+        var reader = new Reader(data, maxBytes, admission?.Options ?? options);
+        Term term = reader.Read(0);
+        if (strict && !reader.AtEnd)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        admission?.Observe(term);
+
+        return new EtfDecodedTerm(term, reader.Position);
     }
 
     private static void U16(Stream s, int value)

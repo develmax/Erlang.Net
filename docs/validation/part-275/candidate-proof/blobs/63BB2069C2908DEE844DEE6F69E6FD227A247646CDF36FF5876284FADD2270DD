@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json,re
+root=Path.cwd(); art=root/'artifacts'; freeze=json.loads((art/'activation-ingress-six-bump-source-freeze-revision5.json').read_text()); source=art/'part275-main-initial-style-failure/source'; changed=[]; sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+for r in freeze['Files']:
+    before=(source/r['Path']).read_bytes(); after=(root/r['Path']).read_bytes()
+    if before!=after:
+        assert r['Path']=='tests/Erlang.Tests/DistributionRegisteredHostNames.cs'
+        tokenize=lambda b:re.findall(r'"(?:\\.|[^"\\])*"|[A-Za-z_][A-Za-z_0-9]*|\d+|[^\s]',b.decode('utf-8-sig'))
+        assert tokenize(before)==tokenize(after)
+        changed.append({'Path':r['Path'],'BeforeSha256':sha(before),'AfterSha256':sha(after),'TokenAndQuotedLiteralExact':True,'BeforeSourceContent':before.decode('utf-8'),'AfterSourceContent':after.decode('utf-8')})
+assert len(changed)==1
+(art/'part275-main-style-repair-guard.json').write_text(json.dumps({'Status':'PASS','ChangedFiles':changed,'RuntimeUnchanged':True,'InitialFailurePreserved':True},indent=2)+'\n')
+print('PASS exactly one test Names file; tokens and quoted values unchanged')

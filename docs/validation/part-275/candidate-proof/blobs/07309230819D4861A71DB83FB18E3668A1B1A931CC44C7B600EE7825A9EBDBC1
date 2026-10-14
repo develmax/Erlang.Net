@@ -1,0 +1,78 @@
+namespace Erlang;
+
+public sealed partial class ProcessRuntime
+{
+    public EtfDecodedTerm ImportExternalTerm(ReadOnlySpan<byte> data, EtfDecodeOptions? options = null, int maxBytes = ExternalTermFormat.DefaultMaxBytes)
+    {
+        options ??= new();
+        if (options.PidFactory is not null || options.PortFactory is not null || options.ReferenceFactory is not null)
+            throw new ArgumentException(RuntimeExternalTermDiagnostics.ResourceFactory, nameof(options));
+        EtfDecodeOptions prepared = options with
+        {
+            LocalSeed = LocalTermSeed,
+            ExternalFunctionFactory = options.ExternalFunctionFactory ?? ((identity, safe) => Functions.External(this, identity, safe)),
+            LocalFunctionFactory = options.LocalFunctionFactory ?? ((code, arity, environment) => Functions.Restore(
+                this,
+                new LocalFunctionIdentity(
+                    code.Module,
+                    null,
+                    code.Index,
+                    code.OldUnique,
+                    code.Unique,
+                    code.OldIndex
+                ),
+                arity,
+                environment
+            ))
+        };
+        EtfDecodeOptions decoding = prepared with { NodeAdmission = epochs => AdmitExternalDecode(prepared, epochs) };
+
+        return ExternalTermFormat.DecodeOne(data, decoding, maxBytes);
+    }
+
+    internal EtfDecodeAdmission AdmitExternalDecode(EtfDecodeOptions options, IReadOnlyList<EtfNodeEpoch> epochs)
+    {
+        LocalNodeSnapshot snapshot;
+        IDisposable reservation;
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            ThrowIfHalted();
+            snapshot = LocalIdentity.Snapshot;
+            reservation = KnownNodes.ReserveEpochs(epochs, snapshot);
+        }
+        try
+        {
+            EtfDecodeOptions captured = options with
+            {
+                LocalNode = snapshot.Node,
+                LocalCreation = snapshot.Creation,
+                NodeIdentity = LocalIdentity,
+                NodeAdmission = null,
+                PidFactory = value => ObserveDecodedIdentifier(RehydratePid(value, snapshot)),
+                PortFactory = value => ObserveDecodedIdentifier(RehydratePort(value, snapshot)),
+                ReferenceFactory = value => ObserveDecodedIdentifier(ReferenceResources.Rehydrate(value, snapshot))
+            };
+
+            return new(captured, reservation, ObserveImportedGraph);
+        }
+        catch
+        {
+            reservation.Dispose();
+            throw;
+        }
+    }
+
+    private void ObserveImportedGraph(Term term)
+    {
+        RequireExternalTermDomain(term);
+        KnownNodes.Observe(term);
+    }
+
+    private T ObserveDecodedIdentifier<T>(T value) where T : Term
+    {
+        KnownNodes.Observe(value);
+
+        return value;
+    }
+}

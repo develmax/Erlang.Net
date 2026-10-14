@@ -1,0 +1,44 @@
+{
+  "Status": "Exact six-path repair import; full Main required",
+  "Changes": [
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "BeforeSha256": "EBF613082DA3C9D7B2AB75A68445DE88AB5903AA4B9A0C8568338CAC9F4ADFE4",
+      "AfterSha256": "F6B48D294DDDF212AA494E5FD99F1FFF4989404F47182494B69696482F7EF2BA",
+      "Reason": "Exact count/signature fixture update; behavior/malformed-byte assertions unchanged"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamOnLoadModeledBytes.cs",
+      "BeforeSha256": "1EA9EA4C8760BE61959EFA71204BC880673F7544EEC1670350EA822729C69885",
+      "AfterSha256": "9048F1DAC61E9996E2AB3881FE787026A34CF5C2F3F27ACC2C0F49A8B1A32A0A",
+      "Reason": "Exact count/signature fixture update; behavior/malformed-byte assertions unchanged"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMfaSmokeContracts.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "8F1684E65A7F0091F13D3FBDD4A42B0C8BD78BE2445A7E5BB8ECEAA59961D196",
+      "Reason": "Meaningful seven actual public MFA smoke scenarios; precise Program routing, no skips"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMfaSmokeNames.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "19B665F725A9D87C417F428E5A47977D0CF151B8FCF228A168FC0CE177C0B0CA",
+      "Reason": "Meaningful seven actual public MFA smoke scenarios; precise Program routing, no skips"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "BeforeSha256": "98F408192C27F62566BD35F7B7A8F43E1CB58070FA63AB08219883E6E11CD9F0",
+      "AfterSha256": "91B640B09D7D9940AEEC2DB2774C252E7B5A4C3105411914EE44181F2A8EB259",
+      "Reason": "Meaningful seven actual public MFA smoke scenarios; precise Program routing, no skips"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistribution.cs",
+      "BeforeSha256": "0C32A4F51F3C10D08B917A13A77A5ACD21EAFCA69F7DDD45D06DAEAAE100D9FF",
+      "AfterSha256": "9734F9F28E0C75D74ED21B32CCD6B6DAF400B79AAC8489EA463A7ED474DA2A25",
+      "Reason": "Actual foreign dynamic PID rejection; existing test unchanged"
+    }
+  ],
+  "ActualFailed6534of6544Preserved": true,
+  "OldForeignPidExpectationUnchanged": true,
+  "ExpectedFullCount": 6544
+}

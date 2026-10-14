@@ -1,0 +1,18 @@
+namespace Erlang.Tests;
+
+internal static class RuntimeSetNodeHostParameters
+{
+    internal const int UniqueBytes = 16;
+    internal const uint SecondReservedCreation = 5;
+    internal const uint BothSkippedCreation = 6;
+    internal const int TableHeaderBytes = 12;
+    internal const int WordBytes = 4;
+    internal const int CompressionPaddingBytes = 4096;
+    internal const int CompressionLevel = 6;
+    internal const byte CompressedTag = 80;
+    internal const uint Requested = 1;
+    internal const uint MinimumCreation = 4;
+    internal const uint SkippedCreation = 5;
+    internal const ulong ExternalPid = 17;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(10);
+}

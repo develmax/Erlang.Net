@@ -1,11 +1,13 @@
 using System.Buffers.Binary;
+using System.Text;
 
 namespace Erlang;
 
-internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed)
+internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed, Action<EtfNodeEpoch>? observe = null)
 {
     private readonly ReadOnlySpan<byte> data = data;
     private int offset;
+    private bool localNodes;
 
     public int Measure(int depth = 0)
     {
@@ -77,26 +79,66 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed)
                 }
             case EtfTags.Pid:
             case EtfTags.NewPid:
-                Measure(depth + 1);
-                Skip(EtfFieldWidths.UInt32Bytes * 2 + (tag == EtfTags.Pid ? 1 : EtfFieldWidths.UInt32Bytes));
-                break;
+                {
+                    int start = offset;
+                    Measure(depth + 1);
+                    int end = offset;
+                    Skip(EtfFieldWidths.UInt32Bytes * 2);
+                    uint creation = tag == EtfTags.Pid ? Byte() : U32();
+                    ObserveNode(
+                        start,
+                        end,
+                        creation,
+                        tag == EtfTags.Pid
+                    );
+                    break;
+                }
             case EtfTags.Port:
             case EtfTags.NewPort:
             case EtfTags.V4Port:
-                Measure(depth + 1);
-                Skip((tag == EtfTags.V4Port ? EtfFieldWidths.UInt64Bytes : EtfFieldWidths.UInt32Bytes) + (tag == EtfTags.Port ? 1 : EtfFieldWidths.UInt32Bytes));
-                break;
+                {
+                    int start = offset;
+                    Measure(depth + 1);
+                    int end = offset;
+                    Skip(tag == EtfTags.V4Port ? EtfFieldWidths.UInt64Bytes : EtfFieldWidths.UInt32Bytes);
+                    uint creation = tag == EtfTags.Port ? Byte() : U32();
+                    ObserveNode(
+                        start,
+                        end,
+                        creation,
+                        tag == EtfTags.Port
+                    );
+                    break;
+                }
             case EtfTags.Reference:
-                Measure(depth + 1);
-                Skip(EtfFieldWidths.UInt32Bytes + 1);
-                break;
+                {
+                    int start = offset;
+                    Measure(depth + 1);
+                    int end = offset;
+                    Skip(EtfFieldWidths.UInt32Bytes);
+                    ObserveNode(
+                        start,
+                        end,
+                        Byte(),
+                        true
+                    );
+                    break;
+                }
             case EtfTags.NewReference:
             case EtfTags.NewerReference:
                 {
                     int count = U16();
+                    int start = offset;
                     Measure(depth + 1);
-                    Skip(tag == EtfTags.NewReference ? 1 : EtfFieldWidths.UInt32Bytes);
+                    int end = offset;
+                    uint creation = tag == EtfTags.NewReference ? Byte() : U32();
                     Skip(checked(count * EtfFieldWidths.UInt32Bytes));
+                    ObserveNode(
+                        start,
+                        end,
+                        creation,
+                        tag == EtfTags.NewReference
+                    );
                     break;
                 }
             case EtfTags.Export:
@@ -113,6 +155,7 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed)
                 {
                     uint expected = U32();
                     int start = offset;
+                    localNodes = true;
                     Measure(depth);
                     if (localSeed is null || expected != ErlangBlockHash.Hash(data.Slice(start, offset - start), localSeed.Value))
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -123,6 +166,42 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed)
         }
 
         return offset;
+    }
+
+    private void ObserveNode(
+        int start,
+        int end,
+        uint creation,
+        bool tinyCreation
+    )
+    {
+        if (observe is null)
+            return;
+        if (tinyCreation && creation > EtfNodeLayout.MaximumTinyCreation)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        ReadOnlySpan<byte> node = data.Slice(start, end - start);
+        while (!node.IsEmpty && node[0] == EtfTags.Local)
+            node = node[(EtfHeaderLayout.LocalTermOffset - EtfHeaderLayout.PlainPayloadOffset)..];
+        if (node.Length == 1 && node[0] == EtfTags.Nil && localNodes)
+        {
+            observe(new(string.Empty, creation, true));
+
+            return;
+        }
+        if (node.IsEmpty)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        int tag = node[0];
+        bool small = tag is EtfTags.SmallLatin1Atom or EtfTags.SmallUtf8Atom;
+        if (!small && tag is not EtfTags.Latin1Atom and not EtfTags.Utf8Atom)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        int header = 1 + (small ? 1 : EtfFieldWidths.UInt16Bytes);
+        int length = small ? node[1] : BinaryPrimitives.ReadUInt16BigEndian(node[1..]);
+        if (node.Length != header + length)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        string name = (tag is EtfTags.SmallUtf8Atom or EtfTags.Utf8Atom ? EtfNodeEpochEncodings.StrictUtf8 : Encoding.Latin1).GetString(node[header..]);
+        if (name.EnumerateRunes().Count() > EtfAtomLimits.MaximumCodePoints)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        observe(new(name, creation, false));
     }
 
     private void Terms(int count, int depth)

@@ -1,0 +1,90 @@
+{
+  "Stage": "ActualBoundedFinal4TerminalPass",
+  "PublishedHead": "b87e7fe1539dc9850a0c24d1b426bc6851f19e5c",
+  "SourceFreeze": "artifacts/activation-ingress-six-bump-source-freeze-revision4.json",
+  "SourceFreezeSha256": "1C603565095743AA0B4F204F2DE0C4F616784B3DAB7CE634D9A68C2FBB8C6C1F",
+  "VerifiedSourceCounts": {
+    "Files": 86,
+    "UnownedSeedFiles": 1565,
+    "FocusSources": 11
+  },
+  "TargetErrors": 0,
+  "TargetWarnings": 0,
+  "StyleChanges": 0,
+  "GatewayGroups": 13,
+  "ConnectedAssertions": 132,
+  "IngressAssertions": 24,
+  "LogicalCompiledCases": 10,
+  "LogicalHostGroups": 5,
+  "ActualResults": "All bounded groups and all ten compiled logical cases PASS; no live session remains.",
+  "SourceVerifiedBeforeClosure": true,
+  "InitialCompileFailurePreserved": {
+    "Log": "artifacts/activation-ingress-six-bump-revision3-target.log",
+    "Sha256": "A107C6B21DC67CA672003DF5BED1F783F86D683116DAB1B34CB5D352C27AAF59",
+    "ProducedClosureSha256": "6D241CEC995356380BFA352C8CCF4AE06405407CA9AA65C55E88D91232315263",
+    "Errors": 3,
+    "Warnings": 0,
+    "Reason": "New permanent HOST accessed internal CommonAtomNames; replaced by declared HOST Success=ok only.",
+    "RuntimeFailedOrExecuted": false
+  },
+  "Logs": [
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision3-target.log",
+      "Sha256": "A107C6B21DC67CA672003DF5BED1F783F86D683116DAB1B34CB5D352C27AAF59",
+      "Bytes": 6037
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision3-style-write.log",
+      "Sha256": "3D69694B6AC99EB0AEE9B4671E21D60A91A8A8BEA20230986BB6D37A8E413545",
+      "Bytes": 32
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision4-target.log",
+      "Sha256": "B7177839718FA552B15D1492CD9FB271F73C5A77C8D9D6F216CF1D52CFC6041F",
+      "Bytes": 2196
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision4-style-check.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+      "Bytes": 40
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision4-focus.log",
+      "Sha256": "CECE4BB0AAF98B518344D33BBDC1D05AA791332FD9240BCAEEA013422F8A2218",
+      "Bytes": 1601
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision4-logical-target.log",
+      "Sha256": "2AA7F01475E94EE7129C68C9AE6D312E152691EFC8D7DCABCEA6F13A45B2FE7B",
+      "Bytes": 1922
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-revision4-logical-focus.log",
+      "Sha256": "D09508A32EAB6385DC05AE79CB7E6047E63B5D91BA0ABB98EF014C96F93B59B2",
+      "Bytes": 922
+    }
+  ],
+  "ExecutedClosures": [
+    {
+      "Path": "artifacts/activation-ingress-six-bump-final4-evidence/gateway-closure.json",
+      "Sha256": "DCA1F9600A0E2881BFA77150D301A9BE4B8EFBABEE3932E33DE3A481EF0719EC",
+      "Files": 95
+    },
+    {
+      "Path": "artifacts/activation-ingress-six-bump-final4-evidence/logical-closure.json",
+      "Sha256": "E9A26CED614B868E796F35BDAAE4ABB9CA59762AB486994928311038287C0953",
+      "Files": 51
+    }
+  ],
+  "NativeExecuted": false,
+  "FullSuiteExecuted": false,
+  "MainOrGitModified": false,
+  "HeavyReleased": true,
+  "ScopeNotes": [
+    "Old connected CoreRegistrationsAdded=0 diagnostic describes that test body; candidate globally adds six registrations.",
+    "Old admission unregistered and identity activation-unrun labels describe inherited group scope only; actual activation and six-Core controls executed separately.",
+    "Original native274 creation overflow finding supersedes old uint32-upper-limit assumption; LP64 nonnegative SMALL\u2192low32 conversion checked locally, no new native execution here.",
+    "Initial revision3 target failed in three test-only inaccessible constant references; produced failure directory is explicitly unexecuted.",
+    "Seven inherited gateway groups are included in thirteen-group focused runner; this does not establish full Main compatibility."
+  ]
+}

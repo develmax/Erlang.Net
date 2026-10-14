@@ -13,5 +13,6 @@ internal sealed class RuntimeDistributionPendingEntry(
     internal uint ConnectionId { get; set; } = connectionId;
     internal DistributionPendingState State { get; set; } = DistributionPendingState.Idle;
     internal ProcessContext? ReservedController { get; set; }
+    internal DistributionConnectedEntry? Connected { get; set; }
     internal ResourceReferenceTerm Reference { get; set; } = null!;
 }

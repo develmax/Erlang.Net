@@ -1,0 +1,25 @@
+namespace Erlang.Tests;
+
+internal static class DistributionRegisteredHostNames
+{
+    internal const string Test = "runtime/distribution-six-registered-public-controller-contracts";
+    internal const string Failure = "Registered distribution controller contract failed.";
+    internal const string Success = "ok";
+    internal const string PayloadMarker = "ok";
+    internal const string Local = "registered_local@host";
+    internal const string Remote = "registered_remote@host";
+    internal const string Sink = "registered_sink";
+    internal const string DataNotice = "dist_data";
+    internal const string KernelNotice = "dist_ctrlr";
+    internal const int FirstRemoteCreation = 1;
+    internal const int ReopenedRemoteCreation = 2;
+    internal static readonly (string Name, int Arity)[] SixMfas =
+    [
+        (RuntimeSetNodeHostNames.SetNode, 3),
+        (DistributionControllerNames.GetOption, 2),
+        (DistributionControllerNames.SetOption, 3),
+        (DistributionControllerNames.RequestDataNotification, 1),
+        (DistributionControllerNames.GetData, 1),
+        (DistributionControllerNames.InputHandler, 2)
+    ];
+}

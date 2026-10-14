@@ -1,0 +1,20 @@
+internal static class CaptureControlNames
+{
+    internal const string Dotnet = "dotnet";
+    internal const string RawChild = "raw-child";
+    internal const string Holder = "hold-child";
+    internal const string SpawnHolder = "spawn-holder";
+    internal const string Raw = "raw";
+    internal const string Pipes = "pipes";
+    internal const string ChildFile = "child.pid";
+    internal const string Stdout = "raw.stdout";
+    internal const string Stderr = "raw.stderr";
+    internal const string Failure = "Actual byte capture or bounded inherited-pipe control failed.";
+    internal const string Pass = "PASS";
+    internal const int RawExit = 3;
+    internal static readonly byte[] RawOutput = [0, 128, 255];
+    internal static readonly byte[] RawError = [254, 0, 129];
+    internal static readonly TimeSpan HoldTime = TimeSpan.FromSeconds(20);
+    internal static readonly TimeSpan ExitDeadline = TimeSpan.FromSeconds(5);
+    internal static readonly TimeSpan CaptureDeadline = TimeSpan.FromSeconds(12);
+}

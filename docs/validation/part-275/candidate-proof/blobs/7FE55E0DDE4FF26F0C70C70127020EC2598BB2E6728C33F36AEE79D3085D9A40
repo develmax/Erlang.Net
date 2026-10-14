@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,hashlib,subprocess
+root=Path.cwd(); art=root/'artifacts'; sha=lambda b:hashlib.sha256(b).hexdigest().upper(); d=json.loads((art/'part275-main-source-freeze-revision6.json').read_text()); previous={r['Path']:r for r in d['Files']}; repairs=json.loads((art/'part275-functional-repair-import.json').read_text()); names=set(previous)|{r['Path'] for r in repairs['Changes']}; assert len(names)==91
+rows=[]
+for name in sorted(names):
+    raw=(root/name).read_bytes()
+    try:before=subprocess.check_output(['git','show','b87e7fe1539dc9850a0c24d1b426bc6851f19e5c:'+name],stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError:before=None
+    rows.append({'Path':name,'BeforeCommittedSha256':sha(before) if before is not None else None,'Sha256':sha(raw),'SourceContent':raw.decode('utf-8'),'Reason':'Composite reviewed implementation plus exact functional/setup repairs' if name not in previous or sha(raw)!=previous[name]['Sha256'] else 'Previously bound source6 unchanged'})
+result={'Stage':'Actual Main91 after exact functional repairs; unexecuted full status','PublishedHead':'b87e7fe1539dc9850a0c24d1b426bc6851f19e5c','Files':rows,'Prior86FreezeSha256':sha((art/'part275-main-source-freeze-revision6.json').read_bytes()),'FunctionalRepairImportSha256':sha((art/'part275-functional-repair-import.json').read_bytes()),'ExpectedCount':6544,'Old6527NamesMustRemainExact':True,'MainFullPassClaim':False}
+p=art/'part275-main-source-freeze-revision7.json'; assert not p.exists(); p.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8'); print('Frozen91 actual source paths; expected6544')

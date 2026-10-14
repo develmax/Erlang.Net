@@ -1,0 +1,35 @@
+{
+  "Status": "PASS_BOUNDED_COMBINED86_SOURCE_MERGES_AND_CREATION_DOMAIN_PEER",
+  "FreezeSha256": "D2277B62CB4DC4C7D2A0D1DBB2528BE25B769CBFAD6AA3639754ABBA2D9F633E",
+  "PublishedHead": "b87e7fe1539dc9850a0c24d1b426bc6851f19e5c",
+  "Owned": 86,
+  "UnownedExactCommittedByteSet": 1565,
+  "ExactGitBlobReader": "git cat-file --batch, bypasses archive checkout EOL filters",
+  "FocusSources": 11,
+  "Permanent132And24OverlaySixExact": true,
+  "ExactTestedIngressTwoPreserved": true,
+  "ExactReviewedCoreAndSixRegistrationsDraft": true,
+  "ContextPreciseMerge": "Exact reviewed capped-bump Context plus only IncomingTerm callback, signal/halt/cancellation source retained",
+  "ProgramPreciseMerge": "Exact current published b87 Program plus seven append-only HOST lines before int failed; hash-positive group intact",
+  "CreationHelperScope": "Pinned LP64 SMALL0..2^59-1 low32 shared by BOTH local/controller admissions;32-bit unclaimed",
+  "OldWrongCreationFixtureDeltas": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeSetNodeHostChecks.cs",
+      "BeforeSha256": "03A0C6A42276F1EE28FCD321EC0B2FF4764E75A6BDA5FFC01952A7B21532A87C",
+      "AfterSha256": "449169F465B82A9CBB4DE2E59B5E966CE93229246D944D1FF4D236C6FC723DD1",
+      "ExactDelta": "--- \n+++ \n@@ -97,7 +97,7 @@\n  });\n         await caller.InvokeAsync(async context =>\n         {\n-            foreach (Term creation in new Term[] { Term.I(-1), new Integer((BigInteger)uint.MaxValue + 1), Term.A(ErlangBooleanAtoms.True), new FloatTerm(1) })\n+            foreach (Term creation in new Term[] { Term.I(-1), new Integer(BigInteger.One << RuntimeNodeCreationHostParameters.FirstNonSmallShift), Term.A(ErlangBooleanAtoms.True), new FloatTerm(1) })\n                 await Reject(() => SetNode(context, RuntimeSetNodeHostNames.First, creation));\n             await Reject(() => SetNode(context, ProcessNodeDefaults.Local, Term.I(0)));\n \n"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeAdmissionFoundationHostChecks.cs",
+      "BeforeSha256": "071774A9F614D5812DD046BC05CBCD603A0A4A989892A9B80BAD4ADA9F13FC92",
+      "AfterSha256": "5D7200ED08ECC1DE4A8C5FF13F0BB961D00ED2CB097DD1ED46459F92BBA3AE51",
+      "ExactDelta": "--- \n+++ \n@@ -69,7 +69,7 @@\n                     runtime,\n                     context,\n                     Term.A(RuntimeNodeAdmissionFoundationHostNames.FirstNode),\n-                    new Integer((System.Numerics.BigInteger)uint.MaxValue + 1)\n+                    new Integer(System.Numerics.BigInteger.One << RuntimeNodeCreationHostParameters.FirstNonSmallShift)\n                 ));\n \n                 return true;\n"
+    }
+  ],
+  "Actual274GuardSha256": "3EB2AA52375C714047DAB7503645AEE5BE62BB55825F7C47017131E4542F4FBE",
+  "PublicSixSourceAudit": "Actual Core/ModuleRegistry calls for all6, async other-controller reply+exact kernel notice, prior option values, public ToArray sized packet bytes, notification/handler/stale generation; direct BeginPending/Enqueue dependencies explicit. No put/stat export.",
+  "PreparationVerifierFailurePreserved": "Initial verifier used git archive which converted .editorconfig checkout line endings, failing strict committed blob comparison. Corrected to direct cat-file blobs; no candidate edit or assertion relaxation.",
+  "BuildOrNativeExecutedByReviewer": false,
+  "MainOrGitModified": false,
+  "Scope": "Source-only prebuild gate. Individual HOST proofs do not substitute for combined86 actual target/permanent execution/fullMain CI. Native274 confirms one low32/collision5 case; other boundary scenarios original-unexecuted."
+}

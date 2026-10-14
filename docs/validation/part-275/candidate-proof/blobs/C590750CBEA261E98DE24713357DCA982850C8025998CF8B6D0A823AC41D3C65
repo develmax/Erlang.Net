@@ -1,0 +1,85 @@
+{
+  "Stage": "FinalCollector3ActualNegativeAndRawCaptureGates",
+  "Sources": [
+    {
+      "Path": "artifacts/setnode2-native-oracle-proposal-source-freeze-revision3.json",
+      "Sha256": "CA120A4D848B62D183963F29945C33B68BD36B184E482AD152F8659CA9F92FD1"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control-source-freeze-revision2.json",
+      "Sha256": "D60D7E37DFAB7DEF61E5F046896B22631A2983347A193D265CE5754F90DE2FE6"
+    }
+  ],
+  "BuildErrors": 0,
+  "BuildWarnings": 0,
+  "OwnedStyleChanges": 7,
+  "OwnedStyleCheckChanges": 0,
+  "QuotedLiteralAndNonWhitespaceGuards": true,
+  "ActualCliRefusals": 12,
+  "ActualRawCapture": {
+    "Status": "PASS",
+    "Raw": {
+      "ExitCode": 3,
+      "TimedOut": false,
+      "RawComplete": true
+    },
+    "InheritedPipes": {
+      "ExitCode": 0,
+      "TimedOut": false,
+      "RawComplete": false
+    },
+    "Milliseconds": 5952,
+    "OwnedChildTerminated": true
+  },
+  "Proofs": [
+    {
+      "Path": "artifacts/setnode2-native-oracle-revision2-cli-controls/proof.json",
+      "Sha256": "23DFE95E8D951DA8E536CF6D7A0640A773B44304B744A2640A82C71BE354CB12"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-revision3-cli-controls/proof.json",
+      "Sha256": "2A66C3F418B162C9A97B07668856204D7CADF9F9EBBD25D96170DD04FD7C6974"
+    }
+  ],
+  "Logs": [
+    {
+      "Path": "artifacts/setnode2-native-oracle-proposal-revision2-target.log",
+      "Sha256": "1D31A6CDBE21C34B0447E869B3108B4F0394D1ED515A44EF40C6840AD2CF057B"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-proposal-revision3-target.log",
+      "Sha256": "E0AEDDD26E4E6F814E4F2CE3532541D8F02A3C845F087E643B7722C2F250AEE7"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-revision2-style-write.log",
+      "Sha256": "4B38280CB93A68CD4F3391AF53BF625BCF5D2DD6505464F31BA4D1045355E6D2"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-revision3-style-check.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control-revision1-target.log",
+      "Sha256": "7BB2C5FDFF2F4825506CCA5C0278F5C16C7A88D45DABA04CE6AF51C2AF6EC234"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control-revision1-focus.log",
+      "Sha256": "C6857B8BEC54DD57919FCBEC57EBAC3B5FD7E556EFF47CD2416E719A47291DDD"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control-revision2-target.log",
+      "Sha256": "AC7FFADE4A47C7E639BC7A705B28CC8325D790E3B518BAA5EC19498C0FB5003F"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control-revision2-focus.log",
+      "Sha256": "655840731E7886DDB00674AB7C19FD903152683724CAB05E3526526D7CC5BC03"
+    }
+  ],
+  "ExecutedClosureSha256": "54453B51F758E0BC496AA1E777F6D5B18A66A9DBFE1D37556A484C9F9C611302",
+  "ExecutedFiles": 12,
+  "NativeExecuted": false,
+  "SyntheticNegativeEvidenceOnly": true,
+  "MainModified": false,
+  "SemanticCompatibilityClaim": false,
+  "Scope": "Pre-write failure/provenance controls and real process byte-capture/owned inherited-pipe child cleanup only. Original two fresh-VM admission scenario proposal remains unexecuted; no native setnode completion claim."
+}

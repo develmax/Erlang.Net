@@ -1,0 +1,102 @@
+{
+  "Status": "PASS_BOUNDED_CAPPED_BUMP_LOCAL_GATES",
+  "BaseHead": "fa1a0e6ad4aea2fb86a51ea4008724510d8fb89a",
+  "FinalFreezeSha256": "2B63FB68B471DB482A498A66F401A1E580084C22101207114A38A070633F8EDB",
+  "ReviewedSource6Unchanged": true,
+  "UnownedExactCount": 1578,
+  "TargetErrors": 0,
+  "TargetWarnings": 0,
+  "OwnedStyleChanges": 0,
+  "NewHostRemainingSlicePhases": [
+    0,
+    1,
+    1999,
+    2000,
+    4001
+  ],
+  "NewHostZeroSmallMaximumErrorDomain": true,
+  "UnchangedExistingHostGroups": [
+    "ProcessInfoLogicalHostChecks.Run",
+    "ProcessSuspensionHostChecks.Run",
+    "ProcessInfoObservableHostChecks.Run",
+    "ProcessExitHostChecks.PendingKillCleanup"
+  ],
+  "CompiledLogicalCases": {
+    "Host": true,
+    "Rows": [
+      {
+        "Name": "process-info-logical-small-bump",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-bump-after-yield",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-bump-error-domain",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-defaults",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-charged-reductions-monotonic",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-spawn-module-initial-mfa",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-spawn-callback-initial-mfa",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-logical-list-order-and-duplicates",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-suspending-empty",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      },
+      {
+        "Name": "process-info-logical-suspending-active-counts",
+        "Pass": true,
+        "Actual": "{ok,done}"
+      }
+    ],
+    "Failures": 0,
+    "NativeExecuted": false
+  },
+  "Logs": [
+    {
+      "Path": "artifacts/process-bump-cap-revision2-style-before.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Path": "artifacts/process-bump-cap-revision2-target.log",
+      "Sha256": "72C167335FB14C5744C9B41E494698F74E0494CB83A25327702F12AB04A9A194"
+    },
+    {
+      "Path": "artifacts/process-bump-cap-revision2-focus.log",
+      "Sha256": "D09508A32EAB6385DC05AE79CB7E6047E63B5D91BA0ABB98EF014C96F93B59B2"
+    }
+  ],
+  "ExecutedClosureSha256": "1BCD524593A4F27E9641AEE73E072E59CBC02614880E722FBD086264760BF722",
+  "ExecutedFiles": 25,
+  "HistoricalOldNativeSourceAndBadmatchUnchanged": true,
+  "NativeNewSourcesExecuted": false,
+  "MainOrGitModified": false,
+  "FullValidationExecuted": false,
+  "Scope": "Logical CLR budget/counter and fixed declared native source contract correction, no equality claim to physical OTP reduction counts. Native newmonotonic/small/yield/error-domain outcomes remain unexecuted until publication."
+}

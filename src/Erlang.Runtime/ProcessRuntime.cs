@@ -23,6 +23,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     private readonly RuntimeInitializer initializer;
     public Pid InitializationPid { get; }
     internal LocalNodeIdentity LocalIdentity { get; }
+    public string ConfiguredNode { get; }
     public string Node => LocalIdentity.Snapshot.Node;
     public Atom NodeAtom => Term.A(LocalIdentity.Snapshot.Node);
     public TextWriter Output
@@ -70,9 +71,12 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     )
     {
         processSlots = new(maximumProcesses);
-        LocalIdentity = new(node);
+        AtomNameRegistry.Observe(node);
+        ConfiguredNode = node;
+        LocalIdentity = new(ProcessNodeDefaults.Local);
         ReferenceResources = new(Modules, LocalIdentity);
         KnownNodes = new(LocalIdentity);
+        Modules.AttachRuntime(this);
         Output = output ?? Console.Out;
         ownsStandardStreams = standardStreams is null;
         StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
@@ -415,6 +419,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public Term Send(Pid target, Term message)
     {
+        ObserveIncomingTerm(message);
         if (Volatile.Read(ref haltResult) is not null)
             throw new ObjectDisposedException(nameof(ProcessRuntime));
         lock (gate)
@@ -495,6 +500,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public Term Send(ReferenceTerm reference, Term message, bool priority = false)
     {
+        ObserveIncomingTerm(message);
+
         return SendAlias(
             reference,
             message,
@@ -676,6 +683,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
         {
+            if (!IsCurrentLocal(pid))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
             RequireAlive(pid);
             if (name == ProcessRegistryAtoms.Undefined || names.ContainsKey(name) || names.ContainsValue(pid))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -687,6 +696,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
         {
+            if (!IsCurrentLocal(pid))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
             RequireAlive(pid);
             if (name == ProcessRegistryAtoms.Undefined || names.ContainsValue(pid))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -1343,8 +1354,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
-                LocalNodeProcessTerminated(ctx);
-                distributionPending?.ProcessTerminated(ctx);
+                LocalNodeProcessTerminated(ctx, reason);
+                distributionPending?.ProcessTerminated(ctx, reason);
                 ProcessTracing.Terminated(ctx.Self);
                 SystemMonitoring.Terminated(ctx.Self);
                 processSlots.Remove(ctx.Self);

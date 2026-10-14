@@ -2,6 +2,7 @@ namespace Erlang;
 
 public sealed record EtfDecodeOptions
 {
+    internal Func<IReadOnlyList<EtfNodeEpoch>, EtfDecodeAdmission>? NodeAdmission { get; init; }
     internal LocalNodeIdentity? NodeIdentity { get; init; }
     public bool Safe { get; init; }
     public string? LocalNode { get; init; }

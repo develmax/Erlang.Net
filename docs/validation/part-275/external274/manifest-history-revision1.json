@@ -1,0 +1,441 @@
+{
+  "Status": "Actual completed274 external evidence staged; not production promotion",
+  "PublishedHead": "b87e7fe1539dc9850a0c24d1b426bc6851f19e5c",
+  "Ci6527Full": true,
+  "AdmissionTwoCapturesComplete": true,
+  "AdmissionOverflowSdkDiscrepancy": true,
+  "AdmissionFullCompatibilityClaim": false,
+  "GuardAuthoringSchemaFailuresPreserved": true,
+  "Files": [
+    {
+      "Path": "ci/raw/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "A6BEEAF2509F1A24F7D2F9A5CD49980F98DC3658C2351ECDA376BF15C5B850F0"
+    },
+    {
+      "Path": "ci/raw/preprocessing-disabled.log",
+      "Bytes": 176440,
+      "Sha256": "9B78ECA2A3A0B276BF6874B06EC23CCE450D02837886FEF6F77A01E6C20AF13D"
+    },
+    {
+      "Path": "ci/raw/tests.json",
+      "Bytes": 899898,
+      "Sha256": "896ED203DBBFF6BE7D2F5F38E39D341FF92BCCF2F9CC4F9DEA29A708C1019CFC"
+    },
+    {
+      "Path": "admission/raw/beam-fixture-tool-build.log",
+      "Bytes": 380,
+      "Sha256": "DDC0B0905EC7F795058DDB1036B779F0662C4DCC6C8EFB09BC20C35C0B684734"
+    },
+    {
+      "Path": "admission/raw/beam-otp-build.log",
+      "Bytes": 453283,
+      "Sha256": "CB79576F409D52A61B532DADD0F7CDBBEBF24E5CDA5C2C4317B6F37D5196A46F"
+    },
+    {
+      "Path": "admission/raw/beam-source-build-evidence.json",
+      "Bytes": 837,
+      "Sha256": "7C383353EBD3A329F1F9B371ABC304EDEFAE4849EC6548E26AD192201E2330BD"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/active.etf",
+      "Bytes": 65,
+      "Sha256": "2736292C7D44F9AF2E2C1BD84C7C34785E8613DD7416DF72A50BEECDAC303EA7"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/admitted.etf",
+      "Bytes": 747,
+      "Sha256": "9FEB7D956AB112078FF1AE3EF162EB00FB9B1FE1EA0FB9E3B717946E3DF3AE7A"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/already-active.etf",
+      "Bytes": 747,
+      "Sha256": "FFF2A109B1C604A7D7987B08B667F50ABE1F59C5C4F48466C555A94323538397"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/before.etf",
+      "Bytes": 27,
+      "Sha256": "8B96BE8BBA5B2FB0307334B4B6896715C1AD495EE2A7DD124B140C13B6D469D2"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/evaluation.erl",
+      "Bytes": 293,
+      "Sha256": "24D3E2106B57F939CC6F0DEA08433CA025320761EB490565C047C1B6B0F2C5BB"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/forbidden-nonode.etf",
+      "Bytes": 735,
+      "Sha256": "148AE43112C164635FB80BD50FA10D8830A591B74404FBEDFE2B8DCA3DC98E45"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/inactive.etf",
+      "Bytes": 27,
+      "Sha256": "8B96BE8BBA5B2FB0307334B4B6896715C1AD495EE2A7DD124B140C13B6D469D2"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/invalid-name.etf",
+      "Bytes": 734,
+      "Sha256": "19B441481884690A391028B783F53C932E92FDF00646FC7C445AB5686A152FC2"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/invalid-type.etf",
+      "Bytes": 717,
+      "Sha256": "4A0B53878EA33C1AD30A6E9B6B3371742C0F3DF7B032DB225E23CC9A909FA753"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/kernel-down.etf",
+      "Bytes": 9,
+      "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/missing-kernel.etf",
+      "Bytes": 747,
+      "Sha256": "66045743FB584BFCFEE227E0F1A084AFFD7381410230B0D69EFED547F0329EB1"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/negative-creation.etf",
+      "Bytes": 750,
+      "Sha256": "6A7CEDBA3BC39E5F9D89D7960926B5739AEB9876D253D69AEA51FC309DFA9CFD"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/nodedown-first.etf",
+      "Bytes": 40,
+      "Sha256": "2A6C0F3525DA4EC855F0214898DAE3A378B63A7998960E170337F35391B69E6B"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/nodedown-second.etf",
+      "Bytes": 40,
+      "Sha256": "2A6C0F3525DA4EC855F0214898DAE3A378B63A7998960E170337F35391B69E6B"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/nodeup-first.etf",
+      "Bytes": 10,
+      "Sha256": "F81D741C083590B344239C78D38815446559FA84044A26DD1B86CE0352EF63B3"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/nodeup-second.etf",
+      "Bytes": 10,
+      "Sha256": "F81D741C083590B344239C78D38815446559FA84044A26DD1B86CE0352EF63B3"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/overflow-creation.etf",
+      "Bytes": 17,
+      "Sha256": "975C0E804FAC578398AD34E4A8EEF38F2A8C92CCA565305C874BD275A6BE3C4C"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/process.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/process.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/process.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/retained-after.etf",
+      "Bytes": 47,
+      "Sha256": "D706FD4E8E2EA53DCF0486F54CD444CB06E565F2537B9F9EA65151A62E89843D"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/retained-external.etf",
+      "Bytes": 47,
+      "Sha256": "D706FD4E8E2EA53DCF0486F54CD444CB06E565F2537B9F9EA65151A62E89843D"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/admission/stage",
+      "Bytes": 8,
+      "Sha256": "EEBBF6457E46A7F63ACDF9B97390F790BA443D60CFA44B607DA7E5C40AA1CC1D"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compile.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compile.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/active.etf",
+      "Bytes": 23,
+      "Sha256": "9DD57B49573070D5C8691BE96DF77042D8C977CA8D427C0BFCA251346A65BAA0"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/already-active.etf",
+      "Bytes": 9,
+      "Sha256": "A323DBF8EE43AC36BB4D5CA08AA8B5AD8AF00B986299FD4A6351052776F84754"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/cleanup.etf",
+      "Bytes": 43,
+      "Sha256": "709B2FE942CC942CD3430AF1A0708E4FC818A2AC2364DEC1423A804C79C841BE"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/evaluation.erl",
+      "Bytes": 288,
+      "Sha256": "8431C8430CD2935368148E7A7462D50BCE39916E73BC91CC54AD8025FE585CCD"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/inactive.etf",
+      "Bytes": 27,
+      "Sha256": "40C5B3FE48A6AE109977841BED08A69F97B9BCB97A469454C5315FD5549B4E75"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/kernel-down.etf",
+      "Bytes": 9,
+      "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/missing.etf",
+      "Bytes": 9,
+      "Sha256": "A323DBF8EE43AC36BB4D5CA08AA8B5AD8AF00B986299FD4A6351052776F84754"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/nodedown.etf",
+      "Bytes": 30,
+      "Sha256": "06C53F4AC111F6D6EF43D5760977D5E8A90E52BCC31EE84C50F7307F4128460D"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/nodeup.etf",
+      "Bytes": 28,
+      "Sha256": "B4F0D78AF6B4D9B4CE0A9E64F44500BCE702AB51565863DD1AE9C44187B17812"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/process.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/process.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/process.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/stage",
+      "Bytes": 8,
+      "Sha256": "EEBBF6457E46A7F63ACDF9B97390F790BA443D60CFA44B607DA7E5C40AA1CC1D"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/started.etf",
+      "Bytes": 17,
+      "Sha256": "975C0E804FAC578398AD34E4A8EEF38F2A8C92CCA565305C874BD275A6BE3C4C"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/stopped.etf",
+      "Bytes": 27,
+      "Sha256": "40C5B3FE48A6AE109977841BED08A69F97B9BCB97A469454C5315FD5549B4E75"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/compiled/watch.etf",
+      "Bytes": 13,
+      "Sha256": "B9A4402050B1605FF22D73902AB87CA45079D9DD0268BCFBAEF930507B79D9DE"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/local-node-admission.json",
+      "Bytes": 10070,
+      "Sha256": "F9623AF8992AACA5DB62A2D32DA44413E6EB8D7AC593528B73837FFCC7D26258"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/local_node_admission_probe.beam",
+      "Bytes": 6696,
+      "Sha256": "DB294ACB956110F82E261E4C6C89339D76F355FA7D4A898C94EFC23F5427AAEE"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/local_node_admission_probe.erl",
+      "Bytes": 2703,
+      "Sha256": "602C79F6C5F117BB2891FA2975FD80B6077CD3CCD794B0FD36890194CE83033F"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/runtime.etf",
+      "Bytes": 99,
+      "Sha256": "E1C31C416FE3C464C8F12D8958BDF11513985A3F7AB937741F01196EF43CFD53"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/runtime.exit",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/runtime.raw-complete",
+      "Bytes": 5,
+      "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/runtime.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/runtime.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/setnode_compiled_driver.beam",
+      "Bytes": 4588,
+      "Sha256": "6E814BEB1BAEBF92DE06970DAEF300F050952CE0304FD8714AC1D0FB66B59E78"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/setnode_compiled_driver.erl",
+      "Bytes": 1569,
+      "Sha256": "BD6DABB2021ADACCD7193C0992F03BF460390D9B234CBA4671252DE61D00F494"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/setnode_gateway_probe.beam",
+      "Bytes": 1616,
+      "Sha256": "DC8503707538782AE4BBAFF5D5188C85FE2E866FAC120724E88951DB3B02ACCE"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/setnode_gateway_probe.erl",
+      "Bytes": 335,
+      "Sha256": "BD9C14C6D586EAB395E2D8EA9F1B3EC0824C2783BB69F5556C565B42B4F30685"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/source-build-evidence.json",
+      "Bytes": 837,
+      "Sha256": "7C383353EBD3A329F1F9B371ABC304EDEFAE4849EC6548E26AD192201E2330BD"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/source-build.log",
+      "Bytes": 453283,
+      "Sha256": "CB79576F409D52A61B532DADD0F7CDBBEBF24E5CDA5C2C4317B6F37D5196A46F"
+    },
+    {
+      "Path": "admission/raw/local-node-admission/source-plan.json",
+      "Bytes": 1564,
+      "Sha256": "8E67B33365842F0D29156AD2B44F227481CC68A800D38F46E131E9F8B5F5198E"
+    },
+    {
+      "Path": "proof/part-274-validation.zip",
+      "Bytes": 60718,
+      "Sha256": "7C4FAC6480829AD287F0D15DF980F1942EA79BDF34D97B8E6CD97D669E7A7C3B"
+    },
+    {
+      "Path": "proof/part-274-validation-metadata.json",
+      "Bytes": 18254,
+      "Sha256": "B5C0864FE71EB5349B1B8C0268FC14DE838D9B3FBD45C132951FA72A7B4254A1"
+    },
+    {
+      "Path": "proof/part-274-ci-latest-provenance.json",
+      "Bytes": 17144,
+      "Sha256": "83146CD8F20DAC43F48A6128F723B7E02381D04F5CD7F6DEEB56DA2B010E04B4"
+    },
+    {
+      "Path": "proof/part-274-ci-job.log",
+      "Bytes": 609865,
+      "Sha256": "858C52C43836C800545843931A7A39428E7B5214F41AA8001A4CE1D18F2E1338"
+    },
+    {
+      "Path": "proof/part-274-ci-job.log.digest.json",
+      "Bytes": 130,
+      "Sha256": "89ACC3F8FD770EC8F16C60D1FFCAC1130124B35A011D152B321FB2890C58451F"
+    },
+    {
+      "Path": "proof/part-274-pinned-local-node-admission.zip",
+      "Bytes": 114142,
+      "Sha256": "F7772258E38269DEE0CED128E41F01AF1D4ED9BF98C0BE6D6A8FCF0D845054D0"
+    },
+    {
+      "Path": "proof/part-274-pinned-local-node-admission-metadata.json",
+      "Bytes": 18934,
+      "Sha256": "AA7E7BB7427A2FD180C7722F24ECD086953CFA7D9F256BD9D07BCEA4910383B9"
+    },
+    {
+      "Path": "proof/part-274-admission-native-latest-provenance.json",
+      "Bytes": 17774,
+      "Sha256": "7ABDCA4660BEC3476C680306761F71BDAFA2E9A516C3516F734C2AAA9F1C5218"
+    },
+    {
+      "Path": "proof/part-274-admission-native-job.log",
+      "Bytes": 637601,
+      "Sha256": "C4E910D48836D5527FBD9804C4776E11E1C1D767ADD42301218A27340FC2C8C0"
+    },
+    {
+      "Path": "proof/part-274-admission-native-job.log.digest.json",
+      "Bytes": 144,
+      "Sha256": "9679F90A8EF8D2706C02455CB04234BE98F1B625F0955FFE1C85260EFE07079C"
+    },
+    {
+      "Path": "proof/part274-ci-independent-guard.json",
+      "Bytes": 502,
+      "Sha256": "C4A25CF6C289E09BEFBEE1CBEE2D448B517C04A64F896303FBED0C4520B5F680"
+    },
+    {
+      "Path": "proof/guard274-ci.py",
+      "Bytes": 2146,
+      "Sha256": "FA560E439AEE735EA635FD750D663C6946FE1F53726A24568FF833B9272CBFB3"
+    },
+    {
+      "Path": "proof/part274-admission-native-independent-guard.json",
+      "Bytes": 1133,
+      "Sha256": "3EB2AA52375C714047DAB7503645AEE5BE62BB55825F7C47017131E4542F4FBE"
+    },
+    {
+      "Path": "proof/part274-admission-native-typed-facts.json",
+      "Bytes": 181310,
+      "Sha256": "6F3F11D4D627C7745DC96FD1DE89D7EEC4BCCBA6B588263EBAE3B568900C3B8E"
+    },
+    {
+      "Path": "proof/guard274-admission-native.py",
+      "Bytes": 8634,
+      "Sha256": "A84FC4542ABA1CB59AAC3C4012158B1C9CBD2EBF1EB2D0D61AD40847E3189339"
+    },
+    {
+      "Path": "proof/guard274-admission-native-initial-runtime-tag-assumption.py",
+      "Bytes": 8615,
+      "Sha256": "9802ED6DDF6A68E4B30C70CA4FFAA53AFCFD1EDC3FDDFD9B214C515BDCACB94B"
+    },
+    {
+      "Path": "proof/guard274-admission-native-initial-runtime-tag-assumption.txt",
+      "Bytes": 197,
+      "Sha256": "9010CDDB808C7EE56A12C23281F34F93B6A3B0D7745541D1670482D8D7FA36B0"
+    },
+    {
+      "Path": "proof/guard274-admission-native-second-plan-shape-assumption.py",
+      "Bytes": 8598,
+      "Sha256": "661749FCBB046FF0287CF48719D52A40A6D85D3086099076251C03F621C8FC50"
+    },
+    {
+      "Path": "proof/guard274-admission-native-second-plan-shape-assumption.txt",
+      "Bytes": 166,
+      "Sha256": "DD4CCF90E56985BB75EE93044200B61E4092A7F3E6E9784C7C0F7141CE165BBB"
+    },
+    {
+      "Path": "proof/setnode-creation-domain-independent-source-audit.json",
+      "Bytes": 3878,
+      "Sha256": "BE6F64923C9039C0DF1110C0838C9C74957F101F460C983F2BE62211A0A21629"
+    }
+  ]
+}

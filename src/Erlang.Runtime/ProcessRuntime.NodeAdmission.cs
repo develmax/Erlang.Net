@@ -39,7 +39,7 @@ public sealed partial class ProcessRuntime
         var current = LocalIdentity.Snapshot;
         var target = pid.WireIdentity;
 
-        return ReferenceEquals(pid.LocalIdentity, LocalIdentity) || target.Node == current.Node && target.Creation == current.Creation;
+        return pid.LocalIdentity is not null ? ReferenceEquals(pid.LocalIdentity, LocalIdentity) : target.Node == current.Node && target.Creation == current.Creation;
     }
 
     internal bool IsCurrentLocal(ReferenceTerm reference)
@@ -47,22 +47,22 @@ public sealed partial class ProcessRuntime
         var current = LocalIdentity.Snapshot;
         var target = reference.WireIdentity;
 
-        return ReferenceEquals(reference.LocalIdentity, LocalIdentity) || target.Node == current.Node && target.Creation == current.Creation;
+        return reference.LocalIdentity is not null ? ReferenceEquals(reference.LocalIdentity, LocalIdentity) : target.Node == current.Node && target.Creation == current.Creation;
     }
 
     internal Term AdmitObservedLocalNode(ProcessContext caller, Term name, Term creation)
     {
         if (name is not Atom node || !DistributionNodeIdentity.IsValid(node) || node.Name == ProcessNodeDefaults.Local ||
-            creation is not Integer integer || integer.Value < uint.MinValue || integer.Value > uint.MaxValue ||
+            !RuntimeNodeCreation.TryConvert(creation, out uint requestedCreation) ||
             !Modules.HasExport(ErlangModuleNames.Module, RuntimeNodeControlNames.MonitorTrap, RuntimeLocalNodeAdmissionNames.MonitorTrapArity))
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
         {
             if (!IsOwnedLiveNodeProcess(caller) || localNodeKernel is not null ||
-                !names.TryGetValue(RuntimeNodeControlNames.Kernel, out var registered) || registered is not Pid kernelPid ||
+                !names.TryGetValue(RuntimeNodeControlNames.Kernel, out var registered) || registered is not Pid kernelPid || !IsCurrentLocal(kernelPid) ||
                 !processes.TryGetValue(kernelPid, out var kernel) || !IsOwnedLiveNodeProcess(kernel) || kernel.DistributionRole != RuntimeDistributionRole.None)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            uint selected = SelectObservedExternalEpochCreation(node.Name, (uint)integer.Value);
+            uint selected = SelectObservedExternalEpochCreation(node.Name, requestedCreation);
             kernel.DistributionRole = RuntimeDistributionRole.Kernel;
             localNodeKernel = kernel;
             LocalIdentity.Publish(node.Name, selected);
@@ -72,22 +72,27 @@ public sealed partial class ProcessRuntime
         }
     }
 
-    private void LocalNodeProcessTerminated(ProcessContext process)
+    private void LocalNodeProcessTerminated(ProcessContext process, Term reason)
     {
         localNodeEvents?.ProcessTerminated(process);
         if (ReferenceEquals(localNodeKernel, process))
-            StopLocalNode();
+            StopLocalNode(reason);
     }
 
     private void StopLocalNode()
+    {
+        StopLocalNode(Term.A(RuntimeNodeMonitorNames.KernelTerminated));
+    }
+
+    private void StopLocalNode(Term reason)
     {
         if (localNodeKernel is null)
             return;
         Atom previous = NodeAtom;
         localNodeKernel.DistributionRole = RuntimeDistributionRole.None;
         localNodeKernel = null;
-        distributionPending?.LocalKernelStopped();
+        distributionPending?.LocalKernelStopped(reason);
         LocalIdentity.Publish(ProcessNodeDefaults.Local, 0);
-        localNodeEvents?.Notify(RuntimeLocalNodeAdmissionNames.NodeDown, previous);
+        localNodeEvents?.NotifyLocalDown(previous, reason);
     }
 }

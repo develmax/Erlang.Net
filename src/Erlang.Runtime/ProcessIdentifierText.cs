@@ -22,7 +22,7 @@ internal static class ProcessIdentifierText
         if (parsed.Channel != ProcessIdentifierTextParameters.LocalChannel || parsed.Number > ProcessIdentifierTextParameters.MaximumLocalPidNumber || parsed.Serial > ProcessIdentifierTextParameters.MaximumLocalPidSerial)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-        return new(runtime.Node, parsed.Number | (parsed.Serial << ProcessIdentifierTextParameters.StoredPidSerialShift));
+        return new(runtime.LocalIdentity, parsed.Number | (parsed.Serial << ProcessIdentifierTextParameters.StoredPidSerialShift));
     }
 
     public static PortTerm Port(ProcessRuntime runtime, Term value)
@@ -31,7 +31,7 @@ internal static class ProcessIdentifierText
         if (parsed.Channel != ProcessIdentifierTextParameters.LocalChannel || parsed.Number > ProcessIdentifierTextParameters.MaximumLocalPortNumber)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-        return new(runtime.Node, parsed.Number);
+        return new(runtime.LocalIdentity, parsed.Number);
     }
 
     private static ParsedProcessIdentifierText Parse(Term value, bool pid)

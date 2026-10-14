@@ -247,6 +247,8 @@ public static class CoreModules
             2,
             (c, a) =>
  {
+     if (RuntimeNodeMonitorRegistrations.TryChangeSelf(c, a, out Term nodeMonitorResult))
+         return nodeMonitorResult;
      if (a[0] is Atom { Name: ProcessSavedCallNames.Flag })
          return ProcessSavedCallRegistrations.ChangeSelf(c, a);
      if (AtomName(a[0]) != ProcessFlagNames.TrapExit)
@@ -778,6 +780,8 @@ public static class CoreModules
         NodeSpawnRegistrations.Register(r);
         ErlangCookieRegistrations.Register(r);
         RuntimeNodeControlRegistrations.Register(r);
+        RuntimeSetNodeRegistrations.Register(r);
+        DistributionRegistrations.Register(r);
         ProcessSavedCallRegistrations.Register(r);
         PortRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);

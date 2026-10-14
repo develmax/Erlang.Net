@@ -1,0 +1,43 @@
+{
+  "Stage": "UnexecutedRawCaptureControl",
+  "NativeExecuted": false,
+  "Files": [
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control/CaptureControl.csproj",
+      "Sha256": "6F78E6A17E11922F989CD4CB30EA801F10CF2DEAE2F817BB973F7C7FC584EA37",
+      "SourceContent": "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><Compile Include=\"../../tools/Erlang.NodeIdentityContrasts/NodeProcess.cs\" Link=\"Shared/NodeProcess.cs\" /><Compile Include=\"../../tools/Erlang.NodeIdentityContrasts/NodeProcessResult.cs\" Link=\"Shared/NodeProcessResult.cs\" /><Compile Include=\"../../tools/Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs\" Link=\"Shared/NodeCaptureProtocol.cs\" /><Compile Include=\"../../tools/Erlang.NodeIdentityContrasts/NodeNames.cs\" Link=\"Shared/NodeNames.cs\" /><Compile Include=\"../../tools/Erlang.NodeIdentityContrasts/NodeDiagnostics.cs\" Link=\"Shared/NodeDiagnostics.cs\" /></ItemGroup></Project>"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control/CaptureControlNames.cs",
+      "Sha256": "6FC3D4423DF9818C9B8841603196E91C795C4E91E2DDAA42BD872B4DB4699F2F",
+      "SourceContent": "internal static class CaptureControlNames\n{\n    internal const string Dotnet = \"dotnet\";\n    internal const string RawChild = \"raw-child\";\n    internal const string Holder = \"hold-child\";\n    internal const string SpawnHolder = \"spawn-holder\";\n    internal const string Raw = \"raw\";\n    internal const string Pipes = \"pipes\";\n    internal const string ChildFile = \"child.pid\";\n    internal const string Stdout = \"raw.stdout\";\n    internal const string Stderr = \"raw.stderr\";\n    internal const string Failure = \"Actual byte capture or bounded inherited-pipe control failed.\";\n    internal const string Pass = \"PASS\";\n    internal const int RawExit = 3;\n    internal static readonly byte[] RawOutput = [0, 128, 255];\n    internal static readonly byte[] RawError = [254, 0, 129];\n    internal static readonly TimeSpan HoldTime = TimeSpan.FromSeconds(20);\n    internal static readonly TimeSpan ExitDeadline = TimeSpan.FromSeconds(5);\n    internal static readonly TimeSpan CaptureDeadline = TimeSpan.FromSeconds(12);\n}\n"
+    },
+    {
+      "Path": "artifacts/setnode2-native-oracle-capture-control/Program.cs",
+      "Sha256": "A83BEC9EDC4A07F9CC372D6BEFDCC2B1E3618927975F33FAB7AB8E1CF23017FC",
+      "SourceContent": "using NodeIdentityContrasts;\nusing System.Diagnostics;\nusing System.Globalization;\nusing System.Text.Json;\n\nif (args[0] == CaptureControlNames.RawChild)\n{\n    await Console.OpenStandardOutput().WriteAsync(CaptureControlNames.RawOutput);\n    await Console.OpenStandardError().WriteAsync(CaptureControlNames.RawError);\n\n    return CaptureControlNames.RawExit;\n}\nif (args[0] == CaptureControlNames.Holder)\n{\n    await Task.Delay(CaptureControlNames.HoldTime);\n\n    return 0;\n}\nif (args[0] == CaptureControlNames.SpawnHolder)\n{\n    var start = new ProcessStartInfo(CaptureControlNames.Dotnet) { UseShellExecute = false, CreateNoWindow = true };\n    start.ArgumentList.Add(typeof(NodeProcess).Assembly.Location);\n    start.ArgumentList.Add(CaptureControlNames.Holder);\n    using var child = Process.Start(start)!;\n    await File.WriteAllTextAsync(args[1], child.Id.ToString(CultureInfo.InvariantCulture));\n\n    return 0;\n}\nDirectory.CreateDirectory(args[0]);\nstring assembly = typeof(NodeProcess).Assembly.Location;\nvar raw = await NodeProcess.Run(CaptureControlNames.Dotnet, [assembly, CaptureControlNames.RawChild], Path.Combine(args[0], CaptureControlNames.Raw));\nif (raw.ExitCode != CaptureControlNames.RawExit || raw.TimedOut || !raw.RawComplete ||\n    !File.ReadAllBytes(Path.Combine(args[0], CaptureControlNames.Stdout)).SequenceEqual(CaptureControlNames.RawOutput) ||\n    !File.ReadAllBytes(Path.Combine(args[0], CaptureControlNames.Stderr)).SequenceEqual(CaptureControlNames.RawError))\n    throw new InvalidOperationException(CaptureControlNames.Failure);\nstring childFile = Path.Combine(args[0], CaptureControlNames.ChildFile);\nvar clock = Stopwatch.StartNew();\nNodeProcessResult pipes;\nbool terminated;\ntry\n{\n    pipes = await NodeProcess.Run(CaptureControlNames.Dotnet, [assembly, CaptureControlNames.SpawnHolder, childFile], Path.Combine(args[0], CaptureControlNames.Pipes));\n}\nfinally\n{\n    clock.Stop();\n    using var holder = Process.GetProcessById(int.Parse(await File.ReadAllTextAsync(childFile), CultureInfo.InvariantCulture));\n    holder.Kill(entireProcessTree: true);\n    await holder.WaitForExitAsync().WaitAsync(CaptureControlNames.ExitDeadline);\n    terminated = holder.HasExited;\n}\nif (pipes.ExitCode != 0 || pipes.TimedOut || pipes.RawComplete || clock.Elapsed > CaptureControlNames.CaptureDeadline || !terminated)\n    throw new InvalidOperationException(CaptureControlNames.Failure);\nConsole.WriteLine(JsonSerializer.Serialize(new { Status = CaptureControlNames.Pass, Raw = raw, InheritedPipes = pipes, Milliseconds = clock.ElapsedMilliseconds, OwnedChildTerminated = terminated }));\n\nreturn 0;\n"
+    }
+  ],
+  "SharedSources": [
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcess.cs",
+      "Sha256": "F96219E200C5753C294CD5FB15EDF67B65F7ECFB14A8785F2DC2BFBD9A4CF970"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcessResult.cs",
+      "Sha256": "A1056E0A05EA560C2387D33C870C52E0A51DB5D696F0CE02401352C8D1375FB9"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs",
+      "Sha256": "178CC9A3A4160018D2372DD5F702C66E1AD6CB8E11D609F0C4FC0888B8BB477B"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeNames.cs",
+      "Sha256": "FFF7E693DFFCC156906BECCE811D38F11C9012FD7A6103E8C35214A2920362D4"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeDiagnostics.cs",
+      "Sha256": "58EB31CD3FA0F980E312A224E7500F8081AB9E18B2AAC01BE805B19C065E8999"
+    }
+  ]
+}

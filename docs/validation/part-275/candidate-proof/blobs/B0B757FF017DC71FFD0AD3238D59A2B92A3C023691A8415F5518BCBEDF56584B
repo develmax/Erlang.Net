@@ -1,0 +1,7 @@
+from pathlib import Path
+p=Path('artifacts/guard275-names.py'); old=p.with_name('guard275-names-initial-6537-plan.py'); assert not old.exists(); old.write_bytes(p.read_bytes()); s=p.read_text(); s=s.replace('6537','6544').replace('len(added)==10','len(added)==17')
+s=s.replace("assert added==compiled|hosts and len(hosts)==7", "mfas={'mfa/erlang:'+name for name in ['setnode/2','setnode/3','dist_ctrl_get_opt/2','dist_ctrl_set_opt/3','dist_ctrl_get_data_notification/1','dist_ctrl_get_data/1','dist_ctrl_input_handler/2']}\nassert added==compiled|hosts|mfas and len(hosts)==7")
+s=s.replace("'NewHosts':sorted(hosts)","'NewHosts':sorted(hosts),'NewAutomaticMfas':sorted(mfas)")
+s=s.replace('declared3 compiled+7 HOST additions','declared3 compiled+7 HOST+7 automatic MFA additions'); p.write_text(s,encoding='utf-8')
+draft=Path('artifacts/part275-changelog-draft.md'); s=draft.read_text(); s=s.replace('The planned Main count is6,537, preserving all6,527 previous names/order after filtering precisely three new compiled cases and seven HOST groups.','The initial count forecast omitted seven automatically generated MFA rows. Actual Main has6,544 cases:6,527 inherited, three new compiled cases, seven HOST groups and seven automatic MFA tests. Preserve the initial6,537 plan separately; verify old names/order after filtering precisely all seventeen additions.'); draft.write_text(s,encoding='utf-8')
+print('Prepared corrected6544 preservation guard; old6537 plan kept unchanged')

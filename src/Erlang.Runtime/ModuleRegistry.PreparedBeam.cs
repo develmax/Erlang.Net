@@ -5,13 +5,14 @@ public sealed partial class ModuleRegistry
     public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes)
     {
         byte[] owned = bytes.ToArray();
-        BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned));
+        EtfDecodeOptions decoding = PreparationDecodeOptions();
+        BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned, decoding));
         if (code.OnLoadEntryLabel is int callbackLabel)
         {
             BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);
             BeamRegisterValidation.Validate(code, callback);
         }
-        BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code);
+        BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code, decoding);
         if (code.OnLoadEntryLabel is not null)
             BeamOnLoadMetadata.RequireSupported(metadata);
         var bodies = new List<ErlangFunction>();

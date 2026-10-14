@@ -1,0 +1,67 @@
+namespace Erlang;
+
+internal readonly record struct RuntimeNodeMonitorOptions(
+    bool InfoMap,
+    bool ConnectionId,
+    bool DownReason,
+    RuntimeNodeMonitorType Type
+)
+{
+    internal static RuntimeNodeMonitorOptions Empty => default;
+
+    internal bool IncludeInfo => InfoMap || ConnectionId || DownReason || Type != RuntimeNodeMonitorType.Default;
+
+    internal static RuntimeNodeMonitorOptions Parse(Term value)
+    {
+        if (value is Nil)
+            return Empty;
+        if (value is not MapTerm map)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        bool infoMap = true, connectionId = false, downReason = false;
+        RuntimeNodeMonitorType type = RuntimeNodeMonitorType.Default;
+        foreach (var entry in map.Entries)
+        {
+            if (entry.Key is not Atom key)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            switch (key.Name)
+            {
+                case RuntimeNodeMonitorNames.List:
+                    if (entry.Value is not Atom { Name: ErlangBooleanAtoms.True })
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+                    infoMap = false;
+                    break;
+                case RuntimeNodeMonitorNames.ConnectionId:
+                    connectionId = Boolean(entry.Value);
+                    break;
+                case RuntimeNodeMonitorNames.DownReason:
+                    downReason = Boolean(entry.Value);
+                    break;
+                case RuntimeNodeMonitorNames.NodeType:
+                    type = entry.Value switch
+                    {
+                        Atom { Name: RuntimeNodeMonitorNames.Visible } => RuntimeNodeMonitorType.Visible,
+                        Atom { Name: RuntimeNodeMonitorNames.Hidden } => RuntimeNodeMonitorType.Hidden,
+                        Atom { Name: RuntimeNodeMonitorNames.All } => RuntimeNodeMonitorType.All,
+                        _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
+                    };
+                    break;
+                default:
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+            }
+        }
+
+        return new(
+            infoMap,
+            connectionId,
+            downReason,
+            type
+        );
+    }
+
+    internal static bool Boolean(Term value) => value switch
+    {
+        Atom { Name: ErlangBooleanAtoms.True } => true,
+        Atom { Name: ErlangBooleanAtoms.False } => false,
+        _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
+    };
+}

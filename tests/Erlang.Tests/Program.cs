@@ -1723,6 +1723,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
 
             return;
         }
+        if (Erlang.Tests.DistributionMfaSmokeContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.DistributionMfaSmokeContracts.Run(export.Module, export.Function, export.Arity);
+
+            return;
+        }
         using var output = new StringWriter();
         await using var runtime = new ProcessRuntime(output: output);
         var process = runtime.Spawn(async c =>
@@ -4247,6 +4253,14 @@ Test(
     Erlang.Tests.ErlangHashAllocationControlNames.Test,
     Erlang.Tests.ErlangHashHostChecks.AllocationPositiveControl
 );
+
+Test(Erlang.Tests.RuntimeSetNodeHostNames.Test, Erlang.Tests.RuntimeSetNodeHostChecks.Run);
+Test(Erlang.Tests.RuntimeNodeTextActivationHostNames.Test, Erlang.Tests.RuntimeNodeTextActivationHostChecks.Run);
+Test(Erlang.Tests.ProcessBumpCapHostNames.Test, Erlang.Tests.ProcessBumpCapHostChecks.Run);
+Test(Erlang.Tests.RuntimeNodeCreationHostNames.Test, Erlang.Tests.RuntimeNodeCreationHostChecks.Run);
+Test(Erlang.Tests.DistributionRegisteredHostNames.Test, Erlang.Tests.DistributionRegisteredHostChecks.Run);
+Test(Erlang.Tests.ConnectedDistributionHostNames.Test, Erlang.Tests.ConnectedDistributionHostChecks.Run);
+Test(Erlang.Tests.ConnectedIngressHostNames.Test, Erlang.Tests.ConnectedIngressHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

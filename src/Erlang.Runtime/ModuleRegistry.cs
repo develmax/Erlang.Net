@@ -243,6 +243,8 @@ public sealed partial class ModuleRegistry
     )
     {
         context.Runtime.ThrowIfHalted();
+        foreach (Term argument in arguments)
+            context.Runtime.ObserveIncomingTerm(argument);
         ErlangFunction? body;
         ModuleCodeImage? image;
         IDisposable? code;
@@ -289,6 +291,7 @@ public sealed partial class ModuleRegistry
             if (pending.IsCompletedSuccessfully)
             {
                 context.Runtime.ThrowIfHalted();
+                context.Runtime.ObserveIncomingTerm(pending.Result);
                 code!.Dispose();
 
                 return pending;
@@ -314,6 +317,7 @@ public sealed partial class ModuleRegistry
         if (pending.IsCompletedSuccessfully)
         {
             context.Runtime.ThrowIfHalted();
+            context.Runtime.ObserveIncomingTerm(pending.Result);
 
             return pending;
         }
@@ -325,6 +329,7 @@ public sealed partial class ModuleRegistry
     {
         Term result = await pending;
         context.Runtime.ThrowIfHalted();
+        context.Runtime.ObserveIncomingTerm(result);
 
         return result;
     }
@@ -412,6 +417,7 @@ public sealed partial class ModuleRegistry
     public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
     {
         ArgumentNullException.ThrowIfNull(descriptor);
+        ObserveDescriptor(descriptor);
         lock (gate)
         {
             PublishModule(module);

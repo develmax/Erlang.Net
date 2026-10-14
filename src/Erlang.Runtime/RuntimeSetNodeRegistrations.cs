@@ -1,0 +1,14 @@
+namespace Erlang;
+
+internal static class RuntimeSetNodeRegistrations
+{
+    internal static void Register(ModuleRegistry registry)
+    {
+        registry.Register(
+            ErlangModuleNames.Module,
+            RuntimeSetNodeNames.Function,
+            RuntimeSetNodeNames.LocalArity,
+            (context, arguments) => ValueTask.FromResult(context.Runtime.AdmitObservedLocalNode(context, arguments[0], arguments[1]))
+        );
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "Stage": "CappedBump6IndependentBoundedSourceReviewPass",
+  "SourceFreezeSha256": "55277A05B04A5F7E7CC36553C0777E2CB4CEDDD253FEB976384C013AEC4CC914",
+  "Files": 6,
+  "UnownedExact": 1578,
+  "FocusExact": 2,
+  "PinnedSourceHashes": {
+    "OTP-29.1.1:erts/emulator/beam/bif.c": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+    "OTP-29.1.1:erts/emulator/beam/bif.h": "0C5DFFFA51C20698D33473C8E7E5BC48BC748411D9782767928FA90D50B29F4E"
+  },
+  "Findings": [
+    "Pinned bump accepts nonnegative small integer, caps requested charge to CONTEXT_REDS, returns true via BIF_RET2/BUMP_REDS; BEAMASM decrements fcalls and floors0. Thus requested4000 does not guarantee4000 consumed when slice remainder is smaller.",
+    "SDK only explicit BumpReductionsAsync caps to current logical remaining slice; ordinary ReduceAsync1/ChargeAsync remain uncapped. Private normal charge body token-equal after excluding new cap conditional/signature.",
+    "Halt/cancellation/suspension checks precede clamp/cumulative mutation; existing yielding reset/signal/cancellation body preserved.",
+    "CooperativeSlice2000 is SDK logical budget, NativeMaximumBump4000 is accepted request cap; no exact physical native counter equivalence claimed.",
+    "Five actual actor warm-boundary source plans, zero/small/maximum-domain/error checks and one permanent HOST registration present; candidate still unexecuted.",
+    "Old273 universal B>=A+4000 raw failure remains immutable; new source explicitly replaces that unjustified relation with integer/monotonic and adds3 new source cases. No original failure branch or A/B value inferred."
+  ],
+  "OldNativeFailureReportSha256": "BBCA65C26BAC61AC0CAE51A3E0B1D9B3049113F55A13275DCEBFE52D7171841E",
+  "SourceReplacementExplicit": {
+    "Name": "process-info-logical-charged-reductions-monotonic",
+    "OldSourceSha256": "BA96A0AC11CE062BB52F27BDBEF41537A33621E1965DAB8DB477C6EB7D7440EE",
+    "OldNative": "{error,error,{badmatch,false}}",
+    "OldSDK": "{ok,done}",
+    "ChangedAssertion": "B>=A+4000 replaced with integer(B) and B>=A because native BUMP_REDS clamps current fcalls at0; requested4000 is not guaranteed consumed4000."
+  },
+  "NativeExecuted": false,
+  "BuildExecutedByReviewer": false,
+  "MainOrGitChanged": false,
+  "Scope": "Bounded implementation/source peer only; new original observations and candidate execution remain pending."
+}

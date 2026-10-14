@@ -1,0 +1,46 @@
+namespace Erlang.Tests;
+
+internal static class RuntimeSetNodeHostNames
+{
+    internal const string CompiledModule = "setnode_gateway_probe";
+    internal const string Bad = "bad";
+    internal const string Start = "start";
+    internal const string Watch = "watch";
+    internal const string State = "state";
+    internal const string CompiledSource = """
+        -module(setnode_gateway_probe).
+        -export([bad/2,start/2,watch/2,state/0]).
+        bad(N,C) -> try erlang:setnode(N,C) of _ -> unexpected catch error:badarg -> badarg end.
+        start(N,C) -> erlang:setnode(N,C).
+        watch(F,O) -> erlang:process_flag({monitor_nodes,O},F).
+        state() -> {erlang:is_alive(),erlang:node(),erlang:system_info(creation)}.
+        """;
+    internal const string FactoryModule = "setnode_creator_factory";
+    internal const string FactoryFailure = "declared ETF factory failure";
+    internal const string LiteralChunk = "LitT";
+    internal const string HostModule = "setnode_host_metadata";
+    internal const string Test = "runtime/setnode-local-admitted-ingress-and-node-monitor-options";
+    internal const string Configured = "configured@host";
+    internal const string First = "epoch@host";
+    internal const string Next = "changed@host";
+    internal const string Kernel = "net_kernel";
+    internal const string SetNode = "setnode";
+    internal const string SystemInfo = "system_info";
+    internal const string Creation = "creation";
+    internal const string Flag = "monitor_nodes";
+    internal const string List = "list";
+    internal const string NodeUp = "nodeup";
+    internal const string NodeDown = "nodedown";
+    internal const string NodeType = "node_type";
+    internal const string Visible = "visible";
+    internal const string Hidden = "hidden";
+    internal const string All = "all";
+    internal const string ConnectionId = "connection_id";
+    internal const string DownReason = "nodedown_reason";
+    internal const string NoNetwork = "no_network";
+    internal const string KernelTerminated = "net_kernel_terminated";
+    internal const string Undefined = "undefined";
+    internal const string Failure = "Owned setnode/2 ingress contract failed.";
+    internal const string UnknownOption = "unknown_node_monitor_option";
+    internal const string Status = "Actual setnode/2, owned ETF ingress and process_flag node-monitor controls passed.";
+}

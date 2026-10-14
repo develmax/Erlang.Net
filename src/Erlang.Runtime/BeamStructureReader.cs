@@ -5,7 +5,7 @@ namespace Erlang;
 
 internal static class BeamStructureReader
 {
-    public static BeamStructure Read(ReadOnlyMemory<byte> input)
+    public static BeamStructure Read(ReadOnlyMemory<byte> input, EtfDecodeOptions? decoding = null)
     {
         byte[] owned = input.ToArray();
         var outer = new BeamCursor(owned);
@@ -51,7 +51,7 @@ internal static class BeamStructureReader
         IReadOnlyList<BeamExport> exports = ReadExports(Required(selected, BeamWire.ExportsChunk), atoms.Count);
 
         IReadOnlyList<Term> literals = selected.TryGetValue(BeamLiteralWire.Chunk, out BeamChunk? literalChunk) && literalChunk.Payload.Length != 0
-            ? BeamLiteralReader.Read(literalChunk.Payload)
+            ? BeamLiteralReader.Read(literalChunk.Payload, decoding)
             : Array.Empty<Term>();
 
         return new(

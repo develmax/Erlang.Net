@@ -1,0 +1,17 @@
+namespace Erlang;
+
+internal sealed class DistributionConnectedEntry(
+    HostDistribution queue,
+    HostDistributionHandle queueHandle,
+    ProcessContext controller,
+    ulong flags,
+    uint remoteCreation
+)
+{
+    internal HostDistribution Queue { get; } = queue;
+    internal HostDistributionHandle QueueHandle { get; } = queueHandle;
+    internal ProcessContext Controller { get; } = controller;
+    internal ulong Flags { get; } = flags;
+    internal uint RemoteCreation { get; } = remoteCreation;
+    internal Pid? InputHandler { get; set; }
+}

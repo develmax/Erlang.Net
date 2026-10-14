@@ -1,0 +1,68 @@
+{
+  "Status": "PASS_SIX_REGISTRATIONS_SOURCE_BOUND_ONLY",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionRegistrations.cs",
+      "Sha256": "1ECBBEE1A7402AD6968F18BD264AC25E6A206E3B3C517461AD737248AA424662"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionRegistrationNames.cs",
+      "Sha256": "D2566AA785553AF2B1A581E7AF18794B80A22A2331F47B1CED3E33BCEA727321"
+    }
+  ],
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    "erts/emulator/beam/bif.tab",
+    "erts/preloaded/src/erlang.erl",
+    "erts/emulator/beam/dist.c"
+  ],
+  "RegisteredMfas": [
+    {
+      "Module": "erlang",
+      "Function": "setnode",
+      "Arity": 3,
+      "Adapter": "SetNode"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dist_ctrl_get_opt",
+      "Arity": 2,
+      "Adapter": "GetOption"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dist_ctrl_set_opt",
+      "Arity": 3,
+      "Adapter": "SetOption"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dist_ctrl_get_data_notification",
+      "Arity": 1,
+      "Adapter": "RequestDataNotification"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dist_ctrl_get_data",
+      "Arity": 1,
+      "Adapter": "GetData"
+    },
+    {
+      "Module": "erlang",
+      "Function": "dist_ctrl_input_handler",
+      "Arity": 2,
+      "Adapter": "SetInputHandler"
+    }
+  ],
+  "Findings": [
+    "Setnode/3 is a preloaded Erlang wrapper around erts_internal:create_dist_channel/3, not an erlang native bif.tab entry; registration preserves async ValueTask reply wait directly.",
+    "Five synchronous adapters are wrapped with ValueTask.FromResult in delegate returning ValueTask<Term>; original argument order/arity retained.",
+    "No adapter exceptions intercepted by registration; existing genuine Erlang badarg/notsup reasons and reply errors flow through ModuleRegistry tracing/halt boundary.",
+    "Core intended call immediately after RuntimeSetNodeRegistrations is additive setnode/3, cannot overwrite setnode/2 because MFA keys include arity.",
+    "PutData and GetStat deliberately absent; no placeholder/allocator metric synthesis added."
+  ],
+  "BuildExecuted": false,
+  "CoreCallsiteIntegrated": false,
+  "NativeExecuted": false,
+  "Scope": "Registration wiring source review against bounded already-tested process-controller adapters; native-port controllers, general transport and complete OTP parity are not claimed."
+}

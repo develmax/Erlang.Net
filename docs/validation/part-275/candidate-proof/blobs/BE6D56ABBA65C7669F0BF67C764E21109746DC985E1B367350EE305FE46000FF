@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib
+root=Path.cwd(); art=root/'artifacts'; out=art/'part275-main-functional-failure'; assert not out.exists(); out.mkdir(); rows=[]; sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+def save(p,name):
+    b=p.read_bytes(); target=out/name; target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(b); rows.append({'Path':name,'Bytes':len(b),'Sha256':sha(b)})
+freeze=json.loads((art/'part275-main-source-freeze-revision6.json').read_text())
+for r in freeze['Files']:
+    p=root/r['Path']; assert sha(p.read_bytes())==r['Sha256']; save(p,'source/'+r['Path'])
+for name in ['part275-main-full-final.log','tests.json']:save(art/name,name)
+for folder in ['src/Erlang.Terms','src/Erlang.Serialization','src/Erlang.Runtime','src/Erlang.Compiler','tests/Erlang.Tests','tools/Erlang.Differential','tools/Erlang.HaltProbe']:
+    base=root/folder/'bin/Debug/net10.0'
+    for p in sorted(base.rglob('*')):
+        if p.is_file():save(p,'produced/'+folder+'/'+p.relative_to(base).as_posix())
+tests=json.loads((art/'tests.json').read_text()); assert tests['Passed']==6534 and tests['Failed']==10
+manifest={'Status':'Actual Main functional failure preserved before any repair','Passed':6534,'Failed':10,'Total':6544,'IntegrationAndPackageUnexecuted':True,'Files':rows,'SourceFreezeSha256':sha((art/'part275-main-source-freeze-revision6.json').read_bytes()),'OutputPresenceIsNotExecutionClaim':True}
+(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8'); print(json.dumps({'PreservedFiles':len(rows),'ProducedBytes':sum(r['Bytes'] for r in rows),'Passed':6534,'Failed':10}))

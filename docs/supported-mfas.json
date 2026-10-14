@@ -2281,6 +2281,62 @@
   },
   {
     "Module": "erlang",
+    "Function": "setnode",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:setnode/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "setnode",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:setnode/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dist_ctrl_get_opt",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_get_opt/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dist_ctrl_set_opt",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_set_opt/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dist_ctrl_get_data_notification",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_get_data_notification/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dist_ctrl_get_data",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_get_data/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "dist_ctrl_input_handler",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_input_handler/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
     "Function": "process_flag",
     "Arity": 3,
     "Status": "Partially compatible",

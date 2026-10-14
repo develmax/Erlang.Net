@@ -1,0 +1,92 @@
+{
+  "SyntheticNegativeEvidenceOnly": true,
+  "NativeExecuted": false,
+  "Cases": [
+    {
+      "Case": "wrong-pin",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "F826F788B5604310E8DA7C73E4F8B4DEBB681BEF81FC81F0C4FDC08C504958EA"
+    },
+    {
+      "Case": "wrong-tag",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "F826F788B5604310E8DA7C73E4F8B4DEBB681BEF81FC81F0C4FDC08C504958EA"
+    },
+    {
+      "Case": "incomplete-source",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "F826F788B5604310E8DA7C73E4F8B4DEBB681BEF81FC81F0C4FDC08C504958EA"
+    },
+    {
+      "Case": "wrong-root",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "F826F788B5604310E8DA7C73E4F8B4DEBB681BEF81FC81F0C4FDC08C504958EA"
+    },
+    {
+      "Case": "changed-log",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "0C01337DC1BC20B4AD9CE486CB5B2EA2DAC3F13C29B3235F1074516D329730EA"
+    },
+    {
+      "Case": "wrong-version",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "0C01337DC1BC20B4AD9CE486CB5B2EA2DAC3F13C29B3235F1074516D329730EA"
+    },
+    {
+      "Case": "missing-executables",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "398AE0E30ABA21471D564DD438A380AF4544EA2594204810712400964AF6538E"
+    },
+    {
+      "Case": "plan-wrong-tag",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "3B8FDE79E1BDC4D62A1043697ED9ED160FBE7BC9956ECF0BC9384F81068F8EAD"
+    },
+    {
+      "Case": "plan-native-status",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "3B8FDE79E1BDC4D62A1043697ED9ED160FBE7BC9956ECF0BC9384F81068F8EAD"
+    },
+    {
+      "Case": "plan-whitespace",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "3B8FDE79E1BDC4D62A1043697ED9ED160FBE7BC9956ECF0BC9384F81068F8EAD"
+    },
+    {
+      "Case": "altered-probe",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "992D1AC36DAD6E52B8C827C935B0AAF15E2F17322781E575C7179C01E4A23520"
+    },
+    {
+      "Case": "existing-output",
+      "ExitCode": 1,
+      "NoOutputMutation": true,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "947314B20D9454B0D76CF7EC75006BD7F35BC1A589DF6B5866D8CE46F0CDE3BF"
+    }
+  ],
+  "Passed": 12,
+  "Meaning": "Actual collector invocation rejected before output creation/mutation; plan wrong tag/native claim/whitespace detect exact raw provenance drift."
+}

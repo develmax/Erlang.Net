@@ -1,0 +1,39 @@
+{
+  "Status": "PASS_SOURCE_ONLY_GATEWAY9_CORRECTIVE_DELTA",
+  "SourceFreezeSha256": "B83EA53557A92C0DD55EEE2A03F770DBB1A8CE937DFCB8AC73EAA28511C6DBBB",
+  "OwnedSourceFiles": 39,
+  "UnownedSeedFiles": 1541,
+  "ChangedVersusHistorical7": [
+    "src/Erlang.Runtime/ProcessRuntime.ExternalDecode.cs",
+    "tests/Erlang.Tests/RuntimeSetNodeHostChecks.cs"
+  ],
+  "Historical7ReceiptUnchanged": "B2B4458740386193C48D16432F97FA10904F3FB5AE2E669CED30D99028275B12",
+  "FindingClosed": "final custom function factory graph validated for foreign dynamic identifier ownership before observation; reservation remains until callback validation completes",
+  "HostSourceCases": "six genuine foreign PID/reference/fd-port environments, both selected function factories, exactly1selected+0alternate callback, badarg then GC/creation4 release evidence",
+  "NoPrematureParserRejectionCanSatisfyNewFactoryCounters": true,
+  "PinnedSourceFacts": [
+    "setnode2 requires node name/nonode forbidden/live registered kernel/trap export/retained epoch avoidance starting4",
+    "monitor flag map normalization/list:true/count key matches original dist.c",
+    "kernel no_network preserved else net_kernel_terminated",
+    "NEW_FUN creator PID is decoded, validated and discarded by original external.c; scanner batch includes that temporary epoch"
+  ],
+  "PinnedSourceBindings": [
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B"
+    }
+  ],
+  "ReaderFactoriesOutsideRuntimeAndRegistryGates": true,
+  "RawReservationSnapshotAtomicUnderRuntimeGate": true,
+  "OpaqueHostClosuresStillExplicitReservationScope": true,
+  "OriginalNativeAdmissionExecuted": false,
+  "Correction9BuiltOrExecuted": false,
+  "FullMainGatewayIntegrationClaim": false,
+  "MainOrGitWritten": false
+}

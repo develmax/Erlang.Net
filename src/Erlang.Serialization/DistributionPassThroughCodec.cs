@@ -5,7 +5,8 @@ public static class DistributionPassThroughCodec
     public static byte[] Encode(
         DistributionPassThroughMessage message,
         int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
-        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory
+        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
+        EtfEncodingOptions? options = null
     )
     {
         ArgumentNullException.ThrowIfNull(message);
@@ -13,7 +14,7 @@ public static class DistributionPassThroughCodec
         ValidateFlags(negotiatedFlags);
         ValidateControl(message.Control);
         ArgumentNullException.ThrowIfNull(message.Payload);
-        var options = new EtfEncodingOptions();
+        options ??= new EtfEncodingOptions();
         long required = checked(DistributionPassThroughLayout.MarkerBytes +
             ExternalTermFormat.EncodedSize(message.Control, options) +
             ExternalTermFormat.EncodedSize(message.Payload, options));

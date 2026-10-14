@@ -1,0 +1,91 @@
+{
+  "Status": "PASS_PINNED_CREATION_NUMERIC_DOMAIN_AUDIT_SOURCE_ONLY",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "PinnedRawSha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "PinnedRawSha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "PinnedRawSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    }
+  ],
+  "ExactNativeRules": [
+    "erl_term.h ARCH64 SMALL_BITS60, MAX_SMALL=(1<<59)-1.",
+    "big.c3648 term_to_Uint32 on ERTS_SIZEOF_ETERM!=4 accepts is_small and signed_val>=0; casts Uint32 without upper32 check; BIG always refused.",
+    "dist.c4985 setnode2 uses this converter, then floors low32 creation to4 and skips actual live external node epochs.",
+    "dist.c5173 create_dist_channel3 also uses identical converter, so both public adapters need correction.",
+    "ARCH32 follows term_to_Uint and has distinct integer representation acceptance; LP64 findings do not assert universal32 behavior."
+  ],
+  "BoundaryMatrixSourceDerived": [
+    {
+      "Integer": -1,
+      "LP64TermToUint32Accepted": false,
+      "CreationLow32": null
+    },
+    {
+      "Integer": 0,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 0
+    },
+    {
+      "Integer": 1,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 1
+    },
+    {
+      "Integer": 3,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 3
+    },
+    {
+      "Integer": 4,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 4
+    },
+    {
+      "Integer": 4294967295,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 4294967295
+    },
+    {
+      "Integer": 4294967296,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 0
+    },
+    {
+      "Integer": 4294967313,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 17
+    },
+    {
+      "Integer": 576460752303423487,
+      "LP64TermToUint32Accepted": true,
+      "CreationLow32": 4294967295
+    },
+    {
+      "Integer": 576460752303423488,
+      "LP64TermToUint32Accepted": false,
+      "CreationLow32": null
+    }
+  ],
+  "ConfirmedSdkMismatch": [
+    "AdmitObservedLocalNode requires integer<=uint.MaxValue; native accepts positive SMALL above32 bits and truncates.",
+    "AdoptNodeControllerAsync options creation repeats <=uint.MaxValue guard; same native conversion mismatch."
+  ],
+  "HistoricalPublishedObserver": {
+    "Path": "artifacts/setnode2-native-oracle-proposal/local_node_admission_probe.erl",
+    "RawSha256": "602C79F6C5F117BB2891FA2975FD80B6077CD3CCD794B0FD36890194CE83033F",
+    "PreservedUnchanged": true,
+    "SourceSequence": "Retains external ref creation4; overflow-labelled request1bsl32 occurs before monitor_nodes; native low32=0\u2192min4, occupied epoch4\u21925 source inference; next admitted request occurs already active and yields badarg, initial nodeup watchers registered after activation cannot receive earlier nodeup."
+  },
+  "ObservationLimits": "Parent reports genuine274 overflowcreation {result,true}; exact typed ETF/head/raw guards owned by Parent. This audit did not execute original and does not substitute computed boundary matrix for native observations.",
+  "CorrectionProposal": "Dedicated creation-domain conversion helper for LP64 nonnegative SMALL max2^59-1 with explicit low32 masking, shared setnode2/setnode3 only. Preserve distinct semantic limit constants; do not reuse bump request limit merely because equal. Retain old published failures, add fresh-VM truncation/big-domain cases and correct invalid setup probe in a newly frozen version, never retry old source.",
+  "MainOrGitModified": false,
+  "NativeExecutedByReviewer": false
+}

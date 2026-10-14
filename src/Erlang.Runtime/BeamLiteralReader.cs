@@ -4,7 +4,7 @@ namespace Erlang;
 
 internal static class BeamLiteralReader
 {
-    public static IReadOnlyList<Term> Read(ReadOnlyMemory<byte> payload)
+    public static IReadOnlyList<Term> Read(ReadOnlyMemory<byte> payload, EtfDecodeOptions? decoding = null)
     {
         var header = new BeamCursor(payload);
         int capacity = header.ReadInt32();
@@ -28,7 +28,7 @@ internal static class BeamLiteralReader
                 throw new InvalidDataException(BeamLiteralDiagnostics.InvalidExternalTerm);
             try
             {
-                literals.Add(ExternalTermFormat.DecodeOne(external.Span, new EtfDecodeOptions(), BeamLiteralLimits.MaximumDecodedTableBytes).Term);
+                literals.Add(ExternalTermFormat.DecodeOne(external.Span, decoding ?? new EtfDecodeOptions(), BeamLiteralLimits.MaximumDecodedTableBytes).Term);
             }
             catch (ErlangException exception)
             {

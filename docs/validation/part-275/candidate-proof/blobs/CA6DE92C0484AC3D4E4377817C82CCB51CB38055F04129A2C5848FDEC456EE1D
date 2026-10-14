@@ -1,0 +1,38 @@
+from pathlib import Path
+import hashlib,json,subprocess,sys
+root=Path.cwd(); art=root/'artifacts'; sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+if len(sys.argv)!=3:raise SystemExit('Usage: import275-reviewed.py finalSourceFreeze actualPassingReceipt')
+freeze=Path(sys.argv[1]); receipt=Path(sys.argv[2]); d=json.loads(freeze.read_text(encoding='utf-8-sig')); passed=json.loads(receipt.read_text(encoding='utf-8-sig'))
+assert passed['Stage']=='ActualBoundedFinal4TerminalPass' and not passed['NativeExecuted']
+assert passed['TargetErrors']==passed['TargetWarnings']==passed['StyleChanges']==0
+assert passed['ConnectedAssertions']==132 and passed['IngressAssertions']==24 and passed['LogicalCompiledCases']==10
+assert sha(freeze.read_bytes())=='6987A8F62554AF24EDD4D815C6B418518A0B34C6EBF1115F97491B0B155B892F'
+executed=json.loads((art/'activation-ingress-six-bump-source-freeze-revision4.json').read_text(encoding='utf-8-sig'))
+assert sha((art/'activation-ingress-six-bump-source-freeze-revision4.json').read_bytes())==passed['SourceFreezeSha256']
+prior={row['Path']:row for row in executed['Files']}
+changed=[row['Path'] for row in d['Files'] if row['Sha256']!=prior[row['Path']]['Sha256']]
+assert set(changed)=={'tests/Erlang.Tests/DistributionRegisteredHostChecks.cs','tests/Erlang.Tests/DistributionRegisteredHostNames.cs'}
+for row in d['Files']:
+    if row['Path'].startswith('src/'):assert row['Sha256']==prior[row['Path']]['Sha256']
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==d['PublishedHead']=='b87e7fe1539dc9850a0c24d1b426bc6851f19e5c'
+assert not subprocess.check_output(['git','diff','--name-only'],text=True).strip()
+assert not subprocess.check_output(['git','diff','--cached','--name-only'],text=True).strip()
+assert len(d['Files'])==86
+candidate=art/'activation-ingress-six-bump-prototype'
+rows=[]
+for row in d['Files']:
+    path=row['Path']; target=root/path; source=candidate/path
+    assert target.resolve().is_relative_to(root.resolve()) and path.startswith(('src/','tests/','tools/'))
+    raw=source.read_bytes(); assert sha(raw)==row['Sha256'].upper() and raw.decode('utf-8-sig')==row['SourceContent']
+    try:before=subprocess.check_output(['git','show',d['PublishedHead']+':'+path],stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError:before=None
+    expected=row.get('BeforeCommittedSha256')
+    assert (sha(before) if before is not None else None)==expected,path
+    actual=target.read_bytes() if target.exists() else None
+    assert actual==before,path
+    rows.append({'Path':path,'BeforeSha256':sha(before) if before is not None else None,'AfterSha256':sha(raw)})
+proof=art/'part275-main-source-import.json'; assert not proof.exists()
+for row in d['Files']:
+    target=root/row['Path']; target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes((candidate/row['Path']).read_bytes())
+proof.write_text(json.dumps({'Status':'Exact reviewed86 source import; actual Main full validation pending','BaseHead':d['PublishedHead'],'FreezeSha256':sha(freeze.read_bytes()),'PassingReceiptSha256':sha(receipt.read_bytes()),'Files':rows,'PrivateLicenseImported':False,'NativeSdkParityNotClaimed':True},indent=2)+'\n',encoding='utf-8')
+print('Imported86 exact guarded source paths; full Main validation required')

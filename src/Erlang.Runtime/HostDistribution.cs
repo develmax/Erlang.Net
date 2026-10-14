@@ -115,7 +115,7 @@ public sealed class HostDistribution : IDisposable
         lock (gate)
         {
             var entry = RequireController(handle, caller);
-            if (handler.Node != runtime.Node || handler.Creation != caller.Self.Creation)
+            if (!runtime.IsCurrentLocal(handler))
                 throw new InvalidOperationException(HostDistributionDiagnostics.Identity);
             entry.InputHandler = handler;
         }

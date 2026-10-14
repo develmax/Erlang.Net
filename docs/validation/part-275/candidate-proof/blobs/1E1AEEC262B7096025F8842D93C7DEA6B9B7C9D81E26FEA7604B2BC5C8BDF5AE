@@ -1,0 +1,93 @@
+{
+  "Stage": "ActualCoreSetnode2BoundedLocalGate",
+  "SourceFreezeSha256": "517D3450288094039A3937BEC8DE2269C70B662ADF41C9484344CF5BED310277",
+  "OwnedFiles": 39,
+  "UnownedSeedFiles": 1541,
+  "SourceGuardPass": true,
+  "BuildErrors": 0,
+  "BuildWarnings": 0,
+  "ActualSuccessfulGroups": 7,
+  "ActualGroups": [
+    "RuntimeSetNodeHostChecks.Run",
+    "RuntimeNodeAdmissionFoundationHostChecks.Run",
+    "RuntimeNodeIdentityFoundationHostChecks.Run",
+    "ModuleRegistryLeaseChecks.Run",
+    "HashIntrinsicHostChecks.Run",
+    "ErlangHashHostChecks.Resources",
+    "global LocalFunctionIdentityChecks.Run returned0"
+  ],
+  "HistoricalFoundationCounts": [
+    31,
+    2,
+    1497
+  ],
+  "ComparisonAllocatedBytes": 0,
+  "ComparisonIterations": 1024,
+  "HashAmbientRows": [
+    {
+      "Slots": 64,
+      "Bytes": 136
+    },
+    {
+      "Slots": 128,
+      "Bytes": 136
+    },
+    {
+      "Slots": 256,
+      "Bytes": 136
+    },
+    {
+      "Slots": 256,
+      "Bytes": 136
+    }
+  ],
+  "OriginalHashBudgetUnchanged": 4096,
+  "ActualNewCoreCompiledCases": [
+    "missing kernel badarg",
+    "inactive node/creation/alive state",
+    "map monitor previous count0",
+    "true admission with min creation4",
+    "active node/creation/alive state",
+    "already active badarg",
+    "actual nodeup empty info map"
+  ],
+  "ActualHostCases": [
+    "configured name does not activate wire identity",
+    "duplicate normalized map monitor counts and hidden filtering",
+    "local up/down real kernel lifecycle info",
+    "raw pending epoch4 skip before factory and again after import",
+    "compressed and plain measured packets",
+    "captured current-epoch PID/reference/port remain local across epoch switch",
+    "NEW_FUN discarded creator epoch4 plus retained environment epoch5 both reserved during custom factory/GC",
+    "custom factory failure disposes reservations before another activation",
+    "real module gate plus runtime reservation/lookup completion without inversion",
+    "prepared metadata/literal epoch5 observed before PublishPreparedBeam/Apply",
+    "foreign dynamic PID graph reservation rejects"
+  ],
+  "StaleHistoricalDiagnosticLabels": [
+    "Core setnode unregistered printed by retained historical foundation fixture; candidate Core is registered",
+    "activation/admission not executed printed by identity-only fixture; new group does execute actual admission"
+  ],
+  "NativeAdmissionExecuted": false,
+  "FullSuiteExecuted": false,
+  "MainModified": false,
+  "NativeSourceProposal": "artifacts\\setnode2-gateway-main67-prototype\\native\\source-plan.json",
+  "InitialFailuresPreserved": [
+    "revision3 six HOST compile API name/Integer overload errors; no production errors"
+  ],
+  "ExecutedClosureSha256": "94F69A21FFF81CEC84F3E1C814A2577CE98F0A096D5C712EC14F9E858AC71C7C",
+  "Logs": [
+    {
+      "Path": "artifacts/setnode2-gateway-revision3-build.log",
+      "Sha256": "F8D39BB2F4E8D4EA05519456592C2024B60DA0DBCEC1ACFAEFBF454BDC68F799"
+    },
+    {
+      "Path": "artifacts/setnode2-gateway-revision4-build.log",
+      "Sha256": "28A00A1566798FA0FB77844B25700856012057FAC6A48EAEFAAFEFFB259F5475"
+    },
+    {
+      "Path": "artifacts/setnode2-gateway-revision4-focus.log",
+      "Sha256": "A7ED65C89F8760A24FA942B1F0A7A042E3326DCB0F9B8DD105DB701FD977981D"
+    }
+  ]
+}

@@ -1,10 +1,12 @@
+using System.Numerics;
+
 namespace Erlang;
 
 public sealed class RuntimeLocalNodeEvents
 {
     private readonly ProcessRuntime runtime;
     private readonly object gate;
-    private readonly Dictionary<ProcessContext, int> subscribers = new(ReferenceEqualityComparer.Instance);
+    private readonly Dictionary<ProcessContext, Dictionary<RuntimeNodeMonitorOptions, BigInteger>> subscribers = new(ReferenceEqualityComparer.Instance);
     private bool closed;
 
     internal RuntimeLocalNodeEvents(ProcessRuntime runtime, object gate)
@@ -13,7 +15,9 @@ public sealed class RuntimeLocalNodeEvents
         this.gate = gate;
     }
 
-    public int Monitor(ProcessContext process, bool enable)
+    public int Monitor(ProcessContext process, bool enable) => checked((int)Monitor(process, enable, RuntimeNodeMonitorOptions.Empty));
+
+    internal BigInteger Monitor(ProcessContext process, bool enable, RuntimeNodeMonitorOptions options)
     {
         ArgumentNullException.ThrowIfNull(process);
         lock (gate)
@@ -21,11 +25,22 @@ public sealed class RuntimeLocalNodeEvents
             ObjectDisposedException.ThrowIf(closed || runtime.IsHaltRequested, RuntimeLocalNodeAdmissionNames.Closed);
             if (!runtime.IsOwnedLiveNodeProcess(process))
                 throw new ArgumentException(RuntimeLocalNodeAdmissionNames.Owner, nameof(process));
-            int previous = subscribers.GetValueOrDefault(process);
+            if (!subscribers.TryGetValue(process, out var registrations))
+            {
+                if (!enable)
+                    return BigInteger.Zero;
+                registrations = new();
+                subscribers.Add(process, registrations);
+            }
+            BigInteger previous = registrations.GetValueOrDefault(options);
             if (enable)
-                subscribers[process] = checked(previous + 1);
+                registrations[options] = previous + BigInteger.One;
             else
-                subscribers.Remove(process);
+            {
+                registrations.Remove(options);
+                if (registrations.Count == 0)
+                    subscribers.Remove(process);
+            }
 
             return previous;
         }
@@ -33,14 +48,108 @@ public sealed class RuntimeLocalNodeEvents
 
     internal void Notify(string eventName, Atom node)
     {
+        Notify(
+            eventName,
+            node,
+            RuntimeNodeMonitorType.Visible,
+            null,
+            Term.A(RuntimeNodeMonitorNames.KernelTerminated)
+        );
+    }
+
+    internal void NotifyLocalDown(Atom node, Term reason)
+    {
+        Term normalized = reason is Atom { Name: RuntimeNodeMonitorNames.NoNetwork } ? reason : Term.A(RuntimeNodeMonitorNames.KernelTerminated);
+        Notify(
+            RuntimeLocalNodeAdmissionNames.NodeDown,
+            node,
+            RuntimeNodeMonitorType.Visible,
+            null,
+            normalized
+        );
+    }
+
+    internal void NotifyRemote(
+        string eventName,
+        Atom node,
+        RuntimeNodeMonitorType nodeType,
+        uint connectionId,
+        Term? downReason = null
+    )
+    {
+        if (eventName is not RuntimeLocalNodeAdmissionNames.NodeUp and not RuntimeLocalNodeAdmissionNames.NodeDown)
+            throw new ArgumentOutOfRangeException(nameof(eventName));
+        if (nodeType is not RuntimeNodeMonitorType.Visible and not RuntimeNodeMonitorType.Hidden)
+            throw new ArgumentOutOfRangeException(nameof(nodeType));
+        if (eventName == RuntimeLocalNodeAdmissionNames.NodeDown && downReason is null)
+            throw new ArgumentNullException(nameof(downReason));
+        Notify(
+            eventName,
+            node,
+            nodeType,
+            connectionId,
+            downReason
+        );
+    }
+
+    private void Notify(
+        string eventName,
+        Atom node,
+        RuntimeNodeMonitorType nodeType,
+        uint? connectionId,
+        Term? downReason
+    )
+    {
         lock (gate)
         {
-            Term message = Term.Tuple(Term.A(eventName), node);
             foreach (var subscriber in subscribers.ToArray())
-                if (runtime.IsOwnedLiveNodeProcess(subscriber.Key))
-                    for (int index = 0; index < subscriber.Value; index++)
+            {
+                if (!runtime.IsOwnedLiveNodeProcess(subscriber.Key))
+                    continue;
+                foreach (var registration in subscriber.Value.ToArray())
+                {
+                    if (registration.Key.Type == RuntimeNodeMonitorType.Hidden && nodeType != RuntimeNodeMonitorType.Hidden ||
+                        registration.Key.Type is RuntimeNodeMonitorType.Default or RuntimeNodeMonitorType.Visible && nodeType != RuntimeNodeMonitorType.Visible)
+                        continue;
+                    Term message = Message(
+                        eventName,
+                        node,
+                        registration.Key,
+                        nodeType,
+                        connectionId,
+                        downReason
+                    );
+                    for (BigInteger index = BigInteger.Zero; index < registration.Value; index++)
                         runtime.SendSystem(subscriber.Key.Self, message);
+                }
+            }
         }
+    }
+
+    private static Term Message(
+        string eventName,
+        Atom node,
+        RuntimeNodeMonitorOptions options,
+        RuntimeNodeMonitorType nodeType,
+        uint? connectionId,
+        Term? downReason
+    )
+    {
+        if (!options.IncludeInfo)
+            return Term.Tuple(Term.A(eventName), node);
+        var entries = new List<KeyValuePair<Term, Term>>();
+        if (options.ConnectionId)
+            entries.Add(new(Term.A(RuntimeNodeMonitorNames.ConnectionId), connectionId is uint id ? Term.I(id) : Term.A(RuntimeNodeMonitorNames.Undefined)));
+        if (options.DownReason && eventName == RuntimeLocalNodeAdmissionNames.NodeDown)
+            entries.Add(new(Term.A(RuntimeNodeMonitorNames.DownReason), downReason!));
+        if (options.Type != RuntimeNodeMonitorType.Default)
+            entries.Add(new(
+                Term.A(RuntimeNodeMonitorNames.NodeType),
+                Term.A(nodeType == RuntimeNodeMonitorType.Visible ? RuntimeNodeMonitorNames.Visible : RuntimeNodeMonitorNames.Hidden)
+            ));
+        Term info = options.InfoMap ? new MapTerm(entries) : Cons.From(entries.Select(entry => Term.Tuple(entry.Key, entry.Value)));
+
+        return Term.Tuple(Term.A(eventName), node, info);
     }
 
     internal void ProcessTerminated(ProcessContext process)

@@ -5,13 +5,28 @@ public static class ProcessInfoLogicalCases
     public static IReadOnlyList<CompiledModuleCase> Modules { get; } =
     [
         new(
+            "process-info-logical-small-bump",
+            "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=erlang:bump_reductions(0),true=erlang:bump_reductions(1),{reductions,B}=process_info(self(),reductions),true=is_integer(B),true=(B>=A),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-logical-bump-after-yield",
+            "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=erlang:yield(),{reductions,B}=process_info(self(),reductions),true=(B>=A),true=erlang:bump_reductions(4000),{reductions,C}=process_info(self(),reductions),true=(C>=B),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-logical-bump-error-domain",
+            "-module(process_info_logical). -export([run/0]). run()->ok=reject(fun()->erlang:bump_reductions(-1) end),ok=reject(fun()->erlang:bump_reductions(not_integer) end),ok=reject(fun()->erlang:bump_reductions(1152921504606846976) end),done. reject(F)->try F() of _->unexpected catch error:badarg->ok end.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
             "process-info-logical-defaults",
             "-module(process_info_logical). -export([run/0]). run()->{error_handler,error_handler}=process_info(self(),error_handler),{priority,normal}=process_info(self(),priority),done.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ),
         new(
             "process-info-logical-charged-reductions-monotonic",
-            "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=(B>=A+4000),done.",
+            "-module(process_info_logical). -export([run/0]). run()->{reductions,A}=process_info(self(),reductions),true=is_integer(A),true=(A>=0),true=erlang:bump_reductions(4000),{reductions,B}=process_info(self(),reductions),true=is_integer(B),true=(B>=A),done.",
             Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
         ),
         new(

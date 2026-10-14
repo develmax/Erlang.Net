@@ -1,0 +1,8 @@
+using System.Text;
+
+namespace Erlang;
+
+internal static class EtfNodeEpochEncodings
+{
+    internal static readonly Encoding StrictUtf8 = new UTF8Encoding(false, true);
+}

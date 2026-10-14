@@ -43,7 +43,7 @@ internal static class BeamLoaderApi
         byte[] input = binary.ToArray();
         try
         {
-            BeamStructure structure = BeamStructureReader.Read(input);
+            BeamStructure structure = BeamStructureReader.Read(input, context.Runtime.Modules.PreparationDecodeOptions());
             if (structure.Atoms[1] != name.Name)
                 return Error(BeamLoaderNames.BadFile);
             PreparedBeamImage image = context.Runtime.Modules.PrepareBeam(input);

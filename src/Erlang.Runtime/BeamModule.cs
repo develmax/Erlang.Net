@@ -56,6 +56,10 @@ public sealed class BeamModule
         ArgumentNullException.ThrowIfNull(function);
         ArgumentNullException.ThrowIfNull(arguments);
         context.Cancellation.ThrowIfCancellationRequested();
+        foreach (Term literal in code.Structure.Literals)
+            context.Runtime.ObserveIncomingTerm(literal);
+        foreach (Term argument in arguments)
+            context.Runtime.ObserveIncomingTerm(argument);
         if (HasOnLoad)
         {
             if (!code.Exports.Any(entry => entry.Name == function && entry.Arity == arguments.Length))

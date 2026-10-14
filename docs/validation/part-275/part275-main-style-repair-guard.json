@@ -1,0 +1,15 @@
+{
+  "Status": "PASS",
+  "ChangedFiles": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostNames.cs",
+      "BeforeSha256": "D4D176DEB103081D640DD8F29B3D94EAAACD4D35DBFAD3506DDCB5DFA9AF8169",
+      "AfterSha256": "3E19CC15D10BCDDEF9D7E727EA054D54C53B6F2F4187DA882D277F51F82A2E43",
+      "TokenAndQuotedLiteralExact": true,
+      "BeforeSourceContent": "namespace Erlang.Tests;\n\ninternal static class DistributionRegisteredHostNames\n{\n    internal const string Test = \"runtime/distribution-six-registered-public-controller-contracts\";\n    internal const string Failure = \"Registered distribution controller contract failed.\";\n    internal const string Success = \"ok\";\r\n    internal const string PayloadMarker = \"ok\";\n    internal const string Local = \"registered_local@host\";\n    internal const string Remote = \"registered_remote@host\";\n    internal const string Sink = \"registered_sink\";\n    internal const string DataNotice = \"dist_data\";\n    internal const string KernelNotice = \"dist_ctrlr\";\n    internal const int FirstRemoteCreation = 1;\n    internal const int ReopenedRemoteCreation = 2;\n    internal static readonly (string Name, int Arity)[] SixMfas =\n    [\n        (RuntimeSetNodeHostNames.SetNode, 3),\n        (DistributionControllerNames.GetOption, 2),\n        (DistributionControllerNames.SetOption, 3),\n        (DistributionControllerNames.RequestDataNotification, 1),\n        (DistributionControllerNames.GetData, 1),\n        (DistributionControllerNames.InputHandler, 2)\n    ];\n}\n",
+      "AfterSourceContent": "namespace Erlang.Tests;\n\ninternal static class DistributionRegisteredHostNames\n{\n    internal const string Test = \"runtime/distribution-six-registered-public-controller-contracts\";\n    internal const string Failure = \"Registered distribution controller contract failed.\";\n    internal const string Success = \"ok\";\n    internal const string PayloadMarker = \"ok\";\n    internal const string Local = \"registered_local@host\";\n    internal const string Remote = \"registered_remote@host\";\n    internal const string Sink = \"registered_sink\";\n    internal const string DataNotice = \"dist_data\";\n    internal const string KernelNotice = \"dist_ctrlr\";\n    internal const int FirstRemoteCreation = 1;\n    internal const int ReopenedRemoteCreation = 2;\n    internal static readonly (string Name, int Arity)[] SixMfas =\n    [\n        (RuntimeSetNodeHostNames.SetNode, 3),\n        (DistributionControllerNames.GetOption, 2),\n        (DistributionControllerNames.SetOption, 3),\n        (DistributionControllerNames.RequestDataNotification, 1),\n        (DistributionControllerNames.GetData, 1),\n        (DistributionControllerNames.InputHandler, 2)\n    ];\n}\n"
+    }
+  ],
+  "RuntimeUnchanged": true,
+  "InitialFailurePreserved": true
+}

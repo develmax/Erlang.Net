@@ -1,0 +1,26 @@
+namespace Erlang.Tests;
+
+internal static class ConnectedIngressHostNames
+{
+    internal const string Test = "runtime/connected-distribution-ingress-snapshot-epoch-admission";
+    internal const int ExpectedAssertions = 24;
+    internal const string KnownNodes = "KnownNodes";
+    internal const string ReservedEpochs = "reservedEpochs";
+    internal const string Gate = "gate";
+    internal const string SetNode = "setnode";
+    internal const string Local = "connected_ingress@localhost";
+    internal const string CreatorNode = "connected_creator@localhost";
+    internal const string PayloadNode = "connected_payload_epochs@localhost";
+    internal const string CookieModule = "connected_cookie";
+    internal const string Before = "before";
+    internal const string After = "after_";
+    internal const string Status = "CONNECTED_INGRESS_ACTOR_ASSERTIONS";
+    internal const uint CreatorEpoch = 17;
+    internal const uint PayloadEpoch = 23;
+    internal const ulong IdentifierNumber = 29;
+    internal const int FunctionIndex = 31;
+    internal const int FunctionOldUnique = 37;
+    internal const int UniqueBytes = 16;
+    internal const int FunctionArity = 0;
+    internal const int FunctionEnvironment = 0;
+}

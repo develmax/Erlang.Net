@@ -4,5 +4,6 @@ public enum ReferenceResourceKind
 {
     PreparedBeam,
     BinarySnapshot,
-    DistributionEntry
+    DistributionEntry,
+    ConnectedDistributionHandle
 }

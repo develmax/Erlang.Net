@@ -1,0 +1,60 @@
+using NodeIdentityContrasts;
+using System.Diagnostics;
+using System.Globalization;
+using System.Text.Json;
+
+if (args[0] == CaptureControlNames.RawChild)
+{
+    await Console.OpenStandardOutput().WriteAsync(CaptureControlNames.RawOutput);
+    await Console.OpenStandardError().WriteAsync(CaptureControlNames.RawError);
+
+    return CaptureControlNames.RawExit;
+}
+if (args[0] == CaptureControlNames.Holder)
+{
+    await Task.Delay(CaptureControlNames.HoldTime);
+
+    return 0;
+}
+if (args[0] == CaptureControlNames.SpawnHolder)
+{
+    var start = new ProcessStartInfo(CaptureControlNames.Dotnet) { UseShellExecute = false, CreateNoWindow = true };
+    start.ArgumentList.Add(typeof(NodeProcess).Assembly.Location);
+    start.ArgumentList.Add(CaptureControlNames.Holder);
+    using var child = Process.Start(start)!;
+    await File.WriteAllTextAsync(args[1], child.Id.ToString(CultureInfo.InvariantCulture));
+
+    return 0;
+}
+Directory.CreateDirectory(args[0]);
+string assembly = typeof(NodeProcess).Assembly.Location;
+var raw = await NodeProcess.Run(CaptureControlNames.Dotnet, [assembly, CaptureControlNames.RawChild], Path.Combine(args[0], CaptureControlNames.Raw));
+if (raw.ExitCode != CaptureControlNames.RawExit || raw.TimedOut || !raw.RawComplete ||
+    !File.ReadAllBytes(Path.Combine(args[0], CaptureControlNames.Stdout)).SequenceEqual(CaptureControlNames.RawOutput) ||
+    !File.ReadAllBytes(Path.Combine(args[0], CaptureControlNames.Stderr)).SequenceEqual(CaptureControlNames.RawError))
+    throw new InvalidOperationException(CaptureControlNames.Failure);
+string childFile = Path.Combine(args[0], CaptureControlNames.ChildFile);
+var clock = Stopwatch.StartNew();
+NodeProcessResult pipes;
+bool terminated;
+try
+{
+    pipes = await NodeProcess.Run(
+        CaptureControlNames.Dotnet,
+        [assembly, CaptureControlNames.SpawnHolder, childFile],
+        Path.Combine(args[0], CaptureControlNames.Pipes)
+    );
+}
+finally
+{
+    clock.Stop();
+    using var holder = Process.GetProcessById(int.Parse(await File.ReadAllTextAsync(childFile), CultureInfo.InvariantCulture));
+    holder.Kill(entireProcessTree: true);
+    await holder.WaitForExitAsync().WaitAsync(CaptureControlNames.ExitDeadline);
+    terminated = holder.HasExited;
+}
+if (pipes.ExitCode != 0 || pipes.TimedOut || pipes.RawComplete || clock.Elapsed > CaptureControlNames.CaptureDeadline || !terminated)
+    throw new InvalidOperationException(CaptureControlNames.Failure);
+Console.WriteLine(JsonSerializer.Serialize(new { Status = CaptureControlNames.Pass, Raw = raw, InheritedPipes = pipes, Milliseconds = clock.ElapsedMilliseconds, OwnedChildTerminated = terminated }));
+
+return 0;

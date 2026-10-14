@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace Erlang;
 
-public sealed class RuntimeDistributionPending
+public sealed partial class RuntimeDistributionPending
 {
     private readonly ProcessRuntime runtime;
     private readonly object gate;
@@ -156,10 +156,11 @@ public sealed class RuntimeDistributionPending
         }
     }
 
-    internal void ProcessTerminated(ProcessContext process)
+    internal void ProcessTerminated(ProcessContext process, Term reason)
     {
         lock (gate)
         {
+            RetireControllerAdoptions(controller: process);
             if (ReferenceEquals(kernelSetup, process))
             {
                 kernelSetup = null;
@@ -167,17 +168,17 @@ public sealed class RuntimeDistributionPending
                     RetirePending(entry);
             }
             if (controllers.TryGetValue(process.Self, out var owned) && ReferenceEquals(owned.ReservedController, process))
-                RetirePending(owned);
+                RetirePending(owned, ControllerNodeDownReason(reason));
         }
     }
 
-    internal void LocalKernelStopped()
+    internal void LocalKernelStopped(Term reason)
     {
         lock (gate)
         {
             kernelSetup = null;
             foreach (var entry in pending.Values.ToArray())
-                RetirePending(entry);
+                RetirePending(entry, KernelNodeDownReason(reason));
         }
     }
 
@@ -191,6 +192,7 @@ public sealed class RuntimeDistributionPending
             foreach (var weak in entries.Values)
                 if (weak.TryGetTarget(out var entry))
                 {
+                    RetireConnected(entry);
                     entry.State = DistributionPendingState.Closed;
                     entry.ReservedController = null;
                 }
@@ -250,8 +252,9 @@ public sealed class RuntimeDistributionPending
         ObjectDisposedException.ThrowIf(closed || runtime.IsHaltRequested, DistributionPendingDiagnostics.Closed);
     }
 
-    private void RetirePending(RuntimeDistributionPendingEntry entry)
+    private void RetirePending(RuntimeDistributionPendingEntry entry, Term? reason = null)
     {
+        RetireConnected(entry, reason);
         if (entry.ReservedController is { } controller && controllers.TryGetValue(controller.Self, out var owned) && ReferenceEquals(owned, entry))
             controllers.Remove(controller.Self);
         entry.ReservedController = null;

@@ -97,6 +97,8 @@ public sealed class Mailbox
         }
     }
 
+    internal Action<Term>? IncomingTerm { get; init; }
+
     public void Send(Term message, bool priority = false)
     {
         SendTraced(
@@ -116,6 +118,9 @@ public sealed class Mailbox
         bool traceAdmission = true
     )
     {
+        IncomingTerm?.Invoke(message);
+        if (from is not null)
+            IncomingTerm?.Invoke(from);
         lock (gate)
         {
             if (HaltRequested?.Invoke() == true)
@@ -170,6 +175,9 @@ public sealed class Mailbox
         bool traceAdmission = true
     )
     {
+        IncomingTerm?.Invoke(message);
+        if (from is not null)
+            IncomingTerm?.Invoke(from);
         lock (gate)
         {
             if (HaltRequested?.Invoke() == true)

@@ -28,7 +28,7 @@ internal static class BeamOnLoadModeledBytes
     {
         Assembly assembly = typeof(BeamModule).Assembly;
         Type reader = assembly.GetType(BeamOnLoadMutationParameters.StructureType)!;
-        object structure = reader.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [new ReadOnlyMemory<byte>(original)])!;
+        object structure = reader.GetMethod(BeamOnLoadMutationParameters.Read, BindingFlags.Public | BindingFlags.Static)!.Invoke(null, [new ReadOnlyMemory<byte>(original), null])!;
         object header = structure.GetType().GetProperty(BeamOnLoadMutationParameters.Code)!.GetValue(structure)!;
         ReadOnlyMemory<byte> instructions = (ReadOnlyMemory<byte>)header.GetType().GetProperty(BeamOnLoadMutationParameters.Instructions)!.GetValue(header)!;
         int origin = original.AsSpan().IndexOf(instructions.Span);
