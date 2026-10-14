@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <None Update="loader_iodata_wrapper.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="predeclared-contracts.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="pinned-source-provenance.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

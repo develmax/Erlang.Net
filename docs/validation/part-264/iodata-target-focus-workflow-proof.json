@@ -1,0 +1,77 @@
+{
+  "Status": "SourceAndManagedControlsVerifiedNativePending",
+  "InitialTwelveSourceFreezeSha256": "00FA4D1E6CF6E8A335DCBAD32C0A86A1CCE134775F4D5219776A2E2D60DB76CD",
+  "InitialTwelveFilesUnchanged": true,
+  "AddedWorkflowPath": ".github/workflows/loader-iodata-contrasts.yml",
+  "AddedWorkflowSha256": "3FF8CB7EB256F9D08C5D9333CDA889242DB7EA33242AD00D74A1F74F1FE8C7D3",
+  "AddedWorkflowSource": "name: Pinned OTP loader iodata contrasts\non:\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  fixtures:\n    runs-on: ubuntu-latest\n    timeout-minutes: 45\n    steps:\n      - uses: actions/checkout@v7\n        with:\n          persist-credentials: false\n      - uses: actions/setup-dotnet@v6\n        with:\n          global-json-file: global.json\n      - name: Build standalone loader iodata contrast tool\n        shell: bash\n        run: |\n          set -euo pipefail\n          mkdir -p artifacts\n          dotnet build tools/Erlang.LoaderIodataContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log\n      - name: Verify sixteen static source declarations before native observation\n        shell: bash\n        run: python3 tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --report artifacts/loader-iodata-static-preflight.json\n      - name: Build and attest the pinned development compiler\n        shell: bash\n        run: |\n          set -euo pipefail\n          {\n            echo \"PINNED_BEAM_SOURCE_BEGIN $GITHUB_SHA\"\n            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/beam-otp-source\n            source_commit=\"$(git -C artifacts/beam-otp-source rev-parse HEAD)\"\n            test \"$source_commit\" = ad05823719d77c8faee87348ea39513d4e2f99c5\n            echo \"PINNED_BEAM_SOURCE_VERIFIED $source_commit\"\n            cd artifacts/beam-otp-source\n            echo 'PINNED_BEAM_CONFIGURE --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et'\n            ./configure --prefix=\"$GITHUB_WORKSPACE/artifacts/beam-otp-oracle\" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et\n            echo 'PINNED_BEAM_MAKE -j2'\n            make -j2\n            echo 'PINNED_BEAM_INSTALL'\n            make install\n            test \"$(cat \"$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang/releases/29/OTP_VERSION\")\" = 29.1.1\n            echo 'PINNED_BEAM_INSTALL_VERIFIED 29.1.1'\n          } 2>&1 | tee artifacts/beam-otp-build.log\n          python3 - <<'PY'\n          import hashlib, json, os, pathlib\n          root = pathlib.Path(os.environ['GITHUB_WORKSPACE'])\n          log = root / 'artifacts/beam-otp-build.log'\n          evidence = {\n              'SourceCommit': 'ad05823719d77c8faee87348ea39513d4e2f99c5',\n              'SourceTag': 'OTP-29.1.1',\n              'SourceBuildCompleted': True,\n              'InstalledOtpRoot': str(root / 'artifacts/beam-otp-oracle/lib/erlang'),\n              'SourceBuildLog': str(log),\n              'SourceBuildLogSha256': hashlib.sha256(log.read_bytes()).hexdigest().upper(),\n              'HarnessCommit': os.environ['GITHUB_SHA'],\n              'RunId': os.environ['GITHUB_RUN_ID'],\n              'RunAttempt': os.environ['GITHUB_RUN_ATTEMPT'],\n              'Job': os.environ['GITHUB_JOB'],\n              'RunnerOs': os.environ['RUNNER_OS'],\n              'ConfigureOptions': ['--without-javac','--without-wx','--without-odbc','--without-debugger','--without-observer','--without-et'],\n              'BuildArguments': ['make','-j2'],\n              'InstallArguments': ['make','install']\n          }\n          (root / 'artifacts/beam-source-build-evidence.json').write_text(json.dumps(evidence, indent=2) + '\\n')\n          PY\n      - name: Run sixteen declared iodata scenarios in sixteen fresh VMs\n        shell: bash\n        run: |\n          set -euo pipefail\n          dotnet tools/Erlang.LoaderIodataContrasts/bin/Debug/net10.0/Erlang.LoaderIodataContrasts.dll \"$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang\" \"$GITHUB_WORKSPACE\" \"$GITHUB_WORKSPACE/artifacts/loader-iodata-contrasts\" \"$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json\" 2>&1 | tee artifacts/loader-iodata-export.log\n      - name: Independently verify actual native argument domains and summaries\n        if: always()\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --native-output artifacts/loader-iodata-contrasts --report artifacts/loader-iodata-static-guard.json 2>&1 | tee artifacts/loader-iodata-static-guard.log\n      - uses: actions/upload-artifact@v7\n        if: always()\n        with:\n          name: loader-iodata-contrasts\n          path: |\n            artifacts/loader-iodata-contrasts\n            artifacts/beam-otp-build.log\n            artifacts/beam-source-build-evidence.json\n            artifacts/beam-fixture-tool-build.log\n            artifacts/loader-iodata-export.log\n            artifacts/loader-iodata-static-preflight.json\n            artifacts/loader-iodata-static-guard.json\n            artifacts/loader-iodata-static-guard.log\n",
+  "SourceDeltaCount": 13,
+  "BaselineFilesExact": 5639,
+  "DefaultElevenToolAndWorkflowByteExact": true,
+  "HeldMainHead": "9c7b49a3fb3fc3611bfb3656ec87b6ae0df436cb",
+  "CurrentDefaultMfas": 493,
+  "CurrentErlangRegistered": 335,
+  "CurrentReferenceCount": 351,
+  "ToolRegisteredMfas": 0,
+  "TargetBuildWarnings": 0,
+  "TargetBuildErrors": 0,
+  "FocusBuildWarnings": 0,
+  "FocusBuildErrors": 0,
+  "TargetDllSha256": "CCB9DA0E4D7DB2FA08FCF27823C49302863E462FECF62D92443D23F5B4E9AD05",
+  "ActualRawProcessControls": {
+    "Scope": "Managed process/writer controls only",
+    "NativeExecuted": false,
+    "RawBytesExact": true,
+    "ExitCode": 3,
+    "IncompleteInheritedPipe": true,
+    "IncompleteExitCode": 0,
+    "ElapsedMilliseconds": 5983,
+    "ArgumentGate": true
+  },
+  "ActualCliRefusalControls": {
+    "Status": "PASS",
+    "Scope": "Five synthetic provenance/CLI refusal gates, no native execution",
+    "NativeExecuted": false,
+    "ToolSha256": "CCB9DA0E4D7DB2FA08FCF27823C49302863E462FECF62D92443D23F5B4E9AD05",
+    "Cases": [
+      {
+        "Name": "invalid-arity",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "734C0F900FD49FF34A26AD148ADC5E14F080DBE89949EDE30B7C3C5455EE260E",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "wrong-source-pin",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "C3AB8E39D216D239260D5C658F7E4DDCA46EBAF48CDFE927291F46D0992FFD78",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "changed-log",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "F7B582B6CD37AF61055B5CE0481731DB3DC1241A89B4F8BCA5144F18EFA14E2A",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "wrong-installed-version",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "AC509F95BD6DF24C8C243FC1DA2D7D214AA5315D2C7306DED584E7D4EF292857",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "missing-native-executables",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "CDEED52D40B78DFCD8A39686F4F8FED752ECBE53CF50AF21994A97EBC6277883",
+        "OutputDirectoryCreated": false
+      }
+    ]
+  },
+  "OriginalErlangSyntaxVerified": false,
+  "NativeSixteenExecuted": false,
+  "NoMainOrGitMutation": true
+}

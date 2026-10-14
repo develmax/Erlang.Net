@@ -1,0 +1,43 @@
+{
+  "Status": "PASS",
+  "Scope": "Five actual CLI refusal gates after constant extraction, synthetic data only",
+  "NativeExecuted": false,
+  "ToolSha256": "B689A64740EF9162BC471F7BB378C5A9E2A3EA6F8F43E95A2E25D6B9F42E713C",
+  "Cases": [
+    {
+      "Name": "invalid-arity",
+      "ExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "734C0F900FD49FF34A26AD148ADC5E14F080DBE89949EDE30B7C3C5455EE260E",
+      "OutputDirectoryCreated": false
+    },
+    {
+      "Name": "wrong-source-pin",
+      "ExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "C3AB8E39D216D239260D5C658F7E4DDCA46EBAF48CDFE927291F46D0992FFD78",
+      "OutputDirectoryCreated": false
+    },
+    {
+      "Name": "changed-log",
+      "ExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "F7B582B6CD37AF61055B5CE0481731DB3DC1241A89B4F8BCA5144F18EFA14E2A",
+      "OutputDirectoryCreated": false
+    },
+    {
+      "Name": "wrong-installed-version",
+      "ExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "AC509F95BD6DF24C8C243FC1DA2D7D214AA5315D2C7306DED584E7D4EF292857",
+      "OutputDirectoryCreated": false
+    },
+    {
+      "Name": "missing-native-executables",
+      "ExitCode": 1,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "CDEED52D40B78DFCD8A39686F4F8FED752ECBE53CF50AF21994A97EBC6277883",
+      "OutputDirectoryCreated": false
+    }
+  ]
+}

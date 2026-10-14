@@ -1,0 +1,72 @@
+{
+  "Status": "PASS",
+  "SourceFreezeSha256": "F419266D0E977A3FC8DDE6654F145EC10ECE4AD5F1F42CB49CA8B312212279A2",
+  "SourceTwentyFilesExact": true,
+  "MainDllSha256": "30137E408A9DE9F15D46B04104D53EC80BA127ACD22C48D563F780F7CA999485",
+  "FocusActuallyLoadedMainDllExact": true,
+  "Namespace": "LoaderIodataContrasts",
+  "MainCopiedNativeSourcesAndDeclarationsExact": true,
+  "MainOriginalInputSha256": "8CD86BC82C94112EDA79B6E784B31BF473934744A42433030F32C6D08BECB0A3",
+  "CurrentDefaultMfas": 493,
+  "CurrentErlangRegistered": 335,
+  "HeldHead": "9c7b49a3fb3fc3611bfb3656ec87b6ae0df436cb",
+  "ActualRawProcessControls": {
+    "Scope": "Managed process/writer controls only",
+    "NativeExecuted": false,
+    "RawBytesExact": true,
+    "ExitCode": 3,
+    "IncompleteInheritedPipe": true,
+    "IncompleteExitCode": 0,
+    "ElapsedMilliseconds": 5992,
+    "ArgumentGate": true
+  },
+  "ActualFiveCliRefusals": {
+    "Status": "PASS",
+    "Scope": "Five actual Main DLL CLI refusal gates, synthetic data only",
+    "MainToolDll": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.LoaderIodataContrasts\\bin\\Debug\\net10.0\\Erlang.LoaderIodataContrasts.dll",
+    "NativeExecuted": false,
+    "ToolSha256": "30137E408A9DE9F15D46B04104D53EC80BA127ACD22C48D563F780F7CA999485",
+    "Cases": [
+      {
+        "Name": "invalid-arity",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "A020F2B8CA9901387DF7F82E4A83AA13CB3B95CB8E6A46B00CC68A80198BB7FE",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "wrong-source-pin",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "053F796EAB4E123E4077353EC000F433346723BBD79044880ED2CD0EE3C8CDDD",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "changed-log",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "C477B82AD8985F5BE24F9DF086B8C6AC3D1F044309946132E0E135633FFB68FC",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "wrong-installed-version",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "184D22347C5B020F70028DA315FB5D79E60DCBA879C215C7B75F2093FF6807A7",
+        "OutputDirectoryCreated": false
+      },
+      {
+        "Name": "missing-native-executables",
+        "ExitCode": 1,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "8C78A4668B180B43837AA4DF9A8BB9E7467E856400E8E9E0F876888A2E1C725F",
+        "OutputDirectoryCreated": false
+      }
+    ]
+  },
+  "FocusBuildWarnings": 0,
+  "FocusBuildErrors": 0,
+  "OriginalErlangSyntaxVerified": false,
+  "NativeSixteenExecuted": false,
+  "NoProductionFullRepeat": true
+}
