@@ -743,3 +743,7 @@ Prepared metadata revision3 follows first-term/raw-term behavior from pinned OTP
 On-load HOST source candidate (unbuilt): source-guided private pending image/callback actor and bounded Y frames/pure tuple receive over genuine original249 six observer images. Apache-2.0 notices: beam_bif_load.c Ericsson AB1999-2026; beam_load.c1996-2026; emu/emu_load.c2020-2026; emu/instrs.tab2017-2026; emu/msg_instrs.tab2017-2025; code_server.erl1998-2026; erts_code_purger.erl2016-2025. Native magic refs/loading MFAs, arbitrary imports/metadata mutations and export order remain unimplemented/unproved. See beam-onload-host-source-candidate.md; no Main integration/proof promotion.
 
 Additional pinned guidance for Y blank semantics: erl_term.h Ericsson AB2000-2026, make_blank1392 maps to NIL; emulator generators/ops for init_yregs retain their pinned Apache-2.0 notices when ported. No source banner copied.
+
+
+
+Owned reference resource foundation is source-guided adaptation of pinned OTP29.1.1 external.c3644/4845-4854, erl_bif_unique.c198-291/295 onward and bif.c4792-4798 live magic-reference serialization/text lookup, with beam_bif_load.c loader-resource validation guiding the typed prepared payload. It introduces no native dependency, source banners or loading MFAs. Per-runtime weak lookup/live strong terms and typed leases are real managed ownership; exact3word/local creation0, physical native destructor/ABI, broader reference encodings and whole loading semantics remain explicit gaps. Source-only unbuilt foundation; existing notices retained.

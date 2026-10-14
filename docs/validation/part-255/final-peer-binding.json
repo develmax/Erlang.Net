@@ -1,0 +1,31 @@
+{
+  "Status": "FinalSourceBoundNoAdditionalBlocker",
+  "FreezeSha256": "A80D62B559C7F4A59EA98A7F5160FD99F1DDC8F58506EF7746792A2CF7C457AA",
+  "HandoffSha256": "9C6192B19FEC9DCCCCE26789DC9CFFF5DF238B1161700AEEDBBD4F4F8762A492",
+  "VerifiedOwnedPaths": 27,
+  "LogDigestsVerified": 11,
+  "ActualIndependentReviewExecutedBuild": false,
+  "ObservedOwnerFocusedEvidence": {
+    "AssemblyRevision": 5,
+    "PreparedHost": true,
+    "ExitCode": 0,
+    "ResourceHostFamilies": 5,
+    "EntireInheritedSourceGeneratedOutcomePolicyBytesOrder": true,
+    "OldEtfReferenceCompiledFixtures": 254,
+    "OnLoadHostAndActualEmbedded56Guard": true
+  },
+  "FinalRevision6StyleOnlyUnbuilt": true,
+  "Revision5To6TokensExact": true,
+  "RuntimeChangeSinceReviewedRevision2": "Exactly BitString.FromBytes(bytes.ToArray()) -> new BitString(bytes.Span); actual public constructor clones span; no lifecycle/lookup/decoder algorithm change",
+  "ActualNative56InputHashesExact": true,
+  "OracleEnvelopeCorrection": "Existing constant fixture expected ETF is {ok,Actual}; rev5 restores wrapper without changing actual expected bytes or actor normal contract",
+  "RemainingGaps": [
+    "Native consumed has_onload query distinct from loadable AcquirePrepared",
+    "Exact3word owner restoration narrower than native local magic decoding",
+    "Native offheap/GC/distributed lifecycle not parity",
+    "No loading MFA added"
+  ],
+  "PriorFailedBuildFocusRetained": true,
+  "MainFullOwner": "Root; no edits/builds by reviewer",
+  "SourceReviewAuthorship": "Independent source binding; foundation owned by spawn_requests; permanent resource hash guard authored by reviewer"
+}

@@ -4204,6 +4204,8 @@ Test(Erlang.Tests.BeamPreparedHostNames.Test, Erlang.Tests.BeamPreparedHostCheck
 
 Test(Erlang.Tests.BeamOnLoadHostNames.Test, Erlang.Tests.BeamOnLoadHostChecks.Run);
 
+Test(Erlang.Tests.ReferenceResourceHostNames.Test, Erlang.Tests.ReferenceResourceHostChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

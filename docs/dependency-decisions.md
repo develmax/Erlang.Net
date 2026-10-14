@@ -596,3 +596,7 @@ Host prepared BEAM publication reuses existing C# ExternalTermFormat, immutable 
 Prepared metadata first-term parsing reuses actual ExternalTermFormat.DecodeOne and immutable terms, with no extra native dependency. Used/trailing byte provenance stays distinct from native MD5 and whole-file source provenance. Existing descriptor default-version policy remains unchanged. Non-BIF function table order is preserved; native global export-index history requires separate real observations.
 
 On-load HOST candidate remains pure managed code with existing BCL/runtime facilities; actual callback execution, registry tickets and Y locals do not add a package or Erlang NIF ABI. Source-only draft, old prepared/reader/oracle evidence retained; no default export or native reference capability claim.
+
+
+
+Owned reference resource foundation is source-guided adaptation of pinned OTP29.1.1 external.c3644/4845-4854, erl_bif_unique.c198-291/295 onward and bif.c4792-4798 live magic-reference serialization/text lookup, with beam_bif_load.c loader-resource validation guiding the typed prepared payload. It introduces no native dependency, source banners or loading MFAs. Per-runtime weak lookup/live strong terms and typed leases are real managed ownership; exact3word/local creation0, physical native destructor/ABI, broader reference encodings and whole loading semantics remain explicit gaps. Source-only unbuilt foundation; existing notices retained.

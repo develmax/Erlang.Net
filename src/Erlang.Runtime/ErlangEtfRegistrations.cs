@@ -87,6 +87,7 @@ internal static class ErlangEtfRegistrations
             LocalNode = context.Runtime.Node,
             LocalCreation = context.Self.Creation,
             LocalSeed = context.Runtime.LocalTermSeed,
+            ReferenceFactory = context.Runtime.ReferenceResources.Rehydrate,
             ExternalFunctionFactory = (identity, requireSafe) => context.Runtime.Functions.External(context.Runtime, identity, requireSafe),
             LocalFunctionFactory = (code, arity, environment) => context.Runtime.Functions.Restore(
                 context.Runtime,

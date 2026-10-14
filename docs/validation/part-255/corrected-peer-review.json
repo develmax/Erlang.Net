@@ -1,0 +1,27 @@
+{
+  "Status": "SourcePeerPassedDeclaredFoundationScope",
+  "SourceFreezeSha256": "6EE4365AB2C93A484A30E2886B927A2981063BEE00056F6646396022BF696C05",
+  "VerifiedPaths": 27,
+  "SingleChangedPath": [
+    "src/Erlang.Runtime/ErlangEtfRegistrations.cs"
+  ],
+  "ExactResolverMoveVerified": true,
+  "InitialBlockedReviewPreserved": true,
+  "ConcreteBlockers": [],
+  "InheritedOnloadCompared": 90,
+  "InheritedGitByteExact": 88,
+  "InheritedEolOnly": [
+    "docs/beam-onload-host-source-candidate.md",
+    ".gitattributes"
+  ],
+  "ManifestPrecisionNote": "Freeze OnloadInherited92Exact90 is checkout-relative; published Git blob byteexact88 plus2 verified CRLF-only. No raw56 conversion.",
+  "LifetimeReview": "Strong typed copies/leases, weak identity lookup, entry-gate access, closure under registry gate and final acquisition closure recheck are coherent in declared HOST scope; later consumption or shutdown may invalidate Value",
+  "NativeScope": "Exact3words/localCreation0/owner-runtime lookup narrower than native node table/general padding/distribution; no loading MFA claim",
+  "GuardExpectedHashes": "Immutableoriginal24956 expectedSHA; zero guard host count delta; one new resource host =>6470",
+  "Ownership": "Foundation spawn_requests; permanent hash guard this reviewer; independent lifetime/decoder composition review",
+  "BuildExecuted": false,
+  "MainEdits": false,
+  "LoadingMfaDelta": 0,
+  "ExpectedRegistry": 487,
+  "HostProofPending": true
+}

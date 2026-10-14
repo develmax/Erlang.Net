@@ -7,6 +7,8 @@ internal static class ReferenceText
 {
     public static Term ToList(ProcessRuntime runtime, ReferenceTerm reference)
     {
+        if (reference is IReferenceResourceSerialization resource)
+            resource.SaveReferenceIdentity();
         ulong channel = reference.Node == runtime.Node ? ReferenceTextParameters.LocalChannel : (ulong)AtomNameRegistry.IndexOf(reference.Node);
         var text = new StringBuilder(ReferenceTextSyntax.Opening);
         text.Append(channel.ToString(CultureInfo.InvariantCulture));
@@ -83,6 +85,6 @@ internal static class ReferenceText
             return new(runtime.Node, words);
         }
 
-        return new(runtime.Node, words.Take(ReferenceIdentityLayout.LocalWords));
+        return runtime.ReferenceResources.Rehydrate(new(runtime.Node, words.Take(ReferenceIdentityLayout.LocalWords)));
     }
 }

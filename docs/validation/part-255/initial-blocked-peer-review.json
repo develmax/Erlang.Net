@@ -1,0 +1,30 @@
+{
+  "Status": "BlockedSourceReview",
+  "SourceFreezeSha256": "B9C9CAF22F78CD8FD7FEB45D1374D98EA5A985CCD84102A251A59EAAC1932B12",
+  "VerifiedPaths": 27,
+  "InheritedOnloadCompared": 90,
+  "InheritedByteExact": 88,
+  "InheritedDocumentEolOnly": [
+    "docs/beam-onload-host-source-candidate.md",
+    ".gitattributes"
+  ],
+  "IntentionalHashGuardDifferences": [
+    "tests/Erlang.Tests/BeamOnLoadHostChecks.cs",
+    "tests/Erlang.Tests/Erlang.Tests.csproj"
+  ],
+  "Authorship": "Independent read-only review; foundation authored by spawn_requests; hash guard authored by this reviewer",
+  "ConcreteBlockers": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangEtfRegistrations.cs",
+      "EncodingLine": 40,
+      "DecodeInitializerLine": 85,
+      "Finding": "ReferenceFactory is assigned in EtfEncodingOptions, which has no such property; actual EtfDecodeOptions lacks resolver",
+      "RequiredRevision": "Move single resolver assignment from Encoding to Decode initializer; preserve initial frozen snapshot and independently freeze revision"
+    }
+  ],
+  "LifetimeReview": "Strong typed copies/leases, weak identity lookup, entry-gate access, closure under registry gate and final acquisition closure recheck are coherent in declared HOST scope; later consumption or shutdown may invalidate Value",
+  "NativeScope": "Exact3words/localCreation0/owner-runtime lookup narrower than native node table/general padding/distribution; no loading MFA claim",
+  "GuardExpectedHashes": "56 immutable original249 raw inputs; all56 raw input bytes exact; inherited source paths exact; inherited document and .gitattributes CRLF vs GitLF only; only host/csproj intentionally differs",
+  "NoBuild": true,
+  "NoMainEdits": true
+}

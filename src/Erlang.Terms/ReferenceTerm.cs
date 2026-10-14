@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-public sealed class ReferenceTerm : Term
+public class ReferenceTerm : Term
 {
     public string Node { get; }
     public ulong Id => checked((ulong)FullId);

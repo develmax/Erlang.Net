@@ -1,0 +1,8 @@
+PASS exact4843 source/generated/outcome/policy/bytes/order +159 diagnoses +6 exclusions +487 exports
+System.InvalidOperationException: Owned reference resource assertion failed
+   at Erlang.Tests.ReferenceResourceHostChecks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-guard-revision3-prototype\tests\Erlang.Tests\ReferenceResourceHostChecks.cs:line 258
+   at Erlang.Tests.ReferenceResourceHostChecks.LiveCopiesAndPrepared() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-guard-revision3-prototype\tests\Erlang.Tests\ReferenceResourceHostChecks.cs:line 137
+   at Erlang.Tests.ReferenceResourceHostChecks.LiveCopiesAndPrepared() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-guard-revision3-prototype\tests\Erlang.Tests\ReferenceResourceHostChecks.cs:line 144
+   at Erlang.Tests.ReferenceResourceHostChecks.LiveCopiesAndPrepared() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-guard-revision3-prototype\tests\Erlang.Tests\ReferenceResourceHostChecks.cs:line 144
+   at Erlang.Tests.ReferenceResourceHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-guard-revision3-prototype\tests\Erlang.Tests\ReferenceResourceHostChecks.cs:line 10
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\reference-resource-part253-focus\Program.cs:line 11

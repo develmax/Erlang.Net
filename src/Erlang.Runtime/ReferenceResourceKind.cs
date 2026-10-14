@@ -1,0 +1,7 @@
+namespace Erlang;
+
+public enum ReferenceResourceKind
+{
+    PreparedBeam,
+    BinarySnapshot
+}

@@ -41,6 +41,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
     public ModuleRegistry Modules { get; } = new();
     public RuntimeFunctionEntries Functions { get; } = new();
+    public RuntimeReferenceResources ReferenceResources { get; }
     internal uint LocalTermSeed { get; } = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(System.Security.Cryptography.RandomNumberGenerator.GetBytes(ErlangEtfParameters.LocalSeedBytes));
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null, int maximumProcesses = ProcessTableParameters.DefaultCapacity)
@@ -72,6 +73,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         processSlots = new(maximumProcesses);
         Node = node;
+        ReferenceResources = new(Modules, node);
         NodeAtom = Term.A(node);
         KnownNodes = new(node);
         Output = output ?? Console.Out;
@@ -1429,6 +1431,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 return;
             disposed = true;
             Timers.Dispose();
+            ReferenceResources.Close();
             Ports.Shutdown();
             foreach (var process in processes.Values.ToArray())
                 Terminate(process, Term.A(ProcessExitReasons.Shutdown));
@@ -1445,6 +1448,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             {
                 disposed = true;
                 Timers.Dispose();
+                ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var p in processes.Values.ToArray())
                     Terminate(p, Term.A(ProcessExitReasons.Shutdown));

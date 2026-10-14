@@ -493,6 +493,8 @@ public static class ExternalTermFormat
                 }
             case ReferenceTerm r:
                 {
+                    if (r is IReferenceResourceSerialization resource)
+                        resource.SaveReferenceIdentity();
                     s.WriteByte(EtfTags.NewerReference);
                     U16(s, r.Words.Count);
                     bool local = WriteNode(
@@ -541,6 +543,15 @@ public static class ExternalTermFormat
         private int U16() => BinaryPrimitives.ReadUInt16BigEndian(Bytes(EtfFieldWidths.UInt16Bytes));
 
         private uint U32() => BinaryPrimitives.ReadUInt32BigEndian(Bytes(EtfFieldWidths.UInt32Bytes));
+
+        private ReferenceTerm RestoreReference(ReferenceTerm reference)
+        {
+            ReferenceTerm restored = options.ReferenceFactory?.Invoke(reference) ?? reference;
+            if (!restored.Equals(reference))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+            return restored;
+        }
 
         private static int LowSignedWord(BigInteger value) => unchecked((int)(uint)(value & uint.MaxValue));
 
@@ -765,7 +776,7 @@ public static class ExternalTermFormat
                         if ((tag == EtfTags.NewReference || node == options.LocalNode && creation == options.LocalCreation) && words[0] > ReferenceIdentityLayout.LocalFirstWordMask)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                        return new ReferenceTerm(node, words, creation);
+                        return RestoreReference(new ReferenceTerm(node, words, creation));
                     }
                 case EtfTags.Reference:
                     {
@@ -776,7 +787,7 @@ public static class ExternalTermFormat
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         creation = Creation(creation);
 
-                        return new ReferenceTerm(node, id, creation);
+                        return RestoreReference(new ReferenceTerm(node, id, creation));
                     }
                 default:
                     throw new ErlangException(ErlangErrorReasons.BadArgument);

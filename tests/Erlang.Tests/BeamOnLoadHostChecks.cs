@@ -6,6 +6,7 @@ public static class BeamOnLoadHostChecks
 {
     public static async Task Run()
     {
+        BeamOnLoadResourceHashChecks.Run();
         BeamOnLoadHostScenario[] scenarios =
         [
             new(
