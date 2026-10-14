@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.LoaderIodataContrasts\verify-iodata-contrasts.py", line 143, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.LoaderIodataContrasts\verify-iodata-contrasts.py", line 141, in main
+    result=verify(args.source,args.native_output) if args.native_output else {"Status":"SourceOnlyStaticSixteenPlansVerified","NativeExecuted":False,"WrapperSha256":sha(raw),"DeclarationSha256":sha(declraw),"CaseCount":16,"EqualWrongActualExpectedRejected":True}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.LoaderIodataContrasts\verify-iodata-contrasts.py", line 81, in verify
+    require(report["PredeclaredSha256"]==sha(declraw) and report["WrapperSourceSha256"]==sha(raw),"Static source hashes")
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.LoaderIodataContrasts\verify-iodata-contrasts.py", line 7, in require
+    if not value: raise ValueError(message)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Static source hashes

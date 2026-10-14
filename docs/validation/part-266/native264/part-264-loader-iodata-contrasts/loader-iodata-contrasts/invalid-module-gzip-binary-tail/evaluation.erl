@@ -1,0 +1,1 @@
+loader_iodata_wrapper:run("invalid-module-gzip-binary-tail","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/invalid-module-gzip-binary-tail").

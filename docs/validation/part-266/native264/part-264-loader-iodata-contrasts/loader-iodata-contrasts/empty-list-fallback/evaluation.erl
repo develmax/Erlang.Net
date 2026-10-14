@@ -1,0 +1,1 @@
+loader_iodata_wrapper:run("empty-list-fallback","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/empty-list-fallback").

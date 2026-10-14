@@ -8,7 +8,17 @@ internal static class BeamZlibMemberBoundary
     {
         if (input.Length < BeamDeflateFormat.HeaderBytes + BeamDeflateFormat.AdlerBytes || (input[0] & BeamDeflateFormat.CompressionMethodMask) != BeamDeflateFormat.CompressionMethod || (input[0] >> BeamDeflateFormat.WindowCodeShift) > BeamDeflateFormat.MaximumWindowCode || ((input[0] << BeamDeflateFormat.ByteBits) + input[1]) % BeamDeflateFormat.HeaderModulus != 0 || (input[1] & BeamDeflateFormat.DictionaryFlag) != 0)
             throw new InvalidDataException();
-        var reader = new Bits(input[BeamDeflateFormat.HeaderBytes..]);
+        int deflateBytes = MeasureDeflate(input[BeamDeflateFormat.HeaderBytes..], capacity);
+        int length = checked(BeamDeflateFormat.HeaderBytes + deflateBytes + BeamDeflateFormat.AdlerBytes);
+        if (length > input.Length)
+            throw new InvalidDataException();
+
+        return length;
+    }
+
+    internal static int MeasureDeflate(ReadOnlySpan<byte> input, int capacity)
+    {
+        var reader = new Bits(input);
         long produced = 0;
         bool final;
         do
@@ -148,9 +158,8 @@ internal static class BeamZlibMemberBoundary
                 throw new InvalidDataException();
         } while (!final);
         reader.Align();
-        reader.Skip(BeamDeflateFormat.AdlerBytes * BeamDeflateFormat.ByteBits);
 
-        return BeamDeflateFormat.HeaderBytes + reader.PositionBytes;
+        return reader.PositionBytes;
     }
 
     private ref struct Bits(ReadOnlySpan<byte> input)

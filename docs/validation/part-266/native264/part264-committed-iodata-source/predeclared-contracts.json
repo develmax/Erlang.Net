@@ -1,0 +1,177 @@
+{
+  "Status": "SourcePlanOnlyNativeUnobserved",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scenarios": [
+    {
+      "Name": "gzip-proper-byte-list",
+      "InputConstruction": "M=beam_fixture_constant; Code=binary_to_list(G)",
+      "IndependentSourceFacts": "Prepared resource, flagfalse, finishok, genuine run",
+      "PredeclaredProjection": "{true,false,ok,{ok,42,[alpha,beta]}}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "gzip-nested-iodata",
+      "InputConstruction": "M=beam_fixture_constant; Code=[[],[PrefixBytes,[MiddleBinary,[]]],SuffixBytes]",
+      "IndependentSourceFacts": "Prepared resource from actual nested iodata",
+      "PredeclaredProjection": "{true,false,ok,{ok,42,[alpha,beta]}}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "gzip-improper-binary-tail",
+      "InputConstruction": "M=beam_fixture_constant; Code=[FirstByte,SecondByte|RemainingBinary]",
+      "IndependentSourceFacts": "Valid improper iolist tail is a binary",
+      "PredeclaredProjection": "{true,false,ok,{ok,42,[alpha,beta]}}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "empty-list-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=[]",
+      "IndependentSourceFacts": "gunzip failure falls back to original nonbinary; nativebadarg; stackCode original",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "truncated-gzip-list-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=binary_to_list(binary:part(G,0,2))",
+      "IndependentSourceFacts": "Use only gzip header first2 bytes, original failure retained, fallback listbadarg",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "nonmagic-raw-beam-list-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=binary_to_list(B)",
+      "IndependentSourceFacts": "Valid FOR1 bytes as a list do not match wrapper binary clause; gunzip error and nativebadarg",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "empty-binary-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=<<>>",
+      "IndependentSourceFacts": "Native accepts binary type then returns badfile",
+      "PredeclaredProjection": "{error,badfile}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "truncated-gzip-binary-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=binary:part(G,0,2)",
+      "IndependentSourceFacts": "Native receives original truncated binary after gunzip failure",
+      "PredeclaredProjection": "{error,badfile}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-iodata-leaf-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=[256|binary_to_list(G)]",
+      "IndependentSourceFacts": "Gunzip rejects invalid byte, catch all retains Code0; nativebadarg",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-improper-atom-tail-fallback",
+      "InputConstruction": "M=beam_fixture_constant; Code=[FirstByte|invalid_tail]",
+      "IndependentSourceFacts": "Gunzip rejects improper atom tail; raw original retained",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-module-gzip-proper-list",
+      "InputConstruction": "M=7; Code=binary_to_list(G)",
+      "IndependentSourceFacts": "Wrapper decompresses before underlying module argument check; stackCode genuine B",
+      "PredeclaredProjection": "{error,badarg,decompressed_code,erl_erts_errors}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-module-gzip-nested",
+      "InputConstruction": "M=7; Code=[[],PrefixBytes,[MiddleBinary],SuffixBytes]",
+      "IndependentSourceFacts": "Stack arguments [7,B], full raw class/reason/stack captured first",
+      "PredeclaredProjection": "{error,badarg,decompressed_code,erl_erts_errors}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-module-gzip-binary-tail",
+      "InputConstruction": "M=7; Code=[FirstByte,SecondByte|RemainingBinary]",
+      "IndependentSourceFacts": "Valid improper iodata decompresses to B before nativebadarg",
+      "PredeclaredProjection": "{error,badarg,decompressed_code,erl_erts_errors}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "invalid-module-truncated-list",
+      "InputConstruction": "M=7; Code=binary_to_list(binary:part(G,0,2))",
+      "IndependentSourceFacts": "Failed gunzip leaves original truncated list in rewritten stack",
+      "PredeclaredProjection": "{error,badarg,original_code,erl_erts_errors}",
+      "SelectedCodeDomain": "original",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "wrong-module-gzip-proper-list",
+      "InputConstruction": "M=loader_gzip_wrong_module; Code=binary_to_list(G)",
+      "IndependentSourceFacts": "Valid decompression, atom accepted, genuine BEAM module mismatch returnsbadfile",
+      "PredeclaredProjection": "{error,badfile}",
+      "SelectedCodeDomain": "gzip",
+      "NativeObserved": false,
+      "SdkDerived": false
+    },
+    {
+      "Name": "gzip-empty-payload-list",
+      "InputConstruction": "M=beam_fixture_constant; Code=binary_to_list(zlib:gzip(<<>>))",
+      "IndependentSourceFacts": "Successful gunzip selects empty binary, then nativebadfile",
+      "PredeclaredProjection": "{error,badfile}",
+      "SelectedCodeDomain": "gzip-empty",
+      "NativeObserved": false,
+      "SdkDerived": false
+    }
+  ],
+  "InputBytes": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_constant.beam",
+      "Sha256": "8CD86BC82C94112EDA79B6E784B31BF473934744A42433030F32C6D08BECB0A3"
+    }
+  ],
+  "SourceFacts": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "PinnedSourceSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "erts/preloaded/src/zlib.erl",
+      "PinnedSourceSha256": "6657C86D46536BF23FD3EF653B90439D2B7394250C3497DE5A983B251D8F357D"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_bif_load.c",
+      "PinnedSourceSha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D"
+    },
+    {
+      "Path": "erts/emulator/nifs/common/zlib_nif.c",
+      "PinnedSourceSha256": "066F46DCB0D4FEDB1E84E448A850CD6C1EA821549F0E2D6A083C68192E7FF04B",
+      "RelevantFacts": "inflateEnd907-928 forcesZ_DATA_ERROR ifnoeos orremainingqueuedinput; enqueue985 inspects real iodata iovec. This independently supports empty/truncated fallback rather than relying on managed gzip behavior."
+    }
+  ],
+  "StackDomainRule": "For exceptions capture the entire unmodified stack first. Only then project first rewritten erlang:prepare_loading arguments and error_info: require first argument M and second argument equal either immutable B after successful gunzip or exact original Code0 after gunzip failure. Require error_info module erl_erts_errors; retain source line/other location entries raw. Do not assert cause fields absent without raw original evidence.",
+  "NoChangeToPublishedNative11": true
+}

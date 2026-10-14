@@ -1,0 +1,1 @@
+loader_iodata_wrapper:run("gzip-proper-byte-list","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/gzip-proper-byte-list").

@@ -4230,6 +4230,8 @@ Test(Erlang.Tests.BeamLoaderMfaNames.LifecycleHost, Erlang.Tests.BeamLoaderLifec
 
 Test(Erlang.Tests.StaticApplyOnLoadNames.Test, Erlang.Tests.StaticApplyOnLoadChecks.Run);
 
+Test(Erlang.Tests.BeamGzipNativeNames.Test, Erlang.Tests.BeamGzipNativeChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

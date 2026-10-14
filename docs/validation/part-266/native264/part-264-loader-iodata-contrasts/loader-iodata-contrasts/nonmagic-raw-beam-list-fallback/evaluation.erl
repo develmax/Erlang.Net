@@ -1,0 +1,1 @@
+loader_iodata_wrapper:run("nonmagic-raw-beam-list-fallback","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-iodata-contrasts/nonmagic-raw-beam-list-fallback").

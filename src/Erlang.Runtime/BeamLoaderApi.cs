@@ -1,5 +1,3 @@
-using System.IO.Compression;
-
 namespace Erlang;
 
 internal static class BeamLoaderApi
@@ -24,21 +22,15 @@ internal static class BeamLoaderApi
 
     private static Term Decompress(Term bytes)
     {
-        if (bytes is not BitString { IsBinary: true } binary)
-            return bytes;
-        byte[] input = binary.ToArray();
-        if (input.AsSpan().StartsWith(BeamIffWire.FormId))
+        if (bytes is BitString { IsBinary: true } binary && binary.ToArray().AsSpan().StartsWith(BeamIffWire.FormId))
             return bytes;
         try
         {
-            using var stream = new MemoryStream(input);
-            using var gzip = new GZipStream(stream, CompressionMode.Decompress);
-            using var output = new MemoryStream();
-            gzip.CopyTo(output);
+            byte[] input = ErlangIoData.Flatten(bytes, false, false).ToArray();
 
-            return new BitString(output.ToArray());
+            return new BitString(BeamGzipMembers.Inflate(input));
         }
-        catch (InvalidDataException)
+        catch (Exception exception) when (exception is ErlangException or InvalidDataException or IOException or OverflowException or ArgumentException)
         {
             return bytes;
         }

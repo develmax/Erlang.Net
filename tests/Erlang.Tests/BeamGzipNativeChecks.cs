@@ -1,0 +1,141 @@
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text.Json;
+
+namespace Erlang.Tests;
+
+public static class BeamGzipNativeChecks
+{
+    public static async Task Run()
+    {
+        BeamGzipHostChecks.Run();
+        Assembly assembly = typeof(BeamGzipNativeChecks).Assembly;
+        string[] resources = assembly.GetManifestResourceNames();
+        VerifyResources(assembly, resources);
+        string[] inputs = resources.Where(name => name.Contains(BeamGzipNativeNames.ResourcePrefix, StringComparison.Ordinal) && name.EndsWith(BeamGzipNativeNames.InputSuffix, StringComparison.Ordinal)).ToArray();
+        Require(inputs.Length == BeamGzipNativeNames.Cases);
+        foreach (string input in inputs)
+        {
+            string prefix = input[..^BeamGzipNativeNames.InputSuffix.Length];
+            var arguments = (TupleTerm)Read(assembly, input);
+            var selected = (TupleTerm)Read(assembly, prefix + BeamGzipNativeNames.ResourceSeparator + BeamGzipNativeNames.Selected);
+            Term expected = Read(assembly, prefix + BeamGzipNativeNames.ResourceSeparator + BeamGzipNativeNames.Expected);
+            await Execute(arguments, selected, expected);
+        }
+    }
+
+    private static void VerifyResources(Assembly assembly, string[] names)
+    {
+        string manifestName = names.Single(name => name.EndsWith(BeamGzipNativeNames.Manifest, StringComparison.Ordinal));
+        using Stream manifest = assembly.GetManifestResourceStream(manifestName)!;
+        using JsonDocument document = JsonDocument.Parse(manifest);
+        Require(document.RootElement.GetProperty(BeamGzipNativeNames.PinField).GetString() == BeamGzipNativeNames.Pin);
+        JsonElement files = document.RootElement.GetProperty(BeamGzipNativeNames.Files);
+        Require(files.GetArrayLength() == BeamGzipNativeNames.ResourceFiles);
+        foreach (JsonElement file in files.EnumerateArray())
+        {
+            string relative = file.GetProperty(BeamGzipNativeNames.Path).GetString()!;
+            string[] parts = relative.Split(BeamGzipNativeNames.ResourcePathSeparator);
+            string suffix = BeamGzipNativeNames.ResourcePrefix + string.Join(
+                BeamGzipNativeNames.ResourceNamespaceSeparator,
+                parts[..^1].Select(part => part.Replace(BeamGzipNativeNames.ResourceFolderHyphen, BeamGzipNativeNames.ResourceNamespaceUnderscore))
+            ) + BeamGzipNativeNames.ResourceSeparator + parts[^1];
+            string name = names.Single(value => value.EndsWith(suffix, StringComparison.Ordinal));
+            using Stream stream = assembly.GetManifestResourceStream(name)!;
+            string hash = Convert.ToHexString(SHA256.HashData(stream));
+            Require(hash.Equals(file.GetProperty(BeamGzipNativeNames.Sha256).GetString(), StringComparison.OrdinalIgnoreCase));
+        }
+    }
+
+    private static async Task Execute(TupleTerm arguments, TupleTerm selected, Term expected)
+    {
+        MethodInfo decompress = typeof(ModuleRegistry).Assembly.GetType(BeamGzipHostNames.Type)!.GetMethod(BeamGzipHostNames.Method, BindingFlags.Static | BindingFlags.NonPublic)!;
+        Term chosen = (Term)decompress.Invoke(null, [arguments.Items[1]])!;
+        Require(chosen.Equals(selected.Items[1]));
+        if (selected.Items[0].Equals(Term.A(BeamGzipNativeNames.Decompressed)))
+            Require(chosen is BitString { IsBinary: true });
+        else
+            Require(ReferenceEquals(chosen, arguments.Items[1]));
+        await using var runtime = new ProcessRuntime();
+        var done = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                Term actual;
+                try
+                {
+                    Term prepared = await Call(context, BeamLoaderAdmissionNames.Prepare, arguments.Items.ToArray());
+                    if (prepared is ReferenceTerm)
+                    {
+                        Term flag = await Call(context, BeamLoaderAdmissionNames.Query, prepared);
+                        Term finish = await Call(context, BeamLoaderAdmissionNames.Finish, Cons.From([prepared]));
+                        Term body = await context.Runtime.Modules.Call(context, ((Atom)arguments.Items[0]).Name, BeamGzipNativeNames.Run);
+                        actual = Term.Tuple(
+                            Term.A(ErlangBooleanAtoms.True),
+                            flag,
+                            finish,
+                            body
+                        );
+                    }
+                    else
+                    {
+                        actual = prepared;
+                    }
+                }
+                catch (ErlangException exception)
+                {
+                    Require(exception.ExceptionClass == ErlangExceptionClasses.Error && exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)));
+                    var frame = (TupleTerm)Cons.Items(exception.StackTraceTerm).First();
+                    Require(frame.Items[0].Equals(Term.A(ErlangModuleNames.Module)) && frame.Items[1].Equals(Term.A(BeamLoaderAdmissionNames.Prepare)));
+                    Term[] stackArguments = Cons.Items(frame.Items[2]).ToArray();
+                    Require(stackArguments[0].Equals(arguments.Items[0]) && stackArguments[1].Equals(selected.Items[1]));
+                    var location = (TupleTerm)Cons.Items(frame.Items[3]).Single();
+                    Require(location.Items[0].Equals(Term.A(BeamGzipNativeNames.ErrorInfo)));
+                    var info = (MapTerm)location.Items[1];
+                    Require(info.Entries.Any(entry => entry.Key.Equals(Term.A(BeamGzipNativeNames.Module)) && entry.Value.Equals(Term.A(BeamGzipNativeNames.Formatter))));
+                    actual = Term.Tuple(
+                        Term.A(BeamGzipNativeNames.Error),
+                        exception.Reason,
+                        selected.Items[0],
+                        Term.A(BeamGzipNativeNames.Formatter)
+                    );
+                }
+                Require(actual.Equals(expected));
+                done.TrySetResult();
+
+                return Term.A(ErlangBooleanAtoms.True);
+            }
+            catch (Exception exception)
+            {
+                done.TrySetException(exception);
+                throw;
+            }
+        });
+        await done.Task.WaitAsync(TimeSpan.FromSeconds(BeamGzipNativeNames.WatchdogSeconds));
+        await process.Completion;
+    }
+
+    private static ValueTask<Term> Call(ProcessContext context, string function, params Term[] arguments)
+        => context.Runtime.Modules.Call(
+            context,
+            ErlangModuleNames.Module,
+            function,
+            arguments
+        );
+
+    private static Term Read(Assembly assembly, string name)
+    {
+        using Stream stream = assembly.GetManifestResourceStream(name)!;
+        using var output = new MemoryStream();
+        stream.CopyTo(output);
+
+        return ExternalTermFormat.Decode(output.ToArray());
+    }
+
+    private static void Require(bool value)
+    {
+        if (!value)
+            throw new InvalidOperationException(BeamGzipHostNames.Failure);
+    }
+}
