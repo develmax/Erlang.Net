@@ -1,0 +1,3 @@
+# Provenance audit reproduction
+
+provenance-audit.py is the archived audit source originally executed from repository artifacts/part237-beam-ci-provenance-guard.py. It requires the retained private ZIPs, extracted reports, actual API metadata and full job logs at the artifacts paths named in the script. Restore/copy it to that original path before rerunning. The published JSON is the immutable result; this source file is not a standalone audit of only this documentation directory. Raw job logs are intentionally not committed. The real compiler output files and archive inventory/digests are bound in provenance-guard.json. No CLR BEAM execution is asserted.

@@ -230,13 +230,14 @@ public sealed class MatchSpecProgram
         }
         if (expression is MapTerm map)
         {
+            var ordered = MatchSpecFlatMapOrder.Entries(map);
             var entries = new KeyValuePair<Term, Term>[map.Entries.Count];
             var values = new Term[entries.Length];
             for (int index = entries.Length - 1; index >= 0; index--)
-                values[index] = Evaluate(map.Entries[index].Value, state, depth + 1);
+                values[index] = Evaluate(ordered[index].Value, state, depth + 1);
             for (int index = entries.Length - 1; index >= 0; index--)
             {
-                Term key = Evaluate(map.Entries[index].Key, state, depth + 1);
+                Term key = Evaluate(ordered[index].Key, state, depth + 1);
                 entries[index] = new(key, values[index]);
             }
 

@@ -166,7 +166,7 @@ public static class MatchSpecCompiler
             }
             else if (step.Term is MapTerm map)
             {
-                foreach (var entry in map.Entries)
+                foreach (var entry in MatchSpecFlatMapOrder.Entries(map))
                 {
                     if (Variable(entry.Key, out _))
                     {
@@ -261,7 +261,7 @@ public static class MatchSpecCompiler
         {
             if (map.Entries.Count > MatchSpecNames.MaximumConstructedMapEntries)
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
-            foreach (var pair in map.Entries.Reverse())
+            foreach (var pair in MatchSpecFlatMapOrder.Entries(map).Reverse())
                 ValidateExpression(
                     pair.Value,
                     guard,
@@ -271,7 +271,7 @@ public static class MatchSpecCompiler
                     errors,
                     depth + 1
                 );
-            foreach (var pair in map.Entries.Reverse())
+            foreach (var pair in MatchSpecFlatMapOrder.Entries(map).Reverse())
                 ValidateExpression(
                     pair.Key,
                     guard,

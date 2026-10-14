@@ -1,0 +1,132 @@
+{
+  "BaseHead": "5f2fd55572cc6c31c1dc603286d5e6bfee73560f",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceFrozen": true,
+  "OwnerBuildAccepted": false,
+  "Files": [
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Sha256": "8BFC764C3FF6DB9F94A33BBB6F9CFD578D2F564C836CACF33C8792A5D4CB7C69"
+    },
+    {
+      "Path": "docs/match-flatmap-order-prototype.md",
+      "Sha256": "773BCD572B4B4F75D539292E8B91FD5F9A93E916F4F6B1BDA19DE7EE505AE57A"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Sha256": "7F3E7772A92CA3527187F01AAA7DEDA18587083C771A164C584FF92D9DC45EF1"
+    },
+    {
+      "Path": "docs/priority-permission-composition.md",
+      "Sha256": "40E279543770394F55162B941EC40CE40BB0845B3F3AAFB3759A10A4FF6C2FA8"
+    },
+    {
+      "Path": "docs/priority-permission-foundation.md",
+      "Sha256": "FC19DF79FBA54C90B7FA6EC8923A376B3EA4D8048D1229630D8E6F16053E3168"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+      "Sha256": "10760FBD45AA4E023386A678A11C05266D33BD6FC7BE709C837DFC028A40DB8A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecFlatMapOrder.cs",
+      "Sha256": "21285FD8DD1F098EE7B43B6E69E00B7E2E58241ED95E0D1E47BCEAF6D39F17C3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecFlatMapParameters.cs",
+      "Sha256": "5ABB47FD6B74931649153A6A48E8EF2FC5E070796A826BCA9BAF5896184666DC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "AF09DC29A11412349CFFA269E3E7C4BF33B68F880EF469FB6BA9385E13651D17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Sha256": "8D6687CF051C3682D71CE55D652C7F4A0EBF841F720E0CC3069116CDF91CA37A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoNames.cs",
+      "Sha256": "140E65D8D47E9BB63EDC1454F788EF5EC6058BD51B95903A80DC8DE0A5B7F9E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessLinkIdentity.cs",
+      "Sha256": "49E0C2D500BBFF2B5F85475F8B8C4AC3C40489AE0B7C0857637EE563CF83D86F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "517BE01A152AEE121621CE352A595A465E92676901153A49D081387CF7165F10"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.PriorityPermissions.cs",
+      "Sha256": "DE60E7A837740BEADD6B443D6491156A2F48508863D68543AD8BBAB605647203"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessUnlinkIdentity.cs",
+      "Sha256": "4345C1B673A8AA5C73C7E2634BAEC7F76D250C160C1852950AE90374BE575CA6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "Sha256": "893AE59C231EA5FDD32FE4296B6B5E10AF076533B43553E1F4D1873737A6E6E2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/PriorityPermissionHostNames.cs",
+      "Sha256": "8DA1620DFB63B5A968D229F9FE55586CAC0F17C186560259FE310F7E17505BF2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "1BCF201241F362FA81F8A23037D84217E8F74C6AD47535DE9F5525DF8CDDFC66"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "4E45A2A26F84C8D1E339136841DE9263C03C0CDE3422998205BF08F58F988446"
+    },
+    {
+      "Path": "tools/Erlang.Differential/MatchSpecCases.cs",
+      "Sha256": "71F16D09E10976CC33A4FBBF5DB6AF317334553AA26CD7FD477564430871CE42"
+    },
+    {
+      "Path": "tools/Erlang.Differential/MatchSpecFlatMapOrderCases.cs",
+      "Sha256": "0AFA4A23939677406F30A69A5CD3EE4F8C74759E92B94BFC9CDE736991D4505A"
+    },
+    {
+      "Path": "tools/Erlang.Differential/PriorityPermissionCases.cs",
+      "Sha256": "C7930E3A562858BB304459BE63B81C7A0E04C5D6DB97E05D1A0B3351C0A67E75"
+    }
+  ],
+  "InheritedModules": 4804,
+  "AllowedSourceCorrectionNames": [
+    "erlang-match-spec-map-action-order"
+  ],
+  "PriorityProvider": "PriorityPermissionCases.Modules",
+  "PrioritySources": 19,
+  "MapProvider": "MatchSpecFlatMapOrderCases.Modules",
+  "MapSources": 8,
+  "TailOrder": [
+    "PriorityPermissionCases.Modules",
+    "MatchSpecFlatMapOrderCases.Modules"
+  ],
+  "NewHost": "PriorityPermissionHostChecks",
+  "RegisteredMfas": 484,
+  "ErlangMfas": 326,
+  "SdkModules": 4831,
+  "ComparableModules": 4825,
+  "Diagnoses": 151,
+  "Exclusions": 6,
+  "NativePlan": 5754,
+  "ExpectedFull": 6435,
+  "ExpectedFocus": 57,
+  "OriginalVerified": false,
+  "IndependentInputs": {
+    "PriorityManifestSha256": "66C5FF554FB9AE0462EE999F302D054D03888AFA4B74E38B9573C40206086547",
+    "MapManifestSha256": "4575D550BD032B697CC44B03B4C46A40D790E464C93F89C73E20FDB89347082D"
+  },
+  "Scope": [
+    "Flatmap<=32/internal managed atom-index ordering",
+    "Real permission lifecycle from frozen priority candidate",
+    "Native HAMT/order/physicalatomidentity not claimed"
+  ]
+}

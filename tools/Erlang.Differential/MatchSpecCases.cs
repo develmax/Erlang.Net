@@ -118,7 +118,7 @@ public static class MatchSpecCases
         );
         Add(
             "map-action-order",
-            "{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{a=>{message,first},b=>{message,second}}]}],trace)"
+            "{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{1=>{message,first},2=>{message,second}}]}],trace)"
         );
         Add(
             "unbound-argument-order",

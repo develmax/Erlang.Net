@@ -127,8 +127,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             processSlots.Add(ctx.Self);
             if (link && parent is not null)
             {
-                ctx.Links.Add(parent.Self);
-                parent.Links.Add(ctx.Self);
+                EstablishSpawnLink(ctx, parent);
             }
             if (parent is not null)
                 SequenceTracing.Spawned(
@@ -378,10 +377,13 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             if (request.Options.Spawn.Link)
             {
                 owner.Links.Remove(request.Child);
+                owner.LinkIdentities.Remove(request.Child);
                 owner.PriorityLinks.Remove(request.Child);
                 if (processes.TryGetValue(request.Child, out var child))
                 {
                     child.Links.Remove(owner.Self);
+                    child.LinkIdentities.Remove(owner.Self);
+                    child.PriorityLinks.Remove(owner.Self);
                     QueueExit(
                         child,
                         owner.Self,
@@ -609,6 +611,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 Term value = key.Name switch
                 {
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
+                    ProcessInfoNames.PriorityMessages => Term.A(PriorityPermissionCount(process) != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.GroupLeader => process.GroupLeader,
                     ProcessInfoNames.LastCalls => process.SavedCalls.Snapshot(),
@@ -925,8 +928,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 return;
             if (processes.TryGetValue(target, out var process))
             {
-                source.Links.Add(target);
-                process.Links.Add(source.Self);
+                EstablishLink(source, process);
                 if (priority)
                     source.PriorityLinks.Add(target);
                 else
@@ -936,11 +938,13 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             }
             if (!source.TrapExits && target.Node == Node)
                 throw new ErlangException(ErlangErrorReasons.NoProcess);
-            source.Links.Add(target);
+            bool activated = ActivateCallerLink(source, target);
             if (priority)
                 source.PriorityLinks.Add(target);
             else
                 source.PriorityLinks.Remove(target);
+            if (!activated)
+                return;
             QueueExit(
                 source,
                 target,
@@ -960,11 +964,43 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             source.Links.Remove(target);
             source.PriorityLinks.Remove(target);
-            if (processes.TryGetValue(target, out var p))
+            if (!source.LinkIdentities.TryGetValue(target, out var identity) || identity.PendingUnlink is not null)
+                return;
+            if (!processes.TryGetValue(target, out var process))
             {
-                p.Links.Remove(source.Self);
-                p.PriorityLinks.Remove(source.Self);
+                source.LinkIdentities.Remove(target);
+
+                return;
             }
+            var unlink = new ProcessUnlinkIdentity();
+            identity.PendingUnlink = unlink;
+            process.Mailbox.SendPending(
+                Nil.Value,
+                () =>
+            {
+                if (process.LinkIdentities.TryGetValue(source.Self, out var current) && current.PendingUnlink is null)
+                {
+                    process.LinkIdentities.Remove(source.Self);
+                    process.Links.Remove(source.Self);
+                    process.PriorityLinks.Remove(source.Self);
+                }
+                if (!source.Terminated)
+                {
+                    source.Mailbox.SendPending(
+                        Nil.Value,
+                        () =>
+                    {
+                        if (source.LinkIdentities.TryGetValue(target, out var acknowledged) && ReferenceEquals(acknowledged.PendingUnlink, unlink))
+                            source.LinkIdentities.Remove(target);
+
+                        return null;
+                    }
+                    );
+                }
+
+                return null;
+            }
+            );
         }
     }
 
@@ -1234,6 +1270,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             }
             if (linked)
             {
+                target.LinkIdentities.Remove(sender);
                 if (!target.Links.Remove(sender))
                     return null;
                 prioritized = target.PriorityLinks.Remove(sender);
@@ -1314,8 +1351,12 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 Ports.OwnerTerminated(ctx, reason);
                 foreach (var name in names.Where(p => p.Value.Equals(ctx.Self)).Select(p => p.Key).ToArray())
                     names.Remove(name);
-                var links = ctx.Links.ToArray();
+                var linkedExits = ctx.Links.Select(pid => (Pid: pid, Reason: reason))
+                    .Concat(ctx.PendingLinkOrigins.Values.Select(pid => (Pid: pid, Reason: (Term)Term.A(ErlangErrorReasons.NoProcess))))
+                    .ToArray();
+                ctx.PendingLinkOrigins.Clear();
                 ctx.Links.Clear();
+                ctx.LinkIdentities.Clear();
                 ctx.PriorityLinks.Clear();
                 foreach (var m in monitors.ToArray())
                 {
@@ -1334,15 +1375,15 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 }
                 ctx.Stop.Cancel();
                 ctx.Done.TrySetResult(reason);
-                foreach (var pid in links)
+                foreach (var linkedExit in linkedExits)
                 {
-                    SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, pid, reason);
-                    if (processes.TryGetValue(pid, out var linked))
+                    SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, linkedExit.Pid, linkedExit.Reason);
+                    if (processes.TryGetValue(linkedExit.Pid, out var linked))
                     {
                         QueueExit(
                             linked,
                             ctx.Self,
-                            reason,
+                            linkedExit.Reason,
                             false,
                             false,
                             false,

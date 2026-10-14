@@ -1,0 +1,18 @@
+{
+  "Name": "erlang-match-spec-map-action-order",
+  "OldSource": "-module(match_spec_contract). -export([run/0]). run()->{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{a=>{message,first},b=>{message,second}}]}],trace),done.",
+  "NewSource": "-module(match_spec_contract). -export([run/0]). run()->{ok,first,[],[]}=erlang:match_spec_test([],[{'_',[],[#{1=>{message,first},2=>{message,second}}]}],trace),done.",
+  "OldSourceSha256": "92C3DFEDBD2B2760ACC83AF3CF79E2C6C11A247FC0D3C6DE31A9620B8248C355",
+  "NewSourceSha256": "1E0D0910A77773FE40DC423349BC6CE8813D6C8ED64BE6CE22C2845954A232BA",
+  "OldCSharpSha256": "0726B39DC4BA4A6A8605DE309C8330EA82E21A969C22FEF27E351CF54D2D9978",
+  "NewCSharpSha256": "FE6098CDB508C8FF1675A20CD3808455F0D5D23EEB859271382FC38E8389ED5B",
+  "IndependentExpected": "{ok,done}",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default",
+  "ExpectedStandardOutputHex": null,
+  "ExpectedStandardErrorHex": null,
+  "ExpectedStandardOutputAlternatives": null,
+  "GeneratedHashProvenance": "Existing compiled CodeGeneration.dll: identical compiler source; baseline old hash verified before new derivation",
+  "HistoricalEvidence": "docs/validation/part-234/differential.json",
+  "FailedEvidence": "artifacts/part-236-differential/differential.json"
+}
