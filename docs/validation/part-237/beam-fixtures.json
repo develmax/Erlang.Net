@@ -1,0 +1,597 @@
+{
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "InstalledVersion": "29.1.1",
+  "InstalledOtpRoot": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang",
+  "OracleVersionRaw": "{\u002229\u0022,\u002217.1\u0022,\n \u0022Erlang/OTP 29 [erts-17.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [jit:ns]\\n\u0022}\n",
+  "CompilerFlags": [
+    "-Werror",
+    "\u002Bdebug_info"
+  ],
+  "CompilerExecutableSha256": "69C3F194C8A3BFEB8BA3A0D81AB7F5E94C511B6065888B653FCD218EEA13477B",
+  "OracleExecutableSha256": "47E90F6B819F891C7A3A5E57C0E6D45605BF73DABCAC535D9A08898EC9B153A8",
+  "SourceBuildEvidenceSha256": "F9F639575BA9AF0AF212DE741B9A9E6F73329EC9050AD38BF9175FAAA2A39936",
+  "SourceBuildLogSha256": "F9BBB6A5642EAE8E2E304902E56E4BD1D4627C425B5D7E063D1976CFEEE3CFD2",
+  "ProvenanceScope": "Supplied source-build evidence is retained and hash-bound; this exporter does not independently rebuild or attest the compiler",
+  "LoaderExecutionPerformed": false,
+  "OriginalFixtureExecutionRequested": true,
+  "OriginalFixturesExecuted": 4,
+  "Fixtures": [
+    {
+      "Module": "beam_fixture_constant",
+      "Purpose": "Constant tuple, list and atom result",
+      "SourceFile": "beam_fixture_constant.erl",
+      "SourceSha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507",
+      "BeamFile": "beam_fixture_constant.beam",
+      "BeamBytes": 996,
+      "BeamSha256": "8CD86BC82C94112EDA79B6E784B31BF473934744A42433030F32C6D08BECB0A3",
+      "Chunks": [
+        {
+          "Id": "AtU8",
+          "HeaderOffset": 12,
+          "PayloadBytes": 66,
+          "PayloadSha256": "196A1D7E89C7AABB35B9C164A4258BE6CE985DC233DE5A4D9BAA25C20DE80121",
+          "PaddingBytes": 2
+        },
+        {
+          "Id": "Code",
+          "HeaderOffset": 88,
+          "PayloadBytes": 71,
+          "PayloadSha256": "06E0135BA01389950BBB8F1EBCD7512F1563A8AB51EEFD0EA3D7A5FC67C7A66B",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "StrT",
+          "HeaderOffset": 168,
+          "PayloadBytes": 0,
+          "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ImpT",
+          "HeaderOffset": 176,
+          "PayloadBytes": 28,
+          "PayloadSha256": "DDA501ED5D478F3D48C4E8388289FE76FD8B1A5C2A7CF0B690F32765AD380A05",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ExpT",
+          "HeaderOffset": 212,
+          "PayloadBytes": 40,
+          "PayloadSha256": "28D3570C16D7D20FA1A12A01FEC13AC9F5B983517CC18047C0A817EC68F03A88",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "LitT",
+          "HeaderOffset": 260,
+          "PayloadBytes": 40,
+          "PayloadSha256": "00C867B837509B1C9747D03AFBE76107E3F2722AF9D00549D4D8A2271D83A6A3",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Meta",
+          "HeaderOffset": 308,
+          "PayloadBytes": 45,
+          "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "LocT",
+          "HeaderOffset": 364,
+          "PayloadBytes": 4,
+          "PayloadSha256": "DF3F619804A92FDB4057192DC43DD748EA778ADC52BC498CE80524C014B81119",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Attr",
+          "HeaderOffset": 376,
+          "PayloadBytes": 39,
+          "PayloadSha256": "61B57DF74A620A96AF0310FE50F72EBAD801B2E5308D2E22B9187BAE4526CE00",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "CInf",
+          "HeaderOffset": 424,
+          "PayloadBytes": 158,
+          "PayloadSha256": "FEF5CAD225C77ABBDBCFFBBBDCD998444729EBA832F18A9F4651AD02C913C31A",
+          "PaddingBytes": 2
+        },
+        {
+          "Id": "Dbgi",
+          "HeaderOffset": 592,
+          "PayloadBytes": 291,
+          "PayloadSha256": "27E80B531F26A81A37D285CC72416CF69C4DC5C039353A1A79D03FBA8702C3A6",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "Line",
+          "HeaderOffset": 892,
+          "PayloadBytes": 73,
+          "PayloadSha256": "E694296E47D19569C05304FCB16199A20FE9082E7B4E9B0404167B63021FA097",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Type",
+          "HeaderOffset": 976,
+          "PayloadBytes": 10,
+          "PayloadSha256": "B11486EFE31959068949594E475D32D9230BDB4ADA967828EE06E3527A4BC6DA",
+          "PaddingBytes": 2
+        }
+      ],
+      "DisassemblyFile": "beam_fixture_constant.disassembly.term",
+      "DisassemblySha256": "D36B50037CD21CE1A773459F424EEA69658E6D2807B47D11F48D5D1ED75946F6",
+      "Execution": {
+        "Executed": true,
+        "NotExecutedReason": null,
+        "IndependentExpectedExpression": "{ok,42,[alpha,beta]}",
+        "ExitCode": 0,
+        "ActualEtfFile": "beam_fixture_constant.actual.etf",
+        "ActualEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
+        "ExpectedEtfFile": "beam_fixture_constant.expected.etf",
+        "ExpectedEtfSha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38",
+        "EvaluationFile": "beam_fixture_constant-execute.eval.erl",
+        "EvaluationSha256": "B22984C7E8A2C3BA677007B12ED37B05D4DAD780F7DDF50FE6ADAB8773A864E5",
+        "StandardOutputSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StandardErrorSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Module": "beam_fixture_add",
+      "Purpose": "Integer guards, arithmetic and an exported function",
+      "SourceFile": "beam_fixture_add.erl",
+      "SourceSha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552",
+      "BeamFile": "beam_fixture_add.beam",
+      "BeamBytes": 1056,
+      "BeamSha256": "707B8F2DE3267B543CC866E1DAB739C3B0A85A9820C63F4CC603D40A55E391B9",
+      "Chunks": [
+        {
+          "Id": "AtU8",
+          "HeaderOffset": 12,
+          "PayloadBytes": 67,
+          "PayloadSha256": "4C726A58725C7DBD5A7C3B32D1F844D771E95D41167A1E375792EF17B16673F7",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "Code",
+          "HeaderOffset": 88,
+          "PayloadBytes": 105,
+          "PayloadSha256": "3BCFC63FD35AF91A444E804839C4D8F3D5110AFD7FA76F7D8AE771E439749213",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "StrT",
+          "HeaderOffset": 204,
+          "PayloadBytes": 0,
+          "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ImpT",
+          "HeaderOffset": 212,
+          "PayloadBytes": 40,
+          "PayloadSha256": "EB69D2CA93D6BCD2069EAC21D2D9C547D8DC73AD8B76FFC5E14C22A74BFDE1F2",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ExpT",
+          "HeaderOffset": 260,
+          "PayloadBytes": 52,
+          "PayloadSha256": "72AF8B93B4290FB181ACBAE471363CFAE43C564CE16A7D6D94AB7EFA7B932F22",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Meta",
+          "HeaderOffset": 320,
+          "PayloadBytes": 45,
+          "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "LocT",
+          "HeaderOffset": 376,
+          "PayloadBytes": 4,
+          "PayloadSha256": "DF3F619804A92FDB4057192DC43DD748EA778ADC52BC498CE80524C014B81119",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Attr",
+          "HeaderOffset": 388,
+          "PayloadBytes": 39,
+          "PayloadSha256": "2AA6C65978E1980261AF1AF74FDD3FC91056D922C8ADD9D27753E82E36952D93",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "CInf",
+          "HeaderOffset": 436,
+          "PayloadBytes": 153,
+          "PayloadSha256": "F82B03D5ACE2FDA7A4133154BCD0BA8BA9374C365A590B0A4E1E85A7B59663BC",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Dbgi",
+          "HeaderOffset": 600,
+          "PayloadBytes": 346,
+          "PayloadSha256": "B30816FA2C98DD78FA0A97D63FF093D00D1194D2A5604428C97721111CED6CAA",
+          "PaddingBytes": 2
+        },
+        {
+          "Id": "Line",
+          "HeaderOffset": 956,
+          "PayloadBytes": 69,
+          "PayloadSha256": "F84EF7D39F226C219D0A77B009D0CDCF47BDEF59DB435C90115F82086CA77DE9",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Type",
+          "HeaderOffset": 1036,
+          "PayloadBytes": 12,
+          "PayloadSha256": "3B7A9B515F0F912533E4CCF198C747A1250316DEF4884F213E1A269E024BAE83",
+          "PaddingBytes": 0
+        }
+      ],
+      "DisassemblyFile": "beam_fixture_add.disassembly.term",
+      "DisassemblySha256": "31F993E7AA6E8EAC351B170704403FF72B71FE512C909586E307F71BA1AC87E3",
+      "Execution": {
+        "Executed": true,
+        "NotExecutedReason": null,
+        "IndependentExpectedExpression": "42",
+        "ExitCode": 0,
+        "ActualEtfFile": "beam_fixture_add.actual.etf",
+        "ActualEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
+        "ExpectedEtfFile": "beam_fixture_add.expected.etf",
+        "ExpectedEtfSha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118",
+        "EvaluationFile": "beam_fixture_add-execute.eval.erl",
+        "EvaluationSha256": "E3271DC5A14631704000552570E3F2472AD7A3176E1099C089A148D3F65DE42C",
+        "StandardOutputSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StandardErrorSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Module": "beam_fixture_local",
+      "Purpose": "Private local recursion and tail call",
+      "SourceFile": "beam_fixture_local.erl",
+      "SourceSha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE",
+      "BeamFile": "beam_fixture_local.beam",
+      "BeamBytes": 1112,
+      "BeamSha256": "416FAD0864C315006459121BDA80A36475EFC67B49EFE7B6DC247DC1CA0D702B",
+      "Chunks": [
+        {
+          "Id": "AtU8",
+          "HeaderOffset": 12,
+          "PayloadBytes": 73,
+          "PayloadSha256": "8DCA7CF6D23EB6829AAE458D01130B14D247413C7CB7C83EF7DE379B2C37560D",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Code",
+          "HeaderOffset": 96,
+          "PayloadBytes": 127,
+          "PayloadSha256": "11CB9B7227FDE373612575D28FF14C819B45DD4E9663BA2F5C5E5EDF22461E3C",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "StrT",
+          "HeaderOffset": 232,
+          "PayloadBytes": 0,
+          "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ImpT",
+          "HeaderOffset": 240,
+          "PayloadBytes": 40,
+          "PayloadSha256": "6B3A084086DE5525AAAB908A92DD18D848DC26929B24ED05099D401ADF071C9E",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ExpT",
+          "HeaderOffset": 288,
+          "PayloadBytes": 40,
+          "PayloadSha256": "D34ED972DD45077CCEBB44941DD12C293E4EB78AFA5F12D7F7FA05B7AB2DCFEC",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Meta",
+          "HeaderOffset": 336,
+          "PayloadBytes": 45,
+          "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "LocT",
+          "HeaderOffset": 392,
+          "PayloadBytes": 16,
+          "PayloadSha256": "D9B5435AD27C169DE0072910EEC384C1A477CFA9775F7B9F6A933A737660F892",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Attr",
+          "HeaderOffset": 416,
+          "PayloadBytes": 39,
+          "PayloadSha256": "8950193AAB745D1CCF5CE4788DFA68B201DA19C748DE1D15DC3740DA925F28AE",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "CInf",
+          "HeaderOffset": 464,
+          "PayloadBytes": 155,
+          "PayloadSha256": "A384A946B0254925CC6C28134A5AF6430E4489DDA04DF6BABD074EFE8F899E78",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "Dbgi",
+          "HeaderOffset": 628,
+          "PayloadBytes": 376,
+          "PayloadSha256": "A6515B2C52284BE4B4327DFA10ABACEEC4C7817E9A22042691D4091AA183FA84",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Line",
+          "HeaderOffset": 1012,
+          "PayloadBytes": 72,
+          "PayloadSha256": "40202D9BEF6FAD6869922F7B9CE915F63288DA457675FD8E41C120B47BBDDEE1",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Type",
+          "HeaderOffset": 1092,
+          "PayloadBytes": 12,
+          "PayloadSha256": "3B7A9B515F0F912533E4CCF198C747A1250316DEF4884F213E1A269E024BAE83",
+          "PaddingBytes": 0
+        }
+      ],
+      "DisassemblyFile": "beam_fixture_local.disassembly.term",
+      "DisassemblySha256": "1731268B9C54352DE909ECCEB956A72714EF18D95FCFB0E333183403134F02B0",
+      "Execution": {
+        "Executed": true,
+        "NotExecutedReason": null,
+        "IndependentExpectedExpression": "{ok,[1,2,3]}",
+        "ExitCode": 0,
+        "ActualEtfFile": "beam_fixture_local.actual.etf",
+        "ActualEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
+        "ExpectedEtfFile": "beam_fixture_local.expected.etf",
+        "ExpectedEtfSha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC",
+        "EvaluationFile": "beam_fixture_local-execute.eval.erl",
+        "EvaluationSha256": "37287F50035033B3892181D2D5A0986DBC9AF534209BEEC8912FFD59BD900B32",
+        "StandardOutputSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StandardErrorSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Module": "beam_fixture_receive",
+      "Purpose": "Separate scope probe: send, receive and timeout instructions",
+      "SourceFile": "beam_fixture_receive.erl",
+      "SourceSha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7",
+      "BeamFile": "beam_fixture_receive.beam",
+      "BeamBytes": 1088,
+      "BeamSha256": "658E4F3CE581EA553F105D3EF916D7A571FF326A757588299FC5C2E4C29549F8",
+      "Chunks": [
+        {
+          "Id": "AtU8",
+          "HeaderOffset": 12,
+          "PayloadBytes": 83,
+          "PayloadSha256": "08801EC7D34DA0BF5B0078A5B0277D3229783258D3BD889B806BDF4DAE1AA1A2",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "Code",
+          "HeaderOffset": 104,
+          "PayloadBytes": 110,
+          "PayloadSha256": "DA517DD9F3901869E6871E36E7B829A7579A3F978E2F11C7E5B4F9297B994A0A",
+          "PaddingBytes": 2
+        },
+        {
+          "Id": "StrT",
+          "HeaderOffset": 224,
+          "PayloadBytes": 0,
+          "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ImpT",
+          "HeaderOffset": 232,
+          "PayloadBytes": 40,
+          "PayloadSha256": "86264156F6B6DE57E27099F0A822A95CB6E97F9FE95DBD135088445FB5CDCA6C",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ExpT",
+          "HeaderOffset": 280,
+          "PayloadBytes": 40,
+          "PayloadSha256": "D34ED972DD45077CCEBB44941DD12C293E4EB78AFA5F12D7F7FA05B7AB2DCFEC",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "LitT",
+          "HeaderOffset": 328,
+          "PayloadBytes": 25,
+          "PayloadSha256": "DD8E7A4A18126F0227DFD5FD07B19A8874DEC5531617E13C40E706D969DA0EAA",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Meta",
+          "HeaderOffset": 364,
+          "PayloadBytes": 45,
+          "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "LocT",
+          "HeaderOffset": 420,
+          "PayloadBytes": 4,
+          "PayloadSha256": "DF3F619804A92FDB4057192DC43DD748EA778ADC52BC498CE80524C014B81119",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Attr",
+          "HeaderOffset": 432,
+          "PayloadBytes": 39,
+          "PayloadSha256": "719146711A64D4D1EABF6F3058592027EA274C23870886605263D18461F2D0BB",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "CInf",
+          "HeaderOffset": 480,
+          "PayloadBytes": 157,
+          "PayloadSha256": "1B543EFC0B8EAFF8D089134C867FBA92A341C491A0E7734A911006E2C92EB94C",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Dbgi",
+          "HeaderOffset": 648,
+          "PayloadBytes": 331,
+          "PayloadSha256": "34ACE792B3C0C13EECB5B3C140F0585AF4E03F78186AD0F462FF01B16E363EA7",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "Line",
+          "HeaderOffset": 988,
+          "PayloadBytes": 72,
+          "PayloadSha256": "27A175DAC8AD4FC2C580249B5AC5455D8AF86BA1C3AB5736BAC8BCAAAF525133",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Type",
+          "HeaderOffset": 1068,
+          "PayloadBytes": 10,
+          "PayloadSha256": "B11486EFE31959068949594E475D32D9230BDB4ADA967828EE06E3527A4BC6DA",
+          "PaddingBytes": 2
+        }
+      ],
+      "DisassemblyFile": "beam_fixture_receive.disassembly.term",
+      "DisassemblySha256": "24018B9B77CC86347247778FE450B92799E9126DEC81B9766C411C4E4D070229",
+      "Execution": {
+        "Executed": true,
+        "NotExecutedReason": null,
+        "IndependentExpectedExpression": "{ok,ping}",
+        "ExitCode": 0,
+        "ActualEtfFile": "beam_fixture_receive.actual.etf",
+        "ActualEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
+        "ExpectedEtfFile": "beam_fixture_receive.expected.etf",
+        "ExpectedEtfSha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48",
+        "EvaluationFile": "beam_fixture_receive-execute.eval.erl",
+        "EvaluationSha256": "2B2B273A22E8F9DF45B412CB2D06EE1D27C4B087D1E9990745E996952A93A8DB",
+        "StandardOutputSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StandardErrorSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Module": "beam_fixture_on_load",
+      "Purpose": "Separate scope probe: actual on_load entry and process-dictionary effect",
+      "SourceFile": "beam_fixture_on_load.erl",
+      "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+      "BeamFile": "beam_fixture_on_load.beam",
+      "BeamBytes": 1116,
+      "BeamSha256": "7055414B8F40BF0E864C0076C83B0D27127A2B431C238A6CA271E8160AC061C9",
+      "Chunks": [
+        {
+          "Id": "AtU8",
+          "HeaderOffset": 12,
+          "PayloadBytes": 105,
+          "PayloadSha256": "2C8B7FA8F26865FFB68C6C537B8709569BF8FFA059824F8FC5B0838FD28E44B6",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Code",
+          "HeaderOffset": 128,
+          "PayloadBytes": 100,
+          "PayloadSha256": "2E9164BE8F27C3F4E6DD917C8B3BEB304849E339E25D7DA22D7BEB8CDE0C762A",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "StrT",
+          "HeaderOffset": 236,
+          "PayloadBytes": 0,
+          "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ImpT",
+          "HeaderOffset": 244,
+          "PayloadBytes": 40,
+          "PayloadSha256": "5C24A221AC54E26B0E8FD232BEBB380E813AB6CD4C5508621692796BDDE15753",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "ExpT",
+          "HeaderOffset": 292,
+          "PayloadBytes": 40,
+          "PayloadSha256": "3207B64EFEE359DE2D4926CE174737114E80A010A76A89C4A809DBC8D18198CF",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "LitT",
+          "HeaderOffset": 340,
+          "PayloadBytes": 36,
+          "PayloadSha256": "C41DF13EED363A0E2AF2C5BD170E2467D57438B3E078ECEFE3193B57ACB3AD5B",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Meta",
+          "HeaderOffset": 384,
+          "PayloadBytes": 45,
+          "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "LocT",
+          "HeaderOffset": 440,
+          "PayloadBytes": 16,
+          "PayloadSha256": "E12133EDEC5DE27E4D577F21BDF6F7EEA3D1EC7F8BA458E667990B61A8CC3107",
+          "PaddingBytes": 0
+        },
+        {
+          "Id": "Attr",
+          "HeaderOffset": 464,
+          "PayloadBytes": 39,
+          "PayloadSha256": "455065C4DE4BED8A9E898463326216991295B9B5283DE0399A45F8B0FDAA551C",
+          "PaddingBytes": 1
+        },
+        {
+          "Id": "CInf",
+          "HeaderOffset": 512,
+          "PayloadBytes": 157,
+          "PayloadSha256": "5ED52AEBD5E14AF19D9EC3961F3C5F17990398B5DAA1A3B092F5EC26D2BDDA43",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Dbgi",
+          "HeaderOffset": 680,
+          "PayloadBytes": 322,
+          "PayloadSha256": "2F54DBDD21793C6423796C92AA87B1091B0457075013AE59D025075DBD474E27",
+          "PaddingBytes": 2
+        },
+        {
+          "Id": "Line",
+          "HeaderOffset": 1012,
+          "PayloadBytes": 73,
+          "PayloadSha256": "5A2DF9EE532C2071C69691922C2A62F547FF062D43A155409512B21479403CD0",
+          "PaddingBytes": 3
+        },
+        {
+          "Id": "Type",
+          "HeaderOffset": 1096,
+          "PayloadBytes": 10,
+          "PayloadSha256": "B11486EFE31959068949594E475D32D9230BDB4ADA967828EE06E3527A4BC6DA",
+          "PaddingBytes": 2
+        }
+      ],
+      "DisassemblyFile": "beam_fixture_on_load.disassembly.term",
+      "DisassemblySha256": "A618059A603F14A3C459E1660649ECFFCB176E8CFF459DFA5A6E64D504F77E4B",
+      "Execution": {
+        "Executed": false,
+        "NotExecutedReason": "Compilation only: on_load callback process side effect requires a separate observer contract",
+        "IndependentExpectedExpression": null,
+        "ExitCode": null,
+        "ActualEtfFile": null,
+        "ActualEtfSha256": null,
+        "ExpectedEtfFile": null,
+        "ExpectedEtfSha256": null,
+        "EvaluationFile": null,
+        "EvaluationSha256": null,
+        "StandardOutputSha256": null,
+        "StandardErrorSha256": null
+      }
+    }
+  ]
+}

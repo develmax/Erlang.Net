@@ -1,0 +1,43 @@
+{
+  "PublishedDeclarationsHead": "75ec3fd6b0b62541c40c21d6fb563985c37a92b6",
+  "FixtureClassSourceSHA256": "9C5C06C84239A897D4E94A65F0EB7C20C2B66FBCABAADCE7C52187A450CC7208",
+  "DeclarationAssemblySHA256": "A955EA4A60BEEBFA4E0E308B279BF1ED275FDDE73B58B764A03DA00E598D9C22",
+  "ValuesDerivedFromOriginalObservation": false,
+  "Rows": [
+    {
+      "Module": "beam_fixture_constant",
+      "Purpose": "Constant tuple, list and atom result",
+      "Source": "-module(beam_fixture_constant).\n-export([run/0]).\nrun() -\u003E {ok,42,[alpha,beta]}.\n",
+      "SourceSha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507",
+      "IndependentExpectedExpression": "{ok,42,[alpha,beta]}"
+    },
+    {
+      "Module": "beam_fixture_add",
+      "Purpose": "Integer guards, arithmetic and an exported function",
+      "Source": "-module(beam_fixture_add).\n-export([run/0,add/2]).\nrun() -\u003E add(17,25).\nadd(A,B) when is_integer(A), is_integer(B) -\u003E A\u002BB.\n",
+      "SourceSha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552",
+      "IndependentExpectedExpression": "42"
+    },
+    {
+      "Module": "beam_fixture_local",
+      "Purpose": "Private local recursion and tail call",
+      "Source": "-module(beam_fixture_local).\n-export([run/0]).\nrun() -\u003E loop(3,[]).\nloop(0,Acc) -\u003E {ok,Acc};\nloop(N,Acc) -\u003E loop(N-1,[N|Acc]).\n",
+      "SourceSha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE",
+      "IndependentExpectedExpression": "{ok,[1,2,3]}"
+    },
+    {
+      "Module": "beam_fixture_receive",
+      "Purpose": "Separate scope probe: send, receive and timeout instructions",
+      "Source": "-module(beam_fixture_receive).\n-export([run/0]).\nrun() -\u003E self() ! ping, receive ping -\u003E {ok,ping} after 1000 -\u003E timeout end.\n",
+      "SourceSha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7",
+      "IndependentExpectedExpression": "{ok,ping}"
+    },
+    {
+      "Module": "beam_fixture_on_load",
+      "Purpose": "Separate scope probe: actual on_load entry and process-dictionary effect",
+      "Source": "-module(beam_fixture_on_load).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E put(beam_fixture_marker,loaded), ok.\nrun() -\u003E {ok,on_load_fixture}.\n",
+      "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+      "IndependentExpectedExpression": null
+    }
+  ]
+}

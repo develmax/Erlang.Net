@@ -1,0 +1,30 @@
+{
+  "Rows": [
+    {
+      "Module": "beam_fixture_constant",
+      "Actual": "{ok,{ok,42,[alpha,beta]}}",
+      "IndependentExpected": "{ok,{ok,42,[alpha,beta]}}",
+      "Passed": true
+    },
+    {
+      "Module": "beam_fixture_add",
+      "Actual": "{ok,42}",
+      "IndependentExpected": "{ok,42}",
+      "Passed": true
+    },
+    {
+      "Module": "beam_fixture_local",
+      "Actual": "{ok,{ok,[1,2,3]}}",
+      "IndependentExpected": "{ok,{ok,[1,2,3]}}",
+      "Passed": true
+    },
+    {
+      "Module": "beam_fixture_receive",
+      "Actual": "{ok,{ok,ping}}",
+      "IndependentExpected": "{ok,{ok,ping}}",
+      "Passed": true
+    }
+  ],
+  "DecoderOnly": true,
+  "ClrBeamExecutionPerformed": false
+}
