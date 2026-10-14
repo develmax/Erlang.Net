@@ -1,0 +1,166 @@
+{
+  "Head": "ff6f21c6dfef3ee29eb2edfea5c775e040d1e60c",
+  "Baseline": "OTP-29.1.1",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Original": {
+    "Kind": "original",
+    "RunId": 38499562510,
+    "JobId": 115643035070,
+    "Head": "ff6f21c6dfef3ee29eb2edfea5c775e040d1e60c",
+    "Runner": "ubuntu-latest",
+    "TerminalConclusion": "success",
+    "ArtifactId": 11866580258,
+    "ZipSHA256": "7B339D792BB07D938A37EF7B88A676F760032A98FC8DA2845694BB53D97E840D",
+    "RawJobLogSHA256": "8F8F19F81F20DC589577BF0AD04FCBA56F2497FD776D9E811E5CF69934CDE778",
+    "ApiStepsAvailable": 10,
+    "CriticalSteps": [
+      {
+        "Name": "Build development oracle from the exact reference commit",
+        "ObservedStatus": "completed",
+        "ObservedConclusion": "success",
+        "ApiCompletionAvailable": true,
+        "CompletionEvidence": "Actual API completed-success"
+      },
+      {
+        "Name": "Compare the supported language corpus",
+        "ObservedStatus": "completed",
+        "ObservedConclusion": "success",
+        "ApiCompletionAvailable": true,
+        "CompletionEvidence": "Actual API completed-success"
+      },
+      {
+        "Name": "Compare inherited descriptor IO against the original fd driver",
+        "ObservedStatus": "completed",
+        "ObservedConclusion": "success",
+        "ApiCompletionAvailable": true,
+        "CompletionEvidence": "Actual API completed-success"
+      }
+    ],
+    "StaleCriticalStepCount": 0,
+    "RawLogPath": "artifacts/part-241-original-job.log",
+    "ArtifactKind": "differential"
+  },
+  "Ci": {
+    "Kind": "ci",
+    "RunId": 38499539926,
+    "JobId": 115642958716,
+    "Head": "ff6f21c6dfef3ee29eb2edfea5c775e040d1e60c",
+    "Runner": "windows-latest",
+    "TerminalConclusion": "success",
+    "ArtifactId": 11865172801,
+    "ZipSHA256": "82B36F5DCB7A665864D8509123CBDE60F8A162B3FC685DADF2304C93B08631CE",
+    "RawJobLogSHA256": "C06A5C25B31E546602DD579D17DD0525078E02A866D40BDE8497A75CB1A07A5B",
+    "ApiStepsAvailable": 8,
+    "CriticalSteps": [
+      {
+        "Name": "Run ./tools/validate.ps1",
+        "ObservedStatus": "completed",
+        "ObservedConclusion": "success",
+        "ApiCompletionAvailable": true,
+        "CompletionEvidence": "Actual API completed-success"
+      }
+    ],
+    "StaleCriticalStepCount": 0,
+    "RawLogPath": "artifacts/part-241-ci-job.log",
+    "ArtifactKind": "validation"
+  },
+  "SelectedOriginalMarkers": [
+    {
+      "Name": "ImplementationCheckout",
+      "Pattern": "ff6f21c6dfef3ee29eb2edfea5c775e040d1e60c",
+      "MatchedText": "ff6f21c6dfef3ee29eb2edfea5c775e040d1e60c"
+    },
+    {
+      "Name": "ActualPinnedSourceCheckout",
+      "Pattern": "Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'",
+      "MatchedText": "Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'"
+    },
+    {
+      "Name": "SourceCommitAssertion",
+      "Pattern": "test .*git -C artifacts/otp-source rev-parse HEAD.*ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "MatchedText": "test \"$(git -C artifacts/otp-source rev-parse HEAD)\" = ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Name": "Configure",
+      "Pattern": "\\.\\/configure --prefix=.*artifacts/otp-oracle",
+      "MatchedText": "./configure --prefix=\"$GITHUB_WORKSPACE/artifacts/otp-oracle"
+    },
+    {
+      "Name": "Make",
+      "Pattern": "(?m)^.*Z make -j2\\s*$",
+      "MatchedText": "2026-10-14T02:10:01.3999289Z make -j2"
+    },
+    {
+      "Name": "MakeInstall",
+      "Pattern": "(?m)^.*Z make install\\s*$",
+      "MatchedText": "2026-10-14T02:10:01.3999455Z make install"
+    },
+    {
+      "Name": "ActualInstalledVersionFile",
+      "Pattern": "\\/usr\\/bin\\/install.*artifacts/otp-source/OTP_VERSION.*artifacts/otp-oracle/lib/erlang/releases/29",
+      "MatchedText": "/usr/bin/install -c -m 644 \"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/otp-source/OTP_VERSION\" \"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/otp-oracle/lib/erlang/releases/29"
+    },
+    {
+      "Name": "SelectedInstalledOracle",
+      "Pattern": "dotnet run --project tools/Erlang.Differential --no-build -- .*artifacts/otp-oracle/bin/erl.*artifacts/differential.json",
+      "MatchedText": "dotnet run --project tools/Erlang.Differential --no-build -- \"$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl\" artifacts/differential.json"
+    },
+    {
+      "Name": "IndependentFdCommand",
+      "Pattern": "artifacts/otp-oracle/bin/erl.*artifacts/fd-differential.json --fd",
+      "MatchedText": "artifacts/otp-oracle/bin/erl\" artifacts/fd-differential.json --fd"
+    },
+    {
+      "Name": "ArtifactUpload",
+      "Pattern": "Artifact differential successfully finalized\\. Artifact ID 11866580258",
+      "MatchedText": "Artifact differential successfully finalized. Artifact ID 11866580258"
+    }
+  ],
+  "DerivedMatchingText": "ANSI CSI decoration stripped only in memory; raw log bytes/digests immutable; selected logs are derived excerpts",
+  "ActualModulePassMarkers": 4825,
+  "ActualDiagnosticPassMarkers": 151,
+  "ReportDigests": [
+    {
+      "Kind": "differential",
+      "Name": "differential.json",
+      "SHA256": "FE5882D0D252CB115C9774A0AAB9400B76E967195CF81447DB263277D7776F31",
+      "ExactZipExtraction": true
+    },
+    {
+      "Kind": "differential",
+      "Name": "fd-differential.json",
+      "SHA256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7",
+      "ExactZipExtraction": true
+    },
+    {
+      "Kind": "validation",
+      "Name": "tests.json",
+      "SHA256": "EBF536FB0D42CBC9BA456E8383A2422632398313C5B1746C1EBB56B472772DFD",
+      "ExactZipExtraction": true
+    },
+    {
+      "Kind": "validation",
+      "Name": "integration-results.json",
+      "SHA256": "A721EA600265C7752E3147C65F021883C5BEC93473382856257344CFC1359C1D",
+      "ExactZipExtraction": true
+    }
+  ],
+  "NativeRecordNumericEvidence": [
+    {
+      "Name": "erlang-native-record-hash-single-field-numeric",
+      "SourceSha256": "257A2A2EEBAE6183052923F897F474BC8AC9D56A0FA544F870DD1D2E9F9F6D08",
+      "OriginalMatchedNow": true,
+      "ExpectedConstantProvenance": "Initially SDK-derived fixed values independently matched original230; exact assertions match original241 now; historical provenance unchanged"
+    },
+    {
+      "Name": "erlang-native-record-hash-multi-field-numeric",
+      "SourceSha256": "B5750323CF4B9B8CB6219BE952F282F764F9B6DBC3F81B5F7B659EE1EFA29948",
+      "OriginalMatchedNow": true,
+      "ExpectedConstantProvenance": "Initially SDK-derived fixed values independently matched original230; exact assertions match original241 now; historical provenance unchanged"
+    }
+  ],
+  "IndependentFdEvidence": "Actual raw --fd command/upload plus API-digested fd report8/8; fd command emits no textual numeric success counter",
+  "PinnedSourceBuildEvidencePending": false,
+  "RawLogsDigestsVerified": true,
+  "WholeModuleComplete": false
+}

@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part243 verifiespublished241ff6 original5754/5754+fd8 andexactheadCI6438/full, all4831/4825/151/778/sixcontracts/provenance sourcebuild/archive/log/extractedbytes/closedjournals preserved. Threefreshatomrepairs independentlypass; failed238immutable. Current242hostMain6439 separate. Registry484/erlang326/35192.9%presence wholepartial. Receive/FunT/HaltIO-prereq isolatedpending.
+
 Part242 Main/isolated6439/full,72frozen hostBeam files+binaryGitattributes,4831/151/6/484 unchanged. PublicBeamModule ownsbytes/readonlymetadata/realcontextInvoke; actualoriginalconstant/add/local nativeETFexact,8owners/lifecycle checks. No registrypublication/module_info/MD5/loadingMFAs/receive/onload/physicalheap/nativeframe parity; explicitboundedhostAPI. Original2415754+fd8/CI pending; priorfailed238retained. Wholeerlangpartial326/35192.9%presence.
 
 Part241 preservesFAILED2385751/5754(fd8/CI6435pass), repairsEXACT3dynamicatomfixtureSources usingruntimeunique suffix, no runtime/compiler/harness/outcome/exclusion changes. Isolated6438/full, Main36focus+4831contractguard, oneproviderexact; freshoriginal5754pendingpublication. Original2396BEAM/5nativeexec/6filemetadata/MD56/6 and1765provenanceguards verified; no onload/CLRloadercompletion. Registry484/erlang326/35192.9% presence,wholepartial.
