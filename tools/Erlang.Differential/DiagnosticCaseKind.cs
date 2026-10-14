@@ -21,5 +21,6 @@ public enum DiagnosticCaseKind
     CharacterLiteralUnterminated,
     UndefinedFunction,
     FormBoundarySyntax,
-    NativeRecord
+    NativeRecord,
+    BasedInteger
 }

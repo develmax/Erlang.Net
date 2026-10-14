@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part245: Main6460/6460/full and isolated6459/full pass; source-guided base2..36 integer lexer,12 modules/eight scannerdiagnostics appended with exact4831/151/6/484 prefix. Corpus4843SDK/4837comparable/159diag; new original5774+fd8 pending publication/dispatch. Fifteen ownedpaths compose244 notices/threeEOFtrims/oneeditorialdoc; known malformedbasedfloat diagnostic gap explicit. Registry erlang326/35192.9%presence wholepartial. Closed0035 immutable,new0036. Strict halt/closure/preparedHOST/on_load remain isolated.
+
 Part244: Main and isolated6440/6440/full pass. Actual genuine BEAM receive/nativeETF and unmatched retention; separately modeled arrival/suspend/cancel; zero-slot continuation ownership/static valid timeout subset. 4831/4825/151/six/484 unchanged,18 exact importfiles plus one recorded editorial status promotion. Original243 verifies2415754/5754+fd8 separately. Registry erlang326/35192.9% API presence; whole erlang/loading/on_load/general frames/physical resources/distribution/upstream/performance partial. Basedinteger/closure/halt remain isolated next work.
 
 Part243 verifiespublished241ff6 original5754/5754+fd8 andexactheadCI6438/full, all4831/4825/151/778/sixcontracts/provenance sourcebuild/archive/log/extractedbytes/closedjournals preserved. Threefreshatomrepairs independentlypass; failed238immutable. Current242hostMain6439 separate. Registry484/erlang326/35192.9%presence wholepartial. Receive/FunT/HaltIO-prereq isolatedpending.

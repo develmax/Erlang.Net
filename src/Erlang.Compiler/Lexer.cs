@@ -119,6 +119,17 @@ public static class Lexer
             {
                 while (i < text.Length && (char.IsDigit(text[i]) || text[i] == '_'))
                     i++;
+                if (i < text.Length && text[i] == BasedIntegerParameters.BaseMarker)
+                {
+                    string integer = BasedIntegerLexer.Read(text, start, ref i);
+                    tokens.Add(new(
+                        LexerTokenKinds.Integer,
+                        integer,
+                        start,
+                        i
+                    ));
+                    continue;
+                }
                 bool floating = false;
                 if (i + 1 < text.Length && text[i] == '.' && char.IsDigit(text[i + 1]))
                 {

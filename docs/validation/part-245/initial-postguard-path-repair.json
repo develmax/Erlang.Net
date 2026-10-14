@@ -1,0 +1,7 @@
+{
+  "Phase": "Postguard source import binding",
+  "InitialAssertion": "tools/Erlang.Differential/CompiledDiagnosticCases.cs",
+  "Cause": "Windows backslash paths in the EOF repair ledger were not normalized to manifest forward slashes",
+  "Correction": "Normalize ledger keys only; source hashes, tests, contracts and package bytes unchanged",
+  "FailedChecker": "artifacts/part245-main-postguard-initial.py"
+}

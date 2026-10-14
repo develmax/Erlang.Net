@@ -1,0 +1,222 @@
+{
+  "Modules": [
+    {
+      "Name": "based-integer-binary",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E42 = 2#101010,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "9A4E90BF78B0FF3D6AD3F005531D04590ED7D6BB43612E98DBF20C6201F5147B",
+      "CSharpSha256": "EC21FA67BC1BD34D11E16089AADC75DCE7F5D8F0C1323DC06CA53BFCC6180A0B",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-maximum-base",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E35 = 36#z,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "6ED2E746FCD1368211682120FF5270A4AA801D03EE850F26F0786519DD978100",
+      "CSharpSha256": "26AC39AD7DA0DAD201CAF80F1BFC00D9CF4FA21D85BE4A53E9D4D6B85191E032",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-lowercase",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E175 = 16#af,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "D16529C4DADEFD63D0C6ABA49686DAE1CB835ECC6FCC4F8DC498D46380EBE4EC",
+      "CSharpSha256": "EF07165C50658CDB46BD504AAA56A2015AD33B808E5D52CAF06427F95F43102D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-uppercase",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E175 = 16#AF,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "8A503F1DB5C620708231B420C4F21F3E366E4345131B0698E624251251766BE5",
+      "CSharpSha256": "EF07165C50658CDB46BD504AAA56A2015AD33B808E5D52CAF06427F95F43102D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-base-and-digit-separators",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E255 = 1_6#F_F,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "8C39D86D0E02AF15C03EE3F8C73724207FB5652C2AD92F9F8B984C75296265F8",
+      "CSharpSha256": "50A59FCA4AD7B7D10ECC6560EAF8EB1519A9DA31EFBF06AC61D2EC584C6A4CDC",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-binary-separators",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E5 = 2#1_0_1,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "8C71828AD1B5160803114D4339248BD6311612791A0920C0527517DAF50EEEC5",
+      "CSharpSha256": "6C257D4B5B4FBF231FB2D2D3387FA01757C9F71C6973BA16073D776E5D52FFD5",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-octal",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E127 = 8#177,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "42F1FE73E4CE3D57B850007F0FAF3ECB53D75F0895B6C880BD150EA142E5ACF9",
+      "CSharpSha256": "541A78FE3CBCDAA8553BC8C16819E6FE082A7C46374FF63E0FF1EDE927B553DC",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-large-positive",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E340282366920938463463374607431768211455 = 16#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "A1CA2B2F86C2EC9591310F8F2DADD81B0406221AA5435DA267BFE2D27ABA9209",
+      "CSharpSha256": "D1C737437B2A2646CE9BC130D977B82E4CB53E42971E22EF460BB3EB3ABCDA34",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-unary-negative-surrogate",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E-55296 = -16#D800,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "BC0A741A7ACAA2DEABA807162E6369833F7967078EC43DEC818F7FE5B24D4F50",
+      "CSharpSha256": "26B5BD419CF6110F984BC1CE3838E5AB550A4E8D61DEC9EB908ED4019A539745",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-non-power-base",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E11 = 3#102,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "B31CD1E838844C0CAB5335B531EF13D3CC7DC18B57DBFEABA4E31F96245DAD85",
+      "CSharpSha256": "B699923EEF03FE87AB4F9BB732F7A71479399933B0DC4FB329D1A2AD0AC7FBAE",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-decimal-base",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E123 = 10#1_2_3,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "06DCB7AAE31F8BD598D660BC8A45BFAF8896E79A44A19B5C17CF0D8719E35D4A",
+      "CSharpSha256": "9173F5F0381352F00B6A3507E310311CB429556A65BC88A9D6D4AC5B5FDC13F7",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "based-integer-binary-segment",
+      "Source": "-module(based_integer_contract). -export([run/0]). run()-\u003E\u003C\u003C255,1\u003E\u003E = \u003C\u003C16#FF:8,2#1:8\u003E\u003E,done.",
+      "FixtureExpected": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardErrorHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "SourceSha256": "B5312BB1DBD19BE99854DCF1FC12DB7390F06FB328F973AE067EA6465C80CEB5",
+      "CSharpSha256": "2FCEF9BEB61CACCEE95FB4069203F0AAFC50ADC68B296E9884667180CB03234D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    }
+  ],
+  "Diagnostics": [
+    {
+      "Name": "based-integer-diagnostic-base-one",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E1#0.",
+      "SourceSha256": "BD0E9DB232D37AF359CD18EB33838FF15A8CC153A6BA6C20135F83422E469B69",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Invalid integer base 1",
+      "Expected": "{error,[{base,1}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-base-too-large",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E37#0.",
+      "SourceSha256": "8F90CB1E597DBBFD0D31B2E2E1547B00E34A0737FEA0722533A68B213178C7C0",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Invalid integer base 37",
+      "Expected": "{error,[{base,37}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-binary-digit",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E2#2.",
+      "SourceSha256": "E1DC5DF9C876C3886DCF51C5533847BB772D4C26CA74A3D82935855D69ED2F12",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-alphabetic-digit",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E16#G.",
+      "SourceSha256": "DC63A43BBE06160A93EAEF7C8A388F142E6A69146599B02A437ADE7EE6AE5588",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-missing-digit",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E16#.",
+      "SourceSha256": "1A2BB0A26EE061627545E1327493CEC1481AE1F607DA8594C267A24C9667BC81",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-leading-separator",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E16#_1.",
+      "SourceSha256": "7C8F4B06C56E6F7F40F50640DB5A790DCBA9F69A22792CC8965459D55A2AA73A",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-trailing-separator",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E16#1_.",
+      "SourceSha256": "E06EA2CC1427D172DAC1BA08E22C7BF20705B3696D312EB5561E20489ACCB5AE",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    },
+    {
+      "Name": "based-integer-diagnostic-repeated-separator",
+      "Source": "-module(based_integer_bad). -export([run/0]). run()-\u003E16#1__0.",
+      "SourceSha256": "B2A1E53A22A3C87246C39A205AEEAF50216D4082739C87E589B3059FA29DA940",
+      "ExpectedCode": "ERL001",
+      "ExpectedMessage": "Illegal integer literal",
+      "Expected": "{error,[{illegal,integer}]}",
+      "DiagnosticKind": "BasedInteger"
+    }
+  ]
+}

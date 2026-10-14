@@ -1,0 +1,100 @@
+{
+  "Status": "Source frozen after style-only repair; full retry pending",
+  "Revision": 3,
+  "Seed": "b39dd3aaac2efaae8ca7636da78a888482b0d60f",
+  "SourcePin": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InheritedModules": 4831,
+  "AddedModules": 12,
+  "TotalModules": 4843,
+  "Comparable": 4837,
+  "InheritedDiagnostics": 151,
+  "AddedDiagnostics": 8,
+  "TotalDiagnostics": 159,
+  "Exclusions": 6,
+  "DefaultMfas": 484,
+  "NewMfas": 0,
+  "NewHostTests": 0,
+  "ExpectedLocalTests": 6459,
+  "ExpectedNativeComparisons": 5774,
+  "StyleWrite": "1 file updated",
+  "StyleCheck": "0 need formatting",
+  "BasedFloatScope": "Explicit unsupported valid syntax; no badarg misclassification",
+  "Files": [
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Sha256": "3588EA11F1A905A8346A21A25FC94F39871524796CD191F45C2EC14B7A5703AF",
+      "BaselineSha256": "9B1240C2985086B56BECF3B3AA9B5B2A4EA084E1901BF3AD82B049E0807F1E94"
+    },
+    {
+      "Path": "docs/OTP-BASED-INTEGER-SCANNER.md",
+      "Sha256": "ECB9E3B41970F004466CCC8F7E87F35073576339A6790CE0126ADA6FD9BB8690",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Sha256": "4B59E866B8B1947266AF51C8E778FAE9E5FDFF1EFF9CE780390E814829CFBB6B",
+      "BaselineSha256": "66F88795A2845442D45194F490D064A284BDAF771BEB31A7FC3D537E693CDA60"
+    },
+    {
+      "Path": "src/Erlang.Compiler/BasedIntegerDiagnostics.cs",
+      "Sha256": "5B46784D02145E8FB46ADC1F57A02552D9209C3479089E8C7260BA9FE856599D",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/BasedIntegerLexer.cs",
+      "Sha256": "270CF684811DF772C422F1FA1A9780A3F06213DB3F788F11C7E5012C47003583",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/BasedIntegerParameters.cs",
+      "Sha256": "4AB1F16FB674D3F8DD2AE2FBD40682D1A00577B0F7B2605137F6269089ECC65C",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/Lexer.cs",
+      "Sha256": "8B67D8C72EEB63E81A54BC4B3D990B4092E91B3CC35332148783D43879CDED27",
+      "BaselineSha256": "4F7B3E89D4BC208651E630B81B674C9F2471FF6E27D8459B166276D47A9C4E57"
+    },
+    {
+      "Path": "tools/Erlang.Differential/BasedIntegerCases.cs",
+      "Sha256": "599C698B7906470A3C40D5049B46B84AFA5DA0A95D349AC3AD6D6F816C6E1251",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/BasedIntegerDiagnosticCases.cs",
+      "Sha256": "67FFDAF520E7703EDFF5D19DD78176E0909DD7D96B5A61B2CEC9609437E4FFBE",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/BasedIntegerDiagnosticExpectations.cs",
+      "Sha256": "122CFD88C5E9ABA5800CE56072F817EDC0513AEDAE7A427A756A0D6F96099A40",
+      "BaselineSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledDiagnosticCases.cs",
+      "Sha256": "BAC8948968D8FC5458AC887DC7265B02CF42DF9E4E600B6AF24B398E080433E9",
+      "BaselineSha256": "814DFD2C1392FDE122F41A03BB9284EF311CF6FD77CD3C75DB02138690B62BB7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledDiagnosticExpectations.cs",
+      "Sha256": "555737DA26CB5F2C580A0D75088DCBDEA914D14915A8FB2E02AFB86F2575F300",
+      "BaselineSha256": "34CBE21A4805BEDB6E59FF17FF3A4114943D503EFAF968A6E1BE3F561C27144A"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "3CB117FAF3C5320F84D08D3272C64F5593904127862C84971CB247F23B49D30D",
+      "BaselineSha256": "4E45A2A26F84C8D1E339136841DE9263C03C0CDE3422998205BF08F58F988446"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleProtocol.cs",
+      "Sha256": "F1833EAD6B148BFB36B626B05E6B424AE9513BC6615D1B74A9D7CD2F5E5CD9C0",
+      "BaselineSha256": "29BBF11827F48ECE610856A15424E17E77AAD0DDA7979A64B71601746053D340"
+    },
+    {
+      "Path": "tools/Erlang.Differential/DiagnosticCaseKind.cs",
+      "Sha256": "206D4CE826D37D3A33052242B11A75CAF83EF4CBCDDB7EFAD8341EF5767A6A92",
+      "BaselineSha256": "192502B1875EA5B736B2C42B7D63AF936216891AADAE1E3703EEFC119D6CFABB"
+    }
+  ],
+  "RevisionReason": "First full failed style before tests; remove extra BasedIntegerCases C#EOF blank line, fixture source bodies/outcomes unchanged"
+}
