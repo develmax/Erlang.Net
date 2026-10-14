@@ -1,0 +1,131 @@
+{
+  "Passed": true,
+  "Seed": "3a7ab4a6ac3adeee2242545a25ad2ace27efa8e7",
+  "SourcesExactAfterTargetFocus": 20,
+  "ImportSourcesExact": 18,
+  "Original15RuntimePathsExact": true,
+  "ResourcesExact": 140,
+  "BuildExitCode": 0,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "LayoutCheckExitCode": 0,
+  "HookRegressionExitCode": 0,
+  "ActualGroupInvocations": 4,
+  "PerGroupBudgetSeconds": 30,
+  "RepeatedGroupInvocationsClaimed": false,
+  "Steering": "Root clarified30 means per-group timeout, not30repetitions; exactlyone invocation each of four unchanged actual test groups",
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.DistributionPendingPromotionFocus",
+      "ProcessId": 81708,
+      "FullName": "Erlang.DistributionPendingPromotionFocus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-prototype\\tools\\Erlang.DistributionPendingPromotionFocus\\bin\\Debug\\net10.0\\Erlang.DistributionPendingPromotionFocus.dll",
+      "Mvid": "47791fbc-51e1-4f4c-8656-797b72f6f114",
+      "Sha256": "AB7ED19655170BFFE8161FFD7D20663293867ADC16B276F40F03990642BA2BD9"
+    },
+    {
+      "Name": "Erlang.Tests",
+      "ProcessId": 81708,
+      "FullName": "Erlang.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-prototype\\tools\\Erlang.DistributionPendingPromotionFocus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Mvid": "4b21f2d8-ed26-4d1a-b233-7aae90fa33c9",
+      "Sha256": "F5E3E75E15B965BC619848755908817891FAF1EE6C4C2EAAF263E8F8F7D28014"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "ProcessId": 81708,
+      "FullName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-prototype\\tools\\Erlang.DistributionPendingPromotionFocus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Mvid": "b5ec4f07-a14f-45f3-ae29-c85b8533ff9f",
+      "Sha256": "E044560C604574EBFD11C2093490440FD58B2DC63FBEBEC32CC57CBFB635264D"
+    }
+  ],
+  "ActualLoadedTestsDllEqualsBuiltTestsBytes": true,
+  "ActualLoadedRuntimeDllEqualsBuiltRuntimeBytes": true,
+  "ObservationMethod": "artifact-only DOTNET_STARTUP_HOOKS AppDomain assembly-load observer records actual live assembly location/MVID and on-disk SHA256; environment restored after process terminal",
+  "ObserverChangesCandidateSource": false,
+  "Controls": [
+    {
+      "Name": "Erlang.Tests.ReferenceResourceHostChecks",
+      "Passed": true
+    },
+    {
+      "Name": "Erlang.Tests.HostDistributionChecks",
+      "Passed": true
+    },
+    {
+      "Name": "Erlang.Tests.BeamLoaderLifecycleChecks",
+      "Passed": true
+    },
+    {
+      "Name": "Erlang.Tests.DistributionPendingChecks",
+      "Passed": true
+    }
+  ],
+  "CleanupEvidenceScope": "actual selected group assertions include resource closure, controller/kernel death while oldbody held, runtime halt quiescence and ordinary disposal; no claim arbitrary host callbacks are bounded",
+  "SourceChangesDuringValidation": 0,
+  "MainWritesOrGitMutations": 0,
+  "FullSuiteRun": false,
+  "MainFullPassedClaimed": false,
+  "NativeOtpExecutions": 0,
+  "CoreRegistrationsAdded": 0,
+  "ConnectedNativeKernelAdmissionOrTransportClaimed": false,
+  "Files": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-source-freeze.json",
+      "Sha256": "01a38636858e4cc055d6a774cbbe51505f168670b295f02f3e4bdc0dc4770a59"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-hook-focus-initial.log",
+      "Sha256": "dfd8a95b80e502cfc460deae95e8ab7f4c569616bb63ceb5b0a490b46cf7acdb"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-loaded-assemblies.jsonl",
+      "Sha256": "46bfb30311a19fb41fb3d72f7103c7329005cc3e68d31b1a1c5dbeb25d4b4183"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-target-build-initial.log",
+      "Sha256": "a1ab2d9b868d4ccc3df24fef305b035e5db01311099fa36ad75eeb3744579174"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-style-initial.log",
+      "Sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-source-guard.json",
+      "Sha256": "4dff0328a1c7720e5eb5cdb89fc33c9d63f0c68c3e39d1e9374b674fe4b1af90"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-source-freeze-initial.json",
+      "Sha256": "16bbfa42e51b50ff8ccd70bdc74d39417dbc22d267e2c8aa9e7b0b2591dc5122"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-source-freeze-duplicate-initial-failure.json",
+      "Sha256": "0339a050c85ff5c6e0d319c9f361a930e1e9eb0d7bc76a7027036a710e45bc13"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-promotion-producer-failure.json",
+      "Sha256": "59c55e623c13cf784e14e0e0ad95c38df120f337ee4ea7bddeae8261941c2568"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-load-observer\\StartupHook.cs",
+      "Sha256": "94029b696afb03f7a5c1a1afdf2f055420c513bcc3b3c0f2155f21882e78226f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-load-observer\\LoadObserverNames.cs",
+      "Sha256": "29136f4b8ea4c70d8f89e2fe0760d84e1fe13f0e9335d77d177ab98e8977ee93"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-load-observer\\LoadObserver.csproj",
+      "Sha256": "e1a91ad3b17614202de10e44136c7dbcc5e9cf97d5dea39cdae0418edeb2e8b9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-load-observer\\bin\\Debug\\net10.0\\LoadObserver.dll",
+      "Sha256": "519b861ee5ac501b2d233f2fbc44ac40fb26b5bcddb8f7b54bdd91c521b7625f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-pending-load-observer-build.log",
+      "Sha256": "87cc22cb0b252d503f51aec3f74979b7e521803ee89db3c9312a7907a12af745"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "Status": "SourcePeerReadyForTargetAndPathControlsWithOneLiteralCorrection",
+  "FreezeSha256": "0af3025cfa5a141158f80e6a78353e229f23f85c1bd824e6f057cf47bd3dcc40",
+  "ExactFiles": 15,
+  "SourceProbeSha256": "8717200DDCC03E652257B84F542ED6949F4AEE800CFD589A00680AB75BA83A44",
+  "ProbeUtf8NoBomLf": true,
+  "PinnedSourceRootLogHashRuntimeJitChecks": true,
+  "ExactThreeSafeScenariosBeforeOutput": true,
+  "Fresh3NativeVmCommands": true,
+  "PhaseInputOperationFactsCleanupCompletenessRequired": true,
+  "ReportSelfInventoryExcluded": true,
+  "CaptureSkeletonScopedRenameTokensExact": true,
+  "NoNativeExecutionOrCompileClaim": true,
+  "BuildsByReviewer": 0,
+  "MainWrites": false,
+  "ConcreteCorrections": [
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeExporter.cs",
+      "Reason": "Directory.EnumerateFiles(output,\"*\",...) containsnewinlineartifact glob literal; user semanticowner requirement suggests NodeNames.AllFilesPattern. Emptyexecutable suffix shouldstring.Empty."
+    }
+  ],
+  "RequiredPathControls": [
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeModuleSource.cs",
+      "Reason": "Quote uses JsonSerializer.Serialize; default encoder emits JSON\\uXXXX escapes for nonASCII/HTMLsensitive characters. Erlang string escape syntax differs (\\x{...}), so arbitraryUnicode/&/< path maynotroundtrip. FixedASCII workflowpaths likelywork; do notclaim generalCLIpath support without actual quote/pathnativecontrols.",
+      "Recommendation": "use a domain Erlang quote builder escaping onlybackslash/quote/control or explicitlyErlangunicodeescape, and actualspaces/quotes/Unicodepath tests. Process.ArgumentList itself avoidsshellinjection."
+    }
+  ],
+  "RemainingLimits": [
+    "45s processwait+5s kill+5s drain scope;failedkillmayleavechildrawIncomplete exception preserved nocleanupsuccessclaim",
+    "rawdiskstreambytes notcapped",
+    "stage/reportcapture meansobservationscomplete notsemanticcompatibility",
+    "independentactualETF/phasefacts analysis required before identity implementation",
+    "workflow originalcompile -Werror actualpending; start/dist_listenfalse maystillrequireenvironmentservices"
+  ],
+  "ExistingNative11Iodata16ApplyToolMutation": false
+}

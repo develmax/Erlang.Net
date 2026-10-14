@@ -4234,6 +4234,8 @@ Test(Erlang.Tests.BeamGzipNativeNames.Test, Erlang.Tests.BeamGzipNativeChecks.Ru
 
 Test(Erlang.Tests.HostDistributionTestNames.Test, Erlang.Tests.HostDistributionChecks.Run);
 
+Test(Erlang.Tests.DistributionPendingTestNames.Test, Erlang.Tests.DistributionPendingChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

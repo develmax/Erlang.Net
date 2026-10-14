@@ -1337,6 +1337,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 reason = death.Reason;
                 if (!processes.Remove(ctx.Self))
                     continue;
+                distributionPending?.ProcessTerminated(ctx);
                 ProcessTracing.Terminated(ctx.Self);
                 SystemMonitoring.Terminated(ctx.Self);
                 processSlots.Remove(ctx.Self);
@@ -1431,6 +1432,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 return;
             disposed = true;
             Timers.Dispose();
+            distributionPending?.Close();
             ReferenceResources.Close();
             Ports.Shutdown();
             foreach (var process in processes.Values.ToArray())
@@ -1448,6 +1450,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             {
                 disposed = true;
                 Timers.Dispose();
+                distributionPending?.Close();
                 ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var p in processes.Values.ToArray())

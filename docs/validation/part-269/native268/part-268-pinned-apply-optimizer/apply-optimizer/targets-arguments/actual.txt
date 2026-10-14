@@ -1,0 +1,11 @@
+{exception,error,badarg,
+    [{erlang,call_on_load_function,
+         [beam_on_load_fresh_success],
+         [{error_info,#{module => erl_erts_errors}}]},
+     {apply_optimizer_probe,run,3,
+         [{file,"artifacts/apply-optimizer/apply_optimizer_probe.erl"},
+          {line,10}]},
+     {erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},
+     {init,start_it,1,[]},
+     {init,start_em,1,[]},
+     {init,do_boot,3,[]}]}

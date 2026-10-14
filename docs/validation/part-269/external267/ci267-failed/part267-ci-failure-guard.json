@@ -1,0 +1,24 @@
+{
+  "Status": "ExactFailed267CiProofPreserved",
+  "Head": "85a01e41d4f9fee085bee7a3fa656ea168645dc6",
+  "RunId": 38568367898,
+  "JobId": 115866759981,
+  "ArtifactId": 11896399462,
+  "CiPassed": 6483,
+  "CiFailed": 1,
+  "FirstFailedStage": "Run ./tools/validate.ps1",
+  "Failures": [
+    {
+      "Name": "erlang/hash-iterative-deep-terms-and-no-binary-payload-copy",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Portable hash allocation budget exceeded: 12688 bytes, budget 4096, result Integer, thread 6, synchronous completion\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 73\r\n   at Erlang.Tests.ErlangHashHostChecks.Resources() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ErlangHashHostChecks.cs:line 73\r\n   at Program.<Main>$(String[] args) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4246",
+      "Milliseconds": 76
+    }
+  ],
+  "FullIntegrationExecuted": false,
+  "AllocationBudgetUnchanged": 4096,
+  "AllocationFailureCauseEstablished": false,
+  "RawApiZipLogVerified": true,
+  "RetryExecuted": false,
+  "SourceOrExpectedOrBudgetChanged": false
+}

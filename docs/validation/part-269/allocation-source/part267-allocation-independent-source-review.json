@@ -1,0 +1,45 @@
+{
+  "Status": "ReadOnlyAllocationSourceAuditOutlierCauseUnproved",
+  "HelperSourceSha256": "74005c113c914be99464767c1cda69437b6dd3c2e25e0eb1db8805b74704912a",
+  "ActualDiagnosticRows": 81,
+  "WindowEquivalence": {
+    "ExactFirstWindow": "same4MiBbinary, oneawaitwarmup, currentthreadcounterbefore rangeTerm+params construction andregistrycall, synchronous GetResult, counterafter; matches production valid synchronous success path",
+    "Difference": "diagnostic records result/string/row only after measuredcounter; production additionally rejects asynchronous/threadchange. Diagnostic recordsasync/thread ratherthanthrow immediately. FirstWindow exactvalid-success only, nofullsuitehistoricalstateequivalence",
+    "SubsequentCategories": "prebuilt/body/delegate are deliberate narrower attribution controls, not equivalent production tests",
+    "CiDllEquivalence": "local Runtime/Terms hash/MVID retained, not proven byte-equal failedCIartifactDLL here"
+  },
+  "SourcePathFacts": [
+    "Portable2 BitString root returns BinaryHash before stack allocation",
+    "BinaryHash uses internal ByteSpan and ErlangBlockHash value/span operations; no managed object creation observed in this binary fastpath",
+    "registeredphash2body Range/Portable2 andTerm.I(result) explain smallInteger allocation; local32bytes observed",
+    "Modules.Call on erlang image-null path constructs no source-imagelease; ProcessTracing.Called returnsnull whenno matchingpattern; SavedCalls.Record returns whenentriesnull; Complete/GuardHaltBoundary return completedValueTask directly",
+    "ThrowIfHalted volatilecheck allocates only exceptionalProcessHaltTransfer, inconsistent withsuccessfulInteger synchronous result",
+    "noProcessContext.ReduceAsync/accounting invoked by directregisteredphash2 call; 4MiBloop doesnotcooperativelyyield intoErlang actorcontrol handlers",
+    "enabledglobalpattern/saved-callstate or incidental CLRfirst-use/safepoint events are hypotheses, not observed cause"
+  ],
+  "PossibleInfrequentAllocationSitesToObserve": [
+    "Monitor.Enter on registry/process tracing gates could involve runtime contention/instrumentation machinery; exactallocationtype unknown",
+    "ProcessTracing.Called dictionary path and immutable key strings reused; configuredpattern allocationrequiresactualpatterntrace state",
+    "BigInteger range/value conversion and Term.I can trigger first-use runtime metadata but one warmup makesthis unproved; donotlabelJITcause",
+    "runtime instrumentation/profiler/sampling callbacks can allocate onmutatorthread during longhash; currentthreadcounter countsall suchallocations, notonly explicitPortable2new statements"
+  ],
+  "DiagnosticPlan": {
+    "First": "retainsameheadfailedCIRuntime/TermsDLLsha+MVID/frameworkarchenv+actualtestwindow emittedthreadid; runseparatediagnostic track only with exactartifacts andnonmutatingstaticmarker fields",
+    "WindowsCoarseTrace": "externalETW/PerfView GCAllocationTick+stackwalk+JIT/loader/contention events correlatedOSthreadID/window timestamps; useful allocationtypes/stack hints but GCAllocationTick samples allocationquantum and maynotemit for12336extra bytes",
+    "ExactAttribution": "ifsmalloutlierreproduceswithoutsampledallocation event, use isolated CLR profiling API ObjectAllocated callback vianativeprofiler withCOR_PRF_MONITOR_OBJECT_ALLOCATED andper-OSThread lockfreepreallocatednativebuffer; captureclassID/objectsize+DoStackSnapshot/nativeframeIP thenresolveclassnames afterwindow. Profiler mustnotallocate managedobjects inmeasuredthread; instrumentation changesexecution soattachasdiagnostic evidence notproductionbudgetpass",
+    "LowerCostBoundary": "recordpreallocated checkpoints afterargumentconstruction/beforebody/afterbody withoutlogging/Reflection/dictionaries insidewindow; diagnostic-only helper, notMain/testbudget change",
+    "Forbidden": "no4096budgetincrease/nooutcome weakening/noCIretry assumedproof/noJIThypothesis promotedtofact"
+  },
+  "CurrentObservedValues": {
+    "Exact": 352,
+    "Prebuilt": 248,
+    "Body": 32,
+    "Portable2": 0,
+    "ArgumentOnly": 104,
+    "CiOutlier": 12688
+  },
+  "MainChanged": false,
+  "Builds": 0,
+  "CiRetries": 0,
+  "CauseProven": false
+}

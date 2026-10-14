@@ -60,6 +60,7 @@ public sealed partial class ProcessRuntime
             Volatile.Write(ref haltState, (int)RuntimeLifecycleState.Stopping);
             Volatile.Write(ref haltResult, result);
             disposed = true;
+            distributionPending?.Close();
             ReferenceResources.Close();
             stopped = processes.Values.ToArray();
             executions = executingProcesses.Select(process => process.Unwound.Task).ToArray();

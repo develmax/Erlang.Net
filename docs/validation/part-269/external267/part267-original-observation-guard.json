@@ -1,0 +1,91 @@
+{
+  "Status": "PASS",
+  "Head": "85a01e41d4f9fee085bee7a3fa656ea168645dc6",
+  "Run": 38568438645,
+  "Job": 115867008746,
+  "Artifact": 11898465804,
+  "ZipSha256": "3AEE1674F732CD0118FE9ACC1FD809B28B3DD35CBA5E77E029AB825205D8A88B",
+  "JobLogSha256": "D8425322CD09488D19E2FE091051799431A295726DA92314C7E3239794FF87C2",
+  "OriginalPassed": 5774,
+  "OriginalFailed": 0,
+  "Complete": true,
+  "Expressions": 778,
+  "ComparableModules": 4837,
+  "Diagnostics": 159,
+  "All4825HistoricalModuleRowsExact": false,
+  "All4825HistoricalSemanticContractsExact": true,
+  "RawObservationDifferences": [
+    {
+      "Index": 3605,
+      "Name": "erlang-term-display-map",
+      "Differences": {
+        "NativeStandardOutputHex": {
+          "Actual": "237B613D3E7B307D2C623D3E2241227D0D0A",
+          "Historical": "237B623D3E2241222C613D3E7B307D7D0D0A"
+        },
+        "NativeAndSdkStandardOutputExactlyMatch": {
+          "Actual": true,
+          "Historical": false
+        }
+      },
+      "FullCurrentRow": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      },
+      "FullHistoricalRow": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": false,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "PriorDeclaredMapAlternativesOnly": true,
+  "NoExpectedOrSourceChanges": true,
+  "All151HistoricalDiagnosticRowsExact": true,
+  "All12Plus8IndependentNewContractsExact": true,
+  "AllSixExclusionsUnchanged": true,
+  "ReferenceCoverageComplete": false,
+  "FdPassed": 8,
+  "CiPassed": 6483,
+  "CiFailed": 1,
+  "CiStatus": "FirstRunFailedPortableHashAllocationBudget",
+  "CombinedValidationStatus": "NativeVerifiedCiFailed",
+  "SeparateHaltOriginalStatus": "Historical251 PASSED26of26 plus2physical; format comparison false"
+}

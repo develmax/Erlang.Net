@@ -1,0 +1,32 @@
+{
+  "Status": "PASS",
+  "NativeRoundTripExecuted": false,
+  "InvalidUtf16Rejected": true,
+  "Rows": [
+    {
+      "Input": "alpha",
+      "Expected": "\u0022alpha\u0022",
+      "Actual": "\u0022alpha\u0022"
+    },
+    {
+      "Input": "\u03B1\u0026\uD83D\uDE42",
+      "Expected": "\u0022\u03B1\u0026\uD83D\uDE42\u0022",
+      "Actual": "\u0022\u03B1\u0026\uD83D\uDE42\u0022"
+    },
+    {
+      "Input": "a\\b",
+      "Expected": "\u0022a\\\\b\u0022",
+      "Actual": "\u0022a\\\\b\u0022"
+    },
+    {
+      "Input": "a\u0022b",
+      "Expected": "\u0022a\\\u0022b\u0022",
+      "Actual": "\u0022a\\\u0022b\u0022"
+    },
+    {
+      "Input": "\n\u0085",
+      "Expected": "\u0022\\x{A}\\x{85}\u0022",
+      "Actual": "\u0022\\x{A}\\x{85}\u0022"
+    }
+  ]
+}

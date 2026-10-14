@@ -1,0 +1,49 @@
+{
+  "Status": "SourceOnlyNodeIdentityProbeNeedsPhaseAndCleanupControls",
+  "SourceSha256": "932F7CB85AA3053E346BD8335AB0FE8F2E3AD163CECF51F1CC14F9A611EDD067",
+  "PinnedSourcesVerified": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "lib/kernel/src/net_kernel.erl",
+      "Sha256": "D207F1CB01933A288D90C20CF5545C754213814BAE95A3BA9638316AA25FDAA6"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    }
+  ],
+  "BuiltOrNativeExecuted": false,
+  "MainWrites": false,
+  "ReviewedPositiveFacts": [
+    "net_kernel:start atomName+mapshortnames/dist_listenfalse is pinned documented supported API",
+    "owner/child/reference terms retained beforechanges andmapkeyslookup/nativephash2 captured",
+    "standard/localETFphasebytes captured independently, beforeencodedbytesdecodedafterphases capturingfullerrors",
+    "childactualping pid/node observation and spawn_monitor cleanup",
+    "noexpectedresults/SDKoutcome normalization, nodeidentityhypotheses remainunproved"
+  ],
+  "ConcreteCorrections": [
+    {
+      "Reason": "start/stop return terms merelyrecorded; snapshot continues evenifstart returns{error,...}, so completedstage maymeanrequestedtransitionneverhappened.",
+      "Repair": "retainrawoperationterm thenrequire expected{ok,Pid}/ok andalive/nodephasefacts beforeclaimtransitionobserved; iffailure writefailedphase/fullstack notsuccess."
+    },
+    {
+      "Reason": "cleanupchild timeout exit(Child,kill) doesnotwaitfor matchingDOWN afterward, so noownedchildcleanupcompletionproof. cleanup-kernel term/write exception canprevent childcleanup becausebothshareafterbody.",
+      "Repair": "nestedtry/finallychildstop/kill andboundedmatchingDOWN afterkill, preservetimeout plusfinalreason; ensurekernelcleanupfailurecannotbypasschildcleanup."
+    },
+    {
+      "Reason": "initialsnapshot before try-after starts; errorinbefore snapshot/initialETFinputwrite bypasses explicitchildcleanup.",
+      "Repair": "wrap allworkafterspawn_monitor withaftercleanup, notonlyphaseforeach."
+    }
+  ],
+  "NonBlockingLimits": [
+    "no -Werror compile performed; syntax plausibility only",
+    "outputdirectorycreation/path freshVMrunner/provenance/pinnedJIT checks notprovided bythis rawErlang plan",
+    "Caseoutsideexactthree raisesfunction_clause captured; externalrunner mustvalidatecase/inputname",
+    "epmd/backend startup requirements mayfail evenlistenfalse; preserveactualerror notinfernativeavailability",
+    "fullnativehash/mapwireownershipsemantics awaitactualrawobservations"
+  ],
+  "SemanticScope": "node start/stop/restart intrinsic identity observations; no distributioncontroller/setnode complete implementation claim"
+}

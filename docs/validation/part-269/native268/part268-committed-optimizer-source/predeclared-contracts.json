@@ -1,0 +1,171 @@
+{
+  "Status": "PredeclaredHypothesesNoSdkExpected",
+  "Pin": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ScenarioCount": 9,
+  "Declarations": [
+    {
+      "Name": "literal",
+      "ExpectedInstructionHypothesis": "call_ext_only target call_on_load_function",
+      "ExpectedBehaviorHypothesis": "Original257 callbackbody executes; noobserver badmatchfalse",
+      "NativeObserved": false
+    },
+    {
+      "Name": "known_list",
+      "ExpectedInstructionHypothesis": "constantpropagation\u2192direct call_on_load_function",
+      "ExpectedBehaviorHypothesis": "Likelysamecallbackbody; SDKlistvariablebadarg remainsknown gap",
+      "NativeObserved": false
+    },
+    {
+      "Name": "bound_targets",
+      "ExpectedInstructionHypothesis": "constantfold bound atoms/list\u2192direct",
+      "ExpectedBehaviorHypothesis": "Likelysamecallbackbody",
+      "NativeObserved": false
+    },
+    {
+      "Name": "unknown_list",
+      "ExpectedInstructionHypothesis": "genericapply instruction/C-BIF",
+      "ExpectedBehaviorHypothesis": "Errorbadarg JIT; corrected260actualgenericcontrast",
+      "NativeObserved": false
+    },
+    {
+      "Name": "module_argument",
+      "ExpectedInstructionHypothesis": "dynamicremote call with knownarity (notdirectconstantmodule)",
+      "ExpectedBehaviorHypothesis": "Mustobserve JIT instruction andactualtarget; cannotinfer from SDK",
+      "NativeObserved": false
+    },
+    {
+      "Name": "targets_arguments",
+      "ExpectedInstructionHypothesis": "dynamicremote call with knownarity",
+      "ExpectedBehaviorHypothesis": "Mustobserve dynamictargetcall andBEAMASM C-BIF behavior; notall apply forms equivalent",
+      "NativeObserved": false
+    },
+    {
+      "Name": "item_effect",
+      "ExpectedInstructionHypothesis": "directtarget after listitem sideeffect",
+      "ExpectedBehaviorHypothesis": "item_evaluated exactlyonce beforebody; retainrawmessagequeue snapshot",
+      "NativeObserved": false
+    },
+    {
+      "Name": "item_throw",
+      "ExpectedInstructionHypothesis": "error before callback",
+      "ExpectedBehaviorHypothesis": "Erroritem_failed withfullrawstack andnocallbacknotice",
+      "NativeObserved": false
+    },
+    {
+      "Name": "local_override",
+      "ExpectedInstructionHypothesis": "localapply3 with explicitno_auto_import",
+      "ExpectedBehaviorHypothesis": "{local,erlang,call_on_load_function,[M]}, nativecompilerpolicyunsupportedSDKseparate",
+      "NativeObserved": false
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "apply_optimizer_probe.erl",
+      "Sha256": "EC453859162C6CC72AFFB7B26E8E4F0D77CBFCBEFB4EF15377FE35F32F9560FA"
+    },
+    {
+      "Path": "apply_optimizer_local.erl",
+      "Sha256": "D3BFACC6C7E39F70033B76317F8B01922A58BA2BFC78C1B51876E8561BBC94E0"
+    }
+  ],
+  "IndependentAnchor": "lib/compiler/src/sys_core_fold.erl1010\u20131048 simplify_apply/get_fixed_args permits atomorvariablemodule/function andfixedlistargs. No expected comesfromSDK.",
+  "RequiredExecution": "OnefreshVMpercase; beforeinvoke real erlang:prepare_loading+finish_loading genuinefreshobserverBEAM; either noobserver (literal/known_list/bound_targets signature rawerror) or spawn_monitor realcaller withobserver ACK, retaining callbackPID/ref/DOWN rawETFs. run/1 here is rawexport helper only; orchestration muststage freshpendingmodule for eachcase and recordactualrootpinnedruntime first.",
+  "ToolProposal": "Separate C# Erlang.ApplyOptimizerContrasts exporter (newworkflow/manualtrack). Reuse boundedraw LoaderProcess source model withownsemantic constants/sourceevidence andfiveinputSHAcapture; do notmodify verifiedErlang.LoaderContrasts elevencontracts. Compilebothprobe modules -Werror +debug_info; retainBEAM/fullbeam_disasm andcode beforefreshVMobservations. Parsefunction-specificactual instruction shapes andrecord fullrawstack before independentprojection comparison.",
+  "WorkflowReuse": "Clone exact pinnedsourcebuildattestation stages from publishedloader-contrasts manualworkflow, standaloneprojectstep/outputtrack. Original11 cases/resources/expectedsource unchanged.",
+  "RequiredControls": [
+    "Eachcase worker monitor before notice/ACK; dynamichelperbadarg musthavenocallbacknotice",
+    "Effectonce output mailboxcaptured beforecallbackACK andafterworkerDOWN, notcountsderivedfromSDK",
+    "Noexpectedinstruction gate acceptedfor module_argument/targets_arguments untilsourcehypothesis independentlyaudited; preserveinstruction shape evenfailure",
+    "Argumentthrow andlocaloverride source compile gates separatefreshVMs; no_auto_import nativepolicy explicitnotSDKsupportclaim",
+    "Fullrawtermstacktext+ETF, stderr/stdout/exit/stage/rawcomplete/buildpin/digests storedbeforechecks"
+  ],
+  "MigrationPlan": "Use nativecaptures todefine ASTknown-list binding/calltarget analysis ratherthan runtime args length heuristic. Introduce compiler fold pass preserving expressionevaluation/sideeffects/localimportpolicy; sharedinterpreter/generated normalizedAST, not globalregistrydynamic\u2192direct conversion. Nativeknownarity variablemodule/function lowering likelyneeds dedicateddynamicremote-call path distinctfromapplyC-BIF; investigateactualinstructions beforeimplementation.",
+  "MainEdits": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "ExistingContractsChanged": false,
+  "ObservationPolicy": "Noobserver route probes only: callback entry provesviaoriginalbadmatchfalse/fullstack, not lifecycle/monitor-DOWN completion. FreshVMs guarantee noalias/observerstate leaks; no successcontract acceptedfromSDK.",
+  "Names": [
+    "literal",
+    "known-list",
+    "bound-targets",
+    "unknown-list",
+    "module-argument",
+    "targets-arguments",
+    "item-effect",
+    "item-throw",
+    "local-override"
+  ],
+  "OriginalProposalSources": [
+    {
+      "Path": "static_apply_local_override_probe.erl",
+      "Sha256": "B8999FF73AB8140DC33394CFC54F0A01CCDC3797C9F86F50C3534A101B66404D"
+    },
+    {
+      "Path": "static_apply_optimizer_probe.erl",
+      "Sha256": "DFAA488247DDBCF94418255A5C8E8E26450618FE5133C29ABDB0A9DA5E59562A"
+    }
+  ],
+  "ScenarioBindings": [
+    {
+      "Name": "literal",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "literal"
+    },
+    {
+      "Name": "known-list",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "known_list"
+    },
+    {
+      "Name": "bound-targets",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "bound_targets"
+    },
+    {
+      "Name": "unknown-list",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "unknown_list"
+    },
+    {
+      "Name": "module-argument",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "module_argument"
+    },
+    {
+      "Name": "targets-arguments",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "targets_arguments"
+    },
+    {
+      "Name": "item-effect",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "item_effect"
+    },
+    {
+      "Name": "item-throw",
+      "Module": "apply_optimizer_probe",
+      "NativeFunctionName": "item_throw"
+    },
+    {
+      "Name": "local-override",
+      "Module": "apply_optimizer_local",
+      "NativeFunctionName": "run"
+    }
+  ],
+  "CanonicalSourceBinding": {
+    "Encoding": "UTF-8",
+    "ByteOrderMark": false,
+    "LineEndings": "LF",
+    "Sources": [
+      {
+        "Path": "apply_optimizer_probe.erl",
+        "Sha256": "EC453859162C6CC72AFFB7B26E8E4F0D77CBFCBEFB4EF15377FE35F32F9560FA"
+      },
+      {
+        "Path": "apply_optimizer_local.erl",
+        "Sha256": "D3BFACC6C7E39F70033B76317F8B01922A58BA2BFC78C1B51876E8561BBC94E0"
+      }
+    ]
+  }
+}

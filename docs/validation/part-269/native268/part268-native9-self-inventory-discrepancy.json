@@ -1,0 +1,19 @@
+{
+  "Status": "DeclaredSelfReportDigestMismatchPreserved",
+  "Differences": [
+    {
+      "Name": "apply-optimizer.json",
+      "Declared": {
+        "Name": "apply-optimizer.json",
+        "Length": 23597,
+        "Sha256": "B33CD6784847DC8797E3EADC3B883A5E0F1A5FD972C648733B897509EDFA8CCF"
+      },
+      "Actual": {
+        "Length": 23596,
+        "Sha256": "C58BAC3AF8335E430F7B41C50EC06D163973C6FF3CC0D51348B77B8A60148EC8"
+      }
+    }
+  ],
+  "Cause": "ApplyExporter.Report evaluates Files(output) while the previous report exists, then writes and replaces that report. Its own entry therefore describes the previous snapshot.",
+  "RawReportRewritten": false
+}

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace Erlang;
 
-public sealed class RuntimeReferenceResources
+public sealed partial class RuntimeReferenceResources
 {
     private readonly object gate = new();
     private readonly ModuleRegistry modules;

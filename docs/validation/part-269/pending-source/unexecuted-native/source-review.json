@@ -1,0 +1,30 @@
+{
+  "Kind": "SOURCE-ONLY review before original compiler execution",
+  "Pin": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "distribution-pending-runtime-prototype/artifacts/distribution_pending_probe.erl",
+  "NativeCompiles": 0,
+  "NativeVmExecutions": 0,
+  "WerrorSuccessClaimed": false,
+  "StaticSyntaxReview": "module/export forms, clause terminators, matching tuples, fun expressions and operators are syntactically consistent on inspection; all variables/functions are used; only actual erlc -Werror can establish warning-free compilation",
+  "KernelAlivePrerequisite": {
+    "NewConnectionBifRequiresKernelOrIsAlive": false,
+    "Anchor": "erts/emulator/beam/dist.c:5588-5624",
+    "Evidence": "checks node spelling and excludes local distribution entry, then IDLE/PENDING state; no is_alive/net_kernel lookup in this BIF",
+    "HelperAnchors": ["erts/emulator/beam/erl_node_tables.c:352-370", "erts/emulator/beam/erl_node_tables.c:689-729"],
+    "Scope": "explicit internal pending handle only; this does not authorize setnode/3 channel admission"
+  },
+  "FlatHandleAnchor": "erts/emulator/beam/erl_node_tables.c:400-415",
+  "SameResourceIdentityAnchors": ["erts/emulator/beam/erl_bif_unique.h:202-213", "erts/emulator/beam/erl_node_tables.c:400-415"],
+  "ConnectionIdMaskAnchor": "erts/emulator/beam/external.h:137",
+  "GenerationIncrementAnchor": "erts/emulator/beam/erl_node_tables.c:714-716",
+  "StatInitialEmptyValuesAnchor": "erts/emulator/beam/erl_node_tables.c:197-202",
+  "Small64BitAndUnsignedTruncationAnchors": ["erts/emulator/beam/erl_term.h:262-279", "erts/emulator/beam/erl_node_tables.c:382-397"],
+  "AbortReturnAnchor": "erts/emulator/beam/dist.c:5693-5710",
+  "AbortScope": "native wrapper returns not-was-connected; pending/idle/stale-ID calls can return true. Strict HOST AbortPending transition boolean is deliberately separate and is not used as an oracle expectation",
+  "ExpectedProjectionIndependentlyPredeclared": true,
+  "ActualNumericStatStderrMustBeRetained": true,
+  "ActualIdentityAndIdRandomValuesMustNotBeFabricated": true,
+  "ChangesToExistingCandidateNativeArtifacts": 0,
+  "RootCopiedSourceLfCanonicalizationPermittedWithOldNewHashLedger": true,
+  "RemainingGate": "actual original -Werror compilation and fresh-VM raw projection proof on verified64-bit pinned build"
+}

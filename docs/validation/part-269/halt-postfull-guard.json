@@ -1,0 +1,460 @@
+{
+  "Old484MfaOrderExact": true,
+  "Status": "PASS",
+  "Passed": 6485,
+  "Packages": [
+    {
+      "PrivateLicenseAbsent": true,
+      "Name": "Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "31DA92F5B7FB3AD8FD7A8359F1AADD944EA83A95D41CA72BAD8D2464853A742D",
+      "FiveNoticesExact": true,
+      "RuntimeBytesExact": true
+    },
+    {
+      "PrivateLicenseAbsent": true,
+      "Name": "Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "D183145C6DFFD61C4D46E934254DC034DEB54D6CA2D01D0162457F9C5E98EA14",
+      "FiveNoticesExact": true,
+      "RuntimeBytesExact": true
+    }
+  ],
+  "ActualErlangMfaTests": 335,
+  "NewNativeProofClaimed": false,
+  "StrictContracts": 28,
+  "ActualDumps": [
+    {
+      "Bytes": 423889,
+      "Format": "MDMP; not BEAM crash dump",
+      "Sha256": "6848AB36992F6E1725D7D45801379F1A2F7C420DA49B0F6875B674C8826A852A",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\233eeae4da374fba865e90c5103532d0\\requested-clr.dmp",
+      "Backend": 0
+    },
+    {
+      "Bytes": 985630,
+      "Format": "MDMP; not BEAM crash dump",
+      "Sha256": "D723C2244C4DCB19931273EDB8A6315014CE7716F96FF870E5C3851593C37554",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\ef6d1ca64164446189a18c5e62e9e1b3\\requested-clr.dmp",
+      "Backend": 1
+    }
+  ],
+  "ActualDefaultMfaTests": 493,
+  "TypedMfaChildren": 3,
+  "HostChildren": 56,
+  "TotalSdkChildExecutions": 59,
+  "RawProof": [
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-zero",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\de7a7d0fa7db48f2ba2067d8d3680d00",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-one-status",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\20cf5edadcda40deb8d7b5b0af6cdf6f",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-two-flush-false",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c185f64f719c4b8fb3cac9c7dcd96b83",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-low-word-big",
+      "Exit": 47,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\6782f4361ef84d47a971c11bc8083ff3",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-low31-wrap",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\ed47ec0ec31a4a4aa08efa9e07af14ce",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-os-width",
+      "Exit": 257,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b61b6e7ab67f48be8d60b2cd170551fb",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-last-options-uint32",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\40a5cd3d64b24689ab05a76f0371a100",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-catch-after",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\cb201be554bb4c06b894e72c70c37ed6",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-generator",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\9d008a45af6a4c26b00bdcf6b3da65b1",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-both-streams",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\f84ea616c42f4a36a3752cf4c7f76503",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-options-first",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d3dec09f03b3486382082c83ee315e43",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-improper-options",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\275239bba3da47adb1a2440de8e7eef2",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-infinity-invalid",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b6e45f5eab854602b3c9329c8cbbda5d",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-uint32-overflow",
+      "Exit": 255,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\02720e8ad9b44e9b91526711ef718b75",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-one-error-wrapper",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\2485ffacac47449c995ded105ced5ef8",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-two-plain-status",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\25e7a4d967404916a174b2bfad7c3b74",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-negative-big-status",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\4f20bac659964888b8f87130f854a3c5",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-valid-abort-invalid-options-first",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\262f9244200944c4b22bb45492806420",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-invalid-slogan-prefix",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b11ed5c3936e4f4097c1d436414cabf7",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-direct-zero-watchdog",
+      "Exit": 255,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b2682baee0d14037a310347080d5dc29",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-maximum-native-small-timeout",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\1e557999ec1947dbb471a36b72ad9278",
+      "Backend": 0
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-native-small-boundary-rejected",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\1a79c99c8dec4f56bf5ec6860eb9c45f",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-wrapped-one-flush-false",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\362996261ff24e87824ecd6157480f8c",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-module-chain",
+      "Exit": 47,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\997e55209c40464b9484ea5bfd158787",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-server-init",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\152091c87fce46309d651b10361cebb6",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-supervisor-init",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\5fde4d3e9059473f8fb6db3eb3a60823",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-actual-abort",
+      "Exit": 3,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\9889000ac776497393ad43e42a5fa5be",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-real-clr-dump",
+      "Exit": 1,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\233eeae4da374fba865e90c5103532d0",
+      "Backend": 0
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-zero",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\519913ac6c48437889317f8fe4d7259b",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-one-status",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\19ef309bb0b64782aff6c4ce914ebc1e",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-two-flush-false",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\7347a5777eec44849f23360f8593e582",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-low-word-big",
+      "Exit": 47,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\23eddc875e86462a8a97082849baf6d2",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-low31-wrap",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\6a79d7579e3c4c0982ef6e944b3d9390",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-os-width",
+      "Exit": 257,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\10b464a3444c4bfcb990cf13c3565f01",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-last-options-uint32",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\72fa2ce3c2564b719dc3fb158b2305d3",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-catch-after",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\8ac8d1c660ac4e68b8c42fbeb9b12d76",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-generator",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\47415b4803d14ab1a41064e0bffa6a5b",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-both-streams",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c3c12a652c024bb7851ba151aec9b5da",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-options-first",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\6c0658459f1947f29fc6f4284f29dd10",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-improper-options",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\acecedfcb72343dd8ebfd72db10dd84b",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-infinity-invalid",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\1e880ae30aa143da962cc31dc1dde370",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-uint32-overflow",
+      "Exit": 255,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\52a9d385ccfb4cd597ef150571116f22",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-one-error-wrapper",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\e9b102bc409a486e8dc43b6859ee4995",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-two-plain-status",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\4af8c001175e4ef39ae92fdfa9730aff",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-negative-big-status",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\0e4bbb121b594d22832e03623001a020",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-valid-abort-invalid-options-first",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\fe95573b38ff47848998b8b91d559316",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-invalid-slogan-prefix",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c9e9420e73764b3a95f9fc61e603b74c",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-direct-zero-watchdog",
+      "Exit": 255,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\491ad96814fa480589ee5ef4d75f0266",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-maximum-native-small-timeout",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\bdd963abad0d45d8a15cb6b68885421f",
+      "Backend": 1
+    },
+    {
+      "Stage": "entry-returned",
+      "Name": "halt-native-small-boundary-rejected",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\f7492804a7084208831b84bcccc390cd",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-wrapped-one-flush-false",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\db271bde9b3a49949607b6500f51ce85",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-module-chain",
+      "Exit": 47,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\2d26c4acfb2a4af28a1bb8b1f91fabfe",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-server-init",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\f707d888e8a34a6d8895d1731a7c936b",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-supervisor-init",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d50c30fbe8f049a4b8f684bede54d778",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-actual-abort",
+      "Exit": 3,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b8fffc5790b14963a898048b32eca69f",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-real-clr-dump",
+      "Exit": 1,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\ef6d1ca64164446189a18c5e62e9e1b3",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-two-flush-false",
+      "Exit": 43,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\23922ae6aa164be299ead4724110e26d",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-one-status",
+      "Exit": 41,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\829e3727e15a471c881eb070f7682ba7",
+      "Backend": 1
+    },
+    {
+      "Stage": "halt-request-observed",
+      "Name": "halt-zero",
+      "Exit": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-mfa-cases\\f4dfd1b88e2442d2b52ab4f963c12c06",
+      "Backend": 1
+    }
+  ],
+  "Old6464PrefixExact": true
+}

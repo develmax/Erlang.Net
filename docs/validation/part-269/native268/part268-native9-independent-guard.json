@@ -1,0 +1,109 @@
+{
+  "Status": "NineNativeObservationsProvenanceAndRawTermsVerified",
+  "Head": "3a7ab4a6ac3adeee2242545a25ad2ace27efa8e7",
+  "RunId": 38570628234,
+  "JobId": 115874566807,
+  "ArtifactId": 11897343618,
+  "ZipSha256": "1584A51EAFCA417CAA312548FCC02901EBBD21301FAFA9A6AA2A04839642663D",
+  "AllExtractedRawZipBytesExact": true,
+  "RawFileCount": 125,
+  "AllDeclaredInventoryHashesExact": false,
+  "SelfInventoryMismatchPreserved": true,
+  "ScenarioFileInventoriesExact": true,
+  "CapturedNativeVms": 9,
+  "SdkExpectedUsed": false,
+  "SemanticCompatibilityClaim": false,
+  "PredeclaredHypothesesUnchanged": true,
+  "Rows": [
+    {
+      "Name": "literal",
+      "ActualEtfSha256": "350767105C179CD3EFE7561FD2630119001CBB494855318E4534494103E297AC",
+      "ActualRawText": "{exception,error,\n    {badmatch,false},\n    [{beam_on_load_fresh_success,init,0,\n         [{file,\n              \"artifacts/beam-fixtures/on-load-observers/fresh-success/new/beam_on_load_fresh_success.erl\"},\n          {line,6}]},\n     {apply_optimizer_probe,literal,1,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,24}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,literal,1,23,\n         [{label,22},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",24}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,literal},1},\n          {label,23},\n          {call_ext_only,1,{extfunc,erlang,call_on_load_function,1}}]},\n     ",
+      "ObservedReasonDecoded": "('tuple', (('atom', 'badmatch'), ('atom', 'false')))",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'beam_on_load_fresh_success'), ('atom', 'init'), ('integer', 0), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 97), ('integer', 114), ('integer', 116), ('integer', 105), ('integer', 102), ('integer', 97), ('integer', 99), ('integer', 116), ('integer', 115), ('integer', 47), ('integer', 98), ('integer', 101), ('integer', 97), ('integer', 109), ('integer', 45), ('integer', 102), ('integer', 105), ('integer', 120), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 111), ('integer', 110), ('integer', 45), ('integer', 108), ('integer', 111), ('integer', 97), ('integer', 100), ('integer', 45), ('integer', 111), ('integer', 98), ('integer', 115), ('integer', 101), ('integer', 114), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 115), ('integer', 47), ('integer', 102), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 104), ('integer', 45), ('integer', 115), ('integer', 117), ('integer', 99), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 115), ('integer', 47), ('integer', 110), ('integer', 101), ('integer', 119), ('integer', 47), ('integer', 98), ('integer', 101), ('integer', 97), ('integer', 109), ('integer', 95), ('integer', 111), ('integer', 110), ('integer', 95), ('integer', 108), ('integer', 111), ('integer', 97), ('integer', 100), ('integer', 95), ('integer', 102), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 104), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 99), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 115), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 6)))))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "known-list",
+      "ActualEtfSha256": "15F6FA7A45F274F294430120E0D3A0E536136500CAA1831CD3A2DF2C174F3A40",
+      "ActualRawText": "{exception,error,badarg,\n    [{erlang,call_on_load_function,\n         [beam_on_load_fresh_success],\n         [{error_info,#{module => erl_erts_errors}}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,known_list,1,25,\n         [{label,24},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",25}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,known_list},1},\n          {label,25},\n          {test_heap,2,1},\n          {put_list,{x,0},nil,{x,2}},\n          {move,{atom,call_on_load_function},{x,1}},\n          {move,{atom,erlang},{x,0}},\n          {call_ext_only,3,{extfunc,erlang,apply,3}}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'badarg')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'erlang'), ('atom', 'call_on_load_function'), ('list', (('atom', 'beam_on_load_fresh_success'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors'))})))),))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "bound-targets",
+      "ActualEtfSha256": "15F6FA7A45F274F294430120E0D3A0E536136500CAA1831CD3A2DF2C174F3A40",
+      "ActualRawText": "{exception,error,badarg,\n    [{erlang,call_on_load_function,\n         [beam_on_load_fresh_success],\n         [{error_info,#{module => erl_erts_errors}}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,bound_targets,1,27,\n         [{label,26},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",26}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,bound_targets},1},\n          {label,27},\n          {test_heap,2,1},\n          {put_list,{x,0},nil,{x,2}},\n          {move,{atom,call_on_load_function},{x,1}},\n          {move,{atom,erlang},{x,0}},\n          {call_ext_only,3,{extfunc,erlang,apply,3}}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'badarg')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'erlang'), ('atom', 'call_on_load_function'), ('list', (('atom', 'beam_on_load_fresh_success'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors'))})))),))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "unknown-list",
+      "ActualEtfSha256": "15F6FA7A45F274F294430120E0D3A0E536136500CAA1831CD3A2DF2C174F3A40",
+      "ActualRawText": "{exception,error,badarg,\n    [{erlang,call_on_load_function,\n         [beam_on_load_fresh_success],\n         [{error_info,#{module => erl_erts_errors}}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,unknown_list,3,29,\n         [{label,28},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",27}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,unknown_list},3},\n          {label,29},\n          {call_ext_only,3,{extfunc,erlang,apply,3}}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'badarg')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'erlang'), ('atom', 'call_on_load_function'), ('list', (('atom', 'beam_on_load_fresh_success'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors'))})))),))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "module-argument",
+      "ActualEtfSha256": "15F6FA7A45F274F294430120E0D3A0E536136500CAA1831CD3A2DF2C174F3A40",
+      "ActualRawText": "{exception,error,badarg,\n    [{erlang,call_on_load_function,\n         [beam_on_load_fresh_success],\n         [{error_info,#{module => erl_erts_errors}}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,module_argument,2,31,\n         [{label,30},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",28}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,module_argument},2},\n          {label,31},\n          {allocate,0,2},\n          {move,{atom,call_on_load_function},{x,2}},\n          {swap,{x,0},{x,1}},\n          {apply_last,1,0}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'badarg')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'erlang'), ('atom', 'call_on_load_function'), ('list', (('atom', 'beam_on_load_fresh_success'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors'))})))),))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "targets-arguments",
+      "ActualEtfSha256": "15F6FA7A45F274F294430120E0D3A0E536136500CAA1831CD3A2DF2C174F3A40",
+      "ActualRawText": "{exception,error,badarg,\n    [{erlang,call_on_load_function,\n         [beam_on_load_fresh_success],\n         [{error_info,#{module => erl_erts_errors}}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,targets_arguments,3,33,\n         [{label,32},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",29}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,targets_arguments},3},\n          {label,33},\n          {allocate,0,3},\n          {swap,{x,1},{x,2}},\n          {swap,{x,0},{x,1}},\n          {apply_last,1,0}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'badarg')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'erlang'), ('atom', 'call_on_load_function'), ('list', (('atom', 'beam_on_load_fresh_success'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors'))})))),))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "item-effect",
+      "ActualEtfSha256": "0FBF0A2F967BD6906508EB718AACF8100E2EAD3F1A1AE0CCFE83B73F2820DA93",
+      "ActualRawText": "{exception,error,\n    {badmatch,false},\n    [{beam_on_load_fresh_success,init,0,\n         [{file,\n              \"artifacts/beam-fixtures/on-load-observers/fresh-success/new/beam_on_load_fresh_success.erl\"},\n          {line,6}]},\n     {apply_optimizer_probe,item_effect,1,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,30}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "256489036908689835F94B004B22F9C7F3FDE1FF3F4521085895802E63C59A58",
+      "RawFunctionDisassembly": "{function,item_effect,1,35,\n         [{label,34},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",30}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,item_effect},1},\n          {label,35},\n          {allocate,1,1},\n          {move,{x,0},{y,0}},\n          {bif,self,nofail,[],{x,0}},\n          {move,{atom,item_evaluated},{x,1}},\n          send,\n          {move,{y,0},{x,0}},\n          {call_ext_last,1,{extfunc,erlang,call_on_load_function,1},1}]},\n     ",
+      "ObservedReasonDecoded": "('tuple', (('atom', 'badmatch'), ('atom', 'false')))",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'beam_on_load_fresh_success'), ('atom', 'init'), ('integer', 0), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 97), ('integer', 114), ('integer', 116), ('integer', 105), ('integer', 102), ('integer', 97), ('integer', 99), ('integer', 116), ('integer', 115), ('integer', 47), ('integer', 98), ('integer', 101), ('integer', 97), ('integer', 109), ('integer', 45), ('integer', 102), ('integer', 105), ('integer', 120), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 111), ('integer', 110), ('integer', 45), ('integer', 108), ('integer', 111), ('integer', 97), ('integer', 100), ('integer', 45), ('integer', 111), ('integer', 98), ('integer', 115), ('integer', 101), ('integer', 114), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 115), ('integer', 47), ('integer', 102), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 104), ('integer', 45), ('integer', 115), ('integer', 117), ('integer', 99), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 115), ('integer', 47), ('integer', 110), ('integer', 101), ('integer', 119), ('integer', 47), ('integer', 98), ('integer', 101), ('integer', 97), ('integer', 109), ('integer', 95), ('integer', 111), ('integer', 110), ('integer', 95), ('integer', 108), ('integer', 111), ('integer', 97), ('integer', 100), ('integer', 95), ('integer', 102), ('integer', 114), ('integer', 101), ('integer', 115), ('integer', 104), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 99), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 115), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 6)))))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "item-throw",
+      "ActualEtfSha256": "C2C38EF0E4AB5C5536F50337EE1ADECE988333765A9AC49F9459A13983A819BC",
+      "ActualRawText": "{exception,error,item_failed,\n    [{apply_optimizer_probe,item_throw,1,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,31}]},\n     {apply_optimizer_probe,run,3,\n         [{file,\"artifacts/apply-optimizer/apply_optimizer_probe.erl\"},\n          {line,10}]},\n     {erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,1044}]},\n     {init,start_it,1,[]},\n     {init,start_em,1,[]},\n     {init,do_boot,3,[]}]}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,item_throw,1,37,\n         [{label,36},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_probe.erl\",31}]},\n          {func_info,{atom,apply_optimizer_probe},{atom,item_throw},1},\n          {label,37},\n          {move,{atom,item_failed},{x,0}},\n          {call_ext_only,1,{extfunc,erlang,error,1}}]},\n     ",
+      "ObservedReasonDecoded": "('atom', 'item_failed')",
+      "FirstRawFrameDecoded": "('tuple', (('atom', 'apply_optimizer_probe'), ('atom', 'item_throw'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 97), ('integer', 114), ('integer', 116), ('integer', 105), ('integer', 102), ('integer', 97), ('integer', 99), ('integer', 116), ('integer', 115), ('integer', 47), ('integer', 97), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 121), ('integer', 45), ('integer', 111), ('integer', 112), ('integer', 116), ('integer', 105), ('integer', 109), ('integer', 105), ('integer', 122), ('integer', 101), ('integer', 114), ('integer', 47), ('integer', 97), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 121), ('integer', 95), ('integer', 111), ('integer', 112), ('integer', 116), ('integer', 105), ('integer', 109), ('integer', 105), ('integer', 122), ('integer', 101), ('integer', 114), ('integer', 95), ('integer', 112), ('integer', 114), ('integer', 111), ('integer', 98), ('integer', 101), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 31)))))))",
+      "HypothesisAcceptedAsExpected": false
+    },
+    {
+      "Name": "local-override",
+      "ActualEtfSha256": "B4E17382B83817E8D6D55601606E991BF2772FA03906414BF0B36ECFF90DE672",
+      "ActualRawText": "{value,{local,erlang,call_on_load_function,[beam_on_load_fresh_success]}}\n",
+      "MessagesEtfSha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "RawFunctionDisassembly": "{function,run,1,4,\n         [{label,3},\n          {line,\n              [{location,\n                   \"artifacts/apply-optimizer/apply_optimizer_local.erl\",5}]},\n          {func_info,{atom,apply_optimizer_local},{atom,run},1},\n          {label,4},\n          {test_heap,2,1},\n          {put_list,{x,0},nil,{x,2}},\n          {move,{atom,call_on_load_function},{x,1}},\n          {move,{atom,erlang},{x,0}},\n          {call_only,3,{apply_optimizer_local,apply,3}}]},\n     ",
+      "ObservedReasonDecoded": "None",
+      "FirstRawFrameDecoded": "None",
+      "HypothesisAcceptedAsExpected": false
+    }
+  ]
+}

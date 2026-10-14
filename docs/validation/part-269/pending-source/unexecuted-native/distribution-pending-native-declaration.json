@@ -1,0 +1,12 @@
+{
+  "Kind": "UNEXECUTED native source hypothesis",
+  "Pin": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "distribution_pending_probe.erl",
+  "ExpectedProjection": "{ok,flat_typed_handle,same_pending_identity,next_connection_id,{ok,{ok,0,0,0}},{ok,{ok,0,0,0}},{error,badarg},{error,badarg},{error,badarg},{ok,{ok,0,0,0}}}",
+  "SourceAnchors": ["erts/emulator/beam/dist.c:5588-5624", "erts/emulator/beam/dist.c:5693-5710", "erts/emulator/beam/erl_node_tables.c:382-397,714-716", "erts/emulator/beam/external.h:137", "erts/emulator/beam/erl_term.h:79,263-280"],
+  "Runs": 0,
+  "NoNativePacketOrStatisticsResourceInvented": true,
+  "ActualRawNumbersRequireStderrCapture": true,
+  "DoNotInferHostAbortReturnParity": true,
+  "Reason": "HOST AbortPending returns whether it performed a transition and rejects stale generations; native internal abort wrapper returns not-was-connected and can return true for idle/stale handles. No internal BIF registration is proposed."
+}

@@ -112,11 +112,14 @@ internal static class ApplyExporter
         return await ApplyProcess.Run(executable, arguments, prefix);
     }
 
-    private static async Task<object[]> Files(string directory)
+    private static async Task<object[]> Files(string directory, string? excludedReport = null)
     {
         var files = new List<object>();
         foreach (string path in Directory.EnumerateFiles(directory).Order(StringComparer.Ordinal))
         {
+            string name = Path.GetFileName(path);
+            if (excludedReport is not null && (name == excludedReport || name == excludedReport + ApplyArtifactNames.TemporarySuffix))
+                continue;
             byte[] bytes = await File.ReadAllBytesAsync(path);
             files.Add(new { Name = Path.GetFileName(path), Length = bytes.Length, Sha256 = Hash(bytes) });
         }
@@ -132,7 +135,23 @@ internal static class ApplyExporter
         bool complete
     )
     {
-        var report = new { Status = ApplyObservationProtocol.Status, SourceCommit = ApplyNames.Commit, SourceTag = ApplyNames.Tag, BuildEvidence = proof, DeclarationSha256 = Hash(declarations), Complete = complete, ExpectedExecutions = ApplyNames.ScenarioCount, ActualExecutions = rows.Count, Captured = rows.Count(row => row.Captured), Results = rows, Files = await Files(output), SdkExpectedUsed = false, SemanticCompatibilityClaim = false };
+        var report = new
+        {
+            Status = ApplyObservationProtocol.Status,
+            SourceCommit = ApplyNames.Commit,
+            SourceTag = ApplyNames.Tag,
+            BuildEvidence = proof,
+            DeclarationSha256 = Hash(declarations),
+            Complete = complete,
+            ExpectedExecutions = ApplyNames.ScenarioCount,
+            ActualExecutions = rows.Count,
+            Captured = rows.Count(row => row.Captured),
+            Results = rows,
+            Files = await Files(output, ApplyNames.Report),
+            ReportExcludedFromInventory = true,
+            SdkExpectedUsed = false,
+            SemanticCompatibilityClaim = false
+        };
         string target = Path.Combine(output, ApplyNames.Report);
         await File.WriteAllTextAsync(
             target + ApplyArtifactNames.TemporarySuffix,

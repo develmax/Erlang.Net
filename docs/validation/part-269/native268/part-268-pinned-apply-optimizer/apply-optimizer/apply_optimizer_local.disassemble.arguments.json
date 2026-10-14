@@ -1,0 +1,1 @@
+["-noshell","-eval","D=beam_disasm:file(\u0022/home/runner/work/Erlang.Net/Erlang.Net/artifacts/apply-optimizer/apply_optimizer_local.beam\u0022),ok=file:write_file(\u0022/home/runner/work/Erlang.Net/Erlang.Net/artifacts/apply-optimizer/apply_optimizer_local.disassembly.txt\u0022,iolist_to_binary(io_lib:format(\u0022~tp~n\u0022,[D]))),halt(0)."]
