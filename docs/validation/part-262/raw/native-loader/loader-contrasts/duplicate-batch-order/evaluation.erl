@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("duplicate-batch-order","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/duplicate-batch-order").

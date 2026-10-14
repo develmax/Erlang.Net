@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("local-etf-magic-extra-word","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/local-etf-magic-extra-word").

@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part262 independently verifies published260 corrected original loader11/11, genuine tiny direct caller and actual generic apply, plus same-headWindowsCI6470/full. Original2579/11 and allocation6469/6470 failures remain historical; no existing source/expected/outcome/exclusion normalization. Specific native contrasts only; six production adapters and whole upstream/loading/resources/distribution/performance still require separate gates. APIpresence487/erlang329of35193.7%; semantic readiness partial.
+
 Part261: root binary hash avoids traversal-stack allocation. Main 6470/6470 and full integration/packages pass; 1024 old/new DLL comparisons, 249 interpreted plus 249 generated independent hash fixtures, unchanged 4096-byte budget and 59 halt children pass. Direct samples measure 152 to 0 bytes. One runtime file, no fixture/MFA changes. CI allocation cause remains unproved; corrected260 native11 and CI6470/full are separately verified; six isolated adapters await their managed lifecycle checks. erlang API presence 329/351 (93.7%), whole compatibility partial.
 
 Part260: sourceguidedcorrectedloader tool purgeDidKillfalse andtrulygeneric exportedapply withstructuraldisasm gate; tinygenuinecaller source compiledbyfutureoriginalrun, notinventedbytes. Sevenexacttoolchanges/5254isolatedseedfiles unchanged,Maintarget0errors/warnings/process/CLI gatespass; freshnative11 pending. Original2579/11+CI6469/6470 immutable259, hash4096budgetunchanged/causeunknown. Sixadaptersisolatedunregistered; API32935193.7% wholepartial.

@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("prepare-type-and-module-errors","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/prepare-type-and-module-errors").

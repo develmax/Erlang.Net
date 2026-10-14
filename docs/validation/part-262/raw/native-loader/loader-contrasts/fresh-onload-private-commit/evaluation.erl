@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("fresh-onload-private-commit","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/fresh-onload-private-commit").

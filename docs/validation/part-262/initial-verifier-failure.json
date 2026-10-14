@@ -1,0 +1,8 @@
+{
+  "Status": "FAIL",
+  "Reason": "Inherited source-evaluation regex treated literal call parentheses as a capture group, so valid captured expression did not match",
+  "FailedStage": "Source evaluation shape ordinary-consumption",
+  "InitialScriptSha256": "A1F7EF3A44D2ED26331736221E7C60616A5B866F0824669793C1A8F516F789EF",
+  "Repair": "Escape literal call parentheses and terminating dot; exact captured native bytes untouched",
+  "NoFixtureOrOutcomeChanges": true
+}

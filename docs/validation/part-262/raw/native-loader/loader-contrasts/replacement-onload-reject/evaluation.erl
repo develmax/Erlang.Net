@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("replacement-onload-reject","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/replacement-onload-reject").

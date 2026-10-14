@@ -1,0 +1,1 @@
+loader_contrast_wrapper:run("wrapper-gzip-and-real-load-gzip","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/inputs","/home/runner/work/Erlang.Net/Erlang.Net/artifacts/loader-contrasts/wrapper-gzip-and-real-load-gzip").
