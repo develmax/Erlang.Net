@@ -1,0 +1,1 @@
+try distribution_queue_stat_additive_probe:run(input_counter,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/input_counter"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/input_counter/exception.etf",term_to_binary({C,R,S})),halt(1) end.

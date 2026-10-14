@@ -1,0 +1,1 @@
+try distribution_queue_stat_additive_probe:run(handle_domain,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/handle_domain"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/handle_domain/exception.etf",term_to_binary({C,R,S})),halt(1) end.

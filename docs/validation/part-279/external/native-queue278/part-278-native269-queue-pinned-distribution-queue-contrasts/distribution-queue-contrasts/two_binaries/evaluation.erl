@@ -1,0 +1,1 @@
+try distribution_queue_stat_fresh_probe:run(two_binaries,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/two_binaries"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/two_binaries/exception.etf",term_to_binary({C,R,S})),halt(1) end.

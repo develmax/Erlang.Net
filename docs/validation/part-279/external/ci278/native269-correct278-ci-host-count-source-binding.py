@@ -1,0 +1,5 @@
+from pathlib import Path
+p=Path('artifacts/native269-guard278-ci-independent.py');s=p.read_text(encoding='utf-8-sig');Path('artifacts/native269-guard278-ci-initial-host-inline-count-assumption.py').write_bytes(s.encode())
+s=s.replace("assert 'Run(false)' in raw and 'Run(true)' in raw and '41' in raw and '60' in sig", "assert 'RunCase(false)' in raw and 'RunCase(true)' in raw and 'checks == DistributionRawInputHostNames.ExpectedAssertions' in raw and 'checks == DistributionRawSignalHostNames.ExpectedAssertions' in sig;assert 'ExpectedAssertions = 41' in blob('tests/Erlang.Tests/DistributionRawInputHostNames.cs').decode() and 'ExpectedAssertions = 60' in blob('tests/Erlang.Tests/DistributionRawSignalHostNames.cs').decode()")
+s=s.replace("'PipelineProof':'Successful", "'ReviewerCorrections':['Initial inline count/Run assumption failed read-only; actual separate Names constants and RunCase are verified','Inline shell patch quoting failed before Python execution; here-string saved correction used'],'PipelineProof':'Successful")
+p.write_bytes(s.encode())

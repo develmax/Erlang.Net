@@ -1,0 +1,1 @@
+try distribution_queue_stat_additive_probe:run(input_malformed,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/input_malformed"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-queue-contrasts/input_malformed/exception.etf",term_to_binary({C,R,S})),halt(1) end.
