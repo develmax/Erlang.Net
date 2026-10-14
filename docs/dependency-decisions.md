@@ -594,3 +594,5 @@ Host prepared BEAM publication reuses existing C# ExternalTermFormat, immutable 
 
 
 Prepared metadata first-term parsing reuses actual ExternalTermFormat.DecodeOne and immutable terms, with no extra native dependency. Used/trailing byte provenance stays distinct from native MD5 and whole-file source provenance. Existing descriptor default-version policy remains unchanged. Non-BIF function table order is preserved; native global export-index history requires separate real observations.
+
+On-load HOST candidate remains pure managed code with existing BCL/runtime facilities; actual callback execution, registry tickets and Y locals do not add a package or Erlang NIF ABI. Source-only draft, old prepared/reader/oracle evidence retained; no default export or native reference capability claim.

@@ -4202,6 +4202,8 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
 
 Test(Erlang.Tests.BeamPreparedHostNames.Test, Erlang.Tests.BeamPreparedHostChecks.Run);
 
+Test(Erlang.Tests.BeamOnLoadHostNames.Test, Erlang.Tests.BeamOnLoadHostChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

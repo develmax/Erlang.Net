@@ -1,0 +1,90 @@
+{
+  "Status": "FocusedPassed",
+  "CapturedUtc": "2026-10-14T07:54:12.662706+00:00",
+  "SourceFreezeSha256": "90293384C9ABD58AE63308B6DDB3E6E080BAA7087232D0E175BAE065559A7D30",
+  "OwnedSourcesAndResourcesVerified": 112,
+  "OriginalImageFiles": 6,
+  "OriginalCopiedRawFiles": 56,
+  "NativeFourActualProjectedEtfs": [
+    {
+      "Name": "fresh-success",
+      "ActualSha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+      "OriginalSha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+      "Exact": true
+    },
+    {
+      "Name": "fresh-failure",
+      "ActualSha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+      "OriginalSha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+      "Exact": true
+    },
+    {
+      "Name": "replacement-success",
+      "ActualSha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+      "OriginalSha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+      "Exact": true
+    },
+    {
+      "Name": "replacement-failure",
+      "ActualSha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+      "OriginalSha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+      "Exact": true
+    }
+  ],
+  "Outputs": [
+    {
+      "Path": "src\\Erlang.Runtime\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "496660CBADC1E3CD57AF25B66F1DB9C692D349DE4037F056E7646340574B1F45"
+    },
+    {
+      "Path": "tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "8A6FBF001461EB5644191DFEE6A536A44EC42A83DAE78714961B40BAA2148C57"
+    },
+    {
+      "Path": "artifacts\\OnLoadFocus\\bin\\Debug\\net10.0\\OnLoadFocus.dll",
+      "Sha256": "61121810D748B488146BE42DBF59E0FCF606D5D8580CC3B3EA7331FA4D3049A8"
+    },
+    {
+      "Path": "artifacts\\on-load-host-focused-proof.json",
+      "Sha256": "9485E1F8C8B9061CF5AEDD63BA6E7A921D50005F277AA30555C7FB539B527B43"
+    },
+    {
+      "Path": "artifacts\\on-load-build-revision5.log",
+      "Sha256": "F045F776A75242AF0F7848A519C68ADB44597C84945867558B8068DD36DEE3AD"
+    },
+    {
+      "Path": "artifacts\\on-load-tests-build-revision7.log",
+      "Sha256": "0BEC80E9FFB27795DC781CC2646E57593C61425279C07A9AC37E458181EBF781"
+    },
+    {
+      "Path": "artifacts\\on-load-style-check.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    }
+  ],
+  "CompleteInheritedContractGuard": {
+    "Modules": 4843,
+    "Diagnoses": 159,
+    "Exclusions": 6,
+    "Mfas": 484
+  },
+  "ActualHostGroups": 14,
+  "IsolatedFullExecuted": false,
+  "NewNativeExecuted": false,
+  "ProductionApi": "HOST only",
+  "InitialFailuresPreserved": [
+    "on-load-host-focused-initial-failure.json",
+    "on-load-host-focused-revision5-failure.json",
+    "on-load-host-focused-revision6-failure.json"
+  ],
+  "KnownGaps": [
+    "Native magic refs/loader MFAs not implemented",
+    "Original metadata mutation evidence pending; on_load metadata limited proper atom-key pair lists",
+    "Native global export ordering unknown",
+    "Managed frames/type validation not complete BEAM validator",
+    "code:is_loaded adapter reports declared host_beam origin from real loading state",
+    "General timeout/frame/resource/distribution parity incomplete",
+    "Nested public Apply around staging outside transaction contract"
+  ],
+  "RootBuildCompositionNeeded": true,
+  "TargetCountNote": "Root earlier predicted6470(two HOST new), but251 already includes prepared host; exact new onload host delta is1=>6469. Root must verify actual count."
+}

@@ -143,6 +143,36 @@ internal static class BeamLinkedCodeReader
             case BeamLinkNames.Timeout:
             case BeamLinkNames.OnLoad:
                 break;
+            case BeamOnLoadNames.InitY:
+                Require(
+                    operands[0].Kind == BeamOperandParameters.Count && operands[0].Value == operands.Count - BeamFrameParameters.TupleCountPrefix,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                foreach (BeamOperand operand in operands.Skip(BeamFrameParameters.TupleCountPrefix))
+                    Require(operand.Kind == BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamOnLoadNames.PidTest:
+                Branch(operands[0]);
+                Source(operands[1]);
+                break;
+            case BeamOnLoadNames.TaggedTupleTest:
+                Branch(operands[0]);
+                Source(operands[1]);
+                _ = Unsigned(operands[2]);
+                Require(operands[3].Kind == BeamOperandParameters.Atom, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamOnLoadNames.TupleElement:
+                Source(operands[0]);
+                _ = Unsigned(operands[1]);
+                Destination(operands[2]);
+                break;
+            case BeamOnLoadNames.BadMatch:
+                Source(operands[0]);
+                break;
+            case BeamOnLoadNames.ExternalLast:
+                CheckImport(structure, Unsigned(operands[1]), Unsigned(operands[0]));
+                _ = Unsigned(operands[2]);
+                break;
             case BeamLinkNames.Move:
                 Source(operands[0]);
                 Destination(operands[1]);

@@ -6,9 +6,14 @@ public sealed partial class ModuleRegistry
     {
         byte[] owned = bytes.ToArray();
         BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned));
-        if (code.OnLoadEntryLabel is not null)
-            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+        if (code.OnLoadEntryLabel is int callbackLabel)
+        {
+            BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);
+            BeamRegisterValidation.Validate(code, callback);
+        }
         BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code);
+        if (code.OnLoadEntryLabel is not null)
+            BeamOnLoadMetadata.RequireSupported(metadata);
         var bodies = new List<ErlangFunction>();
         foreach (BeamLinkedFunction function in code.Exports)
         {
@@ -49,6 +54,10 @@ public sealed partial class ModuleRegistry
                     throw new ArgumentException(BeamPreparationNames.ForeignImage, nameof(images));
                 if (image.Consumed)
                     throw new InvalidOperationException(BeamPreparationNames.ConsumedImage);
+                if (image.HasOnLoad)
+                    throw new InvalidOperationException(BeamOnLoadDiagnostics.RequiresStaging);
+                if (pendingBeamImages.ContainsKey(image.Name))
+                    throw new InvalidOperationException(BeamOnLoadDiagnostics.BusyModule);
             }
             var seen = new HashSet<string>(StringComparer.Ordinal);
             string[] duplicates = owned.Where(image => !seen.Add(image.Name)).Select(image => image.Name).Reverse().ToArray();

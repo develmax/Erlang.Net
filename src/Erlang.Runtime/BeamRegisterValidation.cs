@@ -4,10 +4,6 @@ internal static class BeamRegisterValidation
 {
     public static void Validate(BeamLinkedCode code, BeamLinkedFunction entry)
     {
-        if (code.OnLoadEntryLabel is not null)
-        {
-            throw new NotSupportedException(BeamRegisterNames.Unsupported);
-        }
         if (code.Lambdas.Count != 0)
         {
             _ = BeamChecksumReader.Read(code);
@@ -39,18 +35,44 @@ internal static class BeamRegisterValidation
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamLinkNames.OnLoad:
+                        if (function.EntryLabel != code.OnLoadEntryLabel)
+                            throw new InvalidDataException(BeamOnLoadDiagnostics.OnLoadRequired);
+                        break;
+                    case BeamOnLoadNames.InitY:
+                        break;
+                    case BeamOnLoadNames.PidTest:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        break;
+                    case BeamOnLoadNames.TaggedTupleTest:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        Source(operands[3]);
+                        break;
+                    case BeamOnLoadNames.TupleElement:
+                        Source(operands[0]);
+                        Destination(operands[2]);
+                        break;
+                    case BeamOnLoadNames.BadMatch:
+                        Source(operands[0]);
+                        break;
+                    case BeamLinkNames.ExternalCall:
+                    case BeamOnLoadNames.ExternalLast:
+                        _ = BeamExternalImports.Resolve(code, (int)operands[1].Value);
+                        break;
                     case BeamLinkNames.Label:
                     case BeamLinkNames.Line:
                     case BeamLinkNames.Return:
                         break;
                     case BeamLinkNames.Allocate:
-                        if (operands[0].Value != 0)
-                            throw new NotSupportedException(BeamReceiveNames.InvalidFrame);
+                        if (operands[0].Value > BeamFrameParameters.MaximumSlots)
+                            throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
                         Live(operands[1]);
                         break;
                     case BeamLinkNames.Deallocate:
-                        if (operands[0].Value != 0)
-                            throw new NotSupportedException(BeamReceiveNames.InvalidFrame);
+                        if (operands[0].Value > BeamFrameParameters.MaximumSlots)
+                            throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
                         break;
                     case BeamLinkNames.Bif:
                         SelfImport(code, (int)operands[0].Value);
@@ -129,7 +151,7 @@ internal static class BeamRegisterValidation
                         throw new NotSupportedException(BeamRegisterNames.Unsupported);
                 }
             }
-            BeamZeroFrameValidation.Validate(code, function, receives);
+            BeamFrameValidation.Validate(code, function, receives);
         }
     }
 
@@ -177,7 +199,7 @@ internal static class BeamRegisterValidation
 
     private static void Source(BeamOperand operand)
     {
-        if (operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Integer or BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
+        if (operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y or BeamOperandParameters.Integer or BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
         {
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
         }
@@ -185,7 +207,7 @@ internal static class BeamRegisterValidation
 
     private static void Destination(BeamOperand operand)
     {
-        if (operand.Kind != BeamOperandParameters.X)
+        if (operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y))
         {
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
         }

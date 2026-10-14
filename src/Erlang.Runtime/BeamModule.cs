@@ -31,6 +31,8 @@ public sealed class BeamModule
 
     public bool Supports(string function, int arity)
     {
+        if (HasOnLoad)
+            return false;
         BeamLinkedFunction? entry = code.Exports.SingleOrDefault(value => value.Name == function && value.Arity == arity);
         if (entry is null)
         {
@@ -54,6 +56,12 @@ public sealed class BeamModule
         ArgumentNullException.ThrowIfNull(function);
         ArgumentNullException.ThrowIfNull(arguments);
         context.Cancellation.ThrowIfCancellationRequested();
+        if (HasOnLoad)
+        {
+            if (!code.Exports.Any(entry => entry.Name == function && entry.Arity == arguments.Length))
+                throw new InvalidDataException(BeamModuleDiagnostics.MissingExport);
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+        }
 
         return BeamRegisterInterpreter.Execute(
             context,

@@ -22,7 +22,21 @@ internal static class BeamReceiveMatcher
                 case BeamLinkNames.Line:
                     break;
                 case BeamLinkNames.Move:
-                    registers.Write((int)operands[1].Value, Read(code, registers, operands[0]));
+                    registers.Write(operands[1], Read(code, registers, operands[0]));
+                    break;
+                case BeamOnLoadNames.PidTest:
+                    if (Read(code, registers, operands[1]) is not Pid)
+                        pc = code.Labels[(int)operands[0].Value];
+                    break;
+                case BeamOnLoadNames.TaggedTupleTest:
+                    if (Read(code, registers, operands[1]) is not TupleTerm tuple
+                        || tuple.Items.Count != operands[2].Value
+                        || tuple.Items.Count == 0
+                        || !tuple.Items[0].Equals(Read(code, registers, operands[3])))
+                        pc = code.Labels[(int)operands[0].Value];
+                    break;
+                case BeamOnLoadNames.TupleElement:
+                    registers.Write(operands[2], ((TupleTerm)Read(code, registers, operands[0])).Items[(int)operands[1].Value]);
                     break;
                 case BeamLinkNames.IntegerTest:
                     if (Read(code, registers, operands[1]) is not Integer)
@@ -47,6 +61,7 @@ internal static class BeamReceiveMatcher
     private static Term Read(BeamLinkedCode code, BeamRegisterState registers, BeamOperand operand) => operand.Kind switch
     {
         BeamOperandParameters.X => registers.Read((int)operand.Value),
+        BeamOperandParameters.Y => registers.ReadY((int)operand.Value),
         BeamOperandParameters.Integer => new Integer(operand.Value),
         BeamOperandParameters.Atom => Term.A(code.Structure.Atoms[(int)operand.Value]!),
         BeamOperandParameters.Nil => Nil.Value,

@@ -739,3 +739,7 @@ Host prepared BEAM publication, 2026-10-14: source-guided validation ordering/cu
 
 
 Prepared metadata revision3 follows first-term/raw-term behavior from pinned OTP-29.1.1 emu/emu_load.c and erl_bif_info.c, and external.c1252–1257/6530–6538. Existing consolidated Ericsson/Apache-2.0 notices remain applicable. This altered host port exposes ignored-byte provenance and keeps global runtime export-index ordering explicitly unverified; file-only beam_lib normalized lists are not promoted as native runtime metadata.
+
+On-load HOST source candidate (unbuilt): source-guided private pending image/callback actor and bounded Y frames/pure tuple receive over genuine original249 six observer images. Apache-2.0 notices: beam_bif_load.c Ericsson AB1999-2026; beam_load.c1996-2026; emu/emu_load.c2020-2026; emu/instrs.tab2017-2026; emu/msg_instrs.tab2017-2025; code_server.erl1998-2026; erts_code_purger.erl2016-2025. Native magic refs/loading MFAs, arbitrary imports/metadata mutations and export order remain unimplemented/unproved. See beam-onload-host-source-candidate.md; no Main integration/proof promotion.
+
+Additional pinned guidance for Y blank semantics: erl_term.h Ericsson AB2000-2026, make_blank1392 maps to NIL; emulator generators/ops for init_yregs retain their pinned Apache-2.0 notices when ported. No source banner copied.

@@ -5,4 +5,7 @@
 <Reference Include="System.Composition.Runtime"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Runtime.dll</HintPath></Reference>
 <Reference Include="System.Composition.Hosting"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Hosting.dll</HintPath></Reference>
 <Reference Include="System.Composition.TypedParts"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.TypedParts.dll</HintPath></Reference>
-</ItemGroup><ItemGroup><EmbeddedResource Include="Resources/Beam/*" /></ItemGroup></Project>
+</ItemGroup><ItemGroup><EmbeddedResource Include="Resources/Beam/*" /></ItemGroup>  <ItemGroup>
+    <EmbeddedResource Include="Resources\BeamOnLoad\**\*" />
+  </ItemGroup>
+</Project>

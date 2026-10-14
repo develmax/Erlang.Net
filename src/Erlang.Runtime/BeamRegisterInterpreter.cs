@@ -43,7 +43,7 @@ internal static class BeamRegisterInterpreter
             registers.Write(arguments.Count + index, environment[index]);
         }
         var continuations = new Stack<BeamCallContinuation>();
-        var zeroFrames = new Stack<BeamZeroFrame>();
+        var callFrames = new Stack<BeamCallFrame>();
         int pc = function.FirstInstructionIndex;
         long diagnosticSteps = 0;
         while (true)
@@ -61,17 +61,78 @@ internal static class BeamRegisterInterpreter
             var operands = instruction.Operands;
             switch (instruction.Definition.Name)
             {
+                case BeamLinkNames.OnLoad:
+                    break;
+                case BeamOnLoadNames.InitY:
+                    foreach (BeamOperand operand in operands.Skip(BeamFrameParameters.TupleCountPrefix))
+                        registers.InitializeY((int)operand.Value);
+                    break;
+                case BeamOnLoadNames.BadMatch:
+                    throw new ErlangException(Term.Tuple(Term.A(BeamOnLoadNames.BadMatchReason), Read(code, registers, operands[0])));
+                case BeamOnLoadNames.PidTest:
+                    if (Read(code, registers, operands[1]) is not Pid)
+                        pc = Branch(
+                            code,
+                            function,
+                            operands[0],
+                            new ErlangException(ErlangErrorReasons.FunctionClause)
+                        );
+                    break;
+                case BeamOnLoadNames.TaggedTupleTest:
+                    if (Read(code, registers, operands[1]) is not TupleTerm tuple
+                        || tuple.Items.Count != operands[2].Value
+                        || tuple.Items.Count == 0
+                        || !tuple.Items[0].Equals(Read(code, registers, operands[3])))
+                        pc = Branch(
+                            code,
+                            function,
+                            operands[0],
+                            new ErlangException(ErlangErrorReasons.FunctionClause)
+                        );
+                    break;
+                case BeamOnLoadNames.TupleElement:
+                    registers.Write(operands[2], ((TupleTerm)Read(code, registers, operands[0])).Items[(int)operands[1].Value]);
+                    break;
+                case BeamLinkNames.ExternalCall:
+                case BeamOnLoadNames.ExternalLast:
+                    BeamExternalImport import = BeamExternalImports.Resolve(code, (int)operands[1].Value);
+                    registers.CheckLive(import.Arity);
+                    Term[] importedArguments = Enumerable.Range(0, import.Arity).Select(registers.Read).ToArray();
+                    if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
+                    {
+                        if (!callFrames.TryPop(out BeamCallFrame? lastFrame) || lastFrame.FunctionEntryLabel != function.EntryLabel
+                            || lastFrame.ContinuationDepth != continuations.Count || lastFrame.Slots != operands[2].Value)
+                            throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+                        registers.Deallocate(lastFrame.Slots);
+                    }
+                    Term imported = await BeamExternalImports.Invoke(context, import, importedArguments);
+                    registers.Write(0, imported);
+                    if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
+                    {
+                        if (!continuations.TryPop(out BeamCallContinuation? importedContinuation))
+                            return imported;
+                        function = importedContinuation.Function;
+                        pc = importedContinuation.InstructionIndex;
+                    }
+                    break;
                 case BeamLinkNames.Label:
                 case BeamLinkNames.Line:
                     break;
                 case BeamLinkNames.Allocate:
                     registers.CheckLive((int)operands[1].Value);
                     continuations.TryPeek(out BeamCallContinuation? savedContinuation);
-                    zeroFrames.Push(new(function.EntryLabel, continuations.Count, savedContinuation));
+                    callFrames.Push(new(
+                        function.EntryLabel,
+                        continuations.Count,
+                        savedContinuation,
+                        (int)operands[0].Value
+                    ));
+                    registers.Allocate((int)operands[0].Value);
                     break;
                 case BeamLinkNames.Deallocate:
-                    if (!zeroFrames.TryPop(out BeamZeroFrame? frame) || frame.FunctionEntryLabel != function.EntryLabel || frame.ContinuationDepth != continuations.Count)
+                    if (!callFrames.TryPop(out BeamCallFrame? frame) || frame.FunctionEntryLabel != function.EntryLabel || frame.ContinuationDepth != continuations.Count || frame.Slots != operands[0].Value)
                         throw new InvalidDataException(BeamReceiveNames.InvalidFrame);
+                    registers.Deallocate(frame.Slots);
                     if (frame.SavedContinuation is not null)
                     {
                         _ = continuations.Pop();
@@ -81,7 +142,7 @@ internal static class BeamRegisterInterpreter
                 case BeamLambdaNames.Create:
                     Term[] captured = operands.Skip(BeamLambdaNames.EnvironmentPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();
                     FunctionTerm closure = BeamClosureFactory.Create(code, (int)operands[0].Value, captured);
-                    registers.Write((int)operands[1].Value, closure);
+                    registers.Write(operands[1], closure);
                     break;
                 case BeamLambdaNames.Call:
                     registers.CheckLive((int)operands[1].Value);
@@ -94,7 +155,7 @@ internal static class BeamRegisterInterpreter
                     break;
                 case BeamLinkNames.Bif:
                     BeamRegisterValidation.SelfImport(code, (int)operands[0].Value);
-                    registers.Write((int)operands[1].Value, await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.Self));
+                    registers.Write(operands[1], await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.Self));
                     break;
                 case BeamLinkNames.Send:
                     registers.Write(0, ErlangOperatorValues.Send(context, registers.Read(0), registers.Read(1)));
@@ -117,7 +178,7 @@ internal static class BeamRegisterInterpreter
                     }
                     break;
                 case BeamLinkNames.Move:
-                    registers.Write((int)operands[1].Value, Read(code, registers, operands[0]));
+                    registers.Write(operands[1], Read(code, registers, operands[0]));
                     break;
                 case BeamLinkNames.Return:
                     Term result = registers.Read(0);
@@ -190,7 +251,7 @@ internal static class BeamRegisterInterpreter
                             Read(code, registers, operands[3]),
                             Read(code, registers, operands[4])
                         );
-                        registers.Write((int)operands[5].Value, value);
+                        registers.Write(operands[5], value);
                     }
                     catch (ErlangException error)
                     {
@@ -208,11 +269,11 @@ internal static class BeamRegisterInterpreter
                 case BeamLinkNames.PutList:
                     Term head = Read(code, registers, operands[0]);
                     Term tail = Read(code, registers, operands[1]);
-                    registers.Write((int)operands[2].Value, new Cons(head, tail));
+                    registers.Write(operands[2], new Cons(head, tail));
                     break;
                 case BeamLinkNames.PutTuple:
                     Term[] items = operands.Skip(BeamLinkParameters.TupleListPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();
-                    registers.Write((int)operands[0].Value, new TupleTerm(items));
+                    registers.Write(operands[0], new TupleTerm(items));
                     break;
                 default:
                     throw new NotSupportedException(BeamRegisterNames.Unsupported);
@@ -243,6 +304,7 @@ internal static class BeamRegisterInterpreter
     private static Term Read(BeamLinkedCode code, BeamRegisterState registers, BeamOperand operand) => operand.Kind switch
     {
         BeamOperandParameters.X => registers.Read((int)operand.Value),
+        BeamOperandParameters.Y => registers.ReadY((int)operand.Value),
         BeamOperandParameters.Integer => new Integer(operand.Value),
         BeamOperandParameters.Atom => Term.A(code.Structure.Atoms[(int)operand.Value]!),
         BeamOperandParameters.Nil => Nil.Value,

@@ -58,6 +58,18 @@ internal static class BeamReceivePlanner
                     Source(operands[0]);
                     Visit(pc + 1);
                     break;
+                case BeamOnLoadNames.PidTest:
+                case BeamOnLoadNames.TaggedTupleTest:
+                    Source(operands[1]);
+                    Visit(Label(code, operands[0]));
+                    Visit(pc + 1);
+                    break;
+                case BeamOnLoadNames.TupleElement:
+                    Source(operands[0]);
+                    if (operands[2].Kind != BeamOperandParameters.X)
+                        throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
+                    Visit(pc + 1);
+                    break;
                 case BeamLinkNames.IntegerTest:
                     Source(operands[1]);
                     Visit(Label(code, operands[0]));
@@ -106,7 +118,7 @@ internal static class BeamReceivePlanner
 
     private static void Source(BeamOperand operand)
     {
-        if (operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Integer or BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
+        if (operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y or BeamOperandParameters.Integer or BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
             throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
     }
 }

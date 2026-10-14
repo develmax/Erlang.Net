@@ -22,6 +22,7 @@ public sealed class PreparedBeamImage
     internal ModuleCodeDescriptor Descriptor { get; }
     internal IReadOnlyList<ErlangFunction> Bodies { get; }
     internal bool Consumed { get; set; }
+    public bool HasOnLoad => Code.OnLoadEntryLabel is not null;
     public string Name => Code.Structure.Atoms[1]!;
     public BitString NativeMd5 => Descriptor.Fingerprint;
     public Term Attributes => Descriptor.Attributes!;
