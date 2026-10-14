@@ -1,0 +1,14 @@
+{
+  "kind": "unexecuted-native-source-proposal",
+  "referenceTag": "OTP-29.1.1",
+  "referenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "producerModule": "distribution_host_probe",
+  "projection": "{ok,[false,false,true,true,false,false,true],{error,badarg},{error,notsup},live_controller,validated_statistics}",
+  "exactSourceAnchors": ["lib/kernel/test/erl_distribution_SUITE.erl:3040-3068", "lib/kernel/examples/gen_tcp_dist/src/gen_tcp_dist.erl:673-748", "erts/emulator/beam/dist.c:4409-4529"],
+  "nativeExecutions": 0,
+  "hypothesisNotProof": true,
+  "physicalStatisticsNormalizedToSdkCounters": false,
+  "requires": ["source-built pinned OTP", "compile unchanged pinned gen_tcp_dist example into Ebin", "compile probe into same Ebin", "two fresh names and local epmd/TCP", "main VM starts with -proto_dist gen_tcp -gen_tcp_dist_output_loop distribution_host_probe output_loop", "run with peer name and absolute Ebin path", "outer child deadline and raw byte capture", "save raw numeric statistics separately if tooling records them"],
+  "hostFoundationOracleClaim": false,
+  "probeSemantics": "successful genuine option calls and native ownership contrast; native wire transport validation is separately scoped from the unregistered HOST queue"
+}

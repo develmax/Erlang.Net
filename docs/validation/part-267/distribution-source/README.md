@@ -1,0 +1,11 @@
+# Distribution HOST foundation evidence staging
+
+This artifact-only package preserves the complete source and observed evidence for Part267. Its 14 imported Main source files match the fresh published5b3 seed promotion freeze exactly. Nine runtime files remain byte-identical to original revision3; four test helpers moved into Erlang.Tests and one permanent HOST test appends the old6483 names. Actual focused checks additionally assert one cached dist_data Atom object is reused across64 notifications.
+
+Original-isolated evidence belongs to seed d2daaab and is preserved separately from the fresh5b3 rebase. Revision2 peer review found zero-length segment metadata bypassing byte/buffer limits; revision3 caps16 segments per buffer and total queued segments, with actual16accept/17reject focused controls. Immutable revision1/2/3 source freezes and peer reviews remain distinct.
+
+Fresh target/focus/layout pass. Fresh isolated full failed6468/6484 with16 unchanged Windows-native-port fixtures returning mapped eacces; old6483 names match, statuses do not. The new HOST test passes. RuntimePorts maps multiple Win32 errors to eacces, so physical OS cause remains unproved. Prior execution-scope history motivated Root's separate outside-sandbox Main run; that does not make the failed isolated run pass. No expectations, exclusions, port implementation or fixture source were changed. Full integration/packages did not execute in the failed candidate run.
+
+Root's actual Main full result is deliberately absent here while running; no6484 forecast is recorded as observed proof. Unused success-only guard proposals are excluded from this inventory. Native gen_tcp_dist probe source and its independently predeclared projection are included under UNEXECUTED scope only; no original OTP VM or packet resource is invented.
+
+HOST scope: caller-owned typed C# manager/handles, genuine process-context ownership/lifetime checks, immutable bounded finalized HOST buffers, independent payload/buffer/segment limits, HOST counters/options and notifications. Runtime-owned atomic exit/disposal, real kernel/channel admission, Erlang magic handles/ETF restoration, transport/packet codec/backpressure and native queue allocation remain outside this implemented slice. No Core registrations or API-presence increment.

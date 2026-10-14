@@ -1,0 +1,98 @@
+{
+  "Revision": 2,
+  "SourceOnly": true,
+  "BuildsPerformed": 0,
+  "RuntimeTestsPerformed": 0,
+  "OriginalOtpExecutions": 0,
+  "MainWrites": false,
+  "RuntimeFilesReviewed": [
+    {
+      "Path": "src/Erlang.Runtime/HostDistribution.cs",
+      "Sha256": "5c788886accb0d59dde53024dcc6b155c3ec650eb6e0141d7f4954e89a6451c7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionAtoms.cs",
+      "Sha256": "c967be9eccf23301d6d4100fcff70a127380b0d06f1558247eb0b124be002447"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionBuffer.cs",
+      "Sha256": "d7b3f34e1676b02398ee5437a7c152960eed8465ef6d6b83039c0283aed0701b"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionDiagnostics.cs",
+      "Sha256": "916677c089c13499fdde85fd3c77bacfaf0bf0f857fca8f5a4aa0842d5146985"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionEntry.cs",
+      "Sha256": "809736ba112f24d47d4e6498767b88c5d6f7000ef79f2d416a1a77e2751c3cb1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionHandle.cs",
+      "Sha256": "e71a3f4de3c821439d71e9ce7ac3a44a6eacd255e93fbeaaaa980e3620a15050"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionLease.cs",
+      "Sha256": "f148bb5c44ee4617c9d381cea4ebe632763678e75f4113d39ffefc8a9e7dec03"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionSnapshot.cs",
+      "Sha256": "ed10e7741733417de9d3fecc2213ed69f7d08a7e4349f147823cfae99dc89b1a"
+    }
+  ],
+  "SeedFilesExact": 5269,
+  "AddedFilesExact": 17,
+  "LockAudit": {
+    "ManagerToRuntimeMembership": true,
+    "NotifyAfterManagerUnlock": true,
+    "DoneSourceRunContinuationsAsynchronously": true,
+    "InstalledRuntimeToManagerExitHook": false,
+    "ObservedSourceLockCycle": false,
+    "Scope": "current pinned task source and installed paths; arbitrary host callbacks/future exit-hook changes not guaranteed"
+  },
+  "LifetimeAudit": {
+    "ForeignManagerRejected": true,
+    "ForeignRuntimeContextRejected": true,
+    "ActualControllerContextIdentityChecked": true,
+    "LogicalDeathAdmissionRejected": true,
+    "MonotonicGenerationAndExactEntryRetirement": true,
+    "StaleCloseCannotRetireReplacement": true,
+    "RuntimeHaltObservedByOperations": true,
+    "ManagerNotRuntimeOwned": true,
+    "CompletionRetirementIsAsynchronous": true,
+    "AfterLivenessCheckMutationCanFinishConcurrentlyWithDeath": "operation may linearize at membership check before logical close; do not claim atomic exit hook"
+  },
+  "QueueAudit": {
+    "ImmutablePublicByteSnapshots": true,
+    "FifoUnderManagerGate": true,
+    "AcceptedPayloadBytesBound": true,
+    "QueuedBufferCountBoundIncludingEmpty": true,
+    "SegmentMetadataBound": false,
+    "OutputPacketCounterOverflowPrecedesDequeue": true,
+    "InputPacketCounterOverflowNoMutation": true,
+    "NoticeCommitThenSendAfterUnlock": "notice may arrive after explicit close when controller still alive; explicitly scoped"
+  },
+  "ConcreteBlockers": [
+    {
+      "Id": "unbounded-segment-metadata",
+      "Path": "src/Erlang.Runtime/HostDistributionBuffer.cs",
+      "Reason": "One accepted buffer can hold an arbitrary number of zero-length BitString segments. PayloadBytes remains zero and consumes one queue slot, so payload and buffer caps do not bound queued segment/object allocation.",
+      "RequiredBeforeAllocationBoundClaim": "Explicit maximum segments per buffer or queued segment budget, before repeated zero-size object materialization or queue acceptance; retain existing separate payload/count limits."
+    },
+    {
+      "Id": "runtime-ownership-integration",
+      "Path": "src/Erlang.Runtime/HostDistribution.cs",
+      "Reason": "Manager is independently constructed/disposed; process Done retirement is asynchronous and runtime has no owned manager disposal hook. Current operation checks are sufficient for declared HOST admission scope, not atomic Erlang channel teardown.",
+      "RequiredBeforeErlangApiPromotion": "Review/register runtime-owned exit/halt disposal without introducing inverse runtime-manager lock order."
+    }
+  ],
+  "ProposedControls": [
+    "Construct one finalized buffer with 17 empty segments under a declared16 segment cap and require rejection without queue mutation; all16 zero segments accepted within buffer slot cap.",
+    "Queue16 one-empty-segment buffers under16 buffer cap then reject17th; drain FIFO and verify counters/payload unchanged.",
+    "Use positive/empty mixedsegments to test independent payload cap and segment cap.",
+    "Hold controller callback past logical Completion, reject all fresh operations and prove stale handle cannot close a newly attached different controller.",
+    "Force arm/enqueue ordered interleavings and explicit close after notice commit; allow only committed notification semantics."
+  ],
+  "NativeDistributionScope": "Opaque C# HOST handle and injected finalized buffers only; no Erlang dist_handle/ETF resource/real connection/packet encoding/decoding/atom cache/handshake/node migration/native memory counter/backpressure proof",
+  "OriginalNativeProbe": "source hypothesis only; no native observed outcome",
+  "ReadinessPromotionAllowed": false
+}

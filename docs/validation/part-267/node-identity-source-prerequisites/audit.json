@@ -1,0 +1,41 @@
+{
+  "Status": "SourceAuditOnlyNoImplementation",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeDistSourceSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+  "CurrentFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "BE70890568502FB91F1E185E481A1904648B2F75F32F03131E2AD0B1C271D896"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeQueryRegistrations.cs",
+      "Sha256": "12BE2F2CEFF5FF95C639A98E99F488165B4724742970E4CACBEFA5FDF25A2367"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "0197E20B72511CF5B429A7853B422A45235EF902A01BC349D7A9643BD1341ABE"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Sha256": "0C43BCDCA9130A20A93643929FF16D7380397674A93593CDC8AF653663299EA1"
+    }
+  ],
+  "ConfirmedCurrentFacts": [
+    "ProcessRuntime Node and NodeAtom are fixed constructor properties; reference resources and known nodes capture that initial name",
+    "Pid Node and Creation are fixed values; term hashing includes Node, Id and Creation",
+    "is_alive currently derives from constructor name rather than an activated distribution lifecycle"
+  ],
+  "ConfirmedPinnedRequirements": [
+    "setnode2 validates uint32 creation and a valid non-nonode node name, an inactive distribution system, initialized traps and a registered live net_kernel",
+    "Creation is advanced to at least4 and avoids existing external node-name/creation identities",
+    "Native startup changes this-node identity and marks/attaches net_kernel before nodeup; kernel termination triggers distribution exits"
+  ],
+  "RequiredDesignAndTests": [
+    "Separate stable intrinsic local-term identity from current wire/text node name and creation; mutating dictionary-key hashes is unsafe",
+    "Preserve existing pid/ref/map/process/alias identity across start and stop, with correct pre/post-start ETF views",
+    "Kernel owner exit must close real channels and publish nodedown before reuse; constructor names cannot fabricate connectivity",
+    "Observe source-built OTP transitions independently before changing term equality/hashes or registering setnode"
+  ],
+  "NativeExecuted": false,
+  "MainChanged": false
+}

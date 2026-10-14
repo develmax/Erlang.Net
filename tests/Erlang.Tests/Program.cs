@@ -4232,6 +4232,8 @@ Test(Erlang.Tests.StaticApplyOnLoadNames.Test, Erlang.Tests.StaticApplyOnLoadChe
 
 Test(Erlang.Tests.BeamGzipNativeNames.Test, Erlang.Tests.BeamGzipNativeChecks.Run);
 
+Test(Erlang.Tests.HostDistributionTestNames.Test, Erlang.Tests.HostDistributionChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {
