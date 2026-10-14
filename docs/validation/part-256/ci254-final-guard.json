@@ -1,0 +1,70 @@
+{
+  "Status": "PASS",
+  "Head": "a9a616ef9142cb87d564fdd10a6c39f1d182c8f1",
+  "Run": 38537385364,
+  "Job": 115763469930,
+  "Artifact": 11880408776,
+  "CiPassed": 6469,
+  "CiFailed": 0,
+  "OrderedNamesExact": true,
+  "FullIntegrationPass": true,
+  "AllJobStepsSuccess": true,
+  "ZipSha256": "95DAE25A2F5F2032773CDB156C46755FDFB9D3D1EA6F3A91469373522568ED80",
+  "JobLogSha256": "D759E01AB0146039FCE3A7361047CE00BE418DE379DF119ADFBC423E8766A7E4",
+  "RawJobLogAuditPending": false,
+  "IntegrationResults": {
+    "HybridOutput": "Hello World",
+    "Incremental": "Passed",
+    "PackagedReadiness": "Passed",
+    "Tests": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "LocalTool": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "Build": "Passed",
+    "Readiness": "Passed",
+    "PackageConsumer": "Passed",
+    "CleanRebuild": "Passed"
+  },
+  "Steps": [
+    {
+      "Number": 1,
+      "Name": "Set up job",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 2,
+      "Name": "Run actions/checkout@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 3,
+      "Name": "Run actions/setup-dotnet@v6",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 4,
+      "Name": "Run ./tools/validate.ps1",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 5,
+      "Name": "Run actions/upload-artifact@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 9,
+      "Name": "Post Run actions/setup-dotnet@v6",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 10,
+      "Name": "Post Run actions/checkout@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 11,
+      "Name": "Complete job",
+      "Conclusion": "success"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "Status": "INDEPENDENT_ORIGINAL_PROOFS_PASSED",
+  "MetadataHead": "a9a616ef9142cb87d564fdd10a6c39f1d182c8f1",
+  "MetadataRun": 38537455237,
+  "MetadataJob": 115763706547,
+  "MetadataArtifact": 11880757671,
+  "MetadataArchiveSha256": "8761D017F6C4877227E0AD9D458D3D4505F5254BAFDCFC2D8580A16A4A9EA914",
+  "MetadataJobLogSha256": "595FE9D97701681A59577BC63F948FE1C8702D433E72D557A5EC9D79B99AF46E",
+  "NativeMetadataCompared": 24,
+  "NativeRawAcceptedVerified": 20,
+  "NativeMalformedOrCompressedRejectedVerified": 4,
+  "RetainedCompilerFixtures": 6,
+  "RetainedBodyExecutions": 5,
+  "OnLoadObserverScenarios": 4,
+  "MutationOnLoadExecuted": false,
+  "MetadataStaticAuthoringAndRawEtfVerified": true,
+  "OrdinaryHead": "11e44f934c2c3b78f372eeabfa9497846a7b5bd0",
+  "OrdinaryRun": 38533311040,
+  "OrdinaryJob": 115750088203,
+  "OrdinaryPassed": 5774,
+  "FdPassed": 8,
+  "SameHeadCiPassed": 6469,
+  "ReferenceCoverageComplete": false,
+  "NoNativeDispatchesByAgent": true,
+  "NoRuntimeOrFixtureEdits": true,
+  "BroaderLoaderOrRuntimeParityClaim": false,
+  "EvidenceFiles": [
+    {
+      "Path": "artifacts\\part254-metadata-observation\\final-guard.json",
+      "Sha256": "C22592A5EF723432B37FCCBF3F21944AC424C76EDBF585A3D404E9247BE3D46A"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\raw-artifact-checkpoint.json",
+      "Sha256": "BEA5A8A85469C832CAF691031FE3DE795E07071FAA076A7B563BBCFE1FFB87EA"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\latest-provenance.json",
+      "Sha256": "3E33691465D7CB3D00BA40CC239A47C0940D6376E5B22CCE6450B043C4BA51A9"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\raw24-verifier.log",
+      "Sha256": "8E428D8C81A76556A57E27150F2B1F6324C4B88C2E1912F0DEF6FD19C7D08557"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\retained-six-five-onload-four-verifier.log",
+      "Sha256": "A225E34A863EEB799DF07DCCBC2C11A6D4530A46C99D3769E1B3DEAD28ADDBC7"
+    },
+    {
+      "Path": "artifacts\\part253-original-guard.json",
+      "Sha256": "14CD6E4509914F033ADBBF38AF47C7E06078C01DC019C58F9A2D80C98B24D03D"
+    },
+    {
+      "Path": "artifacts\\part-253-original-latest-provenance.json",
+      "Sha256": "949DDC5ED70F8B686C17DF4F1C319231D6E302648248005EF7004E31BAD3209D"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\ci254-final-guard.json",
+      "Sha256": "E6D82943E4D7CF15CD7AB4EBDBDAE34FF85DBDC1366DCF83DF72B6FFE039353A"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\ci254-provenance.json",
+      "Sha256": "E68BF4FEE799ED9E054B6FEE40C0D3F81485D4AB74A50C8B7E0EA6F742CE888B"
+    },
+    {
+      "Path": "artifacts\\part254-metadata-observation\\ci254-job.log",
+      "Sha256": "D759E01AB0146039FCE3A7361047CE00BE418DE379DF119ADFBC423E8766A7E4"
+    }
+  ],
+  "MetadataSameHeadCi": {
+    "Status": "PASS",
+    "Head": "a9a616ef9142cb87d564fdd10a6c39f1d182c8f1",
+    "Run": 38537385364,
+    "Job": 115763469930,
+    "Artifact": 11880408776,
+    "CiPassed": 6469,
+    "CiFailed": 0,
+    "OrderedNamesExact": true,
+    "FullIntegrationPass": true,
+    "AllJobStepsSuccess": true,
+    "ZipSha256": "95DAE25A2F5F2032773CDB156C46755FDFB9D3D1EA6F3A91469373522568ED80",
+    "JobLogSha256": "D759E01AB0146039FCE3A7361047CE00BE418DE379DF119ADFBC423E8766A7E4",
+    "RawJobLogAuditPending": false,
+    "IntegrationResults": {
+      "HybridOutput": "Hello World",
+      "Incremental": "Passed",
+      "PackagedReadiness": "Passed",
+      "Tests": "Passed",
+      "OracleUnavailableReport": "Expected failure recorded",
+      "LocalTool": "Passed",
+      "DisabledPreprocessing": "Expected failure",
+      "Build": "Passed",
+      "Readiness": "Passed",
+      "PackageConsumer": "Passed",
+      "CleanRebuild": "Passed"
+    },
+    "Steps": [
+      {
+        "Number": 1,
+        "Name": "Set up job",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 2,
+        "Name": "Run actions/checkout@v7",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 3,
+        "Name": "Run actions/setup-dotnet@v6",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 4,
+        "Name": "Run ./tools/validate.ps1",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 5,
+        "Name": "Run actions/upload-artifact@v7",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 9,
+        "Name": "Post Run actions/setup-dotnet@v6",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 10,
+        "Name": "Post Run actions/checkout@v7",
+        "Conclusion": "success"
+      },
+      {
+        "Number": 11,
+        "Name": "Complete job",
+        "Conclusion": "success"
+      }
+    ]
+  },
+  "MetadataAllJobStepsSuccess": true,
+  "MetadataJobSteps": [
+    {
+      "Number": 1,
+      "Name": "Set up job",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 2,
+      "Name": "Run actions/checkout@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 3,
+      "Name": "Run actions/setup-dotnet@v6",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 4,
+      "Name": "Build fixture evidence tool",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 5,
+      "Name": "Build and attest the pinned development compiler",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 6,
+      "Name": "Compile disassemble independently execute retained fixtures and observe on_load",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 7,
+      "Name": "Verify retained fixtures and original on_load observer evidence",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 8,
+      "Name": "Verify original raw metadata mutation evidence",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 9,
+      "Name": "Run actions/upload-artifact@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 17,
+      "Name": "Post Run actions/setup-dotnet@v6",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 18,
+      "Name": "Post Run actions/checkout@v7",
+      "Conclusion": "success"
+    },
+    {
+      "Number": 19,
+      "Name": "Complete job",
+      "Conclusion": "success"
+    }
+  ]
+}
