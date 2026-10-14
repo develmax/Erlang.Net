@@ -1,0 +1,95 @@
+{
+  "Status": "SourceReviewPassedWithinDeclaredScope",
+  "ReviewerAuthorship": "Read-only peer review; prior source review contribution disclosed",
+  "ReviewUtc": "2026-10-14T05:58:53.9896752Z",
+  "Candidate": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-original247-repair-prototype",
+  "SourceManifest": "artifacts/halt-original247-repair-source-freeze-revision2.json",
+  "SourceManifestSha256": "E5AA01B418218A789520B6E27660E099F1EBCB6B22317BD2370E5F16ECC7D64E",
+  "VerifiedFiles": [
+    {
+      "Path": "src/Erlang.Runtime/HaltRequestParser.cs",
+      "Sha256": "3797E177F9478F6B044143F5DA3FD57004729A4A20D671397F71E1AD1100C49D",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltNativeSmallParameters.cs",
+      "Sha256": "58BEEBBDA0E0E0718E1D4DC670F71BEE9E77A941C5C63C865591FCFA41ED9380",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltRegistrations.cs",
+      "Sha256": "6C105A31798C392AE56F7D1BC5B73B3969B98E34445F9305A5CC2F505F0F280D",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+      "Sha256": "89DAE0BE254191AC7925A593B7EB0693F04B20078823E2C133287A7DFDA3E87D",
+      "Matches": true
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessCases.cs",
+      "Sha256": "6DF82619EF218F215B07ECD80910873E267414D21BD11034A4C8020AAC6DA60A",
+      "Matches": true
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessRunner.cs",
+      "Sha256": "EC1C75E95454EBB3E5FC6AABD1E9303991677531585C12F1962A0C74038D5C3C",
+      "Matches": true
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProcessParameters.cs",
+      "Sha256": "422A8EC5CD6A48D8E3B2A07A55E7574464F99C579351D27094F3C55BF2B8B182",
+      "Matches": true
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltTrackNames.cs",
+      "Sha256": "B0D2A05DA83501E8E4EE9D6F56602DEB90594F573F589FC329502F74BCBA8FC9",
+      "Matches": true
+    },
+    {
+      "Path": "docs/OTP-HALT-ORIGINAL247-REPAIR.md",
+      "Sha256": "9D1359F6FA1F27D1183C697CF5A97E936231E97228564D139F6152300DEF0AF9",
+      "Matches": true
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Sha256": "D4A0CDBA3C76BD13963DCB91E4EDA0155EF64F60D1AC42AA7AF2D3A56FE59C7F",
+      "Matches": true
+    },
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Sha256": "4205C6B63A8997DAE744FBCBF9FA48F4526E5291E4FEEBB5ACC134678F3671F0",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltStatusParameters.cs",
+      "Sha256": "0D5E85E61A517319B4910C434AA670CDB69D5EE7F01C5EF8D176E4117E4E4D38",
+      "Matches": true
+    }
+  ],
+  "SourceLedger": "artifacts/halt-original247-prebuild-source-ledger.json",
+  "SourceLedgerSha256": "1859B878D3A70B918F628C3A432FEA4CD3F3666B01B0A9224BC3DBB52CDB52C8",
+  "LedgerSourceHashesVerified": 8,
+  "CorrectedContracts": 4,
+  "UnchangedOldContracts": 20,
+  "NewContracts": 4,
+  "Total": 28,
+  "Comparable": 26,
+  "Physical": 2,
+  "OriginalExecutionByReviewer": false,
+  "BuildByReviewer": false,
+  "BlockingIssues": [],
+  "Findings": [
+    "Pinned 64-bit term_to_Uint32 accepts nonnegative native small up to2^59-1 and truncates unsigned32; separate Unsigned32Mask semantic constant.",
+    "Badarg formatter module retained; only invalid options add badopt cause.",
+    "CompileFailure ordinal bindings avoid unsafe Erlang variable reuse without modifying three existing contract sources.",
+    "Deadline created before port drain; expired deadline first in WhenAny. Logical and quiescent completion remain separate.",
+    "Four explicit source corrections and four new contrast source hashes verified; old20 retention is owner ledger claim plus published focus evidence, not a new reviewer execution."
+  ],
+  "Gaps": [
+    "Fresh native28 repair proof pending.",
+    "64-bit selected contract; native32-bit small domain differs.",
+    "Managed zero-timeout deadline-first policy does not prove universal native portless scheduling or physical race parity.",
+    "Historical source-freeze Built=false preserved; owner later focused evidence is separate."
+  ]
+}

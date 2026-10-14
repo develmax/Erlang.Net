@@ -19,7 +19,7 @@ internal static class NativeHaltTrackNames
     public const int DumpPrefixLength = 64;
     public const int InfrastructureExit = 2;
     public const int ComparisonFailureExit = 1;
-    public const int Planned = 24;
-    public const int ComparablePlanned = 22;
+    public const int Planned = 28;
+    public const int ComparablePlanned = 26;
     public const int PhysicalPlanned = 2;
 }

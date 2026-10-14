@@ -1,0 +1,256 @@
+{
+  "Added": 4,
+  "Note": "Actual compiled provider emission must independently verify these prebuild source/expected rows before any children",
+  "Entries": [
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-uint32-overflow",
+      "New": {
+        "Source": "-module(halt_uint32_overflow).\n-export([run/0]).\nrun()->erlang:halt(0,[{flush_timeout,4294967296}]),io:put_chars(\"CONTINUE\\n\").\n",
+        "ExpectedLogicalStatus": 255,
+        "ExpectedObservation": "HaltRequest",
+        "ExpectedPosixExit": 255,
+        "ExpectedStandardOutput": "",
+        "ExpectedWindowsExit": 255,
+        "ExpectedStandardError": "",
+        "SourceSha256": "3EC8D0998CFBE3B1D04D70DBD89F17FE48AB2813DCD588D17C617E318E1519A4"
+      },
+      "Old": {
+        "Name": "halt-uint32-overflow",
+        "Sources": [
+          {
+            "Module": "halt_uint32_overflow",
+            "Source": "-module(halt_uint32_overflow).\n-export([run/0]).\nrun()->try erlang:halt(0,[{flush_timeout,4294967296}]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\"DONE\\n\").\n",
+            "SourceSha256": "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+          }
+        ],
+        "Module": "halt_uint32_overflow",
+        "Entry": "run",
+        "ExpectedObservation": 1,
+        "ExpectedRequestKind": null,
+        "ExpectedLogicalStatus": null,
+        "ExpectedPosixExit": 0,
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardOutput": [
+          68,
+          79,
+          78,
+          69,
+          10
+        ],
+        "ExpectedPosixStandardError": [],
+        "ExpectedWindowsStandardError": [],
+        "ForbiddenMarkers": [
+          "CONTINUE",
+          "CATCH",
+          "AFTER"
+        ],
+        "ComparableToOriginal": true,
+        "PhysicalFormatGap": null
+      }
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-two-plain-status",
+      "New": {
+        "Source": "-module(halt_two_plain_status).\n-export([run/0]).\nrun()->try erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-1,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\"DONE\\n\").\n",
+        "ExpectedLogicalStatus": null,
+        "ExpectedObservation": "EntryExit",
+        "ExpectedPosixExit": 0,
+        "ExpectedStandardOutput": "DONE\n",
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardError": "",
+        "SourceSha256": "C42FD2987708A4138F9B27DB01A3756D6465D2B8AF3A2E07BEDB83FB72B02E37"
+      },
+      "Old": {
+        "Name": "halt-two-plain-status",
+        "Sources": [
+          {
+            "Module": "halt_two_plain_status",
+            "Source": "-module(halt_two_plain_status).\n-export([run/0]).\nrun()->try erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-1,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\"DONE\\n\").\n",
+            "SourceSha256": "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+          }
+        ],
+        "Module": "halt_two_plain_status",
+        "Entry": "run",
+        "ExpectedObservation": 1,
+        "ExpectedRequestKind": null,
+        "ExpectedLogicalStatus": null,
+        "ExpectedPosixExit": 0,
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardOutput": [
+          68,
+          79,
+          78,
+          69,
+          10
+        ],
+        "ExpectedPosixStandardError": [],
+        "ExpectedWindowsStandardError": [],
+        "ForbiddenMarkers": [
+          "CONTINUE",
+          "CATCH",
+          "AFTER"
+        ],
+        "ComparableToOriginal": true,
+        "PhysicalFormatGap": null
+      }
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-negative-big-status",
+      "New": {
+        "Source": "-module(halt_negative_big_status).\n-export([run/0]).\nrun()->try erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\"DONE\\n\").\n",
+        "ExpectedLogicalStatus": null,
+        "ExpectedObservation": "EntryExit",
+        "ExpectedPosixExit": 0,
+        "ExpectedStandardOutput": "DONE\n",
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardError": "",
+        "SourceSha256": "E3007CBF9C1214A304CD88703D4EE61B6013C73BDA8FD15873DC0509C5ECD4AB"
+      },
+      "Old": {
+        "Name": "halt-negative-big-status",
+        "Sources": [
+          {
+            "Module": "halt_negative_big_status",
+            "Source": "-module(halt_negative_big_status).\n-export([run/0]).\nrun()->try erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\"DONE\\n\").\n",
+            "SourceSha256": "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+          }
+        ],
+        "Module": "halt_negative_big_status",
+        "Entry": "run",
+        "ExpectedObservation": 1,
+        "ExpectedRequestKind": null,
+        "ExpectedLogicalStatus": null,
+        "ExpectedPosixExit": 0,
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardOutput": [
+          68,
+          79,
+          78,
+          69,
+          10
+        ],
+        "ExpectedPosixStandardError": [],
+        "ExpectedWindowsStandardError": [],
+        "ForbiddenMarkers": [
+          "CONTINUE",
+          "CATCH",
+          "AFTER"
+        ],
+        "ComparableToOriginal": true,
+        "PhysicalFormatGap": null
+      }
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-invalid-slogan-prefix",
+      "New": {
+        "Source": "-module(halt_invalid_slogan_prefix).\n-export([run/0]).\nrun()->try erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\"DONE\\n\").\n",
+        "ExpectedLogicalStatus": null,
+        "ExpectedObservation": "EntryExit",
+        "ExpectedPosixExit": 0,
+        "ExpectedStandardOutput": "DONE\n",
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardError": "",
+        "SourceSha256": "740557259EDF929CD773D96ABC1995991C50609F6EDCD09150A7A6EADF376587"
+      },
+      "Old": {
+        "Name": "halt-invalid-slogan-prefix",
+        "Sources": [
+          {
+            "Module": "halt_invalid_slogan_prefix",
+            "Source": "-module(halt_invalid_slogan_prefix).\n-export([run/0]).\nrun()->try erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\"DONE\\n\").\n",
+            "SourceSha256": "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+          }
+        ],
+        "Module": "halt_invalid_slogan_prefix",
+        "Entry": "run",
+        "ExpectedObservation": 1,
+        "ExpectedRequestKind": null,
+        "ExpectedLogicalStatus": null,
+        "ExpectedPosixExit": 0,
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardOutput": [
+          68,
+          79,
+          78,
+          69,
+          10
+        ],
+        "ExpectedPosixStandardError": [],
+        "ExpectedWindowsStandardError": [],
+        "ForbiddenMarkers": [
+          "CONTINUE",
+          "CATCH",
+          "AFTER"
+        ],
+        "ComparableToOriginal": true,
+        "PhysicalFormatGap": null
+      }
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-direct-zero-watchdog",
+      "New": {
+        "Source": "-module(halt_direct_zero_watchdog).\n-export([run/0]).\nrun()->erlang:halt(41,[{flush_timeout,0}]),io:put_chars(\"CONTINUE\\n\").\n",
+        "ExpectedLogicalStatus": 255,
+        "ExpectedObservation": "HaltRequest",
+        "ExpectedPosixExit": 255,
+        "ExpectedStandardOutput": "",
+        "ExpectedWindowsExit": 255,
+        "ExpectedStandardError": "",
+        "SourceSha256": "F2B3B0AFA5423CA761E2AED2C9623002FBE57C182F7E5B3F8E541756DFC50F02"
+      },
+      "Old": null
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-maximum-native-small-timeout",
+      "New": {
+        "Source": "-module(halt_maximum_native_small_timeout).\n-export([run/0]).\nrun()->erlang:halt(41,[{flush_timeout,576460752303423487}]),io:put_chars(\"CONTINUE\\n\").\n",
+        "ExpectedLogicalStatus": 41,
+        "ExpectedObservation": "HaltRequest",
+        "ExpectedPosixExit": 41,
+        "ExpectedStandardOutput": "",
+        "ExpectedWindowsExit": 41,
+        "ExpectedStandardError": "",
+        "SourceSha256": "ABF8CE99BD6C2ED9F191BE2AE9B6229EC3EF870884BBE8385DF6423CDE8268E7"
+      },
+      "Old": null
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-native-small-boundary-rejected",
+      "New": {
+        "Source": "-module(halt_native_small_boundary_rejected).\n-export([run/0]).\nrun()->try erlang:halt(0,[{flush_timeout,576460752303423488}]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[0,[{flush_timeout,576460752303423488}]],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\"DONE\\n\").\n",
+        "ExpectedLogicalStatus": null,
+        "ExpectedObservation": "EntryExit",
+        "ExpectedPosixExit": 0,
+        "ExpectedStandardOutput": "DONE\n",
+        "ExpectedWindowsExit": 0,
+        "ExpectedStandardError": "",
+        "SourceSha256": "47105BE7599346C3A94A789E127B48D34CDE3BF9F910E8442632D66D68C9D735"
+      },
+      "Old": null
+    },
+    {
+      "Provenance": "Declared before new native observation; corrected4 grounded in immutable failed247 and pinned source",
+      "Name": "halt-wrapped-one-flush-false",
+      "New": {
+        "Source": "-module(halt_wrapped_one_flush_false).\n-export([run/0]).\nrun()->erlang:halt(43,[{flush_timeout,4294967297},{flush,false}]),io:put_chars(\"CONTINUE\\n\").\n",
+        "ExpectedLogicalStatus": 43,
+        "ExpectedObservation": "HaltRequest",
+        "ExpectedPosixExit": 43,
+        "ExpectedStandardOutput": "",
+        "ExpectedWindowsExit": 43,
+        "ExpectedStandardError": "",
+        "SourceSha256": "A6E667FE6D45FCAA05F8FCDC70E73A766B78005D2ABABA237AA911B25FCFBCB4"
+      },
+      "Old": null
+    }
+  ],
+  "Corrected": 4,
+  "UnchangedOldContracts": 20
+}

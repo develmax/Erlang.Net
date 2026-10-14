@@ -224,8 +224,11 @@ public static class HaltSubprocessRunner
 
         string atom(string value) => "'" + value.Replace("\\", "\\\\").Replace("'", "\\'") + "'";
         var expression = new StringBuilder(stamp(HaltProcessParameters.CompileStage));
-        foreach (string path in sources)
-            expression.Append("case compile:file(").Append(Quote(path)).Append(",[return_errors,return_warnings]) of {ok,_}->ok;{ok,_,_}->ok;E->erlang:error({compile_failed,E}) end,");
+        for (int ordinal = 0; ordinal < sources.Count; ordinal++)
+        {
+            string failure = HaltProcessParameters.CompileFailureVariablePrefix + ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            expression.Append("case compile:file(").Append(Quote(sources[ordinal])).Append(",[return_errors,return_warnings]) of {ok,_}->ok;{ok,_,_}->ok;").Append(failure).Append("->erlang:error({compile_failed,").Append(failure).Append("}) end,");
+        }
         expression.Append(stamp(HaltProcessParameters.ExecuteStage));
         expression.Append("apply(").Append(atom(module)).Append(',').Append(atom(entry)).Append(",[]),");
         expression.Append(stamp(HaltProcessParameters.ReturnStage));

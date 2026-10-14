@@ -15,8 +15,8 @@ internal static class HaltRequestParser
                 throw new HaltParseException(true);
             if (name.Name == HaltNames.Flush && option.Items[1] is Atom flag && flag.Name is ErlangBooleanAtoms.True or ErlangBooleanAtoms.False)
                 flush = flag.Name == ErlangBooleanAtoms.True;
-            else if (name.Name == HaltNames.FlushTimeout && option.Items[1] is Integer milliseconds && milliseconds.Value >= 0 && milliseconds.Value <= HaltStatusParameters.MaximumFlushTimeoutMilliseconds)
-                timeout = (uint)milliseconds.Value;
+            else if (name.Name == HaltNames.FlushTimeout && option.Items[1] is Integer milliseconds && milliseconds.Value >= 0 && milliseconds.Value <= HaltNativeSmallParameters.MaximumPositive)
+                timeout = (uint)(milliseconds.Value & HaltNativeSmallParameters.Unsigned32Mask);
             else
                 throw new HaltParseException(true);
             tail = cell.Tail;

@@ -253,14 +253,15 @@ public sealed class ModuleRegistry
         }
         if (body is null)
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-        ProcessTraceInvocation? invocation = context.Runtime.ProcessTracing.Called(
-            context,
-            module,
-            function,
-            arguments
-        );
+        ProcessTraceInvocation? invocation = null;
         if (image is null)
         {
+            invocation = context.Runtime.ProcessTracing.Called(
+                context,
+                module,
+                function,
+                arguments
+            );
             context.SavedCalls.Record(module, function, arguments.Length);
             try
             {
@@ -274,6 +275,12 @@ public sealed class ModuleRegistry
         }
         try
         {
+            invocation = context.Runtime.ProcessTracing.Called(
+                context,
+                module,
+                function,
+                arguments
+            );
             context.SavedCalls.Record(module, function, arguments.Length);
             ValueTask<Term> pending = context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments));
             if (pending.IsCompletedSuccessfully)

@@ -1,0 +1,100 @@
+{
+  "Status": "PASS",
+  "RetainedCompilerFixtures": [
+    {
+      "Module": "beam_fixture_constant",
+      "Source": "-module(beam_fixture_constant).\n-export([run/0]).\nrun() -\u003E {ok,42,[alpha,beta]}.\n",
+      "SourceSha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507",
+      "IndependentExpectedExpression": "{ok,42,[alpha,beta]}"
+    },
+    {
+      "Module": "beam_fixture_add",
+      "Source": "-module(beam_fixture_add).\n-export([run/0,add/2]).\nrun() -\u003E add(17,25).\nadd(A,B) when is_integer(A), is_integer(B) -\u003E A\u002BB.\n",
+      "SourceSha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552",
+      "IndependentExpectedExpression": "42"
+    },
+    {
+      "Module": "beam_fixture_local",
+      "Source": "-module(beam_fixture_local).\n-export([run/0]).\nrun() -\u003E loop(3,[]).\nloop(0,Acc) -\u003E {ok,Acc};\nloop(N,Acc) -\u003E loop(N-1,[N|Acc]).\n",
+      "SourceSha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE",
+      "IndependentExpectedExpression": "{ok,[1,2,3]}"
+    },
+    {
+      "Module": "beam_fixture_receive",
+      "Source": "-module(beam_fixture_receive).\n-export([run/0]).\nrun() -\u003E self() ! ping, receive ping -\u003E {ok,ping} after 1000 -\u003E timeout end.\n",
+      "SourceSha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7",
+      "IndependentExpectedExpression": "{ok,ping}"
+    },
+    {
+      "Module": "beam_fixture_on_load",
+      "Source": "-module(beam_fixture_on_load).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E put(beam_fixture_marker,loaded), ok.\nrun() -\u003E {ok,on_load_fixture}.\n",
+      "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+      "IndependentExpectedExpression": null
+    },
+    {
+      "Module": "beam_fixture_closure",
+      "Source": "-module(beam_fixture_closure).\n-export([run/0,make/1]).\nrun() -\u003E F=make(5), {ok,F(7),is_function(F,1)}.\nmake(N) -\u003E fun(X) -\u003E N\u002BX end.\n",
+      "SourceSha256": "1B29BD3330DE0DFC4BA7DF19FCA667FFACD78B6DE622E0B22186B5B3B8E2AD4D",
+      "IndependentExpectedExpression": "{ok,12,true}"
+    }
+  ],
+  "RetainedNativeExecutionContracts": 5,
+  "ObserverDeclarations": [
+    {
+      "Name": "fresh-success",
+      "Module": "beam_on_load_fresh_success",
+      "Succeeds": true,
+      "HasOldImage": false,
+      "NewSource": "-module(beam_on_load_fresh_success).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E\n    Observer = whereis(beam_on_load_observer),\n    true = is_pid(Observer),\n    Observer ! {on_load_notice,?MODULE,self(),code:is_loaded(?MODULE),success},\n    receive\n        {on_load_continue,Observer} -\u003E ok\n    after 10000 -\u003E\n        error(observer_timeout)\n    end.\nrun() -\u003E new_image.\n",
+      "NewSourceSha256": "BF445FEFC0EFDB382010EC1E4219E6576933CEA5DAA2195925586C3B3611A54B",
+      "OldSource": null,
+      "OldSourceSha256": null,
+      "IndependentExpectedExpression": "{observed,{module,beam_on_load_fresh_success},ok,{error,undef},not_invoked,{value,new_image}}",
+      "EvaluationSha256": "853F037DCE4FE7F59BDC6A9EA6C96B2E79EAAAA64D7E195C5BB8034AC88DA0AA",
+      "OriginalExecutionPerformed": false
+    },
+    {
+      "Name": "fresh-failure",
+      "Module": "beam_on_load_fresh_failure",
+      "Succeeds": false,
+      "HasOldImage": false,
+      "NewSource": "-module(beam_on_load_fresh_failure).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E\n    Observer = whereis(beam_on_load_observer),\n    true = is_pid(Observer),\n    Observer ! {on_load_notice,?MODULE,self(),code:is_loaded(?MODULE),failure},\n    receive\n        {on_load_continue,Observer} -\u003E not_ok\n    after 10000 -\u003E\n        error(observer_timeout)\n    end.\nrun() -\u003E new_image.\n",
+      "NewSourceSha256": "A995DF8400591B1DE6F21E99A589989F6796B19D6CACDF2877D8E40194973074",
+      "OldSource": null,
+      "OldSourceSha256": null,
+      "IndependentExpectedExpression": "{observed,{error,on_load_failure},not_ok,{error,undef},not_invoked,{error,undef}}",
+      "EvaluationSha256": "6E263A98ED5392D70B88175706469AEAB25F082E39098AE452394FE62DB6865C",
+      "OriginalExecutionPerformed": false
+    },
+    {
+      "Name": "replacement-success",
+      "Module": "beam_on_load_replace_success",
+      "Succeeds": true,
+      "HasOldImage": true,
+      "NewSource": "-module(beam_on_load_replace_success).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E\n    Observer = whereis(beam_on_load_observer),\n    true = is_pid(Observer),\n    Observer ! {on_load_notice,?MODULE,self(),code:is_loaded(?MODULE),success},\n    receive\n        {on_load_continue,Observer} -\u003E ok\n    after 10000 -\u003E\n        error(observer_timeout)\n    end.\nrun() -\u003E new_image.\n",
+      "NewSourceSha256": "38A4228134F973F2B34303ADB1214C0ACCA12162F3C454B8FADE79C7BC9F8E28",
+      "OldSource": "-module(beam_on_load_replace_success).\n-export([run/0]).\nrun() -\u003E old_image.\n",
+      "OldSourceSha256": "02D68297A17F8243E18A717BEE7A839DF63EE9F0A4D5821F8631B733D1F41FCC",
+      "IndependentExpectedExpression": "{observed,{module,beam_on_load_replace_success},ok,{value,old_image},{value,old_image},{value,new_image}}",
+      "EvaluationSha256": "C43D86CCE131A36353CA62C98E08D1F13563DD8F3C9AD11FE344B85D2F4DA1EA",
+      "OriginalExecutionPerformed": false
+    },
+    {
+      "Name": "replacement-failure",
+      "Module": "beam_on_load_replace_failure",
+      "Succeeds": false,
+      "HasOldImage": true,
+      "NewSource": "-module(beam_on_load_replace_failure).\n-on_load(init/0).\n-export([run/0]).\ninit() -\u003E\n    Observer = whereis(beam_on_load_observer),\n    true = is_pid(Observer),\n    Observer ! {on_load_notice,?MODULE,self(),code:is_loaded(?MODULE),failure},\n    receive\n        {on_load_continue,Observer} -\u003E not_ok\n    after 10000 -\u003E\n        error(observer_timeout)\n    end.\nrun() -\u003E new_image.\n",
+      "NewSourceSha256": "C495099512FEF4212C9A7EF94EAC484875923AA5549E36D8845080FBF6C1D849",
+      "OldSource": "-module(beam_on_load_replace_failure).\n-export([run/0]).\nrun() -\u003E old_image.\n",
+      "OldSourceSha256": "9B7F94EFCFE6066AC5EF9F890E71D8974209EC798BA6E92B725F260A716CD9E3",
+      "IndependentExpectedExpression": "{observed,{error,on_load_failure},not_ok,{value,old_image},{value,old_image},{value,old_image}}",
+      "EvaluationSha256": "6A5FE80F093DC916AD6A75137B6CF581ED71644663975EE451ECE58B938E018E",
+      "OriginalExecutionPerformed": false
+    }
+  ],
+  "NewImagesDeclared": 6,
+  "TargetAssemblySha256": "891AEA070624E789D3459E7C9EB3FEC23EC31320DC5C36CE1F1833DBF636BAF1",
+  "BaselineAssemblySha256": "0B118BB3A74FE5024C186B28F7B063193BB48B42C673B28150C8909C1FAC6714",
+  "OriginalExecutionPerformed": false
+}

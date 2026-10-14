@@ -1,0 +1,89 @@
+{
+  "Status": "Passed",
+  "Rows": [
+    {
+      "Name": "real tracing HALT lease barrier and four body completion paths",
+      "Status": "Passed"
+    },
+    {
+      "Name": "code image generation leases",
+      "Status": "Passed"
+    },
+    {
+      "Name": "code purge",
+      "Status": "Passed"
+    },
+    {
+      "Name": "process code",
+      "Status": "Passed"
+    },
+    {
+      "Name": "actual process tracing",
+      "Status": "Passed"
+    }
+  ],
+  "Modules": 4843,
+  "Diagnoses": 159,
+  "Exclusions": 6,
+  "Mfas": 484,
+  "SourceFiles": 4,
+  "OriginalExecuted": false,
+  "FullExecuted": false,
+  "Seed": "90bade7bd3e4d1b63f8c350b71f11418f973e5ef",
+  "BuildExit": 0,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "FocusedExit": 0,
+  "OldNegativeExit": 0,
+  "OldNegative": {
+    "Status": "ExpectedFailure",
+    "ActualLeaseAdmission": true,
+    "SameRuntimeHalt": true,
+    "BodyNotEntered": true,
+    "ActualLeaseLeaked": true,
+    "BarrierReleasedAndOwnerQuiescenceDrained": true,
+    "RuntimeSha256": "890322FC462D99F2C3F47D15FF8B7767E8DC988ECFFBE99B445CFBE33362EBCF",
+    "Error": "System.InvalidOperationException: Call tracing failure leaked the actual image lease\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Require(Boolean condition, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 175\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.<>c__DisplayClass2_0.<<TracingHalt>b__2>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 69\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Drain(Task task) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 165\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.TracingHalt() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 91\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.TracingHalt() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 91\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 10\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\artifacts\\LeaseFocus\\Program.cs:line 8"
+  },
+  "FourSourceHashesExact": true,
+  "InheritedProviderHashesExact": 200,
+  "LeaseAndCallingFlowCleanup": "Asserted in the actual Call task after same-runtime ProcessHaltTransfer; body-not-entered and active image lease absent",
+  "CompletionPaths": [
+    "synchronous success",
+    "synchronous invoke throw",
+    "asynchronous success",
+    "asynchronous await throw"
+  ],
+  "FixedRuntimeSha256": "0C00D72CF5E125B41DF116308B707CA0ADFE42C4A4E8C816503D889CCFA2C839",
+  "ExpectedFullTests": 6464,
+  "Evidence": [
+    {
+      "Path": "module-registry-lease-source-freeze.json",
+      "Sha256": "E5B46D27B87CB9530AF8BF8EBCA195A3030A474509D7939A4DDD66241BA1229B"
+    },
+    {
+      "Path": "lease-build.log",
+      "Sha256": "03643D2837664F3469EFE97C1D0695A086257D09B198959873EAAF5E32294C10"
+    },
+    {
+      "Path": "lease-helper-build.log",
+      "Sha256": "CD33F2B21BAA999A6463BB9B7132E0D092A8D111C84D8C2EDC6DB2B082E3A7C7"
+    },
+    {
+      "Path": "lease-helper-reference-repair-build.log",
+      "Sha256": "46583B400CBE0907F950BECF882B1FECD587E74440825CEF114D781418BD7267"
+    },
+    {
+      "Path": "lease-focused.log",
+      "Sha256": "186C905132D0111338831472267FD0B0CD1CFB394649B138E6426F0E55889C62"
+    },
+    {
+      "Path": "lease-old-negative.log",
+      "Sha256": "44BD395D5938130C2E23DFE2DC82DA3C418AE5B5B5CD67B197C458A2BBA15349"
+    },
+    {
+      "Path": "lease-old-negative.json",
+      "Sha256": "32F68072DF177A2C986B7FF92A74B75571C67BA39CFD8944B91E76A41770C0AA"
+    }
+  ]
+}

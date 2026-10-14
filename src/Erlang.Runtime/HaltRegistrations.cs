@@ -22,17 +22,13 @@ public static class HaltRegistrations
         }
         catch (HaltParseException error)
         {
-            MapTerm? info = null;
-            if (arguments.Count == 1 || error.BadOptions)
+            var fields = new List<KeyValuePair<Term, Term>>
             {
-                var fields = new List<KeyValuePair<Term, Term>>
-                {
-                    new(Term.A(HaltNames.ErrorModule), Term.A(HaltNames.ErrorFormatter))
-                };
-                if (arguments.Count == 2 && error.BadOptions)
-                    fields.Add(new(Term.A(HaltNames.Cause), Term.A(HaltNames.BadOption)));
-                info = new(fields);
-            }
+                new(Term.A(HaltNames.ErrorModule), Term.A(HaltNames.ErrorFormatter))
+            };
+            if (arguments.Count == 2 && error.BadOptions)
+                fields.Add(new(Term.A(HaltNames.Cause), Term.A(HaltNames.BadOption)));
+            var info = new MapTerm(fields);
             throw new ErlangException(ErlangErrorReasons.BadArgument)
             {
                 ExplicitStackTrace = true,

@@ -81,9 +81,11 @@ public static class HaltSubprocessCases
             "halt-infinity-invalid",
             "try erlang:halt(0,[{flush_timeout,infinity}]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end"
         ),
-        Error(
+        Halt(
             "halt-uint32-overflow",
-            "try erlang:halt(0,[{flush_timeout,4294967296}]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end"
+            "erlang:halt(0,[{flush_timeout,4294967296}])",
+            255,
+            255
         ),
         Error(
             "halt-one-error-wrapper",
@@ -91,11 +93,11 @@ public static class HaltSubprocessCases
         ),
         Error(
             "halt-two-plain-status",
-            "try erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-1,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end"
+            "try erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-1,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end"
         ),
         Error(
             "halt-negative-big-status",
-            "try erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end"
+            "try erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end"
         ),
         Error(
             "halt-valid-abort-invalid-options-first",
@@ -103,7 +105,29 @@ public static class HaltSubprocessCases
         ),
         Error(
             "halt-invalid-slogan-prefix",
-            "try erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,false=lists:keyfind(error_info,1,I) end"
+            "try erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,_,I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end"
+        ),
+        Halt(
+            "halt-direct-zero-watchdog",
+            "erlang:halt(41,[{flush_timeout,0}])",
+            255,
+            255
+        ),
+        Halt(
+            "halt-maximum-native-small-timeout",
+            "erlang:halt(41,[{flush_timeout,576460752303423487}])",
+            41,
+            41
+        ),
+        Error(
+            "halt-native-small-boundary-rejected",
+            "try erlang:halt(0,[{flush_timeout,576460752303423488}]),error(unexpected_halt_return) catch error:badarg:S -> [{erlang,halt,[0,[{flush_timeout,576460752303423488}]],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end"
+        ),
+        Halt(
+            "halt-wrapped-one-flush-false",
+            "erlang:halt(43,[{flush_timeout,4294967297},{flush,false}])",
+            43,
+            43
         )
     });
 

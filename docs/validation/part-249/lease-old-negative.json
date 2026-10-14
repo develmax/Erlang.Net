@@ -1,0 +1,10 @@
+{
+  "Status": "ExpectedFailure",
+  "ActualLeaseAdmission": true,
+  "SameRuntimeHalt": true,
+  "BodyNotEntered": true,
+  "ActualLeaseLeaked": true,
+  "BarrierReleasedAndOwnerQuiescenceDrained": true,
+  "RuntimeSha256": "890322FC462D99F2C3F47D15FF8B7767E8DC988ECFFBE99B445CFBE33362EBCF",
+  "Error": "System.InvalidOperationException: Call tracing failure leaked the actual image lease\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Require(Boolean condition, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 175\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.\u003C\u003Ec__DisplayClass2_0.\u003C\u003CTracingHalt\u003Eb__2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 69\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Drain(Task task) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 165\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.TracingHalt() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 91\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.TracingHalt() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 91\r\n   at Erlang.Tests.ModuleRegistryLeaseChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\tests\\Erlang.Tests\\ModuleRegistryLeaseChecks.cs:line 10\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\module-registry-lease-repair-prototype\\artifacts\\LeaseFocus\\Program.cs:line 8"
+}

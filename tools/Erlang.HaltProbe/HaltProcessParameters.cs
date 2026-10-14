@@ -18,4 +18,5 @@ internal static class HaltProcessParameters
     public const string TimedOut = "external-probe-timeout";
     public const string NoEvidence = "missing-sdk-probe-evidence";
     public const int ProcessTimeoutSeconds = 30;
+    public const string CompileFailureVariablePrefix = "CompileFailure_";
 }

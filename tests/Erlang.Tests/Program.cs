@@ -4192,6 +4192,8 @@ Test(Erlang.Tests.BeamReceiveHostNames.Test, Erlang.Tests.BeamReceiveHostChecks.
 Test(Erlang.Tests.BeamClosureHostNames.Test, Erlang.Tests.BeamClosureHostChecks.Run);
 Test(Erlang.Tests.MailboxSelectionCheckNames.Test, Erlang.Tests.MailboxSelectionChecks.Run);
 
+Test(Erlang.Tests.ModuleRegistryLeaseCheckNames.Test, Erlang.Tests.ModuleRegistryLeaseChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

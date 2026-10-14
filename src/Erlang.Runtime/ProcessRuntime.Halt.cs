@@ -38,6 +38,8 @@ public sealed partial class ProcessRuntime
         Task portDrain;
         RuntimeHaltResult result;
         long selectedAt;
+        CancellationTokenSource deadlineStop;
+        Task deadline;
         lock (gate)
         {
             if (haltResult is not null)
@@ -85,6 +87,8 @@ public sealed partial class ProcessRuntime
                 process.PriorityPortLinks.Clear();
                 process.Done.TrySetResult(process.ExitReason);
             }
+            deadlineStop = new CancellationTokenSource();
+            deadline = options.Flush && options.FlushTimeoutMilliseconds is uint milliseconds ? WaitHaltDeadline(milliseconds, selectedAt, deadlineStop.Token) : Task.Delay(Timeout.Infinite, deadlineStop.Token);
             portDrain = Ports.BeginHalt(options.Flush);
         }
         _ = Task.Run(() => FinishHalt(
@@ -93,7 +97,8 @@ public sealed partial class ProcessRuntime
             monitoring,
             portDrain,
             options,
-            selectedAt
+            deadline,
+            deadlineStop
         ));
 
         return haltCompletion.Task;
@@ -129,7 +134,8 @@ public sealed partial class ProcessRuntime
         Task monitoring,
         Task portDrain,
         RuntimeHaltOptions options,
-        long selectedAt
+        Task deadline,
+        CancellationTokenSource deadlineStop
     )
     {
         var failures = new List<Exception>();
@@ -156,9 +162,7 @@ public sealed partial class ProcessRuntime
             }
             if (options.Flush && !haltCompletion.Task.IsCompleted)
             {
-                using var deadlineStop = new CancellationTokenSource();
-                Task deadline = options.FlushTimeoutMilliseconds is uint milliseconds ? WaitHaltDeadline(milliseconds, selectedAt, deadlineStop.Token) : Task.Delay(Timeout.Infinite, deadlineStop.Token);
-                Task winner = await Task.WhenAny(portDrain, deadline, haltCompletion.Task).ConfigureAwait(false);
+                Task winner = await Task.WhenAny(deadline, portDrain, haltCompletion.Task).ConfigureAwait(false);
                 lock (gate)
                 {
                     if (!haltCompletion.Task.IsCompleted)
@@ -215,6 +219,11 @@ public sealed partial class ProcessRuntime
         {
             haltCompletion.TrySetException(exception);
             haltQuiescence.TrySetException(exception);
+        }
+        finally
+        {
+            deadlineStop.Cancel();
+            deadlineStop.Dispose();
         }
     }
 

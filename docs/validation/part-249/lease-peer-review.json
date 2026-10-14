@@ -1,0 +1,53 @@
+{
+  "Status": "SourceReviewPassedForBoundedCleanup",
+  "ReviewUtc": "2026-10-14T05:59:40.5855888Z",
+  "SourceManifest": "artifacts/module-registry-lease-repair-prototype/artifacts/module-registry-lease-source-freeze.json",
+  "SourceManifestSha256": "E5B46D27B87CB9530AF8BF8EBCA195A3030A474509D7939A4DDD66241BA1229B",
+  "VerifiedOwnedFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "01EA14AA8B4352962F0F3A8C99B88965109C654A9948CB8A25180481ABAC08CF",
+      "Matches": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/ModuleRegistryLeaseCheckNames.cs",
+      "Sha256": "8607D54AE4FA02B9DE049820F6BAD0E93AC28013CB63DDFE7BA1D06DF871D15E",
+      "Matches": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/ModuleRegistryLeaseChecks.cs",
+      "Sha256": "EFB75B1DB09BD11EDCA418224B3312F088362C634BBF91D07E5F7779968B961C",
+      "Matches": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "DD0E28F336E6958F12C2A2D612CBEEF78DB9F25669F226DDEDF807D1E9D241DB",
+      "Matches": true
+    }
+  ],
+  "Authorship": "Read-only peer reviewer who originally identified source cleanup hole; not independent test author",
+  "ReviewerExecutedBuildOrTests": false,
+  "OwnerEvidence": [
+    {
+      "Path": "artifacts/module-registry-lease-repair-prototype/artifacts/lease-focused-proof.json",
+      "Sha256": "73CD8A1AAEE36B0564E78791D00F280D4E1B145B7234907A9D56A0B6934BBF0D"
+    },
+    {
+      "Path": "artifacts/module-registry-lease-repair-prototype/artifacts/lease-old-negative.json",
+      "Sha256": "32F68072DF177A2C986B7FF92A74B75571C67BA39CFD8944B91E76A41770C0AA"
+    }
+  ],
+  "BlockingIssues": [],
+  "Findings": [
+    "Image-backed tracing is inside existing lease try/catch/finally before SavedCalls and body invocation; lease-free tracing remains in original branch.",
+    "On synchronous Called failure catch disposes actual scope and finally restores calling-flow AsyncLocal. Async pending ownership remains AwaitCallback using scope.",
+    "Barrier holds actual runtime gate, waits for actual IsExecutingCode admission, requests own-runtime halt reentrantly, then releases gate. No private counter assignment or cleanup mutation.",
+    "Same calling flow asserts actual lease absence and source owner flow absence; body stays unentered. Actual owner completion and HaltQuiescence are drained.",
+    "Four real body contrasts cover synchronous/asynchronous success/failure. Owner negative baseline reports actual admitted lease leak, not a fabricated failure."
+  ],
+  "Gaps": [
+    "Owner focused results are referenced and hashed, not reexecuted by reviewer.",
+    "EnterSourceCode lease.Attach allocation/failure remains separate unmeasured gap.",
+    "This is existing CLR image-lease cleanup, not native BEAM loading or on_load parity."
+  ]
+}
