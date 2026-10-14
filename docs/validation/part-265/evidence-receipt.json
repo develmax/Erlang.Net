@@ -1,0 +1,494 @@
+{
+  "Status": "PASS",
+  "LocalTests": 6482,
+  "Old6481PrefixExact": true,
+  "DefaultMfas": 493,
+  "ErlangMfas": 335,
+  "CurrentNativeExecutionClaimed": false,
+  "External263ProofIsSeparate": true,
+  "SevenOwnedSourcePaths": [
+    "src/Erlang.Compiler/Execution.cs",
+    "src/Erlang.Compiler/CompilerLoaderSyntax.cs",
+    "src/Erlang.Compiler/CompilerLoaderSyntaxArity.cs",
+    "tests/Erlang.Tests/BeamLoaderDirectChecks.cs",
+    "tests/Erlang.Tests/StaticApplyOnLoadChecks.cs",
+    "tests/Erlang.Tests/StaticApplyOnLoadNames.cs",
+    "tests/Erlang.Tests/Program.cs"
+  ],
+  "Files": [
+    {
+      "Path": "archive-directory-initial-failure.json",
+      "Length": 306,
+      "Sha256": "630990CFB29B70EE8A3A6C1EF22E25296CF3C6509E605779D3AF88AC8ECE38F1"
+    },
+    {
+      "Path": "captured-halt-postfull-guard.ps1",
+      "Length": 8358,
+      "Sha256": "FBC782EAF495926A7811A33B539310F54D955D4AECFC29640DDC3F2EE81934E9"
+    },
+    {
+      "Path": "external263/captured-ci-final-guard.py",
+      "Length": 1017,
+      "Sha256": "F63006493B64402F2DAF1CB432CACA5C4324F396605E4E8D26FF1F431F9519FE"
+    },
+    {
+      "Path": "external263/captured-ci-report-guard.py",
+      "Length": 1549,
+      "Sha256": "F03DD2D40FA2143CE86922980638C5903051FC1835F8C91B8BF638B254C716E2"
+    },
+    {
+      "Path": "external263/captured-original-provenance-fetch.ps1",
+      "Length": 1656,
+      "Sha256": "00140CD790684BB6E1CB76F2E8A8C645623692D917BF6A60C1679205CD584F51"
+    },
+    {
+      "Path": "external263/captured-original-semantic-guard.py",
+      "Length": 6466,
+      "Sha256": "DB46E29F7659B8CFA594D1014C4B9F7BA0FD94E136D769DE55BD488B86582754"
+    },
+    {
+      "Path": "external263/captured-original-strict-guard.py",
+      "Length": 4092,
+      "Sha256": "0F05FDA6654A8DA1194A063EEEEAD87B57907AF7AD41F5711AFC91F65FF06259"
+    },
+    {
+      "Path": "external263/captured-provenance-fetch.ps1",
+      "Length": 1650,
+      "Sha256": "AAF385620B47439BFDACF4655EF231CBD5A38D25A29088A47CCD103FDA3E2C5A"
+    },
+    {
+      "Path": "external263/ci-final-guard.json",
+      "Length": 565,
+      "Sha256": "327CB523919A39B24CA59331FE0292B03B964E4A8E7582064613E09A60AE15F3"
+    },
+    {
+      "Path": "external263/ci-report-guard.json",
+      "Length": 351,
+      "Sha256": "F10AAEC0C17E911141EC74549AA2C356C394513B4D19354BDC7414C704F8AA83"
+    },
+    {
+      "Path": "external263/evidence-receipt.json",
+      "Length": 6062,
+      "Sha256": "D8D04A10961134804093746DF18343CD31E17E3ADF8016A03DB0A6DA25505C02"
+    },
+    {
+      "Path": "external263/frozen-head.txt",
+      "Length": 42,
+      "Sha256": "6DE00AF66A1EC7C952D556E0E8E82EAAF97071ABAD2356D64769D0DCDAF95E76"
+    },
+    {
+      "Path": "external263/original-semantic-guard.json",
+      "Length": 1008,
+      "Sha256": "003AD5F25822C3C4E96608008A37D1F4541164098711C3CCD2FFDF42E11FD393"
+    },
+    {
+      "Path": "external263/original-strict-guard.json",
+      "Length": 837,
+      "Sha256": "C338F45308CCEADF2872F82B33D7B8178C91CEA99E9F35A19E07071DB080E5BA"
+    },
+    {
+      "Path": "external263/raw/artifact-metadata.json",
+      "Length": 18256,
+      "Sha256": "ED6E218338A2A7EDB1B5310A3E02A211609041369D1FC3041A941C42EE167536"
+    },
+    {
+      "Path": "external263/raw/historical-row-differences.json",
+      "Length": 4,
+      "Sha256": "A5338D955B09046EC0B16F3A9625B7955C763AAE07DC722E474E6078745F932F"
+    },
+    {
+      "Path": "external263/raw/job-provenance.json",
+      "Length": 17146,
+      "Sha256": "004A63D7352F6E52683D2E26526DFD41256EFAF8E3ADBF31C690FE70802363B9"
+    },
+    {
+      "Path": "external263/raw/job.log",
+      "Length": 601840,
+      "Sha256": "FC47BE9F3169B560FB812EB6BED388BAAA0DCC447AF131A876F1C094308A052B"
+    },
+    {
+      "Path": "external263/raw/job.log.digest.json",
+      "Length": 130,
+      "Sha256": "0149DC5ADEA1A0149B26EA508A62D6D74877CEFBEDAB19480C3BBEA28AB288AB"
+    },
+    {
+      "Path": "external263/raw/original/differential.json",
+      "Length": 5858358,
+      "Sha256": "4FA15A4E5AEFA9892458DD16632E941B22AF6E55B511EF52A69CDA6168B0370C"
+    },
+    {
+      "Path": "external263/raw/original/differential.progress.json",
+      "Length": 394,
+      "Sha256": "19BFBE87933027C73B0284B74BF00445857F902CA814728F43BC33B6169F2488"
+    },
+    {
+      "Path": "external263/raw/original/fd-differential.json",
+      "Length": 8152,
+      "Sha256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7"
+    },
+    {
+      "Path": "external263/raw/original-artifact-metadata.json",
+      "Length": 18838,
+      "Sha256": "5B1CCF46C78EE775DFADC3B7759244B9B4CA310ABD3B613D6B65047DDFA8BA8F"
+    },
+    {
+      "Path": "external263/raw/original-job-provenance.json",
+      "Length": 17693,
+      "Sha256": "43785CC47AC926514AA7E08F99AF4A8DC367FD0182C1D3F4663D8066B2B1E0DF"
+    },
+    {
+      "Path": "external263/raw/original-job.log",
+      "Length": 1061961,
+      "Sha256": "4AE33A26EE562738B74F7D1EA39616695572514CCA511710FB8A2C299AD42CE7"
+    },
+    {
+      "Path": "external263/raw/original-job.log.digest.json",
+      "Length": 136,
+      "Sha256": "A8308A85E33400C84872A3FB24CF058FDEBA36D06258E12408C23204B2BB41B2"
+    },
+    {
+      "Path": "external263/raw/original.zip",
+      "Length": 606895,
+      "Sha256": "7A02BA995A0778A242E8045D3A9CF203E6867567DAC91B1A104CB551C3721CD7"
+    },
+    {
+      "Path": "external263/raw/validation/integration-results.json",
+      "Length": 365,
+      "Sha256": "89676BD1CECE52732930C9FF8AE4732DF9541217620F3844AFB8F64FB10ADC16"
+    },
+    {
+      "Path": "external263/raw/validation/preprocessing-disabled.log",
+      "Length": 176440,
+      "Sha256": "FFAE30AE9D8DCEDAA4F4721A482C8CED2E71562C633C40CD89DAEF74C2907080"
+    },
+    {
+      "Path": "external263/raw/validation/tests.json",
+      "Length": 892615,
+      "Sha256": "0C9CA309A62645D2BA3DBE69821824CB1B98C395E69817838AEF0EA3221D3732"
+    },
+    {
+      "Path": "external263/raw/validation.zip",
+      "Length": 60225,
+      "Sha256": "387B65F96C89C0149FDB44884BF74D5A68140F89CD48AB5CA548AA7905D66DC0"
+    },
+    {
+      "Path": "final-focus/Focus.csproj",
+      "Length": 316,
+      "Sha256": "E1925AD3696A9E8EAC35F97ED465058188B7C6625722D42A4D9A0F947BA2CF01"
+    },
+    {
+      "Path": "final-focus/Program.cs",
+      "Length": 2269,
+      "Sha256": "839A323F544510E2E753BD1CB246797C33CEF01D8DA8384CFEBE549E2BFB46B9"
+    },
+    {
+      "Path": "final-source/src/Erlang.Compiler/CompilerLoaderSyntax.cs",
+      "Length": 770,
+      "Sha256": "630C9D964C3933BB660773ACB5C28A3BFA8A00B3E3B09EA67D787E66E73158D2"
+    },
+    {
+      "Path": "final-source/src/Erlang.Compiler/CompilerLoaderSyntaxArity.cs",
+      "Length": 298,
+      "Sha256": "1143FDD2CF272B904D061407A9A276CDD514CD279142B32EDEC0AD6D14F5B342"
+    },
+    {
+      "Path": "final-source/src/Erlang.Compiler/Execution.cs",
+      "Length": 36431,
+      "Sha256": "5ED17F76A5B4C82E1C025A731C51AE77B9A0EA74DE81219D12D4F14C88AFF8A4"
+    },
+    {
+      "Path": "final-source/tests/Erlang.Tests/BeamLoaderDirectChecks.cs",
+      "Length": 9591,
+      "Sha256": "4F5B94B360D9DBBFC2054879888D640A8ADE02C01CC267CB45DF00C90BD0DA03"
+    },
+    {
+      "Path": "final-source/tests/Erlang.Tests/Program.cs",
+      "Length": 159125,
+      "Sha256": "DB0F938EA8E7D6C79698919548C8DD3ABC12C81D7AEFA9C137E63DE42C26BB80"
+    },
+    {
+      "Path": "final-source/tests/Erlang.Tests/StaticApplyOnLoadChecks.cs",
+      "Length": 4735,
+      "Sha256": "7C85EDEAD32F6C234A508840196B6D7B3BF381FBCE903D8F0E164B8D42AA7A85"
+    },
+    {
+      "Path": "final-source/tests/Erlang.Tests/StaticApplyOnLoadNames.cs",
+      "Length": 2363,
+      "Sha256": "02AEE1A1F2DB14F104CA2A3B1282728DEA9867EDD812C001C6730FBA587FE423"
+    },
+    {
+      "Path": "focused-proof.json",
+      "Length": 2048,
+      "Sha256": "DE1818A30B178195D893272C7478D3D872F6C5CC0A823A26DF3434A807DFEA01"
+    },
+    {
+      "Path": "formatted-source-freeze.json",
+      "Length": 77491,
+      "Sha256": "2EE78AE2A440EF3EB9478B441AE58DE9BEC516AF95FB748395182E68DA22BAE2"
+    },
+    {
+      "Path": "halt-host-results.json",
+      "Length": 71081,
+      "Sha256": "4A6E19EADE1933091E12432556F574D39B248AE02E8BE1062427540BCE23D754"
+    },
+    {
+      "Path": "halt-postfull-guard.json",
+      "Length": 17474,
+      "Sha256": "3F08B0887784A69404581DB60A7FCC7919D2343581415F5F902A94C8A32B2A47"
+    },
+    {
+      "Path": "historical-source-recovery/BeamLoaderDirectNames.cs",
+      "Length": 1277,
+      "Sha256": "DA09038EA769103AAB01234AA75CAB4BA9F5692FF52E27C005BA040142C5F8C8"
+    },
+    {
+      "Path": "historical-source-recovery.json",
+      "Length": 1266,
+      "Sha256": "651223695499FC543EE9372F05D57BCDFADF15F955ED1DDBAFFD2F6C7F1FA434"
+    },
+    {
+      "Path": "independent-test-plan.json",
+      "Length": 3232,
+      "Sha256": "1DE45FA4D3CF5BE6A6F62880FD8F2E45092F820F6D00E52C4807C8C5BFD30F0D"
+    },
+    {
+      "Path": "initial-source-freeze.json",
+      "Length": 77317,
+      "Sha256": "6FAEB61AC6FE30654BA1D84F9AD2E884B345986735A3BECF944DFC21704D1649"
+    },
+    {
+      "Path": "integration-results.json",
+      "Length": 365,
+      "Sha256": "96C20EA8E6FD6D966A549C5271C91490C8BC9DF7E4D07F493DC06A15372F29E3"
+    },
+    {
+      "Path": "main-final-focus-run.log",
+      "Length": 98,
+      "Sha256": "941E77F04EC14E27BD3E32B4D7E1BB0A51220A2BBE00F3C10AA6F867753F3E45"
+    },
+    {
+      "Path": "main-final-source-proof.json",
+      "Length": 245,
+      "Sha256": "67FEB718C8A171566A0192976DD0DC207EDA10FA88E23DE2356C364C40C1CFD8"
+    },
+    {
+      "Path": "main-final-target-build.log",
+      "Length": 1813,
+      "Sha256": "1112417E9E4727A884C71AFD6E633B34F0C5D889418F2BF4084B2EC75F78A814"
+    },
+    {
+      "Path": "main-full-validation.log",
+      "Length": 388176,
+      "Sha256": "6230F0BD367478B85914FFA2F764B00FFE1A67D6AAB0B54FD4E2BA9488040FEC"
+    },
+    {
+      "Path": "main-import-guard.json",
+      "Length": 633,
+      "Sha256": "7668C9A26194080AF0F3CF64A8FC58F1CE475290BA1E3BF552AB21FEFE08435D"
+    },
+    {
+      "Path": "module-readiness.json",
+      "Length": 595314,
+      "Sha256": "14C11EE3623607EC0D49951ABF4252C9B969D0B20B4AE367E9773746C951B77A"
+    },
+    {
+      "Path": "MODULE_READINESS.md",
+      "Length": 68593,
+      "Sha256": "CCA9EED89D78D1535DF0413415DFCDF79C4C218BAF77B12CF3DDCC670D938D4E"
+    },
+    {
+      "Path": "named-index-followup.json",
+      "Length": 75422,
+      "Sha256": "8DF2A4EC3609917FC6CC707869F91675F6573AFDCB641909D67C612D792EB5A0"
+    },
+    {
+      "Path": "permanent-host-build-final.log",
+      "Length": 2189,
+      "Sha256": "D3123711AD579C45E2B1191EB9AE5EFABA5126FFA8780D1A3BA5B7ACFFA04B9A"
+    },
+    {
+      "Path": "permanent-host-run-final.log",
+      "Length": 67,
+      "Sha256": "8E0451023298B1F9625852A3747CD923EAF33C710EE751FB3A76CE178940673F"
+    },
+    {
+      "Path": "permanent-promotion-freeze.json",
+      "Length": 440443,
+      "Sha256": "226B721067DE9ADAD686C8F811D4C4EA16CB1B21F38FAE5BC192FC19ABD3770B"
+    },
+    {
+      "Path": "pinned-source/simplify-apply-excerpt.erl",
+      "Length": 1229,
+      "Sha256": "527CB0F5FF6A97483B179D1B3BA46CC2D66BE9D9749F973AAB1353C978F4064C"
+    },
+    {
+      "Path": "pinned-source/source-binding.json",
+      "Length": 446,
+      "Sha256": "E73A3CA84DCD89B6A8110C88A44F2722866D766C25AD7EED9F41E13F8414E45B"
+    },
+    {
+      "Path": "pinned-source/sys_core_fold.erl",
+      "Length": 104460,
+      "Sha256": "8B29294DC2019A0FD858AFEF1E9AEF60BF42BB94FB0889763F1BD8B423FD0775"
+    },
+    {
+      "Path": "raw/main-compiler/before-named-index.dll",
+      "Length": 348160,
+      "Sha256": "B75C97950D1024776228BDC280AF68A5380C2B0B170172B1DE4C810E743B3A19"
+    },
+    {
+      "Path": "raw/main-compiler/final-named-index.dll",
+      "Length": 348160,
+      "Sha256": "7A40AE5560FA5E4ADBCAC98F5BE5BB0F20D9A4E10EC270CC345DE536786C022B"
+    },
+    {
+      "Path": "source-audit.json",
+      "Length": 8438,
+      "Sha256": "FCF0DD00B045A341975C6815260CA2F5566A04F69A4059FBA1DDCF317E837E1B"
+    },
+    {
+      "Path": "staged-evidence-initial-failure.json",
+      "Length": 406,
+      "Sha256": "285E74DE76D4F22AF58151C16B1C72E4F59267F04952E12CD7656AEC76329366"
+    },
+    {
+      "Path": "static-apply-source/final-source-classification.json",
+      "Length": 3677,
+      "Sha256": "3A0AD7507176B82F9025BF3072CFAB3909AB3A4CA3955847A4C4FA4BCC13B20D"
+    },
+    {
+      "Path": "static-apply-source/historical-focus-source-pointer-mismatch-BeamLoaderDirectNames.json",
+      "Length": 486,
+      "Sha256": "D499FB27F3CC7B815CD88755AD40FD03505CD6EFA1E23D5158D5F8B8CD569C60"
+    },
+    {
+      "Path": "static-apply-source/historical-focus-source-pointer-mismatch-Program.json",
+      "Length": 476,
+      "Sha256": "58775FBA0243D15DA8570E51F9C0C81ED8F884B61A56559391B81AF2E6D373F5"
+    },
+    {
+      "Path": "static-apply-source/historical-focus-source-pointer-mismatch.json",
+      "Length": 476,
+      "Sha256": "58775FBA0243D15DA8570E51F9C0C81ED8F884B61A56559391B81AF2E6D373F5"
+    },
+    {
+      "Path": "static-apply-source/part265-import-guard.json",
+      "Length": 633,
+      "Sha256": "7668C9A26194080AF0F3CF64A8FC58F1CE475290BA1E3BF552AB21FEFE08435D"
+    },
+    {
+      "Path": "static-apply-source/part265-main-final-source-proof.json",
+      "Length": 245,
+      "Sha256": "67FEB718C8A171566A0192976DD0DC207EDA10FA88E23DE2356C364C40C1CFD8"
+    },
+    {
+      "Path": "static-apply-source/raw/focused/artifacts/static-focus-build-formatted.log",
+      "Length": 2189,
+      "Sha256": "97157E931A1912C73A1D15BB022120A628DD2061EA7A866CFEE617E3B4F305F0"
+    },
+    {
+      "Path": "static-apply-source/raw/focused/artifacts/static-focus-results-formatted.json",
+      "Length": 2012,
+      "Sha256": "6B236BBAF4DE87B8A3F98C4F391AC668870EFAA7396DA553D4CCCEB87813CB1A"
+    },
+    {
+      "Path": "static-apply-source/raw/focused/artifacts/static-focus-run-formatted.log",
+      "Length": 118,
+      "Sha256": "61685EA10C91D8F0DA8D345563ADF488615CF8DA1851372B5EEA5489B390023D"
+    },
+    {
+      "Path": "static-apply-source/raw/focused/artifacts/static-production-style.log",
+      "Length": 130,
+      "Sha256": "EA45BE1E45038327575F5E6FD3907EA87A955902392B005C02C1D5B24A99D57E"
+    },
+    {
+      "Path": "static-apply-source/raw/focused/artifacts/static-style-write.log",
+      "Length": 32,
+      "Sha256": "CD9054A77A078CB0F888BD4ECAC39BE95189F9307EF578F4B6AC97C22A9463B6"
+    },
+    {
+      "Path": "static-apply-source/raw/permanent-focused/artifacts/permanent-host-build-final.log",
+      "Length": 2189,
+      "Sha256": "D3123711AD579C45E2B1191EB9AE5EFABA5126FFA8780D1A3BA5B7ACFFA04B9A"
+    },
+    {
+      "Path": "static-apply-source/raw/permanent-focused/artifacts/permanent-host-run-final.log",
+      "Length": 67,
+      "Sha256": "8E0451023298B1F9625852A3747CD923EAF33C710EE751FB3A76CE178940673F"
+    },
+    {
+      "Path": "static-apply-source/raw/recovered-historical-source/BeamLoaderDirectNames.cs",
+      "Length": 1277,
+      "Sha256": "DA09038EA769103AAB01234AA75CAB4BA9F5692FF52E27C005BA040142C5F8C8"
+    },
+    {
+      "Path": "static-apply-source/readonly-main-source-audit.json",
+      "Length": 2697,
+      "Sha256": "E41EBE5F817E101F00888E3BEF0237626606D20AF395F0967A6235EBC3DFE2D9"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-focused-proof.json",
+      "Length": 2048,
+      "Sha256": "DE1818A30B178195D893272C7478D3D872F6C5CC0A823A26DF3434A807DFEA01"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-historical-source-recovery.json",
+      "Length": 1266,
+      "Sha256": "651223695499FC543EE9372F05D57BCDFADF15F955ED1DDBAFFD2F6C7F1FA434"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-independent-test-plan.json",
+      "Length": 3232,
+      "Sha256": "1DE45FA4D3CF5BE6A6F62880FD8F2E45092F820F6D00E52C4807C8C5BFD30F0D"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-promotion-freeze.json",
+      "Length": 440443,
+      "Sha256": "226B721067DE9ADAD686C8F811D4C4EA16CB1B21F38FAE5BC192FC19ABD3770B"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-source-audit.json",
+      "Length": 8438,
+      "Sha256": "FCF0DD00B045A341975C6815260CA2F5566A04F69A4059FBA1DDCF317E837E1B"
+    },
+    {
+      "Path": "static-apply-source/static-apply-onload-source-freeze-revision2.json",
+      "Length": 77491,
+      "Sha256": "2EE78AE2A440EF3EB9478B441AE58DE9BEC516AF95FB748395182E68DA22BAE2"
+    },
+    {
+      "Path": "static-focus-build-formatted.log",
+      "Length": 2189,
+      "Sha256": "97157E931A1912C73A1D15BB022120A628DD2061EA7A866CFEE617E3B4F305F0"
+    },
+    {
+      "Path": "static-focus-results-formatted.json",
+      "Length": 2012,
+      "Sha256": "6B236BBAF4DE87B8A3F98C4F391AC668870EFAA7396DA553D4CCCEB87813CB1A"
+    },
+    {
+      "Path": "static-focus-run-formatted.log",
+      "Length": 118,
+      "Sha256": "61685EA10C91D8F0DA8D345563ADF488615CF8DA1851372B5EEA5489B390023D"
+    },
+    {
+      "Path": "static-production-style.log",
+      "Length": 130,
+      "Sha256": "EA45BE1E45038327575F5E6FD3907EA87A955902392B005C02C1D5B24A99D57E"
+    },
+    {
+      "Path": "static-style-write.log",
+      "Length": 32,
+      "Sha256": "CD9054A77A078CB0F888BD4ECAC39BE95189F9307EF578F4B6AC97C22A9463B6"
+    },
+    {
+      "Path": "tests.json",
+      "Length": 896905,
+      "Sha256": "FFB080D34B3BBA24EDD1A883C63BE586D569104708F992D97A0B696E4820E4C8"
+    }
+  ],
+  "FinalCompilerMethodIlCompared": 1739,
+  "HistoricalFocusedProgramSourceComplete": false,
+  "HistoricalDirectNamesRecoveredExact": true,
+  "HistoricalSourceLimit": "Older focused helper Program.cs was overwritten before archiving and cannot be recovered honestly; its logs remain historical, current seven-source Main6482/full and final actual-Main focus are independently retained."
+}

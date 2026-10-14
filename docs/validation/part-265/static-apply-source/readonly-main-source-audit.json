@@ -1,0 +1,58 @@
+{
+  "Status": "ReadOnlyMainSourceAuditPassed",
+  "PublishedBase": "d45b59da199dfc682b8652a2d0e516662777d570",
+  "CurrentMainHead": "d45b59da199dfc682b8652a2d0e516662777d570",
+  "PromotionFreezeSha256": "226B721067DE9ADAD686C8F811D4C4EA16CB1B21F38FAE5BC192FC19ABD3770B",
+  "MainSourceSevenPathsExact": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "MainSha256": "26A54BDB40FA4FE3FA4BBBE6E9216641D01B8A3B672F644D46EE44097BB6CBBE",
+      "BeforePublishedBlobSha256": "B10E79788C4C9CD877DABE56CD63C8808E09427B7ED4C1D7C286E64A0C9F18C5"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerLoaderSyntax.cs",
+      "MainSha256": "630C9D964C3933BB660773ACB5C28A3BFA8A00B3E3B09EA67D787E66E73158D2",
+      "BeforePublishedBlobSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerLoaderSyntaxArity.cs",
+      "MainSha256": "1143FDD2CF272B904D061407A9A276CDD514CD279142B32EDEC0AD6D14F5B342",
+      "BeforePublishedBlobSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderDirectChecks.cs",
+      "MainSha256": "4F5B94B360D9DBBFC2054879888D640A8ADE02C01CC267CB45DF00C90BD0DA03",
+      "BeforePublishedBlobSha256": "E5E9A0FAC74ED3FF8CF47F87389CC2F4711F3E276715FC0559D2B1105E14B2C5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/StaticApplyOnLoadChecks.cs",
+      "MainSha256": "7C85EDEAD32F6C234A508840196B6D7B3BF381FBCE903D8F0E164B8D42AA7A85",
+      "BeforePublishedBlobSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/StaticApplyOnLoadNames.cs",
+      "MainSha256": "02AEE1A1F2DB14F104CA2A3B1282728DEA9867EDD812C001C6730FBA587FE423",
+      "BeforePublishedBlobSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "MainSha256": "DB0F938EA8E7D6C79698919548C8DD3ABC12C81D7AEFA9C137E63DE42C26BB80",
+      "BeforePublishedBlobSha256": "6006149745FDEC2346F332945692EF7F17250868138EDEAAF8DF827EBD8AFDB8"
+    }
+  ],
+  "FocusedStatus": "FocusedPassedInterpretedGeneratedOnly",
+  "CurrentPermanentFocusStatus": "PermanentHostTargetAndFocusPassedNoFull",
+  "CurrentPermanentLogsExact": true,
+  "HistoricalFocusedSourcePointerMismatchRetained": true,
+  "ActualFocusedBuildErrors": 0,
+  "ActualFocusedBuildWarnings": 0,
+  "NativeNewExecution": false,
+  "CurrentMainFullResult": "Unobserved by this agent; Root owns actual running validation",
+  "ExistingRaw257FailurePreserved": true,
+  "ScopeLimits": [
+    "No new native execution",
+    "Rawstackdirect-versusapply frame parity unchanged/unproved",
+    "no_auto_import unsupported/localshadow checkedonlyexistingSDKpolicy",
+    "Constant propagation/listvariable broadnativeoptimization outsidelimitedASTscope"
+  ]
+}

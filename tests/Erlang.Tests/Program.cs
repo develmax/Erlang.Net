@@ -4228,6 +4228,8 @@ Test(Erlang.Tests.BeamLoaderMfaNames.PaddedHost, Erlang.Tests.BeamLoaderMfaCheck
 Test(Erlang.Tests.BeamLoaderMfaNames.DirectHost, Erlang.Tests.BeamLoaderMfaChecks.Direct);
 Test(Erlang.Tests.BeamLoaderMfaNames.LifecycleHost, Erlang.Tests.BeamLoaderLifecycleChecks.Run);
 
+Test(Erlang.Tests.StaticApplyOnLoadNames.Test, Erlang.Tests.StaticApplyOnLoadChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

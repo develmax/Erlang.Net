@@ -1,0 +1,69 @@
+{
+  "Status": "FinalSourceClassificationWithExplicitHistoricalLimitation",
+  "CurrentHead": "d45b59da199dfc682b8652a2d0e516662777d570",
+  "FinalSourceRows": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "OriginalPromotionAfterSha256": "26A54BDB40FA4FE3FA4BBBE6E9216641D01B8A3B672F644D46EE44097BB6CBBE",
+      "CurrentFinalSha256": "5ED17F76A5B4C82E1C025A731C51AE77B9A0EA74DE81219D12D4F14C88AFF8A4",
+      "ExactOriginalPromotion": false
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerLoaderSyntax.cs",
+      "OriginalPromotionAfterSha256": "630C9D964C3933BB660773ACB5C28A3BFA8A00B3E3B09EA67D787E66E73158D2",
+      "CurrentFinalSha256": "630C9D964C3933BB660773ACB5C28A3BFA8A00B3E3B09EA67D787E66E73158D2",
+      "ExactOriginalPromotion": true
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerLoaderSyntaxArity.cs",
+      "OriginalPromotionAfterSha256": "1143FDD2CF272B904D061407A9A276CDD514CD279142B32EDEC0AD6D14F5B342",
+      "CurrentFinalSha256": "1143FDD2CF272B904D061407A9A276CDD514CD279142B32EDEC0AD6D14F5B342",
+      "ExactOriginalPromotion": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderDirectChecks.cs",
+      "OriginalPromotionAfterSha256": "4F5B94B360D9DBBFC2054879888D640A8ADE02C01CC267CB45DF00C90BD0DA03",
+      "CurrentFinalSha256": "4F5B94B360D9DBBFC2054879888D640A8ADE02C01CC267CB45DF00C90BD0DA03",
+      "ExactOriginalPromotion": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/StaticApplyOnLoadChecks.cs",
+      "OriginalPromotionAfterSha256": "7C85EDEAD32F6C234A508840196B6D7B3BF381FBCE903D8F0E164B8D42AA7A85",
+      "CurrentFinalSha256": "7C85EDEAD32F6C234A508840196B6D7B3BF381FBCE903D8F0E164B8D42AA7A85",
+      "ExactOriginalPromotion": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/StaticApplyOnLoadNames.cs",
+      "OriginalPromotionAfterSha256": "02AEE1A1F2DB14F104CA2A3B1282728DEA9867EDD812C001C6730FBA587FE423",
+      "CurrentFinalSha256": "02AEE1A1F2DB14F104CA2A3B1282728DEA9867EDD812C001C6730FBA587FE423",
+      "ExactOriginalPromotion": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "OriginalPromotionAfterSha256": "DB0F938EA8E7D6C79698919548C8DD3ABC12C81D7AEFA9C137E63DE42C26BB80",
+      "CurrentFinalSha256": "DB0F938EA8E7D6C79698919548C8DD3ABC12C81D7AEFA9C137E63DE42C26BB80",
+      "ExactOriginalPromotion": true
+    }
+  ],
+  "OnlyPostFullSourceDelta": "Named compiler-loader argument-index constant; parent actual source expansion and all1739Compiler methodIL proof retained separately",
+  "FinalActualMainProofSha256": "67FEB718C8A171566A0192976DD0DC207EDA10FA88E23DE2356C364C40C1CFD8",
+  "RecoveredHistoricalDirectNames": [
+    {
+      "OriginalPath": "tests/Erlang.Tests/BeamLoaderDirectNames.cs",
+      "RecoveredPath": "artifacts/static-apply-onload-historical-source-recovery/BeamLoaderDirectNames.cs",
+      "Sha256": "DA09038EA769103AAB01234AA75CAB4BA9F5692FF52E27C005BA040142C5F8C8",
+      "Recovery": "Publishedd45b59dsource withexactisolated literalapply replacement; targetoriginalhashverified"
+    }
+  ],
+  "MissingHistoricalProgram": [
+    {
+      "OriginalPath": "artifacts/static-focus/Program.cs",
+      "ExpectedSha256": "1414CAA9F15565A0A3BD268DE50E3611D90BBB0049FABBC32EDB59E9092B97BE",
+      "Reason": "EarlierfocusedhelperoverwrittenwhencreatingpermanentHOSTrunner; originalfullbyteswere notseparatelycaptured. Currentpermanenttestsource cannot besubstitutedforhistoricalhelper."
+    }
+  ],
+  "EarlierAuditPreservedAsBeforeNamedIndexSnapshot": true,
+  "HistoricalProofSourceByteCompleteness": false,
+  "NoHistoricalSourceSubstitution": true,
+  "MainOrGitEdits": false
+}

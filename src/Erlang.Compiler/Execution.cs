@@ -759,6 +759,8 @@ public static class Execution
 
                         if (x.Module == ErlangModuleNames.Module && x.Function == CompilerLoaderNames.CallOnLoad && args.Length == 1)
                             return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, args[0]);
+                        if (CompilerLoaderSyntax.IsStaticApply(x))
+                            return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, ((Cons)args[CompilerLoaderSyntaxArity.ArgumentList]).Head);
 
                         return await ctx.Runtime.Modules.Call(
                             ctx,

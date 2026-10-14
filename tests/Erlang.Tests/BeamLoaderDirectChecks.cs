@@ -20,11 +20,44 @@ public static class BeamLoaderDirectChecks
         await Observe(false, true, true);
     }
 
-    private static async Task Observe(bool generated, bool old, bool nativeCaller)
+    internal static async Task RunSource(string source)
+    {
+        await Observe(
+            false,
+            false,
+            false,
+            source
+        );
+        await Observe(
+            true,
+            false,
+            false,
+            source
+        );
+        await Observe(
+            false,
+            true,
+            false,
+            source
+        );
+        await Observe(
+            true,
+            true,
+            false,
+            source
+        );
+    }
+
+    private static async Task Observe(
+        bool generated,
+        bool old,
+        bool nativeCaller,
+        string? source = null
+    )
     {
         await using var runtime = new ProcessRuntime();
-        using GeneratedModuleArtifact? artifact = generated ? GeneratedModuleCompiler.Compile(BeamLoaderDirectNames.Source) : null;
-        ModuleDefinition caller = artifact?.Definition ?? new Parser(BeamLoaderDirectNames.Source).ParseModule();
+        using GeneratedModuleArtifact? artifact = generated ? GeneratedModuleCompiler.Compile(source ?? BeamLoaderDirectNames.Source) : null;
+        ModuleDefinition caller = artifact?.Definition ?? new Parser(source ?? BeamLoaderDirectNames.Source).ParseModule();
         caller.Register(runtime.Modules);
         string module = old ? BeamOnLoadHostNames.ReplacementFailureModule : BeamOnLoadHostNames.FreshSuccessModule;
         if (old)

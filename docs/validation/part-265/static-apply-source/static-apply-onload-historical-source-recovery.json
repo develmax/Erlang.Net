@@ -1,0 +1,22 @@
+{
+  "Status": "OneExactHistoricalSourceRecoveredOneSourceMissing",
+  "OriginalFocusedProof": "artifacts/static-apply-onload-focused-proof.json",
+  "Recovered": [
+    {
+      "OriginalPath": "tests/Erlang.Tests/BeamLoaderDirectNames.cs",
+      "RecoveredPath": "artifacts/static-apply-onload-historical-source-recovery/BeamLoaderDirectNames.cs",
+      "Sha256": "DA09038EA769103AAB01234AA75CAB4BA9F5692FF52E27C005BA040142C5F8C8",
+      "Recovery": "Publishedd45b59dsource withexactisolated literalapply replacement; targetoriginalhashverified"
+    }
+  ],
+  "Missing": [
+    {
+      "OriginalPath": "artifacts/static-focus/Program.cs",
+      "ExpectedSha256": "1414CAA9F15565A0A3BD268DE50E3611D90BBB0049FABBC32EDB59E9092B97BE",
+      "Reason": "EarlierfocusedhelperoverwrittenwhencreatingpermanentHOSTrunner; originalfullbyteswere notseparatelycaptured. Currentpermanenttestsource cannot besubstitutedforhistoricalhelper."
+    }
+  ],
+  "HistoricalEvidenceLimitation": "Earlierfocusedproof source byte completeness is partial despite retainedresults/build/runlogs. CurrentMainfull6482andfinal1739ILchecks are separate strongercurrentevidence; donotrelabelearlierproof asfullysourceselfcontained.",
+  "MainEdits": false,
+  "BuildExecuted": false
+}

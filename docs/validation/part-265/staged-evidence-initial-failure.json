@@ -1,0 +1,8 @@
+{
+  "Scope": "Pre-commit staged byte guard",
+  "Status": "InitialFailurePreservedThenRepair",
+  "Cause": "Repository artifacts ignore pattern also excludes nested captured evidence directory named artifacts; git add omitted those log files",
+  "Repair": "Force-add only exact receipt-bound docs/validation/part-265 evidence paths",
+  "CommitCreatedBeforeRepair": false,
+  "RuntimeFailure": false
+}

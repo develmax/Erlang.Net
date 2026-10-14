@@ -1,0 +1,60 @@
+{
+  "Status": "SourceOnlyIndependentTestsDeclaredNotExecuted",
+  "CaseSources": [
+    {
+      "Name": "original257-literalapply",
+      "Source": "-module(loader_static_apply). -export([run/1]). run(M)->apply(erlang,call_on_load_function,[M]).",
+      "ExpectedNativeObservedReason": "{badmatch,false}",
+      "Evidence": "docs/validation/part-259/native-loader/direct-v-apply-callback-and-finalize-types/actual.etf",
+      "Scope": "Samefreshpendingimage withoutregisteredobserver; preserveoldnativeactualtuplefirstelement nofixture rewrite"
+    },
+    {
+      "Name": "qualified-staticapply",
+      "Source": "-module(loader_static_apply). -export([run/1]). run(M)->erlang:apply(erlang,call_on_load_function,[M]).",
+      "Expected": "Samecallbackrouteassertedwithgenuinefresh/replacementobserver notice/ACK andreturnok/not_ok; independentdirectsourcecontract"
+    },
+    {
+      "Name": "evaluate-item-once",
+      "Source": "-module(loader_static_apply). -export([run/2]). run(M,Owner)->erlang:apply(erlang,call_on_load_function,[begin Owner ! item_evaluated,M end]).",
+      "Expected": "Exactlyoneitem_evaluated beforecallbacknotice; samecallerPID atnotice"
+    },
+    {
+      "Name": "itemthrow-beforecallback",
+      "Source": "-module(loader_static_apply). -export([run/1]). run(M)->erlang:apply(erlang,call_on_load_function,[begin erlang:error(item_failed),M end]).",
+      "Expected": "Error item_failed, nocallbacknotice; argexception precedesrecognizer"
+    },
+    {
+      "Name": "dynamic-module-function",
+      "Source": "-module(loader_static_apply). -export([run/3]). run(Mod,Fun,Args)->erlang:apply(Mod,Fun,Args).",
+      "Expected": "Corrected260genericunknown target C-BIFErrorbadarg withoutcallbacknotice"
+    },
+    {
+      "Name": "listvariable-notrecognized",
+      "Source": "-module(loader_static_apply). -export([run/1]). run(M)->Args=[M],erlang:apply(erlang,call_on_load_function,Args).",
+      "Expected": "Notrecognizedbysyntaxhelper; currentdynamicruntimepath unchanged. Nativeoptimizer couldconstantpropagate, broaderparity notclaimed."
+    },
+    {
+      "Name": "improperlist-notrecognized",
+      "Source": "-module(loader_static_apply). -export([run/1]). run(M)->erlang:apply(erlang,call_on_load_function,[M|tail]).",
+      "Expected": "Currentdynamicproperlistbadarg; nocallbacknotice"
+    },
+    {
+      "Name": "localapply-existingresolution",
+      "Source": "-module(loader_static_apply). -export([run/1]). apply(A,B,C)->{local,A,B,C}. run(M)->apply(erlang,call_on_load_function,[M]).",
+      "Expected": "Currentlocalresolution returnslocal tuple; compiler no_auto_import unsupportedpolicy keptseparate. Nativecompile ambiguity mustbeobservedindependently beforeparityclaim."
+    }
+  ],
+  "Modes": [
+    "Parseractualmoduleentry",
+    "GeneratedModuleCompileractualassemblyentry"
+  ],
+  "ExpectedMutations": 0,
+  "ExistingFixtureEdits": 0,
+  "ExistingDefaultMfasChanged": 0,
+  "KnownRemainingScope": [
+    "no_auto_import/importedunqualifieddirect policy",
+    "Nativeconstantpropagation acrosslistvariables",
+    "Fullcallbackrawstacknativeframeequivalence"
+  ],
+  "Freeze": "artifacts/static-apply-onload-source-freeze.json"
+}
