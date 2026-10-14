@@ -505,10 +505,29 @@ try
             captured.StandardError,
             captured.ExitCode
         );
+        await OracleProgressCheckpoint.Write(
+            args[1],
+            fixture.Source,
+            activeNativeEvidence,
+            results.Count + moduleResults.Count + diagnosticResults.Count
+        );
         Term expected = OracleResultProtocol.Decode(captured.StandardOutput);
         activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleCompile };
+        await OracleProgressCheckpoint.Write(
+            args[1],
+            fixture.Source,
+            activeNativeEvidence,
+            results.Count + moduleResults.Count + diagnosticResults.Count
+        );
+
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
         activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleExecute };
+        await OracleProgressCheckpoint.Write(
+            args[1],
+            fixture.Source,
+            activeNativeEvidence,
+            results.Count + moduleResults.Count + diagnosticResults.Count
+        );
         var sdk = fixture.ExpectedStandardOutputHex is null && fixture.ExpectedStandardErrorHex is null ? null :
             await CompiledModuleExecution.RunCaptured(generated, fixture.CallerContext);
         Term actual = sdk?.Result ?? await CompiledModuleExecution.Run(generated, fixture.CallerContext);

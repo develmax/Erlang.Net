@@ -1,0 +1,43 @@
+{
+  "Status": "Actual synthetic writer IO passed; not native proof",
+  "BuildExit": 0,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "BuildSeconds": 2.23,
+  "RunExit": 0,
+  "RealStagesWritten": 3,
+  "SyntheticManagedFailureObserved": true,
+  "CompletedPriorComparisons": 1,
+  "ActiveCounted": false,
+  "TemporaryCleanup": true,
+  "TerminalReportNotInvented": true,
+  "ProbeSourcesUnchanged": true,
+  "OriginalObserved": 0,
+  "OutcomeSourceContractsChanged": 0,
+  "InitialPostguardCommandError": "Select-Object -Single unsupported; corrected evidence lookup only; no source/run changes",
+  "Proof": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\oracle-progress-io-evidence\\oracle-progress-io-17b3e8bc9f7847748bd64eecaf07d5e3\\io-proof.json",
+  "ProofSha256": "BA975394563C35067AA87E7722E3463D13809692BCEF6898D83947DC206ABC5D",
+  "LinkedActualSources": [
+    {
+      "Path": "artifacts/halt-mailbox-main246-prototype/tools/Erlang.Differential/OracleProgressCheckpoint.cs",
+      "Sha256": "B20B3E487A7E76032E5A268E90925B1A2C211B485CC3AAA910209B92A0DF79C6"
+    },
+    {
+      "Path": "artifacts/halt-mailbox-main246-prototype/tools/Erlang.Differential/OracleProgressEvidence.cs",
+      "Sha256": "6DABD8879A234EEBACA54561EC47B4E936F17475F73996452C5E0446897EF22C"
+    },
+    {
+      "Path": "artifacts/halt-mailbox-main246-prototype/tools/Erlang.Differential/OracleProgressNames.cs",
+      "Sha256": "2BC174F49959DDFB409D3737E56BD816D683E724FCA9A6E92CB7A7A85ADC4B1F"
+    },
+    {
+      "Path": "artifacts/halt-mailbox-main246-prototype/tools/Erlang.Differential/OracleAbortEvidence.cs",
+      "Sha256": "71D6E22BB6A4A12ED75FD8084BF20EE68E7E28DF87B9B3D47CD8EA751CA97938"
+    },
+    {
+      "Path": "artifacts/halt-mailbox-main246-prototype/tools/Erlang.Differential/OracleExecutionStages.cs",
+      "Sha256": "6A47EB0F791699333F848B36BAF7F5F39B8D1A4E2425EBC2EC7679185A7D7660"
+    }
+  ],
+  "Caveat": "NativeEvidence stdout/stderr fields are existing decoded text, not arbitrary byte-exact capture; no native comparisons proven"
+}

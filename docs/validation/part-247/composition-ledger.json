@@ -1,0 +1,427 @@
+{
+  "Status": "Source-only composition ledger; no candidate/Main edits/build",
+  "MainSeed": "1dc0f877dbf38ec7d9d58bf7cfca589f0b0d3c8b",
+  "HaltSourceFreeze": "artifacts/halt-publication-source-manifest-revision2.json",
+  "HaltPaths": 50,
+  "HaltHashesExact": true,
+  "MainTests": 6461,
+  "HaltHostsAdded": 1,
+  "MailboxHostsPlanned": 1,
+  "CombinedExpectedTests": 6463,
+  "Modules": 4843,
+  "Comparable": 4837,
+  "Diagnoses": 159,
+  "Exclusions": 6,
+  "DefaultMfas": 484,
+  "DefaultHaltAdded": 0,
+  "StrictSubprocessContracts": 24,
+  "ComparableSubprocessContracts": 22,
+  "PhysicalGapContracts": 2,
+  "OriginalObserved": 0,
+  "Main246ToHaltDelta": [
+    {
+      "Path": "Erlang.Net.slnx",
+      "Main246Sha256": "F4E27E75F5325A69CAED31D85055B2DE36AAA69990386B48CDAED5FB12FB0C85",
+      "HaltRevision2Sha256": "46EC4788CCDD429585DF1A7B5283E0974225384C610D11D0A6742D0AE599C200",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": ".github/workflows/halt-differential.yml",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "009CB0A46F7CE5268D9277FBC40276166CB1FC32C84D8B3CADC6A1BD031E8A10",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Main246Sha256": "EF4DF927A5F4DAD728E72E677C24DBD215D23DF94D4A751F036B6649CF09A1BC",
+      "HaltRevision2Sha256": "7896F43287A2EC5D3688FCEB5693B39EF83224B308629526780DBA1AD211567B",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "docs/OTP-HALT-NATIVE-TRACK.md",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "1C8F2E8EFCCFA7DE2A1F0F3F27EBC117848D1F69F95FBE9C9A4CB7D3DA76CC61",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "docs/OTP-HALT-SUBPROCESS-CANDIDATE.md",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "A0C49285096E4753F48655D4C76B3C369384F7D38F0D303432A1CEFB769C3E05",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Main246Sha256": "AB7E7B8AE482D06A07A1AAD1116B6A013961E1C9A078CD40E8AC0D548F0B59D6",
+      "HaltRevision2Sha256": "0DE169DB7966B586CA4654238C7235FFF97753E49FE564A6B293DB05583F79CC",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltNames.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "2CEA37656FE3B01CF674C13972F110CAA5B5C0344329FA766C07A790C938CB24",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltParseException.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "C0979297222A111039FA1244DB5507CF9BAE980292BBB52F3D5946FFD3014000",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltRegistrations.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "3BED2EFDE93746B096BF6B02A5F61C75E8B45D05D2FA547EC693C08998F2ECC5",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltRequestParser.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "E76208461CF5F64DF90A6777AB9D60C7F879455AD48471F7FE6A26B0AFD8CDA9",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HaltStatusParameters.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "55C8EE0C461F6F06D44046951A79A9E2E663D8C7ABAFC20DD169AB397C5121A9",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoCharacterDevice.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "1E4428166C78247F0D36BE1421E34A13DE0B057A886FFCA10B6F76FC6AB38455",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoCharacterNames.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "BF09AABD886E0C30C51C5F866A3C86304F6F30A9FFDA0BC7DB930B742DA149E7",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoCharacterRequests.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "352E22DAABDD9D0384E53672137ACB14CA9ECAD8E11A7AFA87BF50CCD984F106",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoDefaultDevice.cs",
+      "Main246Sha256": "2ED38CDA27425A6EBD85AC692A895CF1CF771FCDB27C353A11446B1C1295B7ED",
+      "HaltRevision2Sha256": "0A03C191CAEA3AF9E4524D1EFC58515892D2FAC5151BF2F4077678C204E35E73",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/IoUnicodeCharacters.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "4821E80D4952DE9F702682F6B15CF79BB5785E66207EB3B1ED0E60E719CA59FD",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+      "Main246Sha256": "331AB7A6DE7734841E25EA783F3A5F8F93B4AE6E4BCC2048DC7301A151CE3B30",
+      "HaltRevision2Sha256": "E416F0D2A930ED3B17F5F4BA76D67210256D47679259BB08D67E5A617738AD9C",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeHaltKind.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "DE6AEF71B0DD82935CAC6FA0D3EE9FB9F7916938D15042B0D12BA58EE1559CC3",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeHaltRequest.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "E4DFE935A9F18064DF0BB7EBAC155AF577B9870C4DA1725747683785D5D49266",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeHaltResult.cs",
+      "Main246Sha256": "367EF0B85A6E6BAF7AD394288EE16B03DDC157215CFF6368AEF8210F6930908A",
+      "HaltRevision2Sha256": "098380D44F7A25EE9144120EBDD7A49F2F13F9621CA25F1F4E1863297A9D8F46",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Main246Sha256": "D3EF5B9F5D1C4A15BA206A22E3145421ABEF035385E99E3D9E663C0A902BF049",
+      "HaltRevision2Sha256": "872FDF15F50026FA48EC0CDB1946D5333190ECAEF15A18C7216F21735A597887",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessHostChecks.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "D23ABB0F6042D5A2443238C7997C99EAF2A325BDB60C376FFC81B55DC949F253",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessHostNames.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "52EF360B7CE2C88A309073C9FA5D4AA9CF80D32F08787D98E27C09C01A864037",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tests/Erlang.Tests/IoCharacterHostChecks.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "6B0A211153EE321A7AD16DAAA078E5DDEA9539EEBADA986D02BA4D3BCAC4C725",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Main246Sha256": "C2403C7C9F2227ED6019CC0FE341717C958A00E4E2522417AD698467323FC84D",
+      "HaltRevision2Sha256": "AA28AF2E12F7A4EA258BC5DDEB80ED0FFEC8BEF3A423277B8D902E7FE8D42F70",
+      "Main246Exists": true,
+      "Classification": "Targeted hunk or notice-suffix merge; preserve Main246",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/Erlang.HaltProbe.csproj",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "620D943B6F95E058F443E96B2BE6A0F0EBA98577E4C03F900AA11F9382419675",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltPhysicalEndpoint.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "30816E1FF57FC8F4F969ABCF1E5DCDFE555A40403F975AF40D2189300341186E",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProbeEvidence.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "4D629F9B3093E30389CDCC427E65F52E148C99248DC460C495BAEDC6DA9FE59F",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProbeNames.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "4ABBE6D1AEC7615511C2C3236B8EDAD5EC4BFCA95CC68C94297CDD55820B03F1",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProbeOptions.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "42A984A6976A689B16BD081F6607AD945744E858E2AD3B63174BB8732B247686",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProcessBackend.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "E61011A6D8A3685020868C4DE77C3B18EBBB330AD3C69D9EC5F3AC8C31F44114",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProcessObservation.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "BA3623AC86010AFA9ACC006177BB0C22C8C32A2DEC6049A62A1B3EBB58B425A1",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltProcessParameters.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "5F9197FE0D15AE5CB634750295A02F06A49E4B365A2FFFD05AF18C3F7BA697B7",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSourceUnit.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "55A34D61D81870113468D273833E3A8C0236CD8B6C4D581ED225DFE35C5B326D",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessCases.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "55F7D7D8533808D46B68667D767D3BEBA7D34E7665EC9185D46B8DC0323B67D3",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessContract.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "DCD47EC59EA63E96CBA16F778DC113B34E438EE6737086AB0F4376826BB03863",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessResult.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "4D862B118299A4BDF50FEC66A1D71B20902C12AB4460AC9732B2879AFBD31B61",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessRunner.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "66D68C12087056BD8B8F79F48E28C3D106B9B079F72159E9808023F4C7802454",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltSubprocessVerifier.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "F39B55E04F7CA8DE1A753ADA9250767B6F1D6C5F53A3D8DF1231EE7D7AD8C4B6",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/LinuxOwnedDump.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "F65F8F744D0D124B6215ED80571AB177174EE842E69036E0955084BA2F67D68A",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltDumpCapture.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "050AFDF3DC3A9934140B5087DA83256AAB018C135248D6A7F17EFF700A1DCA3F",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltDumpEvidence.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "4A1FE79A4DBF82C8C2540555AEB801AB2CB67054D40F4CB7BDF96AC6981AA929",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltTrack.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "694DB38B28D4B463CED616ED0975C7357F58026F558B2BE1CAF66C66581642F9",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltTrackNames.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "33200ABAB4F39574B26F977497824BEEFCFEDC858DE2543535C504C27E6AA275",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltTrackReport.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "A65759BBAC302099E599BD7504C710E0681386DD3869A0CF7F459191CA080224",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltTrackRow.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "F14A24F76B8C7969A97060597D2C5E7348B217DF7ED674FBB1F8454EC034B763",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltVersionProbe.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "FE70DF9CCF33C592481D424DEC1BEC2D298A9CB59843023D7F211187E7C195A8",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/NativeHaltVersionResult.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "F38B6A6B8B3265CBBFBD093D891424529E04DD793254373E69563636EF4F764E",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/Program.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "D4DB8E9EDF59FBD3AF0809F9A495396E43F10192B57AE1E6CF97336F4221C528",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    },
+    {
+      "Path": "tools/Erlang.HaltProbe/HaltRawProcessEvidence.cs",
+      "Main246Sha256": null,
+      "HaltRevision2Sha256": "15B43258064B494A137E4A9E2279EBD137393E927C1AC847DACABD17D3A29809",
+      "Main246Exists": false,
+      "Classification": "New owned halt path; copy exact after absence verification",
+      "Owner": "spawn_requests halt frozen delta"
+    }
+  ],
+  "NewPaths": 42,
+  "ExistingManualPaths": 8,
+  "ExistingExactPaths": 0,
+  "UnexpectedExistingPaths": 0
+}

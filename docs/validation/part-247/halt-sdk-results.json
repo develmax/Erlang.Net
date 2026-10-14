@@ -1,0 +1,1748 @@
+[
+  {
+    "Name": "halt-zero",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 0,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 0,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\a124352ada834cbbb1f975418ae982b7",
+    "Sources": [
+      {
+        "Module": "halt_zero",
+        "Source": "-module(halt_zero).\n-export([run/0]).\nrun()-\u003Eerlang:halt(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-one-status",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\8e356f8ebc50460e848d60b7d8be4997",
+    "Sources": [
+      {
+        "Module": "halt_one_status",
+        "Source": "-module(halt_one_status).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+      }
+    ]
+  },
+  {
+    "Name": "halt-two-flush-false",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\eed4ff1128714a59ad983e97371474c1",
+    "Sources": [
+      {
+        "Module": "halt_two_flush_false",
+        "Source": "-module(halt_two_flush_false).\n-export([run/0]).\nrun()-\u003Eerlang:halt(43,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+      }
+    ]
+  },
+  {
+    "Name": "halt-low-word-big",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 47,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 47,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\6ae075f18e54466593641287bc8ffd88",
+    "Sources": [
+      {
+        "Module": "halt_low_word_big",
+        "Source": "-module(halt_low_word_big).\n-export([run/0]).\nrun()-\u003Eerlang:halt(18446744073709551663),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+      }
+    ]
+  },
+  {
+    "Name": "halt-low31-wrap",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 0,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 0,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b5befd449d5a436d8c1c99308ae86b3f",
+    "Sources": [
+      {
+        "Module": "halt_low31_wrap",
+        "Source": "-module(halt_low31_wrap).\n-export([run/0]).\nrun()-\u003Eerlang:halt(2147483648),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+      }
+    ]
+  },
+  {
+    "Name": "halt-os-width",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 257,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 257,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d6a7b3450c6f4283b5fab407a1087105",
+    "Sources": [
+      {
+        "Module": "halt_os_width",
+        "Source": "-module(halt_os_width).\n-export([run/0]).\nrun()-\u003Eerlang:halt(257),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-last-options-uint32",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d889b1f7851d4abda1318380cbc8ad3e",
+    "Sources": [
+      {
+        "Module": "halt_last_options_uint32",
+        "Source": "-module(halt_last_options_uint32).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41,[{flush,false},{flush,true},{flush_timeout,0},{flush_timeout,4294967295}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+      }
+    ]
+  },
+  {
+    "Name": "halt-catch-after",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\9ee0cc79a0874602bcdaf25b57e2bc61",
+    "Sources": [
+      {
+        "Module": "halt_catch_after",
+        "Source": "-module(halt_catch_after).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(41) catch _:_ -\u003E io:put_chars(\u0022CATCH\\n\u0022) after io:put_chars(\u0022AFTER\\n\u0022) end,io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+      }
+    ]
+  },
+  {
+    "Name": "halt-generator",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d855ba080a074978aea4a0f746e582b1",
+    "Sources": [
+      {
+        "Module": "halt_generator",
+        "Source": "-module(halt_generator).\n-export([run/0]).\nrun()-\u003E[begin erlang:halt(43), io:put_chars(\u0022CONTINUE\\n\u0022) end || _ \u003C- [ok]],io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-both-streams",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "StandardError": [
+      69,
+      82,
+      82,
+      79,
+      82,
+      45,
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\5895139c918f436ead1f151bdd5d1783",
+    "Sources": [
+      {
+        "Module": "halt_both_streams",
+        "Source": "-module(halt_both_streams).\n-export([run/0]).\nrun()-\u003Eio:put_chars(standard_error,\u0022ERROR-BEFORE\\n\u0022), io:put_chars(\u0022BEFORE\\n\u0022), erlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-options-first",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b21b2245930144489a0d545ed371c30a",
+    "Sources": [
+      {
+        "Module": "halt_options_first",
+        "Source": "-module(halt_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,broken),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,broken],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+      }
+    ]
+  },
+  {
+    "Name": "halt-improper-options",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\e2dc05f4731a4b579a3e7369ac752d90",
+    "Sources": [
+      {
+        "Module": "halt_improper_options",
+        "Source": "-module(halt_improper_options).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush,true}|broken]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[0,[{flush,true}|broken]],I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+      }
+    ]
+  },
+  {
+    "Name": "halt-infinity-invalid",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\9308c8a3151743fab0b730947310b1f3",
+    "Sources": [
+      {
+        "Module": "halt_infinity_invalid",
+        "Source": "-module(halt_infinity_invalid).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,infinity}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-uint32-overflow",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c5b909ddeb204f58a9eba4ac35fc0f07",
+    "Sources": [
+      {
+        "Module": "halt_uint32_overflow",
+        "Source": "-module(halt_uint32_overflow).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,4294967296}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+      }
+    ]
+  },
+  {
+    "Name": "halt-one-error-wrapper",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\da6ebaaff98e4e9aa05090382b2cb807",
+    "Sources": [
+      {
+        "Module": "halt_one_error_wrapper",
+        "Source": "-module(halt_one_error_wrapper).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+      }
+    ]
+  },
+  {
+    "Name": "halt-two-plain-status",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\e7ed8db39bb146179e1b9ac888253018",
+    "Sources": [
+      {
+        "Module": "halt_two_plain_status",
+        "Source": "-module(halt_two_plain_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+      }
+    ]
+  },
+  {
+    "Name": "halt-negative-big-status",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\5501717593f14bce8ceb96596ec92c57",
+    "Sources": [
+      {
+        "Module": "halt_negative_big_status",
+        "Source": "-module(halt_negative_big_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-valid-abort-invalid-options-first",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d4692ce67e124646a715daa20233bab5",
+    "Sources": [
+      {
+        "Module": "halt_valid_abort_invalid_options_first",
+        "Source": "-module(halt_valid_abort_invalid_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(abort,[{flush,wrong}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+      }
+    ]
+  },
+  {
+    "Name": "halt-invalid-slogan-prefix",
+    "Backend": 0,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "interpreted",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\46b3f4765d1c4c5bba9d251f6216eea6",
+    "Sources": [
+      {
+        "Module": "halt_invalid_slogan_prefix",
+        "Source": "-module(halt_invalid_slogan_prefix).\n-export([run/0]).\nrun()-\u003Etry erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+      }
+    ]
+  },
+  {
+    "Name": "halt-module-chain",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 47,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 47,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D",
+        "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\938b745b5b5e4f12903bbd6538accec5",
+    "Sources": [
+      {
+        "Module": "halt_probe_callee",
+        "Source": "-module(halt_probe_callee).\n-export([stop/0]).\nstop()-\u003Eerlang:halt(47).\n",
+        "SourceSha256": "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D"
+      },
+      {
+        "Module": "halt_module_chain",
+        "Source": "-module(halt_module_chain).\n-export([run/0]).\nrun()-\u003Ehalt_probe_callee:stop(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      }
+    ]
+  },
+  {
+    "Name": "halt-server-init",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461",
+        "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c7fa9514d50f4839b6547097ab36207f",
+    "Sources": [
+      {
+        "Module": "halt_probe_server",
+        "Source": "-module(halt_probe_server).\n-behaviour(gen_server).\n-export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).\ninit(_)-\u003Eerlang:halt(41).\nhandle_call(_,_,S)-\u003E{reply,ok,S}.\nhandle_cast(_,S)-\u003E{noreply,S}.\nhandle_info(_,S)-\u003E{noreply,S}.\nterminate(_,_) -\u003E io:put_chars(\u0022TERMINATE\\n\u0022).\ncode_change(_,S,_)-\u003E{ok,S}.\n",
+        "SourceSha256": "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461"
+      },
+      {
+        "Module": "halt_server_init",
+        "Source": "-module(halt_server_init).\n-export([run/0]).\nrun()-\u003Egen_server:start_link(halt_probe_server,[],[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      }
+    ]
+  },
+  {
+    "Name": "halt-supervisor-init",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4",
+        "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\9c0e7ab9bc404205839852fb8d5e8209",
+    "Sources": [
+      {
+        "Module": "halt_probe_supervisor",
+        "Source": "-module(halt_probe_supervisor).\n-behaviour(supervisor).\n-export([init/1]).\ninit(_)-\u003Eerlang:halt(43).\n",
+        "SourceSha256": "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4"
+      },
+      {
+        "Module": "halt_supervisor_init",
+        "Source": "-module(halt_supervisor_init).\n-export([run/0]).\nrun()-\u003Esupervisor:start_link(halt_probe_supervisor,[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      }
+    ]
+  },
+  {
+    "Name": "halt-actual-abort",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 3,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 1,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\61fd35fbe2764d5dbda98a468cc85afd",
+    "Sources": [
+      {
+        "Module": "halt_actual_abort",
+        "Source": "-module(halt_actual_abort).\n-export([run/0]).\nrun()-\u003Eerlang:halt(abort),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+      }
+    ]
+  },
+  {
+    "Name": "halt-real-clr-dump",
+    "Backend": 0,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 1,
+    "StandardOutput": [],
+    "StandardError": [
+      67,
+      76,
+      82,
+      45,
+      68,
+      85,
+      77,
+      80,
+      13,
+      10
+    ],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "interpreted",
+      "RequestKind": 2,
+      "LogicalStatus": 1,
+      "Slogan": "CLR-DUMP",
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": "CLR/OS minidump; not a BEAM crash dump",
+      "SourceSha256": [
+        "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+      ],
+      "LogicalStack": "[{erlang,halt,[[67,76,82,45,68,85,77,80],[{flush,false}]],[]},{halt_real_clr_dump,run,0,[]}]"
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d0029b3d0d8149c4bff22d805e13bb42",
+    "Sources": [
+      {
+        "Module": "halt_real_clr_dump",
+        "Source": "-module(halt_real_clr_dump).\n-export([run/0]).\nrun()-\u003Eerlang:halt(\u0022CLR-DUMP\u0022,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+      }
+    ]
+  },
+  {
+    "Name": "halt-zero",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 0,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 0,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\505ab4a2c442421aa0122c9611d0f660",
+    "Sources": [
+      {
+        "Module": "halt_zero",
+        "Source": "-module(halt_zero).\n-export([run/0]).\nrun()-\u003Eerlang:halt(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "99A721408F1973A70E2467C49F6F52F06E81A2DA264ED42B8ACF038277997BFC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-one-status",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\6038bde320a14293bd275dd5f3ed7431",
+    "Sources": [
+      {
+        "Module": "halt_one_status",
+        "Source": "-module(halt_one_status).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "19CE9065546E5945188D0F36BDBE9034DE0961C66C3FA7416553B75BE70460CF"
+      }
+    ]
+  },
+  {
+    "Name": "halt-two-flush-false",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\4a1a20695f4442acb83cb51297841d20",
+    "Sources": [
+      {
+        "Module": "halt_two_flush_false",
+        "Source": "-module(halt_two_flush_false).\n-export([run/0]).\nrun()-\u003Eerlang:halt(43,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "1BC93980660A924200320770D51BF132B779137FFD79032BDAE2F5CE5D7286B7"
+      }
+    ]
+  },
+  {
+    "Name": "halt-low-word-big",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 47,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 47,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\f12d3557e0b24ae6b24fbe421f917ab2",
+    "Sources": [
+      {
+        "Module": "halt_low_word_big",
+        "Source": "-module(halt_low_word_big).\n-export([run/0]).\nrun()-\u003Eerlang:halt(18446744073709551663),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "7F46BD604B1E0540D46236AA62AEB7ADBD4B9826C82954E19E619256302FFD4C"
+      }
+    ]
+  },
+  {
+    "Name": "halt-low31-wrap",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 0,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 0,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\fd5995a28c334a4f8f63f8ec0dbcd9a0",
+    "Sources": [
+      {
+        "Module": "halt_low31_wrap",
+        "Source": "-module(halt_low31_wrap).\n-export([run/0]).\nrun()-\u003Eerlang:halt(2147483648),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "81BAB9B0095D07E0740A867E72A14C598B5C4BF5D52C4F1D9711E6C9900FC5D9"
+      }
+    ]
+  },
+  {
+    "Name": "halt-os-width",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 257,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 257,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\4a52b01dd6ce45b2bdd7de483f634a24",
+    "Sources": [
+      {
+        "Module": "halt_os_width",
+        "Source": "-module(halt_os_width).\n-export([run/0]).\nrun()-\u003Eerlang:halt(257),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "2F8B9A9EDE6CCCBA905E455E300D6D09194D75E33F39BDCBEB21401C8C00959B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-last-options-uint32",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\fd9e4b6e397c48eba8d45cda94842d89",
+    "Sources": [
+      {
+        "Module": "halt_last_options_uint32",
+        "Source": "-module(halt_last_options_uint32).\n-export([run/0]).\nrun()-\u003Eerlang:halt(41,[{flush,false},{flush,true},{flush_timeout,0},{flush_timeout,4294967295}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9333A8DA962EA8B5DA925A2ED0682EC49679225F4E5CF7B87C98B9C3F62712CE"
+      }
+    ]
+  },
+  {
+    "Name": "halt-catch-after",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\619abdfbe53d4b4bb5d123e7fae1b7d9",
+    "Sources": [
+      {
+        "Module": "halt_catch_after",
+        "Source": "-module(halt_catch_after).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(41) catch _:_ -\u003E io:put_chars(\u0022CATCH\\n\u0022) after io:put_chars(\u0022AFTER\\n\u0022) end,io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "24D7A9D21D502492C2BF69E692E901CBF7454383E556B11851C7C1B244F0CFC4"
+      }
+    ]
+  },
+  {
+    "Name": "halt-generator",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\257635131cb84110a8116d60dba166e1",
+    "Sources": [
+      {
+        "Module": "halt_generator",
+        "Source": "-module(halt_generator).\n-export([run/0]).\nrun()-\u003E[begin erlang:halt(43), io:put_chars(\u0022CONTINUE\\n\u0022) end || _ \u003C- [ok]],io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "4A7B7CF238C19BB1D445C94AA5E360A899AFB44118D9C245ECC8A4718A00101B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-both-streams",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "StandardError": [
+      69,
+      82,
+      82,
+      79,
+      82,
+      45,
+      66,
+      69,
+      70,
+      79,
+      82,
+      69,
+      10
+    ],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\7efdd912c3654691a3eb6c42f245abb7",
+    "Sources": [
+      {
+        "Module": "halt_both_streams",
+        "Source": "-module(halt_both_streams).\n-export([run/0]).\nrun()-\u003Eio:put_chars(standard_error,\u0022ERROR-BEFORE\\n\u0022), io:put_chars(\u0022BEFORE\\n\u0022), erlang:halt(41),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "D2D58AD25EECF71266D244C4868F15A300CCEF8FD10489C139247C885A0ECD5B"
+      }
+    ]
+  },
+  {
+    "Name": "halt-options-first",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\b9594283d76d45509ad3051a0e91ee68",
+    "Sources": [
+      {
+        "Module": "halt_options_first",
+        "Source": "-module(halt_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,broken),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,broken],I}|_]=S,{error_info,#{module:=erl_erts_errors,cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "4B12B25E31374A93D6418701B7EF13ED237681032982875E5C0F815E83B4D079"
+      }
+    ]
+  },
+  {
+    "Name": "halt-improper-options",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\4b1a248a5ab84e86bb120d5f5bfb16ef",
+    "Sources": [
+      {
+        "Module": "halt_improper_options",
+        "Source": "-module(halt_improper_options).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush,true}|broken]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[0,[{flush,true}|broken]],I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "98FEFFD90BBD0AAB7A98F76E075C701A60FA5B7436D1D62E7BFC9E5C75DDD99A"
+      }
+    ]
+  },
+  {
+    "Name": "halt-infinity-invalid",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\11d522c123cf41ee976d27e8956e03d8",
+    "Sources": [
+      {
+        "Module": "halt_infinity_invalid",
+        "Source": "-module(halt_infinity_invalid).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,infinity}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "A00DBF69318292D7398BA3320AC64FDD6A0DA9AF9A403B71E4EF5EBECF9E3FBC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-uint32-overflow",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\2d4e1c73e91841c89f008626484657cd",
+    "Sources": [
+      {
+        "Module": "halt_uint32_overflow",
+        "Source": "-module(halt_uint32_overflow).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(0,[{flush_timeout,4294967296}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "2C0B40C3A758FB502E78D55777937C2E0D4BFAAB018C37BB052A8CA0C0FB08AF"
+      }
+    ]
+  },
+  {
+    "Name": "halt-one-error-wrapper",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\d82f859a2f8a47bcbf7ca0b49b7b6afe",
+    "Sources": [
+      {
+        "Module": "halt_one_error_wrapper",
+        "Source": "-module(halt_one_error_wrapper).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1],I}|_]=S,{error_info,#{module:=erl_erts_errors}=M}=lists:keyfind(error_info,1,I),false=maps:is_key(cause,M) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "199A7AA99E87B76D80F5567FB25A5B301B1A0B384DABAAC250E402C8E8995F43"
+      }
+    ]
+  },
+  {
+    "Name": "halt-two-plain-status",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\96f8387a78304b26b308af2aa09beba2",
+    "Sources": [
+      {
+        "Module": "halt_two_plain_status",
+        "Source": "-module(halt_two_plain_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-1,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-1,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "80CDE288C80C06F297B32EBA4D162E892FB0CB24455E6336FC38C6215B3AD69F"
+      }
+    ]
+  },
+  {
+    "Name": "halt-negative-big-status",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\c4969832f68149158ddb43cd3510f833",
+    "Sources": [
+      {
+        "Module": "halt_negative_big_status",
+        "Source": "-module(halt_negative_big_status).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(-18446744073709551663,[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,[-18446744073709551663,[]],I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "30E4EA9AD67B31D74AB227063E66424063719D5CDAA44C18C449B1EDC346E3CC"
+      }
+    ]
+  },
+  {
+    "Name": "halt-valid-abort-invalid-options-first",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\fa546bc327cb42a59dc1950301ca28ea",
+    "Sources": [
+      {
+        "Module": "halt_valid_abort_invalid_options_first",
+        "Source": "-module(halt_valid_abort_invalid_options_first).\n-export([run/0]).\nrun()-\u003Etry erlang:halt(abort,[{flush,wrong}]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,{error_info,#{cause:=badopt}}=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "948A3BE6E58B103ED1DA6526E7145FDDF4E52D6AE90F0970818A6BB8AEFC4535"
+      }
+    ]
+  },
+  {
+    "Name": "halt-invalid-slogan-prefix",
+    "Backend": 1,
+    "Stage": "entry-returned",
+    "RawExitCode": 0,
+    "StandardOutput": [
+      68,
+      79,
+      78,
+      69,
+      10
+    ],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "entry-returned",
+      "Backend": "compiled",
+      "RequestKind": null,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": "normal",
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\f3e280791a0a42c49239224d8ba842e9",
+    "Sources": [
+      {
+        "Module": "halt_invalid_slogan_prefix",
+        "Source": "-module(halt_invalid_slogan_prefix).\n-export([run/0]).\nrun()-\u003Etry erlang:halt([16#D800],[]),error(unexpected_halt_return) catch error:badarg:S -\u003E [{erlang,halt,_,I}|_]=S,false=lists:keyfind(error_info,1,I) end,io:put_chars(\u0022DONE\\n\u0022).\n",
+        "SourceSha256": "2DC00BE435A78ADFD51F1A9ED7E3B60D188964BCB44F56DFA51CFC592B5C2595"
+      }
+    ]
+  },
+  {
+    "Name": "halt-module-chain",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 47,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 47,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D",
+        "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\461463bb5653486ab5a43f4c1417489c",
+    "Sources": [
+      {
+        "Module": "halt_probe_callee",
+        "Source": "-module(halt_probe_callee).\n-export([stop/0]).\nstop()-\u003Eerlang:halt(47).\n",
+        "SourceSha256": "BE26F74E0F8A01ACD17C6FBC36D4A5AE5C36C5D5B2F2A30E143F27284740AF2D"
+      },
+      {
+        "Module": "halt_module_chain",
+        "Source": "-module(halt_module_chain).\n-export([run/0]).\nrun()-\u003Ehalt_probe_callee:stop(),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "EFE32BD55DAC5D5664A7FA0031238AF1388E463C702332FCF3289B837420D048"
+      }
+    ]
+  },
+  {
+    "Name": "halt-server-init",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 41,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 41,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461",
+        "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\1b3632f6694746a1a687ad50fe4bd35b",
+    "Sources": [
+      {
+        "Module": "halt_probe_server",
+        "Source": "-module(halt_probe_server).\n-behaviour(gen_server).\n-export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).\ninit(_)-\u003Eerlang:halt(41).\nhandle_call(_,_,S)-\u003E{reply,ok,S}.\nhandle_cast(_,S)-\u003E{noreply,S}.\nhandle_info(_,S)-\u003E{noreply,S}.\nterminate(_,_) -\u003E io:put_chars(\u0022TERMINATE\\n\u0022).\ncode_change(_,S,_)-\u003E{ok,S}.\n",
+        "SourceSha256": "62496AFDBC8FAF088599F8965F0093EAAD8E64C8A69F830E862DBF63B0B7A461"
+      },
+      {
+        "Module": "halt_server_init",
+        "Source": "-module(halt_server_init).\n-export([run/0]).\nrun()-\u003Egen_server:start_link(halt_probe_server,[],[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "9E47D11579CC905767E98F5DC4492F5B3964289D326CF78171C257A845283D03"
+      }
+    ]
+  },
+  {
+    "Name": "halt-supervisor-init",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 43,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 0,
+      "LogicalStatus": 43,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4",
+        "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\08bf3ef0ffbd475596a25c12b932660a",
+    "Sources": [
+      {
+        "Module": "halt_probe_supervisor",
+        "Source": "-module(halt_probe_supervisor).\n-behaviour(supervisor).\n-export([init/1]).\ninit(_)-\u003Eerlang:halt(43).\n",
+        "SourceSha256": "3B7C7B7171BAD5CF087C6D7A4D06374AAC0B69C61424A1E317463C0B403358A4"
+      },
+      {
+        "Module": "halt_supervisor_init",
+        "Source": "-module(halt_supervisor_init).\n-export([run/0]).\nrun()-\u003Esupervisor:start_link(halt_probe_supervisor,[]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "3241EF8607CCD2B69B93C7382625FFB5D0F1650D8679BBE60D42790D12E4A2C7"
+      }
+    ]
+  },
+  {
+    "Name": "halt-actual-abort",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 3,
+    "StandardOutput": [],
+    "StandardError": [],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 1,
+      "LogicalStatus": null,
+      "Slogan": null,
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": null,
+      "SourceSha256": [
+        "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+      ],
+      "LogicalStack": null
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\811146cbdca749f7827bccbd66d557aa",
+    "Sources": [
+      {
+        "Module": "halt_actual_abort",
+        "Source": "-module(halt_actual_abort).\n-export([run/0]).\nrun()-\u003Eerlang:halt(abort),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "566EAAE303935FFD7E471E5E9CC3973AF17627B620EFA76A57AB2A07858A565E"
+      }
+    ]
+  },
+  {
+    "Name": "halt-real-clr-dump",
+    "Backend": 1,
+    "Stage": "halt-request-observed",
+    "RawExitCode": 1,
+    "StandardOutput": [],
+    "StandardError": [
+      67,
+      76,
+      82,
+      45,
+      68,
+      85,
+      77,
+      80,
+      13,
+      10
+    ],
+    "TimedOut": false,
+    "Evidence": {
+      "Stage": "halt-request-observed",
+      "Backend": "compiled",
+      "RequestKind": 2,
+      "LogicalStatus": 1,
+      "Slogan": "CLR-DUMP",
+      "EntryExitReason": null,
+      "Error": null,
+      "DumpFormat": "CLR/OS minidump; not a BEAM crash dump",
+      "SourceSha256": [
+        "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+      ],
+      "LogicalStack": "[{erlang,halt,[[67,76,82,45,68,85,77,80],[{flush,false}]],[]},{halt_real_clr_dump,run,0,[]}]"
+    },
+    "InfrastructureError": null,
+    "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\a0b00c6fd5f5453598140d9fad5ff74a",
+    "Sources": [
+      {
+        "Module": "halt_real_clr_dump",
+        "Source": "-module(halt_real_clr_dump).\n-export([run/0]).\nrun()-\u003Eerlang:halt(\u0022CLR-DUMP\u0022,[{flush,false}]),io:put_chars(\u0022CONTINUE\\n\u0022).\n",
+        "SourceSha256": "0E753EAF50C9202C5FFE0BF5171583192AC12CEBEDAC3570884D5F773F6E71A7"
+      }
+    ]
+  }
+]

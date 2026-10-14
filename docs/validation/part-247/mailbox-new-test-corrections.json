@@ -1,0 +1,20 @@
+{
+  "Status": "NEW_UNPUBLISHED_HOST_SOURCE_CORRECTION",
+  "OldSha256": "7D0D96215850AAAA6975570EDA834DE44558FE2B5339E55ED75B281248E23A20",
+  "NewSha256": "AE55CFE4CA9BCE7083A00C05C800502A74B76F56392E87CEF910FC002D7135CD",
+  "OldSourcePath": "artifacts\\mailbox-selection-revision2-prototype\\tests\\Erlang.Tests\\MailboxSelectionChecks.cs",
+  "NewSourcePath": "artifacts\\mailbox-selection-revision3-prototype\\tests\\Erlang.Tests\\MailboxSelectionChecks.cs",
+  "Corrections": [
+    "Halt catches exact same-runtime ProcessHaltTransfer rather than OCE; actual actor/quiet cleanup and no receive marker proof",
+    "Appended-tail wanted/two-selector contrast uses positive finite wait; zero captured batch producer has separate boundary case"
+  ],
+  "OldFailure": "artifacts/mailbox-selection-revision2-prototype/artifacts/mailbox-host-initial-revision2.log",
+  "OldErlangFixturesChanged": 0,
+  "IndependentPublishedOutcomesChanged": 0,
+  "SourceFormattingComplete": true,
+  "AdditionalChecks": [
+    "Zero coherent captured batch with no fixed retry limit",
+    "Positive20ms ordinary andpriority producer boundaries",
+    "FIFOwork/allocation1024/2048"
+  ]
+}

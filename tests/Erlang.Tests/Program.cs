@@ -9,6 +9,7 @@ var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.HaltLifecycleHostNames.Test, Erlang.Tests.HaltLifecycleHostChecks.Run);
 Test(Erlang.Tests.HaltPlatformHostNames.Test, Erlang.Tests.HaltPlatformHostChecks.Run);
 Test(Erlang.Tests.HaltPortHostNames.Test, Erlang.Tests.HaltPortHostChecks.Run);
+Test(Erlang.Tests.HaltSubprocessHostNames.Test, Erlang.Tests.HaltSubprocessHostChecks.Run);
 Test(Erlang.Tests.CpuTopologyStateHostNames.Test, Erlang.Tests.CpuTopologyStateHostChecks.Run);
 Test(Erlang.Tests.RuntimeStatisticsHostParameters.Test, Erlang.Tests.RuntimeStatisticsHostChecks.Run);
 Test(Erlang.Tests.MatchSpecHostNames.Test, Erlang.Tests.MatchSpecHostChecks.Run);
@@ -4189,6 +4190,7 @@ Test(Erlang.Tests.BeamHostCheckNames.Test, Erlang.Tests.BeamHostChecks.Run);
 
 Test(Erlang.Tests.BeamReceiveHostNames.Test, Erlang.Tests.BeamReceiveHostChecks.Run);
 Test(Erlang.Tests.BeamClosureHostNames.Test, Erlang.Tests.BeamClosureHostChecks.Run);
+Test(Erlang.Tests.MailboxSelectionCheckNames.Test, Erlang.Tests.MailboxSelectionChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)
@@ -4196,7 +4198,10 @@ foreach (var test in tests)
     var watch = Stopwatch.StartNew();
     try
     {
-        await test.Body().WaitAsync(TimeSpan.FromSeconds(15));
+        int timeoutSeconds = test.Name == Erlang.Tests.HaltSubprocessHostNames.Test
+            ? Erlang.Tests.HaltSubprocessHostNames.OuterHostBudgetSeconds
+            : 15;
+        await test.Body().WaitAsync(TimeSpan.FromSeconds(timeoutSeconds));
         Console.WriteLine("PASS " + test.Name);
         results.Add(new
         {

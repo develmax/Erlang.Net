@@ -16,9 +16,22 @@ public sealed partial class ProcessRuntime
     public Task<RuntimeHaltResult> RequestImmediateHalt(int status) => RequestHalt(status, new RuntimeHaltOptions(false));
 
     public Task<RuntimeHaltResult> RequestHalt(int status, RuntimeHaltOptions? options = null)
+        => RequestHalt(new(
+            RuntimeHaltKind.Numeric,
+            status,
+            null,
+            options ?? new()
+        ));
+
+    public Task<RuntimeHaltResult> RequestHalt(RuntimeHaltRequest request)
     {
+        ArgumentNullException.ThrowIfNull(request);
+        ArgumentNullException.ThrowIfNull(request.Options);
+        if (!Enum.IsDefined(request.Kind))
+            throw new ArgumentOutOfRangeException(nameof(request));
+        int status = request.Status;
+        RuntimeHaltOptions options = request.Kind == RuntimeHaltKind.Numeric ? request.Options : new(false);
         ArgumentOutOfRangeException.ThrowIfNegative(status);
-        options ??= new();
         ProcessContext[] stopped;
         Task[] executions;
         Task monitoring;
@@ -31,7 +44,7 @@ public sealed partial class ProcessRuntime
             {
                 if (!options.Flush && !haltCompletion.Task.IsCompleted)
                 {
-                    result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask);
+                    result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask) { Kind = request.Kind, Slogan = request.Slogan, LogicalStack = request.LogicalStack };
                     Volatile.Write(ref haltResult, result);
                     _ = Ports.ForceHalt();
                     haltCompletion.TrySetResult(result);
@@ -40,7 +53,7 @@ public sealed partial class ProcessRuntime
                 return haltCompletion.Task;
             }
             ObjectDisposedException.ThrowIf(disposed, this);
-            result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask);
+            result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask) { Kind = request.Kind, Slogan = request.Slogan, LogicalStack = request.LogicalStack };
             selectedAt = Stopwatch.GetTimestamp();
             Volatile.Write(ref haltState, (int)RuntimeLifecycleState.Stopping);
             Volatile.Write(ref haltResult, result);

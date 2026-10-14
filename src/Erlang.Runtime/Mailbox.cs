@@ -9,6 +9,9 @@ public sealed class Mailbox
     private LinkedListNode<Entry>? lastPriority;
     private int pending;
     private int admittedCount;
+    private long precedenceRevision;
+    private long mutationRevision;
+    private long pulseRevision;
     private TaskCompletionSource changed = NewSignal();
     internal Func<bool>? HaltRequested { get; init; }
     internal Action? ProcessSignals { get; init; }
@@ -37,6 +40,8 @@ public sealed class Mailbox
     {
         lock (gate)
         {
+            mutationRevision++;
+            precedenceRevision++;
             messages.Clear();
             pending = 0;
             admittedCount = 0;
@@ -57,6 +62,7 @@ public sealed class Mailbox
     {
         lock (gate)
         {
+            pulseRevision++;
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
@@ -142,6 +148,9 @@ public sealed class Mailbox
                     from,
                     traceAdmission
                 ));
+            mutationRevision++;
+            if (priority)
+                precedenceRevision++;
             admittedCount++;
             QueueLengthChanged?.Invoke(admittedCount);
             var previous = changed;
@@ -175,6 +184,8 @@ public sealed class Mailbox
                 traceAdmission
             ));
             pending++;
+            mutationRevision++;
+            precedenceRevision++;
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
@@ -194,6 +205,8 @@ public sealed class Mailbox
                 if (node.Value.Admission is { } admission)
                 {
                     pending--;
+                    mutationRevision++;
+                    precedenceRevision++;
                     node.Value = node.Value with { Admission = null, Control = true };
                     bool? priority = admission();
                     if (priority is null)
@@ -243,40 +256,102 @@ public sealed class Mailbox
     public bool RemoveFirst(Func<Term, bool> predicate)
     {
         ProcessSignals?.Invoke();
-        lock (gate)
+        while (true)
         {
-            for (var node = messages.First; node is not null; node = node.Next)
-                if (!node.Value.Control && predicate(node.Value.Value))
+            LinkedListNode<Entry>? node;
+            long revision;
+            lock (gate)
+            {
+                node = messages.First;
+                revision = precedenceRevision;
+            }
+            bool retry = false;
+            while (node is not null)
+            {
+                Entry candidate;
+                lock (gate)
                 {
-                    RemoveNode(node);
-
-                    return true;
+                    if (revision != precedenceRevision || !ReferenceEquals(node.List, messages))
+                    {
+                        retry = true;
+                        break;
+                    }
+                    if (!IsAdmitted(node))
+                    {
+                        node = node.Next;
+                        continue;
+                    }
+                    candidate = node.Value;
                 }
+                bool matched = predicate(candidate.Value);
+                lock (gate)
+                {
+                    if (revision != precedenceRevision || !IsAdmitted(node))
+                    {
+                        retry = true;
+                        break;
+                    }
+                    if (matched)
+                    {
+                        RemoveNode(node);
 
-            return false;
+                        return true;
+                    }
+                    node = node.Next;
+                }
+            }
+            if (!retry)
+                return false;
+            ProcessSignals?.Invoke();
         }
     }
 
     public int Remove(Func<Term, bool> predicate)
     {
         ProcessSignals?.Invoke();
-        lock (gate)
+        while (true)
         {
-            int count = 0;
-            for (var n = messages.First; n != null;)
+            (LinkedListNode<Entry> Node, Entry Value)[] candidates;
+            long revision;
+            lock (gate)
             {
-                var next = n.Next;
-                if (!n.Value.Control && predicate(n.Value.Value))
-                {
-                    RemoveNode(n);
-                    count++;
-                }
-                n = next;
+                candidates = CaptureAdmitted();
+                revision = mutationRevision;
             }
+            var matched = new List<LinkedListNode<Entry>>();
+            foreach (var candidate in candidates)
+            {
+                if (predicate(candidate.Value.Value))
+                    matched.Add(candidate.Node);
+            }
+            lock (gate)
+            {
+                if (revision == mutationRevision && candidates.All(candidate => IsAdmitted(candidate.Node)))
+                {
+                    foreach (var node in matched)
+                        RemoveNode(node);
 
-            return count;
+                    return matched.Count;
+                }
+            }
+            ProcessSignals?.Invoke();
         }
     }
+
+    private (LinkedListNode<Entry> Node, Entry Value)[] CaptureAdmitted()
+    {
+        var captured = new List<(LinkedListNode<Entry>, Entry)>();
+        for (var node = messages.First; node is not null; node = node.Next)
+        {
+            if (IsAdmitted(node))
+                captured.Add((node, node.Value));
+        }
+
+        return captured.ToArray();
+    }
+
+    private bool IsAdmitted(LinkedListNode<Entry> node) =>
+        ReferenceEquals(node.List, messages) && !node.Value.Control && node.Value.Admission is null;
 
     internal async Task WaitForMessage(CancellationToken cancellation)
     {
@@ -334,6 +409,10 @@ public sealed class Mailbox
         if (timeout < TimeSpan.Zero)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         long start = Stopwatch.GetTimestamp();
+        bool firstBatch = true;
+        bool previousConflict = false;
+        LinkedListNode<Entry>? resumeAfter = null;
+        long resumeRevision = 0;
         while (true)
         {
             ThrowIfHalted();
@@ -343,25 +422,92 @@ public sealed class Mailbox
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();
+            if (!firstBatch && timeout is { } finiteTimeout && finiteTimeout > TimeSpan.Zero && Stopwatch.GetElapsedTime(start) >= finiteTimeout)
+            {
+                ReceiveTimedOut?.Invoke();
+
+                return null;
+            }
+            firstBatch = false;
+            previousConflict = false;
             Task signal;
             bool retry;
             T? selected = null;
             Entry received = default;
+            LinkedListNode<Entry>? node;
+            long revision;
+            long capturedPulse;
+            LinkedListNode<Entry>? capturedTail;
             lock (gate)
             {
                 retry = pending != 0;
-                for (var node = retry ? null : messages.First; node != null; node = node.Next)
+                node = retry ? null : resumeAfter is not null && resumeRevision == precedenceRevision && IsAdmitted(resumeAfter)
+                    ? resumeAfter.Next : messages.First;
+                revision = precedenceRevision;
+                capturedPulse = pulseRevision;
+                capturedTail = messages.Last;
+                signal = changed.Task;
+            }
+            resumeAfter = null;
+            while (node is not null)
+            {
+                Entry candidate;
+                lock (gate)
                 {
-                    var match = select(node.Value.Value);
+                    if (revision != precedenceRevision || pending != 0 || !ReferenceEquals(node.List, messages))
+                    {
+                        retry = true;
+                        break;
+                    }
+                    if (!IsAdmitted(node))
+                    {
+                        node = node.Next;
+                        continue;
+                    }
+                    candidate = node.Value;
+                }
+                T? match = select(candidate.Value);
+                ThrowIfHalted();
+                cancellation.ThrowIfCancellationRequested();
+                lock (gate)
+                {
+                    ThrowIfHalted();
+                    cancellation.ThrowIfCancellationRequested();
+                    if (revision != precedenceRevision || pending != 0 || !IsAdmitted(node)
+                        || ExecutionBlocked?.Invoke() == true)
+                    {
+                        retry = true;
+                        break;
+                    }
                     if (match is not null)
                     {
                         selected = match;
-                        received = node.Value;
+                        received = candidate;
                         RemoveNode(node);
                         break;
                     }
+                    if (ReferenceEquals(node, capturedTail))
+                    {
+                        resumeAfter = node;
+                        resumeRevision = revision;
+                        node = null;
+                    }
+                    else
+                    {
+                        node = node.Next;
+                    }
                 }
-                signal = changed.Task;
+            }
+            if (selected is null)
+            {
+                lock (gate)
+                {
+                    previousConflict = revision != precedenceRevision || capturedPulse != pulseRevision || pending != 0;
+                    retry |= previousConflict || !ReferenceEquals(capturedTail, messages.Last) || !ReferenceEquals(signal, changed.Task);
+                    if (previousConflict)
+                        resumeAfter = null;
+                    signal = changed.Task;
+                }
             }
             if (selected is not null)
             {
@@ -369,6 +515,12 @@ public sealed class Mailbox
                 TraceReceived?.Invoke(received.Value, received.TraceToken, received.PreserveTrace);
 
                 return selected;
+            }
+            if (timeout == TimeSpan.Zero && retry && !previousConflict && ExecutionBlocked?.Invoke() != true)
+            {
+                ReceiveTimedOut?.Invoke();
+
+                return null;
             }
             if (retry || ExecutionBlocked?.Invoke() == true)
                 continue;
@@ -404,7 +556,9 @@ public sealed class Mailbox
 
     private void RemoveNode(LinkedListNode<Entry> node)
     {
-        bool ordinary = !node.Value.Control;
+        bool ordinary = !node.Value.Control && node.Value.Admission is null;
+        mutationRevision++;
+        precedenceRevision++;
         if (ordinary)
             admittedCount--;
         if (ReferenceEquals(node, lastPriority))
