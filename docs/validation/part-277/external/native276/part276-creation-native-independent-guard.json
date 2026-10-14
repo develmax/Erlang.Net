@@ -1,0 +1,175 @@
+{
+  "Status": "PASS_NATIVE_CAPTURE_PROVENANCE_AND_TYPED_FACTS",
+  "Head": "54c9ff90ee2a924792467289a28629e5e02be661",
+  "Run": 38647831713,
+  "Job": 116139005760,
+  "Artifact": 11933910357,
+  "Steps": 10,
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "OnePinnedSourceBuild": true,
+  "FreshScenarioVMs": 6,
+  "AdditionalMetadataVM": 1,
+  "ZipFiles": 114,
+  "ReportedFiles": 110,
+  "RequiredRawArtifacts": 66,
+  "Runtime": [
+    "29",
+    "17.1",
+    "jit"
+  ],
+  "ActualProfiles": {
+    "Wordsize": 8,
+    "BuildType": "opt",
+    "Architecture": "x86_64-pc-linux-gnu"
+  },
+  "ActualSelectedCreation": {
+    "truncated_zero": 4,
+    "truncated_one": 4,
+    "maximum_small": 4294967295,
+    "first_big": null,
+    "retained_four": 5,
+    "retained_max_wrap": 4
+  },
+  "FirstBigActualException": "error/badarg with complete typed stack, inactive before and after",
+  "RetainedReferenceRawBeforeAfterExact": true,
+  "AllSixKernelDownKilledAndInactive": true,
+  "CommittedSourceBindings": [
+    {
+      "Path": ".github/workflows/node-creation-contrasts.yml",
+      "Size": 3782,
+      "Sha256": "1ED079E97CD12C8A95676771CF7CF2A5C1A778489ACF34D30F0E071F6D693FA7"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/CreationExporter.cs",
+      "Size": 9009,
+      "Sha256": "57E3C4DEF4B4992418E790A0D43921CFADC6B62A8C2D2E5104B557CA68D0AE3C"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/CreationEvaluation.cs",
+      "Size": 477,
+      "Sha256": "82551FF9B5B50B5243ECD958535EE9FA2EBD8AAB6CA3A693F1681A055CD08561"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/CreationNames.cs",
+      "Size": 2116,
+      "Sha256": "D3FAE71BF4955DE9CCB8D543CE7485D6A4DFF5876D962BF43116D4CA5E38692C"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/source-plan.json",
+      "Size": 2339,
+      "Sha256": "BF8AF703AE81CD829FFFF55A910DBF51B70F594EFF70445EBE5DCDE8B6ECA481"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/creation_boundary_probe.erl",
+      "Size": 2526,
+      "Sha256": "11CE68B484E4DDC6AB0C2A4C66706D3699C6E8B2EDDB2B25547C701649199AAF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeCreation.cs",
+      "Size": 457,
+      "Sha256": "7EB09016DDC311DF02CF2E3B5CC175974F4A8DF3A7B9C1D79784E93025A81C4E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeCreationParameters.cs",
+      "Size": 196,
+      "Sha256": "C1988A1E6BA47DFBF26B21E791AA79E942BF0663A3CDAFCABAAFFE9F9B34B7A8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NodeAdmission.cs",
+      "Size": 3970,
+      "Sha256": "9B3B85E3D70D31DD3F71E459673F493CF2C2A7D709FC0252CD25F04313B50253"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.NodeController.cs",
+      "Size": 5787,
+      "Sha256": "097A1F6B9510BE0BCB3FEF74040C215FA108B90EC0B1E1C94CF32861A71A52FD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeCreationHostChecks.cs",
+      "Size": 3131,
+      "Sha256": "1A20D64B390B665DAF5513949B4990BE6E0C05F025FF2B5DE0775B310984601D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeCreationHostParameters.cs",
+      "Size": 777,
+      "Sha256": "553B4EB735F85A48145C6AFB620AD2C79397917E14F5F41F5F6E31DC778F2AE9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeCreationHostNames.cs",
+      "Size": 329,
+      "Sha256": "19D37D82C7464D80928E21849A34870559E1F6D040E8ABC00EC68C23CA0B2A5C"
+    },
+    {
+      "Path": "tools/Erlang.NodeCreationContrasts/Erlang.NodeCreationContrasts.csproj",
+      "Size": 1297,
+      "Sha256": "6D54A11137CE38C742050644DD0AAFDC98C81BE6DF6304A7A81805C217B2E82A"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcess.cs",
+      "Size": 4202,
+      "Sha256": "F96219E200C5753C294CD5FB15EDF67B65F7ECFB14A8785F2DC2BFBD9A4CF970"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeProcessResult.cs",
+      "Size": 137,
+      "Sha256": "A1056E0A05EA560C2387D33C870C52E0A51DB5D696F0CE02401352C8D1375FB9"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs",
+      "Size": 438,
+      "Sha256": "178CC9A3A4160018D2372DD5F702C66E1AD6CB8E11D609F0C4FC0888B8BB477B"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeDiagnostics.cs",
+      "Size": 839,
+      "Sha256": "58EB31CD3FA0F980E312A224E7500F8081AB9E18B2AAC01BE805B19C065E8999"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeNames.cs",
+      "Size": 3368,
+      "Sha256": "FFF7E693DFFCC156906BECCE811D38F11C9012FD7A6103E8C35214A2920362D4"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeErlangString.cs",
+      "Size": 1026,
+      "Sha256": "F17FA674A3A1F4943696A0D73DA5B09DE2B4594F83098AC474333859755BCBC7"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeStringSyntax.cs",
+      "Size": 324,
+      "Sha256": "2A982940337F791EBD60F01D65A0BB4C02E7FBA0D3F24FD62945042547500152"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeFields.cs",
+      "Size": 732,
+      "Sha256": "BC929CC6290BA73FD71D59D483CAC0DD74DA8C2E211D9550D632851A37AB11D1"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/NodeModuleSource.cs",
+      "Size": 1058,
+      "Sha256": "0A9D1171F90053B5A933A6235FD688FE622D05D661161A31523AABFEED526611"
+    }
+  ],
+  "SdkComparison": {
+    "ActualSameHeadCiHostPassed": "runtime/node-creation-small-domain-low32-conversion",
+    "CiRun": 38647800285,
+    "CiArtifact": 11933880303,
+    "CiReportSha256": "B8BAFBA08BF69D6E557CE4741B9F2043600CB087944C7E4409D17F7ECE3C0D48",
+    "DirectPermanentCasesCover": "2^32, maximum SMALL, retained4 collision, uintMax collision wrap, BIG rejection; additional high-small matrices",
+    "Exact2Pow32Plus1HostCaseExecuted": false,
+    "Exact2Pow32Plus1SourceAlignment": "native low1 floors4; shared production low32+minimum helper agrees, but current local HOST case uses2^32+4",
+    "PhysicalNativeGcOrInstructionCountClaim": false
+  },
+  "RawJobSha256": "271F89BB309848B179B182901AD3CA6CDBE2255CF3217E2FA960D7CE8D8828E2",
+  "OutcomeNormalization": false,
+  "Retries": 0,
+  "Historical274ProofRewritten": false,
+  "EntireSdkCompatibilityClaim": false,
+  "MainWritten": false,
+  "RuntimeTestsRerun": false,
+  "ReviewerCorrections": [
+    "Initial guard string literal typo preserved",
+    "Initial historical controller source filename corrected to actual RuntimeDistributionPending.NodeController.cs; initial script retained"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Status": "Actual Main exact low32-one fixture strengthening before full completion",
+  "ParentHead": "54c9ff90ee2a924792467289a28629e5e02be661",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeCreationHostParameters.cs",
+      "BeforeSha256": "553B4EB735F85A48145C6AFB620AD2C79397917E14F5F41F5F6E31DC778F2AE9",
+      "Sha256": "88427927E2F849AFF08804EE2C1592BA1EB6B609F54FADA6B983EC3911F1DFF5",
+      "SourceContent": "namespace Erlang.Tests;\n\ninternal static class RuntimeNodeCreationHostParameters\n{\n    internal const int FirstNonSmallShift = 59;\n    internal const int WireCreationShift = 32;\n    internal const long MaximumSmallCreation = (1L << FirstNonSmallShift) - 1;\n    internal const uint MinimumCreation = 4;\n    internal const uint TruncatedLowOne = 1;\n    internal const uint CollisionSuccessor = 5;\n    internal static readonly uint[] RetainedReferenceWords = [173, 29, 53];\n    internal static readonly (long Requested, uint Expected)[] TruncationCases =\n    [\n        (1L << WireCreationShift, MinimumCreation),\n        ((1L << WireCreationShift) + TruncatedLowOne, MinimumCreation),\n        ((1L << WireCreationShift) + MinimumCreation, MinimumCreation),\n        ((1L << (FirstNonSmallShift - 1)) + CollisionSuccessor, CollisionSuccessor),\n        (MaximumSmallCreation, uint.MaxValue)\n    ];\n}\n"
+    }
+  ],
+  "ExistingRowsPreserved": true,
+  "NewExactInput": "(1L << WireCreationShift) + TruncatedLowOne",
+  "ExpectedExistingMinimum": 4,
+  "NewNativeExecutionClaim": false
+}

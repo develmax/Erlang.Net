@@ -1,0 +1,1 @@
+try creation_boundary_probe:run(retained_max_wrap,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/retained_max_wrap"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/retained_max_wrap/exception.etf",term_to_binary({C,R,S})),halt(1) end.

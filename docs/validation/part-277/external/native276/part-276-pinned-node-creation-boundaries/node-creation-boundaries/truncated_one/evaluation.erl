@@ -1,0 +1,1 @@
+try creation_boundary_probe:run(truncated_one,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/truncated_one"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/truncated_one/exception.etf",term_to_binary({C,R,S})),halt(1) end.

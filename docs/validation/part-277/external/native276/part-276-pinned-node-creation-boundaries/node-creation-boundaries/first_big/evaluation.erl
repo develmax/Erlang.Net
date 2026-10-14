@@ -1,0 +1,1 @@
+try creation_boundary_probe:run(first_big,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/first_big"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/node-creation-boundaries/first_big/exception.etf",term_to_binary({C,R,S})),halt(1) end.
