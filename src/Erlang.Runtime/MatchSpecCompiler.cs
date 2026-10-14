@@ -42,16 +42,20 @@ public static class MatchSpecCompiler
                 {
                     clauses.Add(clause);
                     var bound = new HashSet<int>();
-                    int patternDiagnosticsBefore = errors.Count;
-                    ValidatePattern(
+                    int clauseDiagnosticsBefore = errors.Count;
+                    MatchSpecPatternCompilationStatus patternStatus = ValidatePattern(
                         clause.Items[0],
                         bound,
-                        errors,
-                        0
+                        errors
                     );
-                    bool patternCompilationFailed = errors.Count != patternDiagnosticsBefore;
+                    if (patternStatus == MatchSpecPatternCompilationStatus.HardFailure)
+                        return new(null, errors.AsReadOnly());
                     if (dialect == MatchSpecDialect.Trace && clause.Items[0] is not Cons && clause.Items[0] is not Nil && clause.Items[0] is not TupleTerm && clause.Items[0] is not Atom { Name: MatchSpecNames.Wildcard } && !Variable(clause.Items[0], out _))
+                    {
                         errors.Add(MatchSpecDiagnostics.InvalidHead);
+
+                        return new(null, errors.AsReadOnly());
+                    }
                     if (dialect == MatchSpecDialect.Trace && clause.Items[0] is Cons)
                     {
                         Term rest = clause.Items[0];
@@ -70,10 +74,7 @@ public static class MatchSpecCompiler
                     );
                     if (dialect == MatchSpecDialect.Table && clause.Items[2] is Nil)
                     {
-                        if (!patternCompilationFailed)
-                        {
-                            errors.Add(MatchSpecDiagnostics.EmptyTableBody);
-                        }
+                        errors.Add(MatchSpecDiagnostics.EmptyTableBody);
                     }
                     else
                     {
@@ -86,6 +87,8 @@ public static class MatchSpecCompiler
                             errors
                         );
                     }
+                    if (errors.Count != clauseDiagnosticsBefore)
+                        return new(null, errors.AsReadOnly());
                 }
                 tail = cell.Tail;
             }
@@ -121,57 +124,68 @@ public static class MatchSpecCompiler
             throw new ErlangException(ErlangErrorReasons.SystemLimit);
     }
 
-    private static void ValidatePattern(
+    private readonly record struct PatternStep(Term Term, int Depth);
+
+    private static MatchSpecPatternCompilationStatus ValidatePattern(
         Term pattern,
         HashSet<int> bound,
-        List<string> errors,
-        int depth
+        List<string> errors
     )
     {
-        CheckDepth(depth);
-        if (Variable(pattern, out int variable))
-            bound.Add(variable);
-        else if (pattern is TupleTerm tuple)
+        var deferred = new Stack<PatternStep>();
+
+        void Submit(Term value, int depth)
         {
-            foreach (Term item in tuple.Items)
-                ValidatePattern(
-                    item,
-                    bound,
-                    errors,
-                    depth + 1
-                );
+            CheckDepth(depth);
+            if (Variable(value, out int variable))
+                bound.Add(variable);
+            else if (value is TupleTerm or Cons or MapTerm)
+                deferred.Push(new(value, depth));
         }
-        else if (pattern is Cons cell)
+
+        Submit(pattern, 0);
+        while (deferred.TryPop(out PatternStep step))
         {
-            ValidatePattern(
-                cell.Head,
-                bound,
-                errors,
-                depth + 1
-            );
-            ValidatePattern(
-                cell.Tail,
-                bound,
-                errors,
-                depth + 1
-            );
-        }
-        else if (pattern is MapTerm map)
-        {
-            foreach (var entry in map.Entries)
+            if (step.Term is TupleTerm tuple)
             {
-                if (Variable(entry.Key, out _))
-                    errors.Add(MatchSpecDiagnostics.VariableMapKey);
-                else if (entry.Key is Atom { Name: MatchSpecNames.Wildcard })
-                    errors.Add(MatchSpecDiagnostics.WildcardMapKey);
-                ValidatePattern(
-                    entry.Value,
-                    bound,
-                    errors,
-                    depth + 1
-                );
+                foreach (Term item in tuple.Items)
+                    Submit(item, step.Depth + 1);
+            }
+            else if (step.Term is Cons)
+            {
+                Term cursor = step.Term;
+                int depth = step.Depth;
+                while (cursor is Cons cell)
+                {
+                    CheckDepth(depth);
+                    Submit(cell.Head, depth + 1);
+                    cursor = cell.Tail;
+                    depth++;
+                }
+                Submit(cursor, depth);
+            }
+            else if (step.Term is MapTerm map)
+            {
+                foreach (var entry in map.Entries)
+                {
+                    if (Variable(entry.Key, out _))
+                    {
+                        errors.Add(MatchSpecDiagnostics.VariableMapKey);
+
+                        return MatchSpecPatternCompilationStatus.HardFailure;
+                    }
+                    if (entry.Key is Atom { Name: MatchSpecNames.Wildcard })
+                    {
+                        errors.Add(MatchSpecDiagnostics.WildcardMapKey);
+
+                        return MatchSpecPatternCompilationStatus.HardFailure;
+                    }
+                    Submit(entry.Value, step.Depth + 1);
+                }
             }
         }
+
+        return MatchSpecPatternCompilationStatus.Completed;
     }
 
     private static void ValidateExpressions(
