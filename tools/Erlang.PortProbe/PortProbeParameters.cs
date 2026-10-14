@@ -10,6 +10,8 @@ internal static class PortProbeParameters
     public const int ExitCode = 7;
     public const string SlowEcho = "slow-echo";
     public const string DrainFile = "drain-file";
+    public const string HeldDrainFile = "held-drain-file";
+    public const int ReleasePollMilliseconds = 5;
     public const string Streams = "streams";
     public const string ArgumentZero = "argv0";
     public const string InputEof = "input-eof";

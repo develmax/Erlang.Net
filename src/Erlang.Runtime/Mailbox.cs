@@ -10,6 +10,7 @@ public sealed class Mailbox
     private int pending;
     private int admittedCount;
     private TaskCompletionSource changed = NewSignal();
+    internal Func<bool>? HaltRequested { get; init; }
     internal Action? ProcessSignals { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
@@ -32,6 +33,26 @@ public sealed class Mailbox
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
 
+    internal void StopForHalt()
+    {
+        lock (gate)
+        {
+            messages.Clear();
+            pending = 0;
+            admittedCount = 0;
+            lastPriority = null;
+            var previous = changed;
+            changed = NewSignal();
+            previous.TrySetResult();
+        }
+    }
+
+    private void ThrowIfHalted()
+    {
+        if (HaltRequested?.Invoke() == true)
+            throw new OperationCanceledException();
+    }
+
     internal void Pulse()
     {
         lock (gate)
@@ -46,6 +67,7 @@ public sealed class Mailbox
     {
         while (!completion.IsCompleted)
         {
+            ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             Task changedTask;
             lock (gate)
@@ -90,6 +112,8 @@ public sealed class Mailbox
     {
         lock (gate)
         {
+            if (HaltRequested?.Invoke() == true)
+                return;
             if (priority)
                 lastPriority = lastPriority is null ? messages.AddFirst(new Entry(
                     message,
@@ -139,6 +163,8 @@ public sealed class Mailbox
     {
         lock (gate)
         {
+            if (HaltRequested?.Invoke() == true)
+                return;
             messages.AddLast(new Entry(
                 message,
                 admission,
@@ -160,7 +186,7 @@ public sealed class Mailbox
         var admitted = new List<(Term Message, Term? From)>();
         lock (gate)
         {
-            if (pending == 0)
+            if (HaltRequested?.Invoke() == true || pending == 0)
                 return;
             for (var node = messages.First; node is not null;)
             {
@@ -201,7 +227,7 @@ public sealed class Mailbox
     {
         lock (gate)
         {
-            if (pending == 0)
+            if (HaltRequested?.Invoke() == true || pending == 0)
                 return;
             for (var node = messages.First; node is not null;)
             {
@@ -268,8 +294,10 @@ public sealed class Mailbox
     {
         while (true)
         {
+            ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             ProcessSignals?.Invoke();
+            ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
                 await WaitForExecution();
@@ -308,8 +336,10 @@ public sealed class Mailbox
         long start = Stopwatch.GetTimestamp();
         while (true)
         {
+            ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             ProcessSignals?.Invoke();
+            ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();

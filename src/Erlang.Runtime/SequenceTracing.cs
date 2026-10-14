@@ -4,6 +4,20 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
 {
     private Pid? tracer;
 
+    internal void StopForHalt(IEnumerable<ProcessContext> contexts)
+    {
+        lock (gate)
+        {
+            tracer = null;
+            foreach (ProcessContext context in contexts)
+            {
+                context.SequentialTrace.Token = null;
+                context.SequentialTrace.Clock = 0;
+                context.SequentialTrace.LastCount = 0;
+            }
+        }
+    }
+
     public SequenceTraceToken? LinkedExit(ProcessContext sender, Pid destination, Term reason)
     {
         lock (gate)
@@ -27,6 +41,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             if (component is not Atom item)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             SequenceTraceState state = context.SequentialTrace;
@@ -72,6 +87,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             if (component is not Atom item)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             SequenceTraceToken? token = context.SequentialTrace.Token;
@@ -89,6 +105,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             SequenceTraceToken? token = context.SequentialTrace.Token;
             if (token is null || label is not null && !label.Equals(token.Label))
                 return CoreModules.Boolean(false);
@@ -109,6 +126,7 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             Pid? next = value is Atom { Name: ErlangBooleanAtoms.False } ? null : value as Pid;
             if (next is null && value is not Atom { Name: ErlangBooleanAtoms.False } || next is not null && (next.Node != runtime.Node || !processes.ContainsKey(next)))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -158,6 +176,8 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
             return;
         lock (gate)
         {
+            if (runtime.IsHaltRequested)
+                return;
             receiver.SequentialTrace.Token = token;
             if (token is not null)
             {

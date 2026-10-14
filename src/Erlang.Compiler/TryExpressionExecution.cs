@@ -8,6 +8,7 @@ internal static class TryExpressionExecution
 {
     public static async ValueTask<Term> Evaluate(
         Expr.Try expression,
+        ProcessRuntime runtime,
         Dictionary<string, Term> bindings,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
         Func<Clause, Term, Dictionary<string, Term>, bool> match
@@ -54,6 +55,11 @@ internal static class TryExpressionExecution
 
             throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.TryClause), value));
         }
+        catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, runtime))
+        {
+            runAfter = false;
+            throw;
+        }
         catch (ProcessHibernateTransfer)
         {
             runAfter = false;
@@ -61,7 +67,7 @@ internal static class TryExpressionExecution
         }
         finally
         {
-            if (runAfter && expression.After is not null)
+            if (runAfter && runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped) && expression.After is not null)
                 await evaluate(expression.After, CompiledBindingScope.Copy(incoming));
         }
     }

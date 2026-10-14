@@ -17,6 +17,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     }
 
     private readonly Dictionary<ReferenceTerm, Entry> timers = new();
+    private readonly HashSet<Task> retiringCallbacks = new();
     private bool disposed;
 
     public Term Start(
@@ -65,7 +66,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             if (cancel)
             {
                 timers.Remove(reference);
-                entry.Timer.Dispose();
+                Retire(entry.Timer);
             }
 
             return Term.I(remaining);
@@ -86,7 +87,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
                 return;
             }
             timers.Remove(reference);
-            entry.Timer.Dispose();
+            Retire(entry.Timer);
             Term destination = entry.Destination is Atom name ? runtime.WhereIs(name.Name) : entry.Destination;
             if (destination is Pid target)
                 runtime.SendSystem(target, entry.Message, Term.A(ProcessTraceNames.ClockService));
@@ -111,7 +112,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             {
                 Entry entry = pair.Value;
                 timers.Remove(pair.Key);
-                entry.Timer.Dispose();
+                Retire(entry.Timer);
                 ReferenceTerm privateReference = runtime.MakeReference();
                 entry.Timer = new Timer(
                     _ => Fire(privateReference),
@@ -134,8 +135,40 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             foreach (var pair in timers.Where(pair => pair.Value.Destination.Equals(pid)).ToArray())
             {
                 timers.Remove(pair.Key);
-                pair.Value.Timer.Dispose();
+                Retire(pair.Value.Timer);
             }
+    }
+
+    private void Retire(Timer timer)
+    {
+        Task completion = timer.DisposeAsync().AsTask();
+        if (completion.IsCompletedSuccessfully)
+            return;
+        retiringCallbacks.Add(completion);
+        _ = completion.ContinueWith(
+            completed =>
+        {
+            lock (gate)
+                if (completed.IsCompletedSuccessfully)
+                    retiringCallbacks.Remove(completed);
+        },
+            CancellationToken.None,
+            TaskContinuationOptions.ExecuteSynchronously,
+            TaskScheduler.Default
+        );
+    }
+
+    internal Task StopForHaltAsync()
+    {
+        lock (gate)
+        {
+            disposed = true;
+            foreach (Entry entry in timers.Values)
+                Retire(entry.Timer);
+            timers.Clear();
+
+            return Task.WhenAll(retiringCallbacks.ToArray());
+        }
     }
 
     public void Dispose()
@@ -144,7 +177,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
         {
             disposed = true;
             foreach (var timer in timers.Values)
-                timer.Timer.Dispose();
+                Retire(timer.Timer);
             timers.Clear();
         }
     }

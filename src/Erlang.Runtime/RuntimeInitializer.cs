@@ -64,6 +64,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                     {
                         try
                         {
+                            context.Runtime.ThrowIfHalted();
                             context.Cancellation.ThrowIfCancellationRequested();
                             var previous = current;
                             current = this;
@@ -80,6 +81,11 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                         catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested)
                         {
                             work.Completed.TrySetCanceled(context.Cancellation);
+                        }
+                        catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
+                        {
+                            work.Completed.TrySetCanceled();
+                            throw;
                         }
                         catch (Exception exception)
                         {
@@ -100,6 +106,9 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                     );
                 }
             }
+        }
+        catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
+        {
         }
         catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested)
         {

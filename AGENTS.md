@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part240 Main and isolated6438/full;41frozen haltfoundationpaths,4831/4825/151/6/484 unchanged,three real hosts. Actual logical completion vs resource quiescence/acceptedportdrain/deadline255/callbackjoining; no erlanghalt exports/nativehalt proof. Original238FAILED5751/5754 three new atom-absence scenarios,fd8/CI6435pass; preservesrawrows. Metadata239sixBEAM/five nativeexec succeeds,pendingfullprovenance. Registryerlang326/35192.9% presence,wholepartial.
+
 Part238 Main and isolated6435/6435/full,57focus;23frozen files;4831SDK/4825comparable/151diagnoses/six exclusions/484exports/erlang326. Priority19 thenmap8, oneexplicitnumeric-sourcecorrection, exactoldcontracts/order. Real priority LINK/UNLINK/ACK ownership and cached<=32flatmap atom-index order; HAMT/wholeerlang partial. Fresh original5754+fd8/CI pendingpublication. Part237 genuineBEAM proof retained, noCLRexecution.
 
 Part237 verifies exact5f source-built OTP-29.1.1 genuineBEAM5compiled/disassembled,fourindependentnativeETFs, onloadcompilationonly;567provenanceguards andCI6407/full. Isolatedreader5structuralpositives/genericoperandprototype5+10negatives,noCLRexecution. Registry484/erlang326/35192.9% presence,wholemodulepartial. Failed2355726/5727 remainsimmutable; priority/mapcomposition6435/full separatependingpublication. Closed0034sha7DDDBFF6576644C8D4A8817B619956C8E586E200981F9B91DE83F4AE98CA2C02/new0035.

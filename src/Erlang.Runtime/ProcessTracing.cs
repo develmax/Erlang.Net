@@ -49,6 +49,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
             throw Invalid(caller, arguments, ProcessTraceNames.Configure);
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             tracer ??= caller.Self;
             if (tracer.Node != runtime.Node || !processes.ContainsKey(tracer))
                 throw Invalid(caller, arguments, ProcessTraceNames.Configure);
@@ -126,6 +127,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
             RequireActions(program, eventActions);
             lock (gate)
             {
+                runtime.ThrowIfHalted();
                 if (eventName.Name == ProcessTraceNames.Send)
                 {
                     traceSend = enable;
@@ -148,6 +150,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         var matches = runtime.Modules.Exports.Where(key => (module.Name == ProcessTraceNames.Wildcard || module.Name == key.Module) && (function.Name == ProcessTraceNames.Wildcard || function.Name == key.Function) && (arity is not Integer number || number.Value == key.Arity)).ToArray();
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             foreach (var match in matches)
                 if (enable)
                     patterns[match] = pattern;
@@ -164,6 +167,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
             throw Invalid(caller, arguments, ProcessTraceNames.Info);
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             Term value;
             if (arguments[0] is Pid pid && pid.Node == runtime.Node)
             {
@@ -205,6 +209,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             ReferenceTerm reference = runtime.MakeReference();
             Term notification = Term.Tuple(Term.A(ProcessTraceNames.Delivered), target, reference);
             caller.Mailbox.SendTraced(
@@ -228,6 +233,8 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     {
         lock (gate)
         {
+            if (runtime.IsHaltRequested)
+                return;
             if (traceSend)
             {
                 MatchSpecResult result = Run(
@@ -252,6 +259,8 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     {
         lock (gate)
         {
+            if (runtime.IsHaltRequested)
+                return;
             if (traceReceive)
             {
                 Term source = from ?? Term.A(ProcessTraceNames.System);
@@ -284,6 +293,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             if (!patterns.TryGetValue((module, function, arguments.Count), out ProcessTracePattern? pattern))
                 return null;
             ProcessTraceSettings? current = Current(context.Self);
@@ -389,6 +399,19 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     {
         lock (gate)
             settings.Remove(tracee);
+    }
+
+    internal void StopForHalt()
+    {
+        lock (gate)
+        {
+            settings.Clear();
+            patterns.Clear();
+            sendPattern = null;
+            receivePattern = null;
+            traceSend = false;
+            traceReceive = false;
+        }
     }
 
     private ProcessTraceSettings? Current(Pid tracee)

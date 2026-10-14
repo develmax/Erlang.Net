@@ -409,6 +409,10 @@ public static class Supervisor
                     await RestartAutomatically(failed);
                 }
             }
+            catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 startup.Fail(context, ex);

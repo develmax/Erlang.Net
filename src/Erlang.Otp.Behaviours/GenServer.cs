@@ -103,13 +103,15 @@ public static class GenServer
                         if (message is TupleTerm { Items.Count: 3 } system && system.Items[0] is Atom { Name: BehaviourAtoms.System } && system.Items[2] is TupleTerm { Items.Count: 2 } stop && stop.Items[0] is Atom { Name: BehaviourAtoms.Terminate })
                         {
                             reason = stop.Items[1];
-                            await Terminate();
+                            if (runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped))
+                                await Terminate();
                             context.Exit(reason);
                         }
                         if (link && parent is not null && message is TupleTerm { Items.Count: 3 } exit && exit.Items[0].Equals(Term.A(ProcessMessageTags.LinkedExit)) && exit.Items[1].Equals(parent.Self))
                         {
                             reason = exit.Items[2];
-                            await Terminate();
+                            if (runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped))
+                                await Terminate();
                             context.Exit(reason);
                         }
                         if (message is TupleTerm { Items.Count: 3 } call && call.Items[0].Equals(Term.A(GenServerMessageTags.Call)) && call.Items[1] is TupleTerm { Items.Count: 2 } sender && sender.Items[0] is Pid pid && sender.Items[1] is ReferenceTerm reference)
@@ -135,7 +137,8 @@ public static class GenServer
                         reason = result.StopReason;
                         try
                         {
-                            await Terminate();
+                            if (runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped))
+                                await Terminate();
                         }
                         finally
                         {
@@ -156,6 +159,10 @@ public static class GenServer
                 startup.Report(context, Term.Tuple(Term.A(BehaviourAtoms.Error), reason));
                 throw;
             }
+            catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 startup.Fail(context, ex);
@@ -163,7 +170,8 @@ public static class GenServer
             }
             finally
             {
-                await Terminate();
+                if (runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped))
+                    await Terminate();
             }
         },
             link

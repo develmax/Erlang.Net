@@ -118,6 +118,25 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
         }
     }
 
+    internal void StopForHalt()
+    {
+        lock (gate)
+        {
+            foreach (Target target in targets.Values)
+            {
+                foreach (Owner owner in target.Owners.Values)
+                {
+                    owner.Tags.Clear();
+                    owner.Acknowledged.TrySetCanceled();
+                }
+                target.Owners.Clear();
+                target.Context.SuspensionRequested = false;
+                target.Resumed.TrySetCanceled();
+            }
+            targets.Clear();
+        }
+    }
+
     public void Terminated(ProcessContext context)
     {
         lock (gate)

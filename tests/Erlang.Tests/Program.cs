@@ -6,6 +6,9 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.HaltLifecycleHostNames.Test, Erlang.Tests.HaltLifecycleHostChecks.Run);
+Test(Erlang.Tests.HaltPlatformHostNames.Test, Erlang.Tests.HaltPlatformHostChecks.Run);
+Test(Erlang.Tests.HaltPortHostNames.Test, Erlang.Tests.HaltPortHostChecks.Run);
 Test(Erlang.Tests.CpuTopologyStateHostNames.Test, Erlang.Tests.CpuTopologyStateHostChecks.Run);
 Test(Erlang.Tests.RuntimeStatisticsHostParameters.Test, Erlang.Tests.RuntimeStatisticsHostChecks.Run);
 Test(Erlang.Tests.MatchSpecHostNames.Test, Erlang.Tests.MatchSpecHostChecks.Run);

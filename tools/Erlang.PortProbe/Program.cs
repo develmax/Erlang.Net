@@ -40,11 +40,17 @@ if (args.FirstOrDefault() == PortProbeParameters.InputEof)
 
     return 0;
 }
-if (args.FirstOrDefault() is PortProbeParameters.SlowEcho or PortProbeParameters.DrainFile)
+if (args.FirstOrDefault() is PortProbeParameters.SlowEcho or PortProbeParameters.DrainFile or PortProbeParameters.HeldDrainFile)
 {
     await output.WriteAsync(PortProbeParameters.ReadyPacket);
     await output.FlushAsync();
-    await Task.Delay(PortProbeParameters.StartDelayMilliseconds);
+    if (args.FirstOrDefault() == PortProbeParameters.HeldDrainFile)
+    {
+        while (!File.Exists(args[2]))
+            await Task.Delay(PortProbeParameters.ReleasePollMilliseconds);
+    }
+    else
+        await Task.Delay(PortProbeParameters.StartDelayMilliseconds);
 }
 if (args.FirstOrDefault() == PortProbeParameters.Lines)
 {
@@ -61,7 +67,7 @@ if (args.FirstOrDefault() == PortProbeParameters.Emit)
     return PortProbeParameters.ExitCode;
 }
 var buffer = new byte[PortProbeParameters.BufferBytes];
-using Stream? capture = args.FirstOrDefault() == PortProbeParameters.DrainFile ? File.Create(args[1]) : null;
+using Stream? capture = args.FirstOrDefault() is PortProbeParameters.DrainFile or PortProbeParameters.HeldDrainFile ? File.Create(args[1]) : null;
 while (true)
 {
     int count = await input.ReadAsync(buffer);

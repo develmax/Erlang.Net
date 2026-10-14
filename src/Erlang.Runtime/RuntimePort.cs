@@ -22,6 +22,9 @@ internal sealed class RuntimePort(
     public long InputBytes;
     public long OutputBytes;
     public bool Closed;
+    public bool HaltOwnedLifetime;
+    public Task Cleanup { get; set; } = Task.CompletedTask;
+    public Task HaltChildExit { get; set; } = Task.CompletedTask;
     public Task Writes { get; set; } = Task.CompletedTask;
     public ulong QueuedBytes { get; set; }
     public bool Busy { get; set; }

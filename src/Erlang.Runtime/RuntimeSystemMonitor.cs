@@ -8,6 +8,8 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
     private Pid? receiver;
     private SystemMonitorOptions options = new(null, 0);
     private bool dispatching;
+    private bool stopped;
+    private Task dispatcher = Task.CompletedTask;
 
     public Term Get()
     {
@@ -22,6 +24,7 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
     {
         lock (runtimeGate)
         {
+            runtime.ThrowIfHalted();
             if (optionList is not Cons && optionList is not Nil)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (target is Atom { Name: SystemMonitorNames.Undefined } || optionList is Nil)
@@ -56,7 +59,7 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
     {
         lock (eventGate)
         {
-            if (receiver is null || options.Disable is not long disable)
+            if (stopped || receiver is null || options.Disable is not long disable)
                 return;
             bool high = highQueues.Contains(process);
             bool? transition = !high && (ulong)admittedCount >= options.Enable ? true : high && admittedCount <= disable ? false : null;
@@ -77,7 +80,7 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
             if (!dispatching)
             {
                 dispatching = true;
-                _ = Task.Run(Dispatch);
+                dispatcher = Task.Run(Dispatch);
             }
         }
     }
@@ -97,6 +100,20 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
     }
 
     private Term Settings() => receiver is null ? Term.A(SystemMonitorNames.Undefined) : Term.Tuple(receiver, options.ToTerm());
+
+    internal Task StopForHalt()
+    {
+        lock (eventGate)
+        {
+            stopped = true;
+            receiver = null;
+            options = new(null, 0);
+            highQueues.Clear();
+            notifications.Clear();
+
+            return dispatcher;
+        }
+    }
 
     private void Dispatch()
     {

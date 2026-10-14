@@ -9,6 +9,7 @@ public sealed class ProcessContext : ITermExecutionContext
         GroupLeader = pid;
         Mailbox = new()
         {
+            HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
             WaitForExecution = WaitIfSuspended,
             ExecutionBlocked = () => SuspensionRequested,
@@ -230,10 +231,14 @@ public sealed class ProcessContext : ITermExecutionContext
     public CancellationToken Cancellation => Stop.Token;
     public Dictionary<Term, Term> Dictionary { get; } = new();
 
+    [System.Diagnostics.CodeAnalysis.DoesNotReturn]
+    public void Halt(int status) => Runtime.Halt(this, status);
+
     public ValueTask ReduceAsync() => ChargeAsync(1);
 
     internal async ValueTask ChargeAsync(int count)
     {
+        Runtime.ThrowIfHalted();
         Cancellation.ThrowIfCancellationRequested();
         if (SuspensionRequested)
             await WaitIfSuspended();
@@ -251,6 +256,7 @@ public sealed class ProcessContext : ITermExecutionContext
             {
                 Yielding = false;
             }
+            Runtime.ThrowIfHalted();
             Cancellation.ThrowIfCancellationRequested();
         }
     }
@@ -262,6 +268,7 @@ public sealed class ProcessContext : ITermExecutionContext
         long start = System.Diagnostics.Stopwatch.GetTimestamp();
         while (SuspensionRequested)
         {
+            Runtime.ThrowIfHalted();
             Cancellation.ThrowIfCancellationRequested();
             Runtime.AdmitSignals(this);
             Task? resumed = Runtime.Suspensions.EnterPause(this);
@@ -273,7 +280,21 @@ public sealed class ProcessContext : ITermExecutionContext
         return System.Diagnostics.Stopwatch.GetTimestamp() - start;
     }
 
-    public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class => Mailbox.ReceiveAsync(select, timeout, Cancellation);
+    public async ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class
+    {
+        Runtime.ThrowIfHalted();
+        try
+        {
+            T? result = await Mailbox.ReceiveAsync(select, timeout, Cancellation);
+            Runtime.ThrowIfHalted();
+
+            return result;
+        }
+        catch (OperationCanceledException) when (Runtime.IsHaltRequested)
+        {
+            throw new ProcessHaltTransfer(Runtime);
+        }
+    }
 
     public void Exit(Term reason) => throw new ErlangException(reason, ErlangExceptionClasses.Exit);
 }

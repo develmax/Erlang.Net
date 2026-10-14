@@ -24,6 +24,7 @@ internal sealed class RuntimeSystemProfile(ProcessRuntime runtime, object gate, 
     {
         lock (gate)
         {
+            runtime.ThrowIfHalted();
             if (target is Atom { Name: SystemProfileNames.Undefined } || optionList is Nil)
             {
                 Term previous = Settings();
@@ -59,6 +60,12 @@ internal sealed class RuntimeSystemProfile(ProcessRuntime runtime, object gate, 
             if (receiver?.Equals(target) == true)
                 Clear();
         }
+    }
+
+    internal void ClearForHalt()
+    {
+        lock (gate)
+            Clear();
     }
 
     private Term Settings() => receiver is null ? Term.A(SystemProfileNames.Undefined) : Term.Tuple(receiver, Nil.Value);

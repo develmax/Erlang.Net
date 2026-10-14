@@ -241,6 +241,7 @@ public sealed class ModuleRegistry
         params Term[] arguments
     )
     {
+        context.Runtime.ThrowIfHalted();
         ErlangFunction? body;
         ModuleCodeImage? image;
         IDisposable? code;
@@ -263,7 +264,7 @@ public sealed class ModuleRegistry
             context.SavedCalls.Record(module, function, arguments.Length);
             try
             {
-                return context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments));
+                return GuardHaltBoundary(context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments)), context);
             }
             catch (ErlangException exception)
             {
@@ -277,12 +278,13 @@ public sealed class ModuleRegistry
             ValueTask<Term> pending = context.Runtime.ProcessTracing.Complete(context, invocation, body(context, arguments));
             if (pending.IsCompletedSuccessfully)
             {
+                context.Runtime.ThrowIfHalted();
                 code!.Dispose();
 
                 return pending;
             }
 
-            return AwaitCallback(pending, code!);
+            return AwaitCallback(pending, code!, context);
         }
         catch (Exception exception)
         {
@@ -297,10 +299,30 @@ public sealed class ModuleRegistry
         }
     }
 
-    private static async ValueTask<Term> AwaitCallback(ValueTask<Term> pending, IDisposable code)
+    private static ValueTask<Term> GuardHaltBoundary(ValueTask<Term> pending, ProcessContext context)
+    {
+        if (pending.IsCompletedSuccessfully)
+        {
+            context.Runtime.ThrowIfHalted();
+
+            return pending;
+        }
+
+        return AwaitHaltBoundary(pending, context);
+    }
+
+    private static async ValueTask<Term> AwaitHaltBoundary(ValueTask<Term> pending, ProcessContext context)
+    {
+        Term result = await pending;
+        context.Runtime.ThrowIfHalted();
+
+        return result;
+    }
+
+    private static async ValueTask<Term> AwaitCallback(ValueTask<Term> pending, IDisposable code, ProcessContext context)
     {
         using (code)
-            return await pending;
+            return await AwaitHaltBoundary(pending, context);
     }
 
     public bool HasExport(string module, string function, int arity)

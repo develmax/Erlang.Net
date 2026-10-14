@@ -145,6 +145,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             Term reason = Term.A(ProcessExitReasons.Normal);
             try
             {
+                ThrowIfHalted();
                 ctx.Cancellation.ThrowIfCancellationRequested();
                 Func<ProcessContext, ValueTask<Term>> current = body;
                 body = null!;
@@ -169,6 +170,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         await ctx.Mailbox.WaitForMessage(ctx.Cancellation);
                     }
                 }
+            }
+            catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, this))
+            {
+                return;
+            }
+            catch (OperationCanceledException) when (IsHaltRequested)
+            {
+                return;
             }
             catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
             {
@@ -403,6 +412,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public Term Send(Pid target, Term message)
     {
+        if (Volatile.Read(ref haltResult) is not null)
+            throw new ObjectDisposedException(nameof(ProcessRuntime));
         lock (gate)
         {
             if (processes.TryGetValue(target, out var p))
@@ -837,6 +848,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     {
                     }
                 }
+            }
+            catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, this))
+            {
+                throw;
             }
             catch (ErlangException exception)
             {
@@ -1397,7 +1412,13 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
     }
 
-    public ValueTask InitializeModulesAsync(Action<ModuleRegistry> configure) => initializer.Configure(configure);
+    public ValueTask InitializeModulesAsync(Action<ModuleRegistry> configure)
+    {
+        if (Volatile.Read(ref haltResult) is not null)
+            throw new ObjectDisposedException(nameof(ProcessRuntime));
+
+        return initializer.Configure(configure);
+    }
 
     internal void InitializationEnded(ProcessContext context)
     {
@@ -1416,15 +1437,25 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
+        Task? haltWait;
         lock (gate)
         {
-            disposed = true;
-            Timers.Dispose();
-            Ports.Shutdown();
-            foreach (var p in processes.Values.ToArray())
-                Terminate(p, Term.A(ProcessExitReasons.Shutdown));
+            haltWait = haltResult is null ? null : haltQuiescence.Task;
+            if (haltWait is null)
+            {
+                disposed = true;
+                Timers.Dispose();
+                Ports.Shutdown();
+                foreach (var p in processes.Values.ToArray())
+                    Terminate(p, Term.A(ProcessExitReasons.Shutdown));
+            }
         }
+        if (haltWait is not null)
+        {
+            await haltWait.ConfigureAwait(false);
 
+            return;
+        }
         await initializer.Completion.ConfigureAwait(false);
         await Ports.Drain().ConfigureAwait(false);
         if (ownsStandardStreams)

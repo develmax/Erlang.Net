@@ -627,6 +627,7 @@ public static class Execution
             case Expr.Try tried:
                 return await TryExpressionExecution.Evaluate(
                     tried,
+                    ctx.Runtime,
                     b,
                     (expression, scope) => Evaluate(
                         expression,

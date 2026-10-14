@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Erlang;
 
-internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
+internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 {
     private readonly Dictionary<PortTerm, RuntimePort> ports = new();
     private readonly HashSet<Task> pumps = new();
@@ -11,38 +11,62 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public Term Open(ProcessContext owner, Term specification, Term settings)
     {
+        runtime.ThrowIfHalted();
         PortOpenOptions options = PortOpenOptions.Parse(specification, settings);
-        PortChildProcess process;
-        try
-        {
-            process = PortChildProcess.Start(options);
-        }
-        catch (Win32Exception exception)
-        {
-            throw new ErlangException(exception.NativeErrorCode == PortParameters.FileNotFoundError || OperatingSystem.IsWindows() && exception.NativeErrorCode == PortParameters.WindowsPathNotFoundError ? PortNames.NoEntry : PortNames.AccessDenied);
-        }
+        var operation = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (gate)
         {
-            if (owner.Terminated)
+            runtime.ThrowIfHalted();
+            Track(operation.Task);
+        }
+        Task? rejectedCleanup = null;
+        try
+        {
+            PortChildProcess process;
+            try
             {
-                process.Input.Close();
-                process.Output.Close();
-                process.Dispose();
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
+                process = PortChildProcess.Start(options);
             }
-            var identity = new PortTerm(runtime.Node, ++nextId);
-            var port = new RuntimePort(
-                identity,
-                owner.Self,
-                process,
-                options
-            );
-            ports.Add(identity, port);
-            owner.PortLinks.Add(identity);
-            port.Pump = Task.Run(() => Pump(port));
-            Track(port.Pump);
+            catch (Win32Exception exception)
+            {
+                throw new ErlangException(exception.NativeErrorCode == PortParameters.FileNotFoundError || OperatingSystem.IsWindows() && exception.NativeErrorCode == PortParameters.WindowsPathNotFoundError ? PortNames.NoEntry : PortNames.AccessDenied);
+            }
+            lock (gate)
+            {
+                if (owner.Terminated || runtime.IsHaltRequested)
+                {
+                    rejectedCleanup = Task.Run(async () =>
+                    {
+                        process.Input.Close();
+                        process.Output.Close();
+                        if (process.HasChild)
+                            await process.WaitForExitAsync(CancellationToken.None).ConfigureAwait(false);
+                        process.Dispose();
+                    });
+                    Track(rejectedCleanup);
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                }
+                var identity = new PortTerm(runtime.Node, ++nextId);
+                var port = new RuntimePort(
+                    identity,
+                    owner.Self,
+                    process,
+                    options
+                );
+                ports.Add(identity, port);
+                owner.PortLinks.Add(identity);
+                port.Pump = Task.Run(() => Pump(port));
+                Track(port.Pump);
 
-            return identity;
+                return identity;
+            }
+        }
+        finally
+        {
+            if (rejectedCleanup is null)
+                operation.TrySetResult();
+            else
+                _ = FinishOpening(operation, rejectedCleanup);
         }
     }
 
@@ -123,7 +147,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         port.Writable.TrySetResult();
         port.MessageWritable.TrySetResult();
         // Resource disposal can block in the OS; it must not hold the runtime gate.
-        Task cleanup = Task.Run(async () =>
+        port.Cleanup = Task.Run(async () =>
         {
             try
             {
@@ -135,12 +159,28 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                 port.Output.Close();
             }
             catch (IOException) { }
-            if (port.Pump is not null)
-                await port.Pump;
-            await port.Writes;
-            port.Process.Dispose();
+            try
+            {
+                if (port.HaltOwnedLifetime)
+                    await Task.WhenAll(
+                        port.Pump ?? Task.CompletedTask,
+                        port.Writes,
+                        port.Commands,
+                        port.HaltChildExit
+                    );
+                else
+                {
+                    if (port.Pump is not null)
+                        await port.Pump;
+                    await port.Writes;
+                }
+            }
+            finally
+            {
+                port.Process.Dispose();
+            }
         });
-        Track(cleanup);
+        Track(port.Cleanup);
     }
 
     public Term Connect(Term identity, Term destination)
@@ -263,8 +303,15 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         return await CommandCore(identity, data, flags);
     }
 
-    private async ValueTask<Term> CommandCore(Term identity, Term data, Term flags)
+    private async ValueTask<Term> CommandCore(
+        Term identity,
+        Term data,
+        Term flags,
+        bool accepted = false
+    )
     {
+        if (!accepted)
+            runtime.ThrowIfHalted();
         bool noSuspend = false;
         bool force = false;
         Term[] flagItems;
@@ -298,6 +345,8 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             Task writable;
             lock (gate)
             {
+                if (!accepted)
+                    runtime.ThrowIfHalted();
                 if (port.Closed)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 if (!port.Busy)
@@ -401,9 +450,9 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                     {
                         if (port.Closed)
                             return;
-                        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
+                        runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
                         if (port.Options.Eof)
-                            runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
+                            runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
                         else
                             Close(port, Term.A(ProcessExitReasons.Normal));
                     }
@@ -461,7 +510,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                 {
                     FlushLines(port);
                     if (port.Options.Eof)
-                        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
+                        runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.A(PortNames.Eof)));
                 }
             await port.Process.WaitForExitAsync(port.Stop.Token);
             lock (gate)
@@ -469,7 +518,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                 if (port.Closed)
                     return;
                 if (port.Process.HasChild && port.Options.ExitStatus)
-                    runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
+                    runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.ExitStatus), Term.I(port.Process.ExitCode))));
                 if (!port.Options.Eof)
                     Close(port, Term.A(ProcessExitReasons.Normal));
             }
@@ -513,7 +562,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
         Term data = port.Options.Binary ? new BitString(payload) : Cons.From(payload.Select(octet => Term.I(octet)));
         if (endOfLine is bool eol)
             data = Term.Tuple(Term.A(eol ? PortLineNames.EndOfLine : PortLineNames.NoEndOfLine), data);
-        runtime.Send(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), data)));
+        runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), data)));
     }
 
     public async ValueTask<bool> SendAsync(
@@ -576,7 +625,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                     lock (gate)
                     {
                         Close(port, Term.A(ProcessExitReasons.Normal));
-                        runtime.Send(connected, Term.Tuple(port.Identity, Term.A(PortNames.Closed)));
+                        runtime.SendPortNotification(connected, Term.Tuple(port.Identity, Term.A(PortNames.Closed)));
                     }
                 });
                 Track(port.Commands);
@@ -598,7 +647,12 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
                     await previous;
                     try
                     {
-                        await CommandCore(port.Identity, command.Items[1], Nil.Value);
+                        await CommandCore(
+                            port.Identity,
+                            command.Items[1],
+                            Nil.Value,
+                            accepted: true
+                        );
                     }
                     catch (ErlangException)
                     {
@@ -627,7 +681,7 @@ internal sealed class RuntimePorts(ProcessRuntime runtime, object gate)
             {
                 Pid previous = port.Connected;
                 port.Connected = destination;
-                runtime.Send(previous, Term.Tuple(port.Identity, Term.A(PortNames.Connected)));
+                runtime.SendPortNotification(previous, Term.Tuple(port.Identity, Term.A(PortNames.Connected)));
             }
             else
                 runtime.PortBadSignal(port);
