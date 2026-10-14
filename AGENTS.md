@@ -1,5 +1,7 @@
 # Durable project instructions
 
+Part244: Main and isolated6440/6440/full pass. Actual genuine BEAM receive/nativeETF and unmatched retention; separately modeled arrival/suspend/cancel; zero-slot continuation ownership/static valid timeout subset. 4831/4825/151/six/484 unchanged,18 exact importfiles plus one recorded editorial status promotion. Original243 verifies2415754/5754+fd8 separately. Registry erlang326/35192.9% API presence; whole erlang/loading/on_load/general frames/physical resources/distribution/upstream/performance partial. Basedinteger/closure/halt remain isolated next work.
+
 Part243 verifiespublished241ff6 original5754/5754+fd8 andexactheadCI6438/full, all4831/4825/151/778/sixcontracts/provenance sourcebuild/archive/log/extractedbytes/closedjournals preserved. Threefreshatomrepairs independentlypass; failed238immutable. Current242hostMain6439 separate. Registry484/erlang326/35192.9%presence wholepartial. Receive/FunT/HaltIO-prereq isolatedpending.
 
 Part242 Main/isolated6439/full,72frozen hostBeam files+binaryGitattributes,4831/151/6/484 unchanged. PublicBeamModule ownsbytes/readonlymetadata/realcontextInvoke; actualoriginalconstant/add/local nativeETFexact,8owners/lifecycle checks. No registrypublication/module_info/MD5/loadingMFAs/receive/onload/physicalheap/nativeframe parity; explicitboundedhostAPI. Original2415754+fd8/CI pending; priorfailed238retained. Wholeerlangpartial326/35192.9%presence.

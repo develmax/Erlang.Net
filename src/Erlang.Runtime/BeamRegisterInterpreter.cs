@@ -19,6 +19,7 @@ internal static class BeamRegisterInterpreter
             registers.Write(index, arguments[index]);
         }
         var continuations = new Stack<BeamCallContinuation>();
+        var zeroFrames = new Stack<BeamZeroFrame>();
         int pc = function.FirstInstructionIndex;
         long diagnosticSteps = 0;
         while (true)
@@ -38,6 +39,44 @@ internal static class BeamRegisterInterpreter
             {
                 case BeamLinkNames.Label:
                 case BeamLinkNames.Line:
+                    break;
+                case BeamLinkNames.Allocate:
+                    registers.CheckLive((int)operands[1].Value);
+                    continuations.TryPeek(out BeamCallContinuation? savedContinuation);
+                    zeroFrames.Push(new(function.EntryLabel, continuations.Count, savedContinuation));
+                    break;
+                case BeamLinkNames.Deallocate:
+                    if (!zeroFrames.TryPop(out BeamZeroFrame? frame) || frame.FunctionEntryLabel != function.EntryLabel || frame.ContinuationDepth != continuations.Count)
+                        throw new InvalidDataException(BeamReceiveNames.InvalidFrame);
+                    if (frame.SavedContinuation is not null)
+                    {
+                        _ = continuations.Pop();
+                        continuations.Push(frame.SavedContinuation);
+                    }
+                    break;
+                case BeamLinkNames.Bif:
+                    BeamRegisterValidation.SelfImport(code, (int)operands[0].Value);
+                    registers.Write((int)operands[1].Value, await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.Self));
+                    break;
+                case BeamLinkNames.Send:
+                    registers.Write(0, ErlangOperatorValues.Send(context, registers.Read(0), registers.Read(1)));
+                    break;
+                case BeamLinkNames.LoopReceive:
+                    BeamReceivePlan plan = BeamReceivePlanner.Build(code, function, pc - 1);
+                    BeamRegisterState before = registers.Clone();
+                    BeamReceiveSelection? selected = await context.ReceiveAsync(message => BeamReceiveMatcher.Select(
+                        code,
+                        plan,
+                        before,
+                        message
+                    ), plan.Timeout);
+                    if (selected is null)
+                        pc = plan.TimeoutInstructionIndex + 1;
+                    else
+                    {
+                        registers = selected.Registers;
+                        pc = selected.NextInstructionIndex;
+                    }
                     break;
                 case BeamLinkNames.Move:
                     registers.Write((int)operands[1].Value, Read(code, registers, operands[0]));

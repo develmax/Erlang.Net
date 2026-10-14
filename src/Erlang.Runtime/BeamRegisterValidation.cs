@@ -17,6 +17,18 @@ internal static class BeamRegisterValidation
             {
                 continue;
             }
+            var receives = new Dictionary<int, BeamReceivePlan>();
+            var handled = new HashSet<int>();
+            for (int scan = function.FirstInstructionIndex; scan < function.EndInstructionIndex; scan++)
+            {
+                if (code.Instructions[scan].Definition.Name != BeamLinkNames.LoopReceive)
+                    continue;
+                BeamReceivePlan plan = BeamReceivePlanner.Build(code, function, scan);
+                receives.Add(scan, plan);
+                handled.UnionWith(plan.MatcherInstructions);
+                handled.Add(plan.WaitInstructionIndex);
+                handled.Add(plan.TimeoutInstructionIndex);
+            }
             for (int index = function.FirstInstructionIndex; index < function.EndInstructionIndex; index++)
             {
                 BeamInstruction instruction = code.Instructions[index];
@@ -26,6 +38,29 @@ internal static class BeamRegisterValidation
                     case BeamLinkNames.Label:
                     case BeamLinkNames.Line:
                     case BeamLinkNames.Return:
+                        break;
+                    case BeamLinkNames.Allocate:
+                        if (operands[0].Value != 0)
+                            throw new NotSupportedException(BeamReceiveNames.InvalidFrame);
+                        Live(operands[1]);
+                        break;
+                    case BeamLinkNames.Deallocate:
+                        if (operands[0].Value != 0)
+                            throw new NotSupportedException(BeamReceiveNames.InvalidFrame);
+                        break;
+                    case BeamLinkNames.Bif:
+                        SelfImport(code, (int)operands[0].Value);
+                        Destination(operands[1]);
+                        break;
+                    case BeamLinkNames.Send:
+                    case BeamLinkNames.LoopReceive:
+                        break;
+                    case BeamLinkNames.RemoveMessage:
+                    case BeamLinkNames.LoopReceiveEnd:
+                    case BeamLinkNames.WaitTimeout:
+                    case BeamLinkNames.Timeout:
+                        if (!handled.Contains(index))
+                            throw new NotSupportedException(BeamReceiveNames.InvalidPlan);
                         break;
                     case BeamLinkNames.Move:
                         Source(operands[0]);
@@ -74,7 +109,16 @@ internal static class BeamRegisterValidation
                         throw new NotSupportedException(BeamRegisterNames.Unsupported);
                 }
             }
+            BeamZeroFrameValidation.Validate(code, function, receives);
         }
+    }
+
+    public static void SelfImport(BeamLinkedCode code, int index)
+    {
+        BeamImport import = code.Structure.Imports[index];
+        if (code.Structure.Atoms[import.ModuleAtomIndex] != ErlangModuleNames.Module
+            || code.Structure.Atoms[import.FunctionAtomIndex] != ErlangModuleNames.Self || import.Arity != 0)
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
     }
 
     public static string ArithmeticImport(BeamLinkedCode code, int index)

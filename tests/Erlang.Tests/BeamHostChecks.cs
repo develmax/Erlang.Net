@@ -42,7 +42,7 @@ public static class BeamHostChecks
         )));
         NativeBytes(localResult, BeamHostCheckNames.Local);
         BeamModule receive = BeamModule.Prepare(Resource(BeamHostCheckNames.Receive + BeamHostCheckNames.BeamExtension));
-        Require(!receive.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
+        Require(receive.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
         BeamModule onLoad = BeamModule.Prepare(Resource(BeamHostCheckNames.OnLoad + BeamHostCheckNames.BeamExtension));
         Require(onLoad.HasOnLoad && !onLoad.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
         await Reject<NotSupportedException>(() => Invoke(runtime, constant, BeamHostCheckNames.ModuleInfo));
