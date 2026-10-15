@@ -1,0 +1,44 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTOR_GC12_SOURCE_DELTA",
+  "SourceFreeze": "artifacts\\dist_next-actor-gc-registration-source-freeze-prebuild-revision12.json",
+  "Sha256": "696ED4DECFB6DCB3606A236B2857E491DD77C2A0C19EC97CABCEF4FA3C0B3B8A",
+  "Owned31Exact": 31,
+  "UnownedExact": 1687,
+  "DeltaFromReviewed9": [
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultHostNames.cs",
+      "AddedTestName": "runtime/gc-result-reducer-selective-consume-and-cancellation",
+      "Diff": "--- \n+++ \n@@ -2,6 +2,7 @@\n \n internal static class GarbageCollectionResultHostNames\n {\n+    internal const string Test = \"runtime/gc-result-reducer-selective-consume-and-cancellation\";\n     internal const string Ignored = \"gc_reply_sender\";\n     internal const string Marker = \"gc_unmatched_marker\";\n     internal const string Failure = \"Garbage collection result reduction assertion failed\";\n"
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultSmokeContracts.cs",
+      "OnlyWhitespaceQuotedValuesExact": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/TraceHookRollbackHostChecks.cs",
+      "OnlyWhitespaceQuotedValuesExact": true
+    }
+  ],
+  "ProductionAndEightCasesAndProgramExactReviewed9": true,
+  "PreservedFailures": [
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision9-first-target-failure\\receipt.json",
+      "Sha256": "BEA9B3CF4B9D604894418F3F49B70D06BBA4C7BA4A0348AE5BE64B01363AFF62"
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision10-second-target-failure\\receipt.json",
+      "Sha256": "8FE15779E6DB4C5F60D5504C818F8B7F51FFA8D61063264543F38178A2A05BB4"
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision11-first-style-failure\\receipt.json",
+      "Sha256": "AF91EE0E08312D186EF761B7134F3D2EC488DE973EC736FEB6302D784377E6F7"
+    }
+  ],
+  "PriorPeer": "artifacts/native269-actor-gc-registration9-independent-source-review.json",
+  "ActualHeavySlotOwnedByDistNextNotReviewer": true,
+  "TargetStyleFocusPendingAtReview": true,
+  "MainWritten": false,
+  "GitWritten": false,
+  "HeavyExecuted": false,
+  "NativeExecuted": false
+}

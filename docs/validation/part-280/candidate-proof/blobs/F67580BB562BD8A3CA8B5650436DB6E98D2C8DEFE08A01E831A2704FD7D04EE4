@@ -1,0 +1,35 @@
+using System.Reflection;
+using Erlang;
+
+try
+{
+    Assembly tests = Assembly.Load(ActorDispatchFocusNames.Assembly);
+    foreach (string name in ActorDispatchFocusNames.Groups)
+    {
+        Type type = tests.GetType(name, true)!;
+        MethodInfo method = type.GetMethod(ActorDispatchFocusNames.Run,
+            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)!;
+        Task pending = (Task)method.Invoke(null, null)!;
+        await pending;
+        if (pending is Task<int> result && result.Result != 0)
+            return result.Result;
+        Console.WriteLine(name);
+    }
+
+    foreach (var fixture in Erlang.Differential.GarbageCollectionResultCases.Modules)
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        Term result = await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext);
+        if (!result.Equals(fixture.Expected))
+            throw new InvalidOperationException(ActorDispatchFocusNames.CompiledFailure + fixture.Name);
+        Console.WriteLine(fixture.Name);
+    }
+
+    return 0;
+}
+catch (Exception exception)
+{
+    Console.Error.WriteLine(exception);
+
+    return 1;
+}

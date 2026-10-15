@@ -1,0 +1,37 @@
+from pathlib import Path
+import hashlib,json
+A=Path('artifacts');S=A/'native269-part280-candidate-evidence-staging';(S/'blobs').mkdir(parents=True,exist_ok=True);H=lambda b:hashlib.sha256(b).hexdigest().upper();items={};checks=[]
+def add(p,kind):
+ p=Path(p);b=p.read_bytes();key=str(p).replace('\\','/');sha=H(b);dst=S/'blobs'/sha
+ if dst.exists():assert dst.read_bytes()==b
+ else:dst.write_bytes(b)
+ items[key]={'InputPath':key,'Bytes':len(b),'Sha256':sha,'Blob':'blobs/'+sha,'Kind':kind}
+def sourcefreeze(p):
+ add(p,'ImmutableSourceFreeze');f=json.loads(Path(p).read_bytes());
+ for r in f.get('Files',[])+f.get('FocusFiles',[]):
+  if 'SourceContent' in r:
+   b=r['SourceContent'].encode();assert H(b)==r['Sha256'];sha=H(b);d=S/'blobs'/sha
+   if d.exists():assert d.read_bytes()==b
+   else:d.write_bytes(b)
+   key=str(p)+'::SourceContent::'+r['Path'];items[key]={'InputPath':key,'Bytes':len(b),'Sha256':sha,'Blob':'blobs/'+sha,'Kind':'OwnedFrozenSourceContent'}
+ return f
+actor=sourcefreeze(A/'dist_next-actor-gc-registration-source-freeze-final-revision13.json');monitor=sourcefreeze(A/'distribution-monitor-foundation-main278-source-freeze-final-revision8.json');sourcefreeze(A/'distribution-monitor-permanent-promotion-source-freeze-prebuild-revision9.json')
+assert H((A/'dist_next-actor-gc-registration-source-freeze-final-revision13.json').read_bytes()).startswith('7F92')
+for f,keys in [(actor,['FirstTargetFailure9Receipt','SecondTargetFailure10Receipt','FirstStyleFailure11Receipt','ActualReceipt']),(monitor,['Initial4FailureReceipt','ActualInitial6FailureReceipt','ActualInitial7FailureReceipt','ActualReceipt'])]:
+ for k in keys:
+  p=Path(f[k]);assert H(p.read_bytes())==f[k+'Sha256'];receipt=json.loads(p.read_bytes());checks.append({'Receipt':str(p).replace('\\','/'),'Sha256':H(p.read_bytes())})
+  for q in p.parent.rglob('*'):
+   if q.is_file():assert not any(x in q.parts for x in ['.git','.nuget','obj']);add(q,'ActualExecutedOrFailureClosure')
+  for field in ['OutputClosure','PartialEmittedOutputClosure','Logs']:
+   for r in receipt.get(field,[]):
+    if not isinstance(r,dict) or 'Path' not in r or 'Sha256' not in r:continue
+    v=Path(r['Path']);poss=[v,p.parent/v,p.parent/'output'/v,p.parent/'sources'/v,p.parent/'actual-executed-closure'/v,p.parent/'actual-source'/v];actual=next((q for q in poss if q.is_file() and H(q.read_bytes())==r['Sha256']),None);assert actual is not None,(p,field,r['Path']);assert 'Bytes' not in r or actual.stat().st_size==r['Bytes']
+for pattern in ['dist_next-actor-gc-registration-source-freeze-prebuild-revision*.json','distribution-monitor-foundation-main278-source-freeze-prebuild-revision*.json']:
+ for p in A.glob(pattern):sourcefreeze(p)
+extra=['native269-actor-gc-registration8-independent-source-findings.json','native269-actor-gc-registration9-independent-source-review.json','native269-actor-gc12-independent-source-delta-review.json','native269-monitor13-main278-independent-source-review.json','native269-monitor-permanent15-revision9-independent-source-review.json','distribution-monitor-permanent-promotion-exact-action-guard-revision9.json','distribution-monitor-feature-extension-ledger-revision2.json','native269-review-actor-gc-registration8-source.py','native269-review-actor-gc-registration9-source.py','native269-review-actor-gc12-source-delta.py','native269-review-monitor13-main278-source.py','native269-review-monitor-permanent15-revision9-source.py','native269-review-actor-gc8-initial-fixture-eol-only-assumption.py','native269-review-actor-gc9-initial-return-blankline-assumption.py','native269-review-monitor15-initial-count-field-schema.py']
+for n in extra:add(A/n,'SourcePeerOrHistoricalCorrection')
+# Preserve actor runtime foundation reviews and initial nested scheduler diagnosis without copying prototypes.
+for n in ['native269-actor-dispatch-revision1-source-findings.json','native269-actor-dispatch-revision2-independent-source-review.json','native269-actor-dispatch-final7-independent-source-review.json','dist_next-runtime-actor-dispatch-source-freeze-final-revision7.json']:
+ add(A/n,'ActorFoundationHistoricalSourceReview')
+for row in items.values():assert (S/row['Blob']).stat().st_size==row['Bytes'] and H((S/row['Blob']).read_bytes())==row['Sha256']
+blobs=list((S/'blobs').iterdir());out={'Stage':'NATIVE269_PART280_COMPACT_CONTENT_ADDRESSED_CANDIDATE_PROOFS','IntendedDestination':'docs/validation/part-280/candidate-proof','ActorFinal13Sha256':H((A/'dist_next-actor-gc-registration-source-freeze-final-revision13.json').read_bytes()),'MonitorFinal8Sha256':H((A/'distribution-monitor-foundation-main278-source-freeze-final-revision8.json').read_bytes()),'ActualReceiptChecks':checks,'Records':list(items.values()),'LogicalRecords':len(items),'DistinctBlobFiles':len(blobs),'DistinctBlobBytes':sum(p.stat().st_size for p in blobs),'WholeCheckoutCopied':False,'Unowned13547FilesCopied':False,'ReviewerCorrection':'Initial archived monitor closure relative path assumed output; actual-executed-closure source path inspected and strict SHA resolver expanded, initial staging script retained','MainFullEvidenceIncluded':False,'NativeExecutionClaim':False,'MainWritten':False,'GitWritten':False};p=S/'manifest.json';p.write_bytes((json.dumps(out,indent=2)+'\n').encode());print('Manifest',H(p.read_bytes()),'Records',len(items),'Blobs',len(blobs),'Bytes',out['DistinctBlobBytes'])

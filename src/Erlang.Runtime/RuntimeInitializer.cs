@@ -24,7 +24,12 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                 registry.PublishModule(InitializationNames.Module);
                 registry.PublishModuleCode(InitializationNames.Module, ModuleCodeFingerprints.Owner(typeof(RuntimeInitializer)));
             });
-        Completion = Run();
+        Completion = Task.Factory.StartNew(
+            Run,
+            CancellationToken.None,
+            TaskCreationOptions.DenyChildAttach,
+            TaskScheduler.Default
+        ).Unwrap();
     }
 
     public ValueTask Configure(Action<ModuleRegistry> configure)

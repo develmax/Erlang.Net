@@ -1,0 +1,23 @@
+using System.Reflection;
+
+try
+{
+    Assembly tests = Assembly.Load(DistributionMonitorFocusNames.Assembly);
+    foreach (string name in DistributionMonitorFocusNames.Groups)
+    {
+        Type group = tests.GetType(name, true)!;
+        MethodInfo run = group.GetMethod(DistributionMonitorFocusNames.Run,
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+            ?? throw new MissingMethodException(name, DistributionMonitorFocusNames.Run);
+        await (Task)run.Invoke(null, null)!;
+        Console.WriteLine(name);
+    }
+
+    return 0;
+}
+catch (Exception exception)
+{
+    Console.Error.WriteLine(exception);
+
+    return 1;
+}

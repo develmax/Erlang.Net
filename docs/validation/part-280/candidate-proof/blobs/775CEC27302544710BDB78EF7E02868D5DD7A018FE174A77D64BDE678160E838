@@ -1,0 +1,199 @@
+using Erlang;
+
+namespace Erlang.Tests;
+
+internal static class DistributionMonitorHostChecks
+{
+    internal static async Task Run()
+    {
+        int checks = 0;
+        await RunCase(DistributionPassThroughFlags.ProcessMonitors);
+        await RunCase(0);
+        await RunCase(DistributionPassThroughFlags.ProcessMonitor);
+        await RunCase(DistributionPassThroughFlags.NamedProcessMonitor);
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new { MonitorAssertions = checks, NativeExecuted = false }));
+
+        async Task RunCase(ulong monitorFlags)
+        {
+            await using var runtime = new ProcessRuntime();
+            await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+            await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+            await using var input = new RuntimeNodeFoundationHostActor(runtime);
+            await using var observer = new RuntimeNodeFoundationHostActor(runtime);
+            await using var target = new RuntimeNodeFoundationHostActor(runtime);
+            await kernel.InvokeAsync(async context =>
+            {
+                runtime.Register(ConnectedDistributionHostNames.Kernel, context.Self);
+                _ = await runtime.Modules.Call(context, ErlangModuleNames.Module,
+                    ConnectedIngressHostNames.SetNode, Term.A(DistributionMonitorHostNames.Local), Term.I(0));
+
+                return true;
+            });
+            var pending = runtime.DistributionPending;
+            Term host = pending.BeginPending(Term.A(DistributionMonitorHostNames.Remote));
+            Term opaque = await controller.InvokeAsync(async context =>
+                await DistributionControllerAdapters.SetNode(context, Term.A(DistributionMonitorHostNames.Remote), context.Self,
+                    Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory | monitorFlags), Term.I(DistributionMonitorHostNames.RemoteCreation))));
+            await controller.Invoke(context => DistributionControllerAdapters.SetInputHandler(context, opaque, input.Process.Pid));
+            var remote = new Pid(DistributionMonitorHostNames.Remote, DistributionMonitorHostNames.RemoteNumber,
+                DistributionMonitorHostNames.RemoteCreation);
+            var reference = new ReferenceTerm(DistributionMonitorHostNames.Remote, DistributionMonitorHostNames.RemoteReference,
+                DistributionMonitorHostNames.RemoteCreation);
+            bool emitted = monitorFlags == DistributionPassThroughFlags.ProcessMonitors;
+            var missing = Term.A(DistributionMonitorHostNames.Missing);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote, missing, reference));
+            Term? output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit), missing, remote,
+                    reference, Term.A(ErlangErrorReasons.NoProcess))) == true
+                : output is null);
+            ReferenceTerm origin = await observer.Invoke(context => pending.BeginConnectedMonitorSignal(host, context, remote));
+            output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), observer.Process.Pid,
+                    remote, origin)) == true
+                : output is null);
+            Check(await observer.Invoke(context => pending.EndConnectedMonitorSignal(context, origin)));
+            output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.Demonitor), observer.Process.Pid,
+                    remote, origin)) == true
+                : output is null);
+            Check(!await observer.Invoke(context => pending.EndConnectedMonitorSignal(context, origin)));
+            origin = await observer.Invoke(context => pending.BeginConnectedMonitorSignal(host, context,
+                Term.A(DistributionMonitorHostNames.Target)));
+            _ = await Output();
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit),
+                Term.A(DistributionMonitorHostNames.Target), observer.Process.Pid, origin, Nil.Value));
+            Check((await observer.InvokeAsync(async context => await context.ReceiveAsync<Term>(message => message,
+                DistributionMonitorHostNames.Deadline)))?.Equals(Term.Tuple(Term.A(ProcessMessageTags.MonitorDown),
+                    origin, Term.A(ProcessMonitorKinds.Process),
+                    Term.Tuple(Term.A(DistributionMonitorHostNames.Target), Term.A(DistributionMonitorHostNames.Remote)), Nil.Value)) == true);
+            Check(!await observer.Invoke(context => pending.EndConnectedMonitorSignal(context, origin)));
+            await using var dying = new RuntimeNodeFoundationHostActor(runtime);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote, dying.Process.Pid, reference));
+            await dying.InvokeAsync(async context =>
+            {
+                Check(await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero) is null);
+
+                return true;
+            });
+            long beforeDuplicate = pending.ConnectedSnapshot(host).RawInputAttempts;
+            byte[] duplicateFrame = DistributionPassThroughCodec.EncodeProcessControl(
+                Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote, dying.Process.Pid, reference),
+                negotiatedFlags: DistributionPassThroughFlags.Mandatory | monitorFlags);
+            bool unsupported = false;
+            try
+            {
+                _ = await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque, new BitString(duplicateFrame)));
+            }
+            catch (NotSupportedException)
+            {
+                unsupported = true;
+            }
+            Check(unsupported);
+            Check(pending.ConnectedSnapshot(host).RawInputAttempts == beforeDuplicate + 1);
+            Check(!controller.Process.Completion.IsCompleted);
+            var independentReference = new ReferenceTerm(DistributionMonitorHostNames.Remote,
+                DistributionMonitorHostNames.IndependentReference, DistributionMonitorHostNames.RemoteCreation);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote, dying.Process.Pid, independentReference));
+            await dying.InvokeAsync(async context =>
+            {
+                Check(await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero) is null);
+
+                return true;
+            });
+            await dying.DisposeAsync();
+            output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit), dying.Process.Pid,
+                    remote, reference, Nil.Value)) == true
+                : output is null);
+            output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit), dying.Process.Pid,
+                    remote, independentReference, Nil.Value)) == true
+                : output is null);
+            Check(await Output() is null);
+            var oldLocal = new Pid(runtime.Node, target.Process.Pid.Id, 0);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote, oldLocal, reference));
+            output = await Output();
+            Check(emitted
+                ? output?.Equals(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit), oldLocal,
+                    remote, reference, Term.A(ErlangErrorReasons.NoProcess))) == true
+                : output is null);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Demonitor), remote, oldLocal, reference));
+            Check(await Output() is null);
+            await target.Invoke(context =>
+            {
+                runtime.Register(DistributionMonitorHostNames.Target, context.Self);
+
+                return true;
+            });
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Monitor), remote,
+                Term.A(DistributionMonitorHostNames.Target), reference));
+            await DrainTarget();
+            Check(await Output() is null);
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.Demonitor), remote,
+                Term.A(DistributionMonitorHostNames.Target), reference));
+            await DrainTarget();
+            await target.DisposeAsync();
+            Check(await Output() is null);
+            origin = await observer.Invoke(context => pending.BeginConnectedMonitorSignal(host, context, remote));
+            _ = await Output();
+            pending.CloseConnected(host);
+            Check((await observer.InvokeAsync(async context => await context.ReceiveAsync<Term>(message => message,
+                DistributionMonitorHostNames.Deadline)))?.Equals(Term.Tuple(Term.A(ProcessMessageTags.MonitorDown),
+                    origin, Term.A(ProcessMonitorKinds.Process), remote, Term.A(ProcessMonitorFailureReasons.Disconnected))) == true);
+            Check(!await observer.Invoke(context => pending.EndConnectedMonitorSignal(context, origin)));
+            Check(await observer.InvokeAsync(async context => await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero)) is null);
+            ReferenceTerm oldOrigin = origin;
+            host = pending.BeginPending(Term.A(DistributionMonitorHostNames.Remote));
+            opaque = await controller.InvokeAsync(async context =>
+                await DistributionControllerAdapters.SetNode(context, Term.A(DistributionMonitorHostNames.Remote), context.Self,
+                    Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory | monitorFlags), Term.I(DistributionMonitorHostNames.RemoteCreation))));
+            await controller.Invoke(context => DistributionControllerAdapters.SetInputHandler(context, opaque, input.Process.Pid));
+            origin = await observer.Invoke(context => pending.BeginConnectedMonitorSignal(host, context, remote));
+            _ = await Output();
+            await Send(Term.Tuple(Term.I(DistributionControlOpcodes.MonitorExit), remote, observer.Process.Pid, oldOrigin, Nil.Value));
+            Check(await observer.InvokeAsync(async context => await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero)) is null);
+            Check(await observer.Invoke(context => pending.EndConnectedMonitorSignal(context, origin)));
+            _ = await Output();
+
+
+            async Task Send(TupleTerm control)
+            {
+                byte[] frame = DistributionPassThroughCodec.EncodeProcessControl(control,
+                    negotiatedFlags: DistributionPassThroughFlags.Mandatory | monitorFlags);
+                Check((await input.Invoke(context => DistributionInputAdapter.PutData(context, opaque, new BitString(frame))))
+                    .Equals(Term.A(ConnectedDistributionHostNames.Success)));
+            }
+
+            Task<bool> DrainTarget() => target.InvokeAsync(async context =>
+            {
+                Check(await context.ReceiveAsync<Term>(message => message, TimeSpan.Zero) is null);
+
+                return true;
+            });
+
+            Task<Term?> Output() => controller.Invoke<Term?>(context =>
+            {
+                var buffer = pending.TakeConnectedOutput(host, context, out _);
+                if (buffer is null)
+                    return null;
+                Check(buffer.SegmentCount == 1);
+                byte[] frame = buffer.Segments[0].ToArray();
+                Check(frame[0] == DistributionPassThroughLayout.Marker);
+
+                return ExternalTermFormat.Decode(frame.AsSpan(DistributionPassThroughLayout.MarkerBytes));
+            });
+        }
+
+        void Check(bool condition)
+        {
+            if (!condition)
+                throw new InvalidOperationException(DistributionMonitorHostNames.Failure);
+            checks++;
+        }
+    }
+}

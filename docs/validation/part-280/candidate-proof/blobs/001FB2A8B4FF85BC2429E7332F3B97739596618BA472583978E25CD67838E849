@@ -1,0 +1,269 @@
+{
+  "Stage": "ACTUAL_MAIN_PROMOTION_BEFORE_BUILD",
+  "Inputs": [
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-source-freeze-prebuild-revision12.json",
+      "Sha256": "696ED4DECFB6DCB3606A236B2857E491DD77C2A0C19EC97CABCEF4FA3C0B3B8A"
+    },
+    {
+      "Path": "artifacts\\distribution-monitor-permanent-promotion-source-freeze-prebuild-revision9.json",
+      "Sha256": "73C8E49491EB78E5CF7213023C60CB81FE36949C5FBBF3B7398FD35299856AAE"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "BeforeSha256": "E11F348BB2038C4BF3CFB5E7ABDABBEC26F3A0ADA7AC7C4287B9FCF9950F0FEA",
+      "Sha256": "13C1BD68FA634D11FAAC635591DBA360AE86108DB0F7058273B794D08BC8D998",
+      "Bytes": 29651
+    },
+    {
+      "Path": "src/Erlang.Runtime/GarbageCollectionResultNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "933088A1380EA331145E121C7C94233497D72D6A115F9954557407C26E371C1A",
+      "Bytes": 616
+    },
+    {
+      "Path": "src/Erlang.Runtime/GarbageCollectionResultReducer.cs",
+      "BeforeSha256": null,
+      "Sha256": "D920BA84C839F46D64B54505862CD7F2D11C31712906F84B28F31BE608FFB185",
+      "Bytes": 1753
+    },
+    {
+      "Path": "src/Erlang.Runtime/GarbageCollectionResultRegistrations.cs",
+      "BeforeSha256": null,
+      "Sha256": "5606DB72719C22596E2B50CFBDC3EC09FAE0B607F40EA440B59C24FFE51F57DF",
+      "Bytes": 735
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ActorDispatch.cs",
+      "BeforeSha256": null,
+      "Sha256": "F9BBA1D57DC3E1B412DBD460E768D1984B9E8472FD54FF4DF8F0D6A5A88D44B3",
+      "Bytes": 1207
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+      "BeforeSha256": "91E96EDF85D6A0CB0E4D6018026C51432818D22865531D8A5AF8A00B6EEB3BDA",
+      "Sha256": "347A8BEBAE1AB54E76EEBF0B0BBF216D2AC5A09E131794152BC3579822C1A05D",
+      "Bytes": 9646
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "BeforeSha256": "83573AA977F43E58C146763DD4692E2577E25FAFA29FE8D4A3F32E95AA2CC63D",
+      "Sha256": "61F826AE53A439C3C9934CBAB54F6C7D58FCED545E4051CDE34039CA62DB0EA4",
+      "Bytes": 61726
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatchNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "AD372907FB258EC710F631857FF01B7285550FE84A1917BCCA3BDFF862A2E84B",
+      "Bytes": 124
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatchParameters.cs",
+      "BeforeSha256": null,
+      "Sha256": "BBF04A0BF1150966F463444EE5A242B1F6CF35A294B2C0B5A993673C2DC2DFDE",
+      "Bytes": 115
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "BeforeSha256": null,
+      "Sha256": "9F0B32BD5D2F117BBA951EA3615A14F29FDA3C7D76B475E7458020EF031D1240",
+      "Bytes": 1929
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "BeforeSha256": "400AACA207279DCFF076C14FC58B79DA62EF56E3958F1AF34E1A0664E8FBF9D3",
+      "Sha256": "8B176CCE23E3921898CE76F4A729EE99876FF727B7917D25B20D45186DE24FE9",
+      "Bytes": 5372
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "BeforeSha256": "40FB806F09EE3028739B5BDA1DC9B8307EC019BCA5338CB79BADEC4F4447EE3F",
+      "Sha256": "DDAB5ED6C760B5B3CC5A3DC41015B9F89CD1AA93D7DBB4356B0AC7801F7F09F2",
+      "Bytes": 2864
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultHostAccess.cs",
+      "BeforeSha256": null,
+      "Sha256": "4AD1AF1E1AABA4DAE1B1CAF39A39E6BE0F7E6108755F1E36A0F29876A0F2AF36",
+      "Bytes": 1140
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultHostAccessNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "4BCE0F9BC40B953105FEB9E19D860280A06879009E74F5989CA2DF6458808E30",
+      "Bytes": 328
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "E7450728B4AE8EDBEF38F96433FDB39D5810129DAB5737FF522B562D16B1D272",
+      "Bytes": 4042
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "E97721D5E79D8381C0D52B9F4EC436C04E215298D52182CC9473193079934D39",
+      "Bytes": 460
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultSmokeContracts.cs",
+      "BeforeSha256": null,
+      "Sha256": "7F970F068C0E03196AECFADF62C56440AE51005ABCF530BA644548A231B3B909",
+      "Bytes": 2900
+    },
+    {
+      "Path": "tests/Erlang.Tests/GarbageCollectionResultSmokeNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "FFB4CF25B26A506064A49AAD05462548634F05CB8A142E4C21F1E039B15B333B",
+      "Bytes": 481
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "8C2F185AA096E702937B402C9EEBFB3AF09875CD8F787844ACE715DA1B943E26",
+      "Bytes": 16068
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "5746FB288883D985959CE0E90267876F5272AFBF45A689BE4E3DD8393E8FB5C5",
+      "Bytes": 1025
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "BeforeSha256": null,
+      "Sha256": "F31C925526C0DC6B55867E8B50137FEE7AB583075C0B76C4C52A5E529423C6CC",
+      "Bytes": 360
+    },
+    {
+      "Path": "tests/Erlang.Tests/TraceHookRollbackHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "C509C5B1A38290EE7BE109952AA672E3297E70F62756EF5D844FDB0282239042",
+      "Bytes": 6293
+    },
+    {
+      "Path": "tests/Erlang.Tests/TraceHookRollbackHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "125925F49BAC8336BEF6609CD9CCA881AF594E9F11362440E9DC797C301877E0",
+      "Bytes": 519
+    },
+    {
+      "Path": "tests/Erlang.Tests/TraceHookRollbackHostParameters.cs",
+      "BeforeSha256": null,
+      "Sha256": "AF343AD4C424175BEF8754E47019AEE6FC61DF83A3534667997AD91D523105D9",
+      "Bytes": 315
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "BeforeSha256": "8F790CDF34A7F117EEDFF5FA47160E7260F339E8DA0655E22FDF0E2C51013FBA",
+      "Sha256": "9B6870A98CF98217CF74ACD6A9CF37CF83E39D414B52E0897EF0B3617609EFC4",
+      "Bytes": 30029
+    },
+    {
+      "Path": "tools/Erlang.Differential/GarbageCollectionResultCaseNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "42D970111CCD31E753E001123B2B91C3715DBC5EE08E196FF305CCD1C445CBF6",
+      "Bytes": 253
+    },
+    {
+      "Path": "tools/Erlang.Differential/GarbageCollectionResultCases.cs",
+      "BeforeSha256": null,
+      "Sha256": "1C4363958DFC5170CCABE328D1F4292A627669B467564C3ADD3350CB90C8E07A",
+      "Bytes": 3010
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionMonitorDiagnostics.cs",
+      "BeforeSha256": null,
+      "Sha256": "01AF02383500C8B590BF6A0F7A2E1664E1AC3BFAB46E4B2BADC9B33997A57F8F",
+      "Bytes": 187
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionProcessMonitor.cs",
+      "BeforeSha256": null,
+      "Sha256": "B75ADBAF9923FCEF8125C9CF9FFA6AC2A004E2B81EEF2813D5336979D2605911",
+      "Bytes": 778
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionMonitors.cs",
+      "BeforeSha256": null,
+      "Sha256": "7313F19E4416838372645105050732D29119FC7D6997865CD9DB1A2778701EDB",
+      "Bytes": 9235
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+      "BeforeSha256": "0D127CC3DB46DB5CBFFF85DB5170D8A4469A089F8F309C48CE332B87786996AD",
+      "Sha256": "0DB372933E79453876344A1800DB665C0C14EAC97B1829B9E5D0FD96C4336A8C",
+      "Bytes": 15924
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.MonitorSignals.cs",
+      "BeforeSha256": null,
+      "Sha256": "6C7409B0CCADF4918C87B92B9BEC74C1A284E08DA396DF9FA1B3553C87CA30F5",
+      "Bytes": 3188
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "BeforeSha256": "179F8F4D4B348F871F217A04959190E25FE676AD59FABC7CCD9A8489C518EBE3",
+      "Sha256": "AB26C9DA440627BB58708CBA6179999A8689F3C7C131B672D4D1C4E5A9CA3A3E",
+      "Bytes": 6612
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+      "BeforeSha256": "38E62BF3892EE27AFD3200A6C500953E9DFFCCB0256F0BAF0733F2A930C0ECB4",
+      "Sha256": "5A9CAA82F9D42759A1FCB1F80C900E9A368B12EA807379ECB87EB3335E82328D",
+      "Bytes": 10312
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionControlOpcodes.cs",
+      "BeforeSha256": "99BB23DE8B2561417E4DE504608161D1BF7A3DAD5274F7D5F85F9013E543B089",
+      "Sha256": "9CF2550EEF2D2C8C9F42286DEA8C1CC5FD3508697B8220F2E9E59BD892349C07",
+      "Bytes": 2459
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+      "BeforeSha256": "1EA1F1C5903B653D42227154ED682108906659A8E0B2E4679A5C4BC5C6B9BED1",
+      "Sha256": "686A19E5CAABBD3A868423E085C2D4AC3DBEA2FC06494838BF275D009A19AAB1",
+      "Bytes": 15845
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+      "BeforeSha256": "5684E2384C6775AFA7922D72548816875896CFB85F19461787C832B164C8637D",
+      "Sha256": "263FD145D27A958C09B4B9ACC70498E6B17748053855EBAC578C6202F49871ED",
+      "Bytes": 1364
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMonitorHostChecks.cs",
+      "BeforeSha256": null,
+      "Sha256": "C9A6FE4562CFABC3972D4AE7B52457DA2FFC6AC007AB7DBB936E902DC297ABE5",
+      "Bytes": 14155
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMonitorHostNames.cs",
+      "BeforeSha256": null,
+      "Sha256": "0E921E43EC16E9DC82976D37804F3E2284F34CF81130359645AC192EA6B331DF",
+      "Bytes": 880
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "BeforeSha256": "AC91495E94A9364D3DC1713453BC82810ECEE33E1D66B6106F7948F3D68E63B3",
+      "Sha256": "8682454244E627ED11B5E76208D5377C11C84ACEA3FD1367F34760A62D7FF543",
+      "Bytes": 12789
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostNames.cs",
+      "BeforeSha256": "E13D3A8368B9B9E04953AE1D0DFFFC24DAE139D48FC4D341632636E7499D8AEB",
+      "Sha256": "C9EC470EC053F277A6B0B644ECC49DA9776EF2B08CD3096CBFDCC7C891F93219",
+      "Bytes": 1019
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "BeforeSha256": "D43243B296EF00A60F5D5D608B8FB5BD74C6B099F82BE654A0EDA1493E3B7D93",
+      "Sha256": "E515084A60987A379B50DB77C7B694E52A0126EDD818969007FA1C549EBD07AC",
+      "Bytes": 161989
+    }
+  ],
+  "ProgramMerge": "Exact actor Program plus one independently reviewed monitor HOST append",
+  "NativeParityClaim": false
+}

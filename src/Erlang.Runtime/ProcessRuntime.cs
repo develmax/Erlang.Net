@@ -63,14 +63,44 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
     }
 
+    public ProcessRuntime(int maximumActorConcurrency)
+        : this(
+            ProcessNodeDefaults.Local,
+            null,
+            ProcessTableParameters.DefaultCapacity,
+            null,
+            maximumActorConcurrency
+        )
+    {
+    }
+
     public ProcessRuntime(
         string node,
         TextWriter? output,
         int maximumProcesses,
         RuntimeStandardStreams? standardStreams
     )
+        : this(
+            node,
+            output,
+            maximumProcesses,
+            standardStreams,
+            Environment.ProcessorCount
+        )
     {
+    }
+
+    public ProcessRuntime(
+        string node,
+        TextWriter? output,
+        int maximumProcesses,
+        RuntimeStandardStreams? standardStreams,
+        int maximumActorConcurrency
+    )
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumActorConcurrency);
         processSlots = new(maximumProcesses);
+        actorDispatcher = new(maximumActorConcurrency);
         AtomNameRegistry.Observe(node);
         ConfiguredNode = node;
         LocalIdentity = new(ProcessNodeDefaults.Local);
@@ -132,83 +162,94 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             processes.Add(ctx.Self, ctx);
             executingProcesses.Add(ctx);
             processSlots.Add(ctx.Self);
-            if (link && parent is not null)
-            {
-                EstablishSpawnLink(ctx, parent);
-            }
-            if (parent is not null)
-                SequenceTracing.Spawned(
-                    parent,
-                    ctx,
-                    description,
-                    spawnReference,
-                    asynchronousSpawn,
-                    successSpawnReply
-                );
-        }
-        _ = Task.Run(async () =>
-        {
-            ctx.ExecutionStarted = true;
-            Term reason = Term.A(ProcessExitReasons.Normal);
+            bool enqueued = false;
             try
             {
-                ThrowIfHalted();
-                ctx.Cancellation.ThrowIfCancellationRequested();
-                Func<ProcessContext, ValueTask<Term>> current = body;
-                body = null!;
-                while (true)
+                _ = actorDispatcher.Dispatch(async () =>
                 {
+                    lock (gate)
+                        ctx.ExecutionStarted = true;
+                    Term reason = Term.A(ProcessExitReasons.Normal);
                     try
                     {
-                        await current(ctx);
-                        break;
-                    }
-                    catch (ProcessHibernateTransfer transfer)
-                    {
-                        current = child =>
+                        ThrowIfHalted();
+                        ctx.Cancellation.ThrowIfCancellationRequested();
+                        Func<ProcessContext, ValueTask<Term>> current = body;
+                        body = null!;
+                        while (true)
                         {
-                            return child.Runtime.Modules.Call(
-                                child,
-                                transfer.Module,
-                                transfer.Function,
-                                transfer.Arguments.ToArray()
-                            );
-                        };
-                        await ctx.Mailbox.WaitForMessage(ctx.Cancellation);
+                            try
+                            {
+                                await current(ctx);
+                                break;
+                            }
+                            catch (ProcessHibernateTransfer transfer)
+                            {
+                                current = child =>
+                                {
+                                    return child.Runtime.Modules.Call(
+                                        child,
+                                        transfer.Module,
+                                        transfer.Function,
+                                        transfer.Arguments.ToArray()
+                                    );
+                                };
+                                await ctx.Mailbox.WaitForMessage(ctx.Cancellation);
+                            }
+                        }
                     }
+                    catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, this))
+                    {
+                        return;
+                    }
+                    catch (OperationCanceledException) when (IsHaltRequested)
+                    {
+                        return;
+                    }
+                    catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    catch (ErlangException ex)
+                    {
+                        reason = ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(
+                            ex.ExceptionClass == ErlangExceptionClasses.Throw ? Term.Tuple(Term.A(ErlangErrorReasons.NoCatch), ex.Reason) : ex.Reason,
+                            ex.StackTraceTerm
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        reason = Term.Tuple(Term.A(ProcessExitReasons.ClrError), Term.String(ex.GetType().Name));
+                    }
+                    finally
+                    {
+                        Terminate(ctx, reason);
+                        lock (gate)
+                            executingProcesses.Remove(ctx);
+                        ctx.Unwound.TrySetResult();
+                    }
+                });
+                enqueued = true;
+                if (link && parent is not null)
+                {
+                    EstablishSpawnLink(ctx, parent);
                 }
+                if (parent is not null)
+                    SequenceTracing.Spawned(
+                        parent,
+                        ctx,
+                        description,
+                        spawnReference,
+                        asynchronousSpawn,
+                        successSpawnReply
+                    );
             }
-            catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, this))
+            catch
             {
-                return;
+                RollbackActorStart(ctx, enqueued);
+                throw;
             }
-            catch (OperationCanceledException) when (IsHaltRequested)
-            {
-                return;
-            }
-            catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
-            {
-                return;
-            }
-            catch (ErlangException ex)
-            {
-                reason = ex.ExceptionClass == ErlangExceptionClasses.Exit ? ex.Reason : Term.Tuple(
-                    ex.ExceptionClass == ErlangExceptionClasses.Throw ? Term.Tuple(Term.A(ErlangErrorReasons.NoCatch), ex.Reason) : ex.Reason,
-                    ex.StackTraceTerm
-                );
-            }
-            catch (Exception ex)
-            {
-                reason = Term.Tuple(Term.A(ProcessExitReasons.ClrError), Term.String(ex.GetType().Name));
-            }
-            finally
-            {
-                Terminate(ctx, reason);
-                lock (gate)
-                    executingProcesses.Remove(ctx);
-                ctx.Unwound.TrySetResult();
-            }
-        });
+        }
 
         return new(ctx.Self, ctx.Done.Task);
     }
@@ -1451,6 +1492,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             StopLocalNode();
             localNodeEvents?.Close();
             disposed = true;
+            _ = actorDispatcher.CompleteWhenIdle();
             Timers.Dispose();
             distributionPending?.Close();
             ReferenceResources.Close();
@@ -1471,6 +1513,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 StopLocalNode();
                 localNodeEvents?.Close();
                 disposed = true;
+                _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
                 ReferenceResources.Close();

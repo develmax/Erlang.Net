@@ -1,0 +1,6 @@
+namespace Erlang;
+
+internal static class DistributionMonitorDiagnostics
+{
+    internal const string DuplicateReference = "Duplicate active incoming monitor reference is not supported";
+}

@@ -416,6 +416,7 @@ public sealed partial class RuntimeDistributionPending
         if (entry.Connected is not { } connected)
             return;
         runtime.RetireConnectedProcessLinks(entry, connected);
+        runtime.RetireConnectedProcessMonitors(entry, connected);
         entry.Connected = null;
         connected.Controller.DistributionRole = RuntimeDistributionRole.None;
         connected.Queue.Dispose();

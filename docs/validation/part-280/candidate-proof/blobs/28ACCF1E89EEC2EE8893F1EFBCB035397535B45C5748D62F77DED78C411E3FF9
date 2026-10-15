@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,hashlib,re,difflib
+H=lambda b:hashlib.sha256(b).hexdigest().upper();p=Path('artifacts/dist_next-actor-gc-registration-source-freeze-prebuild-revision12.json');f=json.loads(p.read_bytes());a=json.loads(Path('artifacts/dist_next-actor-gc-registration-source-freeze-prebuild-revision9.json').read_bytes());old={r['Path']:r for r in a['Files']};c=Path(f['Candidate']);assert H(p.read_bytes())=='696ED4DECFB6DCB3606A236B2857E491DD77C2A0C19EC97CABCEF4FA3C0B3B8A';changed=[]
+for r in f['Files']:
+ b=(c/r['Path']).read_bytes();assert H(b)==r['Sha256'] and b.decode()==r['SourceContent']
+ if r['Sha256']!=old[r['Path']]['Sha256']:changed.append(r)
+assert {r['Path'] for r in changed}=={'tests/Erlang.Tests/GarbageCollectionResultHostNames.cs','tests/Erlang.Tests/GarbageCollectionResultSmokeContracts.cs','tests/Erlang.Tests/TraceHookRollbackHostChecks.cs'}
+checks=[]
+for r in changed:
+ before=old[r['Path']]['SourceContent'];after=r['SourceContent']
+ if r['Path'].endswith('HostNames.cs'):
+  pattern=r'\s*internal const string Test\s*=\s*"([^"\r\n]+)";';matches=re.findall(pattern,after);assert len(matches)==1 and re.sub(pattern,'',after)==before;checks.append({'Path':r['Path'],'AddedTestName':matches[0],'Diff':''.join(difflib.unified_diff(before.splitlines(True),after.splitlines(True)))})
+ else:
+  assert re.sub(r'\s','',before)==re.sub(r'\s','',after) and re.findall(r'"(?:\\.|[^"\\])*"',before)==re.findall(r'"(?:\\.|[^"\\])*"',after);checks.append({'Path':r['Path'],'OnlyWhitespaceQuotedValuesExact':True})
+for r in f['UnownedSeedSource']:assert H((c/r['Path']).read_bytes())==r['Sha256']
+failures=[]
+for k in ['FirstTargetFailure9Receipt','SecondTargetFailure10Receipt','FirstStyleFailure11Receipt']:
+ q=Path(f[k]);assert H(q.read_bytes())==f[k+'Sha256'];failures.append({'Path':str(q),'Sha256':H(q.read_bytes())})
+out={'Status':'PASS_INDEPENDENT_ACTOR_GC12_SOURCE_DELTA','SourceFreeze':str(p),'Sha256':H(p.read_bytes()),'Owned31Exact':len(f['Files']),'UnownedExact':len(f['UnownedSeedSource']),'DeltaFromReviewed9':checks,'ProductionAndEightCasesAndProgramExactReviewed9':True,'PreservedFailures':failures,'PriorPeer':'artifacts/native269-actor-gc-registration9-independent-source-review.json','ActualHeavySlotOwnedByDistNextNotReviewer':True,'TargetStyleFocusPendingAtReview':True,'MainWritten':False,'GitWritten':False,'HeavyExecuted':False,'NativeExecuted':False};op=Path('artifacts/native269-actor-gc12-independent-source-delta-review.json');op.write_bytes((json.dumps(out,indent=2)+'\n').encode());print(H(op.read_bytes()))

@@ -162,6 +162,7 @@ public sealed partial class RuntimeDistributionPending
         {
             exitingInputControllers.Remove(process);
             runtime.ConnectedLinkProcessTerminated(process, reason);
+            runtime.ConnectedMonitorProcessTerminated(process, reason);
             RetireControllerAdoptions(controller: process);
             if (ReferenceEquals(kernelSetup, process))
             {

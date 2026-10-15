@@ -1,0 +1,33 @@
+from pathlib import Path
+import hashlib,json,subprocess,re
+H=lambda b:hashlib.sha256(b).hexdigest().upper()
+p=Path('artifacts/distribution-monitor-foundation-main278-source-freeze-prebuild-revision3.json'); raw=p.read_bytes(); f=json.loads(raw); c=Path(f['Candidate'])
+assert H(raw)=='C9227F0ED1C22A3ED332F2BA4B51BE476816F0D38D32FBBEF19255A2BF0053E3'
+records=[]
+for r in f['Files']+f['FocusFiles']:
+ b=(c/r['Path']).read_bytes();assert H(b)==r['Sha256'] and len(b)==r['Bytes']; assert b.decode()==r['SourceContent'];records.append({'Path':r['Path'],'Sha256':H(b),'Bytes':len(b)})
+assert len(f['Files'])==13 and len(f['FocusFiles'])==3
+old=json.loads(Path('artifacts/distribution-monitor-foundation-source-freeze-prebuild-revision2.json').read_bytes())
+prior={r['Path']:r for r in old['Files']}
+unchanged=[]
+for r in f['Files']:
+ if r['Path'] not in {'tests/Erlang.Tests/DistributionRawInputHostChecks.cs','tests/Erlang.Tests/DistributionRawInputHostNames.cs'}:
+  assert r['Sha256']==prior[r['Path']]['Sha256'];unchanged.append(r['Path'])
+pins=[]
+for r in f['PinnedSources']:
+ b=subprocess.check_output(['git','-C','../otp','cat-file','blob',r['GitReference']]);assert H(b)==r['Sha256'] and len(b)==r['Bytes'];pins.append(r)
+resources=[]
+for r in f['Resources']:
+ b=(c/r['Path']).read_bytes();g=subprocess.check_output(['git','cat-file','blob',r['GitReference']]);assert b==g and H(b)==r['Sha256'] and len(b)==r['Bytes'];resources.append(r)
+assert len(resources)==140
+ledgerpath=Path(f['FeatureExtensionLedger']);lb=ledgerpath.read_bytes();assert H(lb)==f['FeatureExtensionLedgerSha256'];l=json.loads(lb)
+for field,key in [('OriginalActionSource','OriginalSourceSha256'),('OriginalNamesSource','OriginalNamesSha256')]:assert H(l[field].encode())==l[key]
+a=l['OriginalActionSource'];n=l['OriginalNamesSource']
+a=a.replace('DistributionRawInputHostNames.MonitorOpcode','DistributionRawInputHostNames.GroupLeaderOpcode').replace('receiver.Process.Pid,\r\n            reference\r\n        ));','receiver.Process.Pid\r\n        ));')
+n=n.replace('MonitorOpcode = 19','GroupLeaderOpcode = 7')
+assert a==(c/'tests/Erlang.Tests/DistributionRawInputHostChecks.cs').read_bytes().decode()
+assert n==(c/'tests/Erlang.Tests/DistributionRawInputHostNames.cs').read_bytes().decode()
+for path in ['src/Erlang.Runtime/CoreModules.cs','tests/Erlang.Tests/Program.cs']:
+ assert (c/path).read_bytes()==Path(path).read_bytes()
+result={'Stage':'NATIVE269_INDEPENDENT_MONITOR13_SOURCE_REVIEW_REVISION3','Status':'PASS_BOUNDED_SOURCE_REVIEW','SourceFreeze':str(p),'SourceFreezeSha256':H(raw),'Files':records,'ProductionAndNewActorElevenExactPriorRevision2':unchanged,'PinnedSources':pins,'ResourcesVerified':len(resources),'GapLedgerSha256':H(lb),'GapReplacementOnlyExact':True,'CoreAndProgramUnchanged':True,'Checks':['19/20/21 exact control-only tuple shape and reference typing','Fixed remote PID ownership; actual local ProcessContext and reference owner validation','Named demonitor keyed retained reference; old local PID monitor noproc and demonitor ignored','Actual target mailbox establishment and termination reason/noproc boundary','Origin DOWN mailbox callback suppresses removed monitor and matches retained connection object','Connection retirement noconnection and stale generation separation','Emission requires both 0x08 and 0x20; input shapes ungated as pinned dist.c','Reachable five-group focus; embedded resources actual published d7 blobs'], 'Limitations':['No public monitor/demonitor adapter integration','Duplicate reference replay and complete options/tag/priority/process_info remain explicit blockers','Payload monitor-exit opcode28 unsupported; no full negotiated protocol claim','Queue pressure/finalized buffer allocator parity not established','No build, focused execution, full Main or native execution performed by reviewer'],'ReviewerSourceCommandErrors':['PowerShell brace expansion assumption and guessed inherited filename produced read-only failures; corrected exact file paths','Initial schema lookup FocusSources corrected to actual FocusFiles; no source mutation'],'MainMutated':False,'GitMutated':False,'HeavyExecuted':False,'NativeExecuted':False}
+out=Path('artifacts/native269-monitor13-main278-independent-source-review.json');out.write_bytes((json.dumps(result,indent=2)+'\n').encode());print(str(out),H(out.read_bytes()))

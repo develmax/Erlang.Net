@@ -786,6 +786,7 @@ public static class CoreModules
         PortRegistrations.Register(r);
         ProcessCodeRegistrations.Register(r);
         ProcessGarbageCollectionRegistrations.Register(r);
+        GarbageCollectionResultRegistrations.Register(r);
         ErlangFunctionRegistrations.Register(r);
         ErlangFunctionInfoRegistrations.Register(r);
         ErlangEtfRegistrations.Register(r);

@@ -1,0 +1,35 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL7_SOURCE_DELTA",
+  "SourceFreeze": "artifacts\\dist_next-runtime-actor-dispatch-source-freeze-final-revision7.json",
+  "Sha256": "6246781BEAD3954054DA4E3F7DC7058928C5FF1AD0C3F624524FB5115D2D2B5D",
+  "Owned22Verified": 22,
+  "UnownedVerified": 1690,
+  "ChangesOnly": [
+    {
+      "Path": "probe/Program.cs",
+      "Diff": "--- \n+++ \n@@ -1,16 +1,25 @@\n using System.Reflection;\n \n-Assembly tests = Assembly.Load(ActorDispatchFocusNames.Assembly);\n-foreach (string name in ActorDispatchFocusNames.Groups)\n+try\n {\n-    Type type = tests.GetType(name, true)!;\n-    MethodInfo method = type.GetMethod(ActorDispatchFocusNames.Run,\n-        BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)!;\n-    Task pending = (Task)method.Invoke(null, null)!;\n-    await pending;\n-    if (pending is Task<int> result && result.Result != 0)\n-        return result.Result;\n-    Console.WriteLine(name);\n+    Assembly tests = Assembly.Load(ActorDispatchFocusNames.Assembly);\n+    foreach (string name in ActorDispatchFocusNames.Groups)\n+    {\n+        Type type = tests.GetType(name, true)!;\n+        MethodInfo method = type.GetMethod(ActorDispatchFocusNames.Run,\n+            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)!;\n+        Task pending = (Task)method.Invoke(null, null)!;\n+        await pending;\n+        if (pending is Task<int> result && result.Result != 0)\n+            return result.Result;\n+        Console.WriteLine(name);\n+    }\n+\n+    return 0;\n }\n+catch (Exception exception)\n+{\n+    Console.Error.WriteLine(exception);\n \n-return 0;\n+    return 1;\n+}\n"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "Diff": "--- \n+++ \n@@ -177,7 +177,7 @@\n             {\n                 Require(ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default));\n                 registry.Register(\n-                    RuntimeActorDispatchHostNames.Module,\n+                    RuntimeActorDispatchHostNames.PostRetirementModule,\n                     RuntimeActorDispatchHostNames.Function,\n                     0,\n                     (_, _) => ValueTask.FromResult<Term>(Term.A(RuntimeActorDispatchHostNames.InitializedValue))\n@@ -186,7 +186,7 @@\n             var childActor = child.Spawn(async context =>\n             {\n                 Require(!ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default));\n-                Require((await child.Modules.Call(context, RuntimeActorDispatchHostNames.Module,\n+                Require((await child.Modules.Call(context, RuntimeActorDispatchHostNames.PostRetirementModule,\n                     RuntimeActorDispatchHostNames.Function)).Equals(Term.A(RuntimeActorDispatchHostNames.InitializedValue)));\n \n                 return Nil.Value;\n"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostNames.cs",
+      "Diff": "--- \n+++ \n@@ -11,6 +11,7 @@\n     internal const string Schedulers = \"schedulers\";\n     internal const string Message = \"dispatch_receive_marker\";\n     internal const string Module = \"dispatch_initialized_module\";\n+    internal const string PostRetirementModule = \"dispatch_post_retirement_module\";\n     internal const string Function = \"value\";\n     internal const string InitializedValue = \"dispatch_initialized_value\";\n     internal const string Status = \"Owned actor dispatch HOST contracts passed; physical BEAM scheduler parity unclaimed.\";\n"
+    }
+  ],
+  "RuntimeProductionExactReviewed4": true,
+  "HostActionsRetainedExceptSecondMfaName": true,
+  "RunnerErrorsFullExceptionExit1": true,
+  "ActualAgentReceipt": "artifacts\\dist_next-actor-dispatch-revision6-executed\\receipt.json",
+  "ActualAgentReceiptSha256": "199DF8A6B5C8EB44074DE6118A8D7AE50DD41C835D9579C3DB4CD100005E03BC",
+  "ExecutedReceiptMetadataBoundOnly": true,
+  "PriorSemanticReview": "artifacts/native269-actor-dispatch-revision2-independent-source-review.json",
+  "NoNativeOrPhysicalSchedulerClaim": true,
+  "ReviewerCorrections": [
+    "Initial exact string replacement assumed CRLF and replaced all duplicate pre-retirement Register snippets; corrected inverse two-occurrence replacement binds original entire HOST actions"
+  ],
+  "ReviewerHeavyExecuted": false,
+  "MainWritten": false,
+  "GitWritten": false
+}

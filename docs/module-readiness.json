@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-277/tests.json",
-  "LocalPassedTests": 6546,
-  "RegisteredMfas": 500,
+  "ComparisonTestReport": "validation/part-278/tests.json",
+  "LocalPassedTests": 6559,
+  "RegisteredMfas": 501,
   "PreviousRegisteredMfas": 500,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 7,
   "Components": [
@@ -138,7 +138,8 @@
         "Part269: Main6485/6485/full and59halt/packageguards, old6484 ordered names exact. Runtime-owned bounded pending distribution typed resources/generations/real owner death\u002Bhalt\u002Bdispose cleanup, eighteen source paths; kernel role/admission/connected transport absent/no Core registrations. Separate Windows allocation8tool and node identity19tool (3transitions\u002Bpending1) source/target/controlled Main checks pass; nativefour pending. Actual old report selfhash defect reproduced/new root-only exclusion passes; raw native268 mismatch retained. Original2675774\u002Bfd8 verifies separately from failedCI2676483/6484 allocation12688/4096; CI2686484/full andnative9 observations archived, known-list/bound-target direct-fold hypotheses contradicted. Registry493/erlang33595.4% presence; whole module/resources/distribution/performance partial.",
         "Part272: Main6515/full and59 halt/package controls; all old6497 names/order preserved after13 compiled atom contracts, four typed lexical diagnostics and one HOST group. Strict Unicode scalar atom admission and255-scalar limit prevent invalid-name pool pollution; real atom_count query and pinned erl_scan illegal atom/var diagnostics. Twenty production/test paths plus five corrected packet-observer paths; actual Main collector target and12 pre-write refusal controls. Original271 packet setnode badarg/controller_timeout preserved independently from complete32 mixed-map captures and CI6497/full. Native mixed retained/rebuilt map divergence contradicts prior canonicalization hypothesis; preserve original behavior. Corrected pending18 packet and new ordinary5802/fd8 original executions pending publication. Registry493/erlang335 of35195.4% API presence only; whole module remains partial.",
         "Part275: actual Main6544/6544, full integration/packages and59 halt/package guards pass; all6527 historical ordered names preserved plus17 additions. Seven genuine node/controller MFAs and immutable whole-frame epoch admission; source-guided SMALL creation truncation and capped logical bump reductions. Foreign dynamic input-handler ownership fixed without changing its old test. Exact CI274/full and original274 typed admission observations archived, including the overflow discrepancy that drove correction. Default500, erlang342/351 (97.4% API presence only). New ordinary5812\u002Bfd8 pending; nine APIs, complete distribution protocol/networking, physical resources, upstream suites and performance parity remain unfinished.",
-        "Part278: actual Main6546/full, old6544 ordered names preserved, permanent raw input41x2 and real remote LINK/UNLINK/EXIT60 actor checks; private unsupported controls retain registration blockers. No new Core MFAs. Original2755812\u002Bfd8 verified; seven queue original observations pending."
+        "Part278: actual Main6546/full, old6544 ordered names preserved, permanent raw input41x2 and real remote LINK/UNLINK/EXIT60 actor checks; private unsupported controls retain registration blockers. No new Core MFAs. Original2755812\u002Bfd8 verified; seven queue original observations pending.",
+        "Part280: actual Main6559/6559/full integration/packages, old6546names preserved plus13; meaningful per-runtime actor dispatch capacity and pinned pure gather_gc_info_result/1, eight compiled contracts and trace-hook rollback; real remote monitor160 plus inherited132/24/raw82/signal60. Default501/erlang343 of35197.7% API presence only; original eight GC and network monitor observations pending. Physical resource/scheduler/NIF/upstream/performance compatibility remains incomplete."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -152,7 +153,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 631
+      "RelatedPassedTests": 636
     },
     {
       "Id": "Compiler",
@@ -235,7 +236,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1539
+      "RelatedPassedTests": 1540
     },
     {
       "Id": "gen_server adapters",
@@ -395,7 +396,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5061
+      "RelatedPassedTests": 5069
     },
     {
       "Id": "Style checks",
@@ -5676,11 +5677,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 342,
+      "RegisteredMfas": 343,
       "PreviousRegisteredMfas": 342,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 97.4,
+      "ApiPresencePercent": 97.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5807,6 +5808,7 @@
         "erlang:garbage_collect/1",
         "erlang:garbage_collect/2",
         "erlang:garbage_collect_message_area/0",
+        "erlang:gather_gc_info_result/1",
         "erlang:get/0",
         "erlang:get/1",
         "erlang:get_cookie/0",

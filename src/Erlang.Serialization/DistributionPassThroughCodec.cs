@@ -87,6 +87,16 @@ public static class DistributionPassThroughCodec
         bool link = opcode.Value == DistributionControlOpcodes.Link;
         bool exit = opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2;
         bool unlink = opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck;
+        bool monitor = opcode.Value == DistributionControlOpcodes.Monitor ||
+            opcode.Value == DistributionControlOpcodes.Demonitor || opcode.Value == DistributionControlOpcodes.MonitorExit;
+        if (monitor)
+        {
+            if (!IsMonitorControl(tuple) || payloadOffset != packet.Length)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            ValidateFeatures(tuple, negotiatedFlags);
+
+            return new(tuple, null);
+        }
         if (link || exit || unlink)
         {
             bool valid = link || exit
@@ -141,6 +151,7 @@ public static class DistributionPassThroughCodec
                 id.Value >= (opcode.Value == DistributionControlOpcodes.UnlinkId ? 1 : 0) && id.Value <= ulong.MaxValue &&
                 control.Items[DistributionControlOpcodes.UnlinkFromIndex] is Pid &&
                 control.Items[DistributionControlOpcodes.UnlinkTargetIndex] is Pid;
+        valid |= IsMonitorControl(control);
         if (!valid)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
         ValidateFeatures(control, negotiatedFlags);
@@ -157,6 +168,23 @@ public static class DistributionPassThroughCodec
         encoded.CopyTo(packet, DistributionPassThroughLayout.MarkerBytes);
 
         return packet;
+    }
+
+    private static bool IsMonitorControl(TupleTerm control)
+    {
+        var items = control.Items;
+        if (items.Count < DistributionControlOpcodes.MonitorArity ||
+            items[DistributionControlOpcodes.OpcodeIndex] is not Integer opcode)
+            return false;
+        bool down = opcode.Value == DistributionControlOpcodes.MonitorExit;
+        bool request = opcode.Value == DistributionControlOpcodes.Monitor || opcode.Value == DistributionControlOpcodes.Demonitor;
+
+        return (request || down) && items.Count == (down
+            ? DistributionControlOpcodes.MonitorExitArity : DistributionControlOpcodes.MonitorArity) &&
+            items[DistributionControlOpcodes.MonitorReferenceIndex] is ReferenceTerm &&
+            (down
+                ? items[DistributionControlOpcodes.FromIndex] is Pid or Atom && items[DistributionControlOpcodes.TargetIndex] is Pid
+                : items[DistributionControlOpcodes.FromIndex] is Pid && items[DistributionControlOpcodes.TargetIndex] is Pid or Atom);
     }
 
     public static DistributionPassThroughMessage Send(Pid recipient, Term payload)

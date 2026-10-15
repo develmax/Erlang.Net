@@ -14,7 +14,7 @@ internal static class DistributionRawInputHostNames
     internal const string Failure = "Raw distribution input assertion failed";
     internal const int LinkOpcode = 1;
     internal const int ExitOpcode = 3;
-    internal const int MonitorOpcode = 19;
+    internal const int GroupLeaderOpcode = 7;
     internal const byte PassThrough = 112;
     internal const int PartialBits = 1;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);

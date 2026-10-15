@@ -1,0 +1,16 @@
+internal static class ActorDispatchFocusNames
+{
+    internal const string Assembly = "Erlang.Tests";
+    internal const string Run = "Run";
+    internal const string CompiledFailure = "Compiled registered GC result contract failed: ";
+    internal static readonly string[] Groups =
+    [
+        "Erlang.Tests.RuntimeActorDispatchHostChecks",
+        "Erlang.Tests.TraceHookRollbackHostChecks",
+        "Erlang.Tests.GarbageCollectionResultSmokeContracts",
+        "Erlang.Tests.GarbageCollectionResultHostChecks",
+        "Erlang.Tests.ProcessSuspensionHostChecks",
+        "Erlang.Tests.ProcessInfoObservableHostChecks",
+        "LocalFunctionIdentityChecks"
+    ];
+}

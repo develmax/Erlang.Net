@@ -1723,6 +1723,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
 
             return;
         }
+        if (Erlang.Tests.GarbageCollectionResultSmokeContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.GarbageCollectionResultSmokeContracts.Run();
+
+            return;
+        }
         if (Erlang.Tests.DistributionMfaSmokeContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.DistributionMfaSmokeContracts.Run(export.Module, export.Function, export.Arity);
@@ -4263,6 +4269,11 @@ Test(Erlang.Tests.ConnectedDistributionHostNames.Test, Erlang.Tests.ConnectedDis
 Test(Erlang.Tests.ConnectedIngressHostNames.Test, Erlang.Tests.ConnectedIngressHostChecks.Run);
 Test(Erlang.Tests.DistributionRawInputHostNames.Test, Erlang.Tests.DistributionRawInputHostChecks.Run);
 Test(Erlang.Tests.DistributionRawSignalHostNames.Test, Erlang.Tests.DistributionRawSignalHostChecks.Run);
+Test(Erlang.Tests.DistributionMonitorHostNames.Test, Erlang.Tests.DistributionMonitorHostChecks.Run);
+
+Test(Erlang.Tests.RuntimeActorDispatchHostNames.Test, Erlang.Tests.RuntimeActorDispatchHostChecks.Run);
+Test(Erlang.Tests.GarbageCollectionResultHostNames.Test, Erlang.Tests.GarbageCollectionResultHostChecks.Run);
+Test(Erlang.Tests.TraceHookRollbackHostNames.Test, Erlang.Tests.TraceHookRollbackHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

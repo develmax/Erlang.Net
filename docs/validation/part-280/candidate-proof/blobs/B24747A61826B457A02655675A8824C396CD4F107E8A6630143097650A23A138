@@ -1,0 +1,152 @@
+{
+  "Stage": "NATIVE269_INDEPENDENT_MONITOR13_SOURCE_REVIEW_REVISION3",
+  "Status": "PASS_BOUNDED_SOURCE_REVIEW",
+  "SourceFreeze": "artifacts\\distribution-monitor-foundation-main278-source-freeze-prebuild-revision3.json",
+  "SourceFreezeSha256": "C9227F0ED1C22A3ED332F2BA4B51BE476816F0D38D32FBBEF19255A2BF0053E3",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionProcessMonitor.cs",
+      "Sha256": "5630D86B7FD6657384DD966AE9EE62B1D504320BDC1BEC5A0D48B5C218B1586B",
+      "Bytes": 801
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionMonitors.cs",
+      "Sha256": "D0B5BD82BF4C4F4509D79D8618753E3CC621F5F65C7D1FFA43588B347456AD03",
+      "Bytes": 7769
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+      "Sha256": "C8221FF3EB4CD78C145E0BE7D9E2CB35CF75DB672500E01F8204E2783E82ABFF",
+      "Bytes": 16355
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+      "Sha256": "4E1972451DAD2837A845E2D99653A7968735850F305D2AFDAAECED3D99B73CB3",
+      "Bytes": 10586
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.MonitorSignals.cs",
+      "Sha256": "BCFE7A7E4BEFCB5A89ABADCA793763A6A517A981D5778801FEC2F71C86424F45",
+      "Bytes": 2965
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "Sha256": "56DCC8F572577E1ED74656F658A9C69AFDBA2675CAE66759A51B6801F3C58A13",
+      "Bytes": 6766
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionControlOpcodes.cs",
+      "Sha256": "C14776BF3EED4EBA7CAF9ABE71A1CD635809D8ABDE24530BA3F450CF884E4A81",
+      "Bytes": 2515
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+      "Sha256": "C0F01E07D0BBA8A17F2BB3A709BC1966E077B61F858A34A9515FB7D899C144FE",
+      "Bytes": 16153
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+      "Sha256": "54AA56813F7803C0731922C95BD4F8642DCED7E57AC046B8CBFD0A2EDE0023A5",
+      "Bytes": 1393
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMonitorHostChecks.cs",
+      "Sha256": "4B40BB318EB72E2FB2A1CD1A257802462ED91A16E6B38FD210400036341FE1A8",
+      "Bytes": 10450
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMonitorHostNames.cs",
+      "Sha256": "DE0CED15C792901F7AAF398486AED51EB04BB73F7026C4E3E1834AC999E26A3E",
+      "Bytes": 736
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "Sha256": "34F23582FCB534676072E3A429F1DB66DC540C86C630B4DB649EF9A983A9EA00",
+      "Bytes": 12812
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostNames.cs",
+      "Sha256": "C9EC470EC053F277A6B0B644ECC49DA9776EF2B08CD3096CBFDCC7C891F93219",
+      "Bytes": 1019
+    },
+    {
+      "Path": "probe/DistributionMonitorFocusNames.cs",
+      "Sha256": "D754015669411DA20029A3A224D46F2AE99FB4852E0682819A2D667263871710",
+      "Bytes": 492
+    },
+    {
+      "Path": "probe/MonitorFocus.csproj",
+      "Sha256": "F819D5E3FB501E79864C132A1152529819EA9CB27BF62099B938CB712E487C64",
+      "Bytes": 209
+    },
+    {
+      "Path": "probe/Program.cs",
+      "Sha256": "03C5D02176FA5CB658753B3945A3F62E3AA3B7967D7B9B249B30BD0D6FF4762A",
+      "Bytes": 686
+    }
+  ],
+  "ProductionAndNewActorElevenExactPriorRevision2": [
+    "src/Erlang.Runtime/DistributionProcessMonitor.cs",
+    "src/Erlang.Runtime/ProcessRuntime.DistributionMonitors.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.MonitorSignals.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+    "src/Erlang.Serialization/DistributionControlOpcodes.cs",
+    "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+    "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+    "tests/Erlang.Tests/DistributionMonitorHostChecks.cs",
+    "tests/Erlang.Tests/DistributionMonitorHostNames.cs"
+  ],
+  "PinnedSources": [
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Bytes": 220150
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.h",
+      "Sha256": "3A44065B5004819ACF1ECA68D99A8BFDA3D9E002C6CBB1BD64AF695E9BCA7091",
+      "Bytes": 16598
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_monitor_link.c",
+      "Sha256": "47ADDB89C2CF25D430AEEA803D335C28980641FAC9E06029B5CBD10C258904F9",
+      "Bytes": 53233
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519",
+      "Bytes": 344508
+    }
+  ],
+  "ResourcesVerified": 140,
+  "GapLedgerSha256": "A662415B311D165D73A029DA92B6F158AA5DB0536266E6D6ABAC8F5207CF010D",
+  "GapReplacementOnlyExact": true,
+  "CoreAndProgramUnchanged": true,
+  "Checks": [
+    "19/20/21 exact control-only tuple shape and reference typing",
+    "Fixed remote PID ownership; actual local ProcessContext and reference owner validation",
+    "Named demonitor keyed retained reference; old local PID monitor noproc and demonitor ignored",
+    "Actual target mailbox establishment and termination reason/noproc boundary",
+    "Origin DOWN mailbox callback suppresses removed monitor and matches retained connection object",
+    "Connection retirement noconnection and stale generation separation",
+    "Emission requires both 0x08 and 0x20; input shapes ungated as pinned dist.c",
+    "Reachable five-group focus; embedded resources actual published d7 blobs"
+  ],
+  "Limitations": [
+    "No public monitor/demonitor adapter integration",
+    "Duplicate reference replay and complete options/tag/priority/process_info remain explicit blockers",
+    "Payload monitor-exit opcode28 unsupported; no full negotiated protocol claim",
+    "Queue pressure/finalized buffer allocator parity not established",
+    "No build, focused execution, full Main or native execution performed by reviewer"
+  ],
+  "ReviewerSourceCommandErrors": [
+    "PowerShell brace expansion assumption and guessed inherited filename produced read-only failures; corrected exact file paths",
+    "Initial schema lookup FocusSources corrected to actual FocusFiles; no source mutation"
+  ],
+  "MainMutated": false,
+  "GitMutated": false,
+  "HeavyExecuted": false,
+  "NativeExecuted": false
+}

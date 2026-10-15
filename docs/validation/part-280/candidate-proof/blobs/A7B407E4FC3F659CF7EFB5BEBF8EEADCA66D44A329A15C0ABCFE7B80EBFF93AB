@@ -1,0 +1,42 @@
+{
+  "Status": "CONCRETE_SOURCE_DEFECT_FOUND_CORRECTION_PENDING",
+  "FreezeSha256": "05CD6D6727DADB32F19BAE80417A557BCB229AB957EA6A0002B4CCFC49F75EF9",
+  "FrozenCandidateFiles": 21,
+  "FrozenUnownedSeedFiles": 1660,
+  "AllFrozenBytesExact": true,
+  "AdditionalUnownedSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "Sha256": "400AACA207279DCFF076C14FC58B79DA62EF56E3958F1AF34E1A0664E8FBF9D3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "FA7817BD3F7C48CEDD2A1E3E360C05639B0487D1BF88AAD03B758AA5084DA856"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Sha256": "16028CA4038516C7FB1AF2068920B5D73B1CB47C478556F9BB4A144666E0A7F3"
+    }
+  ],
+  "Finding": {
+    "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+    "Method": "Start/Run",
+    "Trigger": "Create child ProcessRuntime inside parent runtime actor executing on the new custom scheduler. Child initializer starts inline under parent scheduler, and nested ReceiveAsync/Mailbox awaits capture it. Retire parent pair before later child init work/cancellation.",
+    "Effect": "Child control initializer may queue continuations onto completed parent scheduler and strand subsequent InitializeModulesAsync/DisposeAsync. The outer Run ConfigureAwait(false) does not suppress capture inside nested async methods.",
+    "RequiredFix": "Run startup explicitly scheduled on TaskScheduler.Default and unwrapped; retain synchronous TrapExits/register/preloaded boot installation and add nested-runtime parent-retired then child configure/dispose bound control."
+  },
+  "OtherReviewedSourceAreas": [
+    "Positive capacity uses actual pair.ConcurrentScheduler.MaximumConcurrencyLevel",
+    "StartNew/Unwrap tracked entire actor lifetime, completion observer default scheduler",
+    "Publisher gate includes enqueue and startup lock; pre-enqueue rejection rollback before link/trace hooks",
+    "Ordinary body/hibernate/cancellation/exception/finally semantics retained",
+    "Dispose/halt defer pair completion without unconditional self-await"
+  ],
+  "RuntimeReproductionExecuted": false,
+  "CauseClaimScope": "Static capture/dependency defect; no executed hang or correction proof claimed",
+  "GcWrapperRegistered": false,
+  "PhysicalSchedulerParityClaim": false,
+  "MainWritten": false,
+  "GitWritten": false,
+  "ReviewerBuildExecuted": false
+}

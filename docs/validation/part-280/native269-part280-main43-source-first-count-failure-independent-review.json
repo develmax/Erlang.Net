@@ -1,0 +1,57 @@
+{
+  "Status": "PASS_BOUNDED_MAIN43_SOURCE_AND_PRESERVED_FIRST_FAILURE_GUARD",
+  "SourceFreeze": "artifacts\\root-part280-main-source-freeze-after-count-repair.json",
+  "Sha256": "A2B2D2E81183CD7DF670988A2B6C8EF19DCB4E5271F508B4F8CC8C152098672F",
+  "Source43ExactCurrent": true,
+  "Prior42RowsExact": true,
+  "OnlyAddedSource43CountConstants": {
+    "Default": {
+      "Before": 500,
+      "After": 501
+    },
+    "OptionalIo": {
+      "Before": 502,
+      "After": 503
+    }
+  },
+  "FirstFull": {
+    "Passed": 6558,
+    "Total": 6559,
+    "Failed": 1,
+    "Failures": [
+      {
+        "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Dedicated halt process contract failed\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 21\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 99\r\n   at Erlang.Tests.HaltSubprocessHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltSubprocessHostChecks.cs:line 11\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4287",
+        "Milliseconds": 10
+      }
+    ],
+    "MfaRowsPassed": 501,
+    "NewGatherMfaPassed": true,
+    "Old6546NamesOrderExact": true,
+    "Added13": [
+      "mfa/erlang:gather_gc_info_result/1",
+      "oracle/compiled-module/erlang-gather-gc-result-bignum-signed-sums",
+      "oracle/compiled-module/erlang-gather-gc-result-floating-overflow-domain",
+      "oracle/compiled-module/erlang-gather-gc-result-floating-sums",
+      "oracle/compiled-module/erlang-gather-gc-result-integers",
+      "oracle/compiled-module/erlang-gather-gc-result-invalid-collections-consumed",
+      "oracle/compiled-module/erlang-gather-gc-result-invalid-reclaimed-consumed",
+      "oracle/compiled-module/erlang-gather-gc-result-invalid-reference-function-clause",
+      "oracle/compiled-module/erlang-gather-gc-result-selective-order-exact-count",
+      "runtime/distribution-monitor-owned-target-origin-generation-lifecycle",
+      "runtime/gc-result-reducer-selective-consume-and-cancellation",
+      "runtime/owned-actor-dispatch-capacity-continuation-and-retirement",
+      "runtime/queued-actor-trace-hook-failure-rollback"
+    ],
+    "PreservedFileRecordsExact": 99
+  },
+  "ProgramActualActorReviewed12PlusOnlyOneMonitorHostAppend": true,
+  "SupportedMfaFileStill500ExactHistoricalBecauseFailedRunDoesNotUpdate": true,
+  "SecondFullStatusAtReview": "PENDING_RUNNING_ROOT_SESSION61147",
+  "SecondFullPassClaim": false,
+  "IntegrationPackagesFirstFailureNotExecuted": true,
+  "MainWritten": false,
+  "GitWritten": false,
+  "HeavyExecuted": false
+}

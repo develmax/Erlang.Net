@@ -62,6 +62,7 @@ public sealed partial class ProcessRuntime
             StopLocalNode();
             localNodeEvents?.Close();
             disposed = true;
+            _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
             ReferenceResources.Close();
             stopped = processes.Values.ToArray();

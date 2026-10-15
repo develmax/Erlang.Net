@@ -1,5 +1,18 @@
 # Progress checkpoint — 2026-10-14
 
+Part280: actual Main6559/6559/full integration/packages, old6546names preserved plus13; meaningful per-runtime actor dispatch capacity and pinned pure gather_gc_info_result/1, eight compiled contracts and trace-hook rollback; real remote monitor160 plus inherited132/24/raw82/signal60. Default501/erlang343 of35197.7% API presence only; original eight GC and network monitor observations pending. Physical resource/scheduler/NIF/upstream/performance compatibility remains incomplete.
+
+Current API presence (not full semantic compatibility):
+
+| Module | Registered / reference APIs | Presence | Compatibility |
+|---|---:|---:|---|
+| erlang | 343 / 351 | 97.7% | Partial; eight APIs and runtime/protocol contracts remain |
+| lists | 91 / 91 | 100% | API list covered; full semantic/upstream parity remains partial |
+| maps | 34 / 34 | 100% | API list covered; full representation/upstream parity remains partial |
+| gen_server | 10 / 41 | 24.4% | Partial |
+| supervisor | 14 / 23 | 60.9% | Partial |
+
+Main validation: 6559/6559, integration and packages passed. New GC contracts await the original OTP run; remote monitor observations are being prepared. No overall weighted percentage or speed superiority is claimed.
 Part279: independently verified published278 CI6546/6546/full integration/packages and seven fresh original OTP queue scenarios,132 required raw artifacts. Preserve source/job/ZIP/typed statistics and full exceptions; queued memory differs from wire bytes and malformed-input statistics depend on teardown timing. No runtime/Core changes or SDK allocator accounting parity. Default500, erlang342/35197.4% API presence only; full distribution/physical/NIF/upstream/performance compatibility remains unfinished.
 
 Part278: Main6546/6546/full integration/packages; old6544 ordered names exact plus two permanent raw-input/signal HOST groups (41x2+60), old132/24 preserved. Real basic remote LINK/UNLINK/EXIT/control-only transport, Exiting/controller reuse guards and fixed external ownership; no new Core registrations. Actual Main standalone queue tool0/0/style0/14 refusal/raw5932ms controls pass; seven original queue scenarios pending publication/dispatch. Original2755812/5812+fd8 independently verified, only declared reductions correction; erlang342/35197.4% API presence, whole distribution/physical/scheduler/NIF/upstream/performance compatibility unfinished.

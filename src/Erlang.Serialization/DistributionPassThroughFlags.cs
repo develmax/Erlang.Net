@@ -2,6 +2,9 @@ namespace Erlang;
 
 public static class DistributionPassThroughFlags
 {
+    public const ulong ProcessMonitor = 0x08;
+    public const ulong NamedProcessMonitor = 0x20;
+    public const ulong ProcessMonitors = ProcessMonitor | NamedProcessMonitor;
     public const ulong ExtendedReferences = 0x04;
     public const ulong FunctionTags = 0x10;
     public const ulong NewFunctionTags = 0x80;

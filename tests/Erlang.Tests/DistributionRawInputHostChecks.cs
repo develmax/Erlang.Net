@@ -65,10 +65,9 @@ internal static class DistributionRawInputHostChecks
         var remote = new Pid(DistributionRawInputHostNames.Remote, 1, 0);
         var reference = new ReferenceTerm(DistributionRawInputHostNames.Remote, new uint[] { 1 }, 0);
         await Unsupported(Term.Tuple(
-            Term.I(DistributionRawInputHostNames.MonitorOpcode),
+            Term.I(DistributionRawInputHostNames.GroupLeaderOpcode),
             remote,
-            receiver.Process.Pid,
-            reference
+            receiver.Process.Pid
         ));
         Check(!controller.Process.Completion.IsCompleted);
         Check((await Put(Cons.From(packet.Select(value => (Term)Term.I(value))))).Equals(DistributionRawInputHostNames.Ok));

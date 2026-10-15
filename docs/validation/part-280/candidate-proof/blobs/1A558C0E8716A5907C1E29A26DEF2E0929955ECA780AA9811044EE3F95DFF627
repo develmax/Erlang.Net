@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,subprocess,re,difflib
+H=lambda b:hashlib.sha256(b).hexdigest().upper();p=Path('artifacts/distribution-monitor-permanent-promotion-source-freeze-prebuild-revision9.json');f=json.loads(p.read_bytes());c=Path(f['Candidate']);a=json.loads(Path('artifacts/distribution-monitor-foundation-main278-source-freeze-final-revision8.json').read_bytes());o=json.loads(Path('artifacts/distribution-monitor-foundation-main278-source-freeze-prebuild-revision3.json').read_bytes());actual={r['Path']:r for r in a['Files']};prior={r['Path']:r for r in o['Files']};rows=[];WS=lambda s:re.sub(r'\s','',s)
+assert H(p.read_bytes())=='73C8E49491EB78E5CF7213023C60CB81FE36949C5FBBF3B7398FD35299856AAE'
+for r in f['Files']:
+ b=(c/r['Path']).read_bytes();assert len(b)==r['Bytes'] and H(b)==r['Sha256'] and b.decode()==r['SourceContent'];rows.append({'Path':r['Path'],'Sha256':H(b),'Bytes':len(b),'CRCRLF':b.count(b'\r\r\n')})
+assert len(rows)==15 and len(f['ProductionPaths'])==10 and len(f['TestPathsExcludingProgram'])==4
+new={r['Path']:r for r in f['Files']};dup='if(distributionProcessMonitors.Any(item=>!item.Origin&&ReferenceEquals(item.Entry,entry)&&ReferenceEquals(item.Connection,connected)&&item.Reference.Equals(reference)))thrownewNotSupportedException(DistributionMonitorDiagnostics.DuplicateReference);'
+for path in f['ProductionPaths']:
+ assert new[path]['Sha256']==actual[path]['Sha256']
+ if path in prior:
+  after=WS(new[path]['SourceContent']);before=WS(prior[path]['SourceContent']);assert after.replace(dup,'')==before
+  assert re.findall(r'"(?:\\.|[^"\\])*"',new[path]['SourceContent'])==re.findall(r'"(?:\\.|[^"\\])*"',prior[path]['SourceContent'])
+checks='tests/Erlang.Tests/DistributionMonitorHostChecks.cs';names='tests/Erlang.Tests/DistributionMonitorHostNames.cs';guard='if(checks!=DistributionMonitorHostNames.ExpectedAssertions)thrownewInvalidOperationException(DistributionMonitorHostNames.Failure);';constant='internalconstintExpectedAssertions=160;'
+for path in f['TestPathsExcludingProgram']:
+ after=WS(new[path]['SourceContent']);before=WS(actual[path]['SourceContent']);assert after.replace(guard,'').replace(constant,'')==before
+program=new['tests/Erlang.Tests/Program.cs'];current=Path(program['Path']).read_bytes();assert H(current)==program['BeforeSha256'];append='Test(Erlang.Tests.DistributionMonitorHostNames.Test,Erlang.Tests.DistributionMonitorHostChecks.Run);';assert WS(program['SourceContent']).replace(append,'')==WS(current.decode()) and WS(program['SourceContent']).count(append)==1
+for path in ['tests/Erlang.Tests/DistributionRawInputHostChecks.cs','tests/Erlang.Tests/DistributionRawInputHostNames.cs']:
+ before=WS(Path(path).read_bytes().decode());after=WS(new[path]['SourceContent'])
+ if path.endswith('Checks.cs'):before=before.replace('DistributionRawInputHostNames.MonitorOpcode','DistributionRawInputHostNames.GroupLeaderOpcode').replace('receiver.Process.Pid,reference));','receiver.Process.Pid));')
+ else:before=before.replace('MonitorOpcode=19','GroupLeaderOpcode=7')
+ assert before==after
+pin='ad05823719d77c8faee87348ea39513d4e2f99c5';pins=[]
+for path in ['erts/emulator/beam/emu/beam_emu.c','erts/emulator/beam/erl_monitor_link.h']:
+ b=subprocess.check_output(['git','-C','../otp','cat-file','blob',pin+':'+path]);pins.append({'GitReference':pin+':'+path,'Bytes':len(b),'Sha256':H(b)})
+ if path.endswith('beam_emu.c'):assert b'"normal"' in b or b'am_normal' in b
+ar=Path(f['Actual8Receipt']);assert H(ar.read_bytes())==a['ActualReceiptSha256'];receipt=json.loads(ar.read_bytes());assert receipt['Target']['ExitCode']==0 and receipt['Target']['Errors']==receipt['Target']['Warnings']==0 and receipt['OwnedStyle']['ExitCode']==0 and receipt['Focus']['ExitCode']==0
+out={'Status':'PASS_BOUNDED_MONITOR_PERMANENT15_SOURCE_REVIEW','SourceFreeze':str(p),'Sha256':H(p.read_bytes()),'Files15':rows,'Production10ExactActual8':True,'ProductionExceptOnePrivateDuplicateRefGuardTokensAndQuotedValuesExactReviewed3':True,'ActorActionsExactActual8AfterOnlyNoncounting160GuardAndNamesConstantRemoval':True,'ProgramOneHostAppendOnly':True,'Raw41ExceptionAndCountGuardUnchangedOnlyAuthorizedGroupLeaderShapeReplacement':True,'Actual8ReceiptSha256':H(ar.read_bytes()),'Actual8Focus':receipt['Focus'],'PinnedAdditionalSource':pins,'InitialErrorsPreserved':['Private HOST constant visibility','GROUP_LEADER reference removal initially missed LF resulting wrong tuplearity','Implicit process completion expectedNil corrected to actual normal'], 'Bounds':['Private duplicate-active incoming reference NotSupported is explicit unsupported scope; no claim native malformed/badarg/fatal','Ordinary monitor options/tag/alias/priority/process_info/payload28 remain blockers','Postactual8 count guard and Program append not separately executed by reviewer','Two count-guard source files contain CRCRLF lines; exact raw freezes bind them and later owned formatting must record token-only delta'],'NoCoreRegistrations':True,'MainWritten':False,'GitWritten':False,'HeavyExecuted':False,'NativeExecuted':False};op=Path('artifacts/native269-monitor-permanent15-revision9-independent-source-review.json');op.write_bytes((json.dumps(out,indent=2)+'\n').encode());print(H(op.read_bytes()))

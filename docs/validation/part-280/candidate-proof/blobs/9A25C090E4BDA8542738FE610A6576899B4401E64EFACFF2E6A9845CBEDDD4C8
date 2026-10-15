@@ -1,0 +1,23 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_PEER_ACTOR22_AFTER_DEFAULT_INITIALIZER_REPAIR",
+  "FreezeSha256": "1F37B924A59B85DAEACA73534392128BEA5A34D4388A7FEF71959FF63F41E090",
+  "OwnedFiles": 22,
+  "UnownedSeedFiles": 1690,
+  "AllFrozenRawBytesExact": true,
+  "OwnedSemanticDeltaFromRejectedRevision1": [
+    "src/Erlang.Runtime/RuntimeInitializer.cs",
+    "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs"
+  ],
+  "EarlierFindingReceipt": "artifacts/native269-actor-dispatch-revision1-source-findings.json",
+  "DefaultInitializationRepairOnly": "Explicit Default StartNew/Unwrap replacing inline Run after unchanged synchronous boot registration/preload; all initializer loop/actions unchanged",
+  "NewNestedRuntimeControlSourceChecked": "Construction/configuration inside parent custom actor; parent pair retired/completed; child default callback reconfiguration, actual child actor module invocation, dispose and pair completion with deadlines",
+  "EarlierOrdinaryActorLoopUnwindSemanticsPreserved": true,
+  "RetirementPublicationRollbackSourceChecked": true,
+  "SystemInfoSchedulersScope": "Actual configured per-runtime synchronous language dispatch segment bound; not physical BEAM scheduler/GC/host work parity",
+  "GcDependenciesUnregistered": true,
+  "ScopeWarning": "ConfigureAwait(false)/Task.Run arbitrary HOST callback escape remains explicit; default init/control independent, no global ThreadPool mutation",
+  "RuntimeReproductionOrBuildByReviewer": false,
+  "InitialDefectHistoricalRuntimeOutcomeInvented": false,
+  "MainWritten": false,
+  "GitWritten": false
+}

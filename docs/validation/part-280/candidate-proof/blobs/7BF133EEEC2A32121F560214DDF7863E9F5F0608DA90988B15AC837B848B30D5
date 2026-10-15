@@ -1,0 +1,16 @@
+namespace Erlang.Tests;
+
+internal static class DistributionMonitorHostNames
+{
+    internal const string Test = "runtime/distribution-monitor-owned-target-origin-generation-lifecycle";
+    internal const string Local = "monitor_local@localhost";
+    internal const string Remote = "monitor_remote@localhost";
+    internal const string Target = "monitored_target";
+    internal const string Missing = "missing_monitor_target";
+    internal const string Failure = "Connected monitor foundation assertion failed";
+    internal const uint RemoteCreation = 7;
+    internal const ulong RemoteNumber = 11;
+    internal const ulong RemoteReference = 13;
+    internal const ulong IndependentReference = 17;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+}

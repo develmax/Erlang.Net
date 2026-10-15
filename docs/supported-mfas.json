@@ -2497,6 +2497,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "gather_gc_info_result",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:gather_gc_info_result/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
     "Function": "function_exported",
     "Arity": 3,
     "Status": "Partially compatible",

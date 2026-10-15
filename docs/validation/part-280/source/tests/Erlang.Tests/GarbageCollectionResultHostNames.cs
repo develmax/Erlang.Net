@@ -1,0 +1,10 @@
+namespace Erlang.Tests;
+
+internal static class GarbageCollectionResultHostNames
+{
+    internal const string Test = "runtime/gc-result-reducer-selective-consume-and-cancellation";
+    internal const string Ignored = "gc_reply_sender";
+    internal const string Marker = "gc_unmatched_marker";
+    internal const string Failure = "Garbage collection result reduction assertion failed";
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+}

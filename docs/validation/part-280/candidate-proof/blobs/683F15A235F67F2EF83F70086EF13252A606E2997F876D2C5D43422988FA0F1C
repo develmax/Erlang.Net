@@ -1,0 +1,28 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_REVIEW_AFTER_EXPLICIT_REACHABILITY_CORRECTION",
+  "SourceFreeze": "artifacts\\dist_next-actor-gc-registration-source-freeze-prebuild-revision9.json",
+  "Sha256": "8DEA2CE4908E75212F988C9363641E7B38D39679CF1D5CD726586D7F0231C622",
+  "Original8Finding": "artifacts\\native269-actor-gc-registration8-independent-source-findings.json",
+  "Original8FindingSha256": "4A8DA893412AFF011D4A254A588885C92A36BC7190A8739516088B27A3AFB574",
+  "Only9Delta": [
+    "probe/Program.cs"
+  ],
+  "Delta": "--- \n+++ \n@@ -16,7 +16,6 @@\n         Console.WriteLine(name);\n     }\n \n-    return 0;\n     foreach (var fixture in Erlang.Differential.GarbageCollectionResultCases.Modules)\n     {\n         using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);\n@@ -25,6 +24,8 @@\n             throw new InvalidOperationException(ActorDispatchFocusNames.CompiledFailure + fixture.Name);\n         Console.WriteLine(fixture.Name);\n     }\n+\n+    return 0;\n }\n catch (Exception exception)\n {\n",
+  "Owned31Exact": 31,
+  "UnownedExact": 1687,
+  "ProgramOldBodyExactAfterOnlyThreeHostAppendsAndOneMfaRouteRemoval": true,
+  "Registration": "ReferenceTerm function_clause first, then actual positive runtime ActorDispatchCapacity; Core installed exactly gather_gc_info_result/1",
+  "Reducer": "Pinned ref/tuple2+stats tuple3 selection, arithmetic collections then reclaimed, exact remaining count and selective mailbox preservation",
+  "InjectedHost": "Real existing IncomingTerm delegate throws on sequence-trace message while linked child queued; process/slot/link cleanup, zero worker bodies, repeated attempts and subsequent actual spawn tested by proposed code",
+  "PriorActorSemanticReview": "artifacts/native269-actor-dispatch-revision2-independent-source-review.json",
+  "HistoricalOriginalEightFixtureTokensAndQuotedValuesExact": true,
+  "BoundedClaims": [
+    "Configured synchronous language dispatch capacity is actual scheduler MaximumConcurrencyLevel; physical BEAM threads/GC production parity unclaimed",
+    "Original eight native cases not executed by this source review",
+    "Cumulative disposal/selfdispose and inherited budgets require actual target/focus/full checks before promotion"
+  ],
+  "ReviewerHeavyExecuted": false,
+  "MainWritten": false,
+  "GitWritten": false,
+  "NativeExecuted": false
+}

@@ -1,0 +1,563 @@
+{
+  "Stage": "ACTUAL_BOUNDED_REGISTERED_GC_AND_TRACE_ROLLBACK_TERMINAL_PASS_REVISION12",
+  "PrebuildFreeze": "artifacts\\dist_next-actor-gc-registration-source-freeze-prebuild-revision12.json",
+  "PrebuildFreezeSha256": "696ED4DECFB6DCB3606A236B2857E491DD77C2A0C19EC97CABCEF4FA3C0B3B8A",
+  "ExecutedSession": 68005,
+  "ProcessExitCode": 0,
+  "TargetErrors": 0,
+  "TargetWarnings": 0,
+  "OwnedStyleChanges": 0,
+  "Source31Exact": true,
+  "Unowned1687Exact": true,
+  "HostGroups": [
+    "Erlang.Tests.RuntimeActorDispatchHostChecks",
+    "Erlang.Tests.TraceHookRollbackHostChecks",
+    "Erlang.Tests.GarbageCollectionResultSmokeContracts",
+    "Erlang.Tests.GarbageCollectionResultHostChecks",
+    "Erlang.Tests.ProcessSuspensionHostChecks",
+    "Erlang.Tests.ProcessInfoObservableHostChecks",
+    "LocalFunctionIdentityChecks"
+  ],
+  "CompiledSourceContracts": [
+    "erlang-gather-gc-result-integers",
+    "erlang-gather-gc-result-selective-order-exact-count",
+    "erlang-gather-gc-result-floating-sums",
+    "erlang-gather-gc-result-bignum-signed-sums",
+    "erlang-gather-gc-result-invalid-reference-function-clause",
+    "erlang-gather-gc-result-invalid-collections-consumed",
+    "erlang-gather-gc-result-invalid-reclaimed-consumed",
+    "erlang-gather-gc-result-floating-overflow-domain"
+  ],
+  "CompiledResultEvidence": "Runner actually compiled each frozen source, awaited actual registered execution and compared result with fixture.Expected before printing exact name. Captured log has all8 once. Generated compiler temporary files disposed normally; no fabricated retained generated artifacts or native raw outcomes.",
+  "OutputClosure": [
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ActorDispatchFocus.deps.json",
+      "Sha256": "F5C46E147CF7F117ABA5E42761AA7A28485D90F326A149BCE7BF44D8783830CD",
+      "Bytes": 17755
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ActorDispatchFocus.dll",
+      "Sha256": "35ABA1AE2F73CB1FF68EC55E13538714DB1CF2030C442324559CDE5C6A3BD0C2",
+      "Bytes": 9728
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ActorDispatchFocus.exe",
+      "Sha256": "721E9D83FF815D3ECEC742F693A4B46039ACA0758306C0514215D70B6FA8C0F2",
+      "Bytes": 162816
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ActorDispatchFocus.pdb",
+      "Sha256": "C9A8B1B3B1FE2319D85C8997770A32DAB3244B011061BECF873409E6CC4DA705",
+      "Bytes": 13760
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ActorDispatchFocus.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Compiler.dll",
+      "Sha256": "7C0D2EACF30BBC3A5D4A726A7F82C692A4B6E0A428A66E295479DC215C50D144",
+      "Bytes": 348672
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Compiler.pdb",
+      "Sha256": "142207E375B1B47F2E8154A85E134BC71E47618C84FFB235F47916F2BA02F8D9",
+      "Bytes": 196240
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Differential.deps.json",
+      "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD",
+      "Bytes": 6189
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Differential.dll",
+      "Sha256": "1439D0D10ECC78842F2A1ECFFC33E471A29ED22F535843796FFEEF53A4E52166",
+      "Bytes": 1458688
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Differential.exe",
+      "Sha256": "2015E8B38D7DFCF1F23771EDC6E50DCF15F169C89BA0A0CF253242F3C59E96DD",
+      "Bytes": 162816
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Differential.pdb",
+      "Sha256": "D4E37FCBD8F49B4B57BC9E0E9D332E93E642A697D3BBF4F6892AAC42E0C9426B",
+      "Bytes": 342400
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Differential.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.HaltProbe.deps.json",
+      "Sha256": "13B3DFDE2D0B3C59C59CA493EBE5EEB920BA7C740A93C9346EE1122A1CCCC1E5",
+      "Bytes": 9263
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.HaltProbe.dll",
+      "Sha256": "4320FA5865CAB3A5CCAD381A80F080938FFA98F1E8259ABFF955043CC6F2F428",
+      "Bytes": 96768
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.HaltProbe.exe",
+      "Sha256": "0B7C5D1A4B3C0F94B741D1DD6AF156E5069E45933A35297BA555231EA649E46A",
+      "Bytes": 162304
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.HaltProbe.pdb",
+      "Sha256": "C6B96AB6723A42F7B2141914526732F09890A5FC39366C9FD1E957BCE976A98B",
+      "Bytes": 44576
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.HaltProbe.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Otp.Behaviours.dll",
+      "Sha256": "A8E3A8F662A716EFF95E3F570168DE65CE3E4A53066380144D8038D2F2A7B343",
+      "Bytes": 125952
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Otp.Behaviours.pdb",
+      "Sha256": "F8309E8C1D5C67CE089C6879A792BCF94B8B26003253206F37085BADD7B97D89",
+      "Bytes": 59344
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.PortProbe.deps.json",
+      "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E",
+      "Bytes": 442
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.PortProbe.exe",
+      "Sha256": "9926688DAE05C55BDF03B9BCCF761CC969EA51C6ADED42520D129BB430C87A0D",
+      "Bytes": 162304
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.PortProbe.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Runtime.dll",
+      "Sha256": "66B78C75A78CCA635A80A378B425D4440F190845ACFDE948737C50D15735C7D4",
+      "Bytes": 1062400
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Runtime.pdb",
+      "Sha256": "D5AEF42D11A2A1A049D92FFD2D09EB9C2760F2E97BB4EC2DAAE16823F112F58F",
+      "Bytes": 669284
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Serialization.dll",
+      "Sha256": "419238988CDC7F51CA9D57717BD7FCF9CCD291FE27682E41B496C58BE474A49E",
+      "Bytes": 65024
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Serialization.pdb",
+      "Sha256": "EA8F4C1E4AAF46CBF70602AAB4337BBD9052FB2DED5D2BE7A17F3BAE13FD6FE6",
+      "Bytes": 54380
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Style.deps.json",
+      "Sha256": "F852985FCD24AE810B7647C11BE43665CB8E4726539A43647B20746FA663F27D",
+      "Bytes": 10114
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Style.dll",
+      "Sha256": "9B3FAEB56227CF56D653468C39CE216DE9FC57AF94E437E9AB866D99C1B09850",
+      "Bytes": 16896
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Style.exe",
+      "Sha256": "1AEAC0AB3A710B1B0FCD48F203FF607920C5DF2CF526EEC9587FFC64D617F5C9",
+      "Bytes": 162304
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Style.pdb",
+      "Sha256": "3F4EC1F9D20FED19B4CB44E41C75663E3C93EA3B77BAA2E8535F43A2CF1D4B38",
+      "Bytes": 18504
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Style.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Terms.dll",
+      "Sha256": "09E1698037B4B5DDE8C717CA4F8862D2F8A6F95B6E4EA74FBDDC0659CF42B65B",
+      "Bytes": 93184
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Terms.pdb",
+      "Sha256": "05A5CB5EECEDD559F8675D2D0D5B8F73335F127F2F5100C0A7589E3C59EB35DE",
+      "Bytes": 57964
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Tests.deps.json",
+      "Sha256": "818F56A4424C3F9BB4D3B714056AF06F1F5F74932FB4D3188DA5866E7B35A1B7",
+      "Bytes": 16223
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Tests.dll",
+      "Sha256": "038273E86D2A50D2AF43B91CD4B4E4B46304F04806EFF39A2F1DFBBB0F26F0B3",
+      "Bytes": 1979904
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Tests.exe",
+      "Sha256": "7DE3F9155682A859E9221E0F64DF3E7D8C9E3E59605362AE31EACE64EA14D706",
+      "Bytes": 162304
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Tests.pdb",
+      "Sha256": "300DAEFBB4D5EAB75FF0D43ACC8495F79127C156BE300A96508D420ED8BE81EC",
+      "Bytes": 633980
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Erlang.Tests.runtimeconfig.json",
+      "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414",
+      "Bytes": 270
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Humanizer.dll",
+      "Sha256": "0E9520CB7869A955182BD7E8EF648A1319A050A44D435CE6DFF33A5EADB5F092",
+      "Bytes": 366040
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Microsoft.CodeAnalysis.CSharp.dll",
+      "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB",
+      "Bytes": 19191632
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Microsoft.CodeAnalysis.CSharp.Workspaces.dll",
+      "Sha256": "3A2CA6E36CBD85456DBF40B2F90ABAEE8C2BF12BF0FE906EC70BFDD8A1D62097",
+      "Bytes": 967976
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Microsoft.CodeAnalysis.dll",
+      "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78",
+      "Bytes": 8292136
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\Microsoft.CodeAnalysis.Workspaces.dll",
+      "Sha256": "115B242E4673D8F341EB4027B3E5B850CF92D1101D4BFC7BDF136AB2FA8AFD1D",
+      "Bytes": 4328744
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\cs\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7",
+      "Bytes": 453968
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\cs\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "E92A2C38F73C588719315C4B8782FC78E693FBB9EF071ED0F9E644059B8D4DCD",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\cs\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B",
+      "Bytes": 41296
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\cs\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "12D2AC665ABDF168A7CCAD132CF3AD50C174AF5D3BDD2323DD0666619031AD08",
+      "Bytes": 40784
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\de\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3",
+      "Bytes": 485672
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\de\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "97DD348D768D2C716B5D6BDF6D39EE18AB34DCEBD602ACBA61A25415FDB46FAF",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\de\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8",
+      "Bytes": 42792
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\de\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "B3F22E2F6F83E3E3755431074B69661DB34030E4FD210A88803E3D4CB3CD3E71",
+      "Bytes": 42280
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\es\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE",
+      "Bytes": 474960
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\es\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "5B74021C9885593D7D11A6DFCE05049B7919E9AB92949FF8901E0D264D934159",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\es\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F",
+      "Bytes": 42280
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\es\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "B7F599B123C3F685B3B17CEF0745E4C0FE3A0BB2651F02681C7341DE1B6DCD66",
+      "Bytes": 41808
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\fr\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD",
+      "Bytes": 488744
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\fr\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "99D7641DB17EE4090A851B31674D7C2466A97BBCAA28A1C028C7EE47CB27C9F4",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\fr\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420",
+      "Bytes": 42792
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\fr\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "15B65047135AE260B983A2EFC8F049CBE99A73EBCE0781B888A41DF0724CC688",
+      "Bytes": 42832
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\it\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF",
+      "Bytes": 481064
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\it\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "3722727F0B9E55412429AC1C61C7408745CAAF005270C08073AB9B92A196EF9A",
+      "Bytes": 17232
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\it\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9",
+      "Bytes": 42792
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\it\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "BF37B41CB1152D5457B368A39A70F3346AD158A3D178B0D19B38DBC066857BCB",
+      "Bytes": 42320
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ja\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526",
+      "Bytes": 530728
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ja\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "E8902992C729654B3F9F6E94329720DD4AC9A6D67EB1CD11183AD1072CD350AA",
+      "Bytes": 17232
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ja\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796",
+      "Bytes": 45352
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ja\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "7243AC92F342E1815793E8E660B41ED6A08698F23C1AC18A675B709AE777B66C",
+      "Bytes": 44880
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ko\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC",
+      "Bytes": 486696
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ko\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "B8F9CDEA35DDB76C7E345B2CDBDA5A514C48052CA8ADC6DDDD9708BDED046451",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ko\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F",
+      "Bytes": 42832
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ko\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "77AFF2FC015B2107B20B463F5F84F617F1A40D3256579066D5F586F7A0E1DF7D",
+      "Bytes": 42320
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pl\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE",
+      "Bytes": 488272
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pl\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "70394AA9F80763C2F729DD59B6AAB5C5B3E755CEE841D1B248EEDB76A3CD05F7",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pl\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7",
+      "Bytes": 42832
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pl\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "074CC0984645DF57BB6EE5A842B815803B996D11C601A373060F2FC48B8237D6",
+      "Bytes": 42280
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pt-BR\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126",
+      "Bytes": 466256
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pt-BR\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "AF297D52B88172AF29D713974AD276FFB4DE632F1951DB1275F51EB7B995C95F",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pt-BR\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810",
+      "Bytes": 41768
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\pt-BR\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "AE210DE36CEE7EED6946AA41A4976F21FA54E818E6DDC023F8595AD9082C0586",
+      "Bytes": 41808
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ru\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19",
+      "Bytes": 640848
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ru\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "FADA56B875EFE7D6C76A5007F3861CF8E58987B1F660FB1CD80C2B5F46628DC5",
+      "Bytes": 17744
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ru\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467",
+      "Bytes": 51536
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\ru\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "ADEBA0AB1AD8438EB760AA312F9FA847630188AFB513ABC00E56DCDF911FBA67",
+      "Bytes": 47400
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\tr\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70",
+      "Bytes": 462120
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\tr\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "68BA01A3BE87EC35F56B9FE254393EDF8CCED78D15EFE15D22ABD0FC9F76A4A3",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\tr\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA",
+      "Bytes": 41256
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\tr\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "0DFFA4CDDB2A5F6245CFA920A9492D5259AA86A262FE9C532541D67E4F180F5D",
+      "Bytes": 41256
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hans\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E",
+      "Bytes": 411472
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hans\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "F5B0F8BE0C6FCF7BC0C059ACF2812340DEE8D83383D75FA5BC56CF99BCA06A90",
+      "Bytes": 17232
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hans\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0",
+      "Bytes": 38736
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hans\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "369654F7504AEA87548D5432450DE759226279C96F0B640E8025DC1CDD611FFE",
+      "Bytes": 39248
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hant\\Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA",
+      "Bytes": 410920
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hant\\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+      "Sha256": "54AEF341E27C1C282D2CBD36684D64451BDD0C777F35B3C790211D7E9FDF9652",
+      "Bytes": 17192
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hant\\Microsoft.CodeAnalysis.resources.dll",
+      "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087",
+      "Bytes": 38736
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\output\\zh-Hant\\Microsoft.CodeAnalysis.Workspaces.resources.dll",
+      "Sha256": "8666BC0717DE44EC44E639A07533748A2B9D99DB7C89D6A68419576D87A50AC7",
+      "Bytes": 39208
+    }
+  ],
+  "Logs": [
+    {
+      "Kind": "target",
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\target.log",
+      "Sha256": "1B3B0F74ED4C71F0A6F6D6F7C183EE1ADF00830B2875FA8CEDDD1F5A223C0428"
+    },
+    {
+      "Kind": "style",
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\style.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Kind": "focus",
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision12-executed\\focus.log",
+      "Sha256": "94C7BBD307DC48B44CF0B4F27DF3A0B55DFDAD65D1A8627EBA2418178DD3E2D4"
+    }
+  ],
+  "FailuresPreserved": [
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision9-first-target-failure\\receipt.json",
+      "Sha256": "BEA9B3CF4B9D604894418F3F49B70D06BBA4C7BA4A0348AE5BE64B01363AFF62"
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision10-second-target-failure\\receipt.json",
+      "Sha256": "8FE15779E6DB4C5F60D5504C818F8B7F51FFA8D61063264543F38178A2A05BB4"
+    },
+    {
+      "Path": "artifacts\\dist_next-actor-gc-registration-revision11-first-style-failure\\receipt.json",
+      "Sha256": "AF91EE0E08312D186EF761B7134F3D2EC488DE973EC736FEB6302D784377E6F7"
+    }
+  ],
+  "IndependentFinalSourcePeer": {
+    "Path": "artifacts\\native269-actor-gc12-independent-source-delta-review.json",
+    "Sha256": "A775DA8B916808A9388AD18E92070EB92B46FED660C80CA6C6BD87BE12975F6F"
+  },
+  "ActualScope": [
+    "Real configured actor dispatch capacities1/2/4 and old async lifetime controls",
+    "Default initializer and nested runtime config/invoke/dispose after parent pair retirement",
+    "Repeated post-queue linked spawn failures caused by test-only reflection injection into real tracer IncomingTerm callback; no child body or link/slot leak",
+    "Actual registered gather_gc_info_result/1 on capacities1/2/4 with function_clause guard, exact selective count and mailbox residual ordering",
+    "Eight unchanged genuine Erlang source contracts, including badarith consumed reply and floating overflow",
+    "Existing internal reducer cancellation, suspension, process observable and local function identity controls"
+  ],
+  "Limits": [
+    "No native execution by this agent",
+    "No full Main suite by this agent",
+    "Configured language TaskScheduler capacity only; no physical BEAM schedulers/thread/performance compatibility claim",
+    "Wrapper collects supplied scheduler-style replies; no physical GC implementation claim",
+    "Injected InvalidOperationException is HOST robustness, not Erlang native error parity"
+  ],
+  "HistoricalAuthoringCorrection": "First Test insertion occurred before slash-vs-backslash source-row assertion. Retry inserted duplicate. Earlier LF/no-mutation description was wrong and explicitly superseded by10 failure/11 correction; actual final source has exactly one Test.",
+  "MainMutated": false,
+  "GitMutated": false,
+  "HeavyReleased": true
+}

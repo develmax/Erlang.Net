@@ -101,6 +101,12 @@ public sealed partial class RuntimeDistributionPending
     {
         var items = control.Items;
         int opcode = (int)((Integer)items[DistributionControlOpcodes.OpcodeIndex]).Value;
+        if (opcode is DistributionControlOpcodes.Monitor or DistributionControlOpcodes.Demonitor or DistributionControlOpcodes.MonitorExit)
+        {
+            RouteRawConnectedMonitorControl(entry, connected, control);
+
+            return;
+        }
         bool unlink = opcode is DistributionControlOpcodes.UnlinkId or DistributionControlOpcodes.UnlinkIdAck;
         Pid remote = (Pid)items[unlink ? DistributionControlOpcodes.UnlinkFromIndex : DistributionControlOpcodes.FromIndex];
         Pid local = (Pid)items[unlink ? DistributionControlOpcodes.UnlinkTargetIndex : DistributionControlOpcodes.TargetIndex];
