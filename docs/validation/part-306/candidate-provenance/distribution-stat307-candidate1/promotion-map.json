@@ -1,0 +1,175 @@
+{
+  "Status": "SOURCE_ONLY_UNBUILT_BASE_AND_SEPARATE_ACTIVATION",
+  "PublishedParentHeadAtPreparation": "51994bed995f9dbf31b8b88b3381cad2642012e0",
+  "RequiredAdditional305WorkingClosure": {
+    "Path": "artifacts/root-part305-final-source-freeze.json",
+    "Sha256": "5D712DACFAA2298F608472CC1D75AF83C25162AFD4FBD7474871A60A8CA4D255",
+    "Paths": 30,
+    "CSharpPaths": 24,
+    "Instructions": "Any isolated snapshot must include allactualcombined305workingclosure, notHEADalone. After305publication rebaseonlyexplicitMainparents. Program registration isadditive;preserveboth305newrows."
+  },
+  "Base": [
+    {
+      "Path": "src/Erlang.Runtime/HostDistribution.cs",
+      "Parent": {
+        "Bytes": 10927,
+        "Sha256": "CCD4B51E504C25BB5A13FCDFFF5A07005498644A629C74191D0E94D94698615F"
+      },
+      "Result": {
+        "Bytes": 11742,
+        "Sha256": "9F6B8450BFA743DAF4D9EC7CC4BF14504B0BE4AC7C5F8944F0A455982FBAAEAA"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionBuffer.cs",
+      "Parent": {
+        "Bytes": 912,
+        "Sha256": "981F4D281988D1917D4520ACF81152FC88C6E007C28C65F30F859C7D4567256D"
+      },
+      "Result": {
+        "Bytes": 1060,
+        "Sha256": "97CA9DFFCDAF94CD60D50D361183D7EF01FBB2F23F7BB7E93948CB6086C6DA08"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionBufferStorage.cs",
+      "Parent": null,
+      "Result": {
+        "Bytes": 513,
+        "Sha256": "D62FADD176D11C639ABAE9FFBDC6968D9AED4EEC3122DF0D50EAF649E71F53B0"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/HostDistributionEntry.cs",
+      "Parent": {
+        "Bytes": 930,
+        "Sha256": "DFC6B9E3F7ADA405C30E605EBB9600031F906CEF2EB8BB0421E6C4F807411E70"
+      },
+      "Result": {
+        "Bytes": 984,
+        "Sha256": "FB2189DED99F0A96B1545C4EB7F557380C16BC75C67EB831D3C3952F55073327"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.NodeController.cs",
+      "Parent": {
+        "Bytes": 5787,
+        "Sha256": "097A1F6B9510BE0BCB3FEF74040C215FA108B90EC0B1E1C94CF32861A71A52FD"
+      },
+      "Result": {
+        "Bytes": 5435,
+        "Sha256": "0DEE3721302DB6C4215567BC468C31997E9328C71C7B3663BFC7515B6E1AC102"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.RawInput.cs",
+      "Parent": {
+        "Bytes": 3740,
+        "Sha256": "1E4EE3DEA4E384F8E0A9C4BAF65867CF2510B506740E0D931192303707CACFD1"
+      },
+      "Result": {
+        "Bytes": 3424,
+        "Sha256": "59B5D1729CCF57F41245C52890770F30379DEBA4BC4711A4F9A986DEFC97C8BE"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.Statistics.cs",
+      "Parent": null,
+      "Result": {
+        "Bytes": 1519,
+        "Sha256": "BDF365A010CEC953D7189E8B2C919B31B25A2ABD01C281475253C97A6B6DBCEB"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedDistributionHostChecks.cs",
+      "Parent": {
+        "Bytes": 28739,
+        "Sha256": "DADBDD900DED509485AEFE4E761D48EFF9A3B87F35C459CA1EAB8AE5D573C690"
+      },
+      "Result": {
+        "Bytes": 28770,
+        "Sha256": "479B5EE1096B06AB4C327DFFF5E0357976164570C53A1327E326CC4C4B5461B4"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMfaSmokeContracts.cs",
+      "Parent": {
+        "Bytes": 7954,
+        "Sha256": "38C8261773224429C66D947C7B4031939350C475A5D767D6772EE892F3769AD4"
+      },
+      "Result": {
+        "Bytes": 7976,
+        "Sha256": "CA6C19180B5AC9916CDD7203A7C6651CF15796649E7505C91E582B191486C352"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredHostChecks.cs",
+      "Parent": {
+        "Bytes": 10022,
+        "Sha256": "76975360D5E30F4925C881E7967D71546ADDF3B38B8F5B2E31DC179A1DC0C22E"
+      },
+      "Result": {
+        "Bytes": 10041,
+        "Sha256": "E282A05C583C80B62AC30D3D04AF74B6032A0B1CFA79B8438D2A0EEC3B28B088"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionStatisticsHostChecks.cs",
+      "Parent": null,
+      "Result": {
+        "Bytes": 7776,
+        "Sha256": "74EDB941ADF0F677E66724BC3325CA21AB5BBC8D5548E8FB15737D81FA8EEC57"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionStatisticsHostNames.cs",
+      "Parent": null,
+      "Result": {
+        "Bytes": 809,
+        "Sha256": "BBDCC45F52BC48CD3C2486476D45E69A9EBBFABB9FC673198BD49E20BE8E186E"
+      }
+    }
+  ],
+  "ActivationAfterBaseOnly": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionRegistrations.cs",
+      "Parent": {
+        "Bytes": 2765,
+        "Sha256": "6387164AD56329C65E8AB04621460B86AAC025778AC3334BD07C75D961503C21"
+      },
+      "Result": {
+        "Bytes": 3060,
+        "Sha256": "C05D3A7F3DEBB3FD0D2B856DD0B4E91AE4482BA7D3F7C3BC8BCB5592BD65E73E"
+      },
+      "ParentFromBaseOverlay": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionStatisticsNames.cs",
+      "Parent": null,
+      "Result": {
+        "Bytes": 161,
+        "Sha256": "E3E706604BAD0216F1F695D8DC0DF4F014E9EBA6FA3985C97E2DAEBC4D14A195"
+      },
+      "ParentFromBaseOverlay": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionMfaSmokeContracts.cs",
+      "Parent": {
+        "Bytes": 7976,
+        "Sha256": "CA6C19180B5AC9916CDD7203A7C6651CF15796649E7505C91E582B191486C352"
+      },
+      "Result": {
+        "Bytes": 8396,
+        "Sha256": "FA505EC652BB83BECE863AFEAAC8F816607160855605F3D985F1E808699D575B"
+      },
+      "ParentFromBaseOverlay": true
+    }
+  ],
+  "ProgramRegistration": "program-registration.txt",
+  "NoPublicActivationInBase": true,
+  "BasePublicMfaDelta": 0,
+  "ActivatedPublicMfaDeltaProvisional": 1,
+  "ActivatedRegistryProvisional": 504,
+  "ActivatedErlangProvisional": 346,
+  "NoBuildNativeOriginalOrGitMutation": true
+}

@@ -13,7 +13,7 @@ public sealed class PreparedBeamImage
         Descriptor = metadata.Descriptor;
         AttributeProvenance = metadata.Attributes;
         CompilationProvenance = metadata.Compilation;
-        ExecutionIdentity = new(new ModuleCodeImage(Name), this);
+        ExecutionIdentity = new(new ModuleCodeImage(Name, this), this);
         Bodies = Array.AsReadOnly(code.Exports.Select<BeamLinkedFunction, ErlangFunction>(function =>
             BeamGeneratedMetadata.IsGenerated(code, function)
                 ? (context, arguments) => BeamGeneratedMetadata.Invoke(context, function.Module, arguments)

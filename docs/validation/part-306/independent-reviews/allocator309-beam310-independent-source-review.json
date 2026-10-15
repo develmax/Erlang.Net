@@ -1,0 +1,28 @@
+{
+  "Status": "READONLY_SOURCE_REVIEW_PASS",
+  "ExecutionPlanSha256": "C73AFABAF43F98F81BD94C52788189429F85931C3D7228C8C8346C38FCEDD0F5",
+  "ClosureFiles": 18,
+  "ClosureMismatches": 0,
+  "PromotedFiles": 13,
+  "ReusedHelpers": 6,
+  "PublishedHelpersMatch": true,
+  "OriginalBaseRunBodiesPreserved": 18,
+  "ExtraPositiveFullInfoCase": 1,
+  "RejectsFalseEmptyAndSizesOnly": true,
+  "FullInfoRequires": [
+    "versions",
+    "options",
+    "mbcs",
+    "sbcs",
+    "calls"
+  ],
+  "DisabledAllocatorProfileCovered": false,
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "BuildExecuted": false,
+  "Notes": [
+    "Former final run clause changes period to semicolon only to append case19.",
+    "Full info validates property shape and list containers, not physical numeric parity.",
+    "Pinned runtime source and guard scope reviewed; no actual OTP execution."
+  ]
+}

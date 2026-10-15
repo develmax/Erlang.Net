@@ -1,0 +1,106 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Status": "PREDECLARED_ORIGINAL_ONLY",
+  "SdkCompared": false,
+  "NativePhysicalValues": "Investigative; preserved full raw ETF, never SDK expected constants",
+  "DisabledAllocatorProfileCovered": false,
+  "Cases": [
+    {
+      "Name": "alloc_info_empty",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_sizes_empty",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_nonlist",
+      "Scope": "allocator",
+      "Projection": "function_clause"
+    },
+    {
+      "Name": "alloc_unknown",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_duplicate",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_improper",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_atom",
+      "Scope": "allocator",
+      "Projection": "allocator_atom"
+    },
+    {
+      "Name": "alloc_order",
+      "Scope": "allocator",
+      "Projection": "allocator_order"
+    },
+    {
+      "Name": "alloc_raw_ref",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_all",
+      "Scope": "memory",
+      "Projection": "memory_all"
+    },
+    {
+      "Name": "memory_empty",
+      "Scope": "memory",
+      "Projection": "empty"
+    },
+    {
+      "Name": "memory_order_duplicates",
+      "Scope": "memory",
+      "Projection": "memory_order"
+    },
+    {
+      "Name": "memory_invalid",
+      "Scope": "memory",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_maximum",
+      "Scope": "memory",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_improper",
+      "Scope": "memory",
+      "Projection": "function_clause"
+    },
+    {
+      "Name": "process_default",
+      "Scope": "adjacent_process",
+      "Projection": "process_default"
+    },
+    {
+      "Name": "nif_apply_invalid_path",
+      "Scope": "adjacent_dynamic_nif",
+      "Projection": "dynamic_nif"
+    },
+    {
+      "Name": "nif_apply_missing_path",
+      "Scope": "adjacent_dynamic_nif",
+      "Projection": "dynamic_nif"
+    },
+    {
+      "Name": "alloc_info_binary_full",
+      "Scope": "allocator_positive_full_info_extra",
+      "Projection": "allocator_full"
+    }
+  ],
+  "BaseCaseCount": 18,
+  "ExtraFullInfoCaseCount": 1
+}

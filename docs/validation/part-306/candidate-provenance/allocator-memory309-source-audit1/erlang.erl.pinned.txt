@@ -1,0 +1,481 @@
+13000: > allocated by the emulator. Shared libraries, the code of the emulator itself,
+13001: > and the emulator stacks are not supposed to be included. That is, the `total`
+13002: > value is _not_ supposed to be equal to the total size of all pages mapped to
+13003: > the emulator.
+13004: >
+13005: > Also, because of fragmentation and prereservation of memory areas, the size of
+13006: > the memory segments containing the dynamically allocated memory blocks can be
+13007: > much larger than the total size of the dynamically allocated memory blocks.
+13008: 
+13009: > #### Change {: .info }
+13010: >
+13011: > As from ERTS 5.6.4, `erlang:memory/0` requires that all
+13012: > [`erts_alloc(3)`](erts_alloc.md) allocators are enabled (default behavior).
+13013: 
+13014: Failure: `notsup` if an [`erts_alloc(3)`](erts_alloc.md) allocator has been
+13015: disabled.
+13016: """.
+13017: -doc #{ category => system }.
+13018: -spec memory() -> [{Type, Size}] when
+13019:       Type :: memory_type(),
+13020:       Size :: non_neg_integer().
+13021: memory() ->
+13022:     case aa_mem_data(au_mem_data(?ALL_NEEDED_ALLOCS)) of
+13023: 	notsup ->
+13024: 	    erlang:error(notsup);
+13025: 	Mem ->
+13026: 	    [{total, Mem#memory.total},
+13027: 	     {processes, Mem#memory.processes},
+13028: 	     {processes_used, Mem#memory.processes_used},
+13029: 	     {system, Mem#memory.system},
+13030: 	     {atom, Mem#memory.atom},
+13031: 	     {atom_used, Mem#memory.atom_used},
+13032: 	     {binary, Mem#memory.binary},
+13033: 	     {code, Mem#memory.code},
+13034: 	     {ets, Mem#memory.ets}]
+13035:     end.
+13036: 
+13037: -doc """
+13038: Returns the memory size in bytes allocated for memory of type `Type`. The
+13039: argument can also be specified as a list of `t:memory_type/0` atoms, in which case
+13040: a corresponding list of `{memory_type(), Size :: integer >= 0}` tuples is
+13041: returned.
+13042: 
+13043: > #### Change {: .info }
+13044: >
+13045: > As from ERTS 5.6.4, `erlang:memory/1` requires that all
+13046: > [`erts_alloc(3)`](erts_alloc.md) allocators are enabled (default behavior).
+13047: 
+13048: Failures:
+13049: 
+13050: - **`badarg`** - If `Type` is not one of the memory types listed in the
+13051:   description of [`erlang:memory/0`](`memory/0`).
+13052: 
+13053: - **`badarg`** - If `maximum` is passed as `Type` and the emulator is not run in
+13054:   instrumented mode.
+13055: 
+13056: - **`notsup`** - If an [`erts_alloc(3)`](erts_alloc.md) allocator has been
+13057:   disabled.
+13058: 
+13059: See also [`erlang:memory/0`](`memory/0`).
+13060: """.
+13061: -doc #{ category => system }.
+13062: -spec memory(Type :: memory_type()) -> non_neg_integer();
+13063:                    (TypeList :: [memory_type()]) -> [{memory_type(), non_neg_integer()}].
+13064: memory(Type) when erlang:is_atom(Type) ->
+13065:     try
+13066:         case aa_mem_data(au_mem_data(?ALL_NEEDED_ALLOCS)) of
+13067:             notsup -> error_with_info(notsup, [Type]);
+13068:             Mem -> get_memval(Type, Mem)
+13069:         end
+13070:     catch
+13071:         error:badarg -> badarg_with_info([Type])
+13072:     end;
+13073: memory(Types) when erlang:is_list(Types) ->
+13074:     try
+13075:         case aa_mem_data(au_mem_data(?ALL_NEEDED_ALLOCS)) of
+13076:             notsup -> error_with_info(notsup, [Types]);
+13077:             Mem -> memory_1(Types, Mem)
+13078:         end
+13079:     catch
+13080:         error:badarg -> badarg_with_info([Types])
+13081:     end;
+13082: memory(Arg) ->
+13083:     badarg_with_info([Arg]).
+13084: 
+13085: memory_1([Type | Types], Mem) ->
+13086:     [{Type, get_memval(Type, Mem)} | memory_1(Types, Mem)];
+13087: memory_1([], _Mem) ->
+13088:     [].
+13089: 
+13090: get_memval(total, #memory{total = V}) -> V;
+13091: get_memval(processes, #memory{processes = V}) -> V;
+13092: get_memval(processes_used, #memory{processes_used = V}) -> V;
+13093: get_memval(system, #memory{system = V}) -> V;
+13094: get_memval(atom, #memory{atom = V}) -> V;
+13095: get_memval(atom_used, #memory{atom_used = V}) -> V;
+13096: get_memval(binary, #memory{binary = V}) -> V;
+13097: get_memval(code, #memory{code = V}) -> V;
+13098: get_memval(ets, #memory{ets = V}) -> V;
+13099: get_memval(_, #memory{}) -> erlang:error(badarg).
+13100: 
+13101: get_fix_proc([{ProcType, A1, U1}| Rest], {A0, U0}) when ProcType == proc;
+13102: 							ProcType == monitor;
+13103: 							ProcType == link;
+13104: 							ProcType == msg_ref;
+13105: 							ProcType == ll_ptimer;
+13106: 							ProcType == hl_ptimer;
+13107: 							ProcType == bif_timer;
+13108: 							ProcType == accessor_bif_timer ->
+13109:     get_fix_proc(Rest, {A0+A1, U0+U1});
+13110: get_fix_proc([_|Rest], Acc) ->
+13111:     get_fix_proc(Rest, Acc);
+13112: get_fix_proc([], Acc) ->
+13113:     Acc.
+13114: 
+13115: fix_proc([{fix_types, SizeList} | _Rest], Acc) ->
+13116:     get_fix_proc(SizeList, Acc);
+13117: fix_proc([{fix_types, Mask, SizeList} | _Rest], Acc) ->
+13118:     {A, U} = get_fix_proc(SizeList, Acc),
+13119:     {Mask, A, U};
+13120: fix_proc([_ | Rest], Acc) ->
+13121:     fix_proc(Rest, Acc);
+13122: fix_proc([], Acc) ->
+13123:     Acc.
+13124: 
+13125: au_mem_fix(#memory{ processes = Proc,
+13126:                     processes_used = ProcU } = Mem, Data) ->
+13127:     case fix_proc(Data, {0, 0}) of
+13128:         {A, U} ->
+13129:             Mem#memory{ processes = Proc+A,
+13130:                         processes_used = ProcU+U };
+13131:         {Mask, A, U} ->
+13132:             Mem#memory{ processes = Mask band (Proc+A),
+13133:                         processes_used = Mask band (ProcU+U) }
+13134:     end.
+13135: 
+13136: au_mem_acc(#memory{ total = Tot,
+13137:                     processes = Proc,
+13138:                     processes_used = ProcU } = Mem,
+13139:            eheap_alloc, Data) ->
+13140:     Sz = acc_blocks_size(Data, 0),
+13141:     Mem#memory{ total = Tot+Sz,
+13142:                 processes = Proc+Sz,
+13143:                 processes_used = ProcU+Sz};
+13144: au_mem_acc(#memory{ total = Tot,
+13145:                     ets = Ets } = Mem,
+13146:            ets_alloc, Data) ->
+13147:     Sz = acc_blocks_size(Data, 0),
+13148:     Mem#memory{ total = Tot+Sz,
+13149:                 ets = Ets+Sz };
+13150: au_mem_acc(#memory{total = Tot,
+13151: 		    binary = Bin } = Mem,
+13152: 	    binary_alloc, Data) ->
+13153:     Sz = acc_blocks_size(Data, 0),
+13154:     Mem#memory{ total = Tot+Sz,
+13155:                 binary = Bin+Sz};
+13156: au_mem_acc(#memory{ total = Tot } = Mem,
+13157:            _Type, Data) ->
+13158:     Sz = acc_blocks_size(Data, 0),
+13159:     Mem#memory{ total = Tot+Sz }.
+13160: 
+13161: acc_blocks_size([{size, Sz, _, _} | Rest], Acc) ->
+13162:     acc_blocks_size(Rest, Acc+Sz);
+13163: acc_blocks_size([{size, Sz} | Rest], Acc) ->
+13164:     acc_blocks_size(Rest, Acc+Sz);
+13165: acc_blocks_size([_ | Rest], Acc) ->
+13166:     acc_blocks_size(Rest, Acc);
+13167: acc_blocks_size([], Acc) ->
+13168:     Acc.
+13169: 
+13170: au_mem_blocks([{blocks, L} | Rest], Mem0) ->
+13171:     Mem = au_mem_blocks_1(L, Mem0),
+13172:     au_mem_blocks(Rest, Mem);
+13173: au_mem_blocks([_ | Rest], Mem) ->
+13174:     au_mem_blocks(Rest, Mem);
+13175: au_mem_blocks([], Mem) ->
+13176:     Mem.
+13177: 
+13178: au_mem_blocks_1([{Type, SizeList} | Rest], Mem) ->
+13179:     au_mem_blocks_1(Rest, au_mem_acc(Mem, Type, SizeList));
+13180: au_mem_blocks_1([], Mem) ->
+13181:     Mem.
+13182: 
+13183: au_mem_current(Mem, Type, [{mbcs_pool, Stats} | Rest]) ->
+13184:     au_mem_current(au_mem_blocks(Stats, Mem), Type, Rest);
+13185: au_mem_current(Mem, Type, [{mbcs, Stats} | Rest]) ->
+13186:     au_mem_current(au_mem_blocks(Stats, Mem), Type, Rest);
+13187: au_mem_current(Mem, Type, [{sbcs, Stats} | Rest]) ->
+13188:     au_mem_current(au_mem_blocks(Stats, Mem), Type, Rest);
+13189: au_mem_current(Mem, Type, [_ | Rest]) ->
+13190:     au_mem_current(Mem, Type, Rest);
+13191: au_mem_current(Mem, _Type, []) ->
+13192:     Mem.
+13193: 
+13194: au_mem_data(notsup, _) ->
+13195:     notsup;
+13196: au_mem_data(_, [{_, false} | _]) ->
+13197:     notsup;
+13198: au_mem_data(#memory{} = Mem0, [{fix_alloc, _, Data} | Rest]) ->
+13199:     Mem = au_mem_fix(Mem0, Data),
+13200:     au_mem_data(au_mem_current(Mem, fix_alloc, Data), Rest);
+13201: au_mem_data(#memory{} = Mem, [{Type, _, Data} | Rest]) ->
+13202:     au_mem_data(au_mem_current(Mem, Type, Data), Rest);
+13203: au_mem_data(EMD, []) ->
+13204:     EMD.
+13205: 
+13206: au_mem_data(Allocs) ->
+13207:     Ref = erlang:make_ref(),
+13208:     erlang:system_info({memory_internal, Ref, Allocs}),
+13209:     receive_emd(Ref).
+13210: 
+13211: receive_emd(_Ref, EMD, 0) ->
+13212:     EMD;
+13213: receive_emd(Ref, EMD, N) ->
+13214:     receive
+13215: 	{Ref, _, Data} ->
+13216: 	    receive_emd(Ref, au_mem_data(EMD, Data), N-1)
+13217:     end.
+13218: 
+13219: receive_emd(Ref) ->
+13220:     receive_emd(Ref, #memory{}, erts_internal:no_aux_work_threads()-1).
+13221: 
+13222: aa_mem_data(#memory{total = Tot} = Mem,
+13223: 	    [{external_alloc, Sz} | Rest]) ->
+13224:     %% Externally allocated data, this is not a part of alloc_util so we must
+13225:     %% bump the total memory size.
+13226:     aa_mem_data(Mem#memory{total = Tot + Sz},
+13227: 		Rest);
+13228: aa_mem_data(#memory{atom = Atom,
+13229: 		    atom_used = AtomU} = Mem,
+13230: 	    [{atom_space, Alloced, Used} | Rest]) ->
+13231:     aa_mem_data(Mem#memory{atom = Atom+Alloced,
+13232: 			   atom_used = AtomU+Used},
+13233: 		Rest);
+13234: aa_mem_data(#memory{atom = Atom,
+13235: 		    atom_used = AtomU} = Mem,
+13236: 	    [{atom_table, Sz} | Rest]) ->
+13237:     aa_mem_data(Mem#memory{atom = Atom+Sz,
+13238: 			   atom_used = AtomU+Sz},
+13239: 		Rest);
+13240: aa_mem_data(#memory{ets = Ets} = Mem,
+13241: 	    [{ets_misc, Sz} | Rest]) ->
+13242:     aa_mem_data(Mem#memory{ets = Ets+Sz},
+13243: 		Rest);
+13244: aa_mem_data(#memory{processes = Proc,
+13245: 		    processes_used = ProcU } = Mem,
+13246: 	    [{ProcData, Sz} | Rest]) when ProcData == bif_timer;
+13247: 					  ProcData == process_table ->
+13248:     aa_mem_data(Mem#memory{processes = Proc+Sz,
+13249: 			   processes_used = ProcU+Sz },
+13250: 		Rest);
+13251: aa_mem_data(#memory{code = Code} = Mem,
+13252: 	    [{CodeData, Sz} | Rest]) when CodeData == module_table;
+13253: 					  CodeData == export_table;
+13254: 					  CodeData == export_list;
+13255: 					  CodeData == fun_table;
+13256: 					  CodeData == fun_list;
+13257: 					  CodeData == module_refs;
+13258: 					  CodeData == loaded_code ->
+13259:     aa_mem_data(Mem#memory{code = Code+Sz},
+13260: 		Rest);
+13261: aa_mem_data(EMD, [{_, _} | Rest]) ->
+13262:     aa_mem_data(EMD, Rest);
+13263: aa_mem_data(#memory{ total = Tot,
+13264:                      processes = Proc } = Mem,
+13265:             []) ->
+13266:     Mem#memory{system = Tot - Proc}.
+13267: 
+13268: aa_mem_data(notsup) ->
+13269:     notsup;
+13270: aa_mem_data(EMD) ->
+13271:     aa_mem_data(EMD, erlang:system_info(allocated_areas)).
+13272: 
+13273: %%
+13274: %% alloc_info/1 and alloc_sizes/1 are for internal use only (used by
+13275: %% erlang:system_info({allocator|allocator_sizes, _})).
+13276: %%
+13277: 
+13278: -doc false.
+13279: alloc_info(Allocs) ->
+13280:     get_alloc_info(allocator, Allocs).
+13281: 
+13282: -doc false.
+13283: alloc_sizes(Allocs) ->
+13284:     get_alloc_info(allocator_sizes, Allocs).
+13285: 
+13286: get_alloc_info(Type, AAtom) when erlang:is_atom(AAtom) ->
+13287:     [{AAtom, Result}] = get_alloc_info(Type, [AAtom]),
+13288:     Result;
+13289: get_alloc_info(Type, AList) when erlang:is_list(AList) ->
+13290:     Ref = erlang:make_ref(),
+13291:     erlang:system_info({Type, Ref, AList}),
+13292:     receive_allocator(Ref,
+13293: 		      erts_internal:no_aux_work_threads()-1,
+13294: 		      mk_res_list(AList)).
+13295: 
+13296: mk_res_list([]) ->
+13297:     [];
+13298: mk_res_list([Alloc | Rest]) ->
+13299:     [{Alloc, []} | mk_res_list(Rest)].
+13300: 
+13301: insert_instance(I, N, Rest) when erlang:is_atom(N) ->
+13302:     [{N, I} | Rest];
+13303: insert_instance(I, N, []) ->
+13304:     [{instance, N, I}];
+13305: insert_instance(I, N, [{instance, M, _}|_] = Rest) when N < M ->
+13306:     [{instance, N, I} | Rest];
+13307: insert_instance(I, N, [Prev|Rest]) ->
+13308:     [Prev | insert_instance(I, N, Rest)].
+13309: 
+13310: insert_info([], Ys) ->
+13311:     Ys;
+13312: insert_info([{A, false}|Xs], [{A, _IList}|Ys]) ->
+13313:     insert_info(Xs, [{A, false}|Ys]);
+13314: insert_info([{A, N, I}|Xs], [{A, IList}|Ys]) ->
+13315:     insert_info(Xs, [{A, insert_instance(I, N, IList)}|Ys]);
+13316: insert_info([{A1, _}|_] = Xs, [{A2, _} = Y | Ys]) when A1 /= A2 ->
+13317:     [Y | insert_info(Xs, Ys)];
+13318: insert_info([{A1, _, _}|_] = Xs, [{A2, _} = Y | Ys]) when A1 /= A2 ->
+13319:     [Y | insert_info(Xs, Ys)].
+13320: 
+13321: receive_allocator(_Ref, 0, Acc) ->
+13322:     Acc;
+13323: receive_allocator(Ref, N, Acc) ->
+13324:     receive
+13325: 	{Ref, _, InfoList} ->
+13326: 	    receive_allocator(Ref, N-1, insert_info(InfoList, Acc))
+13327:     end.
+13328: 
+13329: -doc false.
+13330: -spec gather_gc_info_result(Ref) ->
+13331:    {number(),number(),0} when Ref :: reference().
+13332: 
+13333: gather_gc_info_result(Ref) when erlang:is_reference(Ref) ->
+13334:     gc_info(Ref, erlang:system_info(schedulers), {0,0}).
+13335: 
+13336: gc_info(_Ref, 0, {Colls,Recl}) ->
+13337:     {Colls,Recl,0};
+13338: gc_info(Ref, N, {OrigColls,OrigRecl}) ->
+13339:     receive
+13340: 	{Ref, {_,Colls, Recl}} -> 
+13341: 	    gc_info(Ref, N-1, {Colls+OrigColls,Recl+OrigRecl})
+13342:     end.
+13343: 
+13344: %% Operators
+13345: 
+13346: -doc false.
+13347: -spec '=='(term(), term()) -> boolean().
+13348: '=='(_A, _B) ->
+13349:     erlang:nif_error(undefined).
+13350: -doc false.
+13351: -spec '=:='(term(), term()) -> boolean().
+13352: '=:='(_A, _B) ->
+13353:     erlang:nif_error(undefined).
+13354: -doc false.
+13355: -spec '/='(term(), term()) -> boolean().
+13356: '/='(_A, _B) ->
+13357:     erlang:nif_error(undefined).
+13358: -doc false.
+13359: -spec '=/='(term(), term()) -> boolean().
+13360: '=/='(_A, _B) ->
+13361:     erlang:nif_error(undefined).
+13362: -doc false.
+13363: -spec '=<'(term(), term()) -> boolean().
+13364: '=<'(_A, _B) ->
+13365:     erlang:nif_error(undefined).
+13366: -doc false.
+13367: -spec '>='(term(), term()) -> boolean().
+13368: '>='(_A, _B) ->
+13369:     erlang:nif_error(undefined).
+13370: -doc false.
+13371: -spec '<'(term(), term()) -> boolean().
+13372: '<'(_A, _B) ->
+13373:     erlang:nif_error(undefined).
+13374: -doc false.
+13375: -spec '>'(term(), term()) -> boolean().
+13376: '>'(_A, _B) ->
+13377:     erlang:nif_error(undefined).
+13378: 
+13379: -doc false.
+13380: -spec '-'(number()) -> number().
+13381: '-'(_A) ->
+13382:     erlang:nif_error(undefined).
+13383: -doc false.
+13384: -spec '+'(number()) -> number().
+13385: '+'(_A) ->
+13386:     erlang:nif_error(undefined).
+13387: -doc false.
+13388: -spec '-'(number(), number()) -> number().
+13389: '-'(_A, _B) ->
+13390:     erlang:nif_error(undefined).
+13391: -doc false.
+13392: -spec '+'(number(), number()) -> number().
+13393: '+'(_A, _B) ->
+13394:     erlang:nif_error(undefined).
+13395: -doc false.
+13396: -spec '/'(number(), number()) -> float().
+13397: '/'(_A, _B) ->
+13398:     erlang:nif_error(undefined).
+13399: -doc false.
+13400: -spec '*'(number(), number()) -> number().
+13401: '*'(_A, _B) ->
+13402:     erlang:nif_error(undefined).
+13403: -doc false.
+13404: -spec 'div'(integer(), integer()) -> integer().
+13405: 'div'(_A, _B) ->
+13406:     erlang:nif_error(undefined).
+13407: -doc false.
+13408: -spec 'rem'(integer(), integer()) -> integer().
+13409: 'rem'(_A, _B) ->
+13410:     erlang:nif_error(undefined).
+13411: -doc false.
+13412: -spec 'bsl'(integer(), integer()) -> integer().
+13413: 'bsl'(_A, _B) ->
+13414:     erlang:nif_error(undefined).
+13415: -doc false.
+13416: -spec 'bsr'(integer(), integer()) -> integer().
+13417: 'bsr'(_A, _B) ->
+13418:     erlang:nif_error(undefined).
+13419: -doc false.
+13420: -spec 'bor'(integer(), integer()) -> integer().
+13421: 'bor'(_A, _B) ->
+13422:     erlang:nif_error(undefined).
+13423: -doc false.
+13424: -spec 'band'(integer(), integer()) -> integer().
+13425: 'band'(_A, _B) ->
+13426:     erlang:nif_error(undefined).
+13427: -doc false.
+13428: -spec 'bxor'(integer(), integer()) -> integer().
+13429: 'bxor'(_A, _B) ->
+13430:     erlang:nif_error(undefined).
+13431: -doc false.
+13432: -spec 'bnot'(integer()) -> integer().
+13433: 'bnot'(_A) ->
+13434:     erlang:nif_error(undefined).
+13435: 
+13436: -doc false.
+13437: -spec '--'(list(), list()) -> list().
+13438: '--'(_A, _B) ->
+13439:     erlang:nif_error(undefined).
+13440: -doc false.
+13441: -spec '++'(list(), term()) -> term().
+13442: '++'(_A, _B) ->
+13443:     erlang:nif_error(undefined).
+13444: 
+13445: -doc false.
+13446: -spec 'and'(boolean(), boolean()) -> boolean().
+13447: 'and'(_A, _B) ->
+13448:     erlang:nif_error(undefined).
+13449: -doc false.
+13450: -spec 'or'(boolean(), boolean()) -> boolean().
+13451: 'or'(_A, _B) ->
+13452:     erlang:nif_error(undefined).
+13453: 
+13454: -doc false.
+13455: -spec 'xor'(boolean(), boolean()) -> boolean().
+13456: 'xor'(_A, _B) ->
+13457:     erlang:nif_error(undefined).
+13458: -doc false.
+13459: -spec 'not'(boolean()) -> boolean().
+13460: 'not'(_A) ->
+13461:     erlang:nif_error(undefined).
+13462: 
+13463: -doc false.
+13464: -spec '!'(send_destination(), term()) -> term().
+13465: '!'(_Dst, _Msg) ->
+13466:     erlang:nif_error(undefined).
+13467: 
+13468: %% Make sure that we have loaded the tracer module.
+13469: ensure_tracer_module_loaded(Flag, FlagList) ->
+13470:     try lists:keyfind(Flag, 1, FlagList) of
+13471:         {Flag, Module, State} when erlang:is_atom(Module) ->
+13472:             case erlang:module_loaded(Module) of
+13473:                 false ->
+13474:                     Module:enabled(trace_status, erlang:self(), State);
+13475:                 true ->
+13476:                     ok
+13477:             end;
+13478:         _ ->
+13479:             ok
+13480:     catch

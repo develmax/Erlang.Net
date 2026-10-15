@@ -4320,6 +4320,10 @@ Test(
 
 Test(Erlang.Tests.DistributionRegisteredInputHostNames.Test, Erlang.Tests.DistributionRegisteredInputHostChecks.Run);
 
+Test(Erlang.Tests.DistributionStatisticsHostNames.Test, Erlang.Tests.DistributionStatisticsHostChecks.Run);
+
+Test(Erlang.Tests.NifBeamOwnerHostNames.Test, Erlang.Tests.NifBeamOwnerHostChecks.Run);
+
 int failed = 0;
 foreach (var test in tests)
 {

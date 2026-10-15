@@ -1,0 +1,51 @@
+--- legacy-before/ConnectedDistributionHostChecks.cs
++++ overlay/tests/Erlang.Tests/ConnectedDistributionHostChecks.cs
+@@ -434,7 +434,7 @@
+             return true;
+         });
+         Term opaque = await adoptionTask;
+-        Check(opaque is ReferenceTerm);
++        Check(opaque is TupleTerm && opaque.Equals(rpcPending));
+         await kernel.InvokeAsync(async context =>
+         {
+             var notice = Term.Tuple(
+@@ -450,7 +450,7 @@
+         await controller.Invoke(context =>
+         {
+             Check(DistributionControllerAdapters.GetData(context, opaque).Equals(Term.A(DistributionControllerNames.NoData)));
+-            RejectErlang(() => DistributionControllerAdapters.GetData(context, rpcPending), ErlangErrorReasons.BadArgument);
++            Check(DistributionControllerAdapters.GetData(context, rpcPending).Equals(Term.A(DistributionControllerNames.NoData)));
+             Check(DistributionControllerAdapters.GetOption(context, opaque, Term.A(DistributionControllerNames.GetSize)).Equals(Term.A(ErlangBooleanAtoms.False)));
+             Check(DistributionControllerAdapters.SetOption(
+                 context,
+--- legacy-before/DistributionMfaSmokeContracts.cs
++++ overlay/tests/Erlang.Tests/DistributionMfaSmokeContracts.cs
+@@ -45,7 +45,7 @@
+             context.Self,
+             Term.Tuple(Term.I(checked((long)DistributionPassThroughFlags.Mandatory)), Term.I(DistributionMfaSmokeNames.Creation))
+         ));
+-        Require(handle is ReferenceTerm);
++        Require(handle is TupleTerm && handle.Equals(pending));
+         Require(runtime.DistributionPending.ConnectedSnapshot(pending).RemoteCreation == DistributionMfaSmokeNames.Creation);
+         if (function == RuntimeSetNodeHostNames.SetNode)
+         {
+--- legacy-before/DistributionRegisteredHostChecks.cs
++++ overlay/tests/Erlang.Tests/DistributionRegisteredHostChecks.cs
+@@ -76,7 +76,7 @@
+             return true;
+         });
+         Term opaque = await adoption.WaitAsync(RuntimeSetNodeHostParameters.Deadline);
+-        Require(opaque is ReferenceTerm && !opaque.Equals(pending));
++        Require(opaque is TupleTerm && opaque.Equals(pending));
+         Require(runtime.DistributionPending.ConnectedSnapshot(pending).RemoteCreation == DistributionRegisteredHostNames.FirstRemoteCreation);
+         await kernel.InvokeAsync(async context =>
+         {
+@@ -166,7 +166,7 @@
+             context.Self,
+             Options(Term.I(RuntimeNodeCreationHostParameters.MaximumSmallCreation))
+         ));
+-        Require(current is ReferenceTerm && !current.Equals(opaque));
++        Require(current is TupleTerm && current.Equals(reopened) && !current.Equals(opaque));
+         Require(runtime.DistributionPending.ConnectedSnapshot(reopened).RemoteCreation == uint.MaxValue);
+         await controller.InvokeAsync(async context =>
+         {

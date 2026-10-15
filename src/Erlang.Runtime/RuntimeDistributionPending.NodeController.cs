@@ -73,15 +73,13 @@ public sealed partial class RuntimeDistributionPending
     {
         lock (gate)
         {
-            if (handle is not ReferenceTerm reference)
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
-            using var lease = runtime.ReferenceResources.AcquireConnectedDistributionHandle(reference);
-            if (lease is null || !ReferenceEquals(lease.Value.Entry.Owner, this))
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
-            var captured = lease.Value;
-            RequireConnected(captured.Entry, captured.ConnectionId);
+            var entry = ReadHandle(handle, out uint connectionId, out var lease);
+            using (lease)
+            {
+                RequireConnected(entry, connectionId);
 
-            return Term.Tuple(Term.I(captured.ConnectionId), captured.Entry.Reference);
+                return Term.Tuple(Term.I(connectionId), entry.Reference);
+            }
         }
     }
 
@@ -89,11 +87,17 @@ public sealed partial class RuntimeDistributionPending
     {
         lock (gate)
         {
-            if (handle is not ReferenceTerm reference)
-                return false;
-            using var lease = runtime.ReferenceResources.AcquireConnectedDistributionHandle(reference);
+            try
+            {
+                _ = ReadHandle(handle, out _, out var lease);
+                lease.Dispose();
 
-            return lease is not null && ReferenceEquals(lease.Value.Entry.Owner, this);
+                return true;
+            }
+            catch (Exception failure) when (failure is ArgumentException or InvalidOperationException)
+            {
+                return false;
+            }
         }
     }
 
@@ -102,9 +106,9 @@ public sealed partial class RuntimeDistributionPending
         try
         {
             ValidateEntry(request.Entry, request.ConnectionId);
-            ResourceReferenceTerm handle = runtime.ReferenceResources.CreateConnectedDistributionHandle(request.Entry);
+            TupleTerm handle = Term.Tuple(Term.I(request.ConnectionId), request.Entry.Reference);
             AdoptConnectedOwned(
-                Term.Tuple(Term.I(request.ConnectionId), request.Entry.Reference),
+                handle,
                 request.Controller,
                 request.Flags,
                 request.Creation,

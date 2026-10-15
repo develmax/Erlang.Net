@@ -1,0 +1,11 @@
+## Part 306 — distribution statistics, immutable BEAM owners and allocator observation tooling
+
+2026-10-15
+
+Actual Main full validation passed 6627 cases, preserved all 6624 published305 ordered names and passed all eleven integration/package results. The three additions are the two internal distribution-statistics/BEAM-owner HOST rows and the registered dist_get_stat/1 fixture route. Actual default registration rose from503 to504, optional IO to506, and erlang API presence to346 of351 with five APIs still absent. Optional IO counts are verified through the actual full HOST integration, with no independent additional run. Post-full trusted Windows native and actual generated-source routes passed against the1012-input reviewed source closure.
+
+Connected controller handles use actual tuple handles with generation and role checks. dist_get_stat/1 reports queued accounting from real descriptor/vector/payload storage per queued occurrence. These SDK charges exclude CLR headers and caches and do not establish physical native byte equality. Immutable zero-export BEAM images preserve their own metadata association and collectible owner graphs without activating public load_nif. The retained isolated target has zero warnings/errors and46 focused groups pass;22 CSharp token streams are exact across SDK/custom formatting. Earlier inaccessible-constant compilation failures, legacy schema failures and harness namespace failure remain preserved separately.
+
+Allocator observation tooling adds a source-bound19-case original collector plan: eighteen existing run bodies plus one separate positive allocator full-info case. Its source closure, decoder, stack and projection controls and independent review are retained. No fresh allocator original execution, disabled-allocator startup profile, SDK comparison or allocator compatibility completion is claimed by these tooling controls.
+
+Prior305 exact-head CI, native and ordinary evidence is retained in259 files. Ordinary5854 and inherited fd8 semantic comparison includes one predeclared raw map-stdout variance; the strict raw failure is preserved and no all-raw-exact claim is made. Same-head306 CI and changed-source original observations remain pending. Physical resources, complete native ABI, upstream suites, whole-module compatibility and performance remain incomplete.

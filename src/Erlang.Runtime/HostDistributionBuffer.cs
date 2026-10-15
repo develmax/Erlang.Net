@@ -4,6 +4,8 @@ namespace Erlang;
 
 public sealed class HostDistributionBuffer
 {
+    private readonly HostDistributionBufferStorage storage;
+
     public HostDistributionBuffer(IEnumerable<ReadOnlyMemory<byte>> segments)
     {
         ArgumentNullException.ThrowIfNull(segments);
@@ -16,11 +18,11 @@ public sealed class HostDistributionBuffer
             snapshot.Add(new BitString(segment.Span));
             size = checked(size + segment.Length);
         }
-        Segments = new ReadOnlyCollection<BitString>(snapshot);
-        PayloadBytes = size;
+        storage = new(new ReadOnlyCollection<BitString>(snapshot.ToArray()), size);
     }
 
-    public IReadOnlyList<BitString> Segments { get; }
-    public long PayloadBytes { get; }
-    public int SegmentCount => Segments.Count;
+    public IReadOnlyList<BitString> Segments => storage.Segments;
+    public long PayloadBytes => storage.PayloadBytes;
+    public int SegmentCount => storage.Segments.Count;
+    internal long AccountedBytes => storage.AccountedBytes;
 }

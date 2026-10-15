@@ -1,0 +1,189 @@
+Pin ad05823719d77c8faee87348ea39513d4e2f99c5
+Source-only flag candidate +MHe false; NO disabled profile executed or included in planned19. UppercaseH routes eheap, lowercasee boolean, default disable_allowed1.
+
+erts/emulator/beam/erl_alloc.c
+159: struct au_init {
+160:     int enable;
+161:     int thr_spec;
+162:     int disable_allowed;
+163:     int thr_spec_allowed;
+164:     int carrier_migration_allowed;
+165:     ErtsAlcStrat_t	astrat;
+166:     struct {
+167: 	AllctrInit_t	util;
+168: 	GFAllctrInit_t	gf;
+169: 	BFAllctrInit_t	bf;
+170: 	AFAllctrInit_t	af;
+171: 	AOFFAllctrInit_t aoff;
+172:     } init;
+173:     struct {
+174: 	int mmbcs;
+175: 	int lmbcs;
+176: 	int smbcs;
+177: 	int mmmbc;
+178:     } default_;
+179: };
+180: 
+181: #define DEFAULT_ALLCTR_INIT {		\
+182:     ERTS_DEFAULT_ALLCTR_INIT,		\
+183:     ERTS_DEFAULT_GF_ALLCTR_INIT,	\
+184:     ERTS_DEFAULT_BF_ALLCTR_INIT,	\
+185:     ERTS_DEFAULT_AF_ALLCTR_INIT,	\
+186:     ERTS_DEFAULT_AOFF_ALLCTR_INIT       \
+187: }
+188: 
+189: typedef struct {
+190: #if HAVE_ERTS_MSEG
+191:     ErtsMsegInit_t mseg;
+192: #endif
+193:     int trim_threshold;
+194:     int top_pad;
+195:     int dirty_alloc_insts;
+196:     AlcUInit_t alloc_util;
+197:     struct au_init sl_alloc;
+198:     struct au_init std_alloc;
+199:     struct au_init ll_alloc;
+200:     struct au_init temp_alloc;
+201:     struct au_init eheap_alloc;
+202:     struct au_init binary_alloc;
+203:     struct au_init ets_alloc;
+204:     struct au_init driver_alloc;
+205:     struct au_init fix_alloc;
+206:     struct au_init literal_alloc;
+207:     struct au_init test_alloc;
+208: } erts_alc_hndl_args_init_t;
+209: 
+210: #define ERTS_AU_INIT__ {0, 0, 1, 1, 1, \
+211:                         ERTS_ALC_S_GOODFIT, DEFAULT_ALLCTR_INIT, \
+212:                         {1,1,1,1}}
+213: 
+214: #define SET_DEFAULT_ALLOC_OPTS(IP)					\
+215: do {									\
+216:     struct au_init aui__ = ERTS_AU_INIT__;				\
+217:     sys_memcpy((void *) (IP), (void *) &aui__, sizeof(struct au_init));	\
+218: } while (0)
+362: set_default_eheap_alloc_opts(struct au_init *ip)
+363: {
+364:     SET_DEFAULT_ALLOC_OPTS(ip);
+365:     ip->enable			= AU_ALLOC_DEFAULT_ENABLE(1);
+366:     ip->thr_spec		= 1;
+367:     ip->astrat			= ERTS_ALC_S_GOODFIT;
+368:     ip->init.util.name_prefix	= "eheap_";
+369:     ip->init.util.alloc_no	= ERTS_ALC_A_EHEAP;
+370:     ip->init.util.cp            = ERTS_ALC_A_EHEAP;
+1143: static int
+1144: get_bool_value(char *param_end, char** argv, int* ip)
+1145: {
+1146:     char *param = argv[*ip]+1;
+1147:     char *value = get_value(param_end, argv, ip);
+1148:     if (sys_strcmp(value, "true") == 0)
+1149: 	return 1;
+1150:     else if (sys_strcmp(value, "false") == 0)
+1151: 	return 0;
+1152:     else
+1153: 	bad_value(param, param_end, value);
+1154:     return -1;
+1155: }
+1452:     case 'e': {
+1453: 	int e = get_bool_value(sub_param + 1, argv, ip);
+1454:         if (!auip->disable_allowed && !e) {
+1455:             if (!u_switch)
+1456:                 bad_value(param, sub_param + 1, "false");
+1457: 	    else
+1458: 		ASSERT(auip->enable); /* ignore */
+1459:         }
+1460: 	else auip->enable = e;
+1461: 	break;
+1578:     while (i < *argc) {
+1579: 	if(argv[i][0] == '-') {
+1580: 	    char *param = argv[i]+1;
+1581: 	    switch (argv[i][1]) {
+1582: 	    case 'M':
+1583: 		switch (argv[i][2]) {
+1584: 		case 'B':
+1585: 		    handle_au_arg(&init->binary_alloc, &argv[i][3], argv, &i, 0);
+1586: 		    break;
+1587:                 case 'I':
+1588:                     if (has_prefix("scs", argv[i]+3)) {
+1589: #if HAVE_ERTS_MSEG
+1590: 			init->mseg.literal_mmap.scs =
+1591: #endif
+1592: 			    get_mb_value(argv[i]+6, argv, &i);
+1593: 		    }
+1594:                     else
+1595:                         handle_au_arg(&init->literal_alloc, &argv[i][3], argv, &i, 0);
+1596: 		    break;
+1597: 		case 'D':
+1598: 		    handle_au_arg(&init->std_alloc, &argv[i][3], argv, &i, 0);
+1599: 		    break;
+1600: 		case 'E':
+1601: 		    handle_au_arg(&init->ets_alloc, &argv[i][3], argv, &i, 0);
+1602: 		    break;
+1603: 		case 'F':
+1604: 		    handle_au_arg(&init->fix_alloc, &argv[i][3], argv, &i, 0);
+1605: 		    break;
+1606: 		case 'H':
+1607: 		    handle_au_arg(&init->eheap_alloc, &argv[i][3], argv, &i, 0);
+1608: 		    break;
+
+erts/etc/common/erlexec.c
+50: #define EMULATOR_EXECUTABLE "beam"
+51: 
+52: #endif
+53: #define QUOTE(s) s
+54: 
+55: /* +M alloc_util allocators */
+56: static const char plusM_au_allocs[]= {
+57:     'u',	/* all alloc_util allocators */
+58:     'B',	/* binary_alloc		*/
+59:     'I',	/* literal_alloc	*/
+60:     'D',	/* std_alloc		*/
+61:     'E',	/* ets_alloc		*/
+62:     'F',	/* fix_alloc		*/
+63:     'H',	/* eheap_alloc		*/
+64:     'L',	/* ll_alloc		*/
+65:     'R',	/* driver_alloc		*/
+66:     'S',	/* sl_alloc		*/
+67:     'T',	/* temp_alloc		*/
+68:     'Z',        /* test_alloc           */
+69:     '\0'
+70: };
+71: 
+72: /* +M alloc_util allocator specific arguments */
+73: static char *plusM_au_alloc_switches[] = {
+74:     "as",
+75:     "asbcst",
+76:     "atags",
+77:     "acul",
+78:     "acnl",
+79:     "acfml",
+80:     "acful",
+81:     "cp",
+82:     "e",
+83:     "t",
+84:     "lmbcs",
+85:     "mbcgs",
+86:     "mbsd",
+87:     "mmbcs",
+88:     "mmmbc",
+89:     "mmsbc",
+90:     "msbclt",
+1007: 		  case 'M': {
+1008: 		      int x;
+1009: 		      for (x = 0; plusM_au_allocs[x]; x++)
+1010: 			  if (plusM_au_allocs[x] == argv[i][2])
+1011: 			      break;
+1012: 		      if ((plusM_au_allocs[x]
+1013: 			   && is_one_of_strings(&argv[i][3],
+1014: 						plusM_au_alloc_switches))
+1015: 			  || is_one_of_strings(&argv[i][2],
+1016: 					       plusM_other_switches)) {
+1017:                           NEXT_ARG_CHECK();
+1018: 			  argv[i][0] = '-';
+1019: 			  add_Eargs(argv[i]);
+1020: 			  add_Eargs(argv[i+1]);
+1021: 			  i++;
+1022: 		      }
+1023: 		      else
+1024: 			  goto the_default;
+1025: 		      break;

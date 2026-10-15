@@ -1,0 +1,16 @@
+PASS prepared BEAM image owner fresh_direct_true
+Erlang.NifImageAdmissionException: OwnerMismatch
+   at Erlang.ModuleRegistry.CaptureNifGeneration(ProcessContext context, SourceCodeEntry caller) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\src\Erlang.Runtime\ModuleRegistry.NifAdmission.cs:line 88
+   at Erlang.ModuleRegistry.<>c__DisplayClass66_0.<ReserveNifImageAsync>b__0() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\src\Erlang.Runtime\ModuleRegistry.NifAdmission.cs:line 25
+   at Erlang.ModuleCodeModificationTicket.Run[T](Func`1 operation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\src\Erlang.Runtime\ModuleCodeModificationTicket.cs:line 31
+   at Erlang.ModuleRegistry.ReserveNifImageAsync(ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\src\Erlang.Runtime\ModuleRegistry.NifAdmission.cs:line 19
+   at Erlang.Tests.NifAdmissionHostBridge.Reserve(ModuleRegistry registry, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 27
+   at Erlang.Tests.NifBeamOwnerHostChecks.<>c__DisplayClass3_0.<<Observe>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 133
+--- End of stack trace from previous location ---
+   at Erlang.Tests.NifAdmissionHostBridge.<>c__DisplayClass8_0.<<Context>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 77
+--- End of stack trace from previous location ---
+   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func`2 operation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 87
+   at Erlang.Tests.NifBeamOwnerHostChecks.Observe(String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 74
+   at Erlang.Tests.NifBeamOwnerHostChecks.Observe(String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 183
+   at Erlang.Tests.NifBeamOwnerHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 21
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\focus\Program.cs:line 16

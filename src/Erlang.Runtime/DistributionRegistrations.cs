@@ -6,6 +6,12 @@ internal static class DistributionRegistrations
     {
         registry.Register(
             ErlangModuleNames.Module,
+            DistributionStatisticsNames.Function,
+            DistributionStatisticsNames.Arity,
+            (context, arguments) => ValueTask.FromResult(context.Runtime.DistributionPending.GetStatistics(arguments[0]))
+        );
+        registry.Register(
+            ErlangModuleNames.Module,
             DistributionInputNames.Function,
             DistributionInputNames.Arity,
             (context, arguments) => ValueTask.FromResult(

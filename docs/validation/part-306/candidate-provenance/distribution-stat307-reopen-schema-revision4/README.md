@@ -1,0 +1,1 @@
+Reopened setnode/3 returns its exact {connection_id, typed_entry_resource} handle, distinct from the retired generation. Corrects the last historical bare-reference assertion in the same approved native278 schema migration. Preserves reopen-generation distinction and all other assertions. First actual focused failure retained in focus-revision3 outputs. No production changes.

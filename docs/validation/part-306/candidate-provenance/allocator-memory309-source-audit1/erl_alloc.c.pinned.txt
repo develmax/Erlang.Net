@@ -1,0 +1,351 @@
+3100: 
+3101: static void
+3102: reply_alloc_info(void *vair)
+3103: {
+3104:     ErtsAllocInfoReq *air = (ErtsAllocInfoReq *) vair;
+3105:     int tix = erts_get_thr_alloc_ix();
+3106:     int global_instances = air->req_sched == tix;
+3107:     ErtsProcLocks rp_locks;
+3108:     Process *rp = air->proc;
+3109:     Eterm ref_copy = NIL, ai_list, msg = NIL;
+3110:     Eterm *hp = NULL, *hp_start = NULL, *hp_end = NULL;
+3111:     Eterm **hpp;
+3112:     Uint sz, *szp;
+3113:     ErlOffHeap *ohp = NULL;
+3114:     ErtsMessage *mp = NULL;
+3115: #if HAVE_ERTS_MMAP
+3116:     struct erts_mmap_info_struct mmap_info_dflt;
+3117: # if defined(ARCH_64) && defined(ERTS_HAVE_OS_PHYSICAL_MEMORY_RESERVATION)
+3118:     struct erts_mmap_info_struct mmap_info_literal;
+3119: # endif
+3120: #endif
+3121:     int i;
+3122:     Eterm (*info_func)(Allctr_t *,
+3123: 		       int,
+3124: 		       int,
+3125: 		       fmtfn_t *,
+3126: 		       void *,
+3127: 		       Uint **,
+3128: 		       Uint *) = (air->only_sz
+3129: 				  ? erts_alcu_sz_info
+3130: 				  : erts_alcu_info);
+3131: 
+3132:     rp_locks = air->req_sched == tix ? ERTS_PROC_LOCK_MAIN : 0;
+3133: 
+3134:     sz = 0;
+3135:     hpp = NULL;
+3136:     szp = &sz;
+3137: 
+3138:     while (1) {
+3139: 
+3140: 	if (hpp)
+3141: 	    ref_copy = erts_iref_storage_make_ref(&air->iref,
+3142:                                                   hpp, ohp, 0);
+3143: 	else
+3144: 	    *szp += erts_iref_storage_heap_size(&air->iref);
+3145: 
+3146: 	ai_list = NIL;
+3147: 	for (i = 0; air->allocs[i] != ERTS_ALC_A_INVALID; i++);
+3148: 	for (i--; i >= 0; i--) {
+3149: 	    int ai = air->allocs[i];
+3150: 	    Allctr_t *allctr;
+3151: 	    Eterm ainfo;
+3152: 	    Eterm alloc_atom;
+3153: 	    if (global_instances) {
+3154: 		switch (ai) {
+3155: 		case ERTS_ALC_A_SYSTEM: {
+3156: 		    alloc_atom = erts_bld_atom(hpp, szp, "sys_alloc");
+3157: 		    ainfo = NIL;
+3158: 		    if (!air->only_sz) {
+3159: 			SysAllocStat sas;
+3160: 			if (hpp)
+3161: 			    sys_alloc_stat(&sas);
+3162: 			if (szp) {
+3163: 			    /* ensure enough heap */
+3164: 			    sas.top_pad = INT_MAX;
+3165: 			    sas.trim_threshold = INT_MAX;
+3166: 			}
+3167: 			if (sas.top_pad >= 0) {
+3168: 			    ainfo = erts_bld_cons(
+3169: 				hpp, szp,
+3170: 				erts_bld_tuple(
+3171: 				    hpp, szp, 2,
+3172: 				    erts_bld_atom(hpp, szp, "tp"),
+3173: 				    erts_bld_uint(
+3174: 					hpp, szp,
+3175: 					(Uint) sas.top_pad)),
+3176: 				ainfo);
+3177: 			}
+3178: 			if (sas.trim_threshold >= 0) {
+3179: 			    ainfo = erts_bld_cons(
+3180: 				hpp, szp,
+3181: 				erts_bld_tuple(
+3182: 				    hpp, szp, 2,
+3183: 				    erts_bld_atom(hpp, szp, "tt"),
+3184: 				    erts_bld_uint(
+3185: 					hpp, szp,
+3186: 					(Uint) sas.trim_threshold)),
+3187: 				ainfo);
+3188: 			}
+3189: 			ainfo = erts_bld_cons(hpp, szp,
+3190: 					      erts_bld_tuple(
+3191: 						  hpp, szp, 2,
+3192: 						  erts_bld_atom(hpp, szp,
+3193: 								"m"),
+3194: 						  erts_bld_atom(hpp, szp,
+3195: 								"libc")),
+3196: 					      ainfo);
+3197: 			ainfo = erts_bld_cons(hpp, szp,
+3198: 					      erts_bld_tuple(
+3199: 						  hpp, szp, 2,
+3200: 						  erts_bld_atom(hpp, szp,
+3201: 								"e"),
+3202: 						  am_true),
+3203: 					      ainfo);
+3204: 			ainfo = erts_bld_tuple(hpp, szp, 2,
+3205: 					       erts_bld_atom(hpp, szp,
+3206: 							     "options"),
+3207: 					       ainfo);
+3208: 			ainfo = erts_bld_cons(hpp, szp,ainfo,NIL);
+3209: 		    }
+3210: 		    ainfo = erts_bld_tuple(hpp, szp, 3,
+3211: 					   alloc_atom,
+3212: 					   make_small(0),
+3213: 					   ainfo);
+3214: 		    break;
+3215: 		}
+3216: 		case ERTS_ALC_INFO_A_ALLOC_UTIL:
+3217: 		    alloc_atom = erts_bld_atom(hpp, szp, "alloc_util");
+3218: 		    ainfo = (air->only_sz
+3219: 			     ? NIL
+3220: 			     : erts_alcu_au_info_options(NULL, NULL,
+3221: 							 hpp, szp));
+3222: 		    ainfo = erts_bld_tuple(hpp, szp, 3,
+3223: 					   alloc_atom,
+3224: 					   make_small(0),
+3225: 					   ainfo);
+3226: 		    break;
+3227:                 case ERTS_ALC_INFO_A_ERTS_MMAP:
+3228:                     alloc_atom = erts_bld_atom(hpp, szp, "erts_mmap");
+3229: #if HAVE_ERTS_MMAP
+3230:                     ainfo = (air->only_sz ? NIL :
+3231:                              erts_mmap_info(&erts_dflt_mmapper, NULL, NULL,
+3232:                                             hpp, szp, &mmap_info_dflt));
+3233:                     ainfo = erts_bld_tuple3(hpp, szp,
+3234:                                             alloc_atom,
+3235:                                             erts_bld_atom(hpp,szp,"default_mmap"),
+3236:                                             ainfo);
+3237: #  if defined(ARCH_64) && defined(ERTS_HAVE_OS_PHYSICAL_MEMORY_RESERVATION)
+3238:                     ai_list = erts_bld_cons(hpp, szp,
+3239:                                             ainfo, ai_list);
+3240:                     ainfo = (air->only_sz ? NIL :
+3241:                              erts_mmap_info(&erts_literal_mmapper, NULL, NULL,
+3242:                                             hpp, szp, &mmap_info_literal));
+3243:                     ainfo = erts_bld_tuple3(hpp, szp,
+3244:                                             alloc_atom,
+3245:                                             erts_bld_atom(hpp,szp,"literal_mmap"),
+3246:                                             ainfo);
+3247: #  endif
+3248: #else  /* !HAVE_ERTS_MMAP */
+3249:                     ainfo = erts_bld_tuple2(hpp, szp, alloc_atom,
+3250:                                             am_false);
+3251: #endif
+3252:                     break;
+3253: 		case ERTS_ALC_INFO_A_MSEG_ALLOC:
+3254: 		    alloc_atom = erts_bld_atom(hpp, szp, "mseg_alloc");
+3255: #if HAVE_ERTS_MSEG
+3256: 		    ainfo = erts_mseg_info(0, NULL, NULL, hpp != NULL,
+3257:                                            air->only_sz, hpp, szp);
+3258: 		    ainfo = erts_bld_tuple3(hpp, szp,
+3259:                                             alloc_atom,
+3260:                                             make_small(0),
+3261:                                             ainfo);
+3262: 
+3263: #else
+3264: 		    ainfo = erts_bld_tuple2(hpp, szp, alloc_atom,
+3265:                                             am_false);
+3266: #endif
+3267: 		    break;
+3268: 		default:
+3269: 		    alloc_atom = erts_bld_atom(hpp, szp,
+3270: 					       (char *) ERTS_ALC_A2AD(ai));
+3271: 		    if (!erts_allctrs_info[ai].enabled) 
+3272: 			ainfo = erts_bld_tuple(hpp, szp, 2, alloc_atom,
+3273: 					       am_false);
+3274: 		    else if (erts_allctrs_info[ai].alloc_util) {
+3275: 			if (erts_allctrs_info[ai].thr_spec)
+3276: 			    allctr = erts_allctr_thr_spec[ai].allctr[0];
+3277: 			else
+3278: 			    allctr = erts_allctrs_info[ai].extra;
+3279: 			ainfo = info_func(allctr, air->internal, hpp != NULL,
+3280: 					  NULL, NULL, hpp, szp);
+3281: 			ainfo = erts_bld_tuple(hpp, szp, 3, alloc_atom,
+3282: 					       make_small(0), ainfo);
+3283: 		    }
+3284: 		    else {
+3285: 			erts_exit(ERTS_ABORT_EXIT, "%s:%d: internal error\n",
+3286: 				 __FILE__, __LINE__);
+3287: 		    }
+3288: 		}
+3289: 		ai_list = erts_bld_cons(hpp, szp,
+3290: 					ainfo, ai_list);
+3291: 	    }
+3292: 	    switch (ai) {
+3293: 	    case ERTS_ALC_A_SYSTEM:
+3294:             case ERTS_ALC_INFO_A_ALLOC_UTIL:
+3295: 	    case ERTS_ALC_INFO_A_ERTS_MMAP:
+3296: 		break;
+3297: 	    case ERTS_ALC_INFO_A_MSEG_ALLOC:
+3298: #if HAVE_ERTS_MSEG
+3299: 		alloc_atom = erts_bld_atom(hpp, szp, "mseg_alloc");
+3300: 		ainfo = erts_mseg_info(tix, NULL, NULL,
+3301:                                        hpp != NULL, air->only_sz, hpp, szp);
+3302: 		ainfo = erts_bld_tuple(hpp, szp, 3,
+3303: 				       alloc_atom,
+3304: 				       make_small(tix),
+3305: 				       ainfo);
+3306: 		ai_list = erts_bld_cons(hpp, szp, ainfo, ai_list);
+3307: #endif
+3308: 		break;
+3309: 	    default:
+3310: 		if (erts_allctrs_info[ai].thr_spec) {
+3311: 		    alloc_atom = erts_bld_atom(hpp, szp,
+3312: 					       (char *) ERTS_ALC_A2AD(ai));
+3313: 		    allctr = erts_allctr_thr_spec[ai].allctr[tix];
+3314: 		    ainfo = info_func(allctr, air->internal, hpp != NULL, NULL,
+3315: 				      NULL, hpp, szp);
+3316: 		    ai_list = erts_bld_cons(hpp, szp,
+3317: 					    erts_bld_tuple(
+3318: 						hpp, szp,
+3319: 						3,
+3320: 						alloc_atom,
+3321: 						make_small(tix),
+3322: 						ainfo),
+3323: 					    ai_list);
+3324: 		}
+3325: 		break;
+3326: 	    }
+3327: 	    msg = erts_bld_tuple(hpp, szp,
+3328: 				 3,
+3329: 				 ref_copy,
+3330: 				 make_small(tix),
+3331: 				 ai_list);
+3332: 
+3333: 	}
+3334: 	if (hpp)
+3335: 	    break;
+3336: 
+3337: 	mp = erts_alloc_message_heap(rp, &rp_locks, sz, &hp, &ohp);
+3338: 	hp_start = hp;
+3339: 	hp_end = hp + sz;
+3340: 	szp = NULL;
+3341: 	hpp = &hp;
+3342:     }
+3343: 
+3344:     if (hp != hp_end)
+3345: 	erts_shrink_message_heap(&mp, rp, hp_start, hp, hp_end, &msg, 1);
+3346: 
+3347:     erts_queue_message(rp, rp_locks, mp, msg, am_system);
+3348: 
+3349:     if (air->req_sched == tix)
+3350: 	rp_locks &= ~ERTS_PROC_LOCK_MAIN;
+3351:  
+3352:     erts_proc_unlock(rp, rp_locks);
+3353:     erts_proc_dec_refc(rp);
+3354: 
+3355:     if (erts_atomic32_dec_read_nob(&air->refc) == 0) {
+3356:         erts_iref_storage_clean(&air->iref);
+3357: 	aireq_free(air);
+3358:     }
+3359: }
+3360: 
+3361: int
+3362: erts_request_alloc_info(struct process *c_p,
+3363: 			Eterm ref,
+3364: 			Eterm allocs,
+3365: 			int only_sz,
+3366: 			int internal)
+3367: {
+3368:     ErtsAllocInfoReq *air = aireq_alloc();
+3369:     Eterm req_ai[ERTS_ALC_INFO_A_END] = {0};
+3370:     Eterm alist;
+3371:     int airix = 0, ai;
+3372: 
+3373:     air->req_sched = erts_get_scheduler_id();
+3374: 
+3375:     air->only_sz = only_sz;
+3376: 
+3377:     air->internal = internal;
+3378: 
+3379:     air->proc = c_p;
+3380: 
+3381:     if (is_not_internal_ref(ref))
+3382: 	return 0;
+3383: 
+3384:     erts_iref_storage_save(&air->iref, ref);
+3385: 
+3386:     if (is_not_list(allocs))
+3387: 	return 0;
+3388: 
+3389:     alist = allocs;
+3390: 
+3391:     while (is_list(alist)) {
+3392: 	int saved = 0;
+3393: 	Eterm* consp = list_val(alist);
+3394: 	Eterm alloc = CAR(consp);
+3395: 
+3396: 	for (ai = ERTS_ALC_A_MIN; ai <= ERTS_ALC_A_MAX; ai++)
+3397: 	    if (erts_is_atom_str(erts_alc_a2ad[ai], alloc, 0))
+3398: 		goto save_alloc;
+3399: 	if (erts_is_atom_str("mseg_alloc", alloc, 0)) {
+3400: 	    ai = ERTS_ALC_INFO_A_MSEG_ALLOC;
+3401: 	    goto save_alloc;
+3402: 	}
+3403:         if (erts_is_atom_str("erts_mmap", alloc, 0)) {
+3404:             ai = ERTS_ALC_INFO_A_ERTS_MMAP;
+3405:             goto save_alloc;
+3406:         }
+3407: 	if (erts_is_atom_str("alloc_util", alloc, 0)) {
+3408: 	    ai = ERTS_ALC_INFO_A_ALLOC_UTIL;
+3409: 	save_alloc:
+3410: 	    if (req_ai[ai])
+3411: 		return 0;
+3412: 	    air->allocs[airix++] = ai;
+3413: 	    req_ai[ai] = 1;
+3414: 	    saved = 1;
+3415: 	}
+3416: 
+3417: 	if (!saved)
+3418: 	    return 0;
+3419: 
+3420: 	alist = CDR(consp);
+3421:     }
+3422: 
+3423:     if (is_not_nil(alist))
+3424: 	return 0;
+3425: 
+3426:     air->allocs[airix] = ERTS_ALC_A_INVALID;
+3427: 
+3428:     erts_atomic32_init_nob(&air->refc,
+3429:                            (erts_aint32_t) erts_no_aux_work_threads-1);
+3430: 
+3431:     erts_proc_add_refc(c_p, (Sint) erts_no_aux_work_threads-1);
+3432: 
+3433:     if (erts_no_aux_work_threads > 2)
+3434: 	erts_schedule_multi_misc_aux_work(1,
+3435:                                           1,
+3436: 					  erts_no_aux_work_threads-1,
+3437: 					  reply_alloc_info,
+3438: 					  (void *) air);
+3439: 
+3440:     reply_alloc_info((void *) air);
+3441: 
+3442:     return 1;
+3443: }
+3444: 
+3445: Eterm erts_alloc_set_dyn_param(Process* c_p, Eterm tuple)
+3446: {
+3447:     ErtsAllocatorThrSpec_t *tspec;
+3448:     ErtsAlcType_t ai;
+3449:     Allctr_t* allctr;
+3450:     Eterm* tp;

@@ -1,0 +1,33 @@
+{
+  "Status": "BOUNDED_READ_ONLY_PEER_REVIEW_NO_CONCRETE_SCOPED_BLOCKER",
+  "CandidateFreezeSha256": "F6BAD10737CB21F26F9E3EA432B3AFE02ACD8F382D5ECC23443AF7ED02D164D5",
+  "FrozenFilesVerified": 25,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedDistBlobSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+  "NativeRanges": [
+    "dist.c4489-4529 handle/generation/counters/total_qsize",
+    "dist.c1255-1269 sizeof-metadata+vector+payload queue charge"
+  ],
+  "Reviewed": [
+    "Strict setnode returns same typed distribution-entry tuple after adoption, no bare-reference public adoption",
+    "Controller resolves typed local resource lease then exact connection generation and connected/live controller",
+    "Raw input retains owned typed lease across parsing; input-handler/attempt-before-validation/stale-empty behavior unchanged",
+    "GetStatistics holds pending gate, checks same entry generation, reads queue snapshot under its gate; no controller-only restriction",
+    "Retired/cleared queue returns zero and removes storage charge without retaining stale counters",
+    "Accounted bytes are immutable payload + exact-length reference-vector elements + actual value descriptor; computed before queue mutation, same charge subtracted on drain",
+    "Explicit pressure limits and HostDistributionSnapshot ABI unchanged",
+    "Native LP64 sizes not copied to SDK; per-buffer accounting is implementation-specific, not unique resident heap memory",
+    "Three legacy fixture migrations match approved exact tuple contract corrections only",
+    "Separate activation adds one MFA and smoke route, subject to actual integration/build/full checks"
+  ],
+  "BoundedCaveats": [
+    "Read-only source review does not execute new or historical tests",
+    "No full distribution/allocator ABI, memory, performance or physical heap equality claim",
+    "Accounting charges each enqueued buffer occurrence; shared buffers are not a unique-object resident-memory measurement",
+    "Existing requester/controller cancellation and old controller/raw-input suites must run at integration as already requested"
+  ],
+  "MainEdited": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "NetworkMutation": false
+}

@@ -1,0 +1,71 @@
+Pin ad05823719d77c8faee87348ea39513d4e2f99c5; erts/emulator/beam/erl_alloc_util.c; FullSha256 BB458A70FD373E1E6360BF88DF73AFB4EC5BF0BA80E78D45B05338362F0B73BF
+5834: erts_alcu_info(Allctr_t *allctr,
+5835: 	       int internal,
+5836: 	       int begin_max_period,
+5837: 	       fmtfn_t *print_to_p,
+5838: 	       void *print_to_arg,
+5839: 	       Uint **hpp,
+5840: 	       Uint *szp)
+5841: {
+5842:     Eterm res, sett, mbcs, sbcs, calls, fix = THE_NON_VALUE;
+5843:     Eterm mbcs_pool;
+5844: 
+5845:     res  = THE_NON_VALUE;
+5846: 
+5847:     if (!allctr) {
+5848: 	if (print_to_p)
+5849: 	    erts_print(*print_to_p, print_to_arg, "false\n");
+5850: 	if (szp)
+5851: 	    *szp = 0;
+5852: 	return am_false;
+5853:     }
+5854: 
+5855:     if (hpp || szp)
+5856: 	ensure_atoms_initialized(allctr);
+5857: 
+5858:     if (allctr->thread_safe) {
+5859: 	erts_mtx_lock(&allctr->mutex);
+5860:     }
+5861: 
+5862:     ERTS_ALCU_DBG_CHK_THR_ACCESS(allctr);
+5863: 
+5864:     update_max_ever_values(&allctr->mbcs);
+5865:     update_max_ever_values(&allctr->sbcs);
+5866: 
+5867:     if (print_to_p) {
+5868: 	erts_print(*print_to_p,
+5869: 		   print_to_arg,
+5870: 		   "versions: %s %s\n",
+5871: 		   allctr->vsn_str,
+5872: 		   ERTS_ALCU_VSN_STR);
+5873:     }
+5874: 
+5875:     sett = info_options(allctr, print_to_p, print_to_arg, hpp, szp);
+5876:     if (allctr->fix)
+5877: 	fix = sz_info_fix(allctr, internal, print_to_p, print_to_arg, hpp, szp);
+5878:     mbcs = info_carriers(allctr, &allctr->mbcs, "mbcs ", print_to_p,
+5879: 			 print_to_arg, hpp, szp);
+5880:     if (ERTS_ALC_IS_CPOOL_ENABLED(allctr))
+5881: 	mbcs_pool = info_cpool(allctr, 0, "mbcs_pool ", print_to_p,
+5882: 			       print_to_arg, hpp, szp);
+5883:     else
+5884: 	mbcs_pool = THE_NON_VALUE; /* shut up annoying warning... */
+5885:     sbcs = info_carriers(allctr, &allctr->sbcs, "sbcs ", print_to_p,
+5886: 			 print_to_arg, hpp, szp);
+5887:     calls = info_calls(allctr, print_to_p, print_to_arg, hpp, szp);
+5888: 
+5889:     if (hpp || szp) {
+5890: 	res = NIL;
+5891: 
+5892: 	add_2tup(hpp, szp, &res, am.calls, calls);
+5893: 	add_2tup(hpp, szp, &res, am.sbcs, sbcs);
+5894: 	if (ERTS_ALC_IS_CPOOL_ENABLED(allctr))
+5895: 	    add_2tup(hpp, szp, &res, am.mbcs_pool, mbcs_pool);
+5896: 	add_2tup(hpp, szp, &res, am.mbcs, mbcs);
+5897: 	add_fix_types(allctr, internal, hpp, szp, &res, fix);
+5898: 	add_2tup(hpp, szp, &res, am.options, sett);
+5899: 	add_3tup(hpp, szp, &res,
+5900: 		 am.versions,
+5901: 		 bld_string(hpp, szp, allctr->vsn_str),
+5902: 		 bld_string(hpp, szp, ERTS_ALCU_VSN_STR));;
+5903:     }

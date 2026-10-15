@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-304/reused303/tests.json",
-  "LocalPassedTests": 6624,
-  "RegisteredMfas": 503,
+  "ComparisonTestReport": "validation/part-305/tests.json",
+  "LocalPassedTests": 6627,
+  "RegisteredMfas": 504,
   "PreviousRegisteredMfas": 503,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 1,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 7,
   "Components": [
@@ -160,7 +160,8 @@
         "Part300: Main6611/full preserves6610 old ordered names plus one thirteen-scenario owned NIF lifetime HOST. Shutdown admission closure linearizes under the registry gate and may queue after core shutdown starts; winning admissions/commits remain owned and Dispose joins closure/owners before completion. Public purge metadata precedes asynchronous cleanup. Genuine retirement-originated halt red failure is fixed by independent actor ownership isolation. Preserved initial full6610/1 and first focused timeout exposed two Dispose lock-order regressions; guarded dormant inline versus owned asynchronous closure passes both unchanged historical tests and refuses active caller-monitor shutdown before mutation. Default-provider native init/unload fence remains bounded; no public load_nif/general ABI/resource/dirty-work/raw failed-on_load or full shutdown equivalence.",
         "Part301: actual6621/full adds process_info/1 supported logical default subset through one existing coherent owner snapshot; twelve fields unregistered/thirteen registered, four pinned physical heap/stack/GC fields absent. /2 behavior unchanged. Four focused HOST groups, eight generated SDK cases and the actual registered MFA fixture route pass; new eight original projections and one approved historical system-profile fixture migration await original comparison (5854/fd8 expected). The unmodified fixture reproduced its timeout in SDK-only execution; corrected23 cases plus40 repeats pass without a runtime algorithm change. Registry503/erlang345 of351 is API presence only; exact seventeen-field, physical and whole-module parity remain incomplete.",
         "Part303: actual6622/full and thirteen focused groups cover an explicitly installed internal direct-source load_nif caller capability with exact image/owner lease, both argument effects and failures, actual generated managed entry and cleanup. No public load_nif MFA/default handler/native loader or ABI activation. Registry503/erlang345 of351 unchanged. Native source closure1007; actual post-full trusted-profile checks remain separate. Source-only pin audit, controlled staged-image evaluation and historical source entry do not establish BEAM i_load_nif or native on_load execution.",
-        "Part305: actual6624/full adds internal exact-image process queries and purge-drain helpers without changing public null-image queries. Raw false permanently clears deferred exports; later true publishes the same image with no exports, matching six retained original typed finals through genuine BEAM resources and real dictionary local functions. Allocate_heap uses existing strict descriptor/liveness checks; five negative controls and repeated-kind summation retained. Isolated14/19 focus proofs and independent source/projection reviews are bounded; native/original were not rerun by candidate authors. No new public MFA/default loader;503/345 of351 unchanged. Pending on_load stage/fun fence, privileged purger and zero-export NIF owner association remain incomplete."
+        "Part305: actual6624/full adds internal exact-image process queries and purge-drain helpers without changing public null-image queries. Raw false permanently clears deferred exports; later true publishes the same image with no exports, matching six retained original typed finals through genuine BEAM resources and real dictionary local functions. Allocate_heap uses existing strict descriptor/liveness checks; five negative controls and repeated-kind summation retained. Isolated14/19 focus proofs and independent source/projection reviews are bounded; native/original were not rerun by candidate authors. No new public MFA/default loader;503/345 of351 unchanged. Pending on_load stage/fun fence, privileged purger and zero-export NIF owner association remain incomplete.",
+        "Part306: actual6627/full preserves all6624 published305 ordered names and eleven integration/package results. Actual registered dist_get_stat/1 yields default504/optionalIO506 and erlang346 of351 API presence, up from345 with five still absent. Its implementation-dependent accounted storage charges descriptor/vector/payload per queued occurrence and excludes CLR headers/wrappers/cache; no physical ERTS size equality is claimed. Original279 seven statistics contracts are archived separately. Immutable zero-export BEAM image ownership closes the currentOwnerMismatch association defect while pending purge/fun fences and public load_nif/general native ABI remain unfinished. Runtime22 Roslyn streams are token-exact after formatting; isolated target0warnings/0errors and46focus pass with earlier failures retained. Allocator19 source-only tooling preserves18 original bodies plus one positive full-info case; candidate52/35/16 controls, actual installed52 controls and independent peer review do not constitute fresh original execution or disabled-profile coverage. Prior305 CI/native/ordinary259files retained; ordinary5854/fd8 has one predeclared raw mapstdout variance with strict raw failure preserved. Same-head306 CI/original, physical resources, upstream suites, whole compatibility and performance remain incomplete."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -174,7 +175,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 662
+      "RelatedPassedTests": 665
     },
     {
       "Id": "Compiler",
@@ -261,7 +262,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1542
+      "RelatedPassedTests": 1543
     },
     {
       "Id": "gen_server adapters",
@@ -5743,11 +5744,11 @@
     {
       "Name": "erlang",
       "Status": "Partially compatible",
-      "RegisteredMfas": 345,
+      "RegisteredMfas": 346,
       "PreviousRegisteredMfas": 345,
-      "Delta": 0,
+      "Delta": 1,
       "ReferenceDeclarations": 351,
-      "ApiPresencePercent": 98.3,
+      "ApiPresencePercent": 98.6,
       "RequiresPreprocessing": false,
       "Sources": [
         "erts/preloaded/src/erlang.erl"
@@ -5835,6 +5836,7 @@
         "erlang:dist_ctrl_input_handler/2",
         "erlang:dist_ctrl_put_data/2",
         "erlang:dist_ctrl_set_opt/3",
+        "erlang:dist_get_stat/1",
         "erlang:div/2",
         "erlang:dmonitor_node/3",
         "erlang:dt_append_vm_tag_data/1",

@@ -434,7 +434,7 @@ internal static class ConnectedDistributionHostChecks
             return true;
         });
         Term opaque = await adoptionTask;
-        Check(opaque is ReferenceTerm);
+        Check(opaque is TupleTerm && opaque.Equals(rpcPending));
         await kernel.InvokeAsync(async context =>
         {
             var notice = Term.Tuple(
@@ -450,7 +450,7 @@ internal static class ConnectedDistributionHostChecks
         await controller.Invoke(context =>
         {
             Check(DistributionControllerAdapters.GetData(context, opaque).Equals(Term.A(DistributionControllerNames.NoData)));
-            RejectErlang(() => DistributionControllerAdapters.GetData(context, rpcPending), ErlangErrorReasons.BadArgument);
+            Check(DistributionControllerAdapters.GetData(context, rpcPending).Equals(Term.A(DistributionControllerNames.NoData)));
             Check(DistributionControllerAdapters.GetOption(context, opaque, Term.A(DistributionControllerNames.GetSize)).Equals(Term.A(ErlangBooleanAtoms.False)));
             Check(DistributionControllerAdapters.SetOption(
                 context,
@@ -470,7 +470,7 @@ internal static class ConnectedDistributionHostChecks
             context.Self,
             Term.Tuple(Term.I(checked((long)DistributionPassThroughFlags.Mandatory)), Term.I(4))
         ));
-        Check(reopenedOpaque is ReferenceTerm && !reopenedOpaque.Equals(opaque));
+        Check(reopenedOpaque.Equals(reopenPending) && !reopenedOpaque.Equals(opaque));
         await controller.Invoke(context =>
         {
             RejectErlang(() => DistributionControllerAdapters.GetData(context, opaque), ErlangErrorReasons.BadArgument);
@@ -569,7 +569,13 @@ internal static class ConnectedDistributionHostChecks
         checks += await ConnectedDistributionEventsHostChecks.Run();
         if (checks != ConnectedDistributionHostNames.ExpectedAssertions)
             throw new InvalidOperationException(ConnectedDistributionHostNames.Failure);
-        Console.WriteLine(JsonSerializer.Serialize(new { Checks = checks, Failed = 0, NativeExecuted = false, CoreRegistrationsAdded = 0 }));
+        Console.WriteLine(JsonSerializer.Serialize(new
+        {
+            Checks = checks,
+            Failed = 0,
+            NativeExecuted = false,
+            CoreRegistrationsAdded = 0
+        }));
 
         void Check(bool condition)
         {

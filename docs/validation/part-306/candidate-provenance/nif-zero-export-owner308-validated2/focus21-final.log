@@ -1,0 +1,34 @@
+PASS prepared BEAM image owner fresh_direct_true
+PASS prepared BEAM image owner fresh_false_false_true
+PASS prepared BEAM image owner current_direct_true
+PASS prepared BEAM image owner current_false_false_true
+PASS prepared BEAM image owner deleted_old_direct_true
+PASS prepared BEAM image owner deleted_old_false_false_true
+PASS NifBeamOwnerHostChecks
+PASS ExactImageCodeHostChecks
+PASS raw on_load captured final fresh_direct_true
+PASS raw on_load captured final fresh_false_false_true
+PASS raw on_load captured final current_direct_true
+PASS raw on_load captured final current_false_false_true
+PASS raw on_load captured final deleted_old_direct_true
+PASS raw on_load captured final deleted_old_false_false_true
+PASS RawOnLoadExportsHostChecks
+PASS SourceLoadNifHostChecks
+PASS NifSourceEntryHostChecks
+PASS NifBeamEntryHostChecks
+PASS NifAdmissionHostChecks
+PASS NifLifetimeHostChecks
+PASS NifImageBindingHostChecks
+PASS CodeModificationHostChecks
+PASS SourceTailHostChecks
+PASS RuntimeTailHostChecks
+PASS ModuleLoadingHostChecks
+PASS CodePurgeHostChecks
+PASS BeamLoaderMfaChecks:Races
+Local initialization ownership, nested queue, rollback, snapshot, 100 work items, status and disposal passed; native unrun
+PASS InitializationLifecycleChecks
+PASS BeamLoaderMfaChecks:Direct
+PASS BeamOnLoadHostChecks
+PASS StaticApplyOnLoadChecks
+PASS BeamClosureHostChecks
+PASS BeamReceiveHostChecks

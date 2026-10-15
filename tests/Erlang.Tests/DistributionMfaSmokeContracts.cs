@@ -11,7 +11,8 @@ internal static class DistributionMfaSmokeContracts
             (DistributionControllerNames.RequestDataNotification, 1) or
             (DistributionControllerNames.GetData, 1) or
             (DistributionControllerNames.InputHandler, 2) or
-            (DistributionInputNames.Function, DistributionInputNames.Arity);
+            (DistributionInputNames.Function, DistributionInputNames.Arity) or
+            (DistributionStatisticsHostNames.Function, 1);
 
     internal static async Task Run(string module, string function, int arity)
     {
@@ -45,7 +46,7 @@ internal static class DistributionMfaSmokeContracts
             context.Self,
             Term.Tuple(Term.I(checked((long)DistributionPassThroughFlags.Mandatory)), Term.I(DistributionMfaSmokeNames.Creation))
         ));
-        Require(handle is ReferenceTerm);
+        Require(handle is TupleTerm && handle.Equals(pending));
         Require(runtime.DistributionPending.ConnectedSnapshot(pending).RemoteCreation == DistributionMfaSmokeNames.Creation);
         if (function == RuntimeSetNodeHostNames.SetNode)
         {
@@ -54,10 +55,50 @@ internal static class DistributionMfaSmokeContracts
             return;
         }
 
+        if (function == DistributionStatisticsHostNames.Function)
+            await input.InvokeAsync(async context =>
+            {
+                Require((await Call(context, function, handle)).Equals(Term.Tuple(
+                    Term.A(DistributionMfaSmokeNames.Success),
+                    Term.I(0),
+                    Term.I(0),
+                    Term.I(0)
+                )));
+
+                return true;
+            });
         await controller.InvokeAsync(async context =>
         {
             switch (function)
             {
+                case DistributionStatisticsHostNames.Function:
+                    Require((await Call(context, function, handle)).Equals(Term.Tuple(
+                        Term.A(DistributionMfaSmokeNames.Success),
+                        Term.I(0),
+                        Term.I(0),
+                        Term.I(0)
+                    )));
+                    runtime.DistributionPending.EnqueueConnectedOutput(pending, Packet(context.Self));
+                    var queued = (TupleTerm)await Call(context, function, handle);
+                    Require(queued.Items.Count == 4 && queued.Items[0].Equals(Term.A(DistributionMfaSmokeNames.Success)));
+                    Require(queued.Items[1].Equals(Term.I(0)) && queued.Items[2].Equals(Term.I(0)));
+                    Require(queued.Items[3] is Integer queuedBytes && queuedBytes.Value > 0);
+                    Require(!(await Call(context, DistributionControllerNames.GetData, handle)).Equals(Term.A(DistributionControllerNames.NoData)));
+                    Require((await Call(context, function, handle)).Equals(Term.Tuple(
+                        Term.A(DistributionMfaSmokeNames.Success),
+                        Term.I(0),
+                        Term.I(1),
+                        Term.I(0)
+                    )));
+                    Require((await Call(context, DistributionControllerNames.GetData, handle)).Equals(Term.A(DistributionControllerNames.NoData)));
+                    Require((await Call(context, function, handle)).Equals(Term.Tuple(
+                        Term.A(DistributionMfaSmokeNames.Success),
+                        Term.I(0),
+                        Term.I(1),
+                        Term.I(0)
+                    )));
+                    break;
+
                 case DistributionControllerNames.GetOption:
                     Require((await Call(
                         context,

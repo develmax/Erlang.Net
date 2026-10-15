@@ -76,7 +76,7 @@ internal static class DistributionRegisteredHostChecks
             return true;
         });
         Term opaque = await adoption.WaitAsync(RuntimeSetNodeHostParameters.Deadline);
-        Require(opaque is ReferenceTerm && !opaque.Equals(pending));
+        Require(opaque is TupleTerm && opaque.Equals(pending));
         Require(runtime.DistributionPending.ConnectedSnapshot(pending).RemoteCreation == DistributionRegisteredHostNames.FirstRemoteCreation);
         await kernel.InvokeAsync(async context =>
         {
@@ -137,7 +137,7 @@ internal static class DistributionRegisteredHostChecks
             )).Equals(Term.A(DistributionRegisteredHostNames.Success)));
             Require(runtime.DistributionPending.ConnectedSnapshot(pending).InputHandler!.Equals(input.Process.Pid));
             Require((await Call(context, DistributionControllerNames.RequestDataNotification, opaque)).Equals(Term.A(DistributionRegisteredHostNames.Success)));
-            await Reject(() => Call(context, DistributionControllerNames.GetData, pending), ErlangErrorReasons.BadArgument);
+            Require((await Call(context, DistributionControllerNames.GetData, pending)).Equals(Term.A(DistributionControllerNames.NoData)));
 
             return true;
         });
@@ -166,7 +166,7 @@ internal static class DistributionRegisteredHostChecks
             context.Self,
             Options(Term.I(RuntimeNodeCreationHostParameters.MaximumSmallCreation))
         ));
-        Require(current is ReferenceTerm && !current.Equals(opaque));
+        Require(current is TupleTerm && current.Equals(reopened) && !current.Equals(opaque));
         Require(runtime.DistributionPending.ConnectedSnapshot(reopened).RemoteCreation == uint.MaxValue);
         await controller.InvokeAsync(async context =>
         {

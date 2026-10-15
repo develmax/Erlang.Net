@@ -82,7 +82,8 @@ public sealed partial class ModuleRegistry
             if (pending is not null)
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.PendingCurrentAmbiguous);
             target = descriptor ?? throw new NifImageAdmissionException(NifImageAdmissionFailure.MissingDescriptor);
-            if (!ReferenceEquals(target.SourceOwner, caller.Owner)
+            if (!ReferenceEquals(caller.Image.ExecutionOwner, caller.Owner)
+                && !ReferenceEquals(target.SourceOwner, caller.Owner)
                 && !functions.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, caller.Owner))
                 && !sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, caller.Owner)))
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.OwnerMismatch);

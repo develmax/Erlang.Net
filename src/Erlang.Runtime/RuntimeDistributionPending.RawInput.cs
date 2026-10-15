@@ -10,22 +10,21 @@ public sealed partial class RuntimeDistributionPending
         RuntimeDistributionPendingEntry entry;
         DistributionConnectedEntry connected;
         uint connectionId;
-        ReferenceResourceLease<DistributionConnectedHandle> resource;
+        ReferenceResourceLease<RuntimeDistributionPendingEntry> resource;
         BitString binary;
         lock (gate)
         {
             RequireProcess(caller);
-            if (handle is not ReferenceTerm reference)
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
-            resource = runtime.ReferenceResources.AcquireConnectedDistributionHandle(reference)
-                ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
             try
             {
-                var captured = resource.Value;
-                entry = captured.Entry;
-                connectionId = captured.ConnectionId;
-                if (!ReferenceEquals(entry.Owner, this))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                entry = ReadHandle(handle, out connectionId, out resource);
+            }
+            catch (ArgumentException)
+            {
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            }
+            try
+            {
                 if (entry.Connected is not { } active || active.InputHandler is not { } inputHandler ||
                     !inputHandler.Equals(caller.Self))
                     throw new ErlangException(DistributionControllerNames.NotSupported);

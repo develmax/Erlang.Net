@@ -91,6 +91,21 @@ public sealed class HostDistribution : IDisposable
         }
     }
 
+    internal (bool Retired, long OutputBuffers, long QueuedBytes) AccountedStatistics(HostDistributionHandle handle)
+    {
+        lock (gate)
+        {
+            ArgumentNullException.ThrowIfNull(handle);
+            if (!ReferenceEquals(handle.Owner, this))
+                throw new InvalidOperationException(HostDistributionDiagnostics.ForeignHandle);
+            var entry = handle.Entry;
+            if (closed || entry.Closed)
+                return (true, 0, 0);
+
+            return (false, entry.OutputPackets, entry.QueuedAccountedBytes);
+        }
+    }
+
     public bool SetGetSize(HostDistributionHandle handle, ProcessContext caller, bool value)
     {
         lock (gate)
@@ -161,8 +176,10 @@ public sealed class HostDistribution : IDisposable
                 buffer.PayloadBytes > maximumQueuedPayloadBytes - entry.QueuedPayloadBytes ||
                 buffer.SegmentCount > maximumQueuedSegments - entry.QueuedSegments)
                 return false;
+            long accounted = checked(entry.QueuedAccountedBytes + buffer.AccountedBytes);
             entry.Output.Enqueue(buffer);
             entry.QueuedPayloadBytes += buffer.PayloadBytes;
+            entry.QueuedAccountedBytes = accounted;
             entry.QueuedSegments += buffer.SegmentCount;
             if (entry.NotificationArmed)
             {
@@ -207,6 +224,7 @@ public sealed class HostDistribution : IDisposable
             long count = checked(entry.OutputPackets + 1);
             _ = entry.Output.Dequeue();
             entry.QueuedPayloadBytes -= buffer.PayloadBytes;
+            entry.QueuedAccountedBytes -= buffer.AccountedBytes;
             entry.QueuedSegments -= buffer.SegmentCount;
             entry.OutputPackets = count;
             var previous = entry.CapacityChanged;
@@ -292,6 +310,7 @@ public sealed class HostDistribution : IDisposable
         entry.CapacityChanged = null;
         entry.Output.Clear();
         entry.QueuedPayloadBytes = 0;
+        entry.QueuedAccountedBytes = 0;
         entry.QueuedSegments = 0;
         if (entries.TryGetValue(entry.Channel, out var current) && ReferenceEquals(current, entry))
             entries.Remove(entry.Channel);

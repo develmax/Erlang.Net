@@ -1,0 +1,12 @@
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Erlang.Tests.NifAdmissionHostBridge.Property(Object target, String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 8
+   at Erlang.Tests.NifBeamOwnerHostChecks.Image(PreparedBeamImage prepared) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 30
+   at Erlang.Tests.NifBeamOwnerHostChecks.<>c__DisplayClass3_0.<<Observe>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 73
+--- End of stack trace from previous location ---
+   at Erlang.Tests.NifAdmissionHostBridge.<>c__DisplayClass8_0.<<Context>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 77
+--- End of stack trace from previous location ---
+   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func`2 operation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifAdmissionHostBridge.cs:line 87
+   at Erlang.Tests.NifBeamOwnerHostChecks.Observe(String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 63
+   at Erlang.Tests.NifBeamOwnerHostChecks.Observe(String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 172
+   at Erlang.Tests.NifBeamOwnerHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\candidate\tests\Erlang.Tests\NifBeamOwnerHostChecks.cs:line 19
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\nif-zero-export-owner308-validated2\focus\Program.cs:line 16

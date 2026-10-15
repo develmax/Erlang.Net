@@ -1,0 +1,11 @@
+# Combined306 source handoff
+
+Exact published305 parent0494375635061b4952d40a3c7667234db321a931 with32-source freeze3. Combines reviewed307 managed queue statistics/controller tuple handles, actual registered dist_get_stat/1 with MFA evidence, and validated308 immutable zero-export BEAM image ownership. Public load_nif remains unregistered.
+
+Actual isolated CPU2 final target0warnings/0errors and46/46 focused groups PASS. Includes all old distribution cases, new accounting/generation/role contracts, all9 registered distribution MFA routes, owner six real BEAM routes and collectible graph, resource/IO/init and prior NIF lifecycle/source/BEAM/onload groups. No new original/native execution; original278 seven-case evidence supplies handle/counter contracts. SDK queue charge is real per-enqueued-occurrence descriptor/vector/payload storage excluding CLR headers/cache; not physical native equality.
+
+Preserved unsuccessful attempts: first target9 inaccessible-test-constant errors, first focus leftover reopened ReferenceTerm assertion, later focus28passes then harness global-namespace TypeLoadException. Named test-owned Success constants replace internal Runtime catalog references. Two missed legacy schema rows now positively assert real tuple handles/none and generation distinction. No production edits after initial frozen307/validated308 union. Exact namespace plan fixes harness only; all46 declarations and signatures executed.
+
+All overlay bytes are preformat and build-tested. Root should verify parent/result hashes, format changed C# with token equality receipt, then Main full/native checks and readiness exporter. Program overlay preserves all published305 registrations and adds exactly statistics+owner HOST rows. Expected full6627, registered default504/optionalIO506, erlang346/351 presence only, native closure1012 require actual exporter verification. No module completion/performance/general native ABI claim. Main untouched by this agent.
+
+Formatted2 derivative: selected 22 CSharp overlay files passed SDK whitespace folder formatting and Erlang.Style. Roslyn Kind/Text token streams are byte-identical before/after. Existing target 0/0 and 46 focus evidence is preserved and reused; no rerun or Main/full/native execution is claimed. Promotion-map retains exact published305 parent hashes and records formatted result bytes.

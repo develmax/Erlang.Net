@@ -1,0 +1,44 @@
+{
+  "FreezeSha256": "C6AD4F666C908F34F5A4F64E9B7B98C1B1B4FE352F6309FA1FBC26819CBB68F3",
+  "SourceCount": 38,
+  "CSharpCount": 22,
+  "SourceMismatches": null,
+  "Formatted22Mismatches": null,
+  "NativePlanSha256": "6EE3EFCFDC24A8A78AD3D3276AD514070748AFCA996A4EB89FC41E3649A9ACC0",
+  "NativeClosureCount": 1012,
+  "NativeClosureMismatches": [],
+  "PriorNativeClosureCount": 1009,
+  "NativeAdded": [
+    "src/Erlang.Runtime/DistributionStatisticsNames.cs",
+    "src/Erlang.Runtime/HostDistributionBufferStorage.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.Statistics.cs"
+  ],
+  "NativeRemoved": [],
+  "TokensBeforeSha256": "BDB2438733E3A91BDBAB9B7443180094D01386468BB56F7CF4C7CD71CE858F73",
+  "TokensAfterSha256": "BDB2438733E3A91BDBAB9B7443180094D01386468BB56F7CF4C7CD71CE858F73",
+  "AllocatorPlanSha256": "C73AFABAF43F98F81BD94C52788189429F85931C3D7228C8C8346C38FCEDD0F5",
+  "Attributes306": true,
+  "Status": "SOURCE_PEER_PASS_NO_EXECUTION",
+  "SemanticReview": [
+    "Input count uses authorized raw input attempts, including Nil/empty and later badarg; accepted packet snapshot remains separate.",
+    "Output count increases on actual buffer dequeue, remains unchanged for empty reads; queue bytes use owned storage accounting and decrease by identical buffer amount.",
+    "Storage accounting includes payload, segment pointer slots and managed storage struct size; it is not claimed as OTP physical bytes.",
+    "Retired queue returns zero counters; stale connection generation is rejected.",
+    "PreparedBeamImage owns ModuleCodeImage through immutable internal readonly ExecutionOwner; owner308 current admission accepts exact image owner even after exports cleared.",
+    "No public load_nif registration or native ABI activation; source310 remains isolated artifact."
+  ],
+  "NativeChangedExisting": [
+    "src/Erlang.Runtime/DistributionRegistrations.cs",
+    "src/Erlang.Runtime/HostDistribution.cs",
+    "src/Erlang.Runtime/HostDistributionBuffer.cs",
+    "src/Erlang.Runtime/HostDistributionEntry.cs",
+    "src/Erlang.Runtime/ModuleCodeImage.cs",
+    "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+    "src/Erlang.Runtime/PreparedBeamImage.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.NodeController.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.RawInput.cs"
+  ],
+  "BuildExecuted": false,
+  "TestsExecuted": false,
+  "NativeExecuted": false
+}

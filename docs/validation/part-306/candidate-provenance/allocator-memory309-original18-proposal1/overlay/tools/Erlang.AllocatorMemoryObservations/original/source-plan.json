@@ -1,0 +1,164 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Status": "SOURCE_ONLY_NOT_EXECUTED",
+  "ExpectedFreshVmCases": 19,
+  "Cases": [
+    {
+      "Name": "alloc_info_empty",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_sizes_empty",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_nonlist",
+      "Scope": "allocator",
+      "Projection": "function_clause"
+    },
+    {
+      "Name": "alloc_unknown",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_duplicate",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_improper",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "alloc_atom",
+      "Scope": "allocator",
+      "Projection": "allocator_atom"
+    },
+    {
+      "Name": "alloc_order",
+      "Scope": "allocator",
+      "Projection": "allocator_order"
+    },
+    {
+      "Name": "alloc_raw_ref",
+      "Scope": "allocator",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_all",
+      "Scope": "memory",
+      "Projection": "memory_all"
+    },
+    {
+      "Name": "memory_empty",
+      "Scope": "memory",
+      "Projection": "empty"
+    },
+    {
+      "Name": "memory_order_duplicates",
+      "Scope": "memory",
+      "Projection": "memory_order"
+    },
+    {
+      "Name": "memory_invalid",
+      "Scope": "memory",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_maximum",
+      "Scope": "memory",
+      "Projection": "badarg"
+    },
+    {
+      "Name": "memory_improper",
+      "Scope": "memory",
+      "Projection": "function_clause"
+    },
+    {
+      "Name": "process_default",
+      "Scope": "adjacent_process",
+      "Projection": "process_default"
+    },
+    {
+      "Name": "nif_apply_invalid_path",
+      "Scope": "adjacent_dynamic_nif",
+      "Projection": "dynamic_nif"
+    },
+    {
+      "Name": "nif_apply_missing_path",
+      "Scope": "adjacent_dynamic_nif",
+      "Projection": "dynamic_nif"
+    },
+    {
+      "Name": "alloc_info_binary_full",
+      "Scope": "allocator_positive_full_info_extra",
+      "Projection": "allocator_full"
+    }
+  ],
+  "SdkCompared": false,
+  "Sources": [
+    {
+      "Path": "check_process_capture.py",
+      "Bytes": 1851,
+      "Sha256": "7AFB9AAACFA500F88AC664A85FE291A98BD66AE2D6B4AA875712A272D4C1B54D"
+    },
+    {
+      "Path": "collect.py",
+      "Bytes": 6663,
+      "Sha256": "995787A052BBEBE86E1E337FFDDFC9ED8453B86A78C6B9F3B2C0A64DA63242B8"
+    },
+    {
+      "Path": "expected-policy.json",
+      "Bytes": 2412,
+      "Sha256": "8C205BF5171D233DEAD25A12C8F36E1CA90F2866C531BC2D29A0295997515C4B"
+    },
+    {
+      "Path": "memory_allocator_probe.erl",
+      "Bytes": 2374,
+      "Sha256": "AD018B580F579847F2B3AA06F56CA76C928B32BF4A09D2968F8D69DFA4A5D174"
+    },
+    {
+      "Path": "process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "GitPath": "erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_alloc.c",
+      "Bytes": 112453,
+      "Sha256": "F55A12FF711D71AA53FB8981E1DF5642B76A11FDBE4383E7562EAF2503A0C61A"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_term.h",
+      "Bytes": 59494,
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_nif.c",
+      "Bytes": 197317,
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_alloc_util.c",
+      "Bytes": 250441,
+      "Sha256": "BB458A70FD373E1E6360BF88DF73AFB4EC5BF0BA80E78D45B05338362F0B73BF"
+    }
+  ],
+  "BaseFreshVmCases": 18,
+  "ExtraFullInfoFreshVmCases": 1
+}
