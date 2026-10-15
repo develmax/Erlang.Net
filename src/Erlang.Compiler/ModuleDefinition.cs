@@ -34,12 +34,13 @@ public sealed record ModuleDefinition(
 
     public void Register(ModuleRegistry registry)
     {
+        using var source = registry.EnterSourceMutation();
         Otp.OtpModules.Register(registry);
         AtomNameRegistry.Observe(Name);
         foreach (var function in Functions)
             AtomNameRegistry.Observe(function.Name);
 
-        registry.Apply(target =>
+        registry.ApplySourceCode(target =>
         {
             target.PublishModule(Name);
             var image = target.CurrentCodeImage(Name)!;

@@ -15,7 +15,7 @@ internal sealed class ModuleCodeModificationPermission
     internal bool IsAvailable => admission.CurrentCount != 0;
     internal int PendingAsynchronousWriters => Volatile.Read(ref pendingAsynchronousWriters);
 
-    private bool IsOwned
+    internal bool IsOwned
     {
         get
         {

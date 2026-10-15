@@ -15,31 +15,50 @@ public static class BeamLoaderAdmissionRaceChecks
         await using var runtime = new ProcessRuntime();
         PreparedBeamImage image = runtime.Modules.PrepareBeam(bytes);
         ResourceReferenceTerm reference = runtime.ReferenceResources.CreatePrepared(image);
-        using var started = new ManualResetEventSlim();
         object moduleGate = typeof(ModuleRegistry).GetField(BeamLoaderAdmissionRaceNames.ModuleGate, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(runtime.Modules)!;
-        Task<Term> competing;
-        using (EnterModification(runtime.Modules))
+        await NifAdmissionHostBridge.Context(
+            runtime,
+            async context =>
         {
-            Monitor.Enter(moduleGate);
-            try
+            var announced = new TaskCompletionSource<Task<bool>>(TaskCreationOptions.RunContinuationsAsynchronously);
+            Task<bool>? competing = null;
+            await Task.Run(() =>
             {
-                competing = Task.Run(() =>
+                using var source = SourcePurgeStageHostBridge.SourceScope(runtime.Modules);
+                using var modification = EnterModification(runtime.Modules);
+                Monitor.Enter(moduleGate);
+                try
                 {
-                    started.Set();
+                    competing = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            Task<bool> waiting = SourcePurgeStageHostBridge.Publish(
+                                runtime.Modules, context, () => Finish(runtime.ReferenceResources, reference)
+                            ).AsTask();
+                            announced.TrySetResult(waiting);
 
-                    return Finish(runtime.ReferenceResources, reference);
-                });
-                Require(started.Wait(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)));
-                WaitForWriter(runtime.Modules);
-                Require(runtime.Modules.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            }
-            finally
-            {
-                Monitor.Exit(moduleGate);
-            }
+                            return await waiting;
+                        }
+                        catch (Exception failure)
+                        {
+                            announced.TrySetException(failure);
+                            throw;
+                        }
+                    });
+                    Task<bool> waiting = announced.Task.WaitAsync(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)).GetAwaiter().GetResult();
+                    Require(!waiting.IsCompleted);
+                    Require(runtime.Modules.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                }
+                finally
+                {
+                    Monitor.Exit(moduleGate);
+                }
+            });
+            await Badarg(competing!);
+            Require(image.IsConsumed);
         }
-        await Badarg(competing);
-        Require(image.IsConsumed);
+        );
     }
 
     private static async Task ClosedBeforeAdmission(byte[] bytes)
@@ -112,7 +131,7 @@ public static class BeamLoaderAdmissionRaceChecks
         }
     }
 
-    private static async Task Badarg(Task<Term> task)
+    private static async Task Badarg(Task task)
     {
         try
         {

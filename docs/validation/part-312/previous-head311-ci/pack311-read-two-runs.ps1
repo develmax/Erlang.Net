@@ -1,0 +1,57 @@
+param([Parameter(Mandatory=$true)][ValidatePattern('^[0-9a-f]{40}$')][string]$PublishedHead)
+$ErrorActionPreference='Stop'
+$dispatch=Get-Content -LiteralPath 'artifacts/root-part311-native-dispatch-result.json' -Raw|ConvertFrom-Json
+if($dispatch.Stage -cne 'SINGLE_POST_ACCEPTED' -or $dispatch.Head -cne $PublishedHead){throw 'Wait for root exact-head publication and single native POST acceptance before any GET'}
+$publishedReceiptText=git cat-file blob ($PublishedHead+':docs/validation/part-311/evidence-receipt.json')
+if($LASTEXITCODE){throw 'Part311 exact-head published receipt absent; refuse before GET'}
+$publishedReceipt=$publishedReceiptText|ConvertFrom-Json
+if($publishedReceipt.Passed -ne 6639 -or $publishedReceipt.Failed -ne 0 -or $publishedReceipt.SourcePaths -ne 11 -or $publishedReceipt.CSharpPaths -ne 8){throw 'Published Part311 authority differs; inspect before GET'}
+if($publishedReceipt.NativeInputs -ne 1028 -or !$publishedReceipt.FreshMainFullValidationExecuted -or $publishedReceipt.ReusedFullValidation -or $publishedReceipt.Registry -ne 505){throw 'Published fresh Main/native authority differs'}
+$lastPath='artifacts/pack311-last-read.json'
+if(Test-Path -LiteralPath $lastPath){$previous=Get-Content -LiteralPath $lastPath -Raw|ConvertFrom-Json;if(([DateTime]::UtcNow-[DateTime]$previous.ReadUtc).TotalSeconds -lt 120){throw 'Read-only backoff requires at least 120 seconds'}}
+[pscustomobject]@{ReadUtc=[DateTime]::UtcNow.ToString('o');Head=$PublishedHead}|ConvertTo-Json|Set-Content -LiteralPath $lastPath
+$credentialLines="protocol=https`nhost=github.com`n`n"|git credential fill
+if($LASTEXITCODE){throw 'Credential provider failed'}
+$passwordLine=$credentialLines|Where-Object {$_ -like 'password=*'}|Select-Object -First 1
+if($null -eq $passwordLine){throw 'Credential provider did not return a token'}
+$secret=$passwordLine.Substring(9)
+$headers=@{'User-Agent'='Erlang.Net-read-only-independent-audit';Authorization="Bearer $secret";Accept='application/vnd.github+json'}
+try {
+ $repo='https://api.github.com/repos/develmax/Erlang.Net'
+ $runs=Invoke-RestMethod -Uri "$repo/actions/runs?head_sha=$PublishedHead&per_page=100" -Headers $headers
+ $discoveryStamp=[DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffffffZ')
+ [pscustomobject]@{Head=$PublishedHead;FetchedUtc=$discoveryStamp;ReadOnly=$true;Runs=$runs}|ConvertTo-Json -Depth 35|Set-Content -LiteralPath "artifacts/pack311-run-discovery-$discoveryStamp.json"
+ $targets=@($runs.workflow_runs|Where-Object {$_.name -cin @('Validate CLR implementation','Pinned OTP pending and bounded native backend observations')})
+ if(@($targets.name|Select-Object -Unique).Count -ne 2 -or $targets.Count -ne 2){throw 'Expected exactly two exact-head named runs; inspect snapshot rather than pick a run'}
+ $stamp=[DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffffffZ')
+ foreach($run in $targets){
+  if($run.head_sha -cne $PublishedHead -or $run.run_attempt -ne 1){throw 'CI head or attempt differs'}
+  $jobs=Invoke-RestMethod -Uri "$($run.jobs_url)?per_page=100" -Headers $headers
+  if(@($jobs.jobs).Count -ne 1){throw 'Expected one authenticated job per mapped workflow'}
+  $kind=if($run.name -ceq 'Validate CLR implementation'){'ci'}else{'native'}
+  $mapPath="artifacts/pack311-$kind-run-map.json"
+  $mapping=[pscustomobject]@{Head=$PublishedHead;Kind=$kind;Workflow=$run.name;Run=$run.id;Job=$jobs.jobs[0].id;Attempt=$run.run_attempt;ReadOnly=$true}
+  if(Test-Path -LiteralPath $mapPath){$oldMapping=Get-Content -LiteralPath $mapPath -Raw|ConvertFrom-Json;if($oldMapping.Head -cne $PublishedHead -or $oldMapping.Run -ne $mapping.Run -or $oldMapping.Job -ne $mapping.Job -or $oldMapping.Attempt -ne 1){throw 'Immutable exact-head run mapping differs; never silently select another run'}}else{$mapping|ConvertTo-Json -Depth 5|Set-Content -LiteralPath $mapPath}
+  [pscustomobject]@{Run=$run;Jobs=$jobs;ReadOnly=$true;FetchedUtc=$stamp}|ConvertTo-Json -Depth 35|Set-Content -LiteralPath "artifacts/pack311-watch-$($run.id)-$stamp.json"
+  [pscustomobject]@{Run=$run.id;Head=$run.head_sha;Status=$run.status;Conclusion=$run.conclusion;Jobs=@($jobs.jobs|ForEach-Object {[pscustomobject]@{Id=$_.id;Status=$_.status;Conclusion=$_.conclusion;Active=@($_.steps|Where-Object status -eq 'in_progress'|ForEach-Object name)}})}|ConvertTo-Json -Depth 7
+  if($run.status -ne 'completed'){continue}
+  $dest="artifacts/pack311-watch-$($run.id)-terminal"
+  if(Test-Path -LiteralPath $dest){if(!(Test-Path -LiteralPath "$dest/download-manifest.json")){throw 'Partial terminal download exists; preserve and inspect'};continue}
+  New-Item -ItemType Directory -Path $dest|Out-Null
+  $run|ConvertTo-Json -Depth 35|Set-Content -LiteralPath "$dest/run.json"
+  $jobs|ConvertTo-Json -Depth 35|Set-Content -LiteralPath "$dest/jobs.json"
+  $artifacts=Invoke-RestMethod -Uri $run.artifacts_url -Headers $headers
+  $artifacts|ConvertTo-Json -Depth 35|Set-Content -LiteralPath "$dest/artifacts.json"
+  foreach($job in $jobs.jobs){Invoke-WebRequest -Uri "$repo/actions/jobs/$($job.id)/logs" -Headers $headers -OutFile "$dest/job-$($job.id).log"}
+  foreach($item in $artifacts.artifacts){
+   if($item.expired -or $item.workflow_run.head_sha -cne $PublishedHead){throw 'Artifact expired or source head differs'}
+   $zip="$dest/artifact-$($item.id).zip"
+   Invoke-WebRequest -Uri $item.archive_download_url -Headers $headers -OutFile $zip
+   $zipHash=(Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash
+   if((Get-Item -LiteralPath $zip).Length -ne $item.size_in_bytes -or $item.digest -cne "sha256:$($zipHash.ToLowerInvariant())"){throw 'ZIP digest/length mismatch; preserve raw bytes'}
+   Expand-Archive -LiteralPath $zip -DestinationPath "$dest/artifact-$($item.id)"
+  }
+  Get-ChildItem -LiteralPath $dest -Recurse -File|ForEach-Object {[pscustomobject]@{Path=[IO.Path]::GetRelativePath((Resolve-Path -LiteralPath $dest).Path,$_.FullName);Bytes=$_.Length;Sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash}}|ConvertTo-Json -Depth 5|Set-Content -LiteralPath "$dest/download-manifest.json"
+  Write-Output "Read-only downloaded terminal311 run $($run.id)"
+ }
+}finally{$secret=$null;$passwordLine=$null;$credentialLines=$null;$headers=$null}

@@ -114,6 +114,15 @@ internal static class BeamLoaderApi
     internal static Term DynamicCallOnLoad(ProcessContext context, Term module)
         => throw new ErlangException(ErlangErrorReasons.BadArgument);
 
+    internal static ValueTask<Term> FinishOnLoadAsync(ProcessContext context, Term module, Term keep)
+    {
+        bool retain = CoreModules.Bool(keep);
+
+        return retain
+            ? context.Runtime.Modules.ModifySourceCodeAsync(context, () => FinishOnLoad(context, module, keep))
+            : context.Runtime.Modules.ModifyCodeAsync(context, () => FinishOnLoad(context, module, keep));
+    }
+
     internal static Term FinishOnLoad(ProcessContext context, Term module, Term keep)
     {
         bool retain = CoreModules.Bool(keep);

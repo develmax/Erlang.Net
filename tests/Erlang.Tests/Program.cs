@@ -38,6 +38,7 @@ Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoad
 Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
 Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
 Test(Erlang.Tests.SourceLoadNifHostNames.Test, Erlang.Tests.SourceLoadNifHostChecks.Run);
+Test(Erlang.Tests.SourcePurgeStageHostNames.Test, Erlang.Tests.SourcePurgeStageHostChecks.Run);
 Test(Erlang.Tests.BeamClosurePurgeHostNames.Test, Erlang.Tests.BeamClosurePurgeHostChecks.Run);
 Test(Erlang.Tests.RawOnLoadExportsHostNames.Test, Erlang.Tests.RawOnLoadExportsHostChecks.Run);
 Test(Erlang.Tests.NifBeamEntryHostNames.Test, Erlang.Tests.NifBeamEntryHostChecks.Run);

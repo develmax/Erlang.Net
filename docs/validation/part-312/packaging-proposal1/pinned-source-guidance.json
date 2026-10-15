@@ -1,0 +1,88 @@
+{
+  "Status": "PINNED_READONLY_SOURCE_GUIDANCE_NOT_ORIGINAL_EXECUTION",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "erts/emulator/beam/beam_bif_load.c",
+      "Bytes": 71048,
+      "GitBlobSha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D",
+      "Matches": [
+        {
+          "SymbolOrExpression": "erts_internal_purge_module_2",
+          "Line": 2088,
+          "Excerpt": "\nBIF_RETTYPE erts_internal_purge_module_2(BIF_ALIST_2)\n{\n    if (BIF_P != erts_code_purger) {\n        BIF_ERROR(BIF_P, EXC_NOTSUP);"
+        },
+        {
+          "SymbolOrExpression": "erts_internal_purge_module_2",
+          "Line": 2116,
+          "Excerpt": "        if (!erts_try_seize_code_stage_permission(BIF_P)) {\n            ERTS_BIF_YIELD2(BIF_TRAP_EXPORT(BIF_erts_internal_purge_module_2),\n                            BIF_P, BIF_ARG_1, BIF_ARG_2);\n        }\n"
+        },
+        {
+          "SymbolOrExpression": "erts_internal_purge_module_2",
+          "Line": 2236,
+          "Excerpt": "        if (!erts_try_seize_code_mod_permission(BIF_P)) {\n            ERTS_BIF_YIELD2(BIF_TRAP_EXPORT(BIF_erts_internal_purge_module_2),\n                            BIF_P, BIF_ARG_1, BIF_ARG_2);\n        }\n"
+        },
+        {
+          "SymbolOrExpression": "purge_state.fe_count == 0",
+          "Line": 2170,
+          "Excerpt": "        if (res == am_true) {\n            if (purge_state.fe_count == 0) {\n                /* No funs to purge, so we can safely release stage permission\n                 * and allow code to be loaded while checking process code. */\n                erts_release_code_stage_permission();"
+        },
+        {
+          "SymbolOrExpression": "erts_release_code_stage_permission",
+          "Line": 2080,
+          "Excerpt": "    erts_fun_purge_abort_finalize(purge_state.funs, purge_state.fe_count);\n    erts_release_code_stage_permission();\n\n    finalize_purge_operation(NULL, 0);\n"
+        },
+        {
+          "SymbolOrExpression": "erts_release_code_stage_permission",
+          "Line": 2173,
+          "Excerpt": "                 * and allow code to be loaded while checking process code. */\n                erts_release_code_stage_permission();\n            }\n\n            /* Resume ourselves when all schedulers are guaranteed to either"
+        },
+        {
+          "SymbolOrExpression": "erts_release_code_stage_permission",
+          "Line": 2187,
+          "Excerpt": "\n        erts_release_code_stage_permission();\n        BIF_RET(res);\n    }\n"
+        },
+        {
+          "SymbolOrExpression": "erts_release_code_stage_permission",
+          "Line": 2317,
+          "Excerpt": "        if (purge_state.fe_count > 0) {\n            erts_release_code_stage_permission();\n        }\n\n        finalize_purge_operation(BIF_P, ret == am_true);"
+        },
+        {
+          "SymbolOrExpression": "erts_release_code_stage_permission",
+          "Line": 2333,
+          "Excerpt": "            ASSERT(is_value(purge_state.module));\n            erts_release_code_stage_permission();\n        }\n\n        BIF_ERROR(BIF_P, BADARG);"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_fun.c",
+      "Bytes": 9181,
+      "GitBlobSha256": "C3C201A5B0EB26001788CD9BDC7C140D01BF7DB40A239E7B7CD01BD2DB83D95F",
+      "Matches": [
+        {
+          "SymbolOrExpression": "erts_fun_purge_prepare",
+          "Line": 181,
+          "Excerpt": "\nvoid erts_fun_purge_prepare(struct erl_module_instance* modp)\n{\n    struct fun_prepare_purge_args args = {modp, erts_active_code_ix()};\n"
+        },
+        {
+          "SymbolOrExpression": "erts_fun_purge_abort_prepare",
+          "Line": 190,
+          "Excerpt": "\nvoid erts_fun_purge_abort_prepare(ErlFunEntry **funs, Uint no)\n{\n    ErtsCodeIndex code_ix = erts_active_code_ix();\n    Uint fun_ix;"
+        },
+        {
+          "SymbolOrExpression": "erts_fun_purge_abort_finalize",
+          "Line": 205,
+          "Excerpt": "\nvoid erts_fun_purge_abort_finalize(ErlFunEntry **funs, Uint no)\n{\n#ifdef DEBUG\n    ErtsCodeIndex code_ix = erts_active_code_ix();"
+        },
+        {
+          "SymbolOrExpression": "erts_fun_purge_complete",
+          "Line": 224,
+          "Excerpt": "\nvoid erts_fun_purge_complete(ErlFunEntry **funs, Uint no)\n{\n#ifdef DEBUG\n    ErtsCodeIndex code_ix = erts_active_code_ix();"
+        }
+      ]
+    }
+  ],
+  "OriginalExecuted": false,
+  "MainEdited": false,
+  "GitMutation": false
+}

@@ -88,6 +88,7 @@ public sealed partial class ModuleRegistry
 
     internal void RequireNifShutdownCaller()
     {
+        RequireSourceShutdownCaller();
         if (NifRetirementFlow.IsInside(this))
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantRetirementOperation);
         if (codeModificationPermission is { } permission && NifImageInitializationFlow.HoldsPermission(permission))

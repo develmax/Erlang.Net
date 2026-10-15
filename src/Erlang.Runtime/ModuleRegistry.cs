@@ -63,46 +63,10 @@ public sealed partial class ModuleRegistry
         }
     }
 
-    internal ModuleCodeImage? PreparePurge(string module)
-    {
-        using var modification = CodeModification.Enter();
-        lock (gate)
-        {
-            if (!oldCode.TryGetValue(module, out var old))
-                return null;
-            var state = purgeStates.GetOrCreateValue(old.Image);
-            if (state.Pending is not null)
-                throw new InvalidOperationException();
-            state.Pending = new(TaskCreationOptions.RunContinuationsAsynchronously);
-
-            return old.Image;
-        }
-    }
-
     public Task? PendingPurge(ModuleCodeImage image)
     {
         lock (gate)
             return purgeStates.GetOrCreateValue(image).Pending?.Task;
-    }
-
-    internal void FinishPurge(string module, ModuleCodeImage image, bool complete)
-    {
-        using var modification = CodeModification.Enter();
-        lock (gate)
-        {
-            var state = purgeStates.GetOrCreateValue(image);
-            var pending = state.Pending ?? throw new InvalidOperationException();
-            if (complete)
-            {
-                if (!oldCode.TryGetValue(module, out var old) || !ReferenceEquals(old.Image, image))
-                    throw new InvalidOperationException();
-                oldCode.Remove(module);
-                state.Retired = true;
-                _ = QueueNifRetirement(image);
-            }
-            state.Pending = null;
-            pending.TrySetResult();
-        }
     }
 
     public void Register(
@@ -132,10 +96,12 @@ public sealed partial class ModuleRegistry
         object sourceOwner
     )
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(sourceOwner);
         lock (gate)
         {
+            ThrowIfSourceClosing();
             Register(
                 module,
                 function,
@@ -364,9 +330,11 @@ public sealed partial class ModuleRegistry
 
     public Term DeleteModule(string module)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         lock (gate)
         {
+            ThrowIfSourceClosing();
             if (!knownModules.Contains(module))
                 return Term.A(ModuleCodeLifecycleNames.UnknownModule);
             if (oldCode.ContainsKey(module))
@@ -408,11 +376,13 @@ public sealed partial class ModuleRegistry
 
     public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(descriptor);
         ObserveDescriptor(descriptor);
         lock (gate)
         {
+            ThrowIfSourceClosing();
             PublishModule(module);
             codeDescriptors[module] = descriptor;
             informationSnapshots.Remove(module);
@@ -470,6 +440,7 @@ public sealed partial class ModuleRegistry
 
     public void InstallPreloaded(Action<ModuleRegistry> configure)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(configure);
         Apply(target =>
@@ -519,57 +490,68 @@ public sealed partial class ModuleRegistry
 
     public void Apply(Action<ModuleRegistry> configure)
     {
-        using var modification = CodeModification.Enter();
-        ArgumentNullException.ThrowIfNull(configure);
-        lock (gate)
+        var modification = CodeModification.Enter();
+        ModuleRegistryApplyFrame? transaction = null;
+        try
         {
-            var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
-            var previousIntrinsics = new Dictionary<(string Module, string Function, int Arity), IntrinsicBinding>(intrinsicBindings);
-            var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
-            var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
-            var previousDescriptors = new Dictionary<string, ModuleCodeDescriptor>(codeDescriptors, StringComparer.Ordinal);
-            var previousInformation = new Dictionary<string, ModuleInformationSnapshot>(informationSnapshots, StringComparer.Ordinal);
-            var previousKnown = knownModules.ToArray();
-            var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
-            var previousOwners = new Dictionary<(string Module, string Function, int Arity), object>(sourceOwners);
-            var previousImages = new Dictionary<string, ModuleCodeImage>(codeImages, StringComparer.Ordinal);
-            try
+            ArgumentNullException.ThrowIfNull(configure);
+            transaction = new ModuleRegistryApplyFrame(this, modification.ReleasesPermission);
+            lock (gate)
             {
-                configure(this);
+                var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
+                var previousIntrinsics = new Dictionary<(string Module, string Function, int Arity), IntrinsicBinding>(intrinsicBindings);
+                var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
+                var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
+                var previousDescriptors = new Dictionary<string, ModuleCodeDescriptor>(codeDescriptors, StringComparer.Ordinal);
+                var previousInformation = new Dictionary<string, ModuleInformationSnapshot>(informationSnapshots, StringComparer.Ordinal);
+                var previousKnown = knownModules.ToArray();
+                var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
+                var previousOwners = new Dictionary<(string Module, string Function, int Arity), object>(sourceOwners);
+                var previousImages = new Dictionary<string, ModuleCodeImage>(codeImages, StringComparer.Ordinal);
+                try
+                {
+                    configure(this);
+                }
+                catch
+                {
+                    intrinsicBindings.Clear();
+                    foreach (var entry in previousIntrinsics)
+                        intrinsicBindings.Add(entry.Key, entry.Value);
+                    functions.Clear();
+                    foreach (var entry in previous)
+                        functions.Add(entry.Key, entry.Value);
+                    loadedModules.Clear();
+                    foreach (var module in previousModules)
+                        loadedModules.Add(module.Key, module.Value);
+                    preloadedModules.Clear();
+                    foreach (var module in previousPreloaded)
+                        preloadedModules.Add(module.Key, module.Value);
+                    codeDescriptors.Clear();
+                    foreach (var entry in previousDescriptors)
+                        codeDescriptors.Add(entry.Key, entry.Value);
+                    informationSnapshots.Clear();
+                    foreach (var entry in previousInformation)
+                        informationSnapshots.Add(entry.Key, entry.Value);
+                    knownModules.Clear();
+                    knownModules.UnionWith(previousKnown);
+                    oldCode.Clear();
+                    foreach (var entry in previousOld)
+                        oldCode.Add(entry.Key, entry.Value);
+                    sourceOwners.Clear();
+                    foreach (var entry in previousOwners)
+                        sourceOwners.Add(entry.Key, entry.Value);
+                    codeImages.Clear();
+                    foreach (var entry in previousImages)
+                        codeImages.Add(entry.Key, entry.Value);
+                    throw;
+                }
             }
-            catch
-            {
-                intrinsicBindings.Clear();
-                foreach (var entry in previousIntrinsics)
-                    intrinsicBindings.Add(entry.Key, entry.Value);
-                functions.Clear();
-                foreach (var entry in previous)
-                    functions.Add(entry.Key, entry.Value);
-                loadedModules.Clear();
-                foreach (var module in previousModules)
-                    loadedModules.Add(module.Key, module.Value);
-                preloadedModules.Clear();
-                foreach (var module in previousPreloaded)
-                    preloadedModules.Add(module.Key, module.Value);
-                codeDescriptors.Clear();
-                foreach (var entry in previousDescriptors)
-                    codeDescriptors.Add(entry.Key, entry.Value);
-                informationSnapshots.Clear();
-                foreach (var entry in previousInformation)
-                    informationSnapshots.Add(entry.Key, entry.Value);
-                knownModules.Clear();
-                knownModules.UnionWith(previousKnown);
-                oldCode.Clear();
-                foreach (var entry in previousOld)
-                    oldCode.Add(entry.Key, entry.Value);
-                sourceOwners.Clear();
-                foreach (var entry in previousOwners)
-                    sourceOwners.Add(entry.Key, entry.Value);
-                codeImages.Clear();
-                foreach (var entry in previousImages)
-                    codeImages.Add(entry.Key, entry.Value);
-                throw;
-            }
+        }
+        finally
+        {
+            transaction?.Exit();
+            modification.Dispose();
+            transaction?.ReleaseAfterWriter();
         }
     }
 

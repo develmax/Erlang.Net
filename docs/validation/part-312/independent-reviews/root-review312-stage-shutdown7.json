@@ -1,0 +1,25 @@
+{
+  "Status": "ROOT_INDEPENDENT_SOURCE_DELTA_PEER_PASSED",
+  "SourceFreezeSha256": "EB21B3A279C5CD00938F13B4A18A1B1D655A9138D3122FB009C1602E76401018",
+  "SourceFilesVerified": 34,
+  "UnchangedFromCandidate6": 31,
+  "ChangedFiles": [
+    "src/Erlang.Runtime/ModuleRegistry.SourceMutation.cs",
+    "tests/Erlang.Tests/SourcePurgeStageHostChecks.cs",
+    "tests/Erlang.Tests/SourcePurgeStageHostChecks.Settlement.cs"
+  ],
+  "Reviewed": [
+    "Closing admission flag is published before CAS installation of the shared completion.",
+    "Existing-completion branch rechecks the caller to reject a raced pending foreign worker under an owned registry monitor.",
+    "Foreign monitor snapshot is asynchronous, allowing DisposeAsync to return and caller to release initializer callback.",
+    "First dormant self-owned monitor close completes inline only after guard rejects sessions, current scope and adopted stage authority.",
+    "Sessions captured under registry monitor and settled by actual owning writer outside the snapshot monitor.",
+    "Deterministic pending foreign-close/reentrant self-close control; unchanged original initialization regression remains required."
+  ],
+  "RequiredExecution": "Actual target and final focus including unchanged ShutdownPending, ClosedResourceAdmission and new SourcePurgeStageHostChecks.",
+  "HeavyGateGranted": true,
+  "MainEdited": false,
+  "BuildExecutedByThisReview": false,
+  "NativeExecuted": false,
+  "AdditionalAgentUnavailable": "Follow-up tool returned agent thread limit reached; Root performed the bounded independent delta review."
+}

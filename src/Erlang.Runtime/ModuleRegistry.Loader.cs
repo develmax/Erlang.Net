@@ -6,6 +6,7 @@ public sealed partial class ModuleRegistry
 
     internal Term FinishLoaderReferences(RuntimeReferenceResources resources, IReadOnlyList<ReferenceTerm> references)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         lock (gate)
             return resources.AdmitPreparedReferences(references);
@@ -13,9 +14,11 @@ public sealed partial class ModuleRegistry
 
     internal Term FinishLoaderImages(PreparedBeamImage[] images)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         lock (gate)
         {
+            ThrowIfSourceClosing();
             foreach (PreparedBeamImage image in images)
                 if (!ReferenceEquals(image.Owner, this) || image.Consumed)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -40,9 +43,11 @@ public sealed partial class ModuleRegistry
 
     internal Term StageLoaderOnLoad(PreparedBeamImage image)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         lock (gate)
         {
+            ThrowIfSourceClosing();
             if (!ReferenceEquals(image.Owner, this) || image.Consumed)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (loadedModules.ContainsKey(image.Name) && oldCode.ContainsKey(image.Name))
@@ -92,9 +97,12 @@ public sealed partial class ModuleRegistry
 
     internal Term FinishLoaderOnLoad(string module, bool keep)
     {
+        using var source = keep ? EnterSourceMutation() : null;
         using var modification = CodeModification.Enter();
         lock (gate)
         {
+            if (keep)
+                ThrowIfSourceClosing();
             if (!loaderPendingImages.TryGetValue(module, out BeamOnLoadTicket? ticket))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (!keep)

@@ -1,0 +1,340 @@
+{
+  "Part": 312,
+  "BoundToActualComposite": true,
+  "RootExecutionApproved": true,
+  "ReusedFullValidation": false,
+  "ParentHead": "021ae3c5fb210bd4f4e1f93123cd79ea690103a7",
+  "SourceFreeze": {
+    "Path": "artifacts/root-part312-revision2/source-freeze.json",
+    "Bytes": 13730,
+    "Sha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452"
+  },
+  "CompositeAuthority": {
+    "Path": "artifacts/root-part312-packaging-exec1/authority-APPROVED.json",
+    "Bytes": 14761,
+    "Sha256": "D36AE68167E1B29A7A72A89A422096D43F87495F26FF91A67FD63D839FC716F0"
+  },
+  "PreviousTerminalProofIndex": {
+    "Path": "artifacts/pack312-previous311-terminal-proof-index.json",
+    "Bytes": 947,
+    "Sha256": "E9AC46D1C5149317265962379E25D601434A931BABA10AE2304F0023354816BE"
+  },
+  "GeneralNifAbiComplete": false,
+  "DefaultNativeHandlerInstalled": false,
+  "WholeCompatibilityComplete": false,
+  "FreshOriginal312Verified": false,
+  "PublicLoadNifRegistered": true,
+  "ComparisonTestReport": "validation/part-311/tests.json",
+  "RotationTarget": "docs/changelog/0047.md",
+  "SourcePaths": 38,
+  "CSharpPaths": 35,
+  "ExpectedPassed": 6640,
+  "ExpectedRegistry": 505,
+  "ExpectedErlang": 347,
+  "ExpectedNativeInputs": 1038,
+  "ExpectedOptionalIo": 507,
+  "AddedHostNames": [
+    "runtime/source-stage-transaction-ownership-and-purge-generation"
+  ],
+  "GuardAssertions": {
+    "FullGuard": {
+      "Status": "ACTUAL_MAIN_6640_FULL_ALL6639_HISTORICAL_ORDERED_NAMES_38_SOURCE_35_CSHARP_AND_11_INTEGRATION_PASS",
+      "Passed": 6640,
+      "Failed": 0,
+      "HistoricalOrderedNamesPreserved": 6639,
+      "SourceHashesExact": true,
+      "SourceFreezeSha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452",
+      "SourcePaths": 38,
+      "CSharpPaths": 35,
+      "ReviewedSourceInputs": 1038,
+      "NewPublicMfa": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false,
+      "NewStageControlsAreHostOnly": true,
+      "NewOriginalStageInterleavingExecution": false
+    },
+    "NativeGuard": {
+      "Status": "ACTUAL_MAIN_POST_FULL_WINDOWS_NATIVE_SEVEN_ORDERED_LINES_AND_THREE_ALLOCATION_DOMAIN_ROLES_PASS",
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78",
+      "StderrBytes": 0,
+      "ReaderSha256": "5224EC2707604BFCB0A10C8CBA5B2E1B42B876C6062F31F1B514E36626EE87D2",
+      "SourceHashesExact": true,
+      "SourceFreezeSha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452",
+      "SourceClosurePathsVerifiedBeforeAndAfter": 2171,
+      "ReviewedSourcePlanSha256": "1A87978B61B12F88CAE922EF10336A158D02E9BB877BF6106F703FEE4BEBA6A1",
+      "NativeTrustedWindowsProfilePassed": true,
+      "ActualGeneratedCSharpRoutePassed": true,
+      "LinuxAbiExecuted": false,
+      "OriginalExecuted": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "RegistryGuard": {
+      "Status": "ACTUAL_RAW505_CAPTURED_TWO_EXISTING_LIMITS_DISCLOSURES_RESTORED_ALL505_ROWS_EXACT",
+      "Registry": 505,
+      "ErlangMfas": 347,
+      "PublicMfaDelta": 0,
+      "RawSha256": "3B24FC32475BD07622243797E8E2FFB760C88ADDEDA920BA8826773B15A649F9",
+      "RestoredSha256": "96DA504B2D4EA8F9988099A0BACB1B4886891AD2F18FD95FCE9F7A773C010F9B",
+      "All505RowsFieldsAndOrderingExact": true,
+      "SourceExporterChanged": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "OptionalIoGuard": {
+      "Status": "PASS_ACTUAL_FULL_HOST_DEFAULT505_OPTIONAL_IO507",
+      "DefaultExports": 505,
+      "OptionalIoExports": 507,
+      "PassedHost": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "EvidenceMethod": "Passed full HOST awaits IoCharacterHostChecks.Run, which checks actual registry counts before and after optional registration. No separate additional run.",
+      "IndependentAdditionalExecution": false,
+      "FullTestsSha256": "1869D3D347906FF9E1DA4FDE09DFA6CD4BB3D9D6ED36028CE1FDAAA6F5CE2ECA"
+    }
+  },
+  "FormatGroups": [
+    {
+      "Mode": "FullJsonExact",
+      "SourcePaths": [
+        "src/Erlang.Compiler/ModuleDefinition.cs",
+        "src/Erlang.Runtime/BeamLoaderApi.cs",
+        "src/Erlang.Runtime/BeamLoaderRegistrations.cs",
+        "src/Erlang.Runtime/ModuleCodeLifecycleRegistrations.cs",
+        "src/Erlang.Runtime/ModuleCodeModificationPermission.cs",
+        "src/Erlang.Runtime/ModuleCodePurgeState.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/ModuleRegistry.Loader.cs",
+        "src/Erlang.Runtime/ModuleRegistry.NifLifetime.cs",
+        "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+        "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+        "src/Erlang.Runtime/ModuleRegistry.SourceMutation.cs",
+        "src/Erlang.Runtime/ModuleRegistryApplyFrame.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationAdmissionException.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationClosedException.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationDiagnostics.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationFailure.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationPermission.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationScope.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationTicket.cs",
+        "src/Erlang.Runtime/ProcessRuntime.cs",
+        "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+        "src/Erlang.Runtime/RuntimeReferenceResources.cs",
+        "src/Erlang.Runtime/SourcePurgeFenceSession.cs",
+        "tests/Erlang.Tests/BeamClosurePurgeHostChecks.cs",
+        "tests/Erlang.Tests/BeamClosurePurgeHostNames.cs",
+        "tests/Erlang.Tests/Program.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostBridge.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Admission.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Apply.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Cleanup.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Settlement.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostNames.cs"
+      ],
+      "Before": {
+        "Path": "artifacts/root-part312-combined-isolated/tokens-before.json",
+        "Bytes": 1982321,
+        "Sha256": "BF12E50031D6D44AD76B90A543952681EE9F3E4338B06A2DF3AED5F56F51E636"
+      },
+      "After": {
+        "Path": "artifacts/root-part312-combined-isolated/tokens-after.json",
+        "Bytes": 1982321,
+        "Sha256": "BF12E50031D6D44AD76B90A543952681EE9F3E4338B06A2DF3AED5F56F51E636"
+      },
+      "Guard": {
+        "Path": "artifacts/root-part312-combined-isolated/format-token-guard.json",
+        "Bytes": 6806,
+        "Sha256": "3E65F31BFC28F8FE56FD13ECB44EBD98B1021F4C0E667AD17FEDB3EAE2FB4452"
+      }
+    },
+    {
+      "Mode": "TokensIgnoringAbsolutePath",
+      "SourcePaths": [
+        "tests/Erlang.Tests/BeamLoaderAdmissionRaceChecks.cs"
+      ],
+      "Before": {
+        "Path": "artifacts/root-part312-revision2/tokens-before.json",
+        "Bytes": 26864,
+        "Sha256": "506DAF1D765DA9198070ACA8FE42FF3EFC9C82779B272BDAF1E01AFBAB9D8A26"
+      },
+      "After": {
+        "Path": "artifacts/root-part312-revision2/tokens-after.json",
+        "Bytes": 26806,
+        "Sha256": "96A24E913381931E269AC19FA26EBFE97DF7EFE9C92AA26986344DBC21A4BE40"
+      }
+    }
+  ],
+  "MetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md"
+  ],
+  "StageMetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0047.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/MODULE_READINESS.md",
+    "docs/supported-mfas.json",
+    "docs/OTP-PORTS.md"
+  ],
+  "AllowedTextLfSources": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+  ],
+  "ActualValidationSentence": "Actual Main validation passed 6,640/6,640 tests and all 11 integration/package results. The post-full trusted Windows native fixture passed seven ordered stdout lines, including three typed allocation-domain roles and the generated C# entry routes. The native run did not execute new stage interleavings, original OTP or Linux ABI checks.",
+  "ChangelogIndexOldLabel": "parts302–311 (active)",
+  "ChangelogIndexNewLabel": "parts302–311 (closed)",
+  "ChangelogIndexAppendLabel": "- [0047.md](docs/changelog/0047.md) — part312 (active)",
+  "SourceClosure": {
+    "Path": "artifacts/root-part312-revision2/source-resource-closure.json",
+    "Bytes": 411141,
+    "Sha256": "B24116D0DAD80C3709582471AC31F91F7D34F439779EB01323BADED9C584BBE3"
+  },
+  "FullExit": {
+    "Path": "artifacts/root-part312-revision2/full-exit.json",
+    "Bytes": 168,
+    "Sha256": "2FA9986F885E953213EDF85BEFFB92A6BA02A6522C343E4D045039F2005B97D1"
+  },
+  "FullLog": {
+    "Path": "artifacts/root-part312-revision2/full-validation.log",
+    "Bytes": 401620,
+    "Sha256": "7D55D15CAF1DF88552BC0D1B1EEB0897B4E20017537ED951EB5DC2A43AAE6113"
+  },
+  "Tests": {
+    "Path": "artifacts/tests.json",
+    "Bytes": 920660,
+    "Sha256": "1869D3D347906FF9E1DA4FDE09DFA6CD4BB3D9D6ED36028CE1FDAAA6F5CE2ECA"
+  },
+  "PreviousTests": {
+    "Path": "docs/validation/part-311/tests.json",
+    "Bytes": 920513,
+    "Sha256": "AE9741178A3455389383C52A0A0C439569A0E0A3D4861E710039D384211D1F06"
+  },
+  "Integration": {
+    "Path": "artifacts/integration-results.json",
+    "Bytes": 365,
+    "Sha256": "1A81D34FD173CD3257D14AE7B4DE5BE431E76C65E799DC63EF9D27F6E668C3E3"
+  },
+  "PreviousIntegration": {
+    "Path": "docs/validation/part-311/integration-results.json",
+    "Bytes": 365,
+    "Sha256": "B4DB954BFDEF435FEEC56BF17F10C552EB1A92E7C8A10B9F9CDEBB4BCC375FD2"
+  },
+  "FullGuard": {
+    "Path": "artifacts/root-part312-full-guard.json",
+    "Bytes": 1155,
+    "Sha256": "CB5B2D5D53E69FE35ACD6FE50A9A4724384EFC61E3B586CB344886E95A79B455"
+  },
+  "NativeGuard": {
+    "Path": "artifacts/root-part312-main-native/guard.json",
+    "Bytes": 4858,
+    "Sha256": "7BA79A8B6C8F826634E579675D08F6FA734AC07FED3F4CE62F035631E7185106"
+  },
+  "RegistryGuard": {
+    "Path": "artifacts/root-part312-registry-metadata-guard.json",
+    "Bytes": 1587,
+    "Sha256": "65960E608B0F349FDD98F3EB3378954181255A95AA9DAFCA8058EB27543D6F00"
+  },
+  "OptionalIoGuard": {
+    "Path": "artifacts/root-part312-optional-io-guard.json",
+    "Bytes": 1045,
+    "Sha256": "4A6EB8DD7621A6D30718A62F3635C98A2E3080D51DAE116FB6CBE42D4C5C60CC"
+  },
+  "NativeSourcePlan": {
+    "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "Bytes": 214508,
+    "Sha256": "1A87978B61B12F88CAE922EF10336A158D02E9BB877BF6106F703FEE4BEBA6A1"
+  },
+  "RawRegistry": {
+    "Path": "artifacts/root-part312-raw-supported-mfas.json",
+    "Bytes": 152322,
+    "Sha256": "3B24FC32475BD07622243797E8E2FFB760C88ADDEDA920BA8826773B15A649F9"
+  },
+  "DerivedRegistry": {
+    "Path": "docs/supported-mfas.json",
+    "Bytes": 148427,
+    "Sha256": "96DA504B2D4EA8F9988099A0BACB1B4886891AD2F18FD95FCE9F7A773C010F9B"
+  },
+  "ActiveChangelogBefore": {
+    "Path": "docs/changelog/0046.md",
+    "Bytes": 30190,
+    "Sha256": "CAF1B30E0592EF5502A0642631256E3B4F4A5AD8201D96BBB234DA6F2B163361"
+  },
+  "ChangelogIndexBefore": {
+    "Path": "CHANGELOG.md",
+    "Bytes": 3936,
+    "Sha256": "C9179A0F7401AA6CB1CD9BB845DD8AAECD276F4E926C2D24FFE5F7238B189716"
+  },
+  "ReadinessScopeCurrent": {
+    "Path": "docs/module-readiness-scope.json",
+    "Bytes": 116577,
+    "Sha256": "5EF30908C4749A8AE213577EBB6587F2EFAD8033187F461D08391FA2A36A8194"
+  },
+  "ReadinessResult": {
+    "Path": "docs/module-readiness.json",
+    "Bytes": 638288,
+    "Sha256": "FEB33A720E199144E27A7F8226E15A21AB2A56509141A3690C45132CC03FB7F6"
+  },
+  "MetadataNote": {
+    "Path": "artifacts/part312-packaging-controls-proposal3/part312-metadata-note.txt",
+    "Bytes": 1958,
+    "Sha256": "034D04F687F520773365F663C3F128EFBAB7C815B3E87F800D5BB6331E5A7DB2"
+  },
+  "ChangelogDraft": {
+    "Path": "artifacts/part312-packaging-controls-proposal3/part312-changelog-detail.md",
+    "Bytes": 6232,
+    "Sha256": "F10FEB5CD22B3C5ECFF8972B2ABE0227D39D2506865237C50DD584F199E8AD4A"
+  },
+  "RotationSeed": {
+    "Path": "artifacts/part312-packaging-proposal1/volume0047-seed.md",
+    "Bytes": 31,
+    "Sha256": "CA1C23521EAEF8E82D73E54C4CB5DBF5416E3A010C943E07C76F17111797F5A4"
+  },
+  "PortableReferenceIndex": {
+    "Path": "artifacts/part312-portable-source-prep2/portable-index.json",
+    "Bytes": 2861474,
+    "Sha256": "F4F9638F2ED65908B6975810653A8EA867244403731C5D22848F281D1F5F45A7"
+  },
+  "PortableReplayGuard": {
+    "Path": "artifacts/part312-portable-source-prep2/independent-archive-replay-guard.json",
+    "Bytes": 369,
+    "Sha256": "A418982947F44048E41B3A04F0008DD8D0F9E753298B3CECEB8433CD669214DC"
+  },
+  "PortableInputAuthority": {
+    "Path": "artifacts/part312-portable-source-prep2/input-authority.json",
+    "Bytes": 3129,
+    "Sha256": "DFF6E9306E75FA7E6B6AC38AFD0CAA5952648DE16B1D860637BC3F4604920192"
+  },
+  "CompositeArchive": {
+    "Path": "artifacts/part312-portable-source-prep2/immutable-evidence.zip",
+    "Bytes": 18639004,
+    "Sha256": "52F2CBD7E81B00CF70E9FAE554DD4BDE90459E162ED542B12452E7970D45FA2A"
+  },
+  "CorrectedFocusGuard": {
+    "Path": "artifacts/root-part312-revision2/focus-correction-guard.json",
+    "Bytes": 1129,
+    "Sha256": "1E0F2E8B29D0197FFB22FC14BB1132CDE5698CB62972EC07FFA319EE17D1880D"
+  },
+  "AddedNames": [
+    "runtime/source-stage-transaction-ownership-and-purge-generation"
+  ],
+  "EvidenceIndex": {
+    "Path": "artifacts/root-part312-packaging-exec1/evidence-index.json",
+    "Bytes": 132401,
+    "Sha256": "9E2353ED5A0A7C74F03F113E0F800B3C046A2D527CDEABB1B05B933F6D90EF82"
+  }
+}

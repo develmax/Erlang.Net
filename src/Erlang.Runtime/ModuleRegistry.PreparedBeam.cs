@@ -28,11 +28,13 @@ public sealed partial class ModuleRegistry
 
     public BeamPublicationResult PublishPreparedBeam(params PreparedBeamImage[] images)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(images);
         PreparedBeamImage[] owned = images.ToArray();
         lock (gate)
         {
+            ThrowIfSourceClosing();
             foreach (PreparedBeamImage image in owned)
             {
                 ArgumentNullException.ThrowIfNull(image);

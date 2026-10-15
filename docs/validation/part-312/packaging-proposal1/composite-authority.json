@@ -1,0 +1,296 @@
+{
+  "Part": 312,
+  "Status": "ROOT_REVIEWED_ACTUAL_FINAL312_AUTHORITY",
+  "RootExecutionApproved": true,
+  "SourceFreeze": {
+    "Path": "artifacts/root-part312-revision2/source-freeze.json",
+    "Bytes": 13730,
+    "Sha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452"
+  },
+  "PreviousTerminalProofIndex": {
+    "Path": "artifacts/pack312-previous311-terminal-proof-index.json",
+    "Bytes": 947,
+    "Sha256": "E9AC46D1C5149317265962379E25D601434A931BABA10AE2304F0023354816BE"
+  },
+  "RegistryMetadataChanges": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    }
+  ],
+  "GuardAssertions": {
+    "FullGuard": {
+      "Status": "ACTUAL_MAIN_6640_FULL_ALL6639_HISTORICAL_ORDERED_NAMES_38_SOURCE_35_CSHARP_AND_11_INTEGRATION_PASS",
+      "Passed": 6640,
+      "Failed": 0,
+      "HistoricalOrderedNamesPreserved": 6639,
+      "SourceHashesExact": true,
+      "SourceFreezeSha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452",
+      "SourcePaths": 38,
+      "CSharpPaths": 35,
+      "ReviewedSourceInputs": 1038,
+      "NewPublicMfa": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false,
+      "NewStageControlsAreHostOnly": true,
+      "NewOriginalStageInterleavingExecution": false
+    },
+    "NativeGuard": {
+      "Status": "ACTUAL_MAIN_POST_FULL_WINDOWS_NATIVE_SEVEN_ORDERED_LINES_AND_THREE_ALLOCATION_DOMAIN_ROLES_PASS",
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78",
+      "StderrBytes": 0,
+      "ReaderSha256": "5224EC2707604BFCB0A10C8CBA5B2E1B42B876C6062F31F1B514E36626EE87D2",
+      "SourceHashesExact": true,
+      "SourceFreezeSha256": "BF76223CC62315095AD10FDCB699B4A873834E8CBACBF935DF4A74E6FAF81452",
+      "SourceClosurePathsVerifiedBeforeAndAfter": 2171,
+      "ReviewedSourcePlanSha256": "1A87978B61B12F88CAE922EF10336A158D02E9BB877BF6106F703FEE4BEBA6A1",
+      "NativeTrustedWindowsProfilePassed": true,
+      "ActualGeneratedCSharpRoutePassed": true,
+      "LinuxAbiExecuted": false,
+      "OriginalExecuted": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "RegistryGuard": {
+      "Status": "ACTUAL_RAW505_CAPTURED_TWO_EXISTING_LIMITS_DISCLOSURES_RESTORED_ALL505_ROWS_EXACT",
+      "Registry": 505,
+      "ErlangMfas": 347,
+      "PublicMfaDelta": 0,
+      "RawSha256": "3B24FC32475BD07622243797E8E2FFB760C88ADDEDA920BA8826773B15A649F9",
+      "RestoredSha256": "96DA504B2D4EA8F9988099A0BACB1B4886891AD2F18FD95FCE9F7A773C010F9B",
+      "All505RowsFieldsAndOrderingExact": true,
+      "SourceExporterChanged": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "OptionalIoGuard": {
+      "Status": "PASS_ACTUAL_FULL_HOST_DEFAULT505_OPTIONAL_IO507",
+      "DefaultExports": 505,
+      "OptionalIoExports": 507,
+      "PassedHost": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "EvidenceMethod": "Passed full HOST awaits IoCharacterHostChecks.Run, which checks actual registry counts before and after optional registration. No separate additional run.",
+      "IndependentAdditionalExecution": false,
+      "FullTestsSha256": "1869D3D347906FF9E1DA4FDE09DFA6CD4BB3D9D6ED36028CE1FDAAA6F5CE2ECA"
+    }
+  },
+  "EvidenceBindings": {
+    "SourceClosure": "artifacts/root-part312-revision2/source-resource-closure.json",
+    "FullExit": "artifacts/root-part312-revision2/full-exit.json",
+    "FullLog": "artifacts/root-part312-revision2/full-validation.log",
+    "Tests": "artifacts/tests.json",
+    "PreviousTests": "docs/validation/part-311/tests.json",
+    "Integration": "artifacts/integration-results.json",
+    "PreviousIntegration": "docs/validation/part-311/integration-results.json",
+    "FullGuard": "artifacts/root-part312-full-guard.json",
+    "NativeGuard": "artifacts/root-part312-main-native/guard.json",
+    "RegistryGuard": "artifacts/root-part312-registry-metadata-guard.json",
+    "OptionalIoGuard": "artifacts/root-part312-optional-io-guard.json",
+    "NativeSourcePlan": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "RawRegistry": "artifacts/root-part312-raw-supported-mfas.json",
+    "DerivedRegistry": "docs/supported-mfas.json",
+    "ActiveChangelogBefore": "docs/changelog/0046.md",
+    "ChangelogIndexBefore": "CHANGELOG.md",
+    "ReadinessScopeCurrent": "docs/module-readiness-scope.json",
+    "ReadinessResult": "docs/module-readiness.json",
+    "MetadataNote": "artifacts/part312-packaging-controls-proposal3/part312-metadata-note.txt",
+    "ChangelogDraft": "artifacts/part312-packaging-controls-proposal3/part312-changelog-detail.md",
+    "RotationSeed": "artifacts/part312-packaging-proposal1/volume0047-seed.md",
+    "PortableReferenceIndex": "artifacts/part312-portable-source-prep2/portable-index.json",
+    "PortableReplayGuard": "artifacts/part312-portable-source-prep2/independent-archive-replay-guard.json",
+    "PortableInputAuthority": "artifacts/part312-portable-source-prep2/input-authority.json",
+    "CompositeArchive": "artifacts/part312-portable-source-prep2/immutable-evidence.zip",
+    "CorrectedFocusGuard": "artifacts/root-part312-revision2/focus-correction-guard.json"
+  },
+  "FormatGroups": [
+    {
+      "Mode": "FullJsonExact",
+      "SourcePaths": [
+        "src/Erlang.Compiler/ModuleDefinition.cs",
+        "src/Erlang.Runtime/BeamLoaderApi.cs",
+        "src/Erlang.Runtime/BeamLoaderRegistrations.cs",
+        "src/Erlang.Runtime/ModuleCodeLifecycleRegistrations.cs",
+        "src/Erlang.Runtime/ModuleCodeModificationPermission.cs",
+        "src/Erlang.Runtime/ModuleCodePurgeState.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/ModuleRegistry.Loader.cs",
+        "src/Erlang.Runtime/ModuleRegistry.NifLifetime.cs",
+        "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+        "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+        "src/Erlang.Runtime/ModuleRegistry.SourceMutation.cs",
+        "src/Erlang.Runtime/ModuleRegistryApplyFrame.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationAdmissionException.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationClosedException.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationDiagnostics.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationFailure.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationPermission.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationScope.cs",
+        "src/Erlang.Runtime/ModuleSourceMutationTicket.cs",
+        "src/Erlang.Runtime/ProcessRuntime.cs",
+        "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+        "src/Erlang.Runtime/RuntimeReferenceResources.cs",
+        "src/Erlang.Runtime/SourcePurgeFenceSession.cs",
+        "tests/Erlang.Tests/BeamClosurePurgeHostChecks.cs",
+        "tests/Erlang.Tests/BeamClosurePurgeHostNames.cs",
+        "tests/Erlang.Tests/Program.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostBridge.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Admission.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Apply.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Cleanup.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostChecks.Settlement.cs",
+        "tests/Erlang.Tests/SourcePurgeStageHostNames.cs"
+      ],
+      "Before": {
+        "Path": "artifacts/root-part312-combined-isolated/tokens-before.json",
+        "Bytes": 1982321,
+        "Sha256": "BF12E50031D6D44AD76B90A543952681EE9F3E4338B06A2DF3AED5F56F51E636"
+      },
+      "After": {
+        "Path": "artifacts/root-part312-combined-isolated/tokens-after.json",
+        "Bytes": 1982321,
+        "Sha256": "BF12E50031D6D44AD76B90A543952681EE9F3E4338B06A2DF3AED5F56F51E636"
+      },
+      "Guard": {
+        "Path": "artifacts/root-part312-combined-isolated/format-token-guard.json",
+        "Bytes": 6806,
+        "Sha256": "3E65F31BFC28F8FE56FD13ECB44EBD98B1021F4C0E667AD17FEDB3EAE2FB4452"
+      }
+    },
+    {
+      "Mode": "TokensIgnoringAbsolutePath",
+      "SourcePaths": [
+        "tests/Erlang.Tests/BeamLoaderAdmissionRaceChecks.cs"
+      ],
+      "Before": {
+        "Path": "artifacts/root-part312-revision2/tokens-before.json",
+        "Bytes": 26864,
+        "Sha256": "506DAF1D765DA9198070ACA8FE42FF3EFC9C82779B272BDAF1E01AFBAB9D8A26"
+      },
+      "After": {
+        "Path": "artifacts/root-part312-revision2/tokens-after.json",
+        "Bytes": 26806,
+        "Sha256": "96A24E913381931E269AC19FA26EBFE97DF7EFE9C92AA26986344DBC21A4BE40"
+      }
+    }
+  ],
+  "PortableSetNames": [
+    "stage315-validated-package",
+    "stage315-actual-compiled-source",
+    "superseded-root312-first-full-source-resource",
+    "previous311-terminal-proof-bytes",
+    "root312-source-and-controls",
+    "root312-revised-source-resource",
+    "root312-revision2-source-failure-and-focus-controls"
+  ],
+  "PortableFiles": [
+    "artifacts/part312-portable-source-prep2/portable-index.json",
+    "artifacts/part312-portable-source-prep2/immutable-evidence.zip",
+    "artifacts/part312-portable-source-prep2/independent-archive-replay-guard.json",
+    "artifacts/part312-portable-source-prep2/input-authority.json"
+  ],
+  "RootProofPaths": [
+    "artifacts/root-part312-full-guard.json",
+    "artifacts/root-part312-registry-metadata-guard.json",
+    "artifacts/root-part312-optional-io-guard.json",
+    "artifacts/root-part312-raw-supported-mfas.json",
+    "artifacts/root-part312-revision2/full-exit.json",
+    "artifacts/root-part312-revision2/full-validation.log",
+    "artifacts/root-part312-revision2/root-run312-full.ps1",
+    "artifacts/root-part312-revision2/root-guard312-full.py",
+    "artifacts/root-part312-revision2/root-preserve312-registry.py",
+    "artifacts/root-part312-revision2/root-run312-post-full-native.py",
+    "artifacts/root-part312-revision2/source-freeze.json",
+    "artifacts/root-part312-main-native/attempt.json",
+    "artifacts/root-part312-main-native/guard.json",
+    "artifacts/root-part312-main-native/native.stderr",
+    "artifacts/root-part312-main-native/native.stdout",
+    "artifacts/root-part312-main-native/process.json",
+    "artifacts/root-part312-revision2/focus-correction-guard.json",
+    "artifacts/root-part312-revision2/guard-focus.py",
+    "artifacts/root-part312-revision2/focus-results2.json",
+    "artifacts/root-part312-revision2/target-build.log"
+  ],
+  "IndependentReviewPaths": [
+    "artifacts/root-review312-stage-shutdown7.json",
+    "artifacts/root-part312-packaging-source-peer.json"
+  ],
+  "PackagingControlPaths": [
+    "artifacts/part312-packaging-controls-proposal3/audit312.py",
+    "artifacts/part312-packaging-controls-proposal3/bind312.py",
+    "artifacts/part312-packaging-controls-proposal3/bulk-git.py",
+    "artifacts/part312-packaging-controls-proposal3/common312.py",
+    "artifacts/part312-packaging-controls-proposal3/dispatch312-once.ps1",
+    "artifacts/part312-packaging-controls-proposal3/finalize312.py",
+    "artifacts/part312-packaging-controls-proposal3/part312-changelog-detail.md",
+    "artifacts/part312-packaging-controls-proposal3/part312-metadata-note.txt",
+    "artifacts/part312-packaging-controls-proposal3/readiness312.py",
+    "artifacts/part312-packaging-controls-proposal3/README.md",
+    "artifacts/part312-packaging-controls-proposal3/stage312.py",
+    "artifacts/part312-packaging-controls-proposal3/pinned-source-guidance.json"
+  ],
+  "MetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md"
+  ],
+  "StageMetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0047.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/MODULE_READINESS.md",
+    "docs/supported-mfas.json",
+    "docs/OTP-PORTS.md"
+  ],
+  "AllowedTextLfSources": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+  ],
+  "ChangelogIndexOldLabel": "parts302\u2013311 (active)",
+  "ChangelogIndexNewLabel": "parts302\u2013311 (closed)",
+  "ChangelogIndexAppendLabel": "- [0047.md](docs/changelog/0047.md) \u2014 part312 (active)",
+  "ActualValidationSentence": "Actual Main validation passed 6,640/6,640 tests and all 11 integration/package results. The post-full trusted Windows native fixture passed seven ordered stdout lines, including three typed allocation-domain roles and the generated C# entry routes. The native run did not execute new stage interleavings, original OTP or Linux ABI checks.",
+  "ExpectedPriorReadiness": {
+    "LocalPassedTests": 6639,
+    "ComparisonTestReport": "validation/part-310/tests.json"
+  },
+  "RootReviewRequiredBeforeAnyMainMutation": true,
+  "PreviousPackagingProposalFreeze": {
+    "Path": "artifacts/part312-packaging-controls-proposal2/source-freeze.json",
+    "Sha256": "03722888493BE3FA721CF450109577914E12FF3E229B778BB1CA32BB847BBEA5"
+  },
+  "RootIndependentSourcePeer": {
+    "Path": "artifacts/root-part312-packaging-source-peer.json",
+    "Sha256": "19D155EB5B44CC9548D22F1CC97728496965AC1FBBC7C580CEE9336BF43E26AE"
+  }
+}

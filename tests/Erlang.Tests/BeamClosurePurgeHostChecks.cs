@@ -119,10 +119,12 @@ public static class BeamClosurePurgeHostChecks
             return Nil.Value;
         });
         ProcessContext executing = await ready.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+        object? session = null;
         try
         {
             Require(runtime.Modules.DeleteModule(prepared.Name).Equals(Term.A(ErlangBooleanAtoms.True)));
-            ModuleCodeImage target = (ModuleCodeImage)NifAdmissionHostBridge.Call(runtime.Modules, BeamClosurePurgeHostNames.Prepare, prepared.Name)!;
+            session = NifAdmissionHostBridge.Call(runtime.Modules, BeamClosurePurgeHostNames.Prepare, prepared.Name)!;
+            ModuleCodeImage target = (ModuleCodeImage)Property(session, BeamClosurePurgeHostNames.Image);
             Require(ReferenceEquals(target, image) && runtime.Modules.PendingPurge(image) is { IsCompleted: false });
             begin.TrySetResult();
             Task<Term> blocked = await attempted.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
@@ -147,8 +149,7 @@ public static class BeamClosurePurgeHostChecks
                 NifAdmissionHostBridge.Call(
                     runtime.Modules,
                     BeamClosurePurgeHostNames.Finish,
-                    prepared.Name,
-                    image,
+                    session!,
                     false
                 );
             await finished.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
@@ -162,8 +163,7 @@ public static class BeamClosurePurgeHostChecks
                 NifAdmissionHostBridge.Call(
                     runtime.Modules,
                     BeamClosurePurgeHostNames.Finish,
-                    prepared.Name,
-                    image,
+                    session!,
                     false
                 );
         }

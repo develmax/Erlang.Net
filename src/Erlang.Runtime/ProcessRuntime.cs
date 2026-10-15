@@ -245,6 +245,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     {
                         return;
                     }
+                    catch (ModuleSourceMutationClosedException closing) when (ReferenceEquals(closing.Registry, Modules))
+                    {
+                        reason = Term.A(ProcessExitReasons.Shutdown);
+                    }
                     catch (OperationCanceledException) when (ctx.Cancellation.IsCancellationRequested)
                     {
                         return;
@@ -925,6 +929,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             {
                 throw;
             }
+            catch (ModuleSourceMutationClosedException closing) when (ReferenceEquals(closing.Registry, Modules))
+            {
+                throw;
+            }
             catch (ErlangException exception)
             {
                 result = Term.Tuple(Term.A(ErlangExceptionClasses.Error), exception.Reason);
@@ -954,32 +962,22 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     private async ValueTask<bool> PurgeOldCode(ProcessContext worker, string module)
     {
-        var image = await Modules.ModifyCodeAsync(worker, () => Modules.PreparePurge(module));
-        if (image is null)
+        SourcePurgeFenceSession? session = await Modules.PreparePurgeAsync(worker, module);
+        if (session is null)
             return false;
         bool completed = false;
         try
         {
-            await PurgeCodeImageProcesses(worker, image);
-            await Modules.ModifyCodeAsync(() =>
-                {
-                    Modules.FinishPurge(module, image, true);
-
-                    return true;
-                });
+            await PurgeCodeImageProcesses(worker, session.Image);
+            bool purged = await Modules.FinishPurgeAsync(session, true);
             completed = true;
 
-            return true;
+            return purged;
         }
         finally
         {
             if (!completed)
-                await Modules.ModifyCodeAsync(() =>
-                {
-                    Modules.FinishPurge(module, image, false);
-
-                    return true;
-                });
+                await Modules.FinishPurgeAsync(session, false);
         }
     }
 
@@ -1541,6 +1539,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public async ValueTask DisposeAsync()
     {
         Modules.RequireNifShutdownCaller();
+        Task sourceShutdown = Modules.CloseSourceMutationsAsync();
         var failures = new List<Exception>();
         Task nativeShutdown;
         try
@@ -1579,7 +1578,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
         try
         {
-            await Task.WhenAll(nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+            await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
         }
         catch (Exception failure)
         {

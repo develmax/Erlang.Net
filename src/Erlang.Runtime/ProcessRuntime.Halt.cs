@@ -25,6 +25,7 @@ public sealed partial class ProcessRuntime
 
     public Task<RuntimeHaltResult> RequestHalt(RuntimeHaltRequest request)
     {
+        Modules.RequireSourceShutdownCaller();
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(request.Options);
         if (!Enum.IsDefined(request.Kind))
@@ -165,6 +166,7 @@ public sealed partial class ProcessRuntime
                     ownerCancellation.Add(Task.FromException(exception));
                 }
             }
+            Task sourceShutdown = Modules.CloseSourceMutationsAsync();
             Task nativeShutdown;
             try
             {
@@ -243,7 +245,7 @@ public sealed partial class ProcessRuntime
             }
             try
             {
-                await Task.WhenAll(nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+                await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

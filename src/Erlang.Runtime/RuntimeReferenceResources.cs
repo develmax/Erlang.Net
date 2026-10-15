@@ -41,10 +41,17 @@ public sealed partial class RuntimeReferenceResources
     }
 
     internal Term FinishPreparedReferences(IReadOnlyList<ReferenceTerm> references)
-        => modules.FinishLoaderReferences(this, references);
+    {
+        lock (gate)
+            if (closed && references.Count != 0)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        return modules.FinishLoaderReferences(this, references);
+    }
 
     internal Term AdmitPreparedReferences(IReadOnlyList<ReferenceTerm> references)
     {
+        modules.RequireSourceMutationScope();
         lock (gate)
         {
             var images = new List<PreparedBeamImage>();

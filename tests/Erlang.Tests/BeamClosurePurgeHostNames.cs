@@ -7,6 +7,7 @@ internal static class BeamClosurePurgeHostNames
     internal const string Test = "runtime/beam-fun-entry-pending-purge-active-continuation";
     internal const string Broken = "BEAM fun entry bypassed pending purge or leaked an image lease";
     internal const string Prepare = "PreparePurge";
+    internal const string Image = "Image";
     internal const string Finish = "FinishPurge";
     internal const string ProcessInfo = "process_info";
     internal const string Status = "status";

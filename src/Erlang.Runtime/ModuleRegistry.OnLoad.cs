@@ -6,10 +6,12 @@ public sealed partial class ModuleRegistry
 
     public BeamOnLoadTicket StagePreparedOnLoad(PreparedBeamImage image)
     {
+        using var source = EnterSourceMutation();
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(image);
         lock (gate)
         {
+            ThrowIfSourceClosing();
             if (!ReferenceEquals(image.Owner, this))
                 throw new ArgumentException(BeamPreparationNames.ForeignImage, nameof(image));
             if (image.Consumed)
@@ -154,10 +156,13 @@ public sealed partial class ModuleRegistry
 
     public bool FinishPendingOnLoad(BeamOnLoadTicket ticket, bool keep)
     {
+        using var source = keep ? EnterSourceMutation() : null;
         using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(ticket);
         lock (gate)
         {
+            if (keep)
+                ThrowIfSourceClosing();
             RequirePending(ticket);
             if (ticket.CurrentPhase == BeamOnLoadPhase.Staged && !keep)
             {
@@ -215,7 +220,7 @@ public sealed partial class ModuleRegistry
 
     public async Task<BeamOnLoadResult> LoadPreparedOnLoadAsync(ProcessRuntime runtime, PreparedBeamImage image)
     {
-        BeamOnLoadTicket ticket = await ModifyCodeAsync(() => StagePreparedOnLoad(image)).ConfigureAwait(false);
+        BeamOnLoadTicket ticket = await ModifySourceCodeAsync(() => StagePreparedOnLoad(image)).ConfigureAwait(false);
         ProcessHandle callback;
         try
         {
@@ -240,7 +245,9 @@ public sealed partial class ModuleRegistry
             Term down = await callback.Completion.ConfigureAwait(false);
             await ticket.CallbackQuiescence.ConfigureAwait(false);
             bool keep = down is Atom { Name: BeamOnLoadNames.Ok };
-            bool published = await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, keep)).ConfigureAwait(false);
+            bool published = keep
+                ? await ModifySourceCodeAsync(() => FinishPendingOnLoad(ticket, true)).ConfigureAwait(false)
+                : await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
             if (!published)
                 await RetireNifImageAsync(ticket.CodeImage).ConfigureAwait(false);
 
