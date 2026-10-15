@@ -15,30 +15,14 @@ public sealed partial class ModuleRegistry
         BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code, decoding);
         if (code.OnLoadEntryLabel is not null)
             BeamOnLoadMetadata.RequireSupported(metadata);
-        var bodies = new List<ErlangFunction>();
         foreach (BeamLinkedFunction function in code.Exports)
-        {
-            if (BeamGeneratedMetadata.IsGenerated(code, function))
-            {
-                bodies.Add((context, arguments) => BeamGeneratedMetadata.Invoke(context, function.Module, arguments));
-            }
-            else
-            {
+            if (!BeamGeneratedMetadata.IsGenerated(code, function))
                 BeamRegisterValidation.Validate(code, function);
-                bodies.Add((context, arguments) => BeamRegisterInterpreter.Execute(
-                    context,
-                    code,
-                    function.Name,
-                    Array.AsReadOnly(arguments.ToArray())
-                ));
-            }
-        }
 
         return new PreparedBeamImage(
             this,
             code,
-            metadata,
-            bodies.AsReadOnly()
+            metadata
         );
     }
 
@@ -78,14 +62,16 @@ public sealed partial class ModuleRegistry
                     for (int index = 0; index < image.Code.Exports.Count; index++)
                     {
                         BeamLinkedFunction function = image.Code.Exports[index];
-                        registry.Register(
+                        registry.RegisterSource(
                             image.Name,
                             function.Name,
                             function.Arity,
-                            image.Bodies[index]
+                            image.Bodies[index],
+                            image.ExecutionIdentity.Owner
                         );
                     }
                     registry.PublishModuleCode(image.Name, image.Descriptor);
+                    codeImages[image.Name] = image.ExecutionIdentity.Image;
                 }
             });
             foreach (PreparedBeamImage image in owned)

@@ -7,6 +7,19 @@ internal static class BeamClosureFactory
     private static readonly ConditionalWeakTable<FunctionTerm, BeamClosureBinding> bindings = new();
 
     internal static FunctionTerm Create(BeamLinkedCode code, int tableIndex, IReadOnlyList<Term> environment)
+        => Create(
+            code,
+            tableIndex,
+            environment,
+            new(new ModuleCodeImage(code.Structure.Atoms[1]!), code)
+        );
+
+    internal static FunctionTerm Create(
+        BeamLinkedCode code,
+        int tableIndex,
+        IReadOnlyList<Term> environment,
+        BeamExecutionIdentity execution
+    )
     {
         BeamLambdaEntry lambda = code.Lambdas[tableIndex];
         IReadOnlyList<Term> captured = Array.AsReadOnly(environment.ToArray());
@@ -29,7 +42,8 @@ internal static class BeamClosureFactory
                     code,
                     target,
                     arguments,
-                    captured
+                    captured,
+                    execution
                 )
                 : throw new ArgumentException(BeamClosureDiagnostics.Context)
         );

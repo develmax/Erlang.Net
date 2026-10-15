@@ -7,15 +7,33 @@ public sealed class BeamOnLoadTicket
         Owner = owner;
         Prepared = image;
         Generation = generation;
-        CodeImage = new(image.Name);
+        CodeImage = image.ExecutionIdentity.Image;
     }
 
-    internal ModuleRegistry Owner { get; }
-    internal PreparedBeamImage Prepared { get; }
-    internal BeamPendingGeneration Generation { get; }
-    internal ModuleCodeImage CodeImage { get; }
-    internal BeamOnLoadPhase CurrentPhase { get; set; }
-    internal ProcessHandle? CallbackOwner { get; set; }
+    internal ModuleRegistry Owner
+    {
+        get;
+    }
+    internal PreparedBeamImage Prepared
+    {
+        get;
+    }
+    internal BeamPendingGeneration Generation
+    {
+        get;
+    }
+    internal ModuleCodeImage CodeImage
+    {
+        get;
+    }
+    internal BeamOnLoadPhase CurrentPhase
+    {
+        get; set;
+    }
+    internal ProcessHandle? CallbackOwner
+    {
+        get; set;
+    }
     internal TaskCompletionSource<BeamOnLoadCallbackOutcome> OutcomeCompletion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource CallbackUnwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     public Task CallbackQuiescence => CallbackUnwound.Task;

@@ -1,0 +1,63 @@
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class NifBeamEntryHostNames
+{
+    internal const string Test = "runtime/nif-beam-exact-image-entry-and-closure-routing";
+    internal const string Broken = "Exact BEAM image NIF entry contract failed";
+    internal const string Run = "run";
+    internal const string Make = "make";
+    internal const string Loop = "loop";
+    internal const string Generated = "-make/1-fun-0-";
+    internal const string Code = "Code";
+    internal const string Functions = "Functions";
+    internal const string Execution = "ExecutionIdentity";
+    internal const string StandaloneExecution = "execution";
+    internal const string Image = "Image";
+    internal const string Owner = "Owner";
+    internal const string Table = "NifBindings";
+    internal const string Begin = "Begin";
+    internal const string Publish = "Publish";
+    internal const string Retire = "RetireAsync";
+    internal const string Success = "ok";
+    internal const string True = "true";
+    internal const string Extension = ".beam";
+    internal const string Separator = ".";
+    internal const string LocalModule = "beam_fixture_local";
+    internal const string ClosureModule = "beam_fixture_closure";
+    internal const string LocalHash = "416FAD0864C315006459121BDA80A36475EFC67B49EFE7B6DC247DC1CA0D702B";
+    internal const string ClosureHash = "99A54BA32C5BD185F23550303E7036F451D52609376D8A738CF19EA3BBDD76F9";
+    internal const string Kill = "kill";
+    internal const string OnLoadEntry = "OnLoadEntryLabel";
+    internal const string Entry = "EntryLabel";
+    internal const string Name = "Name";
+    internal const string Bodies = "Bodies";
+    internal const string Exports = "Exports";
+    internal const string Reserve = "ReserveNifImageAsync";
+    internal const string AsTask = "AsTask";
+    internal const string Failure = "Failure";
+    internal const string Reload = "Reload";
+    internal const string StandaloneCode = "code";
+    internal const string Instructions = "Instructions";
+    internal const string Lambdas = "Lambdas";
+    internal const string Label = "Label";
+    internal const string FirstInstruction = "FirstInstructionIndex";
+    internal const string Definition = "Definition";
+    internal const string Opcode = "Opcode";
+    internal const string Arity = "Arity";
+    internal const string UnsupportedEntry = "unsupported_nif_publication_fixture";
+    internal const string MetadataType = "Erlang.BeamPublicationMetadata";
+    internal const string Read = "Read";
+    internal const int LambdaCountBytes = 4;
+    internal const int LambdaArityOffset = 4;
+    internal const int LambdaFreeVariablesOffset = 16;
+    internal const BindingFlags InternalMembers = BindingFlags.NonPublic | BindingFlags.Instance;
+    internal const BindingFlags AllMembers = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+    internal const int Bound = 701;
+    internal const int Replacement = 809;
+    internal const int Capture = 5;
+    internal const int Argument = 7;
+    internal const int Fallback = 12;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+}

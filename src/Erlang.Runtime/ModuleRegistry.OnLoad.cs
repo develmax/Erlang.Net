@@ -128,7 +128,8 @@ public sealed partial class ModuleRegistry
                     ticket.Prepared.Code,
                     function,
                     Array.Empty<Term>(),
-                    Array.Empty<Term>()
+                    Array.Empty<Term>(),
+                    ticket.Prepared.ExecutionIdentity
                 );
             }
             finally
@@ -194,11 +195,12 @@ public sealed partial class ModuleRegistry
                 for (int index = 0; index < ticket.Prepared.Code.Exports.Count; index++)
                 {
                     BeamLinkedFunction function = ticket.Prepared.Code.Exports[index];
-                    registry.Register(
+                    registry.RegisterSource(
                         ticket.Module,
                         function.Name,
                         function.Arity,
-                        ticket.Prepared.Bodies[index]
+                        ticket.Prepared.Bodies[index],
+                        ticket.Prepared.ExecutionIdentity.Owner
                     );
                 }
                 registry.PublishModuleCode(ticket.Module, ticket.Prepared.Descriptor);

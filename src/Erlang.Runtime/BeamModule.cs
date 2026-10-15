@@ -5,20 +5,34 @@ namespace Erlang;
 public sealed class BeamModule
 {
     private readonly BeamLinkedCode code;
+    private readonly BeamExecutionIdentity execution;
 
     private BeamModule(BeamLinkedCode code, string inputSha256)
     {
         this.code = code;
         InputSha256 = inputSha256;
         Name = code.Structure.Atoms[1]!;
+        execution = new(new ModuleCodeImage(Name), this);
         Exports = Array.AsReadOnly(code.Exports.Select(value => new BeamFunctionSignature(value.Name, value.Arity)).ToArray());
         Functions = Array.AsReadOnly(code.Functions.Select(value => new BeamFunctionSignature(value.Name, value.Arity)).ToArray());
     }
 
-    public string Name { get; }
-    public string InputSha256 { get; }
-    public IReadOnlyList<BeamFunctionSignature> Exports { get; }
-    public IReadOnlyList<BeamFunctionSignature> Functions { get; }
+    public string Name
+    {
+        get;
+    }
+    public string InputSha256
+    {
+        get;
+    }
+    public IReadOnlyList<BeamFunctionSignature> Exports
+    {
+        get;
+    }
+    public IReadOnlyList<BeamFunctionSignature> Functions
+    {
+        get;
+    }
     public bool HasOnLoad => code.OnLoadEntryLabel is not null;
 
     public static BeamModule Prepare(ReadOnlyMemory<byte> bytes)
@@ -71,7 +85,8 @@ public sealed class BeamModule
             context,
             code,
             function,
-            Array.AsReadOnly(arguments.ToArray())
+            Array.AsReadOnly(arguments.ToArray()),
+            execution
         );
     }
 }

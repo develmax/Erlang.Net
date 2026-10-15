@@ -77,13 +77,14 @@ public sealed partial class ModuleRegistry
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.PendingCurrentAmbiguous);
             target = descriptor ?? throw new NifImageAdmissionException(NifImageAdmissionFailure.MissingDescriptor);
             if (!ReferenceEquals(target.SourceOwner, caller.Owner)
-                && !functions.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, caller.Owner)))
+                && !functions.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, caller.Owner))
+                && !sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, caller.Owner)))
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.OwnerMismatch);
             previousNifImage = previous?.Image;
             origin = NifImageAdmissionOrigin.Current;
         }
         else if (pending is not null && ReferenceEquals(pending.CodeImage, caller.Image)
-            && ReferenceEquals(pending, caller.Owner))
+            && (ReferenceEquals(pending, caller.Owner) || ReferenceEquals(pending.Prepared, caller.Owner)))
         {
             if (pending.CurrentPhase is not (BeamOnLoadPhase.Staged or BeamOnLoadPhase.Running))
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.UnknownImage);

@@ -9,7 +9,6 @@ internal static class BeamPreparationNames
     internal const string GetModuleInfo = "get_module_info";
     internal const string InvalidMetadata = "Invalid BEAM module metadata";
     internal const string UnsupportedRecords = "BEAM publication of native record definitions is not supported";
-    internal const string UnsupportedLambdas = "BEAM publication of lambda tables is not supported";
     internal const string ForeignImage = "Prepared BEAM image belongs to another module registry";
     internal const string ConsumedImage = "Prepared BEAM image has already been published";
     internal const int ModuleRegister = 0;

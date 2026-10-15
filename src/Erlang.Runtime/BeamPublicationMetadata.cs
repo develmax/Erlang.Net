@@ -6,8 +6,10 @@ internal static class BeamPublicationMetadata
     {
         if (code.Structure.Chunks.Any(chunk => chunk.Id == BeamPreparationNames.RecordsChunk && chunk.Payload.Length != 0))
             throw new NotSupportedException(BeamPreparationNames.UnsupportedRecords);
-        if (code.Structure.Chunks.Any(chunk => chunk.Id == BeamLambdaWire.Chunk && chunk.Payload.Length != 0))
-            throw new NotSupportedException(BeamPreparationNames.UnsupportedLambdas);
+        // Publication can retain every declared lambda, even if no export reaches it.
+        // Validate all targets before accepting their image-owned entry identities.
+        foreach (BeamLambdaEntry lambda in code.Lambdas)
+            BeamRegisterValidation.Validate(code, code.Functions.Single(function => function.EntryLabel == lambda.Label));
         BeamDecodedMetadata attributes = ReadTerm(code, BeamPreparationNames.AttributesChunk, decoding);
         BeamDecodedMetadata compilation = ReadTerm(code, BeamPreparationNames.CompilationChunk, decoding);
         var descriptor = new ModuleCodeDescriptor(

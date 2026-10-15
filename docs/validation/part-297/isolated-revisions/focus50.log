@@ -1,0 +1,8 @@
+Unhandled exception. System.NotSupportedException: BEAM publication of lambda tables is not supported
+   at Erlang.BeamPublicationMetadata.Read(BeamLinkedCode code, EtfDecodeOptions decoding) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-beam297-isolated\candidate\src\Erlang.Runtime\BeamPublicationMetadata.cs:line 10
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-beam297-isolated\candidate\src\Erlang.Runtime\ModuleRegistry.PreparedBeam.cs:line 15
+   at Erlang.Tests.NifBeamEntryHostChecks.ClosuresAndGenerations() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-beam297-isolated\candidate\tests\Erlang.Tests\NifBeamEntryHostChecks.cs:line 134
+   at Erlang.Tests.NifBeamEntryHostChecks.ClosuresAndGenerations() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-beam297-isolated\candidate\tests\Erlang.Tests\NifBeamEntryHostChecks.cs:line 203
+   at Erlang.Tests.NifBeamEntryHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-beam297-isolated\candidate\tests\Erlang.Tests\NifBeamEntryHostChecks.cs:line 13
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part295-loader-focus\Program.cs:line 12
+   at Program.<Main>(String[] args)
