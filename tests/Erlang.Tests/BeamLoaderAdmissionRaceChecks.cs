@@ -18,21 +18,25 @@ public static class BeamLoaderAdmissionRaceChecks
         using var started = new ManualResetEventSlim();
         object moduleGate = typeof(ModuleRegistry).GetField(BeamLoaderAdmissionRaceNames.ModuleGate, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(runtime.Modules)!;
         Task<Term> competing;
-        Monitor.Enter(moduleGate);
-        try
+        using (EnterModification(runtime.Modules))
         {
-            competing = Task.Run(() =>
+            Monitor.Enter(moduleGate);
+            try
             {
-                started.Set();
+                competing = Task.Run(() =>
+                {
+                    started.Set();
 
-                return Finish(runtime.ReferenceResources, reference);
-            });
-            Require(started.Wait(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)));
-            Require(runtime.Modules.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-        }
-        finally
-        {
-            Monitor.Exit(moduleGate);
+                    return Finish(runtime.ReferenceResources, reference);
+                });
+                Require(started.Wait(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)));
+                WaitForWriter(runtime.Modules);
+                Require(runtime.Modules.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+            }
+            finally
+            {
+                Monitor.Exit(moduleGate);
+            }
         }
         await Badarg(competing);
         Require(image.IsConsumed);
@@ -46,24 +50,53 @@ public static class BeamLoaderAdmissionRaceChecks
         using var started = new ManualResetEventSlim();
         object moduleGate = typeof(ModuleRegistry).GetField(BeamLoaderAdmissionRaceNames.ModuleGate, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(runtime.Modules)!;
         Task<Term> competing;
-        Monitor.Enter(moduleGate);
-        try
+        using (EnterModification(runtime.Modules))
         {
-            competing = Task.Run(() =>
+            Monitor.Enter(moduleGate);
+            try
             {
-                started.Set();
+                competing = Task.Run(() =>
+                {
+                    started.Set();
 
-                return Finish(runtime.ReferenceResources, reference);
-            });
-            Require(started.Wait(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)));
-            runtime.DisposeAsync().AsTask().GetAwaiter().GetResult();
-        }
-        finally
-        {
-            Monitor.Exit(moduleGate);
+                    return Finish(runtime.ReferenceResources, reference);
+                });
+                Require(started.Wait(TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds)));
+                WaitForWriter(runtime.Modules);
+                runtime.DisposeAsync().AsTask().GetAwaiter().GetResult();
+            }
+            finally
+            {
+                Monitor.Exit(moduleGate);
+            }
         }
         await Badarg(competing);
         Require(!image.IsConsumed && runtime.ReferenceResources.LiveResources == 0);
+    }
+
+    private static object Permission(ModuleRegistry registry) => typeof(ModuleRegistry).GetProperty(
+        BeamLoaderAdmissionRaceNames.CodeModification,
+        BindingFlags.Instance | BindingFlags.NonPublic
+    )!.GetValue(registry)!;
+
+    private static IDisposable EnterModification(ModuleRegistry registry) => (IDisposable)Permission(registry).GetType().GetMethod(
+        BeamLoaderAdmissionRaceNames.Enter,
+        BindingFlags.Instance | BindingFlags.NonPublic
+    )!.Invoke(Permission(registry), null)!;
+
+    private static void WaitForWriter(ModuleRegistry registry)
+    {
+        object permission = Permission(registry);
+        PropertyInfo pending = permission.GetType().GetProperty(
+            BeamLoaderAdmissionRaceNames.PendingWriters,
+            BindingFlags.Instance | BindingFlags.NonPublic
+        )!;
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        while ((int)pending.GetValue(permission)! == 0)
+        {
+            Require(watch.Elapsed < TimeSpan.FromSeconds(BeamLoaderAdmissionRaceNames.WatchdogSeconds));
+            Thread.Yield();
+        }
     }
 
     private static Term Finish(RuntimeReferenceResources resources, ReferenceTerm reference)

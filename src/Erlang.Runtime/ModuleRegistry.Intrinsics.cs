@@ -13,6 +13,7 @@ public sealed partial class ModuleRegistry
         ErlangFunction body
     )
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             Register(

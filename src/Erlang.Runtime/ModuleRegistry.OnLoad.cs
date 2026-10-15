@@ -6,6 +6,7 @@ public sealed partial class ModuleRegistry
 
     public BeamOnLoadTicket StagePreparedOnLoad(PreparedBeamImage image)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(image);
         lock (gate)
         {
@@ -67,16 +68,40 @@ public sealed partial class ModuleRegistry
 
     private async Task ObservePendingExit(BeamOnLoadTicket ticket, ProcessHandle callback, Task unwind)
     {
-        Term down = await callback.Completion.ConfigureAwait(false);
-        await unwind.ConfigureAwait(false);
+        Term? down = null;
+        Exception? failure = null;
+        try
+        {
+            down = await callback.Completion.ConfigureAwait(false);
+        }
+        catch (Exception exception)
+        {
+            failure = exception;
+        }
+        try
+        {
+            await unwind.ConfigureAwait(false);
+        }
+        catch (Exception exception)
+        {
+            failure = failure is null ? exception : new AggregateException(failure, exception);
+        }
         lock (gate)
         {
             if (!ticket.OutcomeCompletion.Task.IsCompleted)
             {
                 ticket.CurrentPhase = BeamOnLoadPhase.Completed;
-                ticket.OutcomeCompletion.TrySetResult(new(callback.Pid, null, new BeamOnLoadCallbackAbortedException(down)));
+                ticket.OutcomeCompletion.TrySetResult(new(
+                    callback.Pid,
+                    null,
+                    failure ?? new BeamOnLoadCallbackAbortedException(down!)
+                ));
             }
-            ticket.CallbackUnwound.TrySetResult();
+            // Faults remain observable through the public ticket; the discarded observer task must still settle quiescence.
+            if (failure is null)
+                ticket.CallbackUnwound.TrySetResult();
+            else
+                ticket.CallbackUnwound.TrySetException(failure);
         }
     }
 
@@ -128,6 +153,7 @@ public sealed partial class ModuleRegistry
 
     public bool FinishPendingOnLoad(BeamOnLoadTicket ticket, bool keep)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(ticket);
         lock (gate)
         {
@@ -148,6 +174,9 @@ public sealed partial class ModuleRegistry
 
                 return false;
             }
+            // Both tasks are already complete: propagate cleanup failure before publication, without waiting under the gate.
+            ticket.CallbackOwner.Completion.GetAwaiter().GetResult();
+            ticket.CallbackQuiescence.GetAwaiter().GetResult();
             BeamPendingGeneration captured = ticket.Generation;
             var currentBodies = functions.Where(entry => entry.Key.Module == ticket.Module).ToArray();
             if (!ReferenceEquals(codeImages.GetValueOrDefault(ticket.Module), captured.Current)
@@ -184,7 +213,7 @@ public sealed partial class ModuleRegistry
 
     public async Task<BeamOnLoadResult> LoadPreparedOnLoadAsync(ProcessRuntime runtime, PreparedBeamImage image)
     {
-        BeamOnLoadTicket ticket = StagePreparedOnLoad(image);
+        BeamOnLoadTicket ticket = await ModifyCodeAsync(() => StagePreparedOnLoad(image)).ConfigureAwait(false);
         ProcessHandle callback;
         try
         {
@@ -192,16 +221,16 @@ public sealed partial class ModuleRegistry
         }
         catch
         {
-            FinishPendingOnLoad(ticket, false);
+            await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
             throw;
         }
-        BeamOnLoadCallbackOutcome outcome = await ticket.Outcome.ConfigureAwait(false);
-        Term down = await callback.Completion.ConfigureAwait(false);
-        await ticket.CallbackQuiescence.ConfigureAwait(false);
-        bool keep = down is Atom { Name: BeamOnLoadNames.Ok };
         try
         {
-            bool published = FinishPendingOnLoad(ticket, keep);
+            BeamOnLoadCallbackOutcome outcome = await ticket.Outcome.ConfigureAwait(false);
+            Term down = await callback.Completion.ConfigureAwait(false);
+            await ticket.CallbackQuiescence.ConfigureAwait(false);
+            bool keep = down is Atom { Name: BeamOnLoadNames.Ok };
+            bool published = await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, keep)).ConfigureAwait(false);
 
             return new(
                 published,
@@ -210,10 +239,29 @@ public sealed partial class ModuleRegistry
                 down
             );
         }
-        catch
+        catch (Exception failure)
         {
-            if (ticket.Phase == BeamOnLoadPhase.Completed)
-                FinishPendingOnLoad(ticket, false);
+            var failures = new List<Exception> { failure };
+            try
+            {
+                await ticket.CallbackQuiescence.ConfigureAwait(false);
+            }
+            catch (Exception cleanupFailure)
+            {
+                if (!ReferenceEquals(failure, cleanupFailure))
+                    failures.Add(cleanupFailure);
+            }
+            try
+            {
+                if (ticket.Phase == BeamOnLoadPhase.Completed)
+                    await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
+            }
+            catch (Exception retirementFailure)
+            {
+                failures.Add(retirementFailure);
+            }
+            if (failures.Count != 1)
+                throw new AggregateException(failures);
             throw;
         }
     }

@@ -1,0 +1,21 @@
+{
+  "Status": "PASS_ACTUAL_MAIN6606_FULL_AND_ONLOAD_RED_GREEN",
+  "Passed": 6606,
+  "Failed": 0,
+  "Historical6603OrderedNamesExact": true,
+  "Added": [
+    "runtime/nif-image-attachment-transactions-and-quiescence",
+    "runtime/code-modification-permission-writers-cancellation-and-isolation",
+    "host/BEAM-on-load-cleanup-fault-quiescence-and-retirement"
+  ],
+  "SourcePaths": 31,
+  "FinalSourceSha256": "80FED6EB5DCB3933142E4EA7ECDF823737B63CCDCCBDB95D11946D21E7DAF2C0",
+  "TokensExact": true,
+  "OnLoadRegressionRed": "Expected bounded timeout against unfixed production source",
+  "OnLoadRegressionGreen": true,
+  "InitialFullFailedTest": "host/loader-consumption-and-closure-gate-ordering",
+  "InitialFullPassed": 6605,
+  "FixtureMigrationRemovedAssertions": 0,
+  "CorrectedLoaderAndThreeNewGroupsFocusedPassed": 4,
+  "IntegrationAndPackagesPassed": true
+}

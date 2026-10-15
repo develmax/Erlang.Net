@@ -32,6 +32,9 @@ Test(Erlang.Tests.PreloadedModuleHostNames.TestName, Erlang.Tests.PreloadedModul
 Test(Erlang.Tests.ModuleInformationHostNames.Test, Erlang.Tests.ModuleInformationHostChecks.Run);
 Test(Erlang.Tests.ModuleAttributeHostNames.Test, Erlang.Tests.ModuleAttributeHostChecks.Run);
 Test(Erlang.Tests.NifDeclarationHostNames.Test, Erlang.Tests.NifDeclarationHostChecks.Run);
+Test(Erlang.Tests.NifImageBindingHostNames.Test, Erlang.Tests.NifImageBindingHostChecks.Run);
+Test(Erlang.Tests.CodeModificationHostNames.Test, Erlang.Tests.CodeModificationHostChecks.Run);
+Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoadCallbackFaultHostChecks.Run);
 Test(Erlang.Tests.DistributionExitLifecycleHostNames.Test, Erlang.Tests.DistributionExitLifecycleHostChecks.Run);
 Test(Erlang.Tests.DistributionSystemOutputHostNames.Test, Erlang.Tests.DistributionSystemOutputHostChecks.Run);
 Test(

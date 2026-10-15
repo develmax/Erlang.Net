@@ -80,6 +80,7 @@ public sealed partial class ModuleRegistry
 
     internal ModuleCodeImage? PreparePurge(string module)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             if (!oldCode.TryGetValue(module, out var old))
@@ -101,6 +102,7 @@ public sealed partial class ModuleRegistry
 
     internal void FinishPurge(string module, ModuleCodeImage image, bool complete)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             var state = purgeStates.GetOrCreateValue(image);
@@ -124,6 +126,7 @@ public sealed partial class ModuleRegistry
         ErlangFunction body
     )
     {
+        using var modification = CodeModification.Enter();
         AtomNameRegistry.Observe(module);
         AtomNameRegistry.Observe(function);
         lock (gate)
@@ -143,6 +146,7 @@ public sealed partial class ModuleRegistry
         object sourceOwner
     )
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(sourceOwner);
         lock (gate)
         {
@@ -348,6 +352,7 @@ public sealed partial class ModuleRegistry
 
     public void PublishModule(string module)
     {
+        using var modification = CodeModification.Enter();
         AtomNameRegistry.Observe(module);
         lock (gate)
         {
@@ -373,6 +378,7 @@ public sealed partial class ModuleRegistry
 
     public Term DeleteModule(string module)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             if (!knownModules.Contains(module))
@@ -416,6 +422,7 @@ public sealed partial class ModuleRegistry
 
     public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(descriptor);
         ObserveDescriptor(descriptor);
         lock (gate)
@@ -470,6 +477,7 @@ public sealed partial class ModuleRegistry
 
     public void InstallPreloaded(Action<ModuleRegistry> configure)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(configure);
         Apply(target =>
         {
@@ -518,6 +526,7 @@ public sealed partial class ModuleRegistry
 
     public void Apply(Action<ModuleRegistry> configure)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(configure);
         lock (gate)
         {

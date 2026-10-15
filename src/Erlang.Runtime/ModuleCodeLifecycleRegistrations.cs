@@ -8,7 +8,9 @@ internal static class ModuleCodeLifecycleRegistrations
             ErlangModuleNames.Module,
             ModuleCodeLifecycleNames.DeleteModule,
             1,
-            (context, arguments) => ValueTask.FromResult(arguments[0] is Atom module ? context.Runtime.Modules.DeleteModule(module.Name) : throw new ErlangException(ErlangErrorReasons.BadArgument))
+            (context, arguments) => arguments[0] is Atom module
+                ? context.Runtime.Modules.ModifyCodeAsync(context, () => context.Runtime.Modules.DeleteModule(module.Name))
+                : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         registry.Register(
             ErlangModuleNames.Module,

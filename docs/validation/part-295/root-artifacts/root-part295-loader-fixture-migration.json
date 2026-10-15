@@ -1,0 +1,12 @@
+{
+  "Reason": "Legacy test directly entered private registry monitor before public writer, violating newly enforced permission-before-monitor order",
+  "ProductionChangedForThisFailure": false,
+  "HistoricalAssertionsRemoved": 0,
+  "HistoricalAssertionsChanged": 0,
+  "NewFixtureBehavior": "Acquire thread-owned permission before private registry monitor; prove competing writer waits for permission before consuming or closing; release scope before await",
+  "FirstFullPassed": 6605,
+  "FirstFullFailed": 1,
+  "ExpectedFinalTests": 6606,
+  "SourcePaths": 31,
+  "PreservedFailureDirectory": "artifacts/root-part295-first-full-failure"
+}

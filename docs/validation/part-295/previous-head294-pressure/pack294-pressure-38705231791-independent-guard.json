@@ -1,0 +1,67 @@
+{
+  "Status": "PASS_EXACT_HEAD294_ORIGINAL_THREE_TYPED_PRESSURE_OBSERVATIONS",
+  "Head": "200ef8550d0b533f2a59eb872ac3949179994d7c",
+  "Run": 38705231791,
+  "Job": 116322900527,
+  "Artifact": 11957883840,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CasesPassed": 3,
+  "PinnedOriginalProbeCompiled": true,
+  "FreshScenarioVms": 3,
+  "ReportFilesVerified": 81,
+  "DownloadFilesVerified": 90,
+  "RawZipSha256": "2001D402F284B6C0C84E6106CA036E3B462783D3E8552ADDCFEF79025E586DA2",
+  "RawJobSha256": "A9B780734F80F2F194AC99DC88C9E744D5E111C50E6CB1C29D04C56C9BACC798",
+  "Cases": {
+    "same_controller_replies": {
+      "ObservedBusyLimitBytes": 1024,
+      "SuccessfulFillSends": 1,
+      "BusyPendingBytes": 65805,
+      "CleanupChildren": 2,
+      "TypedOuterAndCleanupPassed": true,
+      "PutResultsBeforeAnyGetData": true,
+      "ExactRepliesInOrder": [
+        3,
+        36
+      ],
+      "ReplyDuplicateCount": 0,
+      "Packets": 3
+    },
+    "producer_death_then_writer": {
+      "ObservedBusyLimitBytes": 1024,
+      "SuccessfulFillSends": 1,
+      "BusyPendingBytes": 65805,
+      "CleanupChildren": 3,
+      "TypedOuterAndCleanupPassed": true,
+      "BothSendersObservedSuspended": true,
+      "KilledSenderDownBeforeDrain": true,
+      "KilledSenderMarkerPresentAfterDown": true,
+      "SurvivingWriterReturnedAndMarkerPresent": true,
+      "PacketInventoryOrder": [
+        "filler",
+        "cancelled_producer",
+        "surviving_writer"
+      ],
+      "FirstDrainPackets": 1,
+      "LaterDrainPackets": 2,
+      "ExactAdmissionInstantObserved": false
+    },
+    "terminal_public_free": {
+      "ObservedBusyLimitBytes": 1024,
+      "SuccessfulFillSends": 1,
+      "BusyPendingBytes": 65805,
+      "CleanupChildren": 2,
+      "TypedOuterAndCleanupPassed": true,
+      "PublicLookupGoneBeforeDrain": true,
+      "LocalDownBeforeDrain": true,
+      "ExactTerminalExitAfterDrain": true,
+      "InternalDoneOrUnwoundCompared": false,
+      "Packets": 2
+    }
+  },
+  "SdkHardBudgetEqualityClaimed": false,
+  "ExactNativeAdmissionInstantClaimed": false,
+  "GeneralDistributionCompatibility": false,
+  "MainEdited": false,
+  "NativeRerun": false
+}

@@ -10,20 +10,41 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public int ProcessLimit => processSlots.Capacity;
     public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
     private readonly Dictionary<string, Term> names = new(StringComparer.Ordinal);
-    internal RuntimePorts Ports { get; }
+    internal RuntimePorts Ports
+    {
+        get;
+    }
     internal CpuTopologyState CpuTopology { get; } = new();
-    internal SequenceTracing SequenceTracing { get; }
-    internal RuntimeSystemProfile SystemProfiling { get; }
-    internal ProcessTracing ProcessTracing { get; }
+    internal SequenceTracing SequenceTracing
+    {
+        get;
+    }
+    internal RuntimeSystemProfile SystemProfiling
+    {
+        get;
+    }
+    internal ProcessTracing ProcessTracing
+    {
+        get;
+    }
     private readonly Dictionary<ReferenceTerm, ProcessMonitorEntry> monitors = new();
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private readonly Dictionary<ReferenceTerm, ProcessSpawnRequestEntry> spawnRequests = new();
     private long nextPid, nextRef;
     private bool disposed;
     private readonly RuntimeInitializer initializer;
-    public Pid InitializationPid { get; }
-    internal LocalNodeIdentity LocalIdentity { get; }
-    public string ConfiguredNode { get; }
+    public Pid InitializationPid
+    {
+        get;
+    }
+    internal LocalNodeIdentity LocalIdentity
+    {
+        get;
+    }
+    public string ConfiguredNode
+    {
+        get;
+    }
     public string Node => LocalIdentity.Snapshot.Node;
     public Atom NodeAtom => Term.A(LocalIdentity.Snapshot.Node);
     public TextWriter Output
@@ -31,16 +52,34 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         get;
     }
     internal RuntimeStatistics Statistics { get; } = new();
-    internal RuntimeTimers Timers { get; }
-    internal RuntimeKnownNodes KnownNodes { get; }
-    internal ProcessSuspensions Suspensions { get; }
-    internal RuntimeSystemMonitor SystemMonitoring { get; }
-    public RuntimeStandardStreams StandardStreams { get; }
+    internal RuntimeTimers Timers
+    {
+        get;
+    }
+    internal RuntimeKnownNodes KnownNodes
+    {
+        get;
+    }
+    internal ProcessSuspensions Suspensions
+    {
+        get;
+    }
+    internal RuntimeSystemMonitor SystemMonitoring
+    {
+        get;
+    }
+    public RuntimeStandardStreams StandardStreams
+    {
+        get;
+    }
     private readonly bool ownsStandardStreams;
     public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
     public ModuleRegistry Modules { get; } = new();
     public RuntimeFunctionEntries Functions { get; } = new();
-    public RuntimeReferenceResources ReferenceResources { get; }
+    public RuntimeReferenceResources ReferenceResources
+    {
+        get;
+    }
     internal uint LocalTermSeed { get; } = System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(System.Security.Cryptography.RandomNumberGenerator.GetBytes(ErlangEtfParameters.LocalSeedBytes));
 
     public ProcessRuntime(string node = ProcessNodeDefaults.Local, TextWriter? output = null, int maximumProcesses = ProcessTableParameters.DefaultCapacity)
@@ -969,7 +1008,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     private async ValueTask<bool> PurgeOldCode(ProcessContext worker, string module)
     {
-        var image = Modules.PreparePurge(module);
+        var image = await Modules.ModifyCodeAsync(worker, () => Modules.PreparePurge(module));
         if (image is null)
             return false;
         bool completed = false;
@@ -1009,7 +1048,12 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     tuple.Items[0] is Atom { Name: ProcessMessageTags.MonitorDown } && tuple.Items[1].Equals(monitor) ? tuple : null);
                 await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
             }
-            Modules.FinishPurge(module, image, true);
+            await Modules.ModifyCodeAsync(() =>
+                {
+                    Modules.FinishPurge(module, image, true);
+
+                    return true;
+                });
             completed = true;
 
             return true;
@@ -1017,7 +1061,12 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         finally
         {
             if (!completed)
-                Modules.FinishPurge(module, image, false);
+                await Modules.ModifyCodeAsync(() =>
+                {
+                    Modules.FinishPurge(module, image, false);
+
+                    return true;
+                });
         }
     }
 

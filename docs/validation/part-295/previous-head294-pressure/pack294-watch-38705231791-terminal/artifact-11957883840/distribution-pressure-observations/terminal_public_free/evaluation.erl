@@ -1,0 +1,1 @@
+try distribution_pressure_probe:run(terminal_public_free,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/terminal_public_free"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/terminal_public_free/exception.etf",term_to_binary({C,R,S})),halt(1) end.

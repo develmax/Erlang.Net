@@ -44,6 +44,7 @@ public sealed partial class ModuleRegistry
 
     public BeamPublicationResult PublishPreparedBeam(params PreparedBeamImage[] images)
     {
+        using var modification = CodeModification.Enter();
         ArgumentNullException.ThrowIfNull(images);
         PreparedBeamImage[] owned = images.ToArray();
         lock (gate)

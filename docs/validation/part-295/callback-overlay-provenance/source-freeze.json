@@ -1,0 +1,48 @@
+{
+  "Status": "SOURCE ONLY - ready for separate bounded red/green verification",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+      "Role": "Production",
+      "BeforeSha256": "EDC1C10AF21B2AA089053EDFE6D33F32262B1A477D7DD234C4A3B01CCC2FEDC6",
+      "Bytes": 11897,
+      "Sha256": "8AABD1B46FCA799637593FD6285C0DA189B98927B6CBF25BC73F02AD732B6D1A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamOnLoadCallbackFaultHostChecks.cs",
+      "Role": "Test",
+      "BeforeSha256": null,
+      "Bytes": 6862,
+      "Sha256": "C1DDCB407D8F2F87890D993083E836D76EBA15BBB485DDA472260C2A41C2448A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamOnLoadCallbackFaultHostNames.cs",
+      "Role": "Test",
+      "BeforeSha256": null,
+      "Bytes": 692,
+      "Sha256": "E41C0843336ECD6D0809C3954C22B0F7C52B11360E80170FE5179E228A3BA08D"
+    }
+  ],
+  "ProductionPaths": [
+    "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs"
+  ],
+  "TestPaths": [
+    "tests/Erlang.Tests/BeamOnLoadCallbackFaultHostChecks.cs",
+    "tests/Erlang.Tests/BeamOnLoadCallbackFaultHostNames.cs"
+  ],
+  "Inputs": [
+    {
+      "Path": "README.md",
+      "Sha256": "120FF321D0197E96650A0831B92942046A2E15CBEFF27C98D81078EF99FBAB6E"
+    },
+    {
+      "Path": "parent-source.json",
+      "Sha256": "0FFD50913816B4CAB42D95B81FE9BEA9166B51C7A960BBE91822D79A3FD26DFD"
+    }
+  ],
+  "BuildExecuted": false,
+  "NativeExecuted": false,
+  "MainModified": false,
+  "CandidateModified": false,
+  "GitModified": false
+}

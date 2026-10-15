@@ -1,0 +1,1 @@
+try distribution_pressure_probe:run(same_controller_replies,"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/same_controller_replies"),halt(0) catch C:R:S->ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/same_controller_replies/exception.etf",term_to_binary({C,R,S})),halt(1) end.

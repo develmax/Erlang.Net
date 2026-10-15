@@ -6,12 +6,14 @@ public sealed partial class ModuleRegistry
 
     internal Term FinishLoaderReferences(RuntimeReferenceResources resources, IReadOnlyList<ReferenceTerm> references)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
             return resources.AdmitPreparedReferences(references);
     }
 
     internal Term FinishLoaderImages(PreparedBeamImage[] images)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             foreach (PreparedBeamImage image in images)
@@ -38,6 +40,7 @@ public sealed partial class ModuleRegistry
 
     internal Term StageLoaderOnLoad(PreparedBeamImage image)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             if (!ReferenceEquals(image.Owner, this) || image.Consumed)
@@ -88,6 +91,7 @@ public sealed partial class ModuleRegistry
 
     internal Term FinishLoaderOnLoad(string module, bool keep)
     {
+        using var modification = CodeModification.Enter();
         lock (gate)
         {
             if (!loaderPendingImages.TryGetValue(module, out BeamOnLoadTicket? ticket))

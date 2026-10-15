@@ -1,0 +1,731 @@
+{
+  "Status": "Source-only audit; no implementation/build/native execution",
+  "WorkingHead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "Bytes": 197317,
+      "EvidenceRanges": [
+        {
+          "Start": 249,
+          "End": 264,
+          "Text": "249: void erts_pre_nif(ErlNifEnv* env, Process* p, struct erl_module_nif* mod_nif,\n250:                   Process* tracee)\n251: {\n252:     env->mod_nif = mod_nif;\n253:     env->proc = p;\n254:     env->hp = HEAP_TOP(p);\n255:     env->hp_end = HEAP_LIMIT(p);\n256:     env->heap_frag = NULL;\n257:     env->tmp_obj_list = NULL;\n258:     env->exception_thrown = 0;\n259:     env->tracee = tracee;\n260: \n261:     ASSERT(p->common.id != ERTS_INVALID_PID);\n262: \n263: #ifdef ERTS_NIF_ASSERT_IN_ENV\n264:     env->dbg_disable_assert_in_env = 0;"
+        },
+        {
+          "Start": 1288,
+          "End": 1291,
+          "Text": "1288: int enif_is_exception(ErlNifEnv* env, ERL_NIF_TERM term)\n1289: {\n1290:     return env->exception_thrown && term == THE_NON_VALUE;\n1291: }"
+        },
+        {
+          "Start": 1791,
+          "End": 1808,
+          "Text": "1791: Eterm enif_make_badarg(ErlNifEnv* env)\n1792: {\n1793:     return enif_raise_exception(env, am_badarg);\n1794: }\n1795: \n1796: Eterm enif_raise_exception(ErlNifEnv* env, ERL_NIF_TERM reason)\n1797: {\n1798:     env->exception_thrown = 1;\n1799:     env->proc->fvalue = reason;\n1800:     BIF_ERROR(env->proc, EXC_ERROR);\n1801: }\n1802: \n1803: int enif_has_pending_exception(ErlNifEnv* env, ERL_NIF_TERM* reason)\n1804: {\n1805:     if (env->exception_thrown && reason != NULL)\n1806: \t*reason = env->proc->fvalue;\n1807:     return env->exception_thrown;\n1808: }"
+        },
+        {
+          "Start": 4618,
+          "End": 4626,
+          "Text": "4618: /* load_nif/2 is implemented as an instruction as it needs to know where it\n4619:  * was called from, and it's a pain to get that information in a BIF.\n4620:  *\n4621:  * This is a small stub that rejects apply(erlang, load_nif, [Path, Args]). */\n4622: BIF_RETTYPE load_nif_2(BIF_ALIST_2) {\n4623:     BIF_RET(load_nif_error(BIF_P, \"bad_lib\",\n4624:                            \"load_nif/2 must be explicitly called from the NIF \"\n4625:                            \"module. It cannot be called through apply/3.\"));\n4626: }"
+        },
+        {
+          "Start": 4700,
+          "End": 4704,
+          "Text": "4700: static int check_is_nifable(const BeamCodeHeader* mod_code,\n4701:                             int func_ix)\n4702: {\n4703:     return !mod_code->are_nifs || mod_code->are_nifs[func_ix];\n4704: }"
+        },
+        {
+          "Start": 4730,
+          "End": 4777,
+          "Text": "4730:     encoding = erts_get_native_filename_encoding();\n4731:     if (encoding == ERL_FILENAME_WIN_WCHAR) {\n4732:         /* Do not convert the lib name to utf-16le yet, do that in win32 specific code */\n4733:         /* since lib_name is used in error messages */\n4734:         encoding = ERL_FILENAME_UTF8;\n4735:     }\n4736:     lib_name = erts_convert_filename_to_encoding(filename, NULL, 0,\n4737:                                                  ERTS_ALC_T_TMP, 1, 0, encoding,\n4738: \t\t\t\t\t\t NULL, 0);\n4739:     if (!lib_name) {\n4740:         return THE_NON_VALUE;\n4741:     }\n4742: \n4743:     /* Find calling module */\n4744:     caller = erts_find_function_from_pc(I);\n4745:     ASSERT(caller != NULL);\n4746:     mod_atom = caller->module;\n4747:     ASSERT(is_atom(mod_atom));\n4748:     module_p = erts_get_module(mod_atom, erts_active_code_ix());\n4749:     ASSERT(module_p != NULL);\n4750: \n4751:     {\n4752:         ErtsStaticNif* sne = is_static_nif_module(mod_atom);\n4753:         if (sne != NULL) {\n4754:             entry = sne->entry;\n4755:             is_static = 1;\n4756:         }\n4757:     }\n4758:     this_mi = &module_p->curr;\n4759:     prev_mi = &module_p->old;\n4760:     if (in_area(caller, module_p->old.code_hdr, module_p->old.code_length)) {\n4761: \tret = load_nif_error(c_p, \"old_code\", \"Calling load_nif from old \"\n4762: \t\t\t     \"module '%T' not allowed\", mod_atom);\n4763: \tgoto error;\n4764:     } else if (module_p->on_load) {\n4765: \tASSERT(((module_p->on_load)->code_hdr)->on_load);\n4766: \tif (module_p->curr.code_hdr) {\n4767: \t    prev_mi = &module_p->curr;\n4768: \t} else {\n4769: \t    prev_mi = &module_p->old;\n4770: \t}\n4771: \tthis_mi = module_p->on_load;\n4772:     }\n4773: \n4774:     if (this_mi->nif != NULL) {\n4775:         ret = load_nif_error(c_p,\"reload\",\"NIF library already loaded\"\n4776:                              \" (reload disallowed since OTP 20).\");\n4777:     }"
+        },
+        {
+          "Start": 4794,
+          "End": 4826,
+          "Text": "4794:     else if (!is_static &&\n4795:              (erts_add_taint(mod_atom),\n4796:               (entry = erts_sys_ddll_call_nif_init(init_func)) == NULL)) {\n4797: \tret = load_nif_error(c_p, bad_lib, \"Library init-call unsuccessful\");\n4798:     }\n4799:     else if (entry->major > ERL_NIF_MAJOR_VERSION\n4800:              || (entry->major == ERL_NIF_MAJOR_VERSION\n4801:                  && entry->minor > ERL_NIF_MINOR_VERSION)) {\n4802:         char* fmt = \"That '%T' NIF library needs %s or newer. Either try to\"\n4803:             \" recompile the NIF lib or use a newer erts runtime.\";\n4804:         ret = load_nif_error(c_p, bad_lib, fmt, mod_atom, entry->min_erts);\n4805:     }\n4806:     else if (entry->major < ERL_NIF_MIN_REQUIRED_MAJOR_VERSION_ON_LOAD\n4807: \t     || (entry->major==2 && entry->minor == 5)) { /* experimental maps */\n4808: \t\n4809:         char* fmt = \"That old NIF library (%d.%d) is not compatible with this \"\n4810:             \"erts runtime (%d.%d). Try recompile the NIF lib.\";\n4811:         ret = load_nif_error(c_p, bad_lib, fmt, entry->major, entry->minor,\n4812:                              ERL_NIF_MAJOR_VERSION, ERL_NIF_MINOR_VERSION);\n4813:     }   \n4814:     else if (AT_LEAST_VERSION(entry, 2, 1)\n4815: \t     && sys_strcmp(entry->vm_variant, ERL_NIF_VM_VARIANT) != 0) {\n4816: \tret = load_nif_error(c_p, bad_lib, \"Library (%s) not compiled for \"\n4817: \t\t\t     \"this vm variant (%s).\",\n4818: \t\t\t     entry->vm_variant, ERL_NIF_VM_VARIANT);\n4819:     }\n4820:     else if (!erts_is_atom_str((char*)entry->name, mod_atom, 1)) {\n4821: \tret = load_nif_error(c_p, bad_lib, \"Library module name '%s' does not\"\n4822: \t\t\t     \" match calling module '%T'\", entry->name, mod_atom);\n4823:     }\n4824:     else {\n4825:         lib = create_lib(entry);\n4826:         entry = &lib->entry; /* Use a guaranteed modern lib entry from now on */"
+        },
+        {
+          "Start": 4844,
+          "End": 4875,
+          "Text": "4844:         erts_rwmtx_rwlock(&erts_nif_call_tab_lock);\n4845:         for (i=0; i < entry->num_of_funcs; i++) {\n4846:             int func_ix;\n4847:             const ErtsCodeInfo* ci;\n4848:             ErlNifFunc* f = &entry->funcs[i];\n4849:             ErtsNifBeamStub* stub = &lib->finish->beam_stubv[i];\n4850: \n4851:             stub->code_info_ptr = NULL; /* end marker in case we fail */\n4852: \n4853: \t    if (!erts_atom_get(f->name, sys_strlen(f->name), &f_atom, ERTS_ATOM_ENC_LATIN1)\n4854: \t\t|| (func_ix = get_func_ix(this_mi->code_hdr, f_atom, f->arity)) < 0) {\n4855: \t\tret = load_nif_error(c_p,bad_lib,\"Function not found %T:%s/%u\",\n4856: \t\t\t\t     mod_atom, f->name, f->arity);\n4857:                 break;\n4858: \t    }\n4859: \n4860:             ci = this_mi->code_hdr->functions[func_ix];\n4861: \n4862:             if (!check_is_nifable(this_mi->code_hdr, func_ix)) {\n4863:                 ret = load_nif_error(c_p,bad_lib,\"Function not declared as nif %T:%s/%u\",\n4864:                                      mod_atom, f->name, f->arity);\n4865:                 break;\n4866:             }\n4867: \n4868: \t    if (f->flags != 0 &&\n4869:                 f->flags != ERL_NIF_DIRTY_JOB_IO_BOUND &&\n4870:                 f->flags != ERL_NIF_DIRTY_JOB_CPU_BOUND) {\n4871: \n4872:                 ret = load_nif_error(c_p, bad_lib, \"Illegal flags field value %d for NIF %T:%s/%u\",\n4873:                                      f->flags, mod_atom, f->name, f->arity);\n4874:                 break;\n4875: \t    }"
+        },
+        {
+          "Start": 4893,
+          "End": 4901,
+          "Text": "4893:             stub->code_info_ptr = ci;\n4894:             stub->info = *ci;\n4895: \n4896:             if (hash_put(&erts_nif_call_tab, stub) != stub) {\n4897:                 ret = load_nif_error(c_p, bad_lib, \"Duplicate NIF entry for %T:%s/%u\",\n4898:                                      mod_atom, f->name, f->arity);\n4899:                 break;\n4900:             }\n4901:             lib->finish->nstubs_hashed++;"
+        },
+        {
+          "Start": 4951,
+          "End": 5009,
+          "Text": "4951:     /* Call load or upgrade:\n4952:      */\n4953:     env.mod_nif = lib;\n4954:     lib->flags |= ERTS_MOD_NIF_FLG_LOADING;\n4955:     lib->priv_data = NULL;\n4956:     if (prev_mi->nif != NULL) { /**************** Upgrade ***************/\n4957:         void* prev_old_data = prev_mi->nif->priv_data;\n4958:         if (entry->upgrade == NULL) {\n4959:             ret = load_nif_error(c_p, upgrade, \"Upgrade not supported by this NIF library.\");\n4960:             goto error;\n4961:         }\n4962:         /*\n4963:          * Go single scheduler during upgrade callback.\n4964:          * Todo: Fix better solution with suspending callers and waiting for\n4965:          *       all calls to return (including dirty).\n4966:          *       Note that erts_thr_progress_block() will not block dirty NIFs.\n4967:          */\n4968:         erts_proc_unlock(c_p, ERTS_PROC_LOCK_MAIN);\n4969:         erts_thr_progress_block();\n4970:         erts_proc_lock(c_p, ERTS_PROC_LOCK_MAIN);\n4971:         erts_pre_nif(&env, c_p, lib, NULL);\n4972:         veto = entry->upgrade(&env, &lib->priv_data, &prev_mi->nif->priv_data, args);\n4973:         erts_post_nif(&env);\n4974:         erts_thr_progress_unblock();\n4975:         if (veto) {\n4976:             prev_mi->nif->priv_data = prev_old_data;\n4977:             ret = load_nif_error(c_p, upgrade, \"Library upgrade-call unsuccessful (%d).\", veto);\n4978:         }\n4979:     }\n4980:     else if (entry->load != NULL) { /********* Initial load ***********/\n4981:         erts_pre_nif(&env, c_p, lib, NULL);\n4982:         veto = entry->load(&env, &lib->priv_data, args);\n4983:         erts_post_nif(&env);\n4984:         if (veto) {\n4985:             ret = load_nif_error(c_p, \"load\", \"Library load-call unsuccessful (%d).\", veto);\n4986:         }\n4987:     }\n4988:     lib->flags &= ~ERTS_MOD_NIF_FLG_LOADING;\n4989: \n4990:     if (ret == am_ok) {\n4991: \t/*\n4992:          * Everything ok, make NIF code callable.\n4993: \t */\n4994:         if (lib->flags & ERTS_MOD_NIF_FLG_ON_HALT)\n4995:             install_on_halt_callback(&lib->on_halt);\n4996: \n4997:         this_mi->nif = lib;\n4998: \n4999:         prepare_opened_rt(lib);\n5000:         /*\n5001:          * The call table lock will make sure all NIFs and callbacks in module\n5002:          * are made accessible atomically.\n5003:          */\n5004:         erts_rwmtx_rwlock(&erts_nif_call_tab_lock);\n5005:         commit_opened_rt();\n5006:         patch_call_nif_early(entry, this_mi);\n5007:         erts_rwmtx_rwunlock(&erts_nif_call_tab_lock);\n5008: \n5009:         cleanup_opened_rt();"
+        },
+        {
+          "Start": 5020,
+          "End": 5038,
+          "Text": "5020:     error:\n5021: \trollback_opened_resource_types();\n5022: \tASSERT(ret != am_ok);\n5023:         if (lib != NULL) {\n5024:             if (lib->finish != NULL) {\n5025:                 erase_hashed_stubs(lib->finish);\n5026:                 erts_free(ERTS_ALC_T_NIF, lib->finish);\n5027:             }\n5028: \t    erts_free(ERTS_ALC_T_NIF, lib);\n5029: \t}\n5030: \tif (handle != NULL) {\n5031: \t    erts_sys_ddll_close(handle);\n5032: \t}\n5033: \terts_sys_ddll_free_error(&errdesc);\n5034:     }\n5035: \n5036:     erts_free(ERTS_ALC_T_TMP, lib_name);\n5037: \n5038:     BIF_RET(ret);"
+        },
+        {
+          "Start": 5042,
+          "End": 5048,
+          "Text": "5042: /*\n5043:  * Write 'call_nif_early' as the first beam instruction for all NIFs\n5044:  * which will make them callable.\n5045:  *\n5046:  * The 'call_nif_early' is a one word beam instruction which uses a lock\n5047:  * protected hash lookup to get its \"arguments\". This guarantees an atomically\n5048:  * safe publication of all NIFs in the module."
+        },
+        {
+          "Start": 5452,
+          "End": 5459,
+          "Text": "5452:         erts_pre_nif(&env, p, mod, tracee);\n5453: #ifdef ERTS_NIF_ASSERT_IN_ENV\n5454:         env.dbg_disable_assert_in_env = 1;\n5455: #endif\n5456:         nif_result = (*fun->fptr)(&env, argc, argv);\n5457:         if (env.exception_thrown)\n5458:             nif_result = THE_NON_VALUE;\n5459:         erts_post_nif(&env);"
+        },
+        {
+          "Start": 5482,
+          "End": 5485,
+          "Text": "5482:         nif_result = (*fun->fptr)(&msg_env.env, argc, argv);\n5483:         if (msg_env.env.exception_thrown)\n5484:             nif_result = THE_NON_VALUE;\n5485:         post_nif_noproc(&msg_env);"
+        }
+      ]
+    },
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE",
+      "Bytes": 18466,
+      "EvidenceRanges": [
+        {
+          "Start": 514,
+          "End": 532,
+          "Text": "514:         typedef Eterm NifF(struct enif_environment_t*, int argc, Eterm argv[]);\n515:         NifF* fp = vbf = (NifF*) $Func;\n516:         struct enif_environment_t env;\n517:         ASSERT(c_p->scheduler_data);\n518:         live_hf_end = c_p->mbuf;\n519:         ERTS_CHK_MBUF_SZ(c_p);\n520:         erts_pre_nif(&env, c_p, (struct erl_module_nif*)$NifMod, NULL);\n521: \n522:         ASSERT((c_p->scheduler_data)->current_nif == NULL);\n523:         (c_p->scheduler_data)->current_nif = &env;\n524: \n525:         nif_bif_result = (*fp)(&env, bif_nif_arity, reg);\n526:         if (env.exception_thrown)\n527:             nif_bif_result = THE_NON_VALUE;\n528: \n529:         ASSERT((c_p->scheduler_data)->current_nif == &env);\n530:         (c_p->scheduler_data)->current_nif = NULL;\n531: \n532:         erts_post_nif(&env);"
+        },
+        {
+          "Start": 632,
+          "End": 653,
+          "Text": "632:         ASSERT(VALID_INSTR(*cp));\n633:         I = handle_error(c_p, cp, reg, c_p->current);\n634:     }\n635:     goto post_error_handling;\n636: }\n637: \n638: i_load_nif() {\n639:     //| -no_next\n640:     if (erts_try_seize_code_mod_permission(c_p)) {\n641:         Eterm result;\n642: \n643:         PRE_BIF_SWAPOUT(c_p);\n644:         result = erts_load_nif(c_p, I, x(0), x(1));\n645:         erts_release_code_mod_permission();\n646:         ERTS_REQ_PROC_MAIN_LOCK(c_p);\n647:         SWAPIN;\n648: \n649:         if (ERTS_LIKELY(is_value(result))) {\n650:             x(0) = result;\n651:             $NEXT0();\n652:         } else {\n653:             static ErtsCodeMFA mfa = {am_erlang, am_load_nif, 2};"
+        }
+      ]
+    },
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/jit/beam_jit_common.cpp",
+      "Sha256": "B8FF4CFBE3AFB033B060BB0E0B013DC6E02E7280A4B7AC8D195CA4E6AC5248AE",
+      "Bytes": 44693,
+      "EvidenceRanges": [
+        {
+          "Start": 640,
+          "End": 657,
+          "Text": "640:     {\n641:         struct enif_environment_t env;\n642:         ASSERT(c_p->scheduler_data);\n643:         live_hf_end = c_p->mbuf;\n644:         ERTS_CHK_MBUF_SZ(c_p);\n645:         erts_pre_nif(&env, c_p, NifMod, NULL);\n646: \n647:         ASSERT((c_p->scheduler_data)->current_nif == NULL);\n648:         (c_p->scheduler_data)->current_nif = &env;\n649: \n650:         nif_bif_result = (*fp)(&env, bif_nif_arity, reg);\n651:         if (env.exception_thrown)\n652:             nif_bif_result = THE_NON_VALUE;\n653: \n654:         ASSERT((c_p->scheduler_data)->current_nif == &env);\n655:         (c_p->scheduler_data)->current_nif = NULL;\n656: \n657:         erts_post_nif(&env);"
+        }
+      ]
+    },
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "Sha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857",
+      "Bytes": 41234,
+      "EvidenceRanges": [
+        {
+          "Start": 854,
+          "End": 864,
+          "Text": "854: # The load_nif/2 BIF is an instruction.\n855: #\n856: \n857: call_ext u==2 u$func:erlang:load_nif/2 =>\n858:     i_load_nif\n859: call_ext_last u==2 u$func:erlang:load_nif/2 D =>\n860:     i_load_nif | deallocate_return D\n861: call_ext_only u==2 u$func:erlang:load_nif/2 =>\n862:     i_load_nif | return\n863: \n864: %cold"
+        }
+      ]
+    },
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "Bytes": 195383,
+      "EvidenceRanges": [
+        {
+          "Start": 5772,
+          "End": 5806,
+          "Text": "5772: nifs_in_module(Process* p, Eterm module)\n5773: {\n5774:     Eterm nif_list, *hp;\n5775:     Module *mod;\n5776: \n5777:     mod = erts_get_module(module, erts_active_code_ix());\n5778:     nif_list = NIL;\n5779: \n5780:     if (mod->curr.nif != NULL) {\n5781:         int func_count, func_ix;\n5782:         ErlNifFunc *funcs;\n5783: \n5784:         func_count = erts_nif_get_funcs(mod->curr.nif, &funcs);\n5785:         hp = HAlloc(p, func_count * 5);\n5786: \n5787:         for (func_ix = func_count - 1; func_ix >= 0; func_ix--) {\n5788:             Eterm name, arity, pair;\n5789:             ErlNifFunc *func;\n5790: \n5791:             func = &funcs[func_ix];\n5792: \n5793:             name = am_atom_put(func->name, sys_strlen(func->name));\n5794:             arity = make_small(func->arity);\n5795: \n5796:             pair = TUPLE2(hp, name, arity);\n5797:             hp += 3;\n5798: \n5799:             nif_list = CONS(hp, pair, nif_list);\n5800:             hp += 2;\n5801:         }\n5802:     }\n5803: \n5804:     return nif_list;\n5805: }\n5806: "
+        },
+        {
+          "Start": 5927,
+          "End": 5936,
+          "Text": "5927:     } else if (what == am_exports) {\n5928:         return exported_from_module(p, code_ix, module);\n5929:     } else if (what == am_functions) {\n5930:         return functions_in_module(p, code_hdr);\n5931:     } else if (what == am_nifs) {\n5932:         return nifs_in_module(p, module);\n5933:     } else if (what == am_attributes) {\n5934:         return attributes_for_module(p, code_hdr);\n5935:     } else if (what == am_compile) {\n5936:         return compilation_info_for_module(p, code_hdr);"
+        }
+      ]
+    },
+    {
+      "Origin": "PinnedOtp",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689",
+      "Bytes": 13859,
+      "EvidenceRanges": [
+        {
+          "Start": 65,
+          "End": 79,
+          "Text": "65: **            enif_max_atom_cache_index\n66: */\n67: #define ERL_NIF_MAJOR_VERSION 2\n68: #define ERL_NIF_MINOR_VERSION 18\n69: \n70: /*\n71:  * WHEN CHANGING INTERFACE VERSION, also replace erts version below with\n72:  * a ticket number e.g. \"erts-@OTP-12345@\". The syntax is the same as for\n73:  * runtime dependencies so multiple tickets should be separated with \":\", e.g.\n74:  * \"erts-@OTP-12345:OTP-54321@\".\n75:  *\n76:  * If you're not on the OTP team, you should use a placeholder like\n77:  * erts-@MyName@ instead.\n78:  */\n79: #define ERL_NIF_MIN_ERTS_VERSION \"erts-14.0\""
+        },
+        {
+          "Start": 343,
+          "End": 352,
+          "Text": "343: } ErlNifOption;\n344: \n345: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))\n346: #  define ERL_NIF_API_FUNC_DECL(RET_TYPE, NAME, ARGS) RET_TYPE (*NAME) ARGS\n347: typedef struct {\n348: #  include \"erl_nif_api_funcs.h\"\n349:    void* erts_alc_test;\n350:    const void* erts_internal_test_ptr;\n351: } TWinDynNifCallbacks;\n352: extern TWinDynNifCallbacks WinDynNifCallbacks;"
+        },
+        {
+          "Start": 385,
+          "End": 392,
+          "Text": "385: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))\n386: #  define ERL_NIF_INIT_GLOB TWinDynNifCallbacks WinDynNifCallbacks;\n387: #  define ERL_NIF_INIT_ARGS TWinDynNifCallbacks* callbacks\n388: #  define ERL_NIF_INIT_BODY memcpy(&WinDynNifCallbacks,callbacks,sizeof(TWinDynNifCallbacks))\n389: #else \n390: #  define ERL_NIF_INIT_GLOB\n391: #  define ERL_NIF_INIT_ARGS void\n392: #  define ERL_NIF_INIT_BODY"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleCodeImage.cs",
+      "Sha256": "4D20A4CD135DA504693B24306453EC19F2FD74324B3EF93E3712E25CBE70789C",
+      "Bytes": 158,
+      "Anchors": []
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "2A331C8D46F1AD3BEC25A6E384E605470BB608AD0F9D714D03A0E81787EC42DC",
+      "Bytes": 22019,
+      "Anchors": [
+        {
+          "Line": 31,
+          "Text": "public async ValueTask<SourceCodeLease> AcquireSourceCode(ProcessContext context, ModuleCodeImage image)"
+        },
+        {
+          "Line": 49,
+          "Text": "public async ValueTask<SourceFunctionAdmission> AdmitSourceFunction("
+        },
+        {
+          "Line": 63,
+          "Text": "var current = SourceForCode(module, fingerprint);"
+        },
+        {
+          "Line": 81,
+          "Text": "internal ModuleCodeImage? PreparePurge(string module)"
+        },
+        {
+          "Line": 102,
+          "Text": "internal void FinishPurge(string module, ModuleCodeImage image, bool complete)"
+        },
+        {
+          "Line": 182,
+          "Text": "public SourceCodeEntry? SourceForCode(string module, BitString fingerprint)"
+        },
+        {
+          "Line": 194,
+          "Text": "public ModuleCodeImage? SourceImage(string module, object owner)"
+        },
+        {
+          "Line": 220,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 257,
+          "Text": "code = image is null || body is null ? null : context.EnterSourceCode(image, body);"
+        },
+        {
+          "Line": 374,
+          "Text": "public Term DeleteModule(string module)"
+        },
+        {
+          "Line": 381,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 417,
+          "Text": "public void PublishModuleCode(string module, ModuleCodeDescriptor descriptor)"
+        },
+        {
+          "Line": 436,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 440,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 519,
+          "Text": "public void Apply(Action<ModuleRegistry> configure)"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+      "Sha256": "50FDCD7F3627A63E3A7AA72CF7282C27C4DD2A5E5AA88A5D8167372DC90475B9",
+      "Bytes": 9944,
+      "Anchors": [
+        {
+          "Line": 52,
+          "Text": "callback = runtime.Spawn(context => RunPendingOnLoad(context, ticket));"
+        },
+        {
+          "Line": 83,
+          "Text": "private async ValueTask<Term> RunPendingOnLoad(ProcessContext context, BeamOnLoadTicket ticket)"
+        },
+        {
+          "Line": 95,
+          "Text": "code = context.EnterSourceCode(ticket.CodeImage, ticket);"
+        },
+        {
+          "Line": 129,
+          "Text": "public bool FinishPendingOnLoad(BeamOnLoadTicket ticket, bool keep)"
+        },
+        {
+          "Line": 137,
+          "Text": "RetirePending(ticket);"
+        },
+        {
+          "Line": 147,
+          "Text": "RetirePending(ticket);"
+        },
+        {
+          "Line": 164,
+          "Text": "registry.DeleteModule(ticket.Module);"
+        },
+        {
+          "Line": 175,
+          "Text": "registry.PublishModuleCode(ticket.Module, ticket.Prepared.Descriptor);"
+        },
+        {
+          "Line": 195,
+          "Text": "FinishPendingOnLoad(ticket, false);"
+        },
+        {
+          "Line": 204,
+          "Text": "bool published = FinishPendingOnLoad(ticket, keep);"
+        },
+        {
+          "Line": 216,
+          "Text": "FinishPendingOnLoad(ticket, false);"
+        },
+        {
+          "Line": 239,
+          "Text": "private void RetirePending(BeamOnLoadTicket ticket)"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Loader.cs",
+      "Sha256": "DAB6A5A4DF853213C0B21D548DADE29C03B6F7D738BE5CCA53B840108C36368C",
+      "Bytes": 5089,
+      "Anchors": [
+        {
+          "Line": 19,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 44,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 56,
+          "Text": "public async ValueTask<Term> InvokeLoaderOnLoad(ProcessContext context, Term module)"
+        },
+        {
+          "Line": 59,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 65,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 66,
+          "Text": "code = context.EnterSourceCode(ticket.CodeImage, ticket);"
+        },
+        {
+          "Line": 94,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 102,
+          "Text": "registry.DeleteModule(module);"
+        },
+        {
+          "Line": 113,
+          "Text": "registry.PublishModuleCode(module, ticket.Prepared.Descriptor);"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleCodeDescriptor.cs",
+      "Sha256": "B15483BB7EE7344657FD36A444D983B88B52387F3063A2F1605244D9EBF8F712",
+      "Bytes": 1623,
+      "Anchors": [
+        {
+          "Line": 28,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleCodeSnapshot.cs",
+      "Sha256": "87008AA6B2BF022EF06CA04098DC973128DEF57DE32488E13C4AD3AF1B1A233F",
+      "Bytes": 274,
+      "Anchors": []
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ModuleInformationSnapshot.cs",
+      "Sha256": "A00E0B0D61B1CEE683C86FC050F468B1757E3A624EEC93833D5F7F13B2FC32CD",
+      "Bytes": 2041,
+      "Anchors": [
+        {
+          "Line": 29,
+          "Text": "[ModuleInformationKeys.Nifs] = Nil.Value,"
+        },
+        {
+          "Line": 36,
+          "Text": "public Term Field(string key) => fields.TryGetValue(key, out Term? value) ? value : throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "1E653EE1836AFB3ADF4A0D2D0F013A51287902C0909F623B60C823EA436C4DB0",
+      "Bytes": 11554,
+      "Anchors": [
+        {
+          "Line": 102,
+          "Text": "public ModuleCodeImage? ExecutingSourceImage(object owner)"
+        },
+        {
+          "Line": 109,
+          "Text": "public IDisposable EnterSourceCode(ModuleCodeImage image, object owner)"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "F4B64D5A8BA39439E914B893BCC378FF0807FD27A86004C3BEB0DC7BFB43712E",
+      "Bytes": 62457,
+      "Anchors": [
+        {
+          "Line": 655,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 716,
+          "Text": "_ => throw new ErlangException(ErlangErrorReasons.BadArgument)"
+        },
+        {
+          "Line": 748,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 751,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 761,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 764,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 789,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 839,
+          "Text": "return Term.A(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 844,
+          "Text": "catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))"
+        },
+        {
+          "Line": 965,
+          "Text": "var image = Modules.PreparePurge(module);"
+        },
+        {
+          "Line": 1005,
+          "Text": "Modules.FinishPurge(module, image, true);"
+        },
+        {
+          "Line": 1013,
+          "Text": "Modules.FinishPurge(module, image, false);"
+        },
+        {
+          "Line": 1151,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 1192,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 1254,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 1301,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 1431,
+          "Text": "ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument));"
+        },
+        {
+          "Line": 1437,
+          "Text": "ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self);"
+        },
+        {
+          "Line": 1593,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        },
+        {
+          "Line": 1656,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Sha256": "A05841E0C85884B06517F6E1F02175D66F6F6ABEDC54F0A6297E6FCF6D2B7035",
+      "Bytes": 15064,
+      "Anchors": []
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/BeamLinkedCode.cs",
+      "Sha256": "8B35012C096302E68CAAC36D8D3D7768059BE9ACD5DB56CE680ECFDCE0D1E906",
+      "Bytes": 372,
+      "Anchors": []
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Runtime/BeamClosureFactory.cs",
+      "Sha256": "D0AF84589D2AB413D1CEAB4C1CF23B54C0D6C24D8FF90728F958954235463625",
+      "Bytes": 1890,
+      "Anchors": []
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "3FFFDD878B600CECB62B113FA7180E7A62C80FD9949C3F0FD5E31EBAF58E52F0",
+      "Bytes": 36671,
+      "Anchors": [
+        {
+          "Line": 19,
+          "Text": "public static ValueTask<Term> InvokeAsync("
+        },
+        {
+          "Line": 24,
+          "Text": ") => InvokeAsync("
+        },
+        {
+          "Line": 32,
+          "Text": "internal static async ValueTask<Term> InvokeAsync("
+        },
+        {
+          "Line": 41,
+          "Text": "image ??= context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);"
+        },
+        {
+          "Line": 47,
+          "Text": "lease = await context.Runtime.Modules.AcquireSourceCode(context, image);"
+        },
+        {
+          "Line": 52,
+          "Text": "return await InvokeFrame("
+        },
+        {
+          "Line": 95,
+          "Text": "private static async ValueTask<Term> InvokeFrame("
+        },
+        {
+          "Line": 162,
+          "Text": "lease = await context.Runtime.Modules.AcquireSourceCode(context, image);"
+        },
+        {
+          "Line": 180,
+          "Text": "return await InvokeAsync("
+        },
+        {
+          "Line": 194,
+          "Text": "return await InvokeAsync("
+        },
+        {
+          "Line": 304,
+          "Text": "Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : throw new ErlangException(ErlangErrorReasons.BadArgument),"
+        },
+        {
+          "Line": 691,
+          "Text": "throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]);"
+        },
+        {
+          "Line": 736,
+          "Text": "throw new TailCall(x.Function, args, ctx.ExecutingSourceImage(module));"
+        },
+        {
+          "Line": 738,
+          "Text": "return await InvokeAsync("
+        },
+        {
+          "Line": 766,
+          "Text": "return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, args[0]);"
+        },
+        {
+          "Line": 768,
+          "Text": "return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, ((Cons)args[CompilerLoaderSyntaxArity.ArgumentList]).Head);"
+        },
+        {
+          "Line": 864,
+          "Text": "var image = module is null ? null : ctx.ExecutingSourceImage(module) ?? ctx.Runtime.Modules.SourceImage(module.Name, module);"
+        },
+        {
+          "Line": 870,
+          "Text": "throw new ErlangException(ErlangErrorReasons.BadArgument);"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Sha256": "87330176B07E511F1038F88E8BBC0904E5CCC5A3B998E17484AF4F9021D18E94",
+      "Bytes": 48551,
+      "Anchors": [
+        {
+          "Line": 158,
+          "Text": "else if (!AttributeControls.IsReserved(attr))"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "src/Erlang.Compiler/AttributeControlNames.cs",
+      "Sha256": "9D978403310A67CFBEEB2432B29975BE68BE2996B31884BB07B85A80CE7B909A",
+      "Bytes": 532,
+      "Anchors": [
+        {
+          "Line": 10,
+          "Text": "\"nifs\","
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "tools/Erlang.NifFixtureHost/NifGenerationLeaseTable.cs",
+      "Sha256": "084CA83DFF4A0305AF27CAFF0F6CA23F3BF81404649B79047A8F7613B55DCA5C",
+      "Bytes": 2817,
+      "Anchors": [
+        {
+          "Line": 47,
+          "Text": "if (!ReferenceEquals(caller.ExecutingSourceImage(state.Owner), image))"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "tools/Erlang.NifFixtureHost/NifCallEnvironment.cs",
+      "Sha256": "A129D733098FB23CDC9EF822DBE2853DCD97C74AD7EBDE783D6FFA6381A2B672",
+      "Bytes": 2731,
+      "Anchors": [
+        {
+          "Line": 76,
+          "Text": "internal void ThrowPending()"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "tools/Erlang.NifFixtureHost/NifPrimitiveCallbacks.cs",
+      "Sha256": "3B7D43FFFA722538A58C6394129A00F9CEE4AFA9E98608462D8F107396DE4E78",
+      "Bytes": 3546,
+      "Anchors": [
+        {
+          "Line": 95,
+          "Text": "internal static nuint BadArgument(nint env)"
+        },
+        {
+          "Line": 99,
+          "Text": "NifCallEnvironment.Resolve(env).Fail(new ErlangException(ErlangErrorReasons.BadArgument));"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "tools/Erlang.NifFixtureHost/NifWindowsCallbacks.cs",
+      "Sha256": "9996B153E35BA6958E2415812B6B796F74592B004BB7BC3DAC07FBABD3256A31",
+      "Bytes": 1749,
+      "Anchors": [
+        {
+          "Line": 14,
+          "Text": "pointer = (nint)NativeMemory.AllocZeroed((nuint)((NifWindowsCallbackLayout.FunctionCount + NifWindowsCallbackLayout.TailPointers) * IntPtr.Size));"
+        },
+        {
+          "Line": 22,
+          "Text": "slots[NifWindowsCallbackLayout.BadArgument] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifPrimitiveCallbacks.BadArgument;"
+        }
+      ]
+    },
+    {
+      "Origin": "CurrentWorkingSource",
+      "HeadAtRead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+      "Path": "tools/Erlang.NifFixtureHost/WindowsNifFixtureLibrary.cs",
+      "Sha256": "4141A5EA1676C5D0A43A6748D6AEB774654540DFC8B8B18A60885CADABC9AD2E",
+      "Bytes": 8015,
+      "Anchors": [
+        {
+          "Line": 39,
+          "Text": "internal static WindowsNifFixtureLibrary LoadAllowlistedFixture("
+        },
+        {
+          "Line": 114,
+          "Text": "NifCallbackScope.ThrowPending();"
+        },
+        {
+          "Line": 115,
+          "Text": "environment.ThrowPending();"
+        },
+        {
+          "Line": 121,
+          "Text": "internal Term Invoke("
+        },
+        {
+          "Line": 139,
+          "Text": "NifCallbackScope.ThrowPending();"
+        },
+        {
+          "Line": 140,
+          "Text": "environment.ThrowPending();"
+        },
+        {
+          "Line": 160,
+          "Text": "NifCallbackScope.ThrowPending();"
+        },
+        {
+          "Line": 161,
+          "Text": "environment.ThrowPending();"
+        }
+      ]
+    }
+  ]
+}

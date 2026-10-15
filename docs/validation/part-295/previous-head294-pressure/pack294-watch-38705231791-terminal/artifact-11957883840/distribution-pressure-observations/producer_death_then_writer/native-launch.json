@@ -1,0 +1,14 @@
+{
+  "Executable": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erl",
+  "Arguments": [
+    "\u002Bzdbbl",
+    "1",
+    "\u002BS",
+    "2:2",
+    "-noshell",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations",
+    "-eval",
+    "try distribution_pressure_probe:run(producer_death_then_writer,\u0022/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/producer_death_then_writer\u0022),halt(0) catch C:R:S-\u003Eok=file:write_file(\u0022/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-pressure-observations/producer_death_then_writer/exception.etf\u0022,term_to_binary({C,R,S})),halt(1) end."
+  ]
+}
