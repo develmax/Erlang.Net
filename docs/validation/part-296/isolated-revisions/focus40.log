@@ -1,0 +1,12 @@
+PASS NifAdmissionHostChecks
+Unhandled exception. System.Reflection.TargetParameterCountException: Parameter count mismatch.
+   at System.Reflection.MethodBaseInvoker.ThrowTargetParameterCountException()
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Erlang.Tests.NifSourceEntryHostChecks.Call(Object target, String name, Object[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-integration296-isolated\candidate\tests\Erlang.Tests\NifSourceEntryHostChecks.cs:line 27
+   at Erlang.Tests.NifSourceEntryHostChecks.Bind(ModuleCodeImage image, ErlangFunction body, NifSourceEntryTestOwner owner) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-integration296-isolated\candidate\tests\Erlang.Tests\NifSourceEntryHostChecks.cs:line 47
+   at Erlang.Tests.NifSourceEntryHostChecks.RoutesAndImages() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-integration296-isolated\candidate\tests\Erlang.Tests\NifSourceEntryHostChecks.cs:line 97
+   at Erlang.Tests.NifSourceEntryHostChecks.RoutesAndImages() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-integration296-isolated\candidate\tests\Erlang.Tests\NifSourceEntryHostChecks.cs:line 140
+   at Erlang.Tests.NifSourceEntryHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-integration296-isolated\candidate\tests\Erlang.Tests\NifSourceEntryHostChecks.cs:line 12
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part295-loader-focus\Program.cs:line 12
+   at Program.<Main>(String[] args)

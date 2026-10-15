@@ -20,6 +20,13 @@ public sealed partial class ModuleRegistry
 
     internal async ValueTask<T> ModifyCodeAsync<T>(ProcessContext context, Func<T> operation)
     {
+        using var ticket = await AcquireCodeModificationAsync(context).ConfigureAwait(false);
+
+        return ticket.Run(operation);
+    }
+
+    private async ValueTask<ModuleCodeModificationTicket> AcquireCodeModificationAsync(ProcessContext context)
+    {
         using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(context.Cancellation);
         Task<ModuleCodeModificationTicket> pending = CodeModification.AcquireAsync(cancellation.Token).AsTask();
         ModuleCodeModificationTicket ticket;
@@ -40,11 +47,16 @@ public sealed partial class ModuleRegistry
             }
             throw;
         }
-        using (ticket)
+        try
         {
             context.Cancellation.ThrowIfCancellationRequested();
 
-            return ticket.Run(operation);
+            return ticket;
+        }
+        catch
+        {
+            ticket.Dispose();
+            throw;
         }
     }
 }

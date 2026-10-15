@@ -10,6 +10,12 @@ internal sealed class ModuleCodeModificationTicket : IDisposable
 
     internal ModuleCodeModificationTicket(ModuleCodeModificationPermission owner) => this.owner = owner;
 
+    internal bool IsActiveFor(ModuleCodeModificationPermission permission)
+    {
+        lock (gate)
+            return !released && ReferenceEquals(owner, permission);
+    }
+
     internal T Run<T>(Func<T> operation)
     {
         ArgumentNullException.ThrowIfNull(operation);

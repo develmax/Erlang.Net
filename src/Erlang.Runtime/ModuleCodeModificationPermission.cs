@@ -32,6 +32,8 @@ internal sealed class ModuleCodeModificationPermission
         bool nested = IsOwned;
         if (!nested)
         {
+            if (NifImageInitializationFlow.HoldsPermission(this))
+                throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantInitializationOperation);
             if (Monitor.IsEntered(registryGate))
                 throw new InvalidOperationException(ModuleCodeModificationNames.GateOrder);
             Interlocked.Increment(ref pendingSynchronousWriters);
@@ -63,6 +65,8 @@ internal sealed class ModuleCodeModificationPermission
     {
         if (IsOwned)
             throw new InvalidOperationException(ModuleCodeModificationNames.NestedAsync);
+        if (NifImageInitializationFlow.HoldsPermission(this))
+            throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantInitializationOperation);
         if (Monitor.IsEntered(registryGate))
             throw new InvalidOperationException(ModuleCodeModificationNames.GateOrder);
         Interlocked.Increment(ref pendingAsynchronousWriters);

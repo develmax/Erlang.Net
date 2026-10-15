@@ -39,7 +39,10 @@ public sealed class ProcessContext : ITermExecutionContext
 
     internal volatile DistributionSignalDrain? DeferredSignalDrain;
     internal CancellationTokenSource Stop { get; } = new();
-    internal Pid GroupLeader { get; set; }
+    internal Pid GroupLeader
+    {
+        get; set;
+    }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
@@ -62,7 +65,10 @@ public sealed class ProcessContext : ITermExecutionContext
     internal SequenceTraceState SequentialTrace { get; } = new();
     private int reductions;
     private long cumulativeReductions;
-    internal Term InitialCall { get; }
+    internal Term InitialCall
+    {
+        get;
+    }
     internal Atom ErrorHandler { get; } = ProcessInfoLogicalAtoms.DefaultErrorHandler;
     internal Atom SchedulingPriority { get; } = ProcessInfoLogicalAtoms.NormalPriority;
     internal long CumulativeReductions => Interlocked.Read(ref cumulativeReductions);
@@ -97,6 +103,13 @@ public sealed class ProcessContext : ITermExecutionContext
             flow.Dispose();
             lease.Dispose();
         }
+    }
+
+    internal SourceCodeEntry? CaptureExecutingCode()
+    {
+        var caller = sourceExecution.Value;
+
+        return caller is not null && IsExecutingCode(caller.Image) ? new SourceCodeEntry(caller.Owner, caller.Image) : null;
     }
 
     public ModuleCodeImage? ExecutingSourceImage(object owner)
@@ -231,8 +244,14 @@ public sealed class ProcessContext : ITermExecutionContext
     {
         get;
     }
-    internal RuntimeDistributionRole DistributionRole { get; set; }
-    public Mailbox Mailbox { get; }
+    internal RuntimeDistributionRole DistributionRole
+    {
+        get; set;
+    }
+    public Mailbox Mailbox
+    {
+        get;
+    }
     public bool TrapExits
     {
         get; set;

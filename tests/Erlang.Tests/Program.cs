@@ -35,6 +35,8 @@ Test(Erlang.Tests.NifDeclarationHostNames.Test, Erlang.Tests.NifDeclarationHostC
 Test(Erlang.Tests.NifImageBindingHostNames.Test, Erlang.Tests.NifImageBindingHostChecks.Run);
 Test(Erlang.Tests.CodeModificationHostNames.Test, Erlang.Tests.CodeModificationHostChecks.Run);
 Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoadCallbackFaultHostChecks.Run);
+Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
+Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
 Test(Erlang.Tests.DistributionExitLifecycleHostNames.Test, Erlang.Tests.DistributionExitLifecycleHostChecks.Run);
 Test(Erlang.Tests.DistributionSystemOutputHostNames.Test, Erlang.Tests.DistributionSystemOutputHostChecks.Run);
 Test(

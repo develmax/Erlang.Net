@@ -101,6 +101,13 @@ public static class Execution
     )
     {
         using var frame = context.EnterFunction(module.Name, function, arguments.Count);
+        if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))
+        {
+            using var native = bindings!.Admit(function, arguments.Count);
+            if (native is not null)
+                return await native.InvokeAsync(context, arguments);
+        }
+
         var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         var selection = Select(
             definition.Clauses,
