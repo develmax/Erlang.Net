@@ -1,0 +1,134 @@
+{
+  "Stage": "INDEPENDENT_SOURCE_ONLY_REVIEW_NO_NATIVE_EXECUTION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProposalPlanSha256": "E3C5838D70F203B624ABEBA8A5EC74D0EBBDDFEEF3D79889B308A9F919A5FDEE",
+  "SourcesVerified": [
+    {
+      "Name": "fixture.c",
+      "Sha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "Bytes": 1496
+    },
+    {
+      "Name": "memory_allocator_nif_fixture.erl",
+      "Sha256": "0C510FB7F292003BB7FE65203DFF57A521CD9FB5F7A7091D7A304FE0EF7C2D96",
+      "Bytes": 279
+    },
+    {
+      "Name": "nif_original_observer.erl",
+      "Sha256": "EE8967BCED3F72884420B5083C3B7C37C98AFBC14A16A4C8F46E86BD21A79545",
+      "Bytes": 1786
+    },
+    {
+      "Name": "collect.py",
+      "Sha256": "6D0E183C40D6900D74AE60CBBCEC85C7B93844FDAB5BB704643CA6EF750BCCE4",
+      "Bytes": 9794
+    }
+  ],
+  "PinnedHeaderHashesVerified": true,
+  "SourceBindings": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "Matches": [
+        {
+          "Line": 2520,
+          "Text": "else if (sel == am_wordsize && arity == 2) {"
+        },
+        {
+          "Line": 2799,
+          "Text": "} else if (BIF_ARG_1 == am_build_type || BIF_ARG_1 == am_emu_type) {"
+        },
+        {
+          "Line": 2824,
+          "Text": "} else if (BIF_ARG_1 == am_emu_flavor) {"
+        },
+        {
+          "Line": 3019,
+          "Text": "} else if (BIF_ARG_1 == am_system_architecture) {"
+        },
+        {
+          "Line": 3099,
+          "Text": "} else if (BIF_ARG_1 == am_wordsize) {"
+        }
+      ]
+    },
+    {
+      "Path": "erts/etc/common/erlc.c",
+      "Sha256": "3836E5F663152FEC9B1F52B56D1C12F6AF0ECA35753C5B223CD7D12274394301",
+      "Matches": [
+        {
+          "Line": 49,
+          "Text": "static int use_server = 0;      /* Use compile server. */"
+        },
+        {
+          "Line": 342,
+          "Text": "if (strcmp(argv[1], \"-no-server\") == 0) {"
+        },
+        {
+          "Line": 451,
+          "Text": "char* us = get_env(\"ERLC_USE_SERVER\");"
+        },
+        {
+          "Line": 484,
+          "Text": "\"for environment value ERLC_USE_SERVER\\n\", us);"
+        }
+      ]
+    },
+    {
+      "Path": "lib/stdlib/src/erl_compile.erl",
+      "Sha256": "826FE78C9A5378A4FC1092380B71C36192238FCA8A469559761ABD76EA13CE68",
+      "Matches": [
+        {
+          "Line": 259,
+          "Text": "{\"-Werror\",\"make all warnings into errors\"},"
+        }
+      ]
+    }
+  ],
+  "NativeCalls": [
+    "enif_alloc",
+    "enif_free",
+    "enif_get_int",
+    "enif_make_badarg",
+    "enif_make_int",
+    "enif_make_string",
+    "enif_priv_data"
+  ],
+  "FreshVmCaseNames": [
+    "increment_zero",
+    "increment_negative",
+    "increment_maximum_success",
+    "increment_maximum_badarg",
+    "increment_atom_badarg",
+    "greeting",
+    "load_veto"
+  ],
+  "Cases": 7,
+  "ResultAssertionsExecuted": false,
+  "NativeExecuted": false,
+  "MainEdited": false,
+  "NetworkUsed": false,
+  "HardSourceBlockerIdentified": false,
+  "AllowedDeduplication": [
+    "Remove fixture.c from plan Sources; preserve FixtureSourceSha2567B6...",
+    "Remove redundant proposal/fixture.c guard only",
+    "Retain --fixture-source exacthash validation and actual outputcopy",
+    "Retain all observer source/actions/stacks/metadata/compile flags/process result/timeout/failure handling",
+    "Refresh collect.py Source hash/bytes and approvedplan hash after deduplication"
+  ],
+  "RequiredExecutionConditions": [
+    "Actual install/include/bin resolve inside exact clean pinned source checkout",
+    "Workflow fixes ERLC_USE_SERVER=false to prevent inherited compiler server; pinned default false is otherwise safe",
+    "Retain pinned compiler build/install evidence and configured integer header; do not synthesize Linux layout",
+    "Fresh output per run; no overwrite/relaunch based only on observationtimeout",
+    "Complete receipt means rawcollection only; independently type everycase result/load before semanticcomparison"
+  ],
+  "CoverageLimitations": [
+    "NativeUnloadCounterCompared remains false; no unload/purge equivalence from these7cases",
+    "All nominal6 cases must independently show beforeload error:not_loaded, load ok, then actual native result/error",
+    "LoadInfo17 veto must preserve complete original load error and fall back not_loaded; process exit0 alone is not semanticpass",
+    "Full stacks and OS-dependent error text preserved raw, not assumed equal to CLR bootstrap",
+    "Collector preflightfailure before OUTPUT allocation is stderr JSON only; workflow always retains launch log",
+    "Only7nativecallbacks exercised; no generic ABI, Linux exportshim, on_load/upgrade/resources/dirtythreads/API completeness"
+  ]
+}

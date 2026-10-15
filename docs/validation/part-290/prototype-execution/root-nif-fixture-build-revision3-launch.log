@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-build-revision3\build_fixture.py", line 135, in <module>
+    main()
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-build-revision3\build_fixture.py", line 79, in main
+    setup = subprocess.run(['cmd.exe', '/d', '/s', '/c', 'call "' + str(vcvars) + '" >nul && set'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['cmd.exe', '/d', '/s', '/c', 'call "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat" >nul && set']' returned non-zero exit status 1.

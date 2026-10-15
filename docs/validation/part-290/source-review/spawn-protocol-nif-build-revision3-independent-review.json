@@ -1,0 +1,33 @@
+{
+  "Status": "INDEPENDENT_SOURCE_REVIEW_PASS_RECIPE_REVISION3_ONLY",
+  "ReviewedPlan": "artifacts/root-nif-build-revision3/source-plan.json",
+  "ReviewedPlanSha256": "BE46C27611CA9909D7CBC7CAADDB27CF7C3BB0E483C20FB85DA6651BF26814B2",
+  "BuildScriptSha256": "CE92021F43B498187F6D35B9D72BF1AABB08F655337BAF9693E776DC17927E55",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalFailure": "artifacts/root-nif-fixture-build-revision2-launch.json",
+  "Checks": {
+    "RecipeDiffOnlyWholeLineSubstitution": true,
+    "RegexEscapesEachName": true,
+    "EachWholeLineCountExactlyOne": true,
+    "AllFourHeadersExactPinnedHashes": true,
+    "SixGeneratedDefinesOnly": true,
+    "NoRemainingSizeofUndef": true,
+    "FixtureSourceHashUnchanged": true,
+    "LayoutSourceBytesUnchanged": true,
+    "LayoutSourcePathReboundToRevision3": true,
+    "ExpectedLayoutExportsGeneratedSizesUnchanged": true,
+    "RecipeSelfHashBoundByPlan": true,
+    "PlanHashMatchesParentProvided": true,
+    "OutputStillNewArtifactsDirectoryBeforeCompiler": true
+  },
+  "GeneratedSizes": {
+    "SIZEOF_CHAR": 1,
+    "SIZEOF_SHORT": 2,
+    "SIZEOF_INT": 4,
+    "SIZEOF_LONG": 4,
+    "SIZEOF_LONG_LONG": 8,
+    "SIZEOF_VOID_P": 8
+  },
+  "RecipeDiff": "--- \n+++ \n@@ -61,10 +61,10 @@\n         headers[header['OutputName']] = data\n     template = headers['erl_int_sizes_config.h.in'].decode('utf-8')\n     for name, value in plan['GeneratedSizes'].items():\n-        old = '#undef ' + name\n-        if template.count(old) != 1:\n+        pattern = r'^#undef ' + re.escape(name) + r'$'\n+        template, count = re.subn(pattern, '#define ' + name + ' ' + str(value), template, flags=re.M)\n+        if count != 1:\n             raise RuntimeError('Unexpected pinned integer size template: ' + name)\n-        template = template.replace(old, '#define ' + name + ' ' + str(value))\n     if re.search(r'^#undef SIZEOF_', template, re.M):\n         raise RuntimeError('Unsubstituted platform integer size.')\n     headers['erl_int_sizes_config.h'] = template.encode('utf-8')\n",
+  "Limit": "No compiler, linker, layout executable, native fixture behavior, Main mutation or network was run by this review. Review authorizes no DLL allowlist by hash alone; actual build/layout/exports require separate evidence."
+}

@@ -1,0 +1,34 @@
+230: int erts_sys_ddll_load_nif_init(void *handle, void **function, ErtsSysDdllError* err)
+231: {
+232:     void *fn = NULL;
+233:     int res;
+234:     if ((res = erts_sys_ddll_sym2(handle, "nif_init", &fn, err)) != ERL_DE_NO_ERROR) {
+235: 	res = erts_sys_ddll_sym2(handle, "_nif_init", &fn, err);
+236:     }
+237:     if (res == ERL_DE_NO_ERROR) {
+238:         ASSERT(fn);
+239: 	*function = fn;
+240:     }
+241:     return res;
+242: }
+243: 
+244: /* 
+245:  * Call the driver_init function, whatever it's really called, simple on unix... 
+246: */
+247: void *erts_sys_ddll_call_init(void *function) {
+248:     void *(*initfn)(void) = function;
+249:     return (*initfn)();
+250: }
+251: void *erts_sys_ddll_call_nif_init(void *function) {
+252:     return erts_sys_ddll_call_init(function);
+253: }
+254: 
+255: 
+256: 
+257: /* 
+258:  * Close a chared object
+259:  */
+260: int erts_sys_ddll_close2(void *handle, ErtsSysDdllError* err)
+261: {
+262: #if defined(HAVE_DLOPEN)
+263:     int ret;

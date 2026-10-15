@@ -1,0 +1,1092 @@
+{
+  "PointerBytes": 8,
+  "Profile": "Windows x64 LLP64; SIZEOF_LONG=4; source-derived, not compiler sizeof verified",
+  "FunctionPointerCount": 180,
+  "TrailingPointers": [
+    "erts_alc_test",
+    "erts_internal_test_ptr"
+  ],
+  "TotalBytes": 1456,
+  "Entries": [
+    {
+      "WindowsOrdinal": 0,
+      "Name": "enif_priv_data",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_priv_data,(ErlNifEnv*));",
+      "SourceLine": 35
+    },
+    {
+      "WindowsOrdinal": 1,
+      "Name": "enif_alloc",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_alloc,(size_t size) ERL_NAPI_ATTR_MALLOC_USD(1,enif_free,1));",
+      "SourceLine": 36
+    },
+    {
+      "WindowsOrdinal": 2,
+      "Name": "enif_free",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_free,(void* ptr));",
+      "SourceLine": 37
+    },
+    {
+      "WindowsOrdinal": 3,
+      "Name": "enif_is_atom",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_atom,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 38
+    },
+    {
+      "WindowsOrdinal": 4,
+      "Name": "enif_is_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_binary,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 39
+    },
+    {
+      "WindowsOrdinal": 5,
+      "Name": "enif_is_ref",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_ref,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 40
+    },
+    {
+      "WindowsOrdinal": 6,
+      "Name": "enif_inspect_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_inspect_binary,(ErlNifEnv*, ERL_NIF_TERM bin_term, ErlNifBinary* bin));",
+      "SourceLine": 41
+    },
+    {
+      "WindowsOrdinal": 7,
+      "Name": "enif_alloc_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_alloc_binary,(size_t size, ErlNifBinary* bin));",
+      "SourceLine": 42
+    },
+    {
+      "WindowsOrdinal": 8,
+      "Name": "enif_realloc_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_realloc_binary,(ErlNifBinary* bin, size_t size));",
+      "SourceLine": 43
+    },
+    {
+      "WindowsOrdinal": 9,
+      "Name": "enif_release_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_release_binary,(ErlNifBinary* bin));",
+      "SourceLine": 44
+    },
+    {
+      "WindowsOrdinal": 10,
+      "Name": "enif_get_int",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_int,(ErlNifEnv*, ERL_NIF_TERM term, int* ip));",
+      "SourceLine": 45
+    },
+    {
+      "WindowsOrdinal": 11,
+      "Name": "enif_get_ulong",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_ulong,(ErlNifEnv*, ERL_NIF_TERM term, unsigned long* ip));",
+      "SourceLine": 46
+    },
+    {
+      "WindowsOrdinal": 12,
+      "Name": "enif_get_double",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_double,(ErlNifEnv*, ERL_NIF_TERM term, double* dp));",
+      "SourceLine": 47
+    },
+    {
+      "WindowsOrdinal": 13,
+      "Name": "enif_get_list_cell",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_list_cell,(ErlNifEnv* env, ERL_NIF_TERM term, ERL_NIF_TERM* head, ERL_NIF_TERM* tail));",
+      "SourceLine": 48
+    },
+    {
+      "WindowsOrdinal": 14,
+      "Name": "enif_get_tuple",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_tuple,(ErlNifEnv* env, ERL_NIF_TERM tpl, int* arity, const ERL_NIF_TERM** array));",
+      "SourceLine": 49
+    },
+    {
+      "WindowsOrdinal": 15,
+      "Name": "enif_is_identical",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_identical,(ERL_NIF_TERM lhs, ERL_NIF_TERM rhs));",
+      "SourceLine": 50
+    },
+    {
+      "WindowsOrdinal": 16,
+      "Name": "enif_compare",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_compare,(ERL_NIF_TERM lhs, ERL_NIF_TERM rhs));",
+      "SourceLine": 51
+    },
+    {
+      "WindowsOrdinal": 17,
+      "Name": "enif_make_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_binary,(ErlNifEnv* env, ErlNifBinary* bin));",
+      "SourceLine": 52
+    },
+    {
+      "WindowsOrdinal": 18,
+      "Name": "enif_make_badarg",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_badarg,(ErlNifEnv* env));",
+      "SourceLine": 53
+    },
+    {
+      "WindowsOrdinal": 19,
+      "Name": "enif_make_int",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_int,(ErlNifEnv* env, int i));",
+      "SourceLine": 54
+    },
+    {
+      "WindowsOrdinal": 20,
+      "Name": "enif_make_ulong",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_ulong,(ErlNifEnv* env, unsigned long i));",
+      "SourceLine": 55
+    },
+    {
+      "WindowsOrdinal": 21,
+      "Name": "enif_make_double",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_double,(ErlNifEnv* env, double d));",
+      "SourceLine": 56
+    },
+    {
+      "WindowsOrdinal": 22,
+      "Name": "enif_make_atom",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_atom,(ErlNifEnv* env, const char* name));",
+      "SourceLine": 57
+    },
+    {
+      "WindowsOrdinal": 23,
+      "Name": "enif_make_existing_atom",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_make_existing_atom,(ErlNifEnv* env, const char* name, ERL_NIF_TERM* atom, ErlNifCharEncoding));",
+      "SourceLine": 58
+    },
+    {
+      "WindowsOrdinal": 24,
+      "Name": "enif_make_tuple",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_tuple,(ErlNifEnv* env, unsigned cnt, ...));",
+      "SourceLine": 59
+    },
+    {
+      "WindowsOrdinal": 25,
+      "Name": "enif_make_list",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_list,(ErlNifEnv* env, unsigned cnt, ...));",
+      "SourceLine": 60
+    },
+    {
+      "WindowsOrdinal": 26,
+      "Name": "enif_make_list_cell",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_list_cell,(ErlNifEnv* env, ERL_NIF_TERM car, ERL_NIF_TERM cdr));",
+      "SourceLine": 61
+    },
+    {
+      "WindowsOrdinal": 27,
+      "Name": "enif_make_string",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_string,(ErlNifEnv* env, const char* string, ErlNifCharEncoding));",
+      "SourceLine": 62
+    },
+    {
+      "WindowsOrdinal": 28,
+      "Name": "enif_make_ref",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_ref,(ErlNifEnv* env));",
+      "SourceLine": 63
+    },
+    {
+      "WindowsOrdinal": 29,
+      "Name": "enif_mutex_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifMutex*,enif_mutex_create,(char *name) ERL_NAPI_ATTR_MALLOC_D(enif_mutex_destroy,1));",
+      "SourceLine": 65
+    },
+    {
+      "WindowsOrdinal": 30,
+      "Name": "enif_mutex_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_mutex_destroy,(ErlNifMutex *mtx));",
+      "SourceLine": 66
+    },
+    {
+      "WindowsOrdinal": 31,
+      "Name": "enif_mutex_trylock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_mutex_trylock,(ErlNifMutex *mtx));",
+      "SourceLine": 67
+    },
+    {
+      "WindowsOrdinal": 32,
+      "Name": "enif_mutex_lock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_mutex_lock,(ErlNifMutex *mtx));",
+      "SourceLine": 68
+    },
+    {
+      "WindowsOrdinal": 33,
+      "Name": "enif_mutex_unlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_mutex_unlock,(ErlNifMutex *mtx));",
+      "SourceLine": 69
+    },
+    {
+      "WindowsOrdinal": 34,
+      "Name": "enif_cond_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifCond*,enif_cond_create,(char *name) ERL_NAPI_ATTR_MALLOC_D(enif_cond_destroy,1));",
+      "SourceLine": 70
+    },
+    {
+      "WindowsOrdinal": 35,
+      "Name": "enif_cond_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_cond_destroy,(ErlNifCond *cnd));",
+      "SourceLine": 71
+    },
+    {
+      "WindowsOrdinal": 36,
+      "Name": "enif_cond_signal",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_cond_signal,(ErlNifCond *cnd));",
+      "SourceLine": 72
+    },
+    {
+      "WindowsOrdinal": 37,
+      "Name": "enif_cond_broadcast",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_cond_broadcast,(ErlNifCond *cnd));",
+      "SourceLine": 73
+    },
+    {
+      "WindowsOrdinal": 38,
+      "Name": "enif_cond_wait",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_cond_wait,(ErlNifCond *cnd, ErlNifMutex *mtx));",
+      "SourceLine": 74
+    },
+    {
+      "WindowsOrdinal": 39,
+      "Name": "enif_rwlock_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifRWLock*,enif_rwlock_create,(char *name) ERL_NAPI_ATTR_MALLOC_D(enif_rwlock_destroy,1));",
+      "SourceLine": 75
+    },
+    {
+      "WindowsOrdinal": 40,
+      "Name": "enif_rwlock_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_rwlock_destroy,(ErlNifRWLock *rwlck));",
+      "SourceLine": 76
+    },
+    {
+      "WindowsOrdinal": 41,
+      "Name": "enif_rwlock_tryrlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_rwlock_tryrlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 77
+    },
+    {
+      "WindowsOrdinal": 42,
+      "Name": "enif_rwlock_rlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_rwlock_rlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 78
+    },
+    {
+      "WindowsOrdinal": 43,
+      "Name": "enif_rwlock_runlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_rwlock_runlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 79
+    },
+    {
+      "WindowsOrdinal": 44,
+      "Name": "enif_rwlock_tryrwlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_rwlock_tryrwlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 80
+    },
+    {
+      "WindowsOrdinal": 45,
+      "Name": "enif_rwlock_rwlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_rwlock_rwlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 81
+    },
+    {
+      "WindowsOrdinal": 46,
+      "Name": "enif_rwlock_rwunlock",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_rwlock_rwunlock,(ErlNifRWLock *rwlck));",
+      "SourceLine": 82
+    },
+    {
+      "WindowsOrdinal": 47,
+      "Name": "enif_tsd_key_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_tsd_key_create,(char *name, ErlNifTSDKey *key));",
+      "SourceLine": 83
+    },
+    {
+      "WindowsOrdinal": 48,
+      "Name": "enif_tsd_key_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_tsd_key_destroy,(ErlNifTSDKey key));",
+      "SourceLine": 84
+    },
+    {
+      "WindowsOrdinal": 49,
+      "Name": "enif_tsd_set",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_tsd_set,(ErlNifTSDKey key, void *data));",
+      "SourceLine": 85
+    },
+    {
+      "WindowsOrdinal": 50,
+      "Name": "enif_tsd_get",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_tsd_get,(ErlNifTSDKey key));",
+      "SourceLine": 86
+    },
+    {
+      "WindowsOrdinal": 51,
+      "Name": "enif_thread_opts_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifThreadOpts*,enif_thread_opts_create,(char *name) ERL_NAPI_ATTR_MALLOC_D(enif_thread_opts_destroy,1));",
+      "SourceLine": 87
+    },
+    {
+      "WindowsOrdinal": 52,
+      "Name": "enif_thread_opts_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_thread_opts_destroy,(ErlNifThreadOpts *opts));",
+      "SourceLine": 88
+    },
+    {
+      "WindowsOrdinal": 53,
+      "Name": "enif_thread_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_thread_create,(char *name,ErlNifTid *tid,void * (*func)(void *),void *args,ErlNifThreadOpts *opts));",
+      "SourceLine": 89
+    },
+    {
+      "WindowsOrdinal": 54,
+      "Name": "enif_thread_self",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifTid,enif_thread_self,(void));",
+      "SourceLine": 90
+    },
+    {
+      "WindowsOrdinal": 55,
+      "Name": "enif_equal_tids",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_equal_tids,(ErlNifTid tid1, ErlNifTid tid2));",
+      "SourceLine": 91
+    },
+    {
+      "WindowsOrdinal": 56,
+      "Name": "enif_thread_exit",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_thread_exit,(void *resp));",
+      "SourceLine": 92
+    },
+    {
+      "WindowsOrdinal": 57,
+      "Name": "enif_thread_join",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_thread_join,(ErlNifTid, void **respp));",
+      "SourceLine": 93
+    },
+    {
+      "WindowsOrdinal": 58,
+      "Name": "enif_realloc",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_realloc,(void* ptr, size_t size) ERL_NAPI_ATTR_ALLOC_SIZE(2));",
+      "SourceLine": 95
+    },
+    {
+      "WindowsOrdinal": 59,
+      "Name": "enif_system_info",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_system_info,(ErlNifSysInfo *sip, size_t si_size));",
+      "SourceLine": 96
+    },
+    {
+      "WindowsOrdinal": 60,
+      "Name": "enif_fprintf",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_fprintf,(FILE* filep, const char *format, ...));",
+      "SourceLine": 97
+    },
+    {
+      "WindowsOrdinal": 61,
+      "Name": "enif_inspect_iolist_as_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_inspect_iolist_as_binary,(ErlNifEnv*, ERL_NIF_TERM term, ErlNifBinary* bin));",
+      "SourceLine": 98
+    },
+    {
+      "WindowsOrdinal": 62,
+      "Name": "enif_make_sub_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_sub_binary,(ErlNifEnv*, ERL_NIF_TERM bin_term, size_t pos, size_t size));",
+      "SourceLine": 99
+    },
+    {
+      "WindowsOrdinal": 63,
+      "Name": "enif_get_string",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_string,(ErlNifEnv*, ERL_NIF_TERM list, char* buf, unsigned len, ErlNifCharEncoding));",
+      "SourceLine": 100
+    },
+    {
+      "WindowsOrdinal": 64,
+      "Name": "enif_get_atom",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_atom,(ErlNifEnv*, ERL_NIF_TERM atom, char* buf, unsigned len, ErlNifCharEncoding));",
+      "SourceLine": 101
+    },
+    {
+      "WindowsOrdinal": 65,
+      "Name": "enif_is_fun",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_fun,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 102
+    },
+    {
+      "WindowsOrdinal": 66,
+      "Name": "enif_is_pid",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_pid,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 103
+    },
+    {
+      "WindowsOrdinal": 67,
+      "Name": "enif_is_port",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_port,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 104
+    },
+    {
+      "WindowsOrdinal": 68,
+      "Name": "enif_get_uint",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_uint,(ErlNifEnv*, ERL_NIF_TERM term, unsigned* ip));",
+      "SourceLine": 105
+    },
+    {
+      "WindowsOrdinal": 69,
+      "Name": "enif_get_long",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_long,(ErlNifEnv*, ERL_NIF_TERM term, long* ip));",
+      "SourceLine": 106
+    },
+    {
+      "WindowsOrdinal": 70,
+      "Name": "enif_make_uint",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_uint,(ErlNifEnv*, unsigned i));",
+      "SourceLine": 107
+    },
+    {
+      "WindowsOrdinal": 71,
+      "Name": "enif_make_long",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_long,(ErlNifEnv*, long i));",
+      "SourceLine": 108
+    },
+    {
+      "WindowsOrdinal": 72,
+      "Name": "enif_make_tuple_from_array",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_tuple_from_array,(ErlNifEnv*, const ERL_NIF_TERM arr[], unsigned cnt));",
+      "SourceLine": 109
+    },
+    {
+      "WindowsOrdinal": 73,
+      "Name": "enif_make_list_from_array",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_list_from_array,(ErlNifEnv*, const ERL_NIF_TERM arr[], unsigned cnt));",
+      "SourceLine": 110
+    },
+    {
+      "WindowsOrdinal": 74,
+      "Name": "enif_is_empty_list",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_empty_list,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 111
+    },
+    {
+      "WindowsOrdinal": 75,
+      "Name": "enif_open_resource_type",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifResourceType*,enif_open_resource_type,(ErlNifEnv*, const char* module_str, const char* name_str, void (*dtor)(ErlNifEnv*,void *), ErlNifResourceFlags flags, ErlNifResourceFlags* tried));",
+      "SourceLine": 112
+    },
+    {
+      "WindowsOrdinal": 76,
+      "Name": "enif_alloc_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void *, enif_alloc_resource, (ErlNifResourceType *type, size_t size) ERL_NAPI_ATTR_MALLOC_US(2));",
+      "SourceLine": 113
+    },
+    {
+      "WindowsOrdinal": 77,
+      "Name": "enif_release_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_release_resource,(void* obj));",
+      "SourceLine": 114
+    },
+    {
+      "WindowsOrdinal": 78,
+      "Name": "enif_make_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_resource,(ErlNifEnv*, void* obj));",
+      "SourceLine": 115
+    },
+    {
+      "WindowsOrdinal": 79,
+      "Name": "enif_get_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_resource,(ErlNifEnv*, ERL_NIF_TERM term, ErlNifResourceType* type, void** objp));",
+      "SourceLine": 116
+    },
+    {
+      "WindowsOrdinal": 80,
+      "Name": "enif_sizeof_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(size_t,enif_sizeof_resource,(void* obj));",
+      "SourceLine": 117
+    },
+    {
+      "WindowsOrdinal": 81,
+      "Name": "enif_make_new_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(unsigned char*,enif_make_new_binary,(ErlNifEnv*,size_t size,ERL_NIF_TERM* termp));",
+      "SourceLine": 118
+    },
+    {
+      "WindowsOrdinal": 82,
+      "Name": "enif_is_list",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_list,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 119
+    },
+    {
+      "WindowsOrdinal": 83,
+      "Name": "enif_is_tuple",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_tuple,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 120
+    },
+    {
+      "WindowsOrdinal": 84,
+      "Name": "enif_get_atom_length",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_atom_length,(ErlNifEnv*, ERL_NIF_TERM atom, unsigned* len, ErlNifCharEncoding));",
+      "SourceLine": 121
+    },
+    {
+      "WindowsOrdinal": 85,
+      "Name": "enif_get_list_length",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_list_length,(ErlNifEnv* env, ERL_NIF_TERM term, unsigned* len));",
+      "SourceLine": 122
+    },
+    {
+      "WindowsOrdinal": 86,
+      "Name": "enif_make_atom_len",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_make_atom_len,(ErlNifEnv* env, const char* name, size_t len));",
+      "SourceLine": 123
+    },
+    {
+      "WindowsOrdinal": 87,
+      "Name": "enif_make_existing_atom_len",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_existing_atom_len,(ErlNifEnv* env, const char* name, size_t len, ERL_NIF_TERM* atom, ErlNifCharEncoding));",
+      "SourceLine": 124
+    },
+    {
+      "WindowsOrdinal": 88,
+      "Name": "enif_make_string_len",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_string_len,(ErlNifEnv* env, const char* string, size_t len, ErlNifCharEncoding));",
+      "SourceLine": 125
+    },
+    {
+      "WindowsOrdinal": 89,
+      "Name": "enif_alloc_env",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifEnv*,enif_alloc_env,(void) ERL_NAPI_ATTR_WUR);",
+      "SourceLine": 126
+    },
+    {
+      "WindowsOrdinal": 90,
+      "Name": "enif_free_env",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_free_env,(ErlNifEnv* env));",
+      "SourceLine": 127
+    },
+    {
+      "WindowsOrdinal": 91,
+      "Name": "enif_clear_env",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_clear_env,(ErlNifEnv* env));",
+      "SourceLine": 128
+    },
+    {
+      "WindowsOrdinal": 92,
+      "Name": "enif_send",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_send,(ErlNifEnv* env, const ErlNifPid* to_pid, ErlNifEnv* msg_env, ERL_NIF_TERM msg));",
+      "SourceLine": 129
+    },
+    {
+      "WindowsOrdinal": 93,
+      "Name": "enif_make_copy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_copy,(ErlNifEnv* dst_env, ERL_NIF_TERM src_term));",
+      "SourceLine": 130
+    },
+    {
+      "WindowsOrdinal": 94,
+      "Name": "enif_self",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifPid*,enif_self,(ErlNifEnv* caller_env, ErlNifPid* pid));",
+      "SourceLine": 131
+    },
+    {
+      "WindowsOrdinal": 95,
+      "Name": "enif_get_local_pid",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_local_pid,(ErlNifEnv* env, ERL_NIF_TERM, ErlNifPid* pid));",
+      "SourceLine": 132
+    },
+    {
+      "WindowsOrdinal": 96,
+      "Name": "enif_keep_resource",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_keep_resource,(void* obj));",
+      "SourceLine": 133
+    },
+    {
+      "WindowsOrdinal": 97,
+      "Name": "enif_make_resource_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_resource_binary,(ErlNifEnv*,void* obj,const void* data, size_t size));",
+      "SourceLine": 134
+    },
+    {
+      "WindowsOrdinal": 98,
+      "Name": "enif_get_int64",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_int64,(ErlNifEnv*, ERL_NIF_TERM term, ErlNifSInt64* ip));",
+      "SourceLine": 136
+    },
+    {
+      "WindowsOrdinal": 99,
+      "Name": "enif_get_uint64",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_get_uint64,(ErlNifEnv*, ERL_NIF_TERM term, ErlNifUInt64* ip));",
+      "SourceLine": 137
+    },
+    {
+      "WindowsOrdinal": 100,
+      "Name": "enif_make_int64",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_int64,(ErlNifEnv*, ErlNifSInt64));",
+      "SourceLine": 138
+    },
+    {
+      "WindowsOrdinal": 101,
+      "Name": "enif_make_uint64",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_uint64,(ErlNifEnv*, ErlNifUInt64));",
+      "SourceLine": 139
+    },
+    {
+      "WindowsOrdinal": 102,
+      "Name": "enif_is_exception",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_exception,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 141
+    },
+    {
+      "WindowsOrdinal": 103,
+      "Name": "enif_make_reverse_list",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_make_reverse_list,(ErlNifEnv*, ERL_NIF_TERM term, ERL_NIF_TERM *list));",
+      "SourceLine": 142
+    },
+    {
+      "WindowsOrdinal": 104,
+      "Name": "enif_is_number",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_number,(ErlNifEnv*, ERL_NIF_TERM term));",
+      "SourceLine": 143
+    },
+    {
+      "WindowsOrdinal": 105,
+      "Name": "enif_dlopen",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_dlopen,(const char* lib, void (*err_handler)(void*,const char*), void* err_arg));",
+      "SourceLine": 144
+    },
+    {
+      "WindowsOrdinal": 106,
+      "Name": "enif_dlsym",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void*,enif_dlsym,(void* handle, const char* symbol, void (*err_handler)(void*,const char*), void* err_arg));",
+      "SourceLine": 145
+    },
+    {
+      "WindowsOrdinal": 107,
+      "Name": "enif_consume_timeslice",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_consume_timeslice,(ErlNifEnv*, int percent));",
+      "SourceLine": 146
+    },
+    {
+      "WindowsOrdinal": 108,
+      "Name": "enif_is_map",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_is_map, (ErlNifEnv* env, ERL_NIF_TERM term));",
+      "SourceLine": 147
+    },
+    {
+      "WindowsOrdinal": 109,
+      "Name": "enif_get_map_size",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_get_map_size, (ErlNifEnv* env, ERL_NIF_TERM term, size_t *size));",
+      "SourceLine": 148
+    },
+    {
+      "WindowsOrdinal": 110,
+      "Name": "enif_make_new_map",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_make_new_map, (ErlNifEnv* env));",
+      "SourceLine": 149
+    },
+    {
+      "WindowsOrdinal": 111,
+      "Name": "enif_make_map_put",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_map_put, (ErlNifEnv* env, ERL_NIF_TERM map_in, ERL_NIF_TERM key, ERL_NIF_TERM value, ERL_NIF_TERM* map_out));",
+      "SourceLine": 150
+    },
+    {
+      "WindowsOrdinal": 112,
+      "Name": "enif_get_map_value",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_get_map_value, (ErlNifEnv* env, ERL_NIF_TERM map, ERL_NIF_TERM key, ERL_NIF_TERM* value));",
+      "SourceLine": 151
+    },
+    {
+      "WindowsOrdinal": 113,
+      "Name": "enif_make_map_update",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_map_update, (ErlNifEnv* env, ERL_NIF_TERM map_in, ERL_NIF_TERM key, ERL_NIF_TERM value, ERL_NIF_TERM* map_out));",
+      "SourceLine": 152
+    },
+    {
+      "WindowsOrdinal": 114,
+      "Name": "enif_make_map_remove",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_map_remove, (ErlNifEnv* env, ERL_NIF_TERM map_in, ERL_NIF_TERM key, ERL_NIF_TERM* map_out));",
+      "SourceLine": 153
+    },
+    {
+      "WindowsOrdinal": 115,
+      "Name": "enif_map_iterator_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_create, (ErlNifEnv *env, ERL_NIF_TERM map, ErlNifMapIterator *iter, ErlNifMapIteratorEntry entry));",
+      "SourceLine": 154
+    },
+    {
+      "WindowsOrdinal": 116,
+      "Name": "enif_map_iterator_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void, enif_map_iterator_destroy, (ErlNifEnv *env, ErlNifMapIterator *iter));",
+      "SourceLine": 155
+    },
+    {
+      "WindowsOrdinal": 117,
+      "Name": "enif_map_iterator_is_head",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_is_head, (ErlNifEnv *env, ErlNifMapIterator *iter));",
+      "SourceLine": 156
+    },
+    {
+      "WindowsOrdinal": 118,
+      "Name": "enif_map_iterator_is_tail",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_is_tail, (ErlNifEnv *env, ErlNifMapIterator *iter));",
+      "SourceLine": 157
+    },
+    {
+      "WindowsOrdinal": 119,
+      "Name": "enif_map_iterator_next",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_next, (ErlNifEnv *env, ErlNifMapIterator *iter));",
+      "SourceLine": 158
+    },
+    {
+      "WindowsOrdinal": 120,
+      "Name": "enif_map_iterator_prev",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_prev, (ErlNifEnv *env, ErlNifMapIterator *iter));",
+      "SourceLine": 159
+    },
+    {
+      "WindowsOrdinal": 121,
+      "Name": "enif_map_iterator_get_pair",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_map_iterator_get_pair, (ErlNifEnv *env, ErlNifMapIterator *iter, ERL_NIF_TERM *key, ERL_NIF_TERM *value));",
+      "SourceLine": 160
+    },
+    {
+      "WindowsOrdinal": 122,
+      "Name": "enif_schedule_nif",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_schedule_nif,(ErlNifEnv*,const char*,int,ERL_NIF_TERM (*)(ErlNifEnv*,int,const ERL_NIF_TERM[]),int,const ERL_NIF_TERM[]));",
+      "SourceLine": 161
+    },
+    {
+      "WindowsOrdinal": 123,
+      "Name": "enif_has_pending_exception",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_has_pending_exception, (ErlNifEnv *env, ERL_NIF_TERM* reason));",
+      "SourceLine": 162
+    },
+    {
+      "WindowsOrdinal": 124,
+      "Name": "enif_raise_exception",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_raise_exception, (ErlNifEnv *env, ERL_NIF_TERM reason));",
+      "SourceLine": 163
+    },
+    {
+      "WindowsOrdinal": 125,
+      "Name": "enif_getenv",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_getenv,(const char* key, char* value, size_t* value_size));",
+      "SourceLine": 164
+    },
+    {
+      "WindowsOrdinal": 126,
+      "Name": "enif_monotonic_time",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifTime, enif_monotonic_time, (ErlNifTimeUnit));",
+      "SourceLine": 165
+    },
+    {
+      "WindowsOrdinal": 127,
+      "Name": "enif_time_offset",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifTime, enif_time_offset, (ErlNifTimeUnit));",
+      "SourceLine": 166
+    },
+    {
+      "WindowsOrdinal": 128,
+      "Name": "enif_convert_time_unit",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifTime, enif_convert_time_unit, (ErlNifTime, ErlNifTimeUnit, ErlNifTimeUnit));",
+      "SourceLine": 167
+    },
+    {
+      "WindowsOrdinal": 129,
+      "Name": "enif_now_time",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_now_time, (ErlNifEnv *env));",
+      "SourceLine": 168
+    },
+    {
+      "WindowsOrdinal": 130,
+      "Name": "enif_cpu_time",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_cpu_time, (ErlNifEnv *env));",
+      "SourceLine": 169
+    },
+    {
+      "WindowsOrdinal": 131,
+      "Name": "enif_make_unique_integer",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM, enif_make_unique_integer, (ErlNifEnv *env, ErlNifUniqueInteger properties));",
+      "SourceLine": 170
+    },
+    {
+      "WindowsOrdinal": 132,
+      "Name": "enif_is_current_process_alive",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_is_current_process_alive, (ErlNifEnv *env));",
+      "SourceLine": 171
+    },
+    {
+      "WindowsOrdinal": 133,
+      "Name": "enif_is_process_alive",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_is_process_alive, (ErlNifEnv *env, ErlNifPid *pid));",
+      "SourceLine": 172
+    },
+    {
+      "WindowsOrdinal": 134,
+      "Name": "enif_is_port_alive",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_is_port_alive, (ErlNifEnv *env, ErlNifPort *port_id));",
+      "SourceLine": 173
+    },
+    {
+      "WindowsOrdinal": 135,
+      "Name": "enif_get_local_port",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_get_local_port, (ErlNifEnv* env, ERL_NIF_TERM, ErlNifPort* port_id));",
+      "SourceLine": 174
+    },
+    {
+      "WindowsOrdinal": 136,
+      "Name": "enif_term_to_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_term_to_binary, (ErlNifEnv *env, ERL_NIF_TERM term, ErlNifBinary *bin));",
+      "SourceLine": 175
+    },
+    {
+      "WindowsOrdinal": 137,
+      "Name": "enif_binary_to_term",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(size_t, enif_binary_to_term, (ErlNifEnv *env, const unsigned char* data, size_t sz, ERL_NIF_TERM *term, unsigned int opts));",
+      "SourceLine": 176
+    },
+    {
+      "WindowsOrdinal": 138,
+      "Name": "enif_port_command",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_port_command, (ErlNifEnv *env, const ErlNifPort* to_port, ErlNifEnv *msg_env, ERL_NIF_TERM msg));",
+      "SourceLine": 177
+    },
+    {
+      "WindowsOrdinal": 139,
+      "Name": "enif_thread_type",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_thread_type,(void));",
+      "SourceLine": 178
+    },
+    {
+      "WindowsOrdinal": 140,
+      "Name": "enif_snprintf",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_snprintf,(char * buffer, size_t size, const char *format, ...));",
+      "SourceLine": 179
+    },
+    {
+      "WindowsOrdinal": 141,
+      "Name": "enif_select",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_select,(ErlNifEnv* env, ErlNifEvent e, enum ErlNifSelectFlags flags, void* obj, const ErlNifPid* pid, ERL_NIF_TERM ref));",
+      "SourceLine": 180
+    },
+    {
+      "WindowsOrdinal": 142,
+      "Name": "enif_open_resource_type_x",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifResourceType*,enif_open_resource_type_x,(ErlNifEnv*, const char* name_str, const ErlNifResourceTypeInit*, ErlNifResourceFlags flags, ErlNifResourceFlags* tried));",
+      "SourceLine": 181
+    },
+    {
+      "WindowsOrdinal": 143,
+      "Name": "enif_monitor_process",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_monitor_process,(ErlNifEnv*,void* obj,const ErlNifPid*,ErlNifMonitor *monitor));",
+      "SourceLine": 182
+    },
+    {
+      "WindowsOrdinal": 144,
+      "Name": "enif_demonitor_process",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_demonitor_process,(ErlNifEnv*,void* obj,const ErlNifMonitor *monitor));",
+      "SourceLine": 183
+    },
+    {
+      "WindowsOrdinal": 145,
+      "Name": "enif_compare_monitors",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_compare_monitors,(const ErlNifMonitor*,const ErlNifMonitor*));",
+      "SourceLine": 184
+    },
+    {
+      "WindowsOrdinal": 146,
+      "Name": "enif_hash",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifUInt64,enif_hash,(ErlNifHash type, ERL_NIF_TERM term, ErlNifUInt64 salt));",
+      "SourceLine": 185
+    },
+    {
+      "WindowsOrdinal": 147,
+      "Name": "enif_whereis_pid",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_whereis_pid, (ErlNifEnv *env, ERL_NIF_TERM name, ErlNifPid *pid));",
+      "SourceLine": 186
+    },
+    {
+      "WindowsOrdinal": 148,
+      "Name": "enif_whereis_port",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_whereis_port, (ErlNifEnv *env, ERL_NIF_TERM name, ErlNifPort *port));",
+      "SourceLine": 187
+    },
+    {
+      "WindowsOrdinal": 149,
+      "Name": "enif_ioq_create",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifIOQueue *,enif_ioq_create,(ErlNifIOQueueOpts opts) ERL_NAPI_ATTR_MALLOC_D(enif_ioq_destroy,1));",
+      "SourceLine": 189
+    },
+    {
+      "WindowsOrdinal": 150,
+      "Name": "enif_ioq_destroy",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_ioq_destroy,(ErlNifIOQueue *q));",
+      "SourceLine": 190
+    },
+    {
+      "WindowsOrdinal": 151,
+      "Name": "enif_ioq_enq_binary",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_ioq_enq_binary,(ErlNifIOQueue *q, ErlNifBinary *bin, size_t skip));",
+      "SourceLine": 192
+    },
+    {
+      "WindowsOrdinal": 152,
+      "Name": "enif_ioq_enqv",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_ioq_enqv,(ErlNifIOQueue *q, ErlNifIOVec *iov, size_t skip));",
+      "SourceLine": 193
+    },
+    {
+      "WindowsOrdinal": 153,
+      "Name": "enif_ioq_size",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(size_t,enif_ioq_size,(ErlNifIOQueue *q));",
+      "SourceLine": 195
+    },
+    {
+      "WindowsOrdinal": 154,
+      "Name": "enif_ioq_deq",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_ioq_deq,(ErlNifIOQueue *q, size_t count, size_t *size));",
+      "SourceLine": 196
+    },
+    {
+      "WindowsOrdinal": 155,
+      "Name": "enif_ioq_peek",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(SysIOVec*,enif_ioq_peek,(ErlNifIOQueue *q, int *iovlen));",
+      "SourceLine": 198
+    },
+    {
+      "WindowsOrdinal": 156,
+      "Name": "enif_inspect_iovec",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_inspect_iovec,(ErlNifEnv *env, size_t max_length, ERL_NIF_TERM iovec_term, ERL_NIF_TERM *tail, ErlNifIOVec **iovec));",
+      "SourceLine": 200
+    },
+    {
+      "WindowsOrdinal": 157,
+      "Name": "enif_free_iovec",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_free_iovec,(ErlNifIOVec *iov));",
+      "SourceLine": 201
+    },
+    {
+      "WindowsOrdinal": 158,
+      "Name": "enif_ioq_peek_head",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_ioq_peek_head,(ErlNifEnv *env, ErlNifIOQueue *q, size_t *size, ERL_NIF_TERM *head));",
+      "SourceLine": 203
+    },
+    {
+      "WindowsOrdinal": 159,
+      "Name": "enif_mutex_name",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(char*,enif_mutex_name,(ErlNifMutex*));",
+      "SourceLine": 205
+    },
+    {
+      "WindowsOrdinal": 160,
+      "Name": "enif_cond_name",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(char*,enif_cond_name,(ErlNifCond*));",
+      "SourceLine": 206
+    },
+    {
+      "WindowsOrdinal": 161,
+      "Name": "enif_rwlock_name",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(char*,enif_rwlock_name,(ErlNifRWLock*));",
+      "SourceLine": 207
+    },
+    {
+      "WindowsOrdinal": 162,
+      "Name": "enif_thread_name",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(char*,enif_thread_name,(ErlNifTid));",
+      "SourceLine": 208
+    },
+    {
+      "WindowsOrdinal": 163,
+      "Name": "enif_vfprintf",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_vfprintf,(FILE*, const char *fmt, va_list));",
+      "SourceLine": 210
+    },
+    {
+      "WindowsOrdinal": 164,
+      "Name": "enif_vsnprintf",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_vsnprintf,(char*, size_t, const char *fmt, va_list));",
+      "SourceLine": 211
+    },
+    {
+      "WindowsOrdinal": 165,
+      "Name": "enif_make_map_from_arrays",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_make_map_from_arrays,(ErlNifEnv *env, ERL_NIF_TERM keys[], ERL_NIF_TERM values[], size_t cnt, ERL_NIF_TERM *map_out));",
+      "SourceLine": 213
+    },
+    {
+      "WindowsOrdinal": 166,
+      "Name": "enif_select_x",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_select_x,(ErlNifEnv* env, ErlNifEvent e, enum ErlNifSelectFlags flags, void* obj, const ErlNifPid* pid, ERL_NIF_TERM msg, ErlNifEnv* msg_env));",
+      "SourceLine": 215
+    },
+    {
+      "WindowsOrdinal": 167,
+      "Name": "enif_make_monitor_term",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ERL_NIF_TERM,enif_make_monitor_term,(ErlNifEnv* env, const ErlNifMonitor*));",
+      "SourceLine": 216
+    },
+    {
+      "WindowsOrdinal": 168,
+      "Name": "enif_set_pid_undefined",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(void,enif_set_pid_undefined,(ErlNifPid* pid));",
+      "SourceLine": 217
+    },
+    {
+      "WindowsOrdinal": 169,
+      "Name": "enif_is_pid_undefined",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_is_pid_undefined,(const ErlNifPid* pid));",
+      "SourceLine": 218
+    },
+    {
+      "WindowsOrdinal": 170,
+      "Name": "enif_term_type",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifTermType,enif_term_type,(ErlNifEnv* env, ERL_NIF_TERM term));",
+      "SourceLine": 220
+    },
+    {
+      "WindowsOrdinal": 171,
+      "Name": "enif_init_resource_type",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(ErlNifResourceType*,enif_init_resource_type,(ErlNifEnv*, const char* name_str, const ErlNifResourceTypeInit*, ErlNifResourceFlags flags, ErlNifResourceFlags* tried));",
+      "SourceLine": 221
+    },
+    {
+      "WindowsOrdinal": 172,
+      "Name": "enif_dynamic_resource_call",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int,enif_dynamic_resource_call,(ErlNifEnv*, ERL_NIF_TERM mod, ERL_NIF_TERM name, ERL_NIF_TERM rsrc, void* call_data));",
+      "SourceLine": 222
+    },
+    {
+      "WindowsOrdinal": 173,
+      "Name": "enif_get_string_length",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_get_string_length, (ErlNifEnv *env, ERL_NIF_TERM list, unsigned *len, ErlNifCharEncoding encoding));",
+      "SourceLine": 224
+    },
+    {
+      "WindowsOrdinal": 174,
+      "Name": "enif_make_new_atom",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_new_atom, (ErlNifEnv *env, const char *name, ERL_NIF_TERM *atom, ErlNifCharEncoding encoding));",
+      "SourceLine": 225
+    },
+    {
+      "WindowsOrdinal": 175,
+      "Name": "enif_make_new_atom_len",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_make_new_atom_len, (ErlNifEnv *env, const char *name, size_t len, ERL_NIF_TERM *atom, ErlNifCharEncoding encoding));",
+      "SourceLine": 226
+    },
+    {
+      "WindowsOrdinal": 176,
+      "Name": "enif_set_option",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_set_option, (ErlNifEnv *env, ErlNifOption opt, ...));",
+      "SourceLine": 227
+    },
+    {
+      "WindowsOrdinal": 177,
+      "Name": "enif_term_size",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(size_t,enif_term_size,(ERL_NIF_TERM term));",
+      "SourceLine": 228
+    },
+    {
+      "WindowsOrdinal": 178,
+      "Name": "enif_get_atom_cache_index",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(int, enif_get_atom_cache_index, (ErlNifEnv *env, ERL_NIF_TERM atom, unsigned *index));",
+      "SourceLine": 229
+    },
+    {
+      "WindowsOrdinal": 179,
+      "Name": "enif_max_atom_cache_index",
+      "Declaration": "ERL_NIF_API_FUNC_DECL(unsigned, enif_max_atom_cache_index, (void));",
+      "SourceLine": 230
+    }
+  ]
+}

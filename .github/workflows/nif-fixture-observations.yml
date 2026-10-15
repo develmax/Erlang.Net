@@ -1,0 +1,118 @@
+name: Pinned OTP NIF fixture observations
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  managed-native-fixture:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      DOTNET_PROCESSOR_COUNT: '2'
+      DOTNET_CLI_USE_MSBUILD_SERVER: '0'
+      MSBUILDDISABLENODEREUSE: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Pin public ABI headers and build the development host
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Path artifacts -Force | Out-Null
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git ../otp
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned source clone failed' }
+          if ((git -C ../otp rev-parse HEAD).Trim() -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5') { throw 'OTP pin differs' }
+          dotnet build tools/Erlang.NifFixtureHost --disable-build-servers -m:1 -p:UseSharedCompilation=false 2>&1 | Tee-Object artifacts/nif-host-build.log
+          if ($LASTEXITCODE -ne 0) { throw 'Development host build failed' }
+          dotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll 2>&1 | Tee-Object artifacts/nif-host-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Internal managed contracts failed' }
+      - name: Compile the exact reviewed fixture and verify its ABI
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python tools/Erlang.NifFixtureHost/native/build_fixture.py --plan tools/Erlang.NifFixtureHost/native/source-plan.json --approved-plan-sha256 D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63 --output artifacts/nif-fixture-build 2>&1 | Tee-Object artifacts/nif-fixture-build-launch.log
+          if ($LASTEXITCODE -ne 0) { throw 'Native build/layout/export verification failed' }
+      - name: Execute only the source-bound fixture
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $root = (Resolve-Path artifacts/nif-fixture-build).Path
+          $receipt = Get-Content "$root/build-receipt.json" -Raw | ConvertFrom-Json
+          if ($receipt.ReviewedPlanSha256 -cne 'D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63' -or !$receipt.LayoutExecutableExecuted -or $receipt.NativeFixtureBehaviorExecuted) { throw 'Unexpected pre-execution receipt' }
+          foreach ($file in $receipt.Files) {
+            $path = Join-Path $root $file.Path
+            if ((Get-Item -LiteralPath $path).Length -ne $file.Bytes -or (Get-FileHash -LiteralPath $path).Hash -cne $file.Sha256) { throw "Native receipt mismatch: $($file.Path)" }
+          }
+          if ((Get-FileHash "$root/fixture.dll").Hash -cne $receipt.FixtureDllSha256) { throw 'Fixture DLL differs' }
+          if ((Get-Content "$root/fixture-pe-headers.log" -Raw) -notmatch '8664 machine \(x64\)') { throw 'Unexpected native machine' }
+          dotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll "$root/fixture.dll" $receipt.FixtureDllSha256 2>&1 | Tee-Object artifacts/nif-host-native.log
+          if ($LASTEXITCODE -ne 0) { throw 'Native fixture contracts failed' }
+          @{ Passed = $true; FixtureDllSha256 = $receipt.FixtureDllSha256; GenericNifSupport = $false } | ConvertTo-Json | Set-Content artifacts/nif-host-native-result.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-managed-native-fixture
+          path: |
+            artifacts/nif-host-*
+            artifacts/nif-fixture-build-launch.log
+            artifacts/nif-fixture-build/**
+  original-otp-fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ERLC_USE_SERVER: 'false'
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check raw exits and inherited pipe cleanup
+        shell: bash
+        run: python3 tools/Erlang.NifFixtureHost/original/check_process_capture.py artifacts/nif-process-capture-checks
+      - name: Build the exact development oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          (
+            set -x
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-otp-source
+            test "$(git -C artifacts/nif-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            cd artifacts/nif-otp-source
+            ./configure --prefix="$PWD/observer-install" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/nif-otp-build.log
+          python3 - <<'PY'
+          import hashlib, json, pathlib, subprocess
+          root = pathlib.Path('artifacts/nif-otp-source').resolve()
+          prefix = root / 'observer-install'
+          files = [prefix / 'bin/erl', prefix / 'bin/erlc', *prefix.glob('lib/erlang/erts-*/bin/beam.smp'), *prefix.glob('lib/erlang/erts-*/bin/erlexec')]
+          assert len(files) == 4 and all(path.is_file() for path in files)
+          head = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip()
+          assert head == 'ad05823719d77c8faee87348ea39513d4e2f99c5'
+          receipt = {'SourceHead': head, 'ConfiguredPrefix': str(prefix), 'NativeNifCasesExecuted': False, 'Files': [{'Path': str(path.relative_to(root)), 'Bytes': path.stat().st_size, 'Sha256': hashlib.sha256(path.read_bytes()).hexdigest().upper()} for path in files]}
+          pathlib.Path('artifacts/nif-otp-build-provenance.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+          PY
+      - name: Collect seven fresh original VM observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          prefix="$GITHUB_WORKSPACE/artifacts/nif-otp-source/observer-install"
+          python3 tools/Erlang.NifFixtureHost/original/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-otp-source" \
+            --otp-include "$prefix/lib/erlang/usr/include" \
+            --otp-bin "$prefix/bin" \
+            --fixture-source "$GITHUB_WORKSPACE/tools/Erlang.NifFixtureHost/native/fixture.c" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-original-observations" \
+            --approved-plan-sha256 49EB3B6C0F841122C04AE3A30BE19C7E606B92549F9B3DE03BC7BD708AC7639C \
+            2>&1 | tee artifacts/nif-original-launch.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-original-observations
+          path: |
+            artifacts/nif-original-launch.log
+            artifacts/nif-process-capture-checks/**
+            artifacts/nif-otp-build.log
+            artifacts/nif-otp-build-provenance.json
+            artifacts/nif-original-observations/**

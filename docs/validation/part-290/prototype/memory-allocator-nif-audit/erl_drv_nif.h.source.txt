@@ -1,0 +1,57 @@
+100: #  error SIZEOF_INT mismatch
+101: #endif
+102: #if defined(SIZEOF_LONG_SAVED__) && SIZEOF_LONG_SAVED__ != SIZEOF_LONG
+103: #  error SIZEOF_LONG mismatch
+104: #endif
+105: #if defined(SIZEOF_LONG_LONG_SAVED__) && SIZEOF_LONG_LONG_SAVED__ != SIZEOF_LONG_LONG
+106: #  error SIZEOF_LONG_LONG mismatch
+107: #endif
+108: 
+109: #if !defined(__GNUC__) && (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
+110: typedef unsigned __int64 ErlNapiUInt64;
+111: typedef signed __int64 ErlNapiSInt64;
+112: #define ERL_NAPI_SINT64_MAX__ 9223372036854775807i64
+113: #define ERL_NAPI_SINT64_MIN__ (-ERL_NAPI_SINT64_MAX__ - 1i64)
+114: #elif SIZEOF_LONG == 8
+115: typedef unsigned long ErlNapiUInt64;
+116: typedef signed long ErlNapiSInt64;
+117: #define ERL_NAPI_SINT64_MAX__ 9223372036854775807L
+118: #define ERL_NAPI_SINT64_MIN__ (-ERL_NAPI_SINT64_MAX__ - 1L)
+119: #elif SIZEOF_LONG_LONG == 8
+120: typedef unsigned long long ErlNapiUInt64;
+121: typedef signed long long ErlNapiSInt64;
+122: #define ERL_NAPI_SINT64_MAX__ 9223372036854775807LL
+123: #define ERL_NAPI_SINT64_MIN__ (-ERL_NAPI_SINT64_MAX__ - 1LL)
+124: #else
+125: #  error No 64-bit integer type
+126: #endif
+127: 
+128: #if SIZEOF_VOID_P == 8
+129: typedef ErlNapiUInt64 ErlNapiUInt;
+130: typedef ErlNapiSInt64 ErlNapiSInt;
+131: #elif SIZEOF_VOID_P == 4
+132: #  if SIZEOF_LONG == SIZEOF_VOID_P
+133: typedef unsigned long ErlNapiUInt;
+134: typedef signed long ErlNapiSInt;
+135: #  elif SIZEOF_INT == SIZEOF_VOID_P
+136: typedef unsigned int ErlNapiUInt;
+137: typedef signed int ErlNapiSInt;
+138: #  else
+139: #    error No 32-bit integer type
+140: #  endif
+
+220: #    undef  ERL_NAPI_ATTR_MALLOC_USD
+221: #    define ERL_NAPI_ATTR_MALLOC_USD(SZPOS, DTOR, PTRPOS)                  \
+222:        ERL_NAPI_ATTR_MALLOC_US(SZPOS)                                      \
+223:        ERL_NAPI_ATTR_MALLOC_D(DTOR, PTRPOS)
+224: #  endif
+225: #endif
+226: 
+227: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
+228: #  define ERL_NAPI_EXPORT __declspec(dllexport)
+229: #elif defined(__GNUC__) && __GNUC__ >= 4
+230: #  define ERL_NAPI_EXPORT __attribute__ ((visibility("default")))
+231: #elif defined (__SUNPRO_C) && (__SUNPRO_C >= 0x550)
+232: #  define ERL_NAPI_EXPORT __global
+233: #else
+234: #  define ERL_NAPI_EXPORT

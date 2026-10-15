@@ -1,0 +1,51 @@
+{
+  "Status": "INDEPENDENT_NATIVE_BUILD_ARTIFACT_GUARD_PASS_TRUSTED_FIXTURE_ONLY",
+  "AcceptedFixtureDllSha256": "3087CC0FD9008B59FAA2A0DF0C4F4010D548194070BB3B9D86372609B3A9E022",
+  "FixturePath": "artifacts/root-nif-fixture-build-revision4/fixture.dll",
+  "BuildReceiptSha256": "1586D8A1601B0D8AC4A10AA26A84043DF36749BC0784D939CB629C8553ECB6B1",
+  "ReviewedPlanSha256": "104B6ED5351481353F895D3FC2BF2C5867B38546950C71AC14377FCC1D560311",
+  "Checks": {
+    "All22ReceiptFilesBytesShaExact": true,
+    "All3ToolIdentitiesAndVcvarsShaExact": true,
+    "PinnedHeaderAndFixtureLayoutSourceExact": true,
+    "All180CallbackDeclarationsAnd2TailOffsetsExact": true,
+    "SevenImplementedCallbackIndicesMatchFixtureUses": true,
+    "NativeLayoutMatchesPlanAndManagedEntryFunctionSequentialLayout": true,
+    "ExactTwoExports": true,
+    "RawPeMachine8664OptionalMagic20B": true,
+    "KnownSystemRuntimeDependenciesOnly": true
+  },
+  "Dependencies": [
+    "KERNEL32.dll",
+    "VCRUNTIME140.dll",
+    "api-ms-win-crt-runtime-l1-1-0.dll"
+  ],
+  "ManagedStructSourceProof": {
+    "Entry": {
+      "Major": 0,
+      "Minor": 4,
+      "Name": 8,
+      "FunctionCount": 16,
+      "Functions": 24,
+      "Load": 32,
+      "Reload": 40,
+      "Upgrade": 48,
+      "Unload": 56,
+      "Variant": 64,
+      "Options": 72,
+      "ResourceInitSize": 80,
+      "MinimumErts": 88
+    },
+    "Function": {
+      "Name": 0,
+      "Arity": 8,
+      "Function": 16,
+      "Flags": 24
+    }
+  },
+  "TrustBoundary": "Allow only this exact locally reviewed Windows x64 fixture hash for the scoped HOST experiment. Not arbitrary NIF support, no load_nif registration, no generic DLL trust. Seven populated callbacks only; all others remain unsupported. Native fixture behavior has NOT been executed by this reviewer.",
+  "BuildExecutedByReviewer": false,
+  "DllLoadedOrExecutedByReviewer": false,
+  "MainEdited": false,
+  "NetworkUsed": false
+}

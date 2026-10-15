@@ -1,5 +1,5 @@
 {
-  "ComparisonTestReport": "validation/part-288/tests.json",
+  "ComparisonTestReport": "validation/part-289/tests.json",
   "Components": [
     {
       "Status": "Partially compatible",
@@ -478,6 +478,18 @@
       ],
       "Remaining": [
         "Actual source-built compiler artifacts/terminal job and digest proof; on_load callback observation and production CLR decoding/loading/execution remain unfinished."
+      ],
+      "TestPrefixes": []
+    },
+    {
+      "Id": "NifFixtureHost",
+      "Project": "tools/Erlang.NifFixtureHost",
+      "Status": "Partially compatible",
+      "Implemented": [
+        "Standalone target with zero warnings/errors; strict 17-file token/quoted-literal formatting guard; managed ownership checks and actual reviewed Windows x64 seven-callback fixture execution. These are tool gates, not additional Main tests."
+      ],
+      "Remaining": [
+        "Original seven NIF observations and Linux collector controls pending; arbitrary NIF ABI, native threads, dirty jobs, on_load, source/BEAM replacement and registry/purge integration unfinished."
       ],
       "TestPrefixes": []
     }

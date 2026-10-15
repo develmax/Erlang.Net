@@ -626,3 +626,5 @@ Part287 (2026-10-15): deferred incoming monitor28 reuses actual285 ordered owner
 Part288 (2026-10-15): lazy capacity observer reuses BCL TaskCompletionSource under the existing queue gate; no new dependency, queue budget or production BEAM. Native payload14 and CI287 evidence independently archived; original286 raw-hash refusal remains separate. Async all-writer admission/NIF proposals remain source-only. No source license banner/private license publication.
 
 Part289 (2026-10-15): register existing managed input adapter and preserve target exception frames across apply dispatch; no added dependency/production BEAM/source license banner/private license publication. All-writer async pressure and real NIF ABI remain separate unfinished prerequisites.
+
+Part290: standalone trusted fixture host uses existing runtime and BCL NativeMemory/NativeLibrary; no new dependency, generic NIF registration, license banner, public package release or LICENSE.local.txt publication. Pinned OTP headers and attribution remain consolidated.

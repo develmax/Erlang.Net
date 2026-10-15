@@ -1,6 +1,6 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **6588 passed**. Runtime MFAs **502** (previous snapshot **501**, delta **+1**), in **7** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Local tests **6588 passed**. Runtime MFAs **502** (previous snapshot **502**, delta **0**), in **7** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
@@ -21,6 +21,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | Style checks | Implemented | 2 | SDK syntax-aware layout and validation gate; XML documentation comment preservation and idempotence | broader SDK matrix |
 | Benchmarks | Partially compatible | 0 | exploratory local harness; reproducible Release old/new C# integer-map lookup samples/allocations; no BEAM performance proof | representative workloads and BEAM comparison |
 | BEAM fixture evidence | Partially compatible | 0 | Standalone dev tool/solution/manual pinned-source workflow; five declared sources and four independent original outcomes; source/digest/provenance retention and local negative authenticity gates. Genuine original artifacts pending. | Actual source-built compiler artifacts/terminal job and digest proof; on_load callback observation and production CLR decoding/loading/execution remain unfinished. |
+| NifFixtureHost | Partially compatible | 0 | Standalone target with zero warnings/errors; strict 17-file token/quoted-literal formatting guard; managed ownership checks and actual reviewed Windows x64 seven-callback fixture execution. These are tool gates, not additional Main tests. | Original seven NIF observations and Linux collector controls pending; arbitrary NIF ABI, native threads, dirty jobs, on_load, source/BEAM replacement and registry/purge integration unfinished. |
 
 ## Erlang API modules
 
@@ -30,7 +31,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | binary | 0 | 0 | 31 | 0.0% | Not started |
 | code | 0 | 0 | 69 | 0.0% | Not started |
 | dets | 0 | 0 | 64 | 0.0% | Not started |
-| erlang | 344 | +1 | 351 | 98.0% | Partially compatible |
+| erlang | 344 | 0 | 351 | 98.0% | Partially compatible |
 | ets | 0 | 0 | 76 | 0.0% | Not started |
 | file | 0 | 0 | 69 | 0.0% | Not started |
 | gen_event | 0 | 0 | 43 | 0.0% | Not started |

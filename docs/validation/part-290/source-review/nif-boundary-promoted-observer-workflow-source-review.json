@@ -1,0 +1,75 @@
+{
+  "Stage": "INDEPENDENT_PROMOTED_SOURCE_WORKFLOW_REVIEW_NO_LINUX_EXECUTION",
+  "PlanSha256": "D8B2ADA89BED1717621A978F9027902A795EBB21D534B88C826304CDFCE68354",
+  "Sources": [
+    {
+      "Path": "tools/Erlang.NifFixtureHost/original/memory_allocator_nif_fixture.erl",
+      "Sha256": "0C510FB7F292003BB7FE65203DFF57A521CD9FB5F7A7091D7A304FE0EF7C2D96"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/original/nif_original_observer.erl",
+      "Sha256": "EE8967BCED3F72884420B5083C3B7C37C98AFBC14A16A4C8F46E86BD21A79545"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/original/collect.py",
+      "Sha256": "674E6BFE683689DE8B99E67FFD1D774953E89DE44249FBBFEDB9877C66A5CAFF"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/original/check_process_capture.py",
+      "Sha256": "4D058316A7A55C701A20DAD70450941F8F27CA92415F9A5E6DAD6872766B89CB"
+    }
+  ],
+  "WorkflowSha256": "94DB1C6D7D7DDDBBDF8F66C686CC1CEFAD0090B67D62A9956382FB12181D1637",
+  "SevenOrderedCases": [
+    "increment_zero",
+    "increment_negative",
+    "increment_maximum_success",
+    "increment_maximum_badarg",
+    "increment_atom_badarg",
+    "greeting",
+    "load_veto"
+  ],
+  "FixtureHashUnchanged": true,
+  "ErlangObserverBytesUnchanged": true,
+  "DedupExplicitFixtureGuardAndCopyRetained": true,
+  "RawByteAttributes": [
+    "tools/Erlang.NifFixtureHost/original/memory_allocator_nif_fixture.erl: text: unset",
+    "tools/Erlang.NifFixtureHost/original/memory_allocator_nif_fixture.erl: whitespace: trailing-space,space-before-tab,cr-at-eol",
+    "tools/Erlang.NifFixtureHost/original/nif_original_observer.erl: text: unset",
+    "tools/Erlang.NifFixtureHost/original/nif_original_observer.erl: whitespace: trailing-space,space-before-tab,cr-at-eol",
+    "tools/Erlang.NifFixtureHost/original/collect.py: text: unset",
+    "tools/Erlang.NifFixtureHost/original/collect.py: whitespace: trailing-space,space-before-tab,cr-at-eol",
+    "tools/Erlang.NifFixtureHost/original/check_process_capture.py: text: unset",
+    "tools/Erlang.NifFixtureHost/original/check_process_capture.py: whitespace: trailing-space,space-before-tab,cr-at-eol",
+    "\"tools\\\\Erlang.NifFixtureHost\\\\original\\\\source-plan.json\": text: unset",
+    "\"tools\\\\Erlang.NifFixtureHost\\\\original\\\\source-plan.json\": whitespace: trailing-space,space-before-tab,cr-at-eol"
+  ],
+  "OwnedGroupTimeoutSourceReviewed": true,
+  "TimeoutControlsExecuted": false,
+  "NativeExecution": false,
+  "MainEdited": false,
+  "SourceFindings": [
+    {
+      "Severity": "Evidence gap",
+      "Finding": "Linux configure/make/install build step has no saved/always-uploaded build log or build attestation; raw GitHub job log only. Retain source-build log and exact commit/install/version evidence before dispatch."
+    },
+    {
+      "Severity": "Narrow timeout failure completeness",
+      "Finding": "If communicate retry times out and final process.wait(timeout=5) also times out, captured partial stdout/stderr and per-process JSON are not written. Catch final timeout and persist Reaped=false/ExitCode null before failing."
+    }
+  ],
+  "ConfirmedSourceProperties": [
+    "Popen start_new_session owns PGID and timeout killpg targets only that group",
+    "Inherited-pipe child retains group after parentexit, so killpg can unblock pipes",
+    "Collector receipts explicitly refuse semanticassertion and unloadcounter claims",
+    "Workflow fixes ERLC_USE_SERVER and sources install inside exactOTPtree ancestry",
+    "Windows native recipe root path and allowedsource prefix rebound to promoted tool",
+    "Alwaysupload covers original7case rawETF/logs/headers/source/disassembly and process controls; Windows covers build receipt/layout/exports/PE/nativeHOST logs"
+  ],
+  "RemainingLimits": [
+    "No generalNIF or publicload_nif API completeness",
+    "No claim timeoutcontrols actually passed until Linuxrun",
+    "Jobtimeout/cancellation may terminate before a collectorfailure receipt is emitted; retained launch/rawjob logs remain required",
+    "No original-versus-managed unloadcounter/purge proof"
+  ]
+}

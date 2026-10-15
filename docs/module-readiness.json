@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-288/tests.json",
+  "ComparisonTestReport": "validation/part-289/tests.json",
   "LocalPassedTests": 6588,
   "RegisteredMfas": 502,
-  "PreviousRegisteredMfas": 501,
-  "RegisteredMfaDelta": 1,
+  "PreviousRegisteredMfas": 502,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 7,
   "Components": [
@@ -443,6 +443,18 @@
       ],
       "Remaining": [
         "Actual source-built compiler artifacts/terminal job and digest proof; on_load callback observation and production CLR decoding/loading/execution remain unfinished."
+      ],
+      "RelatedPassedTests": 0
+    },
+    {
+      "Id": "NifFixtureHost",
+      "Project": "tools/Erlang.NifFixtureHost",
+      "Status": "Partially compatible",
+      "Implemented": [
+        "Standalone target with zero warnings/errors; strict 17-file token/quoted-literal formatting guard; managed ownership checks and actual reviewed Windows x64 seven-callback fixture execution. These are tool gates, not additional Main tests."
+      ],
+      "Remaining": [
+        "Original seven NIF observations and Linux collector controls pending; arbitrary NIF ABI, native threads, dirty jobs, on_load, source/BEAM replacement and registry/purge integration unfinished."
       ],
       "RelatedPassedTests": 0
     }
@@ -5688,8 +5700,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 344,
-      "PreviousRegisteredMfas": 343,
-      "Delta": 1,
+      "PreviousRegisteredMfas": 344,
+      "Delta": 0,
       "ReferenceDeclarations": 351,
       "ApiPresencePercent": 98.0,
       "RequiresPreprocessing": false,

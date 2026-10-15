@@ -1,0 +1,26 @@
+{
+  "Stage": "NARROW_SOURCE_RECHECK_BOTH_FINDINGS_RESOLVED_EXECUTION_PENDING",
+  "OriginalPlanSha256": "49EB3B6C0F841122C04AE3A30BE19C7E606B92549F9B3DE03BC7BD708AC7639C",
+  "WorkflowSha256": "DBA324C8C24E48F13404B8067A09B257237BFE707EB653BC23B6A83ADFA8EFF0",
+  "FindingsResolved": [
+    "Final wait TimeoutExpired caught; partial capture and ParentReaped=false persisted before timedoutfailure",
+    "Complete clone/configure/make/install output tee retained under set-euo-pipefail/set-x",
+    "Installed exactsource/prefix and erl/erlc/beam.smp/erlexec hashes/bytes attested",
+    "Buildlog/provenance always uploaded"
+  ],
+  "HeredocPythonAstParsed": true,
+  "YamlScalarIndentationVerified": true,
+  "ActualYamlParserUsed": true,
+  "InstallPaths": "source/observer-install/bin and lib/erlang/erts-*/bin; include lib/erlang/usr/include",
+  "SourceHashesMatchPlan": true,
+  "NativeExecution": false,
+  "LinuxControlsExecuted": false,
+  "SevenOriginalCasesExecuted": false,
+  "MainEdited": false,
+  "RemainingLimits": [
+    "FinalParentReaped=false is explicit failed cleanup, never successfulcompletion",
+    "Jobrunner cancellation can terminate before collector failure receipt; rawjob log still needed",
+    "Sourcebuild success here remains unexecuted; actual installedpaths/cleantrackedsource must pass runtimeguards",
+    "No semanticmatch/unloadpurge/genericNIF/APIcomplete claim"
+  ]
+}

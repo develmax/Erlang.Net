@@ -1,0 +1,215 @@
+65: **            enif_max_atom_cache_index
+66: */
+67: #define ERL_NIF_MAJOR_VERSION 2
+68: #define ERL_NIF_MINOR_VERSION 18
+69: 
+70: /*
+71:  * WHEN CHANGING INTERFACE VERSION, also replace erts version below with
+72:  * a ticket number e.g. "erts-@OTP-12345@". The syntax is the same as for
+73:  * runtime dependencies so multiple tickets should be separated with ":", e.g.
+74:  * "erts-@OTP-12345:OTP-54321@".
+75:  *
+76:  * If you're not on the OTP team, you should use a placeholder like
+77:  * erts-@MyName@ instead.
+78:  */
+79: #define ERL_NIF_MIN_ERTS_VERSION "erts-14.0"
+80: 
+81: /*
+82:  * The emulator will refuse to load a nif-lib with a major version
+83:  * lower than ERL_NIF_MIN_REQUIRED_MAJOR_VERSION_ON_LOAD. The load
+84:  * may however fail if user have not removed use of deprecated
+85:  * symbols.
+86:  *
+87:  * The ERL_NIF_MIN_REQUIRED_MAJOR_VERSION_ON_LOAD have to allow
+88:  * loading of nif-libs built at least two major OTP releases
+89:  * ago.
+90:  */
+
+102: typedef ErlNapiUInt64 ErlNifUInt64;
+103: typedef ErlNapiSInt64 ErlNifSInt64;
+104: typedef ErlNapiUInt ErlNifUInt;
+105: typedef ErlNapiSInt ErlNifSInt;
+106: 
+107: #define ERL_NIF_VM_VARIANT "beam.vanilla"
+108: typedef ErlNifUInt ERL_NIF_TERM;
+109: 
+110: typedef ERL_NIF_TERM ERL_NIF_UINT;
+111: 
+112: typedef ErlNifSInt64 ErlNifTime;
+113: 
+114: #define ERL_NIF_TIME_ERROR ((ErlNifSInt64) ERTS_NAPI_TIME_ERROR__)
+115: 
+116: typedef enum {
+117:     ERL_NIF_SEC    = ERTS_NAPI_SEC__,
+118:     ERL_NIF_MSEC   = ERTS_NAPI_MSEC__,
+119:     ERL_NIF_USEC   = ERTS_NAPI_USEC__,
+120:     ERL_NIF_NSEC   = ERTS_NAPI_NSEC__
+121: } ErlNifTimeUnit;
+122: 
+123: struct enif_environment_t;
+124: typedef struct enif_environment_t ErlNifEnv;
+125: 
+126: typedef struct enif_func_t
+127: {
+128:     const char* name;
+129:     unsigned arity;
+130:     ERL_NIF_TERM (*fptr)(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+131:     unsigned flags;
+132: }ErlNifFunc;
+133: 
+134: 
+135: typedef struct enif_entry_t
+136: {
+137:     int major;
+138:     int minor;
+139:     const char* name;
+140:     int num_of_funcs;
+141:     ErlNifFunc* funcs;
+142:     int  (*load)   (ErlNifEnv*, void** priv_data, ERL_NIF_TERM load_info);
+143:     int  (*reload) (ErlNifEnv*, void** priv_data, ERL_NIF_TERM load_info);
+144:     int  (*upgrade)(ErlNifEnv*, void** priv_data, void** old_priv_data, ERL_NIF_TERM load_info);
+145:     void (*unload) (ErlNifEnv*, void* priv_data);
+146: 
+147:     /* Added in 2.1 */
+148:     const char* vm_variant;
+149: 
+150:     /* Added in 2.7 */
+151:     unsigned options;   /* Unused. Can be set to 0 or 1 (dirty sched config) */
+152: 
+153:     /* Added in 2.12 */
+154:     size_t sizeof_ErlNifResourceTypeInit;
+155: 
+156:     /* Added in 2.14 */
+157:     const char* min_erts;
+158: }ErlNifEntry;
+159: 
+160: 
+161: typedef struct
+162: {
+163:     size_t size;
+164:     unsigned char* data;
+165: 
+166:     /* Internals (avert your eyes) */
+167:     void* ref_bin;
+168:     /* for future additions to be ABI compatible (same struct size) */
+169:     void* __spare__[2];
+170: }ErlNifBinary;
+
+190:     ERL_NIF_RT_CREATE = 1,
+191:     ERL_NIF_RT_TAKEOVER = 2
+192: }ErlNifResourceFlags;
+193: 
+194: typedef enum
+195: {
+196:     ERL_NIF_LATIN1 = 1,
+197:     ERL_NIF_UTF8 = 2,
+198: }ErlNifCharEncoding;
+199: 
+200: typedef struct
+
+340:     ERL_NIF_OPT_DELAY_HALT = 1,
+341:     ERL_NIF_OPT_ON_HALT = 2,
+342:     ERL_NIF_OPT_ON_UNLOAD_THREAD = 3
+343: } ErlNifOption;
+344: 
+345: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
+346: #  define ERL_NIF_API_FUNC_DECL(RET_TYPE, NAME, ARGS) RET_TYPE (*NAME) ARGS
+347: typedef struct {
+348: #  include "erl_nif_api_funcs.h"
+349:    void* erts_alc_test;
+350:    const void* erts_internal_test_ptr;
+351: } TWinDynNifCallbacks;
+352: extern TWinDynNifCallbacks WinDynNifCallbacks;
+353: #  undef ERL_NIF_API_FUNC_DECL
+354: #endif
+355: 
+356: #ifdef STATIC_ERLANG_NIF_LIBNAME
+357: #  define STATIC_ERLANG_NIF
+358: #endif
+359: 
+360: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_)) && !defined(STATIC_ERLANG_DRIVER) && !defined(STATIC_ERLANG_NIF)
+361: #  define ERL_NIF_API_FUNC_MACRO(NAME) (WinDynNifCallbacks.NAME)
+362: #  include "erl_nif_api_funcs.h"
+363: /* note that we have to keep ERL_NIF_API_FUNC_MACRO defined */
+364: 
+365: #else /* non windows or included from emulator itself */
+366: 
+367: /* Redundant declaration of deallocator functions as they are referred to by
+368:  * __attribute__(malloc) of allocator functions and we cannot change
+369:  * the declaration order in erl_nif_api_funcs.h due to Windows. */
+370: extern void enif_free(void* ptr);
+371: extern void enif_mutex_destroy(ErlNifMutex *mtx);
+372: extern void enif_cond_destroy(ErlNifCond *cnd);
+373: extern void enif_rwlock_destroy(ErlNifRWLock *rwlck);
+374: extern void enif_thread_opts_destroy(ErlNifThreadOpts *opts);
+375: extern void enif_ioq_destroy(ErlNifIOQueue *q);
+376: 
+377: #  if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
+378: #    define ERL_NIF_API_FUNC_DECL(RET_TYPE, NAME, ARGS) extern RET_TYPE NAME ARGS
+379: #  else
+380: #    define ERL_NIF_API_FUNC_DECL(RET_TYPE, NAME, ARGS) ERL_NAPI_EXPORT extern RET_TYPE NAME ARGS
+381: #  endif
+382: #  include "erl_nif_api_funcs.h"
+383: #endif
+384: 
+385: #if (defined(__WIN32__) || defined(_WIN32) || defined(_WIN32_))
+386: #  define ERL_NIF_INIT_GLOB TWinDynNifCallbacks WinDynNifCallbacks;
+387: #  define ERL_NIF_INIT_ARGS TWinDynNifCallbacks* callbacks
+388: #  define ERL_NIF_INIT_BODY memcpy(&WinDynNifCallbacks,callbacks,sizeof(TWinDynNifCallbacks))
+389: #else 
+390: #  define ERL_NIF_INIT_GLOB
+391: #  define ERL_NIF_INIT_ARGS void
+392: #  define ERL_NIF_INIT_BODY
+393: #endif
+394: 
+395: 
+396: #ifdef STATIC_ERLANG_NIF
+397: #  ifdef STATIC_ERLANG_NIF_LIBNAME
+398: #    define ERL_NIF_INIT_NAME(MODNAME) ERL_NIF_INIT_NAME2(STATIC_ERLANG_NIF_LIBNAME)
+399: #    define ERL_NIF_INIT_NAME2(LIB) ERL_NIF_INIT_NAME3(LIB)
+400: #    define ERL_NIF_INIT_NAME3(LIB) LIB ## _nif_init
+401: #  else
+402: #    define ERL_NIF_INIT_NAME(MODNAME) MODNAME ## _nif_init
+403: #  endif
+404: #  define ERL_NIF_INIT_DECL(MODNAME) \
+405:           ErlNifEntry* ERL_NIF_INIT_NAME(MODNAME)(ERL_NIF_INIT_ARGS)
+406: #else
+407: #  define ERL_NIF_INIT_DECL(MODNAME) \
+408:           ERL_NAPI_EXPORT ErlNifEntry* nif_init(ERL_NIF_INIT_ARGS)
+409: #endif
+410: 
+411: 
+412: #ifdef __cplusplus
+413: }
+414: #  define ERL_NIF_INIT_PROLOGUE extern "C" {
+415: #  define ERL_NIF_INIT_EPILOGUE }
+416: #else
+417: #  define ERL_NIF_INIT_PROLOGUE
+418: #  define ERL_NIF_INIT_EPILOGUE
+419: #endif
+420: 
+421: 
+422: #define ERL_NIF_INIT(NAME, FUNCS, LOAD, RELOAD, UPGRADE, UNLOAD) \
+423: ERL_NIF_INIT_PROLOGUE                   \
+424: ERL_NIF_INIT_GLOB                       \
+425: ERL_NIF_INIT_DECL(NAME);		\
+426: ERL_NIF_INIT_DECL(NAME)			\
+427: {					\
+428:     static ErlNifEntry entry = 		\
+429:     {					\
+430: 	ERL_NIF_MAJOR_VERSION,		\
+431: 	ERL_NIF_MINOR_VERSION,		\
+432: 	#NAME,				\
+433: 	sizeof(FUNCS) / sizeof(*FUNCS),	\
+434: 	FUNCS,				\
+435: 	LOAD, RELOAD, UPGRADE, UNLOAD,	\
+436: 	ERL_NIF_VM_VARIANT,		\
+437:         1,                              \
+438:         sizeof(ErlNifResourceTypeInit), \
+439:         ERL_NIF_MIN_ERTS_VERSION        \
+440:     };                                  \
+441:     ERL_NIF_INIT_BODY;                  \
+442:     return &entry;			\
+443: }                                       \
+444: ERL_NIF_INIT_EPILOGUE
+445: 

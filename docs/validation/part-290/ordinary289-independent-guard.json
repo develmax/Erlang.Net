@@ -1,0 +1,180 @@
+{
+  "Status": "PASS_ACTUAL_ORIGINAL5836_AND_FD8_EXACT_HEAD289",
+  "Head": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Run": 38685834317,
+  "Job": 116260327745,
+  "Artifact": 11949943361,
+  "Passed": 5836,
+  "Failed": 0,
+  "Expressions": 778,
+  "CompiledModules": 4895,
+  "Diagnostics": 163,
+  "HistoricalModuleRows": 4879,
+  "AllHistoricalRowsExact": true,
+  "HistoricalExpressionsDiagnosticsSixExclusionsAndContextExact": true,
+  "RawHistoryDifferences": [],
+  "FdPassed": 8,
+  "FdHistoricalRowsExact": true,
+  "NewSixteen": [
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nil-direct",
+      "SourceSha256": "8A8E973997BD51016CB5E048E197961A6A2D71C78EB4E35FCB42AA6FA9AB353E",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,[]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-empty-binary-apply",
+      "SourceSha256": "42E2AB56A16333E120087FAA51E3A96BB8F6EEEEC39A84CFD8C304DDECC5E911",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,<<>>]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nested-iolist-direct",
+      "SourceSha256": "A8ABB2A2D808665E356C84920AFA92E659B00CBDC14DF0AEA1E7835287C3869C",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,[1,[2,<<3,4>>],[]]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-binary-tail-iolist-apply",
+      "SourceSha256": "9864F813A6810FDBEE35EFFB038648FC25D0D923697BFA7A70613991CF331770",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,[1|<<2,3>>]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-out-of-range-iolist-direct",
+      "SourceSha256": "039754CAF1E4CFD6360E9303B1054E2BD2766ED67E548D84097EBFDAD311B6D8",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,[256]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-improper-iolist-apply",
+      "SourceSha256": "ACC432EE84037BDC1B538AD282340F385FAF85CCB215CBF602B05707CCEE066F",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,[1|2]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-integer-direct",
+      "SourceSha256": "2F726AAE4973D0CE457435A52873F52140959695A5B7C58F854701262655ACA0",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,17]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nonbinary-bitstring-apply",
+      "SourceSha256": "ECF1A3A8515CD0CE5AB2AF38EBCC8ABF2643B7EBA6A7A0322E81B143E0993DF4",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[invalid_distribution_handle,<<1:1>>]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-ordinary-reference-nil-direct",
+      "SourceSha256": "F53CA3CAD628D59409ED7D6B0A6461925053C6E0F2E35ABE3B60C7482DDA251C",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[ordinary_reference,[]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-ordinary-reference-iolist-apply",
+      "SourceSha256": "E37EF5D5289FF2312B0EE0A0BFB61A098C9423DFE6189ABC2C89F89ABD663D4A",
+      "Expected": "{ok,{error,badarg,{erlang,dist_ctrl_put_data,[ordinary_reference,[1,<<2>>]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-badarg-direct-and-dynamic",
+      "SourceSha256": "C45CFD9F24F64B8072220515636B0B6B1DD01A2C20C67A9D341350913B0F77A0",
+      "Expected": "{ok,{{error,badarg,{erlang,hd,[not_a_list]}},{error,badarg,{erlang,hd,[not_a_list]}}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-undef-direct-and-dynamic",
+      "SourceSha256": "A56B9DB0FB997DF2662B21D3CE0DFC0F0ACD3AC3B86EE1D6250481CC58948A38",
+      "Expected": "{ok,{{error,undef,{missing_apply_frame_module,absent,[17]}},{error,undef,{missing_apply_frame_module,absent,[17]}}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-invalid-module-keeps-apply-frame",
+      "SourceSha256": "E43A7D182BC37D85F43B0E7DE8EC38AE7D182A10021DDA1B28204BE0C161C74B",
+      "Expected": "{ok,{error,badarg,{erlang,apply,[0,hd,[]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-invalid-function-keeps-apply-frame",
+      "SourceSha256": "BAA9395EA40F0AD1A734A27A26B6CCB40F07BC9E1B050D66709E3F12EC1B8A18",
+      "Expected": "{ok,{error,badarg,{erlang,apply,[erlang,0,[]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-improper-arguments-keeps-apply-frame",
+      "SourceSha256": "CE15275ACAB365AFC7829D59A1AF2234C26B4CF72C4D302E58BB5BA0475AC744",
+      "Expected": "{ok,{error,badarg,{erlang,apply,[erlang,hd,[1|2]]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    },
+    {
+      "Name": "erlang-apply-forwarded-frame-explicit-raise-preserves-all-classes-and-empty-stack",
+      "SourceSha256": "1C64537001ED05F48A3B6716F6C4D45EDF091858440C4E760F52F2A9BEEFE829",
+      "Expected": "{ok,{{error,reason,[{synthetic_module,synthetic_function,[17],[]}]},{throw,reason,[{synthetic_module,synthetic_function,[17],[]}]},{exit,reason,[{synthetic_module,synthetic_function,[17],[]}]},{error,reason,[]},{throw,reason,[]},{exit,reason,[]}}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default"
+    }
+  ],
+  "NewSixteenSourcesAndIndependentExpectedTermsMatch": true,
+  "RawZipSha256": "6C63137B3AF0391484EC2E8178141DF657C3983E21B0A14D8C1BED50712A747C",
+  "RawJobSha256": "FA15A5B4E45239209A15D6CE5F56B9BE6E5D43ABB566BEAB5C7D18A3CB4CE566",
+  "ReportSha256": "0381EA698E958345AD8D82BDD777567D14F3A6A90038400BCF148618DD3468AB",
+  "CommittedSourceBindings": [
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCases.cs",
+      "Sha256": "3B30AF6D3CBA75A95A227FF6F3CAE54D95EC700718EE74C9431954479F724044",
+      "Bytes": 3447
+    },
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCaseNames.cs",
+      "Sha256": "0CB77E6AF81F8F4B982E9B10565849B8740254B57C5B900BA85473A3BFE795DF",
+      "Bytes": 909
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCases.cs",
+      "Sha256": "659CA89A37829F80C35EA2E841237D6797B14BC7AE6B8BEFDE19728DDB4977D7",
+      "Bytes": 4309
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCaseNames.cs",
+      "Sha256": "C3B9E7812A6A3F87F3185BC8559AA62967E4DCAFF6D7C5AA7DE99157434A87E5",
+      "Bytes": 1183
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "FF0F3ED7F6A2E9A21777CAEAF8F66671DCBDFB28037C7A9FC01CF2848B686971",
+      "Bytes": 30092
+    },
+    {
+      "Path": "tools/Erlang.Differential/OriginalOtpDefects.cs",
+      "Sha256": "D2858B5AC937FCDD999EE232D3C6081B0F0D7D92EAB60ABCEB481C52076F9217",
+      "Bytes": 2091
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "Sha256": "8FC611C9EE501A23F4608E66D3E163CA55B26602D005B436727D2FD5D3AE33E1",
+      "Bytes": 2292
+    }
+  ],
+  "ProgressScope": "5672 is final compiled precomparison snapshot; terminal5836 report and ordered raw5836 PASS lines establish whole comparison count.",
+  "NativeNifSevenPassed": false,
+  "ReferenceCoverageComplete": false,
+  "MainEdited": false,
+  "GitEdited": false,
+  "NativeRerun": false
+}

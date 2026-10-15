@@ -1,0 +1,20 @@
+{
+  "Status": "INDEPENDENT_SOURCE_REVIEW_PASS_RECIPE_REVISION4_ONLY",
+  "ReviewedPlanSha256": "104B6ED5351481353F895D3FC2BF2C5867B38546950C71AC14377FCC1D560311",
+  "BuildScriptSha256": "3C32EB6048BDBFA2A01DC4BA2C6DF0B1FE2EC49190C38309F81F6F0C3D69446B",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Checks": {
+    "ExactlyOneRecipeLineChanged": true,
+    "ExplicitWindowsCommandLineAvoidsPythonList2CmdlineBackslashQuotes": true,
+    "PathStillValidatedNoQuoteNewlinePercent": true,
+    "SetupStdoutEnvironmentMemoryOnly": true,
+    "SourceFixtureLayoutBytesUnchanged": true,
+    "AllPinnedHeadersHashesVerified": true,
+    "SixWholeLineIntegerDefinesUnchanged": true,
+    "CompilerLinkerLayoutExportRecipeUnchanged": true,
+    "PlanOnlyStatusScriptHashLayoutPathRebound": true,
+    "ParentProvidedPlanHashMatches": true
+  },
+  "Diff": "--- \n+++ \n@@ -76,7 +76,7 @@\n     vcvars = pathlib.Path(installation) / 'VC/Auxiliary/Build/vcvars64.bat'\n     if not vcvars.is_file() or any(character in str(vcvars) for character in ['\"', '\\n', '\\r', '%']):\n         raise RuntimeError('No usable VC x64 environment script.')\n-    setup = subprocess.run(['cmd.exe', '/d', '/s', '/c', 'call \"' + str(vcvars) + '\" >nul && set'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)\n+    setup = subprocess.run('cmd.exe /d /s /c \"\"' + str(vcvars) + '\" >nul && set\"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)\n     environment = os.environ.copy()\n     for line in setup.stdout.decode('mbcs', errors='strict').splitlines():\n         if '=' in line and not line.startswith('='):\n",
+  "Limit": "No vcvars, compiler, linker, layout/native execution, network or Main mutation in review. Parent setup reproduction is independent evidence; not repeated here. No environment values captured."
+}

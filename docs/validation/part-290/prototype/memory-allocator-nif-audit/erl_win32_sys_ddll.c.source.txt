@@ -1,0 +1,37 @@
+42: #include "erl_internal_test.h"
+43: 
+44: #define EXT_LEN          4
+45: #define FILE_EXT_WCHAR   L".dll"
+46: 
+47: static DWORD tls_index = 0;
+48: static TWinDynDriverCallbacks wddc;
+49: static TWinDynNifCallbacks nif_callbacks;
+50: 
+51: void erl_sys_ddll_init(void) {
+52:     WCHAR cwd_buffer[MAX_PATH];
+53: 
+54:     tls_index = TlsAlloc();
+55:     ERL_INIT_CALLBACK_STRUCTURE(wddc);
+56: 
+57:     /* LOAD_WITH_ALTERED_SEARCH_PATH removes the startup directory from the
+58:      * search path, so we add it separately to be backwards compatible. */
+59:     if (GetCurrentDirectoryW(sizeof(cwd_buffer), cwd_buffer)) {
+60:         SetDllDirectoryW(cwd_buffer);
+61:     }
+62: 
+63: #define ERL_NIF_API_FUNC_DECL(RET,NAME,ARGS) nif_callbacks.NAME = NAME
+64: #include "erl_nif_api_funcs.h"
+65: #undef ERL_NIF_API_FUNC_DECL
+66:     nif_callbacks.erts_alc_test = erts_alc_test;
+67:     nif_callbacks.erts_internal_test_ptr = &erts_internal_test_instance;
+68:  
+
+180:     void *(*initfn)(TWinDynDriverCallbacks *) = function;
+181:     return (*initfn)(&wddc);
+182: }
+183: 
+184: void *erts_sys_ddll_call_nif_init(void *function) {
+185:     void *(*initfn)(TWinDynNifCallbacks *) = function;
+186:     return (*initfn)(&nif_callbacks);
+187: }
+188: 

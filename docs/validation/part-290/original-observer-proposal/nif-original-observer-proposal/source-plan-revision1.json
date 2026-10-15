@@ -1,0 +1,55 @@
+{
+  "Status": "Prepared source only; no compiler/native VM/dispatch run",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+  "Sources": [
+    {
+      "Name": "fixture.c",
+      "Sha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "Bytes": 1496
+    },
+    {
+      "Name": "memory_allocator_nif_fixture.erl",
+      "Sha256": "0C510FB7F292003BB7FE65203DFF57A521CD9FB5F7A7091D7A304FE0EF7C2D96",
+      "Bytes": 279
+    },
+    {
+      "Name": "nif_original_observer.erl",
+      "Sha256": "EE8967BCED3F72884420B5083C3B7C37C98AFBC14A16A4C8F46E86BD21A79545",
+      "Bytes": 1786
+    },
+    {
+      "Name": "collect.py",
+      "Sha256": "1901ABF6AD62574E6C8FD1DC1F17425CB3ECCDFE44EBA95877CD8E071F73D66E",
+      "Bytes": 7871
+    }
+  ],
+  "Headers": [
+    {
+      "Name": "erl_nif.h",
+      "GitPath": "erts/emulator/beam/erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "Name": "erl_drv_nif.h",
+      "GitPath": "erts/emulator/beam/erl_drv_nif.h",
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "Name": "erl_nif_api_funcs.h",
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    }
+  ],
+  "Cases": [
+    "increment_zero",
+    "increment_negative",
+    "increment_maximum_success",
+    "increment_maximum_badarg",
+    "increment_atom_badarg",
+    "greeting",
+    "load_veto"
+  ],
+  "NativeUnloadCounterCompared": false,
+  "SemanticAssertionsExecuted": false
+}

@@ -1,0 +1,148 @@
+{
+  "Pin": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Head": "58d227ecef29d117fa091ab30b1e0928f969d2fa",
+  "Status": "Source-only; no Main/Git/build/native dispatch",
+  "Original": [
+    {
+      "Path": "erts/emulator/beam/erl_nif.h",
+      "Sha256": "6cb96c37d306a173ef71946e823829fc21e47cb4a19288b221129eac2f13b689",
+      "Ranges": [
+        [
+          65,
+          90
+        ],
+        [
+          102,
+          170
+        ],
+        [
+          190,
+          200
+        ],
+        [
+          340,
+          445
+        ]
+      ],
+      "Extract": "erl_nif.h.source.txt"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "Sha256": "cf34ada521aeb0ee00c9936320cd694f9816edbab960500453051cea443dda11",
+      "Ranges": [
+        [
+          25,
+          245
+        ],
+        [
+          650,
+          676
+        ]
+      ],
+      "Extract": "erl_nif_api_funcs.h.source.txt"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_drv_nif.h",
+      "Sha256": "e9d4280779e8fd4ac463144f310b4da2346dd3a18e73d445bf1f88ae3c1f1312",
+      "Ranges": [
+        [
+          100,
+          140
+        ],
+        [
+          220,
+          234
+        ]
+      ],
+      "Extract": "erl_drv_nif.h.source.txt"
+    },
+    {
+      "Path": "erts/emulator/sys/win32/erl_win32_sys_ddll.c",
+      "Sha256": "440627cf5dc951b38e442f1ed31802c5f22fd86656b6bb44de2addc1a140f4b8",
+      "Ranges": [
+        [
+          42,
+          68
+        ],
+        [
+          180,
+          188
+        ]
+      ],
+      "Extract": "erl_win32_sys_ddll.c.source.txt"
+    },
+    {
+      "Path": "erts/emulator/sys/unix/erl_unix_sys_ddll.c",
+      "Sha256": "1feb1d2aa48c45ab31753d90abdfc653d1b942f54aa697756856e3f7ff7de3e2",
+      "Ranges": [
+        [
+          230,
+          263
+        ]
+      ],
+      "Extract": "erl_unix_sys_ddll.c.source.txt"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66f06ab32aedb5d1e02140c37e0215e797fb80d78c1aa4091eb52be01465299a",
+      "Ranges": [
+        [
+          4530,
+          4558
+        ],
+        [
+          4618,
+          4627
+        ],
+        [
+          4708,
+          4910
+        ]
+      ],
+      "Extract": "erl_nif.c.source.txt"
+    }
+  ],
+  "Main": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "5ed17f76a5b4c82e1c025a731c51ae77b9a0ea74de81219d12d4f14c88aff8a4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Sha256": "d7d84bf5587158c7d96053f38185614ab93162b0eee15d573257daba4bec1ad6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Sha256": "e3456ef0d573edcb24f02dd00761972953f5d700ffb304a765d8731b9211eb77"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "2a331c8d46f1ad3bec25a6e384e605470bb608ad0f9d714d03a0e81787ec42dc"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+      "Sha256": "50fdcd7f3627a63e3a7aa72cf7282c27c4dd2a5e5aa88a5d8167372dc90475b9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Loader.cs",
+      "Sha256": "dab6a5a4df853213c0b21d548dade29c03b6f7d738be5cca53b840108c36368c"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "1e653ee1836afb3adf4a0d2d0f013a51287902c0909f623b60c823ea436c4db0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeImage.cs",
+      "Sha256": "4d20a4cd135da504693b24306453ec19f2fd74324b3ef93e3712e25cbe70789c"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeDescriptor.cs",
+      "Sha256": "b15483bb7ee7344657fd36a444d983b88b52387f3063a2f1605244d9ebf8f712"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleInformationSnapshot.cs",
+      "Sha256": "a00e0b0d61b1cee683c86fc050f468b1757e3a624eec93833d5f7f13b2fc32cd"
+    }
+  ]
+}

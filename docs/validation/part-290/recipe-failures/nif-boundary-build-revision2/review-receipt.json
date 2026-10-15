@@ -1,0 +1,125 @@
+{
+  "Status": "Source-only independent review; no build/native/host execution",
+  "ManifestFilesChecked": [
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifAbiEntry.cs",
+      "Sha256": "773454348C1D020FD8EB0C9F1206A1657421A7B623831D7F39731C191EA3D1C4"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifAbiFunction.cs",
+      "Sha256": "513A954C0236B977E0731334C9B1E5A7555D8251059B4CEA237CF8C7F38CC5B9"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifCallbackScope.cs",
+      "Sha256": "BD44CE4F7FBD46FB02FFE78B05FE9E6005B71E26BACF681522EA8E96F0CF0E56"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifCallEnvironment.cs",
+      "Sha256": "CA19EF5B30F03B479E6ABC116EAC7048164586E9317E25FCB501096EC8EC8C2C"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifCore.csproj",
+      "Sha256": "0C55AB884EFFCD50AA5BA458A15C0D230AF80CD787800CC7B18E2AB42ADB4155"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifCoreChecks.cs",
+      "Sha256": "F523BD035A063CC83044F32BEB404038DE0AD3A1CC8A08D84464643BCA721971"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifGenerationLease.cs",
+      "Sha256": "E521ADC4DCE65A1BFB22DEFA0C86BF2FC2D3B470CDCEF9CC4EBF18F2A0434D02"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifGenerationLeaseTable.cs",
+      "Sha256": "9D8F1513E5320F219C8BE2D3604D76C07E9A6A35AA88F1677F9671F8CA98C93A"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifGenerationState.cs",
+      "Sha256": "EBEB3CB48C25D5A23D0EF3D8D7BF95C9CCBAE7181D16C58D4C34902278860BCD"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifNativeAllocationOwner.cs",
+      "Sha256": "1BCC6C39D4C61DC0C704E19B2646E678859D0F2EE7E3E9A3E87239BC00D5B471"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifPrimitiveCallbacks.cs",
+      "Sha256": "9EA60C0C84C907CAF01AF295E3692F8F214086715A11358DF77B235EAEA46A29"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifWindowsCallbackLayout.cs",
+      "Sha256": "E4911B2BEA4D3F50B73220D91B63981A3F4A8CA1E57B7FACACF6F873C0A7934C"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/NifWindowsCallbacks.cs",
+      "Sha256": "752D49643482B7C5340C742B7F839908E307DF0D7CC243926CD57F78E025A6D6"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/Program.cs",
+      "Sha256": "1C3E37A3086B98FCBD29D4C3A9982D72CD643AD98B1D239401FBE8AB6265E757"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/README.md",
+      "Sha256": "F85FB17C97DD3F458008339C51761C3927ACB00EC971B71E4A14AD44E58944D6"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-core/WindowsNifFixtureLibrary.cs",
+      "Sha256": "787BCC2949BDFFFA468E9DC19FE1059E5E24D8E191BC1EDE13E9073DE37302A8"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-audit/source-bindings.json",
+      "Sha256": "4C25CFFF566817AA6731B9C85AF0A1AD0F4B76D75CF9EE31A02F86AB3BF6F30D"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-audit/windows-callback-layout.json",
+      "Sha256": "29E0018A57FB3A2E21AE04625231E12D8D975D97BB83121E2F6ED8D0A5FC2B34"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-audit/fixture.c",
+      "Sha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074"
+    },
+    {
+      "Path": "artifacts/memory-allocator-nif-audit/memory_allocator_nif_fixture.erl",
+      "Sha256": "0C510FB7F292003BB7FE65203DFF57A521CD9FB5F7A7091D7A304FE0EF7C2D96"
+    }
+  ],
+  "CallbackFunctions": [
+    {
+      "Name": "enif_alloc",
+      "Ordinal": 1
+    },
+    {
+      "Name": "enif_free",
+      "Ordinal": 2
+    },
+    {
+      "Name": "enif_get_int",
+      "Ordinal": 10
+    },
+    {
+      "Name": "enif_make_badarg",
+      "Ordinal": 18
+    },
+    {
+      "Name": "enif_make_int",
+      "Ordinal": 19
+    },
+    {
+      "Name": "enif_make_string",
+      "Ordinal": 27
+    },
+    {
+      "Name": "enif_priv_data",
+      "Ordinal": 0
+    }
+  ],
+  "CallbackCount": 180,
+  "TrailingFields": 2,
+  "Abi": "Windows x64 LLP64; expected entry major2 minor18; not compiler sizeof verified",
+  "OriginalBuildScriptSha256": "15352396E418E7A430E94D2B831A0B5B97D0C2A2ADB03A67A32B534735FEF360",
+  "CorrectedBuildScriptSha256": "EE1EF27D875AC51BB8FF16234B039135446337F5B121940AECE0C152811B273A",
+  "CorrectedPlanSha256": "4F8A20012181EF8728CC8AFF49873DC45CC56AB8ACB3057AA313105BF7662077",
+  "Correction": "Normalize vcvars environment keys to uppercase before PATH tool discovery; preserve original artifacts",
+  "NativeBehaviorExecuted": false,
+  "MainEdited": false,
+  "GitEdited": false
+}
