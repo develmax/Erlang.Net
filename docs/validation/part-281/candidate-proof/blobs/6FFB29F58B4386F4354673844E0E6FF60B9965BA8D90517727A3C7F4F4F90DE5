@@ -1,0 +1,6 @@
+namespace Erlang;
+
+internal static class DistributionGroupLeaderDiagnostics
+{
+    internal const string ExternalTarget = "Distribution group leader signal to an external target is not supported";
+}

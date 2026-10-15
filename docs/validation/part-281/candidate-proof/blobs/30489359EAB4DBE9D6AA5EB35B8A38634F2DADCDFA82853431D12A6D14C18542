@@ -1,0 +1,147 @@
+{
+  "Status": "PASS_BOUNDED_GROUP_LEADER_MAIN280_SOURCE_REVIEW",
+  "SourceFreeze": "artifacts\\pid-order-group-leader-main280-source-freeze-prebuild-revision3.json",
+  "Sha256": "B49CD7C1FBE219D7A4E520D5B527E356B0CA918C0922CB7DC9228B293B4E1533",
+  "MainHead": "a10fc16c6e5392d69b6f84d17c396ac525a34104",
+  "Files10PlusFocus3": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionGroupLeaderDiagnostics.cs",
+      "Sha256": "6FFB29F58B4386F4354673844E0E6FF60B9965BA8D90517727A3C7F4F4F90DE5",
+      "Bytes": 204
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionGroupLeader.cs",
+      "Sha256": "5624ABC5D52985D4CA55F6830755F353005EE9BEC5FB31E6D701D062BADF17CB",
+      "Bytes": 1024
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "Sha256": "340D381B9EB8479082B68DC8D785E9E38F65175214839EAA551D021700D44708",
+      "Bytes": 6886
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionControlOpcodes.cs",
+      "Sha256": "0044C2D0B6A3DBE814038280E16C7F0482220AB492FDEE3756D5208C79AF7BA7",
+      "Bytes": 2502
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+      "Sha256": "28823FD85B58AF81032F6CC0184C601DF87AB5757EA24AB4C57CF84D03260093",
+      "Bytes": 16707
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGroupLeaderHostChecks.cs",
+      "Sha256": "AB41EDBA1257F5EA075640ECFD613FEEACD13BC9462BF4C9EA670A32CEC15088",
+      "Bytes": 5483
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGroupLeaderHostNames.cs",
+      "Sha256": "0279472572C7660C6E55AD77032D38B5F75F8EEBD4D7E34689E2992E49560AB6",
+      "Bytes": 574
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "Sha256": "FF5D402A336CE69F1B1268E473F05543AD5FAC9DEA14BA108171479B207DCA4D",
+      "Bytes": 12844
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostNames.cs",
+      "Sha256": "6DCB765DF6EEA1CFD10A253DDAAE1BEA8FC6C5F43214E5A894D65291B48CE427",
+      "Bytes": 1063
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "4299B458218C44AE810DE95BBB6D9A72352AE3429953A9124468B2DE608520D2",
+      "Bytes": 162099
+    },
+    {
+      "Path": "probe/DistributionGroupLeaderFocusNames.cs",
+      "Sha256": "B666C2A1326D097E58E93209CD2BE28B73F52D78F3ED5C3FA387F81C34BE805D",
+      "Bytes": 555
+    },
+    {
+      "Path": "probe/GroupLeaderFocus.csproj",
+      "Sha256": "F819D5E3FB501E79864C132A1152529819EA9CB27BF62099B938CB712E487C64",
+      "Bytes": 209
+    },
+    {
+      "Path": "probe/Program.cs",
+      "Sha256": "F005EA9F15A86B2E0D1A3DCBA414DD623143281EF4740A133B3F10F4AF5CDB5B",
+      "Bytes": 702
+    }
+  ],
+  "InheritedCodeProjectClosureExact": 1556,
+  "ExactCurrentMainResources140": true,
+  "RawGitResourceMatches": 138,
+  "ExplicitResourceCheckoutEolVariants": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/source-proof.json",
+      "CurrentMainAndCandidateRawSha256": "6EC6D430CD883295B3F630E6ED69EA17B66369F80FC7435E89A41713D345D125",
+      "GitRawSha256": "677ABF439943D30FB81B54BCE8DCEAF65471B6B6A118AE1DF8C674519553B3D2",
+      "CurrentRawBytes": 9990,
+      "GitRawBytes": 9806,
+      "OnlyCheckoutCRLF": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoadResourceHashes.json",
+      "CurrentMainAndCandidateRawSha256": "E89C394F6883376657A7398AD0B365B05E6B2A7D2DB9EAA2C8E24FDF27BA0CD0",
+      "GitRawSha256": "DB88B0C05B0361B3FA2B273E7DFA1A96E9E898AEC58EE8698646A194B0CE4E8A",
+      "CurrentRawBytes": 9079,
+      "GitRawBytes": 8849,
+      "OnlyCheckoutCRLF": true
+    }
+  ],
+  "ReviewerCorrection": "Initial raw-Git equality expectation for two text JSON embedded resources corrected to exact currentMain raw SHA plus explicit CRLF-only committed-source equivalence; original script preserved",
+  "Source2GroupSemanticsUnchangedDuringA10Rebase": true,
+  "Current6559ProgramOnlyOneNewHostAppend": true,
+  "Raw41FixtureOnlyAuthorizedGroupLeader7Tuple3ToExitTt13Tuple5": true,
+  "GapLedgerSha256": "38C2CA8039D72CAF4C9D411288EA9022671238B67CFC9ECBFD71A0F3EFC51C72",
+  "PinnedSources": [
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Bytes": 220150
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/dist.h",
+      "Sha256": "3A44065B5004819ACF1ECA68D99A8BFDA3D9E002C6CBB1BD64AF695E9BCA7091",
+      "Bytes": 16598
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_monitor_link.c",
+      "Sha256": "47ADDB89C2CF25D430AEEA803D335C28980641FAC9E06029B5CBD10C258904F9",
+      "Bytes": 53233
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519",
+      "Bytes": 344508
+    },
+    {
+      "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Bytes": 169612,
+      "SourceLines": "4861 erts_set_group_leader checks exiting target, stores PID without requiring leader alive"
+    }
+  ],
+  "Checks": [
+    "Exact control-only opcode7 tuple3 PID/PID, no surplus payload accepted",
+    "Real target mailbox owner callback, no remote ProcessContext invention",
+    "Leader PID may be dead/local/external, no unjustified leader liveness check",
+    "Channel retirement cannot cancel already enqueued actual target signal; owned-live target callback prevents aliasing dead/reused context",
+    "Strict foreign dynamic owner rejection before currentlocal target lookup",
+    "Oldlocal/external target outcome unobserved; private NotSupported retained rather than inventing native badarg/fatal",
+    "EXIT_TT13 tuple5 remote sender/current local target and nil token/reason wellformed pinned gap replacement",
+    "Current GC/actor runtime and monitor160 inherited, no stale whole Program promotion"
+  ],
+  "Bounds": [
+    "No original GROUP_LEADER observation yet",
+    "No build/focus executed by reviewer",
+    "Old/remote target native domain remains incomplete",
+    "No full negotiated protocol/stat/Core put_data completion claim"
+  ],
+  "MainWritten": false,
+  "GitWritten": false,
+  "HeavyExecuted": false,
+  "NativeExecuted": false
+}

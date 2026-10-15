@@ -1,0 +1,126 @@
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class ProcessInfoDefaultHostChecks
+{
+    internal static async Task Run()
+    {
+        await using var first = new ProcessRuntime(1);
+        await using var second = new ProcessRuntime(1);
+        var finishForeign = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var foreign = second.Spawn(async context =>
+        {
+            await finishForeign.Task;
+
+            return Nil.Value;
+        });
+        try
+        {
+            var actor = first.Spawn(async context =>
+            {
+                Require(context.Self.Equals(foreign.Pid));
+                try
+                {
+                    _ = await first.Modules.Call(
+                        context,
+                        ErlangModuleNames.Module,
+                        ProcessInfoNames.Function,
+                        foreign.Pid,
+                        Term.A(ProcessInfoLogicalNames.Priority)
+                    );
+                    Require(false);
+                }
+                catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+                {
+                }
+                Term expectedPriority = Term.Tuple(Term.A(ProcessInfoLogicalNames.Priority), Term.A(ProcessInfoLogicalNames.NormalPriority));
+                Require((await first.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ProcessInfoNames.Function,
+                    context.Self,
+                    Term.A(ProcessInfoLogicalNames.Priority)
+                )).Equals(expectedPriority));
+                var fixedLocal = new Pid(context.Self.Node, context.Self.Id, context.Self.Creation);
+                Require((await first.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ProcessInfoNames.Function,
+                    fixedLocal,
+                    Term.A(ProcessInfoLogicalNames.Priority)
+                )).Equals(expectedPriority));
+                var staleLocal = new Pid(context.Self.Node, context.Self.Id, unchecked(context.Self.Creation + 1));
+                Require((await first.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ProcessInfoNames.Function,
+                    staleLocal,
+                    Term.A(ProcessInfoLogicalNames.Priority)
+                )).Equals(Term.A(ProcessRegistryAtoms.Undefined)));
+                try
+                {
+                    _ = await first.Modules.Call(
+                        context,
+                        ErlangModuleNames.Module,
+                        ProcessInfoNames.Function,
+                        new Pid(ProcessInfoDefaultHostNames.RemoteNode, context.Self.Id),
+                        Term.A(ProcessInfoLogicalNames.Priority)
+                    );
+                    Require(false);
+                }
+                catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+                {
+                }
+                var projection = await Query(first, context, context.Self);
+                Require((bool)Property(projection, ProcessInfoDefaultHostNames.ExistsProperty));
+                var missing = (IReadOnlyList<string>)Property(projection, ProcessInfoDefaultHostNames.MissingProperty);
+                Require(missing.SequenceEqual(ProcessInfoDefaultHostNames.ResourceKeys));
+                var fields = (IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty);
+                Require(Keys(fields).SequenceEqual(ProcessInfoDefaultHostNames.LogicalKeys.Skip(1)));
+                first.Register(ProcessInfoDefaultHostNames.Registration, context.Self);
+                projection = await Query(first, context, context.Self);
+                fields = (IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty);
+                Require(Keys(fields).SequenceEqual(ProcessInfoDefaultHostNames.LogicalKeys));
+                Require(fields[0].Equals(Term.Tuple(Term.A(ProcessInfoNames.RegisteredName), Term.A(ProcessInfoDefaultHostNames.Registration))));
+                var terminated = first.Spawn(_ => ValueTask.FromResult<Term>(Nil.Value));
+                Require((await terminated.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));
+                projection = await Query(first, context, terminated.Pid);
+                Require(!(bool)Property(projection, ProcessInfoDefaultHostNames.ExistsProperty));
+                Require(((IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty)).Count == 0);
+                Require(((IReadOnlyList<string>)Property(projection, ProcessInfoDefaultHostNames.MissingProperty)).Count == 0);
+
+                return Nil.Value;
+            });
+            Require((await actor.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));
+        }
+        finally
+        {
+            finishForeign.TrySetResult();
+        }
+        Require((await foreign.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));
+    }
+
+    private static IEnumerable<string> Keys(IReadOnlyList<Term> fields)
+        => fields.Select(field => ((Atom)((TupleTerm)field).Items[0]).Name);
+
+    private static object Property(object target, string name)
+        => target.GetType().GetProperty(name)!.GetValue(target)!;
+
+    private static async Task<object> Query(ProcessRuntime runtime, ProcessContext requester, Term target)
+    {
+        MethodInfo method = typeof(ProcessRuntime).GetMethod(ProcessInfoDefaultHostNames.QueryMethod,
+            BindingFlags.Instance | BindingFlags.NonPublic)!;
+        object pending = method.Invoke(runtime, [requester, target])!;
+        Task completion = (Task)pending.GetType().GetMethod(ProcessInfoDefaultHostNames.AsTaskMethod)!.Invoke(pending, null)!;
+        await completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline);
+
+        return Property(completion, ProcessInfoDefaultHostNames.ResultProperty);
+    }
+
+    private static void Require(bool condition)
+    {
+        if (!condition)
+            throw new InvalidOperationException(ProcessInfoDefaultHostNames.Failure);
+    }
+}

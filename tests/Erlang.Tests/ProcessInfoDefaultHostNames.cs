@@ -1,0 +1,33 @@
+namespace Erlang.Tests;
+
+internal static class ProcessInfoDefaultHostNames
+{
+    internal const string Test = "runtime/process-info-logical-default-and-dynamic-owner-isolation";
+    internal const string Failure = "Process info default projection or target ownership contract failed.";
+    internal const string Registration = "process_info_default_owner";
+    internal const string RemoteNode = "remote@process-info.invalid";
+    internal const string QueryMethod = "QueryDefaultLogicalProcessInfo";
+    internal const string AsTaskMethod = "AsTask";
+    internal const string ResultProperty = "Result";
+    internal const string ExistsProperty = "Exists";
+    internal const string FieldsProperty = "AvailableFields";
+    internal const string MissingProperty = "UnavailableMandatoryFields";
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(15);
+    internal static readonly string[] ResourceKeys = ["total_heap_size", "heap_size", "stack_size", "garbage_collection"];
+    internal static readonly string[] LogicalKeys =
+    [
+        ProcessInfoNames.RegisteredName,
+        ProcessInfoNames.CurrentFunction,
+        ProcessInfoLogicalNames.InitialCall,
+        ProcessInfoNames.Status,
+        ProcessInfoNames.MessageQueueLength,
+        ProcessInfoNames.Links,
+        ProcessInfoNames.Dictionary,
+        ProcessInfoNames.TrapExit,
+        ProcessInfoLogicalNames.ErrorHandler,
+        ProcessInfoLogicalNames.Priority,
+        ProcessInfoNames.GroupLeader,
+        ProcessInfoLogicalNames.Reductions,
+        ProcessInfoLogicalNames.Suspending
+    ];
+}

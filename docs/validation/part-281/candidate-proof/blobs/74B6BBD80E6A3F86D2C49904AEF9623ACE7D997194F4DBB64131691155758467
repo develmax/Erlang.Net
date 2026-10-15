@@ -1,0 +1,140 @@
+{
+  "Status": "PASS_BOUNDED_PIO_DEFAULT_FINAL6_SOURCE_REVIEW",
+  "SourceFreeze": "artifacts\\dist_next-process-info-default-source-freeze-final-revision6.json",
+  "Sha256": "31EDD07806D2912AC6D83BA4613F05934866F30A16DC1532175C4B46201E44AD",
+  "Files12": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoResourceNames.cs",
+      "Sha256": "5FB6E85670682B25BEC63B757F2E911BB46B28021EE0EC8D5D1949407B47E7C4",
+      "Bytes": 301,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultCatalog.cs",
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2",
+      "Bytes": 1429,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultProjection.cs",
+      "Sha256": "CE10BAC9F525179D8A5A2FDE7A1D9372A81FD9C27B31319A768D3CFA890EA8EF",
+      "Bytes": 186,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ProcessInfoIdentity.cs",
+      "Sha256": "95FC48C9C216B52F3D08B03D1D5DB81F719F0C7AE7E2001DE100C504BCF93728",
+      "Bytes": 578,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DefaultProcessInfo.cs",
+      "Sha256": "66AA3CCC4991B76EC06DE86826272800021786A7F8C6F11A3B595BF57781BDD3",
+      "Bytes": 1097,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoRegistrations.cs",
+      "Sha256": "66737F1D488ACB92FB1AEC25F693A5FA9EB36DB681579CC1F6E49D230BDFC8F9",
+      "Bytes": 1140,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoDefaultHostNames.cs",
+      "Sha256": "FBEDB545B6DEF1EE8A6EBE777EA3A35ACA8425114936BFCE2A06A82127728CDA",
+      "Bytes": 1582,
+      "FormatterOnlyCompared4": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoDefaultHostChecks.cs",
+      "Sha256": "862029BEBD07ABA090CEC2D7D0C69F1D2E1AC7D43DE7D0ACCDAB0AB0470D0578",
+      "Bytes": 6425,
+      "FormatterOnlyCompared4": true
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoDefaultNativeCases.cs",
+      "Sha256": "0620DA9371E51155348945F8361C29BD56DF0BC726AB3760664D02773BDE484A",
+      "Bytes": 4205,
+      "FormatterOnlyCompared4": true
+    },
+    {
+      "Path": "probe/ProcessInfoDefaultFocus.csproj",
+      "Sha256": "9A06A2159581072F2E04EA17AB045884115A7B8DD325B29152E833A584869932",
+      "Bytes": 198,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "probe/ProcessInfoDefaultFocusNames.cs",
+      "Sha256": "1866D9ACA12E7AED3DC7286C01057B223AFC4B56E79637D161C8FB0309058CC2",
+      "Bytes": 516,
+      "FormatterOnlyCompared4": false
+    },
+    {
+      "Path": "probe/Program.cs",
+      "Sha256": "275FAE28A5ED2A90DBACA389708137ABD8DC09B4F299BE00BD4CBB208591E7F8",
+      "Bytes": 1251,
+      "FormatterOnlyCompared4": false
+    }
+  ],
+  "UnownedExact": 1705,
+  "CurrentMain14RuntimeDependenciesExact": true,
+  "PinnedSource": {
+    "GitReference": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_bif_info.c",
+    "RawSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+  },
+  "PinnedDefaultOrder17ExactCatalog": [
+    "registered_name",
+    "current_function",
+    "initial_call",
+    "status",
+    "message_queue_len",
+    "links",
+    "dictionary",
+    "trap_exit",
+    "error_handler",
+    "priority",
+    "group_leader",
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "reductions",
+    "garbage_collection",
+    "suspending"
+  ],
+  "AvailableLogicalFields": 13,
+  "ExplicitMissingMandatoryPhysicalFields": [
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "garbage_collection"
+  ],
+  "NoPublicProcessInfo1Registration": true,
+  "NativeOnly8TemplatesExcludedFromSdkCorpus": true,
+  "CurrentCoreProgramCompiledCorpusUnchanged": true,
+  "Public2OnlyChangeExplicitDynamicOwnerGuard": true,
+  "Checks": [
+    "Foreign dynamic wire-equal PID owner rejected before QueryProcessInfo target dictionary/self equality",
+    "Own dynamic PID and fixed current wire accepted; fixed stale creation falls through genuine lookup undefined; foreign node badarg",
+    "Private default query uses one existing coherent owner snapshot; registered_name nil field omitted only, preserves ordered logical keys",
+    "Dead local returns Existsfalse and no rows/no hypothetical resource gaps",
+    "No heap/stack/GC zero or CLR proxy fabrication",
+    "Fresh real HOST same-wire two runtimes plus self/fixed/stale/remote/name/dead cases",
+    "Inherited QueryProcessInfo cancellation/reference correlation/signal snapshot unchanged"
+  ],
+  "ActualAgentReceiptSha256": "BED151760E1989F88984A3DC7FFFCE69255D091B89552194562C17A604E51390",
+  "ActualAgentReceiptMetadataBoundOnly": true,
+  "Limits": [
+    "HOST callbacks without source/MFA have undefined current/initial call; do not claim native always-tuple default parity",
+    "priority/error_handler currently stored defaults with incomplete mutation/dispatch APIs",
+    "sensitive dictionary privacy flag not modeled; native masks sensitive dictionaries",
+    "logical reductions count is runtime-owned work accounting, not exact BEAM instruction accounting"
+  ],
+  "ReviewerReadOnlyCorrections": [
+    "Initial guessed Query source filenames corrected to actual ProcessRuntime.ProcessInfo.cs; no source changed",
+    "Native default GC subfield template remains unexecuted; no physical compatibility claim"
+  ],
+  "MainWritten": false,
+  "GitWritten": false,
+  "HeavyExecuted": false,
+  "NativeExecuted": false
+}

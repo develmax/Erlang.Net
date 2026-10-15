@@ -1,0 +1,12 @@
+namespace Erlang.Tests;
+
+internal static class DistributionGroupLeaderHostNames
+{
+    internal const string Test = "runtime/distribution-group-leader-queued-signal-owned-local-target";
+    internal const string Local = "group_leader_local@localhost";
+    internal const string Remote = "group_leader_remote@localhost";
+    internal const string OtherNode = "group_leader_other@localhost";
+    internal const string Failure = "Distribution group leader assertion failed";
+    internal const ulong LeaderNumber = 19;
+    internal const uint LeaderCreation = 23;
+}

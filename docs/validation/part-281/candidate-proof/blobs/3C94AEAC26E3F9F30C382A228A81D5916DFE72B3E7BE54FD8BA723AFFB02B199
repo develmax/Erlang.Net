@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib,re
+H=lambda b:hashlib.sha256(b).hexdigest().upper();p=Path('artifacts/pid-order-group-leader-permanent-promotion-source-freeze-prebuild-revision6.json');f=json.loads(p.read_bytes());c=Path(f['Candidate']);finalp=Path('artifacts/pid-order-group-leader-main280-source-freeze-final-revision5.json');a=json.loads(finalp.read_bytes());old=json.loads(Path('artifacts/pid-order-group-leader-main280-source-freeze-prebuild-revision3.json').read_bytes());o={r['Path']:r for r in old['Files']};tested={r['Path']:r for r in a['Files']};WS=lambda s:re.sub(r'\s','',s);assert H(p.read_bytes())=='467E8F76FF7EEF882D8F656D145D1D2E1B07A021D319FEA3991692440A0964EE';assert H(finalp.read_bytes())==f['Actual5FinalFreezeSha256'];rows=[]
+for r in a['Files']:
+ before=o[r['Path']]['SourceContent'];after=r['SourceContent'];assert WS(before)==WS(after) and re.findall(r'"(?:\\.|[^"\\])*"',before)==re.findall(r'"(?:\\.|[^"\\])*"',after)
+for r in f['Files']:
+ b=(c/r['Path']).read_bytes();assert H(b)==r['Sha256'] and len(b)==r['Bytes'] and b.decode()==r['SourceContent'];rows.append({'Path':r['Path'],'Sha256':H(b),'Bytes':len(b)})
+ path=r['Path']
+ if path not in ['tests/Erlang.Tests/DistributionGroupLeaderHostChecks.cs','tests/Erlang.Tests/DistributionGroupLeaderHostNames.cs']:
+  assert r['Sha256']==tested[path]['Sha256']
+ else:
+  after=WS(r['SourceContent']);before=WS(tested[path]['SourceContent']);guard='if(checks!=DistributionGroupLeaderHostNames.ExpectedAssertions)thrownewInvalidOperationException(DistributionGroupLeaderHostNames.Failure);';constant='internalconstintExpectedAssertions=23;';assert after.replace(guard,'').replace(constant,'')==before
+assert len(rows)==10
+program=(c/'tests/Erlang.Tests/Program.cs').read_bytes().decode();before=Path('tests/Erlang.Tests/Program.cs').read_bytes().decode();append='Test(Erlang.Tests.DistributionGroupLeaderHostNames.Test,Erlang.Tests.DistributionGroupLeaderHostChecks.Run);';assert WS(program).count(append)==1 and WS(program).replace(append,'')==WS(before)
+receipt=Path(f['Actual5Receipt']);assert H(receipt.read_bytes())==f['Actual5ReceiptSha256'];r=json.loads(receipt.read_bytes());assert r['Target']['ExitCode']==0 and r['Target']['Errors']==r['Target']['Warnings']==0 and r['Focus']['ExitCode']==0
+peer=Path('artifacts/native269-group-leader-main280-revision3-independent-source-review.json');out={'Status':'PASS_GROUP_LEADER_FINAL5_AND_PERMANENT10_REVISION6_SOURCE_PEER','SourceFreeze':str(p),'Sha256':H(p.read_bytes()),'Final5SourceSha256':H(finalp.read_bytes()),'Files10':rows,'Final5TokenAndQuotedLiteralExactPeer3':True,'ProductionAndRaw41ExactActual5':True,'OnlyPostActual5ActorChangesNoncountingObserved23GuardAndConstant':True,'ProgramOneAppendCurrentA10Only':True,'Actual5ReceiptSha256':H(receipt.read_bytes()),'Actual5Focus':r['Focus'],'PriorSemanticPeer':str(peer),'PriorSemanticPeerSha256':H(peer.read_bytes()),'ExplicitResourceEolVariantsInheritedPeer3':True,'NoCoreRegistration':True,'ValidExternalTargetStillUnobservedPrivateNotSupportedGap':True,'OriginalNativeExecuted':False,'ReviewerHeavyExecuted':False,'MainWritten':False,'GitWritten':False};op=Path('artifacts/native269-group-leader-permanent10-revision6-independent-source-review.json');op.write_bytes((json.dumps(out,indent=2)+'\n').encode());print(H(op.read_bytes()))

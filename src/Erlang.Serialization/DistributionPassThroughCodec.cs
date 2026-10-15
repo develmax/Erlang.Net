@@ -89,6 +89,14 @@ public static class DistributionPassThroughCodec
         bool unlink = opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck;
         bool monitor = opcode.Value == DistributionControlOpcodes.Monitor ||
             opcode.Value == DistributionControlOpcodes.Demonitor || opcode.Value == DistributionControlOpcodes.MonitorExit;
+        if (opcode.Value == DistributionControlOpcodes.GroupLeader)
+        {
+            if (!IsGroupLeaderControl(tuple) || payloadOffset != packet.Length)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            ValidateFeatures(tuple, negotiatedFlags);
+
+            return new(tuple, null);
+        }
         if (monitor)
         {
             if (!IsMonitorControl(tuple) || payloadOffset != packet.Length)
@@ -151,7 +159,7 @@ public static class DistributionPassThroughCodec
                 id.Value >= (opcode.Value == DistributionControlOpcodes.UnlinkId ? 1 : 0) && id.Value <= ulong.MaxValue &&
                 control.Items[DistributionControlOpcodes.UnlinkFromIndex] is Pid &&
                 control.Items[DistributionControlOpcodes.UnlinkTargetIndex] is Pid;
-        valid |= IsMonitorControl(control);
+        valid |= IsMonitorControl(control) || IsGroupLeaderControl(control);
         if (!valid)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
         ValidateFeatures(control, negotiatedFlags);
@@ -168,6 +176,16 @@ public static class DistributionPassThroughCodec
         encoded.CopyTo(packet, DistributionPassThroughLayout.MarkerBytes);
 
         return packet;
+    }
+
+    private static bool IsGroupLeaderControl(TupleTerm control)
+    {
+        var items = control.Items;
+
+        return items.Count == DistributionControlOpcodes.GroupLeaderArity &&
+            items[DistributionControlOpcodes.OpcodeIndex] is Integer opcode && opcode.Value == DistributionControlOpcodes.GroupLeader &&
+            items[DistributionControlOpcodes.FromIndex] is Pid &&
+            items[DistributionControlOpcodes.TargetIndex] is Pid;
     }
 
     private static bool IsMonitorControl(TupleTerm control)

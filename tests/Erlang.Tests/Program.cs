@@ -4270,10 +4270,13 @@ Test(Erlang.Tests.ConnectedIngressHostNames.Test, Erlang.Tests.ConnectedIngressH
 Test(Erlang.Tests.DistributionRawInputHostNames.Test, Erlang.Tests.DistributionRawInputHostChecks.Run);
 Test(Erlang.Tests.DistributionRawSignalHostNames.Test, Erlang.Tests.DistributionRawSignalHostChecks.Run);
 Test(Erlang.Tests.DistributionMonitorHostNames.Test, Erlang.Tests.DistributionMonitorHostChecks.Run);
+Test(Erlang.Tests.DistributionGroupLeaderHostNames.Test, Erlang.Tests.DistributionGroupLeaderHostChecks.Run);
 
 Test(Erlang.Tests.RuntimeActorDispatchHostNames.Test, Erlang.Tests.RuntimeActorDispatchHostChecks.Run);
 Test(Erlang.Tests.GarbageCollectionResultHostNames.Test, Erlang.Tests.GarbageCollectionResultHostChecks.Run);
 Test(Erlang.Tests.TraceHookRollbackHostNames.Test, Erlang.Tests.TraceHookRollbackHostChecks.Run);
+
+Test(Erlang.Tests.ProcessInfoDefaultHostNames.Test, Erlang.Tests.ProcessInfoDefaultHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

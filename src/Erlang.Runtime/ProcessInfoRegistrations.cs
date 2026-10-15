@@ -15,8 +15,9 @@ internal static class ProcessInfoRegistrations
             {
                 keys[index] = ProcessInfoItem.Parse(options[index]);
             }
-            if (arguments[0] is not Pid pid || pid.Node != context.Runtime.Node)
+            if (arguments[0] is not Pid pid)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
+            context.Runtime.RequireProcessInfoTarget(pid);
             Term result = await context.Runtime.QueryProcessInfo(
                 context,
                 pid,

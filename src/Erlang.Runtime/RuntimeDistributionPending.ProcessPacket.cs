@@ -101,6 +101,13 @@ public sealed partial class RuntimeDistributionPending
     {
         var items = control.Items;
         int opcode = (int)((Integer)items[DistributionControlOpcodes.OpcodeIndex]).Value;
+        if (opcode == DistributionControlOpcodes.GroupLeader)
+        {
+            runtime.QueueConnectedGroupLeaderSignal((Pid)items[DistributionControlOpcodes.FromIndex],
+                (Pid)items[DistributionControlOpcodes.TargetIndex]);
+
+            return;
+        }
         if (opcode is DistributionControlOpcodes.Monitor or DistributionControlOpcodes.Demonitor or DistributionControlOpcodes.MonitorExit)
         {
             RouteRawConnectedMonitorControl(entry, connected, control);

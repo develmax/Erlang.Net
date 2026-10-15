@@ -1,0 +1,59 @@
+from pathlib import Path
+import hashlib,json,subprocess,re
+A=Path('artifacts');S=A/'native269-part281-candidate-ci-evidence-staging';(S/'blobs').mkdir(parents=True,exist_ok=True);HEAD='a10fc16c6e5392d69b6f84d17c396ac525a34104';H=lambda b:hashlib.sha256(b).hexdigest().upper();paths=subprocess.check_output(['git','ls-tree','-r','--name-only',HEAD,'docs/validation/part-278','docs/validation/part-280'],text=True).splitlines();reuse={}
+for path in paths:
+ n=Path(path).name
+ if re.fullmatch('[0-9A-Fa-f]{64}',n):reuse.setdefault(n.upper(),path)
+verified={};records={}
+def put(key,b,kind):
+ sha=H(b);r={'InputPath':key,'Bytes':len(b),'Sha256':sha,'Kind':kind}
+ if sha in reuse:
+  path=reuse[sha]
+  if sha not in verified:
+   g=subprocess.check_output(['git','cat-file','blob',HEAD+':'+path]);assert g==b and H(g)==sha;verified[sha]={'GitReference':HEAD+':'+path,'Path':path,'Bytes':len(g),'Sha256':sha}
+  r['Storage']='ReuseCommittedBlob';r['GitReference']=HEAD+':'+path
+ else:
+  d=S/'blobs'/sha
+  if d.exists():assert d.read_bytes()==b
+  else:d.write_bytes(b)
+  r['Storage']='NewBlob';r['Blob']='blobs/'+sha
+ records[key]=r
+
+def add(p,kind):p=Path(p);put(str(p).replace('\\','/'),p.read_bytes(),kind)
+def freeze(p):
+ p=Path(p);add(p,'ImmutableSourceFreeze');f=json.loads(p.read_bytes())
+ for r in f.get('Files',[])+f.get('FocusFiles',[]):
+  if 'SourceContent' in r:
+   b=r['SourceContent'].encode();assert H(b)==r['Sha256'];put(str(p).replace('\\','/')+'::SourceContent::'+r['Path'],b,'OwnedFrozenSourceContent')
+ return f
+pio=freeze(A/'dist_next-process-info-default-source-freeze-final-revision6.json');group=freeze(A/'pid-order-group-leader-main280-source-freeze-final-revision5.json');freeze(A/'dist_next-process-info-permanent-overlay-source-freeze-prebuild-revision1.json');freeze(A/'pid-order-group-leader-permanent-promotion-source-freeze-prebuild-revision6.json')
+receipts=[]
+for f,keys in [(pio,['FirstStyleFailure4Receipt','ActualReceipt']),(group,['ActualReceipt'])]:
+ for k in keys:
+  p=Path(f[k]);assert H(p.read_bytes())==f[k+'Sha256'];r=json.loads(p.read_bytes());receipts.append({'Path':str(p).replace('\\','/'),'Sha256':H(p.read_bytes())})
+  for q in p.parent.rglob('*'):
+   if q.is_file():assert not any(n in q.parts for n in ['.git','.nuget','obj']);add(q,'ActualExecutedOrInitialStyleFailureClosure')
+  for field in ['OutputClosure','PartialEmittedOutputClosure','Logs']:
+   for row in r.get(field,[]):
+    if not isinstance(row,dict) or 'Path' not in row or 'Sha256' not in row:continue
+    q=Path(row['Path']);choices=[q,p.parent/q,p.parent/'output'/q,p.parent/'actual-executed-closure'/q];actual=next((v for v in choices if v.is_file() and H(v.read_bytes())==row['Sha256']),None);assert actual is not None,(p,field,q);assert 'Bytes' not in row or actual.stat().st_size==row['Bytes']
+for n in ['dist_next-process-info-default-source-freeze-revision3.json','dist_next-process-info-default-source-freeze-prebuild-revision4.json','dist_next-process-info-default-source-freeze-prebuild-revision5.json','pid-order-group-leader-source-freeze-prebuild-revision2.json','pid-order-group-leader-main280-source-freeze-prebuild-revision3.json','pid-order-group-leader-main280-source-freeze-prebuild-revision4.json','pid-order-group-leader-main280-source-freeze-prebuild-revision5.json']:
+ freeze(A/n)
+for n in ['native269-pio-default-final6-independent-source-review.json','native269-pio-permanent9-independent-source-review.json','native269-group-leader-main280-revision3-independent-source-review.json','native269-group-leader-permanent10-revision6-independent-source-review.json','native269-review-pio-default-final6-source.py','native269-review-pio-permanent9-source.py','native269-review-group-leader-main280-revision3-source.py','native269-review-group-leader-final5-permanent10-source.py','native269-review-pio6-initial-registration-newline-assumption.py','native269-group-leader3-initial-resource-raw-git-eol-assumption.py','native269-correct-group-leader3-resource-eol-proof.py','pid-order-group-leader-gap-extension-ledger-revision2.json','pid-order-group-leader-style-initial4.log']:
+ add(A/n,'PeerOrInitialCorrectionOrGapLedger')
+for r in pio['CurrentPromotedRuntimeDependencyClosure']:
+ p=Path(pio['Candidate'])/r['Path'];assert H(p.read_bytes())==r['Sha256'];add(p,'ActualCandidateDependencySource14')
+# Record common actual candidate build headers/projects rather than copying their full seeds.
+absentBuildHeaders=[]
+for name in ['Directory.Build.props','Directory.Build.targets','global.json','src/Erlang.Runtime/Erlang.Runtime.csproj','src/Erlang.Terms/Erlang.Terms.csproj','src/Erlang.Serialization/Erlang.Serialization.csproj','src/Erlang.Compiler/Erlang.Compiler.csproj','tests/Erlang.Tests/Erlang.Tests.csproj','tools/Erlang.Differential/Erlang.Differential.csproj']:
+ for cand in [pio['Candidate'],group['Candidate']]:
+  pp=Path(cand)/name
+  if pp.exists():add(pp,'ActualCandidateBuildHeaderOrProject')
+  else:
+   assert name=='Directory.Build.targets';absentBuildHeaders.append(str(pp).replace('\\','/'))
+ciS=A/'native269-part281-ci280-evidence-staging';ci=json.loads((ciS/'manifest.json').read_bytes());add(ciS/'manifest.json','CI280StageManifest')
+for r in ci['Files']:
+ p=ciS/r['Path'];assert H(p.read_bytes())==r['Sha256'] and p.stat().st_size==r['Bytes'];add(p,'ExactCi280Archive')
+for r in records.values():
+ if r['Storage']=='NewBlob':assert H((S/r['Blob']).read_bytes())==r['Sha256'] and (S/r['Blob']).stat().st_size==r['Bytes']
+blobs=list((S/'blobs').iterdir());out={'Stage':'NATIVE269_PART281_COMPACT_CANDIDATE_AND_CI280_PROOFS','IntendedDestination':'docs/validation/part-281/candidate-proof','ReuseCommit':HEAD,'VerifiedCommittedBlobReuses':list(verified.values()),'Records':list(records.values()),'LogicalRecords':len(records),'NewBlobFiles':len(blobs),'NewBlobBytes':sum(p.stat().st_size for p in blobs),'ReuseDistinctBlobBytes':sum(r['Bytes'] for r in verified.values()),'ReceiptChecks':receipts,'ExplicitAbsentOptionalBuildHeaders':absentBuildHeaders,'ReviewerCorrection':'Initial optional Directory.Build.targets assumption failed read-only staging; absent in both actual candidates, recorded rather than fabricated; initial script retained','PIO13LogicalFourPhysicalMissingNo1Registration':True,'Group23OriginalNativeNotObserved':True,'CI280Passed':6559,'Main281FullEvidenceIncluded':False,'WholeCheckoutsCopied':False,'MainWritten':False,'GitWritten':False,'HeavyExecuted':False};p=S/'manifest.json';p.write_bytes((json.dumps(out,indent=2)+'\n').encode());print('Manifest',H(p.read_bytes()),'Records',len(records),'NewBlobs',len(blobs),'NewBytes',out['NewBlobBytes'],'Reused',len(verified))

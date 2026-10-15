@@ -35,6 +35,7 @@ public static class DistributionControlOpcodes
     public const int OpcodeIndex = 0;
     public const int FromIndex = 1;
     public const int TargetIndex = 2;
+    public const int GroupLeaderArity = 3;
     public const int MonitorArity = 4;
     public const int MonitorExitArity = 5;
     public const int MonitorReferenceIndex = 3;

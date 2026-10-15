@@ -1,0 +1,230 @@
+{
+  "Stage": "SOURCE_ONLY_PRIVATE_INFO_PROJECTION_OWNER_GUARD_HOST_AND_EIGHT_NATIVE_TEMPLATES_REVISION3",
+  "Candidate": "artifacts\\dist_next-process-info-default-proposal-revision3",
+  "CurrentPromotedRuntimeDependencyClosure": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoNames.cs",
+      "Sha256": "140E65D8D47E9BB63EDC1454F788EF5EC6058BD51B95903A80DC8DE0A5B7F9E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoLogicalNames.cs",
+      "Sha256": "CD81B0369CF5F37C443543984A928E0B4C98ED5083D0805D17EB494A87435C4D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Sha256": "8DC5361DC310D95EBD7D8F8910CB463774B1EF391600E2352D1EC19320A08728"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoItem.cs",
+      "Sha256": "56831E7519AE1D2ACC09D1AD8F624111A4424A1E45A6A46CA3E0C144030BDC4A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoRequest.cs",
+      "Sha256": "E16E7A61C275B8FFD11EFDD6A724B6DC169F937DD07C54A47E0A3CE82F99164D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ProcessInfo.cs",
+      "Sha256": "42C2AA8542A09C6AA1DD933C736D6CEA91B1E6592AB9AF594873C133464C7F0F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "61F826AE53A439C3C9934CBAB54F6C7D58FCED545E4051CDE34039CA62DB0EA4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "FA7817BD3F7C48CEDD2A1E3E360C05639B0487D1BF88AAD03B758AA5084DA856"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Sha256": "16028CA4038516C7FB1AF2068920B5D73B1CB47C478556F9BB4A144666E0A7F3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSuspensions.cs",
+      "Sha256": "61AA200B3A3A8C7795BDC55927CEE6D5DC509F3CFDC85655265600873056168C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NodeAdmission.cs",
+      "Sha256": "9B3B85E3D70D31DD3F71E459673F493CF2C2A7D709FC0252CD25F04313B50253"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeKnownNodes.cs",
+      "Sha256": "3A05794C9D10EF0BE358F223F8D3FFCE04D276A5A8922E049F4AA96E3704DA96"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollection.cs",
+      "Sha256": "ADD72114DA6956DA7B466D1FC1BE1C7C07DDB9C5A244805F8DA732B92CD21FDD"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    }
+  ],
+  "PinnedSource": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "GitBlobReference": "OTP-29.1.1:erts/emulator/beam/erl_bif_info.c",
+    "RawSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+  },
+  "ExactDefaultOrder": [
+    "registered_name",
+    "current_function",
+    "initial_call",
+    "status",
+    "message_queue_len",
+    "links",
+    "dictionary",
+    "trap_exit",
+    "error_handler",
+    "priority",
+    "group_leader",
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "reductions",
+    "garbage_collection",
+    "suspending"
+  ],
+  "GenuineLogicalFields": [
+    "registered_name",
+    "current_function",
+    "initial_call",
+    "status",
+    "message_queue_len",
+    "links",
+    "dictionary",
+    "trap_exit",
+    "error_handler",
+    "priority",
+    "group_leader",
+    "reductions",
+    "suspending"
+  ],
+  "MissingMandatoryPhysicalFields": [
+    "total_heap_size",
+    "heap_size",
+    "stack_size",
+    "garbage_collection"
+  ],
+  "NativeGarbageCollectionFieldOrder": [
+    "max_heap_size",
+    "min_bin_vheap_size",
+    "min_heap_size",
+    "fullsweep_after",
+    "minor_gcs"
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoResourceNames.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "5FB6E85670682B25BEC63B757F2E911BB46B28021EE0EC8D5D1949407B47E7C4",
+      "SourceContent": "namespace Erlang;\n\ninternal static class ProcessInfoResourceNames\n{\n    internal const string TotalHeapSize = \"total_heap_size\";\n    internal const string HeapSize = \"heap_size\";\n    internal const string StackSize = \"stack_size\";\n    internal const string GarbageCollection = \"garbage_collection\";\n}\n",
+      "Meaning": "Physical default key names only; no providers/default numeric values."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultCatalog.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2",
+      "SourceContent": "namespace Erlang;\n\ninternal static class ProcessInfoDefaultCatalog\n{\n    internal static readonly IReadOnlyList<string> OrderedKeys = Array.AsReadOnly<string>(\n    [\n        ProcessInfoNames.RegisteredName,\n        ProcessInfoNames.CurrentFunction,\n        ProcessInfoLogicalNames.InitialCall,\n        ProcessInfoNames.Status,\n        ProcessInfoNames.MessageQueueLength,\n        ProcessInfoNames.Links,\n        ProcessInfoNames.Dictionary,\n        ProcessInfoNames.TrapExit,\n        ProcessInfoLogicalNames.ErrorHandler,\n        ProcessInfoLogicalNames.Priority,\n        ProcessInfoNames.GroupLeader,\n        ProcessInfoResourceNames.TotalHeapSize,\n        ProcessInfoResourceNames.HeapSize,\n        ProcessInfoResourceNames.StackSize,\n        ProcessInfoLogicalNames.Reductions,\n        ProcessInfoResourceNames.GarbageCollection,\n        ProcessInfoLogicalNames.Suspending\n    ]);\n\n    internal static readonly IReadOnlyList<string> MissingPhysicalKeys = Array.AsReadOnly<string>(\n    [\n        ProcessInfoResourceNames.TotalHeapSize,\n        ProcessInfoResourceNames.HeapSize,\n        ProcessInfoResourceNames.StackSize,\n        ProcessInfoResourceNames.GarbageCollection\n    ]);\n\n    internal static readonly IReadOnlyList<ProcessInfoItem> LogicalItems = Array.AsReadOnly(\n        OrderedKeys.Where(key => !MissingPhysicalKeys.Contains(key))\n            .Select(key => ProcessInfoItem.Parse(Term.A(key))).ToArray()\n    );\n}\n",
+      "Meaning": "Exact pinned17 order and genuine13 projection; immutable read-only catalog; no physical value fabrication."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultProjection.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "CE10BAC9F525179D8A5A2FDE7A1D9372A81FD9C27B31319A768D3CFA890EA8EF",
+      "SourceContent": "namespace Erlang;\n\ninternal sealed record ProcessInfoDefaultProjection(\n    bool Exists,\n    IReadOnlyList<Term> AvailableFields,\n    IReadOnlyList<string> UnavailableMandatoryFields\n);\n",
+      "Meaning": "Internal diagnostic projection type explicitly records missing mandatory fields, never returned as complete Erlang process_info/1 result."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ProcessInfoIdentity.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "95FC48C9C216B52F3D08B03D1D5DB81F719F0C7AE7E2001DE100C504BCF93728",
+      "SourceContent": "namespace Erlang;\n\npublic sealed partial class ProcessRuntime\n{\n    internal void RequireProcessInfoTarget(Pid target)\n    {\n        lock (gate)\n        {\n            if (target.LocalIdentity is not null)\n            {\n                if (!ReferenceEquals(target.LocalIdentity, LocalIdentity))\n                    throw new ErlangException(ErlangErrorReasons.BadArgument);\n\n                return;\n            }\n            if (target.WireIdentity.Node != LocalIdentity.Snapshot.Node)\n                throw new ErlangException(ErlangErrorReasons.BadArgument);\n        }\n    }\n}\n",
+      "Meaning": "Reject foreign dynamic owner before same-wire lookup; accept own dynamic identity independent of name changes and fixed current-node stale epochs for undefined lookup."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DefaultProcessInfo.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "66AA3CCC4991B76EC06DE86826272800021786A7F8C6F11A3B595BF57781BDD3",
+      "SourceContent": "namespace Erlang;\n\npublic sealed partial class ProcessRuntime\n{\n    internal async ValueTask<ProcessInfoDefaultProjection> QueryDefaultLogicalProcessInfo(\n        ProcessContext requester,\n        Term target\n    )\n    {\n        if (!ReferenceEquals(requester.Runtime, this) || target is not Pid pid)\n            throw new ErlangException(ErlangErrorReasons.BadArgument);\n        RequireProcessInfoTarget(pid);\n        Term snapshot = await QueryProcessInfo(\n            requester,\n            pid,\n            ProcessInfoDefaultCatalog.LogicalItems,\n            false\n        );\n        requester.Cancellation.ThrowIfCancellationRequested();\n        if (snapshot.Equals(ProcessInfoAtoms.Undefined))\n            return new(false, Array.Empty<Term>(), Array.Empty<string>());\n        Term[] fields = Cons.Items(snapshot).Where(field => field is not TupleTerm\n        { Items: [Atom { Name: ProcessInfoNames.RegisteredName }, Nil] }).ToArray();\n\n        return new(\n            true,\n            Array.AsReadOnly(fields),\n            ProcessInfoDefaultCatalog.MissingPhysicalKeys\n        );\n    }\n}\n",
+      "Meaning": "Reuse actual per-owner snapshot/cancellation/suspension protocol; omit unregistered-name row like default native list; live projections retain4 explicit gaps, dead return has no fields."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoRegistrations.cs",
+      "MainBeforeSha256": "D844A54445F698BF6F7CFDD46DE5C325DF3B26056957460D534307C74B971181",
+      "Sha256": "66737F1D488ACB92FB1AEC25F693A5FA9EB36DB681579CC1F6E49D230BDFC8F9",
+      "SourceContent": "namespace Erlang;\n\ninternal static class ProcessInfoRegistrations\n{\n    public static void Register(ModuleRegistry registry) => registry.Register(\n        ErlangModuleNames.Module,\n        ProcessInfoNames.Function,\n        2,\n        async (context, arguments) =>\n        {\n            bool singleton = arguments[1] is Atom or TupleTerm { Items.Count: 2 };\n            Term[] options = singleton ? [arguments[1]] : Cons.Items(arguments[1]).ToArray();\n            var keys = new ProcessInfoItem[options.Length];\n            for (int index = 0; index < options.Length; index++)\n            {\n                keys[index] = ProcessInfoItem.Parse(options[index]);\n            }\n            if (arguments[0] is not Pid pid)\n                throw new ErlangException(ErlangErrorReasons.BadArgument);\n            context.Runtime.RequireProcessInfoTarget(pid);\n            Term result = await context.Runtime.QueryProcessInfo(\n                context,\n                pid,\n                keys,\n                singleton\n            );\n            context.Cancellation.ThrowIfCancellationRequested();\n\n            return result;\n        }\n    );\n}\n",
+      "Meaning": "Existing /2 options-before-PID precedence preserved; add genuine HOST ownership guard without /1 registration or exported-count change."
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoDefaultHostNames.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "901BEFC5FA214EE1D7A76773E42670C56343246693FF117B01A9E5C1491EC18A",
+      "SourceContent": "namespace Erlang.Tests;\r\n\r\ninternal static class ProcessInfoDefaultHostNames\r\n{\r\n    internal const string Test = \"runtime/process-info-logical-default-and-dynamic-owner-isolation\";\r\n    internal const string Failure = \"Process info default projection or target ownership contract failed.\";\r\n    internal const string Registration = \"process_info_default_owner\";\r\n    internal const string RemoteNode = \"remote@process-info.invalid\";\r\n    internal const string QueryMethod = \"QueryDefaultLogicalProcessInfo\";\r\n    internal const string AsTaskMethod = \"AsTask\";\r\n    internal const string ResultProperty = \"Result\";\r\n    internal const string ExistsProperty = \"Exists\";\r\n    internal const string FieldsProperty = \"AvailableFields\";\r\n    internal const string MissingProperty = \"UnavailableMandatoryFields\";\r\n    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(15);\r\n    internal static readonly string[] ResourceKeys = [\"total_heap_size\", \"heap_size\", \"stack_size\", \"garbage_collection\"];\r\n    internal static readonly string[] LogicalKeys =\r\n    [\r\n        ProcessInfoNames.RegisteredName,\r\n        ProcessInfoNames.CurrentFunction,\r\n        ProcessInfoLogicalNames.InitialCall,\r\n        ProcessInfoNames.Status,\r\n        ProcessInfoNames.MessageQueueLength,\r\n        ProcessInfoNames.Links,\r\n        ProcessInfoNames.Dictionary,\r\n        ProcessInfoNames.TrapExit,\r\n        ProcessInfoLogicalNames.ErrorHandler,\r\n        ProcessInfoLogicalNames.Priority,\r\n        ProcessInfoNames.GroupLeader,\r\n        ProcessInfoLogicalNames.Reductions,\r\n        ProcessInfoLogicalNames.Suspending\r\n    ];\r\n}\r\n",
+      "Meaning": "Prepared genuine HOST owner/fixed/stale/remote PID and private13 ordered projection proof; unexecuted, no /1 claim."
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoDefaultHostChecks.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "17CA1967146E0A2EF551821F10DF964ECC704D4B2E8BAB3443109AFFE7EC2C8F",
+      "SourceContent": "using System.Reflection;\r\n\r\nnamespace Erlang.Tests;\r\n\r\ninternal static class ProcessInfoDefaultHostChecks\r\n{\r\n    internal static async Task Run()\r\n    {\r\n        await using var first = new ProcessRuntime(1);\r\n        await using var second = new ProcessRuntime(1);\r\n        var finishForeign = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);\r\n        var foreign = second.Spawn(async context =>\r\n        {\r\n            await finishForeign.Task;\r\n\r\n            return Nil.Value;\r\n        });\r\n        try\r\n        {\r\n            var actor = first.Spawn(async context =>\r\n            {\r\n                Require(context.Self.Equals(foreign.Pid));\r\n                try\r\n                {\r\n                    _ = await first.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function,\r\n                        foreign.Pid, Term.A(ProcessInfoLogicalNames.Priority));\r\n                    Require(false);\r\n                }\r\n                catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))\r\n                {\r\n                }\r\n                Term expectedPriority = Term.Tuple(Term.A(ProcessInfoLogicalNames.Priority), Term.A(ProcessInfoLogicalNames.NormalPriority));\r\n                Require((await first.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function,\r\n                    context.Self, Term.A(ProcessInfoLogicalNames.Priority))).Equals(expectedPriority));\r\n                var fixedLocal = new Pid(context.Self.Node, context.Self.Id, context.Self.Creation);\r\n                Require((await first.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function,\r\n                    fixedLocal, Term.A(ProcessInfoLogicalNames.Priority))).Equals(expectedPriority));\r\n                var staleLocal = new Pid(context.Self.Node, context.Self.Id, unchecked(context.Self.Creation + 1));\r\n                Require((await first.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function,\r\n                    staleLocal, Term.A(ProcessInfoLogicalNames.Priority))).Equals(Term.A(ProcessRegistryAtoms.Undefined)));\r\n                try\r\n                {\r\n                    _ = await first.Modules.Call(context, ErlangModuleNames.Module, ProcessInfoNames.Function,\r\n                        new Pid(ProcessInfoDefaultHostNames.RemoteNode, context.Self.Id), Term.A(ProcessInfoLogicalNames.Priority));\r\n                    Require(false);\r\n                }\r\n                catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))\r\n                {\r\n                }\r\n                var projection = await Query(first, context, context.Self);\r\n                Require((bool)Property(projection, ProcessInfoDefaultHostNames.ExistsProperty));\r\n                var missing = (IReadOnlyList<string>)Property(projection, ProcessInfoDefaultHostNames.MissingProperty);\r\n                Require(missing.SequenceEqual(ProcessInfoDefaultHostNames.ResourceKeys));\r\n                var fields = (IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty);\r\n                Require(Keys(fields).SequenceEqual(ProcessInfoDefaultHostNames.LogicalKeys.Skip(1)));\r\n                first.Register(ProcessInfoDefaultHostNames.Registration, context.Self);\r\n                projection = await Query(first, context, context.Self);\r\n                fields = (IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty);\r\n                Require(Keys(fields).SequenceEqual(ProcessInfoDefaultHostNames.LogicalKeys));\r\n                Require(fields[0].Equals(Term.Tuple(Term.A(ProcessInfoNames.RegisteredName), Term.A(ProcessInfoDefaultHostNames.Registration))));\r\n                var terminated = first.Spawn(_ => ValueTask.FromResult<Term>(Nil.Value));\r\n                Require((await terminated.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));\r\n                projection = await Query(first, context, terminated.Pid);\r\n                Require(!(bool)Property(projection, ProcessInfoDefaultHostNames.ExistsProperty));\r\n                Require(((IReadOnlyList<Term>)Property(projection, ProcessInfoDefaultHostNames.FieldsProperty)).Count == 0);\r\n                Require(((IReadOnlyList<string>)Property(projection, ProcessInfoDefaultHostNames.MissingProperty)).Count == 0);\r\n\r\n                return Nil.Value;\r\n            });\r\n            Require((await actor.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));\r\n        }\r\n        finally\r\n        {\r\n            finishForeign.TrySetResult();\r\n        }\r\n        Require((await foreign.Completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));\r\n    }\r\n\r\n    private static IEnumerable<string> Keys(IReadOnlyList<Term> fields)\r\n        => fields.Select(field => ((Atom)((TupleTerm)field).Items[0]).Name);\r\n\r\n    private static object Property(object target, string name)\r\n        => target.GetType().GetProperty(name)!.GetValue(target)!;\r\n\r\n    private static async Task<object> Query(ProcessRuntime runtime, ProcessContext requester, Term target)\r\n    {\r\n        MethodInfo method = typeof(ProcessRuntime).GetMethod(ProcessInfoDefaultHostNames.QueryMethod,\r\n            BindingFlags.Instance | BindingFlags.NonPublic)!;\r\n        object pending = method.Invoke(runtime, [requester, target])!;\r\n        Task completion = (Task)pending.GetType().GetMethod(ProcessInfoDefaultHostNames.AsTaskMethod)!.Invoke(pending, null)!;\r\n        await completion.WaitAsync(ProcessInfoDefaultHostNames.Deadline);\r\n\r\n        return Property(completion, ProcessInfoDefaultHostNames.ResultProperty);\r\n    }\r\n\r\n    private static void Require(bool condition)\r\n    {\r\n        if (!condition)\r\n            throw new InvalidOperationException(ProcessInfoDefaultHostNames.Failure);\r\n    }\r\n}\r\n",
+      "Meaning": "Prepared genuine HOST owner/fixed/stale/remote PID and private13 ordered projection proof; unexecuted, no /1 claim."
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoDefaultNativeCases.cs",
+      "MainBeforeSha256": null,
+      "Sha256": "36A719CBDF119E520DFB611F05922B7A05C51EB7C375A6445080E440FE33563D",
+      "SourceContent": "namespace Erlang.Differential;\r\n\r\npublic static class ProcessInfoDefaultNativeCases\r\n{\r\n    public static IReadOnlyList<CompiledModuleCase> Modules { get; } =\r\n    [\r\n        new(\r\n            \"process-info-default-unregistered-key-order\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->I=process_info(self()),[current_function,initial_call,status,message_queue_len,links,dictionary,trap_exit,error_handler,priority,group_leader,total_heap_size,heap_size,stack_size,reductions,garbage_collection,suspending]=[K||{K,_}<-I],done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-registered-key-order\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->true=register(process_info_default_contract,self()),I=process_info(self()),[registered_name,current_function,initial_call,status,message_queue_len,links,dictionary,trap_exit,error_handler,priority,group_leader,total_heap_size,heap_size,stack_size,reductions,garbage_collection,suspending]=[K||{K,_}<-I],{registered_name,process_info_default_contract}=lists:keyfind(registered_name,1,I),done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-resource-field-types\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->I=process_info(self()),lists:foreach(fun(K)->{K,V}=lists:keyfind(K,1,I),true=is_integer(V),true=(V>=0) end,[total_heap_size,heap_size,stack_size]),{garbage_collection,G}=lists:keyfind(garbage_collection,1,I),[max_heap_size,min_bin_vheap_size,min_heap_size,fullsweep_after,minor_gcs]=[K||{K,_}<-G],done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-invalid-pid-domain\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->lists:foreach(fun(V)->ok=try process_info(V) of _->unexpected catch error:badarg->ok end end,[0,ok,{},[],make_ref(),<<>>,fun()->ok end]),done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-dead-local-undefined\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,_}->ok end,undefined=process_info(P),done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-remote-node-badarg\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()-><<131,A/binary>>=term_to_binary(process_info_remote_contract@invalid),P=binary_to_term(<<131,88,A/binary,1:32,0:32,0:32>>),true=is_pid(P),ok=try process_info(P) of _->unexpected catch error:badarg->ok end,done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-stale-local-undefined\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->B=term_to_binary(self()),<<131,88,_/binary>>=B,S=byte_size(B)-4,<<H:S/binary,C:32>>=B,P=binary_to_term(<<H/binary,(C bxor 1):32>>),true=is_pid(P),undefined=process_info(P),done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        ),\r\n        new(\r\n            \"process-info-default-suspended-target-status\",\r\n            \"-module(default_process_info_contract). -export([run/0]). run()->Owner=self(),Ready=make_ref(),P=spawn(fun()->Owner!Ready,receive finish->ok end end),R=monitor(process,P),receive Ready->ok end,true=erlang:suspend_process(P),{status,suspended}=lists:keyfind(status,1,process_info(P)),true=erlang:resume_process(P),P!finish,receive {'DOWN',R,process,P,normal}->ok end,done.\",\r\n            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))\r\n        )\r\n    ];\r\n}\r\n",
+      "Meaning": "Eight native-only predeclared contracts. Not appended to SDK All; /1 is unregistered until actual physical providers available."
+    }
+  ],
+  "NativeBehavior": {
+    "UnregisteredName": "Default /1 omits registered_name entirely; /2 explicit list wraps registered_name as [].",
+    "DeadLocal": "undefined, including old local external node entry; foreign node/non-PID badarg.",
+    "OwnerSnapshot": "Self flushes signals; other process lock/signal request, including busy/exiting, with reference-correlated selective await.",
+    "Suspension": "Query signal/control protocol must proceed without running ordinary suspended process code; suspending list reports suspensions owned by queried process, not its suspenders."
+  },
+  "PhysicalNoSubstitutions": [
+    "CLR global GC bytes/counts are not actor BEAM heap words",
+    "visible execution frame count is not native stack word occupancy",
+    "serialized payload size is not native term heap footprint",
+    "min/max policy constants do not establish actual heap/GC state"
+  ],
+  "LogicalLimits": [
+    "HOST callbacks without source/MFA have undefined current/initial call; do not claim native always-tuple default parity",
+    "priority/error_handler currently stored defaults with incomplete mutation/dispatch APIs",
+    "sensitive dictionary privacy flag not modeled; native masks sensitive dictionaries",
+    "logical reductions count is runtime-owned work accounting, not exact BEAM instruction accounting"
+  ],
+  "ConcreteOwnershipIssue": "Existing /2 validates pid.Node only before dictionary lookup. Two inactive runtimes can own dynamic PIDs with equal wire IDs. Proposed guard rejects foreign dynamic owner while fixed imported current wire identity remains valid. Source-only finding, not executed.",
+  "NewPublicProcessInfo1Registered": false,
+  "PhysicalProviderAdded": false,
+  "BuildExecuted": false,
+  "StyleExecuted": false,
+  "NativeExecuted": false,
+  "MainMutated": false,
+  "GitMutated": false,
+  "PriorFreeze1Sha256": "033E0713F227923ECC8F50545E111F66777DB810395B6E2AD5E99435AA031AB1",
+  "HostControlsPrepared": [
+    "actual two inactive runtimes equal wire PID but different dynamic owner",
+    "existing /2 foreign dynamic badarg, own/fixed current accepted, stale local undefined, remote node badarg",
+    "unregistered default projection exactly12 rows after optional name omitted; registered13 exactorder",
+    "live projection declares4 unavailable physical keys; dead projection has no fields or missing requirements"
+  ],
+  "HostReflectionScope": "Existing internal query return accessed through reflected ValueTask.AsTask/Result/projection properties only; no public/friend ABI.",
+  "HostActionsExecuted": false,
+  "HistoricalRevision1CandidateRestoredToExactSixFileScope": true,
+  "PriorFreeze2Sha256": "D10BDC24CFD2EB6FF7C9B391AD8AF39096E97DD805EA4B630C67EE9AF6D35B78",
+  "NativeCaseNames": [
+    "process-info-default-unregistered-key-order",
+    "process-info-default-registered-key-order",
+    "process-info-default-resource-field-types",
+    "process-info-default-invalid-pid-domain",
+    "process-info-default-dead-local-undefined",
+    "process-info-default-remote-node-badarg",
+    "process-info-default-stale-local-undefined",
+    "process-info-default-suspended-target-status"
+  ],
+  "NativeExpectedResultsSourceGuidedNotExecuted": true,
+  "NativeCaseCorpusAppendedToSdkAll": false,
+  "NativeCaseSdkCompatibleClaim": false,
+  "MandatoryPhysicalFieldsStillBlockPublic1Registration": true
+}

@@ -1,0 +1,48 @@
+namespace Erlang.Differential;
+
+public static class ProcessInfoDefaultNativeCases
+{
+    public static IReadOnlyList<CompiledModuleCase> Modules { get; } =
+    [
+        new(
+            "process-info-default-unregistered-key-order",
+            "-module(default_process_info_contract). -export([run/0]). run()->I=process_info(self()),[current_function,initial_call,status,message_queue_len,links,dictionary,trap_exit,error_handler,priority,group_leader,total_heap_size,heap_size,stack_size,reductions,garbage_collection,suspending]=[K||{K,_}<-I],done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-registered-key-order",
+            "-module(default_process_info_contract). -export([run/0]). run()->true=register(process_info_default_contract,self()),I=process_info(self()),[registered_name,current_function,initial_call,status,message_queue_len,links,dictionary,trap_exit,error_handler,priority,group_leader,total_heap_size,heap_size,stack_size,reductions,garbage_collection,suspending]=[K||{K,_}<-I],{registered_name,process_info_default_contract}=lists:keyfind(registered_name,1,I),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-resource-field-types",
+            "-module(default_process_info_contract). -export([run/0]). run()->I=process_info(self()),lists:foreach(fun(K)->{K,V}=lists:keyfind(K,1,I),true=is_integer(V),true=(V>=0) end,[total_heap_size,heap_size,stack_size]),{garbage_collection,G}=lists:keyfind(garbage_collection,1,I),[max_heap_size,min_bin_vheap_size,min_heap_size,fullsweep_after,minor_gcs]=[K||{K,_}<-G],done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-invalid-pid-domain",
+            "-module(default_process_info_contract). -export([run/0]). run()->lists:foreach(fun(V)->ok=try process_info(V) of _->unexpected catch error:badarg->ok end end,[0,ok,{},[],make_ref(),<<>>,fun()->ok end]),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-dead-local-undefined",
+            "-module(default_process_info_contract). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,_}->ok end,undefined=process_info(P),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-remote-node-badarg",
+            "-module(default_process_info_contract). -export([run/0]). run()-><<131,A/binary>>=term_to_binary(process_info_remote_contract@invalid),P=binary_to_term(<<131,88,A/binary,1:32,0:32,0:32>>),true=is_pid(P),ok=try process_info(P) of _->unexpected catch error:badarg->ok end,done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-stale-local-undefined",
+            "-module(default_process_info_contract). -export([run/0]). run()->B=term_to_binary(self()),<<131,88,_/binary>>=B,S=byte_size(B)-4,<<H:S/binary,C:32>>=B,P=binary_to_term(<<H/binary,(C bxor 1):32>>),true=is_pid(P),undefined=process_info(P),done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        ),
+        new(
+            "process-info-default-suspended-target-status",
+            "-module(default_process_info_contract). -export([run/0]). run()->Owner=self(),Ready=make_ref(),P=spawn(fun()->Owner!Ready,receive finish->ok end end),R=monitor(process,P),receive Ready->ok end,true=erlang:suspend_process(P),{status,suspended}=lists:keyfind(status,1,process_info(P)),true=erlang:resume_process(P),P!finish,receive {'DOWN',R,process,P,normal}->ok end,done.",
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(CompiledContractOutcomeNames.Completion))
+        )
+    ];
+}

@@ -1,0 +1,13 @@
+internal static class ProcessInfoDefaultFocusNames
+{
+    internal const string Assembly = "Erlang.Tests";
+    internal const string Run = "Run";
+    internal const string CompiledFailure = "Existing process_info compiled contract failed: ";
+    internal static readonly string[] Groups =
+    [
+        "Erlang.Tests.ProcessInfoDefaultHostChecks",
+        "Erlang.Tests.ProcessInfoLogicalHostChecks",
+        "Erlang.Tests.ProcessInfoObservableHostChecks",
+        "Erlang.Tests.ProcessSuspensionHostChecks"
+    ];
+}

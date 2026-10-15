@@ -1,0 +1,28 @@
+namespace Erlang;
+
+public sealed partial class ProcessRuntime
+{
+    internal void QueueConnectedGroupLeaderSignal(Pid leader, Pid local)
+    {
+        lock (gate)
+        {
+            if (leader.LocalIdentity is not null && !ReferenceEquals(leader.LocalIdentity, LocalIdentity) ||
+                local.LocalIdentity is not null && !ReferenceEquals(local.LocalIdentity, LocalIdentity))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            if (!IsCurrentLocal(local))
+                throw new NotSupportedException(DistributionGroupLeaderDiagnostics.ExternalTarget);
+            if (!processes.TryGetValue(local, out var target))
+                return;
+            target.Mailbox.SendPending(Nil.Value, () =>
+            {
+                lock (gate)
+                {
+                    if (IsOwnedLiveNodeProcess(target))
+                        target.GroupLeader = leader;
+                }
+
+                return null;
+            });
+        }
+    }
+}
