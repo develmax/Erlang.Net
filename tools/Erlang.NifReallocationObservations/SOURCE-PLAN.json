@@ -37,14 +37,14 @@
   "Files": [
     {
       "Path": ".gitattributes",
-      "Bytes": 6858,
-      "Sha256": "A4D5839405B4959041E40E882B1EB07A770AC61EF0804101A521A52E7AB9D163",
+      "Bytes": 6893,
+      "Sha256": "E8B04FB45D8F93F8879CC6853B9ED4BA4BA7F759B530F1930FF6F7975FBA626C",
       "HashMode": "TextLF"
     },
     {
       "Path": ".github/workflows/nif-pending-native.yml",
       "Bytes": 6236,
-      "Sha256": "C84C3097A3AC1702202244B31E014A6BE8722443FE81C3D1EB52743690A8B033",
+      "Sha256": "F63C5C52C1B69150455538DFB6D32AA8AF9A19BE0538884F058880C998D62588",
       "HashMode": "TextLF"
     },
     {
@@ -1041,6 +1041,54 @@
       "Path": "src/Erlang.Runtime/AliasPattern.cs",
       "Bytes": 632,
       "Sha256": "64DE6467912F241BCE51EB1CBE0F250851418F64004AE7B1FEB03AE9D208DD94",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailbox.cs",
+      "Bytes": 2751,
+      "Sha256": "389E52D7DBB5069A46A19A144877D9B9014154EF4B18A81178694A4F8AD5213A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailboxNames.cs",
+      "Bytes": 641,
+      "Sha256": "6992CCF8C2C8F7B8D76CAABEB295FA1B4C2E7455265EA83C2FE6FEC07E3BA018",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryNames.cs",
+      "Bytes": 334,
+      "Sha256": "196E74E72E655111C6A506180884DFC4032A38365F25AB3959912504D833F700",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryOperation.cs",
+      "Bytes": 5931,
+      "Sha256": "B364973AF841F384F17B17CF2F849CBC899B64CE046A5ABAE390F1035D1A6258",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryProvider.cs",
+      "Bytes": 1481,
+      "Sha256": "5B47F8ABAF20CCB4B7DE9589ABAF22C2E91F6A8401C4FC3A4CD841F63D8F720F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryReplyReducer.cs",
+      "Bytes": 1381,
+      "Sha256": "77EF3D53F5DBFECDD9775F9ABBBF8F05CA8FC2F9FDE396AAC691250E33675F49",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryRequest.cs",
+      "Bytes": 1420,
+      "Sha256": "0988F8E883DF3F53CAE5FA7BFEE41CD6AB26BDCFC8462B1E6E628753E5272920",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryResultReducer.cs",
+      "Bytes": 3135,
+      "Sha256": "9EBB73DC99A0E05B9A32DA3DA54423157FAE18759BEA0C4AEC829D661B50385B",
       "HashMode": "TextLF"
     },
     {
@@ -3847,8 +3895,8 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessContext.cs",
-      "Bytes": 11854,
-      "Sha256": "9AC2B11B95FC0D9955ED2CC9F7BC09A5B61BF3B911F8ADA9BCA8E42C0E7B13DB",
+      "Bytes": 12629,
+      "Sha256": "3888C9ACDE81E1F77B4FACAD3359D0DF83FCB10CCF9DAF057579CEE43A361ABA",
       "HashMode": "TextLF"
     },
     {
@@ -6319,8 +6367,8 @@
     },
     {
       "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
-      "Bytes": 216970,
-      "Sha256": "1E8B55991F79E8DF65E961A5BF2FDAB6E52999D6B6534292DBD69BEB3AF4D2E3",
+      "Bytes": 218633,
+      "Sha256": "A55D9AB23ED5915BF13D67B7F8D15845D59E5B60360D10DA4EC254883F42AE6A",
       "HashMode": "TextLF"
     },
     {
@@ -6521,7 +6569,8 @@
       "enif_make_badarg",
       "enif_make_int",
       "enif_make_string",
-      "enif_has_pending_exception"
+      "enif_has_pending_exception",
+      "__stack_chk_fail"
     ],
     "reallocation_extension.so": [
       "_ITM_deregisterTMCloneTable",

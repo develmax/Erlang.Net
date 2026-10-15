@@ -4329,6 +4329,11 @@ Test(Erlang.Tests.DistributionStatisticsHostNames.Test, Erlang.Tests.Distributio
 
 Test(Erlang.Tests.NifBeamOwnerHostNames.Test, Erlang.Tests.NifBeamOwnerHostChecks.Run);
 
+Test(
+    Erlang.Tests.AllocatorQueryMailboxHostNames.Test,
+    Erlang.Tests.AllocatorQueryMailboxHostChecks.Run
+);
+
 int failed = 0;
 foreach (var test in tests)
 {

@@ -319,12 +319,32 @@ public sealed class ProcessContext : ITermExecutionContext
         return System.Diagnostics.Stopwatch.GetTimestamp() - start;
     }
 
-    public async ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class
+    public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class
+        => ReceiveWithCancellation(select, timeout, Cancellation);
+
+    internal async ValueTask<T?> ReceiveForOperationAsync<T>(
+        Func<Term, T?> select,
+        CancellationToken operationCancellation
+    ) where T : class
+    {
+        if (!operationCancellation.CanBeCanceled || operationCancellation == Cancellation)
+            return await ReceiveWithCancellation(select, null, Cancellation);
+
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(Cancellation, operationCancellation);
+
+        return await ReceiveWithCancellation(select, null, linked.Token);
+    }
+
+    private async ValueTask<T?> ReceiveWithCancellation<T>(
+        Func<Term, T?> select,
+        TimeSpan? timeout,
+        CancellationToken cancellation
+    ) where T : class
     {
         Runtime.ThrowIfHalted();
         try
         {
-            T? result = await Mailbox.ReceiveAsync(select, timeout, Cancellation);
+            T? result = await Mailbox.ReceiveAsync(select, timeout, cancellation);
             Runtime.ThrowIfHalted();
 
             return result;

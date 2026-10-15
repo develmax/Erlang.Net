@@ -1,0 +1,185 @@
+{
+  "Status": "ROOT_PROMOTED_EXACT_17_PATHS_PENDING_ACTUAL_MAIN_FULL",
+  "ParentHead": "a44f82a35ff95775941147ff9848a95a5247d76e",
+  "SourcePaths": 17,
+  "CSharpPaths": 12,
+  "SourceClosurePaths": 2215,
+  "SourceClosureSha256": "B9883EB5EBE5457E7BBA10F39416E80DDE1DF9D8C458550BDB684C22AC7BD901",
+  "PriorCompiledSixteenRoleBindings": [
+    {
+      "Path": "artifacts/allocator-query-mailbox314-composed1/formatted-source-freeze.json",
+      "Bytes": 5408,
+      "Sha256": "7CC48D5BF7B1710C65CDC1D762EFDAE3F31D7E9677ABFE711874D366E2014A90"
+    },
+    {
+      "Path": "artifacts/allocator-query-mailbox314-composed1/actual-focus-independent-guard.json",
+      "Bytes": 3876,
+      "Sha256": "1206F68E4B3708108E91143798334E436940E3F6D19909C440D27FB8E4BAA1AC"
+    },
+    {
+      "Path": "artifacts/pack313-reallocation-independent-failure-guard.json",
+      "Bytes": 1538,
+      "Sha256": "A82DE3B5702D6DDBC3CB62D2C177B2F6F27FB36BD6952D0BD77033DBA422D32B"
+    }
+  ],
+  "ChangedFromFormattedSixteen": [
+    ".gitattributes",
+    ".github/workflows/nif-reallocation-native.yml",
+    "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json"
+  ],
+  "LegacyPlanInputs": 1057,
+  "LegacyPlanSha256": "A55D9AB23ED5915BF13D67B7F8D15845D59E5B60360D10DA4EC254883F42AE6A",
+  "OwnPlanInputs": 1082,
+  "OwnPlanSha256": "9D10C312F86E12AE4829399A0D5245F25A6BC3EF045BCF17CE83521199ACC0CB",
+  "ProtectedProfileDigest": "62B86A5D64FAFAD03F3D80D950E0870497B3F4BB222E1BD5911C6E5C2B752A0E",
+  "AllCSharpAndNativeAndCollectorHelperBytesExactPriorFormattedSixteen": true,
+  "Controls": {
+    "Path": "artifacts/allocator-query-mailbox314-import-policy2/evidence/source-only-controls.json",
+    "Bytes": 2685,
+    "Sha256": "19E08735AF935E2D504E0B7BD0DA316EC0EB76DA496F42A560548256F9E69205"
+  },
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 6893,
+      "Sha256": "E8B04FB45D8F93F8879CC6853B9ED4BA4BA7F759B530F1930FF6F7975FBA626C",
+      "Added": false,
+      "ParentSha256": "A4D5839405B4959041E40E882B1EB07A770AC61EF0804101A521A52E7AB9D163"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "F63C5C52C1B69150455538DFB6D32AA8AF9A19BE0538884F058880C998D62588",
+      "Added": false,
+      "ParentSha256": "C84C3097A3AC1702202244B31E014A6BE8722443FE81C3D1EB52743690A8B033"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5862,
+      "Sha256": "6AA8BFA286A00575A3EF5E40D4EC42CD5E95C4C506C5F2BE3899452FBE8DBC7F",
+      "Added": false,
+      "ParentSha256": "6AE4BEEF031257E2A67EF8873707D570BD9B4255B6879DD3AEDD6A1881A486CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailbox.cs",
+      "Bytes": 2751,
+      "Sha256": "389E52D7DBB5069A46A19A144877D9B9014154EF4B18A81178694A4F8AD5213A",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailboxNames.cs",
+      "Bytes": 641,
+      "Sha256": "6992CCF8C2C8F7B8D76CAABEB295FA1B4C2E7455265EA83C2FE6FEC07E3BA018",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryNames.cs",
+      "Bytes": 334,
+      "Sha256": "196E74E72E655111C6A506180884DFC4032A38365F25AB3959912504D833F700",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryOperation.cs",
+      "Bytes": 5931,
+      "Sha256": "B364973AF841F384F17B17CF2F849CBC899B64CE046A5ABAE390F1035D1A6258",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryProvider.cs",
+      "Bytes": 1481,
+      "Sha256": "5B47F8ABAF20CCB4B7DE9589ABAF22C2E91F6A8401C4FC3A4CD841F63D8F720F",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryReplyReducer.cs",
+      "Bytes": 1381,
+      "Sha256": "77EF3D53F5DBFECDD9775F9ABBBF8F05CA8FC2F9FDE396AAC691250E33675F49",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryRequest.cs",
+      "Bytes": 1420,
+      "Sha256": "0988F8E883DF3F53CAE5FA7BFEE41CD6AB26BDCFC8462B1E6E628753E5272920",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryResultReducer.cs",
+      "Bytes": 3135,
+      "Sha256": "9EBB73DC99A0E05B9A32DA3DA54423157FAE18759BEA0C4AEC829D661B50385B",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 12629,
+      "Sha256": "3888C9ACDE81E1F77B4FACAD3359D0DF83FCB10CCF9DAF057579CEE43A361ABA",
+      "Added": false,
+      "ParentSha256": "9AC2B11B95FC0D9955ED2CC9F7BC09A5B61BF3B911F8ADA9BCA8E42C0E7B13DB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/AllocatorQueryMailboxHostChecks.cs",
+      "Bytes": 19856,
+      "Sha256": "FCC7F0B7306A0ED2F598E3668D9BE85BD2BAC928B8F93ECA7ECAC3F0F8F8AA67",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/AllocatorQueryMailboxHostNames.cs",
+      "Bytes": 1491,
+      "Sha256": "A590F577BF426D38605B6481693670BC38F46C89CF474D6BF9124D00089CD647",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 165874,
+      "Sha256": "C6C370372126166F8EEE08D8C59625D82E2032E2EB914D0D0E637A18DCE47092",
+      "Added": false,
+      "ParentSha256": "1F970E1A254292C21C48CC2E082C8CCE876ACC8B6419B19AA14944102674EB93"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 218633,
+      "Sha256": "A55D9AB23ED5915BF13D67B7F8D15845D59E5B60360D10DA4EC254883F42AE6A",
+      "Added": false,
+      "ParentSha256": "229DB0B265679904A15473349AD6B00E206C017958B30F8414C7552C3F313CE6"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 235244,
+      "Sha256": "9D10C312F86E12AE4829399A0D5245F25A6BC3EF045BCF17CE83521199ACC0CB",
+      "Added": false,
+      "ParentSha256": "EE514F42467BF1A3FD4764D07F696CA4F2BFDA2126157F3A0C06E07DD065209A"
+    }
+  ],
+  "FinalSourceClosureSha256": "B9883EB5EBE5457E7BBA10F39416E80DDE1DF9D8C458550BDB684C22AC7BD901",
+  "CandidateDirectory": "artifacts/allocator-query-mailbox314-import-policy2/candidate",
+  "FinalSourceClosurePath": "artifacts/allocator-query-mailbox314-import-policy2/source-resource-closure.json",
+  "ParentSourceClosureSha256": "316FB4A06ECCB3C87F2DC79DAA87DA7B748454D71C0DA360AEB078D559FAE158",
+  "IntermediateAuthorFreeze": {
+    "Path": "artifacts/allocator-query-mailbox314-import-policy2/source-freeze.json",
+    "Bytes": 4965,
+    "Sha256": "B57CCFC71DDB89B47A8FC9277F5BAB7A3DCDA45D520A3F1385D443C96AAD0632"
+  },
+  "ExpectedFullPassed": 6641,
+  "ExpectedRegistry": 505,
+  "ExpectedErlangPresence": 347,
+  "PublicMfaDelta": 0,
+  "AuthorFinalFreeze": {
+    "Path": "artifacts\\allocator-query-mailbox314-import-policy2\\final-source-freeze.json",
+    "Sha256": "3ABD8E2CFB4CF09E907C077E04062433BA4C5463C5014E7040B22B3E38C3CDAE"
+  },
+  "IndependentPeer": {
+    "Path": "artifacts\\allocator-query-mailbox314-import-policy2-beam310-source-peer.json",
+    "Sha256": "B82C2CEA08FF411000FE4E9E138A5CB9E5BA9E573950BC214FB0D0AC2BE64922"
+  },
+  "RootPromotionScriptSha256": "EAA890F8B782335E4A5C86349EF88CA2439D3A73A3F629D1C530893F45501F98",
+  "OriginalOrNativeExecutedByPromotion": false
+}

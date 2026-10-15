@@ -1,0 +1,21 @@
+{
+  "Status": "ACTUAL_PASSIVE_AUDIT_TOOL_RESULTS_RECORDED",
+  "Strict": {
+    "ToolChunk": "738102",
+    "ExitCode": 1,
+    "Script": "artifacts/pack313-ordinary-contract.py",
+    "Mode": "strict",
+    "Failure": "Strict raw variance retained; only separate semantic gate can apply existing published allowance",
+    "FailureLine": 22,
+    "DifferencesPath": "artifacts/pack313-ordinary-strict-historical-differences.json"
+  },
+  "Semantic": {
+    "ToolChunk": "df984f",
+    "ExitCode": 0,
+    "Mode": "semantic",
+    "GuardPath": "artifacts/pack313-ordinary-semantic-independent-guard.json"
+  },
+  "ToolResultsRecordedFromReturnedOutput": true,
+  "RawCapturesNormalized": false,
+  "NativeOrVmExecuted": false
+}

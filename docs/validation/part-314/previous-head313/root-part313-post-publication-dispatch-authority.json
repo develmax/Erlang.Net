@@ -1,0 +1,47 @@
+{
+  "Status": "ROOT_REVIEWED_PART313_POST_PUBLICATION_DISPATCH_AUTHORITY",
+  "RootExecutionApproved": true,
+  "Part": 313,
+  "PublishedHead": "a44f82a35ff95775941147ff9848a95a5247d76e",
+  "DispatcherSourceSha256": "DBDCF7C1346391976371596429C96BE6BC0E0578C32DD74622B15B9947C84B07",
+  "FreshFullPassed": true,
+  "IntegrationAndPackagesPassed": true,
+  "FreshPostFullWindowsLegacyPassed": true,
+  "FreshPostFullWindowsReallocationPassed": true,
+  "DefaultGitWhitespaceCheckPassed": true,
+  "RequiredBindings": [
+    {
+      "Role": "SourceFreeze",
+      "Path": "artifacts/root-part313-main1/source-freeze.json",
+      "Sha256": "94ECE1FA74682375688E4FF65B174EC4BC993CB572D50372145FDF5FEB34507B"
+    },
+    {
+      "Role": "FullGuard",
+      "Path": "artifacts/root-part313-main1/full-guard.json",
+      "Sha256": "906FAB6594BB685D1D0D6177372F66B0C00F31D55463CF6815ABCF6CB35366B0"
+    },
+    {
+      "Role": "NativeGuard",
+      "Path": "artifacts/root-part313-main-windows-native1/guard.json",
+      "Sha256": "4BE4F34B114C83B92E24DD1CA9555A736C488BA97758EF5A742E4F4D1ACD30B1"
+    },
+    {
+      "Role": "StageGuard",
+      "Path": "artifacts/root-part313-stage-index-guard.json",
+      "Sha256": "D131DAD9B5653D5DB0CE4FA48183A1DBE2FC79FC32159ED656802B645F5ED673"
+    },
+    {
+      "Role": "EvidenceReceipt",
+      "Path": "docs/validation/part-313/evidence-receipt.json",
+      "Sha256": "E01F005D3BB1C3461CD82369B200862FA994160EBE4AB035CAC8D5E41A4D8AB0"
+    }
+  ],
+  "SourcePaths": 45,
+  "CSharpPaths": 19,
+  "SourceClosurePaths": 2205,
+  "LegacyNativeInputs": 1049,
+  "NewNativeInputs": 1074,
+  "ActualGitPushObservedSuccessful": true,
+  "NewOriginalResultAlreadyVerified": false,
+  "UnknownPostRetryAllowed": false
+}

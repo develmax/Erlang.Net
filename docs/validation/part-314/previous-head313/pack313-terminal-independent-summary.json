@@ -1,0 +1,83 @@
+{
+  "Status": "EXACT_HEAD313_FOUR_RUNS_INDEPENDENT_TERMINAL_AUDIT_COMPLETE_WITH_REALLOCATION_PREREQUISITE_FAILURE",
+  "Head": "a44f82a35ff95775941147ff9848a95a5247d76e",
+  "Roles": [
+    {
+      "Kind": "ci",
+      "Run": 38800348459,
+      "Job": 116647439870,
+      "Attempt": 1,
+      "Artifact": 12003734496,
+      "Conclusion": "success",
+      "Guard": {
+        "Path": "artifacts/pack313-ci-independent-guard.json",
+        "Sha256": "2F082BF4668CDF324A0B827ADD31C1946B758D884B4AC393EF8BC462F3669A8A"
+      },
+      "EnvelopeSha256": "DD73C33D5EB7399A61CCFEFDCE37C68ADD0A314A780792AD24C457A13D134203",
+      "ZipSha256": "5DA9D1E275DF230ED584256E09C6E6331E89E602F6E543CCE7A98848EA835041"
+    },
+    {
+      "Kind": "native",
+      "Run": 38800528519,
+      "Job": 116648058164,
+      "Attempt": 1,
+      "Artifact": 12004347418,
+      "Conclusion": "success",
+      "Guard": {
+        "Path": "artifacts/pack313-native-combined-independent-guard.json",
+        "Sha256": "CF5FA741A5991B834FC824BBD743A58085EE0661D640341007BD66BA3E0E8283"
+      },
+      "EnvelopeSha256": "7C94FC6890838B344AAFA8E1D2A6EA5C2A1B13E50DECC51AD86497BC822FA4C4",
+      "ZipSha256": "90CF3BF75B01A53064685418A43ED3B25EDE14F16AFEE43CC43149496F318B3D"
+    },
+    {
+      "Kind": "ordinary",
+      "Run": 38800562590,
+      "Job": 116648173673,
+      "Attempt": 1,
+      "Artifact": 12005561578,
+      "Conclusion": "success",
+      "Guard": {
+        "Path": "artifacts/pack313-ordinary-semantic-independent-guard.json",
+        "Sha256": "BCF64E06AC5DE32458E15CB2444DC6787B87174798660795E2EFA08E31D69D1F"
+      },
+      "EnvelopeSha256": "BDC4885A5ADD97076CAFC4A9B1B679DF52A1502B409923E6E292D85E0818316D",
+      "ZipSha256": "61579E2D7AA14F9EAA2F504AC4B77669D1D231FDF948C51729A02F8EF3154E96"
+    },
+    {
+      "Kind": "reallocation",
+      "Run": 38800489696,
+      "Job": 116647920736,
+      "Attempt": 1,
+      "Artifact": 12003669532,
+      "Conclusion": "failure",
+      "Guard": {
+        "Path": "artifacts/pack313-reallocation-independent-failure-guard.json",
+        "Sha256": "A82DE3B5702D6DDBC3CB62D2C177B2F6F27FB36BD6952D0BD77033DBA422D32B"
+      },
+      "EnvelopeSha256": "5CD9611FBF2FE81527D63D7D30B3DE06547A7D5877C4510EC38053ABAB6F7883",
+      "ZipSha256": "7542D656983B416EE7B677B55BD1F23255E1AF304199A2EE70E19F729A2AB4B0"
+    }
+  ],
+  "CiPassed": 6640,
+  "IntegrationResults": 11,
+  "Registry": 505,
+  "OldLinuxStrictSdkLines": 8,
+  "OldLinuxDomainRoles": 3,
+  "SeparateOriginal13Passed": 13,
+  "OrdinaryPassed": 5861,
+  "FdPassed": 8,
+  "OrdinaryExistingMapPrintAlternativeRows": 1,
+  "OrdinaryRawStrictFailurePreserved": true,
+  "OrdinarySourceOrPolicyChanged": false,
+  "ReallocationFirstFixtureCompilePassed": true,
+  "ReallocationExtraImport": "__stack_chk_fail@GLIBC_2.4",
+  "ReallocationOriginalCasesExecuted": 0,
+  "ReallocationSdkCasesExecuted": 0,
+  "ReallocationComparisonPassed": false,
+  "InstalledRuntimeFilesPassivelyVerified": 2646,
+  "RemoteRetryOrPostPerformedByVerifier": false,
+  "LocalNativeOrVmExecuted": false,
+  "MainOrGitMutated": false,
+  "GeneralNifAbiComplete": false
+}
