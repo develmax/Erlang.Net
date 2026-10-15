@@ -1,0 +1,8 @@
+using Erlang.Differential;
+using System.Diagnostics;
+string source="-module(system_profile_dead_receiver_diagnostic). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,Reason}->Reason end.";
+for(int i=0;i<40;i++) {
+ using var artifact=GeneratedModuleCompiler.Compile(source);
+ var result=await CompiledModuleExecution.Run(artifact).WaitAsync(TimeSpan.FromSeconds(15));
+ Console.WriteLine($"OBSERVE unmodified spawn/monitor prefix {i}: {result}");
+}

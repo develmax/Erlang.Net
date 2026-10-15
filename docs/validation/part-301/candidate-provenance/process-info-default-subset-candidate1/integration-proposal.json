@@ -1,0 +1,54 @@
+{
+  "Status": "PROPOSED_REGISTRY_AND_CORPUS_ADDITIONS_NOT_GENERATED_NOT_EXECUTED",
+  "AddMfa": {
+    "Module": "erlang",
+    "Function": "process_info",
+    "Arity": 1,
+    "Semantics": "Supported logical default subset; public default tuple selection/order implementation-specific",
+    "SupportedDefaultKeys": [
+      "registered_name when registered",
+      "current_function",
+      "initial_call",
+      "status",
+      "message_queue_len",
+      "links",
+      "dictionary",
+      "trap_exit",
+      "error_handler",
+      "priority",
+      "group_leader",
+      "reductions",
+      "suspending"
+    ],
+    "AbsentComparedWithPinnedDefault": [
+      "total_heap_size",
+      "heap_size",
+      "stack_size",
+      "garbage_collection"
+    ],
+    "Query2PhysicalSupportChanged": false,
+    "FullPinnedDefaultCompatibility": false
+  },
+  "ExpectedPresenceDelta": 1,
+  "ReferenceMfaCountChanged": false,
+  "GeneratedSupportedMfasInstruction": "Regenerate actual supported-mfas/readiness from actual validated target after promotion; do not hand-edit measured counts",
+  "AddHostTest": "ProcessInfoDefaultSubsetHostChecks.Run under ProcessInfoDefaultSubsetHostNames.Test",
+  "AppendDifferentialSources": "ProcessInfoDefaultSubsetCases.Modules appended preserving all historical cases/order",
+  "NativeComparableCaseNames": [
+    "process-info-default-subset-common-fields",
+    "process-info-default-subset-common-types",
+    "process-info-default-subset-registered-name",
+    "process-info-default-subset-query2-stable-projection",
+    "process-info-default-subset-invalid-targets",
+    "process-info-default-subset-dead-local",
+    "process-info-default-subset-stale-local",
+    "process-info-default-subset-remote-target"
+  ],
+  "NativeProjection": "Common field presence/types, registered-name behavior, stable query2 projection and PID domain only; no raw full-key-order or exact time/reduction/resource values",
+  "SdkOnlyDivergenceAssertions": [
+    "four omitted physical default keys",
+    "process_info/2 continues badarg for those four items"
+  ],
+  "OriginalNewCasesExecuted": false,
+  "SdkNewCasesExecuted": false
+}

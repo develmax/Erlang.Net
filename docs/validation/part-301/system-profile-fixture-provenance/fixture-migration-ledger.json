@@ -1,0 +1,20 @@
+{
+  "Status": "SOURCE_ONLY_SINGLE_HISTORICAL_FIXTURE_MIGRATION",
+  "Fixture": "erlang-system-profile-dead-receiver",
+  "ParentPath": "tools/Erlang.Differential/SystemProfileCases.cs",
+  "ParentSha256": "D2A1A9332D32832FD95A2504987EF5036468CF61166697B7E6B11004970F71BF",
+  "RevisedSha256": "265E423B3464C0EA46F1B075028A5B991154AA7B4446A16AEFB84BEF92F52553",
+  "ReplacementOccurrences": 1,
+  "RoundTripReplacementEqualsParent": true,
+  "SystemProfileFixtureCountExpected": 23,
+  "OtherFixtureExpressionsExpectedUnchanged": 22,
+  "CaseNameChanged": false,
+  "ExpectedOutcomeChanged": false,
+  "ExpectedOutcome": "{ok,done}",
+  "OldBody": "P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,normal}->ok end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()",
+  "NewBody": "P=spawn(fun()->receive stop->ok end end),R=monitor(process,P),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()",
+  "RuntimeAlgorithmChanged": false,
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "ActualValidationPending": true
+}

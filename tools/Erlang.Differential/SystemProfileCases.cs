@@ -53,7 +53,7 @@ public static class SystemProfileCases
         );
         Add(
             "dead-receiver",
-            "P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,normal}->ok end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()"
+            "P=spawn(fun()->receive stop->ok end end),R=monitor(process,P),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()"
         );
         foreach (string target in new[] { "wrong", "0", "[]", "{name,node()}", "make_ref()" })
             Add(

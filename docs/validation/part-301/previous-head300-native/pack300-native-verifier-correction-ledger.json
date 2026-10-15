@@ -1,0 +1,20 @@
+{
+  "Status": "VERIFIER_PATH_ADAPTATION_FAILURES_PRESERVED_NO_RAW_CHANGE",
+  "Events": [
+    {
+      "Verifier": "pack300-native-cross-platform-generated-source-guard.py",
+      "ExitCode": 1,
+      "Error": "git show returned128 because the part300 directory still referenced root-part299-main-native-guard.json; exact source retained in initial-wrong-reference.py."
+    },
+    {
+      "Verifier": "pack300-native-join-guard.py",
+      "ExitCode": 1,
+      "Error": "FileNotFoundError for cross-platform guard JSON; dependent command was invoked after prior verifier failure."
+    }
+  ],
+  "Correction": "Change only Windows published guard basename to root-part300-main-native-guard.json; then execute cross-platform guard and join sequentially.",
+  "NativeRerun": false,
+  "OriginalRerun": false,
+  "RawEvidenceEdited": false,
+  "MainEdited": false
+}

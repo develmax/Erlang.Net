@@ -1,0 +1,8 @@
+from pathlib import Path
+import json,hashlib,subprocess
+r=Path.cwd();a=r/'artifacts';q=a/'part301-packaging-revision4';h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+p=q/'part301-finalize-proposal.py';t=p.read_text();needle="metadata=['AGENTS.md'";assert t.count(needle)==1;t=t.replace(needle,"assert isinstance(label,bytes) and isinstance(ib,bytes) and isinstance(combined,bytes)\nupdated_index=ib.replace(label,'parts295–301 (active)'.encode())\n"+needle);t=t.replace("index.write_bytes(ib.replace(label,'parts295–301 (active)'.encode()))","index.write_bytes(updated_index)");p.write_text(t,encoding='utf-8')
+p=q/'part301-changelog-draft.md';t=p.read_text().rstrip()+'\n- Packaging correction: preserve a failed documentation assembly caused by a shadowed index-label variable; restore the prior active volume exactly, isolate the variable and precompute the updated index before writes. Runtime sources and validation results are unchanged.\n';p.write_text(t,encoding='utf-8')
+assert (r/'CHANGELOG.md').read_bytes().replace(b'\r\n',b'\n')==subprocess.check_output(['git','show','HEAD:CHANGELOG.md']).replace(b'\r\n',b'\n')
+failure=a/'root-part301-packaging-failure1';manifest=[dict(Path=x.relative_to(failure).as_posix(),Sha256=h(x),Bytes=x.stat().st_size) for x in sorted(failure.rglob('*')) if x.is_file()];(a/'root-part301-packaging-failure1-files.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+p=q/'proposal-freeze.json';f=json.loads(p.read_bytes());f['Files']=[dict(Path=x.name,Sha256=h(x),Bytes=x.stat().st_size) for x in sorted(q.iterdir()) if x.is_file() and x!=p];p.write_text(json.dumps(f,indent=2)+'\n',encoding='utf-8');print('finalizer',h(q/'part301-finalize-proposal.py'))

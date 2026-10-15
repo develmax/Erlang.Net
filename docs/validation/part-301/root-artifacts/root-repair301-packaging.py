@@ -1,0 +1,10 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess
+r=Path.cwd();a=r/'artifacts';p=a/'part301-packaging-revision3';q=a/'part301-packaging-revision4';assert not q.exists();shutil.copytree(p,q)
+v=r/'docs/changelog/0045.md';entry=(p/'part301-changelog-draft.md').read_text(encoding='utf-8-sig').replace('\r\n','\n').rstrip('\r\n')+'\n';suffix=b'\r\n'+entry.replace('\n','\r\n').encode();combined=v.read_bytes();assert combined.endswith(suffix);old=combined[:-len(suffix)];prior=subprocess.check_output(['git','show','HEAD:docs/changelog/0045.md']);assert old.replace(b'\r\n',b'\n')==prior.replace(b'\r\n',b'\n');v.write_bytes(old)
+f=q/'part301-finalize-proposal.py';t=f.read_text();assert t.count('for directory,label in')==1;t=t.replace('for directory,label in','for directory,archive_label in').replace('o/label/src.relative_to(directory)','o/archive_label/src.relative_to(directory)').replace("o/'packaging-revision3'","o/'packaging-revision4'")
+t=t.replace("(a/'part301-packaging-revision2','packaging-revision2-history')", "(a/'part301-packaging-revision2','packaging-revision2-history'),(a/'part301-packaging-revision3','packaging-revision3-history')")
+f.write_text(t,encoding='utf-8')
+freeze=q/'proposal-freeze.json';freeze.unlink();h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper();freeze.write_text(json.dumps(dict(Status='REVIEWED_PACKAGING_VARIABLE_SCOPE_REPAIR_SOURCE_UNCHANGED',PreviousProposalSha256=h(p/'proposal-freeze.json'),Files=[dict(Path=x.name,Sha256=h(x),Bytes=x.stat().st_size) for x in sorted(q.iterdir()) if x.is_file()]),indent=2)+'\n',encoding='utf-8')
+(a/'root-part301-packaging-failure1-receipt.json').write_text(json.dumps(dict(Status='PRESERVED_PACKAGING_ONLY_TYPEERROR_INDEX_LABEL_SHADOWED',Failure='archive loop shadowed bytes index label with str',SourceChanged=False,FullRetested=False,PartialArchive='artifacts/root-part301-packaging-failure1/partial-validation',ActiveVolumeRestoredExactPreAttempt=True,PreviousIndexUnmodified=True),indent=2)+'\n',encoding='utf-8')
+print(h(f))

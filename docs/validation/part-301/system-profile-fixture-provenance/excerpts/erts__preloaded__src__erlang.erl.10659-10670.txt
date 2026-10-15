@@ -1,0 +1,12 @@
+-doc """
+Returns the process identifier of a new process, started by the application of
+`Fun` to the empty list `[]`, and a reference for a monitor created to the new
+process. Otherwise works like `spawn/3`.
+""".
+-doc #{ category => processes }.
+-spec spawn_monitor(Fun) -> {pid(), reference()} when
+      Fun :: function().
+spawn_monitor(F) when erlang:is_function(F, 0) ->
+    erlang:spawn_opt(erlang,apply,[F,[]],[monitor]);
+spawn_monitor(F) ->
+    badarg_with_info([F]).

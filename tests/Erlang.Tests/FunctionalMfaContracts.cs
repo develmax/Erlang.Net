@@ -12,6 +12,7 @@ public static class FunctionalMfaContracts
 
     public static string? FixtureName(string module, string function, int arity) => (module, function, arity) switch
     {
+        (ErlangModuleNames.Module, ProcessInfoNames.Function, 1) => ProcessInfoDefaultSubsetCaseNames.CommonFields,
         ("erlang", "is_record", 1) => "erlang-native-record-predicate-one",
         ("records", "get_definition", 2) => "erlang-native-record-syntax-definition-private",
         ("records", "create", 4) => "erlang-native-record-introspection",

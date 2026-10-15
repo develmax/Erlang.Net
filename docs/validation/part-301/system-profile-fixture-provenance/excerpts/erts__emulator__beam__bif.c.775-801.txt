@@ -1,0 +1,27 @@
+        if (is_internal_pid(target)) {
+            name = NIL;
+            id = target;
+
+        local_process:
+
+            if (id == c_p->common.id) {
+                /* No monitoring of self... */
+                add_oflags = 0;
+            }
+            else {
+                mdp = erts_monitor_create(ERTS_MON_TYPE_PROC,
+                                          ref, c_p->common.id,
+                                          id, name, tag);
+                mdp->origin.flags |= add_oflags;
+                erts_monitor_tree_insert(&ERTS_P_MONITORS(c_p),
+                                         &mdp->origin);
+                if (is_not_internal_pid(id)
+                    || !erts_proc_sig_send_monitor(&c_p->common, c_p->common.id,
+                                                &mdp->u.target, id)) {
+                    erts_proc_sig_send_monitor_down(NULL, id,
+                                                    &mdp->u.target,
+                                                    am_noproc);
+                }
+            }
+
+            goto done;

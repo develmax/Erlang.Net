@@ -1,0 +1,23 @@
+the name registration will not affect the existing monitor.
+
+When a `process` or `port` monitor is triggered, a `'DOWN'` message is sent that
+has the following pattern:
+
+```erlang
+{'DOWN', MonitorRef, Type, Object, Info}
+```
+
+In the monitor message `MonitorRef` and `Type` are the same as described
+earlier, and:
+
+- **`Object`** - The monitored entity, which triggered the event. When
+  monitoring a process or a local port, `Object` will be equal to the `t:pid/0`
+  or `t:port/0` that was being monitored. When monitoring process or port by
+  name, `Object` will have format `{RegisteredName, Node}` where
+  `RegisteredName` is the name which has been used with
+  `monitor/2` call and `Node` is local or remote node name (for
+  ports monitored by name, `Node` is always local node name).
+
+- **`Info`** - Either the exit reason of the process, `noproc` (process or port
+  did not exist at the time of monitor creation), or `noconnection` (no
+  connection to the node where the monitored process resides).

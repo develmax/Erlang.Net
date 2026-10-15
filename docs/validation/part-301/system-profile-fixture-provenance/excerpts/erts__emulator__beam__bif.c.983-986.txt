@@ -1,0 +1,4 @@
+BIF_RETTYPE monitor_2(BIF_ALIST_2)
+{
+    return monitor(BIF_P, BIF_ARG_1, BIF_ARG_2, (Uint32) 0, THE_NON_VALUE);
+}

@@ -1,0 +1,48 @@
+{
+  "ExactPinnedDefaultCount": 17,
+  "AvailableLogicalCount": 13,
+  "MissingPinnedResourceFields": [
+    {
+      "Field": "heap_size",
+      "Pin": "HEAP_SIZE(rp), active process heap capacity in words",
+      "Missing": "No per-process active heap capacity/allocator; Term constructors allocate shared CLR objects",
+      "RejectedSubstitutes": [
+        "GC.GetTotalMemory",
+        "GC.GetAllocatedBytesForCurrentThread",
+        "reachable object count"
+      ]
+    },
+    {
+      "Field": "total_heap_size",
+      "Pin": "active heap + old heap + mbuf_sz + attached on-heap-message fragments; requires message-queue snapshot",
+      "Missing": "No per-process old heap/message-fragment word ownership or allocation accounting",
+      "RejectedSubstitutes": [
+        "sum serialized ETF sizes",
+        "mailbox message count",
+        "sum shared object sizes without ownership"
+      ]
+    },
+    {
+      "Field": "stack_size",
+      "Pin": "STACK_START(rp)-rp->stop in runtime words",
+      "Missing": "No common source/BEAM process stack-word ledger; BEAM Y arrays are real but local interpreter state, source code has different CLR execution",
+      "RejectedSubstitutes": [
+        "managed frame count",
+        "CLR native-thread stack size",
+        "number of ErlangExecutionFrame objects"
+      ]
+    },
+    {
+      "Field": "garbage_collection",
+      "Pin": "ordered max_heap_size map,min_bin_vheap_size,min_heap_size,fullsweep_after,minor_gcs from target process state",
+      "Missing": "No target-owned min/max/binheap/full-sweep settings or actual per-process generation-GC state/counter",
+      "RejectedSubstitutes": [
+        "global GC.CollectionCount",
+        "count garbage_collect BIF requests",
+        "default constants with no enforced lifecycle"
+      ]
+    }
+  ],
+  "PublicDocumentationNuance": "Default order undefined and not every tuple mandatory; this does not establish exact pinned17 compatibility",
+  "RegistrationCurrentlyOnlyArity2": true
+}

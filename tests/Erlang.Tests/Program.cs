@@ -4298,6 +4298,7 @@ Test(Erlang.Tests.GarbageCollectionResultHostNames.Test, Erlang.Tests.GarbageCol
 Test(Erlang.Tests.TraceHookRollbackHostNames.Test, Erlang.Tests.TraceHookRollbackHostChecks.Run);
 
 Test(Erlang.Tests.ProcessInfoDefaultHostNames.Test, Erlang.Tests.ProcessInfoDefaultHostChecks.Run);
+Test(Erlang.Tests.ProcessInfoDefaultSubsetHostNames.Test, Erlang.Tests.ProcessInfoDefaultSubsetHostChecks.Run);
 
 Test(Erlang.Tests.DistributionTraceHostNames.Test, Erlang.Tests.DistributionTraceHostChecks.Run);
 Test(Erlang.Tests.DistributionSenderHostNames.Test, Erlang.Tests.DistributionSenderHostChecks.Run);

@@ -1,0 +1,178 @@
+{
+  "Status": "PREDECLARED_SOURCE_POLICY_NOT_OBSERVED",
+  "Cases": [
+    {
+      "Name": "tuple_empty",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "tuple",
+        "Items": []
+      }
+    },
+    {
+      "Name": "tuple_single",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "tuple",
+        "Items": [
+          42
+        ]
+      }
+    },
+    {
+      "Name": "tuple_spill",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "tuple",
+        "Items": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "Name": "list_empty",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "proper_list",
+        "Items": []
+      }
+    },
+    {
+      "Name": "list_single",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "proper_list",
+        "Items": [
+          42
+        ]
+      }
+    },
+    {
+      "Name": "list_spill",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "proper_list",
+        "Items": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "Name": "pending_none",
+      "ExpectedCall": {
+        "Kind": "return",
+        "TermType": "tuple",
+        "Items": [
+          0,
+          0,
+          777,
+          0
+        ]
+      }
+    },
+    {
+      "Name": "pending_raise_twice",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonInteger": 202
+      }
+    },
+    {
+      "Name": "pending_badarg_ignored",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonAtom": "badarg"
+      }
+    },
+    {
+      "Name": "pending_detail",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonTuple": [
+          1,
+          202,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "Name": "pending_badarg_then_raise",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonInteger": 202
+      }
+    },
+    {
+      "Name": "pending_raise_then_badarg",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonAtom": "badarg"
+      }
+    },
+    {
+      "Name": "load_veto",
+      "ExpectedCall": {
+        "Kind": "exception",
+        "Class": "error",
+        "ReasonAtom": "not_loaded",
+        "LoadResult": "return {error,{load,ReasonString}}; retain exact raw string, source-derived prefix only"
+      }
+    }
+  ],
+  "Common": {
+    "BeforeLoad": {
+      "Class": "error",
+      "Reason": "not_loaded"
+    },
+    "SuccessfulLoad": "ok",
+    "Taint": "module absent before, present once after successful dynamic nif_init admission including load veto",
+    "FullExceptionStack": "Retain complete raw ETF; compare typed class/reason and meaningful first NIF frame, not exact volatile full stack strings"
+  },
+  "NotCompared": [
+    "host failure against original native behavior",
+    "native unload counter",
+    "general NIF loader eligibility",
+    "same native object bytes across Windows/Linux",
+    "format va_list or set_option"
+  ],
+  "NativeProfile": "New test fixture is NOT admitted by candidate2 trusted original-fixture capability profile; it is a development oracle fixture only."
+}

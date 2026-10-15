@@ -841,10 +841,10 @@
   },
   {
     "Module": "erlang",
-    "Function": "\u002B",
+    "Function": "+",
     "Arity": 1,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u002B/1",
+    "Evidence": "mfa/erlang:+/1",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -873,10 +873,10 @@
   },
   {
     "Module": "erlang",
-    "Function": "\u002B",
+    "Function": "+",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u002B/2",
+    "Evidence": "mfa/erlang:+/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -1017,42 +1017,42 @@
   },
   {
     "Module": "erlang",
-    "Function": "\u003C",
+    "Function": "<",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u003C/2",
+    "Evidence": "mfa/erlang:</2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "\u003E",
+    "Function": ">",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u003E/2",
+    "Evidence": "mfa/erlang:>/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "=\u003C",
+    "Function": "=<",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:=\u003C/2",
+    "Evidence": "mfa/erlang:=</2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "\u003E=",
+    "Function": ">=",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u003E=/2",
+    "Evidence": "mfa/erlang:>=/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
     "Module": "erlang",
-    "Function": "\u002B\u002B",
+    "Function": "++",
     "Arity": 2,
     "Status": "Partially compatible",
-    "Evidence": "mfa/erlang:\u002B\u002B/2",
+    "Evidence": "mfa/erlang:++/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -1942,6 +1942,14 @@
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:process_info/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "process_info",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:process_info/1",
+    "Limits": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
   },
   {
     "Module": "erlang",

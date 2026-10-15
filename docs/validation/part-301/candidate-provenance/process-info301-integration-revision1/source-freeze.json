@@ -1,0 +1,43 @@
+{
+  "Status": "SOURCE_ONLY_INTEGRATION_REPAIR_NOT_YET_BUILT",
+  "RuntimeAlgorithmChanged": false,
+  "MfaFixtureBinding": {
+    "Mfa": "erlang:process_info/1",
+    "Fixture": "process-info-default-subset-common-fields"
+  },
+  "ExactExportCounts": {
+    "Previous": [
+      502,
+      504
+    ],
+    "Current": [
+      503,
+      505
+    ],
+    "AddedMfas": 1,
+    "OptionalIoDeltaUnchanged": 2
+  },
+  "ComparableCaseNamesAndSourcesUnchanged": true,
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoDefaultSubsetCases.cs",
+      "ParentSha256": "6DE1AEF5D9C70EC4BFCD573A3AF3E4EA340BCCD9F689874E8D49C508062277BA",
+      "Sha256": "69AC27E1D630CE2D43E0F2D4E10C740A3A881596235E8483F99BE66810CBF719"
+    },
+    {
+      "Path": "tests/Erlang.Tests/FunctionalMfaContracts.cs",
+      "ParentSha256": "F1DD99CC4EA4580626D88CF4C4A64FE28293F82FABDDD227F5018B31CC005C59",
+      "Sha256": "4B821D250BF6B06E0DE6D5DA4FB1A1EA39E0111CE241E8BD667C4F546656F906"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "ParentSha256": "C0862D1A3F724ACD7FA5E244D4F9B50A82FC4373D8019048E6558397667C3EC7",
+      "Sha256": "EA251688DD188E11D0E43E582F0C261DC11F35B332D4AE5263281BD2A1420F4F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoDefaultSubsetCaseNames.cs",
+      "ParentSha256": null,
+      "Sha256": "33B0772BB1CB76F4BD82728DDDDFCE9CFEB8F072689FDF62263DF6F0CB1C5B5C"
+    }
+  ]
+}

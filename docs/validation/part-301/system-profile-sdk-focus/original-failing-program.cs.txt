@@ -1,0 +1,10 @@
+using Erlang.Differential;
+using System.Diagnostics;
+var fixture = SystemProfileCases.Modules.Single(x => x.Name == "erlang-system-profile-dead-receiver");
+for(int i=0;i<40;i++) {
+ var timer=Stopwatch.StartNew();
+ using var artifact=GeneratedModuleCompiler.Compile(fixture.Source);
+ var result=await CompiledModuleExecution.Run(artifact,fixture.CallerContext).WaitAsync(TimeSpan.FromSeconds(15));
+ if(!result.Equals(fixture.Expected))throw new InvalidOperationException(result.ToString());
+ Console.WriteLine($"PASS original dead-receiver {i}: {timer.ElapsedMilliseconds}ms");
+}

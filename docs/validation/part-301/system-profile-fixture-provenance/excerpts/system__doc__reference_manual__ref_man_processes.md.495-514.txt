@@ -1,0 +1,20 @@
+[](){: #signal-delivery }
+
+### Delivery of Signals
+
+The amount of time that passes between the time a signal is sent and the arrival
+of the signal at the destination is unspecified but positive. If the receiver
+has terminated, the signal does not arrive, but it can trigger another signal.
+For example, a `link` signal sent to a non-existing process triggers an `exit`
+signal, which is sent back to where the `link` signal originated from. When
+communicating over the distribution, signals can be lost if the distribution
+channel goes down.
+
+The only signal ordering guarantee given is the following: if an entity sends
+multiple signals to the same destination entity, the order is preserved; that
+is, if `A` sends a signal `S1` to `B`, and later sends signal `S2` to `B`, `S1`
+is guaranteed not to arrive after `S2`. Note that `S1` may or may not have been
+lost.
+
+[](){: #signal-irregularities }
+
