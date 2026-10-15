@@ -1,0 +1,236 @@
+{
+  "Status": "ACTUAL_MAIN_POST_FULL_WINDOWS_LEGACY_SEVEN_AND_NEW_REALLOCATION_THREE_PASS",
+  "FullPassed": 6640,
+  "SourceFilesRehashed": 2205,
+  "SourceFreezeSha256": "94ECE1FA74682375688E4FF65B174EC4BC993CB572D50372145FDF5FEB34507B",
+  "LegacyStrictParsed": {
+    "GeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+    "NativePayloadDomainObservations": [
+      {
+        "Role": "actual-native-load-veto-before-payload-allocation-domain-closed",
+        "Snapshot": {
+          "JoinedOwners": 0,
+          "Allocations": {
+            "Count": 0,
+            "RequestedBytes": 0,
+            "BackingRequestBytes": 0,
+            "PeakRequestedBytes": 0,
+            "PeakBackingRequestBytes": 0,
+            "AllocatedRequestedBytes": 0,
+            "ReleasedRequestedBytes": 0,
+            "AllocatedBackingRequestBytes": 0,
+            "ReleasedBackingRequestBytes": 0,
+            "SuccessfulAllocations": 0,
+            "ReleasedAllocations": 0
+          }
+        }
+      },
+      {
+        "Role": "actual-native-load-callback-payload-matches-library-owner-ledger",
+        "Snapshot": {
+          "JoinedOwners": 1,
+          "Allocations": {
+            "Count": 1,
+            "RequestedBytes": 4,
+            "BackingRequestBytes": 4,
+            "PeakRequestedBytes": 4,
+            "PeakBackingRequestBytes": 4,
+            "AllocatedRequestedBytes": 4,
+            "ReleasedRequestedBytes": 0,
+            "AllocatedBackingRequestBytes": 4,
+            "ReleasedBackingRequestBytes": 0,
+            "SuccessfulAllocations": 1,
+            "ReleasedAllocations": 0
+          }
+        },
+        "OwnerSnapshot": {
+          "Count": 1,
+          "RequestedBytes": 4,
+          "BackingRequestBytes": 4,
+          "PeakRequestedBytes": 4,
+          "PeakBackingRequestBytes": 4,
+          "AllocatedRequestedBytes": 4,
+          "ReleasedRequestedBytes": 0,
+          "AllocatedBackingRequestBytes": 4,
+          "ReleasedBackingRequestBytes": 0,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 0
+        }
+      },
+      {
+        "Role": "actual-native-retirement-unload-releases-payload-and-domain-membership",
+        "Snapshot": {
+          "JoinedOwners": 0,
+          "Allocations": {
+            "Count": 0,
+            "RequestedBytes": 0,
+            "BackingRequestBytes": 0,
+            "PeakRequestedBytes": 4,
+            "PeakBackingRequestBytes": 4,
+            "AllocatedRequestedBytes": 4,
+            "ReleasedRequestedBytes": 4,
+            "AllocatedBackingRequestBytes": 4,
+            "ReleasedBackingRequestBytes": 4,
+            "SuccessfulAllocations": 1,
+            "ReleasedAllocations": 1
+          }
+        }
+      }
+    ],
+    "NativePayloadDomainRolesValidated": true,
+    "LoadedOwnerSnapshotMatchesRuntime": true,
+    "LegacyOrderedSuccessLines": [
+      "Managed backend checks passed; native ABI and original OTP NOT executed.",
+      "Internal trusted native fixture checks passed; general NIF ABI NOT implemented.",
+      "Native generated source SHA256: 6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+      "Trusted native generated-source entry routes passed; BEAM/old-image/general ABI NOT established."
+    ]
+  },
+  "NewCases": [
+    {
+      "Role": "actual-native-reallocation-case",
+      "Case": "null_positive",
+      "Selector": 1,
+      "ReturnedMask": 1539,
+      "ReturnedEtfBase64": "g2IAAAYD",
+      "RequestedSizes": [
+        13
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "HeldAdmissionDelayedUnload": true,
+      "OwnerSnapshot": {
+        "Count": 0,
+        "RequestedBytes": 0,
+        "BackingRequestBytes": 0,
+        "PeakRequestedBytes": 13,
+        "PeakBackingRequestBytes": 13,
+        "AllocatedRequestedBytes": 13,
+        "ReleasedRequestedBytes": 13,
+        "AllocatedBackingRequestBytes": 13,
+        "ReleasedBackingRequestBytes": 13,
+        "SuccessfulAllocations": 1,
+        "ReleasedAllocations": 1
+      },
+      "UnloadedDomainSnapshot": {
+        "JoinedOwners": 0,
+        "Allocations": {
+          "Count": 0,
+          "RequestedBytes": 0,
+          "BackingRequestBytes": 0,
+          "PeakRequestedBytes": 13,
+          "PeakBackingRequestBytes": 13,
+          "AllocatedRequestedBytes": 13,
+          "ReleasedRequestedBytes": 13,
+          "AllocatedBackingRequestBytes": 13,
+          "ReleasedBackingRequestBytes": 13,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 1
+        }
+      }
+    },
+    {
+      "Role": "actual-native-reallocation-case",
+      "Case": "null_zero",
+      "Selector": 2,
+      "ReturnedMask": 1601,
+      "ReturnedEtfBase64": "g2IAAAZB",
+      "RequestedSizes": [
+        0
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "HeldAdmissionDelayedUnload": true,
+      "OwnerSnapshot": {
+        "Count": 0,
+        "RequestedBytes": 0,
+        "BackingRequestBytes": 0,
+        "PeakRequestedBytes": 0,
+        "PeakBackingRequestBytes": 1,
+        "AllocatedRequestedBytes": 0,
+        "ReleasedRequestedBytes": 0,
+        "AllocatedBackingRequestBytes": 1,
+        "ReleasedBackingRequestBytes": 1,
+        "SuccessfulAllocations": 1,
+        "ReleasedAllocations": 1
+      },
+      "UnloadedDomainSnapshot": {
+        "JoinedOwners": 0,
+        "Allocations": {
+          "Count": 0,
+          "RequestedBytes": 0,
+          "BackingRequestBytes": 0,
+          "PeakRequestedBytes": 0,
+          "PeakBackingRequestBytes": 1,
+          "AllocatedRequestedBytes": 0,
+          "ReleasedRequestedBytes": 0,
+          "AllocatedBackingRequestBytes": 1,
+          "ReleasedBackingRequestBytes": 1,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 1
+        }
+      }
+    },
+    {
+      "Role": "actual-native-reallocation-case",
+      "Case": "resize_sequence",
+      "Selector": 3,
+      "ReturnedMask": 2047,
+      "ReturnedEtfBase64": "g2IAAAf/",
+      "RequestedSizes": [
+        13,
+        37,
+        7,
+        0,
+        5
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "HeldAdmissionDelayedUnload": true,
+      "OwnerSnapshot": {
+        "Count": 0,
+        "RequestedBytes": 0,
+        "BackingRequestBytes": 0,
+        "PeakRequestedBytes": 37,
+        "PeakBackingRequestBytes": 37,
+        "AllocatedRequestedBytes": 62,
+        "ReleasedRequestedBytes": 62,
+        "AllocatedBackingRequestBytes": 63,
+        "ReleasedBackingRequestBytes": 63,
+        "SuccessfulAllocations": 1,
+        "ReleasedAllocations": 1
+      },
+      "UnloadedDomainSnapshot": {
+        "JoinedOwners": 0,
+        "Allocations": {
+          "Count": 0,
+          "RequestedBytes": 0,
+          "BackingRequestBytes": 0,
+          "PeakRequestedBytes": 37,
+          "PeakBackingRequestBytes": 37,
+          "AllocatedRequestedBytes": 62,
+          "ReleasedRequestedBytes": 62,
+          "AllocatedBackingRequestBytes": 63,
+          "ReleasedBackingRequestBytes": 63,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 1
+        }
+      }
+    }
+  ],
+  "NewControls": {
+    "Role": "actual-native-reallocation-controls",
+    "OneShotInitialization": true,
+    "OldFiveArgumentConstructor": true,
+    "ActualOldLibraryOwnerMixedPermissionDenied": true,
+    "NestedPermissionRestored": true,
+    "LinuxGlobalSymbolResident": false,
+    "WindowsHeaderLayoutVerified": true,
+    "ActualAllocatorOom": false
+  },
+  "NewStdoutExactIndependentlyReviewedIsolatedOutput": true,
+  "IsolatedPassiveReviewSha256": "94D2C3797020558D6AE28DBC4A78E2E4E313893BEAE1913969438403179D71D0",
+  "OriginalExecutedForNewCases": false,
+  "OriginalAndSdkCompared": false,
+  "LinuxNewBridgeExecuted": false,
+  "ActualAllocatorOom": false,
+  "DefaultNativeInstructionHandlerInstalled": false,
+  "GeneralNifAbiComplete": false
+}

@@ -38,6 +38,32 @@ internal static unsafe class NifNativePrimitiveCallbacks
     }
 
     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    internal static nint Reallocate(nint pointer, nuint size)
+    {
+        try
+        {
+            var scope = NifNativeCallbackScope.Current;
+            if (!scope.ReallocationEnabled)
+                throw new InvalidOperationException(NifNativeDiagnostics.ReallocationNotGranted);
+            try
+            {
+                return scope.Allocations.Reallocate(pointer, size);
+            }
+            catch (OutOfMemoryException)
+            {
+                // C allocation failure returns NULL without altering pending host/guest state.
+                return 0;
+            }
+        }
+        catch (Exception exception)
+        {
+            NifNativeCallbackScope.Fail(exception);
+
+            return 0;
+        }
+    }
+
+    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
     internal static void Free(nint pointer)
     {
         try

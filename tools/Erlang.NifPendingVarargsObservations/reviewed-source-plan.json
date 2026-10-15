@@ -3425,20 +3425,20 @@
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
-      "Bytes": 1043,
-      "Sha256": "4DCEEAF0FDA818EE5EC818C0E32F9E9C118C0DFFFEBA57907C9F7601BFEDB0B1",
+      "Bytes": 1369,
+      "Sha256": "0368B94A42DCC7C5DF4841D8920DFD5633467F01FA42B39BAA00196E4E921BDD",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
-      "Bytes": 2201,
-      "Sha256": "36405736562B8218CCBBB8EE951AE52410ABFEDA55205665CA0C8D5512655CE4",
+      "Bytes": 4063,
+      "Sha256": "70D9F82402D08FC8033C9FA65B14DFBBC6646CD50B9F38BF4F647E1D5684D03D",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeDiagnostics.cs",
-      "Bytes": 2900,
-      "Sha256": "3007D7630437640BB8D6C7B26495F216552195AFF9A535F04E1A0D8E08904A63",
+      "Bytes": 3134,
+      "Sha256": "67E5D1ACD830704025C00D26C640D22F800B8927D3E98F0AB623830A058D0951",
       "HashMode": "TextLF"
     },
     {
@@ -3479,8 +3479,8 @@
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-      "Bytes": 10515,
-      "Sha256": "FB3C3921B64A5F84136421CDA69FAAAFF9BA36F02AEADCC5713537AC37AF7B4F",
+      "Bytes": 11239,
+      "Sha256": "F6D5B2E1486045A065A260E03D04467B6F22484936E8A99D2AC6856C472B1470",
       "HashMode": "TextLF"
     },
     {
@@ -3509,8 +3509,26 @@
     },
     {
       "Path": "src/Erlang.Runtime/NifNativePrimitiveCallbacks.cs",
-      "Bytes": 6045,
-      "Sha256": "CA0C23032C03149D046268267FBCC231E5AAB9145080B2F7FA5A0D36BDED555E",
+      "Bytes": 6848,
+      "Sha256": "714A2018230D57BF34EB845AE88D17E3F38153D245BA50E0E0CB27D51A456CCB",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationBridgeTable.cs",
+      "Bytes": 278,
+      "Sha256": "C19222135C97EC4E7821EFC15DFFE87D2FE14A9E6B40B508B3EE56378AA0067F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationExportRegistration.cs",
+      "Bytes": 4135,
+      "Sha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationNames.cs",
+      "Bytes": 355,
+      "Sha256": "BCD89614CF3EF42A88CDA921C3D528DD62B899DC865CB31B03C9471E913DD42C",
       "HashMode": "TextLF"
     },
     {
@@ -3521,14 +3539,14 @@
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
-      "Bytes": 562,
-      "Sha256": "15BACF6F5DF477231C7322855DC0C11560571BD9EF4D16EF639B79A3D832D678",
+      "Bytes": 602,
+      "Sha256": "08BE120A3C77F5EAA78185717D9F235E46AB2558774DA16870094B98B48EF877",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
-      "Bytes": 2331,
-      "Sha256": "AFF99E5DE455F51AD65B110ADF73BE1817A2920EB20B4C77432DE345454A5961",
+      "Bytes": 2613,
+      "Sha256": "8049B4E810CFDF1DFFB5E67CA4421D438BB96860B3E7824D06798889C3202277",
       "HashMode": "TextLF"
     },
     {
@@ -6106,9 +6124,57 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationCase.cs",
+      "Bytes": 171,
+      "Sha256": "1C7925C0A3A2648A870DB39D72441CB3000FE068BA008C7029F0B0BE1C422D26",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.Callbacks.cs",
+      "Bytes": 4387,
+      "Sha256": "D33465ADEF0CCFE9197F9B5DA8401E3B3AAB17493C3D250C668959EBE1E9A406",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.Lifecycle.cs",
+      "Bytes": 8032,
+      "Sha256": "9B119ED254B3B90D935F1F8003BEC8FEF8E98555197A2C5270A654D59E1DE683",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.cs",
+      "Bytes": 5381,
+      "Sha256": "16FE8250FC486C7B6911CF96F075911B1F0FFA088F79AAEB1FB4E1AA391B3D94",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationHarnessNames.cs",
+      "Bytes": 1880,
+      "Sha256": "4AB698C06F6335AF180713E92E7949C8AF21EE64E1BACBDC114DBA849D171142",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationLayout.cs",
+      "Bytes": 3062,
+      "Sha256": "51D000677C4C1C79934B9CF29A6DADA69E68C656B816EF32326891D7E407B940",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationLibrary.cs",
+      "Bytes": 1033,
+      "Sha256": "D16770BC226CEDF333B7555BE6471C4DAF39E3E16E627A609ED4700BC1DA0402",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationParameters.cs",
+      "Bytes": 2169,
+      "Sha256": "9F5D777D69978EA5BC874715A317FD086E54E999C3F98335DDBD599279F86550",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/Program.cs",
-      "Bytes": 803,
-      "Sha256": "54B5F9BB9FC6D1FC0DDE003E367151D8801EAA26C6D4A01F9290799D431E613D",
+      "Bytes": 950,
+      "Sha256": "6E034753B58DFF34BC091DA3730598A451FFDCCCE81A73B301D7B87F75A59EE5",
       "HashMode": "TextLF"
     },
     {

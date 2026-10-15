@@ -1,0 +1,39 @@
+{
+  "Status": "NEEDS_DOCUMENTATION_REVISION_BEFORE_ROOT_BINDING",
+  "ProposalFreeze": "63C3D57D1A68EE59966C806418341ACB8D1F75A89A219200EF786144D80958E7",
+  "MembersVerified": 6,
+  "BaseRowsVerified": 376,
+  "FinalRowsVerified": 22,
+  "CombinedRowsBeforeReadiness": 398,
+  "UniqueDestinations": 398,
+  "RenderedVolumeBytes": 12346,
+  "RenderedVolumeLines": 48,
+  "Findings": [
+    {
+      "Priority": 2,
+      "Issue": "English detailed entry omits actual validation and post-full native commands required by AGENTS checkpoint documentation policy.",
+      "Fix": "Add tools/validate.ps1 and Root post-full native runner/guard command references with existing relative raw/guard proof links."
+    },
+    {
+      "Priority": 2,
+      "Issue": "English entry and Runtime/OTP-PORTS note omit precise pinned enif_realloc declaration and implementation attribution.",
+      "Fix": "Name ad058237 baseline and actual erl_nif_api_funcs.h/erl_nif.h table binding plus erl_nif.c implementation source/line ranges verified from existing pin evidence; describe CLR NativeMemory.Realloc/owner/capability adaptation and remaining ABI boundary."
+    }
+  ],
+  "MutationReview": [
+    "Unbound false/null template refuses before scope mutation",
+    "Scope phase requires actual full/native/source closure then pins scope marker; final phase requires actual readiness and exact marker",
+    "All final copy bytes and metadata/volume pins validated before final writes",
+    "Part0046 pinned before/after; active0047 bounded; no source/plan mutation",
+    "Source hashes, actual full/native masks and explicit pending remote/new-original boundaries preserved",
+    "Root binding must append actual readiness copy row and reviewed final controls before finalize"
+  ],
+  "Execution": {
+    "FinalizerExecuted": false,
+    "MainMutation": false,
+    "SDK": false,
+    "Native": false,
+    "Network": false,
+    "GitMutation": false
+  }
+}

@@ -14,6 +14,8 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
     private nint library;
     private FileStream? verifiedFile;
     private nint privateData;
+    private bool initializationStarted;
+    private bool reallocationEnabled;
     private bool initialized;
     private bool disposed;
     internal int OutstandingAfterNativeUnload { get; private set; } = -1;
@@ -35,18 +37,27 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
         lock (gate)
         {
             cancellation.ThrowIfCancellationRequested();
+            ArgumentNullException.ThrowIfNull(profile);
+            if (disposed)
+                throw new ObjectDisposedException(nameof(NifNativeLibraryOwner), NifNativeDiagnostics.DisposedLibrary);
+            if (initializationStarted)
+                throw new InvalidOperationException(NifNativeDiagnostics.RepeatedInitialization);
+            initializationStarted = true;
+            reallocationEnabled = profile.ReallocationEnabled;
             allocations.JoinDomain(initializationContext.Runtime.NativeAllocationDomain);
             NifNativePlatformLoader.VerifyPlatform();
             if (image.Module != NifNativeNames.Module)
                 throw new NotSupportedException(NifNativeDiagnostics.ModuleIdentity);
             NifNativeExportRegistration.EnsureRegistered(profile);
+            if (reallocationEnabled)
+                NifNativeReallocationExportRegistration.EnsureRegistered(profile);
             verifiedFile = NifNativeCapabilityProfile.OpenVerified(profile.LibraryPath, profile.LibrarySha256);
             if (OperatingSystem.IsWindows())
-                windowsCallbacks = new();
+                windowsCallbacks = new(reallocationEnabled);
             library = NifNativePlatformLoader.Open(verifiedFile, profile.LibraryPath, global: false);
             nint initialize = NifNativePlatformLoader.Symbol(library, NifNativeNames.Initializer);
             var failure = new NifNativeFailureState();
-            using var scope = new NifNativeCallbackScope(allocations, failure);
+            using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
             initializationContext.Runtime.Modules.AddNifTaint(image.Module);
             nint entryPointer = OperatingSystem.IsWindows()
                 ? ((delegate* unmanaged[Cdecl]<nint, nint>)initialize)(windowsCallbacks!.Pointer)
@@ -129,7 +140,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             context.Cancellation.ThrowIfCancellationRequested();
             var failure = new NifNativeFailureState();
-            using var scope = new NifNativeCallbackScope(allocations, failure);
+            using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
             using var environment = new NifNativeCallEnvironment(
                 context,
                 image,
@@ -163,7 +174,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 {
                     initialized = false;
                     var state = new NifNativeFailureState();
-                    using var scope = new NifNativeCallbackScope(allocations, state);
+                    using var scope = new NifNativeCallbackScope(allocations, state, reallocationEnabled);
                     using var environment = new NifNativeCallEnvironment(
                         initializationContext,
                         image,

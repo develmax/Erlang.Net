@@ -1,0 +1,38 @@
+{
+  "Status": "REQUIRED_PENDING_FINAL_RECEIPTS_NOT_COPY_ROWS",
+  "ReadyToPublish": false,
+  "MainFullVerified": false,
+  "MainNewNativeThreeVerified": false,
+  "MainLegacySevenVerified": false,
+  "Published313HeadVerified": false,
+  "Current313CiVerified": false,
+  "Current313OriginalCompared": false,
+  "AllFinalConfigReady": false,
+  "Required": [
+    {
+      "Role": "actual-final-Main-full",
+      "Expected": "Actual final45/2205 source binding; complete6640 tests plus11 package/integration outcomes, command/exit/rawlog/typedreport",
+      "SourcePath": null,
+      "DestinationPrefix": "docs/validation/part-313/final-Main-full/"
+    },
+    {
+      "Role": "actual-postfull-Main-new-Windows-three",
+      "Expected": "Exact actual Main tool/Runtime/DLL/layout identities,3 rawETF masks plus Windows controls, process/stdout/stderr/guard",
+      "SourcePath": null,
+      "DestinationPrefix": "docs/validation/part-313/final-Main-native-new-three/"
+    },
+    {
+      "Role": "actual-postfull-Main-legacy-Windows-seven",
+      "Expected": "Exact Main compiled backend,oldfixture/source profile,7orderedrows/3domainroles/generatedhash,process/guard",
+      "SourcePath": null,
+      "DestinationPrefix": "docs/validation/part-313/final-Main-native-legacy-seven/"
+    },
+    {
+      "Role": "publication-and-remote-run-map",
+      "Expected": "Actual published313 SHA and separately mapped exact-head CI/legacy-native/ordinary/new-reallocation runs; no fabricated terminal status",
+      "SourcePath": null,
+      "DestinationPrefix": "docs/validation/part-313/final-publication/"
+    }
+  ],
+  "RemoteNewOriginalThree": "Pending future actual source-built Linux run and strict Original-vs-SDK report; it is not a local publication gate success and never inferred from Windows SDK"
+}

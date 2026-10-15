@@ -8,13 +8,28 @@ internal sealed class NifNativeCallbackScope : IDisposable
     private static Exception? unsupportedThreadFailure;
     private readonly NifNativeCallbackScope? previous;
 
-    internal NifNativeAllocationOwner Allocations { get; }
-    internal NifNativeFailureState Failure { get; }
+    internal NifNativeAllocationOwner Allocations
+    {
+        get;
+    }
+    internal NifNativeFailureState Failure
+    {
+        get;
+    }
+    internal bool ReallocationEnabled
+    {
+        get;
+    }
     internal static NifNativeCallbackScope Current
         => current ?? throw new InvalidOperationException(NifNativeDiagnostics.NativeThreadUnsupported);
 
-    internal NifNativeCallbackScope(NifNativeAllocationOwner allocations, NifNativeFailureState failure)
+    internal NifNativeCallbackScope(NifNativeAllocationOwner allocations, NifNativeFailureState failure) : this(allocations, failure, false)
     {
+    }
+
+    internal NifNativeCallbackScope(NifNativeAllocationOwner allocations, NifNativeFailureState failure, bool reallocationEnabled)
+    {
+        ReallocationEnabled = reallocationEnabled;
         previous = current;
         Allocations = allocations;
         Failure = failure;

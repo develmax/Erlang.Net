@@ -1,0 +1,21 @@
+{
+  "Status": "REVIEWED_SOURCE_RECIPE_ONLY_NOT_EXECUTED",
+  "Platform": "WindowsX64",
+  "CompilerInstallation": "Explicit preexisting approved x64 cl.exe/dumpbin.exe environment; no install or guessed toolchain path",
+  "Preconditions": [
+    "Pinned public header bytes equal ad05823719d77c8faee87348ea39513d4e2f99c5 git objects",
+    "Actual configured Windows erl_int_sizes_config.h captured separately",
+    "Exact approved C+Names+schema identity62B86A5D64FAFAD03F3D80D950E0870497B3F4BB222E1BD5911C6E5C2B752A0E",
+    "Source-only peer then root compiler/build approval; no source plan alone permits native execution"
+  ],
+  "LayoutCompileArguments": ["cl.exe", "/nologo", "/std:c11", "/W4", "/WX", "/I{ActualPinnedConfiguredInclude}", "reallocation_windows_layout.c", "/Fe:{FreshOutput}/reallocation_windows_layout.exe"],
+  "LayoutExecution": ["{FreshOutput}/reallocation_windows_layout.exe"],
+  "LayoutExpectedRelations": ["PointerBytes=actual IntPtr.Size8", "FieldCount=offsetof(erts_alc_test)/sizeof(void*)180", "SecondTailSlot181", "ReallocationSlot58", "ReallocationOffset=58*sizeof(void*)", "TableBytes=(180+2)*sizeof(void*)"],
+  "FixtureCompileArguments": ["cl.exe", "/nologo", "/std:c11", "/W4", "/WX", "/LD", "/I{ActualPinnedConfiguredInclude}", "reallocation_fixture.c", "/link", "/OUT:{FreshOutput}/reallocation_fixture.dll"],
+  "InspectArguments": ["dumpbin.exe", "/headers", "/exports", "/imports", "{FreshOutput}/reallocation_fixture.dll"],
+  "RequiredFixtureExports": ["nif_init"],
+  "NativeExecutionGate": "After target0/0 and independently reviewed exact source/compiler/header/binary/layout receipts; explicit root approval of actual new DLL/hash and helper EXE/hash",
+  "SdkArguments": ["dotnet", "{ExactBuiltNativeBackendDll}", "--reallocation-probe", "{AbsoluteNewFixtureDll}", "{ApprovedNewFixtureSha256}", "{AbsoluteOldC7B6AFixtureDll}", "{ApprovedOldFixtureSha256}", "{ActualLayoutStdoutJson}", "{ApprovedLayoutStdoutSha256}"],
+  "Capture": "Owned bounded child, fresh stdout/stderr/exit/process receipt and exact source/DLL dependencies; no automatic retry after ambiguity",
+  "Scope": "Actual Windows2arg-fixture callback/profile proof; no original comparison or Linux ABI claim"
+}

@@ -1,0 +1,342 @@
+{
+  "Status": "ROOT_REVIEWED_45_SOURCE_19_CSHARP_FROZEN_PENDING_ACTUAL_MAIN_FULL",
+  "ParentHead": "710996472fdb4a68b6b59103ce351247cf78e7a3",
+  "SourcePaths": 45,
+  "CSharpPaths": 19,
+  "SourceClosurePaths": 2205,
+  "FinalSourceClosureSha256": "316FB4A06ECCB3C87F2DC79DAA87DA7B748454D71C0DA360AEB078D559FAE158",
+  "AuthorFreezeSha256": "11DBF72C617B9BAAD1BC6A42BDA9408D81E5A8BF80B0AB971F062861379D7200",
+  "IndependentPeerPath": "artifacts/nif-reallocation-native309-remote-beam310-source-peer1.json",
+  "IndependentPeerSha256": "F7098B056F5717649B5E1D57BE2673123E5EF6C0245D7888E5AFD53F290CC7CA",
+  "RootFormattedIsolatedSourceFreezeSha256": "2F96402E39B6234D33EC66371C7A4961222BAFBEF026AD89F23C1236AB97981E",
+  "All19CSharpBytesExactFormattedTokenProvenSource": true,
+  "TokensExactForCSharp": true,
+  "ExpectedFullPassed": 6640,
+  "ExpectedRegistry": 505,
+  "ExpectedOptionalIoRegistry": 507,
+  "ExpectedErlangPresence": 347,
+  "ReviewedSourceInputs": 1049,
+  "ReviewedSourcePlanSha256": "229DB0B265679904A15473349AD6B00E206C017958B30F8414C7552C3F313CE6",
+  "NewReallocationSourceInputs": 1074,
+  "NewReallocationPlanSha256": "EE514F42467BF1A3FD4764D07F696CA4F2BFDA2126157F3A0C06E07DD065209A",
+  "PublicMfaDelta": 0,
+  "DefaultNativeLoadInstructionHandlerInstalled": false,
+  "GeneralNifAbiComplete": false,
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 6858,
+      "Sha256": "A4D5839405B4959041E40E882B1EB07A770AC61EF0804101A521A52E7AB9D163",
+      "ParentBytes": 6823,
+      "ParentSha256": "36977059EBE191DA6E9906368E5794D3B898D036F8FA0BAFC34EA648EDE655D0"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "C84C3097A3AC1702202244B31E014A6BE8722443FE81C3D1EB52743690A8B033",
+      "ParentBytes": 6236,
+      "ParentSha256": "C84C3097A3AC1702202244B31E014A6BE8722443FE81C3D1EB52743690A8B033"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5862,
+      "Sha256": "6AE4BEEF031257E2A67EF8873707D570BD9B4255B6879DD3AEDD6A1881A486CF",
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
+      "Bytes": 1369,
+      "Sha256": "0368B94A42DCC7C5DF4841D8920DFD5633467F01FA42B39BAA00196E4E921BDD",
+      "ParentBytes": 1369,
+      "ParentSha256": "0368B94A42DCC7C5DF4841D8920DFD5633467F01FA42B39BAA00196E4E921BDD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
+      "Bytes": 4063,
+      "Sha256": "70D9F82402D08FC8033C9FA65B14DFBBC6646CD50B9F38BF4F647E1D5684D03D",
+      "ParentBytes": 4063,
+      "ParentSha256": "70D9F82402D08FC8033C9FA65B14DFBBC6646CD50B9F38BF4F647E1D5684D03D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDiagnostics.cs",
+      "Bytes": 3134,
+      "Sha256": "67E5D1ACD830704025C00D26C640D22F800B8927D3E98F0AB623830A058D0951",
+      "ParentBytes": 3134,
+      "ParentSha256": "67E5D1ACD830704025C00D26C640D22F800B8927D3E98F0AB623830A058D0951"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Bytes": 11239,
+      "Sha256": "F6D5B2E1486045A065A260E03D04467B6F22484936E8A99D2AC6856C472B1470",
+      "ParentBytes": 11239,
+      "ParentSha256": "F6D5B2E1486045A065A260E03D04467B6F22484936E8A99D2AC6856C472B1470"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativePrimitiveCallbacks.cs",
+      "Bytes": 6848,
+      "Sha256": "714A2018230D57BF34EB845AE88D17E3F38153D245BA50E0E0CB27D51A456CCB",
+      "ParentBytes": 6848,
+      "ParentSha256": "714A2018230D57BF34EB845AE88D17E3F38153D245BA50E0E0CB27D51A456CCB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationBridgeTable.cs",
+      "Bytes": 278,
+      "Sha256": "C19222135C97EC4E7821EFC15DFFE87D2FE14A9E6B40B508B3EE56378AA0067F",
+      "ParentBytes": 278,
+      "ParentSha256": "C19222135C97EC4E7821EFC15DFFE87D2FE14A9E6B40B508B3EE56378AA0067F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationExportRegistration.cs",
+      "Bytes": 4135,
+      "Sha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E",
+      "ParentBytes": 4135,
+      "ParentSha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationNames.cs",
+      "Bytes": 355,
+      "Sha256": "BCD89614CF3EF42A88CDA921C3D528DD62B899DC865CB31B03C9471E913DD42C",
+      "ParentBytes": 355,
+      "ParentSha256": "BCD89614CF3EF42A88CDA921C3D528DD62B899DC865CB31B03C9471E913DD42C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+      "Bytes": 602,
+      "Sha256": "08BE120A3C77F5EAA78185717D9F235E46AB2558774DA16870094B98B48EF877",
+      "ParentBytes": 602,
+      "ParentSha256": "08BE120A3C77F5EAA78185717D9F235E46AB2558774DA16870094B98B48EF877"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Bytes": 2613,
+      "Sha256": "8049B4E810CFDF1DFFB5E67CA4421D438BB96860B3E7824D06798889C3202277",
+      "ParentBytes": 2613,
+      "ParentSha256": "8049B4E810CFDF1DFFB5E67CA4421D438BB96860B3E7824D06798889C3202277"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationCase.cs",
+      "Bytes": 171,
+      "Sha256": "1C7925C0A3A2648A870DB39D72441CB3000FE068BA008C7029F0B0BE1C422D26",
+      "ParentBytes": 171,
+      "ParentSha256": "1C7925C0A3A2648A870DB39D72441CB3000FE068BA008C7029F0B0BE1C422D26"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.Callbacks.cs",
+      "Bytes": 4387,
+      "Sha256": "D33465ADEF0CCFE9197F9B5DA8401E3B3AAB17493C3D250C668959EBE1E9A406",
+      "ParentBytes": 4387,
+      "ParentSha256": "D33465ADEF0CCFE9197F9B5DA8401E3B3AAB17493C3D250C668959EBE1E9A406"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.cs",
+      "Bytes": 5381,
+      "Sha256": "16FE8250FC486C7B6911CF96F075911B1F0FFA088F79AAEB1FB4E1AA391B3D94",
+      "ParentBytes": 5381,
+      "ParentSha256": "16FE8250FC486C7B6911CF96F075911B1F0FFA088F79AAEB1FB4E1AA391B3D94"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationChecks.Lifecycle.cs",
+      "Bytes": 8032,
+      "Sha256": "9B119ED254B3B90D935F1F8003BEC8FEF8E98555197A2C5270A654D59E1DE683",
+      "ParentBytes": 8032,
+      "ParentSha256": "9B119ED254B3B90D935F1F8003BEC8FEF8E98555197A2C5270A654D59E1DE683"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationHarnessNames.cs",
+      "Bytes": 1880,
+      "Sha256": "4AB698C06F6335AF180713E92E7949C8AF21EE64E1BACBDC114DBA849D171142",
+      "ParentBytes": 1880,
+      "ParentSha256": "4AB698C06F6335AF180713E92E7949C8AF21EE64E1BACBDC114DBA849D171142"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationLayout.cs",
+      "Bytes": 3062,
+      "Sha256": "51D000677C4C1C79934B9CF29A6DADA69E68C656B816EF32326891D7E407B940",
+      "ParentBytes": 3062,
+      "ParentSha256": "51D000677C4C1C79934B9CF29A6DADA69E68C656B816EF32326891D7E407B940"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationLibrary.cs",
+      "Bytes": 1033,
+      "Sha256": "D16770BC226CEDF333B7555BE6471C4DAF39E3E16E627A609ED4700BC1DA0402",
+      "ParentBytes": 1033,
+      "ParentSha256": "D16770BC226CEDF333B7555BE6471C4DAF39E3E16E627A609ED4700BC1DA0402"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReallocationParameters.cs",
+      "Bytes": 2169,
+      "Sha256": "9F5D777D69978EA5BC874715A317FD086E54E999C3F98335DDBD599279F86550",
+      "ParentBytes": 2169,
+      "ParentSha256": "9F5D777D69978EA5BC874715A317FD086E54E999C3F98335DDBD599279F86550"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/Program.cs",
+      "Bytes": 950,
+      "Sha256": "6E034753B58DFF34BC091DA3730598A451FFDCCCE81A73B301D7B87F75A59EE5",
+      "ParentBytes": 950,
+      "ParentSha256": "6E034753B58DFF34BC091DA3730598A451FFDCCCE81A73B301D7B87F75A59EE5"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 223271,
+      "Sha256": "229DB0B265679904A15473349AD6B00E206C017958B30F8414C7552C3F313CE6",
+      "ParentBytes": 223271,
+      "ParentSha256": "229DB0B265679904A15473349AD6B00E206C017958B30F8414C7552C3F313CE6"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/controlled_source_build.py",
+      "Bytes": 5786,
+      "Sha256": "A0DC628C9F4ACF5F998AEFE7B8D1032148A25354A76C6948088CD89F596CEFED",
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.c",
+      "Bytes": 1110,
+      "Sha256": "12D1CBC949825305615CC40B32984799906FCCFB3E8D49A392BD6BEB40C4EEB1",
+      "ParentBytes": 1110,
+      "ParentSha256": "12D1CBC949825305615CC40B32984799906FCCFB3E8D49A392BD6BEB40C4EEB1"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.h",
+      "Bytes": 753,
+      "Sha256": "821E0EBF4255D17851257D22E843CF76747ADA0A683D5B815B4343EBE6E56527",
+      "ParentBytes": 753,
+      "ParentSha256": "821E0EBF4255D17851257D22E843CF76747ADA0A683D5B815B4343EBE6E56527"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/reallocation_fixture.c",
+      "Bytes": 5179,
+      "Sha256": "C4E4E8ED30BCEDB7CC28D65629638293BB84E084576469BF0E1570B306D3A932",
+      "ParentBytes": 5179,
+      "ParentSha256": "C4E4E8ED30BCEDB7CC28D65629638293BB84E084576469BF0E1570B306D3A932"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/reallocation_probe_names.h",
+      "Bytes": 1791,
+      "Sha256": "E46C52E07726E4FAF14E69FCAEEA755F93AF0B871DCFB898CE233FED62D1ED7D",
+      "ParentBytes": 1791,
+      "ParentSha256": "E46C52E07726E4FAF14E69FCAEEA755F93AF0B871DCFB898CE233FED62D1ED7D"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout.c",
+      "Bytes": 751,
+      "Sha256": "8BE00007043143E60C7F71DAFC605A78D0BDF2E5EF1E1C3BBFEC62C999217128",
+      "ParentBytes": 751,
+      "ParentSha256": "8BE00007043143E60C7F71DAFC605A78D0BDF2E5EF1E1C3BBFEC62C999217128"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout_names.h",
+      "Bytes": 315,
+      "Sha256": "EDF0532E95C02C3014B8AAD22A29DA78479949985794D5EB9917D20A8AF46FCC",
+      "ParentBytes": 315,
+      "ParentSha256": "EDF0532E95C02C3014B8AAD22A29DA78479949985794D5EB9917D20A8AF46FCC"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/collect.py",
+      "Bytes": 7431,
+      "Sha256": "C248202484CBA9516D07C82E446572D11836E6B419571393CE01C87E52A612EB",
+      "ParentBytes": 7431,
+      "ParentSha256": "C248202484CBA9516D07C82E446572D11836E6B419571393CE01C87E52A612EB"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/memory_allocator_nif_fixture.erl",
+      "Bytes": 287,
+      "Sha256": "199F41D3531247080595A832EDE5CD7D143B48963311EEBCB0214D49DF74D83E",
+      "ParentBytes": 287,
+      "ParentSha256": "199F41D3531247080595A832EDE5CD7D143B48963311EEBCB0214D49DF74D83E"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/reallocation_observer.erl",
+      "Bytes": 1580,
+      "Sha256": "6AA6C940F7F5CE6BC822F9B871B78DD3428B9D137EF1921F22498230A8148844",
+      "ParentBytes": 1580,
+      "ParentSha256": "6AA6C940F7F5CE6BC822F9B871B78DD3428B9D137EF1921F22498230A8148844"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/profile-digest.json",
+      "Bytes": 354,
+      "Sha256": "71819E54713920A9CA0097D03C468BD88E0BE981DBAD700F45610EE6849AC5E8",
+      "ParentBytes": 354,
+      "ParentSha256": "71819E54713920A9CA0097D03C468BD88E0BE981DBAD700F45610EE6849AC5E8"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/profile-source-identity.json",
+      "Bytes": 415,
+      "Sha256": "8B6A560C5D7DCCAB4FBDABF9B9F8E0D43F9AF9AF39B17CFC541C51A908DA70CF",
+      "ParentBytes": 415,
+      "ParentSha256": "8B6A560C5D7DCCAB4FBDABF9B9F8E0D43F9AF9AF39B17CFC541C51A908DA70CF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/README.md",
+      "Bytes": 5148,
+      "Sha256": "BDE9724B8CC2B76ACD21DBB646AA9C7637E19E9EF0B08797D55FF6C0759D7D84",
+      "ParentBytes": 5322,
+      "ParentSha256": "4CEDF2727A005AACAEA3D8D7A59100E46934BBBAACE9C8307A61E47A668085D1"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/result-schema.json",
+      "Bytes": 2705,
+      "Sha256": "2821B3D5AD2EEFEE6E1A34F5986B3ED6C6442A303393E5AF5F4CF01A6B60E19A",
+      "ParentBytes": 2705,
+      "ParentSha256": "2821B3D5AD2EEFEE6E1A34F5986B3ED6C6442A303393E5AF5F4CF01A6B60E19A"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/review-results.py",
+      "Bytes": 10745,
+      "Sha256": "7BCF4F0C32FB3050AAD7CE76ED9C8A83CEFA73BE69D2775F862A83822C7B486F",
+      "ParentBytes": 10745,
+      "ParentSha256": "7BCF4F0C32FB3050AAD7CE76ED9C8A83CEFA73BE69D2775F862A83822C7B486F"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/reviewed_common.py",
+      "Bytes": 4085,
+      "Sha256": "68269B896C5DED6A4F494E5F012FE05BFB06A634E89514E18E7B5B6865CBAF61",
+      "ParentBytes": 4085,
+      "ParentSha256": "68269B896C5DED6A4F494E5F012FE05BFB06A634E89514E18E7B5B6865CBAF61"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/run-reviewed.py",
+      "Bytes": 6588,
+      "Sha256": "4222DCECB47D532C9D2ECB9C3B393F4B369431B36A52C2B89FBA4712041C05B1",
+      "ParentBytes": 6410,
+      "ParentSha256": "E365D25A274CCDE9709BA37CFAC6C35372F7AE70C2F7DA79B29F9D75C28EFFD8"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/runtime_receipt_adapter.py",
+      "Bytes": 11834,
+      "Sha256": "2264FF1908F480919C100ADAF1185CA11C38EE76C87F3727EF6651A8D48D9001",
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 226936,
+      "Sha256": "EE514F42467BF1A3FD4764D07F696CA4F2BFDA2126157F3A0C06E07DD065209A",
+      "ParentBytes": 232084,
+      "ParentSha256": "12B3AAC7F4054610B2C3E05BB62B80FC6D197644805075443042B7790EADCB2E"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_native_build.py",
+      "Bytes": 9933,
+      "Sha256": "13CB08A05F0965DE451AEE59173257CFFD3955B9B2773DAA86BEA684A22B1208",
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_source_build.py",
+      "Bytes": 14498,
+      "Sha256": "BA2459CD86C44CF3C02CA922BF4F067AFFFC03AC99C7324C603DEC3343BF41A6",
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/windows-compile-recipe.json",
+      "Bytes": 2214,
+      "Sha256": "47C9155EBB39F11F105BBA96F761F3059A25529DD318BA864D805692DA171BFE",
+      "ParentBytes": 2214,
+      "ParentSha256": "47C9155EBB39F11F105BBA96F761F3059A25529DD318BA864D805692DA171BFE"
+    }
+  ]
+}

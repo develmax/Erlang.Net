@@ -1,0 +1,14 @@
+void* enif_alloc(size_t size)
+{
+    return erts_alloc_fnf(ERTS_ALC_T_NIF, (Uint) size);
+}
+
+void* enif_realloc(void* ptr, size_t size)
+{
+    return erts_realloc_fnf(ERTS_ALC_T_NIF, ptr, size);
+}
+
+void enif_free(void* ptr)
+{
+    erts_free(ERTS_ALC_T_NIF, ptr);
+}

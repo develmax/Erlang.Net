@@ -1,0 +1,97 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 116612858257,
+      "run_id": 38790309441,
+      "workflow_name": "Validate CLR implementation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38790309441",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbJqsBkQ",
+      "head_sha": "710996472fdb4a68b6b59103ce351247cf78e7a3",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116612858257",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38790309441/job/116612858257",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-15T19:00:24Z",
+      "started_at": "2026-10-15T19:00:30Z",
+      "completed_at": "2026-10-15T19:07:13Z",
+      "name": "local-regressions",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T19:00:31Z",
+          "completed_at": "2026-10-15T19:00:33Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T19:00:33Z",
+          "completed_at": "2026-10-15T19:01:12Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T19:01:12Z",
+          "completed_at": "2026-10-15T19:01:40Z"
+        },
+        {
+          "name": "Run ./tools/validate.ps1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T19:01:40Z",
+          "completed_at": "2026-10-15T19:07:08Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T19:07:08Z",
+          "completed_at": "2026-10-15T19:07:09Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-15T19:07:09Z",
+          "completed_at": "2026-10-15T19:07:09Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-15T19:07:09Z",
+          "completed_at": "2026-10-15T19:07:12Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-15T19:07:12Z",
+          "completed_at": "2026-10-15T19:07:12Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116612858257",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000001401,
+      "runner_name": "GitHub Actions 1000001401",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
