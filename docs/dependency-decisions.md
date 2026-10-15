@@ -628,3 +628,5 @@ Part288 (2026-10-15): lazy capacity observer reuses BCL TaskCompletionSource und
 Part289 (2026-10-15): register existing managed input adapter and preserve target exception frames across apply dispatch; no added dependency/production BEAM/source license banner/private license publication. All-writer async pressure and real NIF ABI remain separate unfinished prerequisites.
 
 Part290: standalone trusted fixture host uses existing runtime and BCL NativeMemory/NativeLibrary; no new dependency, generic NIF registration, license banner, public package release or LICENSE.local.txt publication. Pinned OTP headers and attribution remain consolidated.
+
+Part294: standalone C# pressure observer reuses13 existing source files and BCL; no new NuGet dependency. Erlang original-VM test input and workflow Python build-provenance fragment are test-infrastructure exceptions, not production runtime implementations. No solution/public package/license-local publication.

@@ -1,0 +1,93 @@
+{
+  "SourceTag": "deliberately-invalid-tag",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scenarios": [
+    "same_controller_replies",
+    "producer_death_then_writer",
+    "terminal_public_free"
+  ],
+  "FreshVmPerScenario": true,
+  "FreshScenarioVMs": 3,
+  "Sources": [
+    {
+      "File": "distribution_pressure_probe.erl",
+      "Sha256": "147656D96BA59A5C527056794D2609B15D279AF23C1F1CCCD5A6E1EA2F740716"
+    },
+    {
+      "File": "expected-policy.json",
+      "Sha256": "DEC8C9901FE856EFC1903EB098F94BA11F02474D5B802608FA46B076B4A6F712"
+    }
+  ],
+  "ScenarioModules": {
+    "same_controller_replies": "distribution_pressure_probe",
+    "producer_death_then_writer": "distribution_pressure_probe",
+    "terminal_public_free": "distribution_pressure_probe"
+  },
+  "RequiredArtifacts": {
+    "same_controller_replies": [
+      "setup.etf",
+      "fill-payload.etf",
+      "before-fill.etf",
+      "busy-barrier.etf",
+      "after-drain.etf",
+      "outer.etf",
+      "cleanup.etf",
+      "stage",
+      "identities.etf",
+      "missing_link-control.etf",
+      "missing_link.packet",
+      "missing_link-put.etf",
+      "unlink_id-control.etf",
+      "unlink_id.packet",
+      "unlink_id-put.etf",
+      "before-any-drain.etf",
+      "expected-controls.etf",
+      "required_replies-drain.etf",
+      "native-launch.json"
+    ],
+    "producer_death_then_writer": [
+      "setup.etf",
+      "fill-payload.etf",
+      "before-fill.etf",
+      "busy-barrier.etf",
+      "after-drain.etf",
+      "outer.etf",
+      "cleanup.etf",
+      "stage",
+      "producer-suspended.etf",
+      "producer-down-before-drain.etf",
+      "next-writer-suspended.etf",
+      "next-writer-sent.etf",
+      "release_capacity-drain.etf",
+      "after_writer_return-drain.etf",
+      "native-launch.json"
+    ],
+    "terminal_public_free": [
+      "setup.etf",
+      "fill-payload.etf",
+      "before-fill.etf",
+      "busy-barrier.etf",
+      "after-drain.etf",
+      "outer.etf",
+      "cleanup.etf",
+      "stage",
+      "live_link-control.etf",
+      "live_link.packet",
+      "live_link-put.etf",
+      "established-link.etf",
+      "public-free-before-drain.etf",
+      "local-down-before-drain.etf",
+      "expected-controls.etf",
+      "terminal_exit-drain.etf",
+      "native-launch.json"
+    ]
+  },
+  "VmArguments": [
+    "+zdbbl",
+    "1",
+    "+S",
+    "2:2"
+  ],
+  "HistoricalQueue7Rerun": false,
+  "IndependentTypedReviewRequired": true
+}

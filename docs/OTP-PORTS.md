@@ -758,3 +758,7 @@ Pinned erl_nif.h, erl_nif_api_funcs.h and erl_drv_nif.h define the native entry/
 ## Part 291: source NIF declarations and original fixture proof
 
 Pinned erl_lint declaration validation and beam_ssa nifs control semantics guide the source compiler: preserve absent versus present-empty declarations, deduplicate repeated controls and validate actual local user functions, including private ones. CLR metadata owns read-only copies through ModuleDefinition and ModuleCodeDescriptor while retaining original constructor signatures. This is a source-guided adaptation, not native dispatch installation or BEAM NIF decoding. The published290 manual workflow independently verifies seven typed original observations and two Linux collector controls; trusted Windows fixture assertions remain a separate ABI check. Generic load_nif, warning completeness, full callback coverage, on_load/atomic image replacement and purge lifetime remain unfinished; no original unload-counter comparison is claimed.
+
+## Part 294: original pressure test infrastructure
+
+The collector is C# and source-links existing process/build/queue helpers. Pinned OTP dist.c/erl_process.c guide independent observation contracts; native soft busy pressure and managed hard queue budgets remain distinct. Erlang is original-VM test input only. The manual workflow Python fragment records source-build provenance. These test-infrastructure languages add no production dependency or generic runtime implementation; original probe compilation and three observations remain pending.

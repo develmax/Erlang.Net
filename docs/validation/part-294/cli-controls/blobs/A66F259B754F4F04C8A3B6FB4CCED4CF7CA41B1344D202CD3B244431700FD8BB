@@ -1,0 +1,52 @@
+{
+  "Status": "SOURCE_AUTHORED_BEFORE_ORIGINAL_EXECUTION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FreshVms": 3,
+  "VmArguments": [
+    "+zdbbl",
+    "1",
+    "+S",
+    "2:2"
+  ],
+  "BusyBarrier": "Bounded send/3 with [nosuspend] actually returns nosuspend; no guessed equal byte capacity. Actual configured dist_buf_busy_limit and raw counters captured.",
+  "Cases": {
+    "same_controller_replies": {
+      "BeforeAnyGetData": [
+        "missing LINK input put returns ok",
+        "UNLINK_ID input put returns ok"
+      ],
+      "AfterControlledDrain": "Capture exact {3,DeadLocal,Remote,noproc} and {36,173,DeadLocal,Remote} controls, with raw ETF/packet bytes; duplicate/ordering inventory requires independent typed review.",
+      "Basis": "Pinned dist.c missing LINK prepares with proc=NULL; proc-less writers ignore busy; signal unlink ACK also uses system-owned response."
+    },
+    "producer_death_then_writer": {
+      "Mandatory": [
+        "First ordinary sender is actually observed suspended",
+        "Killed sender DOWN is observed before any drain",
+        "Second ordinary sender is actually observed suspended",
+        "Second sender returns after controlled capacity release and its packet is retained for typed review"
+      ],
+      "NativeAdmissionWarning": "Native soft threshold may admit/queue the sender packet before suspending its process. Killed sender payload is NOT expected absent. Capture every drained packet and classify admitted-before-suspend from original source and raw observations. SDK cancellation of a hard-budget unadmitted send is a separate state, not an equality projection.",
+      "SurvivingMarker": "{pressure_marker,surviving_writer}",
+      "NativeSourcePrediction": "Pinned bif.c remote_send invokes erts_dsig_send_msg before interpreting ERTS_DSIG_SEND_YIELD as SEND_YIELD_RETURN. dist.c clears ctx->obuf before final suspended-yield return. For this tiny nonfragmented marker, source predicts admission before return-suspension. Raw drained packets must independently confirm the exact native state; never impose SDK hard-budget unadmitted cancellation semantics."
+    },
+    "terminal_public_free": {
+      "BeforeAnyDrain": [
+        "is_process_alive(Target) becomes false",
+        "process_info(Target) becomes undefined",
+        "local monitor DOWN with pressure_terminal_reason arrives"
+      ],
+      "AfterDrain": "Capture {3,Target,Remote,pressure_terminal_reason}; exact controller/raw ETF inventory reviewed independently.",
+      "HostProjectionWarning": "C# internal Done/Unwound/native cleanup tasks have no direct Erlang API equivalent; project only public lookup and local DOWN."
+    }
+  },
+  "NotClaimed": [
+    "Exact native physical queue bytes equal SDK logical hard-budget bytes",
+    "Killed native suspended sender never queued its payload",
+    "All original output pressure semantics proven merely by stage complete",
+    "Historical Part278 queue7 rerun",
+    "Two-channel terminal ordering (deferred)",
+    "Real network peer/TCP behavior or malformed/fragmented input coverage"
+  ],
+  "IndependentTypedReviewRequired": true
+}
+

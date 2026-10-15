@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeProcess.cs" Link="Shared/NodeProcess.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeProcessResult.cs" Link="Shared/NodeProcessResult.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs" Link="Shared/NodeCaptureProtocol.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeDiagnostics.cs" Link="Shared/NodeDiagnostics.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeNames.cs" Link="Shared/NodeNames.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeErlangString.cs" Link="Shared/NodeErlangString.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeStringSyntax.cs" Link="Shared/NodeStringSyntax.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeFields.cs" Link="Shared/NodeFields.cs" />
+    <Compile Include="../Erlang.NodeIdentityContrasts/NodeModuleSource.cs" Link="Shared/NodeModuleSource.cs" />
+    <Compile Include="../Erlang.DistributionQueueContrasts/QueueRow.cs" Link="Shared/QueueRow.cs" />
+    <Compile Include="../Erlang.DistributionQueueContrasts/QueueEvaluation.cs" Link="Shared/QueueEvaluation.cs" />
+    <Compile Include="../Erlang.DistributionQueueContrasts/QueuePlanFields.cs" Link="Shared/QueuePlanFields.cs" />
+    <Compile Include="../Erlang.DistributionQueueContrasts/Program.cs" Link="Shared/Program.cs" />
+    <None Update="distribution_pressure_probe.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="expected-policy.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="source-plan.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,151 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "GitPath": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Anchors": [
+        {
+          "Needle": "case DOP_LINK: {",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2219,
+              "Text": "#endif\n\n    token = NIL;\n\n    switch (type = unsigned_val(tuple[1])) {\n    case DOP_LINK: {\n        ErtsDSigSendContext ctx;\n        int code;\n\n\tif (tuple_arity != 3) {\n\t    goto invalid_message;\n\t}\n\tfrom = tuple[2];\n\tto   = tuple[3];  /* local proc to link to */\n\n\tif (is_not_external_pid(from))\n            goto invalid_message;\n\n        if (dep != external_pid_dist_entry(from))\n            goto invalid_message;\n\n        if (is_external_pid(to)) {\n            if (external_pid_dist_entry(to) != erts_this_dist_entry)\n                goto invalid_message;\n            /* old incarnation of node; reply noproc... */"
+            }
+          ]
+        },
+        {
+          "Needle": "case DOP_UNLINK_ID: {",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2279,
+              "Text": "         * DOP_UNLINK should never be passed. The new link protocol is\n         * mandatory as of OTP 26.\n         */\n        goto invalid_message;\n        \n    case DOP_UNLINK_ID: {\n        Eterm *element;\n        Uint64 id;\n\tif (tuple_arity != 4)\n\t    goto invalid_message;\n\n        element = &tuple[2];\n        if (!term_to_Uint64(*(element++), &id))\n            goto invalid_message;\n\n        if (id == 0)\n            goto invalid_message;\n\n\tfrom = *(element++);\n\tto = *element;\n\tif (is_not_external_pid(from))\n\t    goto invalid_message;\n        if (dep != external_pid_dist_entry(from))\n\t    goto invalid_message;\n"
+            }
+          ]
+        },
+        {
+          "Needle": "No process imply that we should force data through.",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 3221,
+              "Text": "\t\t  int no_suspend,\n                  int no_trap,\n\t\t  int connect)\n{\n    /*\n     * No process imply that we should force data through. That\n     * is, ignore busy state of dist entry and allow enqueue\n     * regardless of its state...\n     */\n    int res;\n\n    ASSERT(no_trap || proc);\n\n    if (!erts_is_alive)\n\treturn ERTS_DSIG_PREP_NOT_ALIVE;\n    if (!dep) {\n        ASSERT(!connect);\n        return ERTS_DSIG_PREP_NOT_CONNECTED;\n    }\n\n#ifdef ERTS_ENABLE_LOCK_CHECK\n    if (connect) {\n        erts_proc_lc_might_unlock(proc, proc_locks);\n    }\n#endif"
+            }
+          ]
+        },
+        {
+          "Needle": "retval = ERTS_DSIG_SEND_YIELD;",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 3770,
+              "Text": "\t\t}\n    #endif\n                if (!resume && erts_system_monitor_busy_dist_port_cnt) {\n                    monitor_busy_dist_port(ctx->c_p, cid);\n                }\n\t\tretval = ERTS_DSIG_SEND_YIELD;\n\t    } else {\n\t\tretval = ERTS_DSIG_SEND_OK;\n\t    }\n\t    goto done;\n\t}\n\tdefault:\n\t    erts_exit(ERTS_ABORT_EXIT, \"dsig_send invalid phase (%d)\\n\", (int)ctx->phase);\n\t}\n    }\n\ndone:\n    if (ctx->msg && ctx->c_p) {\n\tBUMP_REDS(ctx->c_p, (initial_reds - ctx->reds) / TERM_TO_BINARY_LOOP_FACTOR);\n    }\n    return retval;\n}\n\nstatic Uint\ndist_port_command(Port *prt, ErtsDistOutputBuf *obuf)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "GitPath": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Anchors": [
+        {
+          "Needle": "static Sint remote_send",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2376,
+              "Text": "#define SEND_AWAIT_RESULT\t(-7)\n#define SEND_YIELD_CONTINUE     (-8)\n#define SEND_SYSTEM_LIMIT\t(-9)\n\n\nstatic Sint remote_send(Process *p, DistEntry *dep,\n\t\t\tEterm to, Eterm node, Eterm full_to, Eterm msg,\n                        Eterm return_term, Eterm *ctxpp,\n                        int connect, int suspend, int prio)\n{\n    Sint res;\n    int code;\n    ErtsDSigSendContext ctx;\n    ASSERT(is_atom(to) || is_external_pid(to) || is_external_ref(to));\n\n    code = erts_dsig_prepare(&ctx, dep, p, ERTS_PROC_LOCK_MAIN,\n\t\t\t     ERTS_DSP_NO_LOCK,\n\t\t\t     !suspend, 0, connect);\n    ctx.return_term = return_term;\n    ctx.node = node;\n    switch (code) {\n    case ERTS_DSIG_PREP_NOT_ALIVE:\n    case ERTS_DSIG_PREP_NOT_CONNECTED:\n\tres = SEND_NOCONNECT;\n\tbreak;"
+            }
+          ]
+        },
+        {
+          "Needle": "case ERTS_DSIG_PREP_WOULD_SUSPEND:",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2396,
+              "Text": "    switch (code) {\n    case ERTS_DSIG_PREP_NOT_ALIVE:\n    case ERTS_DSIG_PREP_NOT_CONNECTED:\n\tres = SEND_NOCONNECT;\n\tbreak;\n    case ERTS_DSIG_PREP_WOULD_SUSPEND:\n\tASSERT(!suspend);\n\tres = SEND_YIELD;\n\tbreak;\n    case ERTS_DSIG_PREP_CONNECTED:\n        if (!(ctx.dflags & DFLAG_ALIAS) && is_external_ref(to)) {\n            /*\n             * Receiver does not support alias, so the alias is\n             * obviously not present at the receiver. Just drop\n             * it...\n             */\n            res = 0;\n            break;\n        }\n        ERTS_FALLTHROUGH();\n    case ERTS_DSIG_PREP_PENDING: {\n\n        code = erts_dsig_send_msg(&ctx, to, full_to, msg, prio);\n\t/*\n\t * Note that reductions have been bumped on calling"
+            }
+          ]
+        },
+        {
+          "Needle": "res = SEND_YIELD_RETURN;",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2419,
+              "Text": "\t/*\n\t * Note that reductions have been bumped on calling\n\t * process by erts_dsig_send_msg().\n\t */\n\tif (code == ERTS_DSIG_SEND_YIELD)\n\t    res = SEND_YIELD_RETURN;\n\telse if (code == ERTS_DSIG_SEND_CONTINUE) {\n            erts_set_gc_state(p, 0);\n\n            /* Keep a reference to the dist entry if the\n               name is an not a pid. */\n            if (is_atom(to)) {\n                erts_ref_dist_entry(ctx.dep);\n                ctx.deref_dep = 1;\n            }\n\n            *ctxpp = erts_dsend_export_trap_context(p, &ctx);\n\t    res = SEND_YIELD_CONTINUE;\n\t} else if (code == ERTS_DSIG_SEND_TOO_LRG)\n\t    res = SEND_SYSTEM_LIMIT;\n\telse\n\t    res = 0;\n\tbreak;\n    }\n    default:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Anchors": [
+        {
+          "Needle": "erts_ptab_delete_element",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 14433,
+              "Text": "            reds -= delete_unalive_trace_refs(&p->common);\n        }\n\n        /*\n         * Note! The monitor and link fields will be overwritten \n         * by erts_ptab_delete_element() below.\n         */\n        trap_state->links = ERTS_P_LINKS(p);\n        trap_state->monitors = ERTS_P_MONITORS(p);\n        trap_state->lt_monitors = ERTS_P_LT_MONITORS(p);\n\n        {\n            /* Do *not* use erts_get_runq_proc() */\n            ErtsRunQueue *rq;\n            rq = erts_get_runq_current(erts_proc_sched_data(p));\n\n            erts_runq_lock(rq);\n\n            ASSERT(p->scheduler_data);\n            ASSERT(p->scheduler_data->current_process == p);\n            ASSERT(p->scheduler_data->free_process == NULL);\n\n            /* Time of death! */\n            erts_ptab_delete_element(&erts_proc, &p->common);\n"
+            },
+            {
+              "StartLine": 14451,
+              "Text": "            ASSERT(p->scheduler_data);\n            ASSERT(p->scheduler_data->current_process == p);\n            ASSERT(p->scheduler_data->free_process == NULL);\n\n            /* Time of death! */\n            erts_ptab_delete_element(&erts_proc, &p->common);\n\n            erts_runq_unlock(rq);\n        }\n\n        /*\n         * All \"erlang resources\" have to be deallocated before this point,\n         * e.g. registered name, so monitoring and linked processes can\n         * be sure that all interesting resources have been deallocated\n         * when the monitors and/or links hit.\n         */\n\n        /* notify free */\n        erts_atomic32_read_bor_relb(&p->state, ERTS_PSFLG_FREE);\n\n        trap_state->dep = ((p->flags & F_DISTRIBUTION)\n                      ? ERTS_PROC_SET_DIST_ENTRY(p, NULL)\n                      : NULL);\n\n        reds -= 50;"
+            }
+          ]
+        },
+        {
+          "Needle": "continue_exit_state",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 14248,
+              "Text": "    ERTS_CONTINUE_EXIT_DIST_MONITORS,\n    ERTS_CONTINUE_EXIT_DIST_PEND_SPAWN_MONITORS,\n    ERTS_CONTINUE_EXIT_DONE,\n};\n\nstruct continue_exit_state {\n    enum continue_exit_phase phase;\n    ErtsLink *links;\n    ErtsMonitor *monitors;\n    ErtsMonitor *lt_monitors;\n    Eterm reason;\n    ErtsProcExitContext pectxt;\n    DistEntry *dep;\n    void *yield_state;\n    Uint32 block_rla_ref;\n};\n\n#ifdef DEBUG\nextern Export dsend_continue_trap_export;\n#endif\n\nvoid\nerts_continue_exit_process(Process *p)\n{\n    struct continue_exit_state static_state, *trap_state = &static_state;"
+            },
+            {
+              "StartLine": 14267,
+              "Text": "#endif\n\nvoid\nerts_continue_exit_process(Process *p)\n{\n    struct continue_exit_state static_state, *trap_state = &static_state;\n    ErtsProcLocks curr_locks = ERTS_PROC_LOCK_MAIN;\n    erts_aint32_t state;\n    int delay_del_proc = 0;\n    Sint reds = ERTS_BIF_REDS_LEFT(p);\n#ifdef DEBUG\n    int yield_allowed = 1;\n#endif\n\n    if (p->u.terminate) {\n        trap_state = p->u.terminate;\n        /* Re-set the reason as it may have been gc:ed */\n        trap_state->reason = p->fvalue;\n    } else {\n        trap_state->phase = ERTS_CONTINUE_EXIT_TIMERS;\n        trap_state->reason = p->fvalue;\n        trap_state->dep = NULL;\n        trap_state->yield_state = NULL;\n        trap_state->block_rla_ref = 0;\n    }"
+            },
+            {
+              "StartLine": 15331,
+              "Text": "        erts_monitor_list_foreach(ERTS_P_LT_MONITORS(proc),\n                                  monitor_func,\n                                  arg);\n    }\n    else {\n        struct continue_exit_state *ce_state = proc->u.terminate;\n\n        /* For all links */\n        if (ce_state->phase == ERTS_CONTINUE_EXIT_LINKS)\n            erts_debug_link_tree_destroying_foreach(ce_state->links,\n                                                    link_func,\n                                                    arg,\n                                                    ce_state->yield_state);\n        else\n            erts_link_tree_foreach(ce_state->links,\n                                   link_func,\n                                   arg);\n\n        /* For all monitors */\n        if (ce_state->phase == ERTS_CONTINUE_EXIT_MONITORS)\n            erts_debug_monitor_tree_destroying_foreach(ce_state->monitors,\n                                                       monitor_func,\n                                                       arg,\n                                                       ce_state->yield_state);\n        else"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519",
+      "Anchors": [
+        {
+          "Needle": "erts_proc_sig_send_dist_unlink(",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2705,
+              "Text": "\nstatic void\nreply_dist_unlink_ack(Process *c_p, ErtsSigDistUnlinkOp *sdulnk);\n\nvoid\nerts_proc_sig_send_dist_unlink(DistEntry *dep, Uint32 conn_id,\n                               Eterm from, Eterm to, Uint64 id)\n{\n    /* Remote to local */\n    ErtsSignal *sig;\n\n    ASSERT(is_internal_pid(to));\n    ASSERT(is_external_pid(from));\n    ASSERT(dep == external_pid_dist_entry(from));\n\n    sig = (ErtsSignal *) make_sig_dist_unlink_op(ERTS_SIG_Q_OP_UNLINK,\n                                                 dep->sysname, conn_id,\n                                                 to, from, id);\n\n    if (!proc_queue_signal(NULL, from, to, sig, 0,\n                           ERTS_SIG_Q_OP_UNLINK)) {\n        reply_dist_unlink_ack(NULL, (ErtsSigDistUnlinkOp *) sig);\n    }\n}\n"
+            }
+          ]
+        },
+        {
+          "Needle": "erts_dsig_send_unlink_ack",
+          "Found": true,
+          "Excerpts": [
+            {
+              "StartLine": 2773,
+              "Text": "                                         ERTS_DSP_NO_LOCK, 1, 1, 0);\n            switch (code) {\n            case ERTS_DSIG_PREP_CONNECTED:\n            case ERTS_DSIG_PREP_PENDING:\n                if (sdulnk->connection_id == ctx.connection_id) {\n                    code = erts_dsig_send_unlink_ack(&ctx,\n                                                     sdulnk->local,\n                                                     sdulnk->remote,\n                                                     sdulnk->id);\n                    ASSERT(code == ERTS_DSIG_SEND_OK);\n                }\n                break;\n            default:\n                break;\n            }\n        }\n    }\n\n    destroy_sig_dist_unlink_op(sdulnk);\n}\n\nvoid\nerts_proc_sig_send_dist_monitor_down(DistEntry *dep, Eterm ref,\n                                     Eterm from, Eterm to,\n                                     ErtsDistExternal *dist_ext,"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

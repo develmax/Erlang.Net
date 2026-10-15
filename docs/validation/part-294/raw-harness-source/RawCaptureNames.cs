@@ -1,0 +1,54 @@
+namespace PressureRawControls;
+
+internal static class RawCaptureNames
+{
+    internal const string Arguments = "Expected collector DLL, Python executable or py launcher, and a new output directory";
+    internal const string Platform = "These identity-bound synthetic raw controls require Windows";
+    internal const string ExistingOutput = "Synthetic raw control output must be new";
+    internal const string ProcessType = "NodeIdentityContrasts.NodeProcess";
+    internal const string RunMethod = "Run";
+    internal const string ResultProperty = "Result";
+    internal const string Pass = "PASS";
+    internal const string Fail = "FAIL";
+    internal const string Controls = "controls";
+    internal const string RawScript = "raw_exit.py";
+    internal const string ParentScript = "inherited_parent.py";
+    internal const string HolderScript = "hold_pipes.py";
+    internal const string PythonLauncher = "py";
+    internal const string PythonVersion = "-3";
+    internal const string RawPrefix = "raw";
+    internal const string InheritedPrefix = "inherited";
+    internal const string ChildIdentity = "owned-child.json";
+    internal const string ChildCleanup = "owned-child-cleanup.json";
+    internal const string Receipt = "receipt.json";
+    internal const string Binding = "assembly-binding.json";
+    internal const string StdoutSuffix = ".stdout";
+    internal const string StderrSuffix = ".stderr";
+    internal const string ExitSuffix = ".exit";
+    internal const string CompleteSuffix = ".raw-complete";
+    internal const string CompleteTrue = "true\n";
+    internal const string CompleteFalse = "false\n";
+    internal const string NewLine = "\n";
+    internal const string ExitCode = "ExitCode";
+    internal const string TimedOut = "TimedOut";
+    internal const string RawComplete = "RawComplete";
+    internal const string Pid = "Pid";
+    internal const string CreationFileTimeUtc = "CreationFileTimeUtc";
+    internal const string Executable = "Executable";
+    internal const string Nonce = "Nonce";
+    internal const string RawMismatch = "The supplied collector did not preserve exact raw bytes and exit3";
+    internal const string PipeMismatch = "The supplied collector did not report bounded incomplete inherited pipes";
+    internal const string AssemblyMismatch = "The supplied collector assembly changed or resolved to a different file";
+    internal const string ChildMismatch = "Refusing cleanup: the live child identity does not match the owned fixture record";
+    internal const int ArgumentCount = 3;
+    internal const int RawExitCode = 3;
+    internal const int ParentExitCode = 0;
+    internal const int CaptureDeadlineSeconds = 12;
+    internal const int CleanupDeadlineSeconds = 3;
+    internal const int OverallDeadlineSeconds = 15;
+    internal const int HolderSeconds = 50;
+    internal static readonly byte[] RawStdout = [0, 128, 255];
+    internal static readonly byte[] RawStderr = [254, 0, 129];
+    internal static readonly byte[] InheritedStdout = [80, 255, 0, 67, 128, 0];
+    internal static readonly byte[] InheritedStderr = [81, 254, 68, 129, 255];
+}
