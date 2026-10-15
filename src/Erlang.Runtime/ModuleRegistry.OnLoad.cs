@@ -221,9 +221,17 @@ public sealed partial class ModuleRegistry
         {
             callback = StartPendingOnLoad(runtime, ticket);
         }
-        catch
+        catch (Exception failure)
         {
-            await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
+            try
+            {
+                await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
+                await RetireNifImageAsync(ticket.CodeImage).ConfigureAwait(false);
+            }
+            catch (Exception cleanupFailure)
+            {
+                throw new AggregateException(failure, cleanupFailure);
+            }
             throw;
         }
         try
@@ -233,6 +241,8 @@ public sealed partial class ModuleRegistry
             await ticket.CallbackQuiescence.ConfigureAwait(false);
             bool keep = down is Atom { Name: BeamOnLoadNames.Ok };
             bool published = await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, keep)).ConfigureAwait(false);
+            if (!published)
+                await RetireNifImageAsync(ticket.CodeImage).ConfigureAwait(false);
 
             return new(
                 published,
@@ -257,10 +267,13 @@ public sealed partial class ModuleRegistry
             {
                 if (ticket.Phase == BeamOnLoadPhase.Completed)
                     await ModifyCodeAsync(() => FinishPendingOnLoad(ticket, false)).ConfigureAwait(false);
+                if (ticket.Phase == BeamOnLoadPhase.Retired)
+                    await RetireNifImageAsync(ticket.CodeImage).ConfigureAwait(false);
             }
             catch (Exception retirementFailure)
             {
-                failures.Add(retirementFailure);
+                if (!failures.Any(error => ReferenceEquals(error, retirementFailure)))
+                    failures.Add(retirementFailure);
             }
             if (failures.Count != 1)
                 throw new AggregateException(failures);
@@ -293,5 +306,6 @@ public sealed partial class ModuleRegistry
         if (ticket.CallbackOwner is null)
             ticket.CallbackUnwound.TrySetResult();
         pendingBeamImages.Remove(ticket.Module);
+        _ = QueueNifRetirement(ticket.CodeImage);
     }
 }

@@ -49,6 +49,8 @@ internal static class NifNativeManagedChecks
             Marshal.FreeHGlobal(shortEntry);
         }
 
+        NifNativeProviderContextChecks.Run();
+
         return EnvironmentChecks();
     }
 

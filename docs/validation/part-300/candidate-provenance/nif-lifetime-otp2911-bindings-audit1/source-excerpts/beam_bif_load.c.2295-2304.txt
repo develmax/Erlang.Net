@@ -1,0 +1,10 @@
+                modp->old.code_hdr = NULL;
+                modp->old.code_length = 0;
+                modp->old.catches = BEAM_CATCHES_NIL;
+                ERTS_BIF_PREP_RET(ret, am_true);
+            }
+
+            if (purge_state.saved_old.code_hdr) {
+                modp->old = purge_state.saved_old;
+                purge_state.saved_old.code_hdr = 0;
+            }

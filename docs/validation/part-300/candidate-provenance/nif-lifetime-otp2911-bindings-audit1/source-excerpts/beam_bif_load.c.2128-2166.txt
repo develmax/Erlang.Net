@@ -1,0 +1,39 @@
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                erts_rwlock_old_code(code_ix);
+            } else {
+                erts_rlock_old_code(code_ix);
+            }
+
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                ASSERT(modp->on_load);
+                ASSERT(modp->on_load->code_hdr);
+                purge_state.saved_old = modp->old;
+                modp->old = *modp->on_load;
+                erts_free(ERTS_ALC_T_PREPARED_CODE, (void *) modp->on_load);
+                modp->on_load = 0;
+            }
+
+            if (!modp->old.code_hdr) {
+                res = am_false;
+            } else {
+                erts_mtx_lock(&purge_state.mtx);
+                purge_state.module = BIF_ARG_1;
+                erts_mtx_unlock(&purge_state.mtx);
+
+                /* Set up "pending purge" markers for the funs in this module.
+                 * Processes trying to call these funs will be suspended
+                 * _before_ calling them, which will then either crash or
+                 * succeed when resumed after the purge finishes or is aborted.
+                 *
+                 * This guarantees that we won't get any more direct references
+                 * into the code while checking for such funs. */
+                erts_fun_purge_prepare(&modp->old);
+
+                res = am_true;
+            }
+
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                erts_rwunlock_old_code(code_ix);
+            } else {
+                erts_runlock_old_code(code_ix);
+            }

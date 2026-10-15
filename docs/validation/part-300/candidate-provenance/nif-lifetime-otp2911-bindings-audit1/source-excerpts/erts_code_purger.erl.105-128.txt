@@ -1,0 +1,24 @@
+%% purge(Module)
+%%  Kill all processes running code from *old* Module, and then purge the
+%%  module. Return {WasOld, DidKill}:
+%%  {false, false} there was no old module to purge
+%%  {true, false} module purged, no process killed
+%%  {true, true} module purged, at least one process killed
+
+purge(Mod) when is_atom(Mod) ->
+    Ref = make_ref(),
+    erts_code_purger ! {purge, Mod, self(), Ref},
+    receive
+	{reply, purge, Result, Ref} ->
+	    Result
+    end.
+
+do_purge(Mod, Reqs) ->
+    case erts_internal:purge_module(Mod, prepare) of
+	false ->
+	    {{false, false}, Reqs};
+	true ->
+	    {DidKill, NewReqs} = check_proc_code(erlang:processes_iterator(),
+						 Mod, true, Reqs),
+	    true = erts_internal:purge_module(Mod, complete),
+	    {{true, DidKill}, NewReqs}

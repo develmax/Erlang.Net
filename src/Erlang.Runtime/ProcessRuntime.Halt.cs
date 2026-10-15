@@ -96,7 +96,7 @@ public sealed partial class ProcessRuntime
             deadline = options.Flush && options.FlushTimeoutMilliseconds is uint milliseconds ? WaitHaltDeadline(milliseconds, selectedAt, deadlineStop.Token) : Task.Delay(Timeout.Infinite, deadlineStop.Token);
             portDrain = Ports.BeginHalt(options.Flush);
         }
-        _ = Task.Run(() => FinishHalt(
+        _ = Task.Run(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(() => FinishHalt(
             stopped,
             executions,
             monitoring,
@@ -104,7 +104,7 @@ public sealed partial class ProcessRuntime
             options,
             deadline,
             deadlineStop
-        ));
+        ))));
 
         return haltCompletion.Task;
     }
@@ -164,6 +164,16 @@ public sealed partial class ProcessRuntime
                 {
                     ownerCancellation.Add(Task.FromException(exception));
                 }
+            }
+            Task nativeShutdown;
+            try
+            {
+                nativeShutdown = Modules.CloseNifLifetimeAsync();
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+                nativeShutdown = Task.CompletedTask;
             }
             if (options.Flush && !haltCompletion.Task.IsCompleted)
             {
@@ -226,6 +236,14 @@ public sealed partial class ProcessRuntime
             try
             {
                 await DrainExitContinuations().ConfigureAwait(false);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            try
+            {
+                await Task.WhenAll(nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

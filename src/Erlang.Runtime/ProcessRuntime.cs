@@ -1471,6 +1471,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             processSlots.Remove(ctx.Self);
             ctx.Terminated = true;
             ctx.ExitReason = reason;
+            if (ctx.Self.Equals(InitializationPid))
+                CleanupStep(StartNifShutdown);
             CleanupStep(() =>
             {
                 var remoteOutput = CaptureDistributionExitOutput(ctx, reason);
@@ -1598,25 +1600,85 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal void InitializationEnded(ProcessContext context)
     {
-        lock (gate)
+        try
         {
-            Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));
-            if (disposed)
-                return;
-            StopLocalNode();
-            localNodeEvents?.Close();
-            disposed = true;
-            _ = actorDispatcher.CompleteWhenIdle();
-            Timers.Dispose();
-            distributionPending?.Close();
-            ReferenceResources.Close();
-            Ports.Shutdown();
-            foreach (var process in processes.Values.ToArray())
-                Terminate(process, Term.A(ProcessExitReasons.Shutdown));
+            lock (gate)
+            {
+                Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));
+                if (disposed)
+                    return;
+                StopLocalNode();
+                localNodeEvents?.Close();
+                disposed = true;
+                _ = actorDispatcher.CompleteWhenIdle();
+                Timers.Dispose();
+                distributionPending?.Close();
+                ReferenceResources.Close();
+                Ports.Shutdown();
+                foreach (var process in processes.Values.ToArray())
+                    Terminate(process, Term.A(ProcessExitReasons.Shutdown));
+            }
+        }
+        finally
+        {
+            StartNifShutdown();
         }
     }
 
     public async ValueTask DisposeAsync()
+    {
+        Modules.RequireNifShutdownCaller();
+        var failures = new List<Exception>();
+        Task nativeShutdown;
+        try
+        {
+            nativeShutdown = Modules.StartOwnedNifShutdown();
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+            nativeShutdown = Task.CompletedTask;
+        }
+        try
+        {
+            await DisposeRuntimeCoreAsync().ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        // A failing cancellation callback must not leave another native owner running.
+        ProcessContext[] remaining;
+        lock (gate)
+            remaining = executingProcesses.ToArray();
+        Task[] cancellations = remaining.Select(async process =>
+        {
+            await process.Stop.CancelAsync().ConfigureAwait(false);
+        }).ToArray();
+        Task cancellationDrain = Task.WhenAll(cancellations);
+        try
+        {
+            await cancellationDrain.ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(cancellationDrain.Exception ?? failure);
+        }
+        try
+        {
+            await Task.WhenAll(nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        if (failures.Count == 1)
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failures[0]).Throw();
+        if (failures.Count > 1)
+            throw new AggregateException(failures);
+    }
+
+    private async ValueTask DisposeRuntimeCoreAsync()
     {
         Task? haltWait;
         lock (gate)

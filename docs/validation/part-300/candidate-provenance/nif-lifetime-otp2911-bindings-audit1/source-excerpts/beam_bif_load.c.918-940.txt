@@ -1,0 +1,23 @@
+    else if (BIF_ARG_2 == am_false) {
+	int i, num_exps;
+
+	/*
+	 * The on_load function failed. Remove references to the
+	 * code that is about to be purged from the export entries.
+	 */
+
+	num_exps = export_list_size(code_ix);
+	for (i = 0; i < num_exps; i++) {
+	    Export *ep = export_list(i,code_ix);
+	    if (ep == NULL || ep->info.mfa.module != BIF_ARG_1) {
+		continue;
+	    }
+	    if (ep->bif_number != -1) {
+		continue;
+	    }
+
+            ep->trampoline.not_loaded.deferred = 0;
+	}
+    }
+    erts_release_code_load_permission();
+    BIF_RET(am_true);

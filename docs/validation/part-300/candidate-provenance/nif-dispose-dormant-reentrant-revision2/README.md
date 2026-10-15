@@ -1,0 +1,11 @@
+# Dormant reentrant and asynchronous registry shutdown admission
+
+Source-only candidate against current Main containing the first Dispose scheduling revision. No Main/build/test/native/Git changes.
+
+Two unchanged historical tests require opposite scheduling: InitializationLifecycleChecks.ShutdownPending needs Dispose to return its Task while another thread holds registry gate; BeamLoaderAdmissionRaceChecks.ClosedBeforeAdmission synchronously joins Dispose while its own thread holds registry gate and code-modification scope, with no NIF owners. StartOwnedNifShutdown therefore never acquires registry gate to select the path: current thread monitor ownership is tested directly. Outside the monitor it queues owned isolated closure; inside the monitor the dormant registry closes reentrantly. Actual owner callbacks remain worker queued.
+
+The same synchronous join while holding registry gate with actual NIF ownership cannot be made safe merely by reentrant Close: retirement bookkeeping requires that gate. Rather than pretend general support, RequireNifShutdownCaller now explicitly rejects that unsupported case before Dispose's try block and before any runtime shutdown mutation. The check is conservative: any owned/reservation/retirement/failure ledger, or any created binding table in current/old/pending images, refuses caller-held-monitor disposal. No fields are inspected without owning that monitor. Ordinary disposal without the monitor continues to close/drain those cases.
+
+New refusal enum ReentrantRegistryShutdown is internal. Direct retirement/initialization self-join guards remain; independent halt actor already clears both flows. Registration/commit refusal still linearizes at the existing registry closing monitor state; no second closing bit/gate is added.
+
+Root must rerun both unchanged historical tests, NifLifetimeHostChecks, all focused checks and native ownership. Additional bounded HOST should hold actual registry monitor around Dispose with installed owner and assert the new refusal leaves Runtime running, then release monitor and dispose normally exactly once; this source proposal does not claim that check executed. Failure logs from the full regression and first focused timeout must remain preserved.

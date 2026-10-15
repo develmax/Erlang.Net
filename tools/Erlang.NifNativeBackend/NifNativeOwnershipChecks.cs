@@ -16,6 +16,7 @@ internal static class NifNativeOwnershipChecks
             NifNativeHarness.Require(Counter(counter) == before);
             await SuccessfulImage(profile);
             NifNativeHarness.Require(Counter(counter) == before + 1);
+            await NifNativeLifecycleChecks.Run(profile, counter);
         }
         finally
         {

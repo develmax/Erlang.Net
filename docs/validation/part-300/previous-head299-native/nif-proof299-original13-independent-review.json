@@ -1,0 +1,56 @@
+{
+  "Status": "REVIEWED_FROZEN_GUARD_CAPTURE_AND_RAW_BINDINGS_PASS",
+  "GuardRerunByThisReviewer": false,
+  "GuardExecutedBy": "part291_pack",
+  "GuardExitCode": 0,
+  "Cases": 13,
+  "ReceiptFilesIndependentlyRehashed": 88,
+  "MetadataTupleArityIndependentlyDecoded": 8,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "HeadFromCapture": "f29bbeeb42aa44b52bd919e352542edbd2e2efaa",
+  "CiIdentityNetworkReauthenticated": false,
+  "SdkCompared": false,
+  "SdkPass": false,
+  "GenericNifSupport": false,
+  "PriorReviewerAttempt": {
+    "ExitCode": 1,
+    "Error": "KeyError: ('atom', 'otp_release')",
+    "Cause": "Reviewer temporary script unwrapped typed metadata pairs incorrectly; guard and raw evidence unchanged.",
+    "ReportWritten": false
+  },
+  "Limit": "Reviews actual existing guard execution and binding; not another guard execution or native rerun. CI envelope and SDK validation owned separately by pack agent.",
+  "Files": [
+    {
+      "Path": "artifacts\\pack299-original13-independent-local-report.json",
+      "Sha256": "0F5D98234A1C49DAA4A480B2E2ABD13FDAFA6E0B10EBA6A4213177DE879E26F6"
+    },
+    {
+      "Path": "artifacts\\pack299-original13-independent-local-capture.json",
+      "Sha256": "B02C745564DCDD882C6EDB1F986B730B520C30B392FFA8797E2626AD9A5CE3F9"
+    },
+    {
+      "Path": "tools\\Erlang.NifPendingVarargsObservations\\verify-original13.py",
+      "Sha256": "46F8837A41981C15DD6D49E3F16CFE06ABB2A8DE2B404BBCF84D9B93A248150F"
+    },
+    {
+      "Path": "tools\\Erlang.BeamFixtures\\verify-metadata-mutations.py",
+      "Sha256": "F09799AD51AB4A49C271977E987F1C186C76FF4A87C943D19E8D6AA709F1DB4C"
+    },
+    {
+      "Path": "tools\\Erlang.NifPendingVarargsObservations\\original\\source-plan.json",
+      "Sha256": "EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0"
+    },
+    {
+      "Path": "tools\\Erlang.NifPendingVarargsObservations\\original\\expected-policy.json",
+      "Sha256": "B1CA9E182911DE41ECF74214B889E51FFF6CE7E77F244A77DA49EFCB0DFA2F15"
+    },
+    {
+      "Path": "artifacts\\pack299-watch-38720286956-terminal\\artifact-11965891132\\nif-pending-original-observations\\receipt.json",
+      "Sha256": "9AE780DC0CA4EDC398916F99860925D96850748583765839D49B02E8C81A8612"
+    },
+    {
+      "Path": "artifacts\\pack299-watch-38720286956-terminal\\artifact-11965891132\\nif-pending-otp-build-provenance.json",
+      "Sha256": "61E383C27DB25A462F436940FE394A0B9ECCE18CBBF9149E5EF72112C9643E92"
+    }
+  ]
+}

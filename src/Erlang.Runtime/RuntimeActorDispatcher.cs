@@ -33,7 +33,7 @@ internal sealed class RuntimeActorDispatcher
             Task execution;
             try
             {
-                execution = factory.StartNew(NifImageInitializationFlow.IsolateActor(body)).Unwrap();
+                execution = factory.StartNew(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(body))).Unwrap();
             }
             catch
             {

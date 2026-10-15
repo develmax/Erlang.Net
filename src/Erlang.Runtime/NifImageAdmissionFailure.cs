@@ -13,5 +13,8 @@ internal enum NifImageAdmissionFailure
     UpgradeUnsupported,
     GenerationChanged,
     ReservationAbandoned,
-    ReentrantInitializationOperation
+    ReentrantInitializationOperation,
+    RuntimeClosing,
+    ReentrantRetirementOperation,
+    ReentrantRegistryShutdown
 }

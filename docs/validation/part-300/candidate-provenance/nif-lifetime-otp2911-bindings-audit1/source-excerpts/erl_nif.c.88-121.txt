@@ -1,0 +1,34 @@
+/* Information about a loaded nif library.
+ * Each successful call to erlang:load_nif will allocate an instance of
+ * erl_module_nif. Two calls opening the same library will thus have the same
+ * 'handle'.
+ */
+struct erl_module_nif {
+    erts_refc_t refc;    /* References to this struct
+                          * +1 erl_module_instance (loaded Erlang code)
+                          * +1 "dlopen" (loaded native code)
+                          * +1 scheduled load finisher
+                          * +1 for each owned resource type
+                          */
+    erts_mtx_t load_mtx; /* protects load finish from unload */
+    struct ErtsNifFinish_* finish;
+    ErtsCodeBarrier barrier;
+
+    void* priv_data;
+    void* handle;             /* "dlopen", NULL for static linked */
+    struct enif_entry_t entry;
+    erts_refc_t dynlib_refc;  /* References to loaded native code
+                                 +1 erl_module_instance
+                                 +1 for each owned resource type with callbacks
+                                 +1 for each ongoing dirty NIF call
+                               */
+    int flags;
+    ErtsNifOnHaltData on_halt;
+    ErlNifOnUnloadThreadCallback* unload_thr_callback;
+    erts_atomic_t unload_thr_counter;
+    Module* mod;    /* Can be NULL if purged and dynlib_refc > 0 */
+
+    /* Holds a copy of the `erl_module_instance` we're loading the module into,
+     * which may be freed (and moved into the staging table) if there's an
+     * on_load function that finishes before we're done loading the NIF. */
+    struct erl_module_instance mi_copy;

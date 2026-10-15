@@ -9,6 +9,8 @@ public sealed partial class ModuleRegistry
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ForeignRuntime);
         SourceCodeEntry caller = context.CaptureExecutingCode()
             ?? throw new NifImageAdmissionException(NifImageAdmissionFailure.NoExecutingCaller);
+        lock (gate)
+            ThrowIfNifClosing();
         var permission = await AcquireCodeModificationAsync(context).ConfigureAwait(false);
         SourceCodeLease? lease = null;
         NifImageBindingReservation? binding = null;
@@ -18,18 +20,22 @@ public sealed partial class ModuleRegistry
             {
                 lock (gate)
                 {
+                    ThrowIfNifClosing();
                     context.Cancellation.ThrowIfCancellationRequested();
                     var generation = CaptureNifGeneration(context, caller);
                     lease = ReserveSourceCode(context, caller.Image);
                     binding = caller.Image.NifBindings.Begin(generation.TargetDescriptor);
 
-                    return new NifImageLoadReservation(
+                    var reservation = new NifImageLoadReservation(
                         this,
                         permission,
                         lease,
                         binding,
                         generation
                     );
+                    OwnNifReservation(reservation);
+
+                    return reservation;
                 }
             });
         }
@@ -126,6 +132,7 @@ public sealed partial class ModuleRegistry
         using var modification = CodeModification.Enter();
         lock (gate)
         {
+            ThrowIfNifClosing();
             var generation = reservation.Generation;
             string module = generation.Caller.Image.Module;
             var pending = pendingBeamImages.GetValueOrDefault(module);

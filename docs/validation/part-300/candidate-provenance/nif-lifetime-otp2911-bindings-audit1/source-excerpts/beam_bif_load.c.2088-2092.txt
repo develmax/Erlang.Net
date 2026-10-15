@@ -1,0 +1,5 @@
+BIF_RETTYPE erts_internal_purge_module_2(BIF_ALIST_2)
+{
+    if (BIF_P != erts_code_purger) {
+        BIF_ERROR(BIF_P, EXC_NOTSUP);
+    }

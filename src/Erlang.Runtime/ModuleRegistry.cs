@@ -113,6 +113,7 @@ public sealed partial class ModuleRegistry
                     throw new InvalidOperationException();
                 oldCode.Remove(module);
                 state.Retired = true;
+                _ = QueueNifRetirement(image);
             }
             state.Pending = null;
             pending.TrySetResult();

@@ -1,0 +1,57 @@
+BIF_RETTYPE delete_module_1(BIF_ALIST_1)
+{
+    ErtsCodeIndex code_ix;
+    Module* modp;
+    int is_blocking = 0;
+    int success = 0;
+    Eterm res = NIL;
+
+    if (is_not_atom(BIF_ARG_1)) {
+	BIF_ERROR(BIF_P, BADARG);
+    }
+
+    if (!erts_try_seize_code_load_permission(BIF_P)) {
+	ERTS_BIF_YIELD1(BIF_TRAP_EXPORT(BIF_delete_module_1), BIF_P, BIF_ARG_1);
+    }
+
+    {
+	erts_start_staging_code_ix(0);
+	code_ix = erts_staging_code_ix();
+	modp = erts_get_module(BIF_ARG_1, code_ix);
+	if (!modp) {
+	    res = am_undefined;
+	}
+	else if (modp->old.code_hdr) {
+	    erts_dsprintf_buf_t *dsbufp = erts_create_logger_dsbuf();
+	    erts_dsprintf(dsbufp, "Module %T must be purged before deleting\n",
+			  BIF_ARG_1);
+	    erts_send_error_to_logger(BIF_P->group_leader, dsbufp);
+	    ERTS_BIF_PREP_ERROR(res, BIF_P, BADARG);
+	}
+	else {
+	    if (modp->curr.num_breakpoints > 0 ||
+		modp->curr.num_traced_exports > 0) {
+		/* tracing needs to go single threaded */
+		erts_proc_unlock(BIF_P, ERTS_PROC_LOCK_MAIN);
+		erts_thr_progress_block();
+                erts_proc_lock(BIF_P, ERTS_PROC_LOCK_MAIN);
+		is_blocking = 1;
+		if (modp->curr.num_breakpoints) {
+		    erts_clear_module_break(modp);
+		    ASSERT(modp->curr.num_breakpoints == 0);
+		}
+	    }
+	    delete_code(modp);
+	    res = am_true;
+	    success = 1;
+	}
+    }
+    {
+	struct m mod;
+	Eterm retval;
+	mod.module = BIF_ARG_1;
+	mod.modp = modp;
+        mod.exception = THE_NON_VALUE;
+	retval = staging_epilogue(BIF_P, success, res, is_blocking, &mod, 1, 0);
+	return retval;
+    }

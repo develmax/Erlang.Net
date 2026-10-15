@@ -31,6 +31,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
         CancellationToken cancellation
     )
     {
+        using var lifecycle = NifNativeLifecycleGate.Enter(cancellation);
         lock (gate)
         {
             cancellation.ThrowIfCancellationRequested();
@@ -148,6 +149,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
 
     public ValueTask DisposeAsync()
     {
+        using var lifecycle = NifNativeLifecycleGate.Enter(CancellationToken.None);
         lock (gate)
         {
             if (disposed)

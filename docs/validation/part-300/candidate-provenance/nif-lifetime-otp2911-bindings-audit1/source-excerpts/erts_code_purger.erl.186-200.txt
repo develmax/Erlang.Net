@@ -1,0 +1,15 @@
+%% check_proc_code(ProcessesIterator, Mod, Hard, Preqs) - Send asynchronous
+%%   requests to all processes to perform a check_process_code
+%%   operation. Each process will check their own state and
+%%   reply with the result. If 'Hard' equals
+%%   - true, processes that refer 'Mod' will be killed. If
+%%     any processes were killed true is returned; otherwise,
+%%     false.
+%%   - false, and any processes refer 'Mod', 'abort' will
+%%     be returned; otherwise, 'complete'.
+%%
+%%   We only allow ?MAX_CPC_NO_OUTSTANDING_KILLS
+%%   outstanding kills. This both in order to avoid flooding
+%%   our message queue with 'DOWN' messages and limiting the
+%%   amount of memory used to keep references to all
+%%   outstanding kills.

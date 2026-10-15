@@ -1,0 +1,40 @@
+void
+erts_unload_nif(struct erl_module_nif* lib)
+{
+    ErlNifResourceType* rt;
+    ErlNifResourceType* next;
+
+    ASSERT(lib != NULL);
+    ASSERT(lib->mod != NULL);
+
+    ERTS_LC_ASSERT(erts_has_code_mod_permission());
+
+    erts_tracer_nif_clear();
+
+    release_beam_stubs(lib);
+
+    for (rt = resource_type_list.next;
+	 rt != &resource_type_list;
+	 rt = next) {
+
+	next = rt->next;
+	if (rt->owner == lib) {
+	    rt->next->prev = rt->prev;
+	    rt->prev->next = rt->next;
+	    rt->next = NULL;
+	    rt->prev = NULL;
+	    if (erts_refc_dectest(&rt->refc, 0) == 0) {
+		if (rt_have_callbacks(&rt->fn_real))
+		    erts_refc_dec(&lib->dynlib_refc, 1);
+		erts_refc_dec(&lib->refc, 1);
+		erts_free(ERTS_ALC_T_NIF, rt);
+	    }
+	}
+    }
+    lib->mod = NULL;   /* purged Elang module */
+
+    if (erts_refc_dectest(&lib->dynlib_refc, 0) == 0)
+	close_dynlib(lib);
+
+    deref_nifmod(lib);
+}	

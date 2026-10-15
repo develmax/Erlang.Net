@@ -1,0 +1,40 @@
+{
+  "Status": "SOURCE_ONLY_REVISED_PACKAGING_TEMPLATES_AST_PASS_NO_EXECUTION",
+  "MainFinalSourceFreezeSha256": "501D9476C7D4A35CCE8949323575A1802BEC4861712F0B7E51AD9A1085FACFA0",
+  "ExpectedSourcePaths": 30,
+  "ExpectedCSharpPaths": 27,
+  "ExpectedFullPassed": 6611,
+  "ExpectedFocusedGroups": 53,
+  "ExpectedLifetimeScenarios": 13,
+  "ActualFullAndPostFullNativeStillRequired": true,
+  "OldTemplatesPreserved": true,
+  "Files": [
+    {
+      "Path": "part300-changelog-draft.md",
+      "Bytes": 4738,
+      "Sha256": "01DA6AC974E01B9774D143C3C1391ACD487047D837CEF052EBA7F5CB18243F7A"
+    },
+    {
+      "Path": "part300-finalize-proposal.py",
+      "Bytes": 16411,
+      "Sha256": "39D69C9FBD03274DEBB484FAD4B33BB8AEC9B129B0D0826735DA7C3408ABCB68"
+    },
+    {
+      "Path": "part300-readiness-proposal.py",
+      "Bytes": 3118,
+      "Sha256": "DBC94E1A6CD8A3964925995A215D8104C308C6616F344F4F34F536D36792D4C7"
+    },
+    {
+      "Path": "part300-stage-guard-proposal.py",
+      "Bytes": 3759,
+      "Sha256": "BC4711B038137E0B849372DBCD1B1D581C46D865CA2ACA2002966AD84C423570"
+    },
+    {
+      "Path": "proposal-source-freeze-before-shutdown-wording-correction.json",
+      "Bytes": 1125,
+      "Sha256": "7C989DCBD785FC17CEDED955B095BE2BEF996D2465672C0FE6F2B822CA5441B3"
+    }
+  ],
+  "PreviouslyRecordedFreezeSuperseded": "proposal-source-freeze-before-shutdown-wording-correction.json",
+  "RevisionNote": "Shutdown wording corrected: closure linearizes under registry gate, may queue after core starts; winning admissions remain owned and Dispose joins closure/owners."
+}

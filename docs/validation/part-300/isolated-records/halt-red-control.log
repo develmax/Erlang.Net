@@ -1,0 +1,16 @@
+Unhandled exception. System.AggregateException: One or more errors occurred. (One or more errors occurred. (ReentrantRetirementOperation))
+ ---> System.AggregateException: One or more errors occurred. (ReentrantRetirementOperation)
+ ---> Erlang.NifImageAdmissionException: ReentrantRetirementOperation
+   at Erlang.ModuleRegistry.RequireNifShutdownCaller() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ModuleRegistry.NifLifetime.cs:line 92
+   at Erlang.ModuleRegistry.CloseNifLifetimeAsync() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ModuleRegistry.NifLifetime.cs:line 99
+   at Erlang.ProcessRuntime.FinishHalt(ProcessContext[] stopped, Task[] executions, Task monitoring, Task portDrain, RuntimeHaltOptions options, Task deadline, CancellationTokenSource deadlineStop) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.Halt.cs:line 171
+   --- End of inner exception stack trace ---
+   at Erlang.ProcessRuntime.FinishHalt(ProcessContext[] stopped, Task[] executions, Task monitoring, Task portDrain, RuntimeHaltOptions options, Task deadline, CancellationTokenSource deadlineStop) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.Halt.cs:line 255
+   at Erlang.ProcessRuntime.DisposeRuntimeCoreAsync() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.cs:line 1703
+   at Erlang.ProcessRuntime.DisposeAsync() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.cs:line 1644
+   at Erlang.ProcessRuntime.DisposeAsync() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.cs:line 1676
+   at Erlang.Tests.NifLifetimeHostChecks.CaptureCleanupFailure(Task operation, List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\tests\Erlang.Tests\NifLifetimeHostChecks.cs:line 214
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.NifLifetimeHostChecks.RetirementRequestsImmediateHalt() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-lifetime300-isolated\candidate\tests\Erlang.Tests\NifLifetimeHostChecks.RetirementHalt.cs:line 45
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part295-loader-focus\Program.cs:line 12
+   at Program.<Main>(String[] args)

@@ -6,6 +6,7 @@ internal static class NifNativePlatformLoader
 {
     internal static void VerifyPlatform()
     {
+        NifNativeLifecycleGate.RequireDefaultProvider();
         if (RuntimeInformation.ProcessArchitecture != Architecture.X64 ||
             !(OperatingSystem.IsWindows() || OperatingSystem.IsLinux()))
             throw new PlatformNotSupportedException(NifNativeDiagnostics.UnsupportedPlatform);

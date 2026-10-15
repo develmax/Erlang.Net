@@ -130,7 +130,14 @@ internal sealed class NifImageLoadReservation : IAsyncDisposable
             }
             finally
             {
-                permission.Dispose();
+                try
+                {
+                    permission.Dispose();
+                }
+                finally
+                {
+                    registry.NifReservationEnded(this);
+                }
             }
         }
     }
