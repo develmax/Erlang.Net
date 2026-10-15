@@ -1,0 +1,13 @@
+{
+  "Arguments": [
+    "/usr/bin/python3",
+    "-c",
+    "import os;os.write(1,b\"\\x00\\xffraw\");os.write(2,b\"\\xfeerr\");raise SystemExit(3)"
+  ],
+  "OwnedPid": 82407,
+  "ExitCode": 3,
+  "TimedOut": false,
+  "TimeoutSeconds": 5,
+  "PipesClosed": true,
+  "ParentReaped": true
+}

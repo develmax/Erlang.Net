@@ -1,0 +1,133 @@
+{
+  "Status": "READ_ONLY_GUARD_SCHEMA_DEFECT_CONFIRMED_NOT_SEMANTIC_PASS",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSource": "erts/preloaded/src/erlang.erl",
+  "PinnedBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+  "TypeStartLine": 291,
+  "TypeExcerpt": [
+    "-type stacktrace() :: [{module(), atom(), arity() | [term()],",
+    "                        [stacktrace_extrainfo()]} |",
+    "                       {function(), arity() | [term()], [stacktrace_extrainfo()]}]."
+  ],
+  "ObservedRejectedFrames": [
+    {
+      "Case": "deleted_old_wrapper_false",
+      "CapturePath": "/8/1/0/3/1/8/1",
+      "ExceptionClass": [
+        "atom",
+        "error"
+      ],
+      "ReasonTag": "atom",
+      "FrameIndex": 0,
+      "Frame": [
+        [
+          "new_fun",
+          95,
+          0,
+          {
+            "BytesHex": "5a1a4f309288d9c5f4641fc3b062e73f"
+          },
+          0,
+          [
+            "atom",
+            "raw_onload_visibility_fixture"
+          ],
+          [
+            "integer",
+            0
+          ],
+          [
+            "integer",
+            47239801
+          ],
+          [
+            "pid",
+            [
+              "atom",
+              "nonode@nohost"
+            ],
+            0,
+            0,
+            0,
+            88
+          ],
+          [],
+          [
+            "raw_span",
+            7050,
+            96
+          ]
+        ],
+        [
+          "list",
+          []
+        ],
+        [
+          "list",
+          []
+        ]
+      ]
+    },
+    {
+      "Case": "fresh_wrapper_false",
+      "CapturePath": "/8/1/0/3/1/8/1",
+      "ExceptionClass": [
+        "atom",
+        "error"
+      ],
+      "ReasonTag": "atom",
+      "FrameIndex": 0,
+      "Frame": [
+        [
+          "new_fun",
+          95,
+          0,
+          {
+            "BytesHex": "5a1a4f309288d9c5f4641fc3b062e73f"
+          },
+          0,
+          [
+            "atom",
+            "raw_onload_visibility_fixture"
+          ],
+          [
+            "integer",
+            0
+          ],
+          [
+            "integer",
+            47239801
+          ],
+          [
+            "pid",
+            [
+              "atom",
+              "nonode@nohost"
+            ],
+            0,
+            0,
+            0,
+            88
+          ],
+          [],
+          [
+            "raw_span",
+            7021,
+            96
+          ]
+        ],
+        [
+          "list",
+          []
+        ],
+        [
+          "list",
+          []
+        ]
+      ]
+    }
+  ],
+  "FailedWorkflowRetained": true,
+  "SdkCompared": false,
+  "OriginalRerun": false
+}

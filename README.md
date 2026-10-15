@@ -2,6 +2,8 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
+Part304 tooling checkpoint: the failed original302 workflow is preserved. A narrow passive function-stack-frame repair reviews the SAME captured9 successfully (all certain assertions and predeclared hypotheses), with no new original execution, SDK comparison or runtime protocol change. Published303 runtime6622/full/native and CI6622/full remain the reused runtime checkpoint. See [the receipt](docs/validation/part-304/evidence-receipt.json).
+
 Development validation now compares **778 expressions**, **4027 comparable separately compiled fixture modules** and **132 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-214/strict-guard.json).
 
 Two map iterator fixtures explicitly use `-compile(no_ssa_opt)` because the pinned OTP optimizer assumes a map-only argument for `maps:map/2`. The initial optimized differences and one corrected provisional record-guard expectation remain documented in [the original comparison](docs/validation/part-102/differential.json) and [the source audit](docs/validation/part-104/reference-audit.json).

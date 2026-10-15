@@ -1,0 +1,25 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-otp-source/observer-install/bin/erl",
+    "+S",
+    "1:1",
+    "+SDcpu",
+    "1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-original303/observations/observer-ebin",
+    "-eval",
+    "Result=raw_onload_visibility_observer:run(deleted_old,direct_true),ok=file:write_file(os:getenv(\"RAW_ETF\"),term_to_binary(Result)),io:format(\"~tp.~n\",[Result]),halt()."
+  ],
+  "OwnedPid": 82930,
+  "ExitCode": 0,
+  "TimedOut": false,
+  "TimeoutSeconds": 90,
+  "PipesClosed": true,
+  "ParentReaped": true
+}

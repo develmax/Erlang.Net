@@ -1,0 +1,13 @@
+{
+  "Arguments": [
+    "/usr/bin/python3",
+    "-c",
+    "import os,subprocess,sys;subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(50)\"],close_fds=False);os.write(1,b\"owned-child-pipes\");raise SystemExit(0)"
+  ],
+  "OwnedPid": 82408,
+  "ExitCode": 0,
+  "TimedOut": true,
+  "TimeoutSeconds": 1,
+  "PipesClosed": true,
+  "ParentReaped": true
+}

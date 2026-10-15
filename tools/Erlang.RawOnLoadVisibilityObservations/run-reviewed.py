@@ -138,6 +138,7 @@ def main():
     if args.phase == 'synthetic':
         execute(tool / 'guard/check-passive-decoder.py', output / 'synthetic-decoder.json')
         execute(tool / 'guard/check-report-budget.py', output / 'synthetic-report')
+        execute(tool / 'guard/check-stack-frames.py', output / 'synthetic-stack-frames.json')
         result = json.loads((output / 'synthetic-decoder.json').read_bytes())
         require(result['Count'] == 35 and result['OriginalExecuted'] is False and result['SdkCompared'] is False, 'Expected synthetic decoder controls')
         return

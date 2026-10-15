@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 266, in <module>
+    main()
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 255, in main
+    exit_code = run(args, report)
+                ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 195, in run
+    final = snapshot(pair(row[3], 'snapshot'), event_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 106, in snapshot
+    captured(held)
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 79, in captured
+    require(len(row) in (3, 4) and row[0][0] == 'atom' and row[1][0] == 'atom', 'Stack frame module/function')
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py", line 22, in require
+    raise ValueError(message)
+ValueError: Stack frame module/function
+Traceback (most recent call last):
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py", line 166, in <module>
+    main()
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py", line 156, in main
+    execute(tool / 'guard/verify-original9.py', '--observations', output / 'observations', '--proposal', tool / 'original', '--build-provenance', receipt,
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py", line 129, in execute
+    subprocess.run([sys.executable, str(script), *(str(arg) for arg in argv)], cwd=root, env=environment, check=True, timeout=timeout)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py', '--observations', '/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-original303/observations', '--proposal', '/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/original', '--build-provenance', '/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-original303/build-provenance.json', '--base-guard', '/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.NifPendingVarargsObservations/verify-original13.py', '--decoder', '/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RawOnLoadVisibilityObservations/guard/passive_etf.py', '--controls', '/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-original303/capture-controls', '--report', '/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-original303/original-nine-report.json', '--expected-head', 'ce3636a9d17a4d1e1c979c57b4df3d0800b72134', '--expected-run', '38734860285', '--expected-attempt', '1', '--expected-job', 'original-raw-onload-visibility']' returned non-zero exit status 1.

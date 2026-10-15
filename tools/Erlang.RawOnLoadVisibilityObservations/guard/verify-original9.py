@@ -76,6 +76,10 @@ def captured(value):
         require(len(fields) == 4 and fields[1] in (atom('error'), atom('exit'), atom('throw')), 'Exception capture shape/class')
         for frame in seq(fields[3], kind='list'):
             row = seq(frame)
+            if len(row) == 3 and row[0][0] in ('new_fun', 'export_fun'):
+                require(row[1][0] == 'list' or row[1][0] == 'integer' and 0 <= row[1][1] <= 255, 'Fun stack arity/arguments')
+                seq(row[2], kind='list')
+                continue
             require(len(row) in (3, 4) and row[0][0] == 'atom' and row[1][0] == 'atom', 'Stack frame module/function')
             require(row[2][0] == 'list' or row[2][0] == 'integer' and row[2][1] >= 0, 'Stack arity/arguments')
             if len(row) == 4:

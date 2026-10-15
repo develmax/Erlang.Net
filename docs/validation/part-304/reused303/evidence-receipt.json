@@ -1,0 +1,2240 @@
+{
+  "Status": "ACTUAL_MAIN6622_FULL_INTERNAL_SOURCE_CALLER_PREREQUISITE",
+  "ParentHead": "ce3636a9d17a4d1e1c979c57b4df3d0800b72134",
+  "SourcePaths": 13,
+  "CSharpPaths": 11,
+  "Passed": 6622,
+  "Failed": 0,
+  "Historical6621OrderedNamesExact": true,
+  "Added": [
+    "runtime/direct-source-load-nif-exact-caller-capability"
+  ],
+  "Registry": 503,
+  "RegistryDelta": 0,
+  "ErlangPresence": 345,
+  "ErlangReference": 351,
+  "IntegrationAndPackagesPassed": true,
+  "MainFocusedGroupsPassed": 13,
+  "ActualPostFullMainNativeWindowsPassed": true,
+  "PublicLoadNifActivated": false,
+  "GeneralNifAbiComplete": false,
+  "ReviewedSourceInputs": 1007,
+  "ReviewedSourcePlanSha256": "C8577299D35B72112F8FFAE3BEBD689A8BC9D7D8318F1601EBD75178D6B937E0",
+  "Actual503RawExporterOutputPreserved": true,
+  "OnlyExistingProcessInfo1LimitsRestored": true,
+  "Previous301LinuxNativeSdkAndSeparateOriginal13Verified": true,
+  "Previous301Original13SdkCompared": false,
+  "Previous301Ordinary5854Fd8Verified": true,
+  "Previous302VerifiedProofs": [
+    {
+      "Status": "PASS_EXACT_HEAD302_CI6621_FULL_UNCHANGED_RUNTIME",
+      "GuardSha256": "CE4522840618892CE17D9E0498704A3775B99F9B51A8CC8389A7A75FE2959DB9",
+      "ManifestSha256": "D9E13DE2EE4F9F2D308CCEF6B54FBF82E4A288227511C2162F10134BF6F27378"
+    }
+  ],
+  "Previous302Original9RawCollected": 9,
+  "Previous302Original9WorkflowTypedReviewFailed": true,
+  "Previous302Original9SuccessfulTypedProofClaimed": false,
+  "Previous302Original9CorrectedPassiveReviewPending": true,
+  "SameHeadCI303Verified": false,
+  "ChangedSourceOriginalVerified": false,
+  "WholeCompatibility": false,
+  "Closed0045Sha256": "9EB82D1D39B01ABB618DFD3698D656E0ADE6F3511506604F33038C9A3B381CB6",
+  "Files": [
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/overlay/tests/Erlang.Tests/SourceLoadNifArgumentHostNames.cs",
+      "Bytes": 1193,
+      "Sha256": "A447F50223D68BBBCF0A314AF557CF9C0331AA27B28C4213D2CBD811DEB17A56"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/overlay/tests/Erlang.Tests/SourceLoadNifHostChecks.Arguments.cs",
+      "Bytes": 4099,
+      "Sha256": "A09D304563B51C006EA82274770FC51A4689F2A280A0703084331615E2DA1DE9"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/overlay/tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 13757,
+      "Sha256": "470C7DE0F0628C544D6681936A0B2C6437300A9ACAD8039E4CC4837CC99880A5"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/README.md",
+      "Bytes": 2386,
+      "Sha256": "B75B5B8FAE4986F63ABFA4C58112DC2105DF119935174F167C1CDD7A3804BC44"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/source-bindings.json",
+      "Bytes": 1605,
+      "Sha256": "D738C75973533A0B5AD33CAE9BF79A72E1E3C7C3C08E6DDDD9579A7548D8D22B"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-coverage-revision2/source-freeze.json",
+      "Bytes": 901,
+      "Sha256": "C993DD292BE6F8236DB54AB5EDEA4837F1242DA21D211EDFC8676A9A8A2F748D"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37213,
+      "Sha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/src/Erlang.Compiler/Execution.LoadNif.cs",
+      "Bytes": 589,
+      "Sha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "Bytes": 2387,
+      "Sha256": "DFBDEB46ABC5AC4E39CAD96DBBE75B6E1CEC5690B80B321EAF9B84F7992747BB"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/src/Erlang.Runtime/SourceLoadNifCall.cs",
+      "Bytes": 913,
+      "Sha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/src/Erlang.Runtime/SourceLoadNifNames.cs",
+      "Bytes": 403,
+      "Sha256": "578550BBCD140A49E769EC0D192D644358D2765D135D9824F17E305E9D790DAB"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 13634,
+      "Sha256": "B77EE718CA42FE5D562736BCF78600FFFE9F66E4F9E2ED4109799F1C2362F083"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/tests/Erlang.Tests/SourceLoadNifHostFields.cs",
+      "Bytes": 128,
+      "Sha256": "8FC2E4208BB3BBBC6607669374991B6EF9FDD660A02A3E05C8DDAFB7B37E101C"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/overlay/tests/Erlang.Tests/SourceLoadNifHostNames.cs",
+      "Bytes": 2588,
+      "Sha256": "800F6BB00B8291FD4095A99F615D8BA9FDA566EE5138B5E96C381448ABA072CA"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/parents.json",
+      "Bytes": 161,
+      "Sha256": "A17BF1308D90C115C289F0D43CC67BAFD4618E0006BA128F7FCFA14D52C24F51"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/README.md",
+      "Bytes": 3977,
+      "Sha256": "C17C20FDF472141497650344917F279D202097BA36D5584AED8EF0BCB7AA1AC5"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-overlay/source-freeze.json",
+      "Bytes": 3335,
+      "Sha256": "AB6CF89AA10B5AEC13E267A8296E2A2392B8504B75226D2DC883B4EBC0D5E600"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-readonly-review1/compiler-delta.diff",
+      "Bytes": 1049,
+      "Sha256": "B450CEF7D0A67D59565D962F0DD0747F58A3FD4B6A12FF7DE24373B22E397B3C"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-readonly-review1/freeze.json",
+      "Bytes": 401,
+      "Sha256": "E1FAE130B350BC1D6595A7576D8528C8C655A12E8A788F5AB8470256ABBC8B27"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-readonly-review1/README.md",
+      "Bytes": 5000,
+      "Sha256": "A0DE445186036B9E05FD5FE52B031025EA5142740617323499A287E23C99F8F8"
+    },
+    {
+      "Path": "candidate-provenance/nif-source-load-caller301-readonly-review1/review.json",
+      "Bytes": 1285,
+      "Sha256": "81832C8D0F211994660E49499781E9A2D24AA4A213066B5684ADE5F36A4C17D4"
+    },
+    {
+      "Path": "integration-results.json",
+      "Bytes": 365,
+      "Sha256": "EA0B1B564D8075F20E2229AC5E79645990E8D1ADDD34FCDA578E6EF5EC0F728F"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37213,
+      "Sha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/src/Erlang.Compiler/Execution.LoadNif.cs",
+      "Bytes": 589,
+      "Sha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "Bytes": 2387,
+      "Sha256": "DFBDEB46ABC5AC4E39CAD96DBBE75B6E1CEC5690B80B321EAF9B84F7992747BB"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/src/Erlang.Runtime/SourceLoadNifCall.cs",
+      "Bytes": 913,
+      "Sha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/src/Erlang.Runtime/SourceLoadNifNames.cs",
+      "Bytes": 403,
+      "Sha256": "578550BBCD140A49E769EC0D192D644358D2765D135D9824F17E305E9D790DAB"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/Program.cs",
+      "Bytes": 164881,
+      "Sha256": "274F1AEF00036CEB5C10964BC381BF73916B66B37ED6C432516627535C2ABD27"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/SourceLoadNifArgumentHostNames.cs",
+      "Bytes": 1193,
+      "Sha256": "A447F50223D68BBBCF0A314AF557CF9C0331AA27B28C4213D2CBD811DEB17A56"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/SourceLoadNifHostChecks.Arguments.cs",
+      "Bytes": 4099,
+      "Sha256": "A09D304563B51C006EA82274770FC51A4689F2A280A0703084331615E2DA1DE9"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 13757,
+      "Sha256": "470C7DE0F0628C544D6681936A0B2C6437300A9ACAD8039E4CC4837CC99880A5"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/SourceLoadNifHostFields.cs",
+      "Bytes": 128,
+      "Sha256": "8FC2E4208BB3BBBC6607669374991B6EF9FDD660A02A3E05C8DDAFB7B37E101C"
+    },
+    {
+      "Path": "isolated-records/authored-preformat/tests/Erlang.Tests/SourceLoadNifHostNames.cs",
+      "Bytes": 2588,
+      "Sha256": "800F6BB00B8291FD4095A99F615D8BA9FDA566EE5138B5E96C381448ABA072CA"
+    },
+    {
+      "Path": "isolated-records/completion-freeze.json",
+      "Bytes": 5077,
+      "Sha256": "D3AE11FE075B84B4F0A65FE978E40F5524CBE62B2018F7037054FC178561D6A4"
+    },
+    {
+      "Path": "isolated-records/custom11-folder2-format.log",
+      "Bytes": 32,
+      "Sha256": "E27828D691BEB8FA1DC514F49F0DF8C1538FDEEC7DBDC465DDBC1C929F6D5B64"
+    },
+    {
+      "Path": "isolated-records/Directory.Build.props",
+      "Bytes": 363,
+      "Sha256": "EDF92768B885A0B9B87D5711536684DDFAC508CBEA79E99D66CAF69C3A8F16D0"
+    },
+    {
+      "Path": "isolated-records/final-candidate-byte-manifest.json",
+      "Bytes": 378285,
+      "Sha256": "0048354001307F74FB863B8C11941CF24639F3D6776785A82A3CD49B559CB895"
+    },
+    {
+      "Path": "isolated-records/focus-plan-revision2.json",
+      "Bytes": 1812,
+      "Sha256": "2A95AFD259AD9842AB280E9F2E47DAC62EDCA7205A28056CBFCF8292238511FA"
+    },
+    {
+      "Path": "isolated-records/focus-plan.json",
+      "Bytes": 1512,
+      "Sha256": "BB80CDDCF9645529C40E93B73621A1897BB48A74DA17AFDA1B98C39BD93F8820"
+    },
+    {
+      "Path": "isolated-records/focus13-exit.json",
+      "Bytes": 632,
+      "Sha256": "8E583FEDDDC6710F71E9135603D2EAC22E332EC459CBEE11E43513D1273EDAEA"
+    },
+    {
+      "Path": "isolated-records/focus13-revised-exit.json",
+      "Bytes": 629,
+      "Sha256": "527121B6C6D7DEAF46E81B1E4D0F4F9CB221C116298C608A21EC8422B4D658F9"
+    },
+    {
+      "Path": "isolated-records/focus13-revised.log",
+      "Bytes": 515,
+      "Sha256": "803E80668014F76A902382C6EFA49FCDDDAAA1A2B8779C5EC0063A8D1A475EA6"
+    },
+    {
+      "Path": "isolated-records/focus13.log",
+      "Bytes": 1678,
+      "Sha256": "9B336BB6CCDD266C77162C3BD911116FB6F909E265A41EC6CB57B77B6953CB36"
+    },
+    {
+      "Path": "isolated-records/format11-folder-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/format11-folder.ps1",
+      "Bytes": 2532,
+      "Sha256": "EE1C563F485D3DA19D5FA9FC7FF15044B98A965140C849278EEE9C930082FDE9"
+    },
+    {
+      "Path": "isolated-records/format11-folder2-guard.json",
+      "Bytes": 305,
+      "Sha256": "C44AA1CC33BE08C85DECD9A57F08A81E5DA1375CF7B3C7E0218AB486581F706D"
+    },
+    {
+      "Path": "isolated-records/format11-folder2-launch.log",
+      "Bytes": 305,
+      "Sha256": "C44AA1CC33BE08C85DECD9A57F08A81E5DA1375CF7B3C7E0218AB486581F706D"
+    },
+    {
+      "Path": "isolated-records/format11-folder2.ps1",
+      "Bytes": 2529,
+      "Sha256": "AAD9A1930404C2013675D5114E1C4B877BEEBD9197EDD358B0E996D2E8EEDE33"
+    },
+    {
+      "Path": "isolated-records/format11-initial-failure.json",
+      "Bytes": 218,
+      "Sha256": "E22E16CFA57D25951109E990D06D56889783FC4C4FD2154D6EA2C46DF407A328"
+    },
+    {
+      "Path": "isolated-records/format11-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/format11.ps1",
+      "Bytes": 2490,
+      "Sha256": "5B3B2FC075C06AA3791346427A98A410BE6BC6B14E087236E0DC3E35F7B6F5E4"
+    },
+    {
+      "Path": "isolated-records/global.json",
+      "Bytes": 55,
+      "Sha256": "C0671C628FDE8E60DC3447E54ADE6280230A68E1C84B4329A24327BA05E0545F"
+    },
+    {
+      "Path": "isolated-records/inputs/coverage2-source-bindings.json",
+      "Bytes": 1605,
+      "Sha256": "D738C75973533A0B5AD33CAE9BF79A72E1E3C7C3C08E6DDDD9579A7548D8D22B"
+    },
+    {
+      "Path": "isolated-records/inputs/coverage2-source-freeze.json",
+      "Bytes": 901,
+      "Sha256": "C993DD292BE6F8236DB54AB5EDEA4837F1242DA21D211EDFC8676A9A8A2F748D"
+    },
+    {
+      "Path": "isolated-records/inputs/original-overlay-source-freeze.json",
+      "Bytes": 3335,
+      "Sha256": "AB6CF89AA10B5AEC13E267A8296E2A2392B8504B75226D2DC883B4EBC0D5E600"
+    },
+    {
+      "Path": "isolated-records/inputs/root-part301-final-source-freeze.json",
+      "Bytes": 4645,
+      "Sha256": "A763E55596D771736233F06A197ED46485013D8EFD0D01D13B854BE44AFAED90"
+    },
+    {
+      "Path": "isolated-records/paths11.json",
+      "Bytes": 540,
+      "Sha256": "BCFE373D247665782D5FEA729CE01B6E2747C60075C9DCE40672AD11EBFF2074"
+    },
+    {
+      "Path": "isolated-records/preparation-freeze.json",
+      "Bytes": 4090,
+      "Sha256": "B30CCF2887C4098FBD9CC56AF5E385095DF4D557E00AEA3DC080F056CEA88852"
+    },
+    {
+      "Path": "isolated-records/preparation-metadata-clarification.json",
+      "Bytes": 701,
+      "Sha256": "CFB93AEF22C1823A9FDBCD5D259B6D1DEA9ADA6EC7F5B1B68284948F6FD9AB9F"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/native-plan301-baseline-1003.json",
+      "Bytes": 213123,
+      "Sha256": "DCDB739375C0CA2C11EB8DC2998A9B790BD6F202D46FAAB136F13F471544D03D"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/native-workflow301-baseline.yml",
+      "Bytes": 6236,
+      "Sha256": "9DEC908533340333D02CEFC92A527C7D60D6FC9915D1F0AD6C68F9BC8C1A60EB"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/promotion-map.json",
+      "Bytes": 4805,
+      "Sha256": "C9021AB548A56D0EFCD331E7003EB5383EC616C83120ACEA93D97FFBEDC02A55"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/README.md",
+      "Bytes": 5629,
+      "Sha256": "7214F4E0B03A68E98E3E817F9489A9588163D84C75B4351BB030BC03FB133FC7"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/recipe-freeze.json",
+      "Bytes": 4230,
+      "Sha256": "F4DFC425BC429530C33BC0F586F98391ED3386BD2065AB1D1DCC3AD5E77E3F35"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/reseal-simulation.json",
+      "Bytes": 1108,
+      "Sha256": "0CF088C42E31A5CD15618F1F51A932BC0F3AEB4E581D8C9A33F7F90B2C07F07C"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/reseal-simulation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/reseal-simulation.stdout",
+      "Bytes": 66,
+      "Sha256": "32E79C40C015D0C94B71FF34A6CBB5D638548FE3E478874D20742AAB342A1E90"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/.github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "CBD7A7F222509EF1DF7EB09D5222BA19D1585671FF28F6D36538BAE20AB0E0A5"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37213,
+      "Sha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/src/Erlang.Compiler/Execution.LoadNif.cs",
+      "Bytes": 589,
+      "Sha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "Bytes": 2465,
+      "Sha256": "86A04A810020D7432069E4ECBDF0D0361ABE363033F5CD911B794E322A542E2A"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/src/Erlang.Runtime/SourceLoadNifCall.cs",
+      "Bytes": 913,
+      "Sha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/src/Erlang.Runtime/SourceLoadNifNames.cs",
+      "Bytes": 403,
+      "Sha256": "578550BBCD140A49E769EC0D192D644358D2765D135D9824F17E305E9D790DAB"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/Program.cs",
+      "Bytes": 164881,
+      "Sha256": "274F1AEF00036CEB5C10964BC381BF73916B66B37ED6C432516627535C2ABD27"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/SourceLoadNifArgumentHostNames.cs",
+      "Bytes": 1193,
+      "Sha256": "A447F50223D68BBBCF0A314AF557CF9C0331AA27B28C4213D2CBD811DEB17A56"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/SourceLoadNifHostChecks.Arguments.cs",
+      "Bytes": 4167,
+      "Sha256": "392430AB6ECA3F989842FF5BD7E5D0287DFFA8FAEAB4E24C5D71387ED57ED543"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 14837,
+      "Sha256": "F5564A4EBD8741EA4160A0030030EEF5496CCC7EAEFC623163A48AF41254098C"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/SourceLoadNifHostFields.cs",
+      "Bytes": 128,
+      "Sha256": "8FC2E4208BB3BBBC6607669374991B6EF9FDD660A02A3E05C8DDAFB7B37E101C"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tests/Erlang.Tests/SourceLoadNifHostNames.cs",
+      "Bytes": 2588,
+      "Sha256": "800F6BB00B8291FD4095A99F615D8BA9FDA566EE5138B5E96C381448ABA072CA"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/source-overlay/tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 213965,
+      "Sha256": "C8577299D35B72112F8FFAE3BEBD689A8BC9D7D8318F1601EBD75178D6B937E0"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/verify-promotion-parents.py",
+      "Bytes": 2975,
+      "Sha256": "8A55504046553AF24DE185733F99BB030C284D1E8195E8C31525E7CBBF189BC9"
+    },
+    {
+      "Path": "isolated-records/promotion-recipe/workflow-scoped-change.diff",
+      "Bytes": 450,
+      "Sha256": "55FE5B7F451887A892A7D4CE8E4BF3228B6150D3E6C5A0D4F8F06B0E72FC0279"
+    },
+    {
+      "Path": "isolated-records/README.md",
+      "Bytes": 2965,
+      "Sha256": "CCF781560435F39077D78CA535A382830CEEE2C98EE8C7B4FFE779581C1A773C"
+    },
+    {
+      "Path": "isolated-records/sdk11-folder-format.log",
+      "Bytes": 2950,
+      "Sha256": "5C9D37EA6933A8F0D3051D3CB199DE0ACF3973D63529C241B7612DB404043108"
+    },
+    {
+      "Path": "isolated-records/sdk11-folder2-format.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/sdk11-format.log",
+      "Bytes": 4653,
+      "Sha256": "6E886B91F6B51F4DEF3D300CDEE67C9155EA874AE994BA53E6356FA640B04D5F"
+    },
+    {
+      "Path": "isolated-records/snapshot-manifest.json",
+      "Bytes": 501745,
+      "Sha256": "9CAD4A94F986DC2FE1DEF981089380711A1DAC5DD22C923FB83F5AB1EA98E1DA"
+    },
+    {
+      "Path": "isolated-records/source-paths.json",
+      "Bytes": 3797,
+      "Sha256": "0FAD7EADC4CF5FC8A89CEAF597E854410D967AD9D239B91A5B95BAD49BDFF074"
+    },
+    {
+      "Path": "isolated-records/target-focus-final-exit.json",
+      "Bytes": 192,
+      "Sha256": "926B395868E9171D4240E88EBDF183EDB196BB85D0640D649A593F41A8C935F7"
+    },
+    {
+      "Path": "isolated-records/target-focus-final.log",
+      "Bytes": 2460,
+      "Sha256": "DA513BBDEAA2093FA98A4B4CCBFEE6657E25085927CC3730E7C894917ACE5BBD"
+    },
+    {
+      "Path": "isolated-records/target-initial-exit.json",
+      "Bytes": 192,
+      "Sha256": "87DF6F8CFC146F3099BAA868CE507F46A5E573C8A433595C001D797FBA37BBF1"
+    },
+    {
+      "Path": "isolated-records/target-initial.log",
+      "Bytes": 3921,
+      "Sha256": "88C893ED4CF59D3640EC6F46B9BE93E7B2BF052AA8ABC84ED905269E0B2C3566"
+    },
+    {
+      "Path": "isolated-records/tokens-manifest.json",
+      "Bytes": 3449,
+      "Sha256": "1F6DAA2F3A2CA00DE6AC135AC4EE84FB01C35AD0AC1B8537C2AFC84891372D1C"
+    },
+    {
+      "Path": "isolated-records/tokens11-before.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "isolated-records/tokens11-before.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder-before.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder-before.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder2-after.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder2-after.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder2-before.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "isolated-records/tokens11-folder2-before.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "isolated-records/validation-freeze.json",
+      "Bytes": 340,
+      "Sha256": "54273CB27ECD2E7A26878CD64AD6CBDB59E1BD53CBBFD1C5AAC651CF0A4C2D11"
+    },
+    {
+      "Path": "isolated-records/validation-result.json",
+      "Bytes": 9408,
+      "Sha256": "46F2A7AD84D563A36383AC0873ACA2AF01F9CBF8D7EC9DA009C845C112A35EC2"
+    },
+    {
+      "Path": "isolated-records/VALIDATION.md",
+      "Bytes": 1980,
+      "Sha256": "F15331C1D8268E2530160654699C52A93A69D6A14A8D121B51161F83539802DF"
+    },
+    {
+      "Path": "module-readiness.json",
+      "Bytes": 626108,
+      "Sha256": "FA3D7A4A9E6A9493B3AA878E632116AA5736A94F0F4EAE4B47D74CD8AA3E18F5"
+    },
+    {
+      "Path": "MODULE_READINESS.md",
+      "Bytes": 97798,
+      "Sha256": "D8FB9A6E2A9916ADE9248952C3160A26FF9D4200E8D58C2A151A29DCD233AC03"
+    },
+    {
+      "Path": "packaging-revision2/part303-changelog-draft.md",
+      "Bytes": 3949,
+      "Sha256": "8FD38C0C9E130650FEF50F081C1D21E18643A699799DF35FE4F66C43B4372CF4"
+    },
+    {
+      "Path": "packaging-revision2/part303-finalize-proposal.py",
+      "Bytes": 13221,
+      "Sha256": "AB0B09565E5AEFC3FEB0C9133C2BD37845A5DD2009AA98778DFECC32FEC2D775"
+    },
+    {
+      "Path": "packaging-revision2/part303-readiness-proposal.py",
+      "Bytes": 3511,
+      "Sha256": "3835098BC78F6BEB7D8018C66B8203C7A18F97B793FF97D4F0188366CF8005CA"
+    },
+    {
+      "Path": "packaging-revision2/part303-stage-guard-proposal.py",
+      "Bytes": 3808,
+      "Sha256": "4C8FA6D23836A95FA2480C0AD83140DD7D5BD0D9C5A71E12CBE68443FD80A6BF"
+    },
+    {
+      "Path": "packaging-revision2/proposal-freeze.json",
+      "Bytes": 640,
+      "Sha256": "3058385D914ACDE8C1C9619764DEB6B9DDB1C8FED49FA26334FB845856C2A1A8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-38732679976-independent-envelope-and-sdk-guard-revision2.json",
+      "Bytes": 1048,
+      "Sha256": "ADE9D352DDE5E127DB98CDA96ED35B77CA78D9A3A6EC133A15A722999E13126C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-38732679976-independent-envelope-and-sdk-guard.json",
+      "Bytes": 1048,
+      "Sha256": "6DB19551627B7C8EAF7D3A7C685720D82249C3E320EA15049938444D16701FF4"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-combined-independent-guard.json",
+      "Bytes": 1759,
+      "Sha256": "F8718AF85DD6041F94C5E998DE9FEA24397A3C39367894770E1DCEC033F2B961"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-cross-platform-generated-source-guard-revision2.json",
+      "Bytes": 659,
+      "Sha256": "A445CF2B8000C9975B0C0CE181E91AE0C9D486D5C39DA6CBFE7194FF73894043"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-cross-platform-generated-source-guard-revision2.py",
+      "Bytes": 1162,
+      "Sha256": "8B42CC2FA6F608359D1DE1055C5878FF7D8FF4BF5D65AC79B9A58E2272E9B0EA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-cross-platform-generated-source-guard.json",
+      "Bytes": 659,
+      "Sha256": "0B3A6FD32D7A69BE255AB3CFD6CC0498A5DAB4F9B8D67C69DF7D616837AB5F67"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-cross-platform-generated-source-guard.py",
+      "Bytes": 1142,
+      "Sha256": "728C0A615BF9E1FC42433066F1654D306D9C7A5B9C8C59EAFB714B7E11505D4A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-join-guard.py",
+      "Bytes": 2939,
+      "Sha256": "7D665D2350EF963EE2B63AE39D050FF3CF3046A82BC6BC57C6567022BEE23032"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-status-label-correction.json",
+      "Bytes": 631,
+      "Sha256": "F676076AC5D8CFFFC0C2B9B69E27D6D0F4057197A3D3179C2DBA4E7469752824"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-terminal-guard-revision2.py",
+      "Bytes": 7897,
+      "Sha256": "9BEB9C63CE357F5983410BC746ACFAA41DE6C34B51B7F76E2E85BAEA493974A3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-native-terminal-guard.py",
+      "Bytes": 7887,
+      "Sha256": "EC173F33DB736BB8F94F89845C4822A4F79FF7D998E6909A935BD69F70697A19"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-independent-local-capture.json",
+      "Bytes": 453,
+      "Sha256": "DC900C9805B834073D1533BAE031E14FCAD2645874077AE918C9F033A7854DA8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-independent-local-report.json",
+      "Bytes": 3379,
+      "Sha256": "A4811A98EF9E57BC3D2E69EC8E173E4040BA437E8AE01F64C88F067080BEDFC2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/check_process_capture.py",
+      "Bytes": 2632,
+      "Sha256": "4D058316A7A55C701A20DAD70450941F8F27CA92415F9A5E6DAD6872766B89CB"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/collect.py",
+      "Bytes": 10574,
+      "Sha256": "9B42C2B6FCF1A91B98FDA90D986C42044C40ABC98C020A3290C06F7DDD439C01"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/expected-policy.json",
+      "Bytes": 3861,
+      "Sha256": "B1CA9E182911DE41ECF74214B889E51FFF6CE7E77F244A77DA49EFCB0DFA2F15"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/fixture.c",
+      "Bytes": 5578,
+      "Sha256": "1A0CD1D7C22C9404E352F3A1034FFC6C33EC660342F03D42E81811F7F1B2A8CB"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/nif_pending_varargs_fixture.erl",
+      "Bytes": 1209,
+      "Sha256": "AD53C55526285BE81162368C202B7C9E645CDC02D46E620861B94BDC89F542E3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/nif_pending_varargs_observer.erl",
+      "Bytes": 1498,
+      "Sha256": "8BD6EDEA12CA7FDEE06BFC9615E93B87E8EB4B7524C796A12598E74E2F622A30"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/source-bindings.json",
+      "Bytes": 1100,
+      "Sha256": "796484D85E13B2F627D0654127533EB2911D65F6F341191B3F12AC616735F85F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/original/source-plan.json",
+      "Bytes": 1896,
+      "Sha256": "EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/reviewed-source-plan.json",
+      "Bytes": 213123,
+      "Sha256": "DCDB739375C0CA2C11EB8DC2998A9B790BD6F202D46FAAB136F13F471544D03D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/verify-metadata-mutations.py",
+      "Bytes": 14714,
+      "Sha256": "F09799AD51AB4A49C271977E987F1C186C76FF4A87C943D19E8D6AA709F1DB4C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/verify-original13.py",
+      "Bytes": 14492,
+      "Sha256": "46F8837A41981C15DD6D49E3F16CFE06ABB2A8DE2B404BBCF84D9B93A248150F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-original13-source-contracts/windows-main-native-guard.json",
+      "Bytes": 1063,
+      "Sha256": "CDA0E9D726A09FAC5D2E06AC72C0ED792566177AEE7414A780D21C163A9F3B2A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-read-three-runs-proposal.ps1",
+      "Bytes": 4696,
+      "Sha256": "1756A9E72D0B285AA9328FFF107E28BD2C005DB1D2C57BFF38D133A27DE2CF4B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/build-receipt.json",
+      "Bytes": 5160,
+      "Sha256": "EDEAAC8015854EADCDC4F6CB0FE0E5A4045E92C916A1474E45F0919696082C9C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/build-sdk.process.json",
+      "Bytes": 476,
+      "Sha256": "286F6AF80104D49DAD2E5133F97C88A2181FE01D3B462F38ADA77D3143CD8B3F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/build-sdk.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/build-sdk.stdout",
+      "Bytes": 1504,
+      "Sha256": "ADE10A01897D6F6A2A8B0430EED6161C5941ED15BB5E7117B8EB04F3D2A4F5A2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-probe.process.json",
+      "Bytes": 643,
+      "Sha256": "B32B412623DB9555FA0F85E406E6AC2DAF6FBC4EB96D206D61E2304F82CE1DC0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-probe.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-probe.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-trusted-fixture.process.json",
+      "Bytes": 588,
+      "Sha256": "4FA8A55434E2BD75C689CF7D6BE71208F6EE890A98327EBE11E4BF050C734FDF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-trusted-fixture.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-trusted-fixture.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-veneer.process.json",
+      "Bytes": 736,
+      "Sha256": "A08EB1D46D49FCB1F23BC11CA1470B53E22E6EEAAC126069A25E4E3773EFF402"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-veneer.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/compile-veneer.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/dotnet-version.process.json",
+      "Bytes": 203,
+      "Sha256": "63A9531D63E941343347ACB12D09067B4F8A1C5EBB2138B6EBF0CA88B9A67F18"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/dotnet-version.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/dotnet-version.stdout",
+      "Bytes": 9,
+      "Sha256": "D0C8E5A09A2E5655CFFDCA9E350ECBBA59A860154F5ADADB92398B844F705ED0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-defined.process.json",
+      "Bytes": 289,
+      "Sha256": "86BFCB384200BD54A4CF495160D0EBE17AF0BC3B880F0180A573530C38A745FA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-defined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-defined.stdout",
+      "Bytes": 85,
+      "Sha256": "10D8C1D28FA8813F0B339F43306CAE3863E6B7ED10D6836B31031EB468A1231C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-readelf.process.json",
+      "Bytes": 293,
+      "Sha256": "43D4C242FC7D4E70E0879773DABAA6FFD793E4900913A67FB1784D224922C5E1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-readelf.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-readelf.stdout",
+      "Bytes": 6681,
+      "Sha256": "D1FF7950A9200CF59854816B2F6FC9B7A513DEA9FFE4B0BE4F7B6C7D08CCA09F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-undefined.process.json",
+      "Bytes": 291,
+      "Sha256": "CFA23789680221B5AF32ECAE075607404B218BC2D0943AAA8FEB7D9C013BA51A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-undefined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture-so-undefined.stdout",
+      "Bytes": 448,
+      "Sha256": "EFEFEDBE6AB3FE15AC75E01494627881ED5C1E1F1BDB41150CCBCB8406313F02"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/fixture.so",
+      "Bytes": 16344,
+      "Sha256": "6DEB2213C0F49FF31C4C9D8C395577874DBF5245DA913132EF3A4211BCEC95B1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/gcc-version.process.json",
+      "Bytes": 191,
+      "Sha256": "C0C358EE9C24AFD2E91C37F76848C655CAF90B38F317343659D10EF7DB74BB42"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/gcc-version.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/gcc-version.stdout",
+      "Bytes": 246,
+      "Sha256": "8497F84B2B8334C413D9C6166BD39D009BA55D2FF60A8F23E66DFA5819C2B048"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 453416,
+      "Sha256": "1CFAEEEAF608A0F628875B140D42F77D1732EBADD1EA588C8370C9B39A6BB313"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/cs/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 41256,
+      "Sha256": "890BBAEE87FDB8E1F8FA7DD8BE4B1FF8C8EF4C79B68F498FB408AF7EC69E899A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 485672,
+      "Sha256": "7B2177331B53D66D6D18FFF571937E86B03D36CE82A51072EF464D99BF6BBD20"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/de/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42832,
+      "Sha256": "EF01149E1C679FF0F2A8274093CD27B0E2B72001318AD19C9F8503B218B4C065"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Compiler.deps.json",
+      "Bytes": 5536,
+      "Sha256": "481790E851CAE3CC270191E969E3C949759561D34ED1E658D61068AA71087ADF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Compiler.dll",
+      "Bytes": 325120,
+      "Sha256": "8652B3F06B5BC6DED628495D6F9DCA249554AD0FEED65A86E8C97C8863F0CFE1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Compiler.pdb",
+      "Bytes": 90312,
+      "Sha256": "97C6897D25C67B847BF82D3FD80042E6B99488D1474CA85601FF4A6DE45BDA65"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.NifNativeBackend",
+      "Bytes": 78256,
+      "Sha256": "8F138F64AB487DCABF0F3BA53E46D6980BE56FC547504BF5A3BC8C3916B08139"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.NifNativeBackend.deps.json",
+      "Bytes": 5980,
+      "Sha256": "4F37F3F04CA9D0A0BF8DDE5AED515C0D5ED7A6A054ECFF764BB19CE0DFC3A324"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.NifNativeBackend.dll",
+      "Bytes": 67584,
+      "Sha256": "4DF541AD1F9922AE02ACA95FD4C1C93EE4F747CE01CB5CFA15A0DD162DF2732E"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.NifNativeBackend.pdb",
+      "Bytes": 22756,
+      "Sha256": "7BC2C03E2C388657BA5F4CC07BCD871DA92E10EB03F3FD7694874AC3296DAFEA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.NifNativeBackend.runtimeconfig.json",
+      "Bytes": 330,
+      "Sha256": "9950D4583CFC9A106857C0D5B8A75B53E8774852B57B80BC3823A74D44A4D87F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Otp.Behaviours.deps.json",
+      "Bytes": 1623,
+      "Sha256": "5CA6C23567FCF042C37888D3E2C877949FB24CADF808412204ABCE18AA0D043B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Otp.Behaviours.dll",
+      "Bytes": 111104,
+      "Sha256": "28A688A993B59182DCF86808E454AD62536C11D7EB7CE8AF43D03B018B2D3E71"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Otp.Behaviours.pdb",
+      "Bytes": 32072,
+      "Sha256": "CE865F73CA01188D7FFD0F39A264F71F64C4A568050F0CA746D124073654EBA1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Runtime.deps.json",
+      "Bytes": 1223,
+      "Sha256": "E96CF298A32C7C29512DF7919DF69A9B7AFAF272974736BBF7BFEB01A4ECAA4B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Runtime.dll",
+      "Bytes": 1159168,
+      "Sha256": "5FDED6F36AE640EDABDA8F272D03F74B6C71EC23B0EFC6A6BF277C377ECAF0E6"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Runtime.pdb",
+      "Bytes": 325680,
+      "Sha256": "A30933A6D01E2DB245DCCC49AD4818A89864761EFA0046D9B1783A1AC19DEFB1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Serialization.deps.json",
+      "Bytes": 803,
+      "Sha256": "D2C7D662F80E265CB754AE193E90559C33986A4437E80348C0487AC30420A1E7"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Serialization.dll",
+      "Bytes": 67584,
+      "Sha256": "C80FFFC0BBCCDF6FE0BE4595A60CC3EB79D1012BBF21448DA88482EE506ED68C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Serialization.pdb",
+      "Bytes": 31472,
+      "Sha256": "A922A242EC47422BC86A9DE370B1FBC6F7EEFA974F5B91E7A59F55D4F40BBC2E"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Terms.deps.json",
+      "Bytes": 408,
+      "Sha256": "CCCBA05326BB8E083EDF7EC86642C95E1FC107F5E9B9DB2B36C3AA87AD7FD0BE"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Terms.dll",
+      "Bytes": 90624,
+      "Sha256": "55422C5689F5369D7A873C67527242AC1166DFE6E0756BF049DA85B6F8B44615"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Erlang.Terms.pdb",
+      "Bytes": 28380,
+      "Sha256": "C3420F7099A9EC13B0C4CC93E57CFE7F647DDA2696CB31530C9D44A469BB5A34"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 474920,
+      "Sha256": "78BDCD27D79AF43CF6B05F73ACE665847DCB5E25C920CFC5744A48BC86959AAD"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/es/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42280,
+      "Sha256": "50E025DE0DAA449B4046FAE211B2BCC2B0A54DCFF4797F959289EFA839E910F0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 488744,
+      "Sha256": "777D53963344B644C7C9671D8DCB283292601A7F2188442C8DC0CB20A5A6B50E"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/fr/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42792,
+      "Sha256": "35428ECA31025F495CF1CC44569BD076ABD5A436CC68D896E3D03F702B8CDDF3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 481064,
+      "Sha256": "C60FA4982837EA01FCE2A1928FE61A2A6CD70F9E6B10D663EBDDD02F370887A8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/it/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42832,
+      "Sha256": "3B3E23ED93C34E22E499FC6D530F500AF481B5BC8F03B80F2C30D3214AFFBFE8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 530728,
+      "Sha256": "81FEB4217CFE2327A5CB41DFEFF542F50BDD768ED7E150FBE9EB7893A7DF8CDE"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ja/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 45352,
+      "Sha256": "FF23DE29DECF1BB88B2B8EE7F024916490D02154571C20ECBED133E0F2C5AB65"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 486184,
+      "Sha256": "529C44420CC9E069640A827B2E9910908A98C30B213215E98CEB5728E51DB73D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ko/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42792,
+      "Sha256": "40AD605C9E64C1753913728ED85A0A08B85497705005CFA9252AC4886A010213"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Microsoft.CodeAnalysis.CSharp.dll",
+      "Bytes": 7085904,
+      "Sha256": "22F13094CC59DDFE6E0BB43942C7AE188F21A769C2695912F806BB952BC8FFE5"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/Microsoft.CodeAnalysis.dll",
+      "Bytes": 3103568,
+      "Sha256": "3CC1B92658591BAB003CA7F82A0EB99225D8384D41687C726B7302D37BA7E3D3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 487720,
+      "Sha256": "217CC05D6D2E604E9D3135DA44A23BF9C2A38C4D1FCCBF0A79AE958DDBD57720"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/pl/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 42792,
+      "Sha256": "BBC97209AFFD8F85B72BB141368B0F22A56817FC4C38E803A4315083937E68E2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 466216,
+      "Sha256": "779108E1CD227A2440008E15A7C3032DFA55CE96BDD80165566707FFBF0D2DA2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/pt-BR/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 41808,
+      "Sha256": "FD9FBC1C878AF8B9135E8770705B339E7CDD68CDBF566DBD0820FBC4FF04CAD8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 640848,
+      "Sha256": "8C41ABBC430A22409224ECA083C1658B3650FA86228091A0BA3824232656F6F8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/ru/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 51536,
+      "Sha256": "C46B49A3A5D7016C3843B16437B33AA11246F3C7431A79AE96170366D7C47396"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 462120,
+      "Sha256": "8B67EFCBDC9B04555325E4717D27BE9C130FA8DE9F90848B31A4497352EEC049"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/tr/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 41256,
+      "Sha256": "2333D2536E538684655E8272487A7F8FDAC33B052B98E6EF8C11A2501583EA5C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 410920,
+      "Sha256": "0C9B0A96A0F47671F2D2CD10F2BFCB636FF2DBCC5E6B5605E5546DDAA8305651"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 38696,
+      "Sha256": "CACBB98BC13848B6AC210715399A68F248E01E9E9A601EC7C1D16163437D1FE9"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+      "Bytes": 410448,
+      "Sha256": "84F97EE2E7DB4E5E59233D8DE172520355916190405F91654E77AE99B2391AA2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/managed/zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+      "Bytes": 38736,
+      "Sha256": "A498260FE6455CA2A1C7CDE93AA467075A6A629D340BF817AA68733422AB6C94"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-defined.process.json",
+      "Bytes": 292,
+      "Sha256": "5BC9327DE0EF68438948A48F99D2A4AE895B053FD92B0F79CAD266DCFB3F4368"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-defined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-defined.stdout",
+      "Bytes": 501,
+      "Sha256": "3FF6737C21D92AB44533EAB7F6FC630A48A38F4529356344671593E4227EB6DA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-readelf.process.json",
+      "Bytes": 296,
+      "Sha256": "2153839A196D2492E03C444E2ACD510DA5CC2FF539A00127E37E1A3CFC72A642"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-readelf.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-readelf.stdout",
+      "Bytes": 8256,
+      "Sha256": "B31C9FF8B2FAC144AECDBE7331FBA8934FD24AF25ED6EA56643EF4F907A26D88"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-undefined.process.json",
+      "Bytes": 294,
+      "Sha256": "36B57E7B542CA7795726A856BCB260489A55C2AADCD6E9EB3D916832A575220D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-undefined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge-so-undefined.stdout",
+      "Bytes": 255,
+      "Sha256": "E6DF9859D6FA268E6B28C562D9EC0FEDF3C6840628ACC8D8C1433D9E868902A2"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge.so",
+      "Bytes": 16728,
+      "Sha256": "9E3C19595CDAA7392AB6F4CBFE56AED83A0F044567E8C3E5286D69BE170B1B17"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-defined.process.json",
+      "Bytes": 302,
+      "Sha256": "A14ECD528B8BAFF5B230468969DED266B26551DE18566C4994BE1FABC8EE47C7"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-defined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-defined.stdout",
+      "Bytes": 222,
+      "Sha256": "1037108B3565FA1CE99F195CE3126EF43B86E7E9710277B801741BC82A623054"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-readelf.process.json",
+      "Bytes": 306,
+      "Sha256": "A53E17DDE5DEDFB19E5158B8A0F524EAB4F0C2B3808C095B3E3F4B268B6AE9DF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-readelf.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-readelf.stdout",
+      "Bytes": 6632,
+      "Sha256": "4B70B0920A9A281485583C461A00A26F3383C7682CF1F71A8262EA80BCB0DE0C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-undefined.process.json",
+      "Bytes": 304,
+      "Sha256": "2AF1A771EF7C755AF5B79F4191BF1AE9D95BFA58C728D41E75D012D67D714623"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-undefined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe-so-undefined.stdout",
+      "Bytes": 446,
+      "Sha256": "EC95DBA1FD30C17183A6156658101B38B7C36A4CC0B9EE2EDCA4FEC3F608E4E4"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/nif_bridge_abi_probe.so",
+      "Bytes": 16024,
+      "Sha256": "13EEDD44C7F0DA323C4DCB769F2C4346E77FEFA7B9C3026081E89F6B771B5489"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/sdk-receipt.json",
+      "Bytes": 978,
+      "Sha256": "2C7F4571B4F7631EC0C1DACB0980DC48D5E5BA0E01FD97105C6345C14EF2E5B4"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/sdk-six-argument.process.json",
+      "Bytes": 762,
+      "Sha256": "FD5003D1384FB2E39FBAD21D8B59A87B9BF04A608EF1AC6ADCB075CDF148BC4B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/sdk-six-argument.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/sdk-six-argument.stdout",
+      "Bytes": 439,
+      "Sha256": "0FB875D6294AD3D542652AF10519541449C16631278B84350BFE416DA805F339"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk/source-binding.json",
+      "Bytes": 209500,
+      "Sha256": "A3A24227B6B760622DD0C8AB0F5AAA5EE8AF43245787A90A14EF9BF38F32DE02"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk-build-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk-build-receipt.sha256",
+      "Bytes": 111,
+      "Sha256": "37B2EAB59D682A6840CD58EBB6AF3B64BC1C609855E870C81FA3BDE304E0AD0D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-bounded-sdk-execute-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-launch.log",
+      "Bytes": 183,
+      "Sha256": "A97B47752B314A7BF3877287B0648C613FC075375B5FD5B654A37D937F47B8A3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/check_process_capture.py",
+      "Bytes": 2632,
+      "Sha256": "4D058316A7A55C701A20DAD70450941F8F27CA92415F9A5E6DAD6872766B89CB"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/collect.py",
+      "Bytes": 10574,
+      "Sha256": "9B42C2B6FCF1A91B98FDA90D986C42044C40ABC98C020A3290C06F7DDD439C01"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/disassembly.etf",
+      "Bytes": 11876,
+      "Sha256": "54C94DDEB2B3865F16EF1BC411CFB81D5217DB2836E71CA8E348F21897FC6170"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/disassembly.process.json",
+      "Bytes": 675,
+      "Sha256": "D9190F66A87A8F29C2738964182B3C127B044039EABA8A2C207D3D5B41FF7F4B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/disassembly.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/disassembly.stdout",
+      "Bytes": 15376,
+      "Sha256": "0C65DDF4DCA657812C32B113C458BB423C5E7802B2E0BBA304AC83A11ADC4064"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/ebin/nif_pending_varargs_fixture.beam",
+      "Bytes": 2080,
+      "Sha256": "C0FC5C9546BCFFBA32E9519E3ECD1ED3AC0F7EB26F17733EB5CD5060731E7D4E"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/ebin/nif_pending_varargs_observer.beam",
+      "Bytes": 3300,
+      "Sha256": "C93DA7F3C20C59A64C9D2AF2ECBE4678556C058E1D6495C70D0B897E477383BE"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/erlc.process.json",
+      "Bytes": 479,
+      "Sha256": "27A90775ABF53C0E6CBB8D30A3CFDAA9F1B24BA7AF686A9613100A9B2A337D30"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/erlc.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/erlc.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-build.process.json",
+      "Bytes": 426,
+      "Sha256": "52033E5BD22BB0372D422F4CD90C7A559CA70E4E69C31BF7108B744E677530AB"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-build.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-build.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-dynamic.process.json",
+      "Bytes": 206,
+      "Sha256": "7BE441F3A4E7DCC5550C13E985D7E33DD3F584A1A101809B041BE8A968D68F83"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-dynamic.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-dynamic.stdout",
+      "Bytes": 1289,
+      "Sha256": "EFC95FB2FCABDE457B75BFD55273A2DB436F179E62DC2303A6A31D7CF879809F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-symbols.process.json",
+      "Bytes": 207,
+      "Sha256": "42E321C57D73DD053FC3370B6BE37858104D94476D00DD8B46B9BB2B4234B015"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-symbols.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture-symbols.stdout",
+      "Bytes": 5065,
+      "Sha256": "9997559A0C2E094D30424FBF1D5FEB092015B5D75668A409CC0CFF7AECD10C03"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture.c",
+      "Bytes": 5578,
+      "Sha256": "1A0CD1D7C22C9404E352F3A1034FFC6C33EC660342F03D42E81811F7F1B2A8CB"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/fixture.so",
+      "Bytes": 17064,
+      "Sha256": "6EC1B89E2780C69BA9750B16AA61321A76A5C98DFD19138D1488C538E6872EEE"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/gcc-version.process.json",
+      "Bytes": 191,
+      "Sha256": "94A528012C4F7F8267AC149FB23351CE40F7E95410DDF416D164752B1DA50C04"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/gcc-version.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/gcc-version.stdout",
+      "Bytes": 246,
+      "Sha256": "8497F84B2B8334C413D9C6166BD39D009BA55D2FF60A8F23E66DFA5819C2B048"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/headers/erl_drv_nif.h",
+      "Bytes": 7102,
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/headers/erl_int_sizes_config.h",
+      "Bytes": 1192,
+      "Sha256": "9778F570E78AEFE130C9CBDB38FEF1BBFAB9A7A6F0018859C70C1AEC9FBB904A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/headers/erl_nif.h",
+      "Bytes": 13859,
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/headers/erl_nif_api_funcs.h",
+      "Bytes": 38959,
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_empty/observation.process.json",
+      "Bytes": 669,
+      "Sha256": "FFB7F4595983DF62560C9BAB4B05408DCBEF5A5956ECF433E1D4FC2C55CAE73F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_empty/observation.stdout",
+      "Bytes": 1005,
+      "Sha256": "9A0F783A39AD6FE4A97E89FA4A8E4DB4E615D98D95824B45159DE1F32F711098"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_empty/result.etf",
+      "Bytes": 845,
+      "Sha256": "E1E5BF7AA34CE9E0FD37F8BE44EF458BFFBECD3625DC90C9A1AB9CE335033AAF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_single/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "B38A1CE5917BDDB97AE9D9C47D8D738F507103439F938A0795E76AA8C25E81EA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_single/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_single/observation.stdout",
+      "Bytes": 1007,
+      "Sha256": "467FF2BF42EF662CB18F87E50804C3D76E2BFE72EF1CD388F4060C5FBBF1B58D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_single/result.etf",
+      "Bytes": 849,
+      "Sha256": "50C8DCD9B9D63815ECD977E283D7198481BBBDA23ACB2F291E328E4F7F82C586"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_spill/observation.process.json",
+      "Bytes": 669,
+      "Sha256": "7DEF0862E5C5952C751DCAAFC62B88C359829F37E0783FF160DE16E474EE0DA0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_spill/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_spill/observation.stdout",
+      "Bytes": 1045,
+      "Sha256": "95E5300CD4005D5A3E995ECDE3B9B31CF5B81A549AC68A530A1105AE64B4511F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/list_spill/result.etf",
+      "Bytes": 864,
+      "Sha256": "93FD06B3C74FA0617863BBDEFAB0A089F6401064B03013C0263577513292F825"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/load_veto/observation.process.json",
+      "Bytes": 668,
+      "Sha256": "41EFA20D05A4560BA0EC01BDBC891AEB1279D99DBCC5E2BA70C103C7BFA678BE"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/load_veto/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/load_veto/observation.stdout",
+      "Bytes": 1836,
+      "Sha256": "E1E458AD814EE9562545B48310030D43CB0506FED72A0E2E7EA7C182EF76BC14"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/load_veto/result.etf",
+      "Bytes": 1527,
+      "Sha256": "7040A95B46D43EF72D01052DDCF372DE249B385D4D57DA7D03D37013C01127FF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/metadata.etf",
+      "Bytes": 289,
+      "Sha256": "EC3C5347C61CCF4641E4A72D9C749D07C6C9FF8E1B94ECD5FB0C31D5ABC4D027"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/metadata.process.json",
+      "Bytes": 664,
+      "Sha256": "DF3A771E3EB2367C4BD60CDE5256A425AC2288C92953BADC33EA16CD7DC588E3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/metadata.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/metadata.stdout",
+      "Bytes": 324,
+      "Sha256": "2BE290878912CC0131776DAE161D05DA256B6773E82E5FF241FF440AC4EDA98D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/nif_pending_varargs_fixture.erl",
+      "Bytes": 1209,
+      "Sha256": "AD53C55526285BE81162368C202B7C9E645CDC02D46E620861B94BDC89F542E3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/nif_pending_varargs_observer.erl",
+      "Bytes": 1498,
+      "Sha256": "8BD6EDEA12CA7FDEE06BFC9615E93B87E8EB4B7524C796A12598E74E2F622A30"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_ignored/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "8B2E4A8818F973988D8CA87DA353FD59D01A7BF83DB7F175B3BA59A328C61898"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_ignored/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_ignored/observation.stdout",
+      "Bytes": 1640,
+      "Sha256": "E85DCC9A72CC833B931D85A21686E73CEAF19AACF1B171EFCD0FF5C6ADBCF4EF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_ignored/result.etf",
+      "Bytes": 1370,
+      "Sha256": "6A35453E09AF285A98B24573873AABF339C19FC4D0EC1B3FE90D1801FEF8DC29"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_then_raise/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "B3732C2BCBAE4895E6581BAE0C6F7B45910107EFC2A7F86D1BF96CF8D4BFF58F"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_then_raise/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_then_raise/observation.stdout",
+      "Bytes": 1643,
+      "Sha256": "2C31120F18A5F2338A5A6F65B3D42ACDFCB9B4A040AA753868398634ED18B49C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_badarg_then_raise/result.etf",
+      "Bytes": 1370,
+      "Sha256": "647782777729C70FACEC30849DD38FCFBD9D90CE44957CF897A2BB67FB572489"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_detail/observation.process.json",
+      "Bytes": 673,
+      "Sha256": "4493597AA2F0A4C3E7136CFD611B3033BC9A68FF6C9F9B65B94FB25F7F109A6A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_detail/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_detail/observation.stdout",
+      "Bytes": 1644,
+      "Sha256": "6D853E56DE65600BF9A62EDA27F0167D656F08EDDE398647209C23F2F19FB7FA"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_detail/result.etf",
+      "Bytes": 1358,
+      "Sha256": "9469FF59BD0360200CBE10E32D126DEB56BD70A3A8EB05C75C850CCF09BAA4FF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_none/observation.process.json",
+      "Bytes": 671,
+      "Sha256": "6602BCB04B219043E856D55E5BC9DFF7BA327749C8190629ECF7D186BA1FE826"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_none/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_none/observation.stdout",
+      "Bytes": 1016,
+      "Sha256": "4C7059EFB79E73D7D0DE3504ADD089F406C4D3FA37C3E01A13B913A3C55A8E7D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_none/result.etf",
+      "Bytes": 859,
+      "Sha256": "4147C37007ABA05763E9D04B33C9096D5B24E69FD6F24075652CE478768B674D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_then_badarg/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "A96A12B98DA9224450AFBF6544170223CC1E5A634F84F15C133FCE567579CA0E"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_then_badarg/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_then_badarg/observation.stdout",
+      "Bytes": 1646,
+      "Sha256": "4ABD773631989374BABE9CA0CD654F484B77716AE62B6301E2FF0A5956A38B67"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_then_badarg/result.etf",
+      "Bytes": 1376,
+      "Sha256": "5AA153C857B51A73A0A1788A8C7B60060193989E495BD03192484221433C421C"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_twice/observation.process.json",
+      "Bytes": 678,
+      "Sha256": "A44020F919563849A5FD8EB3A6F7A8FD1A5F60CD75668FC382A8310983FE1163"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_twice/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_twice/observation.stdout",
+      "Bytes": 1631,
+      "Sha256": "AA9A9E6B4E780616A293DBC343145583CF97739F4A34C9C110721E6D501EADEC"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/pending_raise_twice/result.etf",
+      "Bytes": 1358,
+      "Sha256": "4A5F9356251287397A19974EEF6E8588D3B57F4C070639C1EC43111ED9C38111"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/receipt.json",
+      "Bytes": 15969,
+      "Sha256": "E231704076617F1CD347AAC7935C097E3BDF60513A5E1BF31A4A8CBAC2645CD0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/source-plan.json",
+      "Bytes": 1896,
+      "Sha256": "EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_empty/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "18CC6C48E485FAE1EC2979449AEC955821FF55BF2D496D533BE54C9680F25329"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_empty/observation.stdout",
+      "Bytes": 1006,
+      "Sha256": "00455A803D270E53AFD610FA893C4C9B5C8B8A214F39A1A3B7CC900DC8D63DE3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_empty/result.etf",
+      "Bytes": 847,
+      "Sha256": "B6AEB9A5CC390A6A380D4B40A7E34004A41BAEF86401C472EC0B1F7CF7C66205"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_single/observation.process.json",
+      "Bytes": 671,
+      "Sha256": "BC62C49F1A6600109CC67E6D4C2DDCF91DED4367ED00B6F8F6857F41411F00F8"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_single/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_single/observation.stdout",
+      "Bytes": 1009,
+      "Sha256": "115D19F4D8F60A62967F356E8918DABE6B8515456CAE788ECCD1DB87F0E8A8C3"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_single/result.etf",
+      "Bytes": 850,
+      "Sha256": "2AF53EAE322B16DD77A352E801ED9D08F0C020DEFE3D4BD819B9C41176EACC09"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_spill/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "7C8B0B62C4D4A23C4EDF7090E82B53A6DE73CCE98BFD02A27502E1B591DCA00D"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_spill/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_spill/observation.stdout",
+      "Bytes": 1046,
+      "Sha256": "4825049EE736AF4362B3A96EC1AED576DD7F6628EC5FD9FFC607EC9168BE104A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-observations/tuple_spill/result.etf",
+      "Bytes": 881,
+      "Sha256": "4DFDBD0EBFF9345AD12BB844B7AC8D4F3E97C1F34C6C2D93ABC38543C1259960"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-review-launch.log",
+      "Bytes": 92,
+      "Sha256": "76469DEE4B7B97C9AD156BD4E8A3DB1F846B484529F8D631B8F2EC17094F227A"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-original-typed-review.json",
+      "Bytes": 3312,
+      "Sha256": "F7C5CC4B2BD94FF9E429F2D5F8CFF921265BFAEEA27AC825042C229BE7D70EE7"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-otp-build-provenance.json",
+      "Bytes": 926,
+      "Sha256": "61E383C27DB25A462F436940FE394A0B9ECCE18CBBF9149E5EF72112C9643E92"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733/nif-pending-otp-build.log",
+      "Bytes": 480907,
+      "Sha256": "EA2151AFED7E5F29DB20FFFDECF130659D11EA58FAFFD38C4B17DECF6B3E46CF"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifact-11970718733.zip",
+      "Bytes": 6754891,
+      "Sha256": "F16646A09D86BAD802A50211E5E76EB892F059F8DB23E91E26215460F602FE2B"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/artifacts.json",
+      "Bytes": 940,
+      "Sha256": "B7660927FB9FC647BC769894E81AED1B68A46B56F7AD01EAFFE2AB049FDD7EB7"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/download-manifest.json",
+      "Bytes": 42144,
+      "Sha256": "74F8B522FEBCC5278CEF7373B3DACDBC200CC990FE6464BE33E0B80DE4546C71"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/job-116414077323.log",
+      "Bytes": 670174,
+      "Sha256": "A684695E5B60C7A895A1C25AFFE329FC7773427A9BE6374A4283DF41FE9073D1"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/jobs.json",
+      "Bytes": 4497,
+      "Sha256": "3DC5F34205E0A0E1869D7AC863334B6E3D7A12868D94529D10FF2695C3343E43"
+    },
+    {
+      "Path": "previous-head301-native/pack301-watch-38732679976-terminal/run.json",
+      "Bytes": 13647,
+      "Sha256": "83A5EC6ED0AB2EA75969879677218B950B7CCEA4A00C4D281F455A543D7E2729"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Compiler.dll",
+      "Bytes": 325120,
+      "Sha256": "A441CFF338F9D1347AD349FE1B7BE815BBFF9834BC2DDFC3C032C90600E74D36"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Differential.dll",
+      "Bytes": 1460736,
+      "Sha256": "55AEB6293FAF6A626C3416C57F6129E93FE152EEA8BE8DA66E07F4971847C26B"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Otp.Behaviours.dll",
+      "Bytes": 111104,
+      "Sha256": "1F6418C8A025FD31854CEFEE157844D7CB24F8EF583360D61122D01B70BA3EDF"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Runtime.dll",
+      "Bytes": 1159168,
+      "Sha256": "26224CD5048B4707215D708691AF09EFFA775E0F043FC025195B47C05C08EAE6"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Serialization.dll",
+      "Bytes": 67584,
+      "Sha256": "DEB4A6370E6CD6E78B671F1A83D4E3B7917AFF240166C24A605688304A548777"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Erlang.Terms.dll",
+      "Bytes": 90624,
+      "Sha256": "B54D0EFEDEA287B8F6D7DCF28F7FA1B0728B401CF160AA2E25B227D9A8357454"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/GeneratedHashExport.deps.json",
+      "Bytes": 9227,
+      "Sha256": "0A6B9C3E93B32AB1D21E92D7ECAC6110EC35447916442985F45C4BDE0DB1E0BB"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/GeneratedHashExport.dll",
+      "Bytes": 21504,
+      "Sha256": "9B1696345F18BE650393330C451B4AB2DD13D746C53769F65717A14FCBA83108"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/GeneratedHashExport.runtimeconfig.json",
+      "Bytes": 342,
+      "Sha256": "C230A317A54DD960BCBEB5F347F52E18DC665A26F7EFDA2159FCED9A5AC7E097"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Microsoft.CodeAnalysis.CSharp.dll",
+      "Bytes": 7086376,
+      "Sha256": "5315C70F62181FCE90D342F0114152B518F0631EB1BBC628217AA395BA7C61BA"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/Microsoft.CodeAnalysis.dll",
+      "Bytes": 3104040,
+      "Sha256": "157F9C4251433C85EECE20ED7427F294C52DF13A7CFA25E5C4AF8B581A4D353D"
+    },
+    {
+      "Path": "previous-head301-original/pack301-generated9-tool-closure/retained-closure-bindings.json",
+      "Bytes": 4309,
+      "Sha256": "2ADE2CD363BF82A2A482FC798D27BB158978DF147C9DDBB70EA274D41E0BC1FB"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-38732672128-independent-guard.json",
+      "Bytes": 1143,
+      "Sha256": "E946B0F4602E83463293B80C2B9DC4F34FAE61A9A04D361DEED38A407EB65188"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-approved-historical-differences.json",
+      "Bytes": 4860,
+      "Sha256": "FEBBC154EEE76B6AE2743B238EE09040F9CE4314AE9DC02766F8D25E9A1DE3E0"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/CompiledStandardOutputContract.cs",
+      "Bytes": 397,
+      "Sha256": "0F8F396BEF58B01830F408CF8BD1A0792566B73EA89B10448F9E109B8D17EF38"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/fixture-migration-ledger.json",
+      "Bytes": 1255,
+      "Sha256": "43DAF62F1B04EFD751FB0AC0553B5D7A90D3C31AE5EAB835D30A5D64AECBAD72"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/ProcessInfoDefaultSubsetCaseNames.cs",
+      "Bytes": 779,
+      "Sha256": "30F4F3EF5D39254B0D448A7C3F2EAA368BB30D699E2062DBC2F5F07C417EE19C"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/ProcessInfoDefaultSubsetCases.cs",
+      "Bytes": 4074,
+      "Sha256": "979CB3CCECAA644AC08C0DEC35B1F8D23D731680FB7967ED083FAEEF552EEEE6"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/root-part301-final-source-freeze.json",
+      "Bytes": 4645,
+      "Sha256": "A763E55596D771736233F06A197ED46485013D8EFD0D01D13B854BE44AFAED90"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/SystemProfileCases.cs",
+      "Bytes": 3995,
+      "Sha256": "265E423B3464C0EA46F1B075028A5B991154AA7B4446A16AEFB84BEF92F52553"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-published-contracts/TermDisplayCases.cs",
+      "Bytes": 3630,
+      "Sha256": "240D54D2B97A1E0DB80D83775372E1405938418761ABB09BDF8DB39A4AE194F9"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-terminal-guard-proposal.py",
+      "Bytes": 9854,
+      "Sha256": "6D527FA703DE2712AFB194E7EE5BC84359CBE5262742B2019AE3379742F8839F"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-terminal-verifier-first-attempt.json",
+      "Bytes": 1180,
+      "Sha256": "F17BED9B8626393C3D9342EF367738D0D6A3997CA7B1B018F9610258FDD040BD"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-verifier-initial-regex-proposal.py",
+      "Bytes": 9147,
+      "Sha256": "15DB47FD773BBE9A137B62CDFF5E63B4FE7B599D467F46128308EB01DE994893"
+    },
+    {
+      "Path": "previous-head301-original/pack301-original-verifier-regex-correction.json",
+      "Bytes": 522,
+      "Sha256": "83AB436D8579EEBDEA16E0EBB6B716757BAAEBCB4773DE7999DF22F4B368DA03"
+    },
+    {
+      "Path": "previous-head301-original/pack301-post-publication-verification-plan.json",
+      "Bytes": 4201,
+      "Sha256": "623072763DEE43719408192EFE87E0721355CEB4F3487B57574F9D2677D809F6"
+    },
+    {
+      "Path": "previous-head301-original/pack301-read-three-runs-proposal.ps1",
+      "Bytes": 4696,
+      "Sha256": "1756A9E72D0B285AA9328FFF107E28BD2C005DB1D2C57BFF38D133A27DE2CF4B"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/artifact-11972366494/differential.json",
+      "Bytes": 5960920,
+      "Sha256": "A858D8EC33AEF7212623B9D045470CE54BEF4ADDD2E6122DD33338DBCA68F555"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/artifact-11972366494/differential.progress.json",
+      "Bytes": 599,
+      "Sha256": "2BCC6BADA921D4770ED0D1C9258DAD76B758086B02C31E3083916A3E44F1DE40"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/artifact-11972366494/fd-differential.json",
+      "Bytes": 8152,
+      "Sha256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/artifact-11972366494.zip",
+      "Bytes": 617933,
+      "Sha256": "C9379F53611330EBAAAA65654E2E4D85150C6FE509C57B4CB9193D4B49EDC0F3"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/artifacts.json",
+      "Bytes": 911,
+      "Sha256": "EAB6A69D4187685942CD5ECA277E95542838154FB6D0F2267A08BF75EA329624"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/download-manifest.json",
+      "Bytes": 1256,
+      "Sha256": "D919A48EFF7CEFD2FDCC6C08721B315187C8B59F0D2AABEC0E3690978A210B2E"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/job-116414052901.log",
+      "Bytes": 1074041,
+      "Sha256": "07650D286C17F4B7A5104DAAA2236880A27092C01D7AD565BD13A4340ACFB67A"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/jobs.json",
+      "Bytes": 3901,
+      "Sha256": "6911BB28D89494AFC9FB5C00A8BB373FE2BE6CCDB16411AF13844A5E4CB18911"
+    },
+    {
+      "Path": "previous-head301-original/pack301-watch-38732672128-terminal/run.json",
+      "Bytes": 13587,
+      "Sha256": "FEAF3910972B4CBD89DD7CA20DED15D343047F1E4DF60F7042A2B6D6A4C2B935"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/build-exit.json",
+      "Bytes": 140,
+      "Sha256": "FAFC6960FBE8AEE2C250B96F127CDD7D1BE0CA58C3D65CA9052BC55B1A715CEF"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/build.log",
+      "Bytes": 1555,
+      "Sha256": "554386C1CC76CA21E7D298AC51CAFDF222931F61CCA0EDB65A9071BD6FED9BC1"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/evidence-freeze.json",
+      "Bytes": 1832,
+      "Sha256": "B5E872FC1E64F8936DC8AB65F27A00BE503FEC5A32EA7F1F7D0ACBFF1E09D721"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/export-exit.json",
+      "Bytes": 569,
+      "Sha256": "0B0F5BF3568AE1B8F926FC9512EE2C6A3A35549E2A4EEA11FAC639C0DD8E5A3A"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/export.log",
+      "Bytes": 1133,
+      "Sha256": "BF4DEE193ED2EEFE4D7F5868F80B8C1BC824AE2F44B3D863EA742EF6C5267E8E"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/GeneratedHashExport.csproj",
+      "Bytes": 323,
+      "Sha256": "552E2C6C869CD53CB1E5FFD55549CC5384F3A77E896D06B7CB8DA0C7BFDA80BC"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/Program.cs",
+      "Bytes": 5596,
+      "Sha256": "1EC5613F296666212A8F7A45B25178FE67DF5CABBDCAB424CBF9C0A53514668D"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hash-export/README.md",
+      "Bytes": 2063,
+      "Sha256": "BCCEEEA579361C6BDAF5E42F2CCA70C94A1CFEED7C7E513E4E9588E952EFDA8A"
+    },
+    {
+      "Path": "previous-head301-original/root-part301-new9-generated-hashes.json",
+      "Bytes": 8427,
+      "Sha256": "49FB30656996D63BAE2C5CA208A5E09F4E3F2B282020BD8F4573AF8FEE7746B0"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-ci-38734840423-independent-guard.json",
+      "Bytes": 1073,
+      "Sha256": "CE4522840618892CE17D9E0498704A3775B99F9B51A8CC8389A7A75FE2959DB9"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-ci-terminal-guard-used.py",
+      "Bytes": 16440,
+      "Sha256": "A36367B8597680D5A84C16D3715A09946FE877577A329A90EA7D6776587662E4"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-read-two-runs.ps1",
+      "Bytes": 5031,
+      "Sha256": "324B282C884CC37E8DB1191E42D9621BC2BFD6F9F67E590A60D7EB416CDEF876"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-safe-extract.py",
+      "Bytes": 1491,
+      "Sha256": "094166197C8A104B10AC932A647D70DFAEAF5C84DA2BF135D45949FBD7A0DC66"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/artifact-11973640969/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "A12FE7CC3DB89EB6C46F9FE78D4799BEB78D88EA7F79F5BECF7641A96B1DD55D"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/artifact-11973640969/preprocessing-disabled.log",
+      "Bytes": 176440,
+      "Sha256": "FA6F1BDDA02D991394AD89618FA13CBBA1BFAC96DE5E47DA56A935272F597C1F"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/artifact-11973640969/tests.json",
+      "Bytes": 914537,
+      "Sha256": "6988FC1CA1D150B814B5A925760549F9392274BC6A2CFF9A0B2D0DCD46DFFDB3"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/artifact-11973640969.zip",
+      "Bytes": 63939,
+      "Sha256": "ABAD4478FBCD89E466E2DB42EE8FE470DA0CF9186FCE536247B49E25AB37C436"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/artifacts.json",
+      "Bytes": 908,
+      "Sha256": "33E5557C9D397BF4FF76EFAB65FFCA9D1BD5F2F8E0FFC26F1B05A64F21F304A0"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/download-manifest.json",
+      "Bytes": 1252,
+      "Sha256": "E183202957B2650BA482B3783E7E12826C879154732FCB762A056C3B96DBE172"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/job-116421412030.log",
+      "Bytes": 621204,
+      "Sha256": "CB9B06275BA0FA6DB4132F30C3EAB077641C3097F63B3268BD4DB45DCC4D359D"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/jobs.json",
+      "Bytes": 3300,
+      "Sha256": "E5D9CE3FE60912776B5C0ED54498CCE68DF12BA0390B241F55F24E3045C54494"
+    },
+    {
+      "Path": "previous-head302-ci/lifecycle302-watch-38734840423-terminal/run.json",
+      "Bytes": 13608,
+      "Sha256": "9696CA4769D1530FBC5C6B0B44C62738629890B2D8416AF11FBBC8DEC885EF47"
+    },
+    {
+      "Path": "previous-head302-original-failed-review-status.json",
+      "Bytes": 792,
+      "Sha256": "CDE7D7D4C29094603993296ADD09097AEFCB5783F373139129FB246F1F817838"
+    },
+    {
+      "Path": "root-artifacts/part303-additional-verified-manifests.json",
+      "Bytes": 424,
+      "Sha256": "EA47576487689910C5039421DD8AE23D5BC0D4A844FC9D81598295767FDADC41"
+    },
+    {
+      "Path": "root-artifacts/part303-changelog-draft.md",
+      "Bytes": 3650,
+      "Sha256": "054EEF932F6DEC92E91935006FBA00AFE85A66126F6BA7E6E9047EF87DC7FF89"
+    },
+    {
+      "Path": "root-artifacts/part303-finalize-proposal.py",
+      "Bytes": 12283,
+      "Sha256": "D7C8FE5D225A8D69774EC816BB233C86C54B10992E7816335B004C8DDCFB9E38"
+    },
+    {
+      "Path": "root-artifacts/part303-input-readonly-review.json",
+      "Bytes": 393,
+      "Sha256": "7454516E8965C8AFF3E8E7C1DC166F96BD6BA7DBCF0F11EE3A130840E21D3094"
+    },
+    {
+      "Path": "root-artifacts/part303-packaging-proposal-freeze.json",
+      "Bytes": 640,
+      "Sha256": "CBC6ABAF0F45068826CCADAB97DF020541303E0D110B3C19C1C7904B50D17723"
+    },
+    {
+      "Path": "root-artifacts/part303-previous302-original9-failed-typed-review-status.json",
+      "Bytes": 792,
+      "Sha256": "CDE7D7D4C29094603993296ADD09097AEFCB5783F373139129FB246F1F817838"
+    },
+    {
+      "Path": "root-artifacts/part303-readiness-proposal.py",
+      "Bytes": 3511,
+      "Sha256": "3835098BC78F6BEB7D8018C66B8203C7A18F97B793FF97D4F0188366CF8005CA"
+    },
+    {
+      "Path": "root-artifacts/part303-stage-guard-proposal.py",
+      "Bytes": 3808,
+      "Sha256": "4C8FA6D23836A95FA2480C0AD83140DD7D5BD0D9C5A71E12CBE68443FD80A6BF"
+    },
+    {
+      "Path": "root-artifacts/root-dispatch303-native.ps1",
+      "Bytes": 3199,
+      "Sha256": "42EEDBAD3991F47A6679469209573F7C9D8F5229DDF2E336BEBE3CC3B61EAEA9"
+    },
+    {
+      "Path": "root-artifacts/root-dispatch303-ordinary.ps1",
+      "Bytes": 2679,
+      "Sha256": "1CA3E16931682C04ED99DF11F1D24C757C717362AB78C19E719922C713A2975C"
+    },
+    {
+      "Path": "root-artifacts/root-guard303-native.py",
+      "Bytes": 2890,
+      "Sha256": "C33EBAC03BB40A9C045A7A7404358392E0F4C1344B56AE550C6C2CC284040D44"
+    },
+    {
+      "Path": "root-artifacts/root-guard303-source.py",
+      "Bytes": 1543,
+      "Sha256": "C555D8E7865A2B072D3136B1D923FF07A6F06F516FBA339176A66342ED2870E9"
+    },
+    {
+      "Path": "root-artifacts/root-part303-final-source-freeze.json",
+      "Bytes": 3652,
+      "Sha256": "A76B100B3A281B9087B13D1ABCEB45F8EC188B1403906997C6476FD2C722F078"
+    },
+    {
+      "Path": "root-artifacts/root-part303-full-exit.json",
+      "Bytes": 168,
+      "Sha256": "48C2982E0AEB6138FEB48B558EAE9CF80D49858103F7E54CF041A78E8FDB86EA"
+    },
+    {
+      "Path": "root-artifacts/root-part303-full-validation.log",
+      "Bytes": 399747,
+      "Sha256": "732C5879C6C6F2AB36D178434A7389BE40A99EC6A6A285E7802BC980BA8BF633"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-focus13-exit.json",
+      "Bytes": 63,
+      "Sha256": "8F0F460DD24A8DCA52AA9A69E709B189816312EC1B3D9AAAF390F6DECBB039E3"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-focus13.log",
+      "Bytes": 515,
+      "Sha256": "803E80668014F76A902382C6EFA49FCDDDAAA1A2B8779C5EC0063A8D1A475EA6"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-native-exit.json",
+      "Bytes": 172,
+      "Sha256": "4469B492054151008F2B43E522F36051860FE774047FCB2F0221596ED7A22626"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-native-guard.json",
+      "Bytes": 1146,
+      "Sha256": "78B97E40F5B44AC89FCCA89E0C994637FE7224124D43E8817B4B7D20058733B6"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-native.log",
+      "Bytes": 351,
+      "Sha256": "882C3F32F309EF75C676E79F71BC8B3B17E93EC3DC2775080694155F44DC8935"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-target-exit.json",
+      "Bytes": 23,
+      "Sha256": "0CEC79BDABD108DC8F671EA11F65E0DB39B7521A87C78CC337BA9CDFA7E42FE6"
+    },
+    {
+      "Path": "root-artifacts/root-part303-main-target.log",
+      "Bytes": 1566,
+      "Sha256": "B69EAECCF022B50D5626B31588B8C7FC0587A949FA35147B43AC9701619181D3"
+    },
+    {
+      "Path": "root-artifacts/root-part303-parent-preflight.json",
+      "Bytes": 1203,
+      "Sha256": "18F078AC68621A2F2117B1A71D438C37EB6B88F9E13B564303E52D0B34334DD5"
+    },
+    {
+      "Path": "root-artifacts/root-part303-source-guard.json",
+      "Bytes": 354,
+      "Sha256": "02F7DDE505AEF097AC892B7DF37CF435F630BD541E51E12DB39634739028495E"
+    },
+    {
+      "Path": "root-artifacts/root-part303-supported-mfas-derived-metadata-receipt.json",
+      "Bytes": 647,
+      "Sha256": "A2A5A3B5EB2082A64CBF31ABFDB95E40A01E21E9B4D67C2BDD43FCD0BC688FCB"
+    },
+    {
+      "Path": "root-artifacts/root-part303-supported-mfas-raw-export.json",
+      "Bytes": 151714,
+      "Sha256": "B48123246CF24F6E98FE790FF93FE4FE3EDFA5C44EDC43B609F1C2E2A9278E20"
+    },
+    {
+      "Path": "root-artifacts/root-prepare303-dispatch.py",
+      "Bytes": 563,
+      "Sha256": "7A29BA0067F56E9760F964F41A2A586722195B49BFAEC74072716FD7893A9DEC"
+    },
+    {
+      "Path": "root-artifacts/root-prepare303-native.py",
+      "Bytes": 1112,
+      "Sha256": "19E1EBA1D3BC47308AD867768B572280DC4867F88094335636C3B5D4FBEC380A"
+    },
+    {
+      "Path": "root-artifacts/root-promote303-source.py",
+      "Bytes": 2271,
+      "Sha256": "C67932BF89C295995459ACA4A153819873769DC5101A41CD45892B3C8359D117"
+    },
+    {
+      "Path": "root-artifacts/root-run303-full.ps1",
+      "Bytes": 717,
+      "Sha256": "05FDF3D34F6049114B33FAE723D8F39EBC146CBD9507D9CA11FBA407FCCA533F"
+    },
+    {
+      "Path": "root-artifacts/root-run303-post-full-native.ps1",
+      "Bytes": 1104,
+      "Sha256": "1899FCECE3090988DCE9E5ADB09C7FCC9A72E71B3A3FE060C77FC4F4FBD0B146"
+    },
+    {
+      "Path": "staging-manifests/lifecycle302-ci-detached-staging-manifest.json",
+      "Bytes": 4179,
+      "Sha256": "D9E13DE2EE4F9F2D308CCEF6B54FBF82E4A288227511C2162F10134BF6F27378"
+    },
+    {
+      "Path": "staging-manifests/pack301-native-detached-staging-manifest-for303.json",
+      "Bytes": 98256,
+      "Sha256": "07D20DE210C33E81576ABEA21F81193BC67B62008F86E979973E70AEFB5ABF0A"
+    },
+    {
+      "Path": "staging-manifests/pack301-original-detached-staging-manifest-for303.json",
+      "Bytes": 15063,
+      "Sha256": "03A0C299AE91C27507AFE6B69AE528DA06C1E0FAAC82E97FACA54E28923F772F"
+    },
+    {
+      "Path": "staging-manifests/part303-additional-verified-manifests.json",
+      "Bytes": 424,
+      "Sha256": "EA47576487689910C5039421DD8AE23D5BC0D4A844FC9D81598295767FDADC41"
+    },
+    {
+      "Path": "supported-mfas-raw-export.json",
+      "Bytes": 151714,
+      "Sha256": "B48123246CF24F6E98FE790FF93FE4FE3EDFA5C44EDC43B609F1C2E2A9278E20"
+    },
+    {
+      "Path": "supported-mfas.json",
+      "Bytes": 151768,
+      "Sha256": "6BD3E6059B47686A4BD62D13047449287E50C677C6E945EC1212CB7CABDBEE9A"
+    },
+    {
+      "Path": "tests.json",
+      "Bytes": 918002,
+      "Sha256": "2EA01A06A4BBDD4B20F9BA9B76B698EEFE8F1A4990EB16C6B254D593A246857B"
+    }
+  ]
+}

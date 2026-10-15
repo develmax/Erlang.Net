@@ -1,0 +1,93 @@
+{
+  "Status": "SYNTHETIC_PASSIVE_STACK_FRAME_CONTROLS_PASS",
+  "Count": 16,
+  "Cases": [
+    {
+      "Name": "local-fun-empty-arguments-location",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "local-fun-zero-arity",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "local-fun-maximum-arity",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "export-fun-proper-arguments",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "existing-mfa-three-fields",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "existing-mfa-four-fields",
+      "Expected": "ACCEPT_AND_RETAIN_FULL_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-arity-over-bound",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-negative-arity",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-improper-arguments",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-tuple-arguments",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-improper-location",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-atom-location",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-two-fields",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "fun-four-fields",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "nonfunction-first-field",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    },
+    {
+      "Name": "function-as-mfa-name",
+      "Expected": "REFUSE_MALFORMED_FRAME",
+      "Passed": true
+    }
+  ],
+  "FullStackAndFunIdentityPreserved": true,
+  "GuardSha256": "5BC59B5CE577DC0F1D099A86978E4051D6400C56D13F9554D9CA05BD81E82E59",
+  "DecoderSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+  "OriginalExecuted": false,
+  "NativeExecuted": false,
+  "SdkCompared": false,
+  "FunExecuted": false
+}

@@ -1,0 +1,812 @@
+{
+  "Status": "PREDECLARED_ORIGINAL_ONLY_POLICY_NOT_OBSERVED",
+  "Cases": [
+    {
+      "Name": "fresh_direct_true",
+      "Baseline": "fresh",
+      "Operation": "direct_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true,
+          "CaptureExported": true,
+          "BodyCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          },
+          "OldFunCall": {
+            "Atom": "no_holder"
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "fresh_false_false_true",
+      "Baseline": "fresh",
+      "Operation": "false_false_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "OldFunCall": {
+            "Atom": "no_holder"
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": {
+        "BodyExported": false,
+        "CaptureExported": false,
+        "BodyCall": {
+          "ExceptionClassAtom": "error",
+          "ReasonAtom": "undef"
+        }
+      },
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "fresh_wrapper_false",
+      "Baseline": "fresh",
+      "Operation": "wrapper_false",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "not_ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": false,
+          "OldCode": false,
+          "BodyExported": false,
+          "CaptureExported": false,
+          "OldFunCall": {
+            "Atom": "no_holder"
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "ok"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "current_direct_true",
+      "Baseline": "current",
+      "Operation": "direct_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true
+        },
+        "AfterCallback": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": true,
+          "BodyExported": true,
+          "CaptureExported": true,
+          "BodyCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          },
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "current_false_false_true",
+      "Baseline": "current",
+      "Operation": "false_false_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true
+        },
+        "AfterCallback": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": true,
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": {
+        "BodyExported": false,
+        "CaptureExported": false,
+        "BodyCall": {
+          "ExceptionClassAtom": "error",
+          "ReasonAtom": "undef"
+        }
+      },
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "current_wrapper_false",
+      "Baseline": "current",
+      "Operation": "wrapper_false",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "not_ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true
+        },
+        "AfterCallback": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": false,
+          "BodyExported": true,
+          "CaptureExported": true,
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "ok"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "deleted_old_direct_true",
+      "Baseline": "deleted_old",
+      "Operation": "direct_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": true,
+          "BodyExported": true,
+          "CaptureExported": true,
+          "BodyCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          },
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "deleted_old_false_false_true",
+      "Baseline": "deleted_old",
+      "Operation": "false_false_true",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": true,
+          "OldCode": true,
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          },
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": {
+        "BodyExported": false,
+        "CaptureExported": false,
+        "BodyCall": {
+          "ExceptionClassAtom": "error",
+          "ReasonAtom": "undef"
+        }
+      },
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    },
+    {
+      "Name": "deleted_old_wrapper_false",
+      "Baseline": "deleted_old",
+      "Operation": "wrapper_false",
+      "ExpectedSourceDerivedCertain": {
+        "Callback": {
+          "Tuple": [
+            {
+              "Atom": "return"
+            },
+            {
+              "Atom": "not_ok"
+            }
+          ]
+        },
+        "StageResult": {
+          "Tuple": [
+            {
+              "Atom": "on_load"
+            },
+            {
+              "List": [
+                {
+                  "Atom": "raw_onload_visibility_fixture"
+                }
+              ]
+            }
+          ]
+        },
+        "BeforeStage": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false
+        },
+        "AfterCallback": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false,
+          "PendingFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "new_body"
+              }
+            ]
+          }
+        },
+        "Final": {
+          "ModuleLoaded": false,
+          "OldCode": true,
+          "BodyExported": false,
+          "CaptureExported": false,
+          "OldFunCall": {
+            "Tuple": [
+              {
+                "Atom": "return"
+              },
+              {
+                "Atom": "old_body"
+              }
+            ]
+          }
+        },
+        "OperationReturns": [
+          {
+            "Atom": "ok"
+          }
+        ]
+      },
+      "SourceDerivedHypothesisNotYetObserved": null,
+      "InvestigativeDimensions": [
+        "Exact exports result/order and complete exception stacks",
+        "Pending and saved-old local-fun outcomes after finalization; retain raw fun terms and holder monitor outcomes"
+      ],
+      "Status": "PREDECLARED_NOT_OBSERVED"
+    }
+  ],
+  "Scope": "No SDK/native execution or pass from raw collection; hypotheses must not be silently changed to match an observation",
+  "RawRetention": "Complete ETF/class/reason/stack including fun terms retained; no normalization or filtering",
+  "NativeFixtureUsed": false
+}
