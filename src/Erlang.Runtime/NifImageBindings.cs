@@ -15,6 +15,7 @@ internal sealed class NifImageBindings
     private NifImageBindingPhase phase;
     private NifImageBindingReservation? reservation;
     private Dictionary<(string Name, int Arity), ErlangFunction>? ready;
+    private Term installedFunctions = Nil.Value;
     private IAsyncDisposable? nativeOwner;
     private int activeCalls;
     private TaskCompletionSource? callsDrained;
@@ -27,6 +28,15 @@ internal sealed class NifImageBindings
         {
             lock (gate)
                 return phase;
+        }
+    }
+
+    internal Term InstalledFunctions
+    {
+        get
+        {
+            lock (gate)
+                return installedFunctions;
         }
     }
 
@@ -65,18 +75,22 @@ internal sealed class NifImageBindings
         ArgumentNullException.ThrowIfNull(bindings);
         ArgumentNullException.ThrowIfNull(owner);
         var snapshot = new Dictionary<(string Name, int Arity), ErlangFunction>();
+        var ordered = new List<Term>();
         foreach (var binding in bindings)
         {
             if (binding.Value is null || !pending.Eligible.Contains(binding.Key))
                 throw new ArgumentException(NifImageBindingNames.InvalidFunction, nameof(bindings));
             if (!snapshot.TryAdd(binding.Key, binding.Value))
                 throw new ArgumentException(NifImageBindingNames.DuplicateFunction, nameof(bindings));
+            ordered.Add(Term.Tuple(Term.A(binding.Key.Name), Term.I(binding.Key.Arity)));
         }
+        Term installed = Cons.From(ordered);
         lock (gate)
         {
             if (phase != NifImageBindingPhase.Initializing || !ReferenceEquals(reservation, pending))
                 throw new InvalidOperationException(NifImageBindingNames.ForeignReservation);
             ready = snapshot;
+            installedFunctions = installed;
             nativeOwner = owner;
             reservation = null;
             phase = NifImageBindingPhase.Ready;
@@ -139,6 +153,7 @@ internal sealed class NifImageBindings
             retirement = completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
             phase = NifImageBindingPhase.Retired;
             ready = null;
+            installedFunctions = Nil.Value;
             cleanup = nativeOwner;
             nativeOwner = null;
             if (activeCalls == 0)

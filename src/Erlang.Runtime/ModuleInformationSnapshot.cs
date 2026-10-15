@@ -6,7 +6,10 @@ namespace Erlang;
 internal sealed class ModuleInformationSnapshot
 {
     private readonly FrozenDictionary<string, Term> fields;
-    public Term All { get; }
+    public Term All
+    {
+        get;
+    }
 
     public ModuleInformationSnapshot(
         string module,
@@ -15,7 +18,8 @@ internal sealed class ModuleInformationSnapshot
         BitString fingerprint,
         Term compilation,
         Term? attributes = null,
-        ModuleAttributePolicy attributePolicy = ModuleAttributePolicy.AddDefaultVersion
+        ModuleAttributePolicy attributePolicy = ModuleAttributePolicy.AddDefaultVersion,
+        Term? installedNifs = null
     )
     {
         fields = new Dictionary<string, Term>(StringComparer.Ordinal)
@@ -26,7 +30,7 @@ internal sealed class ModuleInformationSnapshot
             [ModuleInformationKeys.Md5] = fingerprint,
             [ModuleInformationKeys.Compile] = compilation,
             [ModuleInformationKeys.Attributes] = attributePolicy == ModuleAttributePolicy.PreserveDecoded ? attributes ?? Nil.Value : ModuleCodeAttributes.WithDefaultVersion(attributes, fingerprint),
-            [ModuleInformationKeys.Nifs] = Nil.Value,
+            [ModuleInformationKeys.Nifs] = installedNifs ?? Nil.Value,
             [ModuleInformationKeys.Native] = Term.A(ErlangBooleanAtoms.False),
             [ModuleInformationKeys.NativeAddresses] = Nil.Value
         }.ToFrozenDictionary(StringComparer.Ordinal);

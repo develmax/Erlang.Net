@@ -437,6 +437,12 @@ public sealed partial class ModuleRegistry
     {
         lock (gate)
         {
+            Term installedNifs = codeImages.TryGetValue(module, out var currentImage)
+                && NifImageBindingStore.TryGetValue(currentImage, out var bindings)
+                ? bindings!.InstalledFunctions : Nil.Value;
+            if (informationSnapshots.TryGetValue(module, out var cached)
+                && !ReferenceEquals(cached.Field(ModuleInformationKeys.Nifs), installedNifs))
+                informationSnapshots.Remove(module);
             if (!informationSnapshots.TryGetValue(module, out var snapshot))
             {
                 if (!loadedModules.ContainsKey(module))
@@ -457,7 +463,8 @@ public sealed partial class ModuleRegistry
                     fingerprint,
                     compilation,
                     descriptor?.Attributes,
-                    descriptor?.AttributePolicy ?? ModuleAttributePolicy.AddDefaultVersion
+                    descriptor?.AttributePolicy ?? ModuleAttributePolicy.AddDefaultVersion,
+                    installedNifs
                 );
                 informationSnapshots.Add(module, snapshot);
             }
