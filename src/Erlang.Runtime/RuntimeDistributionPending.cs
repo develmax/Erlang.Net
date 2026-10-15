@@ -161,17 +161,30 @@ public sealed partial class RuntimeDistributionPending
         lock (gate)
         {
             exitingInputControllers.Remove(process);
-            runtime.ConnectedLinkProcessTerminated(process, reason);
-            runtime.ConnectedMonitorProcessTerminated(process, reason);
-            RetireControllerAdoptions(controller: process);
+            var failures = new List<Exception>();
+            RetireStep(() => RetireControllerAdoptions(controller: process));
             if (ReferenceEquals(kernelSetup, process))
             {
                 kernelSetup = null;
                 foreach (var entry in pending.Values.ToArray())
-                    RetirePending(entry);
+                    RetireStep(() => RetirePending(entry));
             }
             if (controllers.TryGetValue(process.Self, out var owned) && ReferenceEquals(owned.ReservedController, process))
-                RetirePending(owned, ControllerNodeDownReason(reason));
+                RetireStep(() => RetirePending(owned, ControllerNodeDownReason(reason)));
+            if (failures.Count != 0)
+                throw new AggregateException(failures);
+
+            void RetireStep(Action cleanup)
+            {
+                try
+                {
+                    cleanup();
+                }
+                catch (Exception exception)
+                {
+                    failures.Add(exception);
+                }
+            }
         }
     }
 
@@ -180,8 +193,20 @@ public sealed partial class RuntimeDistributionPending
         lock (gate)
         {
             kernelSetup = null;
+            var failures = new List<Exception>();
             foreach (var entry in pending.Values.ToArray())
-                RetirePending(entry, KernelNodeDownReason(reason));
+            {
+                try
+                {
+                    RetirePending(entry, KernelNodeDownReason(reason));
+                }
+                catch (Exception exception)
+                {
+                    failures.Add(exception);
+                }
+            }
+            if (failures.Count != 0)
+                throw new AggregateException(failures);
         }
     }
 
@@ -195,9 +220,20 @@ public sealed partial class RuntimeDistributionPending
             foreach (var weak in entries.Values)
                 if (weak.TryGetTarget(out var entry))
                 {
-                    RetireConnected(entry);
-                    entry.State = DistributionPendingState.Closed;
-                    entry.ReservedController = null;
+                    try
+                    {
+                        RetireConnected(entry);
+                    }
+                    catch (Exception exception)
+                    {
+                        // Shutdown still retires every channel; drainage reports any cleanup failure.
+                        ownedOutputFailures.Add(exception);
+                    }
+                    finally
+                    {
+                        entry.State = DistributionPendingState.Closed;
+                        entry.ReservedController = null;
+                    }
                 }
             entries.Clear();
             pending.Clear();
@@ -257,12 +293,18 @@ public sealed partial class RuntimeDistributionPending
 
     private void RetirePending(RuntimeDistributionPendingEntry entry, Term? reason = null)
     {
-        RetireConnected(entry, reason);
-        if (entry.ReservedController is { } controller && controllers.TryGetValue(controller.Self, out var owned) && ReferenceEquals(owned, entry))
-            controllers.Remove(controller.Self);
-        entry.ReservedController = null;
-        entry.State = DistributionPendingState.Idle;
-        pending.Remove(entry.Node.Name);
+        try
+        {
+            RetireConnected(entry, reason);
+        }
+        finally
+        {
+            if (entry.ReservedController is { } controller && controllers.TryGetValue(controller.Self, out var owned) && ReferenceEquals(owned, entry))
+                controllers.Remove(controller.Self);
+            entry.ReservedController = null;
+            entry.State = DistributionPendingState.Idle;
+            pending.Remove(entry.Node.Name);
+        }
     }
 
     private void SweepIdle()

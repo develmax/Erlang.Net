@@ -87,30 +87,16 @@ public sealed partial class RuntimeDistributionPending
         );
     }
 
-    public ulong? BeginConnectedUnlinkSignal(
-        Term handle,
-        ProcessContext local,
-        Pid remote
-    )
+    public ulong? BeginConnectedUnlinkSignal(Term handle, ProcessContext local, Pid remote)
     {
-        lock (gate)
-        {
-            RequireProcess(local);
-            var entry = ReadHandle(handle, out uint connectionId, out var resource);
-            using (resource)
-            {
-                var connected = RequireConnected(entry, connectionId);
-                if (remote.LocalIdentity is not null || remote.Node != entry.Node.Name || runtime.IsCurrentLocal(remote))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+        using var target = CaptureUnlinkPublicationTarget(handle, local, remote);
 
-                return runtime.BeginConnectedProcessUnlink(
-                    entry,
-                    connected,
-                    local,
-                    remote
-                );
-            }
-        }
+        return runtime.BeginConnectedProcessUnlink(
+            target.Entry,
+            target.Connection,
+            local,
+            remote
+        );
     }
 
     private void ApplyConnectedProcessSignal(
@@ -121,6 +107,7 @@ public sealed partial class RuntimeDistributionPending
         Action<RuntimeDistributionPendingEntry, DistributionConnectedEntry> signal
     )
     {
+        using var outputTransfer = BeginOutputTransfer();
         ArgumentNullException.ThrowIfNull(remote);
         ArgumentNullException.ThrowIfNull(local);
         lock (gate)
@@ -145,34 +132,5 @@ public sealed partial class RuntimeDistributionPending
     ) => entry.ConnectionId == connectionId && entry.State == DistributionPendingState.Connected &&
         ReferenceEquals(entry.Connected, connected) && runtime.IsOwnedLiveNodeProcess(connected.Controller);
 
-    internal bool QueueConnectedControlSignal(
-        RuntimeDistributionPendingEntry entry,
-        DistributionConnectedEntry connected,
-        uint connectionId,
-        TupleTerm control,
-        Pid localSender
-    )
-    {
-        lock (gate)
-        {
-            if (!IsConnectedSignalGeneration(entry, connected, connectionId))
-                return false;
-            byte[] packet = DistributionPassThroughCodec.EncodeProcessControl(
-                control,
-                negotiatedFlags: connected.Flags,
-                options: new EtfEncodingOptions
-                {
-                    NodeIdentity = runtime.LocalIdentity,
-                    NodeSnapshot = runtime.LocalIdentity.Snapshot,
-                    FunctionOwner = localSender
-                }
-            );
 
-            var buffer = new HostDistributionBuffer([packet.AsMemory()]);
-            if (!connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer))
-                throw new InvalidOperationException(DistributionConnectedDiagnostics.QueueFull);
-
-            return true;
-        }
-    }
 }

@@ -1,0 +1,265 @@
+3268:     else {
+3269:         ASSERT(dep->state == ERTS_DE_STATE_IDLE);
+3270: 	res = ERTS_DSIG_PREP_NOT_CONNECTED;
+3271: 	goto fail;
+3272:     }
+3273: 
+3274:     if (!proc || (proc->flags & F_ASYNC_DIST)) {
+3275:         ctx->ignore_busy = !0;
+3276:     }
+3277:     else {
+3278:         ctx->ignore_busy = 0;
+3279:         if (no_suspend) {
+3280:             if (de_qflags_read(dep) & ERTS_DE_QFLG_BUSY) {
+3281:                 res = ERTS_DSIG_PREP_WOULD_SUSPEND;
+3282:                 goto fail;
+3283:             }
+3284:         }
+3285:     }
+3286: 
+3287:     ctx->c_p = proc;
+3288:     ctx->dep = dep;
+3289:     ctx->deref_dep = 0;
+3290:     ctx->cid = dep->cid;
+3291:     ctx->connection_id = dep->connection_id;
+3292:     ctx->no_suspend = no_suspend;
+3293:     ctx->no_trap = no_trap;
+3294:     ctx->dflags = dep->dflags;
+3295:     ctx->return_term = am_true;
+3296:     ctx->phase = ERTS_DSIG_SEND_PHASE_INIT;
+3297:     ctx->from = proc ? proc->common.id : am_undefined;
+3298:     ctx->reds = no_trap ? 1 : (Sint) (ERTS_BIF_REDS_LEFT(proc) * TERM_TO_BINARY_LOOP_FACTOR);
+
+3595:             /*
+3596: 	     * Signal encoded; now verify that the connection still exists,
+3597: 	     * and if so enqueue the signal and schedule it for send.
+3598: 	     */
+3599:             DistEntry *dep = ctx->dep;
+3600: 	    int suspended = 0;
+3601: 	    int resume = 0;
+3602:             int i;
+3603: 	    erts_de_rlock(dep);
+3604: 	    cid = dep->cid;
+3605: 	    if (dep->state == ERTS_DE_STATE_EXITING
+3606:                 || dep->state == ERTS_DE_STATE_IDLE
+3607:                 || dep->connection_id != ctx->connection_id) {
+3608: 		/* Not the same connection as when we started; drop message... */
+3609: 		erts_de_runlock(dep);
+3610:                 for (i = 0; i < ctx->fragments; i++)
+3611:                     free_dist_obuf(&ctx->obuf[i], !0);
+3612:                 ctx->fragments = 0;
+3613: 	    }
+3614: 	    else {
+3615:                 Sint qsize = (Sint) erts_atomic_read_nob(&dep->qsize);
+3616:                 erts_aint32_t qflgs;
+3617: 		ErtsProcList *plp = NULL;
+3618:                 Eterm notify_proc = NIL;
+3619:                 Sint obsz;
+3620:                 int fragments, empty_fill;
+3621: 
+3622:                 /* Calculate how many fragments to send. This depends on
+3623:                    the available space in the distr queue and the amount
+3624:                    of remaining reductions. */
+3625:                 for (fragments = 0, obsz = 0;
+3626:                      (fragments < ctx->fragments
+3627:                       && ((ctx->reds > 0
+3628:                            && (ctx->ignore_busy
+3629:                                || (qsize + obsz < erts_dist_buf_busy_limit)))
+3630:                           || ctx->no_trap
+3631:                           || ctx->no_suspend));
+3632:                      fragments++) {
+3633: #ifdef DEBUG
+3634:                     int reds = 100;
+3635: #else
+3636:                     int reds = 10;
+3637: #endif
+3638:                     if (!ctx->no_trap && !ctx->no_suspend)
+3639:                         ctx->reds -= reds;
+3640:                     obsz += size_obuf(&ctx->obuf[fragments]);
+3641:                 }
+3642: 
+3643:                 ASSERT(fragments == ctx->fragments ||
+3644:                        (!ctx->no_trap && !ctx->no_suspend));
+3645: 
+3646: 		erts_mtx_lock(&dep->qlock);
+3647:                 update_qsizes(dep, &empty_fill, &qsize, obsz,
+3648:                               ctx->ignore_busy ? obsz : 0);
+3649:                 qflgs = de_qflags_read(dep);
+3650: 		if (!(qflgs & ERTS_DE_QFLG_BUSY)
+3651:                     && qsize >= erts_dist_buf_busy_limit) {
+3652: 		    qflgs = de_qflags_read_set(dep, ERTS_DE_QFLG_BUSY);
+3653:                     qflgs |= ERTS_DE_QFLG_BUSY;
+3654:                 }
+3655:                 if (empty_fill && is_internal_pid(dep->cid)) {
+3656:                     erts_aint32_t notify;
+3657:                     notify = erts_atomic32_xchg_mb(&dep->notify,
+3658:                                                    (erts_aint32_t) 0);
+3659:                     if (notify) {
+3660:                         /*
+3661:                          * Previously empty queue and notification
+3662:                          * requested...
+3663:                          */
+3664:                         notify_proc = dep->cid;
+3665:                         ASSERT(is_internal_pid(notify_proc));
+3666:                     }
+3667:                 }
+3668: 
+3669:                 ASSERT(fragments < 2
+3670:                        || (get_int64(&((char*)ctx->obuf->eiov->iov[1].iov_base)[10])
+3671:                            == ctx->fragments));
+3672: 
+3673:                 if (fragments) {
+3674:                     ctx->obuf[fragments-1].next = NULL;
+3675:                     if (dep->out_queue.last)
+3676:                         dep->out_queue.last->next = ctx->obuf;
+3677:                     else
+3678:                         dep->out_queue.first = ctx->obuf;
+3679:                     dep->out_queue.last = &ctx->obuf[fragments-1];
+3680: 
+3681:                     ctx->fragments -= fragments;
+3682:                     ctx->obuf = &ctx->obuf[fragments];
+3683:                 }
+3684: 
+3685: 		if ((qflgs & ERTS_DE_QFLG_BUSY)
+3686:                     && !ctx->ignore_busy
+3687:                     && !ctx->no_suspend) {
+3688: 
+3689:                     erts_mtx_unlock(&dep->qlock);
+3690: 
+3691:                     plp = erts_proclist_create(ctx->c_p);
+3692: 
+3693:                     erts_suspend(ctx->c_p, ERTS_PROC_LOCK_MAIN, NULL);
+3694:                     suspended = 1;
+3695: 
+3696:                     erts_mtx_lock(&dep->qlock);
+3697: 
+3698:                     qflgs = de_qflags_read(dep);
+3699:                     if (qflgs & ERTS_DE_QFLG_BUSY) {
+3700:                         /* Enqueue suspended process on dist entry */
+3701:                         ASSERT(plp);
+3702:                         erts_proclist_store_last(&dep->suspended, plp);
+3703:                     }
+3704:                     else {
+3705:                         resume = 1; /* was busy, but isn't now */
+3706:     #ifdef USE_VM_PROBES
+3707:                         if (resume && DTRACE_ENABLED(dist_port_not_busy)) {
+3708:                             DTRACE_CHARBUF(port_str, 64);
+3709:                             DTRACE_CHARBUF(remote_str, 64);
+3710: 
+3711:                             erts_snprintf(port_str, sizeof(DTRACE_CHARBUF_NAME(port_str)),
+3712:                                           "%T", cid);
+3713:                             erts_snprintf(remote_str, sizeof(DTRACE_CHARBUF_NAME(remote_str)),
+3714:                                           "%T", dep->sysname);
+3715:                             DTRACE3(dist_port_not_busy, erts_this_node_sysname,
+3716:                                     port_str, remote_str);
+3717:                         }
+3718:     #endif
+3719:                     }
+3720: 		}
+3721: 
+3722: 		erts_mtx_unlock(&dep->qlock);
+3723: 		if (dep->state != ERTS_DE_STATE_PENDING) {
+3724:                     if (is_internal_port(dep->cid))
+3725:                         erts_schedule_dist_command(NULL, dep);
+3726:                 }
+3727:                 else {
+3728:                     notify_proc = NIL;
+3729:                 }
+3730: 		erts_de_runlock(dep);
+3731:                 if (is_internal_pid(notify_proc))
+3732:                     notify_dist_data(ctx->c_p, notify_proc);
+3733: 
+3734: 		if (resume) {
+3735: 		    erts_resume(ctx->c_p, ERTS_PROC_LOCK_MAIN);
+3736: 		    erts_proclist_destroy(plp);
+3737: 		    /*
+3738: 		     * Note that the calling process still have to yield as if it
+3739: 		     * suspended. If not, the calling process could later be
+3740: 		     * erroneously scheduled when it shouldn't be.
+3741: 		     */
+3742: 		}
+3743:                 /* More fragments left to be sent, yield and re-schedule */
+3744:                 if (ctx->fragments) {
+3745:                     ctx->c_p->flags |= F_FRAGMENTED_SEND;
+3746:                     retval = ERTS_DSIG_SEND_CONTINUE;
+3747:                     if (!resume && erts_system_monitor_busy_dist_port_cnt)
+3748:                         monitor_busy_dist_port(ctx->c_p, cid);
+3749:                     goto done;
+3750:                 }
+3751: 	    }
+3752: 
+3753:             if (ctx->c_p) ctx->c_p->flags &= ~F_FRAGMENTED_SEND;
+3754: 	    ctx->obuf = NULL;
+3755: 
+3756: 	    if (suspended) {
+3757:     #ifdef USE_VM_PROBES
+3758: 		if (!resume && DTRACE_ENABLED(dist_port_busy)) {
+3759: 		    DTRACE_CHARBUF(port_str, 64);
+3760: 		    DTRACE_CHARBUF(remote_str, 64);
+3761: 		    DTRACE_CHARBUF(pid_str, 16);
+3762: 
+3763: 		    erts_snprintf(port_str, sizeof(DTRACE_CHARBUF_NAME(port_str)), "%T", cid);
+3764: 		    erts_snprintf(remote_str, sizeof(DTRACE_CHARBUF_NAME(remote_str)),
+3765: 				  "%T", dep->sysname);
+3766: 		    erts_snprintf(pid_str, sizeof(DTRACE_CHARBUF_NAME(pid_str)),
+3767: 				  "%T", ctx->c_p->common.id);
+3768: 		    DTRACE4(dist_port_busy, erts_this_node_sysname,
+3769: 			    port_str, remote_str, pid_str);
+3770: 		}
+3771:     #endif
+3772:                 if (!resume && erts_system_monitor_busy_dist_port_cnt) {
+3773:                     monitor_busy_dist_port(ctx->c_p, cid);
+3774:                 }
+3775: 		retval = ERTS_DSIG_SEND_YIELD;
+3776: 	    } else {
+3777: 		retval = ERTS_DSIG_SEND_OK;
+3778: 	    }
+3779: 	    goto done;
+3780: 	}
+3781: 	default:
+3782: 	    erts_exit(ERTS_ABORT_EXIT, "dsig_send invalid phase (%d)\n", (int)ctx->phase);
+3783: 	}
+3784:     }
+3785: 
+
+4150: 	if (preempt && oq.first)
+4151: 	    goto preempted;
+4152: 
+4153: #ifdef DEBUG
+4154: 	oq.last = NULL;
+4155: #endif
+4156: 	ASSERT(!oq.first);
+4157: 	ASSERT(!foq.first && !foq.last);
+4158: 
+4159: 	/*
+4160: 	 * Everything that was buffered when we started have now been
+4161: 	 * written to the port. If port isn't busy but dist entry is
+4162: 	 * and we haven't got too muched queued on dist entry, set
+4163: 	 * dist entry in a non-busy state and resume suspended
+4164: 	 * processes.
+4165: 	 */
+4166: 	erts_mtx_lock(&dep->qlock);
+4167:         de_busy = !!(de_qflags_read(dep) & ERTS_DE_QFLG_BUSY);
+4168:         update_qsizes(dep, NULL, &qsize, -obufsize, -ignore_obufsize);
+4169: 	obufsize = ignore_obufsize = 0;
+4170: 	if (!(sched_flags & ERTS_PTS_FLG_BUSY_PORT)
+4171: 	    && de_busy
+4172:             && qsize < erts_dist_buf_busy_limit) {
+4173: 	    int resumed;
+4174: 	    ErtsProcList *suspendees = get_suspended_on_de(dep, ERTS_DE_QFLG_BUSY);
+4175: 	    erts_mtx_unlock(&dep->qlock);
+4176: 
+4177: 	    resumed = erts_resume_processes(suspendees);
+4178: 	    reds -= resumed*ERTS_PORT_REDS_DIST_CMD_RESUMED;
+4179: 	}
+4180: 	else
+4181: 	    erts_mtx_unlock(&dep->qlock);
+4182:     }
+4183: 
+4184:     ASSERT(!oq.first && !oq.last);
+4185: 
+4186:  done:
+4187: 
+4188:     ASSERT(!ignore_obufsize || obufsize);
+4189: 
+4190:     ASSERT(!!foq.first == !!foq.last);

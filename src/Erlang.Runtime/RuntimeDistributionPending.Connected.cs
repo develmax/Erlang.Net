@@ -213,16 +213,17 @@ public sealed partial class RuntimeDistributionPending
     )
     {
         RuntimeDistributionPendingEntry entry;
+        DistributionConnectedEntry connected;
+        DistributionOutputTicket ticket;
         ReferenceResourceLease<RuntimeDistributionPendingEntry> resource;
         uint connectionId;
-        ulong flags;
         EtfEncodingOptions options;
         lock (gate)
         {
             entry = ReadHandle(handle, out connectionId, out resource);
             try
             {
-                var connected = RequireConnected(entry, connectionId);
+                connected = RequireConnected(entry, connectionId);
                 if (sender is not null)
                     RequireProcess(sender);
                 options = new EtfEncodingOptions
@@ -231,7 +232,7 @@ public sealed partial class RuntimeDistributionPending
                     NodeSnapshot = runtime.LocalIdentity.Snapshot,
                     FunctionOwner = sender?.Self
                 };
-                flags = connected.Flags;
+                ticket = ReserveOwnedOutput(connected, sender ?? new object(), immediate: true);
             }
             catch
             {
@@ -241,15 +242,23 @@ public sealed partial class RuntimeDistributionPending
         }
         using (resource)
         {
-            byte[] bytes = DistributionPassThroughCodec.Encode(message, negotiatedFlags: flags, options: options);
-            var buffer = new HostDistributionBuffer([bytes.AsMemory()]);
-            lock (gate)
+            try
             {
-                var connected = RequireConnected(entry, connectionId);
-                if (sender is not null)
-                    RequireProcess(sender);
-                if (!connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer))
-                    throw new InvalidOperationException(DistributionConnectedDiagnostics.QueueFull);
+                byte[] bytes = DistributionPassThroughCodec.Encode(message, negotiatedFlags: connected.Flags, options: options);
+                var buffer = new HostDistributionBuffer([bytes.AsMemory()]);
+                lock (gate)
+                {
+                    if (!IsConnectedSignalGeneration(entry, connected, connectionId))
+                        throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
+                    if (sender is not null)
+                        RequireProcess(sender);
+                    if (!connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer))
+                        throw new DistributionOutputWouldBlockException();
+                }
+            }
+            finally
+            {
+                ReleaseOwnedOutput(connected, ticket);
             }
         }
     }
@@ -272,6 +281,7 @@ public sealed partial class RuntimeDistributionPending
         bool rawInput
     )
     {
+        using var outputTransfer = BeginOutputTransfer();
         if (rawInput)
         {
             AcceptRawConnectedProcessPacket(handle, caller, packet);
@@ -407,20 +417,42 @@ public sealed partial class RuntimeDistributionPending
 
     private void RetireConnected(RuntimeDistributionPendingEntry entry, Term? reason = null)
     {
-        RetireControllerAdoptions(entry: entry);
         if (entry.Connected is not { } connected)
+        {
+            RetireControllerAdoptions(entry: entry);
+
             return;
-        runtime.RetireConnectedProcessLinks(entry, connected);
-        runtime.RetireConnectedProcessMonitors(entry, connected);
+        }
+        // Reentrant internal signals must see a retired identity before any callbacks run.
         entry.Connected = null;
+        entry.State = DistributionPendingState.Exiting;
         connected.Controller.DistributionRole = RuntimeDistributionRole.None;
-        connected.Queue.Dispose();
-        entry.State = DistributionPendingState.Idle;
-        NotifyConnectedNode(
+        var failures = new List<Exception>();
+        RetireStep(connected.Output.Dispose);
+        RetireStep(connected.Queue.Dispose);
+        RetireStep(() => RetireControllerAdoptions(entry: entry));
+        RetireStep(() => runtime.RetireConnectedProcessLinks(entry, connected));
+        RetireStep(() => runtime.RetireConnectedProcessMonitors(entry, connected));
+        RetireStep(() => NotifyConnectedNode(
             entry,
             connected,
             RuntimeLocalNodeAdmissionNames.NodeDown,
             reason ?? Term.A(DistributionConnectionReasons.Closed)
-        );
+        ));
+        entry.State = DistributionPendingState.Idle;
+        if (failures.Count != 0)
+            throw new AggregateException(failures);
+
+        void RetireStep(Action cleanup)
+        {
+            try
+            {
+                cleanup();
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+        }
     }
 }

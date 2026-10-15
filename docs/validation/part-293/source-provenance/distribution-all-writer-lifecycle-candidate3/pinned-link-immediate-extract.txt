@@ -1,0 +1,86 @@
+2224:     case DOP_LINK: {
+2225:         ErtsDSigSendContext ctx;
+2226:         int code;
+2227: 
+2228: 	if (tuple_arity != 3) {
+2229: 	    goto invalid_message;
+2230: 	}
+2231: 	from = tuple[2];
+2232: 	to   = tuple[3];  /* local proc to link to */
+2233: 
+2234: 	if (is_not_external_pid(from))
+2235:             goto invalid_message;
+2236: 
+2237:         if (dep != external_pid_dist_entry(from))
+2238:             goto invalid_message;
+2239: 
+2240:         if (is_external_pid(to)) {
+2241:             if (external_pid_dist_entry(to) != erts_this_dist_entry)
+2242:                 goto invalid_message;
+2243:             /* old incarnation of node; reply noproc... */
+2244:         }
+2245:         else if (is_internal_pid(to)) {
+2246:             ErtsLinkData *ldp = erts_link_external_create(ERTS_LNK_TYPE_DIST_PROC,
+2247:                                                           to, from);
+2248:             ASSERT(ldp->dist.other.item == to);
+2249:             ASSERT(eq(ldp->proc.other.item, from));
+2250: 
+2251:             code = erts_link_dist_insert(&ldp->dist, ede.mld);
+2252:             if (erts_proc_sig_send_link(NULL, from, to, &ldp->proc)) {
+2253:                 if (!code) {
+2254:                     /* Race: connection already down => send link exit */
+2255:                     erts_proc_sig_send_link_exit_noconnection(&ldp->dist);
+2256:                 }
+2257:                 break; /* Done */
+2258:             }
+2259: 
+2260:             /* Failed to send signal; cleanup and reply noproc... */
+2261:             if (code) {
+2262:                 code = erts_link_dist_delete(&ldp->dist);
+2263:                 ASSERT(code);
+2264:             }
+2265:             erts_link_release_both(ldp);
+2266:         }
+2267: 
+2268:         code = erts_dsig_prepare(&ctx, dep, NULL, 0, ERTS_DSP_NO_LOCK, 1, 1, 0);
+2269:         if (code == ERTS_DSIG_PREP_CONNECTED && ctx.connection_id == conn_id) {
+2270:             code = erts_dsig_send_exit(&ctx, to, from, am_noproc);
+2271:             ASSERT(code == ERTS_DSIG_SEND_OK);
+2272:         }
+2273: 
+2274: 	break;
+2275:     }
+2276: 
+2277:     case DOP_UNLINK:
+2278:         /*
+2279:          * DOP_UNLINK should never be passed. The new link protocol is
+2280:          * mandatory as of OTP 26.
+2281:          */
+2282:         goto invalid_message;
+2283:         
+2284:     case DOP_UNLINK_ID: {
+2285:         Eterm *element;
+2286:         Uint64 id;
+2287: 	if (tuple_arity != 4)
+2288: 	    goto invalid_message;
+2289: 
+2290:         element = &tuple[2];
+2291:         if (!term_to_Uint64(*(element++), &id))
+2292:             goto invalid_message;
+2293: 
+2294:         if (id == 0)
+2295:             goto invalid_message;
+2296: 
+2297: 	from = *(element++);
+2298: 	to = *element;
+2299: 	if (is_not_external_pid(from))
+2300: 	    goto invalid_message;
+2301:         if (dep != external_pid_dist_entry(from))
+2302: 	    goto invalid_message;
+2303: 
+2304:         if (is_external_pid(to)
+2305:             && erts_this_dist_entry == external_pid_dist_entry(from))
+2306:             break;
+2307: 
+2308:         if (is_not_internal_pid(to))
+2309:             goto invalid_message;

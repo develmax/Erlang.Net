@@ -1,0 +1,16 @@
+PASS ModuleLoadingHostChecks
+PASS ProcessTableHostChecks
+PASS DistributionExitLifecycleHostChecks
+PASS DistributionSystemOutputHostChecks
+Unhandled exception. Erlang.ErlangException: system_limit
+   at Erlang.ProcessSlotTable.RequireCapacity() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\src\Erlang.Runtime\ProcessSlotTable.cs:line 23
+   at Erlang.ProcessRuntime.SpawnTraced(Func`2 body, ProcessContext parent, Boolean link, SequenceSpawnDescription description, ReferenceTerm spawnReference, Boolean asynchronousSpawn, Boolean successSpawnReply) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.cs:line 155
+   at Erlang.ProcessRuntime.Spawn(Func`2 body, ProcessContext parent, Boolean link) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\src\Erlang.Runtime\ProcessRuntime.cs:line 131
+   at Erlang.Tests.RuntimeNodeFoundationHostActor..ctor(ProcessRuntime runtime) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 13
+   at Erlang.Tests.DistributionLifecycleHostFixture.CreateActor() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionLifecycleHostFixture.cs:line 40
+   at Erlang.Tests.DistributionLifecycleHostFixture.CreateConnection(String node) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionLifecycleHostFixture.cs:line 48
+   at Erlang.Tests.DistributionPublicationLifecycleHostChecks.MultipleChannelsAndPublicSlot() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionPublicationLifecycleHostChecks.cs:line 101
+   at Erlang.Tests.DistributionPublicationLifecycleHostChecks.MultipleChannelsAndPublicSlot() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionPublicationLifecycleHostChecks.cs:line 137
+   at Erlang.Tests.DistributionPublicationLifecycleHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionPublicationLifecycleHostChecks.cs:line 13
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part289-putdata-focus\Program.cs:line 17
+   at Program.<Main>(String[] args)

@@ -6,6 +6,7 @@ public sealed partial class RuntimeDistributionPending
 
     internal Term PutConnectedData(ProcessContext caller, Term handle, Term data)
     {
+        using var outputTransfer = BeginOutputTransfer();
         RuntimeDistributionPendingEntry entry;
         DistributionConnectedEntry connected;
         uint connectionId;

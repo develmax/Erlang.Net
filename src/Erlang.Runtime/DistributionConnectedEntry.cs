@@ -9,6 +9,9 @@ internal sealed class DistributionConnectedEntry(
 )
 {
     internal HostDistribution Queue { get; } = queue;
+    internal DistributionOutputSequencer Output { get; } = new();
+    internal Task SystemOutput { get; set; } = Task.CompletedTask;
+
     internal HostDistributionHandle QueueHandle { get; } = queueHandle;
     internal ProcessContext Controller { get; } = controller;
     internal ulong Flags { get; } = flags;

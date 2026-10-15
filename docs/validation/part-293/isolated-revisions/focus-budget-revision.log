@@ -1,0 +1,51 @@
+PASS ModuleLoadingHostChecks
+PASS ProcessTableHostChecks
+PASS DistributionExitLifecycleHostChecks
+PASS DistributionSystemOutputHostChecks
+PASS DistributionPublicationLifecycleHostChecks
+PASS DistributionOutputAdmissionHostChecks
+PASS ProcessCodeHostChecks
+PASS ProcessInfoObservableHostChecks
+PASS CodePurgeHostChecks
+PASS RuntimeNodeQueryHostChecks
+PASS RuntimeNodeControlHostChecks
+PASS HostDistributionChecks
+PASS DistributionPendingChecks
+PASS DistributionPacketChecks
+Observed 0 bytes for 1024 warmed local/external identifier comparisons on one thread
+PASS 1497 local identity foundation controls; activation/admission not executed
+PASS RuntimeNodeIdentityFoundationHostChecks
+PASS two inherited named HOST bodies with unchanged assertions and actual kernel-role fixture setup
+PASS 31 owned kernel role/lifecycle controls; observed-epoch admission only, Core setnode unregistered
+PASS RuntimeNodeAdmissionFoundationHostChecks
+PASS RuntimeNodeTextActivationHostChecks
+PASS RuntimeNodeCreationHostChecks
+PASS DistributionRegisteredHostChecks
+{"Checks":132,"Failed":0,"NativeExecuted":false,"CoreRegistrationsAdded":0}
+PASS ConnectedDistributionHostChecks
+{"Status":"CONNECTED_INGRESS_ACTOR_ASSERTIONS","Checks":24,"Failed":0,"NativeExecuted":false}
+PASS ConnectedIngressHostChecks
+{"RawInputAssertions":41,"LocalKernelStop":false,"NativeExecuted":false}
+{"RawInputAssertions":41,"LocalKernelStop":true,"NativeExecuted":false}
+PASS DistributionRawInputHostChecks
+{"RawSignalAssertions":60,"NativeExecuted":false}
+PASS DistributionRawSignalHostChecks
+Unhandled exception. System.InvalidOperationException: Connected monitor foundation assertion failed
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<Run>g__Check|1(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 311
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 84
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.<>c__DisplayClass0_0.<<Run>g__RunCase|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 277
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionMonitorHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-lifecycle292-isolated\candidate\tests\Erlang.Tests\DistributionMonitorHostChecks.cs:line 11
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part289-putdata-focus\Program.cs:line 17
+   at Program.<Main>(String[] args)

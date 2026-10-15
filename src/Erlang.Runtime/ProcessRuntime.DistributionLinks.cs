@@ -119,47 +119,7 @@ public sealed partial class ProcessRuntime
 
     private ulong nextDistributionUnlinkId;
 
-    internal ulong? BeginConnectedProcessUnlink(
-        RuntimeDistributionPendingEntry entry,
-        DistributionConnectedEntry connected,
-        ProcessContext local,
-        Pid remote
-    )
-    {
-        lock (gate)
-        {
-            var link = distributionProcessLinks.LastOrDefault(item =>
-                ReferenceEquals(item.Entry, entry) && ReferenceEquals(item.Connection, connected) &&
-                ReferenceEquals(item.Local, local) && item.Remote.Equals(remote) &&
-                item.Established && item.UnlinkId is null);
-            if (link is null || !local.LinkIdentities.TryGetValue(remote, out var identity) ||
-                !ReferenceEquals(identity, link.Identity) || !local.Links.Contains(remote))
-                return null;
-            nextDistributionUnlinkId = unchecked(nextDistributionUnlinkId + 1);
-            if (nextDistributionUnlinkId == 0)
-                nextDistributionUnlinkId++;
-            ulong unlinkId = nextDistributionUnlinkId;
-            if (!entry.Owner.QueueConnectedControlSignal(
-                entry,
-                connected,
-                link.ConnectionId,
-                Term.Tuple(
-                    Term.I(DistributionControlOpcodes.UnlinkId),
-                    new Integer(unlinkId),
-                    local.Self,
-                    remote
-                ),
-                local.Self
-            ))
-                return null;
-            link.UnlinkId = unlinkId;
-            identity.PendingUnlink = new ProcessUnlinkIdentity();
-            local.Links.Remove(remote);
-            local.PriorityLinks.Remove(remote);
 
-            return unlinkId;
-        }
-    }
 
     internal void QueueConnectedProcessExit(
         RuntimeDistributionPendingEntry entry,
@@ -269,28 +229,7 @@ public sealed partial class ProcessRuntime
         }
     }
 
-    internal void ConnectedLinkProcessTerminated(ProcessContext process, Term reason)
-    {
-        lock (gate)
-        {
-            foreach (var link in distributionProcessLinks.Where(item => ReferenceEquals(item.Local, process)).ToArray())
-            {
-                distributionProcessLinks.Remove(link);
-                bool active = link.Established && process.Links.Contains(link.Remote) &&
-                    process.LinkIdentities.TryGetValue(link.Remote, out var identity) &&
-                    ReferenceEquals(identity, link.Identity);
-                if (active || process.PendingLinkOrigins.ContainsKey(link.Identity))
-                    QueueDistributionLinkReply(
-                        link.Entry,
-                        link.Connection,
-                        link.ConnectionId,
-                        process.Self,
-                        link.Remote,
-                        active ? reason : Term.A(ErlangErrorReasons.NoProcess)
-                    );
-            }
-        }
-    }
+
 
     private void QueueDistributionLinkReply(
         RuntimeDistributionPendingEntry entry,
@@ -299,7 +238,7 @@ public sealed partial class ProcessRuntime
         Pid local,
         Pid remote,
         Term reason
-    ) => entry.Owner.QueueConnectedControlSignal(
+    ) => entry.Owner.ScheduleConnectedControlSignal(
         entry,
         connected,
         connectionId,
@@ -319,7 +258,7 @@ public sealed partial class ProcessRuntime
         Pid local,
         Pid remote,
         ulong unlinkId
-    ) => entry.Owner.QueueConnectedControlSignal(
+    ) => entry.Owner.ScheduleConnectedControlSignal(
         entry,
         connected,
         connectionId,

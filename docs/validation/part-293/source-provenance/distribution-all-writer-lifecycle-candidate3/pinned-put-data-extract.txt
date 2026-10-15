@@ -1,0 +1,200 @@
+4333: dist_ctrl_put_data_2(BIF_ALIST_2)
+4334: {
+4335:     DistEntry *dep;
+4336:     Eterm input_handler;
+4337:     Uint32 conn_id;
+4338:     Binary *bin = NULL;
+4339: 
+4340:     if (is_list(BIF_ARG_2)) {
+4341:         BIF_TRAP2(dist_ctrl_put_data_trap,
+4342:                   BIF_P, BIF_ARG_1, BIF_ARG_2);
+4343:     }
+4344: 
+4345:     dep = erts_dhandle_to_dist_entry(BIF_ARG_1, &conn_id);
+4346:     if (!dep) {
+4347:         BIF_ERROR(BIF_P, BADARG);
+4348:     }
+4349: 
+4350:     input_handler = (Eterm)erts_atomic_read_nob(&dep->input_handler);
+4351: 
+4352:     if (input_handler != BIF_P->common.id) {
+4353:         BIF_ERROR(BIF_P, EXC_NOTSUP);
+4354:     }
+4355: 
+4356:     erts_atomic64_inc_nob(&dep->in);
+4357: 
+4358:     if (is_bitstring(BIF_ARG_2)) {
+4359:         ERTS_DECLARE_DUMMY(Eterm br_flags);
+4360:         const byte *data, *temp_alloc = NULL;
+4361:         Uint offset, size;
+4362:         BinRef *br;
+4363: 
+4364:         ERTS_PIN_BITSTRING(BIF_ARG_2, br_flags, br, data, offset, size);
+4365: 
+4366:         if (TAIL_BITS(size) != 0) {
+4367:             BIF_ERROR(BIF_P, BADARG);
+4368:         }
+4369: 
+4370:         if (BIT_OFFSET(offset) == 0) {
+4371:             data = &data[BYTE_OFFSET(offset)];
+4372:             size = BYTE_SIZE(size);
+4373: 
+4374:             bin = br ? br->val : NULL;
+4375:         } else {
+4376:             ERTS_DECLARE_DUMMY(Uint dummy);
+4377:             data = (byte *) erts_get_aligned_binary_bytes(BIF_ARG_2,
+4378:                                                           &size,
+4379:                                                           &temp_alloc);
+4380:         }
+4381: 
+4382:         if (!data) {
+4383:             BIF_ERROR(BIF_P, BADARG);
+4384:         }
+4385: 
+4386:         erts_proc_unlock(BIF_P, ERTS_PROC_LOCK_MAIN);
+4387: 
+4388:         (void) erts_net_message(NULL, dep, conn_id, NULL, 0, bin, data, size);
+4389:         /*
+4390:          * We ignore any decode failures. On fatal failures the
+4391:          * connection will be taken down by killing the
+4392:          * distribution channel controller...
+4393:          */
+4394: 
+4395:         erts_proc_lock(BIF_P, ERTS_PROC_LOCK_MAIN);
+4396: 
+4397:         BUMP_REDS(BIF_P, 5);
+4398: 
+4399:         erts_free_aligned_binary_bytes(temp_alloc);
+4400: 
+4401:     } else if (is_not_nil(BIF_ARG_2)) {
+4402:         BIF_ERROR(BIF_P, BADARG);
+4403:     }
+4404: 
+4405:     BIF_RET(am_ok);
+4406: }
+4407: 
+4408: BIF_RETTYPE
+4409: dist_ctrl_set_opt_3(BIF_ALIST_3)
+4410: {
+4411:     DistEntry *dep = ERTS_PROC_GET_DIST_ENTRY(BIF_P);
+4412:     Uint32 conn_id;
+4413:     BIF_RETTYPE ret;
+4414: 
+4415:     if (!dep)
+4416:         BIF_ERROR(BIF_P, EXC_NOTSUP);
+4417: 
+4418:     if (erts_dhandle_to_dist_entry(BIF_ARG_1, &conn_id) != dep)
+4419:         BIF_ERROR(BIF_P, BADARG);
+4420: 
+4421:     erts_de_rlock(dep);
+4422: 
+4423:     if (dep->connection_id != conn_id)
+4424:         ERTS_BIF_PREP_ERROR(ret, BIF_P, BADARG);
+4425:     else {
+4426: 
+4427:         switch (BIF_ARG_2) {
+4428:         case am_get_size:
+4429:             ERTS_BIF_PREP_RET(ret, (dep->opts & ERTS_DIST_CTRL_OPT_GET_SIZE
+4430:                                     ? am_true
+4431:                                     : am_false));
+4432:             if (BIF_ARG_3 == am_true) 
+4433:                 dep->opts |= ERTS_DIST_CTRL_OPT_GET_SIZE;
+4434:             else if (BIF_ARG_3 == am_false)
+4435:                 dep->opts &= ~ERTS_DIST_CTRL_OPT_GET_SIZE;
+4436:             else
+4437:                 ERTS_BIF_PREP_ERROR(ret, BIF_P, BADARG);
+4438:             break;
+4439:         default:
+4440:             ERTS_BIF_PREP_ERROR(ret, BIF_P, BADARG);
+4441:             break;
+4442:         }
+4443: 
+4444:     }
+4445: 
+4446:     erts_de_runlock(dep);
+4447: 
+4448:     return ret;
+4449: }
+4450: 
+4451: BIF_RETTYPE
+4452: dist_ctrl_get_opt_2(BIF_ALIST_2)
+4453: {
+4454:     DistEntry *dep = ERTS_PROC_GET_DIST_ENTRY(BIF_P);
+4455:     Uint32 conn_id;
+4456:     BIF_RETTYPE ret;
+4457: 
+4458:     if (!dep)
+4459:         BIF_ERROR(BIF_P, EXC_NOTSUP);
+4460: 
+4461:     if (erts_dhandle_to_dist_entry(BIF_ARG_1, &conn_id) != dep)
+4462:         BIF_ERROR(BIF_P, BADARG);
+4463: 
+4464:     erts_de_rlock(dep);
+4465: 
+4466:     if (dep->connection_id != conn_id)
+4467:         ERTS_BIF_PREP_ERROR(ret, BIF_P, BADARG);
+4468:     else {
+4469: 
+4470:         switch (BIF_ARG_2) {
+4471:         case am_get_size:
+4472:             ERTS_BIF_PREP_RET(ret, (dep->opts & ERTS_DIST_CTRL_OPT_GET_SIZE
+4473:                                     ? am_true
+4474:                                     : am_false));
+4475:             break;
+4476:         default:
+4477:             ERTS_BIF_PREP_ERROR(ret, BIF_P, BADARG);
+4478:             break;
+4479:         }
+4480: 
+4481:     }
+4482: 
+4483:     erts_de_runlock(dep);
+4484: 
+4485:     return ret;
+4486: }
+4487:     
+4488: BIF_RETTYPE
+4489: dist_get_stat_1(BIF_ALIST_1)
+4490: {
+4491:     Sint64 read, write, pend;
+4492:     Eterm res, *hp, **hpp;
+4493:     Uint sz, *szp;
+4494:     Uint32 conn_id;
+4495:     DistEntry *dep = erts_dhandle_to_dist_entry(BIF_ARG_1, &conn_id);
+4496: 
+4497:     if (!dep)
+4498:         BIF_ERROR(BIF_P, BADARG);
+4499: 
+4500:     erts_de_rlock(dep);
+4501: 
+4502:     if (dep->connection_id != conn_id) {
+4503:         erts_de_runlock(dep);
+4504:         BIF_ERROR(BIF_P, BADARG);
+4505:     }
+4506:     read = (Sint64) erts_atomic64_read_nob(&dep->in);
+4507:     write = (Sint64) erts_atomic64_read_nob(&dep->out);
+4508:     pend = (Sint64) erts_atomic_read_nob(&dep->total_qsize);
+4509: 
+4510:     erts_de_runlock(dep);
+4511: 
+4512:     sz = 0;
+4513:     szp = &sz;
+4514:     hpp = NULL;
+4515: 
+4516:     while (1) {
+4517:         res = erts_bld_tuple(hpp, szp, 4,
+4518:                              am_ok,
+4519:                              erts_bld_sint64(hpp, szp, read),
+4520:                              erts_bld_sint64(hpp, szp, write),
+4521:                              erts_bld_sint64(hpp, szp, pend));
+4522:         if (hpp)
+4523:             break;
+4524:         hp = HAlloc(BIF_P, sz);
+4525:         hpp = &hp;
+4526:         szp = NULL;
+4527:     }
+4528: 
+4529:     BIF_RET(res);
+4530: }
+4531: 
+4532: BIF_RETTYPE

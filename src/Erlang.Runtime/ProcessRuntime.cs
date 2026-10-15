@@ -223,10 +223,16 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     }
                     finally
                     {
-                        Terminate(ctx, reason);
-                        lock (gate)
-                            executingProcesses.Remove(ctx);
-                        ctx.Unwound.TrySetResult();
+                        try
+                        {
+                            Terminate(ctx, reason);
+                        }
+                        finally
+                        {
+                            lock (gate)
+                                executingProcesses.Remove(ctx);
+                            ctx.Unwound.TrySetResult();
+                        }
                     }
                 });
                 enqueued = true;
@@ -607,6 +613,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal void AdmitSignals(ProcessContext owner)
     {
+        using var outputTransfer = distributionPending?.BeginOutputTransfer();
         if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending))
         {
             if (drain.IsCurrent)
@@ -1407,72 +1414,79 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         lock (gate)
         {
-            var pending = new Queue<(ProcessContext Context, Term Reason)>();
-            pending.Enqueue((ctx, reason));
-            while (pending.TryDequeue(out var death))
+            if (!processes.Remove(ctx.Self))
+                return;
+            var failures = new List<Exception>();
+            ProcessExitContinuation? exit = null;
+            // Public FREE and runtime-owned cleanup have separate lifetimes.
+            processSlots.Remove(ctx.Self);
+            ctx.Terminated = true;
+            ctx.ExitReason = reason;
+            CleanupStep(() =>
             {
-                ctx = death.Context;
-                reason = death.Reason;
-                if (!processes.Remove(ctx.Self))
-                    continue;
-                LocalNodeProcessTerminated(ctx, reason);
-                distributionPending?.ProcessTerminated(ctx, reason);
-                ProcessTracing.Terminated(ctx.Self);
-                SystemMonitoring.Terminated(ctx.Self);
-                processSlots.Remove(ctx.Self);
-                SystemProfiling.Terminated(ctx.Self);
-                foreach (var request in ctx.PendingCodeChecks)
-                    ReplyCodeCheck(request, false, ctx.Self);
-                ctx.PendingCodeChecks.Clear();
-                foreach (var request in ctx.PendingInfoRequests)
-                    ReplyProcessInfo(request, ProcessInfoAtoms.Undefined, ctx.Self);
-                ctx.PendingInfoRequests.Clear();
-                foreach (var request in ctx.PendingDisplayRequests)
-                    ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument));
-                ctx.PendingDisplayRequests.Clear();
-                foreach (var request in ctx.PendingGarbageCollections)
-                    ReplyGarbageCollection(request, false, ctx.Self);
-                ctx.PendingGarbageCollections.Clear();
-                foreach (var request in ctx.PendingSavedCallRequests)
-                    ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self);
-                ctx.PendingSavedCallRequests.Clear();
-                Timers.RecipientTerminated(ctx.Self);
-                Suspensions.Terminated(ctx);
-                ctx.Mailbox.DiscardPending();
-                foreach (var request in spawnRequests.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
-                    spawnRequests.Remove(request);
-                foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
-                    aliases.Remove(alias);
-                ctx.Terminated = true;
-                ctx.ExitReason = reason;
-                Ports.OwnerTerminated(ctx, reason);
-                foreach (var name in names.Where(p => p.Value.Equals(ctx.Self)).Select(p => p.Key).ToArray())
-                    names.Remove(name);
-                var linkedExits = ctx.Links.Select(pid => (Pid: pid, Reason: reason))
-                    .Concat(ctx.PendingLinkOrigins.Values.Select(pid => (Pid: pid, Reason: (Term)Term.A(ErlangErrorReasons.NoProcess))))
-                    .ToArray();
-                ctx.PendingLinkOrigins.Clear();
-                ctx.Links.Clear();
-                ctx.LinkIdentities.Clear();
-                ctx.PriorityLinks.Clear();
-                foreach (var m in monitors.ToArray())
+                var remoteOutput = CaptureDistributionExitOutput(ctx, reason);
+                if (remoteOutput.Count != 0)
                 {
-                    if (m.Value.Target?.Equals(ctx.Self) == true)
-                    {
-                        if (processes.TryGetValue(m.Value.Observer, out var observer))
-                            MonitorDown(
-                                observer,
-                                m.Key,
-                                m.Value,
-                                reason
-                            );
-                    }
-                    else if (m.Value.Observer.Equals(ctx.Self))
-                        monitors.Remove(m.Key);
+                    exit = new(ctx, reason, remoteOutput);
+                    StartExitContinuation(exit);
                 }
-                ctx.Stop.Cancel();
-                ctx.Done.TrySetResult(reason);
-                foreach (var linkedExit in linkedExits)
+            });
+            CleanupStep(() => LocalNodeProcessTerminated(ctx, reason));
+            CleanupStep(() => distributionPending?.ProcessTerminated(ctx, reason));
+            CleanupStep(() => ProcessTracing.Terminated(ctx.Self));
+            CleanupStep(() => SystemMonitoring.Terminated(ctx.Self));
+            CleanupStep(() => SystemProfiling.Terminated(ctx.Self));
+            foreach (var request in ctx.PendingCodeChecks)
+                CleanupStep(() => ReplyCodeCheck(request, false, ctx.Self));
+            ctx.PendingCodeChecks.Clear();
+            foreach (var request in ctx.PendingInfoRequests)
+                CleanupStep(() => ReplyProcessInfo(request, ProcessInfoAtoms.Undefined, ctx.Self));
+            ctx.PendingInfoRequests.Clear();
+            foreach (var request in ctx.PendingDisplayRequests)
+                CleanupStep(() => ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument)));
+            ctx.PendingDisplayRequests.Clear();
+            foreach (var request in ctx.PendingGarbageCollections)
+                CleanupStep(() => ReplyGarbageCollection(request, false, ctx.Self));
+            ctx.PendingGarbageCollections.Clear();
+            foreach (var request in ctx.PendingSavedCallRequests)
+                CleanupStep(() => ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self));
+            ctx.PendingSavedCallRequests.Clear();
+            CleanupStep(() => Timers.RecipientTerminated(ctx.Self));
+            CleanupStep(() => Suspensions.Terminated(ctx));
+            CleanupStep(ctx.Mailbox.DiscardPending);
+            foreach (var request in spawnRequests.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+                spawnRequests.Remove(request);
+            foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+                aliases.Remove(alias);
+            CleanupStep(() => Ports.OwnerTerminated(ctx, reason));
+            foreach (var name in names.Where(pair => pair.Value.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+                names.Remove(name);
+            var linkedExits = ctx.Links.Select(pid => (Pid: pid, Reason: reason))
+                .Concat(ctx.PendingLinkOrigins.Values.Select(pid => (Pid: pid, Reason: (Term)Term.A(ErlangErrorReasons.NoProcess))))
+                .ToArray();
+            ctx.PendingLinkOrigins.Clear();
+            ctx.Links.Clear();
+            ctx.LinkIdentities.Clear();
+            ctx.PriorityLinks.Clear();
+            foreach (var monitor in monitors.ToArray())
+            {
+                if (monitor.Value.Target?.Equals(ctx.Self) == true)
+                {
+                    if (processes.TryGetValue(monitor.Value.Observer, out var observer))
+                        CleanupStep(() => MonitorDown(
+                            observer,
+                            monitor.Key,
+                            monitor.Value,
+                            reason
+                        ));
+                }
+                else if (monitor.Value.Observer.Equals(ctx.Self))
+                    monitors.Remove(monitor.Key);
+            }
+            CleanupStep(ctx.Stop.Cancel);
+            foreach (var linkedExit in linkedExits)
+            {
+                CleanupStep(() =>
                 {
                     SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, linkedExit.Pid, linkedExit.Reason);
                     if (processes.TryGetValue(linkedExit.Pid, out var linked))
@@ -1489,6 +1503,37 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                             exitToken
                         );
                     }
+                });
+            }
+            if (failures.Count == 0)
+            {
+                if (exit is not null)
+                    exit.LocalCleanup.TrySetResult();
+                else
+                    ctx.Done.TrySetResult(reason);
+            }
+            else
+            {
+                var failure = new AggregateException(failures);
+                if (exit is not null)
+                    exit.LocalCleanup.TrySetException(failure);
+                else
+                {
+                    exitContinuationFailures.Add(failure);
+                    ctx.Done.TrySetException(failure);
+                }
+                throw failure;
+            }
+
+            void CleanupStep(Action cleanup)
+            {
+                try
+                {
+                    cleanup();
+                }
+                catch (Exception exception)
+                {
+                    failures.Add(exception);
                 }
             }
         }
@@ -1550,6 +1595,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
         await initializer.Completion.ConfigureAwait(false);
         await Ports.Drain().ConfigureAwait(false);
+        await Task.WhenAll(
+            distributionPending?.DrainOwnedOutputOperations() ?? Task.CompletedTask,
+            DrainExitContinuations()
+        ).ConfigureAwait(false);
         if (ownsStandardStreams)
             StandardStreams.Dispose();
     }

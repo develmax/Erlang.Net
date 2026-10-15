@@ -214,6 +214,23 @@ public sealed partial class ProcessRuntime
             {
                 failures.Add(exception);
             }
+            try
+            {
+                if (distributionPending is { } outputOwner)
+                    await outputOwner.DrainOwnedOutputOperations().ConfigureAwait(false);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            try
+            {
+                await DrainExitContinuations().ConfigureAwait(false);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
             if (ownsStandardStreams)
                 StandardStreams.Dispose();
             if (failures.Count != 0)

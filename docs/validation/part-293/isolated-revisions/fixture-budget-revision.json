@@ -1,0 +1,21 @@
+{
+  "InitialFocusExitCode": -532462766,
+  "InitialFailure": "system_limit while constructing second channel controller before multi-channel scenario",
+  "OriginalBudget": 4,
+  "CorrectedBudget": 5,
+  "Reason": "Runtime initializer consumes one actual public process slot in addition to four live test actors",
+  "RuntimeSourceBytesUnchanged": true,
+  "ChangedFiles": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionPublicationLifecycleHostChecks.cs",
+      "BeforeSha256": "E0B41235BFA8B2FE9B26928710F11DD12540EE65ED12B7BD0334B2473184C7C3",
+      "AfterSha256": "E6B975BEB4B1DDB8CB57505822592FF9120BE5E4D4CA16B53453601EB8D9E2ED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionPublicationLifecycleHostNames.cs",
+      "BeforeSha256": "CE901E983F7D21528EABEAD7ED6D11C4AA5E95A6762466414A268EAE9F60D16F",
+      "AfterSha256": "98F98889662416D4B4962B1931CBA421256E674C671FF99750E33AD2298908DD"
+    }
+  ],
+  "FreezeSha256": "B780C2E874F54291AB7DBB5F5B53238A979A4566E4B163EDE8328CC88F4C9F2B"
+}

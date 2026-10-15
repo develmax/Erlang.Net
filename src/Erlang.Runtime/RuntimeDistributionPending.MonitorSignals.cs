@@ -4,37 +4,21 @@ public sealed partial class RuntimeDistributionPending
 {
     public ReferenceTerm BeginConnectedMonitorSignal(Term handle, ProcessContext observer, Term remote)
     {
-        lock (gate)
-        {
-            RequireProcess(observer);
-            var entry = ReadHandle(handle, out uint connectionId, out var resource);
-            using (resource)
-            {
-                var connected = RequireConnected(entry, connectionId);
-                if (remote is not Atom && (remote is not Pid pid || pid.LocalIdentity is not null ||
-                    pid.Node != entry.Node.Name || runtime.IsCurrentLocal(pid)))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+        using var target = CaptureMonitorPublicationTarget(handle, observer, remote);
 
-                return runtime.BeginConnectedProcessMonitor(
-                    entry,
-                    connected,
-                    observer,
-                    remote
-                );
-            }
-        }
+        return runtime.BeginConnectedProcessMonitor(
+            target.Entry,
+            target.Connection,
+            observer,
+            remote
+        );
     }
 
     public bool EndConnectedMonitorSignal(ProcessContext observer, ReferenceTerm reference)
     {
-        lock (gate)
-        {
-            RequireProcess(observer);
-            if (!runtime.IsCurrentLocal(reference))
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
+        ValidateMonitorRemoval(observer, reference);
 
-            return runtime.EndConnectedProcessMonitor(observer, reference);
-        }
+        return runtime.EndConnectedProcessMonitor(observer, reference);
     }
 
     private void RouteRawConnectedMonitorControl(

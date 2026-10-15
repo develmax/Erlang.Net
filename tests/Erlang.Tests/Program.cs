@@ -32,6 +32,13 @@ Test(Erlang.Tests.PreloadedModuleHostNames.TestName, Erlang.Tests.PreloadedModul
 Test(Erlang.Tests.ModuleInformationHostNames.Test, Erlang.Tests.ModuleInformationHostChecks.Run);
 Test(Erlang.Tests.ModuleAttributeHostNames.Test, Erlang.Tests.ModuleAttributeHostChecks.Run);
 Test(Erlang.Tests.NifDeclarationHostNames.Test, Erlang.Tests.NifDeclarationHostChecks.Run);
+Test(Erlang.Tests.DistributionExitLifecycleHostNames.Test, Erlang.Tests.DistributionExitLifecycleHostChecks.Run);
+Test(Erlang.Tests.DistributionSystemOutputHostNames.Test, Erlang.Tests.DistributionSystemOutputHostChecks.Run);
+Test(
+    Erlang.Tests.DistributionPublicationLifecycleHostNames.Test,
+    Erlang.Tests.DistributionPublicationLifecycleHostChecks.Run
+);
+Test(Erlang.Tests.DistributionOutputAdmissionHostNames.Test, Erlang.Tests.DistributionOutputAdmissionHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);

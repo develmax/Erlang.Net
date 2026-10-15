@@ -1,0 +1,471 @@
+{
+  "Status": "Source-only audit; old full run incomplete, cause unknown",
+  "MainHead": "9fbe77098e2e7939d0b9fbfd41e6cfc481567865",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "MainAndCandidate": [
+    {
+      "Path": "src/Erlang.Runtime/HostDistribution.cs",
+      "Sha256": "CCD4B51E504C25BB5A13FCDFFF5A07005498644A629C74191D0E94D94698615F",
+      "Locations": [
+        {
+          "Line": 153,
+          "Text": "public bool TryEnqueueFinalizedHostBuffer(HostDistributionHandle handle, HostDistributionBuffer buffer)"
+        },
+        {
+          "Line": 178,
+          "Text": "internal Task WaitForOutputCapacity(HostDistributionHandle handle, HostDistributionBuffer buffer)"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "F4B64D5A8BA39439E914B893BCC378FF0807FD27A86004C3BEB0DC7BFB43712E",
+      "Locations": [
+        {
+          "Line": 226,
+          "Text": "Terminate(ctx, reason);"
+        },
+        {
+          "Line": 229,
+          "Text": "ctx.Unwound.TrySetResult();"
+        },
+        {
+          "Line": 1311,
+          "Text": "Terminate(target, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1378,
+          "Text": "Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1403,
+          "Text": "Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1406,
+          "Text": "private void Terminate(ProcessContext ctx, Term reason)"
+        },
+        {
+          "Line": 1416,
+          "Text": "if (!processes.Remove(ctx.Self))"
+        },
+        {
+          "Line": 1418,
+          "Text": "LocalNodeProcessTerminated(ctx, reason);"
+        },
+        {
+          "Line": 1419,
+          "Text": "distributionPending?.ProcessTerminated(ctx, reason);"
+        },
+        {
+          "Line": 1422,
+          "Text": "processSlots.Remove(ctx.Self);"
+        },
+        {
+          "Line": 1474,
+          "Text": "ctx.Done.TrySetResult(reason);"
+        },
+        {
+          "Line": 1509,
+          "Text": "Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1521,
+          "Text": "Terminate(process, Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1542,
+          "Text": "Terminate(p, Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1581,
+          "Text": "Terminate(process, reason);"
+        },
+        {
+          "Line": 1617,
+          "Text": "Terminate(process, reason);"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ActorDispatch.cs",
+      "Sha256": "F9BBA1D57DC3E1B412DBD460E768D1984B9E8472FD54FF4DF8F0D6A5A88D44B3",
+      "Locations": [
+        {
+          "Line": 24,
+          "Text": "processes.Remove(context.Self);"
+        },
+        {
+          "Line": 25,
+          "Text": "processSlots.Remove(context.Self);"
+        },
+        {
+          "Line": 30,
+          "Text": "context.Done.TrySetResult(reason);"
+        },
+        {
+          "Line": 34,
+          "Text": "context.Unwound.TrySetResult();"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSlotTable.cs",
+      "Sha256": "FD0A1B659D96C4B0E11548372764F97C8D5CBBAF0035FCCEDDCD3D75EE4EFCD0",
+      "Locations": []
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Sha256": "9F0B32BD5D2F117BBA951EA3615A14F29FDA3C7D76B475E7458020EF031D1240",
+      "Locations": []
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+      "Sha256": "5A9CAA82F9D42759A1FCB1F80C900E9A368B12EA807379ECB87EB3335E82328D",
+      "Locations": [
+        {
+          "Line": 159,
+          "Text": "internal void ProcessTerminated(ProcessContext process, Term reason)"
+        },
+        {
+          "Line": 164,
+          "Text": "runtime.ConnectedLinkProcessTerminated(process, reason);"
+        },
+        {
+          "Line": 165,
+          "Text": "runtime.ConnectedMonitorProcessTerminated(process, reason);"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+      "Sha256": "0A56172789CEEC0FE5D7603438CFD9ED3E1EAEB17F4D233365ACFE4B08FF782D",
+      "Locations": [
+        {
+          "Line": 200,
+          "Text": "public void EnqueueConnectedOutput(Term handle, DistributionPassThroughMessage message)"
+        },
+        {
+          "Line": 201,
+          "Text": "=> EnqueueConnectedOutputOwned(handle, message, null);"
+        },
+        {
+          "Line": 203,
+          "Text": "public void EnqueueConnectedOutput("
+        },
+        {
+          "Line": 207,
+          "Text": ") => EnqueueConnectedOutputOwned(handle, message, sender);"
+        },
+        {
+          "Line": 209,
+          "Text": "private void EnqueueConnectedOutputOwned("
+        },
+        {
+          "Line": 251,
+          "Text": "if (!connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer))"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.LinkSignals.cs",
+      "Sha256": "AD91302871206D815BEC7D5350592DBFCA7EEF5B8F389646ED23D98524BBCEE9",
+      "Locations": [
+        {
+          "Line": 148,
+          "Text": "internal bool QueueConnectedControlSignal("
+        },
+        {
+          "Line": 172,
+          "Text": "if (!connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer))"
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+      "Sha256": "F31FB195B222230B4FB04A7D6F014FA8E0083D1E82D7D36BB71124E48E10634F",
+      "Locations": [
+        {
+          "Line": 18,
+          "Text": "QueueDistributionLinkReply("
+        },
+        {
+          "Line": 77,
+          "Text": "QueueDistributionUnlinkReply("
+        },
+        {
+          "Line": 104,
+          "Text": "QueueDistributionUnlinkReply("
+        },
+        {
+          "Line": 142,
+          "Text": "if (!entry.Owner.QueueConnectedControlSignal("
+        },
+        {
+          "Line": 228,
+          "Text": "Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 272,
+          "Text": "internal void ConnectedLinkProcessTerminated(ProcessContext process, Term reason)"
+        },
+        {
+          "Line": 283,
+          "Text": "QueueDistributionLinkReply("
+        },
+        {
+          "Line": 295,
+          "Text": "private void QueueDistributionLinkReply("
+        },
+        {
+          "Line": 302,
+          "Text": ") => entry.Owner.QueueConnectedControlSignal("
+        },
+        {
+          "Line": 315,
+          "Text": "private void QueueDistributionUnlinkReply("
+        },
+        {
+          "Line": 322,
+          "Text": ") => entry.Owner.QueueConnectedControlSignal("
+        }
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionMonitors.cs",
+      "Sha256": "7313F19E4416838372645105050732D29119FC7D6997865CD9DB1A2778701EDB",
+      "Locations": [
+        {
+          "Line": 38,
+          "Text": "SendConnectedMonitorControl("
+        },
+        {
+          "Line": 103,
+          "Text": "SendConnectedMonitorControl("
+        },
+        {
+          "Line": 126,
+          "Text": "SendConnectedMonitorControl("
+        },
+        {
+          "Line": 202,
+          "Text": "internal void ConnectedMonitorProcessTerminated(ProcessContext process, Term reason)"
+        },
+        {
+          "Line": 210,
+          "Text": "SendConnectedMonitorControl("
+        },
+        {
+          "Line": 220,
+          "Text": "SendConnectedMonitorControl("
+        },
+        {
+          "Line": 234,
+          "Text": "private void SendConnectedMonitorControl("
+        },
+        {
+          "Line": 261,
+          "Text": "entry.Owner.QueueConnectedControlSignal("
+        }
+      ]
+    },
+    {
+      "Path": "artifacts/spawn-protocol-pressure-integrated-isolated5/candidate/src/Erlang.Runtime/DistributionOutputAdmission.cs",
+      "Sha256": "38201EBAB1CF91B70FA65E7B56E834A93C24FB8780C45F1A188E3D946015017A",
+      "Locations": [
+        {
+          "Line": 71,
+          "Text": "internal bool TryRunUnreserved(Func<bool> admission)"
+        }
+      ]
+    },
+    {
+      "Path": "artifacts/spawn-protocol-pressure-integrated-isolated5/candidate/src/Erlang.Runtime/RuntimeDistributionPending.AsyncOutput.cs",
+      "Sha256": "7B5D85AB41EE9EBFAD70B94C56FA89113EB6121A4BB24481520242EFBCD51EC7",
+      "Locations": [
+        {
+          "Line": 13,
+          "Text": "public async ValueTask EnqueueConnectedOutputAsync("
+        },
+        {
+          "Line": 77,
+          "Text": "return connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, packet);"
+        },
+        {
+          "Line": 87,
+          "Text": "return connected.Queue.WaitForOutputCapacity(connected.QueueHandle, packet);"
+        }
+      ]
+    },
+    {
+      "Path": "artifacts/spawn-protocol-pressure-integrated-isolated5/candidate/src/Erlang.Runtime/RuntimeDistributionPending.LinkSignals.cs",
+      "Sha256": "183D21DB4DDC3391CE7B422DD726D6A6575D101ADD46878F098D83AD00B11D76",
+      "Locations": [
+        {
+          "Line": 148,
+          "Text": "internal bool QueueConnectedControlSignal("
+        },
+        {
+          "Line": 172,
+          "Text": "if (!connected.OutputAdmission.TryRunUnreserved(() =>"
+        },
+        {
+          "Line": 173,
+          "Text": "connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer)))"
+        }
+      ]
+    },
+    {
+      "Path": "artifacts/spawn-protocol-pressure-integrated-isolated5/candidate/src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+      "Sha256": "A1C56AB325B5D4F1D064F58BF9EDC967661E32CA0AB43761B001900E1D6BA521",
+      "Locations": [
+        {
+          "Line": 201,
+          "Text": "public void EnqueueConnectedOutput(Term handle, DistributionPassThroughMessage message)"
+        },
+        {
+          "Line": 202,
+          "Text": "=> EnqueueConnectedOutputOwned(handle, message, null);"
+        },
+        {
+          "Line": 204,
+          "Text": "public void EnqueueConnectedOutput("
+        },
+        {
+          "Line": 208,
+          "Text": ") => EnqueueConnectedOutputOwned(handle, message, sender);"
+        },
+        {
+          "Line": 210,
+          "Text": "private void EnqueueConnectedOutputOwned("
+        },
+        {
+          "Line": 252,
+          "Text": "if (!connected.OutputAdmission.TryRunUnreserved(() =>"
+        },
+        {
+          "Line": 253,
+          "Text": "connected.Queue.TryEnqueueFinalizedHostBuffer(connected.QueueHandle, buffer)))"
+        }
+      ]
+    },
+    {
+      "Path": "artifacts/spawn-protocol-pressure-integrated-isolated5/candidate/src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "A52BF5EE6D70979031238C52686DC1CA1317B8325A44F5DC0B8A92FF3C66AE93",
+      "Locations": [
+        {
+          "Line": 226,
+          "Text": "Terminate(ctx, reason);"
+        },
+        {
+          "Line": 229,
+          "Text": "ctx.Unwound.TrySetResult();"
+        },
+        {
+          "Line": 1311,
+          "Text": "Terminate(target, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1378,
+          "Text": "Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1403,
+          "Text": "Terminate(target, kill ? Term.A(ProcessExitReasons.Killed) : reason);"
+        },
+        {
+          "Line": 1406,
+          "Text": "private void Terminate(ProcessContext ctx, Term reason)"
+        },
+        {
+          "Line": 1416,
+          "Text": "if (!processes.Remove(ctx.Self))"
+        },
+        {
+          "Line": 1418,
+          "Text": "LocalNodeProcessTerminated(ctx, reason);"
+        },
+        {
+          "Line": 1419,
+          "Text": "distributionPending?.ProcessTerminated(ctx, reason);"
+        },
+        {
+          "Line": 1422,
+          "Text": "processSlots.Remove(ctx.Self);"
+        },
+        {
+          "Line": 1474,
+          "Text": "ctx.Done.TrySetResult(reason);"
+        },
+        {
+          "Line": 1509,
+          "Text": "Terminate(context, context.ExitReason ?? Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1521,
+          "Text": "Terminate(process, Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1542,
+          "Text": "Terminate(p, Term.A(ProcessExitReasons.Shutdown));"
+        },
+        {
+          "Line": 1583,
+          "Text": "Terminate(process, reason);"
+        },
+        {
+          "Line": 1619,
+          "Text": "Terminate(process, reason);"
+        }
+      ]
+    }
+  ],
+  "Original": [
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Ranges": [
+        [
+          3268,
+          3298
+        ],
+        [
+          3595,
+          3785
+        ],
+        [
+          4150,
+          4190
+        ]
+      ],
+      "Extract": "dist.c.source.txt"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Ranges": [
+        [
+          13600,
+          13635
+        ],
+        [
+          13715,
+          13755
+        ],
+        [
+          14234,
+          14295
+        ],
+        [
+          14406,
+          14482
+        ],
+        [
+          14635,
+          14835
+        ]
+      ],
+      "Extract": "erl_process.c.source.txt"
+    }
+  ]
+}

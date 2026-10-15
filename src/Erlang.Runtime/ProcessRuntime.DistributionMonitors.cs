@@ -79,63 +79,9 @@ public sealed partial class ProcessRuntime
         }
     }
 
-    internal ReferenceTerm BeginConnectedProcessMonitor(
-        RuntimeDistributionPendingEntry entry,
-        DistributionConnectedEntry connected,
-        ProcessContext observer,
-        Term remote
-    )
-    {
-        lock (gate)
-        {
-            ReferenceTerm reference = MakeReference();
-            var monitor = new DistributionProcessMonitor(
-                entry,
-                connected,
-                entry.ConnectionId,
-                observer,
-                remote,
-                remote,
-                reference,
-                true
-            );
-            distributionProcessMonitors.Add(monitor);
-            SendConnectedMonitorControl(
-                entry,
-                connected,
-                entry.ConnectionId,
-                DistributionControlOpcodes.Monitor,
-                observer.Self,
-                remote,
-                reference
-            );
 
-            return reference;
-        }
-    }
 
-    internal bool EndConnectedProcessMonitor(ProcessContext observer, ReferenceTerm reference)
-    {
-        lock (gate)
-        {
-            var monitor = distributionProcessMonitors.FirstOrDefault(item => item.Origin &&
-                ReferenceEquals(item.Local, observer) && item.Reference.Equals(reference));
-            if (monitor is null)
-                return false;
-            distributionProcessMonitors.Remove(monitor);
-            SendConnectedMonitorControl(
-                monitor.Entry,
-                monitor.Connection,
-                monitor.ConnectionId,
-                DistributionControlOpcodes.Demonitor,
-                observer.Self,
-                monitor.Remote,
-                reference
-            );
 
-            return true;
-        }
-    }
 
     internal void QueueConnectedProcessMonitorDown(
         RuntimeDistributionPendingEntry entry,
@@ -199,37 +145,7 @@ public sealed partial class ProcessRuntime
         }
     }
 
-    internal void ConnectedMonitorProcessTerminated(ProcessContext process, Term reason)
-    {
-        lock (gate)
-        {
-            foreach (var monitor in distributionProcessMonitors.Where(item => ReferenceEquals(item.Local, process)).ToArray())
-            {
-                distributionProcessMonitors.Remove(monitor);
-                if (monitor.Origin)
-                    SendConnectedMonitorControl(
-                        monitor.Entry,
-                        monitor.Connection,
-                        monitor.ConnectionId,
-                        DistributionControlOpcodes.Demonitor,
-                        process.Self,
-                        monitor.Remote,
-                        monitor.Reference
-                    );
-                else
-                    SendConnectedMonitorControl(
-                        monitor.Entry,
-                        monitor.Connection,
-                        monitor.ConnectionId,
-                        DistributionControlOpcodes.MonitorExit,
-                        monitor.Watched,
-                        monitor.Remote,
-                        monitor.Reference,
-                        monitor.Established ? reason : Term.A(ErlangErrorReasons.NoProcess)
-                    );
-            }
-        }
-    }
+
 
     private void SendConnectedMonitorControl(
         RuntimeDistributionPendingEntry entry,
@@ -258,7 +174,7 @@ public sealed partial class ProcessRuntime
                 reference,
                 reason
             );
-        entry.Owner.QueueConnectedControlSignal(
+        entry.Owner.ScheduleConnectedControlSignal(
             entry,
             connected,
             connectionId,
