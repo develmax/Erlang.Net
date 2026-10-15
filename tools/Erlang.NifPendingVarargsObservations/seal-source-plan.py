@@ -36,5 +36,5 @@ for name in sorted(paths):
         data = data.replace(b'\r\n', b'\n')
     records.append({'Path': name, 'Bytes': len(data), 'Sha256': hashlib.sha256(data).hexdigest().upper(), 'HashMode': mode})
 receipt = {'Status': 'REVIEWED_SOURCE_ONLY_NATIVE_NOT_EXECUTED', 'PinnedOtpCommit': 'ad05823719d77c8faee87348ea39513d4e2f99c5', 'NativeOrSdkExecuted': False, 'Files': records}
-args.output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+args.output.write_bytes((json.dumps(receipt, indent=2) + '\n').encode('utf-8'))
 print(hashlib.sha256(args.output.read_bytes()).hexdigest().upper())

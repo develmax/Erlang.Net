@@ -1,0 +1,1 @@
+-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_info([]).

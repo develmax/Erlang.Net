@@ -1,0 +1,153 @@
+{
+  "Status": "SOURCE_ONLY_STATIC_PIN_GUIDED_CASES_NOT_EXECUTED",
+  "ComparableCases": [
+    {
+      "Name": "erlang-system-allocator-query-sizes-atom",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_sizes(sys_alloc).",
+      "SourceUtf8Sha256": "335574E37FA6220CAB786238DA3114D12C31BE395C7A2FE180C04FDB508B9A71",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-atom.erl",
+      "Expected": "{ok,[{instance,0,[]}]}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-sizes-singleton-list",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_sizes([sys_alloc]).",
+      "SourceUtf8Sha256": "D0D0B49D1F7BDCDE55556D59FCB58FCBAB4DAA924F03AFBDE95C1FBDBD9BD809",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-singleton-list.erl",
+      "Expected": "{ok,[{sys_alloc,[{instance,0,[]}]}]}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-info-empty-list",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_info([]).",
+      "SourceUtf8Sha256": "F534CF2C116514FA77EF1B2431C174D303A7281FFB3D8E4458B9734FE36AE4B0",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-empty-list.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-sizes-duplicate",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_sizes([sys_alloc,sys_alloc]).",
+      "SourceUtf8Sha256": "8E783F268B1625EE774B79CBA3886A30186D8F55576AB2A2C7BEE337DB763023",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-duplicate.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-sizes-improper",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_sizes([sys_alloc|tail]).",
+      "SourceUtf8Sha256": "ED2701442EF3E24490BEF41AC4C21CBCC00B2F019E8AFD024735A28BF1CABAFC",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-improper.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-info-wrong-outer",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_info(42).",
+      "SourceUtf8Sha256": "45FA5901CD5C9152CC60E60AAD6BD6E9836DB745C98B03904D8E6C75275FF185",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-wrong-outer.erl",
+      "Expected": "{error,error,function_clause}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-sizes-known-unsupported-before-unknown",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_sizes([eheap_alloc,unknown_allocator_sys_profile316]).",
+      "SourceUtf8Sha256": "A5FF1EDA0C67A6A017845DC962424D971FCCE2583838D35D321715BF18EAC6DD",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-known-unsupported-before-unknown.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-info-unknown-atom",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_info(unknown_allocator_sys_profile316).",
+      "SourceUtf8Sha256": "4BDC3790C1517D0AE95A046415B92621BE2B454D065A9D6178900D02612FC10D",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-unknown-atom.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    },
+    {
+      "Name": "erlang-system-allocator-query-info-nonatom-list-member",
+      "Source": "-module(oracle_sys_alloc_query). -export([run/0]). run()->erlang:alloc_info([sys_alloc,42]).",
+      "SourceUtf8Sha256": "7E5642E2A32292B719020E448E6B3F363BA774B0BF1A71C294E91E315CCE473C",
+      "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-nonatom-list-member.erl",
+      "Expected": "{error,error,badarg}",
+      "ExecutionStatus": "NOT_EXECUTED",
+      "ComparableOriginalAndSdk": true
+    }
+  ],
+  "SeparateBackendAdaptationObservation": {
+    "Name": "erlang-system-allocator-query-full-options-backend-adaptation",
+    "Source": "-module(oracle_sys_alloc_full_options). -export([run/0]). run()->[{instance,0,[{options,[{e,true},{m,M}|Rest]}]}]=erlang:alloc_info(sys_alloc),[{sys_alloc,[{instance,0,[{options,[{e,true},{m,ML}|ListRest]}]}]}]=erlang:alloc_info([sys_alloc]),{sys_alloc_full_options,{e,true},{m,M},Rest,{e,true},{m,ML},ListRest}.",
+    "SourceUtf8Sha256": "46563FF7FC41BAECF742EAAF4E1969A7CD30C734467A75928C503AC97F455BB1",
+    "FixturePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/full-options-backend-adaptation.erl",
+    "ExpectedSdk": "{ok,{sys_alloc_full_options,{e,true},{m,dotnet_native_memory},[],{e,true},{m,dotnet_native_memory},[]}}",
+    "ExpectedOriginalPattern": "{ok,{sys_alloc_full_options,{e,true},{m,libc},AtomOptionalTail,{e,true},{m,libc},ListOptionalTail}}",
+    "OptionalNativeTailAllowedShapes": [
+      "[]",
+      "[{tp,NonnegativeInteger}]",
+      "[{tt,NonnegativeInteger}]",
+      "[{tt,NonnegativeInteger},{tp,NonnegativeInteger}]"
+    ],
+    "OptionalTuningValuesAreRetainedInObservedResult": true,
+    "BackendDifferenceNormalized": false,
+    "AppendedToComparableModules": false,
+    "EqualityClaimed": false,
+    "ExecutionStatus": "NOT_EXECUTED"
+  },
+  "PinnedSourceExtracts": [
+    {
+      "OriginalPath": "erts/preloaded/src/erlang.erl",
+      "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobBytes": 475966,
+      "FullBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Ranges": [
+        [
+          13339,
+          13401
+        ]
+      ],
+      "Excerpt": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erlang.erl.excerpt.txt",
+      "ExcerptSha256": "F6AEE6C61E8611742A8572DA3132C669E09674929489DD721A5AE66406EFB9A9"
+    },
+    {
+      "OriginalPath": "erts/emulator/beam/erl_alloc.c",
+      "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobBytes": 112453,
+      "FullBlobSha256": "F55A12FF711D71AA53FB8981E1DF5642B76A11FDBE4383E7562EAF2503A0C61A",
+      "Ranges": [
+        [
+          3151,
+          3213
+        ],
+        [
+          3362,
+          3424
+        ]
+      ],
+      "Excerpt": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.c.excerpt.txt",
+      "ExcerptSha256": "8D5FF503BC8DD9C21E67A850CBA7D48A712ECCAEB7DD09DAB0A9498CDC3A100C"
+    },
+    {
+      "OriginalPath": "erts/emulator/beam/erl_alloc.types",
+      "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobBytes": 16932,
+      "FullBlobSha256": "50A41DC18BAF4FA83CED26EC2B58016C328DF41F8602607F68324A07214AA38D",
+      "Ranges": [
+        [
+          68,
+          93
+        ]
+      ],
+      "Excerpt": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.types.excerpt.txt",
+      "ExcerptSha256": "27EFA7AB1CC99C249F7DEDE7B11E574DE89B87FB5B7C8F7E4F5311023ECA8D4C"
+    }
+  ]
+}

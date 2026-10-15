@@ -4,6 +4,9 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Differential;
 
+if (args.Length == 3 && args[2] == AllocatorProfileObservationNames.Command)
+    return await AllocatorProfileObservation.Run(args[0], args[1]);
+
 if (args.Length == 3 && args[2] == DescriptorIoNames.Command)
     return await DescriptorIoContracts.RunReference(args[0], args[1]);
 
@@ -512,7 +515,10 @@ try
             results.Count + moduleResults.Count + diagnosticResults.Count
         );
         Term expected = OracleResultProtocol.Decode(captured.StandardOutput);
-        activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleCompile };
+        activeNativeEvidence = activeNativeEvidence with
+        {
+            Stage = OracleExecutionStages.ManagedModuleCompile
+        };
         await OracleProgressCheckpoint.Write(
             args[1],
             fixture.Source,
@@ -521,7 +527,10 @@ try
         );
 
         using var generated = GeneratedModuleCompiler.Compile(fixture.Source);
-        activeNativeEvidence = activeNativeEvidence with { Stage = OracleExecutionStages.ManagedModuleExecute };
+        activeNativeEvidence = activeNativeEvidence with
+        {
+            Stage = OracleExecutionStages.ManagedModuleExecute
+        };
         await OracleProgressCheckpoint.Write(
             args[1],
             fixture.Source,

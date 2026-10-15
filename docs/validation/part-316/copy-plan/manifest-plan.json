@@ -1,0 +1,121 @@
+{
+  "Status": "LEAN316_STATIC_COPY_ROWS_AND_PENDING_DYNAMIC_REQUIRED_FAMILIES_NO_COPY",
+  "Part": 316,
+  "StaticRows": 236,
+  "StaticBytes": 10450113,
+  "MaximumIndividualFileBytes": 104857600,
+  "NoArchiveOrBinaryOrFullSourceTreeCopies": true,
+  "LargestRows": [
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/artifact-12010525752/differential.json",
+      "Bytes": 5975543
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/tests-first-failed.json",
+      "Bytes": 923595
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/artifact-12008608791/tests.json",
+      "Bytes": 917450
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/source-resource-closure.json",
+      "Bytes": 413597
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/formatted-source-resource-closure.json",
+      "Bytes": 413597
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/pre-format-source-resource-closure.json",
+      "Bytes": 413596
+    }
+  ],
+  "ExactFiveRelativeProofTargets": [
+    "final-main/tests.json",
+    "final-main/full-guard.json",
+    "final-native/guard.json",
+    "module-readiness.json",
+    "evidence-receipt.json"
+  ],
+  "FinalizerGeneratedReserved": [
+    "evidence-receipt.json"
+  ],
+  "DynamicFamilies": [
+    {
+      "Role": "CorrectedMain2ActualFull",
+      "SourceDirectory": "artifacts/root-part316-main2",
+      "RequiredNames": [
+        "full-exit.json",
+        "full-validation.log",
+        "full-guard.json"
+      ],
+      "DestinationPrefix": "final-main/",
+      "Requires": "Actual full exit0, zero failures, all historical ordered names and actual507/349 registry checks; no pass inferred from first failure or target."
+    },
+    {
+      "Role": "ActualMainTestsAndElevenIntegrationResults",
+      "Sources": {
+        "artifacts/tests.json": "final-main/tests.json",
+        "artifacts/integration-results.json": "final-main/integration-results.json"
+      },
+      "Requires": "Exact reports from successful Main2 full; bind hashes only after Root actual gate."
+    },
+    {
+      "Role": "ActualPostFullNative",
+      "SourceDirectory": "artifacts/root-part316-main-windows-native1",
+      "DestinationPrefix": "final-native/",
+      "RequiredNames": [
+        "guard.json",
+        "legacy.attempt.json",
+        "legacy.process.json",
+        "legacy.stdout",
+        "legacy.stderr",
+        "provider-query.attempt.json",
+        "provider-query.process.json",
+        "provider-query.stdout",
+        "provider-query.stderr",
+        "reallocation.attempt.json",
+        "reallocation.process.json",
+        "reallocation.stdout",
+        "reallocation.stderr"
+      ],
+      "Requires": "Actual Main2 sourcefreeze57F9/closure87E2, public profile full observation if separately executed must keep declared backend adaptation, typed reviews; source-only proposal never satisfies this family."
+    },
+    {
+      "Role": "ActualReadiness",
+      "Sources": {
+        "docs/module-readiness.json": "module-readiness.json",
+        "docs/module-readiness-scope.json": "readiness/module-readiness-scope.json",
+        "docs/MODULE_READINESS.md": "readiness/MODULE_READINESS.md",
+        "docs/supported-mfas.json": "readiness/supported-mfas.json"
+      },
+      "Requires": "Actual CLI exit0 and current507default/509optional/erlang349 presence; semantic completion remains partial."
+    }
+  ],
+  "OmittedLargeTokenReports": [
+    {
+      "Directory": "allocator-public-sys-profile316-composed1",
+      "BeforeSha256": "784D402B878716668EC97141A0D9F3F18C265B387AD7CF5106B55BED34F24C9A",
+      "AfterSha256": "784D402B878716668EC97141A0D9F3F18C265B387AD7CF5106B55BED34F24C9A",
+      "RawEqualVerified": true,
+      "Copied": false
+    },
+    {
+      "Directory": "allocator-public-sys-profile316-composed2",
+      "BeforeSha256": "E493533D08E8B268AA12B9E10FC097682456EBB4BB7ACCA01681CB7A2D19D122",
+      "AfterSha256": "E493533D08E8B268AA12B9E10FC097682456EBB4BB7ACCA01681CB7A2D19D122",
+      "RawEqualVerified": true,
+      "Copied": false
+    }
+  ],
+  "ExternalRawApiArtifactIndex": "external-api-artifact-index.json",
+  "FirstFullFailurePreserved": {
+    "Passed": 6653,
+    "Failed": 1,
+    "Correction": "Only stale HOST registry constants505/507 ->507/509; no production or original expectation change."
+  },
+  "EnglishDraftNeedsActualGateUpdate": true,
+  "New316OriginalOrNativeOrFinalFullPassClaimed": false,
+  "MainGitSdkBuildNativeVmMutationOrExecutionByIndexer": false
+}

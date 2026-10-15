@@ -3848,6 +3848,22 @@
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
+    "Module": "erlang",
+    "Function": "alloc_info",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:alloc_info/1",
+    "Limits": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+  },
+  {
+    "Module": "erlang",
+    "Function": "alloc_sizes",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:alloc_sizes/1",
+    "Limits": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+  },
+  {
     "Module": "gen_server",
     "Function": "start",
     "Arity": 3,

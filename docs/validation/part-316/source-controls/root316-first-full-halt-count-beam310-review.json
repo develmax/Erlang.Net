@@ -1,0 +1,33 @@
+{
+  "Status": "PASS_PASSIVE_CAUSE_REVIEW_FIRST_MAIN316_HALT_TEST_COUNT_REGRESSION",
+  "FirstTestsSha256": "2F0FAAF1F58D7B5C917EA0F07C8C00D235779F6368782A721DDEEFEF85130B39",
+  "Passed": 6653,
+  "Failed": 1,
+  "Failure": {
+    "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+    "Status": "Failed",
+    "Error": "System.InvalidOperationException: Dedicated halt process contract failed\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 21\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 99\r\n   at Erlang.Tests.HaltSubprocessHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltSubprocessHostChecks.cs:line 11\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4360",
+    "Milliseconds": 11
+  },
+  "ActualRegisteredMfaLoopPassedRows": 507,
+  "ActualErlangMfaLoopPassedRows": 349,
+  "NewPositiveAllocInfoAndSizesMfasPassed": true,
+  "SavedDerivedRegistryRows": 505,
+  "SavedDerivedErlangRows": 347,
+  "SavedRawRegistryRole": "Historical readiness metadata not regenerated after failed test stage; retained unchanged, not evidence of current507",
+  "NarrowProposedTestCorrection": {
+    "DefaultCoreAndOtp": [
+      505,
+      507
+    ],
+    "WithOptionalIo": [
+      507,
+      509
+    ]
+  },
+  "Reason": "Two new actual default public exports; optional IoCharacterRequests still adds only existing arities1/2",
+  "NoProductionOrOracleExpectationChangeRequired": true,
+  "FailureBeforeOptionalIoRegistrationOrChildSpawns": true,
+  "CorrectedTargetAndRepeatedFullNotClaimed": true,
+  "ReviewerSdkNativeVmGitMainExecution": false
+}

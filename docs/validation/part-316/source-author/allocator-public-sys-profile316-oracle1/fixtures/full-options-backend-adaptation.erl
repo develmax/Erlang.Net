@@ -1,0 +1,1 @@
+-module(oracle_sys_alloc_full_options). -export([run/0]). run()->[{instance,0,[{options,[{e,true},{m,M}|Rest]}]}]=erlang:alloc_info(sys_alloc),[{sys_alloc,[{instance,0,[{options,[{e,true},{m,ML}|ListRest]}]}]}]=erlang:alloc_info([sys_alloc]),{sys_alloc_full_options,{e,true},{m,M},Rest,{e,true},{m,ML},ListRest}.

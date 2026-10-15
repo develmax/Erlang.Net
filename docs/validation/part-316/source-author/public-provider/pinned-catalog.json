@@ -1,0 +1,65 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "erts/emulator/beam/erl_alloc.types",
+  "Sha256": "50A41DC18BAF4FA83CED26EC2B58016C328DF41F8602607F68324A07214AA38D",
+  "DeclaredAllocators": [
+    "sys_alloc",
+    "temp_alloc",
+    "sl_alloc",
+    "std_alloc",
+    "ll_alloc",
+    "eheap_alloc",
+    "ets_alloc",
+    "fix_alloc",
+    "literal_alloc",
+    "binary_alloc",
+    "driver_alloc",
+    "test_alloc"
+  ],
+  "CExplicitAdditionalNames": [
+    "mseg_alloc",
+    "erts_mmap",
+    "alloc_util"
+  ],
+  "RecognizedNames": [
+    "alloc_util",
+    "binary_alloc",
+    "driver_alloc",
+    "eheap_alloc",
+    "erts_mmap",
+    "ets_alloc",
+    "fix_alloc",
+    "literal_alloc",
+    "ll_alloc",
+    "mseg_alloc",
+    "sl_alloc",
+    "std_alloc",
+    "sys_alloc",
+    "temp_alloc",
+    "test_alloc"
+  ],
+  "ImplementedProfiles": [
+    "sys_alloc"
+  ],
+  "RecognizedUnsupportedCount": 14,
+  "DisabledProfilesAdvertised": [],
+  "Generator": {
+    "OriginPath": "erts/emulator/utils/make_alloc_types",
+    "Sha256": "6430ABB994B2CD8A8111CAC62D71F4D2FBD16AD8F5E12A205936D334D19B5212",
+    "References": [
+      [
+        120,
+        144
+      ],
+      [
+        227,
+        236
+      ],
+      [
+        455,
+        461
+      ]
+    ]
+  },
+  "TestAllocatorIncludedInMax": true
+}

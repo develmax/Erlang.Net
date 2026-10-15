@@ -1,0 +1,97 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 116686447153,
+      "run_id": 38811758281,
+      "workflow_name": "Pinned OTP additional native reallocation comparison",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38811758281",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbKw3iMQ",
+      "head_sha": "32c394232588c275703e29be444f8d84cb5d27a4",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116686447153",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38811758281/job/116686447153",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-15T21:41:21Z",
+      "started_at": "2026-10-15T21:41:24Z",
+      "completed_at": "2026-10-15T21:50:37Z",
+      "name": "original-and-sdk-reallocation",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T21:41:24Z",
+          "completed_at": "2026-10-15T21:41:25Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T21:41:25Z",
+          "completed_at": "2026-10-15T21:41:51Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T21:41:51Z",
+          "completed_at": "2026-10-15T21:42:01Z"
+        },
+        {
+          "name": "Build verify and compare exact original and SDK",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 4,
+          "started_at": "2026-10-15T21:42:01Z",
+          "completed_at": "2026-10-15T21:50:32Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T21:50:32Z",
+          "completed_at": "2026-10-15T21:50:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-15T21:50:35Z",
+          "completed_at": "2026-10-15T21:50:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-15T21:50:35Z",
+          "completed_at": "2026-10-15T21:50:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-15T21:50:35Z",
+          "completed_at": "2026-10-15T21:50:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116686447153",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001425,
+      "runner_name": "GitHub Actions 1000001425",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

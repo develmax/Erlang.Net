@@ -1,0 +1,79 @@
+{
+  "Status": "PASS_ACTUAL_MAIN316_6654_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6654,
+  "Failed": 0,
+  "All6642PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "mfa/erlang:alloc_info/1",
+    "mfa/erlang:alloc_sizes/1",
+    "oracle/compiled-module/erlang-system-allocator-query-info-empty-list",
+    "oracle/compiled-module/erlang-system-allocator-query-info-nonatom-list-member",
+    "oracle/compiled-module/erlang-system-allocator-query-info-unknown-atom",
+    "oracle/compiled-module/erlang-system-allocator-query-info-wrong-outer",
+    "oracle/compiled-module/erlang-system-allocator-query-sizes-atom",
+    "oracle/compiled-module/erlang-system-allocator-query-sizes-duplicate",
+    "oracle/compiled-module/erlang-system-allocator-query-sizes-improper",
+    "oracle/compiled-module/erlang-system-allocator-query-sizes-known-unsupported-before-unknown",
+    "oracle/compiled-module/erlang-system-allocator-query-sizes-singleton-list",
+    "runtime/public-allocator-sys-clr-profile-and-complete-validation"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 26,
+  "CSharpPaths": 19,
+  "SourceResourceClosureFiles": 2241,
+  "SourceFreezeSha256": "57F9F381B91AECFDA6634167A659B6C6C9C0A9147ED0AF9BCEDA9F1B3AD7680C",
+  "SourceClosureSha256": "87E2A60C038EC320EE9F91E9C1A3E7387E250D5EA5EA4AD293D717D973DF4691",
+  "Registry": 507,
+  "PreviousRegistry": 505,
+  "PublicMfaDelta": 2,
+  "ErlangMfas": 349,
+  "AddedMfas": [
+    [
+      "erlang",
+      "alloc_info",
+      1
+    ],
+    [
+      "erlang",
+      "alloc_sizes",
+      1
+    ]
+  ],
+  "RawRegistrySha256": "979A103C4AE832AC387DF1D720B81B425A571040599D60512C3195C78FCCF2EA",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    }
+  ],
+  "NewAllocatorLimitsAreExplicitClrProfileDisclosures": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1073,
+      "Sha256": "89E2FF550301826DFE26C02318578E1D21252D85478B9261BB3673B80AE6236C"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1098,
+      "Sha256": "04E3A8CF4739C70F79921F2BC76710BD7496FDB0122CDAE5B18A4858A7B44637"
+    }
+  ],
+  "NewOriginalCasesExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "GuardSourceSha256": "2B0D2557D6BC8561101AD6A3937BCF598A2140B7D88ADAA3E200069E19C4B86F"
+}

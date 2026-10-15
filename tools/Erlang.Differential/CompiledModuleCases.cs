@@ -2,7 +2,10 @@ namespace Erlang.Differential;
 
 public static class CompiledModuleCases
 {
-    public static IReadOnlyList<CompiledModuleCase> All { get; } = [
+    public static IReadOnlyList<CompiledModuleCase> All
+    {
+        get;
+    } = [
         new(
             "private-clauses",
             "-module(oracle_clauses). -export([run/0]). run()->pick(2). pick(0)->zero; pick(N) when is_integer(N)->N+1.",
@@ -618,6 +621,7 @@ public static class CompiledModuleCases
         .. ApplyFrameCases.Modules,
         .. NifDeclarationCases.Modules,
         .. ProcessInfoDefaultSubsetCases.Modules,
-        .. IndirectLoadNifCases.Modules
+        .. IndirectLoadNifCases.Modules,
+        .. SystemAllocatorQueryCases.Modules
     ];
 }

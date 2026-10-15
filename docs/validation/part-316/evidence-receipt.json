@@ -1,0 +1,2037 @@
+{
+  "Status": "PASS_ACTUAL_MAIN316_FULL_NATIVE_READINESS_WITH_PUBLIC_CLR_SYS_ALLOC_PROFILE",
+  "Passed": 6654,
+  "Failed": 0,
+  "Registry": 507,
+  "RegistryDelta": 2,
+  "ErlangPresence": 349,
+  "IntegrationResults": 11,
+  "SourcePaths": 26,
+  "CSharpPaths": 19,
+  "SourceClosurePaths": 2241,
+  "SourceFreezeSha256": "57F9F381B91AECFDA6634167A659B6C6C9C0A9147ED0AF9BCEDA9F1B3AD7680C",
+  "SourceClosureSha256": "87E2A60C038EC320EE9F91E9C1A3E7387E250D5EA5EA4AD293D717D973DF4691",
+  "EvidenceIndexSha256": "76D51DC6E01D1028B84A5986E08FD92ED680802926ECCF620B7EAB5D2B7C32C1",
+  "ConfigSha256": "329E08609E5432825DD1E8F93BC83A92D2BBA4241047F72AAE45693BCB035575",
+  "ComparisonTestReport": "validation/part-315/final-main/tests.json",
+  "FirstFullFailurePreserved": true,
+  "Current316RemotePending": true,
+  "Previous315AllFourTerminalAudited": true,
+  "Previous315ReallocationImportFailurePreserved": true,
+  "NewOriginalReallocationCompared": false,
+  "NewOriginalPublicAllocatorCasesCompared": false,
+  "DeclaredClrBackendAdaptation": true,
+  "PhysicalMemoryParityClaimed": false,
+  "PortableCompiledBinaryArchiveClaimed": false,
+  "Files": [
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/README.md",
+      "Destination": "docs/validation/part-316/copy-plan/README.md",
+      "Bytes": 2206,
+      "Sha256": "5F853E99CEA072CB1ADE9881760E0BFECC40B1C2871B58ED01C2D7C201828232",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/external-api-artifact-index.json",
+      "Destination": "docs/validation/part-316/copy-plan/external-api-artifact-index.json",
+      "Bytes": 2362,
+      "Sha256": "569B9FBE68CD5CA2DFA49BEB3582B34507D3E0FB923CCE266C0B46E2B1AAB3FD",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/manifest-freeze.json",
+      "Destination": "docs/validation/part-316/copy-plan/manifest-freeze.json",
+      "Bytes": 1551,
+      "Sha256": "0F9EEB95FD287017E16E2999B34FBBEF56720271F6ED7A104D6D8647560BA392",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/manifest-plan.json",
+      "Destination": "docs/validation/part-316/copy-plan/manifest-plan.json",
+      "Bytes": 4549,
+      "Sha256": "E147159265B27189F124C7869BFA16CFCEAB17A75826DA830CF9DB8A7CB3CE5B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/prepare-manifest.py",
+      "Destination": "docs/validation/part-316/copy-plan/prepare-manifest.py",
+      "Bytes": 12624,
+      "Sha256": "004B3353034AC2D207EB8CEEBDA38BBA3F7B6225CD411A1900EC633C9781EBC6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-lean-copy-plan1/static-copy-manifest.json",
+      "Destination": "docs/validation/part-316/copy-plan/static-copy-manifest.json",
+      "Bytes": 104249,
+      "Sha256": "846BFA3A7F2567679C511A41D737BE8B9D86A76269B7FBA62A5D3A662A800E44",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-finalization-bound1/config-scope.json",
+      "Destination": "docs/validation/part-316/final-controls/config-scope.json",
+      "Bytes": 506,
+      "Sha256": "6C8A230B5761CBE38F122BD809536BC98A21B8B88B7CCADD321FAFE538213CA1",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-finalization-bound1/english-entry.md",
+      "Destination": "docs/validation/part-316/final-controls/english-entry.md",
+      "Bytes": 4638,
+      "Sha256": "67DD821D9CB37222E4C121D477FBB1070F5F93AF98CFB30FA621ABC66E818910",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/guard316-full.py",
+      "Destination": "docs/validation/part-316/final-controls/native-revision2/guard316-full.py",
+      "Bytes": 4363,
+      "Sha256": "2B0D2557D6BC8561101AD6A3937BCF598A2140B7D88ADAA3E200069E19C4B86F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/guard316-main-native.py",
+      "Destination": "docs/validation/part-316/final-controls/native-revision2/guard316-main-native.py",
+      "Bytes": 7457,
+      "Sha256": "0B9FFD69539052F651905EDE183D5384170AD5608C8C76393B60B395889137E3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/proposal-freeze.json",
+      "Destination": "docs/validation/part-316/final-controls/native-revision2/proposal-freeze.json",
+      "Bytes": 912,
+      "Sha256": "67DAA5A2D02E07C87FFF0BFA6AED027D9AE21D7283FC5DDDE28FCF26111AACF0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/run316-main-native.py",
+      "Destination": "docs/validation/part-316/final-controls/native-revision2/run316-main-native.py",
+      "Bytes": 6200,
+      "Sha256": "8C0E1644800233B8947946A7CA2EE241A9A26F42B341B96F446A615DAEDC656C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-bind316-finalization.py",
+      "Destination": "docs/validation/part-316/final-controls/root-bind316-finalization.py",
+      "Bytes": 3517,
+      "Sha256": "693000E78DB423F732CDE3BD2912822278B8947C0A8204B59991CCB52BFBA558",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-correct316-registry-count.py",
+      "Destination": "docs/validation/part-316/final-controls/root-correct316-registry-count.py",
+      "Bytes": 3153,
+      "Sha256": "D92BAC506F68D055F7999B713187F284F7ACA9388774207420AD4B54CBF67616",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-correct316-registry-count2.py",
+      "Destination": "docs/validation/part-316/final-controls/root-correct316-registry-count2.py",
+      "Bytes": 3520,
+      "Sha256": "0A229E545B86EB0E3D279E74C10AC2B3A9CE6610AC4D5994A0BCEDE56A0DE8DF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-finalize316.py",
+      "Destination": "docs/validation/part-316/final-controls/root-finalize316.py",
+      "Bytes": 7576,
+      "Sha256": "A0C22A41397B7772D15380EF98E75ABA289E75FB103E20B6F2A8B457111C0AA0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1-beam310-independent-guard.json",
+      "Destination": "docs/validation/part-316/final-controls/root-part316-main-windows-native1-beam310-independent-guard.json",
+      "Bytes": 5443,
+      "Sha256": "BB0431D62ACBE43694C385FEA7A6E9727C55D8CE28825857577FA0BB0F9B99E4",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-run316-main2-full.ps1",
+      "Destination": "docs/validation/part-316/final-controls/root-run316-main2-full.ps1",
+      "Bytes": 939,
+      "Sha256": "05F13CC9D3A1B92D4F49CFC220B372F6B917227D1EF612A0F960E4D0F45C8475",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root316-local-gates-and-lean-finalizer-beam310-peer.json",
+      "Destination": "docs/validation/part-316/final-controls/root316-local-gates-and-lean-finalizer-beam310-peer.json",
+      "Bytes": 1339,
+      "Sha256": "0E23B63F537A839B45F5774484F3C7AB356C3ACEFCCF19662AE92DF79E9DF9EB",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-finalization-bound1/runtime-note.txt",
+      "Destination": "docs/validation/part-316/final-controls/runtime-note.txt",
+      "Bytes": 1227,
+      "Sha256": "96AAE0E69223EABEACB903C57C23A6B0C2477A922CCE265067BA043218789EBD",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-build.log",
+      "Destination": "docs/validation/part-316/final-main/count-correction-build.log",
+      "Bytes": 1566,
+      "Sha256": "2EC740F9324157ABFE5C42771C38D7E3B85A465688435C73F5C0F685C8CBA2FC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-exit.json",
+      "Destination": "docs/validation/part-316/final-main/count-correction-exit.json",
+      "Bytes": 161,
+      "Sha256": "7B911022C377779812F7B778B6DFDAED02CCF24F6F12246CB7A565F42BA0608C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-focus.json",
+      "Destination": "docs/validation/part-316/final-main/count-correction-focus.json",
+      "Bytes": 819,
+      "Sha256": "9B4C78326B5351712E1458C09BF5C5225150F0A746612FBD75BCBDFD14752569",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-focus.log",
+      "Destination": "docs/validation/part-316/final-main/count-correction-focus.log",
+      "Bytes": 66,
+      "Sha256": "602CE05D0815D1B1FF185C751E4E5DF4295211067056796E0C88AFA35E5F8960",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/full-exit.json",
+      "Destination": "docs/validation/part-316/final-main/full-exit.json",
+      "Bytes": 168,
+      "Sha256": "5BEE0698242E135E47F6D43906C9CB811CCFC25BC18D50B37E922F6B662E4BEA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/full-guard.json",
+      "Destination": "docs/validation/part-316/final-main/full-guard.json",
+      "Bytes": 3300,
+      "Sha256": "35721281AE80DF42B8B01C6842FC86AD9EDAD35EE6002298EE9731686CBE6F9E",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/full-validation.log",
+      "Destination": "docs/validation/part-316/final-main/full-validation.log",
+      "Bytes": 402581,
+      "Sha256": "B4E9745FB541D898FCE5130C9388D4A9DA6E0CC27BAD04AF2C50253A663F2B65",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/integration-results.json",
+      "Destination": "docs/validation/part-316/final-main/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "DE5C6F047733E2CDB724FE341AAC896F486465F515F9D9935C07F7DB0C5EA8DE",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/raw-supported-mfas.json",
+      "Destination": "docs/validation/part-316/final-main/raw-supported-mfas.json",
+      "Bytes": 152930,
+      "Sha256": "979A103C4AE832AC387DF1D720B81B425A571040599D60512C3195C78FCCF2EA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/readiness-cli.log",
+      "Destination": "docs/validation/part-316/final-main/readiness-cli.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/readiness-exit.json",
+      "Destination": "docs/validation/part-316/final-main/readiness-exit.json",
+      "Bytes": 142,
+      "Sha256": "3FB44ECFC6B7C092E2DBA50829B795A30FBE68934C2FB6AE4466E2FF0DC5717F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/readiness-scope-before.json",
+      "Destination": "docs/validation/part-316/final-main/readiness-scope-before.json",
+      "Bytes": 119871,
+      "Sha256": "C39D3E7C0183C3710494CC9FEA0A11A8667EACD7AE5D9529668371256ACCEBAA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/readiness-scope-command.json",
+      "Destination": "docs/validation/part-316/final-main/readiness-scope-command.json",
+      "Bytes": 265,
+      "Sha256": "93297ECBAB626AF468B7545E48B00046D9F3218E9028A9A8BE5433815F34C899",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/source-freeze.json",
+      "Destination": "docs/validation/part-316/final-main/source-freeze.json",
+      "Bytes": 11996,
+      "Sha256": "57F9F381B91AECFDA6634167A659B6C6C9C0A9147ED0AF9BCEDA9F1B3AD7680C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/source-resource-closure.json",
+      "Destination": "docs/validation/part-316/final-main/source-resource-closure.json",
+      "Bytes": 413597,
+      "Sha256": "87E2A60C038EC320EE9F91E9C1A3E7387E250D5EA5EA4AD293D717D973DF4691",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/tests.json",
+      "Destination": "docs/validation/part-316/final-main/tests.json",
+      "Bytes": 922868,
+      "Sha256": "56BBDE159F65F69E8F53EE68A8F48130F7FFEC06C094F567381344CA8D6CE051",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/guard.json",
+      "Destination": "docs/validation/part-316/final-native/guard.json",
+      "Bytes": 5347,
+      "Sha256": "BF0D9A3A239140425CF6EA4E69489BA8090FC0FE1096E453C66336E4E00F8FF8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/legacy.attempt.json",
+      "Destination": "docs/validation/part-316/final-native/legacy.attempt.json",
+      "Bytes": 9664,
+      "Sha256": "F86FF06CE050CCF04A6D6A37505F288D63B4B825289678FB666712FA2069E965",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/legacy.process.json",
+      "Destination": "docs/validation/part-316/final-native/legacy.process.json",
+      "Bytes": 812,
+      "Sha256": "1084B371C4685A6347E38BFBC20BD5C7B75BC4ABBCC8D4DB9143550B02AEF2A1",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/legacy.stderr",
+      "Destination": "docs/validation/part-316/final-native/legacy.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/legacy.stdout",
+      "Destination": "docs/validation/part-316/final-native/legacy.stdout",
+      "Bytes": 1839,
+      "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/provider-query.attempt.json",
+      "Destination": "docs/validation/part-316/final-native/provider-query.attempt.json",
+      "Bytes": 9712,
+      "Sha256": "890B3B09D9D741E8BC561EC08503DA46979F239D450F302CA8FB95CF4A0F0D5F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/provider-query.process.json",
+      "Destination": "docs/validation/part-316/final-native/provider-query.process.json",
+      "Bytes": 835,
+      "Sha256": "C1CF47375799060CBB8DE243EC488E3BF6CDC436A657D11E65070DAE60EC8FD8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/provider-query.stderr",
+      "Destination": "docs/validation/part-316/final-native/provider-query.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/provider-query.stdout",
+      "Destination": "docs/validation/part-316/final-native/provider-query.stdout",
+      "Bytes": 4594,
+      "Sha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/reallocation.attempt.json",
+      "Destination": "docs/validation/part-316/final-native/reallocation.attempt.json",
+      "Bytes": 10089,
+      "Sha256": "8B9CD8C60F445DF1A3173C42DB844DFC6294BADE1BBE2AEA375D4A5486841B0F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/reallocation.process.json",
+      "Destination": "docs/validation/part-316/final-native/reallocation.process.json",
+      "Bytes": 832,
+      "Sha256": "49FC38C0EA61B49F6D4C76E7D90B29CF627CAC7505ED69A4373DCC750F7EB762",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/reallocation.stderr",
+      "Destination": "docs/validation/part-316/final-native/reallocation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main-windows-native1/reallocation.stdout",
+      "Destination": "docs/validation/part-316/final-native/reallocation.stdout",
+      "Bytes": 2875,
+      "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/actual-core-focus-guard.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/actual-core-focus-guard.json",
+      "Bytes": 1654,
+      "Sha256": "81FCC62026A0C5755DC1F08DCEE1841E3F04479CC152C2E32B06D68F31E6782D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/custom-format.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/custom-format.log",
+      "Bytes": 32,
+      "Sha256": "E27828D691BEB8FA1DC514F49F0DF8C1538FDEEC7DBDC465DDBC1C929F6D5B64",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/focus-exit.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/focus-exit.json",
+      "Bytes": 178,
+      "Sha256": "6DBE3FE6F2164B304793B420EC73278D80FE601FA632D33D61EF199A5EC6EEC3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/focus-results.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/focus-results.json",
+      "Bytes": 1198,
+      "Sha256": "C465BD5C55772EF02A540751B3FC2FEB53D2FAC54ECCC5ED8670106F3D882F54",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/focus.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/focus.log",
+      "Bytes": 143,
+      "Sha256": "9D5B0C492E725118C08AD35FEEA5DAC46194006F69F8D2FDCFDAE04AF79C17EC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/formatted-core-source-freeze.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/formatted-core-source-freeze.json",
+      "Bytes": 4863,
+      "Sha256": "EDF2CD42E162933F73EA2AA1588494F3754F2DB1AF529FD707C792E48149D6B5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/pre-format-source-freeze.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/pre-format-source-freeze.json",
+      "Bytes": 3125,
+      "Sha256": "130467EC31BE88E6887F35E1B4634A80F10F72B85BB1160D2D0B511F32F1832F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/pre-format-token-inputs.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/pre-format-token-inputs.json",
+      "Bytes": 2537,
+      "Sha256": "15EEBBFC3EC3B091FF284F2105774E6DA3E20EF57A8578D70FD49D02D0E5A90B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/sdk-format.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/sdk-format.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed1/target-build.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed1/target-build.log",
+      "Bytes": 4041,
+      "Sha256": "F22A29B33F24410FA824346A4DEF4DAA805721B1CBC3C396A5E43E7B26CBDF50",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/custom-format.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/custom-format.log",
+      "Bytes": 32,
+      "Sha256": "22708DD90501B6C16B79F76AF7848FED313FF665F44A79EDB71E77CBB809714C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/formatted-source-freeze.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/formatted-source-freeze.json",
+      "Bytes": 10351,
+      "Sha256": "2798591EE8BC8FE77E719B96C2D9535672255C5E772E0FFC30E6E294BFA4372A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/formatted-source-resource-closure.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/formatted-source-resource-closure.json",
+      "Bytes": 413597,
+      "Sha256": "87CC2B5E1C8DDEF229E95DA38875431E73BA715D6EE71275F7DAEA5755E00299",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/observer-target-build-exit.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/observer-target-build-exit.json",
+      "Bytes": 181,
+      "Sha256": "1FCCE3D85D398A11A6FA11DF6E03F90A36A84562743467E041FC45720C48780F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/observer-target-build.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/observer-target-build.log",
+      "Bytes": 2928,
+      "Sha256": "4F24056EDA55A92A313073784184B2337EBD1C4FBD76687080D01637D12E9092",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/pre-format-source-freeze.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/pre-format-source-freeze.json",
+      "Bytes": 5349,
+      "Sha256": "8EACE2DCE922603FF7FFBAE668444FA468C9953A544CF78F6F30A3EB0FF1D273",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/pre-format-source-resource-closure.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/pre-format-source-resource-closure.json",
+      "Bytes": 413596,
+      "Sha256": "6A8B7736EB582F07CDAD1490AB93F50371EE99689B36C9A5DB4B65CB06D3214A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/pre-format-token-inputs.json",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/pre-format-token-inputs.json",
+      "Bytes": 519,
+      "Sha256": "28C279BD42BDE51A91DE2E9AEE1F2A9B111B8E8A486952C8023A4932841141AA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/sdk-format.log",
+      "Destination": "docs/validation/part-316/isolated/allocator-public-sys-profile316-composed2/sdk-format.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/AllocatorPublicManagedFocus.csproj",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/AllocatorPublicManagedFocus.csproj",
+      "Bytes": 279,
+      "Sha256": "8C462F35415EB8206AA3A63915CB1A3A1912BFA3BFE414F870E7D46A800445A5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/Program.cs",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/Program.cs",
+      "Bytes": 2848,
+      "Sha256": "53F5D6461F0C0FFA21B497CCF4B263FDB7365657A19946983046689246BEFB2C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/actual-results.json",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/actual-results.json",
+      "Bytes": 6234,
+      "Sha256": "D874B7A091A86C64CFA0566C83510295B3832208F6741AD8F752AC56936BE78C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/build.log",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/build.log",
+      "Bytes": 2008,
+      "Sha256": "036FCA835DE414B10D36F26895780B458310E3210D033FF6DE68E2E718D85B59",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/exit.json",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/exit.json",
+      "Bytes": 61,
+      "Sha256": "B4EE3D0A7C0C0F08434D53D4357A556ADCDAE5FC5B5F8371F56B357BB7677FA0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-managed-focus/run.log",
+      "Destination": "docs/validation/part-316/isolated/generated-sdk/run.log",
+      "Bytes": 46,
+      "Sha256": "EA1138289A34BB8B8F6C0FBB720E6941D37BB4BF83040052DED8D4D9031B3370",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "docs/module-readiness.json",
+      "Destination": "docs/validation/part-316/module-readiness.json",
+      "Bytes": 642882,
+      "Sha256": "5904DDC82F5413C73A251A041B17BFAECB12C6FD95E2DABB511C91A780FCFA68",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-ci-independent-guard.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-ci-independent-guard.json",
+      "Bytes": 1056,
+      "Sha256": "9D2BBBD4092D67A2CE321123E6FDF58CEC8F19DB8C0CE9A09C51BF2EAC111F30",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-native-38811779363-independent-envelope-and-sdk-guard.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-native-38811779363-independent-envelope-and-sdk-guard.json",
+      "Bytes": 3594,
+      "Sha256": "4C59126C4547957CFD111EA28C67033365472D0674D2353AF27B45554E7D25FF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-native-combined-independent-guard.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-native-combined-independent-guard.json",
+      "Bytes": 1430,
+      "Sha256": "B1F72F6EA4E4D1683F0BA4F77460AE8ED09D01296BA63AEC795BED379A722EFC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-native-terminal-guard.py",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-native-terminal-guard.py",
+      "Bytes": 9036,
+      "Sha256": "C8A3146CC2D01E97DE257E175E4C222E48A60A327E6D7E6290F5ACA696382F3F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-ordinary-contract.py",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-ordinary-contract.py",
+      "Bytes": 6399,
+      "Sha256": "19985B36B7890D23825FAA9EF6C4428BF3EE5CE8DB62D7E9100CFDA388513636",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-ordinary-strict-independent-guard.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-ordinary-strict-independent-guard.json",
+      "Bytes": 1178,
+      "Sha256": "FE3411575F893375CBB8446B5DF2EA8817C91D65D930C9CED938CD996E6C367B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-original13-independent-local-capture.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-original13-independent-local-capture.json",
+      "Bytes": 1514,
+      "Sha256": "C98FB71F61BCA768E822736B227AB40655790BB3BA5A5E1C18B4871B7F123911",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-original13-independent-local-report.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-original13-independent-local-report.json",
+      "Bytes": 3379,
+      "Sha256": "3C54944890C337612A000821D494072819CD5F091FEE17B7CDA49C1676149664",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-reallocation-failure-guard.py",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-reallocation-failure-guard.py",
+      "Bytes": 7481,
+      "Sha256": "B7A7985DA73031A2573E5E9AE4F111962D1763C46EB1EE4C3405954C808DB8E3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-reallocation-independent-failure-guard.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-reallocation-independent-failure-guard.json",
+      "Bytes": 1727,
+      "Sha256": "DDBB0827F1CE70EF8A6E7D7D38B923EE31E8D339C05311381557780E2C8C4E5C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-terminal-independent-summary.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-terminal-independent-summary.json",
+      "Bytes": 2478,
+      "Sha256": "97605D4F5FA324CD42E1E6D0CEE77B7F34F3E2AA079BA3005514737E360E29A4",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/artifact-12008608791/integration-results.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/artifact-12008608791/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "980ABE197E140F9EF44B0B27529BCD3230CDD996721EE975170CDFEA75423932",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/artifact-12008608791/tests.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/artifact-12008608791/tests.json",
+      "Bytes": 917450,
+      "Sha256": "2749998FD6D881C97C65ECBC3D6136D2435E323DA9CE87DE42A037FA320E3037",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/artifacts.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/artifacts.json",
+      "Bytes": 908,
+      "Sha256": "546087F5AC38C1584CD334285ED3E5D1B8C241B710FF4052DEA88FC2861FF9B7",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/download-manifest.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/download-manifest.json",
+      "Bytes": 1394,
+      "Sha256": "324579BE692B34564C83BC0747FD9BB54739238CD4532D1662CF0D8695B5C85B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/jobs.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/jobs.json",
+      "Bytes": 3300,
+      "Sha256": "F792574585EEDEAA4E80CB74BF128EC08EA1C4923820D5CDBF41FC9BC16E05D5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/raw-capture.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/raw-capture.json",
+      "Bytes": 399,
+      "Sha256": "0B58E9628DF52C782B632212CAFAFF00E3719F1B3528115523654BEDFEA95E6E",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811662261-terminal/run.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811662261-terminal/run.json",
+      "Bytes": 13613,
+      "Sha256": "27B84388DEDD6F59236370719BAE3C534D4FCBF0C422186EF702030376A2EA89",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/control/runtime-approval.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/control/runtime-approval.json",
+      "Bytes": 565,
+      "Sha256": "6901BABA150BB8B37D6AD33D7D0E4BEE286685C49CFFBE535AD63071C4EC3520",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/control/source-review.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/control/source-review.json",
+      "Bytes": 1206,
+      "Sha256": "B60346B63E9270C26A9B319F194BB54C52CC120F4068181024DA88D922E2B97B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/runtime-receipt/original-build-provenance.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/runtime-receipt/original-build-provenance.json",
+      "Bytes": 934,
+      "Sha256": "70CCE0347AFAF3C22A0FB3DC2641EA29BB32BA78486DBC83840E20C56AD1BD4A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.process.json",
+      "Bytes": 191,
+      "Sha256": "04E7D348F78BFB7B59ABCC4137A23B32F7B4D06E259D7D130409AB1C9B3CF638",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/compiler-version.stdout",
+      "Bytes": 246,
+      "Sha256": "8497F84B2B8334C413D9C6166BD39D009BA55D2FF60A8F23E66DFA5819C2B048",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.process.json",
+      "Bytes": 645,
+      "Sha256": "85189DF49CD15356FB5BC3E2D050DF43B8DE4E2BBB4234BEA9F5325272C950C0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.process.json",
+      "Bytes": 313,
+      "Sha256": "8BE1B79AECA7F54846635BC5514901184C9C0D2E95FB8767E06F4F0081C6CF6E",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/sdk-native/legacy_fixture-so-undefined.stdout",
+      "Bytes": 448,
+      "Sha256": "EFEFEDBE6AB3FE15AC75E01494627881ED5C1E1F1BDB41150CCBCB8406313F02",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifact-12008783505/source-build/legacy-provenance.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifact-12008783505/source-build/legacy-provenance.json",
+      "Bytes": 934,
+      "Sha256": "70CCE0347AFAF3C22A0FB3DC2641EA29BB32BA78486DBC83840E20C56AD1BD4A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/artifacts.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/artifacts.json",
+      "Bytes": 942,
+      "Sha256": "CB879A12ED62E575989905FDB29EA58D4E8AB713A86B973F7D1F8A0AE623B565",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/download-manifest.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/download-manifest.json",
+      "Bytes": 13704,
+      "Sha256": "B71ADCDB3AFBE596805DF7DE16C2887094C959FD94F07CEE568B7719D6F9CA16",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/job-116686447153.log",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/job-116686447153.log",
+      "Bytes": 33482,
+      "Sha256": "A103F8D963CC7FE6A264EF74EF2EFEFF7AD5D4128BF77AAB39654071C6E2F269",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/jobs.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/jobs.json",
+      "Bytes": 3359,
+      "Sha256": "D936CC0AE45D481450427A5BD867BC1A2863455FC24792D7E99DC942E72D227D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/raw-capture.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/raw-capture.json",
+      "Bytes": 409,
+      "Sha256": "8543E03B146627524A24B94356A1BCD3863B8F883A2EDC7F42B16E93CE5F86A6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811758281-terminal/run.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811758281-terminal/run.json",
+      "Bytes": 13644,
+      "Sha256": "51991FEA632264268313E3900AC76F105900FA2265D2EAF2172B94E63DD75916",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/build-receipt.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/build-receipt.json",
+      "Bytes": 5161,
+      "Sha256": "913568D0A456252A1A60485A26B5DCEF013F26FED5E25AEF3DE9ECB2CF230B53",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/compile-veneer.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/compile-veneer.process.json",
+      "Bytes": 736,
+      "Sha256": "4BA89A7E1197B98C24754BC7AB4DCEFE47CE64405B52DAEB15A0778B5A55CB3B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/gcc-version.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/gcc-version.stdout",
+      "Bytes": 246,
+      "Sha256": "8497F84B2B8334C413D9C6166BD39D009BA55D2FF60A8F23E66DFA5819C2B048",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.process.json",
+      "Bytes": 294,
+      "Sha256": "B6EEB1F71E3837F458EB5AC64D3B9AC1CAB4B0A215FB57C8C4EB2CE7B1AC598D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/nif_bridge-so-undefined.stdout",
+      "Bytes": 255,
+      "Sha256": "E6DF9859D6FA268E6B28C562D9EC0FEDF3C6840628ACC8D8C1433D9E868902A2",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-receipt.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-receipt.json",
+      "Bytes": 3304,
+      "Sha256": "54B21ECF8BCAD53826FAD53E1DC3EA414F822D5B9A001E1C2D48286E31E424C8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.process.json",
+      "Bytes": 762,
+      "Sha256": "8D2877F99F47566E849E7F2C727BE7D70A3491B1438BC752C34AB84C031BA366",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-bounded-sdk/sdk-six-argument.stdout",
+      "Bytes": 1924,
+      "Sha256": "71AFFE2DC249022C3853A85BF92C9D8A675CF3B4200CD08F0D590887BDDD7E9B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.process.json",
+      "Bytes": 669,
+      "Sha256": "25B6EA7C0A71FD2BA7216CB23DDE276089862C00BA4B71FC45826EF6BC70CC9F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/observation.stdout",
+      "Bytes": 1005,
+      "Sha256": "9A0F783A39AD6FE4A97E89FA4A8E4DB4E615D98D95824B45159DE1F32F711098",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_empty/result.etf",
+      "Bytes": 845,
+      "Sha256": "E1E5BF7AA34CE9E0FD37F8BE44EF458BFFBECD3625DC90C9A1AB9CE335033AAF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "66071C2F154338B17445EC54B56EE7460B0403ABAFE578A7FBD0964DC7CB11B7",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/observation.stdout",
+      "Bytes": 1007,
+      "Sha256": "467FF2BF42EF662CB18F87E50804C3D76E2BFE72EF1CD388F4060C5FBBF1B58D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_single/result.etf",
+      "Bytes": 849,
+      "Sha256": "50C8DCD9B9D63815ECD977E283D7198481BBBDA23ACB2F291E328E4F7F82C586",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.process.json",
+      "Bytes": 669,
+      "Sha256": "BA65FCB641B0AE6C536F2DA3F3C18DBBA6DC97C4B802E3255AFAFCC9A9D102EF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/observation.stdout",
+      "Bytes": 1045,
+      "Sha256": "95E5300CD4005D5A3E995ECDE3B9B31CF5B81A549AC68A530A1105AE64B4511F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/list_spill/result.etf",
+      "Bytes": 864,
+      "Sha256": "93FD06B3C74FA0617863BBDEFAB0A089F6401064B03013C0263577513292F825",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.process.json",
+      "Bytes": 668,
+      "Sha256": "029845A0B347610DD5D48EA684DB8E5ED402F02D1B9587B8823D48803AEFBBC9",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/observation.stdout",
+      "Bytes": 1836,
+      "Sha256": "E1E458AD814EE9562545B48310030D43CB0506FED72A0E2E7EA7C182EF76BC14",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/load_veto/result.etf",
+      "Bytes": 1527,
+      "Sha256": "7040A95B46D43EF72D01052DDCF372DE249B385D4D57DA7D03D37013C01127FF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.etf",
+      "Bytes": 289,
+      "Sha256": "EC3C5347C61CCF4641E4A72D9C749D07C6C9FF8E1B94ECD5FB0C31D5ABC4D027",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.process.json",
+      "Bytes": 664,
+      "Sha256": "DA17F6489EA822828064460E09D83A68D31EFC3EAF4154FAF1733B43B5030E6D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/metadata.stdout",
+      "Bytes": 324,
+      "Sha256": "2BE290878912CC0131776DAE161D05DA256B6773E82E5FF241FF440AC4EDA98D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "47749E74957F94BF8E7D797766008C63F6EF4CF49BE3B87EB502BE9F7190B281",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/observation.stdout",
+      "Bytes": 1640,
+      "Sha256": "E85DCC9A72CC833B931D85A21686E73CEAF19AACF1B171EFCD0FF5C6ADBCF4EF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_ignored/result.etf",
+      "Bytes": 1370,
+      "Sha256": "6A35453E09AF285A98B24573873AABF339C19FC4D0EC1B3FE90D1801FEF8DC29",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "B0D4B38200A27D6DC6E7C4A039CD4B8E2AE303C88DB1C4E72ACD8A6F918E2FB1",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/observation.stdout",
+      "Bytes": 1643,
+      "Sha256": "2C31120F18A5F2338A5A6F65B3D42ACDFCB9B4A040AA753868398634ED18B49C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_badarg_then_raise/result.etf",
+      "Bytes": 1370,
+      "Sha256": "647782777729C70FACEC30849DD38FCFBD9D90CE44957CF897A2BB67FB572489",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.process.json",
+      "Bytes": 673,
+      "Sha256": "E6D4C818B63EEDCFADC4258DEF81AD88698642516E920D456F7B9CF60493ED93",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/observation.stdout",
+      "Bytes": 1644,
+      "Sha256": "6D853E56DE65600BF9A62EDA27F0167D656F08EDDE398647209C23F2F19FB7FA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_detail/result.etf",
+      "Bytes": 1358,
+      "Sha256": "9469FF59BD0360200CBE10E32D126DEB56BD70A3A8EB05C75C850CCF09BAA4FF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.process.json",
+      "Bytes": 671,
+      "Sha256": "BF81EC482ED28313F9CD6EA98F8DCBDE39489E378EB10BF4E9147E8E7A5D6862",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/observation.stdout",
+      "Bytes": 1016,
+      "Sha256": "4C7059EFB79E73D7D0DE3504ADD089F406C4D3FA37C3E01A13B913A3C55A8E7D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_none/result.etf",
+      "Bytes": 859,
+      "Sha256": "4147C37007ABA05763E9D04B33C9096D5B24E69FD6F24075652CE478768B674D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "6CFB732ACA57BA01D1DDBC67015D34B22E6A2226D6E1C2FF7776D178DEA1134F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/observation.stdout",
+      "Bytes": 1646,
+      "Sha256": "4ABD773631989374BABE9CA0CD654F484B77716AE62B6301E2FF0A5956A38B67",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_then_badarg/result.etf",
+      "Bytes": 1376,
+      "Sha256": "5AA153C857B51A73A0A1788A8C7B60060193989E495BD03192484221433C421C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.process.json",
+      "Bytes": 678,
+      "Sha256": "5B871DBD3D4B6B7A43F781098ED3930ECC0A9B64133A6AFC147FF2839A1CA2D8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/observation.stdout",
+      "Bytes": 1631,
+      "Sha256": "AA9A9E6B4E780616A293DBC343145583CF97739F4A34C9C110721E6D501EADEC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/pending_raise_twice/result.etf",
+      "Bytes": 1358,
+      "Sha256": "4A5F9356251287397A19974EEF6E8588D3B57F4C070639C1EC43111ED9C38111",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/receipt.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/receipt.json",
+      "Bytes": 15969,
+      "Sha256": "5DC2F55209DF00D1758A62A5F85B135D2936D5B0F148B0FD27765CEF8AEE22C1",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/source-plan.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/source-plan.json",
+      "Bytes": 1896,
+      "Sha256": "EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "31DD708DEAFA99272147164340CCDAF6AA44398DDEB2150AAF8F97F11797C81E",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/observation.stdout",
+      "Bytes": 1006,
+      "Sha256": "00455A803D270E53AFD610FA893C4C9B5C8B8A214F39A1A3B7CC900DC8D63DE3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_empty/result.etf",
+      "Bytes": 847,
+      "Sha256": "B6AEB9A5CC390A6A380D4B40A7E34004A41BAEF86401C472EC0B1F7CF7C66205",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.process.json",
+      "Bytes": 671,
+      "Sha256": "2CA0E3B85BCC0679BA956DC8BA649CDA135D319CBE2B999FD7AD770BA1935DBC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/observation.stdout",
+      "Bytes": 1009,
+      "Sha256": "115D19F4D8F60A62967F356E8918DABE6B8515456CAE788ECCD1DB87F0E8A8C3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_single/result.etf",
+      "Bytes": 850,
+      "Sha256": "2AF53EAE322B16DD77A352E801ED9D08F0C020DEFE3D4BD819B9C41176EACC09",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.process.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.process.json",
+      "Bytes": 670,
+      "Sha256": "BE6DD0523DF7CED96B8B6ECA3C0AB33E8F821EC9438715CA80B219758B38486D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.stderr",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.stdout",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/observation.stdout",
+      "Bytes": 1046,
+      "Sha256": "4825049EE736AF4362B3A96EC1AED576DD7F6628EC5FD9FFC607EC9168BE104A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/result.etf",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-observations/tuple_spill/result.etf",
+      "Bytes": 881,
+      "Sha256": "4DFDBD0EBFF9345AD12BB844B7AC8D4F3E97C1F34C6C2D93ABC38543C1259960",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-typed-review.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-original-typed-review.json",
+      "Bytes": 3312,
+      "Sha256": "F7C5CC4B2BD94FF9E429F2D5F8CFF921265BFAEEA27AC825042C229BE7D70EE7",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-otp-build-provenance.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifact-12010045137/nif-pending-otp-build-provenance.json",
+      "Bytes": 926,
+      "Sha256": "61E383C27DB25A462F436940FE394A0B9ECCE18CBBF9149E5EF72112C9643E92",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/artifacts.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/artifacts.json",
+      "Bytes": 940,
+      "Sha256": "D64914B4CB62F5BDDD021177ED19C85A9B4D76B356A0F2AC621F7C25117494E6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/download-manifest.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/download-manifest.json",
+      "Bytes": 41770,
+      "Sha256": "17AFA27D05F307F2D24D63B8CF2A703C80C9A87D742E08C7B090CAF77F7E9472",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/jobs.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/jobs.json",
+      "Bytes": 4497,
+      "Sha256": "C4985641708472FDCF3005773064D88E1005566A352987CFDB3D94A7F1ADE196",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/raw-capture.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/raw-capture.json",
+      "Bytes": 403,
+      "Sha256": "31827AAAC18913BC523E09924C81D02AF42A6AC1F7570F3DAA7556969ED48205",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811779363-terminal/run.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811779363-terminal/run.json",
+      "Bytes": 13652,
+      "Sha256": "88C08CD8BAE94BED74AD0A54D8C15FD42F3769BB92BBAFB0BCCDD6BBCB2B3228",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/artifact-12010525752/differential.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/artifact-12010525752/differential.json",
+      "Bytes": 5975543,
+      "Sha256": "BFA6179EF2C2F5DAF71468B0256DCE61E548423AC94D4C9AB7AE1F832600587E",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/artifact-12010525752/fd-differential.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/artifact-12010525752/fd-differential.json",
+      "Bytes": 8152,
+      "Sha256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/artifacts.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/artifacts.json",
+      "Bytes": 911,
+      "Sha256": "9AB72C4E98B1DA68AA726EEB066159EA670B042717A2B2E4D83FB8FEDD09970B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/download-manifest.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/download-manifest.json",
+      "Bytes": 1398,
+      "Sha256": "39CEA4CA1A82FEA74BB89F54C6EABFBA6607F786A11654824A4160DA667A2EEC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/jobs.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/jobs.json",
+      "Bytes": 3901,
+      "Sha256": "9B2A219A98F81893887D94476D1184DFCBFCD3FC0F5E409470DE2C764B56799C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/raw-capture.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/raw-capture.json",
+      "Bytes": 405,
+      "Sha256": "DE79A9677455328E1A7D7DB19302627BE5B9CF3F2963D7F69387F7391AFD63B9",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/pack315-watch-38811810193-terminal/run.json",
+      "Destination": "docs/validation/part-316/previous-head315/pack315-watch-38811810193-terminal/run.json",
+      "Bytes": 13591,
+      "Sha256": "E89F97779515A9AABF5A7F3948985C8D4CB43424735A794E0C03557C9B48E647",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "docs/MODULE_READINESS.md",
+      "Destination": "docs/validation/part-316/readiness/MODULE_READINESS.md",
+      "Bytes": 114284,
+      "Sha256": "5C21C9DF4E2FC503DB2E0BC1C86371D5480EAF6664C771040BCEA3816846B8F5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "docs/module-readiness-scope.json",
+      "Destination": "docs/validation/part-316/readiness/module-readiness-scope.json",
+      "Bytes": 120526,
+      "Sha256": "75F52823B1408C8E9439C9C964354D5493030B607EEA7973D69A82B4B84D5DAF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "docs/supported-mfas.json",
+      "Destination": "docs/validation/part-316/readiness/supported-mfas.json",
+      "Bytes": 149215,
+      "Sha256": "A1CD8B30F0BDA1E8744846B8002342F01732E7964D4F10F3D1029C4C61030955",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/HaltSubprocessRegistrationCounts.after.cs",
+      "Bytes": 173,
+      "Sha256": "2D66A07D6AEBDF82AFDB6286BA366FA9CA7FC74B216EEE7383B678183B0505FA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-composed2/candidate/tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/HaltSubprocessRegistrationCounts.before.cs",
+      "Bytes": 173,
+      "Sha256": "318DBEE3C331A6BF6003F50E119E9E247397E78BEFE8C1845F97B3D70DD828D8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-count-correction1/correction.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/correction.json",
+      "Bytes": 1631,
+      "Sha256": "031F71797453767447538DAEB9D992485C5BC6DEABC87797E498C3D77D67485A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-build.log",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/count-correction-build.log",
+      "Bytes": 1566,
+      "Sha256": "2EC740F9324157ABFE5C42771C38D7E3B85A465688435C73F5C0F685C8CBA2FC",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-exit.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/count-correction-exit.json",
+      "Bytes": 161,
+      "Sha256": "7B911022C377779812F7B778B6DFDAED02CCF24F6F12246CB7A565F42BA0608C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-focus.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/count-correction-focus.json",
+      "Bytes": 819,
+      "Sha256": "9B4C78326B5351712E1458C09BF5C5225150F0A746612FBD75BCBDFD14752569",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main2/count-correction-focus.log",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/count-correction-focus.log",
+      "Bytes": 66,
+      "Sha256": "602CE05D0815D1B1FF185C751E4E5DF4295211067056796E0C88AFA35E5F8960",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/full-exit.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/full-exit.json",
+      "Bytes": 168,
+      "Sha256": "BA84348DBBD68D2F1288D4AB752059B66B2266B0B76B46E0110577AF3B2E85ED",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/full-validation.log",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/full-validation.log",
+      "Bytes": 398007,
+      "Sha256": "E58DE7BC13F22C3995D7D3A33DC340C4718B8604A2DD7013324FDF235FB55FC0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/raw-supported-mfas-first-failed.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/raw-supported-mfas-first-failed.json",
+      "Bytes": 148427,
+      "Sha256": "96DA504B2D4EA8F9988099A0BACB1B4886891AD2F18FD95FCE9F7A773C010F9B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/source-freeze.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/source-freeze.json",
+      "Bytes": 11314,
+      "Sha256": "5561E5E2095E247B50AC60194D5FAABCCE18DD5DE7A4935EEEC657C4A6FFB8D2",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-part316-main1/tests-first-failed.json",
+      "Destination": "docs/validation/part-316/retained-first-main-failure/tests-first-failed.json",
+      "Bytes": 923595,
+      "Sha256": "2F0FAAF1F58D7B5C917EA0F07C8C00D235779F6368782A721DDEEFEF85130B39",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-design1/DESIGN.md",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-design1/DESIGN.md",
+      "Bytes": 9778,
+      "Sha256": "1BBB95FD87E1A828802B7828A88E687B41C78003B8C824BE4D44A203FFD6CAED",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-design1/design-freeze.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-design1/design-freeze.json",
+      "Bytes": 1196,
+      "Sha256": "0B19395100A5C2E32FA9DDA66CF28E250581A2AD8004AB915060A4642E4C4C9F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-design1/freeze.py",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-design1/freeze.py",
+      "Bytes": 392,
+      "Sha256": "9CCBFD96627645582251B1249B06060ECAA2B1DD6A149CB41EDDBDB30A640068",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-design1/source-bindings.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-design1/source-bindings.json",
+      "Bytes": 7269,
+      "Sha256": "0E1D40798A1AE444F14A6F1A0F79385EC56B45EABDCDD450D25443C1ECDA134D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/README.md",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/README.md",
+      "Bytes": 4072,
+      "Sha256": "A2F3DA4C10E4DE7AD358CE8E6BD38D9D953596B153B53F88CC81EAFC6A9B297C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/case-manifest.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/case-manifest.json",
+      "Bytes": 7799,
+      "Sha256": "512180F6609843650A3B516E6E12BC8E2295AEDB5851010E67AF7AB0266B51D8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/full-options-backend-adaptation.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/full-options-backend-adaptation.erl",
+      "Bytes": 313,
+      "Sha256": "74EC9B22625B3BAE3B26290B5D20C33321B05941897B070D69B92AF4CE1498C8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-empty-list.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/info-empty-list.erl",
+      "Bytes": 81,
+      "Sha256": "6451B32A119DFCA980B465DC7777EABE3AB18148234B1C2F4DE347FFF2B1D97A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-nonatom-list-member.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/info-nonatom-list-member.erl",
+      "Bytes": 93,
+      "Sha256": "C437AE266BFB82C1A83DBCCA4556B45CA12C7762CD64D8B849A0C6B417AB88FA",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-unknown-atom.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/info-unknown-atom.erl",
+      "Bytes": 111,
+      "Sha256": "D1142DD2267B8AAD1E12374D44FE5339AA0D79718D470A4D9EB721A83F543D88",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/info-wrong-outer.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/info-wrong-outer.erl",
+      "Bytes": 81,
+      "Sha256": "1B7D6B280583BC1AD5028D588032BF62F34B2EE4EC64F95B3CBB10337BCAF8EF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-atom.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/sizes-atom.erl",
+      "Bytes": 89,
+      "Sha256": "2593FF4433383163A971DFF456675979159720B3A6323CB491750E2CF4A73BD2",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-duplicate.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/sizes-duplicate.erl",
+      "Bytes": 101,
+      "Sha256": "2A35A3166FE2853A69A1A1DC0E93B2F3AA518E536CE7577AE5166A0E698156CF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-improper.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/sizes-improper.erl",
+      "Bytes": 96,
+      "Sha256": "2ABBCEA1A88764D9953CDEB005BE7369E56C443DFA4BA7C0C61D6B0283842AD0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-known-unsupported-before-unknown.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/sizes-known-unsupported-before-unknown.erl",
+      "Bytes": 126,
+      "Sha256": "71B560A719B9091CBA388C9347A52D61FB9B8F32ABBF43F4A693704E1A624CE6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/fixtures/sizes-singleton-list.erl",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/fixtures/sizes-singleton-list.erl",
+      "Bytes": 91,
+      "Sha256": "92BD86853D0BAE602247FE8981D72281C2131DB21BA552DDCF25F2109D1B9731",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31268,
+      "Sha256": "32366A59EA164458DAD12ED47C7EE982AE6428EAA848EB6ECE23C63230AE4AD6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/SystemAllocatorQueryCaseNames.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/SystemAllocatorQueryCaseNames.cs",
+      "Bytes": 2650,
+      "Sha256": "F4F00ECC578B152F1C1F8D14906715E767F10D7BBEADDEF2AF6984A84F19309B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/SystemAllocatorQueryCases.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/overlay/tools/Erlang.Differential/SystemAllocatorQueryCases.cs",
+      "Bytes": 4082,
+      "Sha256": "61D8B9C29B9162C1C56FE5FA190145A2ABC59CD361F4034BEC18D25178BAF75F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.c.excerpt.txt",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.c.excerpt.txt",
+      "Bytes": 3581,
+      "Sha256": "8D5FF503BC8DD9C21E67A850CBA7D48A712ECCAEB7DD09DAB0A9498CDC3A100C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.types.excerpt.txt",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/pinned-source/erl_alloc.types.excerpt.txt",
+      "Bytes": 779,
+      "Sha256": "27EFA7AB1CC99C249F7DEDE7B11E574DE89B87FB5B7C8F7E4F5311023ECA8D4C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/pinned-source/erlang.erl.excerpt.txt",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/pinned-source/erlang.erl.excerpt.txt",
+      "Bytes": 1934,
+      "Sha256": "F6AEE6C61E8611742A8572DA3132C669E09674929489DD721A5AE66406EFB9A9",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/source-bindings.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/source-bindings.json",
+      "Bytes": 1726,
+      "Sha256": "6D76220D869EB87692DF8C838A9F4F54E4CC407A1EDAEF8A73DFFE856EF689DD",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/source-freeze.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/source-freeze.json",
+      "Bytes": 4963,
+      "Sha256": "B0A2DEC2CC4E8DE5518EF5E0D248C81D2F370645CB69C0209EA13453E3275046",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle1/source-only-checks.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle1/source-only-checks.json",
+      "Bytes": 536,
+      "Sha256": "E0CD816D31BDA0CD19BE03062F3C991CFDB8A94B88F6896EA7A6FF448A5CFA0C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/README.md",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/README.md",
+      "Bytes": 3481,
+      "Sha256": "208110D60004FC389BB3F5697A3B53D536F1235A3F325D77AE7EDA982B6B1163",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/overlay/.github/workflows/differential.yml",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/overlay/.github/workflows/differential.yml",
+      "Bytes": 2776,
+      "Sha256": "F2C7DD4C823D4FA57ADD90F22DA708253B8D0AC25684B1D2175DB77C08F1507A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/AllocatorProfileObservation.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/AllocatorProfileObservation.cs",
+      "Bytes": 9897,
+      "Sha256": "21943385A98D9A5064F275CE31000EC9A3386237CA8CC96882EC1E034BDC334B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/AllocatorProfileObservationNames.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/AllocatorProfileObservationNames.cs",
+      "Bytes": 2051,
+      "Sha256": "7E7463854A34C930EF8695EEE7C43A574D1E39C3E9A391C1D4BA4611F043E768",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/Program.cs",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/overlay/tools/Erlang.Differential/Program.cs",
+      "Bytes": 31127,
+      "Sha256": "1267A6C1E319DA09B79D4CE24B5CB51E4C1009C3C09C20DF2758D2A452C60C2F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/source-bindings.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/source-bindings.json",
+      "Bytes": 2699,
+      "Sha256": "9DFAFA61C540AEA945C5EE1DF30E5241D303839E7B045F2E6EB0C68EE3698B5F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/source-freeze.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/source-freeze.json",
+      "Bytes": 2294,
+      "Sha256": "B427BA5D2D6BF853F40AE11225BD03D1D7557A9008780C52D79AD8F11FC89B9A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-oracle2/source-only-checks.json",
+      "Destination": "docs/validation/part-316/source-author/allocator-public-sys-profile316-oracle2/source-only-checks.json",
+      "Bytes": 621,
+      "Sha256": "DE612A29AD3E834CEC6645C2300C9B93C3BA317682F90850A5B2B0849E3468E5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/README.md",
+      "Destination": "docs/validation/part-316/source-author/public-provider/README.md",
+      "Bytes": 3054,
+      "Sha256": "368309CF64F4E33D33AC699937529D7B13F769679E249E9FA8ACFFC14BA6532F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/format-token-inputs.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/format-token-inputs.json",
+      "Bytes": 631,
+      "Sha256": "0FD66E7C277F45D075C36660FFC0EBF9845CCEC1B960F22001F84C1E97ECA9A5",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/AllocatorBackendCapability.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/AllocatorBackendCapability.cs",
+      "Bytes": 105,
+      "Sha256": "E38DB71AD8D6ADFD8F01515BEA951CD22F175E2F92535117F2BBB3271B4ECA2D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/AllocatorBackendCatalog.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/AllocatorBackendCatalog.cs",
+      "Bytes": 1297,
+      "Sha256": "D5590F7753AE6A1EEAEC5CF8C34F1DE02AC09A05F38CD62F8C350DAC3D3E0E1D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/AllocatorBackendNames.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/AllocatorBackendNames.cs",
+      "Bytes": 816,
+      "Sha256": "A9C4541435FC9FA914E97A3A8D0B397FB4DDA244C3548A44481B9A99576EFCE6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/AllocatorQueryKind.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/AllocatorQueryKind.cs",
+      "Bytes": 76,
+      "Sha256": "8F477B640F6B8B9C489D3654022E72477D047067AD09C5791BE57E90D59F7F8F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/AllocatorQueryRegistrations.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/AllocatorQueryRegistrations.cs",
+      "Bytes": 944,
+      "Sha256": "E9599A18E5E5A0BDC21B72BDC76FF9EDCB2A1FB734AC58210BADBFAA90C1DF40",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/CoreModules.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 29748,
+      "Sha256": "F5C6076EF7ECB45F5D582659A55581DFFD3B497B673FA8B14A551C58154869AB",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/SystemAllocatorQueryDiagnostics.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/SystemAllocatorQueryDiagnostics.cs",
+      "Bytes": 375,
+      "Sha256": "A3B7BB2C63E07C622A8339B485A337C431D3A5A1E11492650E3ACBEC3CBE695A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/SystemAllocatorQueryNames.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/SystemAllocatorQueryNames.cs",
+      "Bytes": 546,
+      "Sha256": "28DDF64E30DB797E9136DF199AA4BD90DFE945FABBD7BC0C0E2393D766F80BE4",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/src/Erlang.Runtime/SystemAllocatorQueryProvider.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/src/Erlang.Runtime/SystemAllocatorQueryProvider.cs",
+      "Bytes": 2360,
+      "Sha256": "ECABBE80A5765AD1B9C5679EA27DC0A76BFF60BA23AAE2860AA8E62F016423A3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/tests/Erlang.Tests/Program.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/tests/Erlang.Tests/Program.cs",
+      "Bytes": 166344,
+      "Sha256": "1418149CE7C70527374CB91A5E0495ABCBA8A6733964CFCC15AFA8ECE49B149A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/tests/Erlang.Tests/SystemAllocatorPublicHostChecks.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/tests/Erlang.Tests/SystemAllocatorPublicHostChecks.cs",
+      "Bytes": 8989,
+      "Sha256": "225B8D39C5336CD58206C430825BE41766CE771CF6C9E30BC5EAAEC278ACDD5A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/candidate/tests/Erlang.Tests/SystemAllocatorPublicHostNames.cs",
+      "Destination": "docs/validation/part-316/source-author/public-provider/overlay/tests/Erlang.Tests/SystemAllocatorPublicHostNames.cs",
+      "Bytes": 1947,
+      "Sha256": "92AB035F919993AAADC2432704786927234389DE3D39AB1C541C272B452E5DCD",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/parent-binding.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/parent-binding.json",
+      "Bytes": 560,
+      "Sha256": "9D14854FEC23608424FAD291B1847C20483094DB885392669953885910826524",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/pinned-catalog.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/pinned-catalog.json",
+      "Bytes": 1353,
+      "Sha256": "958B3354D77ECD85DD9499B572B737A45B30A759CFDD7D03F7F91AE78DFA3267",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/pinned-source/erl_alloc.types",
+      "Destination": "docs/validation/part-316/source-author/public-provider/pinned-source/erl_alloc.types",
+      "Bytes": 16932,
+      "Sha256": "50A41DC18BAF4FA83CED26EC2B58016C328DF41F8602607F68324A07214AA38D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/pinned-source/make_alloc_types",
+      "Destination": "docs/validation/part-316/source-author/public-provider/pinned-source/make_alloc_types",
+      "Bytes": 15847,
+      "Sha256": "6430ABB994B2CD8A8111CAC62D71F4D2FBD16AD8F5E12A205936D334D19B5212",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/source-bindings.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/source-bindings.json",
+      "Bytes": 1914,
+      "Sha256": "7C0D80BC716EFA3D603FE097818100D6D7DB5F640083E8869133822E7D20FC68",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/source-freeze.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/source-freeze.json",
+      "Bytes": 5814,
+      "Sha256": "1CE19786E21B11FCE6551ABA0F34E758AC6995CABCFDCFDD63B25572841019D8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-candidate1/source-only-checks.json",
+      "Destination": "docs/validation/part-316/source-author/public-provider/source-only-checks.json",
+      "Bytes": 558,
+      "Sha256": "A53833D92642412A8165D23F080371D7D8A9D74C18DBF1DC3DD7B84C704E1B38",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-beam310-source-peer.json",
+      "Destination": "docs/validation/part-316/source-controls/allocator-public-sys-profile316-beam310-source-peer.json",
+      "Bytes": 1052,
+      "Sha256": "233ED4F97642720F4D352B1ED7D0ACCA27F665A8D9F3E7F57275534D671B0604",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-count-correction-beam310-source-peer.json",
+      "Destination": "docs/validation/part-316/source-controls/allocator-public-sys-profile316-count-correction-beam310-source-peer.json",
+      "Bytes": 1047,
+      "Sha256": "E46A4D4AE17D9304FF70DC3733A675C7DD94BF88F3E2C923326E40C573424075",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/allocator-public-sys-profile316-final-beam310-source-peer.json",
+      "Destination": "docs/validation/part-316/source-controls/allocator-public-sys-profile316-final-beam310-source-peer.json",
+      "Bytes": 1965,
+      "Sha256": "DC664622FAB0EB68B2DA4EDD31090DDFE7D6E39356E07F32D3063A6036E2AF41",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/beam310-peer316-final-composition.py",
+      "Destination": "docs/validation/part-316/source-controls/beam310-peer316-final-composition.py",
+      "Bytes": 6441,
+      "Sha256": "2B5AE1E3D63615296695947D10E49399D69B259F8F32179B8592205BACBDCDC8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal1/guard316-main-native.py",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal1/guard316-main-native.py",
+      "Bytes": 7378,
+      "Sha256": "BA7A9B20F0E8B8D5F948F695FE150F99C303A246EC1D0AF757BCB5C1C58DCB0B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal1/run316-main-native.py",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal1/run316-main-native.py",
+      "Bytes": 6092,
+      "Sha256": "04EBAC090F526CDC245B4372C661A5E0244FEAF06BA4DA40DF4B9E9253C32865",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/README.json",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal2/README.json",
+      "Bytes": 897,
+      "Sha256": "5B7C632E7F015D42D96533C4A256E887EFB9737294B295E57528D7B5CD474ACF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/guard316-full.py",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal2/guard316-full.py",
+      "Bytes": 4363,
+      "Sha256": "2B0D2557D6BC8561101AD6A3937BCF598A2140B7D88ADAA3E200069E19C4B86F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/guard316-main-native.py",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal2/guard316-main-native.py",
+      "Bytes": 7457,
+      "Sha256": "0B9FFD69539052F651905EDE183D5384170AD5608C8C76393B60B395889137E3",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/proposal-freeze.json",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal2/proposal-freeze.json",
+      "Bytes": 912,
+      "Sha256": "67DAA5A2D02E07C87FFF0BFA6AED027D9AE21D7283FC5DDDE28FCF26111AACF0",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/part316-main-native-proposal2/run316-main-native.py",
+      "Destination": "docs/validation/part-316/source-controls/part316-main-native-proposal2/run316-main-native.py",
+      "Bytes": 6200,
+      "Sha256": "8C0E1644800233B8947946A7CA2EE241A9A26F42B341B96F446A615DAEDC656C",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-compose316-core.py",
+      "Destination": "docs/validation/part-316/source-controls/root-compose316-core.py",
+      "Bytes": 1893,
+      "Sha256": "A6307A7056EE35D0F1D259828A1C2E8F2D75707BCC13EADC54E9ED8453C0FF8F",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-compose316-final.py",
+      "Destination": "docs/validation/part-316/source-controls/root-compose316-final.py",
+      "Bytes": 4581,
+      "Sha256": "96EC9CB36EC004C59C5907BD40369A686D317283D539007AB9088821922B8D5A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-correct316-registry-count.py",
+      "Destination": "docs/validation/part-316/source-controls/root-correct316-registry-count.py",
+      "Bytes": 3153,
+      "Sha256": "D92BAC506F68D055F7999B713187F284F7ACA9388774207420AD4B54CBF67616",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-correct316-registry-count2.py",
+      "Destination": "docs/validation/part-316/source-controls/root-correct316-registry-count2.py",
+      "Bytes": 3520,
+      "Sha256": "0A229E545B86EB0E3D279E74C10AC2B3A9CE6610AC4D5994A0BCEDE56A0DE8DF",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-focus316-core.ps1",
+      "Destination": "docs/validation/part-316/source-controls/root-focus316-core.ps1",
+      "Bytes": 1893,
+      "Sha256": "B1C39BB10F269F038509B3969FA30068BD549318BB3260B67DDF8E336546A541",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-format316-core.ps1",
+      "Destination": "docs/validation/part-316/source-controls/root-format316-core.ps1",
+      "Bytes": 1538,
+      "Sha256": "A70D159DCB1D262FF989355E84A38B698BCEA7B3F5F2DB7D2C6483762434D927",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-format316-observer.ps1",
+      "Destination": "docs/validation/part-316/source-controls/root-format316-observer.ps1",
+      "Bytes": 1538,
+      "Sha256": "90BAE841AD74C254ABB8CCF0CFF985CF6D0E4AC194EA1B0A95CB6EBC08E54C9A",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-freeze316-final.py",
+      "Destination": "docs/validation/part-316/source-controls/root-freeze316-final.py",
+      "Bytes": 2344,
+      "Sha256": "7E2519C5BD5D10FE0910FAD56D1115BB8722FFD25C454CC665881B330580B0D4",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-guard316-full.py",
+      "Destination": "docs/validation/part-316/source-controls/root-guard316-full.py",
+      "Bytes": 4331,
+      "Sha256": "DD1E63D5367E299216EFDFDE72787019A101961B6E3354404D188A17629C83E6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-promote316.py",
+      "Destination": "docs/validation/part-316/source-controls/root-promote316.py",
+      "Bytes": 2634,
+      "Sha256": "4A60E83D47285E6FBCE7A230D4CE0C5249425F1A73E3A67E0ECEE504730D242D",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-run316-main-full.ps1",
+      "Destination": "docs/validation/part-316/source-controls/root-run316-main-full.ps1",
+      "Bytes": 937,
+      "Sha256": "AB8035D7D919AC9E5580FE3A0433D2C7AEE4683A5C18A72C13FDE7024BB766C4",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root-run316-main2-full.ps1",
+      "Destination": "docs/validation/part-316/source-controls/root-run316-main2-full.ps1",
+      "Bytes": 939,
+      "Sha256": "05F13CC9D3A1B92D4F49CFC220B372F6B917227D1EF612A0F960E4D0F45C8475",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "SourcePath": "artifacts/root316-first-full-halt-count-beam310-review.json",
+      "Destination": "docs/validation/part-316/source-controls/root316-first-full-halt-count-beam310-review.json",
+      "Bytes": 1918,
+      "Sha256": "445F6EF255B6919538C11EADC9E592549552B12B2A89B04B6229BD43F0679BA5",
+      "HashMode": "BinaryExact"
+    }
+  ]
+}

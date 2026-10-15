@@ -1,0 +1,23 @@
+{
+  "Status": "SOURCE_COUNT_FIX_FOR_TWO_ACTUALLY_REGISTERED_AND_DIRECTLY_TESTED_PUBLIC_MFAS",
+  "BeforeSha256": "318DBEE3C331A6BF6003F50E119E9E247397E78BEFE8C1845F97B3D70DD828D8",
+  "AfterSha256": "2D66A07D6AEBDF82AFDB6286BA366FA9CA7FC74B216EEE7383B678183B0505FA",
+  "PreviousDefault": 505,
+  "ActualDefaultTestMfaRows": 507,
+  "SavedRegistryDocumentHistoricalRows": 505,
+  "FailedRunDidNotRegenerateRegistryDocument": true,
+  "OptionalIoExistingAdds": 2,
+  "UpdatedOptionalIo": 509,
+  "FirstFullPassed": 6653,
+  "FirstFullFailed": 1,
+  "FirstReportSha256": "2F0FAAF1F58D7B5C917EA0F07C8C00D235779F6368782A721DDEEFEF85130B39",
+  "FailedCase": {
+    "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+    "Status": "Failed",
+    "Error": "System.InvalidOperationException: Dedicated halt process contract failed\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 21\r\n   at Erlang.Tests.IoCharacterHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoCharacterHostChecks.cs:line 99\r\n   at Erlang.Tests.HaltSubprocessHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltSubprocessHostChecks.cs:line 11\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4360",
+    "Milliseconds": 11
+  },
+  "ProductionChanged": false,
+  "OriginalFixtureExpectationsChanged": false,
+  "OnlyChangedPath": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs"
+}

@@ -1,0 +1,31 @@
+{
+  "Status": "SOURCE_ONLY_NEXT_PUBLIC_API_IMPLEMENTATION_DESIGN",
+  "TargetPublicApis": [
+    "erlang:alloc_info/1",
+    "erlang:alloc_sizes/1"
+  ],
+  "SupportedProfile": "sys_alloc metadata using actual dotnet_native_memory backend",
+  "KnownUnsupportedBehavior": "notsup after complete recognized-name validation; explicit CLR partial-profile adaptation",
+  "FakeDisabledFalseAllowed": false,
+  "PublicApisImplementedByThisArtifact": 0,
+  "MemoryApisRemainAbsent": true,
+  "Files": [
+    {
+      "Path": "artifacts/allocator-public-sys-profile316-design1/DESIGN.md",
+      "Bytes": 9778,
+      "Sha256": "1BBB95FD87E1A828802B7828A88E687B41C78003B8C824BE4D44A203FFD6CAED"
+    },
+    {
+      "Path": "artifacts/allocator-public-sys-profile316-design1/source-bindings.json",
+      "Bytes": 7269,
+      "Sha256": "0E1D40798A1AE444F14A6F1A0F79385EC56B45EABDCDD450D25443C1ECDA134D"
+    },
+    {
+      "Path": "artifacts/allocator-public-sys-profile316-design1/freeze.py",
+      "Bytes": 392,
+      "Sha256": "9CCBFD96627645582251B1249B06060ECAA2B1DD6A149CB41EDDBDB30A640068"
+    }
+  ],
+  "MainOrGitOrBuildOrSdkOrNativeOrVmAction": false,
+  "SubagentsSpawned": false
+}

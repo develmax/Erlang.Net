@@ -1,0 +1,63 @@
+13339:     receive
+13340: 	{Ref, {_,Colls, Recl}} -> 
+13341: 	    gc_info(Ref, N-1, {Colls+OrigColls,Recl+OrigRecl})
+13342:     end.
+13343: 
+13344: %% Operators
+13345: 
+13346: -doc false.
+13347: -spec '=='(term(), term()) -> boolean().
+13348: '=='(_A, _B) ->
+13349:     erlang:nif_error(undefined).
+13350: -doc false.
+13351: -spec '=:='(term(), term()) -> boolean().
+13352: '=:='(_A, _B) ->
+13353:     erlang:nif_error(undefined).
+13354: -doc false.
+13355: -spec '/='(term(), term()) -> boolean().
+13356: '/='(_A, _B) ->
+13357:     erlang:nif_error(undefined).
+13358: -doc false.
+13359: -spec '=/='(term(), term()) -> boolean().
+13360: '=/='(_A, _B) ->
+13361:     erlang:nif_error(undefined).
+13362: -doc false.
+13363: -spec '=<'(term(), term()) -> boolean().
+13364: '=<'(_A, _B) ->
+13365:     erlang:nif_error(undefined).
+13366: -doc false.
+13367: -spec '>='(term(), term()) -> boolean().
+13368: '>='(_A, _B) ->
+13369:     erlang:nif_error(undefined).
+13370: -doc false.
+13371: -spec '<'(term(), term()) -> boolean().
+13372: '<'(_A, _B) ->
+13373:     erlang:nif_error(undefined).
+13374: -doc false.
+13375: -spec '>'(term(), term()) -> boolean().
+13376: '>'(_A, _B) ->
+13377:     erlang:nif_error(undefined).
+13378: 
+13379: -doc false.
+13380: -spec '-'(number()) -> number().
+13381: '-'(_A) ->
+13382:     erlang:nif_error(undefined).
+13383: -doc false.
+13384: -spec '+'(number()) -> number().
+13385: '+'(_A) ->
+13386:     erlang:nif_error(undefined).
+13387: -doc false.
+13388: -spec '-'(number(), number()) -> number().
+13389: '-'(_A, _B) ->
+13390:     erlang:nif_error(undefined).
+13391: -doc false.
+13392: -spec '+'(number(), number()) -> number().
+13393: '+'(_A, _B) ->
+13394:     erlang:nif_error(undefined).
+13395: -doc false.
+13396: -spec '/'(number(), number()) -> float().
+13397: '/'(_A, _B) ->
+13398:     erlang:nif_error(undefined).
+13399: -doc false.
+13400: -spec '*'(number(), number()) -> number().
+13401: '*'(_A, _B) ->

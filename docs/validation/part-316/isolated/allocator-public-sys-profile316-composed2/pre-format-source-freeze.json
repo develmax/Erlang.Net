@@ -1,0 +1,155 @@
+{
+  "ParentHead": "32c394232588c275703e29be444f8d84cb5d27a4",
+  "SourcePaths": 25,
+  "CSharpPaths": 18,
+  "SourceClosurePaths": 2241,
+  "CoreActualCompiledFilesPreserved": 15,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1073,
+      "Sha256": "89E2FF550301826DFE26C02318578E1D21252D85478B9261BB3673B80AE6236C"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1098,
+      "Sha256": "04E3A8CF4739C70F79921F2BC76710BD7496FDB0122CDAE5B18A4858A7B44637"
+    }
+  ],
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 7114,
+      "Sha256": "6CF96942F7F2BBA7DC75A39BE8F2A69111093289A71CB1AA9DCD4C705B18D43B"
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "Bytes": 2776,
+      "Sha256": "F2C7DD4C823D4FA57ADD90F22DA708253B8D0AC25684B1D2175DB77C08F1507A"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "537155272C07A215ED0FEA158423D771544F309B44E64C06876100E274D552A8"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5862,
+      "Sha256": "C6B84687D2F8565D4BB67FEB89331B0A7D7771D16E8B73A7CCB5E771388654CA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorBackendCapability.cs",
+      "Bytes": 105,
+      "Sha256": "E38DB71AD8D6ADFD8F01515BEA951CD22F175E2F92535117F2BBB3271B4ECA2D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorBackendCatalog.cs",
+      "Bytes": 1313,
+      "Sha256": "FB8EB13042687C742AAC7465B6D61CE4413CC2574E68C3303D491668519B9355"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorBackendNames.cs",
+      "Bytes": 816,
+      "Sha256": "A9C4541435FC9FA914E97A3A8D0B397FB4DDA244C3548A44481B9A99576EFCE6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryKind.cs",
+      "Bytes": 76,
+      "Sha256": "8F477B640F6B8B9C489D3654022E72477D047067AD09C5791BE57E90D59F7F8F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryRegistrations.cs",
+      "Bytes": 944,
+      "Sha256": "E9599A18E5E5A0BDC21B72BDC76FF9EDCB2A1FB734AC58210BADBFAA90C1DF40"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 29748,
+      "Sha256": "F5C6076EF7ECB45F5D582659A55581DFFD3B497B673FA8B14A551C58154869AB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemAllocatorQueryDiagnostics.cs",
+      "Bytes": 375,
+      "Sha256": "A3B7BB2C63E07C622A8339B485A337C431D3A5A1E11492650E3ACBEC3CBE695A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemAllocatorQueryNames.cs",
+      "Bytes": 546,
+      "Sha256": "28DDF64E30DB797E9136DF199AA4BD90DFE945FABBD7BC0C0E2393D766F80BE4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemAllocatorQueryProvider.cs",
+      "Bytes": 2598,
+      "Sha256": "83DA99FED0C3064E54D75148E9E3A54F2B0F73CA1362D4B3B0CCE11F2288B203"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 166344,
+      "Sha256": "1418149CE7C70527374CB91A5E0495ABCBA8A6733964CFCC15AFA8ECE49B149A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SystemAllocatorPublicHostChecks.cs",
+      "Bytes": 9886,
+      "Sha256": "5A5BF36E2A37F6385E46372E54C5F770BBD207E4E0F1D46A8CC16CF21378F12D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SystemAllocatorPublicHostNames.cs",
+      "Bytes": 1947,
+      "Sha256": "92AB035F919993AAADC2432704786927234389DE3D39AB1C541C272B452E5DCD"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AllocatorProfileObservation.cs",
+      "Bytes": 9897,
+      "Sha256": "21943385A98D9A5064F275CE31000EC9A3386237CA8CC96882EC1E034BDC334B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AllocatorProfileObservationNames.cs",
+      "Bytes": 2051,
+      "Sha256": "7E7463854A34C930EF8695EEE7C43A574D1E39C3E9A391C1D4BA4611F043E768"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31284,
+      "Sha256": "6EE74B0DC1408F7173FD80811B04A81775E7911CB17C258F013F533C02A84BFD"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Program.cs",
+      "Bytes": 31127,
+      "Sha256": "1267A6C1E319DA09B79D4CE24B5CB51E4C1009C3C09C20DF2758D2A452C60C2F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SystemAllocatorQueryCaseNames.cs",
+      "Bytes": 2650,
+      "Sha256": "F4F00ECC578B152F1C1F8D14906715E767F10D7BBEADDEF2AF6984A84F19309B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SystemAllocatorQueryCases.cs",
+      "Bytes": 4144,
+      "Sha256": "B2D83A64D51506EB68D63EA42060A5918C3A6B2004E1C4F4AAF9DF1825DAEF0A"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 222073,
+      "Sha256": "89E2FF550301826DFE26C02318578E1D21252D85478B9261BB3673B80AE6236C"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/seal-source-plan.py",
+      "Bytes": 2839,
+      "Sha256": "76F0A6F6BCCB559BA5C0188690487EE9E1F86500D3C6129712247D377DC82130"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 232117,
+      "Sha256": "04E3A8CF4739C70F79921F2BC76710BD7496FDB0122CDAE5B18A4858A7B44637"
+    }
+  ],
+  "NativeImportPolicyDelta": {
+    "legacy_fixture.so": [
+      "__stack_chk_fail"
+    ],
+    "legacy_bridge.so": [
+      "__stack_chk_fail"
+    ]
+  },
+  "NativeOrOriginalExecuted": false
+}

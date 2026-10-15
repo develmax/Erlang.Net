@@ -1,0 +1,26 @@
+68: #
+69: #		<ALLOCATOR>	<MULTI_THREAD>	<DESCRIPTION>
+70: 
+71: allocator	SYSTEM		true		sys_alloc
+72: 
+73: allocator	TEMPORARY	true		temp_alloc
+74: allocator	SHORT_LIVED	true		sl_alloc
+75: allocator	STANDARD	true		std_alloc
+76: allocator	LONG_LIVED	true		ll_alloc
+77: allocator	EHEAP		true		eheap_alloc
+78: allocator	ETS		true		ets_alloc
+79: allocator	FIXED_SIZE	true		fix_alloc
+80: allocator	LITERAL 	true		literal_alloc
+81: 
+82: allocator	BINARY		true		binary_alloc
+83: allocator	DRIVER		true		driver_alloc
+84: 
+85: allocator	TEST            true            test_alloc
+86: 
+87: # --- Class declarations -----------------------------------------------------
+88: #
+89: # Syntax: class <CLASS> <DESCRIPTION>
+90: #
+91: #	<CLASS>		<DESCRIPTION>
+92: 
+93: class	PROCESSES	process_data

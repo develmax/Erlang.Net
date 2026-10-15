@@ -1741,6 +1741,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
 
             return;
         }
+        if (Erlang.Tests.SystemAllocatorPublicHostChecks.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.SystemAllocatorPublicHostChecks.RunMfa(export.Function);
+
+            return;
+        }
         if (Erlang.Tests.FunctionalMfaContracts.FixtureName(export.Module, export.Function, export.Arity) is { } functional)
         {
             await Erlang.Tests.FunctionalMfaContracts.Run(functional);
@@ -4336,6 +4342,10 @@ Test(
 Test(
     Erlang.Tests.NativePayloadProviderHostNames.Test,
     Erlang.Tests.NativePayloadProviderHostChecks.Run
+);
+Test(
+    Erlang.Tests.SystemAllocatorPublicHostNames.Test,
+    Erlang.Tests.SystemAllocatorPublicHostChecks.Run
 );
 
 int failed = 0;

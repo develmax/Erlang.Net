@@ -1,0 +1,137 @@
+{
+  "Passed": true,
+  "ExpectedCases": 10,
+  "Executed": 10,
+  "Unexecuted": 0,
+  "CaseDeadlineSeconds": 40,
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\allocator-public-sys-profile316-managed-focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1327616,
+      "Sha256": "A3516DA2434F2EBC0F51162DE1B2637D6DC4F08C77C8972B1223BB15FEED0AAC"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\allocator-public-sys-profile316-managed-focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 353280,
+      "Sha256": "CE2F26F20D1151FC7E4B84F53ADF35FF698D61E7E14D2F646BC616F0D6058E12"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\allocator-public-sys-profile316-managed-focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1491968,
+      "Sha256": "D226A31E2342DB4EA04C3EA14448136409300036C0FC21782C83B1D0EF8AD939"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\allocator-public-sys-profile316-managed-focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 93184,
+      "Sha256": "5CCE5732887B2AE3CC853E83222CF4D9FA01DC0DEFBBB9B8136A367AA318BD49"
+    }
+  ],
+  "Cases": [
+    {
+      "Case": "erlang-system-allocator-query-sizes-atom",
+      "SourceSha256": "335574E37FA6220CAB786238DA3114D12C31BE395C7A2FE180C04FDB508B9A71",
+      "GeneratedCSharpSha256": "561FA180C2722ED1E71080FBA3A501AF990AAD226A897D83CD969FA994931485",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,[{instance,0,[]}]}",
+      "Expected": "{ok,[{instance,0,[]}]}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-sizes-singleton-list",
+      "SourceSha256": "D0D0B49D1F7BDCDE55556D59FCB58FCBAB4DAA924F03AFBDE95C1FBDBD9BD809",
+      "GeneratedCSharpSha256": "EE17C1C1E3C547300D41686350B503D6FAD60F5C7460C7CA9C9B7BBCAEE0BF7A",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,[{sys_alloc,[{instance,0,[]}]}]}",
+      "Expected": "{ok,[{sys_alloc,[{instance,0,[]}]}]}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-info-empty-list",
+      "SourceSha256": "F534CF2C116514FA77EF1B2431C174D303A7281FFB3D8E4458B9734FE36AE4B0",
+      "GeneratedCSharpSha256": "230102D7867A9DBB396B980AA92BB5F4D31DAA97EC33CD4CA462BF9C4998C664",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-sizes-duplicate",
+      "SourceSha256": "8E783F268B1625EE774B79CBA3886A30186D8F55576AB2A2C7BEE337DB763023",
+      "GeneratedCSharpSha256": "0A08665D9A956B732DBA288F4F56FCEFD99283BB02398DA76942302E1E908195",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-sizes-improper",
+      "SourceSha256": "ED2701442EF3E24490BEF41AC4C21CBCC00B2F019E8AFD024735A28BF1CABAFC",
+      "GeneratedCSharpSha256": "A7E2A77272A6B25E7C2E293C236441FCD84004D62058C96BBA291D442041AE10",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-info-wrong-outer",
+      "SourceSha256": "45FA5901CD5C9152CC60E60AAD6BD6E9836DB745C98B03904D8E6C75275FF185",
+      "GeneratedCSharpSha256": "DC7D87356434238B5EBA3FA26F64E8AFF600B5A2D22030D957198B6C116CB5D4",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,function_clause}",
+      "Expected": "{error,error,function_clause}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-sizes-known-unsupported-before-unknown",
+      "SourceSha256": "A5FF1EDA0C67A6A017845DC962424D971FCCE2583838D35D321715BF18EAC6DD",
+      "GeneratedCSharpSha256": "8916259B386A669AF4A7F8F06C28E25B9D83727137E412353D89B92F2B27B678",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-info-unknown-atom",
+      "SourceSha256": "4BDC3790C1517D0AE95A046415B92621BE2B454D065A9D6178900D02612FC10D",
+      "GeneratedCSharpSha256": "BA62F258A5D4BA68F71C2EDCBB2D177351BFC326BFC7A13CF34D63C664DCF3B5",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-info-nonatom-list-member",
+      "SourceSha256": "7E5642E2A32292B719020E448E6B3F363BA774B0BF1A71C294E91E315CCE473C",
+      "GeneratedCSharpSha256": "64B7CD4812A1B5EE6DDFBBBBA00AC8FA593A19401D29D59FFEBB47D952379226",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "erlang-system-allocator-query-full-options-backend-adaptation",
+      "SourceSha256": "46563FF7FC41BAECF742EAAF4E1969A7CD30C734467A75928C503AC97F455BB1",
+      "GeneratedCSharpSha256": "353328BBD62822D71F41E5616ED087FF2390ACDC60A7173A50F4751800F59F27",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,{sys_alloc_full_options,{e,true},{m,dotnet_native_memory},[],{e,true},{m,dotnet_native_memory},[]}}",
+      "Expected": "{ok,{sys_alloc_full_options,{e,true},{m,dotnet_native_memory},[],{e,true},{m,dotnet_native_memory},[]}}",
+      "Passed": true,
+      "Exception": null
+    }
+  ],
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false
+}
