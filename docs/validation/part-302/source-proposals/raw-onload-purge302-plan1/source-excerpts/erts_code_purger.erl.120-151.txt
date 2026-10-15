@@ -1,0 +1,32 @@
+do_purge(Mod, Reqs) ->
+    case erts_internal:purge_module(Mod, prepare) of
+	false ->
+	    {{false, false}, Reqs};
+	true ->
+	    {DidKill, NewReqs} = check_proc_code(erlang:processes_iterator(),
+						 Mod, true, Reqs),
+	    true = erts_internal:purge_module(Mod, complete),
+	    {{true, DidKill}, NewReqs}
+    end.
+
+%% soft_purge(Module)
+%% Purge old code only if no procs remain that run old code.
+%% Return true in that case, false if procs remain (in this
+%% case old code is not purged)
+
+soft_purge(Mod) ->
+    Ref = make_ref(),
+    erts_code_purger ! {soft_purge, Mod, self(), Ref},
+    receive
+	{reply, soft_purge, Result, Ref} ->
+	    Result
+    end.
+
+do_soft_purge(Mod, Reqs) ->
+    case erts_internal:purge_module(Mod, prepare) of
+	false ->
+	    {true, Reqs};
+	true ->
+	    {PurgeOp, NewReqs} = check_proc_code(erlang:processes_iterator(),
+						 Mod, false, Reqs),
+	    {erts_internal:purge_module(Mod, PurgeOp), NewReqs}

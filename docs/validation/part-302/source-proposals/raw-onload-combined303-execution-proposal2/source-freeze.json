@@ -1,0 +1,216 @@
+{
+  "Status": "FROZEN_ARTIFACT_SOURCE_PROPOSAL_SYNTHETIC_CONTROLS_ONLY",
+  "PackagingParentFreezeSha256": "44DB5111FAA76E8088683480A387EE2DFEE742F9CFFB61D5879CBD3E6D1B8ADA",
+  "ExecutionPlanSha256": "97C447A8AD78D37EA4F092963B7D4E5A7FEF5879E55DF1E4E4739F1409D5FBA9",
+  "ObservedPlanSha256": "36F3A580DAAB83675014C835F5537861C894440D761479B839384B722EDD5319",
+  "FrozenParents": [
+    {
+      "Role": "OriginalProposal1",
+      "Path": "raw-onload-visibility-original303-proposal1/source-freeze.json",
+      "Sha256": "866D09E9E220AE50E515391DC206D37CE73F38850A19B70704D2678DE58745ED"
+    },
+    {
+      "Role": "OriginalControlRevision2",
+      "Path": "raw-onload-capture-zero-exit303-revision2/source-freeze.json",
+      "Sha256": "85C2E18F11AB727ABF68CCBEF3CB10A653699FFC038E7725BA48FBE3E9E51DC9"
+    },
+    {
+      "Role": "TypedGuardRevision2",
+      "Path": "raw-onload-original303-typedguard-proposal2/source-freeze.json",
+      "Sha256": "14CD1F99E247E9B69CEEC5528685264882F6707B3FE6DD0A52A4200A68F6B674"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "gitattributes-proposal.txt",
+      "Bytes": 185,
+      "Sha256": "4574F773139977F556288EA0E73071CD8378C86A5F92F0AB392926FE31589F82"
+    },
+    {
+      "Path": "local-synthetic-controls/decoder35.json",
+      "Bytes": 6854,
+      "Sha256": "919C7EC1CEAC7C3CB7BD446802A9D823F3EBF3117ABAEFFF5C657E2F1571008D"
+    },
+    {
+      "Path": "local-synthetic-controls/report-budget/refused.json.partial",
+      "Bytes": 63,
+      "Sha256": "2D08DCB0F440EEBDE0271BA4F6423B2B0B9266A71A4F7F46776D1656342C5BCB"
+    },
+    {
+      "Path": "local-synthetic-controls/report-budget/report.json",
+      "Bytes": 363,
+      "Sha256": "D4D5DE8E20DAF11962F70B97334AD990588048C8319C45DE108478067A8D172C"
+    },
+    {
+      "Path": "local-synthetic-controls/report-budget/small.json",
+      "Bytes": 42,
+      "Sha256": "02BF2182C1231C4EA453CA98A7174D1DE3ED673013CE1D96136250FE28161BE2"
+    },
+    {
+      "Path": "local-synthetic-controls-final/decoder35.json",
+      "Bytes": 6854,
+      "Sha256": "919C7EC1CEAC7C3CB7BD446802A9D823F3EBF3117ABAEFFF5C657E2F1571008D"
+    },
+    {
+      "Path": "local-synthetic-controls-final/optimized-runner.json",
+      "Bytes": 264,
+      "Sha256": "CD04CC7902B0BFA7965689113A34B0CEDA4265C9C204C6AF33CB8961A2CD1903"
+    },
+    {
+      "Path": "local-synthetic-controls-final/optimized-runner.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "local-synthetic-controls-final/optimized-runner.stdout",
+      "Bytes": 54,
+      "Sha256": "1781FF13343795DD173BD0F5E61008CB80F65CAB3F9D6B2AD216CAA7E2388BD2"
+    },
+    {
+      "Path": "local-synthetic-controls-final/report-budget/refused.json.partial",
+      "Bytes": 63,
+      "Sha256": "2D08DCB0F440EEBDE0271BA4F6423B2B0B9266A71A4F7F46776D1656342C5BCB"
+    },
+    {
+      "Path": "local-synthetic-controls-final/report-budget/report.json",
+      "Bytes": 363,
+      "Sha256": "D4D5DE8E20DAF11962F70B97334AD990588048C8319C45DE108478067A8D172C"
+    },
+    {
+      "Path": "local-synthetic-controls-final/report-budget/small.json",
+      "Bytes": 42,
+      "Sha256": "02BF2182C1231C4EA453CA98A7174D1DE3ED673013CE1D96136250FE28161BE2"
+    },
+    {
+      "Path": "overlay/.github/workflows/raw-onload-original-observations.yml",
+      "Bytes": 3995,
+      "Sha256": "2ED499FE94A35EB5AB7D5D02E6C9F4E5738D5F4DDDE71F4CA1F8CC92CDCDD9C6"
+    },
+    {
+      "Path": "overlay/tools/Erlang.NifPendingVarargsObservations/verify-original13.py",
+      "Bytes": 14492,
+      "Sha256": "46F8837A41981C15DD6D49E3F16CFE06ABB2A8DE2B404BBCF84D9B93A248150F"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/guard/check-passive-decoder.py",
+      "Bytes": 6480,
+      "Sha256": "E871ABB1AD59D8D7EC7AC1CDF5B7B8246FBB2527EFCFFC093D6D90E8DC2139C4"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/guard/check-report-budget.py",
+      "Bytes": 1647,
+      "Sha256": "FA92D9FC393716FA9AC8223C831704C2B4F1E7A16623E229C6FEA8C234F239A4"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/guard/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/guard/verify-original9.py",
+      "Bytes": 17708,
+      "Sha256": "AB0036220CDFA424B57FBB901D3876D22796F376AF3EACCA659FADC82D7C751E"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/capture-origin.json",
+      "Bytes": 406,
+      "Sha256": "EBF9871DE85C4A13DD88518E684D6241DFD73D18FFE24F77CF12E316BE969575"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/check_process_capture.py",
+      "Bytes": 1851,
+      "Sha256": "7AFB9AAACFA500F88AC664A85FE291A98BD66AE2D6B4AA875712A272D4C1B54D"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/collect.py",
+      "Bytes": 7111,
+      "Sha256": "E2DC769E2E41A22A7FDA14E2A7BD51C6572B703C2FBBBDB0D30097D154063F60"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/expected-policy.json",
+      "Bytes": 19547,
+      "Sha256": "5FBDB2F091A0A1D3F55C6673B7A6B140D23A1CA2823BDE3F6865AAC8028ED957"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/new/raw_onload_visibility_fixture.erl",
+      "Bytes": 294,
+      "Sha256": "A72C96972CD2A207FE79201318DDF98243702DB2B048B731227E9D52F8588118"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/old/raw_onload_visibility_fixture.erl",
+      "Bytes": 116,
+      "Sha256": "676414737885B540ADF98F1C0464D4AF2E56F534118A35A4142D5806C0697C09"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/raw_onload_visibility_observer.erl",
+      "Bytes": 5763,
+      "Sha256": "87DE2BE1447DB9DF44D4622FC54FC8ED1BA10E1D669CEEDA932586F06D16D965"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/original/source-plan.json",
+      "Bytes": 3175,
+      "Sha256": "36F3A580DAAB83675014C835F5537861C894440D761479B839384B722EDD5319"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/README.md",
+      "Bytes": 4946,
+      "Sha256": "215D36FFD3B243CF03DF64635587EAE97CF11880E3FB25A8040979F53EA71083"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/reviewed-execution-plan.json",
+      "Bytes": 4610,
+      "Sha256": "97C447A8AD78D37EA4F092963B7D4E5A7FEF5879E55DF1E4E4739F1409D5FBA9"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py",
+      "Bytes": 10097,
+      "Sha256": "B09C9ED1449A50307BE900ABF2558AF882B4ED013FE51E682799071028CA8C09"
+    },
+    {
+      "Path": "overlay/tools/Erlang.RawOnLoadVisibilityObservations/seal-execution-plan.py",
+      "Bytes": 1285,
+      "Sha256": "E10289294B0469D9885662A64BA97AC93E37643C7158510556D65B3E122A82F3"
+    },
+    {
+      "Path": "peer-review.json",
+      "Bytes": 460,
+      "Sha256": "114BBE3B2B2F11825B905347492049E176602E6EC017BDCADD740078B936AF95"
+    },
+    {
+      "Path": "pinned-header-source-check.json",
+      "Bytes": 857,
+      "Sha256": "4C4876200769E6886A780B3E92B88A3FC3DC9CE6504122B258908A8A10F2E1F2"
+    },
+    {
+      "Path": "preliminary-execution-plan-before-optimize-check.json",
+      "Bytes": 4609,
+      "Sha256": "A185202E540378E65EDBCFB262ACD8F5336B7C5A03883436CD8139108981FC13"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 2023,
+      "Sha256": "AB9FAC0643C4340330697DF104E6711B8D1049F218F06ACE8033E220EB18A375"
+    },
+    {
+      "Path": "source-bindings.json",
+      "Bytes": 1644,
+      "Sha256": "983FABF7A6AC922197BAB1C8EF5064DB7EDAD7B701E6E4BB24A4F49455179C62"
+    }
+  ],
+  "OverlayFileCount": 19,
+  "ExecutionClosureRecords": 18,
+  "DependencySnapshotUnchanged": {
+    "Path": "tools/Erlang.NifPendingVarargsObservations/verify-original13.py",
+    "ParentSha256": "46F8837A41981C15DD6D49E3F16CFE06ABB2A8DE2B404BBCF84D9B93A248150F"
+  },
+  "MainChanged": false,
+  "OriginalExecuted": false,
+  "SdkCompared": false,
+  "NativeExecuted": false,
+  "WorkflowDispatched": false
+}

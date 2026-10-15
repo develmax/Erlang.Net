@@ -12,6 +12,8 @@ All 91 lists exports are registered and directly tested; [lists compatibility sc
 
 All 34 maps exports are registered and directly tested; [maps compatibility scope](docs/MAPS_COMPATIBILITY.md) describes functional proof and remaining runtime boundaries.
 
+Part302 tooling checkpoint: the reviewed raw on_load original-observation workflow is ready for a separately verified manual run; its new nine original observations are pending. Local tooling closure/35 decoder/report controls pass. Runtime results are reused from published301 (6621/full, exact-head CI6621/full and post-full trusted-native), with no runtime source change or new native claim. See [the checkpoint receipt](docs/validation/part-302/evidence-receipt.json).
+
 Selected Erlang behaviour adapters expose ten gen_server and fourteen supervisor entry points. See [adapter usage and limitations](docs/OTP_ADAPTERS.md).
 
 [Module readiness](docs/MODULE_READINESS.md) reports delivered/remaining component milestones, tested registered MFAs and changes from the previous checkpoint. Its API-presence percentages measure declarations, not complete compatibility. The full inventory is in [module-readiness.json](docs/module-readiness.json).

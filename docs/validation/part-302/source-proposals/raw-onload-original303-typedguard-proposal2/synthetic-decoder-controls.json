@@ -1,0 +1,197 @@
+{
+  "Status": "SYNTHETIC_PASSIVE_DECODER_CONTROLS_PASS",
+  "Cases": [
+    {
+      "Name": "zero-free-new-fun",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "0F8D0AA676039BADA2A609465E30DA31D9E1B77CB6AF7C739EF58A98777C4C1A"
+    },
+    {
+      "Name": "free-variable-preserved",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "FEEE8AF0A2DFA8A4BA358CC47F32662C1E838FECB538D86F6C58C82E7540F824"
+    },
+    {
+      "Name": "pid-identity-preserved",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "2DD8E72546761016A55B8A926037F0731BF45A29B64E243E2688B5534C04CA46"
+    },
+    {
+      "Name": "badfun-reason-and-stack-preserved",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "864C6A2C1C79C94D7EB8B6B0F010B61D933E60996804870D493CCE2AD04D7C02"
+    },
+    {
+      "Name": "export-fun-passive",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "6863AD1193623F6C428EF10CECC1FF55675AFF8D2E8D48F052139953641FD125"
+    },
+    {
+      "Name": "size-excludes-size-field",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "9B40FF172A921BD6420DF0827C75864FB0E5BD23287D12CB6FA2648B1A6A6013"
+    },
+    {
+      "Name": "size-includes-tag-wrongly",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "C6B278921583690980EB645AD4DEBC450F9DE2013E456FA0D6F8A210D1F0B258"
+    },
+    {
+      "Name": "size-cannot-consume-following-term",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "DB89DE07EC4A7DEB6064AB5B4BB5728099E7B2AC3682B0A36F5BE3EB6D04B8E8"
+    },
+    {
+      "Name": "truncated-fun",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "CDF90E20B6878F2B5A1E8FC508A05B3EDA8AF8C925CD8F08B384D08947D7823F"
+    },
+    {
+      "Name": "wrong-module-type",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "B13036C8FBD77C658799B844648CF11E70D03816D65580DA1C491C0D786FCF15"
+    },
+    {
+      "Name": "wrong-pid-type",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "B3D4799F2BE7473A84AE400EB7BCB151000E66160F32F4D79619896003BF456A"
+    },
+    {
+      "Name": "oversized-free-count",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "F231C240A979E397117DA59FE55BB2EBC2E30E6ACB951E0D9F967238FECD1688"
+    },
+    {
+      "Name": "extra-unaccounted-free-var",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "730C4D86348B3928A4920B4050E90CBB8A476C725981639654CEEF1B77F97646"
+    },
+    {
+      "Name": "removed-legacy-fun",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "0ED390E38DDCCCE8E8C7F6C76C20EC8F955823FDD85C86B3C0C8A900875A7ED7"
+    },
+    {
+      "Name": "compressed-not-in-profile",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "C04CD15D2AA50A020992049C374D3EBE7760B5E1528A75FF6E9FA3CB654A1B4E"
+    },
+    {
+      "Name": "reference-count-too-large",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "7F01AFF7B6D0A48DD91CA9BE384AB4F7560163F96CE9C147BED5C083A6BCA625"
+    },
+    {
+      "Name": "pid-node-not-atom",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "F9A3C1A4FDF11C00E805E83D8B7E45F544437E2F159ED6912F61130D2F89A552"
+    },
+    {
+      "Name": "tuple-depth-over-bound",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "827A5131103EA911918F23D9DECC65136D80F80EE469341B28AA11F14EAC914F"
+    },
+    {
+      "Name": "trailing-bytes",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "620F21FD75D2E887E5AEEF66D3FB0C8A4AD23DDF2998DA8A480FED221D4B85D0"
+    },
+    {
+      "Name": "binary-exact-bytes",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "984565CC0019D49BF078D79D3DD5E67CF6150FA1FC1331CAB665589D0AE700C1"
+    },
+    {
+      "Name": "bit-binary-padding-and-count",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "E26C9751E553C436B92658D9300F763F33F2DC191DD1F2FFE9BF7B668133311C"
+    },
+    {
+      "Name": "float-raw-bits",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "08AD4B5C48E87C73A3CD0357BD26A6BCEF6E60ECF27EE1A16E65719B8628D940"
+    },
+    {
+      "Name": "modern-reference-full-identity",
+      "Expected": "ACCEPT_PASSIVE",
+      "Passed": true,
+      "Sha256": "0A461381FD33EB33BD435258A05A116CB42C07A22A550211FD618C3E470D9AE7"
+    },
+    {
+      "Name": "truncated-binary",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "198A7AAC1A0E6B51234793B3165912A281DD76BD8A0A4F1E88699CE04554A96B"
+    },
+    {
+      "Name": "bit-binary-nonzero-padding",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "79098B88046AE38D4AB24CDD577A3B920D390459326A38238C14A13CDF1C0E43"
+    },
+    {
+      "Name": "truncated-float",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "BC2FA913DD2C9A73098286C416A226252ABB6BDC4A03A913A2697F6BFE71F490"
+    },
+    {
+      "Name": "truncated-reference",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "C0644DE68496E85BF378BD21CFA71463D63F36F9604258101F090B944D04B58B"
+    },
+    {
+      "Name": "nested-fun-zero-raw-copy-spans",
+      "Expected": "ACCEPT_PASSIVE_SPANS",
+      "Passed": true,
+      "NestedFuns": 41
+    },
+    {
+      "Name": "nested-fun-aggregate-term-budget",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "C30039607742BAE0551D4FD4AB88F7CDB475E479724A0E6CD707C209E1881C23"
+    },
+    {
+      "Name": "string-ext-preallocation-budget",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "A71E1F4A57F1B857612637F169B5C064CED39D4D3A375C240191A7830DDA27A9"
+    },
+    {
+      "Name": "tuple-container-preallocation-budget",
+      "Expected": "REFUSE",
+      "Passed": true,
+      "Sha256": "A4FD6D3BEBB05966E3C1BEDDE7EC5E1EBB55FE95A2AC40D50A3B5F86DE7FDEA7"
+    }
+  ],
+  "Count": 31,
+  "OriginalExecuted": false,
+  "NativeExecuted": false,
+  "SdkCompared": false,
+  "FunExecuted": false,
+  "DecoderSha256": "776F5FB89FD80EEED96D1376E3858CCAB8FB14EE29ED3E565287A819EB9580BD"
+}

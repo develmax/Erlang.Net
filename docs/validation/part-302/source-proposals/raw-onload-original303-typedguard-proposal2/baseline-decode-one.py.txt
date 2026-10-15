@@ -1,0 +1,59 @@
+def decode_one(data):
+    require(len(data) <= MAX_BYTES and len(data) > 1 and data[0] == VERSION, 'ETF version/size')
+    position = 1
+
+    def take(count):
+        nonlocal position
+        require(count >= 0 and position + count <= len(data), 'Truncated ETF')
+        result = data[position:position + count]
+        position += count
+        return result
+
+    def count32():
+        return int.from_bytes(take(4), 'big')
+
+    def term(depth):
+        require(depth <= MAX_DEPTH, 'ETF diagnostic depth limit')
+        tag = take(1)[0]
+        if tag == 97:
+            return ('integer', take(1)[0])
+        if tag == 98:
+            return ('integer', int.from_bytes(take(4), 'big', signed=True))
+        if tag in (110, 111):
+            count = take(1)[0] if tag == 110 else count32()
+            sign = take(1)[0]
+            require(sign in (0, 1), 'Invalid big integer sign')
+            number = int.from_bytes(take(count), 'little')
+            return ('integer', -number if sign else number)
+        if tag in (100, 115, 118, 119):
+            size = take(1)[0] if tag in (115, 119) else int.from_bytes(take(2), 'big')
+            return ('atom', take(size).decode('utf-8' if tag in (118, 119) else 'latin1'))
+        if tag in (104, 105):
+            size = take(1)[0] if tag == 104 else count32()
+            require(size <= len(data) - position, 'Tuple size exceeds available data')
+            return ('tuple', tuple(term(depth + 1) for _ in range(size)))
+        if tag == 106:
+            return ('list', ())
+        if tag == 107:
+            size = int.from_bytes(take(2), 'big')
+            return ('list', tuple(('integer', byte) for byte in take(size)))
+        if tag == 108:
+            size = count32()
+            require(size <= len(data) - position, 'List size exceeds available data')
+            items = tuple(term(depth + 1) for _ in range(size))
+            tail = term(depth + 1)
+            if tail[0] == 'list':
+                return ('list', items + tail[1])
+            if tail[0] == 'improper':
+                return ('improper', items + tail[1], tail[2])
+            return ('improper', items, tail)
+        if tag == 116:
+            size = count32()
+            require(size <= (len(data) - position) // 2, 'Map size exceeds available data')
+            pairs = [(term(depth + 1), term(depth + 1)) for _ in range(size)]
+            require(len({key for key, _ in pairs}) == size, 'Duplicate map key')
+            return ('map', frozenset(pairs))
+        raise ValueError('Unsupported ETF tag: ' + str(tag))
+
+    result = term(0)
+    return result, position

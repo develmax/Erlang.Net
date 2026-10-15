@@ -1,0 +1,114 @@
+{
+  "Status": "SOURCE_ONLY_ORIGINAL_OBSERVATIONS_NOT_EXECUTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectedFreshVmCases": 9,
+  "Cases": [
+    {
+      "Name": "fresh_direct_true",
+      "Baseline": "fresh",
+      "Operation": "direct_true"
+    },
+    {
+      "Name": "fresh_false_false_true",
+      "Baseline": "fresh",
+      "Operation": "false_false_true"
+    },
+    {
+      "Name": "fresh_wrapper_false",
+      "Baseline": "fresh",
+      "Operation": "wrapper_false"
+    },
+    {
+      "Name": "current_direct_true",
+      "Baseline": "current",
+      "Operation": "direct_true"
+    },
+    {
+      "Name": "current_false_false_true",
+      "Baseline": "current",
+      "Operation": "false_false_true"
+    },
+    {
+      "Name": "current_wrapper_false",
+      "Baseline": "current",
+      "Operation": "wrapper_false"
+    },
+    {
+      "Name": "deleted_old_direct_true",
+      "Baseline": "deleted_old",
+      "Operation": "direct_true"
+    },
+    {
+      "Name": "deleted_old_false_false_true",
+      "Baseline": "deleted_old",
+      "Operation": "false_false_true"
+    },
+    {
+      "Name": "deleted_old_wrapper_false",
+      "Baseline": "deleted_old",
+      "Operation": "wrapper_false"
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "collect.py",
+      "Bytes": 7111,
+      "Sha256": "E2DC769E2E41A22A7FDA14E2A7BD51C6572B703C2FBBBDB0D30097D154063F60"
+    },
+    {
+      "Path": "process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "check_process_capture.py",
+      "Bytes": 1821,
+      "Sha256": "9ADD219B30B5BA508A1CC86755441FF40B9265F899C2F1D97D5051289C19B012"
+    },
+    {
+      "Path": "capture-origin.json",
+      "Bytes": 406,
+      "Sha256": "EBF9871DE85C4A13DD88518E684D6241DFD73D18FFE24F77CF12E316BE969575"
+    },
+    {
+      "Path": "expected-policy.json",
+      "Bytes": 19547,
+      "Sha256": "5FBDB2F091A0A1D3F55C6673B7A6B140D23A1CA2823BDE3F6865AAC8028ED957"
+    },
+    {
+      "Path": "raw_onload_visibility_observer.erl",
+      "Bytes": 5763,
+      "Sha256": "87DE2BE1447DB9DF44D4622FC54FC8ED1BA10E1D669CEEDA932586F06D16D965"
+    },
+    {
+      "Path": "old/raw_onload_visibility_fixture.erl",
+      "Bytes": 116,
+      "Sha256": "676414737885B540ADF98F1C0464D4AF2E56F534118A35A4142D5806C0697C09"
+    },
+    {
+      "Path": "new/raw_onload_visibility_fixture.erl",
+      "Bytes": 294,
+      "Sha256": "A72C96972CD2A207FE79201318DDF98243702DB2B048B731227E9D52F8588118"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "GitPath": "erts/emulator/beam/beam_bif_load.c",
+      "Bytes": 71048,
+      "Sha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D"
+    },
+    {
+      "GitPath": "erts/preloaded/src/erts_code_purger.erl",
+      "Bytes": 14777,
+      "Sha256": "2A9A4D8642BE168AD818BAF29CFD4F4FF913D0F9BD5F1F669947B575BFFC443D"
+    },
+    {
+      "GitPath": "erts/preloaded/src/erts_internal.erl",
+      "Bytes": 36419,
+      "Sha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260"
+    }
+  ],
+  "SemanticAssertionsExecuted": false,
+  "SdkExecuted": false,
+  "NativeFixtureUsed": false
+}

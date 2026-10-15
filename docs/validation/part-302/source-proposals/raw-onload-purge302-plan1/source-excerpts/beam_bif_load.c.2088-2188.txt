@@ -1,0 +1,101 @@
+BIF_RETTYPE erts_internal_purge_module_2(BIF_ALIST_2)
+{
+    if (BIF_P != erts_code_purger) {
+        BIF_ERROR(BIF_P, EXC_NOTSUP);
+    }
+
+    if (is_not_atom(BIF_ARG_1)) {
+        goto raise_badarg;
+    }
+
+    switch (BIF_ARG_2) {
+
+    case am_prepare:
+    case am_prepare_on_load: {
+        /* Prepare for purge by marking all fun entries referring to the code
+         * to purge with "pending purge" markers. */
+        ErtsCodeIndex code_ix;
+        Module* modp;
+        Eterm res;
+
+        if (is_value(purge_state.module)) {
+            goto raise_badarg;
+        }
+
+        /* Fun purging requires that we don't stage new code while any purge
+         * markers are alive, lest we kill them by reloading a new module on
+         * top of an old instance of the same module. */
+        if (!erts_try_seize_code_stage_permission(BIF_P)) {
+            ERTS_BIF_YIELD2(BIF_TRAP_EXPORT(BIF_erts_internal_purge_module_2),
+                            BIF_P, BIF_ARG_1, BIF_ARG_2);
+        }
+
+        code_ix = erts_active_code_ix();
+
+        /* Correct module? */
+        modp = erts_get_module(BIF_ARG_1, code_ix);
+        if (!modp) {
+            res = am_false;
+        } else {
+            /* Any code to purge? */
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                erts_rwlock_old_code(code_ix);
+            } else {
+                erts_rlock_old_code(code_ix);
+            }
+
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                ASSERT(modp->on_load);
+                ASSERT(modp->on_load->code_hdr);
+                purge_state.saved_old = modp->old;
+                modp->old = *modp->on_load;
+                erts_free(ERTS_ALC_T_PREPARED_CODE, (void *) modp->on_load);
+                modp->on_load = 0;
+            }
+
+            if (!modp->old.code_hdr) {
+                res = am_false;
+            } else {
+                erts_mtx_lock(&purge_state.mtx);
+                purge_state.module = BIF_ARG_1;
+                erts_mtx_unlock(&purge_state.mtx);
+
+                /* Set up "pending purge" markers for the funs in this module.
+                 * Processes trying to call these funs will be suspended
+                 * _before_ calling them, which will then either crash or
+                 * succeed when resumed after the purge finishes or is aborted.
+                 *
+                 * This guarantees that we won't get any more direct references
+                 * into the code while checking for such funs. */
+                erts_fun_purge_prepare(&modp->old);
+
+                res = am_true;
+            }
+
+            if (BIF_ARG_2 == am_prepare_on_load) {
+                erts_rwunlock_old_code(code_ix);
+            } else {
+                erts_runlock_old_code(code_ix);
+            }
+        }
+
+        if (res == am_true) {
+            if (purge_state.fe_count == 0) {
+                /* No funs to purge, so we can safely release stage permission
+                 * and allow code to be loaded while checking process code. */
+                erts_release_code_stage_permission();
+            }
+
+            /* Resume ourselves when all schedulers are guaranteed to either
+             * call the newest instance of the module, or see the "pending
+             * purge" markers that we set on all fun entries related to the
+             * code we're about to purge. */
+            erts_schedule_thr_prgr_later_op(resume_purger,
+                                            NULL,
+                                            &purger_lop_data);
+            erts_suspend(BIF_P, ERTS_PROC_LOCK_MAIN, NULL);
+            ERTS_BIF_YIELD_RETURN(BIF_P, am_true);
+        }
+
+        erts_release_code_stage_permission();
+        BIF_RET(res);

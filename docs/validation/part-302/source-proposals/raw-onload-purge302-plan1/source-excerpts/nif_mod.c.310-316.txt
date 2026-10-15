@@ -1,0 +1,7 @@
+static void unload(ErlNifEnv* env, void* priv)
+{
+    NifModPrivData* data = (NifModPrivData*) priv;
+
+    add_call(env, data, "unload");
+    enif_send(env, &data->tester_pid, NULL, am_unloaded);
+    NifModPrivData_release(data);

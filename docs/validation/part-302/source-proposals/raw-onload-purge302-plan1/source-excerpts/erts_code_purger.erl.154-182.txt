@@ -1,0 +1,29 @@
+%% finish_after_on_load(Module, Keep)
+%% Finish after running on_load function. If Keep is false,
+%% purge the code for the on_load function.
+
+finish_after_on_load(Mod, Keep) ->
+    Ref = make_ref(),
+    erts_code_purger ! {finish_after_on_load, {Mod,Keep}, self(), Ref},
+    receive
+	{reply, finish_after_on_load, Result, Ref} ->
+	    Result
+    end.
+
+do_finish_after_on_load(Mod, Keep, Reqs) ->
+    erlang:finish_after_on_load(Mod, Keep),
+    case Keep of
+	true ->
+	    Reqs;
+	false ->
+	    case erts_internal:purge_module(Mod, prepare_on_load) of
+		false ->
+		    Reqs;
+		true ->
+		    {_DidKill, NewReqs} =
+			check_proc_code(erlang:processes_iterator(),
+					Mod, true, Reqs),
+		    true = erts_internal:purge_module(Mod, complete),
+		    NewReqs
+	    end
+    end.

@@ -762,3 +762,7 @@ Pinned erl_lint declaration validation and beam_ssa nifs control semantics guide
 ## Part 294: original pressure test infrastructure
 
 The collector is C# and source-links existing process/build/queue helpers. Pinned OTP dist.c/erl_process.c guide independent observation contracts; native soft busy pressure and managed hard queue budgets remain distinct. Erlang is original-VM test input only. The manual workflow Python fragment records source-build provenance. These test-infrastructure languages add no production dependency or generic runtime implementation; original probe compilation and three observations remain pending.
+
+## Part302 — raw failed-on_load source-guided oracle prerequisite
+
+No runtime algorithm is ported in this tooling-only part. The pinned OTP-29.1.1 beam_bif_load.c raw finish/prepare/purge transitions, erts_code_purger.erl wrapper and erts_internal.erl declarations define predeclared certain observations and separate hypotheses. The prior source-plan excerpts and exact full-blob hashes remain under validation/part-302/source-proposals/raw-onload-purge302-plan1; original fixture/collector/policy, inherited-pipe correction and passive ETF decoder provenance are archived separately. Full original ETF/stacks/fun fields are retained without normalization. New original9 execution is pending; source evidence alone does not authorize claiming raw false/false/true equivalence or changing production finish/prepare/purge behavior. No public load_nif/general native ABI implementation is added.

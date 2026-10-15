@@ -1,0 +1,81 @@
+name: Pinned raw on-load visibility original observations
+on:
+  workflow_dispatch:
+    inputs:
+      approved_execution_plan_sha256:
+        description: SHA256 of the independently reviewed execution closure at this exact ref
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-raw-onload-visibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      REVIEWED_EXECUTION_PLAN_SHA256: ${{ inputs.approved_execution_plan_sha256 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify reviewed complete execution closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py verify \
+            --repository "$GITHUB_WORKSPACE" \
+            --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303"
+      - name: Verify passive synthetic decoder and report controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py synthetic \
+            --repository "$GITHUB_WORKSPACE" \
+            --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303" \
+            2>&1 | tee artifacts/raw-onload-original303/synthetic-launch.log
+      - name: Build exact pinned original and bind tools and source headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            set -x
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/raw-onload-otp-source
+            test "$(git -C artifacts/raw-onload-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            cd artifacts/raw-onload-otp-source
+            ./configure --prefix="$PWD/observer-install" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/raw-onload-original303/original-build.log
+          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py provenance \
+            --repository "$GITHUB_WORKSPACE" \
+            --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \
+            --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303"
+      - name: Capture controls and nine fresh original VM cases
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py collect \
+            --repository "$GITHUB_WORKSPACE" \
+            --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \
+            --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303" \
+            2>&1 | tee artifacts/raw-onload-original303/collection-launch.log
+      - name: Verify original certain assertions and report separate hypothesis outcomes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py guard \
+            --repository "$GITHUB_WORKSPACE" \
+            --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \
+            --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303" \
+            2>&1 | tee artifacts/raw-onload-original303/guard-launch.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: raw-onload-original-nine-observations
+          path: artifacts/raw-onload-original303/**
+          if-no-files-found: warn

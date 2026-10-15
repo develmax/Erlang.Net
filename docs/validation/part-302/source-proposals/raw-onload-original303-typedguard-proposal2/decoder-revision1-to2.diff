@@ -1,0 +1,106 @@
+--- immutable-guard1/passive_etf.py
++++ guard2-budgeted-spans/passive_etf.py
+@@ -3,6 +3,7 @@
+ # contains every parser change. This bounded profile rejects COMPRESSED/FUN_EXT.
+ MAX_BYTES = 16 * 1024 * 1024
+ MAX_DEPTH = 128
++MAX_TERMS = 100_000
+ VERSION = 131
+ 
+ 
+@@ -11,9 +12,33 @@
+         raise ValueError(message)
+ 
+ 
++
++def baseline_map_key(value):
++    # Provenance spans must never become map-key semantic identity. Restrict
++    # map keys to the original decoder profile; extended terms remain values.
++    if value[0] in ('atom', 'integer'):
++        return True
++    if value[0] in ('tuple', 'list'):
++        return all(baseline_map_key(item) for item in value[1])
++    if value[0] == 'improper':
++        return all(baseline_map_key(item) for item in value[1]) and baseline_map_key(value[2])
++    if value[0] == 'map':
++        return all(baseline_map_key(key) and baseline_map_key(item) for key, item in value[1])
++    return False
++
++
+ def decode_one(data):
+     require(len(data) <= MAX_BYTES and len(data) > 1 and data[0] == VERSION, 'ETF version/size')
+     position = 1
++    decoded_terms = 0
++
++    def reserve_terms(count):
++        nonlocal decoded_terms
++        require(0 <= count <= MAX_TERMS - decoded_terms, 'Aggregate decoded term budget')
++        decoded_terms += count
++
++    def require_room(count):
++        require(0 <= count <= MAX_TERMS - decoded_terms, 'Container exceeds remaining term budget')
+ 
+     def take(count):
+         nonlocal position
+@@ -27,6 +52,7 @@
+ 
+     def term(depth):
+         require(depth <= MAX_DEPTH, 'ETF diagnostic depth limit')
++        reserve_terms(1)
+         tag = take(1)[0]
+         if tag == 97:
+             return ('integer', take(1)[0])
+@@ -44,15 +70,18 @@
+         if tag in (104, 105):
+             size = take(1)[0] if tag == 104 else count32()
+             require(size <= len(data) - position, 'Tuple size exceeds available data')
++            require_room(size)
+             return ('tuple', tuple(term(depth + 1) for _ in range(size)))
+         if tag == 106:
+             return ('list', ())
+         if tag == 107:
+             size = int.from_bytes(take(2), 'big')
++            reserve_terms(size)
+             return ('list', tuple(('integer', byte) for byte in take(size)))
+         if tag == 108:
+             size = count32()
+             require(size <= len(data) - position, 'List size exceeds available data')
++            require_room(size + 1)
+             items = tuple(term(depth + 1) for _ in range(size))
+             tail = term(depth + 1)
+             if tail[0] == 'list':
+@@ -63,7 +92,9 @@
+         if tag == 116:
+             size = count32()
+             require(size <= (len(data) - position) // 2, 'Map size exceeds available data')
++            require_room(size * 2)
+             pairs = [(term(depth + 1), term(depth + 1)) for _ in range(size)]
++            require(all(baseline_map_key(key) for key, _ in pairs), 'Extended identity-bearing map key outside diagnostic profile')
+             require(len({key for key, _ in pairs}) == size, 'Duplicate map key')
+             return ('map', frozenset(pairs))
+         if tag in (88, 103):
+@@ -97,6 +128,7 @@
+             require(module[0] == function[0] == 'atom' and arity[0] == 'integer' and 0 <= arity[1] <= 255, 'Export fun shape')
+             return ('export_fun', module, function, arity)
+         if tag == 112:
++            reserve_terms(16)
+             size_start = position
+             size = count32()
+             end = size_start + size
+@@ -104,12 +136,14 @@
+             arity = take(1)[0]
+             uniq, index, count = take(16), count32(), count32()
+             require(count <= end - position, 'New fun free count bound')
++            require_room(count + 4)
+             module, old_index, old_uniq, pid = (term(depth + 1) for _ in range(4))
+             require(module[0] == 'atom' and old_index[0] == old_uniq[0] == 'integer' and pid[0] == 'pid', 'New fun fixed field types')
+             free = tuple(term(depth + 1) for _ in range(count))
+             require(position == end, 'New fun exact declared boundary')
+-            # Passive data only: retain original encoding as well as all typed fields.
+-            return ('new_fun', size, arity, uniq, index, module, old_index, old_uniq, pid, free, data[size_start - 1:end])
++            # Passive original-file span: never copy nested fun encodings.
++            # The guard records the raw ETF file SHA; this span recovers exact bytes.
++            return ('new_fun', size, arity, uniq, index, module, old_index, old_uniq, pid, free, ('raw_span', size_start - 1, end - size_start + 1))
+         raise ValueError('Unsupported ETF tag: ' + str(tag))
+ 
+     result = term(0)

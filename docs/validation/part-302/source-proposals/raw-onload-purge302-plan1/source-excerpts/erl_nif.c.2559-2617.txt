@@ -1,0 +1,59 @@
+static void close_dynlib_aux(void* vlib)
+{
+    struct erl_module_nif* lib = vlib;
+
+    /* Seize code modification permission to avoid unload-load race.
+     * Once we are commited to unload, we must run all unload callbacks
+     * and do dlclose before anyone is allowed to reload the same dynamic lib.
+     *
+     * A more fine grained solution would be nice to allow code mod operations
+     * that do not affect this dynamic lib.
+     */
+    if (!erts_try_seize_code_mod_permission_aux(close_dynlib_aux, vlib)) {
+        return;
+    }
+
+    if (!lib->unload_thr_callback) {
+        really_close_dynlib(lib);
+        return;
+    }
+
+    /* Run all thread specific unload handlers first */
+    erts_atomic_set_nob(&lib->unload_thr_counter, erts_no_schedulers);
+    erts_schedule_multi_misc_aux_work(0,
+                                      1,
+                                      erts_no_schedulers,
+                                      call_on_unload_thr,
+                                      (void *) lib);
+}
+
+static void call_on_unload_thr(void* vlib)
+{
+    struct erl_module_nif* lib = vlib;
+
+    ASSERT(lib->unload_thr_callback);
+    ASSERT(erts_atomic_read_nob(&lib->unload_thr_counter) > 0);
+
+    lib->unload_thr_callback(lib->priv_data);
+
+    if (erts_atomic_dec_read_nob(&lib->unload_thr_counter) == 0) {
+        really_close_dynlib(lib);
+    }
+}
+
+static void really_close_dynlib(struct erl_module_nif* lib)
+{
+    if (lib->entry.unload != NULL) {
+	struct enif_msg_environment_t msg_env;
+        pre_nif_noproc(&msg_env, lib, NULL);
+	lib->entry.unload(&msg_env.env, lib->priv_data);
+        post_nif_noproc(&msg_env);
+    }
+    if (lib->handle) {
+      erts_sys_ddll_close(lib->handle);
+      lib->handle = NULL;
+    }
+
+    erts_release_code_mod_permission();
+
+    deref_nifmod(lib);

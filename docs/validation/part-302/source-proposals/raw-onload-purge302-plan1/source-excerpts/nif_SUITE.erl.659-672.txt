@@ -1,0 +1,14 @@
+    true = code:delete(nif_mod),
+    [] = nif_mod_call_history(),
+
+
+    Pid2 ! die,
+    {'DOWN', MRef2, process, Pid2, normal} = receive_any(),
+    false= check_process_code(Pid2, nif_mod),
+    true = code:soft_purge(nif_mod),
+    receive unloaded -> ok end,
+    [{unload,1,4,104}] = nif_mod_call_history(),
+
+    true = lists:member(?MODULE, erlang:system_info(taints)),
+    true = lists:member(nif_mod, erlang:system_info(taints)),
+    verify_tmpmem(TmpMem),

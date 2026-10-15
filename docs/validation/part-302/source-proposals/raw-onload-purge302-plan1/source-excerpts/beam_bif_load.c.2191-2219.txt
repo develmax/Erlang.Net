@@ -1,0 +1,29 @@
+    case am_abort: {
+        /* Soft purge that detected direct references into the code we set out
+         * to purge. Abort the purge. */
+        if (purge_state.module != BIF_ARG_1) {
+            goto raise_badarg;
+        }
+
+        if (purge_state.fe_count > 0) {
+            erts_fun_purge_abort_prepare(purge_state.funs,
+                                         purge_state.fe_count);
+
+            /* We need to restore the code addresses of the funs in two stages
+             * to ensure that we do not get any stale suspended processes due
+             * to the purge abort.
+             *
+             * Restore address pointer (erts_fun_purge_abort_prepare); wait for
+             * thread progress; clear pending purge address pointer
+             * (erts_fun_purge_abort_finalize), and then resume processes that
+             * got suspended (finalize_purge_operation). */
+            erts_schedule_thr_prgr_later_op(finalize_purge_abort,
+                                            NULL,
+                                            &purger_lop_data);
+            erts_suspend(BIF_P, ERTS_PROC_LOCK_MAIN, NULL);
+            ERTS_BIF_YIELD_RETURN(BIF_P, am_false);
+        }
+
+        /* No funs to restore, just clean up and return. */
+        finalize_purge_operation(NULL, 0);
+        BIF_RET(am_false);

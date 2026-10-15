@@ -1,0 +1,25 @@
+{
+  "BaselinePath": "tools\\Erlang.BeamFixtures\\verify-metadata-mutations.py",
+  "BaselineSha256": "F09799AD51AB4A49C271977E987F1C186C76FF4A87C943D19E8D6AA709F1DB4C",
+  "PassiveDecoderSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSources": [
+    {
+      "GitPath": "erts/emulator/beam/external.c",
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B"
+    },
+    {
+      "GitPath": "erts/emulator/beam/external.h",
+      "Sha256": "D38604F3626160D9AF5EB31F5C2F8EED3C289FD346AC36773E7A976B848112B2"
+    },
+    {
+      "GitPath": "erts/doc/guides/erl_ext_dist.md",
+      "Sha256": "97B53D98D572FA2DF3B268B1AB1677F37CCA1FD487403913230FA76B8717DFA1"
+    }
+  ],
+  "Restriction": "Strict NEW_FUN size for this zero-free fixture profile; pinned native decoder tolerates some historic overstated sizes, not copied as a general acceptance policy. No evaluator/fun invocation.",
+  "RawFunRetention": "Archived original ETF SHA + exact start/length span; no recursive raw slices or repeated span hashing",
+  "MaximumDecodedTerms": 100000,
+  "StringExtBudget": "Each synthesized byte integer charged before tuple allocation",
+  "MapKeyProfile": "Only recursively original atom/integer/tuple/list/improper/map key terms. Extended terms may be map values but never semantic keys; spans cannot change duplicate-key equality."
+}
