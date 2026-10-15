@@ -19,6 +19,20 @@ public sealed partial class RuntimeDistributionPending
         return connected;
     }
 
+    private static IReadOnlyList<EtfNodeEpoch> CollectConnectedControlEpochs(
+        ReadOnlySpan<byte> packet,
+        EtfDecodeOptions options
+    )
+    {
+        if (packet.Length > ExternalTermFormat.DefaultMaxBytes || packet.IsEmpty ||
+            packet[0] != DistributionPassThroughLayout.Marker)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        var epochs = new List<EtfNodeEpoch>();
+        _ = MeasureConnectedVersionedTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, epochs);
+
+        return epochs;
+    }
+
     private static IReadOnlyList<EtfNodeEpoch> CollectConnectedPacketEpochs(
         ReadOnlySpan<byte> packet,
         EtfDecodeOptions options,

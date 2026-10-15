@@ -1,0 +1,2034 @@
+{
+  "Runtime": {
+    "Tag": 104,
+    "Type": "Tuple",
+    "Values": [
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "3239",
+        "Values": [
+          50,
+          57
+        ]
+      },
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "31372e31",
+        "Values": [
+          49,
+          55,
+          46,
+          49
+        ]
+      },
+      {
+        "Tag": 119,
+        "Type": "Atom",
+        "Value": "jit"
+      },
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "2f686f6d652f72756e6e65722f776f726b2f45726c616e672e4e65742f45726c616e672e4e65742f6172746966616374732f6265616d2d6f74702d6f7261636c652f6c69622f65726c616e67",
+        "Values": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47,
+          119,
+          111,
+          114,
+          107,
+          47,
+          69,
+          114,
+          108,
+          97,
+          110,
+          103,
+          46,
+          78,
+          101,
+          116,
+          47,
+          69,
+          114,
+          108,
+          97,
+          110,
+          103,
+          46,
+          78,
+          101,
+          116,
+          47,
+          97,
+          114,
+          116,
+          105,
+          102,
+          97,
+          99,
+          116,
+          115,
+          47,
+          98,
+          101,
+          97,
+          109,
+          45,
+          111,
+          116,
+          112,
+          45,
+          111,
+          114,
+          97,
+          99,
+          108,
+          101,
+          47,
+          108,
+          105,
+          98,
+          47,
+          101,
+          114,
+          108,
+          97,
+          110,
+          103
+        ]
+      }
+    ]
+  },
+  "Cases": {
+    "sender_plain": {
+      "cleanup.etf": {
+        "Tag": 104,
+        "Type": "Tuple",
+        "Values": [
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "observed"
+          },
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "normal"
+          }
+        ]
+      },
+      "identities.etf": {
+        "Tag": 104,
+        "Type": "Tuple",
+        "Values": [
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 83,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 98,
+                "Type": "Integer",
+                "Value": 13228787
+              },
+              {
+                "Tag": 90,
+                "Type": "Reference",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Creation": 4,
+                "Ids": [
+                  82190,
+                  3942514690,
+                  2919696778
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 98,
+                "Type": "Integer",
+                "Value": 13228787
+              },
+              {
+                "Tag": 90,
+                "Type": "Reference",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Creation": 4,
+                "Ids": [
+                  82190,
+                  3942514690,
+                  2919696778
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "dist_ctrlr"
+              },
+              {
+                "Tag": 88,
+                "Type": "Pid",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Id": 83,
+                "Serial": 0,
+                "Creation": 4
+              },
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_remote@localhost"
+              },
+              {
+                "Tag": 88,
+                "Type": "Pid",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Id": 83,
+                "Serial": 0,
+                "Creation": 4
+              }
+            ]
+          },
+          {
+            "Tag": 110,
+            "Type": "Integer",
+            "Value": 17230663572
+          },
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "sender_plain"
+          }
+        ]
+      },
+      "operations.etf": {
+        "Tag": 108,
+        "Type": "List",
+        "Values": [
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "generated_trace_token"
+              },
+              {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 22
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_remote@localhost"
+                        },
+                        "Id": 11,
+                        "Serial": 0,
+                        "Creation": 1
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "remote"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836803611658771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770672656d6f74656d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "remote"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "remote"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 22
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_third@localhost"
+                        },
+                        "Id": 13,
+                        "Serial": 0,
+                        "Creation": 7
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "third_node"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836803611658771673656e6465725f7468697264406c6f63616c686f73740000000d000000000000000758771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770a74686972645f6e6f64656d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "third_node"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "third_node"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 22
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 10,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "current_local"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836803611658771673656e6465725f6c6f63616c406c6f63616c686f73740000000a000000000000000458771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770d63757272656e745f6c6f63616c6d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "current_local"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "current_local"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "target_down"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "normal"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 22
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_remote@localhost"
+                        },
+                        "Id": 11,
+                        "Serial": 0,
+                        "Creation": 1
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "dead_target"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "0102"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836803611658771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836802770b646561645f7461726765746d000000020102"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "controller_stat"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "ok"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 4
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Tail": {
+          "Tag": 106,
+          "Type": "Nil"
+        }
+      },
+      "outputs.etf": {
+        "Tag": 108,
+        "Type": "List",
+        "Values": [
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "dead_target_output"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "ok"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "none"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Tail": {
+          "Tag": 106,
+          "Type": "Nil"
+        }
+      }
+    },
+    "sender_trace": {
+      "cleanup.etf": {
+        "Tag": 104,
+        "Type": "Tuple",
+        "Values": [
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "observed"
+          },
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "normal"
+          }
+        ]
+      },
+      "identities.etf": {
+        "Tag": 104,
+        "Type": "Tuple",
+        "Values": [
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 83,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 98,
+                "Type": "Integer",
+                "Value": 3740656
+              },
+              {
+                "Tag": 90,
+                "Type": "Reference",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Creation": 4,
+                "Ids": [
+                  252106,
+                  3942514690,
+                  3359054746
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 98,
+                "Type": "Integer",
+                "Value": 3740656
+              },
+              {
+                "Tag": 90,
+                "Type": "Reference",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Creation": 4,
+                "Ids": [
+                  252106,
+                  3942514690,
+                  3359054746
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "dist_ctrlr"
+              },
+              {
+                "Tag": 88,
+                "Type": "Pid",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Id": 83,
+                "Serial": 0,
+                "Creation": 4
+              },
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_remote@localhost"
+              },
+              {
+                "Tag": 88,
+                "Type": "Pid",
+                "Node": {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sender_local@localhost"
+                },
+                "Id": 83,
+                "Serial": 0,
+                "Creation": 4
+              }
+            ]
+          },
+          {
+            "Tag": 110,
+            "Type": "Integer",
+            "Value": 17231187860
+          },
+          {
+            "Tag": 119,
+            "Type": "Atom",
+            "Value": "sender_trace"
+          }
+        ]
+      },
+      "operations.etf": {
+        "Tag": 108,
+        "Type": "List",
+        "Values": [
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "generated_trace_token"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 97,
+                    "Type": "Integer",
+                    "Value": 1
+                  },
+                  {
+                    "Tag": 97,
+                    "Type": "Integer",
+                    "Value": 42
+                  },
+                  {
+                    "Tag": 97,
+                    "Type": "Integer",
+                    "Value": 0
+                  },
+                  {
+                    "Tag": 88,
+                    "Type": "Pid",
+                    "Node": {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "sender_local@localhost"
+                    },
+                    "Id": 10,
+                    "Serial": 0,
+                    "Creation": 4
+                  },
+                  {
+                    "Tag": 97,
+                    "Type": "Integer",
+                    "Value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 23
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_remote@localhost"
+                        },
+                        "Id": 11,
+                        "Serial": 0,
+                        "Creation": 1
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 104,
+                        "Type": "Tuple",
+                        "Values": [
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 1
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 42
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          },
+                          {
+                            "Tag": 88,
+                            "Type": "Pid",
+                            "Node": {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "sender_local@localhost"
+                            },
+                            "Id": 10,
+                            "Serial": 0,
+                            "Creation": 4
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "remote"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836804611758771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770672656d6f74656d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "remote"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "remote"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 1
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 42
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 10,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 23
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_third@localhost"
+                        },
+                        "Id": 13,
+                        "Serial": 0,
+                        "Creation": 7
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 104,
+                        "Type": "Tuple",
+                        "Values": [
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 1
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 42
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          },
+                          {
+                            "Tag": 88,
+                            "Type": "Pid",
+                            "Node": {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "sender_local@localhost"
+                            },
+                            "Id": 10,
+                            "Serial": 0,
+                            "Creation": 4
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "third_node"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836804611758771673656e6465725f7468697264406c6f63616c686f73740000000d000000000000000758771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770a74686972645f6e6f64656d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "third_node"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "third_node"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 1
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 42
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 10,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 23
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 10,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 104,
+                        "Type": "Tuple",
+                        "Values": [
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 1
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 42
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          },
+                          {
+                            "Tag": 88,
+                            "Type": "Pid",
+                            "Node": {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "sender_local@localhost"
+                            },
+                            "Id": 10,
+                            "Serial": 0,
+                            "Creation": 4
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "current_local"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836804611758771673656e6465725f6c6f63616c406c6f63616c686f73740000000a000000000000000458771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770d63757272656e745f6c6f63616c6d0000000300ff80"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "delivery"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "current_local"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "sender_payload"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "current_local"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "00ff80"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 1
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 42
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 10,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "target_down"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "observed"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "normal"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "input"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 23
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_remote@localhost"
+                        },
+                        "Id": 11,
+                        "Serial": 0,
+                        "Creation": 1
+                      },
+                      {
+                        "Tag": 88,
+                        "Type": "Pid",
+                        "Node": {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "sender_local@localhost"
+                        },
+                        "Id": 84,
+                        "Serial": 0,
+                        "Creation": 4
+                      },
+                      {
+                        "Tag": 104,
+                        "Type": "Tuple",
+                        "Values": [
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 1
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 42
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          },
+                          {
+                            "Tag": 88,
+                            "Type": "Pid",
+                            "Node": {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "sender_local@localhost"
+                            },
+                            "Id": 10,
+                            "Serial": 0,
+                            "Creation": 4
+                          },
+                          {
+                            "Tag": 97,
+                            "Type": "Integer",
+                            "Value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "dead_target"
+                      },
+                      {
+                        "Tag": 109,
+                        "Type": "Binary",
+                        "BytesHex": "0102"
+                      }
+                    ]
+                  },
+                  {
+                    "Tag": 109,
+                    "Type": "Binary",
+                    "BytesHex": "70836804611758771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836802770b646561645f7461726765746d000000020102"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "controller_stat"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "ok"
+                  },
+                  {
+                    "Tag": 104,
+                    "Type": "Tuple",
+                    "Values": [
+                      {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "ok"
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 4
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      },
+                      {
+                        "Tag": 97,
+                        "Type": "Integer",
+                        "Value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Tail": {
+          "Tag": 106,
+          "Type": "Nil"
+        }
+      },
+      "outputs.etf": {
+        "Tag": 108,
+        "Type": "List",
+        "Values": [
+          {
+            "Tag": 104,
+            "Type": "Tuple",
+            "Values": [
+              {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "dead_target_output"
+              },
+              {
+                "Tag": 104,
+                "Type": "Tuple",
+                "Values": [
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "ok"
+                  },
+                  {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "none"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Tail": {
+          "Tag": 106,
+          "Type": "Nil"
+        }
+      }
+    }
+  }
+}

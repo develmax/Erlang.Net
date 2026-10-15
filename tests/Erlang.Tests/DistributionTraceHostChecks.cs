@@ -223,14 +223,20 @@ internal static class DistributionTraceHostChecks
     {
         var remote = new Pid(DistributionTraceHostNames.Remote, 1, 0);
         var local = new Pid(DistributionTraceHostNames.Local, 2, 4);
-        var control = Term.Tuple(Term.I(DistributionControlOpcodes.PayloadExit), remote, local);
+        var reference = new ReferenceTerm(DistributionTraceHostNames.Remote, new uint[] { 1 }, 0);
+        var control = Term.Tuple(
+            Term.I(DistributionControlOpcodes.PayloadMonitorExit),
+            remote,
+            local,
+            reference
+        );
         byte[] frame = Frame(control, Nil.Value);
         int invoked = 0;
         try
         {
             _ = DistributionPassThroughCodec.DecodeProcessPacket(
                 frame,
-                negotiatedFlags: DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload,
+                negotiatedFlags: DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor,
                 unsupportedControlValidator: _ => invoked++
             );
             Check(false);
@@ -246,7 +252,7 @@ internal static class DistributionTraceHostChecks
             {
                 _ = DistributionPassThroughCodec.DecodeProcessPacket(
                     malformed,
-                    negotiatedFlags: DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload,
+                    negotiatedFlags: DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor,
                     unsupportedControlValidator: _ => invoked++
                 );
                 Check(false);

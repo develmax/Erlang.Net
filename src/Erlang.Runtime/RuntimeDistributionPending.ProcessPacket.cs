@@ -51,7 +51,9 @@ public sealed partial class RuntimeDistributionPending
             if (packet.Length > ExternalTermFormat.DefaultMaxBytes)
                 throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
             byte[] ownedPacket = packet.ToArray();
-            var epochs = CollectConnectedPacketEpochs(ownedPacket, options, true);
+            bool deferredExit = DistributionPassThroughCodec.IsPayloadExitPacket(ownedPacket);
+            var epochs = deferredExit ? CollectConnectedControlEpochs(ownedPacket, options)
+                : CollectConnectedPacketEpochs(ownedPacket, options, true);
             using var admission = runtime.AdmitExternalDecode(options, epochs);
             lock (gate)
                 _ = RequireConnectedDecodeSnapshot(
@@ -60,6 +62,24 @@ public sealed partial class RuntimeDistributionPending
                     caller,
                     wire
                 );
+            if (deferredExit)
+            {
+                var envelope = DistributionPassThroughCodec.DecodePayloadExitEnvelope(ownedPacket, admission.Options, flags);
+                admission.Observe(envelope.Control);
+                lock (gate)
+                {
+                    var connected = RequireConnectedDecodeSnapshot(
+                        entry,
+                        connectionId,
+                        caller,
+                        wire
+                    );
+                    RouteDeferredConnectedExit(entry, connected, envelope);
+                    connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+                }
+
+                return;
+            }
             var decoded = DistributionPassThroughCodec.DecodeProcessPacket(
                 ownedPacket,
                 admission.Options,

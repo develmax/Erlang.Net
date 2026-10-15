@@ -65,6 +65,12 @@ public sealed partial class RuntimeDistributionPending
                     items[DistributionUnsupportedControlLayout.TargetIndex] is Pid target &&
                     target.Node == local.Node && target.Creation == local.Creation;
                 break;
+            case DistributionUnsupportedControlLayout.PayloadMonitorExit:
+                valid = items.Count == DistributionUnsupportedControlLayout.MonitorArity &&
+                    (Remote(items[DistributionUnsupportedControlLayout.FromIndex]) || items[DistributionUnsupportedControlLayout.FromIndex] is Atom) &&
+                    items[DistributionUnsupportedControlLayout.TargetIndex] is Pid watched && watched.Node == local.Node &&
+                    watched.Creation == local.Creation && items[DistributionUnsupportedControlLayout.ReferenceIndex] is ReferenceTerm;
+                break;
             case DistributionUnsupportedControlLayout.LegacyUnlink:
                 valid = false;
                 break;

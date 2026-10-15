@@ -4280,6 +4280,9 @@ Test(Erlang.Tests.ProcessInfoDefaultHostNames.Test, Erlang.Tests.ProcessInfoDefa
 
 Test(Erlang.Tests.DistributionTraceHostNames.Test, Erlang.Tests.DistributionTraceHostChecks.Run);
 Test(Erlang.Tests.DistributionSenderHostNames.Test, Erlang.Tests.DistributionSenderHostChecks.Run);
+Test(Erlang.Tests.DistributionDeferredReasonHostNames.Test, Erlang.Tests.DistributionDeferredReasonHostChecks.Run);
+Test(Erlang.Tests.DeferredOwnerDrainHostNames.Test, Erlang.Tests.DeferredOwnerDrainHostChecks.Run);
+Test(Erlang.Tests.DistributionPayloadExitHostNames.Test, Erlang.Tests.DistributionPayloadExitHostChecks.Run);
 int failed = 0;
 foreach (var test in tests)
 {

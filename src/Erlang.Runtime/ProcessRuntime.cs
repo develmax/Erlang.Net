@@ -607,6 +607,23 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal void AdmitSignals(ProcessContext owner)
     {
+        if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending))
+        {
+            if (drain.IsCurrent)
+                return;
+            // Existing locked HOST callbacks may read the admitted prefix, never decode.
+            if (System.Threading.Monitor.IsEntered(gate) || owner.Mailbox.DeferredGateHeld)
+            {
+                lock (gate)
+                    owner.Mailbox.AdmitPending();
+
+                return;
+            }
+            drain.Run(() => DrainDeferredProcessSignals(owner));
+
+            return;
+        }
+
         lock (gate)
         {
             if (owner.Terminated)
@@ -656,16 +673,19 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal Term ProcessInfo(Pid pid, IReadOnlyList<ProcessInfoItem> keys, bool singleton)
     {
+        ProcessContext observed;
         lock (gate)
         {
-            if (!processes.TryGetValue(pid, out var process))
+            if (!processes.TryGetValue(pid, out var found))
                 return ProcessInfoAtoms.Undefined;
-            if (keys.Any(key => key.Name == ProcessInfoNames.Links || key.RequiresOwnerSnapshot || key.Name == ProcessInfoNames.MessageQueueLength))
-            {
-                AdmitSignals(process);
-                if (process.Terminated)
-                    return ProcessInfoAtoms.Undefined;
-            }
+            observed = found;
+        }
+        if (keys.Any(key => key.Name == ProcessInfoNames.Links || key.RequiresOwnerSnapshot || key.Name == ProcessInfoNames.MessageQueueLength))
+            AdmitSignals(observed);
+        lock (gate)
+        {
+            if (!processes.TryGetValue(pid, out var process) || !ReferenceEquals(process, observed) || process.Terminated)
+                return ProcessInfoAtoms.Undefined;
             var values = new List<Term>(keys.Count);
             IReadOnlyList<Term>? messages = keys.Any(key => key.Name is ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength) ? process.Mailbox.Snapshot() : null;
             foreach (ProcessInfoItem key in keys)

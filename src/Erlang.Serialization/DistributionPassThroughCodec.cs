@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public static class DistributionPassThroughCodec
+public static partial class DistributionPassThroughCodec
 {
     public static byte[] Encode(
         DistributionPassThroughMessage message,
@@ -125,11 +125,14 @@ public static class DistributionPassThroughCodec
 
             return new(tuple, null);
         }
-        if (opcode.Value == DistributionControlOpcodes.PayloadExit)
+        if (opcode.Value == DistributionControlOpcodes.PayloadExit || opcode.Value == DistributionControlOpcodes.PayloadMonitorExit)
         {
-            if (tuple.Items.Count != DistributionControlOpcodes.PayloadExitArity ||
-                tuple.Items[DistributionControlOpcodes.FromIndex] is not Pid ||
-                tuple.Items[DistributionControlOpcodes.TargetIndex] is not Pid)
+            bool monitorPayload = opcode.Value == DistributionControlOpcodes.PayloadMonitorExit;
+            if (tuple.Items.Count != (monitorPayload ? DistributionControlOpcodes.MonitorArity : DistributionControlOpcodes.PayloadExitArity) ||
+                (monitorPayload ? tuple.Items[DistributionControlOpcodes.FromIndex] is not (Pid or Atom)
+                    : tuple.Items[DistributionControlOpcodes.FromIndex] is not Pid) ||
+                tuple.Items[DistributionControlOpcodes.TargetIndex] is not Pid ||
+                monitorPayload && tuple.Items[DistributionControlOpcodes.MonitorReferenceIndex] is not ReferenceTerm)
                 throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
             var reason = ReadTerm(packet[payloadOffset..], options, maximumBytes);
             if (payloadOffset + reason.Used != packet.Length)

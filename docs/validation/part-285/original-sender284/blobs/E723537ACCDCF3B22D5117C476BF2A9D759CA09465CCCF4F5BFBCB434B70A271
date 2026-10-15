@@ -1,0 +1,690 @@
+{
+  "sender_plain": {
+    "Flags": 17230663572,
+    "Deliveries": [
+      [
+        "observed",
+        "remote",
+        [
+          "sender_payload",
+          "remote",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        []
+      ],
+      [
+        "observed",
+        "third_node",
+        [
+          "sender_payload",
+          "third_node",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        []
+      ],
+      [
+        "observed",
+        "current_local",
+        [
+          "sender_payload",
+          "current_local",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        []
+      ]
+    ],
+    "Inputs": [
+      [
+        [
+          22,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_remote@localhost"
+            },
+            "Id": 11,
+            "Serial": 0,
+            "Creation": 1
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        ],
+        [
+          "sender_payload",
+          "remote",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836803611658771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770672656d6f74656d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          22,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_third@localhost"
+            },
+            "Id": 13,
+            "Serial": 0,
+            "Creation": 7
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        ],
+        [
+          "sender_payload",
+          "third_node",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836803611658771673656e6465725f7468697264406c6f63616c686f73740000000d000000000000000758771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770a74686972645f6e6f64656d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          22,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        ],
+        [
+          "sender_payload",
+          "current_local",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836803611658771673656e6465725f6c6f63616c406c6f63616c686f73740000000a000000000000000458771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836803770e73656e6465725f7061796c6f6164770d63757272656e745f6c6f63616c6d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          22,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_remote@localhost"
+            },
+            "Id": 11,
+            "Serial": 0,
+            "Creation": 1
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          }
+        ],
+        [
+          "dead_target",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "0102"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836803611658771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f7374000000540000000000000004836802770b646561645f7461726765746d000000020102"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ]
+    ],
+    "OtherOperations": [
+      [
+        "generated_trace_token",
+        []
+      ],
+      [
+        "target_down",
+        [
+          "observed",
+          "normal"
+        ]
+      ],
+      [
+        "controller_stat",
+        [
+          "ok",
+          [
+            "ok",
+            4,
+            0,
+            0
+          ]
+        ]
+      ]
+    ],
+    "Output": [
+      [
+        "dead_target_output",
+        [
+          "ok",
+          "none"
+        ]
+      ]
+    ],
+    "Cleanup": [
+      "observed",
+      "normal"
+    ]
+  },
+  "sender_trace": {
+    "Flags": 17231187860,
+    "Deliveries": [
+      [
+        "observed",
+        "remote",
+        [
+          "sender_payload",
+          "remote",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        [
+          1,
+          42,
+          0,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          0
+        ]
+      ],
+      [
+        "observed",
+        "third_node",
+        [
+          "sender_payload",
+          "third_node",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        [
+          1,
+          42,
+          0,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          0
+        ]
+      ],
+      [
+        "observed",
+        "current_local",
+        [
+          "sender_payload",
+          "current_local",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        [
+          1,
+          42,
+          0,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          0
+        ]
+      ]
+    ],
+    "Inputs": [
+      [
+        [
+          23,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_remote@localhost"
+            },
+            "Id": 11,
+            "Serial": 0,
+            "Creation": 1
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          },
+          [
+            1,
+            42,
+            0,
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            0
+          ]
+        ],
+        [
+          "sender_payload",
+          "remote",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836804611758771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770672656d6f74656d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          23,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_third@localhost"
+            },
+            "Id": 13,
+            "Serial": 0,
+            "Creation": 7
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          },
+          [
+            1,
+            42,
+            0,
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            0
+          ]
+        ],
+        [
+          "sender_payload",
+          "third_node",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836804611758771673656e6465725f7468697264406c6f63616c686f73740000000d000000000000000758771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770a74686972645f6e6f64656d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          23,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          },
+          [
+            1,
+            42,
+            0,
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            0
+          ]
+        ],
+        [
+          "sender_payload",
+          "current_local",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "00ff80"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836804611758771673656e6465725f6c6f63616c406c6f63616c686f73740000000a000000000000000458771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836803770e73656e6465725f7061796c6f6164770d63757272656e745f6c6f63616c6d0000000300ff80"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ],
+      [
+        [
+          23,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_remote@localhost"
+            },
+            "Id": 11,
+            "Serial": 0,
+            "Creation": 1
+          },
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 84,
+            "Serial": 0,
+            "Creation": 4
+          },
+          [
+            1,
+            42,
+            0,
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "sender_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            0
+          ]
+        ],
+        [
+          "dead_target",
+          {
+            "Tag": 109,
+            "Type": "Binary",
+            "BytesHex": "0102"
+          }
+        ],
+        {
+          "Tag": 109,
+          "Type": "Binary",
+          "BytesHex": "70836804611758771773656e6465725f72656d6f7465406c6f63616c686f73740000000b000000000000000158771673656e6465725f6c6f63616c406c6f63616c686f737400000054000000000000000468056101612a610058771673656e6465725f6c6f63616c406c6f63616c686f73740000000a00000000000000046100836802770b646561645f7461726765746d000000020102"
+        },
+        [
+          "ok",
+          "ok"
+        ]
+      ]
+    ],
+    "OtherOperations": [
+      [
+        "generated_trace_token",
+        [
+          1,
+          42,
+          0,
+          {
+            "Tag": 88,
+            "Type": "Pid",
+            "Node": {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sender_local@localhost"
+            },
+            "Id": 10,
+            "Serial": 0,
+            "Creation": 4
+          },
+          0
+        ]
+      ],
+      [
+        "target_down",
+        [
+          "observed",
+          "normal"
+        ]
+      ],
+      [
+        "controller_stat",
+        [
+          "ok",
+          [
+            "ok",
+            4,
+            0,
+            0
+          ]
+        ]
+      ]
+    ],
+    "Output": [
+      [
+        "dead_target_output",
+        [
+          "ok",
+          "none"
+        ]
+      ]
+    ],
+    "Cleanup": [
+      "observed",
+      "normal"
+    ]
+  }
+}

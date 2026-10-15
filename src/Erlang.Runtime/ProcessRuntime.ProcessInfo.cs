@@ -22,6 +22,7 @@ public sealed partial class ProcessRuntime
         {
             if (!processes.TryGetValue(target, out var process))
                 return ProcessInfoAtoms.Undefined;
+            process.DeferredSignalDrain?.RequireSafeNestedWait();
             process.PendingInfoRequests.Add(request);
             process.Mailbox.SendPending(
                 Nil.Value,

@@ -1,0 +1,31 @@
+from pathlib import Path
+import hashlib
+import json
+
+r = Path.cwd()
+sha = lambda b: hashlib.sha256(b).hexdigest().upper()
+old_path = r / 'artifacts/pid-order-sender285-detached-guard-evidence-manifest-revision1.json'
+old = json.loads(old_path.read_bytes())
+paths = [r / row['Path'] for row in old['Files']]
+for row, path in zip(old['Files'], paths):
+    assert path.stat().st_size == row['Bytes'] and sha(path.read_bytes()) == row['Sha256']
+paths += [old_path, r / 'artifacts/part-284-sender-pinned-distribution-sender-observations-metadata.json', r / 'artifacts/part-284-sender-pinned-distribution-sender-observations.zip', r / 'artifacts/part276-faithful-etf-parser.py', r / 'artifacts/sender-audit284-explicit-contracts.py', r / 'artifacts/sender-audit284-explicit-contracts-receipt.json', r / 'artifacts/sender-audit285-stage.py']
+paths += sorted((r / 'artifacts/part-284-sender-pinned-distribution-sender-observations').rglob('*'))
+paths += sorted((r / 'artifacts/pid-order-sender284-native-audit-revision1').rglob('*'))
+paths = sorted(set(p for p in paths if p.is_file()))
+manifest = {
+    'Stage': 'Detached285 original sender2 terminal native audit and once-dispatch evidence',
+    'Head': old['Head'], 'Run': 38670167700, 'Job': 116211184390, 'Artifact': 11943857444,
+    'Pin': 'ad05823719d77c8faee87348ea39513d4e2f99c5',
+    'PreparedAuditReceiptSha256': sha((r / 'artifacts/pid-order-sender284-native-audit-revision1/receipt.json').read_bytes()),
+    'ExplicitContractsReceiptSha256': sha((r / 'artifacts/sender-audit284-explicit-contracts-receipt.json').read_bytes()),
+    'Files': [{'Path': p.relative_to(r).as_posix(), 'Sha256': sha(p.read_bytes()), 'Bytes': p.stat().st_size} for p in paths],
+    'OldManifestSha256': sha(old_path.read_bytes()),
+    'Existing284ProofMustBeReferencedNotRecopied': old['Existing284ProofMustBeReferencedNotRecopied'],
+    'DispatchCount': 1, 'NeverRedispatch': True, 'SdkOracleUsed': False,
+    'WholeCompatibilityClaim': False, 'MainOrGitModified': False,
+}
+path = r / 'artifacts/sender-audit285-detached-original-sender2-manifest-revision2.json'
+assert not path.exists()
+path.write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+print(json.dumps({'Manifest': str(path.relative_to(r)), 'Sha256': sha(path.read_bytes()), 'Files': len(paths), 'Bytes': sum(p.stat().st_size for p in paths)}))

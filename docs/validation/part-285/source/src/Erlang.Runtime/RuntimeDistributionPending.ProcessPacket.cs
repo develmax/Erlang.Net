@@ -1,0 +1,177 @@
+namespace Erlang;
+
+public sealed partial class RuntimeDistributionPending
+{
+    private void AcceptRawConnectedProcessPacket(
+        Term handle,
+        ProcessContext caller,
+        ReadOnlySpan<byte> packet
+    )
+    {
+        RuntimeDistributionPendingEntry entry;
+        ReferenceResourceLease<RuntimeDistributionPendingEntry> resource;
+        uint connectionId;
+        ulong flags;
+        LocalNodeSnapshot wire;
+        lock (gate)
+        {
+            entry = ReadHandle(handle, out connectionId, out resource);
+            try
+            {
+                var connected = RequireConnected(entry, connectionId);
+                RequireInputHandler(connected, caller);
+                wire = runtime.LocalIdentity.Snapshot;
+                flags = connected.Flags;
+            }
+            catch
+            {
+                resource.Dispose();
+                throw;
+            }
+        }
+        using (resource)
+        {
+            var options = new EtfDecodeOptions
+            {
+                ExternalFunctionFactory = (identity, requireSafe) => runtime.Functions.External(runtime, identity, requireSafe),
+                LocalFunctionFactory = (code, arity, environment) => runtime.Functions.Restore(
+                    runtime,
+                    new LocalFunctionIdentity(
+                        code.Module,
+                        null,
+                        code.Index,
+                        code.OldUnique,
+                        code.Unique,
+                        code.OldIndex
+                    ),
+                    arity,
+                    environment
+                )
+            };
+            if (packet.Length > ExternalTermFormat.DefaultMaxBytes)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            byte[] ownedPacket = packet.ToArray();
+            bool deferredExit = DistributionPassThroughCodec.IsPayloadExitPacket(ownedPacket);
+            var epochs = deferredExit ? CollectConnectedControlEpochs(ownedPacket, options)
+                : CollectConnectedPacketEpochs(ownedPacket, options, true);
+            using var admission = runtime.AdmitExternalDecode(options, epochs);
+            lock (gate)
+                _ = RequireConnectedDecodeSnapshot(
+                    entry,
+                    connectionId,
+                    caller,
+                    wire
+                );
+            if (deferredExit)
+            {
+                var envelope = DistributionPassThroughCodec.DecodePayloadExitEnvelope(ownedPacket, admission.Options, flags);
+                admission.Observe(envelope.Control);
+                lock (gate)
+                {
+                    var connected = RequireConnectedDecodeSnapshot(
+                        entry,
+                        connectionId,
+                        caller,
+                        wire
+                    );
+                    RouteDeferredConnectedExit(entry, connected, envelope);
+                    connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+                }
+
+                return;
+            }
+            var decoded = DistributionPassThroughCodec.DecodeProcessPacket(
+                ownedPacket,
+                admission.Options,
+                negotiatedFlags: flags,
+                unsupportedControlValidator: control => ValidateUnsupportedConnectedControl(control, entry.Node, wire)
+            );
+            admission.Observe(Term.Tuple(decoded.Control, decoded.Payload ?? Nil.Value));
+            lock (gate)
+            {
+                var connected = RequireConnectedDecodeSnapshot(
+                    entry,
+                    connectionId,
+                    caller,
+                    wire
+                );
+                if (decoded.Payload is null)
+                    RouteRawConnectedProcessControl(entry, connected, decoded.Control);
+                else
+                    DeliverConnectedTracePayload(decoded.Control, decoded.Payload);
+                connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+            }
+        }
+    }
+
+    private void RouteRawConnectedProcessControl(
+        RuntimeDistributionPendingEntry entry,
+        DistributionConnectedEntry connected,
+        TupleTerm control
+    )
+    {
+        var items = control.Items;
+        int opcode = (int)((Integer)items[DistributionControlOpcodes.OpcodeIndex]).Value;
+        if (opcode == DistributionControlOpcodes.GroupLeader)
+        {
+            runtime.QueueConnectedGroupLeaderSignal((Pid)items[DistributionControlOpcodes.FromIndex],
+                (Pid)items[DistributionControlOpcodes.TargetIndex]);
+
+            return;
+        }
+        if (opcode is DistributionControlOpcodes.Monitor or DistributionControlOpcodes.Demonitor or DistributionControlOpcodes.MonitorExit)
+        {
+            RouteRawConnectedMonitorControl(entry, connected, control);
+
+            return;
+        }
+        bool unlink = opcode is DistributionControlOpcodes.UnlinkId or DistributionControlOpcodes.UnlinkIdAck;
+        Pid remote = (Pid)items[unlink ? DistributionControlOpcodes.UnlinkFromIndex : DistributionControlOpcodes.FromIndex];
+        Pid local = (Pid)items[unlink ? DistributionControlOpcodes.UnlinkTargetIndex : DistributionControlOpcodes.TargetIndex];
+        if (remote.LocalIdentity is not null || remote.Node != entry.Node.Name || runtime.IsCurrentLocal(remote) || local.Node != runtime.Node ||
+            local.LocalIdentity is not null && !ReferenceEquals(local.LocalIdentity, runtime.LocalIdentity))
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        switch (opcode)
+        {
+            case DistributionControlOpcodes.Link:
+                runtime.QueueConnectedProcessLink(
+                    entry,
+                    connected,
+                    remote,
+                    local
+                );
+                break;
+            case DistributionControlOpcodes.UnlinkId:
+            case DistributionControlOpcodes.UnlinkIdAck:
+                if (!runtime.IsCurrentLocal(local))
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                runtime.QueueConnectedProcessUnlink(
+                    entry,
+                    connected,
+                    remote,
+                    local,
+                    (ulong)((Integer)items[DistributionControlOpcodes.UnlinkIdIndex]).Value,
+                    opcode == DistributionControlOpcodes.UnlinkIdAck
+                );
+                break;
+            case DistributionControlOpcodes.Exit:
+            case DistributionControlOpcodes.Exit2:
+            case DistributionControlOpcodes.ExitTrace:
+            case DistributionControlOpcodes.Exit2Trace:
+                if (opcode is DistributionControlOpcodes.Exit or DistributionControlOpcodes.ExitTrace && !runtime.IsCurrentLocal(local))
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                runtime.QueueConnectedProcessExit(
+                    entry,
+                    connected,
+                    remote,
+                    local,
+                    items[opcode is DistributionControlOpcodes.ExitTrace or DistributionControlOpcodes.Exit2Trace
+                        ? DistributionControlOpcodes.ExitTraceReasonIndex : DistributionControlOpcodes.ExitReasonIndex],
+                    opcode is DistributionControlOpcodes.Exit2 or DistributionControlOpcodes.Exit2Trace,
+                    opcode is DistributionControlOpcodes.ExitTrace or DistributionControlOpcodes.Exit2Trace
+                        ? items[DistributionControlOpcodes.ExitTraceTokenIndex] : Nil.Value
+                );
+                break;
+        }
+    }
+}

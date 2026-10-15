@@ -1,0 +1,58 @@
+{
+  "Status": "PASS_BOUNDED_PRIVATE_UNINTEGRATED_SOURCE_ONLY",
+  "Freeze": "artifacts\\dist_next-deferred-exit-reason-source-freeze-revision3.json",
+  "FreezeSha256": "9492B1BC8E22C7B92460640AAD4538F9B1C4A7EE18517ABFCD593C00D50E2A6F",
+  "Files": [
+    {
+      "Path": "README.md",
+      "Sha256": "6A9C38521108DEF26EDD83B918C0D9E5B4E4F5F98A92A6F4ECC335B418960EFC",
+      "Bytes": 2470
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionDeferredExitReason.cs",
+      "Sha256": "0D1B92CB8D78D0AACDBA1E5F6AF104A9CE0A89F736D68E71EE4CDC8A10A179F2",
+      "Bytes": 3449
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionDeferredExitReasonDiagnostics.cs",
+      "Sha256": "84CEC1D67819E7EFACDE27FCFCC4D5741D1562F9FAA904EEB83158F104124CEF",
+      "Bytes": 320
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DeferredExitReason.cs",
+      "Sha256": "1481D37FD7D1C2A936E8557545CCBE0509AC01EA04DFB51D9F76315768DB84B7",
+      "Bytes": 1164
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.DeferredReasonFailure.cs",
+      "Sha256": "6C7DF33C596C75EC1B47ACE00E4C019418BFB6A55230B0AADFE5BF77D7B44F54",
+      "Bytes": 1154
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionDeferredReasonHostChecks.cs",
+      "Sha256": "7660E881E05D9777836220BA0479B177E088AC72E0D4F3FCA64DF7B10762364F",
+      "Bytes": 7617
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionDeferredReasonHostNames.cs",
+      "Sha256": "A1FCB463AB8CB4E3FEBEFFB931C4BA14A4965A1C0AFEBD240DDFA421A0C262E6",
+      "Bytes": 850
+    }
+  ],
+  "Findings": [
+    "Raw reason payload copied on construction; dropped eligibility never decodes even malformed bytes. Single CAS owner and shared completion prevent duplicate callbacks/decodes; Dispose only claims not-yet-prepared objects.",
+    "Forbidden runtime/additional gate check occurs before claim and before actual decode; eligibility/decode/failure callbacks run without a helper lock.",
+    "Real ImportExternalTerm captures decode-time epoch and validates factories/full graph outside runtime gate, accepts only full ordinary ETF and excludes compressed/local private reasons.",
+    "Malformed close callback captures actual entry+connected object+connectionid; it marks Exiting/kills only still-connected captured generation. Close/reopen callback cannot retire new generation.",
+    "HOST code covers owned copied bytes/one call/second caller/drop/malformed/callbackerror/dispose/lockguard and real retired-vs-current connected generation; actual integration owner signal draining remains separately pending."
+  ],
+  "Bounds": [
+    "Seven added files are unregistered/unintegrated prerequisite; not production PAYLOAD_EXIT24-28 implementation.",
+    "Caller must commit actual target/link eligibility before reason decode and invoke from actual owner signal flow; this helper alone does not establish those semantics.",
+    "Exception classifier treats format/argument/badarg/system_limit as malformed including failures from configurable HOST factories; no native factory-error parity claim.",
+    "No reviewer build/HOST/original native execution; source3 reports initial source-only bad API references corrected, no fake gatePASS."
+  ],
+  "MainEdited": false,
+  "GitEdited": false,
+  "HeavyExecuted": false
+}

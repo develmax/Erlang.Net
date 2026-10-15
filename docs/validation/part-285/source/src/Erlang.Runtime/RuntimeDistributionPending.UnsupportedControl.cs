@@ -1,0 +1,86 @@
+namespace Erlang;
+
+public sealed partial class RuntimeDistributionPending
+{
+    private static void ValidateUnsupportedConnectedControl(
+        TupleTerm control,
+        Atom remoteNode,
+        LocalNodeSnapshot local
+    )
+    {
+        var items = control.Items;
+        var opcode = ((Integer)items[DistributionUnsupportedControlLayout.OpcodeIndex]).Value;
+
+        bool Remote(Term value) => value is Pid pid && pid.Node == remoteNode.Name;
+
+        bool Local(Term value) => value is Pid pid && pid.Node == local.Node;
+        if (opcode < int.MinValue || opcode > int.MaxValue || !DistributionControlOpcodes.IsKnown((int)opcode))
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        bool valid;
+        switch ((int)opcode)
+        {
+            case DistributionUnsupportedControlLayout.Link:
+                valid = items.Count == DistributionUnsupportedControlLayout.PairArity &&
+                    Remote(items[DistributionUnsupportedControlLayout.FromIndex]) &&
+                    Local(items[DistributionUnsupportedControlLayout.TargetIndex]);
+                break;
+            case DistributionUnsupportedControlLayout.Exit:
+            case DistributionUnsupportedControlLayout.Exit2:
+                valid = items.Count == DistributionUnsupportedControlLayout.ExitArity &&
+                    Remote(items[DistributionUnsupportedControlLayout.FromIndex]) &&
+                    Local(items[DistributionUnsupportedControlLayout.TargetIndex]);
+                break;
+            case DistributionUnsupportedControlLayout.Monitor:
+            case DistributionUnsupportedControlLayout.Demonitor:
+                valid = items.Count == DistributionUnsupportedControlLayout.MonitorArity &&
+                    Remote(items[DistributionUnsupportedControlLayout.FromIndex]) &&
+                    (Local(items[DistributionUnsupportedControlLayout.TargetIndex]) ||
+                        items[DistributionUnsupportedControlLayout.TargetIndex] is Atom) &&
+                    items[DistributionUnsupportedControlLayout.ReferenceIndex] is ReferenceTerm;
+                break;
+            case DistributionUnsupportedControlLayout.MonitorExit:
+                valid = items.Count == DistributionUnsupportedControlLayout.MonitorExitArity &&
+                    (items[DistributionUnsupportedControlLayout.FromIndex] is Pid or Atom) &&
+                    Local(items[DistributionUnsupportedControlLayout.TargetIndex]) &&
+                    items[DistributionUnsupportedControlLayout.ReferenceIndex] is ReferenceTerm;
+                break;
+            case DistributionUnsupportedControlLayout.GroupLeader:
+                valid = items.Count == DistributionUnsupportedControlLayout.PairArity &&
+                    items[DistributionUnsupportedControlLayout.FromIndex] is Pid &&
+                    items[DistributionUnsupportedControlLayout.TargetIndex] is Pid;
+                break;
+            case DistributionUnsupportedControlLayout.UnlinkId:
+            case DistributionUnsupportedControlLayout.UnlinkIdAck:
+                valid = items.Count == DistributionUnsupportedControlLayout.UnlinkArity &&
+                    items[DistributionUnsupportedControlLayout.UnlinkIdIndex] is Integer id &&
+                    id.Value >= (opcode == DistributionUnsupportedControlLayout.UnlinkId ? 1 : 0) &&
+                    id.Value <= ulong.MaxValue &&
+                    Remote(items[DistributionUnsupportedControlLayout.UnlinkFromIndex]) &&
+                    Local(items[DistributionUnsupportedControlLayout.UnlinkTargetIndex]);
+                break;
+            case DistributionUnsupportedControlLayout.PayloadExit:
+                valid = items.Count == DistributionUnsupportedControlLayout.PayloadExitArity &&
+                    Remote(items[DistributionUnsupportedControlLayout.FromIndex]) &&
+                    items[DistributionUnsupportedControlLayout.FromIndex] is Pid { LocalIdentity: null } &&
+                    items[DistributionUnsupportedControlLayout.TargetIndex] is Pid target &&
+                    target.Node == local.Node && target.Creation == local.Creation;
+                break;
+            case DistributionUnsupportedControlLayout.PayloadMonitorExit:
+                valid = items.Count == DistributionUnsupportedControlLayout.MonitorArity &&
+                    (Remote(items[DistributionUnsupportedControlLayout.FromIndex]) || items[DistributionUnsupportedControlLayout.FromIndex] is Atom) &&
+                    items[DistributionUnsupportedControlLayout.TargetIndex] is Pid watched && watched.Node == local.Node &&
+                    watched.Creation == local.Creation && items[DistributionUnsupportedControlLayout.ReferenceIndex] is ReferenceTerm;
+                break;
+            case DistributionUnsupportedControlLayout.LegacyUnlink:
+                valid = false;
+                break;
+            default:
+                // Remaining negotiated controls are deliberately not interpreted here.
+                throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
+        }
+        if (!valid)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+
+        throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
+    }
+}

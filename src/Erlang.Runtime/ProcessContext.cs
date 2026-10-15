@@ -37,6 +37,7 @@ public sealed class ProcessContext : ITermExecutionContext
         };
     }
 
+    internal volatile DistributionSignalDrain? DeferredSignalDrain;
     internal CancellationTokenSource Stop { get; } = new();
     internal Pid GroupLeader { get; set; }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);

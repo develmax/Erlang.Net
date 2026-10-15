@@ -1,0 +1,17 @@
+{
+  "Stage": "Original sender2 explicit observed contracts PASS",
+  "Head": "d45e62732d1cd101fc2ec7dfc1c5014942a6e2d0",
+  "Checks": [
+    "actual sender identities remote/third/current-local",
+    "exact token from actual original get_token retained at every receive",
+    "plain nil receive tokens",
+    "identical genuine target across all four packets",
+    "actual target DOWN precedes fourth packet",
+    "dead target accepted without outgoing data",
+    "four input packets accounted, zero output and pending",
+    "controller cleanup observed normal"
+  ],
+  "PreparedAuditReceiptSha256": "4FF6675DAA3761AD0619E927B80A9EBB0EB4A1B60788928AA74914C5BA7D3EE2",
+  "SdkOracleUsed": false,
+  "WholeCompatibilityClaim": false
+}

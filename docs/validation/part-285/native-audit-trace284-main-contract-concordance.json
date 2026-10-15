@@ -1,0 +1,86 @@
+{
+  "Stage": "SELECTED_CONTRACT_CONCORDANCE_WITH_EXPLICIT_ASSERTION_LIMITS",
+  "Head": "d45e62732d1cd101fc2ec7dfc1c5014942a6e2d0",
+  "NativeGuardSha256": "66AD7129C55E4C821FBB5A2A15D677DD45158349CC28D8F31AA1810F3FECA4B1",
+  "SourceBindings": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionTraceHostChecks.cs",
+      "GitBlobSha256": "8EEBB19C057E27CFBAE4137400293555C006EF9F904F2D765E3472CC0229B5ED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionTraceHostNames.cs",
+      "GitBlobSha256": "E93865C800D32B010780DC3BDF9C204713928249BD76FAD855989394FD029511"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionSequenceTraceToken.cs",
+      "GitBlobSha256": "17F60CC7E68D0A88E3E90D76519A685FE4B1AAC84507996A7B33C9DD22E7B68B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTracing.cs",
+      "GitBlobSha256": "02136AA8EB2A3429EB1FC1F4E675925301E3C974B4F4D51B343298F79EF36F20"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "GitBlobSha256": "4BCA4EDF9DEADC984C837AACDAC1AB99202CF7B63AE3637BA4B0DEDE018A7843"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionTrace.cs",
+      "GitBlobSha256": "D9E3BDF22F4B85E385CE1804A917DBD49DDAB99DA3A80863E7C137535B490286"
+    }
+  ],
+  "Mappings": [
+    {
+      "NativeCases": [
+        "send",
+        "registered"
+      ],
+      "Observed": "Queued token remains initial until actual selection; selected label incoming_label, serial {3,9}, token flags2; exact receive tracer tuple captured.",
+      "MainAssertions": "RunMessages(false/true): initial label after SEND/REG enqueue; selective receive nil clears then skipped SEND applies incoming label/{3,9}; receive tracer tuple exact.",
+      "CoverageLimit": "Different literal labels/payloads and selective ordering are deliberate fixture inputs; no byteequal full-run comparison claimed."
+    },
+    {
+      "NativeCases": [
+        "nil"
+      ],
+      "Observed": "Selected label,serial,old token all nil; tracer mailbox empty.",
+      "MainAssertions": "RunMessages: REG_SEND_TT nil selected clears label; decoder Nil -> null,false; SequenceTracing.Received assigns null.",
+      "CoverageLimit": "Main directly asserts label only; native additionally observes serial/token/tracer absence."
+    },
+    {
+      "NativeCases": [
+        "undefined"
+      ],
+      "Observed": "Actual initial token preserved; label initial_label/serial {0,1}; no trace event.",
+      "MainAssertions": "RunMessages: undefined preserves incoming label; decoder preserve marker -> null,true; Received returns before mutation.",
+      "CoverageLimit": "Main preserve fixture begins with incoming token; native begins with initial token. Whole tuple preservation inferred from same unchanged state path, not exact matching fixture."
+    },
+    {
+      "NativeCases": [
+        "wide_flags"
+      ],
+      "Observed": "Selected token flags1099511627776 retained with label incoming_label/serial {3,9}; no receive trace because receive bit absent.",
+      "MainAssertions": "RunMessages: WideUnknownFlag1L<<40; previous token exactequals canonical token; decoder casts to long flags without narrowing.",
+      "CoverageLimit": "Main exacttoken asserted; tracer absence not directly asserted for this scenario."
+    },
+    {
+      "NativeCases": [
+        "exit_link",
+        "exit2_trap"
+      ],
+      "Observed": "Trapped EXIT carries canonical token; selected incoming label/serial{3,9}; exact tracer receive EXIT captured.",
+      "MainAssertions": "RunExitSignals: explicit EXIT2_TT flags0 applies label only on selection; linked EXIT_TT nil clears after selection. Shared Mailbox decoding uses same canonical path.",
+      "CoverageLimit": "Main does not directly assert canonical nonzero token+tracer on BOTH trapped exit opcodes. No broad parity claim; add focused combinations if needed."
+    },
+    {
+      "NativeCases": [
+        "exit2_normal"
+      ],
+      "Observed": "Ignored untrapped normal with arbitrary token queues no message; later ordinary SEND clears token; receiver survives.",
+      "MainAssertions": "RunExitSignals: arbitrary token normal ignored; drain leaves initial label and live receiver; RunMessages ordinary SEND clears token.",
+      "CoverageLimit": "Native ignored-exit-state status may race with later receiver completion; raw snapshot retained, no stronger scheduling claim."
+    }
+  ],
+  "ContradictionFound": false,
+  "WholeRuntimeParityProven": false,
+  "NewNativeOrMainExecution": false
+}

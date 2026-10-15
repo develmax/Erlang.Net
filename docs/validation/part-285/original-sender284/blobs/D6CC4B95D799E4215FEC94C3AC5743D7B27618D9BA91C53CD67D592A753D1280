@@ -1,0 +1,53 @@
+from pathlib import Path
+import hashlib
+import json
+import runpy
+
+r = Path.cwd()
+area = r / 'artifacts/pid-order-sender284-native-audit-revision1'
+facts = json.loads((area / 'observations.json').read_bytes())
+typed = json.loads((area / 'faithful-typed-facts.json').read_bytes())
+project = runpy.run_path(str(r / 'artifacts/part276-faithful-etf-parser.py'))['project']
+for name, case in facts.items():
+    identity = project(typed['Cases'][name]['identities.etf'])
+    owner = identity[0]
+    generated = dict(case['OtherOperations'])['generated_trace_token']
+    assert dict(case['OtherOperations'])['target_down'] == ['observed', 'normal']
+    assert dict(case['OtherOperations'])['controller_stat'] == ['ok', ['ok', 4, 0, 0]]
+    assert case['Output'] == [['dead_target_output', ['ok', 'none']]]
+    assert case['Cleanup'] == ['observed', 'normal']
+    assert generated == ([] if name == 'sender_plain' else [1, 42, 0, owner, 0])
+    nodes = ['sender_remote@localhost', 'sender_third@localhost', 'sender_local@localhost']
+    destinations = []
+    for index, (control, payload, packet, result) in enumerate(case['Inputs'][:3]):
+        sender, destination = control[1:3]
+        assert sender['Type'] == 'Pid' and sender['Tag'] == 88
+        assert sender['Node']['Value'] == nodes[index]
+        assert destination['Type'] == 'Pid' and destination['Tag'] == 88
+        assert destination['Node']['Value'] == 'sender_local@localhost'
+        assert payload[2] == {'Tag': 109, 'Type': 'Binary', 'BytesHex': '00ff80'}
+        assert case['Deliveries'][index][3] == generated
+        if name == 'sender_trace':
+            assert len(control) == 4 and control[3] == generated
+        else:
+            assert len(control) == 3
+        destinations.append(destination)
+    assert destinations[0] == destinations[1] == destinations[2]
+    assert case['Inputs'][2][0][1] == owner
+    assert case['Inputs'][3][0][1:3] == [case['Inputs'][0][0][1], destinations[0]]
+    assert case['Inputs'][3][1] == ['dead_target', {'Tag': 109, 'Type': 'Binary', 'BytesHex': '0102'}]
+    ops = project(typed['Cases'][name]['operations.etf'])
+    tags = [tag for tag, value in ops]
+    assert tags == ['generated_trace_token', 'input', 'delivery', 'input', 'delivery', 'input', 'delivery', 'target_down', 'input', 'controller_stat']
+receipt = {
+    'Stage': 'Original sender2 explicit observed contracts PASS',
+    'Head': 'd45e62732d1cd101fc2ec7dfc1c5014942a6e2d0',
+    'Checks': ['actual sender identities remote/third/current-local', 'exact token from actual original get_token retained at every receive', 'plain nil receive tokens', 'identical genuine target across all four packets', 'actual target DOWN precedes fourth packet', 'dead target accepted without outgoing data', 'four input packets accounted, zero output and pending', 'controller cleanup observed normal'],
+    'PreparedAuditReceiptSha256': hashlib.sha256((area / 'receipt.json').read_bytes()).hexdigest().upper(),
+    'SdkOracleUsed': False,
+    'WholeCompatibilityClaim': False,
+}
+path = r / 'artifacts/sender-audit284-explicit-contracts-receipt.json'
+assert not path.exists()
+path.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+print('PASS explicit original sender contracts', hashlib.sha256(path.read_bytes()).hexdigest().upper())

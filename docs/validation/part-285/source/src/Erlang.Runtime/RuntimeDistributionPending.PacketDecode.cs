@@ -1,0 +1,80 @@
+using System.Text;
+
+namespace Erlang;
+
+public sealed partial class RuntimeDistributionPending
+{
+    private DistributionConnectedEntry RequireConnectedDecodeSnapshot(
+        RuntimeDistributionPendingEntry entry,
+        uint connectionId,
+        ProcessContext caller,
+        LocalNodeSnapshot snapshot
+    )
+    {
+        var connected = RequireConnected(entry, connectionId);
+        RequireInputHandler(connected, caller);
+        if (!ReferenceEquals(runtime.LocalIdentity.Snapshot, snapshot))
+            throw new InvalidOperationException(DistributionConnectedDiagnostics.Connected);
+
+        return connected;
+    }
+
+    private static IReadOnlyList<EtfNodeEpoch> CollectConnectedControlEpochs(
+        ReadOnlySpan<byte> packet,
+        EtfDecodeOptions options
+    )
+    {
+        if (packet.Length > ExternalTermFormat.DefaultMaxBytes || packet.IsEmpty ||
+            packet[0] != DistributionPassThroughLayout.Marker)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        var epochs = new List<EtfNodeEpoch>();
+        _ = MeasureConnectedVersionedTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, epochs);
+
+        return epochs;
+    }
+
+    private static IReadOnlyList<EtfNodeEpoch> CollectConnectedPacketEpochs(
+        ReadOnlySpan<byte> packet,
+        EtfDecodeOptions options,
+        bool allowControlOnly = false
+    )
+    {
+        if (packet.Length > ExternalTermFormat.DefaultMaxBytes || packet.IsEmpty ||
+            packet[0] != DistributionPassThroughLayout.Marker)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+        var epochs = new List<EtfNodeEpoch>();
+        int controlBytes = MeasureConnectedVersionedTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, epochs);
+        int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + controlBytes);
+        if (allowControlOnly && payloadOffset == packet.Length)
+            return epochs;
+        int payloadBytes = MeasureConnectedVersionedTerm(packet[payloadOffset..], options, epochs);
+        if (payloadOffset + payloadBytes != packet.Length)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+
+        return epochs;
+    }
+
+    private static int MeasureConnectedVersionedTerm(
+        ReadOnlySpan<byte> data,
+        EtfDecodeOptions options,
+        List<EtfNodeEpoch> epochs
+    )
+    {
+        if (data.Length < EtfHeaderLayout.MinimumPacketBytes ||
+            data[EtfHeaderLayout.TagOffset] is EtfTags.Compressed or EtfTags.Local)
+            throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(data));
+        try
+        {
+            if (data[EtfHeaderLayout.VersionOffset] != EtfHeaderLayout.Version)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            var boundary = new EtfWireBoundary(data[EtfHeaderLayout.PlainPayloadOffset..], options.LocalSeed, epochs.Add);
+
+            return checked(EtfHeaderLayout.PlainPayloadOffset + boundary.Measure());
+        }
+        catch (Exception exception) when (exception is EndOfStreamException or OverflowException or
+            InvalidDataException or FormatException or ArgumentException or DecoderFallbackException)
+        {
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        }
+    }
+}

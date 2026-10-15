@@ -64,11 +64,15 @@ internal static class DistributionRawInputHostChecks
         Check(pending.ConnectedSnapshot(host).RawInputAttempts == 5);
         var remote = new Pid(DistributionRawInputHostNames.Remote, 1, 0);
         var reference = new ReferenceTerm(DistributionRawInputHostNames.Remote, new uint[] { 1 }, 0);
-        await Unsupported(Term.Tuple(
-            Term.I(DistributionRawInputHostNames.UnsupportedPayloadExitOpcode),
-            remote,
-            receiver.Process.Pid
-        ), Nil.Value);
+        await Unsupported(
+            Term.Tuple(
+                Term.I(DistributionRawInputHostNames.UnsupportedPayloadMonitorExitOpcode),
+                remote,
+                receiver.Process.Pid,
+                reference
+            ),
+            Nil.Value
+        );
         Check(!controller.Process.Completion.IsCompleted);
         Check((await Put(Cons.From(packet.Select(value => (Term)Term.I(value))))).Equals(DistributionRawInputHostNames.Ok));
         Check((await receiver.InvokeAsync(async context =>
@@ -224,7 +228,10 @@ internal static class DistributionRawInputHostChecks
                     context,
                     Term.A(DistributionRawInputHostNames.Remote),
                     context.Self,
-                    Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload), Term.I(0))
+                    Term.Tuple(
+                        new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor),
+                        Term.I(0)
+                    )
                 ));
             await owner.Invoke(context =>
                 DistributionControllerAdapters.SetInputHandler(context, result, input.Process.Pid));

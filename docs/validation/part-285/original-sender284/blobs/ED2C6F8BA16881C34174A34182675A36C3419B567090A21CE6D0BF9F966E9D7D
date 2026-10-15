@@ -1,0 +1,124 @@
+from pathlib import Path
+import hashlib, json, runpy, subprocess, sys, zipfile
+
+r = Path.cwd()
+head = 'd45e62732d1cd101fc2ec7dfc1c5014942a6e2d0'
+pin = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
+area = r / 'artifacts/part-284-sender-pinned-distribution-sender-observations'
+metadata_path = r / 'artifacts/part-284-sender-pinned-distribution-sender-observations-metadata.json'
+zip_path = r / 'artifacts/part-284-sender-pinned-distribution-sender-observations.zip'
+output = r / (sys.argv[1] if len(sys.argv) > 1 else 'artifacts/pid-order-sender284-native-audit-revision1')
+assert not output.exists()
+output.mkdir()
+sha = lambda b: hashlib.sha256(b).hexdigest().upper()
+blob = lambda path: subprocess.check_output(['git', 'cat-file', 'blob', head + ':' + path])
+decoder = runpy.run_path(str(r / 'artifacts/part276-faithful-etf-parser.py'))
+decode, project = decoder['decode'], decoder['project']
+prefix_text = (r / 'artifacts/part276-faithful-etf-parser.py').read_text()
+prefix_text = prefix_text.replace('def decode(data):', 'def decode_prefix(data):', 1).replace(
+    'value=term(); assert pos==len(data); return value', 'value=term(); return value,pos', 1)
+prefix_namespace = {}
+exec(prefix_text, prefix_namespace)
+decode_prefix = prefix_namespace['decode_prefix']
+meta = json.loads(metadata_path.read_bytes())
+assert meta['Run']['head_sha'] == head and meta['Run']['id'] == 38670167700
+assert meta['Run']['conclusion'] == 'success' and all(job['conclusion'] == 'success' for job in meta['Jobs'])
+assert meta['Artifact']['name'] == 'pinned-distribution-sender-observations'
+assert meta['ZipSHA256'] == sha(zip_path.read_bytes())
+assert meta['Artifact']['digest'] == 'sha256:' + sha(zip_path.read_bytes()).lower()
+assert meta['Artifact']['size_in_bytes'] == zip_path.stat().st_size
+assert not meta['Artifact']['expired']
+with zipfile.ZipFile(zip_path) as archive:
+    files = [item for item in archive.infolist() if not item.is_dir()]
+    assert len({item.filename for item in files}) == len(files)
+    for item in files:
+        path = (area / item.filename).resolve()
+        assert path.is_relative_to(area.resolve()) and path.is_file(), item.filename
+        assert archive.read(item) == path.read_bytes(), item.filename
+reports = list(area.rglob('distribution-sender-observations.json'))
+assert len(reports) == 1
+base = reports[0].parent
+report = json.loads(reports[0].read_bytes())
+for record in report['Files']:
+    path = (base / record['Path']).resolve()
+    assert path.is_relative_to(base.resolve())
+    data = path.read_bytes()
+    assert len(data) == record['Length'] and sha(data) == record['Sha256'], record['Path']
+for name in ['distribution_sender_observer.erl', 'source-plan.json']:
+    assert (base / name).read_bytes() == blob('tools/Erlang.DistributionSenderObservations/' + name)
+plan = json.loads((base / 'source-plan.json').read_bytes())
+assert plan['Pin'] == report['Pin'] == pin
+assert plan['SourceSha256'] == report['SourceSha256'] == sha((base / 'distribution_sender_observer.erl').read_bytes())
+assert plan['FreshObservationVMs'] == report['Planned'] == 2
+assert report['SdkExpectedUsed'] is False and report['SemanticCompatibilityClaim'] is False
+assert report['NativeNetworkingUsed'] is False
+evidence = json.loads((base / 'source-build-evidence.json').read_bytes())
+assert evidence['SourceCommit'] == pin and evidence['SourceTag'] == 'OTP-29.1.1'
+assert evidence['SourceBuildCompleted'] and evidence['SourceBuildLogSha256'] == sha((base / 'source-build.log').read_bytes())
+runtime = decode((base / 'runtime.etf').read_bytes())
+runtime_projection = project(runtime)
+assert runtime_projection[:3] == (list(b'29'), list(b'17.1'), 'jit')
+assert ''.join(chr(value) for value in runtime_projection[3]) == evidence['InstalledOtpRoot']
+for prefix in ['runtime', 'compile', 'disassemble']:
+    assert (base / (prefix + '.exit')).read_bytes() == b'0\n'
+    assert (base / (prefix + '.raw-complete')).read_bytes() == b'true\n'
+typed = {'Runtime': runtime, 'Cases': {}}
+for name in plan['Scenarios']:
+    directory = base / name
+    typed['Cases'][name] = {p.name: decode(p.read_bytes()) for p in sorted(directory.glob('*.etf'))}
+(output / 'faithful-typed-facts.json').write_bytes((json.dumps(typed, indent=2) + '\n').encode())
+rows = {row['Name']: row for row in report['Rows']}
+assert set(rows) == set(plan['Scenarios'])
+facts = {}
+for name in plan['Scenarios']:
+    directory = base / name
+    row = rows[name]
+    assert row['Captured'] and row['Process'] == {'ExitCode': 0, 'TimedOut': False, 'RawComplete': True}
+    assert row['Stage'] == 'complete' and row['Error'] is None
+    assert all((directory / filename).is_file() for filename in plan['RequiredArtifacts'])
+    for prefix in ['process']:
+        assert (directory / (prefix + '.exit')).read_bytes() == b'0\n'
+        assert (directory / (prefix + '.raw-complete')).read_bytes() == b'true\n'
+    identity = project(typed['Cases'][name]['identities.etf'])
+    operations = project(typed['Cases'][name]['operations.etf'])
+    inputs = [value for tag, value in operations if tag == 'input']
+    deliveries = [value for tag, value in operations if tag == 'delivery']
+    assert len(inputs) == 4 and len(deliveries) == 3
+    for index, tag in enumerate(['remote', 'third_node', 'current_local']):
+        control, payload, packet, result = inputs[index]
+        assert result == ('ok', 'ok')
+        assert deliveries[index][0:2] == ('observed', tag)
+        assert deliveries[index][2] == payload
+        assert packet['Type'] == 'Binary' and bytes.fromhex(packet['BytesHex'])[0] == 112
+        assert control[0] == (22 if name == 'sender_plain' else 23)
+    for control, payload, packet, result in inputs:
+        wire = bytes.fromhex(packet['BytesHex'])
+        assert wire[0] == 112
+        decoded_control, used = decode_prefix(wire[1:])
+        decoded_payload, remaining = decode_prefix(wire[1 + used:])
+        assert 1 + used + remaining == len(wire)
+        assert project(decoded_control) == control and project(decoded_payload) == payload
+    assert next(value for tag, value in operations if tag == 'target_down')[0] == 'observed'
+    assert inputs[-1][3] == ('ok', 'ok')
+    assert project(typed['Cases'][name]['cleanup.etf'])[0] == 'observed'
+    facts[name] = {'Flags': identity[5], 'Deliveries': deliveries, 'Inputs': inputs,
+                   'OtherOperations': [(tag, value) for tag, value in operations if tag not in ['input', 'delivery']],
+                   'Output': project(typed['Cases'][name]['outputs.etf']),
+                   'Cleanup': project(typed['Cases'][name]['cleanup.etf'])}
+assert facts['sender_plain']['Flags'] & 0x80000 == 0
+assert facts['sender_trace']['Flags'] & 0x80000 != 0
+assert report['Captured'] == 2
+(output / 'observations.json').write_bytes((json.dumps(facts, indent=2) + '\n').encode())
+receipt = {'Stage': 'Actual original sender2 full typed capture audit PASS', 'Head': head, 'Pin': pin,
+           'Run': meta['Run']['id'], 'JobIds': [job['id'] for job in meta['Jobs']],
+           'ZipSha256': sha(zip_path.read_bytes()), 'ZipPhysicalFiles': len(files),
+           'ReportedFiles': len(report['Files']), 'FreshScenarioVMs': 2,
+           'TypedFactsSha256': sha((output / 'faithful-typed-facts.json').read_bytes()),
+           'ObservationsSha256': sha((output / 'observations.json').read_bytes()),
+           'AbsentSenderFlagCaseObserved': True, 'RemoteThirdAndCurrentLocalSenderDeliveriesObserved': True,
+           'SemanticCompatibilityClaim': False, 'SdkExpectedUsed': False, 'NoMainOrGitMutation': True,
+           'Bounds': ['Observed scenarios only; no whole dist_ctrl_put_data/2 completion or queue allocator parity',
+                      'Native trace tokens retained full typed; comparisons against SDK contracts are separate',
+                      'No malformed non-PID sender, race or all optional opcode outcome inferred']}
+(output / 'receipt.json').write_bytes((json.dumps(receipt, indent=2) + '\n').encode())
+print('PASS native sender2 typed/raw/source/ZIP audit', sha((output / 'receipt.json').read_bytes()))

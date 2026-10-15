@@ -1,0 +1,22 @@
+{
+  "Status": "FAIL_SOURCE_LIVENESS_BOUNDARY_PENDING_REPAIR",
+  "Freeze": "artifacts\\dist_next-deferred-owner-drain-source-freeze-revision3.json",
+  "FreezeSha256": "F43DF2AC3C6FD4A66E9CF93F1765EF3D678136AA2FE82457E14E53FCA05D37CA",
+  "Path": "src/Erlang.Runtime/DistributionSignalDrain.cs",
+  "Mechanism": "Run synchronously waits preceding.Task; same-drain ThreadStatic reentrancy only. Actual configurable external/local function factories can request host ProcessInfo of other owners.",
+  "Counterexample": [
+    "Thread A is drainA current and factoryA waits until factoryB enters; factoryB thread is drainB current.",
+    "FactoryA requests ProcessInfo(ownerB), reaches drainB.Run and waits its completion.",
+    "FactoryB requests ProcessInfo(ownerA), reaches drainA.Run and waits its completion.",
+    "No runtime/mailbox gate held; both completion tasks resolve only after callbacks return, creating permanent logical wait cycle."
+  ],
+  "RepairRequirement": "Explicit bounded nested foreign drain/callback boundary or deterministic cycle protection before blocking; preserve normal public process_info behavior, pure native function factories and same-owner safe admitted-prefix snapshot.",
+  "RequiredControls": [
+    "Two real concurrent owner preparations/custom function factories with cross-owner ProcessInfo and bounded barrier/deadline",
+    "Prior same-owner snapshot/order/drop/generation controls unchanged"
+  ],
+  "SourceProposalUnintegrated": true,
+  "MainEdited": false,
+  "BuildExecuted": false,
+  "NativeExecuted": false
+}

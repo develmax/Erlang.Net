@@ -8,6 +8,7 @@ internal static class DistributionUnsupportedControlLayout
     internal const int GroupLeader = DistributionControlOpcodes.GroupLeader;
     internal const int Exit2 = DistributionControlOpcodes.Exit2;
     internal const int PayloadExit = DistributionControlOpcodes.PayloadExit;
+    internal const int PayloadMonitorExit = DistributionControlOpcodes.PayloadMonitorExit;
     internal const int PayloadExitArity = DistributionControlOpcodes.PayloadExitArity;
     internal const int Monitor = DistributionControlOpcodes.Monitor;
     internal const int Demonitor = DistributionControlOpcodes.Demonitor;

@@ -2,11 +2,12 @@ using System.Diagnostics;
 
 namespace Erlang;
 
-public sealed class Mailbox
+public sealed partial class Mailbox
 {
     private readonly object gate = new();
     private readonly LinkedList<Entry> messages = new();
     private LinkedListNode<Entry>? lastPriority;
+    private int deferredPending;
     private int pending;
     private int admittedCount;
     private long precedenceRevision;
@@ -32,7 +33,10 @@ public sealed class Mailbox
         bool PreserveTrace = false,
         Term? From = null,
         bool TraceAdmission = true,
-        Term? DistributionTraceToken = null
+        Term? DistributionTraceToken = null,
+        Func<DeferredMailboxAdmission?>? DeferredPreparation = null,
+        Action? DeferredRelease = null,
+        bool Deferred = false
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -43,8 +47,11 @@ public sealed class Mailbox
         {
             mutationRevision++;
             precedenceRevision++;
+            foreach (var entry in messages)
+                entry.DeferredRelease?.Invoke();
             messages.Clear();
             pending = 0;
+            deferredPending = 0;
             admittedCount = 0;
             lastPriority = null;
             var previous = changed;
@@ -217,6 +224,8 @@ public sealed class Mailbox
             for (var node = messages.First; node is not null;)
             {
                 var next = node.Next;
+                if (node.Value.Deferred)
+                    break;
                 if (node.Value.Admission is { } admission)
                 {
                     pending--;
@@ -260,11 +269,15 @@ public sealed class Mailbox
             for (var node = messages.First; node is not null;)
             {
                 var next = node.Next;
-                if (node.Value.Admission is not null)
+                if (node.Value.Admission is not null || node.Value.Deferred)
+                {
+                    node.Value.DeferredRelease?.Invoke();
                     RemoveNode(node);
+                }
                 node = next;
             }
             pending = 0;
+            deferredPending = 0;
         }
     }
 
