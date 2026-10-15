@@ -1,0 +1,62 @@
+{
+  "Status": "PASS_BOUNDED_SOURCE_PEER_NO_BLOCKING_FINDINGS_EXECUTION_PENDING",
+  "CandidateFreeze": {
+    "Path": "artifacts/native-payload-provider315-c-harness-candidate1/source-freeze.json",
+    "Bytes": 4322,
+    "Sha256": "E1D663D904743ABC0FE5ED039C4ED263540BA8CD95DB15200508F49076C28B40"
+  },
+  "DesignFreeze": {
+    "Path": "artifacts/native-payload-provider315-c-harness-design1/source-audit-freeze.json",
+    "Bytes": 3877,
+    "Sha256": "5B4220233F33B2DBD742F88EC2B5236C42497DD52889256C62E56BEA108EBDEA"
+  },
+  "ParentFormattedFreeze": {
+    "Path": "artifacts/native-payload-provider315-composed1/formatted-source-freeze.json",
+    "Bytes": 6633,
+    "Sha256": "AB9E5CE828DEA20C28AB3BA93F17D9F5B8B422DEAAB9549E22A01C7EAD127A13"
+  },
+  "ParentCompleteClosure": {
+    "Path": "artifacts/native-payload-provider315-composed1/formatted-source-resource-closure.json",
+    "Bytes": 421951,
+    "Sha256": "3B84468C8E72C255D9CF788E2A3E9245B34B7BF4EE916BED5593174826DBB108"
+  },
+  "Verification": {
+    "OverlayFiles": 5,
+    "NewFiles": 3,
+    "ParentFilesRehashed": 2224,
+    "ArtifactsVerified": 3,
+    "SourceBindingsVerified": 18,
+    "FiveActualCallbackPhasesExact": [
+      "VetoClosed",
+      "Loaded",
+      "AdmissionHeld",
+      "RetirementPending",
+      "Unloaded"
+    ],
+    "ExistingProgramAfterRemovingOptInBranchByteTextExact": true,
+    "DefaultNullCallbackHasNoNewQueryOrOutput": true,
+    "SameLiveContextRuntimeFactoryAndAwaitedGather": true,
+    "LoadedExpectationUsesActualOwnerDomainEquality": true,
+    "PostUnloadZeroOnlyAfterAwaitedRetirementAndLedgerChecks": true,
+    "PrimaryExceptionRetainedAndNoCompletionOnFailure": true,
+    "HeldAdmissionUsingReservationAndRuntimeDisposalRetained": true,
+    "NoExtraReceiveOrDetachedTaskAdded": true,
+    "SourceFixtureAndAbiProfileAndLegacyParserUnchanged": true
+  },
+  "IndependentSourceFindings": [],
+  "Limits": [
+    "C# compiler/formatter/token guard not executed by peer; source signatures and friend identity inspected only.",
+    "Existing Context timeout WaitAsync behavior is unchanged; no stronger timeout/cancellation/drain guarantee is claimed.",
+    "Dedicated manual mode emits five query rows plus completion alongside existing ownership rows; old seven/eight-line parsers remain unchanged and must not ingest the manual extension.",
+    "Actual native C query and exact binary/manual capture parser evidence remain future gates.",
+    "Underlying provider eight-group actual HOST proof is a separate execution role; this new five-tool-path candidate remains source-only."
+  ],
+  "Execution": {
+    "SdkBuild": false,
+    "VmOrNative": false,
+    "Git": false,
+    "MainWritten": false,
+    "CandidateModified": false,
+    "ExecutionApprovedByPeer": false
+  }
+}

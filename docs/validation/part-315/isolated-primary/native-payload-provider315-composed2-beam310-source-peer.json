@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL_COMPOSITION_AND_EXECUTION_RECIPE_SOURCE_REVIEW",
+  "SourceFreezeSha256": "E06E71801D4BABA6B737C522F6DAA94D44042F5AC2A98091B22B3F035F3F66BB",
+  "SourceClosureSha256": "3883365D8AAC2F8F129A735A8557410E331B3C45DECF556C554A4A93C19ACE1C",
+  "PublishedParentHead": "91b0e8ca650937283eb0beb3b3eed0b88bbbe423",
+  "SourcePaths": 23,
+  "CSharpPaths": 17,
+  "VerifiedClosureFiles": 2227,
+  "VerifiedOutsideOwnedParentFiles": 2204,
+  "AllOwnedParentBindingsExact": true,
+  "TwelveActuallyCompiledCoreRawExact": true,
+  "FiveToolTokenStreamsRawExact": true,
+  "AllAuthorOverlayPreformatBindingsExact": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1065,
+      "RawCanonicalModeledStagedAndWorkflowSha256": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278",
+      "EveryInputStagedHashVerified": true,
+      "NonFilesPolicyExact": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1090,
+      "RawCanonicalModeledStagedAndWorkflowSha256": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E",
+      "EveryInputStagedHashVerified": true,
+      "NonFilesPolicyExact": true
+    }
+  ],
+  "ProtectedProfilesImportsNativeAndParserPoliciesExact": true,
+  "Runner": {
+    "Path": "artifacts/root-run315-isolated-windows.py",
+    "Sha256": "6EC07E0ABC20B514D6E7020C287FCB93FFD651DA5A75296094702A7B2FB7895F",
+    "Roles": [
+      "legacy",
+      "provider-query",
+      "reallocation"
+    ],
+    "PerProcessTimeoutSeconds": 120,
+    "ExclusiveAttemptBeforeInvocation": true,
+    "RecursiveToolDllJsonBinding": true,
+    "SourceBeforeAfterEachRole": true,
+    "TrustedPriorNativeDllsAndLayoutUnchanged": true,
+    "TypedReviewStillRequired": true
+  },
+  "BuildWrapper": {
+    "Path": "artifacts/root-build315-c-harness.ps1",
+    "Sha256": "1F29C88A4C01836130A222D541C111A0001F5B05FD10E8415B4E9BCEFA234A14",
+    "CpuLimit": 2,
+    "Target": "tools/Erlang.NifNativeBackend",
+    "FreezeAndPeerHashRequired": true
+  },
+  "BlockingFindings": [],
+  "ReviewerExecutedBuildNativeVmGitOrNetwork": false,
+  "SourceOnlyReviewDoesNotProveNewCProbe": true
+}

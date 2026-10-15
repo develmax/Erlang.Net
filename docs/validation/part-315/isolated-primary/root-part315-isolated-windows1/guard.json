@@ -1,0 +1,182 @@
+{
+  "Status": "PASS_ACTUAL_ISOLATED_WINDOWS_LEGACY_QUERY_FIVE_PHASES_AND_REALLOCATION_THREE",
+  "SourcePaths": 23,
+  "CSharpPaths": 17,
+  "SourceClosurePaths": 2227,
+  "SourceFreezeSha256": "E06E71801D4BABA6B737C522F6DAA94D44042F5AC2A98091B22B3F035F3F66BB",
+  "SourceClosureSha256": "3883365D8AAC2F8F129A735A8557410E331B3C45DECF556C554A4A93C19ACE1C",
+  "ActualTargetWarnings": 0,
+  "ActualTargetErrors": 0,
+  "Processes": [
+    {
+      "Role": "legacy",
+      "ExitCode": 0,
+      "TimedOut": false,
+      "ElapsedSeconds": 2.2660000000032596,
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "NativeProbeInvoked": true,
+      "NativeExecutionValidated": false,
+      "OriginalExecuted": false,
+      "MainExecution": false,
+      "ActualSdkAssemblies": [
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "Sha256": "E97E04945A3F98ED36CB1CAC790BB1DC0F2D6F6844E6DD4CCA114F821AA54A37"
+        },
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "CDE049CCC0C3BF968FD9A7DBB2791704E5E4DE87763A232487E31705C9DE949C"
+        }
+      ]
+    },
+    {
+      "Role": "provider-query",
+      "ExitCode": 0,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.5,
+      "StdoutSha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "NativeProbeInvoked": true,
+      "NativeExecutionValidated": false,
+      "OriginalExecuted": false,
+      "MainExecution": false,
+      "ActualSdkAssemblies": [
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "Sha256": "E97E04945A3F98ED36CB1CAC790BB1DC0F2D6F6844E6DD4CCA114F821AA54A37"
+        },
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "CDE049CCC0C3BF968FD9A7DBB2791704E5E4DE87763A232487E31705C9DE949C"
+        }
+      ]
+    },
+    {
+      "Role": "reallocation",
+      "ExitCode": 0,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.35900000000037835,
+      "StdoutSha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "NativeProbeInvoked": true,
+      "NativeExecutionValidated": false,
+      "OriginalExecuted": false,
+      "MainExecution": false,
+      "ActualSdkAssemblies": [
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "Sha256": "E97E04945A3F98ED36CB1CAC790BB1DC0F2D6F6844E6DD4CCA114F821AA54A37"
+        },
+        {
+          "Path": "artifacts\\native-payload-provider315-composed2\\candidate\\tools\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "CDE049CCC0C3BF968FD9A7DBB2791704E5E4DE87763A232487E31705C9DE949C"
+        }
+      ]
+    }
+  ],
+  "ActualQueryObservations": [
+    {
+      "Role": "sdk-native-payload-provider-query",
+      "SchemaVersion": 1,
+      "Phase": "VetoClosed",
+      "RuntimeOrdinal": 1,
+      "Scope": "sdk_joined_nif_payload_requests",
+      "SameLiveContextRuntime": true,
+      "JoinedOwners": 0,
+      "ExpectedRequestedBytes": 0,
+      "ExpectedBackingRequestBytes": 0,
+      "QueryResult": {
+        "requested_bytes": 0,
+        "backing_request_bytes": 0
+      },
+      "FullTermMatched": true,
+      "ReviewedFixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "TrustedLibrarySha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+      "TrustedBridgeSha256": null
+    },
+    {
+      "Role": "sdk-native-payload-provider-query",
+      "SchemaVersion": 1,
+      "Phase": "Loaded",
+      "RuntimeOrdinal": 2,
+      "Scope": "sdk_joined_nif_payload_requests",
+      "SameLiveContextRuntime": true,
+      "JoinedOwners": 1,
+      "ExpectedRequestedBytes": 4,
+      "ExpectedBackingRequestBytes": 4,
+      "QueryResult": {
+        "requested_bytes": 4,
+        "backing_request_bytes": 4
+      },
+      "FullTermMatched": true,
+      "ReviewedFixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "TrustedLibrarySha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+      "TrustedBridgeSha256": null
+    },
+    {
+      "Role": "sdk-native-payload-provider-query",
+      "SchemaVersion": 1,
+      "Phase": "AdmissionHeld",
+      "RuntimeOrdinal": 2,
+      "Scope": "sdk_joined_nif_payload_requests",
+      "SameLiveContextRuntime": true,
+      "JoinedOwners": 1,
+      "ExpectedRequestedBytes": 4,
+      "ExpectedBackingRequestBytes": 4,
+      "QueryResult": {
+        "requested_bytes": 4,
+        "backing_request_bytes": 4
+      },
+      "FullTermMatched": true,
+      "ReviewedFixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "TrustedLibrarySha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+      "TrustedBridgeSha256": null
+    },
+    {
+      "Role": "sdk-native-payload-provider-query",
+      "SchemaVersion": 1,
+      "Phase": "RetirementPending",
+      "RuntimeOrdinal": 2,
+      "Scope": "sdk_joined_nif_payload_requests",
+      "SameLiveContextRuntime": true,
+      "JoinedOwners": 1,
+      "ExpectedRequestedBytes": 4,
+      "ExpectedBackingRequestBytes": 4,
+      "QueryResult": {
+        "requested_bytes": 4,
+        "backing_request_bytes": 4
+      },
+      "FullTermMatched": true,
+      "ReviewedFixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "TrustedLibrarySha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+      "TrustedBridgeSha256": null
+    },
+    {
+      "Role": "sdk-native-payload-provider-query",
+      "SchemaVersion": 1,
+      "Phase": "Unloaded",
+      "RuntimeOrdinal": 2,
+      "Scope": "sdk_joined_nif_payload_requests",
+      "SameLiveContextRuntime": true,
+      "JoinedOwners": 0,
+      "ExpectedRequestedBytes": 0,
+      "ExpectedBackingRequestBytes": 0,
+      "QueryResult": {
+        "requested_bytes": 0,
+        "backing_request_bytes": 0
+      },
+      "FullTermMatched": true,
+      "ReviewedFixtureSourceSha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "TrustedLibrarySha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+      "TrustedBridgeSha256": null
+    }
+  ],
+  "ManualTypedReviewSha256": "EA16210AA0B2F38F69803AAD5E59AE3686E0972635A0C7FA81704A64D5B643FC",
+  "ActualTrustedCQueryExecuted": true,
+  "MainExecution": false,
+  "OriginalNewCasesExecuted": false,
+  "PhysicalMemoryCompared": false,
+  "MidCallCReallocationQueryObserved": false,
+  "GuardSourceSha256": "4661E3A3BEDBB3EABA5A6095F8C3A0F75EE9552271546611CB6B00353E535BEA"
+}

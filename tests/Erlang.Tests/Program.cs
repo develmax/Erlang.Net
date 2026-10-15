@@ -4333,6 +4333,10 @@ Test(
     Erlang.Tests.AllocatorQueryMailboxHostNames.Test,
     Erlang.Tests.AllocatorQueryMailboxHostChecks.Run
 );
+Test(
+    Erlang.Tests.NativePayloadProviderHostNames.Test,
+    Erlang.Tests.NativePayloadProviderHostChecks.Run
+);
 
 int failed = 0;
 foreach (var test in tests)

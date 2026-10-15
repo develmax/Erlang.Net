@@ -1,6 +1,13 @@
 using Erlang;
 using Erlang.NifNativeBackend;
 
+if (args.Length != 0 && args[0] == NifNativePayloadQueryHarnessNames.Mode)
+{
+    await NifNativePayloadQueryHarness.Run(args[1..]);
+
+    return;
+}
+
 if (args.Length != 0 && args[0] == NifNativeReallocationHarnessNames.Mode)
 {
     await NifNativeReallocationChecks.Run(args[1..]);

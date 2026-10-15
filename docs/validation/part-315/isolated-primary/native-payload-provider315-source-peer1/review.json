@@ -1,0 +1,318 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_NO_BLOCKING_FINDINGS_EXECUTION_PENDING",
+  "CandidateFreeze": {
+    "Path": "artifacts/native-payload-provider315-candidate1/source-freeze.json",
+    "Sha256": "A413408D228D2E58D194A0B864A15062C3B6D34E65F80C60605E20F0F9141C55"
+  },
+  "PreservedFirstRevision": true,
+  "CandidateModified": false,
+  "MainModified": false,
+  "Verification": {
+    "OverlayRowsVerified": 12,
+    "BeforeParentHashesVerified": 3,
+    "SourceBindingsVerified": 17,
+    "BoundReceiptsVerified": 2,
+    "ProductionPaths": 7,
+    "HostPaths": 4,
+    "ProgramRegistrationPaths": 1,
+    "ExpectedFutureCompositionRows": 2224
+  },
+  "Findings": [],
+  "ReviewConclusions": [
+    "All five pre-existing domain Monitor release sites route through ReleaseGate: Snapshot finally, Join finally, BeginChange failure catch, EndMembership finally and EndChange. TryCapture adds a sixth release site. Enter/body arithmetic, owner membership validation, aggregate commit and real pointer allocation/reallocation/free bodies remain unchanged.",
+    "Capture copies owners.Count and the aggregate value struct while holding the same domain gate used for real owner changes. Domain absence returns the actual empty scope without constructing/enrolling a domain. Domain publication by another thread can linearize after that empty read.",
+    "Contended capture publishes/reuses one shared asynchronous-continuation TCS then retries acquisition before awaiting. Release before publication cannot strand a waiter because of that retry; release after failed retry observes the published notice. Detached/completed notices and early/spurious wakes cause retry, never fabricated snapshots. Cancellation affects only the reader WaitAsync and does not cancel the shared notice for other readers.",
+    "All successful TryCapture paths release the real Monitor. The uncontended path allocates no TCS and performs no exchange if available is null. A canceled last waiter can leave one notice until a subsequent real release; this is bounded per domain and does not retain its cancellation token through an incomplete WaitAsync.",
+    "The provider closes over its actual ProcessRuntime, rejects a context from another runtime before reading, captures with the owned operation cancellation token, rechecks cancellation before building/posting and returns the actual producer Task to AllocatorQueryOperation. Existing operation enforces producer/post drain, cancellation and joining; no abandoned producer Task is introduced.",
+    "RequestedBytes is the current sum of joined owners requested extents. BackingRequestBytes is the current sum of requests passed to native allocation, with a minimum one-byte backing request for zero length. Neither is allocator usable size, committed/resident memory, CLR memory or an OTP allocator total.",
+    "Only internal sdk_joined_nif_payload_requests identity is accepted, ordinal comparison. There is no public MFA registration, default provider, ERTS driver/eheap/mbcs/carrier alias or whole-runtime-memory mapping. Aggregate instance zero is an SDK-private runtime aggregate, not an ERTS scheduler instance claim.",
+    "HOST uses actual runtime actors, actual NifNativeAllocationOwner joining the runtime domain and actual NativeMemory Allocate/Reallocate/Free/Reclaim via the preserved wrapper. It never calls Seed or mutates snapshot fields. Authored controls cover 7-byte payload, zero-length backing request, grow/shrink with retained bytes, second owner aggregation, free/end membership and isolation/unknown name rejection.",
+    "Held-gate kill control wraps and awaits the real producer, observes capture waiting, kills the real actor, requires the query and producer to finish before releasing the held gate and joins the holder in finally. No normal cancellation requires acquiring the held gate.",
+    "Repeated readers cover one shared notice and races without claiming a specific scheduler interleaving. The reflective holder follows its raw Monitor exit by the real synchronous Snapshot getter, so its production release notification is meaningful. The zero-allocation control measures only warmed uncontended CaptureAsync on its current thread, not whole query allocation."
+  ],
+  "EvidenceLimits": [
+    "Source-only independent review. No SDK/compiler/formatter/build/HOST/native/VM/network/Git execution performed by reviewer.",
+    "No dynamic all-interleavings proof: deterministic contended wake controls do not independently force each of the five existing release sites, and randomized startup/release loops do not prove a particular publication-window interleaving.",
+    "Authored HOST assertions, zero-allocation measurement, cancellation deadlines and real native metrics remain unexecuted until parent serialized validation.",
+    "No real C fixture provider query or OTP public allocator compatibility is established by this milestone. Four public allocation APIs remain separate work."
+  ],
+  "LineReferences": {
+    "src/Erlang.Runtime/NifNativeAllocationDomain.Capture.cs": {
+      "CaptureAsync(": [
+        7
+      ],
+      "TryCapture(": [
+        10,
+        16,
+        48
+      ],
+      "CaptureContended(": [
+        13,
+        36
+      ],
+      "Interlocked.CompareExchange": [
+        45
+      ],
+      "await notice.Task.WaitAsync": [
+        51
+      ],
+      "private void ReleaseGate": [
+        55
+      ],
+      "Monitor.Exit(gate)": [
+        57
+      ],
+      "Interlocked.Exchange": [
+        60
+      ]
+    },
+    "src/Erlang.Runtime/NifNativeAllocationDomain.cs": {
+      "internal NifNativeAllocationDomainSnapshot Snapshot": [
+        10
+      ],
+      "internal long Join": [
+        26
+      ],
+      "internal NifNativeAllocationDomainChange BeginChange": [
+        43
+      ],
+      "internal void EndMembership": [
+        85
+      ],
+      "internal void CommitChange": [
+        111
+      ],
+      "internal void EndChange": [
+        121
+      ]
+    },
+    "src/Erlang.Runtime/NativePayloadRequestProvider.cs": {
+      "Create(": [
+        5
+      ],
+      "private static async Task Produce": [
+        17
+      ],
+      "ReferenceEquals": [
+        24
+      ],
+      "CaptureNativeAllocationsAsync": [
+        27
+      ],
+      "Term payload": [
+        29
+      ],
+      "post(Nil.Value": [
+        33
+      ]
+    },
+    "tests/Erlang.Tests/NativePayloadProviderHostChecks.cs": {
+      "private static async Task ActualExtents": [
+        20
+      ],
+      "private static async Task RuntimeIsolation": [
+        60
+      ],
+      "private static async Task ReadersAndReleaseRaces": [
+        90
+      ],
+      "private static async Task CancelWhileDomainHeld": [
+        132
+      ],
+      "private static async Task UncontendedCapture": [
+        190
+      ],
+      "private static Task Hold": [
+        216
+      ],
+      "private static object TrackedProvider": [
+        237
+      ]
+    }
+  },
+  "OverlayFiles": [
+    {
+      "Path": "src/Erlang.Runtime/NativePayloadRequestProvider.cs",
+      "Bytes": 1702,
+      "Sha256": "21CFD6BFA7DF49185EC5D5F05018C55C3455CF7C751759413656E16CC27A3B08",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NativePayloadRequestProvider.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativePayloadRequestProviderDiagnostics.cs",
+      "Bytes": 193,
+      "Sha256": "28790001FC048917C902C76A672A00EB143496C40B7B9E59AE06EED953A50E93",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NativePayloadRequestProviderDiagnostics.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativePayloadRequestProviderNames.cs",
+      "Bytes": 286,
+      "Sha256": "A0D870D2DDB1911905291407375C941097B7C6DB957417B15F344A9610CAB284",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NativePayloadRequestProviderNames.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativePayloadRequestProviderParameters.cs",
+      "Bytes": 191,
+      "Sha256": "8248603B84BB4CDAA9A93C0E43513108A28B509B26A0ABCBF0B076C137C389A2",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NativePayloadRequestProviderParameters.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.Capture.cs",
+      "Bytes": 1877,
+      "Sha256": "2913D380489520E9B5333676E7F00C664C392E7796AED07781EBD1CDA50B1670",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NifNativeAllocationDomain.Capture.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
+      "Bytes": 4463,
+      "Sha256": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174",
+      "Added": false,
+      "ParentSha256": "93D9D88100D80DD51E9B9E06160D5998B43F4018F5DE1D01C4F080D84A3AB3ED",
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/NifNativeAllocationDomain.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NativeAllocations.cs",
+      "Bytes": 805,
+      "Sha256": "6AD945ACF754376AC2D4C611609266DAC5CF5089F80A04E4E25CFC733A824765",
+      "Added": false,
+      "ParentSha256": "0038D3EE5D6CEF74F76E3873A86600BBD9AAF5BB330931CB2E50F8797E5C872F",
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/src/Erlang.Runtime/ProcessRuntime.NativeAllocations.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NativePayloadProviderHostChecks.cs",
+      "Bytes": 15699,
+      "Sha256": "401956EE47FCF9FBC77F04FD9D0D09A042ECFA4317DD64243381A90EA6D170F5",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/tests/Erlang.Tests/NativePayloadProviderHostChecks.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NativePayloadProviderHostNames.cs",
+      "Bytes": 1556,
+      "Sha256": "A6DD0A9A3903B77B6BBEF8D0CD979CB285F76F8BB83768567D6B0B3A143CF0C1",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/tests/Erlang.Tests/NativePayloadProviderHostNames.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NativePayloadProviderHostOwner.cs",
+      "Bytes": 1071,
+      "Sha256": "2E706027E13E2B0F933B7A4E228FF85D0C31D3BEE82E1290013874F385B26F3A",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/tests/Erlang.Tests/NativePayloadProviderHostOwner.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NativePayloadProviderHostParameters.cs",
+      "Bytes": 618,
+      "Sha256": "C430B8690D2F03D95A6D891E109F214623B19105C28A6B8FCC6EC1CCDA2D39E4",
+      "Added": true,
+      "ParentSha256": null,
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/tests/Erlang.Tests/NativePayloadProviderHostParameters.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 165990,
+      "Sha256": "EAB0C81941FD4E8557DFA93441B8C86F3238B534AE03E68BAD29917312A460E2",
+      "Added": false,
+      "ParentSha256": "C6C370372126166F8EEE08D8C59625D82E2032E2EB914D0D0E637A18DCE47092",
+      "ArtifactPath": "artifacts/native-payload-provider315-candidate1/overlay/tests/Erlang.Tests/Program.cs"
+    }
+  ],
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomainChange.cs",
+      "Bytes": 851,
+      "Sha256": "3E0CF1DBFEE84AD0887C1C644C37B44CADD3BEBD5431298BFCC3907544EC71EE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+      "Bytes": 8022,
+      "Sha256": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomainSnapshot.cs",
+      "Bytes": 155,
+      "Sha256": "FE9E96A98B39C1A45FBD404D08CE94C4A0F6446C4A83C258E5621BA07F90FE74"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailbox.cs",
+      "Bytes": 2751,
+      "Sha256": "389E52D7DBB5069A46A19A144877D9B9014154EF4B18A81178694A4F8AD5213A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryOperation.cs",
+      "Bytes": 5931,
+      "Sha256": "B364973AF841F384F17B17CF2F849CBC899B64CE046A5ABAE390F1035D1A6258"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryProvider.cs",
+      "Bytes": 1481,
+      "Sha256": "5B47F8ABAF20CCB4B7DE9589ABAF22C2E91F6A8401C4FC3A4CD841F63D8F720F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryResultReducer.cs",
+      "Bytes": 3135,
+      "Sha256": "9EBB73DC99A0E05B9A32DA3DA54423157FAE18759BEA0C4AEC829D661B50385B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 12629,
+      "Sha256": "3888C9ACDE81E1F77B4FACAD3359D0DF83FCB10CCF9DAF057579CEE43A361ABA"
+    },
+    {
+      "Path": "src/Erlang.Terms/Integer.cs",
+      "Bytes": 1204,
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifReallocationHostOwner.cs",
+      "Bytes": 3888,
+      "Sha256": "305ACF1E23FED82B6799F5C77363DC6783EADA2347275605CF8AC28540F66307"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeFoundationHostActor.cs",
+      "Bytes": 1920,
+      "Sha256": "2B92247A71D03AE6E0C62EF4033037435726844AA8AFEB3B413D45C981D18448"
+    },
+    {
+      "Path": "AGENTS.md",
+      "Bytes": 233626,
+      "Sha256": "8DEF05B44DF88B86CA3DC128411CE3C8B18FFFD1377077DF5039567BED4B47E9"
+    },
+    {
+      "Path": "reference-baseline.json",
+      "Bytes": 135,
+      "Sha256": "3A676AC4915283B11E240D75E40157D5D2A1CFFAC3F0BFA71B4A4277AC55791A"
+    },
+    {
+      "Path": "artifacts/root-part314-main1/source-freeze.json",
+      "Bytes": 7591,
+      "Sha256": "F4FC11897BCD6DF6E9C139B5BC845FAE7E774D29BC46FB6171A2EE7FB04BDF73"
+    },
+    {
+      "Path": "artifacts/allocator-query-mailbox314-import-policy2/source-resource-closure.json",
+      "Bytes": 419882,
+      "Sha256": "B9883EB5EBE5457E7BBA10F39416E80DDE1DF9D8C458550BDB684C22AC7BD901"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-design1/DESIGN.md",
+      "Bytes": 13507,
+      "Sha256": "DF80C6361D818CEFB61A120983CA8B7D15088BB2AD81F0B5CE0239BF20AD9EB4"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-design1/source-audit-freeze.json",
+      "Bytes": 13377,
+      "Sha256": "F6AFE88A3B0BA4D8872DBA617D481376C36B885A8DF8DCCED6D8E8030C9B0030"
+    }
+  ]
+}

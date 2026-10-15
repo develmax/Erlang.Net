@@ -2,7 +2,10 @@ namespace Erlang.NifNativeBackend;
 
 internal static class NifNativeOwnershipChecks
 {
-    internal static async Task Run(NifNativeCapabilityProfile profile)
+    internal static async Task Run(
+        NifNativeCapabilityProfile profile,
+        Func<ProcessContext, NifNativePayloadQueryPhase, NifNativeAllocationDomainSnapshot, Task>? query = null
+    )
     {
         NifNativePlatformLoader.VerifyPlatform();
         NifNativeExportRegistration.EnsureRegistered(profile);
@@ -12,9 +15,9 @@ internal static class NifNativeOwnershipChecks
         {
             nint counter = NifNativePlatformLoader.Symbol(observer, NifNativeHarnessNames.UnloadCounter);
             int before = Counter(counter);
-            await LoadVeto(profile);
+            await LoadVeto(profile, query);
             NifNativeHarness.Require(Counter(counter) == before);
-            await SuccessfulImage(profile);
+            await SuccessfulImage(profile, query);
             NifNativeHarness.Require(Counter(counter) == before + 1);
             await NifNativeLifecycleChecks.Run(profile, counter);
         }
@@ -53,7 +56,10 @@ internal static class NifNativeOwnershipChecks
         return (owner, runtime.Modules.CurrentCodeImage(NifNativeNames.Module)!);
     }
 
-    private static async Task LoadVeto(NifNativeCapabilityProfile profile)
+    private static async Task LoadVeto(
+        NifNativeCapabilityProfile profile,
+        Func<ProcessContext, NifNativePayloadQueryPhase, NifNativeAllocationDomainSnapshot, Task>? query
+    )
     {
         await using var runtime = new ProcessRuntime();
         var source = Register(runtime);
@@ -92,12 +98,17 @@ internal static class NifNativeOwnershipChecks
                     // The join rethrows the exact already-observed initialization failure.
                 }
             }
+            if (query is not null)
+                await query(context, NifNativePayloadQueryPhase.VetoClosed, runtime.NativeAllocationSnapshot);
         }
         );
         NifNativeDomainChecks.VetoClosed(runtime, domainBefore);
     }
 
-    private static async Task SuccessfulImage(NifNativeCapabilityProfile profile)
+    private static async Task SuccessfulImage(
+        NifNativeCapabilityProfile profile,
+        Func<ProcessContext, NifNativePayloadQueryPhase, NifNativeAllocationDomainSnapshot, Task>? query
+    )
     {
         await using var runtime = new ProcessRuntime();
         var source = Register(runtime);
@@ -121,6 +132,8 @@ internal static class NifNativeOwnershipChecks
                 return initialized;
             });
             var loadedDomain = NifNativeDomainChecks.Loaded(runtime, nativeOwner!);
+            if (query is not null)
+                await query(context, NifNativePayloadQueryPhase.Loaded, loadedDomain);
             NifNativeHarness.Require(runtime.Modules.GetNifTaints().SequenceEqual(new[] { NifNativeNames.Module }));
             using (var call = source.Image.NifBindings.Admit(NifNativeNames.Increment, 1)!)
                 NifNativeHarness.Require((await call.InvokeAsync(context, [Term.I(41)])).Equals(Term.I(42)));
@@ -139,14 +152,20 @@ internal static class NifNativeOwnershipChecks
             }
             using var held = source.Image.NifBindings.Admit(NifNativeNames.Greeting, 0)!;
             NifNativeDomainChecks.Retained(runtime, loadedDomain);
+            if (query is not null)
+                await query(context, NifNativePayloadQueryPhase.AdmissionHeld, loadedDomain);
             Task retirement = source.Image.NifBindings.RetireAsync();
             NifNativeHarness.Require(!retirement.IsCompleted);
             NifNativeDomainChecks.Retained(runtime, loadedDomain);
+            if (query is not null)
+                await query(context, NifNativePayloadQueryPhase.RetirementPending, loadedDomain);
             held.Dispose();
             await retirement.WaitAsync(NifNativeHarnessNames.Deadline);
             await source.Image.NifBindings.RetireAsync();
             NifNativeHarness.Require(nativeOwner!.OutstandingAfterNativeUnload == 0);
             NifNativeDomainChecks.Unloaded(runtime, nativeOwner, loadedDomain);
+            if (query is not null)
+                await query(context, NifNativePayloadQueryPhase.Unloaded, runtime.NativeAllocationSnapshot);
         }
         );
     }

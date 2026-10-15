@@ -1,0 +1,90 @@
+{
+  "Passed": true,
+  "AllFiveToolTokenStreamsRawExact": true,
+  "TokensBefore": {
+    "Path": "artifacts/native-payload-provider315-composed2/tokens-before.json",
+    "Bytes": 74521,
+    "Sha256": "DCB07975D7FFEAD3437F694E4D5BDCF5B69F2226921CB552824E5607041E385E"
+  },
+  "TokensAfter": {
+    "Path": "artifacts/native-payload-provider315-composed2/tokens-after.json",
+    "Bytes": 74521,
+    "Sha256": "DCB07975D7FFEAD3437F694E4D5BDCF5B69F2226921CB552824E5607041E385E"
+  },
+  "FormattingChangedOnlyToolCSharp": [
+    "tools/Erlang.NifNativeBackend/NifNativeOwnershipChecks.cs",
+    "tools/Erlang.NifNativeBackend/NifNativePayloadQueryHarness.cs",
+    "tools/Erlang.NifNativeBackend/NifNativePayloadQueryHarnessNames.cs",
+    "tools/Erlang.NifNativeBackend/NifNativePayloadQueryPhase.cs",
+    "tools/Erlang.NifNativeBackend/Program.cs"
+  ],
+  "All12ActuallyCompiledCoreRuntimeTestsRawExactAB9E": true,
+  "CoreActualFocusEvidence": {
+    "Path": "artifacts/native-payload-provider315-composed1/actual-focus-independent-guard.json",
+    "Bytes": 4214,
+    "Sha256": "CC456D668364C4928D015D76DB064C32B9C041832C99683CADB86356770E20C1"
+  },
+  "CoreEvidenceNotCProbeExecution": true,
+  "AllOtherPreformatSourceBytesExactBeforeReseal": true,
+  "ProtectedNativeAbiProfilePoliciesParsersCollectorHelpersRawExact": true,
+  "CanonicalPlanWritesUtf8LfNoBomNoCr": true,
+  "BothSpecificPlanAttributesTextEolLf": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1065,
+      "RawSha256": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278",
+      "CanonicalLfSha256": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278",
+      "ModeledGitStagedContentSha256": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "WorkflowPin": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278",
+      "RawEqualsCanonicalEqualsGitModelEqualsWorkflowPin": true,
+      "RefreshedRows": []
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1090,
+      "RawSha256": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E",
+      "CanonicalLfSha256": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E",
+      "ModeledGitStagedContentSha256": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowPin": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E",
+      "RawEqualsCanonicalEqualsGitModelEqualsWorkflowPin": true,
+      "RefreshedRows": []
+    }
+  ],
+  "OwnWorkflowAndOwnPlanExcludedFromOwnSelfHash": true,
+  "CSourcePeer": {
+    "Path": "artifacts/native-payload-provider315-c-harness-allocator309-source-peer1/review.json",
+    "Bytes": 2815,
+    "Sha256": "D0A548725772FD256ADDCD2693C8A1F25B34855F93C1E9936633403F9AC8FF3E"
+  },
+  "PreflightSourcePeer": {
+    "Path": "artifacts/source-plan-preflight315-beam310-source-peer.json",
+    "Bytes": 1963,
+    "Sha256": "2D5AE9997B953CB197C9A4DD6442F942C98AF61CAC6CD6E649263ABCBB3D0193"
+  },
+  "FormatterInputs": [
+    {
+      "Path": "artifacts/root-format315-c-harness.ps1",
+      "Bytes": 1531,
+      "Sha256": "A50ED745EEDFD08832E9F4FEAD866AA2A3E7367BAFE551493F9371AF245A584A"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-composed2/sdk-format.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-composed2/custom-format.log",
+      "Bytes": 32,
+      "Sha256": "5B2B97DEF6C44D903A42048A5E3F6F72194D3447E0B115214A7D6CCED315E898"
+    }
+  ],
+  "PreformatReceiptPreserved": {
+    "Path": "artifacts/native-payload-provider315-composed2/pre-format-composition.json",
+    "Bytes": 14526,
+    "Sha256": "E0729F0AC149DB4DB9E6829641CA77AE888A8F7E3F29304D25D643A55FBEC57B"
+  },
+  "NoMainGitBuildNativeVmActionsBySeal": true
+}

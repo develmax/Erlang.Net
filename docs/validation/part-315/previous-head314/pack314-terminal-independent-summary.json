@@ -1,0 +1,62 @@
+{
+  "Head": "91b0e8ca650937283eb0beb3b3eed0b88bbbe423",
+  "Status": "ALL_FOUR_TERMINALS_INDEPENDENTLY_AUDITED_THREE_SUCCESS_ONE_PRESERVED_INFRA_FAILURE",
+  "AllAttemptOne": true,
+  "IndependentReports": [
+    {
+      "Path": "artifacts/pack314-ci-independent-guard.json",
+      "Bytes": 1057,
+      "Sha256": "FAA75979AFEBE0352EF4ABA7D52F8F2EDB0C5486E3A78E0EBC9B6D4599883AB0",
+      "Status": "PASS_EXACT_HEAD314_CI6641_FULL",
+      "Run": 38805548225
+    },
+    {
+      "Path": "artifacts/pack314-native-combined-independent-guard.json",
+      "Bytes": 1462,
+      "Sha256": "42E44D2959F8E5FD26AD1D87A5F33A8C2542CF6E9EB0875C01478A6290CED392",
+      "Status": "PASS_EXACT_HEAD314_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13",
+      "Run": 38805923856
+    },
+    {
+      "Path": "artifacts/pack314-ordinary-strict-independent-guard.json",
+      "Bytes": 1178,
+      "Sha256": "3FB47F11D1461C0B11A3F30E0F174CD9FEDB8C882C71F2E6CE10446719A88F6D",
+      "Status": "PASS_EXACT_HEAD314_FRESH_ORIGINAL5861_FD8_UNCHANGED308_CORPUS_AND_RULES",
+      "Run": 38805949831
+    },
+    {
+      "Path": "artifacts/pack314-reallocation-independent-failure-guard.json",
+      "Bytes": 1376,
+      "Sha256": "AA9BD5EA2E18BAF8C81027FDDCB8E7FF16CD361124FEF658D39F9FFE50F4F897",
+      "Status": "VERIFIED_ACTUAL_FIRST314_REALLOCATION_CANONICAL_PLAN_SEAL_FAILURE_BEFORE_SOURCE_BUILD",
+      "Run": 38805899881
+    }
+  ],
+  "Ci": {
+    "Passed": 6641,
+    "IntegrationAndPackages": 11
+  },
+  "OldNative": {
+    "LinuxSdkOrderedLines": 8,
+    "DomainRoles": 3,
+    "SeparateOriginalCases": 13
+  },
+  "Ordinary": {
+    "Passed": 5861,
+    "FdPassed": 8,
+    "AllRawHistoricalRowsExact": true,
+    "DifferentialSourceFilesUnchangedSince308": 220
+  },
+  "NewReallocation": {
+    "Conclusion": "failure",
+    "Gate": "Reviewed source plan changed",
+    "Cause": "Workflow expected authored CRLF plan digest; published Git plan uses LF",
+    "OriginalCasesExecuted": 0,
+    "SdkCasesExecuted": 0,
+    "OriginalBuildStarted": false
+  },
+  "OriginalStageInterleavingsExecuted": false,
+  "AllWorkflowsPassed": false,
+  "PostOrRetryExecutedByReviewer": false,
+  "NativeVmSdkExecutedByReviewer": false
+}

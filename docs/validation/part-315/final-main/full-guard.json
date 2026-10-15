@@ -1,0 +1,55 @@
+{
+  "Status": "PASS_ACTUAL_MAIN315_6642_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6642,
+  "Failed": 0,
+  "All6641PreviousOrderedNamesPreserved": true,
+  "AddedOrderedName": "runtime/native-payload-provider-real-joined-request-extents",
+  "IntegrationResults": 11,
+  "SourcePaths": 23,
+  "CSharpPaths": 17,
+  "SourceResourceClosureFiles": 2227,
+  "SourceFreezeSha256": "C39F8295C15BF566F4491E843391F56519F325A8C7950183415498D4CFAA3B9B",
+  "SourceClosureSha256": "3883365D8AAC2F8F129A735A8557410E331B3C45DECF556C554A4A93C19ACE1C",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1065,
+      "Sha256": "F9D1CAD1C03239E49D85581B55B5C3A406FBE29B55314C6E7E423C1F97BDE278"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1090,
+      "Sha256": "D68B34BA634B104ACAC155DCE22E6DE7247CBE52017A4DAB3E8032B8DEC4C03E"
+    }
+  ],
+  "Registry": 505,
+  "ErlangMfas": 347,
+  "PublicMfaDelta": 0,
+  "RawRegistrySha256": "3B24FC32475BD07622243797E8E2FFB760C88ADDEDA920BA8826773B15A649F9",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    }
+  ],
+  "OriginalNewCasesExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "GeneralNifAbiComplete": false,
+  "GuardSourceSha256": "F3300FDD34E5135D379E269D6E73F30CEDA2FB1CAB0B38A32E9C7EA34639ACD7"
+}

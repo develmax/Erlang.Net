@@ -3,6 +3,35 @@ $ErrorActionPreference = 'Stop'
 $validationRoot = Split-Path -Parent $PSScriptRoot
 Push-Location $validationRoot
 try {
+    # Reviewed source-plan/workflow preflight: run before the first build.
+    $reviewedPlanContracts = @(
+        @{ Plan = 'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json'; Workflow = '.github/workflows/nif-pending-native.yml'; Pin = 'REVIEWED_SOURCE_PLAN_SHA256' },
+        @{ Plan = 'tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json'; Workflow = '.github/workflows/nif-reallocation-native.yml'; Pin = 'REVIEWED_REALLOCATION_PLAN_SHA256' }
+    )
+    $reviewedPlanUtf8 = New-Object System.Text.UTF8Encoding($false, $true)
+    foreach ($contract in $reviewedPlanContracts) {
+        $planPath = Join-Path $validationRoot $contract.Plan
+        $workflowPath = Join-Path $validationRoot $contract.Workflow
+        $planBytes = [System.IO.File]::ReadAllBytes($planPath)
+        $planText = $reviewedPlanUtf8.GetString($planBytes)
+        if ($planBytes -contains 13 -or ($planBytes.Length -ge 3 -and $planBytes[0] -eq 239 -and $planBytes[1] -eq 187 -and $planBytes[2] -eq 191)) {
+            throw "Reviewed source plan requires UTF-8 LF bytes without BOM: $($contract.Plan)"
+        }
+        $canonicalBytes = $reviewedPlanUtf8.GetBytes($planText.Replace("`r`n", "`n"))
+        $planHasher = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $canonicalSha = [BitConverter]::ToString($planHasher.ComputeHash($canonicalBytes)).Replace('-', '')
+        } finally { $planHasher.Dispose() }
+        $rawSha = (Get-FileHash -LiteralPath $planPath -Algorithm SHA256).Hash
+        if ($rawSha -cne $canonicalSha) { throw "Reviewed source plan raw/canonical hash differs: $($contract.Plan)" }
+        $workflowText = [System.IO.File]::ReadAllText($workflowPath, $reviewedPlanUtf8)
+        $pinPattern = '(?m)^[ \t]+' + [regex]::Escape($contract.Pin) + ':[ \t]+([A-Fa-f0-9]{64})[ \t]*\r?$'
+        $pins = [regex]::Matches($workflowText, $pinPattern)
+        if ($pins.Count -ne 1 -or $pins[0].Groups[1].Value -cne $rawSha) {
+            throw "Reviewed source plan/workflow pin mismatch: $($contract.Plan)"
+        }
+    }
+    # End reviewed source-plan/workflow preflight.
     function Invoke-DotNet {
         param([string[]]$Arguments)
         & dotnet @Arguments

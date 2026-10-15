@@ -1,0 +1,42 @@
+{
+  "Status": "PASS_SOURCE_ONLY_CANONICAL_PLAN_PREFLIGHT_AND_COPIED_PURE_CONTROLS",
+  "FreezeSha256": "AA895526CC5AD68FD2E7DC12AE5107FD43609AC27D97EB06F20DB34A11CD4CCA",
+  "ValidationSourceSha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47",
+  "ProductionPaths": 1,
+  "CSharpPaths": 0,
+  "RemovingOnlyGuardRestoresParentRawBytes": true,
+  "GuardBeforeFirstBuild": true,
+  "Review": [
+    "Fixed two plan/workflow/pin triples; no arbitrary path/executable evaluation",
+    "Strict UTF8 decoder rejects invalid encoding; explicit BOM/anyCR refusal on plans; SHA256 raw bytes equal UTF8LF reencoding",
+    "Anchored bare64hex pin in authored workflow format must occur exactly once and match raw canonical uppercase SHA",
+    "Data APIs and Get-FileHash only in added guard; SHA disposed in finally; enclosing parent Push/PopLocation cleanup unchanged",
+    "PowerShell AST parsed by controls; APIs/regex/joins portable to existing pwsh runtime on Windows/Linux",
+    "Whole parent validation behavior, source-verifier/native policy and public API untouched"
+  ],
+  "IndependentPureReplay": {
+    "Directory": "artifacts/source-plan-preflight315-beam310-replay1",
+    "Cases": 10,
+    "Accept": 1,
+    "RefuseBeforeStubBuild": 9,
+    "Actual314FailurePairRejectedBeforeStub": true,
+    "ReportSha256": "6EB1FB54E62C1760BC4893BEDB9124B341BC4AD3F2DB3AC3473904DB3D364338"
+  },
+  "ConcreteBlockers": [],
+  "RequiredCompositionFollowups": [
+    "Both plan paths explicit text eol=lf attributes",
+    "Writers emit UTF8LF via bytes",
+    "Legacyplan then legacyworkflow then ownplan then ownworkflow seals",
+    "Root staged actual blob rawhash crosscheck against stagedworkflow pin"
+  ],
+  "Execution": {
+    "PurePowerShellStubControls": true,
+    "ActualDotnet": false,
+    "Compiler": false,
+    "VM": false,
+    "Native": false,
+    "MainMutation": false,
+    "Git": false,
+    "Network": false
+  }
+}

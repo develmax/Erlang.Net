@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class NifNativeAllocationDomain
+internal sealed partial class NifNativeAllocationDomain
 {
     private readonly object gate = new();
     private readonly Dictionary<long, NifNativeAllocationSnapshot> owners = new();
@@ -11,20 +11,32 @@ internal sealed class NifNativeAllocationDomain
     {
         get
         {
-            lock (gate)
+            Monitor.Enter(gate);
+            try
+            {
                 return new(owners.Count, snapshot);
+            }
+            finally
+            {
+                ReleaseGate();
+            }
         }
     }
 
     internal long Join()
     {
-        lock (gate)
+        Monitor.Enter(gate);
+        try
         {
             long membership = checked(nextMembership + 1);
             owners.Add(membership, default);
             nextMembership = membership;
 
             return membership;
+        }
+        finally
+        {
+            ReleaseGate();
         }
     }
 
@@ -65,19 +77,24 @@ internal sealed class NifNativeAllocationDomain
         }
         catch
         {
-            Monitor.Exit(gate);
+            ReleaseGate();
             throw;
         }
     }
 
     internal void EndMembership(long membership, NifNativeAllocationSnapshot owner)
     {
-        lock (gate)
+        Monitor.Enter(gate);
+        try
         {
             RequireOwner(membership, owner);
             if (owner.Count != 0 || owner.RequestedBytes != 0 || owner.BackingRequestBytes != 0)
                 throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.NonemptyMembership);
             owners.Remove(membership);
+        }
+        finally
+        {
+            ReleaseGate();
         }
     }
 
@@ -101,5 +118,5 @@ internal sealed class NifNativeAllocationDomain
         snapshot = aggregate;
     }
 
-    internal void EndChange() => Monitor.Exit(gate);
+    internal void EndChange() => ReleaseGate();
 }

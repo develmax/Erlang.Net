@@ -1,0 +1,72 @@
+name: Pinned OTP additional native reallocation comparison
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact published commit approved for this once-only run
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  original-and-sdk-reallocation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ERLC_USE_SERVER: 'false'
+      DOTNET_PROCESSOR_COUNT: '2'
+      DOTNET_CLI_USE_MSBUILD_SERVER: '0'
+      MSBUILDDISABLENODEREUSE: '1'
+      REVIEWED_REALLOCATION_PLAN_SHA256: 9D10C312F86E12AE4829399A0D5245F25A6BC3EF045BCF17CE83521199ACC0CB
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build verify and compare exact original and SDK
+        shell: bash
+        env:
+          EXPECTED_HEAD: ${{ inputs.expected_head }}
+        run: |
+          set -euo pipefail
+          test "$EXPECTED_HEAD" = "$GITHUB_SHA"
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
+          export ROOT="$GITHUB_WORKSPACE"
+          export BASE="$ROOT/artifacts/reallocation-native"
+          export SOURCE="$BASE/otp-source"
+          export TOOL="$ROOT/tools/Erlang.NifReallocationObservations"
+          export PLAN="$TOOL/SOURCE-PLAN.json"
+          test ! -e "$BASE"
+          mkdir -p "$BASE/control"
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git "$SOURCE" >"$BASE/control/clone.stdout" 2>"$BASE/control/clone.stderr"
+          test "$(git --no-optional-locks -C "$SOURCE" rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          common=(--repository "$ROOT" --otp-source "$SOURCE" --plan "$PLAN" --expected-head "$GITHUB_SHA" --approved-plan-sha256 "$REVIEWED_REALLOCATION_PLAN_SHA256")
+          source_common=("${common[@]}" --source-build "$BASE/source-build")
+          python3 -B "$TOOL/controlled_source_build.py" "${common[@]}" --output "$BASE/source-build"
+          python3 -B "$TOOL/verify_source_build.py" source-build "${source_common[@]}" --output "$BASE/control/source-review.json"
+          review_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$BASE/control/source-review.json")
+          python3 -B "$TOOL/runtime_receipt_adapter.py" --source "$SOURCE" --installed-prefix "$SOURCE/observer-install" --provenance "$BASE/source-build/legacy-provenance.json" --build-log "$BASE/source-build/complete-build.log" --independent-review "$BASE/control/source-review.json" --approved-review-sha256 "$review_sha" --output "$BASE/runtime-receipt"
+          runtime_common=(--review "$BASE/control/source-review.json" --runtime-receipt "$BASE/runtime-receipt/source-build-receipt.json")
+          python3 -B "$TOOL/verify_source_build.py" runtime-receipt "${source_common[@]}" "${runtime_common[@]}" --output "$BASE/control/runtime-approval.json"
+          runtime_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedSourceBuildReceiptSha256"])' "$BASE/control/runtime-approval.json")
+          tar -czf "$BASE/control/installed-runtime.tar.gz" -C "$SOURCE/observer-install" .
+          sha256sum "$BASE/control/installed-runtime.tar.gz" > "$BASE/control/installed-runtime.tar.gz.sha256"
+          python3 -B "$TOOL/run-reviewed.py" native-build "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --output "$BASE/sdk-native"
+          python3 -B "$TOOL/verify_native_build.py" "${common[@]}" --native-build "$BASE/sdk-native" --output "$BASE/control/native-approval.json"
+          native_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedBuildReceiptSha256"])' "$BASE/control/native-approval.json")
+          python3 -B "$TOOL/original/collect.py" "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --otp-bin "$SOURCE/observer-install/bin" --source-build-receipt "$BASE/runtime-receipt/source-build-receipt.json" --approved-source-build-receipt-sha256 "$runtime_sha" --output "$BASE/original3"
+          python3 -B "$TOOL/run-reviewed.py" sdk "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --approved-build-receipt-sha256 "$native_sha" --output "$BASE/sdk-native"
+          python3 -B "$TOOL/verify_source_build.py" captured-receipts "${source_common[@]}" "${runtime_common[@]}" --runtime-approval "$BASE/control/runtime-approval.json" --native-approval "$BASE/control/native-approval.json" --original "$BASE/original3" --sdk "$BASE/sdk-native" --output "$BASE/control/capture-approval.json"
+          original_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedOriginalReceiptSha256"])' "$BASE/control/capture-approval.json")
+          sdk_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedSdkReceiptSha256"])' "$BASE/control/capture-approval.json")
+          python3 -B "$TOOL/review-results.py" --repository "$ROOT" --plan "$PLAN" --expected-head "$GITHUB_SHA" --approved-plan-sha256 "$REVIEWED_REALLOCATION_PLAN_SHA256" --original "$BASE/original3" --sdk "$BASE/sdk-native" --approved-original-receipt-sha256 "$original_sha" --approved-sdk-receipt-sha256 "$sdk_sha" --output "$BASE/control/original-sdk-three-comparison.json"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pinned-reallocation-original-sdk-evidence
+          path: |
+            artifacts/reallocation-native/control/**
+            artifacts/reallocation-native/source-build/**
+            artifacts/reallocation-native/runtime-receipt/**
+            artifacts/reallocation-native/sdk-native/**
+            artifacts/reallocation-native/original3/**
