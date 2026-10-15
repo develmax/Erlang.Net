@@ -1,0 +1,7 @@
+compile: warnings being treated as errors
+artifacts/distribution-trace-observations/distribution_trace_probe.erl:90:13: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%   90|         _ = catch erlang:resume_process(Receiver),
+%     |             ^
+

@@ -1,0 +1,68 @@
+{
+  "Error": "Traceback (most recent call last):\n  File \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-run-sender-bounded-validation-revision4.py\", line 89, in <module>\n    run('owned-style', ['dotnet', str(style), '--check', str(style_area)], cwd=r)\n  File \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-run-sender-bounded-validation-revision4.py\", line 40, in run\n    assert code == 0 and not timed_out, row\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'Name': 'owned-style', 'Arguments': ['dotnet', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\Erlang.Net\\\\tools\\\\Erlang.Style\\\\bin\\\\Debug\\\\net10.0\\\\Erlang.Style.dll', '--check', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\Erlang.Net\\\\artifacts\\\\pid-order-sender-revision4-executed\\\\owned-style'], 'Cwd': 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\Erlang.Net', 'Pid': 24736, 'ExitCode': 1, 'TimedOut': False}\n",
+  "Stages": [
+    {
+      "Name": "host-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "probe/SenderFocus.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision4",
+      "Pid": 81996,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actor-focus8",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision4\\probe\\bin\\Release\\net10.0\\SenderFocus.dll"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision4",
+      "Pid": 86860,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "collector-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision4",
+      "Pid": 64036,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "owned-style",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Style\\bin\\Debug\\net10.0\\Erlang.Style.dll",
+        "--check",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-revision4-executed\\owned-style"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+      "Pid": 24736,
+      "ExitCode": 1,
+      "TimedOut": false
+    }
+  ],
+  "NativeExecuted": false,
+  "ErlangProbeCompiled": false,
+  "MainModified": false
+}

@@ -6,8 +6,8 @@ internal static class TraceNames
     internal const string Source = "distribution_trace_probe.erl";
     internal const string Plan = "source-plan.json";
     internal const string Report = "distribution-trace-observations.json";
-    internal const string SourceSha256 = "30FD1EA415E99155641E747F51E3381C0573C9DCFD0DDEFD880612ABCC36429D";
-    internal const string PlanSha256 = "3C79D54DB6A539ECBC5B81925FEAB43443587DD178203BF1F955BDD100648AC1";
+    internal const string SourceSha256 = "98A6A5ED875B0692A781350BF8E7C73A6A7FFDD2F76DA92E2D0FF8430CA17D0E";
+    internal const string PlanSha256 = "8F549183B3321E21FEE4943DAD60FDC39B9FBC65F83E0A96F6A987B33E20BD5B";
     internal const string ProcessError = "process-error.txt";
     internal const string ErrorSidecarFailure = "Error sidecar could not be written: ";
     internal const int NativeExecutions = 8;

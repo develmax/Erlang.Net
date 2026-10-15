@@ -90,7 +90,7 @@ internal static class ConnectedDistributionHostChecks
             Reject(() => pending.AdoptConnected(
                 handle,
                 context,
-                DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.SendSender,
+                DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.Fragments,
                 1
             ));
             Check(pending.AdoptConnected(

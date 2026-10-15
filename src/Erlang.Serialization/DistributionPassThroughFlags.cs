@@ -26,5 +26,5 @@ public static class DistributionPassThroughFlags
     public const ulong Mandatory = ExtendedReferences | FunctionTags | NewFunctionTags |
         ExtendedPidsPorts | ExportPointer | BitBinaries | NewFloats | Utf8Atoms |
         MapTag | BigCreation | Handshake23 | UnlinkId | V4NodeContainer;
-    public const ulong Unsupported = AtomCacheHeader | Fragments | SendSender;
+    public const ulong Unsupported = AtomCacheHeader | Fragments;
 }

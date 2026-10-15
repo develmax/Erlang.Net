@@ -1,0 +1,139 @@
+{
+  "Stage": "Bounded sender host and native-tool controls PASS",
+  "Stages": [
+    {
+      "Name": "host-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "probe/SenderFocus.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5",
+      "Pid": 75368,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actor-focus8",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5\\probe\\bin\\Release\\net10.0\\SenderFocus.dll"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5",
+      "Pid": 36096,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "collector-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5",
+      "Pid": 91532,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "owned-style",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Style\\bin\\Debug\\net10.0\\Erlang.Style.dll",
+        "--check",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-revision5-executed\\owned-style"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+      "Pid": 54208,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "cli14",
+      "Arguments": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-validation-controls-revision1\\cli-controls.py",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5\\tools\\Erlang.DistributionSenderObservations\\bin\\Release\\net10.0",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-revision5-executed\\cli14"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+      "Pid": 82800,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "raw-helper-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-validation-controls-revision1\\raw-helper\\SignalRawFocus.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+      "Pid": 41856,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "raw2",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-validation-controls-revision1\\raw-helper\\bin\\Release\\net10.0\\SignalRawFocus.dll",
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-revision5-executed\\raw2"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+      "Pid": 64460,
+      "ExitCode": 0,
+      "TimedOut": false
+    }
+  ],
+  "ActorGroups": [
+    "PASS ConnectedDistributionHostChecks",
+    "PASS ConnectedIngressHostChecks",
+    "PASS DistributionRawInputHostChecks",
+    "PASS DistributionRawSignalHostChecks",
+    "PASS DistributionMonitorHostChecks",
+    "PASS DistributionGroupLeaderHostChecks",
+    "PASS DistributionTraceHostChecks",
+    "PASS DistributionSenderHostChecks"
+  ],
+  "CliRefusals": 14,
+  "RawControls": [
+    {
+      "ExitCode": 3,
+      "RawComplete": true,
+      "NativeExecuted": false
+    },
+    {
+      "ExitCode": 3,
+      "RawComplete": false,
+      "Milliseconds": 5951,
+      "OwnedChildTerminatedByHarness": true,
+      "NativeExecuted": false
+    }
+  ],
+  "SourceAfterExact": true,
+  "NativeExecuted": false,
+  "ErlangProbeCompiled": false,
+  "MainModified": false,
+  "CoreRegistrationIncluded": false
+}

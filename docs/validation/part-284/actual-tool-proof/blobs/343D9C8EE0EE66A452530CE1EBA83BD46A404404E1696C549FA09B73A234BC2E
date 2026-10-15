@@ -1,0 +1,103 @@
+from pathlib import Path
+import json, hashlib, subprocess, sys, shutil, os, traceback
+
+r = Path.cwd()
+area = (r / (sys.argv[1] if len(sys.argv) > 1 else 'artifacts/part284-main-sender-validation')).resolve()
+assert area.is_relative_to((r / 'artifacts').resolve()) and not area.exists()
+area.mkdir()
+controls = r / 'artifacts/pid-order-sender-validation-controls-revision1'
+source = json.loads((r / 'artifacts/pid-order-sender17-promotion-plan-final-revision5.json').read_bytes())
+frozen = json.loads((r / 'artifacts/pid-order-sender-host-native-main282-source-freeze-final-revision5.json').read_bytes())
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest().upper()
+env = dict(os.environ)
+env['DOTNET_PROCESSOR_COUNT'] = '2'
+stages = []
+
+def save(name, value):
+    (area / name).write_bytes((json.dumps(value, indent=2) + '\n').encode())
+
+def inventory(directory):
+    return [{'Path': p.relative_to(directory).as_posix(), 'Sha256': sha(p), 'Bytes': p.stat().st_size}
+            for p in sorted(directory.rglob('*')) if p.is_file()]
+
+def run(name, arguments, timeout=120):
+    with (area / (name + '.stdout.raw')).open('wb') as out, (area / (name + '.stderr.raw')).open('wb') as err:
+        process = subprocess.Popen(arguments, cwd=r, env=env, stdout=out, stderr=err,
+                                   creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        timed_out = False
+        try:
+            code = process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            process.kill()
+            code = process.wait(timeout=5)
+    row = {'Name': name, 'Arguments': arguments, 'Pid': process.pid, 'ExitCode': code, 'TimedOut': timed_out}
+    stages.append(row)
+    save(name + '.exit.json', row)
+    assert code == 0 and not timed_out, row
+
+try:
+    for row in source['Files']:
+        assert sha(r / row['Path']) == row['Sha256'], row['Path']
+    for row in frozen['FrameworkHelpers']:
+        assert sha(r / row['Path']) == row['Sha256'], row['Path']
+    save('source-before.json', {'ActualMainHead': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=r).decode().strip(),
+                              'ActualImportedSource17': source['Files'], 'PublishedFramework8': frozen['FrameworkHelpers'],
+                              'Controls': [{'Path': name, 'Sha256': sha(controls / name)} for name in
+                                           ['cli-controls.py', 'raw-helper/Program.cs', 'raw-helper/SignalRawNames.cs']],
+                              'NativeExecuted': False})
+    run('actual-main-sender-target', ['dotnet', 'build', 'tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj',
+        '-c', 'Release', '-m:1', '--disable-build-servers', '-p:BuildInParallel=false', '-p:UseSharedCompilation=false'])
+    collector = r / 'tools/Erlang.DistributionSenderObservations/bin/Release/net10.0'
+    save('actual-main-sender-closure.json', inventory(collector))
+    style_area = area / 'owned-style'
+    style_area.mkdir()
+    for directory in ['src', 'tests', 'tools', 'benchmarks', 'examples']:
+        (style_area / directory).mkdir()
+    (style_area / '.editorconfig').write_bytes((r / '.editorconfig').read_bytes())
+    count = 0
+    for row in source['Files']:
+        if row['Path'].startswith('tools/Erlang.DistributionSenderObservations/') and row['Path'].endswith('.cs'):
+            destination = style_area / row['Path']
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes((r / row['Path']).read_bytes())
+            count += 1
+    assert count == 6
+    style = r / 'tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll'
+    save('actual-main-style-binding.json', {'Path': str(style), 'Sha256': sha(style), 'OwnedCsFiles': count})
+    run('actual-main-owned-style6', ['dotnet', str(style), '--check', str(style_area)])
+    run('actual-main-cli14', [sys.executable, str(controls / 'cli-controls.py'), str(collector), str(area / 'cli14')])
+    helper = area / 'actual-main-raw-helper'
+    helper.mkdir()
+    for name in ['Program.cs', 'SignalRawNames.cs']:
+        (helper / name).write_bytes((controls / 'raw-helper' / name).read_bytes())
+    framework = r / 'tools/Erlang.DistributionSignalObservations/framework'
+    helpers = [{'Path': str(p), 'Sha256': sha(p)} for p in sorted(framework.glob('*.cs'))]
+    assert len(helpers) == 8
+    save('actual-main-helper8-bindings.json', helpers)
+    (helper / 'Directory.Build.props').write_bytes((r / 'Directory.Build.props').read_bytes())
+    (helper / 'SignalRawFocus.csproj').write_bytes((
+        '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup>'
+        '<Compile Include="' + str(framework / '*.cs').replace('&', '&amp;') +
+        '" Link="framework/%(Filename)%(Extension)" /></ItemGroup></Project>').encode())
+    run('actual-main-raw-helper-target', ['dotnet', 'build', str(helper / 'SignalRawFocus.csproj'), '-c', 'Release',
+        '-m:1', '--disable-build-servers', '-p:BuildInParallel=false', '-p:UseSharedCompilation=false'])
+    raw = helper / 'bin/Release/net10.0'
+    save('actual-main-helper-closure.json', inventory(raw))
+    run('actual-main-raw2', ['dotnet', str(raw / 'SignalRawFocus.dll'), sys.executable, str(area / 'raw2')], 25)
+    cli = json.loads((area / 'cli14/receipt.json').read_bytes())
+    assert len(cli['Rows']) == 14 and all(row['RefusedBeforeOutput'] for row in cli['Rows'])
+    raw_rows = [json.loads(line) for line in (area / 'actual-main-raw2.stdout.raw').read_text().splitlines() if line]
+    assert len(raw_rows) == 2 and raw_rows[0]['RawComplete'] and not raw_rows[1]['RawComplete']
+    assert raw_rows[1]['OwnedChildTerminatedByHarness']
+    for row in source['Files']:
+        assert sha(r / row['Path']) == row['Sha256'], row['Path']
+    save('receipt.json', {'Stage': 'Actual Main sender standalone target/style6/CLI14/raw2 PASS', 'Stages': stages,
+        'Source17BeforeAfterExact': True, 'ActualMainHelperBindings': helpers, 'CliRefusals': 14,
+        'RawControls': raw_rows, 'NativeExecuted': False, 'ErlangProbeCompiled': False,
+        'CoreRegistrationsAdded': 0, 'UnconditionalFailureReportPersistenceClaim': False})
+    print('PASS actual Main sender standalone target/style6/CLI14/raw2; original OTP unexecuted')
+except BaseException:
+    save('failure.json', {'Error': traceback.format_exc(), 'Stages': stages, 'NativeExecuted': False})
+    traceback.print_exc()
+    sys.exit(1)

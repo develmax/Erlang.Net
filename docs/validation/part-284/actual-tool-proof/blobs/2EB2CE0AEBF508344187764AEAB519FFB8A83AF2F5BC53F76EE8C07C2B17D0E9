@@ -1,0 +1,129 @@
+{
+  "Stage": "Actual Main sender standalone target/style6/CLI14/raw2 PASS",
+  "Stages": [
+    {
+      "Name": "actual-main-sender-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Pid": 30356,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actual-main-owned-style6",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Style\\bin\\Debug\\net10.0\\Erlang.Style.dll",
+        "--check",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part284-main-sender-validation\\owned-style"
+      ],
+      "Pid": 62132,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actual-main-cli14",
+      "Arguments": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-validation-controls-revision1\\cli-controls.py",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSenderObservations\\bin\\Release\\net10.0",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part284-main-sender-validation\\cli14"
+      ],
+      "Pid": 47608,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actual-main-raw-helper-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part284-main-sender-validation\\actual-main-raw-helper\\SignalRawFocus.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Pid": 67492,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actual-main-raw2",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part284-main-sender-validation\\actual-main-raw-helper\\bin\\Release\\net10.0\\SignalRawFocus.dll",
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part284-main-sender-validation\\raw2"
+      ],
+      "Pid": 72664,
+      "ExitCode": 0,
+      "TimedOut": false
+    }
+  ],
+  "Source17BeforeAfterExact": true,
+  "ActualMainHelperBindings": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketCaptureProtocol.cs",
+      "Sha256": "2DD51172D768199992CF92B2D833BDD6839FAC1E9DDB344153A9074F87065A32"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketDiagnostics.cs",
+      "Sha256": "CC813558B55C9292EA369B3F889B7C4756047E0711E9EDF9E5DFFCAB6DCFAD9B"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketErlangString.cs",
+      "Sha256": "1EED3BED716CFA611F1082074319DEDAFBB4A9A1EC1D4432A6679843BF22A85C"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketFields.cs",
+      "Sha256": "2D1F3688179210BC1D233DB037A480A6CDE018603DDEB77BFE427148B1A95DD8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketNames.cs",
+      "Sha256": "349D924F21B1A5751030C0E10ABC2CB02D021497DF143343FEDFDDF37D7E3581"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketProcess.cs",
+      "Sha256": "70F7D700953CA19771310DA5A3082C53724C4A31DE048B7C13C5861561DF7840"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketProcessResult.cs",
+      "Sha256": "3ED6AE41B79E3B7FF29DC157BFDBB041D4C7274F0B8471B2012B4028DD11239A"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.DistributionSignalObservations\\framework\\PacketStringSyntax.cs",
+      "Sha256": "F1C8237C36839ECC2335F6F1FB7A2A88C79EDA092F188EF67FC78BF8BB519E2C"
+    }
+  ],
+  "CliRefusals": 14,
+  "RawControls": [
+    {
+      "ExitCode": 3,
+      "RawComplete": true,
+      "NativeExecuted": false
+    },
+    {
+      "ExitCode": 3,
+      "RawComplete": false,
+      "Milliseconds": 5087,
+      "OwnedChildTerminatedByHarness": true,
+      "NativeExecuted": false
+    }
+  ],
+  "NativeExecuted": false,
+  "ErlangProbeCompiled": false,
+  "CoreRegistrationsAdded": 0,
+  "UnconditionalFailureReportPersistenceClaim": false
+}

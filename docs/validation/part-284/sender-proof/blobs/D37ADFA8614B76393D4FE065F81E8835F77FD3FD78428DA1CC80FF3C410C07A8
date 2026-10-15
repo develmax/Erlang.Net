@@ -1,0 +1,18 @@
+{
+  "Name": "host-target",
+  "Arguments": [
+    "dotnet",
+    "build",
+    "probe/SenderFocus.csproj",
+    "-c",
+    "Release",
+    "-m:1",
+    "--disable-build-servers",
+    "-p:BuildInParallel=false",
+    "-p:UseSharedCompilation=false"
+  ],
+  "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision5",
+  "Pid": 75368,
+  "ExitCode": 0,
+  "TimedOut": false
+}

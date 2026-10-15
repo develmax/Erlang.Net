@@ -13,7 +13,7 @@ internal static class DistributionPacketTestParameters
     internal const byte CompressedEnvelope = 80;
     internal const byte LocalEnvelope = 121;
     internal const int ControlTagOffset = 2;
-    internal const int UnsupportedOpcode = 22;
+    internal const int UnknownOpcode = DistributionControlOpcodes.AlternativeActionSend + 1;
 
     internal static ReadOnlySpan<byte> GoldenSend =>
     [

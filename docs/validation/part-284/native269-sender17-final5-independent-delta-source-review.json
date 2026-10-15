@@ -1,0 +1,23 @@
+{
+  "Status": "PASS_FINAL17_SOURCE_DELTA_BOUNDED",
+  "Freeze": "artifacts\\pid-order-sender-host-native-main282-source-freeze-final-revision5.json",
+  "FreezeSha256": "B6C7F48A60374180DBB529E381903BB3591D1DC7E2C3FFE803010990CA97F5C6",
+  "BaselineSourcePeer": "native269-sender16-revision2-independent-source-review.json",
+  "AuthorizedFixturePeer": "native269-sender17-source3-authorized-fixture-delta-review.json",
+  "ChangedSinceReviewed3": [
+    "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+    "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.TraceMessage.cs",
+    "tests/Erlang.Tests/DistributionSenderHostChecks.cs",
+    "tests/Erlang.Tests/Program.cs"
+  ],
+  "AllProduction3WhitespaceLiteralExact": true,
+  "Native9Workflow1ExactPrior2": true,
+  "HostActionAssertionBodyInverseExactPrior3ExceptAdditionalTypedBadargCatch": true,
+  "CounterMeaning": "PerRun new instance +Interlocked count does not remove/change checks; actual49 is author executed receipt, not reviewer execution.",
+  "ExtraErrorCatch": "Only canonical existing ETF ErlangException badarg in malformed-frame test; other errors not swallowed, native malformed nonPID sender behavior still unobserved.",
+  "OriginalReleaseAssertDomainCaveatRetained": true,
+  "ReviewerBuildExecuted": false,
+  "NativeExecuted": false,
+  "MainEdited": false
+}

@@ -1,0 +1,34 @@
+{
+  "Status": "PASS_SOURCE_DELTA_ONLY",
+  "Freeze": "artifacts\\pid-order-sender-host-native-main282-source-freeze-prebuild-revision3.json",
+  "FreezeSha256": "162F542551DB036E5ADDDC26A85DBDCEC1E45A830F7EF67BDD6635D40BB22498",
+  "Previous16RawExact": [
+    "src/Erlang.Serialization/DistributionPassThroughCodec.cs",
+    "src/Erlang.Serialization/DistributionPassThroughFlags.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.TraceMessage.cs",
+    "tests/Erlang.Tests/DistributionSenderHostNames.cs",
+    "tests/Erlang.Tests/DistributionSenderHostChecks.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tools/Erlang.DistributionSenderObservations/distribution_sender_observer.erl",
+    "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+    "tools/Erlang.DistributionSenderObservations/Program.cs",
+    "tools/Erlang.DistributionSenderObservations/SenderExporter.cs",
+    "tools/Erlang.DistributionSenderObservations/SenderFields.cs",
+    "tools/Erlang.DistributionSenderObservations/SenderModuleSource.cs",
+    "tools/Erlang.DistributionSenderObservations/SenderNames.cs",
+    "tools/Erlang.DistributionSenderObservations/SenderObservationRow.cs",
+    "tools/Erlang.DistributionSenderObservations/source-plan.json",
+    ".github/workflows/distribution-sender-observations.yml"
+  ],
+  "SoleAddedFixture": {
+    "Path": "tests/Erlang.Tests/ConnectedDistributionHostChecks.cs",
+    "BeforeSha256": "7344F89564C6DFEEFCC894C487DC381BF89202806CB566C5A69AB0247E3F3A56",
+    "Sha256": "DADBDD900DED509485AEFE4E761D48EFF9A3B87F35C459CA1EAB8AE5D573C690",
+    "Bytes": 28739
+  },
+  "Meaning": "Newly supported SendSender flag no longer valid rejection fixture. Only blockedflag replaced with still unsupported Fragments; rejection assertion/action/count/deadline unchanged. Original initial failure must remain historical proof.",
+  "NoExpectedOutcomeRemoval": true,
+  "HeavyExecuted": false,
+  "NativeExecuted": false,
+  "MainEdited": false
+}

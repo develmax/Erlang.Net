@@ -1,0 +1,37 @@
+{
+  "Error": "Traceback (most recent call last):\n  File \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-run-sender-bounded-validation-revision3.py\", line 62, in <module>\n    run('actor-focus8', ['dotnet', str(host / 'SenderFocus.dll')], timeout=240)\n  File \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-run-sender-bounded-validation-revision3.py\", line 40, in run\n    assert code == 0 and not timed_out, row\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'Name': 'actor-focus8', 'Arguments': ['dotnet', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\Erlang.Net\\\\artifacts\\\\pid-order-sender-host-native-main282-prototype-revision3\\\\probe\\\\bin\\\\Release\\\\net10.0\\\\SenderFocus.dll'], 'Cwd': 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\Erlang.Net\\\\artifacts\\\\pid-order-sender-host-native-main282-prototype-revision3', 'Pid': 79516, 'ExitCode': 1, 'TimedOut': False}\n",
+  "Stages": [
+    {
+      "Name": "host-target",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "probe/SenderFocus.csproj",
+        "-c",
+        "Release",
+        "-m:1",
+        "--disable-build-servers",
+        "-p:BuildInParallel=false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision3",
+      "Pid": 54408,
+      "ExitCode": 0,
+      "TimedOut": false
+    },
+    {
+      "Name": "actor-focus8",
+      "Arguments": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision3\\probe\\bin\\Release\\net10.0\\SenderFocus.dll"
+      ],
+      "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision3",
+      "Pid": 79516,
+      "ExitCode": 1,
+      "TimedOut": false
+    }
+  ],
+  "NativeExecuted": false,
+  "ErlangProbeCompiled": false,
+  "MainModified": false
+}

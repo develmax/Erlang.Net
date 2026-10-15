@@ -62,7 +62,7 @@ internal static class DistributionPacketChecks
         Check(goldenBytes.AsSpan().SequenceEqual(DistributionPacketTestParameters.GoldenSend));
         var goldenDecoded = DistributionPassThroughCodec.Decode(DistributionPacketTestParameters.GoldenSend);
         Check(goldenDecoded.Control.Equals(golden.Control) && goldenDecoded.Payload.Equals(golden.Payload));
-        foreach (var flag in new[] { DistributionPassThroughFlags.AtomCacheHeader, DistributionPassThroughFlags.Fragments, DistributionPassThroughFlags.SendSender })
+        foreach (var flag in new[] { DistributionPassThroughFlags.AtomCacheHeader, DistributionPassThroughFlags.Fragments, DistributionPassThroughFlags.Unsupported })
         {
             ulong flags = DistributionPassThroughFlags.Mandatory | flag;
             Reject(() => DistributionPassThroughCodec.Encode(messages[0], negotiatedFlags: flags));
@@ -98,7 +98,7 @@ internal static class DistributionPacketChecks
                 Term.A(DistributionPacketTestNames.EmptyCookie),
                 recipient
             ),
-            Term.Tuple(Term.I(DistributionPacketTestParameters.UnsupportedOpcode), sender, recipient),
+            Term.Tuple(Term.I(DistributionPacketTestParameters.UnknownOpcode), sender, recipient),
             Term.Tuple(Term.A(DistributionPacketTestNames.Payload), recipient)
         };
         foreach (var control in malformed)

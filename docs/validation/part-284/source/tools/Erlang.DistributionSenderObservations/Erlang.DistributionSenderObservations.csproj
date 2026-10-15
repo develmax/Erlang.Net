@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <None Update="distribution_sender_observer.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="source-plan.json" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketProcess.cs" Link="framework/PacketProcess.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketProcessResult.cs" Link="framework/PacketProcessResult.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketCaptureProtocol.cs" Link="framework/PacketCaptureProtocol.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketDiagnostics.cs" Link="framework/PacketDiagnostics.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketNames.cs" Link="framework/PacketNames.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketErlangString.cs" Link="framework/PacketErlangString.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketStringSyntax.cs" Link="framework/PacketStringSyntax.cs" />
+    <Compile Include="../Erlang.DistributionSignalObservations/framework/PacketFields.cs" Link="framework/PacketFields.cs" />
+  </ItemGroup>
+</Project>

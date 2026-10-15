@@ -1,0 +1,17 @@
+{
+  "Name": "actual-main-sender-target",
+  "Arguments": [
+    "dotnet",
+    "build",
+    "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+    "-c",
+    "Release",
+    "-m:1",
+    "--disable-build-servers",
+    "-p:BuildInParallel=false",
+    "-p:UseSharedCompilation=false"
+  ],
+  "Pid": 30356,
+  "ExitCode": 0,
+  "TimedOut": false
+}

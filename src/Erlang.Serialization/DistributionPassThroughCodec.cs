@@ -12,7 +12,7 @@ public static class DistributionPassThroughCodec
         ArgumentNullException.ThrowIfNull(message);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
         ValidateFlags(negotiatedFlags);
-        ValidateControl(message.Control);
+        ValidateControl(message.Control, requireSenderNegotiation: true, negotiatedFlags: negotiatedFlags);
         ArgumentNullException.ThrowIfNull(message.Payload);
         options ??= new EtfEncodingOptions();
         long required = checked(DistributionPassThroughLayout.MarkerBytes +
@@ -51,7 +51,7 @@ public static class DistributionPassThroughCodec
         var control = ReadTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, maximumBytes);
         if (control.Term is not TupleTerm tuple)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
-        ValidateControl(tuple, unsupportedControlValidator);
+        ValidateControl(tuple, unsupportedControlValidator, negotiatedFlags);
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
         if (payloadOffset + payload.Used != packet.Length)
@@ -140,7 +140,7 @@ public static class DistributionPassThroughCodec
 
             throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
         }
-        ValidateControl(tuple, unsupportedControlValidator);
+        ValidateControl(tuple, unsupportedControlValidator, negotiatedFlags);
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
         if (payloadOffset + payload.Used != packet.Length)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
@@ -316,11 +316,28 @@ public static class DistributionPassThroughCodec
         }
     }
 
-    private static void ValidateControl(TupleTerm control, Action<TupleTerm>? unsupportedControlValidator = null)
+    private static void ValidateControl(
+        TupleTerm control,
+        Action<TupleTerm>? unsupportedControlValidator = null,
+        ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
+        bool requireSenderNegotiation = false
+    )
     {
         ArgumentNullException.ThrowIfNull(control);
         if (control.Items.Count == 0 || control.Items[DistributionPassThroughLayout.OpcodeIndex] is not Integer opcode)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        if (opcode.Value == DistributionControlOpcodes.SendSender || opcode.Value == DistributionControlOpcodes.SendSenderTrace)
+        {
+            if (requireSenderNegotiation && (negotiatedFlags & DistributionPassThroughFlags.SendSender) == 0)
+                throw new NotSupportedException(DistributionPassThroughDiagnostics.Flags);
+            if (control.Items.Count != (opcode.Value == DistributionControlOpcodes.SendSenderTrace
+                ? DistributionControlOpcodes.SendTraceArity : DistributionPassThroughLayout.SendArity) ||
+                control.Items[DistributionControlOpcodes.FromIndex] is not Pid ||
+                control.Items[DistributionPassThroughLayout.SendTargetIndex] is not Pid)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+
+            return;
+        }
         if (opcode.Value == DistributionPassThroughLayout.SendOpcode || opcode.Value == DistributionControlOpcodes.SendTrace)
         {
             if (control.Items.Count != (opcode.Value == DistributionControlOpcodes.SendTrace

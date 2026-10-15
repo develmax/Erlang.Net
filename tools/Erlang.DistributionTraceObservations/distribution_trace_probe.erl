@@ -87,7 +87,7 @@ scenario(Case, Owner, Controller) ->
         save("receiver-identities.etf", {Receiver, Remote, Tracer, whereis(trace_recipient)})
     after
         _ = erlang:system_flag(sequential_tracer, false),
-        _ = catch erlang:resume_process(Receiver),
+        _ = try erlang:resume_process(Receiver) catch _:_ -> ok end,
         exit(Tracer, kill),
         receive {'DOWN', TracerMonitor, process, Tracer, TracerReason} ->
             save("tracer-cleanup.etf", TracerReason)

@@ -1,0 +1,18 @@
+{
+  "Name": "collector-target",
+  "Arguments": [
+    "dotnet",
+    "build",
+    "tools/Erlang.DistributionSenderObservations/Erlang.DistributionSenderObservations.csproj",
+    "-c",
+    "Release",
+    "-m:1",
+    "--disable-build-servers",
+    "-p:BuildInParallel=false",
+    "-p:UseSharedCompilation=false"
+  ],
+  "Cwd": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pid-order-sender-host-native-main282-prototype-revision4",
+  "Pid": 64036,
+  "ExitCode": 0,
+  "TimedOut": false
+}
