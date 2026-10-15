@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json,re
+R=Path('.');old=json.loads((R/'artifacts/payload-review-collector-source-freeze-revision2.json').read_bytes());src=R/old['Candidate'];dst=R/'artifacts/native-audit-payload-collector-proposal-revision3';rows=[];changed=[]
+quote=re.compile(rb'"(?:\\.|[^"\\])*"')
+for row in old['Files']:
+ p=row['Path'];before=(src/p).read_bytes();after=(R/'artifacts/native-audit-part286-collector-executed1/owned-style'/p).read_bytes() if Path(p).name in ['PayloadExitExporter.cs','PayloadExitFields.cs'] else before
+ if before!=after:
+  assert re.sub(rb'\s+',b'',before)==re.sub(rb'\s+',b'',after)
+  assert quote.findall(before)==quote.findall(after)
+  changed.append(p)
+ t=dst/p;t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(after);rows.append({'Path':p,'Sha256':hashlib.sha256(after).hexdigest().upper(),'MainBeforeSha256':None})
+assert len(changed)==2
+f=R/'artifacts/native-audit-payload-collector-source-freeze-revision3.json';f.write_text(json.dumps({'Stage':'AFTER_SDK_FORMAT_TWO_SOURCE_FILES_NOT_REBUILT','Candidate':str(dst),'Files':rows,'PreviousFreeze':'artifacts/payload-review-collector-source-freeze-revision2.json','FormattingOnly':changed,'NonWhitespaceAndQuotedLiteralsEqual':True,'InitialStyleFailureRetained':'artifacts/native-audit-part286-collector-executed1','MainEdited':False},indent=2)+'\n');print(hashlib.sha256(f.read_bytes()).hexdigest().upper())

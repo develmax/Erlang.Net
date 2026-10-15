@@ -1,0 +1,41 @@
+from pathlib import Path
+import argparse,hashlib,json,subprocess,os,time
+p=argparse.ArgumentParser();p.add_argument('--execute',action='store_true');args=p.parse_args()
+root=Path.cwd(); area=root/'artifacts/native-audit-trapped-trace-isolated1'; candidate=area/'candidate'; sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+proposal=root/'artifacts/native-audit-trapped-trace-proposal'; freeze=json.loads((root/'artifacts/native-audit-trapped-trace-source-freeze-revision1.json').read_bytes())
+for r in freeze['Files']:assert sha((proposal/r['Path']).read_bytes())==r['Sha256']
+if not args.execute:
+ assert not area.exists(),'Never overwrite isolated receipts'
+ area.mkdir();tracked=subprocess.check_output(['git','ls-files','-z','src','tests','tools','Directory.Build.props','Directory.Build.targets','Directory.Packages.props','global.json','NuGet.Config','nuget.config','.editorconfig'],cwd=root).decode().split('\0')
+ rows=[]
+ for n in tracked:
+  if not n:continue
+  q=root/n
+  if not q.is_file():continue
+  b=q.read_bytes();t=candidate/n;t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(b);rows.append({'Path':n,'Sha256':sha(b),'Bytes':len(b)})
+ for r in freeze['Files']:
+  t=candidate/r['Path'];assert not t.exists();t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes((proposal/r['Path']).read_bytes())
+ old=json.loads((root/'artifacts/dist_next-distribution-trace-revision7-executed/receipt.json').read_bytes())['ActualCompiledCases'];assert len(old)==129
+ names=['oracle/compiled-module/'+n for n in old]+['runtime/distribution-trace-selection-and-owned-signals','runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation','runtime/seq-exit-asynchronous-linked-token-snapshots','runtime/distribution-trapped-canonical-trace-native-contract']
+ program=candidate/'tests/Erlang.Tests/Program.cs';b=program.read_bytes();marker=b'int failed = 0;';assert b.count(marker)==1
+ addition=('Test(Erlang.Tests.DistributionTrappedTraceHostNames.Test, Erlang.Tests.DistributionTrappedTraceHostChecks.Run);\nvar isolatedTraceNames = new HashSet<string> { '+','.join(json.dumps(n) for n in names)+' };\ntests.RemoveAll(test => !isolatedTraceNames.Contains(test.Name));\nif (tests.Count != '+str(len(names))+') throw new InvalidOperationException("Isolated trace selection count differs");\n').encode()
+ program.write_bytes(b.replace(marker,addition+marker,1));assert program.read_bytes().index(addition)<program.read_bytes().index(marker)<program.read_bytes().index(b'foreach (var test in tests)')
+ compiled=[{'Path':q.relative_to(candidate).as_posix(),'Sha256':sha(q.read_bytes()),'Bytes':q.stat().st_size} for q in sorted(candidate.rglob('*')) if q.is_file()]
+ meta={'Stage':'PREBUILD_ACTUAL_WORKING_MAIN_SEED_AND_TWO_SOURCE_TEST_EXTENSION','MainHead':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'SeedFiles':rows,'CompiledInputs':compiled,'SelectedNames':names,'ExpectedTests':len(names),'ProgramRegistrationReachable':True,'ProposalFreezeSha256':sha((root/'artifacts/native-audit-trapped-trace-source-freeze-revision1.json').read_bytes()),'NativeGuardSha256':sha((root/'artifacts/native-audit-trace284-independent-guard.json').read_bytes()),'SourceMainMayBeUncommitted':True,'NativeExecution':False,'MainEdited':False}
+ (area/'prebuild.json').write_text(json.dumps(meta,indent=2)+'\n');print('PREPARED ONLY',len(rows),len(compiled),len(names));raise SystemExit
+meta=json.loads((area/'prebuild.json').read_bytes())
+for r in meta['CompiledInputs']:assert sha((candidate/r['Path']).read_bytes())==r['Sha256']
+env=dict(os.environ,DOTNET_PROCESSOR_COUNT='2',UseSharedCompilation='false',BuildInParallel='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+def run(name,cmd,timeout):
+ assert not (area/(name+'.exit.json')).exists(),'Never overwrite executed receipt'
+ with (area/(name+'.stdout.raw')).open('wb') as o,(area/(name+'.stderr.raw')).open('wb') as e:
+  start=time.time();job=subprocess.Popen(cmd,cwd=candidate,env=env,stdout=o,stderr=e,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+  try:code=job.wait(timeout=timeout)
+  except subprocess.TimeoutExpired:job.kill();code=job.wait();raise
+ (area/(name+'.exit.json')).write_text(json.dumps({'ExitCode':code,'ElapsedSeconds':time.time()-start,'Arguments':cmd},indent=2)+'\n');assert code==0,(name,code)
+run('target',['dotnet','build','tests/Erlang.Tests/Erlang.Tests.csproj','-m:1','--disable-build-servers','-p:UseSharedCompilation=false','-p:BuildInParallel=false'],180)
+base=candidate/'tests/Erlang.Tests/bin/Debug/net10.0';closure=[{'Path':q.relative_to(base).as_posix(),'Sha256':sha(q.read_bytes()),'Bytes':q.stat().st_size} for q in sorted(base.rglob('*')) if q.is_file()];(area/'actual-closure.json').write_text(json.dumps(closure,indent=2)+'\n')
+run('focus',['dotnet',str(base/'Erlang.Tests.dll'),str(area/'tests.json')],180)
+t=json.loads((area/'tests.json').read_bytes());assert t['Failed']==0 and t['Passed']==133 and set(x['Name'] for x in t['Tests'])==set(meta['SelectedNames'])
+for r in meta['CompiledInputs']:assert sha((candidate/r['Path']).read_bytes())==r['Sha256']
+(area/'receipt.json').write_text(json.dumps({'Stage':'ACTUAL_TARGET_AND_FOCUS133_PASS_STYLE_PENDING','Passed':133,'Failed':0,'PrebuildSha256':sha((area/'prebuild.json').read_bytes()),'ClosureSha256':sha((area/'actual-closure.json').read_bytes()),'NativeGuardSha256':meta['NativeGuardSha256'],'InputsUnchanged':True,'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print('PASS isolated actual target/focus133; style pending')

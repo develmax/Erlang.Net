@@ -1,0 +1,136 @@
+using Erlang;
+
+namespace Erlang.Tests;
+
+internal static class DistributionTrappedTraceHostChecks
+{
+    internal static async Task Run()
+    {
+        await RunOpcode(DistributionControlOpcodes.ExitTrace);
+        await RunOpcode(DistributionControlOpcodes.Exit2Trace);
+    }
+
+    private static async Task RunOpcode(int opcode)
+    {
+        await using var runtime = new ProcessRuntime();
+        await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+        await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var input = new RuntimeNodeFoundationHostActor(runtime);
+        await using var tracer = new RuntimeNodeFoundationHostActor(runtime);
+        await kernel.InvokeAsync(async context =>
+        {
+            runtime.Register(ConnectedDistributionHostNames.Kernel, context.Self);
+            await Call(context, ConnectedIngressHostNames.SetNode, Term.A(DistributionTraceHostNames.Local), Term.I(0));
+
+            return true;
+        });
+        _ = runtime.DistributionPending.BeginPending(Term.A(DistributionTraceHostNames.Remote));
+        Term handle = await controller.InvokeAsync(async context => await DistributionControllerAdapters.SetNode(
+            context,
+            Term.A(DistributionTraceHostNames.Remote),
+            context.Self,
+            Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory), Term.I(0))
+        ));
+        await controller.Invoke(context => DistributionControllerAdapters.SetInputHandler(context, handle, input.Process.Pid));
+        await controller.InvokeAsync(async context => await Call(
+            context,
+            SequenceTraceNames.SystemFlag,
+            Term.A(SequenceTraceNames.SystemTracer),
+            tracer.Process.Pid
+        ));
+        var ready = new TaskCompletionSource<ProcessContext>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var selected = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessHandle receiver = runtime.Spawn(async context =>
+        {
+            try
+            {
+                context.TrapExits = true;
+                await Call(context, SequenceTraceNames.Set, Term.A(SequenceTraceNames.Label), Term.A(DistributionTrappedTraceHostNames.InitialLabel));
+                ready.TrySetResult(context);
+                Term? message = await context.ReceiveAsync(value => value, DistributionTrappedTraceHostNames.Deadline);
+                Term label = await Call(context, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Label));
+                Term serial = await Call(context, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Serial));
+                Term token = await Call(context, SequenceTraceNames.Set, Term.A(SequenceTraceNames.Token), Nil.Value);
+                selected.TrySetResult(Term.Tuple(message!, label, serial, token));
+                await release.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline);
+
+                return Nil.Value;
+            }
+            catch (Exception exception)
+            {
+                ready.TrySetException(exception);
+                selected.TrySetException(exception);
+                throw;
+            }
+        });
+        ProcessContext owner = await ready.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline);
+        bool suspended = false;
+        try
+        {
+            await controller.InvokeAsync(async context => await Call(context, ProcessSuspensionNames.Suspend, receiver.Pid));
+            suspended = true;
+            Term initial = await Snapshot(owner);
+            var remote = new Pid(DistributionTraceHostNames.Remote, 1, 0);
+            if (opcode == DistributionControlOpcodes.ExitTrace)
+                await Put(Term.Tuple(Term.I(DistributionControlOpcodes.Link), remote, receiver.Pid));
+            Term incoming = Term.Tuple(
+                Term.I(DistributionTrappedTraceHostNames.ReceiveFlag),
+                DistributionTrappedTraceHostNames.Label,
+                Term.I(DistributionTrappedTraceHostNames.Serial),
+                remote,
+                Term.I(DistributionTrappedTraceHostNames.Last)
+            );
+            await Put(Term.Tuple(Term.I(opcode), remote, receiver.Pid, incoming, DistributionTrappedTraceHostNames.ExitReason));
+            Check(!selected.Task.IsCompleted);
+            Check((await Snapshot(owner)).Equals(initial));
+            await controller.InvokeAsync(async context => await Call(context, ProcessSuspensionNames.Resume, receiver.Pid));
+            suspended = false;
+            Term exit = Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, DistributionTrappedTraceHostNames.ExitReason);
+            Term counts = Term.Tuple(Term.I(DistributionTrappedTraceHostNames.Last), Term.I(DistributionTrappedTraceHostNames.Serial));
+            Check((await selected.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline)).Equals(Term.Tuple(
+                exit,
+                Term.Tuple(Term.A(SequenceTraceNames.Label), DistributionTrappedTraceHostNames.Label),
+                Term.Tuple(Term.A(SequenceTraceNames.Serial), counts),
+                incoming
+            )));
+            Term? trace = await tracer.InvokeAsync(async context => await context.ReceiveAsync(value => value, DistributionTrappedTraceHostNames.Deadline));
+            Check(trace!.Equals(Term.Tuple(
+                Term.A(SequenceTraceNames.Message),
+                DistributionTrappedTraceHostNames.Label,
+                Term.Tuple(Term.A(SequenceTraceNames.Receive), counts, remote, receiver.Pid, exit)
+            )));
+            Check(await tracer.Invoke(context => context.Mailbox.Count) == 0);
+            Check(!controller.Process.Completion.IsCompleted);
+        }
+        finally
+        {
+            if (suspended)
+                await controller.InvokeAsync(async context => await Call(context, ProcessSuspensionNames.Resume, receiver.Pid));
+            release.TrySetResult();
+            await receiver.Completion.WaitAsync(DistributionTrappedTraceHostNames.Deadline);
+        }
+
+        Task<Term> Put(TupleTerm control) => input.Invoke(context => DistributionInputAdapter.PutData(
+            context,
+            handle,
+            new BitString(DistributionPassThroughCodec.EncodeProcessControl(control))
+        ));
+    }
+
+    private static async Task<Term> Snapshot(ProcessContext owner)
+        => Term.Tuple(
+            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Label)),
+            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Serial)),
+            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Receive))
+        );
+
+    private static ValueTask<Term> Call(ProcessContext context, string function, params Term[] arguments)
+        => context.Runtime.Modules.Call(context, ErlangModuleNames.Module, function, arguments);
+
+    private static void Check(bool condition)
+    {
+        if (!condition)
+            throw new InvalidOperationException(DistributionTrappedTraceHostNames.Failure);
+    }
+}

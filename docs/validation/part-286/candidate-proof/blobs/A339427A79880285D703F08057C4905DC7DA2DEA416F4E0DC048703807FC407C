@@ -1,0 +1,44 @@
+from pathlib import Path
+import json,hashlib,subprocess,os,sys,time
+R=Path.cwd(); A=R/'artifacts/native-audit-part286-collector-executed4';assert not A.exists();A.mkdir()
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+f=json.loads((R/'artifacts/native-audit-payload-collector-source-freeze-revision3.json').read_bytes()); source=R/f['Candidate'];candidate=A/'candidate'
+for r in f['Files']:
+ q=source/r['Path'];assert sha(q)==r['Sha256'];t=candidate/r['Path'];t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(q.read_bytes())
+controls=R/'artifacts/native-audit-payload-controls-revision2';cf=json.loads((controls/'source-plan.json').read_bytes())
+for r in cf['Files']:assert sha(controls/r['Path'])==r['Sha256']
+head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip();assert head=='ecdfe0bcf9661da0e39d013592d7fbff18774f05'
+(A/'prebuild.json').write_text(json.dumps({'Head':head,'SourceFreezeSha256':sha(R/'artifacts/native-audit-payload-collector-source-freeze-revision3.json'),'Sources':f['Files'],'ControlSourcePlanSha256':sha(controls/'source-plan.json'),'NativeExecuted':False},indent=2)+'\n')
+env=dict(os.environ,DOTNET_PROCESSOR_COUNT='2',UseSharedCompilation='false',BuildInParallel='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+def run(n,args,timeout=180):
+ with (A/(n+'.stdout.raw')).open('wb') as o,(A/(n+'.stderr.raw')).open('wb') as e:
+  start=time.time();p=subprocess.Popen(args,cwd=candidate,stdout=o,stderr=e,env=env,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+  try:code=p.wait(timeout=timeout)
+  except subprocess.TimeoutExpired:p.kill();code=p.wait();raise
+ (A/(n+'.exit.json')).write_text(json.dumps({'Arguments':args,'ExitCode':code,'ElapsedSeconds':time.time()-start},indent=2)+'\n');assert code==0,(n,code)
+tool=candidate/'tools/Erlang.DistributionPayloadExitObservations';run('collector-target',['dotnet','build',str(tool/'Erlang.DistributionPayloadExitObservations.csproj'),'-m:1','--disable-build-servers','-p:UseSharedCompilation=false','-p:BuildInParallel=false'])
+base=tool/'bin/Debug/net10.0';closure=[{'Path':p.relative_to(base).as_posix(),'Sha256':sha(p),'Bytes':p.stat().st_size} for p in sorted(base.rglob('*')) if p.is_file()];(A/'collector-closure.json').write_text(json.dumps(closure,indent=2)+'\n')
+style=A/'owned-style';style.mkdir()
+for n in ['src','tests','tools','benchmarks','examples']:(style/n).mkdir()
+(style/'.editorconfig').write_bytes((R/'.editorconfig').read_bytes())
+for r in f['Files']:
+ if r['Path'].endswith('.cs'):
+  t=style/r['Path'];t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes((source/r['Path']).read_bytes())
+styleExe=R/'tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll';assert styleExe.exists();(A/'style-binding.json').write_text(json.dumps({'Path':str(styleExe),'Sha256':sha(styleExe)},indent=2)+'\n')
+run('collector-style14',['dotnet',str(styleExe),'--check',str(style)])
+run('collector-cli14',[sys.executable,str(controls/'cli-controls.py'),str(base),str(A/'cli14')],300)
+helper=candidate/'tests/SignalRawControls';helper.mkdir(parents=True)
+for n in ['Program.cs','SignalRawNames.cs']:(helper/n).write_bytes((controls/'raw-helper'/n).read_bytes())
+(helper/'SignalRawFocus.csproj').write_text('<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><Compile Include="../../tools/Erlang.DistributionPayloadExitObservations/framework/*.cs" Link="framework/%(Filename)%(Extension)" /></ItemGroup></Project>')
+run('raw-helper-target',['dotnet','build',str(helper/'SignalRawFocus.csproj'),'-m:1','--disable-build-servers','-p:UseSharedCompilation=false','-p:BuildInParallel=false'])
+helperStyle=A/'helper-style';helperStyle.mkdir()
+for n in ['src','tests','tools','benchmarks','examples']:(helperStyle/n).mkdir()
+(helperStyle/'.editorconfig').write_bytes((R/'.editorconfig').read_bytes())
+for n in ['Program.cs','SignalRawNames.cs']:(helperStyle/'tests'/n).write_bytes((helper/n).read_bytes())
+run('raw-helper-style2',['dotnet',str(styleExe),'--check',str(helperStyle)])
+hb=helper/'bin/Debug/net10.0';(A/'helper-closure.json').write_text(json.dumps([{'Path':p.relative_to(hb).as_posix(),'Sha256':sha(p),'Bytes':p.stat().st_size} for p in sorted(hb.rglob('*')) if p.is_file()],indent=2)+'\n')
+run('raw2',['dotnet',str(hb/'SignalRawFocus.dll'),sys.executable,str(A/'raw2')],25)
+cli=json.loads((A/'cli14/receipt.json').read_bytes());assert len(cli['Rows'])==14 and all(r['RefusedBeforeOutput'] for r in cli['Rows'])
+raw=[json.loads(x) for x in (A/'raw2.stdout.raw').read_text().splitlines() if x];assert len(raw)==2 and raw[0]['RawComplete'] and not raw[1]['RawComplete'] and raw[1]['OwnedChildTerminatedByHarness']
+for r in f['Files']:assert sha(candidate/r['Path'])==r['Sha256']
+(A/'receipt.json').write_text(json.dumps({'Stage':'COLLECTOR_TARGET_STYLE14_CLI14_HELPER_TARGET_STYLE2_RAW2_PASS','Head':head,'CliRefusals':14,'RawControls':raw,'Source18Unchanged':True,'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print('PASS collector target/style14/CLI14/helper target/style2/raw2')

@@ -1,0 +1,12 @@
+from pathlib import Path
+import json,hashlib
+R=Path('.');old=R/'artifacts/native-audit-trapped-trace-proposal';new=R/'artifacts/native-audit-trapped-trace-proposal2';rows=[]
+for p in old.rglob('*.cs'):
+ b=p.read_text()
+ if p.name=='DistributionTrappedTraceHostChecks.cs':
+  b=b.replace('Term initial = owner.SequentialTrace.Token!.ToTerm();','Term initial = await Snapshot(owner);').replace('Check(owner.SequentialTrace.Token!.ToTerm().Equals(initial));','Check((await Snapshot(owner)).Equals(initial));')
+  marker='    private static ValueTask<Term> Call('
+  b=b.replace(marker,'    private static async Task<Term> Snapshot(ProcessContext owner)\n        => Term.Tuple(\n            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Label)),\n            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Serial)),\n            await Call(owner, SequenceTraceNames.Info, Term.A(SequenceTraceNames.Receive))\n        );\n\n'+marker)
+ q=new/p.relative_to(old);q.parent.mkdir(parents=True,exist_ok=True);q.write_text(b);rows.append({'Path':p.relative_to(old).as_posix(),'Sha256':hashlib.sha256(q.read_bytes()).hexdigest().upper(),'MainBeforeSha256':None})
+f=R/'artifacts/native-audit-trapped-trace-source-freeze-revision2.json';f.write_text(json.dumps({'Stage':'REPAIR_COMPILE_INACCESSIBLE_INTERNAL_STATE_READ_NOT_EXECUTED','Candidate':str(new),'Files':rows,'PreviousFreeze':'native-audit-trapped-trace-source-freeze-revision1.json','InitialFailure':'native-audit-trapped-trace-isolated2/target.stdout.raw','Repair':'Use existing public nonmutating seq_trace_info label/serial/receive on suspended owned context; no internal property, reflection or new production API. Full selected canonical token and exact tracer tuple unchanged.','PreselectionScope':'Three public token components unchanged; initial full sender/unknown flags not claimed directly observed by SDK test.','NativeGuardSha256':'66AD7129C55E4C821FBB5A2A15D677DD45158349CC28D8F31AA1810F3FECA4B1'},indent=2)+'\n');print(hashlib.sha256(f.read_bytes()).hexdigest().upper())
+s=(R/'artifacts/native-audit-trapped-trace-isolated-runner2.py').read_text().replace('native-audit-trapped-trace-isolated2','native-audit-trapped-trace-isolated3').replace("artifacts/native-audit-trapped-trace-proposal'","artifacts/native-audit-trapped-trace-proposal2'").replace('native-audit-trapped-trace-source-freeze-revision1.json','native-audit-trapped-trace-source-freeze-revision2.json');(R/'artifacts/native-audit-trapped-trace-isolated-runner3.py').write_text(s)

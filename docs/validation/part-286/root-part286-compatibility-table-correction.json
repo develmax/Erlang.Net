@@ -1,0 +1,58 @@
+{
+  "Stage": "DOCUMENTATION_ONLY_REGISTERED_TABLE_SYNC",
+  "BeforeSha256": "EDFCFA053B0DBCA7D1EA76E9416177444935858482FF67E777921DDC8D7B8160",
+  "AfterSha256": "B23B002E36C19D8FC4763F4F3118C11656165D2B18B8FD5631D6676C12B32933",
+  "ChangedRows": [
+    {
+      "Mfa": "erlang:dist_ctrl_get_data_notification/1",
+      "Before": "| `dist_ctrl_get_data_notification/1` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `dist_ctrl_get_data_notification/1` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:dist_ctrl_get_data/1",
+      "Before": "| `dist_ctrl_get_data/1` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `dist_ctrl_get_data/1` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:dist_ctrl_get_opt/2",
+      "Before": "| `dist_ctrl_get_opt/2` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `dist_ctrl_get_opt/2` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:dist_ctrl_input_handler/2",
+      "Before": "| `dist_ctrl_input_handler/2` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `dist_ctrl_input_handler/2` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:dist_ctrl_set_opt/3",
+      "Before": "| `dist_ctrl_set_opt/3` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `dist_ctrl_set_opt/3` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:gather_gc_info_result/1",
+      "Before": "| `gather_gc_info_result/1` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `gather_gc_info_result/1` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:setnode/2",
+      "Before": "| `setnode/2` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `setnode/2` | Registered; bounded functional evidence, see supported-mfas.json |"
+    },
+    {
+      "Mfa": "erlang:setnode/3",
+      "Before": "| `setnode/3` | Missing; real implementation/runtime prerequisites required |",
+      "After": "| `setnode/3` | Registered; bounded functional evidence, see supported-mfas.json |"
+    }
+  ],
+  "MissingRemaining": [
+    "alloc_info/1",
+    "alloc_sizes/1",
+    "dist_ctrl_put_data/2",
+    "dist_get_stat/1",
+    "load_nif/2",
+    "memory/0",
+    "memory/1",
+    "process_info/1"
+  ],
+  "NoRegistryChange": true
+}

@@ -1,0 +1,27 @@
+{
+  "Stage": "ARTIFACT_ONLY_SOURCE_PROPOSAL_NOT_COMPILED",
+  "Candidate": "artifacts\\native-audit-trapped-trace-proposal",
+  "BaseHead": "d45e62732d1cd101fc2ec7dfc1c5014942a6e2d0",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+      "Sha256": "0057DB8975003AA4F791C1BDF54CC8F37A8A29D98DA1D34570D4E37961E11922",
+      "MainBeforeSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostNames.cs",
+      "Sha256": "F4EC458C47ECF4AA7F84E8B32D209D2F28FE206A72E0E9C2975E6FBFED7EC296",
+      "MainBeforeSha256": null
+    }
+  ],
+  "ProgramRegistration": "tests.Add((DistributionTrappedTraceHostNames.Test, DistributionTrappedTraceHostChecks.Run)); before int failed/foreach, after current full checkpoint",
+  "Actions": [
+    "Fresh runtime per EXIT_TT13 and EXIT2_TT18",
+    "Owned kernel/controller/input/tracer plus waiting receiver",
+    "Real suspend_process acknowledged before canonical token frame",
+    "Preselection token identical; selected report canonical full token/label/{3,9}",
+    "Actual receive tracer tuple exact; receiver released/awaited and suspension resumed in finally"
+  ],
+  "NativeEvidence": "native-audit-trace284-independent-guard.json typed exit_link and exit2_trap",
+  "MainOrGitOrHeavyChanged": false
+}

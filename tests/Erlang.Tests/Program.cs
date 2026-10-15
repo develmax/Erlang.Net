@@ -4283,6 +4283,7 @@ Test(Erlang.Tests.DistributionSenderHostNames.Test, Erlang.Tests.DistributionSen
 Test(Erlang.Tests.DistributionDeferredReasonHostNames.Test, Erlang.Tests.DistributionDeferredReasonHostChecks.Run);
 Test(Erlang.Tests.DeferredOwnerDrainHostNames.Test, Erlang.Tests.DeferredOwnerDrainHostChecks.Run);
 Test(Erlang.Tests.DistributionPayloadExitHostNames.Test, Erlang.Tests.DistributionPayloadExitHostChecks.Run);
+Test(Erlang.Tests.DistributionTrappedTraceHostNames.Test, Erlang.Tests.DistributionTrappedTraceHostChecks.Run);
 int failed = 0;
 foreach (var test in tests)
 {

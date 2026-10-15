@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part286: actual Main6567/6567/full integration/packages, all6566 old ordered names retained plus canonical trapped EXIT_TT/EXIT2_TT HOST. Standalone original payload11 collector target/style/CLI14/raw2 verified locally; native execution still pending publication/once-dispatch. Independent exact-head285 CI6566/full verified. Eight stale human-table Missing rows corrected against unchanged registry501; erlang343/351 (97.7% API presence), eight unregistered APIs remain. Incoming28/outgoing exits/full protocol, physical resources/NIF/upstream/performance remain unfinished.
+
 Part285: actual Main6566/6566/full integration/packages, all6563 historical names retained plus three permanent HOST groups. Incoming payload EXIT24–27 keeps reason opaque until target/link eligibility, processes ordered owner signals outside runtime/mailbox gates, applies actual decode-time epoch admission and closes only the captured current connection on malformed reason. Existing raw41 gap explicitly migrates24→28 with full ledger. Constructor-only nested foreign-owner waits have a private documented cycle boundary. Original284Sender2 andTT8 independently audited, CI2846563/full verified. Default501/erlang343 of35197.7% API presence unchanged; payload28/outgoing automatic emission/remainingAPIs/physical/NIF/upstream/performance incomplete.
 
 Part284: actual Main6563/6563/full integration/packages, all6562 historical names preserved plus one Sender HOST group (49 assertions). Genuine SEND_SENDER22/23 accepts third/local/remote PID senders, preserves selected receive token semantics and native receive-side absence of sender-flag validation; outgoing encoding requires negotiation. Three explicit old feature-rejection fixture migrations retained separately. Original TT283 FAILED before any scenario: pinned erlc -Werror deprecated cleanup catch, raw failure immutable; minimally repair cleanup plus probe/plan hashes. CI2836562/full independently verified. New originalSender2 and correctedTT8 pending publication/once-dispatch. Default501/erlang343 of35197.7% API presence unchanged; whole compatibility remains unfinished.
@@ -282,12 +284,12 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `display_string/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display_string/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `display/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_get_data_notification/1` | Missing; real implementation/runtime prerequisites required |
-| `dist_ctrl_get_data/1` | Missing; real implementation/runtime prerequisites required |
-| `dist_ctrl_get_opt/2` | Missing; real implementation/runtime prerequisites required |
-| `dist_ctrl_input_handler/2` | Missing; real implementation/runtime prerequisites required |
+| `dist_ctrl_get_data_notification/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dist_ctrl_get_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dist_ctrl_get_opt/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `dist_ctrl_input_handler/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dist_ctrl_put_data/2` | Missing; real implementation/runtime prerequisites required |
-| `dist_ctrl_set_opt/3` | Missing; real implementation/runtime prerequisites required |
+| `dist_ctrl_set_opt/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dist_get_stat/1` | Missing; real implementation/runtime prerequisites required |
 | `div/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `dmonitor_node/3` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -329,7 +331,7 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `garbage_collect/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `garbage_collect/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `garbage_collect/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `gather_gc_info_result/1` | Missing; real implementation/runtime prerequisites required |
+| `gather_gc_info_result/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_cookie/0` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_cookie/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `get_keys/0` | Registered; bounded functional evidence, see supported-mfas.json |
@@ -485,8 +487,8 @@ Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac689
 | `set_cookie/2` | Registered; bounded functional evidence, see supported-mfas.json |
 | `set_cpu_topology/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `setelement/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `setnode/2` | Missing; real implementation/runtime prerequisites required |
-| `setnode/3` | Missing; real implementation/runtime prerequisites required |
+| `setnode/2` | Registered; bounded functional evidence, see supported-mfas.json |
+| `setnode/3` | Registered; bounded functional evidence, see supported-mfas.json |
 | `size/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/1` | Registered; bounded functional evidence, see supported-mfas.json |
 | `spawn_link/2` | Registered; bounded functional evidence, see supported-mfas.json |

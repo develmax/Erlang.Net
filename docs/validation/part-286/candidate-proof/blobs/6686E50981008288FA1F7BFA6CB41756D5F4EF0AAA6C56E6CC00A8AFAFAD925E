@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,hashlib,subprocess,os,time
+R=Path.cwd();A=R/'artifacts/native-audit-trapped-trace-isolated3';C=A/'candidate';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+pre=json.loads((A/'prebuild.json').read_bytes())
+for r in pre['CompiledInputs']:assert sha(C/r['Path'])==r['Sha256']
+rows=[]
+for n in subprocess.check_output(['git','ls-files','-z','examples'],cwd=R).decode().split('\0'):
+ if not n:continue
+ b=(R/n).read_bytes();p=C/n;assert not p.exists();p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b);rows.append({'Path':n,'Sha256':sha(p),'Bytes':len(b)})
+(A/'focus4-resource-supplement.json').write_text(json.dumps({'Reason':'Static fixture inventory reads platform_demo.erl before selected test loop; initial failed focus preserved.','Files':rows,'CompiledCSharpUnchanged':True,'NativeExecuted':False},indent=2)+'\n')
+env=dict(os.environ,DOTNET_PROCESSOR_COUNT='2');cmd=['dotnet',str(C/'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll'),str(A/'tests4.json')]
+with (A/'focus4.stdout.raw').open('wb') as o,(A/'focus4.stderr.raw').open('wb') as e:
+ start=time.time();p=subprocess.Popen(cmd,cwd=C,env=env,stdout=o,stderr=e,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+ try:code=p.wait(timeout=180)
+ except subprocess.TimeoutExpired:p.kill();code=p.wait();raise
+(A/'focus4.exit.json').write_text(json.dumps({'ExitCode':code,'ElapsedSeconds':time.time()-start,'Arguments':cmd},indent=2)+'\n');assert code==0
+t=json.loads((A/'tests4.json').read_bytes());assert t['Passed']==133 and t['Failed']==0 and set(r['Name'] for r in t['Tests'])==set(pre['SelectedNames'])
+for r in pre['CompiledInputs']:assert sha(C/r['Path'])==r['Sha256']
+(A/'receipt-focus4.json').write_text(json.dumps({'Stage':'TARGET0WARN0ERROR_FOCUS133_PASS_STYLE_PENDING','Passed':133,'Failed':0,'PrebuildSha256':sha(A/'prebuild.json'),'ActualClosureSha256':sha(A/'actual-closure.json'),'ResourceSupplementSha256':sha(A/'focus4-resource-supplement.json'),'InputsUnchanged':True,'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print('PASS target0/0 focus133; style pending')

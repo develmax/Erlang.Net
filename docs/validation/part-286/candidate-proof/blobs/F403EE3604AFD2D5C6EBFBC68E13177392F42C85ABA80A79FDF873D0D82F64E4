@@ -1,0 +1,57 @@
+{
+  "Stage": "PREPARED_ONLY_EXCLUSIVE_SLOT_REQUIRED",
+  "MainAndGitOwner": "root",
+  "ExecutionStarted": false,
+  "Concurrency": "Exactly one build, formatter, focused run or raw-control run at a time; DOTNET_PROCESSOR_COUNT=2, MSBuild -m:1, shared compilation and build servers disabled.",
+  "Inputs": {
+    "CollectorFreeze": "artifacts/payload-review-collector-source-freeze-revision2.json",
+    "CollectorFreezeSha256": "511DA942CA4AA2E7F9E8346D6602BC4EEC89F5D375CB715E9BD61BC548860934",
+    "CollectorControls": "artifacts/payload-review-collector-controls-revision1/source-plan.json",
+    "TrappedTraceFreeze": "artifacts/native-audit-trapped-trace-source-freeze-revision1.json",
+    "TrappedTraceFreezeSha256": "EC62C5CB435CFEC6CB57EEF45D69451FF4DE5C72B37CDE3CB3D31745DDBA1D60",
+    "TrappedTracePrebuild": "artifacts/native-audit-trapped-trace-isolated1/prebuild.json",
+    "NativeTyped8Guard": "artifacts/native-audit-trace284-independent-guard.json",
+    "NativeTyped8GuardSha256": "66AD7129C55E4C821FBB5A2A15D677DD45158349CC28D8F31AA1810F3FECA4B1"
+  },
+  "Sequence": [
+    {
+      "Order": 1,
+      "Action": "Before compilation, revalidate all frozen proposal and control hashes. Bind the actual candidate source bytes and current published Main SHA. Existing TT seed preserves the earlier actual working Main source snapshot; report any later difference rather than call that seed the later Main.",
+      "Limits": "No Main mutation or Git operation; no copying artifact trees into Main. Copy only frozen individual source files into an isolated candidate."
+    },
+    {
+      "Order": 2,
+      "Action": "Build the isolated payload collector project with its frozen 18 paths; retain raw stdout/stderr/exit, compiler diagnostics and actual output closure. Then check all 14 collector C# sources with a hash-bound actual Style DLL.",
+      "TimeoutSeconds": 180,
+      "Pass": "Exit zero, no compiler warnings/errors, owned style zero."
+    },
+    {
+      "Order": 3,
+      "Action": "Run the frozen adapted 14 CLI refusal controls against the exact newly built collector DLL and closure. Each subprocess gets a fresh private synthetic OTP tree/output path. Keep raw logs for every refusal.",
+      "PerCaseTimeoutSeconds": 20,
+      "Pass": "14 nonzero refusals before output creation or before writing an already existing empty output. Synthetic pin/log data are rejection inputs only. Mutated plan hashes do not establish individual semantic-field guard reachability."
+    },
+    {
+      "Order": 4,
+      "Action": "Build the frozen raw-helper sources against the exact collector framework eight bytes; bind helper source and executable closure, check its two C# sources, then run byte-exit3 and inherited-pipe controls once.",
+      "TimeoutSeconds": 25,
+      "Pass": "Byte-exit3 exact stdout/stderr with complete raw capture. Inherited-pipe capture incomplete within existing unchanged bound; owned child terminated only by harness after capture returned. No native OTP or networking claimed."
+    },
+    {
+      "Order": 5,
+      "Action": "Run prepared TT isolated runner --execute only after root grants the exclusive slot. Actual target build then exact 133 selected tests: new two-opcode HOST, existing distribution trace/sequence trace/sequence exit HOSTs, and the exact 129 earlier compiled scenarios. Preserve reachable Program registration before int failed and foreach.",
+      "Runner": "artifacts/native-audit-trapped-trace-isolated-runner.py",
+      "TargetTimeoutSeconds": 180,
+      "FocusTimeoutSeconds": 180,
+      "Pass": "133 unique selected names, 133 Passed, zero Failed, compiler zero warnings/errors; actual executable closure retained. Check the two proposed C# sources with Style separately. The runner currently labels style pending intentionally."
+    },
+    {
+      "Order": 6,
+      "Action": "Freeze final validated source revision, before/after source guard, raw logs, closure, all failures and actual receipts. Root reviews individual source paths and applies only approved source files and one reachable Program registration to Main. Root then performs actual Main target/style/controls and full validation before publication.",
+      "Limits": "Candidate execution does not prove actual Main execution. No native payload11 dispatch before publication. Original trace8 evidence proves its selected observed contracts; it does not prove new payload11 behavior."
+    }
+  ],
+  "FailurePolicy": "Preserve failed revisions and exact diagnostics. Source or formatter repairs require a new freeze and independently described byte/token changes. Do not relax deadlines, expected counts, semantic assertions or observed native output to obtain a pass.",
+  "CurrentMainMutation": false,
+  "CurrentHeavyExecution": false
+}

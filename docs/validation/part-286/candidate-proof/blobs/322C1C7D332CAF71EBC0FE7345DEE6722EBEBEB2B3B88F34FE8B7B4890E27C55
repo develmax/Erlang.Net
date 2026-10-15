@@ -1,0 +1,21 @@
+{
+  "Stage": "REPAIR_COMPILE_INACCESSIBLE_INTERNAL_STATE_READ_NOT_EXECUTED",
+  "Candidate": "artifacts\\native-audit-trapped-trace-proposal2",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+      "Sha256": "27DF9CCEA6082FE6F19A8BE2A30F517ABD908DDD6E93D9B0170CEB8A1A960011",
+      "MainBeforeSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostNames.cs",
+      "Sha256": "AF056D35EDA8779A84FE7C189C26257E1FB93170D37C06D84B0DDB0AD452DAE8",
+      "MainBeforeSha256": null
+    }
+  ],
+  "PreviousFreeze": "native-audit-trapped-trace-source-freeze-revision1.json",
+  "InitialFailure": "native-audit-trapped-trace-isolated2/target.stdout.raw",
+  "Repair": "Use existing public nonmutating seq_trace_info label/serial/receive on suspended owned context; no internal property, reflection or new production API. Full selected canonical token and exact tracer tuple unchanged.",
+  "PreselectionScope": "Three public token components unchanged; initial full sender/unknown flags not claimed directly observed by SDK test.",
+  "NativeGuardSha256": "66AD7129C55E4C821FBB5A2A15D677DD45158349CC28D8F31AA1810F3FECA4B1"
+}

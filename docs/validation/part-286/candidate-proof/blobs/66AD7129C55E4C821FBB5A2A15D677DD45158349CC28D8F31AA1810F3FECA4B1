@@ -1,0 +1,6679 @@
+{
+  "Status": "VERIFIED_ORIGINAL_TYPED8_CAPTURE_NOT_SDK_PARITY",
+  "Head": "d45e62732d1cd101fc2ec7dfc1c5014942a6e2d0",
+  "Run": 38669679953,
+  "Job": 116209593073,
+  "Artifact": 11943731517,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeTyped": {
+    "Tag": 104,
+    "Type": "Tuple",
+    "Values": [
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "3239",
+        "Values": [
+          50,
+          57
+        ]
+      },
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "31372e31",
+        "Values": [
+          49,
+          55,
+          46,
+          49
+        ]
+      },
+      {
+        "Tag": 119,
+        "Type": "Atom",
+        "Value": "jit"
+      },
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "2f686f6d652f72756e6e65722f776f726b2f45726c616e672e4e65742f45726c616e672e4e65742f6172746966616374732f6265616d2d6f74702d6f7261636c652f6c69622f65726c616e67",
+        "Values": [
+          47,
+          104,
+          111,
+          109,
+          101,
+          47,
+          114,
+          117,
+          110,
+          110,
+          101,
+          114,
+          47,
+          119,
+          111,
+          114,
+          107,
+          47,
+          69,
+          114,
+          108,
+          97,
+          110,
+          103,
+          46,
+          78,
+          101,
+          116,
+          47,
+          69,
+          114,
+          108,
+          97,
+          110,
+          103,
+          46,
+          78,
+          101,
+          116,
+          47,
+          97,
+          114,
+          116,
+          105,
+          102,
+          97,
+          99,
+          116,
+          115,
+          47,
+          98,
+          101,
+          97,
+          109,
+          45,
+          111,
+          116,
+          112,
+          45,
+          111,
+          114,
+          97,
+          99,
+          108,
+          101,
+          47,
+          108,
+          105,
+          98,
+          47,
+          101,
+          114,
+          108,
+          97,
+          110,
+          103
+        ]
+      },
+      {
+        "Tag": 97,
+        "Type": "Integer",
+        "Value": 8
+      },
+      {
+        "Tag": 107,
+        "Type": "String",
+        "BytesHex": "7838365f36342d70632d6c696e75782d676e75",
+        "Values": [
+          120,
+          56,
+          54,
+          95,
+          54,
+          52,
+          45,
+          112,
+          99,
+          45,
+          108,
+          105,
+          110,
+          117,
+          120,
+          45,
+          103,
+          110,
+          117
+        ]
+      },
+      {
+        "Tag": 119,
+        "Type": "Atom",
+        "Value": "opt"
+      }
+    ]
+  },
+  "ObservedScenarioVMs": 8,
+  "AllOuterComplete": true,
+  "AllOwnedCleanupObserved": true,
+  "SdkParityClaim": false,
+  "RawZipSha256": "A2F78BDB8F26AC37C8D75C06A0D0B2025E612EA339837C449B687A794573C263",
+  "RawJobSha256": "61982366CD1A80C2C9335707E31C0A1FBA00075F6A51F4EF0ACF0FB6F4FE6651",
+  "TypedScenarios": [
+    {
+      "Case": "send",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "send"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 5699329
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    207763,
+                    4210163716,
+                    3341159702
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 5699329
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    207763,
+                    4210163716,
+                    3341159702
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "send"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 12
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": ""
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 2
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_remote@localhost"
+                      },
+                      "Id": 1,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "true"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "selected_payload"
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "seq_trace"
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "receive"
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 3
+                            },
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 9
+                            }
+                          ]
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_local@localhost"
+                          },
+                          "Id": 84,
+                          "Serial": 0,
+                          "Creation": 4
+                        },
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "selected_payload"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 629,
+          "Sha256": "7E43234463EB283FCF9A88806C80C021F95E3B486B52A0BCDF8B0AC67AB9575A"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 130,
+          "Sha256": "457482B1BF9EE83813179EA063BE171DEF3AE54A67811472810603908254EF06"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 124,
+          "Sha256": "6DF2F363F4EFA771D4D1803BF81DF598A1D5F9D7922A5E1C0FA63FF5FECE662B"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 145,
+          "Sha256": "8EA829F4E15917571B9C23A80AA60B79AFAE7B8985D9793DC9017FB6C95BE460"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 169,
+          "Sha256": "019D70FCE330D7F50DE48B270DD1CAE365DB6E6111F6E62C893C20D19C58BDB6"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 322,
+          "Sha256": "94877D011EA8AA43C2EF63A9ABC4856ED28E7B9E3F7F7E26D1634E021CB66627"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 19,
+          "Sha256": "7D80F3D785D861D191287BDF4548F87A725133741750AD677E5DCAA377CDD3F6"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 156,
+          "Sha256": "CE2B308B5528F9E188108A0483916982CC6FE7A58A7E13F661F4F35515BEB141"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "registered",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "registered"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 2710105
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    125441,
+                    4210425858,
+                    316033243
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 2710105
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    125441,
+                    4210425858,
+                    316033243
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "registered"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 16
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": ""
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_recipient"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 2
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_remote@localhost"
+                      },
+                      "Id": 1,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "true"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "selected_payload"
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "seq_trace"
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "receive"
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 3
+                            },
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 9
+                            }
+                          ]
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_local@localhost"
+                          },
+                          "Id": 84,
+                          "Serial": 0,
+                          "Creation": 4
+                        },
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "selected_payload"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 665,
+          "Sha256": "03630198EB5709F59F9B97C3233698DB9BB701A6D29FBC773D71166086F111E4"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 148,
+          "Sha256": "93FFBBADEF56B89B479EDCE646F85A62A414247CFBCF8A232F9ADAC4D8F024CB"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 142,
+          "Sha256": "A4C8E725453566F008DE296355A0BCAC6E96731619C6F922D5DD864C47465632"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 145,
+          "Sha256": "8EA829F4E15917571B9C23A80AA60B79AFAE7B8985D9793DC9017FB6C95BE460"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 169,
+          "Sha256": "019D70FCE330D7F50DE48B270DD1CAE365DB6E6111F6E62C893C20D19C58BDB6"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 328,
+          "Sha256": "D088D44C62594DAB511F8A32627747BC9AB6988900862DFAE83152E8950950DE"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 25,
+          "Sha256": "0C26E0254473A1B157830C2127D125BC208EF54CCF0A0F3B886A03C9C112D90B"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 156,
+          "Sha256": "CE2B308B5528F9E188108A0483916982CC6FE7A58A7E13F661F4F35515BEB141"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "nil",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "nil"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 3270874
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    37840,
+                    4210688002,
+                    2378045893
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 3270874
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    37840,
+                    4210688002,
+                    2378045893
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "nil"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 12
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": ""
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 106,
+                  "Type": "Nil"
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "true"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "selected_payload"
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 623,
+          "Sha256": "EDF13D9CA0D773C9D5E4B809932DF03C9F39BF30A9B727D87D289C68A980C870"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 70,
+          "Sha256": "6848F1488FE57812CEF8383C0A79D76A64840B0D73819B3EBADAA2C03086C50B"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 64,
+          "Sha256": "4AA66FE39771BC03CEC7D3D0D437CFC80347A1BB1AEA0BD9266A7537C5EC82D3"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 145,
+          "Sha256": "8EA829F4E15917571B9C23A80AA60B79AFAE7B8985D9793DC9017FB6C95BE460"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 70,
+          "Sha256": "5BB3A6835E52F66C5C6285173E58C313499C7DEF4DB4C6ADD074F99581E00402"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 321,
+          "Sha256": "111C15866C54ACBE9813E0890A9328C7C6094DBBC24512E10766B4B4A304100D"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 18,
+          "Sha256": "CD35AC231BEB053FA42F6926F3AB097204A3B29E08F11FDF4FAD65F601FFDF31"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 14,
+          "Sha256": "306E7E4E31C6B314DD46DF3BAFE030BB63D771D35C06C3A59F96F2508D59F8D6"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "undefined",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 14840297
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    2253,
+                    183369731,
+                    3737199345
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 14840297
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    2253,
+                    183369731,
+                    3737199345
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 12
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": ""
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "undefined"
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "true"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "selected_payload"
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 659,
+          "Sha256": "0F7F8647FC02B7AEA49885167DD51F7BE5C0CD5599FD9FCBDD59506D5659782C"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 80,
+          "Sha256": "31F9A0D40B7424555C52EB371D4D8C25404EC9CFF795E4B084E9A1A66C17C16A"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 74,
+          "Sha256": "840960F3AC82277B0E93B98ED35D9F9707FC024BD3BDCAD657F898E6B63C2A40"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 145,
+          "Sha256": "8EA829F4E15917571B9C23A80AA60B79AFAE7B8985D9793DC9017FB6C95BE460"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 166,
+          "Sha256": "C1F7F7467626EF2AFF192C067C366230FB71CC6C9A5499A13B5A330B91FD63F6"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 327,
+          "Sha256": "0AA7A18B1FAE8D3328273C491BB87119FD0589F03D3ED07A165F7A00D836758C"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 24,
+          "Sha256": "DF7D97A6FC321073E879B0E6C17A19F7A6E4ACC2C3CB08C8066DA7E0DEA50D84"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 14,
+          "Sha256": "306E7E4E31C6B314DD46DF3BAFE030BB63D771D35C06C3A59F96F2508D59F8D6"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "wide_flags",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "wide_flags"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 13228914
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    173750,
+                    183369729,
+                    3643070131
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 13228914
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    173750,
+                    183369729,
+                    3643070131
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "wide_flags"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 12
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": ""
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 110,
+                      "Type": "Integer",
+                      "Value": 1099511627776
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_remote@localhost"
+                      },
+                      "Id": 1,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "true"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "selected_payload"
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 110,
+                  "Type": "Integer",
+                  "Value": 1099511627776
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 665,
+          "Sha256": "4B5C20482BBB36C632E1F83DD29718CB417F210C27E7FECB3187E62B7E412BD7"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 137,
+          "Sha256": "A62748E9D8019CABEFD21FF12C0D4110AABCCFA801C7C193B26352F220F89D40"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 131,
+          "Sha256": "EF16B838B5E14AD71638F8C3C0715C376ED376563FBEBCBA006EA2DD25A8B1F3"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 145,
+          "Sha256": "8EA829F4E15917571B9C23A80AA60B79AFAE7B8985D9793DC9017FB6C95BE460"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 176,
+          "Sha256": "7397FD869125A3F69C95B0F56092CF5A6424A30FCC63E69A8E2C3575DAFCA5A5"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 328,
+          "Sha256": "5A3B32E3DF7B220B4DF49E1032C1289DD15FD1ABDAEE070B0BA5D2DA8FF9747D"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 25,
+          "Sha256": "CD960486467B76176995BCF15BFE2556847B3FB0C65A317349770B7A6E51A8FF"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 14,
+          "Sha256": "306E7E4E31C6B314DD46DF3BAFE030BB63D771D35C06C3A59F96F2508D59F8D6"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "exit_link",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit_link"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 3028330
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    98547,
+                    183631876,
+                    367937921
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 3028330
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    98547,
+                    183631876,
+                    367937921
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit_link"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 13
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 2
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_remote@localhost"
+                      },
+                      "Id": 1,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    }
+                  ]
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "selected_reason"
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "no_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "false"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "EXIT"
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "selected_reason"
+                        }
+                      ]
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "selected_reason"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "seq_trace"
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "receive"
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 3
+                            },
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 9
+                            }
+                          ]
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_local@localhost"
+                          },
+                          "Id": 84,
+                          "Serial": 0,
+                          "Creation": 4
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "EXIT"
+                            },
+                            {
+                              "Tag": 88,
+                              "Type": "Pid",
+                              "Node": {
+                                "Tag": 119,
+                                "Type": "Atom",
+                                "Value": "trace_remote@localhost"
+                              },
+                              "Id": 1,
+                              "Serial": 0,
+                              "Creation": 1
+                            },
+                            {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "selected_reason"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 659,
+          "Sha256": "31AF0A9B14C8F173DA4B8D48BAB1350BF70ABB880BF81EAD93276E0036A250BD"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 177,
+          "Sha256": "1EC2C4BF97DAFC6EB37660B0568D314C7A161864C09931B4927401F5B6A23098"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 157,
+          "Sha256": "6228883072BD244CD7E79F18E7106030C967C852C378EECE208B60AB29F19441"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 53,
+          "Sha256": "5D76D973B03D5475036F4277990F4E0E103F28894C6AD333CDA7563F7F718E54"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 189,
+          "Sha256": "3DB8C685212FD3766A5AA58CE924F41B144147F0F75501F61812399785F3E385"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 213,
+          "Sha256": "E161EC8FCFAFD28D2414A067F9203B8EE7A6325AA31221212B6DB162A58DB2A9"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 327,
+          "Sha256": "73A7B97E1ABA66F5BF14DEF19CCB4742D557EC2D82BCB325B257C6B59602BAB5"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 24,
+          "Sha256": "21353BCB136BB1DECC5D5F02692D5178CCEE9D91A5088AABBB9C64FB64402894"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 200,
+          "Sha256": "F43533F8E6A24BB92A1E65BC0FD70C2A7D699E9055810AFE751047275B7CF2F1"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "exit2_trap",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit2_trap"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 10297825
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    13578,
+                    183894020,
+                    825645521
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 10297825
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    13578,
+                    183894020,
+                    825645521
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit2_trap"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 18
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 2
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_remote@localhost"
+                      },
+                      "Id": 1,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    }
+                  ]
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "selected_reason"
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "no_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "false"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 108,
+                  "Type": "List",
+                  "Values": [
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "EXIT"
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "selected_reason"
+                        }
+                      ]
+                    }
+                  ],
+                  "Tail": {
+                    "Tag": 106,
+                    "Type": "Nil"
+                  }
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "not_applicable"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "selected_reason"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "incoming_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "seq_trace"
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "incoming_label"
+                    },
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "receive"
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 3
+                            },
+                            {
+                              "Tag": 97,
+                              "Type": "Integer",
+                              "Value": 9
+                            }
+                          ]
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_remote@localhost"
+                          },
+                          "Id": 1,
+                          "Serial": 0,
+                          "Creation": 1
+                        },
+                        {
+                          "Tag": 88,
+                          "Type": "Pid",
+                          "Node": {
+                            "Tag": 119,
+                            "Type": "Atom",
+                            "Value": "trace_local@localhost"
+                          },
+                          "Id": 84,
+                          "Serial": 0,
+                          "Creation": 4
+                        },
+                        {
+                          "Tag": 104,
+                          "Type": "Tuple",
+                          "Values": [
+                            {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "EXIT"
+                            },
+                            {
+                              "Tag": 88,
+                              "Type": "Pid",
+                              "Node": {
+                                "Tag": 119,
+                                "Type": "Atom",
+                                "Value": "trace_remote@localhost"
+                              },
+                              "Id": 1,
+                              "Serial": 0,
+                              "Creation": 1
+                            },
+                            {
+                              "Tag": 119,
+                              "Type": "Atom",
+                              "Value": "selected_reason"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 665,
+          "Sha256": "DC7CAC6B1B086C2C96708C2AA7CAE1B2DA473BC75E05E12154AA256594243690"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 17,
+          "Sha256": "4E15F1B8183FC2D00C1BBD9EED6029369889C774D753B671B96F21440E575648"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 177,
+          "Sha256": "028A8B886622BC44DE8E6B34F8109776D20BA72D2C3FF078D5ED10AFB0743CAB"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 157,
+          "Sha256": "943EAB42F4E11FAFEAB66BD6BDE6EF57B485545DCC21AEC4EAA33D9B8A6BDF97"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 189,
+          "Sha256": "3DB8C685212FD3766A5AA58CE924F41B144147F0F75501F61812399785F3E385"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 213,
+          "Sha256": "E161EC8FCFAFD28D2414A067F9203B8EE7A6325AA31221212B6DB162A58DB2A9"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 328,
+          "Sha256": "E4E2E91E3631EFBCA7EF6066B6D0B845C5F6B515016504A90F73F85AFE021A5E"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 25,
+          "Sha256": "4742F7BB8740646CF71A6C9494C799571637829C84666F61B8F0A5209E3D3E69"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 200,
+          "Sha256": "F43533F8E6A24BB92A1E65BC0FD70C2A7D699E9055810AFE751047275B7CF2F1"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    },
+    {
+      "Case": "exit2_normal",
+      "Terms": {
+        "stage.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "complete"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit2_normal"
+            }
+          ]
+        },
+        "outer.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "result"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            }
+          ]
+        },
+        "setup.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 10,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 83,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 13646758
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    180574,
+                    183894019,
+                    1794027247
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 13646758
+                },
+                {
+                  "Tag": 90,
+                  "Type": "Reference",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Creation": 4,
+                  "Ids": [
+                    180574,
+                    183894019,
+                    1794027247
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "dist_ctrlr"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "trace_remote@localhost"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 83,
+                  "Serial": 0,
+                  "Creation": 4
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "trace_local@localhost"
+            },
+            {
+              "Tag": 97,
+              "Type": "Integer",
+              "Value": 4
+            },
+            {
+              "Tag": 110,
+              "Type": "Integer",
+              "Value": 17230663572
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "exit2_normal"
+            }
+          ]
+        },
+        "receiver-ready.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_ready"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            }
+          ]
+        },
+        "links-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "links"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "token-before.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "sequential_trace_token"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "initial_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "input.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 18
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "trace_local@localhost"
+                  },
+                  "Id": 84,
+                  "Serial": 0,
+                  "Creation": 4
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "arbitrary_unasserted_token"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "normal"
+                }
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "no_payload"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "false"
+            }
+          ]
+        },
+        "input-result.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "queued.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "messages"
+                },
+                {
+                  "Tag": 106,
+                  "Type": "Nil"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "suspended"
+                }
+              ]
+            }
+          ]
+        },
+        "ignored-exit-state.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "sequential_trace_token"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "initial_label"
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 1
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "trace_local@localhost"
+                      },
+                      "Id": 84,
+                      "Serial": 0,
+                      "Creation": 4
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "status"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "waiting"
+                }
+              ]
+            }
+          ]
+        },
+        "completion-input.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "ok"
+        },
+        "selected.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected_payload"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "tracer-mailbox.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "messages"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        },
+        "receiver-identities.etf": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_remote@localhost"
+              },
+              "Id": 1,
+              "Serial": 0,
+              "Creation": 1
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "trace_local@localhost"
+              },
+              "Id": 85,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "undefined"
+            }
+          ]
+        },
+        "receiver-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "controller-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "normal"
+        },
+        "tracer-setting.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "false"
+        },
+        "tracer-cleanup.etf": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "killed"
+        }
+      },
+      "RawFiles": [
+        {
+          "Path": "completion-input.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "controller-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "evaluation.erl",
+          "Bytes": 677,
+          "Sha256": "7A152D5AA22166959CF30B079CAEF0840B65C41E0581A13DBDB3AE095E140374"
+        },
+        {
+          "Path": "ignored-exit-state.etf",
+          "Bytes": 107,
+          "Sha256": "5ED84793AF6A3C727EF36EDEE52595470AD9DE79D10906606AB8E0F4A4F7A4B3"
+        },
+        {
+          "Path": "input-result.etf",
+          "Bytes": 5,
+          "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+        },
+        {
+          "Path": "input.etf",
+          "Bytes": 135,
+          "Sha256": "75C49EE6093C7DCF4F6ED81FB907AE3F6BB84C14BF3807CD2DA1033A1B46FC42"
+        },
+        {
+          "Path": "input.packet",
+          "Bytes": 115,
+          "Sha256": "A4255E54835B535384F29DF0E84CE2F3026CDCC1F3639511C47E47A6FB87AE83"
+        },
+        {
+          "Path": "links-before.etf",
+          "Bytes": 11,
+          "Sha256": "5A4EA644386DFE9576C7DF78C86321987B6DC36D87FB4E9D290243A588B8B457"
+        },
+        {
+          "Path": "outer.etf",
+          "Bytes": 15,
+          "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+        },
+        {
+          "Path": "process.exit",
+          "Bytes": 2,
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+        },
+        {
+          "Path": "process.raw-complete",
+          "Bytes": 5,
+          "Sha256": "A17FCF0A2F50E2D495E4F90CE263410EDC183ADD6C62699A2FACBCCF60410F74"
+        },
+        {
+          "Path": "process.stderr",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "process.stdout",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "queued.etf",
+          "Bytes": 122,
+          "Sha256": "13FBDD5BE58B8DDB90F3467A93305953DBE631CC79775775E949BA11DFE0F645"
+        },
+        {
+          "Path": "receiver-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "7752D07FF70E6BAF9C1F9CC9127EED397C94AC6F0B5538D955B023E48106CAF7"
+        },
+        {
+          "Path": "receiver-identities.etf",
+          "Bytes": 123,
+          "Sha256": "BB7B6AD02701287B325C1E5201260C4647059B4D08B960DAFA5F409475F09FCF"
+        },
+        {
+          "Path": "receiver-ready.etf",
+          "Bytes": 55,
+          "Sha256": "D382D8AEA0C9F5393559A66632F107A7BD46E41D0CEDB6A8904D92D93E6E5812"
+        },
+        {
+          "Path": "selected.etf",
+          "Bytes": 70,
+          "Sha256": "5BB3A6835E52F66C5C6285173E58C313499C7DEF4DB4C6ADD074F99581E00402"
+        },
+        {
+          "Path": "setup.etf",
+          "Bytes": 330,
+          "Sha256": "D4581C6C1376A6953B65EA31A02E249A45D7DFBA9F543AF3D18F39320C0D67FD"
+        },
+        {
+          "Path": "stage.etf",
+          "Bytes": 27,
+          "Sha256": "B4D4BE5F7975597D6101C5C7084577A60F8A56D1ABA4FCCDF3786E90D2551F46"
+        },
+        {
+          "Path": "token-before.etf",
+          "Bytes": 86,
+          "Sha256": "256D12F95ACFACEF340895202FC10C5C99E86AE45CBC7D967652AD28DE1A15F2"
+        },
+        {
+          "Path": "tracer-cleanup.etf",
+          "Bytes": 9,
+          "Sha256": "94C1EAC068702A43DCF8B92E8B8793BA8B6604D2BAFE16B0D286D8303677945B"
+        },
+        {
+          "Path": "tracer-mailbox.etf",
+          "Bytes": 14,
+          "Sha256": "306E7E4E31C6B314DD46DF3BAFE030BB63D771D35C06C3A59F96F2508D59F8D6"
+        },
+        {
+          "Path": "tracer-setting.etf",
+          "Bytes": 8,
+          "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+        }
+      ]
+    }
+  ],
+  "NoDispatchRepeated": true,
+  "MainEdited": false,
+  "GitEdited": false
+}

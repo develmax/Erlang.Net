@@ -1,0 +1,8 @@
+from pathlib import Path
+import json,hashlib
+src=Path('artifacts/payload-review-collector-controls-revision1');dst=Path('artifacts/native-audit-payload-controls-revision2');dst.mkdir();rows=[]
+for r in json.loads((src/'source-plan.json').read_bytes())['Files']:
+ b=(src/r['Path']).read_bytes()
+ if r['Path']=='cli-controls.py':b=b.replace(b"plan['RequiredArtifacts']",b"plan['RequiredOutputs']")
+ t=dst/r['Path'];t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(b);rows.append({'Path':r['Path'],'Sha256':hashlib.sha256(b).hexdigest().upper()})
+(dst/'source-plan.json').write_text(json.dumps({'Stage':'CORRECT_CONTROL_PLAN_OUTPUT_FIELD_NAME_ONLY_NOT_EXECUTED','Files':rows,'InitialFailure':'native-audit-part286-collector-executed2/collector-cli14.stderr.raw','Correction':'RequiredArtifacts -> RequiredOutputs matches unchanged actual frozen source-plan schema; assertion counts and refusal expectations unchanged','CliRefusals':14,'RawControls':2},indent=2)+'\n');print(hashlib.sha256((dst/'source-plan.json').read_bytes()).hexdigest().upper())

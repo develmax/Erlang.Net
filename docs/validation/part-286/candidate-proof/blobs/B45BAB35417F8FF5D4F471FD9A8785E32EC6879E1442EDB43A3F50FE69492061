@@ -1,0 +1,25 @@
+{
+  "Stage": "CORRECT_CONTROL_PLAN_OUTPUT_FIELD_NAME_ONLY_NOT_EXECUTED",
+  "Files": [
+    {
+      "Path": "cli-controls.py",
+      "Sha256": "23CA032C31A55AB7AB6E5B699D73E886FA3545EEDD4AFEF3DEA77B6A6F667A08"
+    },
+    {
+      "Path": "raw-helper/Program.cs",
+      "Sha256": "529C74DBD3571789F453E370BDE559A2E561F5CB2A6B007A72ECC8F2B8095783"
+    },
+    {
+      "Path": "raw-helper/SignalRawFocus.csproj",
+      "Sha256": "9C05A00A78F2E689471B4AC7106DD16868C43BAD4D548627DEF8A83EE8E49C23"
+    },
+    {
+      "Path": "raw-helper/SignalRawNames.cs",
+      "Sha256": "51F5980FD35AFD5003C9E201F36C469F1005B8056290183AB2A401A75B416DAD"
+    }
+  ],
+  "InitialFailure": "native-audit-part286-collector-executed2/collector-cli14.stderr.raw",
+  "Correction": "RequiredArtifacts -> RequiredOutputs matches unchanged actual frozen source-plan schema; assertion counts and refusal expectations unchanged",
+  "CliRefusals": 14,
+  "RawControls": 2
+}

@@ -1,0 +1,45 @@
+from pathlib import Path
+import json,hashlib,subprocess
+R=Path.cwd();A=R/'artifacts';S=A/'native-audit-part286-evidence-staging3';assert not S.exists();S.mkdir();sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+head='ecdfe0bcf9661da0e39d013592d7fbff18774f05';pre=json.loads((A/'native-audit-trapped-trace-isolated3/prebuild.json').read_bytes());names=[r['Path'] for r in pre['SeedFiles']]
+p=subprocess.run(['git','cat-file','--batch'],input=''.join(head+':'+n+'\n' for n in names).encode(),capture_output=True,check=True);raw=p.stdout;pos=0;bindings=[]
+for row in pre['SeedFiles']:
+ end=raw.index(b'\n',pos);header=raw[pos:end].split();assert header[1]==b'blob';size=int(header[2]);b=raw[end+1:end+1+size];pos=end+1+size+1
+ actual=(A/'native-audit-trapped-trace-isolated3/candidate'/row['Path']).read_bytes()
+ if row['Path']=='tests/Erlang.Tests/Program.cs':
+  start=actual.index(b'Test(Erlang.Tests.DistributionTrappedTraceHostNames.Test,');finish=actual.index(b'int failed = 0;',start);actual=actual[:start]+actual[finish:]
+ assert sha(actual)==row['Sha256'];assert b==actual or b.replace(b'\r\n',b'\n')==actual.replace(b'\r\n',b'\n');bindings.append({'Path':row['Path'],'GitRef':head+':'+row['Path'],'PublishedRawSha256':sha(b),'CopiedRawSha256':sha(actual),'OnlyCheckoutEolDifference':b!=actual})
+assert pos==len(raw)
+seed=A/'native-audit-part286-published285-seed-bindings.json';seed.write_text(json.dumps({'Head':head,'Files':bindings,'Paths':len(bindings),'NoCSharpSemanticSeedChanges':True,'FirstSeedOmittedThenUntracked25Files':'Earlier isolated1 never compiled; isolated2/3 use complete published1769 seed.'},indent=2)+'\n')
+failed=A/'native-audit-trapped-trace-isolated2';base=failed/'candidate/tests/Erlang.Tests/bin/Debug/net10.0';(failed/'failed-target-output-closure.json').write_text(json.dumps([{'Path':q.relative_to(base).as_posix(),'Bytes':q.stat().st_size,'Sha256':sha(q.read_bytes())} for q in sorted(base.rglob('*')) if q.is_file()],indent=2)+'\n')
+receipt=A/'native-audit-part286-final-validation-receipt.json';receipt.write_text(json.dumps({'Stage':'ISOLATED_COLLECTOR_ALL_GATES_AND_TT133_STYLE_PASS_ACTUAL_MAIN_REQUIRED','Head':head,'CollectorSourceFreeze':'native-audit-payload-collector-source-freeze-revision3.json','CollectorGates':'target0warnings0errors/style14/CLI14/helper-target/style2/raw2','CollectorReceiptSha256':sha((A/'native-audit-part286-collector-executed4/receipt.json').read_bytes()),'TrappedSourceFreeze':'native-audit-trapped-trace-source-freeze-revision3.json','ActualTargetFocusSource':'revision2','TrappedTargetWarnings':0,'TrappedTargetErrors':0,'FocusPassed':133,'FocusFailed':0,'FinalFormatted3SourceTokenAndLiteralExact':True,'FinalFormatted3SeparateRebuild':False,'FinalStyleNeedsFormatting':0,'ActualMainTargetFullRequired':True,'PreselectionScope':'Public label/serial/receive unchanged during acknowledged suspension; canonical selected full token and exact receive tracer tuple directly checked both EXIT_TT13/EXIT2_TT18.','PreservedFailures':['Collector source2 style2 files','CLI harness RequiredArtifacts schema-key error; corrected RequiredOutputs','Runner3 missing control-source plan after failed shell preparation','TT source1 CS1061 internal SequentialTrace inaccessible','TT source2 initial focus missing example fixture; exact published examples supplement succeeds133'],'NoNativeExecutionOrDispatch':True,'NoMainOrGitMutation':True,'HeavySlotReleased':True},indent=2)+'\n')
+selected=set()
+def add(q):
+ q=Path(q)
+ if q.is_file():selected.add(q)
+for pattern in ['native-audit-part286*.py','native-audit-trapped-trace*.py','native-audit-prepare-trapped*.py','native-audit-format-payload3.py','native-audit-fix-payload-controls2.py','native-audit-finalize-trapped-trace3.py','native-audit-*source-freeze-revision*.json','native-audit-part286*.json','native-audit-trapped-trace-style2*.log']:
+ for q in A.glob(pattern):add(q)
+for n in ['payload-review-collector-source-freeze-revision2.json','payload-review-controls-prep.py','native-audit-payload-collector18-source-peer.json','native-audit-trace284-main-contract-concordance.json','native-audit-trace284-independent-guard.json']:add(A/n)
+add(Path(__file__))
+for q in (A/'native-audit-part286-collector-executed4/candidate/tests/SignalRawControls').iterdir():
+ if q.is_file() and q.suffix in ['.cs','.csproj']:add(q)
+for n in ['native-audit-payload-collector-proposal-revision3','native-audit-payload-controls-revision2','payload-review-collector-controls-revision1','native-audit-trapped-trace-proposal','native-audit-trapped-trace-proposal2','native-audit-trapped-trace-proposal3']:
+ for q in (A/n).rglob('*'):
+  if q.is_file():add(q)
+for n in ['native-audit-part286-collector-executed1','native-audit-part286-collector-executed2','native-audit-part286-collector-executed3','native-audit-part286-collector-executed4','native-audit-trapped-trace-isolated1','native-audit-trapped-trace-isolated2','native-audit-trapped-trace-isolated3']:
+ d=A/n
+ for q in d.rglob('*'):
+  if not q.is_file():continue
+  parts=q.relative_to(d).parts
+  if parts[0]=='candidate':continue
+  if 'tool' in parts and q.suffix not in ['.json','.erl']:continue
+  add(q)
+ # Preserve exact compiled modified Program; all other unmodified inputs reference published bindings.
+ add(d/'candidate/tests/Erlang.Tests/Program.cs')
+records=[]
+for q in sorted(selected):
+ b=q.read_bytes();h=sha(b);rel='blobs/'+h;t=S/rel
+ if t.exists():assert t.read_bytes()==b
+ else:t.parent.mkdir(exist_ok=True);t.write_bytes(b)
+ records.append({'SourcePath':q.relative_to(R).as_posix(),'Blob':rel,'Bytes':len(b),'Sha256':h})
+manifest=S/'manifest.json';manifest.write_text(json.dumps({'Stage':'DETACHED_PART286_CANDIDATE_PROOFS_FINAL_AND_FAILED_REVISIONS','IntendedRepositoryPrefix':'docs/validation/part-286/candidate-proof','Files':records,'LogicalFiles':len(records),'UniqueBlobs':len(set(r['Blob'] for r in records)),'UniqueBytes':sum(q.stat().st_size for q in (S/'blobs').iterdir()),'CandidateCheckoutsAndBinObjExcluded':True,'UnmodifiedSeedPublishedGitBindingsIncluded':True,'BinaryClosuresInventoriedExactActualOutputs':True,'ActualMainVerificationStillRequired':True},indent=2)+'\n');print(str(manifest),sha(manifest.read_bytes()),len(records))
