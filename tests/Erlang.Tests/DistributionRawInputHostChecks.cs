@@ -65,12 +65,10 @@ internal static class DistributionRawInputHostChecks
         var remote = new Pid(DistributionRawInputHostNames.Remote, 1, 0);
         var reference = new ReferenceTerm(DistributionRawInputHostNames.Remote, new uint[] { 1 }, 0);
         await Unsupported(Term.Tuple(
-            Term.I(DistributionRawInputHostNames.UnsupportedExitTraceOpcode),
+            Term.I(DistributionRawInputHostNames.UnsupportedPayloadExitOpcode),
             remote,
-            receiver.Process.Pid,
-            Nil.Value,
-            Nil.Value
-        ));
+            receiver.Process.Pid
+        ), Nil.Value);
         Check(!controller.Process.Completion.IsCompleted);
         Check((await Put(Cons.From(packet.Select(value => (Term)Term.I(value))))).Equals(DistributionRawInputHostNames.Ok));
         Check((await receiver.InvokeAsync(async context =>
@@ -226,7 +224,7 @@ internal static class DistributionRawInputHostChecks
                     context,
                     Term.A(DistributionRawInputHostNames.Remote),
                     context.Self,
-                    Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory), Term.I(0))
+                    Term.Tuple(new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload), Term.I(0))
                 ));
             await owner.Invoke(context =>
                 DistributionControllerAdapters.SetInputHandler(context, result, input.Process.Pid));
@@ -247,12 +245,14 @@ internal static class DistributionRawInputHostChecks
             });
         }
 
-        async Task Unsupported(TupleTerm control)
+        async Task Unsupported(TupleTerm control, Term payload)
         {
             byte[] bytes = ExternalTermFormat.Encode(control);
-            byte[] frame = new byte[bytes.Length + 1];
+            byte[] encodedPayload = ExternalTermFormat.Encode(payload);
+            byte[] frame = new byte[bytes.Length + encodedPayload.Length + DistributionPassThroughLayout.MarkerBytes];
             frame[0] = DistributionRawInputHostNames.PassThrough;
-            bytes.CopyTo(frame, 1);
+            bytes.CopyTo(frame, DistributionPassThroughLayout.MarkerBytes);
+            encodedPayload.CopyTo(frame, DistributionPassThroughLayout.MarkerBytes + bytes.Length);
             await input.Invoke(context =>
             {
                 try

@@ -43,6 +43,14 @@ public static class DistributionControlOpcodes
     public const int LinkArity = 3;
     public const int ExitArity = 4;
     public const int ExitReasonIndex = 3;
+    public const int SendTraceArity = 4;
+    public const int RegisteredSendTraceArity = 5;
+    public const int ExitTraceArity = 5;
+    public const int SendTraceTokenIndex = 3;
+    public const int RegisteredSendTraceTokenIndex = 4;
+    public const int ExitTraceTokenIndex = 3;
+    public const int ExitTraceReasonIndex = 4;
+    public const int PayloadExitArity = 3;
     public const int UnlinkArity = 4;
     public const int UnlinkIdIndex = 1;
     public const int UnlinkFromIndex = 2;

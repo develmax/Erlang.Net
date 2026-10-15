@@ -1,7 +1,7 @@
 namespace Erlang;
 
 [Flags]
-internal enum SequenceTraceFlags
+internal enum SequenceTraceFlags : long
 {
     None = 0,
     Send = 1 << 0,

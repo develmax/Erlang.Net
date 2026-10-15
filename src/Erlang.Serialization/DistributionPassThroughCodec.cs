@@ -85,7 +85,8 @@ public static class DistributionPassThroughCodec
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
         bool link = opcode.Value == DistributionControlOpcodes.Link;
-        bool exit = opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2;
+        bool exit = opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2 ||
+            opcode.Value == DistributionControlOpcodes.ExitTrace || opcode.Value == DistributionControlOpcodes.Exit2Trace;
         bool unlink = opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck;
         bool monitor = opcode.Value == DistributionControlOpcodes.Monitor ||
             opcode.Value == DistributionControlOpcodes.Demonitor || opcode.Value == DistributionControlOpcodes.MonitorExit;
@@ -108,7 +109,9 @@ public static class DistributionPassThroughCodec
         if (link || exit || unlink)
         {
             bool valid = link || exit
-                ? tuple.Items.Count == (link ? DistributionControlOpcodes.LinkArity : DistributionControlOpcodes.ExitArity) &&
+                ? tuple.Items.Count == (link ? DistributionControlOpcodes.LinkArity :
+                    opcode.Value == DistributionControlOpcodes.ExitTrace || opcode.Value == DistributionControlOpcodes.Exit2Trace
+                    ? DistributionControlOpcodes.ExitTraceArity : DistributionControlOpcodes.ExitArity) &&
                     tuple.Items[DistributionControlOpcodes.FromIndex] is Pid &&
                     tuple.Items[DistributionControlOpcodes.TargetIndex] is Pid
                 : tuple.Items.Count == DistributionControlOpcodes.UnlinkArity &&
@@ -121,6 +124,21 @@ public static class DistributionPassThroughCodec
             ValidateFeatures(tuple, negotiatedFlags);
 
             return new(tuple, null);
+        }
+        if (opcode.Value == DistributionControlOpcodes.PayloadExit)
+        {
+            if (tuple.Items.Count != DistributionControlOpcodes.PayloadExitArity ||
+                tuple.Items[DistributionControlOpcodes.FromIndex] is not Pid ||
+                tuple.Items[DistributionControlOpcodes.TargetIndex] is not Pid)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            var reason = ReadTerm(packet[payloadOffset..], options, maximumBytes);
+            if (payloadOffset + reason.Used != packet.Length)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            ValidateFeatures(tuple, negotiatedFlags);
+            ValidateFeatures(reason.Term, negotiatedFlags);
+            unsupportedControlValidator?.Invoke(tuple);
+
+            throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
         }
         ValidateControl(tuple, unsupportedControlValidator);
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
@@ -149,8 +167,10 @@ public static class DistributionPassThroughCodec
             valid = control.Items.Count == DistributionControlOpcodes.LinkArity &&
                 control.Items[DistributionControlOpcodes.FromIndex] is Pid &&
                 control.Items[DistributionControlOpcodes.TargetIndex] is Pid;
-        else if (opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2)
-            valid = control.Items.Count == DistributionControlOpcodes.ExitArity &&
+        else if (opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2 ||
+            opcode.Value == DistributionControlOpcodes.ExitTrace || opcode.Value == DistributionControlOpcodes.Exit2Trace)
+            valid = control.Items.Count == (opcode.Value == DistributionControlOpcodes.ExitTrace || opcode.Value == DistributionControlOpcodes.Exit2Trace
+                ? DistributionControlOpcodes.ExitTraceArity : DistributionControlOpcodes.ExitArity) &&
                 control.Items[DistributionControlOpcodes.FromIndex] is Pid &&
                 control.Items[DistributionControlOpcodes.TargetIndex] is Pid;
         else if (opcode.Value == DistributionControlOpcodes.UnlinkId || opcode.Value == DistributionControlOpcodes.UnlinkIdAck)
@@ -301,17 +321,19 @@ public static class DistributionPassThroughCodec
         ArgumentNullException.ThrowIfNull(control);
         if (control.Items.Count == 0 || control.Items[DistributionPassThroughLayout.OpcodeIndex] is not Integer opcode)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
-        if (opcode.Value == DistributionPassThroughLayout.SendOpcode)
+        if (opcode.Value == DistributionPassThroughLayout.SendOpcode || opcode.Value == DistributionControlOpcodes.SendTrace)
         {
-            if (control.Items.Count != DistributionPassThroughLayout.SendArity ||
+            if (control.Items.Count != (opcode.Value == DistributionControlOpcodes.SendTrace
+                ? DistributionControlOpcodes.SendTraceArity : DistributionPassThroughLayout.SendArity) ||
                 control.Items[DistributionPassThroughLayout.SendTargetIndex] is not Pid)
                 throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
 
             return;
         }
-        if (opcode.Value == DistributionPassThroughLayout.RegisteredSendOpcode)
+        if (opcode.Value == DistributionPassThroughLayout.RegisteredSendOpcode || opcode.Value == DistributionControlOpcodes.RegisteredSendTrace)
         {
-            if (control.Items.Count != DistributionPassThroughLayout.RegisteredSendArity ||
+            if (control.Items.Count != (opcode.Value == DistributionControlOpcodes.RegisteredSendTrace
+                ? DistributionControlOpcodes.RegisteredSendTraceArity : DistributionPassThroughLayout.RegisteredSendArity) ||
                 control.Items[DistributionPassThroughLayout.RegisteredSenderIndex] is not Pid ||
                 control.Items[DistributionPassThroughLayout.RegisteredTargetIndex] is not Atom)
                 throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));

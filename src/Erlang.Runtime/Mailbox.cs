@@ -31,7 +31,8 @@ public sealed class Mailbox
         SequenceTraceToken? TraceToken = null,
         bool PreserveTrace = false,
         Term? From = null,
-        bool TraceAdmission = true
+        bool TraceAdmission = true,
+        Term? DistributionTraceToken = null
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -115,7 +116,8 @@ public sealed class Mailbox
         bool preserve = false,
         bool priority = false,
         Term? from = null,
-        bool traceAdmission = true
+        bool traceAdmission = true,
+        Term? distributionTraceToken = null
     )
     {
         IncomingTerm?.Invoke(message);
@@ -133,7 +135,8 @@ public sealed class Mailbox
                     token,
                     preserve,
                     from,
-                    traceAdmission
+                    traceAdmission,
+                    distributionTraceToken
                 )) : messages.AddAfter(lastPriority, new Entry(
                     message,
                     null,
@@ -141,7 +144,8 @@ public sealed class Mailbox
                     token,
                     preserve,
                     from,
-                    traceAdmission
+                    traceAdmission,
+                    distributionTraceToken
                 ));
             else
                 messages.AddLast(new Entry(
@@ -151,7 +155,8 @@ public sealed class Mailbox
                     token,
                     preserve,
                     from,
-                    traceAdmission
+                    traceAdmission,
+                    distributionTraceToken
                 ));
             mutationRevision++;
             if (priority)
@@ -172,7 +177,8 @@ public sealed class Mailbox
         SequenceTraceToken? token = null,
         bool preserve = false,
         Term? from = null,
-        bool traceAdmission = true
+        bool traceAdmission = true,
+        Term? distributionTraceToken = null
     )
     {
         IncomingTerm?.Invoke(message);
@@ -189,7 +195,8 @@ public sealed class Mailbox
                 token,
                 preserve,
                 from,
-                traceAdmission
+                traceAdmission,
+                distributionTraceToken
             ));
             pending++;
             mutationRevision++;
@@ -520,7 +527,15 @@ public sealed class Mailbox
             if (selected is not null)
             {
                 MessageReceived?.Invoke();
-                TraceReceived?.Invoke(received.Value, received.TraceToken, received.PreserveTrace);
+                SequenceTraceToken? traceToken = received.TraceToken;
+                bool preserveTrace = received.PreserveTrace;
+                if (received.DistributionTraceToken is { } rawTrace)
+                {
+                    var reception = DistributionSequenceTraceToken.Decode(rawTrace);
+                    traceToken = reception.Token;
+                    preserveTrace = reception.Preserve;
+                }
+                TraceReceived?.Invoke(received.Value, traceToken, preserveTrace);
 
                 return selected;
             }

@@ -58,6 +58,13 @@ public sealed partial class RuntimeDistributionPending
                     Remote(items[DistributionUnsupportedControlLayout.UnlinkFromIndex]) &&
                     Local(items[DistributionUnsupportedControlLayout.UnlinkTargetIndex]);
                 break;
+            case DistributionUnsupportedControlLayout.PayloadExit:
+                valid = items.Count == DistributionUnsupportedControlLayout.PayloadExitArity &&
+                    Remote(items[DistributionUnsupportedControlLayout.FromIndex]) &&
+                    items[DistributionUnsupportedControlLayout.FromIndex] is Pid { LocalIdentity: null } &&
+                    items[DistributionUnsupportedControlLayout.TargetIndex] is Pid target &&
+                    target.Node == local.Node && target.Creation == local.Creation;
+                break;
             case DistributionUnsupportedControlLayout.LegacyUnlink:
                 valid = false;
                 break;

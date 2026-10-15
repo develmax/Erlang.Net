@@ -167,7 +167,8 @@ public sealed partial class ProcessRuntime
         Pid remote,
         Pid local,
         Term reason,
-        bool explicitSignal
+        bool explicitSignal,
+        Term? traceToken = null
     )
     {
         lock (gate)
@@ -185,7 +186,8 @@ public sealed partial class ProcessRuntime
                 remote,
                 reason,
                 explicitSignal,
-                link
+                link,
+                traceToken
             );
         }
     }
@@ -195,7 +197,8 @@ public sealed partial class ProcessRuntime
         Pid remote,
         Term reason,
         bool explicitSignal,
-        DistributionProcessLink? link
+        DistributionProcessLink? link,
+        Term? traceToken = null
     )
     {
         target.Mailbox.SendPending(
@@ -227,7 +230,8 @@ public sealed partial class ProcessRuntime
                 return null;
             }
         },
-            from: remote
+            from: remote,
+            distributionTraceToken: traceToken
         );
     }
 

@@ -1,0 +1,119 @@
+{
+  "Status": "PASS_BOUNDED_NATIVE_5820_FD8",
+  "Head": "a10fc16c6e5392d69b6f84d17c396ac525a34104",
+  "Run": 38659091374,
+  "Job": 116175807652,
+  "Artifact": 11938668658,
+  "Passed": 5820,
+  "FdPassed": 8,
+  "AllOld5812ContractsAndOrderExactExceptPredeclaredRawMapVariance": true,
+  "Old4871ModuleRowsExact": false,
+  "Old778Expressions163DiagnosesSixExclusionsExact": true,
+  "NewEightNames": [
+    "erlang-gather-gc-result-integers",
+    "erlang-gather-gc-result-selective-order-exact-count",
+    "erlang-gather-gc-result-floating-sums",
+    "erlang-gather-gc-result-bignum-signed-sums",
+    "erlang-gather-gc-result-invalid-reference-function-clause",
+    "erlang-gather-gc-result-invalid-collections-consumed",
+    "erlang-gather-gc-result-invalid-reclaimed-consumed",
+    "erlang-gather-gc-result-floating-overflow-domain"
+  ],
+  "NewEightSourcesAndNativeSdkOutcomesExactPublished": true,
+  "PredeclaredRawMapVariance": [
+    {
+      "Name": "erlang-term-display-map",
+      "Delta": {
+        "NativeStandardOutputHex": {
+          "Historical": "237B623D3E2241222C613D3E7B307D7D0D0A",
+          "Actual": "237B613D3E7B307D2C623D3E2241227D0D0A"
+        },
+        "NativeAndSdkStandardOutputExactlyMatch": {
+          "Historical": false,
+          "Actual": true
+        }
+      },
+      "HistoricalFullRow": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": false,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      },
+      "ActualFullRow": {
+        "Name": "erlang-term-display-map",
+        "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+        "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+        "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "ExpectedStandardOutputAlternatives": [
+          "237B623D3E2241222C613D3E7B307D7D0D0A"
+        ],
+        "ExpectedStandardErrorHex": "",
+        "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "NativeStandardErrorHex": "",
+        "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+        "SdkStandardErrorHex": "",
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "NoNormalization": true,
+  "ZipSha256": "F4F3A834F59E9DDFCFAA0E1BB21937E3EAA13D3E30E9C0B0B5839B37FF8F394D",
+  "RawJobSha256": "1B64F44BF30A99D8155838E3C073457994C7D149348AC03157299B141B3D77A9",
+  "CommittedBindings": [
+    {
+      "Path": "tools/Erlang.Differential/GarbageCollectionResultCases.cs",
+      "Sha256": "1C4363958DFC5170CCABE328D1F4292A627669B467564C3ADD3350CB90C8E07A",
+      "Bytes": 3010
+    },
+    {
+      "Path": "tools/Erlang.Differential/GarbageCollectionResultCaseNames.cs",
+      "Sha256": "42D970111CCD31E753E001123B2B91C3715DBC5EE08E196FF305CCD1C445CBF6",
+      "Bytes": 253
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "9B6870A98CF98217CF74ACD6A9CF37CF83E39D414B52E0897EF0B3617609EFC4",
+      "Bytes": 30029
+    },
+    {
+      "Path": "src/Erlang.Runtime/GarbageCollectionResultRegistrations.cs",
+      "Sha256": "5606DB72719C22596E2B50CFBDC3EC09FAE0B607F40EA440B59C24FFE51F57DF",
+      "Bytes": 735
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "Sha256": "8FC611C9EE501A23F4608E66D3E163CA55B26602D005B436727D2FD5D3AE33E1",
+      "Bytes": 2292
+    }
+  ],
+  "ProgressScope": "5656 is final compiled precomparison snapshot, terminal report/full5820 rawpass establish complete count.",
+  "ReferenceCoverageComplete": false,
+  "MainEdited": false,
+  "GitEdited": false,
+  "NativeRerun": false
+}

@@ -1,0 +1,70 @@
+{
+  "Status": "PASS_BOUNDED_NATIVE_TRACE8_SOURCE_PLAN_REVIEW",
+  "SourceFreeze": "artifacts\\dist_next-distribution-trace-native-source-freeze-revision3.json",
+  "Sha256": "049E80254262BCB390FE24A9CDA421AE0DABC33534EDDD34E1698BC9FB5AAC40",
+  "Files2": [
+    {
+      "Path": "distribution_trace_probe.erl",
+      "Bytes": 8481,
+      "Sha256": "30FD1EA415E99155641E747F51E3381C0573C9DCFD0DDEFD880612ABCC36429D"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 1832,
+      "Sha256": "3C79D54DB6A539ECBC5B81925FEAB43443587DD178203BF1F955BDD100648AC1"
+    }
+  ],
+  "Cases8": [
+    "send",
+    "registered",
+    "nil",
+    "undefined",
+    "wide_flags",
+    "exit_link",
+    "exit2_trap",
+    "exit2_normal"
+  ],
+  "RequiredOutputs19": [
+    "stage.etf",
+    "outer.etf",
+    "setup.etf",
+    "receiver-ready.etf",
+    "links-before.etf",
+    "token-before.etf",
+    "input.etf",
+    "input.packet",
+    "input-result.etf",
+    "queued.etf",
+    "ignored-exit-state.etf",
+    "completion-input.etf",
+    "selected.etf",
+    "tracer-mailbox.etf",
+    "receiver-identities.etf",
+    "receiver-cleanup.etf",
+    "controller-cleanup.etf",
+    "tracer-setting.etf",
+    "tracer-cleanup.etf"
+  ],
+  "Checks": [
+    "Actual kernel registration/local setnode2/pending before remote controller adoption",
+    "Separate real receiver/tracer processes and owned monitors, actual sequential tracer setting/reset",
+    "Suspended receiver captures token/messages/status before selection; input actual raw ETF frame and original erlang BIF outcome saved",
+    "Canonical/nil/undefined/wideflags payload; linked/trapped/normal explicit exit cases with genuine process_info observer",
+    "Full outer exception and failed stage retained, owned tracer/controller/receiver cleanup and consumed receiver DOWN retained",
+    "No SDK expected generation or semantic result normalization"
+  ],
+  "FutureCollectorRequirements": [
+    "Fresh distinct VM per each of8cases; shared pinned build okay",
+    "Entrypoint order run(Case,Output) differs signal probe run(Output,Scenario)",
+    "Probe run catches exception and returns normally; collector must inspect typed stage.etf/outer.etf or required structural completeness, not exit0 alone",
+    "Controller ready lacks immediate DOWN branch; setup timeout preserved plus full controller-cleanup reason/raw VM crash logs; do not label timeout as native API badarg",
+    "Physical LP64 profile must be independently captured; source shape does not attest ABI",
+    "Tracer snapshot ordering/readiness/cleanup remain unmeasured until genuine original capture"
+  ],
+  "NoOriginalExistingPlanMutated": true,
+  "CompilerAndNativeUnexecuted": true,
+  "MainWritten": false,
+  "GitWritten": false,
+  "HeavyExecuted": false,
+  "NativeExecuted": false
+}

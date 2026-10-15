@@ -1,0 +1,287 @@
+{
+  "Stage": "ACTUAL_SIGNAL_COLLECTOR4_CONTROLS6_BOUNDED_TERMINAL_PASS",
+  "CollectorPrebuildFreezeSha256": "338CDA901BBF6F208F50AB8E446126C52F2C6AE72341942836694CE7AB4753AE",
+  "ControlsPrebuildFreezeSha256": "E9D58648DCBE229B99008332E14AFF8883362D9DEA9814B207E689B510E93F43",
+  "CollectorTarget": {
+    "ExitCode": 0,
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "RawHelperTarget": {
+    "ExitCode": 0,
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "OwnedStyle": {
+    "CollectorAndControlsInitialFiles": 16,
+    "FinalControlsFiles": 2,
+    "NeedsFormatting": 0
+  },
+  "CliRefusals": 14,
+  "CliRefusalRows": [
+    {
+      "Name": "wrong-argument-count",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-pin",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-tag",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "not-built",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-root",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-log-hash",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-version",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-source-hash",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "duplicate-artifact",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-scenario",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-plan-pin",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "existing-output",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-fresh-vm-metadata",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    },
+    {
+      "Name": "wrong-oracle-metadata",
+      "ExitCode": 1,
+      "RefusedBeforeOutput": true,
+      "SyntheticEvidence": true,
+      "NativeExecuted": false
+    }
+  ],
+  "RawControls": [
+    {
+      "ExitCode": 3,
+      "RawComplete": true,
+      "NativeExecuted": false
+    },
+    {
+      "ExitCode": 3,
+      "RawComplete": false,
+      "Milliseconds": 5091,
+      "OwnedChildTerminatedByHarness": true,
+      "NativeExecuted": false
+    }
+  ],
+  "RawOuterHost": {
+    "Stage": "ACTUAL_SIGNAL_RAW6_BOUNDED_OUTER_PROCESS",
+    "HostPid": 92700,
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Milliseconds": 5280,
+    "NativeExecuted": false
+  },
+  "SourceRowsRevalidated": 23,
+  "OutputClosures": [
+    {
+      "Owner": "collector",
+      "Files": [
+        {
+          "Path": "distribution_signal_observer.erl",
+          "Sha256": "1F509AB56D7DF09C97736B32321CD3493B3854577681E95B8778D7EE2F9BCEE3",
+          "Bytes": 9202
+        },
+        {
+          "Path": "Erlang.DistributionSignalObservations.deps.json",
+          "Sha256": "2C9CAB3BBD916A565BB9F93A701F0ADD2CD82F1278CACF764FB2B9FEDB4783E8",
+          "Bytes": 505
+        },
+        {
+          "Path": "Erlang.DistributionSignalObservations.dll",
+          "Sha256": "DEDC413CFB51011D78E1ECABEFF0D541B15E955C03A29ACA2907CC600EB69E38",
+          "Bytes": 41984
+        },
+        {
+          "Path": "Erlang.DistributionSignalObservations.exe",
+          "Sha256": "F420F655788E6F0350167141F958E69972D91AD2A9CA9E6F268DDEAAB9FE7939",
+          "Bytes": 162816
+        },
+        {
+          "Path": "Erlang.DistributionSignalObservations.pdb",
+          "Sha256": "FC74C435B2A9770CA6D80BCEA1D9DA1FD16FEC965A2CED368798C6CE06EE92D2",
+          "Bytes": 23692
+        },
+        {
+          "Path": "Erlang.DistributionSignalObservations.runtimeconfig.json",
+          "Sha256": "C230A317A54DD960BCBEB5F347F52E18DC665A26F7EFDA2159FCED9A5AC7E097",
+          "Bytes": 342
+        },
+        {
+          "Path": "source-plan.json",
+          "Sha256": "1F64FD20C0DB0BCF45388991FA29A21CD13521C533EE9F680DF59577D424EB47",
+          "Bytes": 1744
+        }
+      ]
+    },
+    {
+      "Owner": "raw-helper",
+      "Files": [
+        {
+          "Path": "SignalRawFocus.deps.json",
+          "Sha256": "27E7D8D12999E7A84A74C247BAA316DD3EA74D5AE7184F5B756099E101D44443",
+          "Bytes": 436
+        },
+        {
+          "Path": "SignalRawFocus.dll",
+          "Sha256": "0DD176BF23B88545E2F1814829100F649D2441965AB9094DCC9D8AC279D9FCB2",
+          "Bytes": 29184
+        },
+        {
+          "Path": "SignalRawFocus.exe",
+          "Sha256": "C2FA4F992439495C5815B926D22ECDF0F2BC02F8B5DE3291F818413DF2B3A08F",
+          "Bytes": 162304
+        },
+        {
+          "Path": "SignalRawFocus.pdb",
+          "Sha256": "8D1DF14C745580A9C2E3A6CEF609A31EDC5C4160B6E8567B0240A989E0F441DD",
+          "Bytes": 19764
+        },
+        {
+          "Path": "SignalRawFocus.runtimeconfig.json",
+          "Sha256": "C230A317A54DD960BCBEB5F347F52E18DC665A26F7EFDA2159FCED9A5AC7E097",
+          "Bytes": 342
+        }
+      ]
+    }
+  ],
+  "Logs": [
+    {
+      "Path": "pid-order-native-signal-target-recheck4.log",
+      "Sha256": "C131E7A32587CAA9E845FED6411F113779B9067671B7993BA223D4F83B78611A",
+      "Bytes": 574
+    },
+    {
+      "Path": "pid-order-native-signal-raw-helper-target-initial5.log",
+      "Sha256": "1473AFD4B507C54A19E139DDFF888CFBB9C58418EA3D2284CCDD2F19348BBA52",
+      "Bytes": 609
+    },
+    {
+      "Path": "pid-order-native-signal-raw-helper-target-revision6.log",
+      "Sha256": "2723C6C6455068C7D41EB2343CD6169E035429389689FDF71D84882A71C5120C",
+      "Bytes": 609
+    },
+    {
+      "Path": "pid-order-native-signal-controls-style-initial5.log",
+      "Sha256": "DB95AA23CF8D0CC6BFEF132AA42F9D49BF9753135B6557E9FCB5A96F44C9E0C1",
+      "Bytes": 119
+    },
+    {
+      "Path": "pid-order-native-signal-controls-style-write5.log",
+      "Sha256": "CD9054A77A078CB0F888BD4ECAC39BE95189F9307EF578F4B6AC97C22A9463B6",
+      "Bytes": 32
+    },
+    {
+      "Path": "pid-order-native-signal-controls-style-final6.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+      "Bytes": 40
+    },
+    {
+      "Path": "pid-order-native-signal-style-final4.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+      "Bytes": 40
+    },
+    {
+      "Path": "pid-order-native-signal-cli-controls-actual6.log",
+      "Sha256": "C05E464D2B852872CE6A128E4F537BB3C963DE68A727B823DC2E1E6362638F57",
+      "Bytes": 1748
+    },
+    {
+      "Path": "pid-order-native-signal-raw-controls-actual6.log",
+      "Sha256": "C4B29D896CC436A7E9152473557D95DE26A56B646683E2E9DAD69AE4601B2560",
+      "Bytes": 174
+    },
+    {
+      "Path": "pid-order-native-signal-raw-controls-actual6.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "pid-order-native-signal-raw-controls-actual6-host.json",
+      "Sha256": "EEC42EE232F7B221EC1B59DE1BE8AF71686A4E64FC7C8B472B25CA63A13E4B71",
+      "Bytes": 175
+    }
+  ],
+  "PreservedFailures": [
+    "artifacts/pid-order-native-signal-style-launch-initial3-failure/receipt.json",
+    "artifacts/pid-order-native-signal-raw-initial4-hang/receipt-pretermination.json",
+    "artifacts/pid-order-native-signal-raw-initial4-hang/receipt-terminal.json"
+  ],
+  "StyleToolActualPath": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll",
+  "StyleToolSha256": "E564159BC4E02B0104C3656F52630BC972D81391E0E59058083D5C51E9E074B3",
+  "NativeExecuted": false,
+  "ActualErlangProbeCompiled": false,
+  "MainMutated": false,
+  "CoreRegistrationsAdded": 0,
+  "SharedFramework8Unchanged": true,
+  "OriginalCollectorPlanProbeWorkflowEdited": false,
+  "Scope": "Local tool/helper validation only, synthetic CLI/root/log evidence not original OTP; actual native five observations await publication/dispatch. No semantic compatibility/performance/network claim. Global inventory/report filesystem failures remain overall failure, no unconditional persistence guarantee."
+}

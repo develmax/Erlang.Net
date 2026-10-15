@@ -9,7 +9,7 @@ internal sealed record SequenceTraceToken(
 )
 {
     public Term ToTerm() => Term.Tuple(
-        Term.I((int)Flags),
+        Term.I((long)Flags),
         Label,
         Term.I(Serial),
         Sender,

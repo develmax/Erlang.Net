@@ -349,13 +349,8 @@ public sealed partial class RuntimeDistributionPending
                     caller,
                     wire
                 );
-                Term target = message.Control.Items[(int)((Integer)message.Control.Items[DistributionPassThroughLayout.OpcodeIndex]).Value ==
-                    DistributionPassThroughLayout.SendOpcode ? DistributionPassThroughLayout.SendTargetIndex : DistributionPassThroughLayout.RegisteredTargetIndex];
                 connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
-                if (target is Atom name)
-                    target = runtime.WhereIs(name.Name);
-                if (target is Pid recipient && runtime.IsCurrentLocal(recipient))
-                    runtime.SendSystem(recipient, message.Payload);
+                DeliverConnectedTracePayload(message.Control, message.Payload);
             }
         }
     }

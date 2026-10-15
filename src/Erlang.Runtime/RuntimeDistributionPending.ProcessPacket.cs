@@ -78,16 +78,7 @@ public sealed partial class RuntimeDistributionPending
                 if (decoded.Payload is null)
                     RouteRawConnectedProcessControl(entry, connected, decoded.Control);
                 else
-                {
-                    var opcode = ((Integer)decoded.Control.Items[DistributionPassThroughLayout.OpcodeIndex]).Value;
-                    Term target = decoded.Control.Items[opcode == DistributionPassThroughLayout.SendOpcode
-                        ? DistributionPassThroughLayout.SendTargetIndex
-                        : DistributionPassThroughLayout.RegisteredTargetIndex];
-                    if (target is Atom name)
-                        target = runtime.WhereIs(name.Name);
-                    if (target is Pid recipient && runtime.IsCurrentLocal(recipient))
-                        runtime.SendSystem(recipient, decoded.Payload);
-                }
+                    DeliverConnectedTracePayload(decoded.Control, decoded.Payload);
                 connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
             }
         }
@@ -145,15 +136,20 @@ public sealed partial class RuntimeDistributionPending
                 break;
             case DistributionControlOpcodes.Exit:
             case DistributionControlOpcodes.Exit2:
-                if (opcode == DistributionControlOpcodes.Exit && !runtime.IsCurrentLocal(local))
+            case DistributionControlOpcodes.ExitTrace:
+            case DistributionControlOpcodes.Exit2Trace:
+                if (opcode is DistributionControlOpcodes.Exit or DistributionControlOpcodes.ExitTrace && !runtime.IsCurrentLocal(local))
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 runtime.QueueConnectedProcessExit(
                     entry,
                     connected,
                     remote,
                     local,
-                    items[DistributionControlOpcodes.ExitReasonIndex],
-                    opcode == DistributionControlOpcodes.Exit2
+                    items[opcode is DistributionControlOpcodes.ExitTrace or DistributionControlOpcodes.Exit2Trace
+                        ? DistributionControlOpcodes.ExitTraceReasonIndex : DistributionControlOpcodes.ExitReasonIndex],
+                    opcode is DistributionControlOpcodes.Exit2 or DistributionControlOpcodes.Exit2Trace,
+                    opcode is DistributionControlOpcodes.ExitTrace or DistributionControlOpcodes.Exit2Trace
+                        ? items[DistributionControlOpcodes.ExitTraceTokenIndex] : Nil.Value
                 );
                 break;
         }

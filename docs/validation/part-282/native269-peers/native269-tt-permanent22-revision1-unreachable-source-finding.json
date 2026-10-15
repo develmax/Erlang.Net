@@ -1,0 +1,12 @@
+{
+  "Status": "FAIL_SOURCE_REACHABILITY",
+  "Freeze": "artifacts\\dist_next-distribution-trace-permanent-promotion-source-freeze-revision1.json",
+  "FreezeSha256": "9F8A025D70FBE59452F4BB342CBFAC671B1EA26324AAD6A23E99E473D74F2846",
+  "Path": "tests/Erlang.Tests/Program.cs",
+  "BeforeSha256": "712DB3BDD9940F1AA34FE35A4CDE81E9D2CDCA476AB6AC501B20D3529500B774",
+  "AfterSha256": "81DAF4528CFF2756367A452190FC3820B51CC5604540D512DF1ABAF3409835A3",
+  "Finding": "Only appended TT Test statement lies after top-level return; unreachable new HOST group. Expected6562 count is not established.",
+  "FixProposal": "Separate frozen revision inserting exact Test statement immediately before existing return; preserve every prior byte except insertion.",
+  "MainEdited": false,
+  "BuildExecuted": false
+}

@@ -1,0 +1,36 @@
+from pathlib import Path
+import json,hashlib,subprocess,sys,shutil,os,time
+r=Path.cwd();configuration=sys.argv[1] if len(sys.argv)>1 else 'Release';area=(r/(sys.argv[2] if len(sys.argv)>2 else 'artifacts/part282-main-signal-validation')).resolve();assert not area.exists(),'Never overwrite actual Main receipts';area.mkdir(parents=True)
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest().upper()
+expected=json.loads((r/'artifacts/pid-order-native-signal-tool17-workflow1-promotion-source-plan.json').read_text());rows=[]
+for row in expected['Files']:
+ p=r/row['Path'];assert p.is_file() and sha(p)==row['Sha256'],row['Path'];rows.append({'Path':row['Path'],'Sha256':sha(p),'Bytes':p.stat().st_size})
+controls=r/'artifacts/pid-order-native-signal-observations-controls-plan-revision6';frozen=json.loads((r/'artifacts/pid-order-native-signal-observations-controls-source-freeze-final-controls6.json').read_text())
+for row in frozen['Files']:assert sha(controls/row['Path'])==row['Sha256'],row['Path']
+(area/'source-before.json').write_text(json.dumps({'ActualMainHead':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r).decode().strip(),'ActualMainToolAndWorkflow18':rows,'FrozenControls6Sha256':sha(r/'artifacts/pid-order-native-signal-observations-controls-source-freeze-final-controls6.json'),'NativeExecuted':False},indent=2)+'\n')
+env=dict(os.environ);env['DOTNET_PROCESSOR_COUNT']='2'
+def run(name,args,timeout=120):
+ with (area/(name+'.stdout.raw')).open('wb') as out,(area/(name+'.stderr.raw')).open('wb') as err:
+  process=subprocess.Popen(args,cwd=r,env=env,stdout=out,stderr=err,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0));timedout=False
+  try:code=process.wait(timeout=timeout)
+  except subprocess.TimeoutExpired:timedout=True;process.kill();code=process.wait(timeout=5)
+ (area/(name+'.exit.json')).write_text(json.dumps({'Pid':process.pid,'ExitCode':code,'TimedOut':timedout,'Arguments':args,'NativeExecuted':False},indent=2)+'\n');assert code==0 and not timedout,(name,code,timedout)
+run('actual-main-collector-target',['dotnet','build','tools/Erlang.DistributionSignalObservations/Erlang.DistributionSignalObservations.csproj','-c',configuration,'-m:1','--disable-build-servers','-p:BuildInParallel=false','-p:UseSharedCompilation=false'])
+style=area/'owned-style';style.mkdir()
+for directory in ['src','tests','tools','benchmarks','examples']:(style/directory).mkdir()
+(style/'.editorconfig').write_bytes((r/'.editorconfig').read_bytes())
+for row in rows:
+ if row['Path'].endswith('.cs'):p=style/row['Path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((r/row['Path']).read_bytes())
+for name in ['Program.cs','SignalRawNames.cs']:
+ p=style/'tests/SignalRawControls'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((controls/'raw-helper'/name).read_bytes())
+style_exe=r/'tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll';assert style_exe.exists();run('owned-style16',['dotnet',str(style_exe),'--check',str(style)]);(area/'style-binding.json').write_text(json.dumps({'Path':str(style_exe),'Sha256':sha(style_exe),'ActualMain':True,'OwnedCsFiles':16},indent=2)+'\n')
+base=r/'tools/Erlang.DistributionSignalObservations/bin'/configuration/'net10.0';assert (base/'Erlang.DistributionSignalObservations.dll').exists();inventory=[{'Path':p.relative_to(base).as_posix(),'Sha256':sha(p),'Bytes':p.stat().st_size} for p in sorted(base.rglob('*')) if p.is_file()];(area/'actual-main-collector-closure.json').write_text(json.dumps(inventory,indent=2)+'\n')
+python=sys.executable;run('cli14',[python,str(controls/'cli-controls.py'),str(base),str(area/'actual-cli14')])
+h=area/'actual-main-raw-helper';h.mkdir()
+for name in ['Program.cs','SignalRawNames.cs']:(h/name).write_bytes((controls/'raw-helper'/name).read_bytes())
+helpers=r/'tools/Erlang.DistributionSignalObservations/framework';(h/'SignalRawFocus.csproj').write_text('<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><Compile Include="'+str(helpers/'*.cs').replace('&','&amp;')+'" Link="framework/%(Filename)%(Extension)" /></ItemGroup></Project>')
+bind=[{'Path':str(p),'Sha256':sha(p),'Bytes':p.stat().st_size} for p in sorted(helpers.glob('*.cs'))];assert len(bind)==8;(area/'actual-main-helper-source-bindings.json').write_text(json.dumps(bind,indent=2)+'\n');run('actual-main-helper-target',['dotnet','build',str(h/'SignalRawFocus.csproj'),'-c',configuration,'-m:1','--disable-build-servers','-p:BuildInParallel=false','-p:UseSharedCompilation=false'])
+run('raw2',['dotnet',str(h/'bin'/configuration/'net10.0/SignalRawFocus.dll'),python,str(area/'actual-raw2')],25)
+cli=json.loads((area/'actual-cli14/receipt.json').read_text());assert len(cli['Rows'])==14 and all(row['RefusedBeforeOutput'] for row in cli['Rows']);raw=[json.loads(line) for line in (area/'raw2.stdout.raw').read_text().splitlines() if line];assert len(raw)==2 and raw[0]['RawComplete'] and not raw[1]['RawComplete'] and raw[1]['OwnedChildTerminatedByHarness']
+for row in rows:assert sha(r/row['Path'])==row['Sha256']
+(area/'receipt.json').write_text(json.dumps({'Stage':'ACTUAL_MAIN_SIGNAL_STANDALONE_TOOL_AND_FROZEN_CONTROLS_PASS','TargetWarnings':0,'TargetErrors':0,'OwnedStyleNeedsFormatting':0,'CliRefusals':14,'RawControls':raw,'ActualMainToolClosure':inventory,'ActualMainHelperBindings':bind,'Source18UnchangedAfterRun':True,'RawHarnessControlSourcesFrozen6Exact':True,'NativeExecuted':False,'ErlangProbeCompiled':False,'CoreRegistrationsAdded':0,'UnconditionalFailureReportPersistenceClaim':False},indent=2)+'\n');print('PASS actual Main standalone target/style16/CLI14/raw2; native OTP unexecuted')

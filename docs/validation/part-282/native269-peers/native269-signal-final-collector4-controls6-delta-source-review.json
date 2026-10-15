@@ -1,0 +1,34 @@
+{
+  "Status": "PASS_FINAL_SOURCE_DELTAS",
+  "Agent": "native269",
+  "Sources": [
+    {
+      "Freeze": "pid-order-native-signal-observations-controls-source-freeze-final-controls6.json",
+      "FreezeSha256": "E482DACD2340D3C7398D7CA5824BFAB5ED5C945C06A776B43CEEC6CC7E264781",
+      "Files": 6,
+      "WhitespaceOnlyPaths": [
+        "raw-helper/Program.cs",
+        "raw-helper/SignalRawNames.cs"
+      ]
+    },
+    {
+      "Freeze": "pid-order-native-signal-observations-source-freeze-final-collector4.json",
+      "FreezeSha256": "92EE2AB07888DD79B3DB7EF9D2AEB1FC3D7FC39184FE9793EB96AFE5DEEE7117",
+      "Files": 17,
+      "WhitespaceOnlyPaths": [
+        "tools/Erlang.DistributionSignalObservations/Program.cs",
+        "tools/Erlang.DistributionSignalObservations/SignalExporter.cs",
+        "tools/Erlang.DistributionSignalObservations/SignalFields.cs",
+        "tools/Erlang.DistributionSignalObservations/SignalModuleSource.cs",
+        "tools/Erlang.DistributionSignalObservations/SignalNames.cs",
+        "tools/Erlang.DistributionSignalObservations/SignalObservationRow.cs"
+      ]
+    }
+  ],
+  "ActualAuthorReceiptSha256": "778F8AC174506E2074FE5715A20EAF3776451CCACB902C32F9C9381CE7A59FF6",
+  "ReviewerExecuted": false,
+  "NativeExecuted": false,
+  "MainEdited": false,
+  "Scope": "Reviewed collector3 and controls5 code preserved except exact quoted-literal/non-whitespace formatter changes; no claim original Erlang compiler/native execution.",
+  "PermanentRegistrationCorrection": "Previous finding fix proposal immediately before return is insufficient where test execution foreach precedes return. Registration must precede test execution loop; Root requested before int failed/foreach. Historical source-only finding remains unchanged."
+}

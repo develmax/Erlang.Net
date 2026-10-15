@@ -17,6 +17,7 @@ public static class DistributionPassThroughFlags
     public const ulong MapTag = 0x20000;
     public const ulong BigCreation = 0x40000;
     public const ulong SendSender = 0x80000;
+    public const ulong ExitPayload = 0x400000;
     public const ulong Fragments = 0x800000;
     public const ulong Handshake23 = 0x1000000;
     public const ulong UnlinkId = 0x2000000;

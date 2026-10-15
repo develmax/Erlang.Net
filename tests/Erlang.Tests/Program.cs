@@ -4278,6 +4278,7 @@ Test(Erlang.Tests.TraceHookRollbackHostNames.Test, Erlang.Tests.TraceHookRollbac
 
 Test(Erlang.Tests.ProcessInfoDefaultHostNames.Test, Erlang.Tests.ProcessInfoDefaultHostChecks.Run);
 
+Test(Erlang.Tests.DistributionTraceHostNames.Test, Erlang.Tests.DistributionTraceHostChecks.Run);
 int failed = 0;
 foreach (var test in tests)
 {
