@@ -1,0 +1,661 @@
+{
+  "Status": "PASS_ACTUAL_MAIN317_FULL_NATIVE_READINESS_WITH_DECLARED_CLR_MEMORY_PROFILE",
+  "Passed": 6667,
+  "Failed": 0,
+  "Registry": 509,
+  "RegistryDelta": 2,
+  "ErlangPresence": 351,
+  "ErlangApiTotal": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "IntegrationResults": 11,
+  "SourcePaths": 38,
+  "CSharpPaths": 33,
+  "SourceClosurePaths": 2260,
+  "SourceFreezeSha256": "EE1516A086A0DE54C8A1CF12656DB45A13C157807349739B07BDEDB500DE1CD8",
+  "SourceClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "EvidenceIndexSha256": "591196AC8B36C716015F842BB1BB99F82F837FE0D7D485B9A14E1DEF7D9D8E40",
+  "Original317ExecutionClaimed": false,
+  "Current317RemotePending": true,
+  "Previous316CiNativeAndNewReallocationAudited": true,
+  "PhysicalMemoryParityClaimed": false,
+  "PortableCompiledBinaryArchiveClaimed": false,
+  "Closed0047Sha256": "E4DDE5A0BA2BB6F8CDF6807391307E3AB708D9B8917D1A368108D91A3B27FF74",
+  "Files": [
+    {
+      "SourcePath": "artifacts/root-part317-main1/source-freeze.json",
+      "Destination": "docs/validation/part-317/final-main/source-freeze.json",
+      "Bytes": 17055,
+      "Sha256": "EE1516A086A0DE54C8A1CF12656DB45A13C157807349739B07BDEDB500DE1CD8"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/source-resource-closure.json",
+      "Destination": "docs/validation/part-317/final-main/source-resource-closure.json",
+      "Bytes": 416961,
+      "Sha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-guard.json",
+      "Destination": "docs/validation/part-317/final-main/full-guard.json",
+      "Bytes": 7337,
+      "Sha256": "0238A5196BFEAEEC92E344C16C7A61C2DF61342FD597A07DF16E88F23EC9FE44"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-exit.json",
+      "Destination": "docs/validation/part-317/final-main/full-exit.json",
+      "Bytes": 182,
+      "Sha256": "E94DBA535F597890EA01F9C58F9C6339836C93A2D860B2E036A817F0EA65A4C2"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-validation.log",
+      "Destination": "docs/validation/part-317/final-main/full-validation.log",
+      "Bytes": 403394,
+      "Sha256": "FDE3C9709485788FF2B01D5797D25D0096F46FD61058830E2536BC216488ABF4"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/raw-supported-mfas.json",
+      "Destination": "docs/validation/part-317/final-main/raw-supported-mfas.json",
+      "Bytes": 153520,
+      "Sha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/readiness-exit.json",
+      "Destination": "docs/validation/part-317/final-main/readiness-exit.json",
+      "Bytes": 142,
+      "Sha256": "3FB44ECFC6B7C092E2DBA50829B795A30FBE68934C2FB6AE4466E2FF0DC5717F"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/readiness-cli.log",
+      "Destination": "docs/validation/part-317/final-main/readiness-cli.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/tests-first-failed.json",
+      "Destination": "docs/validation/part-317/first-restricted-full/tests-first-failed.json",
+      "Bytes": 938173,
+      "Sha256": "EB68C9BF4382372D19BF19113EE066EAF7B0F663C668467BB6E148BAAE5D1F9D"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-validation-first-failed.log",
+      "Destination": "docs/validation/part-317/first-restricted-full/full-validation-first-failed.log",
+      "Bytes": 409330,
+      "Sha256": "9E835630DBA053A6BD913D25D81A6D98DAA293C4AA80E23F22F5831A6FD2524D"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-exit-first-failed.json",
+      "Destination": "docs/validation/part-317/first-restricted-full/full-exit-first-failed.json",
+      "Bytes": 122,
+      "Sha256": "F9C975C4E2BBA88715DA7119A974655022C8CBB9B868C123F8BB92126DB3B8B5"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/raw-supported-mfas-first-failed.json",
+      "Destination": "docs/validation/part-317/first-restricted-full/raw-supported-mfas-first-failed.json",
+      "Bytes": 149215,
+      "Sha256": "A1CD8B30F0BDA1E8744846B8002342F01732E7964D4F10F3D1029C4C61030955"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main1/full-outside-sandbox-attempt.json",
+      "Destination": "docs/validation/part-317/first-restricted-full/full-outside-sandbox-attempt.json",
+      "Bytes": 419,
+      "Sha256": "85A4547883D1A696F80D5C1377A6251A2FED538F663A674202BEEA40FD2C14B0"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-pipe-diagnostic/PipeDiagnostic.csproj",
+      "Destination": "docs/validation/part-317/pipe-environment-diagnosis/PipeDiagnostic.csproj",
+      "Bytes": 400,
+      "Sha256": "04F25AE832631DCDA24B7B27169268A9A97B6268FCB645DD62FD62BE32E3020E"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-pipe-diagnostic/Program.cs",
+      "Destination": "docs/validation/part-317/pipe-environment-diagnosis/Program.cs",
+      "Bytes": 1182,
+      "Sha256": "64B6F246ACB17650D96BF27E2C205E41A4DCE3F77C24874BDC508CB167D4D4CA"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-pipe-diagnostic/build.log",
+      "Destination": "docs/validation/part-317/pipe-environment-diagnosis/build.log",
+      "Bytes": 521,
+      "Sha256": "981C79CA70ED964CE3D1577935E7127C75A70F04AF7BC1EC99D1A7246911C9D9"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-pipe-diagnostic/default-result.json",
+      "Destination": "docs/validation/part-317/pipe-environment-diagnosis/default-result.json",
+      "Bytes": 1625,
+      "Sha256": "A4569B0DB582D6176D657011FC7EB63AD30A8DFF3ABC8134ADE77C36DA724113"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-pipe-diagnostic/outside-sandbox-result.json",
+      "Destination": "docs/validation/part-317/pipe-environment-diagnosis/outside-sandbox-result.json",
+      "Bytes": 389,
+      "Sha256": "E9ACA52E594F1D21390599ED6340E9762C6288D40CA87902585219B1D7B48D73"
+    },
+    {
+      "SourcePath": "artifacts/tests.json",
+      "Destination": "docs/validation/part-317/final-main/tests.json",
+      "Bytes": 924577,
+      "Sha256": "961BB219377186A83CD5D400BD5F0FDAD3A7FAC118EB41F23DACC0F8F8D5C0B9"
+    },
+    {
+      "SourcePath": "artifacts/integration-results.json",
+      "Destination": "docs/validation/part-317/final-main/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "A2AD7573E48AE931F23B747824ADF3EDCCA2A6B8775A34175A5233927746DBB3"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/guard.json",
+      "Destination": "docs/validation/part-317/final-native/guard.json",
+      "Bytes": 5303,
+      "Sha256": "76EC54B6259DEABF6CA7247CE2B14B36DD5E479F47DD4743089719310AF2ECE8"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/legacy.attempt.json",
+      "Destination": "docs/validation/part-317/final-native/legacy.attempt.json",
+      "Bytes": 9634,
+      "Sha256": "A124EBCEEDD762B8F19BF06724D18EFEE816DCBC52501C3017DADC8A7794A17C"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/legacy.process.json",
+      "Destination": "docs/validation/part-317/final-native/legacy.process.json",
+      "Bytes": 826,
+      "Sha256": "07D42984A42899E8F5B0044A2E745AE23E1918017CA89AB6B76BDB902C03DC0B"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/legacy.stderr",
+      "Destination": "docs/validation/part-317/final-native/legacy.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/legacy.stdout",
+      "Destination": "docs/validation/part-317/final-native/legacy.stdout",
+      "Bytes": 1839,
+      "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/provider-query.attempt.json",
+      "Destination": "docs/validation/part-317/final-native/provider-query.attempt.json",
+      "Bytes": 9682,
+      "Sha256": "C7E00382721A2C0FCB3D036432B54004BA70A57D972F85F8994EEE8D9F24BE35"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/provider-query.process.json",
+      "Destination": "docs/validation/part-317/final-native/provider-query.process.json",
+      "Bytes": 834,
+      "Sha256": "8156C8DEF2E9768E72AB7D37C35B8F6896938F00474EA85DE1527C7EB2017CD9"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/provider-query.stderr",
+      "Destination": "docs/validation/part-317/final-native/provider-query.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/provider-query.stdout",
+      "Destination": "docs/validation/part-317/final-native/provider-query.stdout",
+      "Bytes": 4594,
+      "Sha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/reallocation.attempt.json",
+      "Destination": "docs/validation/part-317/final-native/reallocation.attempt.json",
+      "Bytes": 10059,
+      "Sha256": "DD2CD39314E8161D178E56CFDA8559F487B0E22D8BF88A41A1181650C968D210"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/reallocation.process.json",
+      "Destination": "docs/validation/part-317/final-native/reallocation.process.json",
+      "Bytes": 833,
+      "Sha256": "ACDA43D6BE118F44388681072BD54C36BBF8E08917639E42B1BFB0E50636E4E0"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/reallocation.stderr",
+      "Destination": "docs/validation/part-317/final-native/reallocation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-main-windows-native1/reallocation.stdout",
+      "Destination": "docs/validation/part-317/final-native/reallocation.stdout",
+      "Bytes": 2875,
+      "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    },
+    {
+      "SourcePath": "docs/module-readiness.json",
+      "Destination": "docs/validation/part-317/module-readiness.json",
+      "Bytes": 644268,
+      "Sha256": "EB0412F053B746583FACA00BADF6AC754791E8821A3D07BFA80B17887BBAFEBA"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-candidate1/source-freeze.json",
+      "Destination": "docs/validation/part-317/runtime-author/source-freeze.json",
+      "Bytes": 7978,
+      "Sha256": "20F71DC931205AF6BB1C4879418198DD5E767B8636399B1746AAEF511C0D0A6F"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-candidate1/source-resource-closure.json",
+      "Destination": "docs/validation/part-317/runtime-author/source-resource-closure.json",
+      "Bytes": 416408,
+      "Sha256": "B23EC556E22FC228B78651D64D9B6E0BE65A884829180148D768CA151D358421"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-candidate1/HANDOFF.md",
+      "Destination": "docs/validation/part-317/runtime-author/HANDOFF.md",
+      "Bytes": 6486,
+      "Sha256": "E79111A29AFF742B5C5AE21C10FB260B1CB7AB90DE6520B694EC5492508782A7"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-candidate1/published-parent-binding.json",
+      "Destination": "docs/validation/part-317/runtime-author/published-parent-binding.json",
+      "Bytes": 700,
+      "Sha256": "A51547163247FA628B9BC124871867E338B76AE585466F9995AF385DCE47F389"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-oracle1/source-freeze.json",
+      "Destination": "docs/validation/part-317/oracle-author/source-freeze.json",
+      "Bytes": 5133,
+      "Sha256": "761B9C1EFE11D4CE3F262DB52B9DD51D1CC07B60CD065E9FF28CFFC48D772EC1"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-oracle1/case-manifest.json",
+      "Destination": "docs/validation/part-317/oracle-author/case-manifest.json",
+      "Bytes": 5346,
+      "Sha256": "0EEE0B3F866442BCF1576918445306ABAB9D58FFD5E8415D0ABC4619273027D6"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-design1/design-freeze.json",
+      "Destination": "docs/validation/part-317/design/design-freeze.json",
+      "Bytes": 897,
+      "Sha256": "7B4430A7E55720DDEF9593A1FD0D6574157BE30DAB30D00CAD4D31FA78133D22"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-design1/DESIGN.md",
+      "Destination": "docs/validation/part-317/design/DESIGN.md",
+      "Bytes": 12537,
+      "Sha256": "2254F2553C8EF8CCDDE68161FAEE1B4325F6780317CABADB341DA0893B327459"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/focus-source-freeze.json",
+      "Destination": "docs/validation/part-317/isolated-focus/focus-source-freeze.json",
+      "Bytes": 9244,
+      "Sha256": "346BAEDF611C1FA69B77CFF0EBF6C6F238A2967D9D95158D02E29D65984234F3"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/focus-source-resource-closure.json",
+      "Destination": "docs/validation/part-317/isolated-focus/focus-source-resource-closure.json",
+      "Bytes": 416961,
+      "Sha256": "AC187DB25827D0EB1AF371CE61A37C230C1CC1743BDF2A2CB36AC19949052FB6"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/target-build-first-failed.log",
+      "Destination": "docs/validation/part-317/isolated-focus/target-build-first-failed.log",
+      "Bytes": 4379,
+      "Sha256": "07B430342508701FBF460EE462C2300C334D9A0BCF96B07A3620D259309021D3"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/target-build-corrected.log",
+      "Destination": "docs/validation/part-317/isolated-focus/target-build-corrected.log",
+      "Bytes": 1996,
+      "Sha256": "D893AF4B4D1F37628395F99CBA3087412E343DC07C0054F3C16DBA8E4C9501FD"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/actual-focus.json",
+      "Destination": "docs/validation/part-317/isolated-focus/actual-focus.json",
+      "Bytes": 1266,
+      "Sha256": "FEA48E81FBA151B365B44FE9E6FF32A653E63C577DAF93E1E57841D4DF6A1622"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/managed-focus-build.log",
+      "Destination": "docs/validation/part-317/isolated-focus/managed-focus-build.log",
+      "Bytes": 1864,
+      "Sha256": "15C9C2470490681659CD0CA12F06F8FBBC5A558D1AA1643D74B9B298C6456825"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/managed-actual-results.json",
+      "Destination": "docs/validation/part-317/isolated-focus/managed-actual-results.json",
+      "Bytes": 12043,
+      "Sha256": "83DADDEB5D1E6A58B05CDFD3771DC2B8B2A460F0DCC1EC1D5800C0161BE1EB2B"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/managed-process.json",
+      "Destination": "docs/validation/part-317/isolated-focus/managed-process.json",
+      "Bytes": 683,
+      "Sha256": "5A66A3D98A0F6BB89AD99C285DB67298A258443D4D1FDDAE8128F7E6DDC9527E"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/managed-stdout.log",
+      "Destination": "docs/validation/part-317/isolated-focus/managed-stdout.log",
+      "Bytes": 57,
+      "Sha256": "F61BEAA62E0ECEACDC3B5E93F025EEF6142299AC2A49014CDD6B33868C8CD608"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed1/managed-stderr.log",
+      "Destination": "docs/validation/part-317/isolated-focus/managed-stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed2/final-source-freeze.json",
+      "Destination": "docs/validation/part-317/final-candidate/final-source-freeze.json",
+      "Bytes": 16589,
+      "Sha256": "BA75B3175ED3F773CC0B4B1B64DFD93677E1AEFBADE7C9FF3CC20FFE819610DB"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-composed2/final-source-resource-closure.json",
+      "Destination": "docs/validation/part-317/final-candidate/final-source-resource-closure.json",
+      "Bytes": 416961,
+      "Sha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-reseal1/receipt.json",
+      "Destination": "docs/validation/part-317/reseal/receipt.json",
+      "Bytes": 3016,
+      "Sha256": "C8C434C6E7169BC9D876FE44B2031C531E67837E8527EC089A5AC34F350BE227"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-plan-reseal-proposal1/proposal-freeze.json",
+      "Destination": "docs/validation/part-317/reseal/proposal-freeze.json",
+      "Bytes": 2462,
+      "Sha256": "4D7D8091E0B20F51DEA579C4DC5A31225C5C4F2DA07D79A42EE88C6DFE33D790"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-plan-reseal-proposal1/configuration.json",
+      "Destination": "docs/validation/part-317/reseal/configuration.json",
+      "Bytes": 5013,
+      "Sha256": "7C1406C9B3AAB4ECCADB2F9301992D3CF26D235B77AC2610BD3E048545446E02"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-plan-reseal-proposal1/reseal.py",
+      "Destination": "docs/validation/part-317/reseal/reseal.py",
+      "Bytes": 10886,
+      "Sha256": "A413EF4E6821D8A2FBFADFBDEF20097F66976FF7BAF2A51487C9760CB26D84FD"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-plan-reseal-proposal1/source-closure-audit.json",
+      "Destination": "docs/validation/part-317/reseal/source-closure-audit.json",
+      "Bytes": 1838,
+      "Sha256": "160B7DA7B251AC69CA955F091A5AFC929BF529207F146434A33C1878208D97B0"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-plan-reseal-proposal1/explicit-all-source-peer.json",
+      "Destination": "docs/validation/part-317/reseal/explicit-all-source-peer.json",
+      "Bytes": 953,
+      "Sha256": "83593016D9F030DB983357A95499F66F46A87FF97B51C0F4E1EC2C509533FC47"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-beam310-source-peer.json",
+      "Destination": "docs/validation/part-317/peer/clr-memory-public317-beam310-source-peer.json",
+      "Bytes": 1755,
+      "Sha256": "BEACF6488296D7C4305F060EB74B1203990A486E42D703A699DCA16D8075D79F"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-oracle-beam310-source-peer.json",
+      "Destination": "docs/validation/part-317/peer/clr-memory-public317-oracle-beam310-source-peer.json",
+      "Bytes": 1421,
+      "Sha256": "6046B45FEDB115C3AFD7D9881ADC6CFD2588C031BA1186AA23599B368557BDEA"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-final-beam310-source-peer.json",
+      "Destination": "docs/validation/part-317/peer/root-part317-final-beam310-source-peer.json",
+      "Bytes": 1759,
+      "Sha256": "CA341E0F03EBF445D202FD16B7BB1F54B2A13A69398BE6A238B976188A9D0A9B"
+    },
+    {
+      "SourcePath": "artifacts/clr-memory-public317-beam310-pinned-relations.txt",
+      "Destination": "docs/validation/part-317/peer/clr-memory-public317-beam310-pinned-relations.txt",
+      "Bytes": 3945,
+      "Sha256": "E393F2EC81480D2BD0251728E4455B1660B90EC8C83AEA2F2F4CBD2BF6757B45"
+    },
+    {
+      "SourcePath": "artifacts/part317-main-native-beam310-source-peer.json",
+      "Destination": "docs/validation/part-317/peer/native-proposal-review.json",
+      "Bytes": 2319,
+      "Sha256": "DE57E9F177FB283D63BAACF77CEB038FD7489CA0C1F44533A7560D6F0FE8AACA"
+    },
+    {
+      "SourcePath": "artifacts/part317-finalization-source-peer2/review.json",
+      "Destination": "docs/validation/part-317/peer/finalizer-source-review2.json",
+      "Bytes": 5444,
+      "Sha256": "B18A576DB89A25A2E9E8F8044B6582C6899C2C7EB4B6F1D6D388041B5F73077B"
+    },
+    {
+      "SourcePath": "artifacts/part317-main-native-proposal1/proposal-freeze.json",
+      "Destination": "docs/validation/part-317/native-controls/proposal-freeze.json",
+      "Bytes": 923,
+      "Sha256": "98F1013D5B1C90D18A3EACF323133DA3B5CF8D048159B9BDD18ABE12B5E68413"
+    },
+    {
+      "SourcePath": "artifacts/part317-main-native-proposal1/configuration.json",
+      "Destination": "docs/validation/part-317/native-controls/configuration.json",
+      "Bytes": 4203,
+      "Sha256": "C0D41364FCE710B0A24D01CCC7F05CA70F6331E893CC295744AD559CEF114AF6"
+    },
+    {
+      "SourcePath": "artifacts/part317-main-native-proposal1/run317-main-native.py",
+      "Destination": "docs/validation/part-317/native-controls/run317-main-native.py",
+      "Bytes": 7960,
+      "Sha256": "EF6F0838F9C27C31585CB8277F2FB10AB876A8BBC0ACFC36A396617CA748F114"
+    },
+    {
+      "SourcePath": "artifacts/part317-main-native-proposal1/guard317-main-native.py",
+      "Destination": "docs/validation/part-317/native-controls/guard317-main-native.py",
+      "Bytes": 9293,
+      "Sha256": "AE9069721EEC07A72D06E749CCDAA566B4D1480E0CB18DB8C6F709F798CB2FF1"
+    },
+    {
+      "SourcePath": "artifacts/root-compose317-runtime.py",
+      "Destination": "docs/validation/part-317/root-controls/root-compose317-runtime.py",
+      "Bytes": 1094,
+      "Sha256": "F3270CE666BFC5D80435DEFD09263F3FC429E06DC704ABF4C77DE8ABD85635DF"
+    },
+    {
+      "SourcePath": "artifacts/root-compose317-oracle.py",
+      "Destination": "docs/validation/part-317/root-controls/root-compose317-oracle.py",
+      "Bytes": 1036,
+      "Sha256": "1DBE718636F710FCB9749BF23847B1C83BFD28D665FEBD23F37EFF2A4EA85C7B"
+    },
+    {
+      "SourcePath": "artifacts/root-compose317-final.py",
+      "Destination": "docs/validation/part-317/root-controls/root-compose317-final.py",
+      "Bytes": 937,
+      "Sha256": "50D5832D90D412697CB985B4A2D7804B915D64B13DDB3C7BA4DDCBD3E4DBBB4E"
+    },
+    {
+      "SourcePath": "artifacts/root-freeze317-focus.py",
+      "Destination": "docs/validation/part-317/root-controls/root-freeze317-focus.py",
+      "Bytes": 2132,
+      "Sha256": "C2822E69C2D5661D7FE44BFB01E1D524C745838AEC4FE29C4C25833003239AEC"
+    },
+    {
+      "SourcePath": "artifacts/root-freeze317-formatted.py",
+      "Destination": "docs/validation/part-317/root-controls/root-freeze317-formatted.py",
+      "Bytes": 1043,
+      "Sha256": "ABEAE36346F6BD779018A6D064FADF20B55A98194E5D60EB46F12F9B0FA894F4"
+    },
+    {
+      "SourcePath": "artifacts/root-freeze317-resealed.py",
+      "Destination": "docs/validation/part-317/root-controls/root-freeze317-resealed.py",
+      "Bytes": 1826,
+      "Sha256": "423B879F2A32AAF61B68CC9BBCCB4F9127EA931D9D101F4C7F63AE3D72878CD9"
+    },
+    {
+      "SourcePath": "artifacts/root-run317-managed-focus.py",
+      "Destination": "docs/validation/part-317/root-controls/root-run317-managed-focus.py",
+      "Bytes": 2065,
+      "Sha256": "65386F0361CF4CE8AC60B52377149E50DFFEBB45D051ADC605FDB0839DD11BF8"
+    },
+    {
+      "SourcePath": "artifacts/root-promote317.py",
+      "Destination": "docs/validation/part-317/root-controls/root-promote317.py",
+      "Bytes": 2388,
+      "Sha256": "14407800A490D32C5F48840352487B2D879B0ACC02DDFBB7C8C5BE056CE374B6"
+    },
+    {
+      "SourcePath": "artifacts/root-guard317-full.py",
+      "Destination": "docs/validation/part-317/root-controls/root-guard317-full.py",
+      "Bytes": 6114,
+      "Sha256": "DC7000A3F57F148F7CA603D76C021EC5B6B610FC6C9F09C0F358D999A0468384"
+    },
+    {
+      "SourcePath": "artifacts/root-finalize317.py",
+      "Destination": "docs/validation/part-317/root-controls/root-finalize317.py",
+      "Bytes": 11423,
+      "Sha256": "46620920EBD1445685BAAABB01470C8BFA0C245E89D9DF91639272321F37DE29"
+    },
+    {
+      "SourcePath": "artifacts/root-run317-full-outside-sandbox.ps1",
+      "Destination": "docs/validation/part-317/root-controls/root-run317-full-outside-sandbox.ps1",
+      "Bytes": 3679,
+      "Sha256": "A20BDFAD134A7AE19C343B4AFD9F4072D7D86170D586832994629D7386AF7AAD"
+    },
+    {
+      "SourcePath": "artifacts/root-stage317.py",
+      "Destination": "docs/validation/part-317/root-controls/root-stage317.py",
+      "Bytes": 7604,
+      "Sha256": "18ABA8E51C89EC6261A3FC980498FECD10B0086668B74197B888A50843FF482A"
+    },
+    {
+      "SourcePath": "artifacts/pack316-watch-38816836998-terminal/artifact-12011849126/differential.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-watch-38816836998-terminal/artifact-12011849126/differential.json",
+      "Bytes": 5984421,
+      "Sha256": "6902C83DA85D67BFF8C85486FF2793A728BE3AA842A995E10BDC8CBC28813AD1"
+    },
+    {
+      "SourcePath": "artifacts/pack316-watch-38816836998-terminal/artifact-12011849126/fd-differential.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-watch-38816836998-terminal/artifact-12011849126/fd-differential.json",
+      "Bytes": 8152,
+      "Sha256": "04A222821AA5280A87A025B270F926F738B696D7EF8182AA604CCBA5AD3B63A7"
+    },
+    {
+      "SourcePath": "artifacts/pack316-watch-38816836998-terminal/artifact-12011849126/allocator-profile.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-watch-38816836998-terminal/artifact-12011849126/allocator-profile.json",
+      "Bytes": 3149,
+      "Sha256": "FD88E0C386FE8A1B7258A425BA209DD7F0F469E2515344ABFFA3AE0CBE81C749"
+    },
+    {
+      "SourcePath": "artifacts/pack316-watch-38816836998-terminal/artifact-12011849126/allocator-profile.log",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-watch-38816836998-terminal/artifact-12011849126/allocator-profile.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "SourcePath": "artifacts/pack316-watch-38816836998-terminal/job-116703542893.log",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-watch-38816836998-terminal/job-116703542893.log",
+      "Bytes": 1078032,
+      "Sha256": "FFE53F055B6C744BB138F3E0AD4C6FC0F6507A2CF3B0FD700477215B2B661805"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ci-independent-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ci-independent-guard.json",
+      "Bytes": 1962,
+      "Sha256": "FFCA6E963D9A8D03C6C605EE0391229B6CB47B902C5EA2B2711B96224470CEA9"
+    },
+    {
+      "SourcePath": "artifacts/pack316-native-combined-independent-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-native-combined-independent-guard.json",
+      "Bytes": 1430,
+      "Sha256": "8240F5B7F298B94C1F15FE913EE646E2CBECEB87E92FFEE56EA042DC61447444"
+    },
+    {
+      "SourcePath": "artifacts/pack316-reallocation-independent-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-reallocation-independent-guard.json",
+      "Bytes": 5934,
+      "Sha256": "6DD7DBBFE5656B2ABA7877A277C67213382995C9EFE743FF58F0FE5652093609"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-semantic2-independent-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-semantic2-independent-guard.json",
+      "Bytes": 1241,
+      "Sha256": "2EF6B8CC2CC7AD1AD35136D43DA5D473F8CE7816DB737703D42320A657407519"
+    },
+    {
+      "SourcePath": "artifacts/pack316-allocator-profile-independent-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-allocator-profile-independent-guard.json",
+      "Bytes": 1312,
+      "Sha256": "ECC504E656B239F80FFCD9DD577FC66205BC04F8F856D2004F492D43ED72BFCF"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-terminal-envelope-guard.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-terminal-envelope-guard.json",
+      "Bytes": 767,
+      "Sha256": "1EA3F68A3E7149DED42D37CEA142A818769509773F7255495B91F8B3046BC025"
+    },
+    {
+      "SourcePath": "artifacts/pack316-terminal-independent-summary.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-terminal-independent-summary.json",
+      "Bytes": 2869,
+      "Sha256": "C5A73A25EACDBAD60A4687CBBE83D304E8349BC8F4225D81AC805C8772C60DA6"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-reviewer-attempts.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-reviewer-attempts.json",
+      "Bytes": 1556,
+      "Sha256": "0ED8CEE0F7CDEEB171BAABB0443C05E1A687C36673524C382CE0C69BB711E5E5"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-strict-historical-differences.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-strict-historical-differences.json",
+      "Bytes": 2276,
+      "Sha256": "DE18E4F721DBF94E1260C3796DF9ABAB4AE32CFF40954846A28E2554287E5A05"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-semantic2-historical-differences.json",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-semantic2-historical-differences.json",
+      "Bytes": 2276,
+      "Sha256": "DE18E4F721DBF94E1260C3796DF9ABAB4AE32CFF40954846A28E2554287E5A05"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-contract-reviewer-initial.py",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-contract-reviewer-initial.py",
+      "Bytes": 7880,
+      "Sha256": "0EF9B427B90CFAA4814202A882A1CDEC426364A8637EC55BA87BF17214AA23C5"
+    },
+    {
+      "SourcePath": "artifacts/pack316-ordinary-contract2.py",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-ordinary-contract2.py",
+      "Bytes": 7878,
+      "Sha256": "19F2C8FA01122B99FB78720469004E865CCF6972E68E5BFA3A4E27C533B9FE99"
+    },
+    {
+      "SourcePath": "artifacts/pack316-allocator-profile-guard.py",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-allocator-profile-guard.py",
+      "Bytes": 3970,
+      "Sha256": "E066D0F9479DC486519ACFCD55FE60BADA78196DDB02DAE2A6763BF854BD9398"
+    },
+    {
+      "SourcePath": "artifacts/pack316-allocator-profile-guard2.py",
+      "Destination": "docs/validation/part-317/previous-head316/pack316-allocator-profile-guard2.py",
+      "Bytes": 4051,
+      "Sha256": "1767F76C816B73A396258002D7255EED45D7B419CDA00305C7240E5F355089CE"
+    },
+    {
+      "SourcePath": "artifacts/pack316-lean-terminal-copy-rows.json",
+      "Destination": "docs/validation/part-317/previous-head316/lean-copy-rows.json",
+      "Bytes": 6251,
+      "Sha256": "18571D0BDE8CC27DE04393B4FE9F2921EBD1D2C35A01B8D8E460B4C6645D48D1"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-docs1/runtime-note.txt",
+      "Destination": "docs/validation/part-317/documentation-controls/runtime-note.txt",
+      "Bytes": 1319,
+      "Sha256": "EFF49893899C7354F6B97A56E26B39FA017E6480983818D2940CC06638E01D00"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-docs1/scope-command.json",
+      "Destination": "docs/validation/part-317/documentation-controls/scope-command.json",
+      "Bytes": 258,
+      "Sha256": "0753064F55EF8B71823D906049B4C7B69121163696B1F4C36705736A5AAE4F97"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-docs1/scope-before.json",
+      "Destination": "docs/validation/part-317/documentation-controls/scope-before.json",
+      "Bytes": 120526,
+      "Sha256": "75F52823B1408C8E9439C9C964354D5493030B607EEA7973D69A82B4B84D5DAF"
+    },
+    {
+      "SourcePath": "artifacts/root-part317-docs1/english-entry.md",
+      "Destination": "docs/validation/part-317/documentation-controls/english-entry.md",
+      "Bytes": 6961,
+      "Sha256": "FEC815083E88FBB696BA71FE97E87A3CB6A53FF89CAD3DF680943C6B7F4F2B2B"
+    }
+  ]
+}

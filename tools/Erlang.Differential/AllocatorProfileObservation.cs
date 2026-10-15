@@ -14,6 +14,11 @@ internal static class AllocatorProfileObservation
         OracleProcessOutput? native = null;
         CompiledModuleStreamResult? sdk = null;
         Term? original = null;
+        OracleProcessOutput? memoryNative = null;
+        CompiledModuleStreamResult? memorySdk = null;
+        Term? memoryOriginal = null;
+        bool memoryNativeValid = false;
+        bool memorySdkValid = false;
         bool versionVerified = false;
         bool timedOut = false;
         bool nativeValid = false;
@@ -63,14 +68,43 @@ internal static class AllocatorProfileObservation
             using var compiled = GeneratedModuleCompiler.Compile(fixture.Source);
             sdk = await CompiledModuleExecution.RunCaptured(compiled, fixture.CallerContext);
             sdkValid = sdk.Result.Equals(fixture.Expected);
-            if (!nativeValid || !sdkValid)
+            await foreach (var memoryObservation in OracleExecutionPipeline.Run(
+                new[] { ClrMemoryCaseNames.RawSnapshotSource },
+                source => CompiledModuleProtocol.Command(source),
+                async (command, cancellation) =>
+                {
+                    memoryNative = await RunProcess(
+                        oracle,
+                        command,
+                        cancellation,
+                        (output, timeout) =>
+                    {
+                        memoryNative = output;
+                        timedOut |= timeout;
+                    }
+                    );
+                    if (memoryNative.ExitCode != 0)
+                        throw new InvalidOperationException(AllocatorProfileObservationNames.Failure);
+
+                    return memoryNative.StandardOutput;
+                },
+                _ => { }
+            ))
+            {
+                memoryOriginal = OracleResultProtocol.Decode(memoryObservation.Output);
+                memoryNativeValid = ClrMemoryObservationContracts.Validate(memoryOriginal);
+            }
+            using var memoryCompiled = GeneratedModuleCompiler.Compile(ClrMemoryCaseNames.RawSnapshotSource);
+            memorySdk = await CompiledModuleExecution.RunCaptured(memoryCompiled);
+            memorySdkValid = ClrMemoryObservationContracts.Validate(memorySdk.Result);
+            if (!nativeValid || !sdkValid || !memoryNativeValid || !memorySdkValid)
                 throw new InvalidOperationException(AllocatorProfileObservationNames.Failure);
         }
         catch (Exception exception)
         {
             failure = exception.ToString();
         }
-        bool passed = failure is null && versionVerified && nativeValid && sdkValid;
+        bool passed = failure is null && versionVerified && nativeValid && sdkValid && memoryNativeValid && memorySdkValid;
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(report))!);
         await File.WriteAllTextAsync(
             report,
@@ -105,6 +139,28 @@ internal static class AllocatorProfileObservation
                     OriginalStandardErrorHex = native is null ? null : Convert.ToHexString(native.StandardErrorBytes.Span),
                     SdkStandardOutputHex = sdk?.StandardOutputHex,
                     SdkStandardErrorHex = sdk?.StandardErrorHex,
+                    MemoryProfile = new
+                    {
+                        Source = ClrMemoryCaseNames.RawSnapshotSource,
+                        SourceSha256 = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(ClrMemoryCaseNames.RawSnapshotSource))),
+                        OriginalScope = ClrMemoryCaseNames.OriginalScope,
+                        SdkScope = ClrMemoryCaseNames.SdkScope,
+                        DeclaredClrAdaptation = true,
+                        RawMatchClaimed = false,
+                        RawResultsEqual = memoryOriginal is not null && memorySdk is not null ? (bool?)memoryOriginal.Equals(memorySdk.Result) : null,
+                        KeyOrder = ClrMemoryCaseNames.OrderedKeys,
+                        OriginalObservedMemoryKeyCount = memoryNativeValid ? (int?)ClrMemoryCaseNames.KeyCount : null,
+                        SdkObservedMemoryKeyCount = memorySdkValid ? (int?)ClrMemoryCaseNames.KeyCount : null,
+                        OriginalNineKeyNumericPartitionValidated = memoryNativeValid,
+                        SdkNineKeyNumericPartitionValidated = memorySdkValid,
+                        OriginalOutcome = memoryOriginal?.ToString(),
+                        SdkOutcome = memorySdk?.Result.ToString(),
+                        OriginalProcess = memoryNative,
+                        OriginalStandardOutputHex = memoryNative is null ? null : Convert.ToHexString(memoryNative.StandardOutputBytes.Span),
+                        OriginalStandardErrorHex = memoryNative is null ? null : Convert.ToHexString(memoryNative.StandardErrorBytes.Span),
+                        SdkStandardOutputHex = memorySdk?.StandardOutputHex,
+                        SdkStandardErrorHex = memorySdk?.StandardErrorHex
+                    },
                     TimedOut = timedOut,
                     InfrastructureOrContractError = failure
                 },

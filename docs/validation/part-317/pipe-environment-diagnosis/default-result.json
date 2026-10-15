@@ -1,0 +1,18 @@
+{
+  "Runtime": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part317-pipe-diagnostic\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+  "RuntimeSha256": "6FB1527971E092C172BE7D8F28460646D8FF22937CC9915922514F75B5835440",
+  "Results": [
+    {
+      "Overlapped": false,
+      "Passed": false,
+      "NativeErrorCode": 5,
+      "Exception": "System.ComponentModel.Win32Exception (5): \u041E\u0442\u043A\u0430\u0437\u0430\u043D\u043E \u0432 \u0434\u043E\u0441\u0442\u0443\u043F\u0435.\r\n   at Erlang.WindowsPortChildProcess.Pipe(Boolean inheritRead, Boolean overlapped) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\WindowsPortChildProcess.cs:line 212\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span\u00601 copyOfArgs, BindingFlags invokeAttr)"
+    },
+    {
+      "Overlapped": true,
+      "Passed": false,
+      "NativeErrorCode": 5,
+      "Exception": "System.ComponentModel.Win32Exception (5): \u041E\u0442\u043A\u0430\u0437\u0430\u043D\u043E \u0432 \u0434\u043E\u0441\u0442\u0443\u043F\u0435.\r\n   at Erlang.WindowsPortChildProcess.Pipe(Boolean inheritRead, Boolean overlapped) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\WindowsPortChildProcess.cs:line 212\r\n   at InvokeStub_WindowsPortChildProcess.Pipe(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    }
+  ]
+}

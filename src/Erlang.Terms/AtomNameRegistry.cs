@@ -10,8 +10,12 @@ public static class AtomNameRegistry
     static AtomNameRegistry()
     {
         names.TryAdd(ErlangBooleanAtoms.False, 0);
+        ObservedPayloadStorage.Atom(ErlangBooleanAtoms.False);
         foreach (string name in ErlangPrimordialAtomNames.All)
+        {
             names.TryAdd(name, names.Count);
+            ObservedPayloadStorage.Atom(name);
+        }
     }
 
     public static void Observe(string name)
@@ -27,12 +31,14 @@ public static class AtomNameRegistry
             if (names.Count >= AtomTableLimits.MaximumNames)
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
             names.TryAdd(name, names.Count);
+            ObservedPayloadStorage.Atom(name);
         }
     }
 
     public static string Register(string name)
     {
         Observe(name);
+        ObservedPayloadStorage.Atom(name);
 
         return name;
     }

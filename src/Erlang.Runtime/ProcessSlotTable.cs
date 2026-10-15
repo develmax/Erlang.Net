@@ -2,7 +2,9 @@ namespace Erlang;
 
 internal sealed class ProcessSlotTable
 {
-    private readonly Dictionary<int, Pid> slots = new();
+    private readonly List<Pid?> slots = new();
+    internal long AllocatedPayloadBytes => (long)slots.Capacity * IntPtr.Size;
+    internal long UsedPayloadBytes => (long)identities.Count * IntPtr.Size;
     private readonly Dictionary<Pid, int> identities = new();
     private readonly SortedSet<int> occupied = new();
     private readonly Queue<int> released = new();
@@ -19,7 +21,7 @@ internal sealed class ProcessSlotTable
 
     public void RequireCapacity()
     {
-        if (slots.Count == Capacity)
+        if (identities.Count == Capacity)
             throw new ErlangException(ErlangErrorReasons.SystemLimit);
     }
 
@@ -27,7 +29,10 @@ internal sealed class ProcessSlotTable
     {
         RequireCapacity();
         int slot = released.TryDequeue(out int reused) ? reused : nextSlot++;
-        slots.Add(slot, pid);
+        if (slot == slots.Count)
+            slots.Add(pid);
+        else
+            slots[slot] = pid;
         identities.Add(pid, slot);
         occupied.Add(slot);
     }
@@ -36,7 +41,7 @@ internal sealed class ProcessSlotTable
     {
         if (!identities.Remove(pid, out int slot))
             return;
-        slots.Remove(slot);
+        slots[slot] = null;
         occupied.Remove(slot);
         released.Enqueue(slot);
     }
@@ -48,11 +53,11 @@ internal sealed class ProcessSlotTable
         if (cursor == Capacity)
             return null;
         int limit = Math.Min(Capacity, cursor + ProcessTableParameters.ManagedScanWindow);
-        var processes = new List<Pid>(Math.Min(slots.Count, ProcessTableParameters.ManagedBatchPidBudget));
+        var processes = new List<Pid>(Math.Min(identities.Count, ProcessTableParameters.ManagedBatchPidBudget));
         int next = limit;
         foreach (int slot in occupied.GetViewBetween(cursor, limit - 1))
         {
-            processes.Add(slots[slot]);
+            processes.Add(slots[slot]!);
             if (processes.Count == ProcessTableParameters.ManagedBatchPidBudget)
             {
                 next = slot + 1;

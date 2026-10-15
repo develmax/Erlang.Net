@@ -1,0 +1,110 @@
+{
+  "References": [
+    {
+      "Path": "artifacts/part316-main-native-proposal2/proposal-freeze.json",
+      "Bytes": 912,
+      "Sha256": "67DAA5A2D02E07C87FFF0BFA6AED027D9AE21D7283FC5DDDE28FCF26111AACF0"
+    },
+    {
+      "Path": "artifacts/part316-main-native-proposal2/run316-main-native.py",
+      "Bytes": 6200,
+      "Sha256": "8C0E1644800233B8947946A7CA2EE241A9A26F42B341B96F446A615DAEDC656C"
+    },
+    {
+      "Path": "artifacts/part316-main-native-proposal2/guard316-main-native.py",
+      "Bytes": 7457,
+      "Sha256": "0B9FFD69539052F651905EDE183D5384170AD5608C8C76393B60B395889137E3"
+    },
+    {
+      "Path": "artifacts/root-part315-main-windows-native1/guard.json",
+      "Bytes": 5346,
+      "Sha256": "29648DCF5C5556FBEC47C4B039E2B28F2446D1D42DC27C8FA3E1BB539A05F97A"
+    },
+    {
+      "Path": "artifacts/root-part316-main-windows-native1/guard.json",
+      "Bytes": 5347,
+      "Sha256": "BF0D9A3A239140425CF6EA4E69489BA8090FC0FE1096E453C66336E4E00F8FF8"
+    },
+    {
+      "Path": "artifacts/root-part316-main-windows-native1/legacy.stdout",
+      "Bytes": 1839,
+      "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "Path": "artifacts/root-part316-main-windows-native1/reallocation.stdout",
+      "Bytes": 2875,
+      "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    },
+    {
+      "Path": "artifacts/root-part315-isolated-windows1/manual-typed-review.json",
+      "Bytes": 7204,
+      "Sha256": "EA16210AA0B2F38F69803AAD5E59AE3686E0972635A0C7FA81704A64D5B643FC"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+      "Bytes": 8076,
+      "Sha256": "A8205F7577A9FB991EB8FDFF860571B375E5B57A944BF70F4AFBEC5B4A837FAA"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/source-freeze.json",
+      "Bytes": 2019,
+      "Sha256": "5920861E12EC8964EB3CB0F8BF3C02A902130C0E0A289772C2D01D92E3EB103D"
+    },
+    {
+      "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll",
+      "Bytes": 9728,
+      "Sha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-build1/reallocation_fixture.dll",
+      "Bytes": 10240,
+      "Sha256": "EAFD8CECED541CCFC0C02CE04EC19428448BD64630F343D28C360E19DE848E21"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-layout1/layout.json",
+      "Bytes": 143,
+      "Sha256": "35231D9DA206E7A3E3BB07F9CA59BA67FE91AE3AF34B64C920D0FE841CE30D45"
+    },
+    {
+      "Path": "artifacts/root-part317-composed2/final-source-freeze.json",
+      "Bytes": 16589,
+      "Sha256": "BA75B3175ED3F773CC0B4B1B64DFD93677E1AEFBADE7C9FF3CC20FFE819610DB"
+    },
+    {
+      "Path": "artifacts/root-part317-composed2/final-source-resource-closure.json",
+      "Bytes": 416961,
+      "Sha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26"
+    }
+  ],
+  "MainSourceFreeze": "artifacts/root-part317-main1/source-freeze.json",
+  "MainSourceFreezeSha256": "EE1516A086A0DE54C8A1CF12656DB45A13C157807349739B07BDEDB500DE1CD8",
+  "MainClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "ExpectedFullPassed": 6667,
+  "ExpectedIntegrations": 11,
+  "SourcePaths": 38,
+  "CSharpPaths": 33,
+  "CompleteSourceFiles": 2260,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "290FAFD8451E922A623DAB6D34DE3C54C8372A8F002B28F5E640DDAC2927F4FA",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "C5AC9F4A83683F0021F012310A3336FBFE3854036BDDB34910F6268BF7394BFF",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256"
+    }
+  ],
+  "CaptureTimeoutSeconds": 120,
+  "Roles": [
+    "legacy",
+    "provider-query",
+    "reallocation"
+  ],
+  "OriginalExecuted": false,
+  "PhysicalCompared": false,
+  "RecipeExecuted": false
+}

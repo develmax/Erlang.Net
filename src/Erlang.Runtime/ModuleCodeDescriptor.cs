@@ -17,7 +17,7 @@ public sealed class ModuleCodeDescriptor
     public IReadOnlyList<(string Name, int Arity)>? DeclaredNifs
     {
         get => declaredNifs;
-        init => declaredNifs = value is null ? null : Array.AsReadOnly(value.Distinct().ToArray());
+        init => declaredNifs = value is null ? null : Array.AsReadOnly(ObservedPayloadStorage.Code(value.Distinct().ToArray()));
     }
 
 
@@ -37,12 +37,12 @@ public sealed class ModuleCodeDescriptor
         if (!Enum.IsDefined(attributePolicy))
             throw new ArgumentOutOfRangeException(nameof(attributePolicy));
         AttributePolicy = attributePolicy;
-        Functions = Array.AsReadOnly(functions.ToArray());
-        Exports = Array.AsReadOnly(exports.ToArray());
+        Functions = Array.AsReadOnly(ObservedPayloadStorage.Code(functions.ToArray()));
+        Exports = Array.AsReadOnly(ObservedPayloadStorage.Code(exports.ToArray()));
         Fingerprint = fingerprint;
         Compilation = compilation;
         Attributes = attributes;
         SourceOwner = sourceOwner;
-        NativeRecords = Array.AsReadOnly((nativeRecords ?? []).ToArray());
+        NativeRecords = Array.AsReadOnly(ObservedPayloadStorage.Code((nativeRecords ?? []).ToArray()));
     }
 }

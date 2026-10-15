@@ -19,6 +19,7 @@ public sealed class BitString : Term
         if (BitLength < 0 || BitLength > data.Length * 8 || (BitLength + 7) / 8 != data.Length)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         bytes = data.ToArray();
+        ObservedPayloadStorage.Binary(bytes);
         if (bytes.Length > 0 && BitLength % 8 != 0)
             bytes[^1] &= (byte)(0xff << (8 - BitLength % 8));
     }
@@ -33,6 +34,7 @@ public sealed class BitString : Term
     {
         bytes = takeOwnership ? ownedBytes : ownedBytes.ToArray();
         BitLength = checked(ownedBytes.Length * BitStringLayout.BitsPerByte);
+        ObservedPayloadStorage.Binary(bytes);
     }
 
     internal static BitString FromOwnedBytes(byte[] bytes) => new(bytes, true);

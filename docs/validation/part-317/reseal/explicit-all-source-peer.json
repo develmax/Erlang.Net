@@ -1,0 +1,19 @@
+{
+  "Passed": true,
+  "Scope": "Independent source-only explicit All correction review; no execution",
+  "CompiledFocusFreezeSha256": "346BAEDF611C1FA69B77CFF0EBF6C6F238A2967D9D95158D02E29D65984234F3",
+  "PreservedFirstBuildFailureSha256": "07B430342508701FBF460EE462C2300C334D9A0BCF96B07A3620D259309021D3",
+  "CorrectedPath": "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+  "CorrectedSourceSha256": "B711C22732B5E273F4CD437F59396E21CE75A4E15943BAC567E95734195D57F1",
+  "Findings": [],
+  "ReviewedBehavior": [
+    "Explicit array sized exactly Ordered.Length",
+    "Index iterates every ordered key exactly once",
+    "Select uses the same immutable captured snapshot",
+    "One local Atom reused in tuple and selector; constant name identities retain same value semantics",
+    "Term.List preserves same ordered tuple sequence",
+    "No policy/expected/native changes"
+  ],
+  "BuildOrTestsExecutedByReviewer": false,
+  "ResealScriptAstParsedOnly": true
+}

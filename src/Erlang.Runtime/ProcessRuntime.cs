@@ -163,6 +163,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         initializer = new(initial);
         initial.ExecutionStarted = true;
         initializer.Start();
+        ClrMemorySources.Register(this);
     }
 
     public ProcessHandle Spawn(Func<ProcessContext, ValueTask<Term>> body, ProcessContext? parent = null, bool link = false)

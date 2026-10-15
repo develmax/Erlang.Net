@@ -1,0 +1,112 @@
+{
+  "Published316Head": "6d7a430f55a43e488257f654e72a53b3b7f96ada",
+  "PublishedInputs": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 222073,
+      "Sha256": "89E2FF550301826DFE26C02318578E1D21252D85478B9261BB3673B80AE6236C"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 232117,
+      "Sha256": "04E3A8CF4739C70F79921F2BC76710BD7496FDB0122CDAE5B18A4858A7B44637"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "537155272C07A215ED0FEA158423D771544F309B44E64C06876100E274D552A8"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5790,
+      "Sha256": "5E7C8A9EE117D63C5E45B90473A2F142103EE4E44C8A763CC1DE5EA013B92331"
+    },
+    {
+      "Path": ".gitattributes",
+      "Bytes": 7114,
+      "Sha256": "6CF96942F7F2BBA7DC75A39BE8F2A69111093289A71CB1AA9DCD4C705B18D43B"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/run-reviewed.py",
+      "Bytes": 12966,
+      "Sha256": "7E8A87D6321D67C82E624F92C5F438BB1C914B4C126120ECAA18E5EE2C273847"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj",
+      "Bytes": 1222,
+      "Sha256": "FB766C2ECDDA3CE6844E8AB407421CE29B054D8C70C2D695F2B5C828E43E92CC"
+    }
+  ],
+  "WorkingParentFreezeSha256": "57F9F381B91AECFDA6634167A659B6C6C9C0A9147ED0AF9BCEDA9F1B3AD7680C",
+  "WorkingParentClosureSha256": "87E2A60C038EC320EE9F91E9C1A3E7387E250D5EA5EA4AD293D717D973DF4691",
+  "RuntimeAuthorFreezeSha256": "20F71DC931205AF6BB1C4879418198DD5E767B8636399B1746AAEF511C0D0A6F",
+  "OracleAuthorFreezeSha256": "761B9C1EFE11D4CE3F262DB52B9DD51D1CC07B60CD065E9FF28CFFC48D772EC1",
+  "OwnedCSharpPaths": [
+    "src/Erlang.Runtime/BeamStructureReader.cs",
+    "src/Erlang.Runtime/ClrMemoryNames.cs",
+    "src/Erlang.Runtime/ClrMemoryQuery.cs",
+    "src/Erlang.Runtime/ClrMemoryRegistrations.cs",
+    "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+    "src/Erlang.Runtime/ClrMemorySources.cs",
+    "src/Erlang.Runtime/CoreModules.cs",
+    "src/Erlang.Runtime/Mailbox.Memory.cs",
+    "src/Erlang.Runtime/MemoryRuntimeMarker.cs",
+    "src/Erlang.Runtime/ModuleCodeDescriptor.cs",
+    "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+    "src/Erlang.Runtime/PreparedBeamImage.cs",
+    "src/Erlang.Runtime/ProcessRuntime.Memory.cs",
+    "src/Erlang.Runtime/ProcessRuntime.cs",
+    "src/Erlang.Runtime/ProcessSlotTable.cs",
+    "src/Erlang.Runtime/RuntimeMemoryPayload.cs",
+    "src/Erlang.Terms/AtomNameRegistry.cs",
+    "src/Erlang.Terms/BitString.cs",
+    "src/Erlang.Terms/ObservedPayloadEntry.cs",
+    "src/Erlang.Terms/ObservedPayloadKind.cs",
+    "src/Erlang.Terms/ObservedPayloadSnapshot.cs",
+    "src/Erlang.Terms/ObservedPayloadStorage.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostChecks.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostNames.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostParameters.cs",
+    "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tests/Erlang.Tests/SystemAllocatorPublicHostChecks.cs",
+    "tools/Erlang.Differential/AllocatorProfileObservation.cs",
+    "tools/Erlang.Differential/ClrMemoryCaseNames.cs",
+    "tools/Erlang.Differential/ClrMemoryCases.cs",
+    "tools/Erlang.Differential/ClrMemoryObservationContracts.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs"
+  ],
+  "NativePlanAddedCompilePaths": [
+    "src/Erlang.Runtime/ClrMemoryNames.cs",
+    "src/Erlang.Runtime/ClrMemoryQuery.cs",
+    "src/Erlang.Runtime/ClrMemoryRegistrations.cs",
+    "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+    "src/Erlang.Runtime/ClrMemorySources.cs",
+    "src/Erlang.Runtime/Mailbox.Memory.cs",
+    "src/Erlang.Runtime/MemoryRuntimeMarker.cs",
+    "src/Erlang.Runtime/ProcessRuntime.Memory.cs",
+    "src/Erlang.Runtime/RuntimeMemoryPayload.cs",
+    "src/Erlang.Terms/ObservedPayloadEntry.cs",
+    "src/Erlang.Terms/ObservedPayloadKind.cs",
+    "src/Erlang.Terms/ObservedPayloadSnapshot.cs",
+    "src/Erlang.Terms/ObservedPayloadStorage.cs"
+  ],
+  "ExcludedNewCompilePaths": [
+    "tests/Erlang.Tests/ClrMemoryPublicHostChecks.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostNames.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostParameters.cs",
+    "tools/Erlang.Differential/ClrMemoryCaseNames.cs",
+    "tools/Erlang.Differential/ClrMemoryCases.cs",
+    "tools/Erlang.Differential/ClrMemoryObservationContracts.cs"
+  ],
+  "ExpectedLegacyInputs": 1086,
+  "ExpectedOwnInputs": 1111,
+  "ExpectedComposedSourceFiles": 2260,
+  "ExpectedOwnedSourcePathsWithMetadata": 38,
+  "RootCorrection": {
+    "Path": "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+    "Reason": "CS1673 readonly struct lambda captured this; Root replaces All lambda with explicit array/for/local Atom, same query semantics.",
+    "FirstFailureLog": "artifacts/root-part317-composed1/target-build-first-failed.log",
+    "ReviewedAfterCorrectionRequired": true
+  }
+}

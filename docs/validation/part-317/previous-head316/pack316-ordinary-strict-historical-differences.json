@@ -1,0 +1,52 @@
+[
+  {
+    "Track": "ModuleResults",
+    "Index": 3605,
+    "Previous308": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    "Current316": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": false,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  }
+]

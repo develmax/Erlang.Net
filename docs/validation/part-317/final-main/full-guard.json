@@ -1,0 +1,147 @@
+{
+  "Status": "PASS_ACTUAL_MAIN317_6667_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6667,
+  "Failed": 0,
+  "All6654PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host/clr-observed-payload-memory",
+    "mfa/erlang:memory/0",
+    "mfa/erlang:memory/1",
+    "oracle/compiled-module/erlang-memory-profile-all-nine-key-shape-partition",
+    "oracle/compiled-module/erlang-memory-profile-empty-list",
+    "oracle/compiled-module/erlang-memory-profile-invalid-head-before-improper-tail",
+    "oracle/compiled-module/erlang-memory-profile-list-order-duplicate-one-snapshot",
+    "oracle/compiled-module/erlang-memory-profile-maximum-default",
+    "oracle/compiled-module/erlang-memory-profile-nonatom-list-member",
+    "oracle/compiled-module/erlang-memory-profile-scalar-nonnegative",
+    "oracle/compiled-module/erlang-memory-profile-unknown-key",
+    "oracle/compiled-module/erlang-memory-profile-valid-head-improper-tail",
+    "oracle/compiled-module/erlang-memory-profile-wrong-outer"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 38,
+  "CSharpPaths": 33,
+  "SourceResourceClosureFiles": 2260,
+  "SourceFreezeSha256": "EE1516A086A0DE54C8A1CF12656DB45A13C157807349739B07BDEDB500DE1CD8",
+  "SourceClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "Registry": 509,
+  "PreviousRegistry": 507,
+  "PublicMfaDelta": 2,
+  "ErlangMfas": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_sizes",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    }
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1086,
+      "Sha256": "290FAFD8451E922A623DAB6D34DE3C54C8372A8F002B28F5E640DDAC2927F4FA",
+      "Added": [
+        "src/Erlang.Runtime/ClrMemoryNames.cs",
+        "src/Erlang.Runtime/ClrMemoryQuery.cs",
+        "src/Erlang.Runtime/ClrMemoryRegistrations.cs",
+        "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+        "src/Erlang.Runtime/ClrMemorySources.cs",
+        "src/Erlang.Runtime/Mailbox.Memory.cs",
+        "src/Erlang.Runtime/MemoryRuntimeMarker.cs",
+        "src/Erlang.Runtime/ProcessRuntime.Memory.cs",
+        "src/Erlang.Runtime/RuntimeMemoryPayload.cs",
+        "src/Erlang.Terms/ObservedPayloadEntry.cs",
+        "src/Erlang.Terms/ObservedPayloadKind.cs",
+        "src/Erlang.Terms/ObservedPayloadSnapshot.cs",
+        "src/Erlang.Terms/ObservedPayloadStorage.cs"
+      ],
+      "NonFilesFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1111,
+      "Sha256": "C5AC9F4A83683F0021F012310A3336FBFE3854036BDDB34910F6268BF7394BFF",
+      "Added": [
+        "src/Erlang.Runtime/ClrMemoryNames.cs",
+        "src/Erlang.Runtime/ClrMemoryQuery.cs",
+        "src/Erlang.Runtime/ClrMemoryRegistrations.cs",
+        "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+        "src/Erlang.Runtime/ClrMemorySources.cs",
+        "src/Erlang.Runtime/Mailbox.Memory.cs",
+        "src/Erlang.Runtime/MemoryRuntimeMarker.cs",
+        "src/Erlang.Runtime/ProcessRuntime.Memory.cs",
+        "src/Erlang.Runtime/RuntimeMemoryPayload.cs",
+        "src/Erlang.Terms/ObservedPayloadEntry.cs",
+        "src/Erlang.Terms/ObservedPayloadKind.cs",
+        "src/Erlang.Terms/ObservedPayloadSnapshot.cs",
+        "src/Erlang.Terms/ObservedPayloadStorage.cs"
+      ],
+      "NonFilesFieldsUnchanged": true
+    }
+  ],
+  "NewOriginalCasesExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "GuardSourceSha256": "DC7000A3F57F148F7CA603D76C021EC5B6B610FC6C9F09C0F358D999A0468384",
+  "FirstRestrictedFullPassed": 6651,
+  "FirstRestrictedFullFailed": 16,
+  "FirstFailureNames": [
+    "oracle/compiled-module/erlang-port-native-option-echo-3",
+    "oracle/compiled-module/erlang-port-native-option-echo-4",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+    "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+    "oracle/compiled-module/erlang-port-native-option-arg0-9",
+    "oracle/compiled-module/erlang-port-native-option-arg0-10",
+    "oracle/compiled-module/erlang-port-native-option-arg0-11",
+    "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+    "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+    "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+    "oracle/compiled-module/erlang-port-native-option-output-only-no-data"
+  ],
+  "SameDllNamedPipeRestrictionVerified": true,
+  "FullExecutionContext": "Outside sandbox",
+  "ProductionSourceOrExpectedResultsChangedForRerun": false,
+  "FirstFailedReportSha256": "EB68C9BF4382372D19BF19113EE066EAF7B0F663C668467BB6E148BAAE5D1F9D",
+  "RestrictedProbeSha256": "A4569B0DB582D6176D657011FC7EB63AD30A8DFF3ABC8134ADE77C36DA724113",
+  "UnrestrictedProbeSha256": "E9ACA52E594F1D21390599ED6340E9762C6288D40CA87902585219B1D7B48D73",
+  "FirstRestrictedDirectMfasPassed": 509,
+  "FirstFailedSavedRegistryWasInherited316Count": 507,
+  "FirstFailureDidNotRegenerateDerivedRegistry": true
+}

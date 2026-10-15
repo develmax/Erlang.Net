@@ -23,7 +23,7 @@ internal static class SystemAllocatorPublicHostChecks
         Require(!registry.Exports.Any(export => Owns(export.Module, export.Function, export.Arity)));
         CoreModules.Register(registry);
         Require(registry.Exports.Count(export => Owns(export.Module, export.Function, export.Arity)) == SystemAllocatorPublicHostNames.PublicFunctionCount);
-        Require(!registry.Exports.Any(export => export.Module == ErlangModuleNames.Module && export.Function == SystemAllocatorPublicHostNames.Memory));
+        Require(registry.Exports.Count(export => ClrMemoryPublicHostChecks.Owns(export.Module, export.Function, export.Arity)) == ClrMemoryPublicHostParameters.PublicFunctions);
         await ActualPublicResults();
         await ValidationBeforeCapability();
         await MailboxAndRuntimeIsolation();

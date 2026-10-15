@@ -1741,6 +1741,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
 
             return;
         }
+        if (Erlang.Tests.ClrMemoryPublicHostChecks.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ClrMemoryPublicHostChecks.RunMfa(export.Arity);
+
+            return;
+        }
         if (Erlang.Tests.SystemAllocatorPublicHostChecks.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.SystemAllocatorPublicHostChecks.RunMfa(export.Function);
@@ -4347,6 +4353,7 @@ Test(
     Erlang.Tests.SystemAllocatorPublicHostNames.Test,
     Erlang.Tests.SystemAllocatorPublicHostChecks.Run
 );
+Test(Erlang.Tests.ClrMemoryPublicHostNames.Test, Erlang.Tests.ClrMemoryPublicHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

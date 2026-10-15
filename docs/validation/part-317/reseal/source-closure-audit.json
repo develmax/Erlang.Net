@@ -1,0 +1,46 @@
+{
+  "Passed": true,
+  "SourceOnly": true,
+  "Published316Head": "6d7a430f55a43e488257f654e72a53b3b7f96ada",
+  "SelectorExecutedAsExactAstWithNoSubprocess": true,
+  "LegacyBefore": 1073,
+  "LegacyAfter": 1086,
+  "OwnBefore": 1098,
+  "OwnAfter": 1111,
+  "Added13": [
+    "src/Erlang.Runtime/ClrMemoryNames.cs",
+    "src/Erlang.Runtime/ClrMemoryQuery.cs",
+    "src/Erlang.Runtime/ClrMemoryRegistrations.cs",
+    "src/Erlang.Runtime/ClrMemorySnapshot.cs",
+    "src/Erlang.Runtime/ClrMemorySources.cs",
+    "src/Erlang.Runtime/Mailbox.Memory.cs",
+    "src/Erlang.Runtime/MemoryRuntimeMarker.cs",
+    "src/Erlang.Runtime/ProcessRuntime.Memory.cs",
+    "src/Erlang.Runtime/RuntimeMemoryPayload.cs",
+    "src/Erlang.Terms/ObservedPayloadEntry.cs",
+    "src/Erlang.Terms/ObservedPayloadKind.cs",
+    "src/Erlang.Terms/ObservedPayloadSnapshot.cs",
+    "src/Erlang.Terms/ObservedPayloadStorage.cs"
+  ],
+  "Removed": [],
+  "ExcludedUnrelatedNewTestsAndDifferentialCompileSources": [
+    "tests/Erlang.Tests/ClrMemoryPublicHostChecks.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostNames.cs",
+    "tests/Erlang.Tests/ClrMemoryPublicHostParameters.cs",
+    "tools/Erlang.Differential/ClrMemoryCaseNames.cs",
+    "tools/Erlang.Differential/ClrMemoryCases.cs",
+    "tools/Erlang.Differential/ClrMemoryObservationContracts.cs"
+  ],
+  "NativeBackendProjectReferences": [
+    "../../src/Erlang.Runtime/Erlang.Runtime.csproj",
+    "../../src/Erlang.Compiler/Erlang.Compiler.csproj"
+  ],
+  "NativeBackendLinkedDifferentialSources": [
+    "../Erlang.Differential/GeneratedModuleCompiler.cs",
+    "../Erlang.Differential/GeneratedModuleArtifact.cs",
+    "../Erlang.Differential/GeneratedModuleReferences.cs",
+    "../Erlang.Differential/GeneratedModuleMetadata.cs",
+    "../Erlang.Differential/OracleDiagnostics.cs"
+  ],
+  "SdkOrBuildNativeVmExecuted": false
+}

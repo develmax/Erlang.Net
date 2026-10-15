@@ -1,0 +1,135 @@
+{
+  "Status": "SOURCE_ONLY_317_ORACLE_CASES_AND_RAW_OBSERVER_AUTHOR_COMPLETE",
+  "RuntimeCandidateFreeze": {
+    "Path": "artifacts/clr-memory-public317-candidate1/source-freeze.json",
+    "Sha256": "20F71DC931205AF6BB1C4879418198DD5E767B8636399B1746AAEF511C0D0A6F"
+  },
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePaths": 5,
+  "CSharpPaths": 5,
+  "NewFiles": 3,
+  "ComparableCases": 10,
+  "SeparateRawMemoryObservation": 1,
+  "ProgramWorkflowChanged": false,
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/AllocatorProfileObservation.cs",
+      "Bytes": 13842,
+      "Sha256": "C39098B5C9CE40F3D62A32ED29A125954CC15CF796338561400CB2FD0C2C68E5",
+      "Added": false,
+      "ParentSha256": "2D76DCBCE56972BA61D7644028A41FDB5E7EEB54F13FDCCDE46DE2C7D2C33622"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ClrMemoryCaseNames.cs",
+      "Bytes": 3628,
+      "Sha256": "482CAB1CB27E011666493046ACEA4D419D2191F1D492332C9DDBFD309FCBC2B8",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ClrMemoryCases.cs",
+      "Bytes": 2645,
+      "Sha256": "24216C16ECA07239FB61A28C834F64C6AE581F5038021357B5826F03214E4BDA",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ClrMemoryObservationContracts.cs",
+      "Bytes": 2108,
+      "Sha256": "A0CEA71DA01CFFED9C9F000FB041F2026A642670633C8A7BC86B35078F92FA55",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31319,
+      "Sha256": "194F890CDF33BC0A69DF9C559F5CE52DE3DDEBB912D9F61869BC04E50CA0E76A",
+      "Added": false,
+      "ParentSha256": "6EE74B0DC1408F7173FD80811B04A81775E7911CB17C258F013F533C02A84BFD"
+    }
+  ],
+  "Artifacts": [
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/case-manifest.json",
+      "Bytes": 5346,
+      "Sha256": "0EEE0B3F866442BCF1576918445306ABAB9D58FFD5E8415D0ABC4619273027D6"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/all-nine-key-shape-partition.erl",
+      "Bytes": 306,
+      "Sha256": "2BB541835CAC6DCE647629823BB176F16D2DF86C854163AC9A35A20308947082"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/empty-list.erl",
+      "Bytes": 76,
+      "Sha256": "BEAEBF3AAF247B4EE434734FAFCCCF2F1DB7790091224C65BD9D0C547444F87F"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/invalid-head-before-improper-tail.erl",
+      "Bytes": 106,
+      "Sha256": "57955A33DBF63A5015EE9BA2BA988B5614670CC9C6839FB5A4F5763B2322765B"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/list-order-duplicate-one-snapshot.erl",
+      "Bytes": 254,
+      "Sha256": "6D5A1E95EDBF69316E0E6D7C659E5514E30A216BDB289E5EDD9B253B166A34D5"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/maximum-default.erl",
+      "Bytes": 81,
+      "Sha256": "BDF9D294860F7897FB2B640AC041E68F558CCA400E0955A9F50C22E402281FB2"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/nonatom-list-member.erl",
+      "Bytes": 84,
+      "Sha256": "BBCF7AB235A336AAB25A3BB94A726567A2101B0097D76062BC64613C3FC47973"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/raw-memory-snapshots.erl",
+      "Bytes": 166,
+      "Sha256": "9ECCD680E6CDB9062BE8DB2E3CD225F6E4539798D8E8329ED99DC88A4B90B04B"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/scalar-nonnegative.erl",
+      "Bytes": 108,
+      "Sha256": "CB0FCC6AB0F022DD712F1C227AA8213895B7458F52259575526EB28CF252F46C"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/unknown-key.erl",
+      "Bytes": 99,
+      "Sha256": "BD981603EE9100C7321E2C846BEDD0B3115C4201AA72B8DDA0749890BD8E9B91"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/valid-head-improper-tail.erl",
+      "Bytes": 86,
+      "Sha256": "03E985CEC00B96CC59F0AB01DE70ACE9249687A26EF2995D81ECBFF2583801F8"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/fixtures/wrong-outer.erl",
+      "Bytes": 76,
+      "Sha256": "C07E52E3E01878C0BE8E8111B89A7D9294BEC8C574867C6E4DA390F7D9F3D6DB"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/pinned-source/erlang.erl-memory.excerpt.txt",
+      "Bytes": 5330,
+      "Sha256": "F079EB215FF8D70B2EFB1CB2B66898FE35FA286FA44F72EADF4546AE0B848F0E"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/README.md",
+      "Bytes": 3758,
+      "Sha256": "6CA906D1109527985629949E0E94D743558C16B91F5C1A749486FDAC6F533E3B"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/source-bindings.json",
+      "Bytes": 2354,
+      "Sha256": "EFD8838B769E6F7131E86B4EDFE5C14425027999ADEBF2B5F2F8B3215860862A"
+    },
+    {
+      "Path": "artifacts/clr-memory-public317-oracle1/source-only-checks.json",
+      "Bytes": 519,
+      "Sha256": "2479A1B198BC02EB470A2FA18DDE4EDB440CFB4E92B31C178EFEC4EACF528BDB"
+    }
+  ],
+  "MainGitMutation": false,
+  "SdkBuildNativeVmNetworkExecuted": false
+}

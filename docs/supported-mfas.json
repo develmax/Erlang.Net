@@ -3864,6 +3864,22 @@
     "Limits": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
   },
   {
+    "Module": "erlang",
+    "Function": "memory",
+    "Arity": 0,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:memory/0",
+    "Limits": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+  },
+  {
+    "Module": "erlang",
+    "Function": "memory",
+    "Arity": 1,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:memory/1",
+    "Limits": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+  },
+  {
     "Module": "gen_server",
     "Function": "start",
     "Arity": 3,

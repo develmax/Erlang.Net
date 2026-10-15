@@ -14,7 +14,7 @@ public sealed class PreparedBeamImage
         AttributeProvenance = metadata.Attributes;
         CompilationProvenance = metadata.Compilation;
         ExecutionIdentity = new(new ModuleCodeImage(Name, this), this);
-        Bodies = Array.AsReadOnly(code.Exports.Select<BeamLinkedFunction, ErlangFunction>(function =>
+        Bodies = Array.AsReadOnly(ObservedPayloadStorage.Code(code.Exports.Select<BeamLinkedFunction, ErlangFunction>(function =>
             BeamGeneratedMetadata.IsGenerated(code, function)
                 ? (context, arguments) => BeamGeneratedMetadata.Invoke(context, function.Module, arguments)
                 : (context, arguments) => BeamRegisterInterpreter.Execute(
@@ -24,7 +24,7 @@ public sealed class PreparedBeamImage
                     Array.AsReadOnly(arguments.ToArray()),
                     ExecutionIdentity
                 )
-        ).ToArray());
+        ).ToArray()));
     }
 
     internal ModuleRegistry Owner

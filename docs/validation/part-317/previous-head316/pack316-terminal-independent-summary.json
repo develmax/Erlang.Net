@@ -1,0 +1,77 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD316_ALL_FOUR_TERMINAL_JOBS_WITH_DECLARED_RAW_STDOUT_ALLOWANCE_AND_BACKEND_ADAPTATION",
+  "Head": "6d7a430f55a43e488257f654e72a53b3b7f96ada",
+  "Attempt": 1,
+  "Ci": {
+    "Run": 38816670203,
+    "Passed": 6654,
+    "Integration": 11,
+    "Mfa": 507,
+    "ErlangMfa": 349
+  },
+  "Native": {
+    "Run": 38816817629,
+    "SourcePlanRows": 1073,
+    "LinuxStdoutRows": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13Validated": true
+  },
+  "Reallocation": {
+    "Run": 38816798900,
+    "SourcePlanRows": 1098,
+    "InstalledPrefixFiles": 2646,
+    "NativeSharedLibrariesBuiltAndReviewed": 4,
+    "OriginalCases": 3,
+    "SdkCases": 3,
+    "ActualComparisonPassed": true,
+    "Prior315FailurePreserved": true
+  },
+  "Ordinary": {
+    "Run": 38816836998,
+    "Passed": 5870,
+    "FdPassed": 8,
+    "HistoricalOrderedCasesPreserved": 5861,
+    "NewAllocatorCases": 9,
+    "HistoricalRawRowsExactlyEqual": false,
+    "ExistingAllowedMapStdoutOrderVarianceRows": 1,
+    "RawMapVariancePreserved": true,
+    "SeparateBackendProfileTypedPass": true,
+    "OriginalBackend": "libc",
+    "SdkBackend": "dotnet_native_memory",
+    "RawBackendResultsEqual": false,
+    "BackendRawMatchClaimed": false
+  },
+  "GuardBindings": [
+    {
+      "Path": "artifacts/pack316-ci-independent-guard.json",
+      "Sha256": "FFCA6E963D9A8D03C6C605EE0391229B6CB47B902C5EA2B2711B96224470CEA9",
+      "Status": "PASS_EXACT_HEAD316_CI6654_FULL"
+    },
+    {
+      "Path": "artifacts/pack316-native-combined-independent-guard.json",
+      "Sha256": "8240F5B7F298B94C1F15FE913EE646E2CBECEB87E92FFEE56EA042DC61447444",
+      "Status": "PASS_EXACT_HEAD316_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Path": "artifacts/pack316-reallocation-independent-guard.json",
+      "Sha256": "6DD7DBBFE5656B2ABA7877A277C67213382995C9EFE743FF58F0FE5652093609",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD316_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON"
+    },
+    {
+      "Path": "artifacts/pack316-ordinary-semantic2-independent-guard.json",
+      "Sha256": "2EF6B8CC2CC7AD1AD35136D43DA5D473F8CE7816DB737703D42320A657407519",
+      "Status": "PASS_EXACT_HEAD316_FRESH_ORIGINAL5870_FD8_PRESERVED308_CORPUS_PLUS_NINE_ALLOCATOR_CASES"
+    },
+    {
+      "Path": "artifacts/pack316-allocator-profile-independent-guard.json",
+      "Sha256": "ECC504E656B239F80FFCD9DD577FC66205BC04F8F856D2004F492D43ED72BFCF",
+      "Status": "PASS_EXACT_HEAD316_SEPARATE_ACTUAL_ORIGINAL_LIBC_VS_SDK_DOTNET_BACKEND_PROFILE"
+    }
+  ],
+  "NoFurtherGetRequired": true,
+  "NativeVmSdkExecutedByReviewer": false,
+  "PostExecutedByReviewer": false,
+  "MainOrGitMutation": false,
+  "GeneralNativeAbiComplete": false,
+  "PhysicalMemoryCompared": false
+}

@@ -1,0 +1,126 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_REVISED317_FINALIZATION_AND_FULL_GUARD",
+  "SourceOnly": true,
+  "PriorReview": {
+    "Path": "artifacts/part317-finalization-source-peer1/review.json",
+    "Sha256": "3977981287C1B10DB0A1BCD52D9C246D18CC70AB9AA06DFF4929F5AC0C3E5BD5"
+  },
+  "ReviewedScripts": [
+    {
+      "Path": "artifacts/root-finalize317.py",
+      "Bytes": 10759,
+      "Sha256": "33C9634621F886CE9613B3550A70BE6287882017D87B53524BB609BC4179117F"
+    },
+    {
+      "Path": "artifacts/root-guard317-full.py",
+      "Bytes": 6114,
+      "Sha256": "DC7000A3F57F148F7CA603D76C021EC5B6B610FC6C9F09C0F358D999A0468384"
+    }
+  ],
+  "BlockingFindings": [],
+  "ResolvedFinding": "Generated evidence-index.json now joins generated receipt in allowed relative-link targets",
+  "FirstRestrictedFailureVerified": {
+    "Passed": 6651,
+    "Failed": 16,
+    "Total": 6667,
+    "OnlyOldNativePortOptionEaccesFailures": true,
+    "DirectMfasPassed": 509,
+    "ReportSha256": "EB68C9BF4382372D19BF19113EE066EAF7B0F663C668467BB6E148BAAE5D1F9D",
+    "SavedRegistryCount": 507,
+    "SavedRegistrySha256": "A1CD8B30F0BDA1E8744846B8002342F01732E7964D4F10F3D1029C4C61030955",
+    "SavedRegistryRawByteExactPublished316": true,
+    "Published316Head": "6d7a430f55a43e488257f654e72a53b3b7f96ada",
+    "RegistryWriterOnlyRunsWhenFailedZero": "tests/Erlang.Tests/Program.cs:4404"
+  },
+  "NamedPipeCapturesPassivelyVerified": {
+    "RuntimeSha256": "6FB1527971E092C172BE7D8F28460646D8FF22937CC9915922514F75B5835440",
+    "BothCapturedRuntimePathsEqual": true,
+    "ActualDiagnosticRuntimeDllRehashed": true,
+    "ModeSequence": [
+      false,
+      true
+    ],
+    "DefaultBothWin32Error5": true,
+    "OutsideBothPassed": true,
+    "DefaultReceiptSha256": "A4569B0DB582D6176D657011FC7EB63AD30A8DFF3ABC8134ADE77C36DA724113",
+    "OutsideReceiptSha256": "E9ACA52E594F1D21390599ED6340E9762C6288D40CA87902585219B1D7B48D73"
+  },
+  "OutsideRerunAttemptBindsFirstReportSourceFreeze2260AndUnchangedSourceExpectations": true,
+  "TwelveAddedEvidenceAndControlSourcesAllExistAndUnderSizeBudget": true,
+  "AddedCopySources": [
+    {
+      "Path": "artifacts/root-part317-main1/tests-first-failed.json",
+      "Bytes": 938173,
+      "Sha256": "EB68C9BF4382372D19BF19113EE066EAF7B0F663C668467BB6E148BAAE5D1F9D"
+    },
+    {
+      "Path": "artifacts/root-part317-main1/full-validation-first-failed.log",
+      "Bytes": 409330,
+      "Sha256": "9E835630DBA053A6BD913D25D81A6D98DAA293C4AA80E23F22F5831A6FD2524D"
+    },
+    {
+      "Path": "artifacts/root-part317-main1/full-exit-first-failed.json",
+      "Bytes": 122,
+      "Sha256": "F9C975C4E2BBA88715DA7119A974655022C8CBB9B868C123F8BB92126DB3B8B5"
+    },
+    {
+      "Path": "artifacts/root-part317-main1/raw-supported-mfas-first-failed.json",
+      "Bytes": 149215,
+      "Sha256": "A1CD8B30F0BDA1E8744846B8002342F01732E7964D4F10F3D1029C4C61030955"
+    },
+    {
+      "Path": "artifacts/root-part317-main1/full-outside-sandbox-attempt.json",
+      "Bytes": 419,
+      "Sha256": "85A4547883D1A696F80D5C1377A6251A2FED538F663A674202BEEA40FD2C14B0"
+    },
+    {
+      "Path": "artifacts/root-part317-pipe-diagnostic/PipeDiagnostic.csproj",
+      "Bytes": 400,
+      "Sha256": "04F25AE832631DCDA24B7B27169268A9A97B6268FCB645DD62FD62BE32E3020E"
+    },
+    {
+      "Path": "artifacts/root-part317-pipe-diagnostic/Program.cs",
+      "Bytes": 1182,
+      "Sha256": "64B6F246ACB17650D96BF27E2C205E41A4DCE3F77C24874BDC508CB167D4D4CA"
+    },
+    {
+      "Path": "artifacts/root-part317-pipe-diagnostic/build.log",
+      "Bytes": 521,
+      "Sha256": "981C79CA70ED964CE3D1577935E7127C75A70F04AF7BC1EC99D1A7246911C9D9"
+    },
+    {
+      "Path": "artifacts/root-part317-pipe-diagnostic/default-result.json",
+      "Bytes": 1625,
+      "Sha256": "A4569B0DB582D6176D657011FC7EB63AD30A8DFF3ABC8134ADE77C36DA724113"
+    },
+    {
+      "Path": "artifacts/root-part317-pipe-diagnostic/outside-sandbox-result.json",
+      "Bytes": 389,
+      "Sha256": "E9ACA52E594F1D21390599ED6340E9762C6288D40CA87902585219B1D7B48D73"
+    },
+    {
+      "Path": "artifacts/root-run317-full-outside-sandbox.ps1",
+      "Bytes": 3679,
+      "Sha256": "A20BDFAD134A7AE19C343B4AFD9F4072D7D86170D586832994629D7386AF7AAD"
+    },
+    {
+      "Path": "artifacts/root-stage317.py",
+      "Bytes": 7604,
+      "Sha256": "18ABA8E51C89EC6261A3FC980498FECD10B0086668B74197B888A50843FF482A"
+    }
+  ],
+  "ReviewedBoundaries": [
+    "Guard requires actual outside-context exit0 plus complete6667/11 result before producing pass",
+    "Actual source closure remains2260 and both plan seals canonical/pinned",
+    "First failure16/509 and inherited507 registry are preserved as separate actual role",
+    "RuntimeNote discloses both initial CS1673 source correction and restricted-full failure with outside-context rerun",
+    "Readiness still requires actualCLI exit0 and6667/509/507/delta2 with previous316 comparison snapshot",
+    "English-entry part317 links include generated index/receipt; future entry content is not assumed present",
+    "Metadata modifications remain explicit seven docs/two memory rows/scope/readiness/index/new0048;0047 immutable",
+    "Three previous316 guards still require PASS and exacthead6d7a",
+    "No source/expected change is inferred or performed to obtain rerun success"
+  ],
+  "FreshFullNativeReadinessGatesOrFinalizerExecutedByReviewer": false,
+  "ActualFreshFullNativeReadinessPassClaimed": false,
+  "MainGitMutation": false
+}

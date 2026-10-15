@@ -1,0 +1,52 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_MAIN317_THREE_ROLE_NATIVE_PROPOSAL",
+  "ProposalFreezeSha256": "98F1013D5B1C90D18A3EACF323133DA3B5CF8D048159B9BDD18ABE12B5E68413",
+  "FilesVerified": 5,
+  "ConfigurationReferencesVerified": 15,
+  "MainSourceFreezeSha256": "EE1516A086A0DE54C8A1CF12656DB45A13C157807349739B07BDEDB500DE1CD8",
+  "SourceClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "SourceRowsRehashed": 2260,
+  "SourcePaths": 38,
+  "CSharpPaths": 33,
+  "Checks": [
+    {
+      "Path": "run317-main-native.py",
+      "Sha256": "EF6F0838F9C27C31585CB8277F2FB10AB876A8BBC0ACFC36A396617CA748F114",
+      "AstParsed": true,
+      "ArgparseNamespaceStores": 1
+    },
+    {
+      "Path": "guard317-main-native.py",
+      "Sha256": "AE9069721EEC07A72D06E749CCDAA566B4D1480E0CB18DB8C6F709F798CB2FF1",
+      "AstParsed": true,
+      "ArgparseNamespaceStores": 1
+    }
+  ],
+  "CanonicalPlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "290FAFD8451E922A623DAB6D34DE3C54C8372A8F002B28F5E640DDAC2927F4FA",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "C5AC9F4A83683F0021F012310A3336FBFE3854036BDDB34910F6268BF7394BFF",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256"
+    }
+  ],
+  "RequiredFullPassed": 6667,
+  "RequiredIntegrations": 11,
+  "ReviewedBoundaries": [
+    "Fresh artifact output and exclusive per-role attempt before bounded process; no retry",
+    "Exact actual Main source/full/peer and trusted native/layout hashes before each invocation and after capture",
+    "Recursive Tool DLL/JSON identity and declared deps/resource closure checked by passive guard",
+    "legacy and reallocation raw equal actual316; provider-query strict unchanged A820 reader and actual315 typed values",
+    "No new C compile, original VM, physical memory or general ABI claim"
+  ],
+  "BlockingFindings": [],
+  "SdkNativeVmCompilerOrProposedScriptExecuted": false,
+  "MainOrGitMutated": false,
+  "Actual317FullOrNativePassClaimed": false
+}

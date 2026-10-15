@@ -847,6 +847,7 @@ public static class CoreModules
         HaltRegistrations.Register(r);
         BeamLoaderRegistrations.Register(r);
         AllocatorQueryRegistrations.Register(r);
+        ClrMemoryRegistrations.Register(r);
     }
 
 

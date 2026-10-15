@@ -1,0 +1,41 @@
+{
+  "Status": "PASS_EXACT_HEAD316_SEPARATE_ACTUAL_ORIGINAL_LIBC_VS_SDK_DOTNET_BACKEND_PROFILE",
+  "Head": "6d7a430f55a43e488257f654e72a53b3b7f96ada",
+  "Run": 38816836998,
+  "Attempt": 1,
+  "RawReportSha256": "FD88E0C386FE8A1B7258A425BA209DD7F0F469E2515344ABFFA3AE0CBE81C749",
+  "OriginalStdoutSha256": "C1EB324B3076FD53C555B445BD799BE07D6F51647AC82DA9290CA31D2A4144D9",
+  "OriginalOutcome": "{ok,{sys_alloc_full_options,{e,true},{m,libc},[{tt,131072},{tp,0}],{e,true},{m,libc},[{tt,131072},{tp,0}]}}",
+  "SdkOutcome": "{ok,{sys_alloc_full_options,{e,true},{m,dotnet_native_memory},[],{e,true},{m,dotnet_native_memory},[]}}",
+  "OriginalOptionalTailsRetained": [
+    [
+      [
+        "tt",
+        131072
+      ],
+      [
+        "tp",
+        0
+      ]
+    ],
+    [
+      [
+        "tt",
+        131072
+      ],
+      [
+        "tp",
+        0
+      ]
+    ]
+  ],
+  "OriginalBackend": "libc",
+  "SdkBackend": "dotnet_native_memory",
+  "RawResultsEqual": false,
+  "DeclaredClrAdaptation": true,
+  "RawNormalization": false,
+  "ComparisonEqualityClaimed": false,
+  "NativeVmSdkExecutedByVerifier": false,
+  "CommitVerifiedByIndependentWorkflowLogNotVersionString": true,
+  "DecoderPublishedBlobSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+}

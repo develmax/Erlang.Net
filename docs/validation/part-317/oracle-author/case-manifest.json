@@ -1,0 +1,114 @@
+{
+  "Status": "SOURCE_ONLY_STATIC_PIN_GUIDED_317_CASES_NOT_EXECUTED",
+  "ComparableCases": [
+    {
+      "Name": "erlang-memory-profile-all-nine-key-shape-partition",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->M=erlang:memory(),[{total,T},{processes,P},{processes_used,PU},{system,S},{atom,A},{atom_used,AU},{binary,B},{code,C},{ets,E}]=M,lists:all(fun({_,N})->is_integer(N) andalso N>=0 end,M) andalso T=:=P+S andalso PU=<P andalso AU=<A andalso S>=A+B+C+E.",
+      "SourceUtf8Sha256": "AB8653CD350057F974FC39A498B388C53669FE53A0F4A6F6E919ED80EA001830",
+      "Expected": "{ok,true}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-scalar-nonnegative",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->N=erlang:memory(total),is_integer(N) andalso N>=0.",
+      "SourceUtf8Sha256": "2D62EEA431987CC2FDCA7D68D141FDCBA85DCDF9D9FDE633076F93ECA056157C",
+      "Expected": "{ok,true}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-list-order-duplicate-one-snapshot",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->[{ets,E},{total,T},{ets,E},{processes,P},{total,T}]=erlang:memory([ets,total,ets,processes,total]),is_integer(E) andalso E>=0 andalso is_integer(T) andalso T>=0 andalso is_integer(P) andalso P>=0.",
+      "SourceUtf8Sha256": "D87871E2C9BF91522766EC3BBFFA0FC7622A8EDDD8394AE8F4ED775BD1FF6517",
+      "Expected": "{ok,true}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-empty-list",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory([]).",
+      "SourceUtf8Sha256": "36E6B48D0055EF7BF6D31E797C35A30EF2B41C32C4E1B2A287BA9765D550C706",
+      "Expected": "{ok,[]}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-wrong-outer",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory(42).",
+      "SourceUtf8Sha256": "223C707607BA476E1DD3F92CED6ED7B345F69139E4E086E6D12BB520205804F6",
+      "Expected": "{error,error,badarg}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-unknown-key",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory(unknown_memory_profile317).",
+      "SourceUtf8Sha256": "BC5E4FAA0AD1E654EE54DE6F0B5C905E10C2E707702920E0FD29DC4DEE7143DE",
+      "Expected": "{error,error,badarg}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-maximum-default",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory(maximum).",
+      "SourceUtf8Sha256": "F6F558EB3DA9E54F297386FDC79368ECC9FFAE0365536A99E09F9FDE5C87CB62",
+      "Expected": "{error,error,badarg}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-valid-head-improper-tail",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory([total|tail]).",
+      "SourceUtf8Sha256": "7F4198539B73F4A8DDDF6EA289A1923E402F88AFF64BD38ED4F86686A02421D3",
+      "Expected": "{error,error,function_clause}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-invalid-head-before-improper-tail",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory([unknown_memory_profile317|tail]).",
+      "SourceUtf8Sha256": "95B057D193E00737CB93D0D6B322AE12ED99523069C4C267E387C172FCAAD963",
+      "Expected": "{error,error,badarg}",
+      "OriginalAndSdkExecuted": false
+    },
+    {
+      "Name": "erlang-memory-profile-nonatom-list-member",
+      "Source": "-module(oracle_memory_profile). -export([run/0]). run()->erlang:memory([total,42]).",
+      "SourceUtf8Sha256": "C5307C9209611B60472D5082596570758F8F7DF55F5E879EBC04E60E2202E852",
+      "Expected": "{error,error,badarg}",
+      "OriginalAndSdkExecuted": false
+    }
+  ],
+  "SeparateRawMemoryObservation": {
+    "Source": "-module(oracle_memory_profile_raw). -export([run/0]). run()->{erlang:memory(),erlang:memory([total,processes,processes_used,system,atom,atom_used,binary,code,ets])}.",
+    "SourceUtf8Sha256": "D434878090962525B9E91740702D36C59130D3D248B3FEA8D369F7E2A27A1456",
+    "BothActualRawNineKeyListsRetained": true,
+    "BothMemoryCallsValidatedIndependently": true,
+    "EqualValuesAcrossRuntimeOrCallsClaimed": false,
+    "DeclaredClrPayloadProfileAdaptation": true,
+    "ExpectedKeyOrder": [
+      "total",
+      "processes",
+      "processes_used",
+      "system",
+      "atom",
+      "atom_used",
+      "binary",
+      "code",
+      "ets"
+    ],
+    "Validation": [
+      "Each exact9-key proper list, atom keys and nonnegative integer values",
+      "total=processes+system within each capture",
+      "processes_used<=processes and atom_used<=atom",
+      "system>=atom+binary+code+ets within each capture"
+    ],
+    "AppendedToOrdinaryAll": false,
+    "ActualExecution": false
+  },
+  "PinnedSource": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "erts/preloaded/src/erlang.erl",
+    "FullBlobBytes": 475966,
+    "FullBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+    "Ranges": [
+      [
+        13037,
+        13169
+      ]
+    ]
+  }
+}

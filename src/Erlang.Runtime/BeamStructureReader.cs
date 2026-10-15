@@ -7,7 +7,7 @@ internal static class BeamStructureReader
 {
     public static BeamStructure Read(ReadOnlyMemory<byte> input, EtfDecodeOptions? decoding = null)
     {
-        byte[] owned = input.ToArray();
+        byte[] owned = ObservedPayloadStorage.Code(input.ToArray());
         var outer = new BeamCursor(owned);
         if (!outer.Read(BeamIffWire.IdentifierBytes).Span.SequenceEqual(BeamIffWire.FormId))
         {

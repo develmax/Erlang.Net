@@ -1,0 +1,37 @@
+{
+  "Status": "PASSIVE_REVIEW_ATTEMPTS_PRESERVED",
+  "NativeVmSdkExecuted": false,
+  "Attempts": [
+    {
+      "Script": "pack316-ordinary-contract-reviewer-initial.py",
+      "Mode": "strict",
+      "ActualExitCode": 1,
+      "Classification": "Actual strict historical raw comparison refusal",
+      "Reason": "One erlang-term-display-map NativeStandardOutputHex order change and matching exact-equality flag; both existing published stdout alternatives retained. No normalization."
+    },
+    {
+      "Script": "pack316-ordinary-contract-reviewer-initial.py",
+      "Mode": "semantic",
+      "ActualExitCode": 1,
+      "Classification": "Reviewer source-shape precondition",
+      "Reason": "Expected comma after collection spread; actual published source final spread has no comma. This is not production/oracle failure."
+    },
+    {
+      "Script": "pack316-ordinary-contract2.py",
+      "Mode": "semantic",
+      "ActualExitCode": 0,
+      "Classification": "Separate semantic PASS under unchanged published map stdout rule"
+    },
+    {
+      "Script": "pack316-allocator-profile-guard.py",
+      "ActualExitCode": 1,
+      "Classification": "Reviewer decoder API precondition",
+      "Reason": "decode_one returns (term,consumed), not bare term. Corrected replay unpacks and requires all ETF bytes consumed."
+    },
+    {
+      "Script": "pack316-allocator-profile-guard2.py",
+      "ActualExitCode": 0,
+      "Classification": "Typed actual backend-adaptation PASS, raw values differ as declared"
+    }
+  ]
+}
