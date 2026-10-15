@@ -1,0 +1,11 @@
+## Part 292 — 2026-10-15 — close Part291 original OTP and CI evidence
+
+Publish independently checked proof for source commit `9c5b8a809b2a6bcd76965cdeae2d9dbd2ec873e2`. No C# source, runtime behavior, MFA, package dependency or new local full run changes in this checkpoint.
+
+Exact-head CI run38698195062/job116299696899/artifact11954443340 passes6599/6599 with identical published test order, all historical6588 names, default502 MFAs, eleven integration/package fields and the full validation marker. Original OTP run38698216243/job116299765517/artifact11956280699 completes5846/5846:778 expressions,4903 compiled modules and165 typed diagnostics; inherited fd8/8 also passes. Verify ZIP API digests, extracted bytes, terminal logs, source head and attempt1 independently.
+
+All4895 historical module rows, including generated C# hashes and raw stream fields, remain exact; historical778 expressions,163 diagnostics, six exclusions and context/policy metadata remain unchanged. The eight new source NIF declaration cases preserve fallback behavior, empty installed NIFs and consumed control attributes. Both new diagnostic contracts match original rejection terms and SDK code/message independently. These close Part291's ten original contracts; prior pending statements remain historical records.
+
+Preserve the verifier's initial literal-only parser failure, which omitted the committed `string.Empty` declaration case. Its correction explicitly checks that unchanged source form; original OTP was not rerun and raw results were not rewritten. Preserve the separate local watcher shell-launch failure. Archive both terminal closures, verifiers and single-dispatch records through the checked28-file manifest.
+
+Readiness reuses published6599 evidence, with no repeated local run. Registry remains502; erlang344/351 is98.0% API presence, not semantic completeness. Source declarations do not implement `load_nif`, general native callbacks, BEAM NIF declarations, warnings, atomic replacement or purge lifetimes. All-writer pressure/EXITING is still an unpromoted candidate. No source license banners or LICENSE.local.txt publication. Whole erlang, upstream suites and performance remain unfinished. [Receipt](../validation/part-292/evidence-receipt.json).
