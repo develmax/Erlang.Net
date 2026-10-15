@@ -1,0 +1,36 @@
+from pathlib import Path
+import hashlib,json,subprocess
+R=Path.cwd();A=R/'artifacts';S=A/'native-audit-monitor28-collector-evidence-staging1';assert not S.exists();S.mkdir();sha=lambda b:hashlib.sha256(b).hexdigest().upper();head='0267a3cebb7a03e849d7d023dfbd8cda31e708a1'
+old=json.loads((R/'docs/validation/part-286/candidate-proof/manifest.json').read_bytes());refs=[]
+for source in ['artifacts/native-audit-part286-collector-executed4/receipt.json','artifacts/native-audit-part286-collector-executed4/raw2.stdout.raw','artifacts/native-audit-part286-collector-executed4/helper-closure.json']:
+ row=next(r for r in old['Files'] if r['SourcePath']==source);ref=head+':docs/validation/part-286/candidate-proof/'+row['Blob'];b=subprocess.check_output(['git','cat-file','blob',ref]);assert sha(b)==row['Sha256'];refs.append({'Role':source,'GitRef':ref,'Sha256':row['Sha256']})
+freeze=json.loads((A/'native-audit-monitor28-collector-final-source-freeze-revision3.json').read_bytes());candidate=R/freeze['Candidate'];helpers=[]
+for row in freeze['Files']:
+ if '/framework/' not in row['Path']:continue
+ ref=head+':tools/Erlang.DistributionSignalObservations/framework/'+Path(row['Path']).name;b=subprocess.check_output(['git','cat-file','blob',ref]);assert b==(candidate/row['Path']).read_bytes();helpers.append({'Path':row['Path'],'GitRef':ref,'Sha256':sha(b)})
+assert len(helpers)==8
+reuse=A/'native-audit-monitor28-collector-raw2-reuse.json';reuse.write_text(json.dumps({'Stage':'REUSE_PRIOR_ACTUAL_RAW_CONTROLS_ONLY_FOR_EXACT_UNCHANGED_FRAMEWORK8','SourceBindings':helpers,'PriorExecutedEvidence':refs,'Raw2NotRerun':True,'Limits':'Prior byteexit3 and inherited-pipe controls validate unchanged PacketProcess/capture implementation and helpers. They do not constitute new collector execution, native OTP execution, protocol compatibility, or unconditionally persisted reports.'},indent=2)+'\n')
+selected=set()
+def add(q):
+ q=Path(q)
+ if q.is_file():selected.add(q)
+for pattern in ['native-audit-*monitor28-collector*.py','native-audit-*monitor28-collector*.json','native-audit-*monitor28-collector*.diff','root-monitor28-collector-source-freeze-revision1.json']:
+ for q in A.glob(pattern):add(q)
+add(Path(__file__))
+for n in ['root-monitor28-collector-proposal-revision1','native-audit-monitor28-collector-final-proposal-revision2','native-audit-monitor28-collector-final-proposal-revision3','root-monitor28-collector-controls-revision1']:
+ for q in (A/n).rglob('*'):
+  if q.is_file():add(q)
+for n in ['native-audit-monitor28-collector-executed1','native-audit-monitor28-collector-executed2','native-audit-monitor28-collector-executed3']:
+ for q in (A/n).rglob('*'):
+  if not q.is_file():continue
+  parts=q.relative_to(A/n).parts
+  if parts[0] in ['candidate','owned-style']:continue
+  if 'tool' in parts and q.suffix not in ['.erl','.json']:continue
+  add(q)
+records=[]
+for q in sorted(selected):
+ b=q.read_bytes();h=sha(b);rel='blobs/'+h;t=S/rel
+ if t.exists():assert t.read_bytes()==b
+ else:t.parent.mkdir(exist_ok=True);t.write_bytes(b)
+ records.append({'SourcePath':q.relative_to(R).as_posix(),'Blob':rel,'Bytes':len(b),'Sha256':h})
+m=S/'manifest.json';m.write_text(json.dumps({'Stage':'DETACHED_MONITOR28_COLLECTOR18_FINAL_SEVEN_METADATA_TARGET_STYLE14_CLI14_AND_INITIAL_FAILURE_PROOFS','IntendedRepositoryPrefix':'docs/validation/part-287/collector-proof','Files':records,'LogicalFiles':len(records),'UniqueBlobs':len(set(r['Blob'] for r in records)),'UniqueBytes':sum(q.stat().st_size for q in (S/'blobs').iterdir()),'CandidateCheckoutsAndBinObjExcluded':True,'ActualExecutableClosuresInventoried':True,'Raw2PriorPublishedExactSourceEvidenceReused':True,'NativeOtpNotExecuted':True,'ActualMainTargetStyleCliFullStillRequired':True},indent=2)+'\n');print(json.dumps({'Manifest':str(m),'Sha256':sha(m.read_bytes()),'Logical':len(records),'Unique':len(set(r['Blob'] for r in records))}))

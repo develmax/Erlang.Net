@@ -1,0 +1,34 @@
+from pathlib import Path
+import json,hashlib,subprocess,os,sys,time
+R=Path.cwd();A=R/'artifacts/native-audit-monitor28-collector-executed2';assert not A.exists();A.mkdir();sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+fp=R/'artifacts/native-audit-monitor28-collector-final-source-freeze-revision2.json';f=json.loads(fp.read_bytes());source=R/f['Candidate'];candidate=A/'candidate';head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip();assert head=='0267a3cebb7a03e849d7d023dfbd8cda31e708a1'
+for row in f['Files']:
+ q=source/row['Path'];assert sha(q)==row['Sha256'];t=candidate/row['Path'];t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(q.read_bytes())
+helpers=[r for r in f['Files'] if '/framework/' in r['Path']];assert len(helpers)==8
+for row in helpers:assert (source/row['Path']).read_bytes()==subprocess.check_output(['git','cat-file','blob',head+':tools/Erlang.DistributionSignalObservations/framework/'+Path(row['Path']).name])
+tool=candidate/'tools/Erlang.DistributionMonitorPayloadObservations';plan=json.loads((tool/'source-plan.json').read_bytes());assert plan['FreshObservationVMs']==3 and plan['ObservedSemanticExpectations'] is None and not plan['SdkExpectedUsed'] and not plan['NativeExecuted'];assert sha(tool/'distribution_monitor_payload_observer.erl')==plan['SourceSha256']=='2E2920BB1305EEF0A339E2D6319399A202E943B8AC6860DB3D8CCCFF47907F71'
+exporter=(tool/'MonitorPayloadExporter.cs').read_text();invoke=(tool/'MonitorPayloadModuleSource.cs').read_text();assert exporter.index('Hash(plan)')<exporter.index('Directory.CreateDirectory(output)');assert 'stage == PacketNames.CompleteStage' in exporter and '<<\\\"complete\\\">>' in invoke and ':run(' in invoke and 'halt(1)' in invoke
+controls=R/'artifacts/root-monitor28-collector-controls-revision1';cli=(controls/'cli-controls.py').read_text();assert "plan['RequiredArtifacts']" in cli and "plan['Scenarios']" in cli and "plan['Pin']" in cli and "plan['FreshObservationVMs']" in cli
+rawReceipt=R/'artifacts/native-audit-part286-collector-executed4/receipt.json';raw=json.loads(rawReceipt.read_bytes());assert raw['RawControls'][0]['RawComplete'] and not raw['RawControls'][1]['RawComplete'] and raw['RawControls'][1]['OwnedChildTerminatedByHarness']
+peer={'Stage':'SOURCE_ONLY_MONITOR3_COLLECTOR18_CONTROLS_PEER_PASS','Head':head,'SourceFreezeSha256':sha(fp),'Framework8ByteExactPublished':True,'SourcePlanAndProbeHashChecked':True,'FreshCases':3,'StageCompleteRequiredByEvaluateAndCollector':True,'PerCaseFailureContinues':True,'GuardsBeforeOutput':True,'ActualNativeUnexecuted':True,'RuntimeMetadataCurrentScope':'release/version/JIT/root; wordsize/architecture/build_type not captured in this initial source.','Raw2ReuseReceiptSha256':sha(rawReceipt),'Raw2ReusedOnlyForExactUnchangedFramework8':True,'Raw2NotNewCollectorExecution':True,'ControlScriptSha256':sha(controls/'cli-controls.py')};(A/'source-peer.json').write_text(json.dumps(peer,indent=2)+'\n');print('SOURCE PEER PASS18/controls14/framework8; actual target/style/CLI next',flush=True)
+(A/'prebuild.json').write_text(json.dumps({'Head':head,'Files':f['Files'],'SourceFreezeSha256':sha(fp),'ControlScriptSha256':sha(controls/'cli-controls.py'),'SourcePeerSha256':sha(A/'source-peer.json')},indent=2)+'\n')
+env=dict(os.environ,DOTNET_PROCESSOR_COUNT='2',UseSharedCompilation='false',BuildInParallel='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+def run(n,cmd,timeout=180):
+ with (A/(n+'.stdout.raw')).open('wb') as o,(A/(n+'.stderr.raw')).open('wb') as e:
+  start=time.time();p=subprocess.Popen(cmd,cwd=candidate,env=env,stdout=o,stderr=e,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+  try:code=p.wait(timeout=timeout)
+  except subprocess.TimeoutExpired:p.kill();code=p.wait();raise
+ (A/(n+'.exit.json')).write_text(json.dumps({'ExitCode':code,'Arguments':cmd,'ElapsedSeconds':time.time()-start},indent=2)+'\n');assert code==0,(n,code)
+run('target',['dotnet','build',str(tool/'Erlang.DistributionMonitorPayloadObservations.csproj'),'-m:1','--disable-build-servers','-p:UseSharedCompilation=false','-p:BuildInParallel=false'])
+base=tool/'bin/Debug/net10.0';(A/'actual-closure.json').write_text(json.dumps([{'Path':q.relative_to(base).as_posix(),'Sha256':sha(q),'Bytes':q.stat().st_size} for q in sorted(base.rglob('*')) if q.is_file()],indent=2)+'\n')
+style=A/'owned-style';style.mkdir()
+for n in ['src','tests','tools','benchmarks','examples']:(style/n).mkdir()
+(style/'.editorconfig').write_bytes((R/'.editorconfig').read_bytes())
+for row in f['Files']:
+ if row['Path'].endswith('.cs'):
+  t=style/row['Path'];t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes((source/row['Path']).read_bytes())
+styleExe=R/'tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll';(A/'style-binding.json').write_text(json.dumps({'Path':str(styleExe),'Sha256':sha(styleExe)},indent=2)+'\n');run('style14',['dotnet',str(styleExe),'--check',str(style)])
+run('cli14',[sys.executable,str(controls/'cli-controls.py'),str(base),str(A/'cli14')],300)
+cliReport=json.loads((A/'cli14/receipt.json').read_bytes());assert len(cliReport['Rows'])==14 and all(r['RefusedBeforeOutput'] for r in cliReport['Rows'])
+for row in f['Files']:assert sha(candidate/row['Path'])==row['Sha256']
+(A/'receipt.json').write_text(json.dumps({'Stage':'ACTUAL_MONITOR3_COLLECTOR_TARGET_STYLE14_CLI14_PASS','Head':head,'TargetWarnings':0,'TargetErrors':0,'OwnedStyleNeedsFormatting':0,'CliRefusals':14,'Source18Unchanged':True,'Raw2NotRepeated':'Exact8framework source reused with already measured byteexit3/inheritedpipe receipt','Raw2ReusedReceiptSha256':sha(rawReceipt),'NativeOtpNotExecuted':True,'MainOrGitEdited':False},indent=2)+'\n');print('PASS actual monitor3 collector target/style14/CLI14; raw2 exactframework reuse')

@@ -1,0 +1,21 @@
+{
+  "Stage": "SOURCE ONLY original28 independent probes; no execution or expected outcome guesses",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scenarios": [
+    "matched_reason",
+    "live_unknown_ref_malformed",
+    "dead_watcher_malformed"
+  ],
+  "SourceSha256": "1DA9BB695EC444961A5D952565E48A6FDFE088335C7CD28EFD055F69AA1F5FA2",
+  "ReusedPublishedProbe": "tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl",
+  "ReusedSourceBeforeSha256": "1F509AB56D7DF09C97736B32321CD3493B3854577681E95B8778D7EE2F9BCEE3",
+  "Capture": [
+    "actual control+opaque payload+wire bytes+put_data result",
+    "origin ref and original monitor output",
+    "target barrier or actual controller DOWN with raw reason",
+    "actual dist_get_stat result",
+    "outer stage/exception and cleanup"
+  ],
+  "SemanticExpectations": null,
+  "Note": "Fresh VM each; actual kill/close timing unasserted until observed. Dead watcher barrier may timeout; retained observation, not fabricated delivery."
+}

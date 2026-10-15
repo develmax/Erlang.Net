@@ -1,0 +1,73 @@
+namespace Erlang;
+
+public sealed partial class ProcessRuntime
+{
+    internal void QueueConnectedDeferredMonitorDown(
+        RuntimeDistributionPendingEntry entry,
+        DistributionConnectedEntry connected,
+        Term watched,
+        Pid watcher,
+        ReferenceTerm reference,
+        ReadOnlyMemory<byte> payload,
+        Action<Exception> malformedReason
+    )
+    {
+        ProcessContext observer;
+        uint connectionId = entry.ConnectionId;
+        lock (gate)
+        {
+            // OTP dist.c drops dead/current-node stale watchers before decoding.
+            if (!IsCurrentLocal(watcher) || !processes.TryGetValue(watcher, out observer!))
+                return;
+        }
+        var reason = CreateDeferredDistributionExitReason(payload, () => observer.Mailbox.DeferredGateHeld);
+
+        bool Eligible()
+        {
+            lock (gate)
+                return IsOwnedLiveNodeProcess(observer);
+        }
+
+        DeferredMailboxAdmission? Prepare()
+        {
+            EtfDecodedTerm? decoded;
+            try
+            {
+                // OTP GEN_EXIT decodes BEFORE monitor-tree lookup, including unknown refs.
+                decoded = reason.Prepare(Eligible, malformedReason).GetAwaiter().GetResult();
+            }
+            catch (Exception exception) when (DistributionDeferredExitReason.IsMalformed(exception))
+            {
+                return null;
+            }
+            if (decoded is null)
+                return null;
+            lock (gate)
+            {
+                if (!IsOwnedLiveNodeProcess(observer))
+                    return null;
+                var monitor = distributionProcessMonitors.FirstOrDefault(item => item.Origin &&
+                    ReferenceEquals(item.Entry, entry) && ReferenceEquals(item.Connection, connected) &&
+                    item.ConnectionId == connectionId && ReferenceEquals(item.Local, observer) && item.Reference.Equals(reference));
+                if (monitor is null || !distributionProcessMonitors.Remove(monitor))
+                    return null;
+                Term reported = watched is Atom name ? Term.Tuple(name, Term.A(entry.Node.Name)) : watched;
+
+                return new(Term.Tuple(
+                    Term.A(ProcessMessageTags.MonitorDown),
+                    reference,
+                    Term.A(ProcessMonitorKinds.Process),
+                    reported,
+                    decoded.Term
+                ));
+            }
+        }
+        QueueDeferredProcessSignal(
+            observer,
+            Prepare,
+            reason.Dispose,
+            entry.Node,
+            Nil.Value
+        );
+    }
+}

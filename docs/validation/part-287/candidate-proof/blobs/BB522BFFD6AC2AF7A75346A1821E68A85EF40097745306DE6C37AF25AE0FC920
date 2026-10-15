@@ -1,0 +1,171 @@
+--- revision2/distribution_monitor_payload_observer.erl
++++ revision3/distribution_monitor_payload_observer.erl
+@@ -2,7 +2,6 @@
+ -export([run/2]).
+ -define(ETF_VERSION, 131).
+ -define(NEW_PID, 88).
+--define(NEWER_REFERENCE, 90).
+ -define(PASS_THROUGH, 112).
+ -define(DEADLINE, 5000).
+ 
+@@ -54,6 +53,7 @@
+ observe_payload_monitor(Scenario) ->
+     Owner = self(),
+     {Target, TargetMonitor} = spawn_monitor(fun() -> monitor_receiver(Owner) end),
++    try
+     Target ! {establish, Scenario},
+     Ref = receive {origin, Target, Value} -> Value after ?DEADLINE -> error(origin_timeout) end,
+     record(origin_reference, Ref),
+@@ -61,7 +61,10 @@
+     Watcher = case Scenario of
+         dead_watcher_malformed ->
+             Target ! stop,
+-            record(target_down, receive {'DOWN', TargetMonitor, process, Target, R} -> {observed, R}
++            record(target_down, receive {'DOWN', TargetMonitor, process, Target, R} ->
++                                   TargetDown = {observed, R},
++                                   put(payload_target_down, TargetDown),
++                                   TargetDown
+                                after ?DEADLINE -> {unobserved, timeout} end),
+             Target;
+         _ -> Target
+@@ -81,7 +84,22 @@
+                            put(controller_down, {observed, Reason}), {controller_down, Monitor, Reason}
+                        after ?DEADLINE -> {unobserved, timeout} end),
+     record(controller_stat, capture(fun() -> erlang:dist_get_stat(get(handle)) end)),
+-    case Scenario of dead_watcher_malformed -> ok; _ -> Target ! stop end.
++    ok
++    after cleanup_payload_target(Target, TargetMonitor) end.
++
++cleanup_payload_target(Target, TargetMonitor) ->
++    Cleanup = case erase(payload_target_down) of
++        {observed, _} = Observed -> Observed;
++        undefined ->
++            Target ! stop,
++            receive {'DOWN', TargetMonitor, process, Target, Reason} -> {observed, Reason}
++            after ?DEADLINE ->
++                exit(Target, kill),
++                receive {'DOWN', TargetMonitor, process, Target, ForcedReason} -> {forced, ForcedReason}
++                after ?DEADLINE -> {unobserved, timeout} end
++            end
++    end,
++    save("target-cleanup.etf", Cleanup).
+ 
+ monitor_receiver(Owner) ->
+     receive {establish, Scenario} ->
+@@ -96,85 +114,6 @@
+         barrier -> Owner ! {target_state, self(), lists:reverse(Messages)}, monitor_receiver_loop(Owner, Messages);
+         Message -> monitor_receiver_loop(Owner, [Message | Messages])
+     end.
+-
+-observe_monitors() ->
+-    Remote = remote_pid(signal_remote@localhost, 11, 1),
+-    Ref = remote_ref(signal_remote@localhost, 13, 1),
+-    Ref2 = remote_ref(signal_remote@localhost, 17, 1),
+-    {Target, TargetMonitor} = spawn_monitor(fun target/0),
+-    input({19, Remote, signal_missing_target, Ref}),
+-    drain(missing),
+-    input({19, Remote, Target, Ref}),
+-    record(pid_monitored_by, capture(fun() -> process_info(Target, monitored_by) end)),
+-    Target ! stop,
+-    record(target_death, receive {'DOWN', TargetMonitor, process, Target, Reason} -> {observed, Reason}
+-                         after ?DEADLINE -> {unobserved, timeout} end),
+-    drain(pid_death),
+-    Observer = self(),
+-    {Named, NamedMonitor} = spawn_monitor(fun() ->
+-        true = register(signal_named_target, self()),
+-        Observer ! {named_ready, self()},
+-        target() end),
+-    record(named_registered, receive {named_ready, Named} -> {observed, Named}
+-                             after ?DEADLINE -> {unobserved, timeout} end),
+-    input({19, Remote, signal_named_target, Ref2}),
+-    record(name_monitored_by, capture(fun() -> process_info(Named, monitored_by) end)),
+-    input({20, Remote, signal_named_target, Ref2}),
+-    record(name_after_demonitor, capture(fun() -> process_info(Named, monitored_by) end)),
+-    Named ! stop,
+-    record(named_death, receive {'DOWN', NamedMonitor, process, Named, NameReason} -> {observed, NameReason}
+-                       after ?DEADLINE -> {unobserved, timeout} end),
+-    drain(name_demonitored_death),
+-    Origin = monitor(process, Remote),
+-    record(origin_reference, Origin),
+-    drain(origin_monitor),
+-    input({21, Remote, self(), Origin, observer_remote_reason}),
+-    record(origin_down, receive {'DOWN', Origin, process, Reported, DownReason} -> {observed, Reported, DownReason}
+-                        after ?DEADLINE -> {unobserved, timeout} end),
+-    Fallback = monitor(process, {signal_remote_name, signal_remote@localhost}),
+-    record(fallback_reference, Fallback),
+-    drain(connection_monitor),
+-    get(controller) ! stop,
+-    record(connection_only_down,
+-        receive {'DOWN', Fallback, process, FallbackTarget, FallbackReason} -> {observed, FallbackTarget, FallbackReason}
+-        after ?DEADLINE -> {unobserved, timeout} end).
+-
+-observe_group_leader() ->
+-    {Target, TargetMonitor} = spawn_monitor(fun target/0),
+-    {Leader, LeaderMonitor} = spawn_monitor(fun target/0),
+-    External = remote_pid(signal_third@localhost, 19, 23),
+-    record(initial_group_leader, capture(fun() -> process_info(Target, group_leader) end)),
+-    input({7, Leader, Target}),
+-    record(local_group_leader, capture(fun() -> process_info(Target, group_leader) end)),
+-    Leader ! stop,
+-    record(leader_death, receive {'DOWN', LeaderMonitor, process, Leader, LeaderReason} -> {observed, LeaderReason}
+-                        after ?DEADLINE -> {unobserved, timeout} end),
+-    input({7, Leader, Target}),
+-    record(dead_leader_group_leader, capture(fun() -> process_info(Target, group_leader) end)),
+-    input({7, External, Target}),
+-    input({7, Target, Target}),
+-    record(ordered_group_leader, capture(fun() -> process_info(Target, group_leader) end)),
+-    input({7, External, Target}),
+-    case stop_controller() of
+-        {observed, _} ->
+-            record(post_teardown_group_leader, capture(fun() -> process_info(Target, group_leader) end));
+-        Unobserved -> record(teardown_unobserved, Unobserved)
+-    end,
+-    Target ! stop,
+-    record(member_death, receive {'DOWN', TargetMonitor, process, Target, TargetReason} -> {observed, TargetReason}
+-                        after ?DEADLINE -> {unobserved, timeout} end).
+-
+-stop_controller() ->
+-    Controller = get(controller),
+-    Monitor = get(controller_monitor),
+-    Controller ! stop,
+-    Result = receive {'DOWN', Monitor, process, Controller, Reason} ->
+-                         Value = {observed, Reason},
+-                         put(controller_down, Value),
+-                         Value
+-             after ?DEADLINE -> {unobserved, timeout} end,
+-    record(controller_teardown, Result),
+-    Result.
+ 
+ controller(Owner, Flags) ->
+     Handle = erlang:setnode(signal_remote@localhost, self(), {Flags, 1}),
+@@ -193,14 +132,6 @@
+         stop -> ok
+     end.
+ 
+-input(Control) ->
+-    Bytes = <<?PASS_THROUGH, (term_to_binary(Control))/binary>>,
+-    Request = make_ref(),
+-    get(controller) ! {input, Request, Bytes},
+-    Result = receive {input_result, Request, Value} -> Value
+-             after ?DEADLINE -> {unobserved, timeout} end,
+-    record(input, {Control, Bytes, Result}).
+-
+ drain(Name) ->
+     Request = make_ref(),
+     get(controller) ! {drain, Request},
+@@ -212,15 +143,9 @@
+ 
+ capture(Fun) -> try {ok, Fun()} catch Class:Reason:Stack -> {exception, Class, Reason, Stack} end.
+ 
+-target() -> receive stop -> ok; _ -> target() end.
+-
+ remote_pid(Node, Number, Creation) ->
+     <<?ETF_VERSION, Atom/binary>> = term_to_binary(Node),
+     binary_to_term(<<?ETF_VERSION, ?NEW_PID, Atom/binary, Number:32, 0:32, Creation:32>>).
+-
+-remote_ref(Node, Word, Creation) ->
+-    <<?ETF_VERSION, Atom/binary>> = term_to_binary(Node),
+-    binary_to_term(<<?ETF_VERSION, ?NEWER_REFERENCE, 1:16, Atom/binary, Creation:32, Word:32>>).
+ 
+ scenario_flags(matched_reason) -> 16#400028;
+ scenario_flags(live_unknown_ref_malformed) -> 16#400028;

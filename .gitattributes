@@ -1,8 +1,8 @@
-*.cs text eol=lf
+*.cs -text
 *.beam binary
 *.etf binary
-tests/Erlang.Tests/Resources/Beam/*.erl text eol=lf
-tests/Erlang.Tests/Resources/BeamOnLoad/**/*.erl text eol=lf
+tests/Erlang.Tests/Resources/Beam/*.erl -text
+tests/Erlang.Tests/Resources/BeamOnLoad/**/*.erl -text
 tests/Erlang.Tests/Resources/BeamOnLoad/** binary
 docs/validation/part-256/native-metadata/** binary
 docs/validation/part-257/managed-child-evidence/** binary
@@ -18,13 +18,13 @@ tests/Erlang.Tests/Resources/BeamGzip/** binary
 tests/Erlang.Tests/Resources/BeamGzipControls/** binary
 docs/validation/part-267/** binary
 docs/validation/part-268/** binary
-tools/Erlang.ApplyOptimizerContrasts/*.erl text eol=lf
+tools/Erlang.ApplyOptimizerContrasts/*.erl -text
 docs/validation/part-269/** binary
-tools/Erlang.NodeIdentityContrasts/*.erl text eol=lf
+tools/Erlang.NodeIdentityContrasts/*.erl -text
 docs/validation/part-270/** binary
 docs/validation/part-271/** binary
-tools/Erlang.DistributionPacketContrasts/*.erl text eol=lf
-tools/Erlang.MixedMapIdentityContrasts/*.erl text eol=lf
+tools/Erlang.DistributionPacketContrasts/*.erl -text
+tools/Erlang.MixedMapIdentityContrasts/*.erl -text
 docs/validation/part-272/** binary
 docs/validation/part-273/** binary
 docs/validation/part-274/** binary
@@ -52,3 +52,8 @@ tools/Erlang.DistributionSenderObservations/source-plan.json binary
 tools/Erlang.DistributionSenderObservations/distribution_sender_observer.erl binary
 docs/validation/part-285/** binary
 docs/validation/part-286/** binary
+docs/validation/part-287/** binary
+tools/Erlang.DistributionPayloadExitObservations/distribution_payload_exit_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionPayloadExitObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionMonitorPayloadObservations/distribution_monitor_payload_observer.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionMonitorPayloadObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol

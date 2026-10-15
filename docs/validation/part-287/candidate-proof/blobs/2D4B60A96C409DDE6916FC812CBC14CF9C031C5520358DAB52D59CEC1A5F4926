@@ -1,0 +1,52 @@
+from pathlib import Path
+import argparse,json,hashlib,subprocess,os,time
+p=argparse.ArgumentParser();p.add_argument('--execute',action='store_true');args=p.parse_args();R=Path.cwd();A=R/'artifacts/native-audit-monitor28-isolated1';C=A/'candidate';sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+specs=[R/'artifacts/sender-audit-monitor28-source-freeze-revision3.json',R/'artifacts/sender-audit-monitor28-raw41-migration-source-freeze-revision1.json'];freezes=[json.loads(q.read_bytes()) for q in specs]
+for f in freezes:
+ for row in f['Owned']:assert sha((R/f['Candidate']/row['Path']).read_bytes())==row['Sha256']
+if not args.execute:
+ assert not A.exists();A.mkdir();names=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z','--','src','tests','tools','examples','Directory.Build.props','Directory.Build.targets','Directory.Packages.props','global.json','NuGet.Config','nuget.config','.editorconfig'],cwd=R).decode().split('\0');rows=[]
+ for n in sorted(set(names)):
+  if not n or any(x in Path(n).parts for x in ['bin','obj','__pycache__']):continue
+  q=R/n
+  if not q.is_file():continue
+  b=q.read_bytes();t=C/n;t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(b);rows.append({'Path':n,'Sha256':sha(b),'Bytes':len(b)})
+ assert any(r['Path']=='examples/HelloHybrid/platform_demo.erl' for r in rows)
+ assert any(r['Path']=='tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs' for r in rows)
+ overlays=[]
+ for f in freezes:
+  for row in f['Owned']:
+   n=row['Path']
+   if n=='tests/Erlang.Tests/Program.cs':continue
+   t=C/n;before=t.read_bytes() if t.exists() else None;expected=row.get('BeforeSha256')
+   assert (before is None)==(expected is None),n
+   if before is not None:assert sha(before)==expected,n
+   b=(R/f['Candidate']/n).read_bytes();t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes(b);overlays.append({'Path':n,'BeforeSha256':None if before is None else sha(before),'AfterSha256':sha(b)})
+ line=b'Test(Erlang.Tests.DistributionPayloadMonitorHostNames.Test, Erlang.Tests.DistributionPayloadMonitorHostChecks.Run);'
+ proposed=(R/freezes[0]['Candidate']/'tests/Erlang.Tests/Program.cs').read_bytes();assert proposed.count(line)==1
+ program=C/'tests/Erlang.Tests/Program.cs';before=program.read_bytes();marker=b'int failed = 0;';assert before.count(marker)==1 and line not in before
+ assert b'Test(Erlang.Tests.DistributionTrappedTraceHostNames.Test, Erlang.Tests.DistributionTrappedTraceHostChecks.Run);' in before
+ oldtests=json.loads((R/'docs/validation/part-285/tests.json').read_bytes());distribution=[r['Name'] for r in oldtests['Tests'] if r['Name'].startswith('runtime/distribution')]
+ distribution+=['runtime/distribution-trapped-canonical-trace-native-contract','runtime/distribution-payload-monitor-deferred-raw-lifecycle'];compiled=json.loads((R/'artifacts/dist_next-distribution-trace-revision7-executed/receipt.json').read_bytes())['ActualCompiledCases'];assert len(compiled)==129
+ selected=distribution+['oracle/compiled-module/'+n for n in compiled]+['runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation','runtime/seq-exit-asynchronous-linked-token-snapshots'];assert len(set(selected))==len(selected)==143
+ injection=line+b'\n'+('var isolatedMonitorNames = new HashSet<string> { '+','.join(json.dumps(n) for n in selected)+' };\ntests.RemoveAll(test => !isolatedMonitorNames.Contains(test.Name));\nif (tests.Count != 143) throw new InvalidOperationException("Isolated monitor selection count differs");\n').encode();program.write_bytes(before.replace(marker,injection+marker,1))
+ assert program.read_bytes().replace(injection,b'',1)==before and program.read_bytes().index(line)<program.read_bytes().index(marker)<program.read_bytes().index(b'foreach (var test in tests)')
+ overlays.append({'Path':'tests/Erlang.Tests/Program.cs','BeforeSha256':sha(before),'AfterSha256':sha(program.read_bytes()),'PreservesAllRoot286Registrations':True,'SelectionBeforeExecutionLoop':True})
+ compiledInputs=[{'Path':q.relative_to(C).as_posix(),'Sha256':sha(q.read_bytes()),'Bytes':q.stat().st_size} for q in sorted(C.rglob('*')) if q.is_file()]
+ meta={'Stage':'PREPARED_ONLY_INCOMING_MONITOR28_RAW41_ACTUAL_WORKING286_SEED','MainHead':subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip(),'SeedFiles':rows,'Overlay':overlays,'CompiledInputs':compiledInputs,'SourceFreezes':[{'Path':q.relative_to(R).as_posix(),'Sha256':sha(q.read_bytes())} for q in specs],'SelectedNames':selected,'DistributionHostNames':distribution,'ExpectedFocus':143,'ExamplesIncludedUpFront':True,'UntrackedActualMainSourceIncluded':True,'PublicationSeedRecheckRequiredBeforeExecution':True,'MainEdited':False,'BuildExecuted':False,'NativeExecuted':False};(A/'prebuild.json').write_text(json.dumps(meta,indent=2)+'\n');print('PREPARED ONLY',len(rows),len(compiledInputs),len(overlays),'focus143');raise SystemExit
+meta=json.loads((A/'prebuild.json').read_bytes())
+for row in meta['CompiledInputs']:assert sha((C/row['Path']).read_bytes())==row['Sha256']
+for row in meta['SeedFiles']:assert sha((R/row['Path']).read_bytes())==row['Sha256'],'Actual Main source drift: reseed before build'
+env=dict(os.environ,DOTNET_PROCESSOR_COUNT='2',UseSharedCompilation='false',BuildInParallel='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+def run(n,cmd,timeout):
+ assert not (A/(n+'.exit.json')).exists(),'Never overwrite receipts'
+ with (A/(n+'.stdout.raw')).open('wb') as o,(A/(n+'.stderr.raw')).open('wb') as e:
+  start=time.time();p=subprocess.Popen(cmd,cwd=C,env=env,stdout=o,stderr=e,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+  try:code=p.wait(timeout=timeout)
+  except subprocess.TimeoutExpired:p.kill();code=p.wait();raise
+ (A/(n+'.exit.json')).write_text(json.dumps({'ExitCode':code,'ElapsedSeconds':time.time()-start,'Arguments':cmd},indent=2)+'\n');assert code==0,(n,code)
+run('target',['dotnet','build','tests/Erlang.Tests/Erlang.Tests.csproj','-m:1','--disable-build-servers','-p:UseSharedCompilation=false','-p:BuildInParallel=false'],180)
+base=C/'tests/Erlang.Tests/bin/Debug/net10.0';(A/'actual-closure.json').write_text(json.dumps([{'Path':q.relative_to(base).as_posix(),'Sha256':sha(q.read_bytes()),'Bytes':q.stat().st_size} for q in sorted(base.rglob('*')) if q.is_file()],indent=2)+'\n')
+run('focus143',['dotnet',str(base/'Erlang.Tests.dll'),str(A/'tests.json')],180);t=json.loads((A/'tests.json').read_bytes());assert t['Passed']==143 and t['Failed']==0 and set(x['Name'] for x in t['Tests'])==set(meta['SelectedNames'])
+for row in meta['CompiledInputs']:assert sha((C/row['Path']).read_bytes())==row['Sha256']
+(A/'receipt.json').write_text(json.dumps({'Stage':'ACTUAL_MONITOR28_RAW41_TARGET_AND_FOCUS143_PASS_STYLE_PENDING','Passed':143,'Failed':0,'InputBytesUnchanged':True,'PrebuildSha256':sha((A/'prebuild.json').read_bytes()),'ActualClosureSha256':sha((A/'actual-closure.json').read_bytes()),'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print('PASS target/focus143; owned style pending')

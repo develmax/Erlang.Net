@@ -1,0 +1,14 @@
+from pathlib import Path
+import hashlib,json,shutil
+r=Path.cwd(); old=r/'artifacts/sender-audit-monitor28-source-freeze-revision2.json'; j=json.loads(old.read_bytes())
+out=r/'artifacts/sender-audit-monitor28-proposal-revision3';shutil.copytree(r/j['Candidate'],out)
+path='tests/Erlang.Tests/Program.cs';p=out/path;b=p.read_bytes()
+before='tests.Add(new(DistributionPayloadMonitorHostNames.Test, DistributionPayloadMonitorHostChecks.Run));'
+after='Test(Erlang.Tests.DistributionPayloadMonitorHostNames.Test, Erlang.Tests.DistributionPayloadMonitorHostChecks.Run);'
+assert b.decode().count(before)==1;s=b.decode().replace(before,after);p.write_bytes(s.encode())
+sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+for row in j['Owned']:
+ if row['Path']==path:row['SourceContent']=s;row['Sha256']=sha(p.read_bytes())
+j['Candidate']=str(out.relative_to(r));j['Stage']='SOURCE ONLY incoming28 revision3 qualified top-level Program Test registration; not compiled'
+j['SourceCorrection']={'BeforeFreezeSha256':sha(old.read_bytes()),'BeforeRegistration':before,'AfterRegistration':after,'Reason':'Top-level Program is outside Erlang.Tests namespace; reuse existing fully-qualified Test helper pattern','OldFreezeAndCandidatePreserved':True,'GateExecuted':False}
+dst=r/'artifacts/sender-audit-monitor28-source-freeze-revision3.json';dst.write_text(json.dumps(j,indent=2)+'\n');print(sha(dst.read_bytes()))

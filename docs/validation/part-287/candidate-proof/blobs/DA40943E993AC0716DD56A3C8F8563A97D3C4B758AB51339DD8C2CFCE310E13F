@@ -1,0 +1,130 @@
+from pathlib import Path
+import hashlib, json, subprocess
+r=Path.cwd(); out=r/'artifacts/sender-audit-monitor28-proposal-revision1'; out.mkdir()
+sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+rows=[]
+def write(path, text, before=None):
+    p=out/path; p.parent.mkdir(parents=True,exist_ok=True); p.write_bytes(text.encode())
+    row={'Path':path,'Sha256':sha(p.read_bytes()),'SourceContent':text}
+    if before is not None: row['BeforeSha256']=sha(before)
+    rows.append(row)
+p='src/Erlang.Serialization/DistributionPassThroughCodec.PayloadExits.cs'
+b=(r/p).read_bytes(); s=b.decode()
+s=s.replace('DistributionControlOpcodes.PayloadExit2 or DistributionControlOpcodes.PayloadExit2Trace;', 'DistributionControlOpcodes.PayloadExit2 or DistributionControlOpcodes.PayloadExit2Trace or DistributionControlOpcodes.PayloadMonitorExit;')
+anchor='        bool traced = opcode.Value == DistributionControlOpcodes.PayloadExitTrace'
+assert s.count(anchor)==1
+s=s.replace(anchor,'''        if (opcode.Value == DistributionControlOpcodes.PayloadMonitorExit)
+            return control.Items.Count == DistributionControlOpcodes.MonitorArity &&
+                control.Items[DistributionControlOpcodes.FromIndex] is Pid or Atom &&
+                control.Items[DistributionControlOpcodes.TargetIndex] is Pid &&
+                control.Items[DistributionControlOpcodes.MonitorReferenceIndex] is ReferenceTerm;
+'''+anchor)
+write(p,s,b)
+p='src/Erlang.Runtime/RuntimeDistributionPending.PayloadExit.cs'; b=(r/p).read_bytes(); s=b.decode()
+anchor='        var remote = (Pid)items[DistributionControlOpcodes.FromIndex];'
+assert s.count(anchor)==1
+s=s.replace(anchor,'''        if (opcode == DistributionControlOpcodes.PayloadMonitorExit)
+        {
+            RouteDeferredConnectedMonitorDown(entry, connected, envelope);
+
+            return;
+        }
+'''+anchor)
+write(p,s,b)
+write('src/Erlang.Runtime/RuntimeDistributionPending.PayloadMonitorDown.cs','''namespace Erlang;
+
+public sealed partial class RuntimeDistributionPending
+{
+    private void RouteDeferredConnectedMonitorDown(
+        RuntimeDistributionPendingEntry entry,
+        DistributionConnectedEntry connected,
+        DistributionPayloadExitEnvelope envelope
+    )
+    {
+        var items = envelope.Control.Items;
+        Term watched = items[DistributionControlOpcodes.FromIndex];
+        var watcher = (Pid)items[DistributionControlOpcodes.TargetIndex];
+        var reference = (ReferenceTerm)items[DistributionControlOpcodes.MonitorReferenceIndex];
+        if (watched is Pid pid && runtime.IsCurrentLocal(pid) || watcher.Node != runtime.Node ||
+            watcher.LocalIdentity is not null && !ReferenceEquals(watcher.LocalIdentity, runtime.LocalIdentity))
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        runtime.QueueConnectedDeferredMonitorDown(
+            entry,
+            connected,
+            watched,
+            watcher,
+            reference,
+            envelope.Reason,
+            CaptureDeferredReasonFailure(Term.Tuple(Term.I(entry.ConnectionId), entry.Reference))
+        );
+    }
+}
+''')
+write('src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs','''namespace Erlang;
+
+public sealed partial class ProcessRuntime
+{
+    internal void QueueConnectedDeferredMonitorDown(
+        RuntimeDistributionPendingEntry entry,
+        DistributionConnectedEntry connected,
+        Term watched,
+        Pid watcher,
+        ReferenceTerm reference,
+        ReadOnlyMemory<byte> payload,
+        Action<Exception> malformedReason
+    )
+    {
+        ProcessContext observer;
+        uint connectionId = entry.ConnectionId;
+        lock (gate)
+        {
+            // OTP dist.c drops dead/current-node stale watchers before decoding.
+            if (!IsCurrentLocal(watcher) || !processes.TryGetValue(watcher, out observer!))
+                return;
+        }
+        var reason = CreateDeferredDistributionExitReason(payload, () => observer.Mailbox.DeferredGateHeld);
+
+        bool Eligible()
+        {
+            lock (gate)
+                return IsOwnedLiveNodeProcess(observer);
+        }
+
+        DeferredMailboxAdmission? Prepare()
+        {
+            EtfDecodedTerm? decoded;
+            try
+            {
+                // OTP GEN_EXIT decodes BEFORE monitor-tree lookup, including unknown refs.
+                decoded = reason.Prepare(Eligible, malformedReason).GetAwaiter().GetResult();
+            }
+            catch (Exception exception) when (DistributionDeferredExitReason.IsMalformed(exception))
+            {
+                return null;
+            }
+            if (decoded is null)
+                return null;
+            lock (gate)
+            {
+                if (!IsOwnedLiveNodeProcess(observer))
+                    return null;
+                var monitor = distributionProcessMonitors.FirstOrDefault(item => item.Origin &&
+                    ReferenceEquals(item.Entry, entry) && ReferenceEquals(item.Connection, connected) &&
+                    item.ConnectionId == connectionId && ReferenceEquals(item.Local, observer) && item.Reference.Equals(reference));
+                if (monitor is null || !distributionProcessMonitors.Remove(monitor))
+                    return null;
+                Term reported = watched is Atom name ? Term.Tuple(name, Term.A(entry.Node.Name)) : watched;
+
+                return new(Term.Tuple(Term.A(ProcessMessageTags.MonitorDown), reference,
+                    Term.A(ProcessMonitorKinds.Process), reported, decoded.Term));
+            }
+        }
+        QueueDeferredProcessSignal(observer, Prepare, reason.Dispose, entry.Node, Nil.Value);
+    }
+}
+''')
+sources=[]
+for path in ['erts/emulator/beam/dist.c','erts/emulator/beam/erl_proc_sig_queue.c']:
+    raw=subprocess.check_output(['git','-C','../otp','show','OTP-29.1.1:'+path]); sources.append({'Path':path,'Sha256':sha(raw)})
+receipt={'Stage':'SOURCE ONLY incoming PAYLOAD_MONITOR_P_EXIT28 proposal; no build/native/Main/Git', 'Head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'Candidate':str(out.relative_to(r)), 'Owned':rows,'PinnedSource':sources,'Ordering':'Control validation/dead watcher drop; live watcher decode before monitor-ref lookup; malformed close only captured generation; successful reason then actual entry/connection/generation/observer/ref removal and DOWN', 'Bounds':['No outgoing28 support in this patch','No native close outcome inferred; fresh original probes required','No Core registration or dist_get_stat/pending counter changes','Existing ordinary21 monitor path unchanged']}
+p=r/'artifacts/sender-audit-monitor28-source-freeze-revision1.json'; p.write_text(json.dumps(receipt,indent=2)+'\n'); print(sha(p.read_bytes()))

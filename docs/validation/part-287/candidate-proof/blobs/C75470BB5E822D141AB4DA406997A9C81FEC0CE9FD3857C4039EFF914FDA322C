@@ -1,0 +1,24 @@
+{
+  "Stage": "SOURCE ONLY original28 revision3: inherited unused helpers removed and owned target monitored cleanup; not compiled or executed",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scenarios": [
+    "matched_reason",
+    "live_unknown_ref_malformed",
+    "dead_watcher_malformed"
+  ],
+  "SourceSha256": "2E2920BB1305EEF0A339E2D6319399A202E943B8AC6860DB3D8CCCFF47907F71",
+  "ReusedPublishedProbe": "tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl",
+  "ReusedSourceBeforeSha256": "1F509AB56D7DF09C97736B32321CD3493B3854577681E95B8778D7EE2F9BCEE3",
+  "Capture": [
+    "actual control+opaque payload+wire bytes+put_data result",
+    "origin ref and original monitor output",
+    "target barrier or actual controller DOWN with raw reason",
+    "actual dist_get_stat result",
+    "outer stage/exception and cleanup",
+    "target-cleanup.etf contains actually observed DOWN reason, forced actual DOWN reason, or explicit unobserved timeout"
+  ],
+  "SemanticExpectations": null,
+  "Note": "Fresh VM each; actual kill/close timing unasserted until observed. Dead watcher barrier may timeout; retained observation, not fabricated delivery.",
+  "Entrypoint": "distribution_monitor_payload_observer:run(Output,Scenario)",
+  "PreviousPlanSha256": "77B943DF009F642F068EF224C7CBF8CB3BFBFAC2ED4078F7395CF04C2016BAB9"
+}

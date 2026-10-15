@@ -66,10 +66,16 @@ internal static class DistributionRawInputHostChecks
         var reference = new ReferenceTerm(DistributionRawInputHostNames.Remote, new uint[] { 1 }, 0);
         await Unsupported(
             Term.Tuple(
-                Term.I(DistributionRawInputHostNames.UnsupportedPayloadMonitorExitOpcode),
+                Term.I(DistributionRawInputHostNames.UnsupportedSpawnRequestOpcode),
+                reference,
                 remote,
                 receiver.Process.Pid,
-                reference
+                Term.Tuple(
+                    Term.A(DistributionRawInputHostNames.UnsupportedSpawnModule),
+                    Term.A(DistributionRawInputHostNames.UnsupportedSpawnFunction),
+                    Term.I(0)
+                ),
+                Nil.Value
             ),
             Nil.Value
         );
@@ -229,7 +235,7 @@ internal static class DistributionRawInputHostChecks
                     Term.A(DistributionRawInputHostNames.Remote),
                     context.Self,
                     Term.Tuple(
-                        new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor),
+                        new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor | DistributionRawInputHostNames.UnsupportedSpawnRequestFlag),
                         Term.I(0)
                     )
                 ));

@@ -1,0 +1,12 @@
+from pathlib import Path
+import hashlib,json,re
+R=Path('.');A=R/'artifacts';old=json.loads((A/'root-monitor28-collector-source-freeze-revision1.json').read_bytes());source=R/old['Candidate'];C=A/'native-audit-monitor28-collector-final-proposal-revision2';assert not C.exists();rows=[];changed=[];quote=re.compile(rb'"(?:\\.|[^"\\])*"');sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+for row in old['Files']:
+ n=row['Path'];before=(source/n).read_bytes();after=(A/'native-audit-monitor28-collector-executed1/owned-style'/n).read_bytes() if n.endswith('.cs') else before
+ if before!=after:
+  assert re.sub(rb'\s+',b'',before)==re.sub(rb'\s+',b'',after) and quote.findall(before)==quote.findall(after),n
+  changed.append(n)
+ target=C/n;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(after);rows.append({'Path':n,'Sha256':sha(after),'MainBeforeSha256':None})
+assert len(rows)==18 and len(changed)==6
+f=A/'native-audit-monitor28-collector-final-source-freeze-revision2.json';f.write_text(json.dumps({'Stage':'SDK_FORMAT6_TOKEN_AND_QUOTED_LITERALS_UNCHANGED_PENDING_TARGET_STYLE_CLI','Candidate':str(C),'Files':rows,'PreviousFreeze':'root-monitor28-collector-source-freeze-revision1.json','PreviousFreezeSha256':sha((A/'root-monitor28-collector-source-freeze-revision1.json').read_bytes()),'FormattingOnly':changed,'ProbeUnchanged':True,'PlanUnchanged':True,'Framework8Unchanged':True,'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print(sha(f.read_bytes()))
+s=(A/'native-audit-monitor28-collector-peer-and-run.py').read_text().replace('native-audit-monitor28-collector-executed1','native-audit-monitor28-collector-executed2').replace('root-monitor28-collector-source-freeze-revision1.json','native-audit-monitor28-collector-final-source-freeze-revision2.json');(A/'native-audit-monitor28-collector-peer-and-run2.py').write_text(s)

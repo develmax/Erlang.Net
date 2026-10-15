@@ -1,0 +1,73 @@
+from pathlib import Path
+import hashlib,json
+r=Path.cwd(); out=r/'artifacts/sender-audit-monitor28-native-proposal-revision2'; out.mkdir()
+before=(r/'tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl').read_bytes()
+s=before.decode().replace('-module(distribution_signal_observer).','-module(distribution_monitor_payload_observer).')
+start=s.index('        case Scenario of\n') if '\r\n' not in s else s.index('        case Scenario of\r\n')
+s=s[:start]+s[start:].replace('''        case Scenario of
+            group_leader -> observe_group_leader();
+            _ -> observe_monitors()
+        end,'''.replace('\n','\r\n' if '\r\n' in s else '\n'),'        observe_payload_monitor(Scenario),',1)
+anchor='observe_monitors() ->'
+method='''observe_payload_monitor(Scenario) ->
+    Owner = self(),
+    {Target, TargetMonitor} = spawn_monitor(fun() -> monitor_receiver(Owner) end),
+    Target ! {establish, Scenario},
+    Ref = receive {origin, Target, Value} -> Value after ?DEADLINE -> error(origin_timeout) end,
+    record(origin_reference, Ref),
+    drain(origin_monitor),
+    Watcher = case Scenario of
+        dead_watcher_malformed ->
+            Target ! stop,
+            record(target_down, receive {'DOWN', TargetMonitor, process, Target, R} -> {observed, R}
+                               after ?DEADLINE -> {unobserved, timeout} end),
+            Target;
+        _ -> Target
+    end,
+    Payload = case Scenario of matched_reason -> term_to_binary({monitor_reason, <<0,255,128>>}); _ -> <<131,255>> end,
+    Remote = remote_pid(signal_remote@localhost, 11, 1),
+    Control = {28, Remote, Watcher, Ref},
+    Packet = <<?PASS_THROUGH, (term_to_binary(Control))/binary, Payload/binary>>,
+    Request = make_ref(),
+    get(controller) ! {input, Request, Packet},
+    record(payload_input, {Control, Payload, Packet,
+        receive {input_result, Request, Result} -> Result after ?DEADLINE -> {unobserved, timeout} end}),
+    Target ! barrier,
+    record(post_input, receive {target_state, Target, Result2} -> {observed, Result2};
+                       {'DOWN', Monitor, process, Controller, Reason} when Controller =:= get(controller) ->
+                           put(controller_down, {observed, Reason}), {controller_down, Monitor, Reason}
+                       after ?DEADLINE -> {unobserved, timeout} end),
+    record(controller_stat, capture(fun() -> erlang:dist_get_stat(get(handle)) end)),
+    case Scenario of dead_watcher_malformed -> ok; _ -> Target ! stop end.
+
+monitor_receiver(Owner) ->
+    receive {establish, Scenario} ->
+        Remote = remote_pid(signal_remote@localhost, 11, 1),
+        Ref = case Scenario of live_unknown_ref_malformed -> make_ref(); _ -> monitor(process, Remote) end,
+        Owner ! {origin, self(), Ref},
+        monitor_receiver_loop(Owner, [])
+    end.
+
+monitor_receiver_loop(Owner, Messages) ->
+    receive stop -> ok;
+        barrier -> Owner ! {target_state, self(), lists:reverse(Messages)}, monitor_receiver_loop(Owner, Messages);
+        Message -> monitor_receiver_loop(Owner, [Message | Messages])
+    end.
+
+'''
+# Native get/1 is not guard-safe. Bind controller identity outside receive.
+method=method.replace('    record(post_input, receive','    CapturedController = get(controller),\n    record(post_input, receive').replace('Controller =:= get(controller)','Controller =:= CapturedController')
+s=s.replace(anchor,method+anchor,1)
+# All scenarios need original process monitor and payload capability bits.
+a=s.index('scenario_flags(' ,s.index('remote_ref(')) if False else s.rindex('scenario_flags(')
+# Replace all old scenario flag clauses as one source region.
+first=s.index('scenario_flags(monitors_both)')
+last=s.index('\nflags() ->',first)
+s=s[:first]+'''scenario_flags(matched_reason) -> 16#400028;
+scenario_flags(live_unknown_ref_malformed) -> 16#400028;
+scenario_flags(dead_watcher_malformed) -> 16#400028.
+'''+s[last:]
+p=out/'distribution_monitor_payload_observer.erl'; p.write_text(s,encoding='utf-8',newline='\n')
+sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+plan={'Stage':'SOURCE ONLY original28 independent probes; no execution or expected outcome guesses','Pin':'ad05823719d77c8faee87348ea39513d4e2f99c5','Scenarios':['matched_reason','live_unknown_ref_malformed','dead_watcher_malformed'],'SourceSha256':sha(p.read_bytes()),'ReusedPublishedProbe':'tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl','ReusedSourceBeforeSha256':sha(before),'Capture':['actual control+opaque payload+wire bytes+put_data result','origin ref and original monitor output','target barrier or actual controller DOWN with raw reason','actual dist_get_stat result','outer stage/exception and cleanup'], 'SemanticExpectations':None,'Note':'Fresh VM each; actual kill/close timing unasserted until observed. Dead watcher barrier may timeout; retained observation, not fabricated delivery.'}
+p=out/'source-plan.json'; p.write_text(json.dumps(plan,indent=2)+'\n'); print(sha(p.read_bytes()))

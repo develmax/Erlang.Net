@@ -1,0 +1,260 @@
+using Erlang;
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class DistributionPayloadMonitorHostChecks
+{
+    internal static async Task Run()
+    {
+        await CheckMatched(false);
+        await CheckMatched(true);
+        await CheckMalformed(false);
+        await CheckMalformed(true);
+        await CheckMissingWatchers();
+        await CheckUnknownReferenceFactory();
+        await CheckDemonitorOrder();
+    }
+
+    private static TupleTerm Control(Term watched, Pid watcher, ReferenceTerm reference)
+        => Term.Tuple(
+            Term.I(DistributionControlOpcodes.PayloadMonitorExit),
+            watched,
+            watcher,
+            reference
+        );
+
+    private static async Task CheckMatched(bool named)
+    {
+        await WithConnection(async (
+            runtime,
+            pending,
+            handle,
+            put,
+            receiver,
+            remote
+        ) =>
+        {
+            Term watched = named ? Term.A(DistributionPayloadMonitorHostNames.Target) : remote;
+            ReferenceTerm reference = await receiver.Invoke(context => pending.BeginConnectedMonitorSignal(handle, context, watched));
+            await put(DistributionPassThroughCodec.EncodePayloadExit(Control(watched, receiver.Process.Pid, reference),
+                DistributionPayloadMonitorHostNames.Value));
+            Term? down = await receiver.InvokeAsync(async context => await context.ReceiveAsync<Term>(
+                value => value, DistributionPayloadMonitorHostNames.Deadline));
+            Term reported = named ? Term.Tuple(watched, Term.A(DistributionPayloadMonitorHostNames.Remote)) : remote;
+            Check(down?.Equals(Term.Tuple(
+                Term.A(ProcessMessageTags.MonitorDown),
+                reference,
+                Term.A(ProcessMonitorKinds.Process),
+                reported,
+                DistributionPayloadMonitorHostNames.Value
+            )) == true);
+            Check(!await receiver.Invoke(context => pending.EndConnectedMonitorSignal(context, reference)));
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+    private static async Task CheckMalformed(bool replace)
+    {
+        await WithConnection(async (
+            runtime,
+            pending,
+            handle,
+            put,
+            receiver,
+            remote
+        ) =>
+        {
+            // No monitor exists for this reference: live-watcher decoding still runs.
+            ReferenceTerm reference = runtime.MakeReference();
+            await put(Frame(Control(remote, receiver.Process.Pid, reference), [DistributionPayloadMonitorHostNames.EtfVersion]));
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+            if (replace)
+            {
+                pending.CloseConnected(handle);
+                handle = pending.BeginPending(Term.A(DistributionPayloadMonitorHostNames.Remote));
+            }
+            await Drain(receiver);
+            Check(State(pending, handle) == (replace ? DistributionPendingState.Pending : DistributionPendingState.Exiting));
+            Check(!receiver.Process.Completion.IsCompleted);
+        });
+    }
+
+    private static async Task CheckMissingWatchers()
+    {
+        await WithConnection(async (
+            runtime,
+            pending,
+            handle,
+            put,
+            receiver,
+            remote
+        ) =>
+        {
+            var owner = receiver.Process.Pid;
+            foreach (var watcher in new[]
+            {
+                new Pid(owner.Node, DistributionPayloadMonitorHostNames.MissingId, owner.Creation),
+                new Pid(owner.Node, owner.Id, unchecked(owner.Creation + 1))
+            })
+                await put(Frame(Control(remote, watcher, runtime.MakeReference()), [DistributionPayloadMonitorHostNames.EtfVersion]));
+            await Drain(receiver);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+            Check((await receiver.Ready).Mailbox.Count == 0);
+        });
+    }
+
+    private static async Task CheckDemonitorOrder()
+    {
+        await WithConnection(async (
+            runtime,
+            pending,
+            handle,
+            put,
+            receiver,
+            remote
+        ) =>
+        {
+            ReferenceTerm reference = await receiver.Invoke(context => pending.BeginConnectedMonitorSignal(handle, context, remote));
+            await put(DistributionPassThroughCodec.EncodePayloadExit(Control(remote, receiver.Process.Pid, reference),
+                DistributionPayloadMonitorHostNames.Value));
+            Check(pending.EndConnectedMonitorSignal(await receiver.Ready, reference));
+            await Drain(receiver);
+            Check((await receiver.Ready).Mailbox.Count == 0);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+    private static async Task CheckUnknownReferenceFactory()
+    {
+        await WithConnection(async (
+            runtime,
+            pending,
+            handle,
+            put,
+            receiver,
+            remote
+        ) =>
+        {
+            var owner = await receiver.Ready;
+            int calls = 0;
+            bool observe = false;
+            var identity = new LocalFunctionIdentity(
+                Term.A(DistributionPayloadMonitorHostNames.FunctionModule),
+                null,
+                DistributionPayloadMonitorHostNames.FunctionIndex,
+                0,
+                new BitString(new byte[DistributionPayloadMonitorHostNames.FunctionUniqueBytes])
+            );
+            runtime.Functions.Register(
+                identity,
+                0,
+                0,
+                environment =>
+            {
+                if (observe)
+                {
+                    calls++;
+
+                    object Gate(object value) => value.GetType().GetField(DistributionPayloadMonitorHostNames.Gate,
+                        BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value)!;
+                    Check(!Monitor.IsEntered(Gate(runtime)) && !Monitor.IsEntered(Gate(owner.Mailbox)));
+                }
+
+                return new FunctionTerm(
+                    identity,
+                    0,
+                    environment,
+                    (_, _) => ValueTask.FromResult<Term>(Nil.Value)
+                );
+            }
+            );
+            FunctionTerm function = runtime.Functions.Restore(
+                runtime,
+                identity,
+                0,
+                []
+            );
+            byte[] reason = ExternalTermFormat.Encode(function, new EtfEncodingOptions { FunctionOwner = owner.Self });
+            observe = true;
+            await put(Frame(Control(remote, owner.Self, runtime.MakeReference()), reason));
+            Check(calls == 0);
+            await Drain(receiver);
+            Check(calls == 1);
+            Check(owner.Mailbox.Count == 0);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+    private static async Task WithConnection(
+        Func<ProcessRuntime, RuntimeDistributionPending, Term, Func<byte[], Task<Term>>, RuntimeNodeFoundationHostActor, Pid, Task> body
+    )
+    {
+        await using var runtime = new ProcessRuntime();
+        await using var kernel = new RuntimeNodeFoundationHostActor(runtime);
+        await using var controller = new RuntimeNodeFoundationHostActor(runtime);
+        await using var input = new RuntimeNodeFoundationHostActor(runtime);
+        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
+        await kernel.InvokeAsync(async context =>
+        {
+            runtime.Register(ConnectedDistributionHostNames.Kernel, context.Self);
+            _ = await runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                ConnectedIngressHostNames.SetNode,
+                Term.A(DistributionPayloadMonitorHostNames.Local),
+                Term.I(0)
+            );
+
+            return true;
+        });
+        var pending = runtime.DistributionPending;
+        Term handle = pending.BeginPending(Term.A(DistributionPayloadMonitorHostNames.Remote));
+        Term opaque = await controller.InvokeAsync(async context => await DistributionControllerAdapters.SetNode(
+            context,
+            Term.A(DistributionPayloadMonitorHostNames.Remote),
+            context.Self,
+            Term.Tuple(
+                new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitors),
+                Term.I(0)
+            )
+        ));
+        await controller.Invoke(context => DistributionControllerAdapters.SetInputHandler(context, opaque, input.Process.Pid));
+        var remote = new Pid(DistributionPayloadMonitorHostNames.Remote, 1, 0);
+        await body(
+            runtime,
+            pending,
+            handle,
+            bytes => input.Invoke(context => DistributionInputAdapter.PutData(context, opaque, new BitString(bytes))),
+            receiver,
+            remote
+        );
+    }
+
+    private static byte[] Frame(TupleTerm control, byte[] payload)
+    {
+        byte[] encoded = ExternalTermFormat.Encode(control);
+        byte[] result = new byte[DistributionPassThroughLayout.MarkerBytes + encoded.Length + payload.Length];
+        result[0] = DistributionPassThroughLayout.Marker;
+        encoded.CopyTo(result, DistributionPassThroughLayout.MarkerBytes);
+        payload.CopyTo(result, DistributionPassThroughLayout.MarkerBytes + encoded.Length);
+
+        return result;
+    }
+
+    private static Task<Term?> Drain(RuntimeNodeFoundationHostActor receiver)
+        => receiver.InvokeAsync(async context => await context.ReceiveAsync<Term>(_ => null, TimeSpan.Zero));
+
+    private static DistributionPendingState State(RuntimeDistributionPending pending, Term handle)
+    {
+        using var lease = pending.Acquire(handle);
+
+        return lease.Snapshot().State;
+    }
+
+    private static void Check(bool condition)
+    {
+        if (!condition)
+            throw new InvalidOperationException(DistributionPayloadMonitorHostNames.Failure);
+    }
+}

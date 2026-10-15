@@ -10,6 +10,12 @@ public sealed partial class RuntimeDistributionPending
     {
         var items = envelope.Control.Items;
         int opcode = (int)((Integer)items[DistributionControlOpcodes.OpcodeIndex]).Value;
+        if (opcode == DistributionControlOpcodes.PayloadMonitorExit)
+        {
+            RouteDeferredConnectedMonitorDown(entry, connected, envelope);
+
+            return;
+        }
         var remote = (Pid)items[DistributionControlOpcodes.FromIndex];
         var local = (Pid)items[DistributionControlOpcodes.TargetIndex];
         if (remote.LocalIdentity is not null || remote.Node != entry.Node.Name || runtime.IsCurrentLocal(remote) ||

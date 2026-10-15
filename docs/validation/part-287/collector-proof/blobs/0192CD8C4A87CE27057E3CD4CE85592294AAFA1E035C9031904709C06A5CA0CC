@@ -1,0 +1,64 @@
+{
+  "Stage": "REUSE_PRIOR_ACTUAL_RAW_CONTROLS_ONLY_FOR_EXACT_UNCHANGED_FRAMEWORK8",
+  "SourceBindings": [
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketCaptureProtocol.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketCaptureProtocol.cs",
+      "Sha256": "2DD51172D768199992CF92B2D833BDD6839FAC1E9DDB344153A9074F87065A32"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketDiagnostics.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketDiagnostics.cs",
+      "Sha256": "CC813558B55C9292EA369B3F889B7C4756047E0711E9EDF9E5DFFCAB6DCFAD9B"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketErlangString.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketErlangString.cs",
+      "Sha256": "1EED3BED716CFA611F1082074319DEDAFBB4A9A1EC1D4432A6679843BF22A85C"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketFields.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketFields.cs",
+      "Sha256": "2D1F3688179210BC1D233DB037A480A6CDE018603DDEB77BFE427148B1A95DD8"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketNames.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketNames.cs",
+      "Sha256": "349D924F21B1A5751030C0E10ABC2CB02D021497DF143343FEDFDDF37D7E3581"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketProcess.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketProcess.cs",
+      "Sha256": "70F7D700953CA19771310DA5A3082C53724C4A31DE048B7C13C5861561DF7840"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketProcessResult.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketProcessResult.cs",
+      "Sha256": "3ED6AE41B79E3B7FF29DC157BFDBB041D4C7274F0B8471B2012B4028DD11239A"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/framework/PacketStringSyntax.cs",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:tools/Erlang.DistributionSignalObservations/framework/PacketStringSyntax.cs",
+      "Sha256": "F1C8237C36839ECC2335F6F1FB7A2A88C79EDA092F188EF67FC78BF8BB519E2C"
+    }
+  ],
+  "PriorExecutedEvidence": [
+    {
+      "Role": "artifacts/native-audit-part286-collector-executed4/receipt.json",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:docs/validation/part-286/candidate-proof/blobs/8CBB03F6C2A75B8A8B263743C063D2B631499AEA7A5F18DCD4E0DA34849BCEED",
+      "Sha256": "8CBB03F6C2A75B8A8B263743C063D2B631499AEA7A5F18DCD4E0DA34849BCEED"
+    },
+    {
+      "Role": "artifacts/native-audit-part286-collector-executed4/raw2.stdout.raw",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:docs/validation/part-286/candidate-proof/blobs/2C83D7252E3832D08AB1A3D76374E6899596D0A192091B8810744461B9B499A7",
+      "Sha256": "2C83D7252E3832D08AB1A3D76374E6899596D0A192091B8810744461B9B499A7"
+    },
+    {
+      "Role": "artifacts/native-audit-part286-collector-executed4/helper-closure.json",
+      "GitRef": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1:docs/validation/part-286/candidate-proof/blobs/2A8C1F0BF08402CC924481BCAFED540A653B674C9AB5E93FAD189944A3A03455",
+      "Sha256": "2A8C1F0BF08402CC924481BCAFED540A653B674C9AB5E93FAD189944A3A03455"
+    }
+  ],
+  "Raw2NotRerun": true,
+  "Limits": "Prior byteexit3 and inherited-pipe controls validate unchanged PacketProcess/capture implementation and helpers. They do not constitute new collector execution, native OTP execution, protocol compatibility, or unconditionally persisted reports."
+}

@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,hashlib,re
+R=Path('.');A=R/'artifacts';defs=[json.loads((A/n).read_bytes()) for n in ['sender-audit-monitor28-source-freeze-revision3.json','sender-audit-monitor28-raw41-migration-source-freeze-revision1.json']];C=A/'native-audit-monitor28-final-proposal-revision4';assert not C.exists();rows=[];changed=[];sha=lambda b:hashlib.sha256(b).hexdigest().upper();quotes=re.compile(rb'"(?:\\.|[^"\\])*"')
+for f in defs:
+ for row in f['Owned']:
+  n=row['Path'];before=(R/f['Candidate']/n).read_bytes()
+  if n=='tests/Erlang.Tests/Program.cs':
+   seed=(R/n).read_bytes();line=b'Test(Erlang.Tests.DistributionPayloadMonitorHostNames.Test, Erlang.Tests.DistributionPayloadMonitorHostChecks.Run);';assert line not in seed;after=seed.replace(b'int failed = 0;',line+b'\n\nint failed = 0;',1);expected=sha(seed)
+  else:
+   after=(A/'native-audit-monitor28-owned-style1'/n).read_bytes();expected=row.get('BeforeSha256')
+   if before!=after:
+    assert re.sub(rb'\s+',b'',before)==re.sub(rb'\s+',b'',after) and quotes.findall(before)==quotes.findall(after),n
+    changed.append(n)
+  target=C/n;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(after);rows.append({'Path':n,'Sha256':sha(after),'BeforeSha256':expected})
+assert len(rows)==9 and len(changed)==3
+freeze=A/'native-audit-monitor28-final-source-freeze-revision4.json';freeze.write_text(json.dumps({'Stage':'FINAL_SOURCE_AFTER_SDK_FORMAT3_NO_SEMANTIC_TOKEN_OR_LITERAL_CHANGE_NOT_REBUILT','Candidate':str(C),'Owned':rows,'PublishedMain':'0267a3cebb7a03e849d7d023dfbd8cda31e708a1','ActualInitialTargetFocus':'native-audit-monitor28-isolated1/receipt.json','InitialActualFocusPassed':143,'FormattingOnly':changed,'QuotedLiteralAndNonWhitespaceExact':True,'ProgramCurrent286PreservedPlusReachableMonitorRegistration':True,'OriginalMonitorAndRaw41FreezesPreserved':True,'NativeExecuted':False,'MainEdited':False},indent=2)+'\n');print(sha(freeze.read_bytes()))
+s=(A/'native-audit-monitor28-isolated-runner1.py').read_text().replace('native-audit-monitor28-isolated1','native-audit-monitor28-isolated2');old="specs=[R/'artifacts/sender-audit-monitor28-source-freeze-revision3.json',R/'artifacts/sender-audit-monitor28-raw41-migration-source-freeze-revision1.json']";new="specs=[R/'artifacts/native-audit-monitor28-final-source-freeze-revision4.json']";assert old in s;s=s.replace(old,new);(A/'native-audit-monitor28-isolated-runner2.py').write_text(s)

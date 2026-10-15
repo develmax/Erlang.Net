@@ -1,0 +1,38 @@
+from pathlib import Path
+import hashlib,json,subprocess
+r=Path.cwd();out=r/'artifacts/sender-audit-monitor28-raw41-proposal-revision1';out.mkdir()
+sha=lambda b:hashlib.sha256(b).hexdigest().upper();rows=[];deltas=[]
+def save(path,b,s,replacements):
+ assert s!=b.decode()
+ reverse=s
+ for old,new in reversed(replacements):
+  assert reverse.count(new)==1
+  reverse=reverse.replace(new,old,1)
+ assert reverse.encode()==b
+ p=out/path;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(s.encode())
+ rows.append({'Path':path,'BeforeSha256':sha(b),'Sha256':sha(p.read_bytes()),'SourceContent':s})
+ deltas.append({'Path':path,'ExactReplacements':[{'Before':a,'After':z} for a,z in replacements],'RemoveOnlyTheseDeltasRestoresExactBefore':True})
+p='tests/Erlang.Tests/DistributionRawInputHostNames.cs';b=(r/p).read_bytes();s=b.decode()
+old='    internal const int UnsupportedPayloadMonitorExitOpcode = DistributionControlOpcodes.PayloadMonitorExit;'
+new='''    internal const int UnsupportedSpawnRequestOpcode = DistributionControlOpcodes.SpawnRequest;
+    internal const ulong UnsupportedSpawnRequestFlag = 0x1UL << 32;
+    internal const string UnsupportedSpawnModule = "raw_input_spawn_module";
+    internal const string UnsupportedSpawnFunction = "raw_input_spawn_function";'''.replace('\n','\r\n' if '\r\n' in s else '\n')
+assert s.count(old)==1;s=s.replace(old,new);save(p,b,s,[(old,new)])
+p='tests/Erlang.Tests/DistributionRawInputHostChecks.cs';b=(r/p).read_bytes();s=b.decode();nl='\r\n' if '\r\n' in s else '\n'
+old='''                Term.I(DistributionRawInputHostNames.UnsupportedPayloadMonitorExitOpcode),
+                remote,
+                receiver.Process.Pid,
+                reference'''.replace('\n',nl)
+new='''                Term.I(DistributionRawInputHostNames.UnsupportedSpawnRequestOpcode),
+                reference,
+                remote,
+                receiver.Process.Pid,
+                Term.Tuple(Term.A(DistributionRawInputHostNames.UnsupportedSpawnModule),
+                    Term.A(DistributionRawInputHostNames.UnsupportedSpawnFunction), Term.I(0)),
+                Nil.Value'''.replace('\n',nl)
+oldflag='new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor)'
+newflag='new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor | DistributionRawInputHostNames.UnsupportedSpawnRequestFlag)'
+assert s.count(old)==s.count(oldflag)==1;s=s.replace(old,new).replace(oldflag,newflag);save(p,b,s,[(old,new),(oldflag,newflag)])
+review={'Stage':'SOURCE ONLY reviewed migration raw41 stillunsupported fixture28 to wellformed29; no gate/native/Main', 'Head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'Candidate':str(out.relative_to(r)), 'Owned':rows,'ExactDeltaLedger':deltas,'ProtocolDerivation':{'Pin':'ad05823719d77c8faee87348ea39513d4e2f99c5','Source':'dist.c2899–2934: tuple6 externalref/fromPID/GLPID/MFAatomatomsmall/options; dist.h64 DFLAG_SPAWN1<<32','Control':'{29, reference, remotePid, receiverPid, {moduleAtom,functionAtom,0}, []}','SeparatePayload':'Existing unchanged Nil.Value ETF arguments list, matching MFA arity0'},'Preserved':['ExpectedAssertions41, both kernelstop false/true branches','All prior attempts and accepted counters/outcome checks','Unsupported helper catches same NotSupportedException','All process actions, malformed fatal fixture, factory reopen race, controller cleanup, deadlines and later handles','Previous ExitPayload/ProcessMonitor flags retained and only exact optional Spawn bit added in Adopt','No global unknown-flag behavior or negotiation rejection changes'], 'IntentionalNewSemantics':'28 now covered independently as actual deferred incoming DOWN; 29 remains valid private feature gap until faithful spawn protocol implemented', 'RequiresRootReviewBeforePromotion':True}
+p=r/'artifacts/sender-audit-monitor28-raw41-migration-source-freeze-revision1.json';p.write_text(json.dumps(review,indent=2)+'\n');print(sha(p.read_bytes()))

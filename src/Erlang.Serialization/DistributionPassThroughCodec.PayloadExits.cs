@@ -9,7 +9,7 @@ public static partial class DistributionPassThroughCodec
         int? opcode = EtfControlOpcodeProbe.Read(packet[DistributionPassThroughLayout.MarkerBytes..]);
 
         return opcode is DistributionControlOpcodes.PayloadExit or DistributionControlOpcodes.PayloadExitTrace or
-            DistributionControlOpcodes.PayloadExit2 or DistributionControlOpcodes.PayloadExit2Trace;
+            DistributionControlOpcodes.PayloadExit2 or DistributionControlOpcodes.PayloadExit2Trace or DistributionControlOpcodes.PayloadMonitorExit;
     }
 
     internal static DistributionPayloadExitEnvelope DecodePayloadExitEnvelope(
@@ -65,6 +65,11 @@ public static partial class DistributionPassThroughCodec
     {
         if (control.Items.Count == 0 || control.Items[DistributionControlOpcodes.OpcodeIndex] is not Integer opcode)
             return false;
+        if (opcode.Value == DistributionControlOpcodes.PayloadMonitorExit)
+            return control.Items.Count == DistributionControlOpcodes.MonitorArity &&
+                control.Items[DistributionControlOpcodes.FromIndex] is Pid or Atom &&
+                control.Items[DistributionControlOpcodes.TargetIndex] is Pid &&
+                control.Items[DistributionControlOpcodes.MonitorReferenceIndex] is ReferenceTerm;
         bool traced = opcode.Value == DistributionControlOpcodes.PayloadExitTrace || opcode.Value == DistributionControlOpcodes.PayloadExit2Trace;
         bool ordinary = opcode.Value == DistributionControlOpcodes.PayloadExit || opcode.Value == DistributionControlOpcodes.PayloadExit2;
 

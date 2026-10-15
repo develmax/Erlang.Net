@@ -1,0 +1,166 @@
+from pathlib import Path
+import hashlib,json
+r=Path.cwd(); out=r/'artifacts/sender-audit-monitor28-proposal-revision1'
+sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+old=json.loads((r/'artifacts/sender-audit-monitor28-source-freeze-revision1.json').read_bytes())
+rows=old['Owned'][:]
+def write(path,text,before=None):
+ p=out/path;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text,encoding='utf-8',newline='\n'); row={'Path':path,'Sha256':sha(p.read_bytes()),'SourceContent':text}
+ if before is not None:row['BeforeSha256']=sha(before)
+ rows.append(row)
+original=(r/'tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs').read_text()
+helper=original[original.index('    private static async Task WithConnection('):]
+helper=helper[:helper.index('    private static TupleTerm Control(')]+helper[helper.index('    private static byte[] Frame('):]
+helper=helper.replace('DistributionPayloadExitHostNames','DistributionPayloadMonitorHostNames').replace('DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload','DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitors')
+code='''using Erlang;
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class DistributionPayloadMonitorHostChecks
+{
+    internal static async Task Run()
+    {
+        await CheckMatched(false);
+        await CheckMatched(true);
+        await CheckMalformed(false);
+        await CheckMalformed(true);
+        await CheckMissingWatchers();
+        await CheckUnknownReferenceFactory();
+        await CheckDemonitorOrder();
+    }
+
+    private static TupleTerm Control(Term watched, Pid watcher, ReferenceTerm reference)
+        => Term.Tuple(Term.I(DistributionControlOpcodes.PayloadMonitorExit), watched, watcher, reference);
+
+    private static async Task CheckMatched(bool named)
+    {
+        await WithConnection(async (runtime, pending, handle, put, receiver, remote) =>
+        {
+            Term watched = named ? Term.A(DistributionPayloadMonitorHostNames.Target) : remote;
+            ReferenceTerm reference = await receiver.Invoke(context => pending.BeginConnectedMonitorSignal(handle, context, watched));
+            await put(DistributionPassThroughCodec.EncodePayloadExit(Control(watched, receiver.Process.Pid, reference),
+                DistributionPayloadMonitorHostNames.Value));
+            Term? down = await receiver.InvokeAsync(async context => await context.ReceiveAsync<Term>(
+                value => value, DistributionPayloadMonitorHostNames.Deadline));
+            Term reported = named ? Term.Tuple(watched, Term.A(DistributionPayloadMonitorHostNames.Remote)) : remote;
+            Check(down?.Equals(Term.Tuple(Term.A(ProcessMessageTags.MonitorDown), reference,
+                Term.A(ProcessMonitorKinds.Process), reported, DistributionPayloadMonitorHostNames.Value)) == true);
+            Check(!await receiver.Invoke(context => pending.EndConnectedMonitorSignal(context, reference)));
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+    private static async Task CheckMalformed(bool replace)
+    {
+        await WithConnection(async (runtime, pending, handle, put, receiver, remote) =>
+        {
+            // No monitor exists for this reference: live-watcher decoding still runs.
+            ReferenceTerm reference = runtime.MakeReference();
+            await put(Frame(Control(remote, receiver.Process.Pid, reference), [DistributionPayloadMonitorHostNames.EtfVersion]));
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+            if (replace)
+            {
+                pending.CloseConnected(handle);
+                handle = pending.BeginPending(Term.A(DistributionPayloadMonitorHostNames.Remote));
+            }
+            await Drain(receiver);
+            Check(State(pending, handle) == (replace ? DistributionPendingState.Pending : DistributionPendingState.Exiting));
+            Check(!receiver.Process.Completion.IsCompleted);
+        });
+    }
+
+    private static async Task CheckMissingWatchers()
+    {
+        await WithConnection(async (runtime, pending, handle, put, receiver, remote) =>
+        {
+            var owner = receiver.Process.Pid;
+            foreach (var watcher in new[]
+            {
+                new Pid(owner.Node, DistributionPayloadMonitorHostNames.MissingId, owner.Creation),
+                new Pid(owner.Node, owner.Id, unchecked(owner.Creation + 1))
+            })
+                await put(Frame(Control(remote, watcher, runtime.MakeReference()), [DistributionPayloadMonitorHostNames.EtfVersion]));
+            await Drain(receiver);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+            Check((await receiver.Ready).Mailbox.Count == 0);
+        });
+    }
+
+    private static async Task CheckDemonitorOrder()
+    {
+        await WithConnection(async (runtime, pending, handle, put, receiver, remote) =>
+        {
+            ReferenceTerm reference = await receiver.Invoke(context => pending.BeginConnectedMonitorSignal(handle, context, remote));
+            await put(DistributionPassThroughCodec.EncodePayloadExit(Control(remote, receiver.Process.Pid, reference),
+                DistributionPayloadMonitorHostNames.Value));
+            Check(pending.EndConnectedMonitorSignal(await receiver.Ready, reference));
+            await Drain(receiver);
+            Check((await receiver.Ready).Mailbox.Count == 0);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+    private static async Task CheckUnknownReferenceFactory()
+    {
+        await WithConnection(async (runtime, pending, handle, put, receiver, remote) =>
+        {
+            var owner = await receiver.Ready;
+            int calls = 0;
+            bool observe = false;
+            var identity = new LocalFunctionIdentity(Term.A(DistributionPayloadMonitorHostNames.FunctionModule), null,
+                DistributionPayloadMonitorHostNames.FunctionIndex, 0,
+                new BitString(new byte[DistributionPayloadMonitorHostNames.FunctionUniqueBytes]));
+            runtime.Functions.Register(identity, 0, 0, environment =>
+            {
+                if (observe)
+                {
+                    calls++;
+                    object Gate(object value) => value.GetType().GetField(DistributionPayloadMonitorHostNames.Gate,
+                        BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value)!;
+                    Check(!Monitor.IsEntered(Gate(runtime)) && !Monitor.IsEntered(Gate(owner.Mailbox)));
+                }
+
+                return new FunctionTerm(identity, 0, environment, (_, _) => ValueTask.FromResult<Term>(Nil.Value));
+            });
+            FunctionTerm function = runtime.Functions.Restore(runtime, identity, 0, []);
+            byte[] reason = ExternalTermFormat.Encode(function, new EtfEncodingOptions { FunctionOwner = owner.Self });
+            observe = true;
+            await put(Frame(Control(remote, owner.Self, runtime.MakeReference()), reason));
+            Check(calls == 0);
+            await Drain(receiver);
+            Check(calls == 1);
+            Check(owner.Mailbox.Count == 0);
+            Check(State(pending, handle) == DistributionPendingState.Connected);
+        });
+    }
+
+'''+helper
+write('tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs',code)
+write('tests/Erlang.Tests/DistributionPayloadMonitorHostNames.cs','''using Erlang;
+
+namespace Erlang.Tests;
+
+internal static class DistributionPayloadMonitorHostNames
+{
+    internal const string Test = "runtime/distribution-payload-monitor-deferred-raw-lifecycle";
+    internal const string Local = "payload_monitor_local@localhost";
+    internal const string Remote = "payload_monitor_remote@localhost";
+    internal const string Target = "payload_monitor_target";
+    internal const string Failure = "Deferred payload monitor assertion failed";
+    internal const string Reason = "payload_monitor_reason";
+    internal const string FunctionModule = "payload_monitor_function";
+    internal const string Gate = "gate";
+    internal const int FunctionUniqueBytes = 16;
+    internal const int FunctionIndex = 9;
+    internal const byte EtfVersion = 131;
+    internal const int MissingId = 500000;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
+    internal static readonly Atom Value = Term.A(Reason);
+}
+''')
+p='tests/Erlang.Tests/Program.cs'; b=(r/p).read_bytes();s=b.decode(); anchor='int failed = 0;';assert s.count(anchor)==1
+line='tests.Add(new(DistributionPayloadMonitorHostNames.Test, DistributionPayloadMonitorHostChecks.Run));\n\n'
+write(p,s.replace(anchor,line+anchor),b)
+old.update({'Stage':'SOURCE ONLY incoming28 plus7 HOST cases and one registration before loop; no build/native/Main','Owned':rows})
+p=r/'artifacts/sender-audit-monitor28-source-freeze-revision2.json';p.write_text(json.dumps(old,indent=2)+'\n');print(sha(p.read_bytes()))

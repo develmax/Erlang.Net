@@ -1,0 +1,38 @@
+from pathlib import Path
+import json,hashlib,difflib,re
+A=Path('artifacts');old=A/'sender-audit-monitor28-native-proposal-revision2';new=A/'native-audit-monitor28-native-proposal-revision3';assert not new.exists();new.mkdir();name='distribution_monitor_payload_observer.erl';before=(old/name).read_text();s=before
+assert hashlib.sha256((old/'source-plan.json').read_bytes()).hexdigest().upper()=='77B943DF009F642F068EF224C7CBF8CB3BFBFAC2ED4078F7395CF04C2016BAB9'
+removed=[]
+def remove(start,end):
+ global s
+ a=s.index(start);b=s.index(end,a);removed.append(s[a:b]);s=s[:a]+s[b:]
+remove('observe_monitors() ->','controller(Owner, Flags) ->')
+remove('input(Control) ->','drain(Name) ->')
+remove('target() ->','remote_pid(Node, Number, Creation) ->')
+remove('remote_ref(Node, Word, Creation) ->','scenario_flags(matched_reason) ->')
+s=s.replace('-define(NEWER_REFERENCE, 90).\n','')
+start=s.index('observe_payload_monitor(Scenario) ->');end=s.index('\nmonitor_receiver(Owner) ->',start);body=s[start:end]
+anchor='    {Target, TargetMonitor} = spawn_monitor(fun() -> monitor_receiver(Owner) end),\n';assert body.count(anchor)==1;body=body.replace(anchor,anchor+'    try\n',1)
+old_down="record(target_down, receive {'DOWN', TargetMonitor, process, Target, R} -> {observed, R}"
+new_down="record(target_down, receive {'DOWN', TargetMonitor, process, Target, R} ->\n                                   TargetDown = {observed, R},\n                                   put(payload_target_down, TargetDown),\n                                   TargetDown"
+assert old_down in body;body=body.replace(old_down,new_down)
+old_finish='    case Scenario of dead_watcher_malformed -> ok; _ -> Target ! stop end.\n';assert body.endswith(old_finish);body=body[:-len(old_finish)]+'    ok\n    after cleanup_payload_target(Target, TargetMonitor) end.\n'
+cleanup='''
+cleanup_payload_target(Target, TargetMonitor) ->
+    Cleanup = case erase(payload_target_down) of
+        {observed, _} = Observed -> Observed;
+        undefined ->
+            Target ! stop,
+            receive {'DOWN', TargetMonitor, process, Target, Reason} -> {observed, Reason}
+            after ?DEADLINE ->
+                exit(Target, kill),
+                receive {'DOWN', TargetMonitor, process, Target, ForcedReason} -> {forced, ForcedReason}
+                after ?DEADLINE -> {unobserved, timeout} end
+            end
+    end,
+    save("target-cleanup.etf", Cleanup).
+'''
+s=s[:start]+body+cleanup+s[end:];(new/name).write_text(s,encoding='utf-8',newline='\n')
+plan=json.loads((old/'source-plan.json').read_bytes());plan['Stage']='SOURCE ONLY original28 revision3: inherited unused helpers removed and owned target monitored cleanup; not compiled or executed';plan['SourceSha256']=hashlib.sha256((new/name).read_bytes()).hexdigest().upper();plan['Entrypoint']='distribution_monitor_payload_observer:run(Output,Scenario)';plan['Capture'].append('target-cleanup.etf contains actually observed DOWN reason, forced actual DOWN reason, or explicit unobserved timeout');plan['PreviousPlanSha256']=hashlib.sha256((old/'source-plan.json').read_bytes()).hexdigest().upper();plan['SemanticExpectations']=None;(new/'source-plan.json').write_text(json.dumps(plan,indent=2)+'\n')
+diff=''.join(difflib.unified_diff(before.splitlines(keepends=True),s.splitlines(keepends=True),fromfile='revision2/'+name,tofile='revision3/'+name));(new/'source-delta.diff').write_text(diff)
+ledger={'Stage':'SOURCE_ONLY_NATIVE_MONITOR28_CLEANUP_REPAIR_NOT_COMPILED','Candidate':str(new),'PreviousSourceSha256':hashlib.sha256((old/name).read_bytes()).hexdigest().upper(),'SourceSha256':plan['SourceSha256'],'PlanSha256':hashlib.sha256((new/'source-plan.json').read_bytes()).hexdigest().upper(),'RemovedTrulyUnusedInheritedFunctions':['observe_monitors/0','observe_group_leader/0','stop_controller/0','input/1','target/0','remote_ref/3'],'RemovedUnusedMacro':'NEWER_REFERENCE','NoWarningSuppression':True,'TargetCleanupBefore':'Live target only received stop; no awaited DOWN and no finally on failure.','TargetCleanupAfter':'try/after for every spawned owned target. Reuses already observed dead-target DOWN; otherwise sends stop, awaits exact owned monitor+PID, kills only owned target after existing deadline, awaits exact DOWN again and records raw reason or explicit timeout.','ControllerCleanupUnchanged':True,'CasesUnchanged':plan['Scenarios'],'ControlWirePayloadSemanticsUnchanged':True,'DeadlineUnchangedMilliseconds':5000,'NoGuessedNativeSemantics':True,'OriginalControllerDeathTimingUnasserted':True,'NativeCompileExecuteOrDispatch':False,'MainOrGitMutated':False,'Files':[{'Path':q.name,'Sha256':hashlib.sha256(q.read_bytes()).hexdigest().upper(),'Bytes':q.stat().st_size} for q in sorted(new.iterdir()) if q.is_file()]};p=A/'native-audit-monitor28-native-revision3-ledger.json';p.write_text(json.dumps(ledger,indent=2)+'\n');print(json.dumps({'Ledger':str(p),'Sha256':hashlib.sha256(p.read_bytes()).hexdigest().upper(),'SourceSha256':ledger['SourceSha256'],'PlanSha256':ledger['PlanSha256']}))

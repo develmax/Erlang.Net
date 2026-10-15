@@ -1,0 +1,48 @@
+{
+  "Stage": "SOURCE_ONLY_NATIVE_MONITOR28_CLEANUP_REPAIR_NOT_COMPILED",
+  "Candidate": "artifacts\\native-audit-monitor28-native-proposal-revision3",
+  "PreviousSourceSha256": "1DA9BB695EC444961A5D952565E48A6FDFE088335C7CD28EFD055F69AA1F5FA2",
+  "SourceSha256": "2E2920BB1305EEF0A339E2D6319399A202E943B8AC6860DB3D8CCCFF47907F71",
+  "PlanSha256": "C75470BB5E822D141AB4DA406997A9C81FEC0CE9FD3857C4039EFF914FDA322C",
+  "RemovedTrulyUnusedInheritedFunctions": [
+    "observe_monitors/0",
+    "observe_group_leader/0",
+    "stop_controller/0",
+    "input/1",
+    "target/0",
+    "remote_ref/3"
+  ],
+  "RemovedUnusedMacro": "NEWER_REFERENCE",
+  "NoWarningSuppression": true,
+  "TargetCleanupBefore": "Live target only received stop; no awaited DOWN and no finally on failure.",
+  "TargetCleanupAfter": "try/after for every spawned owned target. Reuses already observed dead-target DOWN; otherwise sends stop, awaits exact owned monitor+PID, kills only owned target after existing deadline, awaits exact DOWN again and records raw reason or explicit timeout.",
+  "ControllerCleanupUnchanged": true,
+  "CasesUnchanged": [
+    "matched_reason",
+    "live_unknown_ref_malformed",
+    "dead_watcher_malformed"
+  ],
+  "ControlWirePayloadSemanticsUnchanged": true,
+  "DeadlineUnchangedMilliseconds": 5000,
+  "NoGuessedNativeSemantics": true,
+  "OriginalControllerDeathTimingUnasserted": true,
+  "NativeCompileExecuteOrDispatch": false,
+  "MainOrGitMutated": false,
+  "Files": [
+    {
+      "Path": "distribution_monitor_payload_observer.erl",
+      "Sha256": "2E2920BB1305EEF0A339E2D6319399A202E943B8AC6860DB3D8CCCFF47907F71",
+      "Bytes": 7324
+    },
+    {
+      "Path": "source-delta.diff",
+      "Sha256": "BB522BFFD6AC2AF7A75346A1821E68A85EF40097745306DE6C37AF25AE0FC920",
+      "Bytes": 8137
+    },
+    {
+      "Path": "source-plan.json",
+      "Sha256": "C75470BB5E822D141AB4DA406997A9C81FEC0CE9FD3857C4039EFF914FDA322C",
+      "Bytes": 1375
+    }
+  ]
+}
