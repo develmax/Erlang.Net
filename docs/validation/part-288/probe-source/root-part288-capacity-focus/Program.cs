@@ -1,0 +1,12 @@
+using System.Reflection;
+using System.Runtime.Loader;
+var path = Path.GetFullPath(args[0]);
+var resolver = new AssemblyDependencyResolver(path);
+AssemblyLoadContext.Default.Resolving += (context, name) => resolver.ResolveAssemblyToPath(name) is { } dependency ? context.LoadFromAssemblyPath(dependency) : null;
+var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+foreach (var name in args.Skip(1))
+{
+    var type = assembly.GetType("Erlang.Tests." + name, true)!;
+    await ((Task)type.GetMethod("Run", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)!.Invoke(null, null)!).WaitAsync(TimeSpan.FromSeconds(30));
+    Console.WriteLine("PASS " + name);
+}

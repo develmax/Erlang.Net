@@ -1,0 +1,1490 @@
+{
+  "Stage": "INDEPENDENT_ORIGINAL14_TO_PERMANENT_MAIN_SELECTED_CONTRACT_CONCORDANCE_WITH_EXPLICIT_REGRESSION_GAPS",
+  "PublishedHead": "58d227ecef29d117fa091ab30b1e0928f969d2fa",
+  "CurrentIncomingSourceMatchesPublished": true,
+  "Current288FullNotClaimed": true,
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeWordsize": 8,
+  "RawTypedProofGuards": [
+    {
+      "Path": "native-audit-terminal287-38677155447-independent-guard.json",
+      "Sha256": "97B08294FB80A5CC5E7D54727DEC42191BC19360CF499CE9DC70F829AF5F9CCB"
+    },
+    {
+      "Path": "native-audit-terminal287-38677160804-independent-guard.json",
+      "Sha256": "7D1B63310B1AC997CAF26DA2669BEFC57FE4B3F1E7D4492FFF0CAE9C3523EA84"
+    }
+  ],
+  "PublishedSameHeadCi": "6568/6568 including permanent incoming/legacyTT HOSTs; CI does not add missing assertions.",
+  "SourceBindings": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+      "PublishedRawSha256": "4BF6766F9F048711DC77B39D0EF322247C8B4A7B3C4BA072A449EB6D9C3A8DA1",
+      "CurrentWorkingRawSha256": "4BF6766F9F048711DC77B39D0EF322247C8B4A7B3C4BA072A449EB6D9C3A8DA1",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionPayloadExitHostNames.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionPayloadExitHostNames.cs",
+      "PublishedRawSha256": "A1A03CF0B77EDFD94E1937E0069377AAD78C2FDD5C4C766A8B6A6B0955FC0F43",
+      "CurrentWorkingRawSha256": "A1A03CF0B77EDFD94E1937E0069377AAD78C2FDD5C4C766A8B6A6B0955FC0F43",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs",
+      "PublishedRawSha256": "5D99E223A65E1BD2706C1AE857E59C45751EFC3FBDF7125BD7C3DD9ECDA3B104",
+      "CurrentWorkingRawSha256": "5D99E223A65E1BD2706C1AE857E59C45751EFC3FBDF7125BD7C3DD9ECDA3B104",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionTraceHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionTraceHostChecks.cs",
+      "PublishedRawSha256": "5F7E9D9DA821E3D22BE04220D88269C101FA673EA836CCA3C9900E57ADBF0004",
+      "CurrentWorkingRawSha256": "5F7E9D9DA821E3D22BE04220D88269C101FA673EA836CCA3C9900E57ADBF0004",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+      "PublishedRawSha256": "5D5A0E99DAB93C1CFFF0401E73288E44578AFCF3F2A12C6F92A28EF96A4E4158",
+      "CurrentWorkingRawSha256": "5D5A0E99DAB93C1CFFF0401E73288E44578AFCF3F2A12C6F92A28EF96A4E4158",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionDeferredReasonHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/DistributionDeferredReasonHostChecks.cs",
+      "PublishedRawSha256": "B527372265C44A8F9789C7EACEF885CC7C6BA450946B86AD94DC3CFFE89A3E92",
+      "CurrentWorkingRawSha256": "B527372265C44A8F9789C7EACEF885CC7C6BA450946B86AD94DC3CFFE89A3E92",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/EtfHostChecks.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:tests/Erlang.Tests/EtfHostChecks.cs",
+      "PublishedRawSha256": "88A7F0067A51BBDC53B6452BEB169973815323E44EBC83833A9B23A8A70F3688",
+      "CurrentWorkingRawSha256": "88A7F0067A51BBDC53B6452BEB169973815323E44EBC83833A9B23A8A70F3688",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadExit.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/ProcessRuntime.PayloadExit.cs",
+      "PublishedRawSha256": "DE74A5DBADCC307BE3C1ADF5AEA1CD08F3034B44866CE20AC20C6B35BF61CA96",
+      "CurrentWorkingRawSha256": "DE74A5DBADCC307BE3C1ADF5AEA1CD08F3034B44866CE20AC20C6B35BF61CA96",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs",
+      "PublishedRawSha256": "7E45A2C2EC5386AEFDE5BBE6657A769A1F3B1A0419DD7802A4D259EE42451CEC",
+      "CurrentWorkingRawSha256": "7E45A2C2EC5386AEFDE5BBE6657A769A1F3B1A0419DD7802A4D259EE42451CEC",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DeferredExitReason.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/ProcessRuntime.DeferredExitReason.cs",
+      "PublishedRawSha256": "19612369F8897E2C26BF6E3B6BA8A5262632E0CB6FF7685103C7AC22AB880BE9",
+      "CurrentWorkingRawSha256": "19612369F8897E2C26BF6E3B6BA8A5262632E0CB6FF7685103C7AC22AB880BE9",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalDecode.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/ProcessRuntime.ExternalDecode.cs",
+      "PublishedRawSha256": "07309230819D4861A71DB83FB18E3668A1B1A931CC44C7B600EE7825A9EBDBC1",
+      "CurrentWorkingRawSha256": "07309230819D4861A71DB83FB18E3668A1B1A931CC44C7B600EE7825A9EBDBC1",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.DeferredReasonFailure.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/RuntimeDistributionPending.DeferredReasonFailure.cs",
+      "PublishedRawSha256": "6181B02A47E2770C353C4E5E12377816B4D658ED3035A9E099CB4CA2CE261497",
+      "CurrentWorkingRawSha256": "6181B02A47E2770C353C4E5E12377816B4D658ED3035A9E099CB4CA2CE261497",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.PayloadExit.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/RuntimeDistributionPending.PayloadExit.cs",
+      "PublishedRawSha256": "1FD7C9DE93154C3D59F844D934F70699C91095B072C39B5833CF26975A8E71EB",
+      "CurrentWorkingRawSha256": "1FD7C9DE93154C3D59F844D934F70699C91095B072C39B5833CF26975A8E71EB",
+      "OnlyCheckoutEolDifference": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "GitRef": "58d227ecef29d117fa091ab30b1e0928f969d2fa:src/Erlang.Runtime/Mailbox.cs",
+      "PublishedRawSha256": "A58F4A53DB0147B4DA15957264BC08F034FD4CC3C9C5EC21509443332E71CE09",
+      "CurrentWorkingRawSha256": "A58F4A53DB0147B4DA15957264BC08F034FD4CC3C9C5EC21509443332E71CE09",
+      "OnlyCheckoutEolDifference": false
+    }
+  ],
+  "Cases": [
+    {
+      "NativeCase": "linked_trap",
+      "ActualFacts": {
+        "NativeOpcode": 24,
+        "Stage": [
+          "complete",
+          "linked_trap"
+        ],
+        "SelectedKind": "selected",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": "normal",
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "payload_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "payload_reason"
+                    },
+                    {
+                      "Tag": 109,
+                      "Type": "Binary",
+                      "BytesHex": "0080ff"
+                    },
+                    {
+                      "Tag": 108,
+                      "Type": "List",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "a"
+                        }
+                      ],
+                      "Tail": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "binary_tail"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckTrapped(int opcode)",
+          "MethodStartLine": 126,
+          "MethodBlockLfSha256": "6C89F43D6699410662B40D3AE1973FB3C38740946472A9C661A42C705CFDE3C5",
+          "AssertionLine": 154,
+          "ExactAssertionOrCode": "Check(received!.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, DistributionPayloadExitHostNames.Value)));"
+        }
+      ],
+      "CoverageAssessment": "Selected EXIT message shape and receiver/connection survival concordant",
+      "LimitsAndMissingProof": "Native reason is a tuple with binary and improper list; permanent CheckTrapped uses an atom. Main generic function-reason restore test is additional coverage, not a same-input native byte comparison."
+    },
+    {
+      "NativeCase": "linked_trace_trap",
+      "ActualFacts": {
+        "NativeOpcode": 25,
+        "Stage": [
+          "complete",
+          "linked_trace_trap"
+        ],
+        "SelectedKind": "selected",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": "normal",
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "payload_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "payload_reason"
+                    },
+                    {
+                      "Tag": 109,
+                      "Type": "Binary",
+                      "BytesHex": "0080ff"
+                    },
+                    {
+                      "Tag": 108,
+                      "Type": "List",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "a"
+                        }
+                      ],
+                      "Tail": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "binary_tail"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "payload_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "payload_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckTrapped(int opcode)",
+          "MethodStartLine": 126,
+          "MethodBlockLfSha256": "6C89F43D6699410662B40D3AE1973FB3C38740946472A9C661A42C705CFDE3C5",
+          "AssertionLine": 154,
+          "ExactAssertionOrCode": "Check(received!.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, DistributionPayloadExitHostNames.Value)));"
+        },
+        {
+          "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+          "Method": "private static async Task RunOpcode(int opcode)",
+          "MethodStartLine": 13,
+          "MethodBlockLfSha256": "16B70CF22A3AD41AE6CFFEDEA3A911237EA7247B2EDBECD864F2200914D1B387",
+          "AssertionLine": 117,
+          "ExactAssertionOrCode": "Check((await selected.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline)).Equals(Term.Tuple("
+        }
+      ],
+      "CoverageAssessment": "Payload25 delivery shape tested; canonical nonnil token only source-concordant, direct payload regression missing",
+      "LimitsAndMissingProof": "CheckTrapped iterates25 but Control supplies Nil token. Legacy13/18 canonical HOST proves full token/label/{3,9}/tracer on those opcodes only. Native25 selects nonnil {2,payload_label,9,Remote,3}; no permanent payload25 assertion tests this exact token path."
+    },
+    {
+      "NativeCase": "explicit_normal",
+      "ActualFacts": {
+        "NativeOpcode": 26,
+        "Stage": [
+          "complete",
+          "explicit_normal"
+        ],
+        "SelectedKind": "observation_timeout",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "observation_timeout"
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckNormal()",
+          "MethodStartLine": 191,
+          "MethodBlockLfSha256": "601C15122B18EF8563DB8D0E04DDADA95DFA53A6D8E12A855250D46E4AB96A20",
+          "AssertionLine": 205,
+          "ExactAssertionOrCode": "Check(!receiver.Process.Completion.IsCompleted);"
+        }
+      ],
+      "CoverageAssessment": "Ignored normal behavior concordant",
+      "LimitsAndMissingProof": "Native observation_timeout means no selected message in observer window; receiver subsequently {forced,killed} is owned cleanup, not spontaneous normal-exit death. SDK checks alive/empty/current connection after actual drain."
+    },
+    {
+      "NativeCase": "explicit_trace_trap",
+      "ActualFacts": {
+        "NativeOpcode": 27,
+        "Stage": [
+          "complete",
+          "explicit_trace_trap"
+        ],
+        "SelectedKind": "selected",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": "normal",
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "payload_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "payload_reason"
+                    },
+                    {
+                      "Tag": 109,
+                      "Type": "Binary",
+                      "BytesHex": "0080ff"
+                    },
+                    {
+                      "Tag": 108,
+                      "Type": "List",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "a"
+                        }
+                      ],
+                      "Tail": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "binary_tail"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "label"
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "payload_label"
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "serial"
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 3
+                    },
+                    {
+                      "Tag": 97,
+                      "Type": "Integer",
+                      "Value": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 2
+                },
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "payload_label"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 9
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckTrapped(int opcode)",
+          "MethodStartLine": 126,
+          "MethodBlockLfSha256": "6C89F43D6699410662B40D3AE1973FB3C38740946472A9C661A42C705CFDE3C5",
+          "AssertionLine": 154,
+          "ExactAssertionOrCode": "Check(received!.Equals(Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), remote, DistributionPayloadExitHostNames.Value)));"
+        },
+        {
+          "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+          "Method": "private static async Task RunOpcode(int opcode)",
+          "MethodStartLine": 13,
+          "MethodBlockLfSha256": "16B70CF22A3AD41AE6CFFEDEA3A911237EA7247B2EDBECD864F2200914D1B387",
+          "AssertionLine": 117,
+          "ExactAssertionOrCode": "Check((await selected.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline)).Equals(Term.Tuple("
+        }
+      ],
+      "CoverageAssessment": "Payload27 delivery shape tested; canonical nonnil token direct regression missing",
+      "LimitsAndMissingProof": "Same payload token gap as25. Shared routing extracts index3 and passes raw token to deferred mailbox, but source reachability is weaker than a direct canonical27 receive assertion."
+    },
+    {
+      "NativeCase": "explicit_kill",
+      "ActualFacts": {
+        "NativeOpcode": 26,
+        "Stage": [
+          "complete",
+          "explicit_kill"
+        ],
+        "SelectedKind": "receiver_down",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": "killed",
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "receiver_down"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "killed"
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckKill()",
+          "MethodStartLine": 240,
+          "MethodBlockLfSha256": "9AD11DD52A581C981C4EC7288CF44F9518DFBB532FF6113D48B63105C457650D",
+          "AssertionLine": 262,
+          "ExactAssertionOrCode": ".Equals(Term.A(ProcessExitReasons.Killed)))"
+        }
+      ],
+      "CoverageAssessment": "Shared explicit kill behavior concordant with opcode mismatch in direct permanent test",
+      "LimitsAndMissingProof": "Native scenario uses26 with trap_exit true; permanent CheckKill uses27 with Nil token. Both share explicitSignal kill branch, but a direct26 kill assertion is absent in this suite."
+    },
+    {
+      "NativeCase": "dead_link_truncated",
+      "ActualFacts": {
+        "NativeOpcode": 24,
+        "Stage": [
+          "complete",
+          "dead_link_truncated"
+        ],
+        "SelectedKind": "observation_timeout",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "observation_timeout"
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckDrops()",
+          "MethodStartLine": 160,
+          "MethodBlockLfSha256": "26C8EB55A4D9AABF803DC63125C17A66AFAE17EC5F7B435858BD12FD920F246F",
+          "AssertionLine": 178,
+          "ExactAssertionOrCode": "Check((await receiver.Ready).Mailbox.Count == 0);"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadExit.cs",
+          "Method": "internal void QueueConnectedDeferredExit",
+          "MethodStartLine": 5,
+          "MethodBlockLfSha256": "A99494E13E7B4AFB8BAE213063C2DD7017A47B17D2107DFE293214D8116BFBF4",
+          "AssertionLine": 20,
+          "ExactAssertionOrCode": "if (!IsCurrentLocal(local) || !processes.TryGetValue(local, out target!))"
+        }
+      ],
+      "CoverageAssessment": "Target-drop source path concordant; direct missing-target24 permanent case absent",
+      "LimitsAndMissingProof": "CheckDrops tests malformed missing-target26 and live unlinked24, not malformed missing-target24. Native uses constructed missing local PID, so no actual target death is implied here."
+    },
+    {
+      "NativeCase": "dead_explicit_truncated",
+      "ActualFacts": {
+        "NativeOpcode": 26,
+        "Stage": [
+          "complete",
+          "dead_explicit_truncated"
+        ],
+        "SelectedKind": "observation_timeout",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "observation_timeout"
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckDrops()",
+          "MethodStartLine": 160,
+          "MethodBlockLfSha256": "26C8EB55A4D9AABF803DC63125C17A66AFAE17EC5F7B435858BD12FD920F246F",
+          "AssertionLine": 178,
+          "ExactAssertionOrCode": "Check((await receiver.Ready).Mailbox.Count == 0);"
+        }
+      ],
+      "CoverageAssessment": "Missing-target26 malformed reason drop concordant",
+      "LimitsAndMissingProof": "SDK and native both use one-byte ETF version malformed payload and a nonexistent current local target. Native receiver kept separate for observation is forced-cleaned; this is not death of the missing target."
+    },
+    {
+      "NativeCase": "unlinked_live_truncated",
+      "ActualFacts": {
+        "NativeOpcode": 24,
+        "Stage": [
+          "complete",
+          "unlinked_live_truncated"
+        ],
+        "SelectedKind": "observation_timeout",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 119,
+          "Type": "Atom",
+          "Value": "observation_timeout"
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckDrops()",
+          "MethodStartLine": 160,
+          "MethodBlockLfSha256": "26C8EB55A4D9AABF803DC63125C17A66AFAE17EC5F7B435858BD12FD920F246F",
+          "AssertionLine": 178,
+          "ExactAssertionOrCode": "Check((await receiver.Ready).Mailbox.Count == 0);"
+        }
+      ],
+      "CoverageAssessment": "Unlinked live24 malformed drop concordant",
+      "LimitsAndMissingProof": "Main raw frame is queued for live unlinked owner, drained, and connection remains connected with empty mailbox. Original receiver observation timeout and forced cleanup are preserved, not converted into a delivered event."
+    },
+    {
+      "NativeCase": "linked_live_truncated",
+      "ActualFacts": {
+        "NativeOpcode": 24,
+        "Stage": [
+          "complete",
+          "linked_live_truncated"
+        ],
+        "SelectedKind": "controller_down",
+        "ControllerAfter": [
+          "false",
+          "undefined"
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "killed",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "controller_down"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "killed"
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckDrops()",
+          "MethodStartLine": 160,
+          "MethodBlockLfSha256": "26C8EB55A4D9AABF803DC63125C17A66AFAE17EC5F7B435858BD12FD920F246F",
+          "AssertionLine": 178,
+          "ExactAssertionOrCode": "Check((await receiver.Ready).Mailbox.Count == 0);"
+        },
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckMalformed(bool replace)",
+          "MethodStartLine": 211,
+          "MethodBlockLfSha256": "DEFC36653DE4E775CB63B1E3B692EB5BB1882A1C864AA1A6BAE6BFB3EC78E1A1",
+          "AssertionLine": 235,
+          "ExactAssertionOrCode": "Check(State(pending, handle) == (replace ? DistributionPendingState.Pending : DistributionPendingState.Exiting));"
+        }
+      ],
+      "CoverageAssessment": "Active linked malformed24 controller-kill direct permanent regression missing",
+      "LimitsAndMissingProof": "CheckDrops intentionally unlinks AFTER enqueue and BEFORE drain, validating a drop. CheckMalformed tests26 only and asserts Exiting, not actual controller Completion killed. Neither directly covers retained active LINK + malformed24 observed to kill original controller."
+    },
+    {
+      "NativeCase": "explicit_live_truncated",
+      "ActualFacts": {
+        "NativeOpcode": 26,
+        "Stage": [
+          "complete",
+          "explicit_live_truncated"
+        ],
+        "SelectedKind": "controller_down",
+        "ControllerAfter": [
+          "false",
+          "undefined"
+        ],
+        "ReceiverCleanup": [
+          "forced",
+          "killed"
+        ],
+        "ControllerCleanup": "killed",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "controller_down"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "killed"
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadExitHostChecks.cs",
+          "Method": "private static async Task CheckMalformed(bool replace)",
+          "MethodStartLine": 211,
+          "MethodBlockLfSha256": "DEFC36653DE4E775CB63B1E3B692EB5BB1882A1C864AA1A6BAE6BFB3EC78E1A1",
+          "AssertionLine": 235,
+          "ExactAssertionOrCode": "Check(State(pending, handle) == (replace ? DistributionPendingState.Pending : DistributionPendingState.Exiting));"
+        },
+        {
+          "Path": "src/Erlang.Runtime/RuntimeDistributionPending.DeferredReasonFailure.cs",
+          "Method": "private void RejectDeferredReasonIfCurrent",
+          "MethodStartLine": 19,
+          "MethodBlockLfSha256": "288743FD8502F98EC8216FC8E08F1752CF7086508BAF9F6C901F6A9B5B92DBB5",
+          "AssertionLine": 32,
+          "ExactAssertionOrCode": "runtime.QueueDistributionControllerKill(captured.Controller);"
+        }
+      ],
+      "CoverageAssessment": "Explicit26 malformed decode failure source/state concordant; actual controller-kill assertion missing",
+      "LimitsAndMissingProof": "Native controller actually reports DOWN killed and survives neither query. Main tests private entry Exiting and living receiver; queued real kill exists in source but permanent assertion does not await controller Completion reason."
+    },
+    {
+      "NativeCase": "trailing_reason",
+      "ActualFacts": {
+        "NativeOpcode": 26,
+        "Stage": [
+          "complete",
+          "trailing_reason"
+        ],
+        "SelectedKind": "selected",
+        "ControllerAfter": [
+          "true",
+          [
+            "status",
+            "waiting"
+          ]
+        ],
+        "ReceiverCleanup": "normal",
+        "ControllerCleanup": "normal",
+        "SelectedTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "selected"
+            },
+            {
+              "Tag": 88,
+              "Type": "Pid",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "payload_local@localhost"
+              },
+              "Id": 84,
+              "Serial": 0,
+              "Creation": 4
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "EXIT"
+                },
+                {
+                  "Tag": 88,
+                  "Type": "Pid",
+                  "Node": {
+                    "Tag": 119,
+                    "Type": "Atom",
+                    "Value": "payload_remote@localhost"
+                  },
+                  "Id": 1,
+                  "Serial": 0,
+                  "Creation": 1
+                },
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "payload_reason"
+                    },
+                    {
+                      "Tag": 109,
+                      "Type": "Binary",
+                      "BytesHex": "0080ff"
+                    },
+                    {
+                      "Tag": 108,
+                      "Type": "List",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "a"
+                        }
+                      ],
+                      "Tail": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "binary_tail"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            },
+            {
+              "Tag": 106,
+              "Type": "Nil"
+            }
+          ]
+        }
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.DeferredExitReason.cs",
+          "Method": "private EtfDecodedTerm DecodeDeferredDistributionExitReason",
+          "MethodStartLine": 15,
+          "MethodBlockLfSha256": "9F45FF1F32B6F8CF41499A43BA71CFAC66E17CD3D63D16044F9D039B6A63EF10",
+          "AssertionLine": 25,
+          "ExactAssertionOrCode": "return ImportExternalTerm(payload.Span);"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalDecode.cs",
+          "Method": "public EtfDecodedTerm ImportExternalTerm",
+          "MethodStartLine": 5,
+          "MethodBlockLfSha256": "83F28D92E28F2A2B8F31CA80C5A6A8AE425EBD9446DC2AAC0DAF19828C5A7C21",
+          "AssertionLine": 30,
+          "ExactAssertionOrCode": "return ExternalTermFormat.DecodeOne(data, decoding, maxBytes);"
+        },
+        {
+          "Path": "tests/Erlang.Tests/EtfHostChecks.cs",
+          "Method": "public static",
+          "MethodStartLine": 7,
+          "MethodBlockLfSha256": "7912BE66E7F0BBA1E62F22B7A94FA0291E6663AFE0E7EDAB54DAFDF6740F71C5",
+          "AssertionLine": 111,
+          "ExactAssertionOrCode": "var decoded = ExternalTermFormat.DecodeOne(encoded.Concat(new byte[] { 131, 97, 42 }).ToArray(), new EtfDecodeOptions());"
+        }
+      ],
+      "CoverageAssessment": "Native accepts valid reason plus trailing0; SDK deferred DecodeOne path concordant by source, direct distribution regression missing",
+      "LimitsAndMissingProof": "Generic ETF test proves DecodeOne accepts a prefix while strict Decode rejects trailing bytes. No permanent incoming payload-exit frame test appends byte0 and asserts actual EXIT reason/connection survival. Never substitute strict generic packet validation for deferred reason behavior."
+    },
+    {
+      "NativeCase": "matched_reason",
+      "ActualFacts": {
+        "NativeOpcode": 28,
+        "Stage": "complete",
+        "PostInputTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "observed"
+            },
+            {
+              "Tag": 108,
+              "Type": "List",
+              "Values": [
+                {
+                  "Tag": 104,
+                  "Type": "Tuple",
+                  "Values": [
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "DOWN"
+                    },
+                    {
+                      "Tag": 90,
+                      "Type": "Reference",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "signal_local@localhost"
+                      },
+                      "Creation": 4,
+                      "Ids": [
+                        39387,
+                        1806958596,
+                        749376418
+                      ]
+                    },
+                    {
+                      "Tag": 119,
+                      "Type": "Atom",
+                      "Value": "process"
+                    },
+                    {
+                      "Tag": 88,
+                      "Type": "Pid",
+                      "Node": {
+                        "Tag": 119,
+                        "Type": "Atom",
+                        "Value": "signal_remote@localhost"
+                      },
+                      "Id": 11,
+                      "Serial": 0,
+                      "Creation": 1
+                    },
+                    {
+                      "Tag": 104,
+                      "Type": "Tuple",
+                      "Values": [
+                        {
+                          "Tag": 119,
+                          "Type": "Atom",
+                          "Value": "monitor_reason"
+                        },
+                        {
+                          "Tag": 109,
+                          "Type": "Binary",
+                          "BytesHex": "00ff80"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Tail": {
+                "Tag": 106,
+                "Type": "Nil"
+              }
+            }
+          ]
+        },
+        "TargetDownTyped": null,
+        "ControllerStatTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "ok"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "TargetCleanup": [
+          "observed",
+          "normal"
+        ],
+        "ControllerCleanup": [
+          "observed",
+          "normal"
+        ]
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs",
+          "Method": "private static async Task CheckMatched(bool named)",
+          "MethodStartLine": 27,
+          "MethodBlockLfSha256": "D6419FB7808AF1739BD01FB226DF9B58E7861A13617319D4CDAE29FB2636DE62",
+          "AssertionLine": 52,
+          "ExactAssertionOrCode": "Check(!await receiver.Invoke(context => pending.EndConnectedMonitorSignal(context, reference)));"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs",
+          "Method": "internal void QueueConnectedDeferredMonitorDown",
+          "MethodStartLine": 5,
+          "MethodBlockLfSha256": "8DAD045890337F1583CDAA052239BA6166B87FC23E954BE9330D50D4A00D529E",
+          "AssertionLine": 37,
+          "ExactAssertionOrCode": "decoded = reason.Prepare(Eligible, malformedReason).GetAwaiter().GetResult();"
+        }
+      ],
+      "CoverageAssessment": "Origin monitor reference consumption and DOWN shape concordant",
+      "LimitsAndMissingProof": "Native matched monitor returns complex {monitor_reason,<<0,255,128>>}; permanent PID/named checks use atom reason and typed private BeginConnectedMonitorSignal. This does not prove full public erlang remote monitor/2 or dist_ctrl_put_data/2 parity."
+    },
+    {
+      "NativeCase": "live_unknown_ref_malformed",
+      "ActualFacts": {
+        "NativeOpcode": 28,
+        "Stage": "complete",
+        "PostInputTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "controller_down"
+            },
+            {
+              "Tag": 90,
+              "Type": "Reference",
+              "Node": {
+                "Tag": 119,
+                "Type": "Atom",
+                "Value": "signal_local@localhost"
+              },
+              "Creation": 4,
+              "Ids": [
+                213377,
+                1806958593,
+                1467215129
+              ]
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "killed"
+            }
+          ]
+        },
+        "TargetDownTyped": null,
+        "ControllerStatTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "ok"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        "TargetCleanup": [
+          "observed",
+          "normal"
+        ],
+        "ControllerCleanup": [
+          "observed",
+          "killed"
+        ]
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs",
+          "Method": "private static async Task CheckMalformed(bool replace)",
+          "MethodStartLine": 57,
+          "MethodBlockLfSha256": "8C1F26F4F4F70A6DEE6ABF6BE94D8CA2D09BF562C4890AED23A41BAE0AEC318C",
+          "AssertionLine": 78,
+          "ExactAssertionOrCode": "Check(State(pending, handle) == (replace ? DistributionPendingState.Pending : DistributionPendingState.Exiting));"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs",
+          "Method": "internal void QueueConnectedDeferredMonitorDown",
+          "MethodStartLine": 5,
+          "MethodBlockLfSha256": "8DAD045890337F1583CDAA052239BA6166B87FC23E954BE9330D50D4A00D529E",
+          "AssertionLine": 37,
+          "ExactAssertionOrCode": "decoded = reason.Prepare(Eligible, malformedReason).GetAwaiter().GetResult();"
+        }
+      ],
+      "CoverageAssessment": "Decode-before-monitor-reference lookup concordant by test/source; actual controller DOWN assertion missing",
+      "LimitsAndMissingProof": "Native live watcher with unknown Ref and malformed83ff produces controller DOWN killed. SDK malformed131 also has unknown Ref, drains and checks Exiting/receiver alive; it does not directly assert actual controller Completion killed. Replacement-generation tests go beyond these original3 observations."
+    },
+    {
+      "NativeCase": "dead_watcher_malformed",
+      "ActualFacts": {
+        "NativeOpcode": 28,
+        "Stage": "complete",
+        "PostInputTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "unobserved"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "timeout"
+            }
+          ]
+        },
+        "TargetDownTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "observed"
+            },
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "normal"
+            }
+          ]
+        },
+        "ControllerStatTyped": {
+          "Tag": 104,
+          "Type": "Tuple",
+          "Values": [
+            {
+              "Tag": 119,
+              "Type": "Atom",
+              "Value": "ok"
+            },
+            {
+              "Tag": 104,
+              "Type": "Tuple",
+              "Values": [
+                {
+                  "Tag": 119,
+                  "Type": "Atom",
+                  "Value": "ok"
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 97,
+                  "Type": "Integer",
+                  "Value": 1
+                },
+                {
+                  "Tag": 98,
+                  "Type": "Integer",
+                  "Value": 260
+                }
+              ]
+            }
+          ]
+        },
+        "TargetCleanup": [
+          "observed",
+          "normal"
+        ],
+        "ControllerCleanup": [
+          "observed",
+          "normal"
+        ]
+      },
+      "PermanentMainSource": [
+        {
+          "Path": "tests/Erlang.Tests/DistributionPayloadMonitorHostChecks.cs",
+          "Method": "private static async Task CheckMissingWatchers()",
+          "MethodStartLine": 83,
+          "MethodBlockLfSha256": "8C542AEF4BD39C136BCC976604F51E877D680DE83A7DA486C23825E271F5CA95",
+          "AssertionLine": 102,
+          "ExactAssertionOrCode": "Check(State(pending, handle) == DistributionPendingState.Connected);"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ProcessRuntime.PayloadMonitorDown.cs",
+          "Method": "internal void QueueConnectedDeferredMonitorDown",
+          "MethodStartLine": 5,
+          "MethodBlockLfSha256": "8DAD045890337F1583CDAA052239BA6166B87FC23E954BE9330D50D4A00D529E",
+          "AssertionLine": 20,
+          "ExactAssertionOrCode": "if (!IsCurrentLocal(watcher) || !processes.TryGetValue(watcher, out observer!))"
+        }
+      ],
+      "CoverageAssessment": "Missing/stale watcher early-drop source/test concordant; genuine terminated-origin lifecycle counterpart missing",
+      "LimitsAndMissingProof": "Native watcher first actually terminates normally after having an origin monitor. Dead target cannot answer later barrier, so post_input is {unobserved,timeout}; controller survives and later cleanup is observed normal. SDK missing/stale synthetic PIDs do not cover actual origin-monitor cleanup on a terminated watcher. Do not fabricate barrier reply or DOWN delivery."
+    }
+  ],
+  "LegacyTTBoundary": {
+    "Canonical13And18": {
+      "Path": "tests/Erlang.Tests/DistributionTrappedTraceHostChecks.cs",
+      "Method": "private static async Task RunOpcode(int opcode)",
+      "MethodStartLine": 13,
+      "MethodBlockLfSha256": "16B70CF22A3AD41AE6CFFEDEA3A911237EA7247B2EDBECD864F2200914D1B387",
+      "AssertionLine": 117,
+      "ExactAssertionOrCode": "Check((await selected.Task.WaitAsync(DistributionTrappedTraceHostNames.Deadline)).Equals(Term.Tuple("
+    },
+    "ExistingNilPreserveAndFlagCoverage": {
+      "Path": "tests/Erlang.Tests/DistributionTraceHostChecks.cs",
+      "Method": "private static async Task RunMessages(bool typed)",
+      "MethodStartLine": 15,
+      "MethodBlockLfSha256": "A7FCAFCE28551D0F5444FC09C2A6BF6073AD0D9A74CC41F6247153B0026BCAF2",
+      "AssertionLine": 87,
+      "ExactAssertionOrCode": "Check(previous.Equals(Token(remote, DistributionTraceHostNames.WideUnknownFlag)));"
+    },
+    "Limitation": "Canonical legacy13/18 selected token/tracer success does not directly execute canonical payload25/27 with deferred reason."
+  },
+  "StatsBoundary": "Original dist_get_stat counters and queued-byte facts remain full typed observations; no same-input permanent SDK physical stats assertion or completed public dist_get_stat/1 implementation claimed.",
+  "Conclusion": "No observed contradiction in inspected source paths. Several source-concordant behaviors lack direct permanent regression assertions. This is not14/14 SDK differential parity, full protocol compliance or full module completion.",
+  "NoMainGitHeavyOrNativePost": true
+}

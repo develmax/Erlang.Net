@@ -175,6 +175,23 @@ public sealed class HostDistribution : IDisposable
         return true;
     }
 
+    internal Task WaitForOutputCapacity(HostDistributionHandle handle, HostDistributionBuffer buffer)
+    {
+        ArgumentNullException.ThrowIfNull(buffer);
+        lock (gate)
+        {
+            var entry = Require(handle);
+            if (buffer.PayloadBytes > maximumQueuedPayloadBytes || buffer.SegmentCount > maximumQueuedSegments)
+                throw new ArgumentException(HostDistributionDiagnostics.OutputCapacity, nameof(buffer));
+            if (entry.Output.Count < maximumQueuedBuffers &&
+                buffer.PayloadBytes <= maximumQueuedPayloadBytes - entry.QueuedPayloadBytes &&
+                buffer.SegmentCount <= maximumQueuedSegments - entry.QueuedSegments)
+                return Task.CompletedTask;
+
+            return (entry.CapacityChanged ??= new(TaskCreationOptions.RunContinuationsAsynchronously)).Task;
+        }
+    }
+
     public HostDistributionBuffer? TakeFinalizedHostBuffer(
         HostDistributionHandle handle,
         ProcessContext caller,
@@ -192,6 +209,9 @@ public sealed class HostDistribution : IDisposable
             entry.QueuedPayloadBytes -= buffer.PayloadBytes;
             entry.QueuedSegments -= buffer.SegmentCount;
             entry.OutputPackets = count;
+            var previous = entry.CapacityChanged;
+            entry.CapacityChanged = null;
+            previous?.TrySetResult();
 
             return buffer;
         }
@@ -268,6 +288,8 @@ public sealed class HostDistribution : IDisposable
             return;
         entry.Closed = true;
         entry.NotificationArmed = false;
+        entry.CapacityChanged?.TrySetCanceled();
+        entry.CapacityChanged = null;
         entry.Output.Clear();
         entry.QueuedPayloadBytes = 0;
         entry.QueuedSegments = 0;

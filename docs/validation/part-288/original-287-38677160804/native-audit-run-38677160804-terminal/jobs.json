@@ -1,0 +1,113 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 116233275919,
+      "run_id": 38677160804,
+      "workflow_name": "Pinned OTP deferred monitor payload observations",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38677160804",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbEAsKDw",
+      "head_sha": "58d227ecef29d117fa091ab30b1e0928f969d2fa",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116233275919",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38677160804/job/116233275919",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-15T03:36:41Z",
+      "started_at": "2026-10-15T03:36:44Z",
+      "completed_at": "2026-10-15T03:45:41Z",
+      "name": "observations",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T03:36:45Z",
+          "completed_at": "2026-10-15T03:36:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T03:36:47Z",
+          "completed_at": "2026-10-15T03:37:05Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T03:37:05Z",
+          "completed_at": "2026-10-15T03:37:13Z"
+        },
+        {
+          "name": "Build standalone monitor-payload observation tool",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T03:37:13Z",
+          "completed_at": "2026-10-15T03:37:18Z"
+        },
+        {
+          "name": "Build and attest the pinned development compiler",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T03:37:18Z",
+          "completed_at": "2026-10-15T03:45:29Z"
+        },
+        {
+          "name": "Capture three original monitor-payload scenarios in independent fresh VMs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T03:45:29Z",
+          "completed_at": "2026-10-15T03:45:36Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-15T03:45:36Z",
+          "completed_at": "2026-10-15T03:45:38Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-15T03:45:38Z",
+          "completed_at": "2026-10-15T03:45:38Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-15T03:45:38Z",
+          "completed_at": "2026-10-15T03:45:38Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-15T03:45:38Z",
+          "completed_at": "2026-10-15T03:45:38Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116233275919",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001168,
+      "runner_name": "GitHub Actions 1000001168",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

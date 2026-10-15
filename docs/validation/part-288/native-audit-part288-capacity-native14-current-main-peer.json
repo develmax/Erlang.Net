@@ -1,0 +1,47 @@
+{
+  "status": "PASS_SOURCE_REVIEW_NO_EXECUTION",
+  "head": "58d227ecef29d117fa091ab30b1e0928f969d2fa",
+  "sources": [
+    {
+      "path": "src/Erlang.Runtime/HostDistribution.cs",
+      "sha256": "CCD4B51E504C25BB5A13FCDFFF5A07005498644A629C74191D0E94D94698615F",
+      "bytes": 10927
+    },
+    {
+      "path": "src/Erlang.Runtime/HostDistributionDiagnostics.cs",
+      "sha256": "F85FF4E40B6710C34408809F3E822D523A8CDE994936793428D3929764B57DF9",
+      "bytes": 960
+    },
+    {
+      "path": "src/Erlang.Runtime/HostDistributionEntry.cs",
+      "sha256": "DFC6B9E3F7ADA405C30E605EBB9600031F906CEF2EB8BB0421E6C4F807411E70",
+      "bytes": 930
+    },
+    {
+      "path": "tests/Erlang.Tests/DistributionNativePayloadContractHostNames.cs",
+      "sha256": "B07C908DB6C58FC0BE88792F7AA390327FB8793714240A608315281048B62F79",
+      "bytes": 2256
+    },
+    {
+      "path": "tests/Erlang.Tests/DistributionNativePayloadContractHostChecks.cs",
+      "sha256": "6D4D3FAAB2FD1E2D25C5774BFF2F11ACF99489E1B510BE0E20AA65EA05834C7D",
+      "bytes": 21457
+    }
+  ],
+  "capacity": {
+    "atomicity": "Wait admission recheck, lazy subscription, successful dequeue and retirement share the same gate. If dequeue occurs before subscription, current capacity is rechecked; if after subscription, exact observed TCS completes. A competing producer may refill first; caller must retry admission.",
+    "lazyAllocation": "CompletedTask when capacity exists; pending TCS allocated only on actual backpressure and reused by same-epoch waiters. Dequeue nulls it and completes only previous TCS; no allocation on uncontended dequeue.",
+    "wake": "RunContinuationsAsynchronously prevents inline continuation under gate. Each dequeue wakes the old waiter set even if requested buffer still does not fit. Wake means retry, not reservation or fairness.",
+    "retire": "Closed state and TCS cancellation happen under gate. Old handle retains old entry; replacement identity protected by Require and Retire reference checks. Old close cannot cancel replacement TCS. Owner Done continuation invokes Close; existing host test exercises real owner completion.",
+    "scope": "Internal helper has no production caller yet. This prerequisite does not itself repair outgoing queue-full exits or supply automatic retries. Future caller must retry TryEnqueue and combine its own process cancellation if needed.",
+    "findings": []
+  },
+  "native14": {
+    "coverage": "Nine subcases retain exact native payload label/counters/reason and malformed bytes; canonical25/27 assert real suspension/preselection snapshot and actual selected full token plus receive tracer. Active linked24, explicit26, unknown-ref28 require actual killed Completion and exact real DOWN. Genuine watcher normal death and outgoing demonitor precede malformed28 drop. Missing24, kill26 and actual deferred trailing0 reason are covered.",
+    "faultHandling": "Controller/watcher/receiver observations use real monitor APIs. Drain cancellation/channel closure cannot produce false pass because exact killed Completion and DOWN remain mandatory. All waits bounded; owned runtime final disposal and canonical finally release protect successful execution and normal assertion failures.",
+    "limitations": "Payload11 actual evidence captures selected token, not a tracer event. Tracer expectation derives from separately captured legacy13/18 receive contract. Source snapshot only checks label/serial/receive before selection, complete token after selection. Canonical ready-before-try and sequential actor disposal can replace an initial failure with a bounded cleanup error; neither turns failure green. They are diagnostic limitations, not production behavior changes.",
+    "registration": "Current Program contains one additive native14 registration; no old Program overlay used.",
+    "findings": []
+  },
+  "execution": "No build, test, formatting, native dispatch, Main mutation or Git mutation performed by reviewer. Root owns actual target/focus/full results."
+}

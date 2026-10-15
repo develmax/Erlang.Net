@@ -3339,14 +3339,16 @@ Test(
     "lists/reverse-short-error-contract",
     async () =>
  {
-     foreach (string source in new[] { "lists:reverse(atom)", "lists:reverse([a|tail])" }) Equal(await MapError(source), Term.A("function_clause"));
+     foreach (string source in new[] { "lists:reverse(atom)", "lists:reverse([a|tail])" })
+         Equal(await MapError(source), Term.A("function_clause"));
  }
 );
 Test(
     "lists/reverse-long-improper-badarg",
     async () =>
  {
-     foreach (string source in new[] { "lists:reverse([a,b|tail])", "lists:reverse([a,b,c|tail])", "lists:reverse(atom,tail)", "lists:reverse([a|tail],[])" }) Equal(await MapError(source), Term.A("badarg"));
+     foreach (string source in new[] { "lists:reverse([a,b|tail])", "lists:reverse([a,b,c|tail])", "lists:reverse(atom,tail)", "lists:reverse([a|tail],[])" })
+         Equal(await MapError(source), Term.A("badarg"));
  }
 );
 Test(
@@ -3372,21 +3374,24 @@ Test(
     "lists/keysearch-missing",
     async () =>
  {
-     foreach (string source in new[] { "lists:keyfind(a,2,[{},atom,{a}])", "lists:keymember(a,1,[])", "lists:keysearch(a,1,[{b}])" }) Equal(await Eval(source), Term.A("false"));
+     foreach (string source in new[] { "lists:keyfind(a,2,[{},atom,{a}])", "lists:keymember(a,1,[])", "lists:keysearch(a,1,[{b}])" })
+         Equal(await Eval(source), Term.A("false"));
  }
 );
 Test(
     "lists/keysearch-invalid-position",
     async () =>
  {
-     foreach (string source in new[] { "lists:keyfind(a,0,[])", "lists:keymember(a,-1,[{a}])", "lists:keysearch(a,1.0,[])", "lists:keyfind(a,576460752303423488,[])" }) Equal(await MapError(source), Term.A("badarg"));
+     foreach (string source in new[] { "lists:keyfind(a,0,[])", "lists:keymember(a,-1,[{a}])", "lists:keysearch(a,1.0,[])", "lists:keyfind(a,576460752303423488,[])" })
+         Equal(await MapError(source), Term.A("badarg"));
  }
 );
 Test(
     "lists/keysearch-improper-missing",
     async () =>
  {
-     foreach (string source in new[] { "lists:keyfind(a,1,[{b}|tail])", "lists:keymember(a,1,atom)", "lists:keysearch(a,1,[atom|tail])" }) Equal(await MapError(source), Term.A("badarg"));
+     foreach (string source in new[] { "lists:keyfind(a,1,[{b}|tail])", "lists:keymember(a,1,atom)", "lists:keysearch(a,1,[atom|tail])" })
+         Equal(await MapError(source), Term.A("badarg"));
  }
 );
 Test(
@@ -4285,6 +4290,13 @@ Test(Erlang.Tests.DeferredOwnerDrainHostNames.Test, Erlang.Tests.DeferredOwnerDr
 Test(Erlang.Tests.DistributionPayloadExitHostNames.Test, Erlang.Tests.DistributionPayloadExitHostChecks.Run);
 Test(Erlang.Tests.DistributionTrappedTraceHostNames.Test, Erlang.Tests.DistributionTrappedTraceHostChecks.Run);
 Test(Erlang.Tests.DistributionPayloadMonitorHostNames.Test, Erlang.Tests.DistributionPayloadMonitorHostChecks.Run);
+
+Test(Erlang.Tests.DistributionCapacityHostNames.Test, Erlang.Tests.DistributionCapacityHostChecks.Run);
+
+Test(
+    Erlang.Tests.DistributionNativePayloadContractHostNames.Test,
+    Erlang.Tests.DistributionNativePayloadContractHostChecks.Run
+);
 
 int failed = 0;
 foreach (var test in tests)

@@ -1,0 +1,47 @@
+{
+  "Stage": "VERIFIED_ORIGINAL286_OBSERVER_SOURCE_GUARD_FAILURE_BEFORE_OUTPUT_RUNTIME_OR_SCENARIOS",
+  "Head": "0267a3cebb7a03e849d7d023dfbd8cda31e708a1",
+  "Run": 38675406093,
+  "Job": 116227745781,
+  "Artifact": 11945934023,
+  "RunAttempt": 1,
+  "SourcePinnedCompilerBuildSucceeded": true,
+  "ObservationRuntimeMetadataVmStarted": false,
+  "ObserverProbeCompiled": false,
+  "ObservedScenarioVMs": 0,
+  "PlannedScenarioVMs": 11,
+  "ActualArtifactFiles": [
+    "beam-otp-build.log",
+    "beam-source-build-evidence.json",
+    "payload-exit-observation-tool-build.log"
+  ],
+  "RawJobSha256": "D39C4E5F3B162197B6E1B65D48CFCEB31D6684D612012FDAD82A74A8AB9CFD74",
+  "RawZipSha256": "627EDDB82E7552BAAE423B014DA1601A07B0D9200AEBA62A095B3FD592059718",
+  "NativeSemanticFactsFromScenariosObserved": false,
+  "SourceGuardFailure": "Raw Git LF source/plan do not match declared original CRLF SHA256; collector rejects before Directory.CreateDirectory(output).",
+  "Bindings": [
+    {
+      "Path": "tools/Erlang.DistributionPayloadExitObservations/distribution_payload_exit_probe.erl",
+      "Original286GitRawSha256": "0CF69BF668AFD23ED3F3C0A995BD24F312B848874F9824A016AAEB0483562F57",
+      "DeclaredExpectedSha256": "72055C749042B81B628CA0B3C31FABC1EC4E71CC13980106278C8450485BD8C1",
+      "Repaired287GitRawSha256": "72055C749042B81B628CA0B3C31FABC1EC4E71CC13980106278C8450485BD8C1",
+      "OriginalGitStoredLF": true,
+      "ExpectedAndRepairedRawCRLF": true,
+      "OnlyEolBytesDiffer": true
+    },
+    {
+      "Path": "tools/Erlang.DistributionPayloadExitObservations/source-plan.json",
+      "Original286GitRawSha256": "9A691F1D6B4BFEE8937E2C3FA16E37121EC7EDD88958EDB3F8FADF8C1C003801",
+      "DeclaredExpectedSha256": "65588F2D47D8D6C657B9AB7D531ECF057465EB3382A142B931A6E6BDFE0FFD2D",
+      "Repaired287GitRawSha256": "65588F2D47D8D6C657B9AB7D531ECF057465EB3382A142B931A6E6BDFE0FFD2D",
+      "OriginalGitStoredLF": true,
+      "ExpectedAndRepairedRawCRLF": true,
+      "OnlyEolBytesDiffer": true
+    }
+  ],
+  "RepairPublishedHeadSeparateAttempt": "58d227ecef29d117fa091ab30b1e0928f969d2fa",
+  "RepairOnlyRestoresDeclaredExactBytes": true,
+  "RepairOutcomeNotClaimed": true,
+  "NoDispatchRepeated": true,
+  "MainOrGitEdited": false
+}

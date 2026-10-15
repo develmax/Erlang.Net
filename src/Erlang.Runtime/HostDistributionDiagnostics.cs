@@ -2,6 +2,7 @@ namespace Erlang;
 
 internal static class HostDistributionDiagnostics
 {
+    internal const string OutputCapacity = "The output buffer cannot fit within the configured queue capacity.";
     internal const string Closed = "The HOST distribution channel or lease is closed";
     internal const string Owner = "The HOST distribution controller belongs to another runtime";
     internal const string Controller = "The caller does not control this HOST distribution channel";
