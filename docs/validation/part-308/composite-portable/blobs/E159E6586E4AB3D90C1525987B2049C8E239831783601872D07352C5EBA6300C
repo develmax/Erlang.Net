@@ -1,0 +1,13 @@
+PASS sdk/erlang-load-nif-indirect-apply-invalid-path
+PASS sdk/erlang-load-nif-indirect-apply-missing-path
+PASS sdk/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments
+PASS sdk/erlang-load-nif-indirect-apply-improper-path-before-validation
+PASS sdk/erlang-load-nif-indirect-apply-argument-order
+PASS sdk/erlang-load-nif-indirect-apply-argument-failure-before-bif
+FAIL sdk/erlang-load-nif-indirect-fun-reference-invalid-path: Erlang.Compiler.CompileException: Expected a form-terminating dot
+   at Erlang.Compiler.Parser.ExpectFormTerminator() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\candidate\src\Erlang.Compiler\Parser.cs:line 59
+   at Erlang.Compiler.Parser.ParseModule() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\candidate\src\Erlang.Compiler\Parser.cs:line 196
+   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\candidate\src\Erlang.Compiler\CodeGeneration.cs:line 140
+   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\candidate\tools\Erlang.Differential\GeneratedModuleCompiler.cs:line 14
+   at Erlang.Tests.FunctionalMfaContracts.Run(String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\candidate\tests\Erlang.Tests\FunctionalMfaContracts.cs:line 71
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\focus\Program.cs:line 69

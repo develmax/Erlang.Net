@@ -811,6 +811,7 @@ public static class CoreModules
         MatchSpecRegistrations.Register(r);
         RuntimeStatisticsRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
+        ErlangLoadNifRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(

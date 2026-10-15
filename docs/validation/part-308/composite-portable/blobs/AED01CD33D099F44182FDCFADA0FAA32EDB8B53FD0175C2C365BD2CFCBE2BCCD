@@ -1,0 +1,149 @@
+{
+  "Expected": 24,
+  "Actual": 23,
+  "Passed": 22,
+  "Failed": 1,
+  "MainEdited": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "Cases": [
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-invalid-path",
+      "Passed": true,
+      "Milliseconds": 1188,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-missing-path",
+      "Passed": true,
+      "Milliseconds": 38,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+      "Passed": true,
+      "Milliseconds": 43,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-improper-path-before-validation",
+      "Passed": true,
+      "Milliseconds": 23,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-argument-order",
+      "Passed": true,
+      "Milliseconds": 29,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-argument-failure-before-bif",
+      "Passed": true,
+      "Milliseconds": 33,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-fun-reference-invalid-path",
+      "Passed": true,
+      "Milliseconds": 25,
+      "Error": null
+    },
+    {
+      "Name": "SourceLoadNifHostChecks",
+      "Passed": true,
+      "Milliseconds": 200,
+      "Error": null
+    },
+    {
+      "Name": "BeamClosurePurgeHostChecks",
+      "Passed": true,
+      "Milliseconds": 23,
+      "Error": null
+    },
+    {
+      "Name": "NifAdmissionHostChecks",
+      "Passed": true,
+      "Milliseconds": 33,
+      "Error": null
+    },
+    {
+      "Name": "NifLifetimeHostChecks",
+      "Passed": true,
+      "Milliseconds": 97,
+      "Error": null
+    },
+    {
+      "Name": "NifBeamEntryHostChecks",
+      "Passed": true,
+      "Milliseconds": 30,
+      "Error": null
+    },
+    {
+      "Name": "NifBeamOwnerHostChecks",
+      "Passed": true,
+      "Milliseconds": 52,
+      "Error": null
+    },
+    {
+      "Name": "NifImageBindingHostChecks",
+      "Passed": true,
+      "Milliseconds": 19,
+      "Error": null
+    },
+    {
+      "Name": "RawOnLoadExportsHostChecks",
+      "Passed": true,
+      "Milliseconds": 47,
+      "Error": null
+    },
+    {
+      "Name": "BeamOnLoadHostChecks",
+      "Passed": true,
+      "Milliseconds": 86,
+      "Error": null
+    },
+    {
+      "Name": "BeamPreparedHostChecks",
+      "Passed": true,
+      "Milliseconds": 34,
+      "Error": null
+    },
+    {
+      "Name": "BeamClosureHostChecks",
+      "Passed": true,
+      "Milliseconds": 14,
+      "Error": null
+    },
+    {
+      "Name": "BeamLoaderAdmissionChecks",
+      "Passed": true,
+      "Milliseconds": 20,
+      "Error": null
+    },
+    {
+      "Name": "BeamLoaderLifecycleChecks",
+      "Passed": true,
+      "Milliseconds": 41,
+      "Error": null
+    },
+    {
+      "Name": "ReferenceResourceHostChecks",
+      "Passed": true,
+      "Milliseconds": 126,
+      "Error": null
+    },
+    {
+      "Name": "IoCharacterHostChecks",
+      "Passed": true,
+      "Milliseconds": 12,
+      "Error": null
+    },
+    {
+      "Name": "InitializationLifecycleChecks",
+      "Passed": false,
+      "Milliseconds": 0,
+      "Error": "System.TypeLoadException: Could not resolve type \u0027Erlang.Tests.InitializationLifecycleChecks\u0027 in assembly \u0027Erlang.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\u0027.\r\n   at System.Reflection.TypeNameResolver.GetType(String escapedTypeName, ReadOnlySpan\u00601 nestedTypeNames, TypeName parsedName)\r\n   at System.Reflection.TypeNameResolver.GetSimpleType(TypeName typeName)\r\n   at System.Reflection.TypeNameResolver.Resolve(TypeName typeName)\r\n   at System.Reflection.TypeNameResolver.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Assembly topLevelAssembly)\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\focus\\Program.cs:line 57"
+    }
+  ]
+}

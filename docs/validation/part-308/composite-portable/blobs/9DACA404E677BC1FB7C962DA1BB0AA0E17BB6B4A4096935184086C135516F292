@@ -1,0 +1,29 @@
+{
+  "Expected": 7,
+  "Actual": 3,
+  "Passed": 2,
+  "Failed": 1,
+  "MainEdited": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "Cases": [
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-invalid-path",
+      "Passed": true,
+      "Milliseconds": 1712,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-missing-path",
+      "Passed": true,
+      "Milliseconds": 47,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-variable-invalid-path",
+      "Passed": false,
+      "Milliseconds": 0,
+      "Error": "Erlang.Compiler.CompileException: Dynamic module calls are not supported yet\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 559\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 267\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 248\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 185\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\CodeGeneration.cs:line 140\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.FunctionalMfaContracts.Run(String name) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tests\\Erlang.Tests\\FunctionalMfaContracts.cs:line 71\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\focus\\Program.cs:line 39"
+    }
+  ]
+}

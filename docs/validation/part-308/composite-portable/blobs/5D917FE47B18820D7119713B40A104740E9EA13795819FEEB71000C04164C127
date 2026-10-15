@@ -1,0 +1,40 @@
+PASS sdk/erlang-load-nif-indirect-apply-invalid-path
+PASS sdk/erlang-load-nif-indirect-apply-missing-path
+PASS sdk/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments
+PASS sdk/erlang-load-nif-indirect-apply-improper-path-before-validation
+PASS sdk/erlang-load-nif-indirect-apply-argument-order
+PASS sdk/erlang-load-nif-indirect-apply-argument-failure-before-bif
+PASS sdk/erlang-load-nif-indirect-fun-reference-invalid-path
+PASS SourceLoadNifHostChecks
+PASS BeamClosurePurgeHostChecks
+PASS NifAdmissionHostChecks
+PASS NifLifetimeHostChecks
+PASS NifBeamEntryHostChecks
+PASS prepared BEAM image owner fresh_direct_true
+PASS prepared BEAM image owner fresh_false_false_true
+PASS prepared BEAM image owner current_direct_true
+PASS prepared BEAM image owner current_false_false_true
+PASS prepared BEAM image owner deleted_old_direct_true
+PASS prepared BEAM image owner deleted_old_false_false_true
+PASS NifBeamOwnerHostChecks
+PASS NifImageBindingHostChecks
+PASS raw on_load captured final fresh_direct_true
+PASS raw on_load captured final fresh_false_false_true
+PASS raw on_load captured final current_direct_true
+PASS raw on_load captured final current_false_false_true
+PASS raw on_load captured final deleted_old_direct_true
+PASS raw on_load captured final deleted_old_false_false_true
+PASS RawOnLoadExportsHostChecks
+PASS BeamOnLoadHostChecks
+PASS BeamPreparedHostChecks
+PASS BeamClosureHostChecks
+PASS BeamLoaderAdmissionChecks
+PASS BeamLoaderLifecycleChecks
+PASS ReferenceResourceHostChecks
+PASS IoCharacterHostChecks
+FAIL InitializationLifecycleChecks: System.TypeLoadException: Could not resolve type 'Erlang.Tests.InitializationLifecycleChecks' in assembly 'Erlang.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Reflection.TypeNameResolver.GetType(String escapedTypeName, ReadOnlySpan`1 nestedTypeNames, TypeName parsedName)
+   at System.Reflection.TypeNameResolver.GetSimpleType(TypeName typeName)
+   at System.Reflection.TypeNameResolver.Resolve(TypeName typeName)
+   at System.Reflection.TypeNameResolver.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Assembly topLevelAssembly)
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\indirect-load-nif312-isolated1\focus\Program.cs:line 57

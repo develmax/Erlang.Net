@@ -3248,6 +3248,14 @@
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
+    "Module": "erlang",
+    "Function": "load_nif",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:load_nif/2",
+    "Limits": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+  },
+  {
     "Module": "lists",
     "Function": "concat",
     "Arity": 1,

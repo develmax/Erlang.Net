@@ -1,0 +1,12 @@
+{
+  "Status": "GENUINE_PRE_SPLIT_PENDING_FUN_ENTRY_RED",
+  "RuntimeFilesVerified": 973,
+  "RuntimeChangesBeforeRed": 0,
+  "HostSha256": "C949B016C6549CBE873E1783DFB9C63F254D31819BD4CF3419645D3C3E0E75AA",
+  "RedExitCode": 1,
+  "Assertion": "Require(!call.IsCompleted)",
+  "SourceLine": 96,
+  "Cause": "Existing actual compiled closure completes while already-active image has Pending purge; continuation and fun entry share bypass",
+  "EarlierReflectionFailure": "retained separate precondition; no semantic credit",
+  "MainEdited": false
+}

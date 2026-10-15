@@ -1,0 +1,171 @@
+using System.Reflection;
+using System.Security.Cryptography;
+
+namespace Erlang.Tests;
+
+public static class BeamClosurePurgeHostChecks
+{
+    public static async Task Run()
+    {
+        await PendingEntry(false);
+        await PendingEntry(true);
+    }
+
+    private static void Require(bool value)
+    {
+        if (!value)
+            throw new InvalidOperationException(BeamClosurePurgeHostNames.Broken);
+    }
+
+    private static object Property(object target, string name)
+        => target.GetType().GetProperty(name, BeamClosurePurgeHostNames.Properties)!.GetValue(target)!;
+
+    private static int References(ProcessContext context, ModuleCodeImage image)
+    {
+        var references = (Dictionary<ModuleCodeImage, int>)typeof(ProcessContext)
+            .GetField(SourceLoadNifHostFields.ActiveCode, BeamClosurePurgeHostNames.Fields)!.GetValue(context)!;
+
+        return references.GetValueOrDefault(image);
+    }
+
+    private static byte[] Resource()
+    {
+        Assembly assembly = typeof(BeamClosurePurgeHostChecks).Assembly;
+        string name = assembly.GetManifestResourceNames().Single(value => value.EndsWith(
+            BeamClosureHostNames.ResourceSeparator + BeamClosureHostNames.Module + BeamClosureHostNames.BeamExtension,
+            StringComparison.Ordinal
+        ));
+        using Stream resource = assembly.GetManifestResourceStream(name)!;
+        using var data = new MemoryStream();
+        resource.CopyTo(data);
+        byte[] bytes = data.ToArray();
+        Require(Convert.ToHexString(SHA256.HashData(bytes)) == BeamClosureHostNames.Hash);
+
+        return bytes;
+    }
+
+    private static async Task PendingEntry(bool cancel)
+    {
+        await using var runtime = new ProcessRuntime();
+        PreparedBeamImage prepared = runtime.Modules.PrepareBeam(Resource());
+        Require(runtime.Modules.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+        ModuleCodeImage image = runtime.Modules.CurrentCodeImage(prepared.Name)!;
+        object linked = Property(prepared, NifBeamEntryHostNames.Code);
+        object[] exports = ((System.Collections.IEnumerable)Property(linked, NifBeamEntryHostNames.Exports)).Cast<object>().ToArray();
+        int makeIndex = Array.FindIndex(
+            exports,
+            function => (string)Property(function, NifBeamEntryHostNames.Name) == BeamClosureHostNames.Make
+        );
+        Require(makeIndex >= 0);
+        var bodies = (IReadOnlyList<ErlangFunction>)Property(prepared, NifBeamEntryHostNames.Bodies);
+        ErlangFunction continuationBody = bodies[makeIndex];
+        FunctionTerm? closure = null;
+        await NifAdmissionHostBridge.Context(
+            runtime,
+            async context =>
+        {
+            closure = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                prepared.Name,
+                BeamClosureHostNames.Make,
+                Term.I(BeamClosureHostNames.Capture)
+            );
+        }
+        );
+        var ready = new TaskCompletionSource<ProcessContext>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var begin = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var attempted = new TaskCompletionSource<Task<Term>>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var finished = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessHandle actor = runtime.Spawn(async context =>
+        {
+            try
+            {
+                using (context.EnterSourceCode(image, prepared))
+                {
+                    ready.TrySetResult(context);
+                    await begin.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+                    Require(References(context, image) == BeamClosurePurgeHostNames.ActiveLease);
+                    ValueTask<SourceCodeLease> continuation = runtime.Modules.AcquireSourceCode(context, image);
+                    Require(continuation.IsCompletedSuccessfully);
+                    using (SourceCodeLease lease = await continuation)
+                        Require(References(context, image) == BeamClosurePurgeHostNames.ContinuationLeases);
+                    Require(References(context, image) == BeamClosurePurgeHostNames.ActiveLease);
+                    Term continued = await continuationBody(context, [Term.I(BeamClosureHostNames.Capture)]);
+                    Require(continued is FunctionTerm && References(context, image) == BeamClosurePurgeHostNames.ActiveLease);
+                    Task<Term> call = closure!.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]).AsTask();
+                    Require(!call.IsCompleted);
+                    Require(References(context, image) == BeamClosurePurgeHostNames.ActiveLease);
+                    attempted.TrySetResult(call);
+                    try
+                    {
+                        Term value = await call;
+                        Require(!cancel && value.Equals(Term.I(BeamClosureHostNames.Result)));
+                    }
+                    catch (OperationCanceledException) when (cancel)
+                    {
+                        Require(context.Cancellation.IsCancellationRequested);
+                    }
+                    Require(References(context, image) == BeamClosurePurgeHostNames.ActiveLease);
+                }
+                Require(References(context, image) == 0);
+                finished.TrySetResult();
+            }
+            catch (Exception failure)
+            {
+                attempted.TrySetException(failure);
+                finished.TrySetException(failure);
+            }
+
+            return Nil.Value;
+        });
+        ProcessContext executing = await ready.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+        try
+        {
+            Require(runtime.Modules.DeleteModule(prepared.Name).Equals(Term.A(ErlangBooleanAtoms.True)));
+            ModuleCodeImage target = (ModuleCodeImage)NifAdmissionHostBridge.Call(runtime.Modules, BeamClosurePurgeHostNames.Prepare, prepared.Name)!;
+            Require(ReferenceEquals(target, image) && runtime.Modules.PendingPurge(image) is { IsCompleted: false });
+            begin.TrySetResult();
+            Task<Term> blocked = await attempted.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+            await NifAdmissionHostBridge.Context(
+                runtime,
+                async observer =>
+            {
+                Term status = await runtime.Modules.Call(
+                    observer,
+                    ErlangModuleNames.Module,
+                    BeamClosurePurgeHostNames.ProcessInfo,
+                    actor.Pid,
+                    Term.A(BeamClosurePurgeHostNames.Status)
+                );
+                Require(status is TupleTerm);
+                Require(!blocked.IsCompleted && References(executing, image) == BeamClosurePurgeHostNames.ActiveLease);
+                if (cancel)
+                    runtime.Exit(observer, actor.Pid, Term.A(BeamClosurePurgeHostNames.Kill));
+            }
+            );
+            if (!cancel)
+                NifAdmissionHostBridge.Call(
+                    runtime.Modules,
+                    BeamClosurePurgeHostNames.Finish,
+                    prepared.Name,
+                    image,
+                    false
+                );
+            await finished.Task.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+            await actor.Completion.WaitAsync(BeamClosurePurgeHostNames.Deadline);
+            Require(References(executing, image) == 0);
+        }
+        finally
+        {
+            begin.TrySetResult();
+            if (runtime.Modules.PendingPurge(image) is not null)
+                NifAdmissionHostBridge.Call(
+                    runtime.Modules,
+                    BeamClosurePurgeHostNames.Finish,
+                    prepared.Name,
+                    image,
+                    false
+                );
+        }
+    }
+}

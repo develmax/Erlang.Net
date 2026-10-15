@@ -1,0 +1,62 @@
+{
+  "Status": "WHOLE_CURRENT_SOURCE_AND_TEST_MIGRATION_AUDIT",
+  "SearchRoots": [
+    "src",
+    "tests",
+    "tools"
+  ],
+  "ExcludedFromMutation": [
+    "bin",
+    "obj",
+    "published docs/validation",
+    "immutable original13 and original19 plans/reports"
+  ],
+  "PositiveMigrations": [
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Before": "RoutesAndOwnership installs fake registered load_nif result",
+      "After": "Use actual registered public native-equivalent BIF; direct handler still owns literal calls, dynamic/reference routes still bypass handler"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.ActualBeam.cs",
+      "Before": "Two negative HasExport assertions plus no-handler undef capture",
+      "After": "Two positive HasExport assertions and exact bad_lib charlist no-handler fallback result; actual caller and managed initializer checks remain"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Before": "default504 / optionalIO506",
+      "After": "default505 / optionalIO507; IoCharacterHostChecks consumes these existing shared constants"
+    }
+  ],
+  "OnlyCurrentNegativeLoadNifPresenceChecks": 2,
+  "AdditionalCurrentLoadNifNegativeInventoryAssertionsFound": 0,
+  "Other504506Hits": "resource SHA and numeric data; no other current registry-count declarations",
+  "RuntimeChanges": [
+    "CoreModules installs ErlangLoadNifRegistrations",
+    "New registration body always returns native-equivalent error tuple and ignores argument values",
+    "No default direct/native handler installation; existing direct capability hook ordering untouched"
+  ],
+  "CompiledCases": [
+    "erlang-load-nif-indirect-apply-invalid-path",
+    "erlang-load-nif-indirect-apply-missing-path",
+    "erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+    "erlang-load-nif-indirect-apply-improper-path-before-validation",
+    "erlang-load-nif-indirect-apply-argument-order",
+    "erlang-load-nif-indirect-apply-argument-failure-before-bif",
+    "erlang-load-nif-indirect-fun-reference-invalid-path"
+  ],
+  "NoInlineHelpersPreventConstantMfaRewrite": false,
+  "MfaSmokeFixture": "erlang-load-nif-indirect-apply-invalid-path",
+  "PriorCasesPreserved": "Only append IndirectLoadNifCases.Modules at end of existing All; all old case class sources untouched",
+  "ScopeOriginalEvidence": "Original19 exact two apply cases typedPASS; additional source-derived compiled cases require next ordinary original comparison",
+  "BuildExecuted": true,
+  "DynamicMfaPreservation": "Apply cases cross exported remote dynamic_apply/3 with runtime MFA arguments; seventh external-fun case crosses exported remote dynamic_fun/3. Future original comparison/disassembly remains pending.",
+  "PublicLoadNifRegistered": true,
+  "DefaultNativeLoadInstructionHandlerInstalled": false,
+  "RevisionNotes": [
+    "Cached immutable tuple+charlist in ErlangLoadNifTerms; no allocation per indirect call",
+    "Two unsupported unpublished M:F cases replaced by accurately named apply cases, parser unchanged",
+    "External fun fixture crosses exported remote dynamic_fun/3; Generated HOST reference uses same boundary",
+    "Mutable native backend README updated; original13/19 execution closures unchanged"
+  ]
+}

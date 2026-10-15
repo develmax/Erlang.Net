@@ -1,0 +1,244 @@
+4530: static Eterm load_nif_error(Process* p, const char* atom, const char* format, ...)
+4531: {
+4532:     erts_dsprintf_buf_t* dsbufp = erts_create_tmp_dsbuf(0);
+4533:     Eterm ret;
+4534:     Eterm* hp;
+4535:     Eterm** hpp = NULL;
+4536:     Uint sz = 0;
+4537:     Uint* szp = &sz;
+4538:     va_list arglist;   
+4539: 
+4540:     va_start(arglist, format);
+4541:     erts_vdsprintf(dsbufp, format, arglist);
+4542:     va_end(arglist);
+4543:     
+4544:     for (;;) {
+4545: 	Eterm txt = erts_bld_string_n(hpp, &sz, dsbufp->str, dsbufp->str_len);
+4546: 	ret = erts_bld_tuple(hpp, szp, 2, am_error,
+4547: 			     erts_bld_tuple(hpp, szp, 2, mkatom(atom), txt));
+4548: 	if (hpp != NULL) {
+4549: 	    break;
+4550: 	}
+4551: 	hp = HAlloc(p,sz);
+4552: 	hpp = &hp;
+4553: 	szp = NULL;
+4554:     }
+4555:     erts_destroy_tmp_dsbuf(dsbufp);
+4556:     return ret;
+4557: }
+4558: 
+
+4618: /* load_nif/2 is implemented as an instruction as it needs to know where it
+4619:  * was called from, and it's a pain to get that information in a BIF.
+4620:  *
+4621:  * This is a small stub that rejects apply(erlang, load_nif, [Path, Args]). */
+4622: BIF_RETTYPE load_nif_2(BIF_ALIST_2) {
+4623:     BIF_RET(load_nif_error(BIF_P, "bad_lib",
+4624:                            "load_nif/2 must be explicitly called from the NIF "
+4625:                            "module. It cannot be called through apply/3."));
+4626: }
+4627: 
+
+4708: Eterm erts_load_nif(Process *c_p, ErtsCodePtr I, Eterm filename, Eterm args)
+4709: {
+4710:     static const char bad_lib[] = "bad_lib";
+4711:     static const char upgrade[] = "upgrade";
+4712:     char* lib_name = NULL;
+4713:     void* handle = NULL;
+4714:     void* init_func = NULL;
+4715:     ErlNifEntry* entry = NULL;
+4716:     ErlNifEnv env;
+4717:     int i, err, encoding;
+4718:     Module* module_p;
+4719:     Eterm mod_atom;
+4720:     Eterm f_atom;
+4721:     const ErtsCodeMFA* caller;
+4722:     ErtsSysDdllError errdesc = ERTS_SYS_DDLL_ERROR_INIT;
+4723:     Eterm ret = am_ok;
+4724:     int veto;
+4725:     int is_static = 0;
+4726:     struct erl_module_nif* lib = NULL;
+4727:     struct erl_module_instance* this_mi;
+4728:     struct erl_module_instance* prev_mi;
+4729: 
+4730:     encoding = erts_get_native_filename_encoding();
+4731:     if (encoding == ERL_FILENAME_WIN_WCHAR) {
+4732:         /* Do not convert the lib name to utf-16le yet, do that in win32 specific code */
+4733:         /* since lib_name is used in error messages */
+4734:         encoding = ERL_FILENAME_UTF8;
+4735:     }
+4736:     lib_name = erts_convert_filename_to_encoding(filename, NULL, 0,
+4737:                                                  ERTS_ALC_T_TMP, 1, 0, encoding,
+4738: 						 NULL, 0);
+4739:     if (!lib_name) {
+4740:         return THE_NON_VALUE;
+4741:     }
+4742: 
+4743:     /* Find calling module */
+4744:     caller = erts_find_function_from_pc(I);
+4745:     ASSERT(caller != NULL);
+4746:     mod_atom = caller->module;
+4747:     ASSERT(is_atom(mod_atom));
+4748:     module_p = erts_get_module(mod_atom, erts_active_code_ix());
+4749:     ASSERT(module_p != NULL);
+4750: 
+4751:     {
+4752:         ErtsStaticNif* sne = is_static_nif_module(mod_atom);
+4753:         if (sne != NULL) {
+4754:             entry = sne->entry;
+4755:             is_static = 1;
+4756:         }
+4757:     }
+4758:     this_mi = &module_p->curr;
+4759:     prev_mi = &module_p->old;
+4760:     if (in_area(caller, module_p->old.code_hdr, module_p->old.code_length)) {
+4761: 	ret = load_nif_error(c_p, "old_code", "Calling load_nif from old "
+4762: 			     "module '%T' not allowed", mod_atom);
+4763: 	goto error;
+4764:     } else if (module_p->on_load) {
+4765: 	ASSERT(((module_p->on_load)->code_hdr)->on_load);
+4766: 	if (module_p->curr.code_hdr) {
+4767: 	    prev_mi = &module_p->curr;
+4768: 	} else {
+4769: 	    prev_mi = &module_p->old;
+4770: 	}
+4771: 	this_mi = module_p->on_load;
+4772:     }
+4773: 
+4774:     if (this_mi->nif != NULL) {
+4775:         ret = load_nif_error(c_p,"reload","NIF library already loaded"
+4776:                              " (reload disallowed since OTP 20).");
+4777:     }
+4778:     else if (!is_static &&
+4779:              (err=erts_sys_ddll_open(lib_name, &handle, &errdesc)) != ERL_DE_NO_ERROR) {
+4780: 	const char slogan[] = "Failed to load NIF library";
+4781: 	if (strstr(errdesc.str, lib_name) != NULL) {
+4782: 	    ret = load_nif_error(c_p, "load_failed", "%s: '%s'", slogan, errdesc.str);
+4783: 	}
+4784: 	else {
+4785: 	    ret = load_nif_error(c_p, "load_failed", "%s %s: '%s'", slogan, lib_name, errdesc.str);
+4786: 	}
+4787:     }
+4788:     else if (!is_static &&
+4789: 	     erts_sys_ddll_load_nif_init(handle, &init_func, &errdesc) != ERL_DE_NO_ERROR) {
+4790: 	ret  = load_nif_error(c_p, bad_lib, "Failed to find library init"
+4791: 			      " function: '%s'", errdesc.str);
+4792: 	
+4793:     }
+4794:     else if (!is_static &&
+4795:              (erts_add_taint(mod_atom),
+4796:               (entry = erts_sys_ddll_call_nif_init(init_func)) == NULL)) {
+4797: 	ret = load_nif_error(c_p, bad_lib, "Library init-call unsuccessful");
+4798:     }
+4799:     else if (entry->major > ERL_NIF_MAJOR_VERSION
+4800:              || (entry->major == ERL_NIF_MAJOR_VERSION
+4801:                  && entry->minor > ERL_NIF_MINOR_VERSION)) {
+4802:         char* fmt = "That '%T' NIF library needs %s or newer. Either try to"
+4803:             " recompile the NIF lib or use a newer erts runtime.";
+4804:         ret = load_nif_error(c_p, bad_lib, fmt, mod_atom, entry->min_erts);
+4805:     }
+4806:     else if (entry->major < ERL_NIF_MIN_REQUIRED_MAJOR_VERSION_ON_LOAD
+4807: 	     || (entry->major==2 && entry->minor == 5)) { /* experimental maps */
+4808: 	
+4809:         char* fmt = "That old NIF library (%d.%d) is not compatible with this "
+4810:             "erts runtime (%d.%d). Try recompile the NIF lib.";
+4811:         ret = load_nif_error(c_p, bad_lib, fmt, entry->major, entry->minor,
+4812:                              ERL_NIF_MAJOR_VERSION, ERL_NIF_MINOR_VERSION);
+4813:     }   
+4814:     else if (AT_LEAST_VERSION(entry, 2, 1)
+4815: 	     && sys_strcmp(entry->vm_variant, ERL_NIF_VM_VARIANT) != 0) {
+4816: 	ret = load_nif_error(c_p, bad_lib, "Library (%s) not compiled for "
+4817: 			     "this vm variant (%s).",
+4818: 			     entry->vm_variant, ERL_NIF_VM_VARIANT);
+4819:     }
+4820:     else if (!erts_is_atom_str((char*)entry->name, mod_atom, 1)) {
+4821: 	ret = load_nif_error(c_p, bad_lib, "Library module name '%s' does not"
+4822: 			     " match calling module '%T'", entry->name, mod_atom);
+4823:     }
+4824:     else {
+4825:         lib = create_lib(entry);
+4826:         entry = &lib->entry; /* Use a guaranteed modern lib entry from now on */
+4827: 
+4828:         lib->handle = handle;
+4829:         erts_refc_init(&lib->refc, 2);  /* Erlang code + NIF code */
+4830:         erts_refc_init(&lib->dynlib_refc, 1);
+4831:         lib->flags = 0;
+4832:         lib->on_halt.callback = NULL;
+4833:         lib->unload_thr_callback = NULL;
+4834:         erts_atomic_init_nob(&lib->unload_thr_counter, -1);
+4835: 
+4836:         ASSERT(opened_rt_list == NULL);
+4837:         lib->mod = module_p;
+4838:         lib->mi_copy = *this_mi;
+4839: 
+4840:         lib->finish = erts_alloc(ERTS_ALC_T_NIF,
+4841:                                  sizeof_ErtsNifFinish(entry->num_of_funcs));
+4842:         lib->finish->nstubs_hashed = 0;
+4843: 
+4844:         erts_rwmtx_rwlock(&erts_nif_call_tab_lock);
+4845:         for (i=0; i < entry->num_of_funcs; i++) {
+4846:             int func_ix;
+4847:             const ErtsCodeInfo* ci;
+4848:             ErlNifFunc* f = &entry->funcs[i];
+4849:             ErtsNifBeamStub* stub = &lib->finish->beam_stubv[i];
+4850: 
+4851:             stub->code_info_ptr = NULL; /* end marker in case we fail */
+4852: 
+4853: 	    if (!erts_atom_get(f->name, sys_strlen(f->name), &f_atom, ERTS_ATOM_ENC_LATIN1)
+4854: 		|| (func_ix = get_func_ix(this_mi->code_hdr, f_atom, f->arity)) < 0) {
+4855: 		ret = load_nif_error(c_p,bad_lib,"Function not found %T:%s/%u",
+4856: 				     mod_atom, f->name, f->arity);
+4857:                 break;
+4858: 	    }
+4859: 
+4860:             ci = this_mi->code_hdr->functions[func_ix];
+4861: 
+4862:             if (!check_is_nifable(this_mi->code_hdr, func_ix)) {
+4863:                 ret = load_nif_error(c_p,bad_lib,"Function not declared as nif %T:%s/%u",
+4864:                                      mod_atom, f->name, f->arity);
+4865:                 break;
+4866:             }
+4867: 
+4868: 	    if (f->flags != 0 &&
+4869:                 f->flags != ERL_NIF_DIRTY_JOB_IO_BOUND &&
+4870:                 f->flags != ERL_NIF_DIRTY_JOB_CPU_BOUND) {
+4871: 
+4872:                 ret = load_nif_error(c_p, bad_lib, "Illegal flags field value %d for NIF %T:%s/%u",
+4873:                                      f->flags, mod_atom, f->name, f->arity);
+4874:                 break;
+4875: 	    }
+4876: 
+4877: #ifdef DEBUG
+4878:         {
+4879:             ErtsCodePtr curr_func, next_func;
+4880: 
+4881:             curr_func = erts_codeinfo_to_code(this_mi->code_hdr->functions[func_ix]);
+4882:             next_func = erts_codeinfo_to_code(this_mi->code_hdr->functions[func_ix+1]);
+4883: 
+4884:             ASSERT(!ErtsInArea(next_func,
+4885:                                curr_func,
+4886:                                BEAM_NATIVE_MIN_FUNC_SZ * sizeof(UWord)));
+4887:         }
+4888: #endif
+4889: 
+4890:             ERTS_CT_ASSERT(sizeof(stub->code) <=
+4891:                     BEAM_NATIVE_MIN_FUNC_SZ * sizeof(Eterm));
+4892: 
+4893:             stub->code_info_ptr = ci;
+4894:             stub->info = *ci;
+4895: 
+4896:             if (hash_put(&erts_nif_call_tab, stub) != stub) {
+4897:                 ret = load_nif_error(c_p, bad_lib, "Duplicate NIF entry for %T:%s/%u",
+4898:                                      mod_atom, f->name, f->arity);
+4899:                 break;
+4900:             }
+4901:             lib->finish->nstubs_hashed++;
+4902: 
+4903:  #ifdef BEAMASM
+4904:             {
+4905:                 /* See beam_asm.h for details on how the nif load trampoline
+4906:                  * works */
+4907:                 void* normal_fptr, *dirty_fptr;
+4908: 
+4909:                 if (f->flags) {
+4910:                     if (f->flags == ERL_NIF_DIRTY_JOB_IO_BOUND) {

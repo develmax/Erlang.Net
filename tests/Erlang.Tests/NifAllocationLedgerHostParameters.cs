@@ -1,0 +1,16 @@
+namespace Erlang.Tests;
+
+internal static class NifAllocationLedgerHostParameters
+{
+    internal const int NativeBlockBytes = 37;
+    internal const int ConcurrentWorkers = 4;
+    internal const int AllocationsPerWorker = 256;
+    internal const int RetainEvery = 7;
+    internal const int ReclamationRounds = 64;
+    internal const byte PayloadMarker = 0x5a;
+    internal const int SnapshotPropertyCount = 11;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(15);
+    internal const int PayloadScenarioLiveBlocks = 2;
+    internal const int PayloadScenarioAllocations = 2;
+    internal const int ReclamationInitialAllocations = 2;
+}

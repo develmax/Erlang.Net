@@ -1,0 +1,23 @@
+{
+  "Status": "ROOT_COMPOSITE_SOURCE_FREEZE_2189_AND_29_PROMOTED_PATHS_25_FOCUS_REVIEW_PASS",
+  "CompositeFreezeSha256": "E0B165B9DEB90664D3C60D053E3851E5A2EFA47D1B67441C9559309591772455",
+  "PromotionMapSha256": "FE1A95C59252994F213EE7358362D2D757677475147A43E4A889FD69B44E7983",
+  "AllFrozenMembersVerified": 2189,
+  "PromotedPathsVerified": 29,
+  "CSharpPaths": 28,
+  "FocusedGroupsPassed": 25,
+  "FinalLedger3ActualRuntimeHostExecuted": true,
+  "OriginalExecutedByReview": false,
+  "FullExecutedByReview": false,
+  "SourceReview": [
+    "BEAM new-fun entry waits for Pending even when invoker is already active; existing continuations remain admitted. Retired is checked before Pending. No lease is reserved for a blocked entry.",
+    "Allocation ledger checks counters before native allocation, registers actual pointers before commit, rolls back insertion failure and distinguishes requested bytes from backing request bytes. Reclaim preserves cumulative/peak counters.",
+    "Pinned indirect load_nif BIF uses one immutable cached error term, does not invoke the literal instruction handler and ignores argument values after evaluation. Remote exported helper prevents direct-call folding of external fun.",
+    "Composite Program retains both new permanent HOST registrations exactly once; source catalog preserves all4917 historical generated source strings and appends seven."
+  ],
+  "PublicLoadNifRegistered": true,
+  "DefaultNativeLoadInstructionHandlerInstalled": false,
+  "GeneralNifAbiComplete": false,
+  "PendingPurgeSessionComplete": false,
+  "PublicMemoryApisAdded": false
+}

@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Erlang.Compiler;
+using Erlang.Differential;
 
 namespace Erlang.Tests;
 
@@ -9,6 +10,7 @@ public static partial class SourceLoadNifHostChecks
     public static async Task Run()
     {
         await RoutesAndOwnership();
+        await GeneratedIndirectRoutes();
         await OwnedCompletion(false);
         await OwnedCompletion(true);
         await PendingImage();
@@ -66,6 +68,52 @@ public static partial class SourceLoadNifHostChecks
         return active.GetValueOrDefault(image);
     }
 
+    private static async Task GeneratedIndirectRoutes()
+    {
+        using GeneratedModuleArtifact artifact = GeneratedModuleCompiler.Compile(SourceLoadNifHostNames.Source);
+        await using var runtime = new ProcessRuntime();
+        artifact.Definition.Register(runtime.Modules);
+        int handlerCalls = 0;
+        Install(
+            runtime.Modules,
+            (context, capability, arguments) =>
+        {
+            handlerCalls++;
+            SourceCodeEntry caller = Consume(capability, context);
+            Require(ReferenceEquals(caller.Owner, artifact.Definition));
+
+            return ValueTask.FromResult(arguments[0]);
+        }
+        );
+        Term rejection = Term.Tuple(
+            Term.A(SourceLoadNifHostNames.Error),
+            Term.Tuple(Term.A(SourceLoadNifHostNames.BadLibrary), Term.String(SourceLoadNifHostNames.ApplyRejectedMessage))
+        );
+        await NifAdmissionHostBridge.Context(
+            runtime,
+            async context =>
+        {
+            Term direct = await runtime.Modules.Call(
+                context,
+                artifact.Definition.Name,
+                SourceLoadNifHostNames.Direct,
+                Term.I(SourceLoadNifHostNames.Value)
+            );
+            Require(direct.Equals(Term.I(SourceLoadNifHostNames.Value)) && handlerCalls == 1);
+            foreach (string route in new[] { SourceLoadNifHostNames.Dynamic, SourceLoadNifHostNames.Reference })
+            {
+                Term result = await runtime.Modules.Call(
+                    context,
+                    artifact.Definition.Name,
+                    route,
+                    Term.I(SourceLoadNifHostNames.Value)
+                );
+                Require(result.Equals(rejection) && handlerCalls == 1);
+            }
+        }
+        );
+    }
+
     private static async Task RoutesAndOwnership()
     {
         await using var runtime = new ProcessRuntime();
@@ -84,12 +132,7 @@ public static partial class SourceLoadNifHostChecks
             Term.A(SourceLoadNifHostNames.Error),
             Term.Tuple(Term.A(SourceLoadNifHostNames.BadLibrary), Term.String(SourceLoadNifHostNames.ApplyRejectedMessage))
         );
-        runtime.Modules.Register(
-            SourceLoadNifHostNames.Erlang,
-            SourceLoadNifHostNames.Function,
-            SourceLoadNifHostNames.Arity,
-            (_, _) => ValueTask.FromResult(rejectedApply)
-        );
+        Require(runtime.Modules.HasExport(SourceLoadNifHostNames.Erlang, SourceLoadNifHostNames.Function, SourceLoadNifHostNames.Arity));
         await NifAdmissionHostBridge.Context(
             runtime,
             async context =>

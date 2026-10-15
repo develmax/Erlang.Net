@@ -1,0 +1,110 @@
+{
+  "Status": "BOUNDED_INDEPENDENT_PUBLIC_INDIRECT_BIF_SOURCE_EVIDENCE_PEER_PASS",
+  "Reviewer": "allocator309",
+  "FreezeSha256": "78CA282E61D5B360D919566F82A26EAABCE22DC0667EB18E44281318D5B8BCCA",
+  "PromotionMapSha256": "E10FEB639CBE5176D9E3C8C05FE4409AB767D26ABE3D80C979D53553D26B8EE9",
+  "SourceClosureSha256": "ABC9A712DA5DC0541BB4A0E40960B7A3DFE61F4781F8DF3C5E588D29F73BEF4E",
+  "FrozenMembersVerified": 102,
+  "PromotedPathsVerified": 13,
+  "ExistingParentHashesVerified": 8,
+  "ActualExecutionSourceClosureVerified": 2122,
+  "ParentOutsideOverlayExact": 2109,
+  "HistoricalCompiledPrefixExact": 4917,
+  "ActualFinalCompiledCount": 4924,
+  "ActualBoundNewSourcesRegeneratedAndHashCompared": 7,
+  "ActualRevision4FocusPassed": 24,
+  "FinalBoundDifferentialDllSha256": "343ABFF726471FB2E96BAFD664D801C8F89EFF4CA46BAD6EFBC0ADD9E5A19DAF",
+  "BlockingFindings": [],
+  "ReviewedBoundaries": [
+    "Pinned load_nif_2 C body unconditionally returns error/bad_lib with exact charlist; public BIF ignoring argument values is the real narrow indirect-call contract, not a successful loader implementation.",
+    "Cached result is composed only of immutable Tuple/Atom/Cons terms. Registration adds one public MFA; CoreModules invokes its registration once and no native instruction handler is installed.",
+    "Seven final fixture sources regenerated independently from frozen constant builder and compared with actual bound final DLL inventory hashes. Seventh exports dynamic_fun/3 and crosses qualified remote helper before F(Path,Info); no unsupported M:F syntax or locally foldable direct fun invocation is credited.",
+    "Revision4 final24 focus report includes all seven SDK compiled fixtures and SourceLoadNifHostChecks. Its generated-helper route test installs a direct handler and proves dynamic/external-fun routes return exact bad_lib without increasing handler count.",
+    "Positive migration retains existing capability/argument/owner tests, changes two obsolete negative export assertions and undef fallback to actual public BIF behavior, adds exact functional MFA smoke and shared registry counts505/507.",
+    "Actual Main3074917 historical compiled source/name prefix is byte-hash exact; only seven appended cases. Invalid earlier inventory binding is explicitly classified and not used as proof.",
+    "Existing original19 two apply cases/raw ETF match pin and independent report09B211. New seven source-derived cases have not yet undergone ordinary original comparison."
+  ],
+  "RemainingScope": [
+    "Literal native-load instruction/default native handler and successful general ABI/loading remain partial.",
+    "Variable M:F syntax remains unsupported.",
+    "Public presence347/351 and registry505 are inventories, not full module completion.",
+    "No new original/native/full tests rerun by this readonly peer. Root combined308 integration remains required."
+  ],
+  "Evidence": [
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/validation-freeze.json",
+      "Bytes": 18176,
+      "Sha256": "78CA282E61D5B360D919566F82A26EAABCE22DC0667EB18E44281318D5B8BCCA"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/promotion-map.json",
+      "Bytes": 3630,
+      "Sha256": "E10FEB639CBE5176D9E3C8C05FE4409AB767D26ABE3D80C979D53553D26B8EE9"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/source-closure.json",
+      "Bytes": 401703,
+      "Sha256": "ABC9A712DA5DC0541BB4A0E40960B7A3DFE61F4781F8DF3C5E588D29F73BEF4E"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/validation-receipt.json",
+      "Bytes": 2075,
+      "Sha256": "2FAB69291F936FA738C324F7AF6F3AD01452E0B63AF758F9F698620AC7EF4F2C"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/migration-audit.json",
+      "Bytes": 3360,
+      "Sha256": "46B8024868D9F5D58610A90587F4DBA3F31EE1117E5AF2914CDA2B691C254BDC"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/focus-revision4-24-report.json",
+      "Bytes": 3488,
+      "Sha256": "8E0DB384415F4747EF21154DF6EF65C9C394CFF0EF36BA4598917A863073AECC"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/focus-revision4-24-exit.json",
+      "Bytes": 23,
+      "Sha256": "0CEC79BDABD108DC8F671EA11F65E0DB39B7521A87C78CC337BA9CDFA7E42FE6"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/logs/target-revision4.log",
+      "Bytes": 1913,
+      "Sha256": "C8205483E8F56C007BE8D83D5EABE68CDCC8C4E3C6EE2ABCC69A8B1F4F7AA662"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/compiled-source-preservation-proof.json",
+      "Bytes": 947,
+      "Sha256": "9CB89D06026D7375851FC8AA561F789F86F1DAB9E4C68DBFC0B710DD2E5E7F54"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/compiled-main307-bound-inventory.json",
+      "Bytes": 852748,
+      "Sha256": "05429CA222BFF18CE3567FD1262E8D8007483577E6D892756C5460AB1B6BE92F"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/compiled-revision4-bound-inventory.json",
+      "Bytes": 856297,
+      "Sha256": "588B6660A62618CF7C091C9FB0537F4F3EA0669135985F0A11E806B3113B8612"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/original19-indirect-two-projections.json",
+      "Bytes": 24257,
+      "Sha256": "C66B8C7E240594699D3CD6D6752F08CF9C6C55E746603CDCF6C205F61595DA28"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/evidence/erl_nif.c.pinned-extract.txt",
+      "Bytes": 10505,
+      "Sha256": "8D60480ACF6435352EBE0FEC97CA695A01E0632A373422E3DC5A104895D64EFB"
+    },
+    {
+      "Path": "artifacts/indirect-load-nif312-validated2/format12-guard.json",
+      "Bytes": 245,
+      "Sha256": "BE5CCA9E50AE6327A09E052C375C508595F809F8780A335FBDE3DCFF7CDB9618"
+    }
+  ],
+  "BuildExecuted": false,
+  "TestsRerun": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "PostExecuted": false
+}

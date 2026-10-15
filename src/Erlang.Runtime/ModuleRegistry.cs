@@ -28,23 +28,8 @@ public sealed partial class ModuleRegistry
         }
     }
 
-    public async ValueTask<SourceCodeLease> AcquireSourceCode(ProcessContext context, ModuleCodeImage image)
-    {
-        while (true)
-        {
-            Task? pending;
-            lock (gate)
-            {
-                var state = purgeStates.GetOrCreateValue(image);
-                if (state.Retired)
-                    throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-                pending = state.Pending?.Task;
-                if (pending is null || context.IsExecutingCode(image))
-                    return context.ReserveSourceCode(image);
-            }
-            await context.Mailbox.WaitForControlCompletion(pending, context.Cancellation);
-        }
-    }
+    public ValueTask<SourceCodeLease> AcquireSourceCode(ProcessContext context, ModuleCodeImage image)
+        => AcquireSourceEntry(context, image, SourceCodeAdmissionKind.Continuation);
 
     public async ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
         ProcessContext context,

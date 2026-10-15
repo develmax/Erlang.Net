@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+<ItemGroup><ProjectReference Include="../source-tree/src/Erlang.Runtime/Erlang.Runtime.csproj" /></ItemGroup>
+<ItemGroup>
+<Compile Include="../overlay/tests/Erlang.Tests/NifAllocationLedgerHostChecks.cs" Link="Tests/NifAllocationLedgerHostChecks.cs" />
+<Compile Include="../overlay/tests/Erlang.Tests/NifAllocationLedgerHostNames.cs" Link="Tests/NifAllocationLedgerHostNames.cs" />
+<Compile Include="../overlay/tests/Erlang.Tests/NifAllocationLedgerHostOwner.cs" Link="Tests/NifAllocationLedgerHostOwner.cs" />
+<Compile Include="../overlay/tests/Erlang.Tests/NifAllocationLedgerHostParameters.cs" Link="Tests/NifAllocationLedgerHostParameters.cs" />
+<Compile Include="../overlay/tests/Erlang.Tests/NifAllocationLedgerHostSnapshot.cs" Link="Tests/NifAllocationLedgerHostSnapshot.cs" />
+</ItemGroup>
+</Project>

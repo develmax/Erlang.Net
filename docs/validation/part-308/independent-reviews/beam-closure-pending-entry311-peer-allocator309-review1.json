@@ -1,0 +1,106 @@
+{
+  "Status": "BOUNDED_SOURCE_AND_PRESERVED_EVIDENCE_PEER_PASS",
+  "Reviewer": "allocator309",
+  "ValidationFreezeSha256": "22F021412FBFFB92C78F95C4D32395927675D0C75762752C85D786B07A9EEB16",
+  "PromotionMapSha256": "AF15EE5DAF203AD021EC74C510F9B555FD7D217CD8CA99EAD3C261B9CC5E61DF",
+  "FrozenMemberHashesVerified": 69,
+  "PromotedResultFilesVerified": 8,
+  "PromotedExistingParentHashesVerified": 4,
+  "ActualExecutionSourceFilesVerified": 2117,
+  "ParentFilesOutsideOverlayExact": 2109,
+  "SameHostSha256": "C949B016C6549CBE873E1783DFB9C63F254D31819BD4CF3419645D3C3E0E75AA",
+  "FormatTokenSha256": "674DAD24DB5219498A6C0749850305BEE65B99E941E367422F05B3344EBDB891",
+  "FocusedNamedPassesVerified": 24,
+  "RedLine96Matched": true,
+  "BlockingFindings": [],
+  "ReviewedReasoning": [
+    "Closure factory now enters ExecuteFunction, which selects Function admission; ordinary ExecuteLocal remains Continuation.",
+    "AcquireSourceEntry checks Retired first under existing registry gate. Only active Continuation may bypass Pending; Function always awaits completion, outside registry lock, via cancellation-aware mailbox owner-control wait.",
+    "ExecuteCore acquires one source lease, attaches owner flow separately, and disposes both with using scopes. No outer admission lease was added; continuation behavior is preserved.",
+    "Preserved genuine RED log fails at unchanged HOST line96 Require(!call.IsCompleted), after real compiled continuation succeeds and references return to1. Earlier record-property reflection failure is retained and receives no semantic credit.",
+    "Same corrected HOST bytes pass GREEN; actual compiled closure blocks without extra lease, process_info control handshake succeeds, abort returns12, separate active invocation cancellation unwinds refs tozero.",
+    "Program adds one HOST registration; source/producer algorithms outside five Runtime paths unchanged. Two new Runtime files and two HOST files account for2113 to2117 closure delta."
+  ],
+  "RemainingScope": [
+    "Manual ordinary pending purge in HOST is not a full pending-onload purge session or public purger-authority proof.",
+    "Code-stage fencing, SourceForCode relinking/stage semantics, saved-old restoration and general pending sessions remain incomplete.",
+    "No new original/native/full execution performed by this peer. Focus evidence is historical preserved isolated execution, not Main308 integration."
+  ],
+  "Evidence": [
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/validation-freeze.json",
+      "Bytes": 12227,
+      "Sha256": "22F021412FBFFB92C78F95C4D32395927675D0C75762752C85D786B07A9EEB16"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/promotion-map.json",
+      "Bytes": 2730,
+      "Sha256": "AF15EE5DAF203AD021EC74C510F9B555FD7D217CD8CA99EAD3C261B9CC5E61DF"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/candidate-source-closure.json",
+      "Bytes": 400770,
+      "Sha256": "BFD5468FF8D5990564BBED2F87D3D3E0DE94146723206FDEE252AA24C15ECA85"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/snapshot-receipt.json",
+      "Bytes": 400437,
+      "Sha256": "4EC86F207D5D2FB4E2355F53F26A2C85DD49A09BC3FE256690B198BE52C07385"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/validation-result.json",
+      "Bytes": 1813,
+      "Sha256": "0D9C178B719D8A457789BAFA69F3C034E8695FA3A07CD2A92AE9576A7CA5F23F"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/semantic-red-proof.json",
+      "Bytes": 552,
+      "Sha256": "C2DCE2E8070D05987C3264A043289DF0A293E4C18A455B86CD38AB8E8EC6F5EA"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/red-host-revision2.log",
+      "Bytes": 1495,
+      "Sha256": "B036899F61B20C8F4EFB7932EFF8F37087B2DF7CCE61318DAEEF0B98EA82A480"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/red-host-revision2-exit.json",
+      "Bytes": 182,
+      "Sha256": "553C18E2DF2D67B9729D85068616D1DC9C8840A0CC3A3E9F0A78065C0FE6EFB2"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/green-host.log",
+      "Bytes": 33,
+      "Sha256": "701DF80DAD349FD2323EA7B0363920B28E2057329461DF90AC4C81E91E291955"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/target-green-exit.json",
+      "Bytes": 126,
+      "Sha256": "AE5819C819B573708CF049FB831F32271A5C39ACB07F6D46D9CCE8E933C507DD"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/focus24.log",
+      "Bytes": 1500,
+      "Sha256": "48BE4A86FE21F489496E51E90467DE2676CD80E0BEA2A37EEF3FF8F73C157DBE"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/focus24-exit.json",
+      "Bytes": 149,
+      "Sha256": "49EC6D4C30EA021605ADA0B9D707D79FA96E863923D6DF978DAF427210CFEB4F"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/format8-revision2-guard.json",
+      "Bytes": 279,
+      "Sha256": "02EB12EB83F7AD5E1068CC41C0F9F96E1AC1E289921E4C965EDAE6274ED0425B"
+    },
+    {
+      "Path": "artifacts/beam-closure-pending-entry311-validated1/host-reflection-source-preflight.json",
+      "Bytes": 1809,
+      "Sha256": "643B2560ACB2643DC0227162F59F2847C9F021F292D83DF3BA720247B9F3706B"
+    }
+  ],
+  "MainEdited": false,
+  "GitMutated": false,
+  "BuildExecuted": false,
+  "TestsRerun": false,
+  "HeavyGateUsed": false
+}

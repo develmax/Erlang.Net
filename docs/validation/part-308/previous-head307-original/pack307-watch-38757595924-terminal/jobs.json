@@ -1,0 +1,113 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 116500053904,
+      "run_id": 38757595924,
+      "workflow_name": "Pinned OTP differential oracle",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38757595924",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbH_G_kA",
+      "head_sha": "8b83560372b63b4760604ac088802fb74ac1c112",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116500053904",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38757595924/job/116500053904",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-15T15:07:59Z",
+      "started_at": "2026-10-15T15:08:02Z",
+      "completed_at": "2026-10-15T15:29:51Z",
+      "name": "oracle",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T15:08:03Z",
+          "completed_at": "2026-10-15T15:08:05Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T15:08:05Z",
+          "completed_at": "2026-10-15T15:08:25Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T15:08:25Z",
+          "completed_at": "2026-10-15T15:08:36Z"
+        },
+        {
+          "name": "Build development oracle from the exact reference commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T15:08:36Z",
+          "completed_at": "2026-10-15T15:15:05Z"
+        },
+        {
+          "name": "Compare the supported language corpus",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T15:15:05Z",
+          "completed_at": "2026-10-15T15:29:43Z"
+        },
+        {
+          "name": "Compare inherited descriptor IO against the original fd driver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T15:29:43Z",
+          "completed_at": "2026-10-15T15:29:47Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-15T15:29:47Z",
+          "completed_at": "2026-10-15T15:29:49Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-15T15:29:49Z",
+          "completed_at": "2026-10-15T15:29:49Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-15T15:29:49Z",
+          "completed_at": "2026-10-15T15:29:49Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-15T15:29:49Z",
+          "completed_at": "2026-10-15T15:29:49Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116500053904",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001333,
+      "runner_name": "GitHub Actions 1000001333",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

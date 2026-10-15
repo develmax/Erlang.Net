@@ -27,35 +27,30 @@ public static partial class SourceLoadNifHostChecks
             }
             object expectedOwner = (object?)prepared ?? standalone;
             ModuleCodeImage? expectedImage = registered ? runtime.Modules.CurrentCodeImage(standalone.Name) : null;
-            Require(!runtime.Modules.HasExport(SourceLoadNifHostNames.Erlang, SourceLoadNifHostNames.Function, SourceLoadNifHostNames.Arity));
+            Require(runtime.Modules.HasExport(SourceLoadNifHostNames.Erlang, SourceLoadNifHostNames.Function, SourceLoadNifHostNames.Arity));
             await NifAdmissionHostBridge.Context(
                 runtime,
                 async context =>
             {
-                bool undefined = false;
-                try
-                {
-                    if (registered)
-                        await runtime.Modules.Call(
-                            context,
-                            standalone.Name,
-                            ActualBeamLoadNifHostNames.Load,
-                            Term.String(ActualBeamLoadNifHostNames.Path),
-                            Term.I(SourceLoadNifHostNames.Marker)
-                        );
-                    else
-                        await standalone.Invoke(
-                            context,
-                            ActualBeamLoadNifHostNames.Load,
-                            Term.String(ActualBeamLoadNifHostNames.Path),
-                            Term.I(SourceLoadNifHostNames.Marker)
-                        );
-                }
-                catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.UndefinedFunction)))
-                {
-                    undefined = true;
-                }
-                Require(undefined);
+                Term rejection = Term.Tuple(
+                    Term.A(SourceLoadNifHostNames.Error),
+                    Term.Tuple(Term.A(SourceLoadNifHostNames.BadLibrary), Term.String(SourceLoadNifHostNames.ApplyRejectedMessage))
+                );
+                Term fallback = registered
+                    ? await runtime.Modules.Call(
+                        context,
+                        standalone.Name,
+                        ActualBeamLoadNifHostNames.Load,
+                        Term.String(ActualBeamLoadNifHostNames.Path),
+                        Term.I(SourceLoadNifHostNames.Marker)
+                    )
+                    : await standalone.Invoke(
+                        context,
+                        ActualBeamLoadNifHostNames.Load,
+                        Term.String(ActualBeamLoadNifHostNames.Path),
+                        Term.I(SourceLoadNifHostNames.Marker)
+                    );
+                Require(fallback.Equals(rejection));
                 if (expectedImage is not null)
                     Require(References(context, expectedImage) == 0);
             }
@@ -170,7 +165,7 @@ public static partial class SourceLoadNifHostChecks
                 }
             }
             );
-            Require(!runtime.Modules.HasExport(SourceLoadNifHostNames.Erlang, SourceLoadNifHostNames.Function, SourceLoadNifHostNames.Arity));
+            Require(runtime.Modules.HasExport(SourceLoadNifHostNames.Erlang, SourceLoadNifHostNames.Function, SourceLoadNifHostNames.Arity));
         }
     }
 }

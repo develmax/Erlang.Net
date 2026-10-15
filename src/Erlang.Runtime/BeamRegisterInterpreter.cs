@@ -59,7 +59,7 @@ internal static class BeamRegisterInterpreter
             diagnosticInstructionBudget
         );
 
-    internal static async ValueTask<Term> ExecuteLocal(
+    internal static ValueTask<Term> ExecuteLocal(
         ProcessContext context,
         BeamLinkedCode code,
         BeamLinkedFunction function,
@@ -68,9 +68,50 @@ internal static class BeamRegisterInterpreter
         BeamExecutionIdentity execution,
         long? diagnosticInstructionBudget = null
     )
+        => ExecuteCore(
+            context,
+            code,
+            function,
+            arguments,
+            environment,
+            execution,
+            SourceCodeAdmissionKind.Continuation,
+            diagnosticInstructionBudget
+        );
+
+    internal static ValueTask<Term> ExecuteFunction(
+        ProcessContext context,
+        BeamLinkedCode code,
+        BeamLinkedFunction function,
+        IReadOnlyList<Term> arguments,
+        IReadOnlyList<Term> environment,
+        BeamExecutionIdentity execution,
+        long? diagnosticInstructionBudget = null
+    )
+        => ExecuteCore(
+            context,
+            code,
+            function,
+            arguments,
+            environment,
+            execution,
+            SourceCodeAdmissionKind.Function,
+            diagnosticInstructionBudget
+        );
+
+    private static async ValueTask<Term> ExecuteCore(
+        ProcessContext context,
+        BeamLinkedCode code,
+        BeamLinkedFunction function,
+        IReadOnlyList<Term> arguments,
+        IReadOnlyList<Term> environment,
+        BeamExecutionIdentity execution,
+        SourceCodeAdmissionKind admission,
+        long? diagnosticInstructionBudget
+    )
     {
         context.Cancellation.ThrowIfCancellationRequested();
-        using var lease = await context.Runtime.Modules.AcquireSourceCode(context, execution.Image);
+        using var lease = await context.Runtime.Modules.AcquireSourceEntry(context, execution.Image, admission);
         using var flow = lease.Attach(execution.Owner);
         BeamRegisterValidation.Validate(code, function);
         var registers = new BeamRegisterState();

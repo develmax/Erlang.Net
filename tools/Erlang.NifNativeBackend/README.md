@@ -1,6 +1,6 @@
 # Internal trusted native fixture backend
 
-This development tool exercises the real Runtime image initializer, bindings and library owner. It does not register `erlang:load_nif/2` and does not implement the complete NIF ABI.
+This development tool exercises the real Runtime image initializer, bindings and library owner. Runtime registers the pinned indirect `erlang:load_nif/2` BIF, which always returns its exact `bad_lib` rejection. Literal source and interpreted BEAM callers have an internal caller capability and managed bridge checks. The default native load instruction handler remains uninstalled, and the complete NIF ABI remains unfinished.
 
 The admitted profile is the reviewed two-function fixture source SHA256 `7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074`, together with independently verified build provenance and its binary SHA256. A caller-supplied hash alone does not establish that provenance. Arbitrary libraries cannot use this partial callback table safely.
 
@@ -16,4 +16,4 @@ C# owns terms, environments, pending exceptions, allocation tracking, loading po
 
 Build these sources only with the actual configured OTP-29.1.1 headers from commit `ad05823719d77c8faee87348ea39513d4e2f99c5`. Upstream Apache-2.0 headers remain external, hash-verified build inputs; this directory does not redistribute those headers or native binaries. Linux source/build provenance and the fresh original observations belong to the dedicated manual validation workflow.
 
-The native fixture command also compiles the Erlang source witness and checks real generated-source entry routes. Its internal installation bridge is deliberately called outside tail position; implementing the dedicated public load_nif caller-capture instruction remains separate. Runtime does not reference Compiler: the development tool references both and links the existing Roslyn compiler helpers.
+The native fixture command also compiles the Erlang source witness and checks real generated-source entry routes. Its development installation bridge is deliberately called outside tail position. The internal literal caller capability also retains the actual executing image before a tail transfer; this does not install a default native loader or establish successful native loading through public language calls. Runtime does not reference Compiler: the development tool references both and links the existing Roslyn compiler helpers.

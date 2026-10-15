@@ -1,0 +1,37 @@
+PASS BeamClosurePurgeHostChecks
+PASS BeamHostChecks
+PASS BeamPreparedHostChecks
+PASS BeamClosureHostChecks
+PASS BeamReceiveHostChecks
+PASS BeamOnLoadHostChecks
+PASS BeamLoaderAdmissionChecks
+PASS BeamLoaderLifecycleChecks
+PASS BeamLoaderDirectChecks
+PASS CodePurgeHostChecks
+PASS FunctionReloadHostChecks
+PASS FunctionResolutionHostChecks
+Local identity, hash, immutable environment, canonical code and cross-runtime owner checks passed; native unrun
+PASS LocalFunctionIdentityChecks
+PASS SourceTailHostChecks
+PASS ModuleRegistryLeaseChecks
+PASS prepared BEAM image owner fresh_direct_true
+PASS prepared BEAM image owner fresh_false_false_true
+PASS prepared BEAM image owner current_direct_true
+PASS prepared BEAM image owner current_false_false_true
+PASS prepared BEAM image owner deleted_old_direct_true
+PASS prepared BEAM image owner deleted_old_false_false_true
+PASS NifBeamOwnerHostChecks
+PASS NifAdmissionHostChecks
+PASS NifLifetimeHostChecks
+PASS NifImageBindingHostChecks
+PASS NifSourceEntryHostChecks
+PASS NifBeamEntryHostChecks
+PASS SourceLoadNifHostChecks
+PASS raw on_load captured final fresh_direct_true
+PASS raw on_load captured final fresh_false_false_true
+PASS raw on_load captured final current_direct_true
+PASS raw on_load captured final current_false_false_true
+PASS raw on_load captured final deleted_old_direct_true
+PASS raw on_load captured final deleted_old_false_false_true
+PASS RawOnLoadExportsHostChecks
+PASS ReferenceResourceHostChecks

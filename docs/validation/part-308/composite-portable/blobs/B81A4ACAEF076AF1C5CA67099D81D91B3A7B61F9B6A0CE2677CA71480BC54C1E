@@ -1,0 +1,87 @@
+{
+  "Status": "SOURCE_ONLY_UNBUILT_PENDING_REVIEW_AND_HEAVY_GATE",
+  "Parent310ValidationFreezeSha256": "6C9F0AD268237E161147AD457E9D02F1DF30056634F3A874F37F38321B4EEBAA",
+  "Parent310PromotionMapSha256": "79A1571B2C56892FCB3F756E22A676333FE907D3AD4843A221D91D26BDA5CDDC",
+  "SourcePaths": 8,
+  "CSharpPaths": 8,
+  "RuntimePaths": 5,
+  "AddedHostName": "runtime/beam-fun-entry-pending-purge-active-continuation",
+  "ExpectedFullRows": 6628,
+  "ExpectedNativeSourceInputs": 1015,
+  "PublicMfaDelta": 0,
+  "SourceForCodeRelinkStageFenceDone": false,
+  "PendingOnLoadPurgeSessionDone": false,
+  "BuildExecuted": false,
+  "HostExecuted": false,
+  "FormatterExecuted": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "OriginalExecuted": false,
+  "NativeExecuted": false,
+  "Paths": [
+    {
+      "Path": "src/Erlang.Runtime/BeamClosureFactory.cs",
+      "ParentSha256": "2F1B0E6622B53D8C58B69F60AA731BA596A9B995A9CC55FE8EDD12840E657581",
+      "ParentBytes": 2269,
+      "ResultSha256": "CC7F8FA1092FF058CF842F79766CA373B534918250673B63BEF8F7ACDDB4EFB8",
+      "ResultBytes": 2272
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "ParentSha256": "AA09DE35F1E1DCB2AC0A7B9DA0FF8DF05101B4739B43929FF2D817581349C7EB",
+      "ParentBytes": 19478,
+      "ResultSha256": "55857D3D8A1D220E572087C994805D41EBAD99B5CA7F48BB97ED5EB5F9489336",
+      "ResultBytes": 20476
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "ParentSha256": "89939DD47F81AFABCE677110E3F4448AD24D1F0F61B8947B80BA834B6300DB28",
+      "ParentBytes": 23082,
+      "ResultSha256": "00BCC276D410B32C82C34BF38584D23DBC7F419E0EFADCB4FE6896B7F36E8FAD",
+      "ResultBytes": 22575
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceEntry.cs",
+      "ParentSha256": null,
+      "ParentBytes": null,
+      "ResultSha256": "B5313E2C22A15D2B600A6F67D7FAEF2270F22A7B0A9FC1E919A555ABF73F86B5",
+      "ResultBytes": 874
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceCodeAdmissionKind.cs",
+      "ParentSha256": null,
+      "ParentBytes": null,
+      "ResultSha256": "3B9603AE6190A1056BA795B4E72BA02B791DA0B80F55995638B9D2BC24AB6955",
+      "ResultBytes": 93
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamClosurePurgeHostChecks.cs",
+      "ParentSha256": null,
+      "ParentBytes": null,
+      "ResultSha256": "D833DD5145C7A61D9D27F1BC0D68B4D98067A5453BF161233CE6754E279D56BA",
+      "ResultBytes": 7300
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamClosurePurgeHostNames.cs",
+      "ParentSha256": null,
+      "ParentBytes": null,
+      "ResultSha256": "24AD2E83A5B1CB6793ACDD6421A6D8D43E8079732576D3FC10CE62EFB9939B57",
+      "ResultBytes": 793
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "ParentSha256": "6D3CE26826BFDF4F38C97363DA050062267E3090B92ADF882E4361990ACCE6F6",
+      "ParentBytes": 165267,
+      "ResultSha256": "B90DBB8B34BE8BD91441A08406DBA9325AAD9027BB6F67D2FA0EE71B8353FF7A",
+      "ResultBytes": 165364
+    }
+  ],
+  "Design": [
+    "Public AcquireSourceCode signature preserved and delegates to shared internal admission loop.",
+    "Existing ExecuteLocal overload signatures preserved; ExecuteFunction selects Function entry; private ExecuteCore holds exactly one image lease.",
+    "Only Continuation entry may bypass Pending for an active image; Function entry always waits using existing control-aware mailbox waiter.",
+    "Actual original compiled closure HOST uses manual PreparePurge/FinishPurge barriers and already-active image.",
+    "HOST plans generic lease and actual compiled make/1 continuation success during Pending, original fun entry remains incomplete with no added lease, process_info owner-control handshake, abort return12, active wait cancellation cleanup.",
+    "Only cancellation test exits a proven blocked active fun invoker, never an idle fun holder."
+  ]
+}

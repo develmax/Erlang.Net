@@ -1,0 +1,6 @@
+using System.Text.Json;
+using Erlang;
+using Erlang.Tests;
+
+await NifAllocationLedgerHostChecks.Run();
+Console.WriteLine(JsonSerializer.Serialize(new { Status = "ACTUAL_RUNTIME_DLL_ALLOCATION_LEDGER_HOST_PASS", RuntimeAssemblyPath = typeof(ProcessRuntime).Assembly.Location, Cases = NifAllocationLedgerHostChecks.Completed, TrustedNativeCallbackExecuted = false, PinnedHeadersUsed = false, OriginalExecuted = false, SdkPublicMemoryApiExecuted = false }));

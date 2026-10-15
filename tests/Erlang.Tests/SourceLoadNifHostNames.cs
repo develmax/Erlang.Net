@@ -29,7 +29,7 @@ internal static class SourceLoadNifHostNames
     internal const string Error = "error";
     internal const string BadLibrary = "bad_lib";
     internal const string ApplyRejectedMessage = "load_nif/2 must be explicitly called from the NIF module. It cannot be called through apply/3.";
-    internal const string Source = "-module(source_load_nif_host). -export([direct/1,last/1,non_tail/1,cross/1,dynamic/1,reference/1,local/1,arguments/0]). direct(X)->erlang:load_nif(X,42). last(X)->Y=X,erlang:load_nif(Y,42). non_tail(X)->{erlang:load_nif(X,42)}. cross(X)->source_load_nif_other:direct(X). dynamic(X)->erlang:apply(erlang,load_nif,[X,42]). reference(X)->F=fun erlang:load_nif/2,F(X,42). local(X)->load_nif(X,42). load_nif(X,_)->X. arguments()->erlang:load_nif(argument(),42). argument()->erlang:put(argument_done,true),17.";
+    internal const string Source = "-module(source_load_nif_host). -export([direct/1,last/1,non_tail/1,cross/1,dynamic/1,reference/1,local/1,arguments/0,dynamic_fun/3]). direct(X)->erlang:load_nif(X,42). last(X)->Y=X,erlang:load_nif(Y,42). non_tail(X)->{erlang:load_nif(X,42)}. cross(X)->source_load_nif_other:direct(X). dynamic(X)->erlang:apply(erlang,load_nif,[X,42]). reference(X)->source_load_nif_host:dynamic_fun(fun erlang:load_nif/2,X,42). dynamic_fun(F,P,I)->F(P,I). local(X)->load_nif(X,42). load_nif(X,_)->X. arguments()->erlang:load_nif(argument(),42). argument()->erlang:put(argument_done,true),17.";
     internal const string OtherSource = "-module(source_load_nif_other). -export([direct/1]). direct(X)->erlang:load_nif(X,42).";
     internal const int Arity = 2;
     internal const int Marker = 42;

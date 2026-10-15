@@ -617,6 +617,7 @@ public static class CompiledModuleCases
         .. DistributionInputCases.Modules,
         .. ApplyFrameCases.Modules,
         .. NifDeclarationCases.Modules,
-        .. ProcessInfoDefaultSubsetCases.Modules
+        .. ProcessInfoDefaultSubsetCases.Modules,
+        .. IndirectLoadNifCases.Modules
     ];
 }

@@ -1,0 +1,17 @@
+{
+  "Expected": 7,
+  "Actual": 1,
+  "Passed": 0,
+  "Failed": 1,
+  "MainEdited": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "Cases": [
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-invalid-path",
+      "Passed": false,
+      "Milliseconds": 307,
+      "Error": "System.TypeInitializationException: The type initializer for \u0027Erlang.Differential.CompiledModuleCases\u0027 threw an exception.\r\n ---\u003E System.TypeInitializationException: The type initializer for \u0027Erlang.Differential.EarlyPlatformCases\u0027 threw an exception.\r\n ---\u003E System.IO.DirectoryNotFoundException: Could not find a part of the path \u0027D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\examples\\HelloHybrid\\platform_demo.erl\u0027.\r\n   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)\r\n   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Int32 bufferSize)\r\n   at System.IO.File.ReadAllText(String path, Encoding encoding)\r\n   at Erlang.Differential.EarlyPlatformCases..cctor() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\EarlyPlatformCases.cs:line 6\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Differential.EarlyPlatformCases.get_Modules() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\EarlyPlatformCases.cs:line 5\r\n   at Erlang.Differential.CompiledModuleCases..cctor() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\CompiledModuleCases.cs:line 8\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Differential.CompiledModuleCases.get_All() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\CompiledModuleCases.cs:line 7\r\n   at Erlang.Tests.FunctionalMfaContracts.Run(String name) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tests\\Erlang.Tests\\FunctionalMfaContracts.cs:line 70\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\focus\\Program.cs:line 39"
+    }
+  ]
+}

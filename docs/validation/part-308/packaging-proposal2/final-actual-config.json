@@ -1,0 +1,319 @@
+{
+  "Part": 308,
+  "BoundToActualComposite": true,
+  "ParentHead": "8b83560372b63b4760604ac088802fb74ac1c112",
+  "SourceFreeze": {
+    "Path": "artifacts/root-part308-final-source-freeze.json",
+    "Bytes": 8868,
+    "Sha256": "C1A2377E970ECDE5E2AF5C298D4EBC32BD0E45E59FD6F9EFDC2EB57BE6F5492D"
+  },
+  "CompositeAuthority": {
+    "Path": "artifacts/part308-packaging-proposal2/composite-authority.json",
+    "Bytes": 19368,
+    "Sha256": "1F678980DA28E66AAB7E898A02557A85ADDC3A5BBA874FDCB4B708BC88A884A2"
+  },
+  "Previous307Manifests": {
+    "ci": {
+      "Path": "artifacts/pack307-ci-detached-staging-manifest.json",
+      "Bytes": 4462,
+      "Sha256": "BF57F4E73E8FF95BE80B28D95906B9022E463DC282D5A627B8293D7383C0A41B"
+    },
+    "native": {
+      "Path": "artifacts/pack307-native-detached-staging-manifest.json",
+      "Bytes": 98149,
+      "Sha256": "A42CA1B35597426976B8B6680B9AC8BF7DE339354D7FE6C8527E6E356ABC122A"
+    },
+    "original": {
+      "Path": "artifacts/pack307-original-detached-staging-manifest-review2.json",
+      "Bytes": 5842,
+      "Sha256": "FDDA0FA11E661E59B595C41D894C5225E381902E4FAC5B80546D62FDD269EC4B"
+    }
+  },
+  "GeneralNifAbiComplete": false,
+  "DefaultNativeHandlerInstalled": false,
+  "WholeCompatibilityComplete": false,
+  "FreshOriginal308Verified": false,
+  "ComparisonTestReport": "validation/part-307/tests.json",
+  "SourcePaths": 32,
+  "CSharpPaths": 28,
+  "ExpectedPassed": 6637,
+  "ExpectedRegistry": 505,
+  "ExpectedErlang": 347,
+  "ExpectedNativeInputs": 1020,
+  "ExpectedOptionalIo": 507,
+  "AddedHostNames": [
+    "runtime/beam-fun-entry-pending-purge-active-continuation",
+    "runtime/nif-native-requested-backing-allocation-ledger"
+  ],
+  "AllowedTextLfSources": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml",
+    "tools/Erlang.NifNativeBackend/README.md"
+  ],
+  "GuardAssertions": {
+    "FullGuard": {
+      "Status": "ACTUAL_MAIN_6637_FULL_ALL6627_HISTORICAL_ORDERED_NAMES_32_SOURCE_28_CSHARP_AND_11_INTEGRATION_PASS",
+      "Passed": 6637,
+      "Failed": 0,
+      "HistoricalOrderedNamesPreserved": 6627,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false,
+      "NewOriginalSevenCompared": false
+    },
+    "NativeGuard": {
+      "Status": "PASS_ACTUAL_MAIN_NATIVE_TRUSTED_WINDOWS_AND_COMPILED_SOURCE",
+      "ExitCode": 0,
+      "NativeTrustedWindowsProfilePassed": true,
+      "ActualGeneratedCSharpRoutePassed": true,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "RegistryGuard": {
+      "Status": "ACTUAL_RAW505_CAPTURED_EXISTING_PROCESS_INFO_AND_NEW_INDIRECT_LOAD_NIF_DISCLOSURES",
+      "Registry": 505,
+      "ErlangMfas": 347,
+      "PublicMfaDelta": 1,
+      "Other503RowsFieldsAndHistoricalOrderingExact": true,
+      "SourceExporterChanged": false,
+      "PublicLoadNifRegistered": true,
+      "DefaultNativeLoadInstructionHandlerInstalled": false,
+      "GeneralNifAbiComplete": false
+    },
+    "OptionalIoGuard": {
+      "Status": "PASS_ACTUAL_FULL_HOST_DEFAULT505_OPTIONAL_IO507",
+      "DefaultExports": 505,
+      "OptionalIoExports": 507,
+      "IndependentAdditionalExecution": false
+    },
+    "Previous307Ci": {
+      "Status": "PASS_EXACT_HEAD307_CI6627_FULL",
+      "Passed": 6627,
+      "Failed": 0,
+      "OrderedNamesExact": true,
+      "RegisteredMfas": 504,
+      "PublishedStageSource12AndCSharp8Exact": true
+    },
+    "Previous307Native": {
+      "Status": "PASS_EXACT_HEAD307_LINUX_TRUSTED_SDK_AND_SEPARATE_ORIGINAL13",
+      "SdkSixArgumentNativePassed": true,
+      "IndependentOriginal13TypedPassed": true,
+      "OriginalCases": 13,
+      "OriginalAndSdkThirteenCasesCompared": false,
+      "GeneralNifAbiComplete": false,
+      "SourceInputsVerified": 1013
+    },
+    "Previous307Ordinary": {
+      "Status": "PASS_EXACT_HEAD307_ORIGINAL5854_FD8_PREDECLARED_MAP_STDOUT_POLICY",
+      "Passed": 5854,
+      "Failed": 0,
+      "FdPassed": 8,
+      "Historical4911Module778Expression165DiagnosticRowsExact": true,
+      "PredeclaredNativeMapStdoutVarianceRows": 0,
+      "RawNormalization": false
+    },
+    "Previous307Strict": {
+      "ExitCode": 0,
+      "Stderr": "",
+      "NativeExecuted": false,
+      "MainEdited": false
+    },
+    "CompositePeer": {
+      "Status": "ROOT_COMPOSITE_SOURCE_FREEZE_2189_AND_29_PROMOTED_PATHS_25_FOCUS_REVIEW_PASS",
+      "AllFrozenMembersVerified": 2189,
+      "PromotedPathsVerified": 29,
+      "CSharpPaths": 28,
+      "FocusedGroupsPassed": 25,
+      "FinalLedger3ActualRuntimeHostExecuted": true
+    },
+    "PortableReplayGuard": {
+      "Status": "PASS_INDEPENDENT_COMPLETE_COMPOSITE_AND_CANDIDATE_ARCHIVE_REPLAY",
+      "CompositeMembersVerified": 2189,
+      "CandidateLogicalFilesVerified": 1032,
+      "NativeExecuted": false,
+      "BuildExecuted": false
+    }
+  },
+  "FullExit": {
+    "Path": "artifacts/root-part308-full-exit.json",
+    "Bytes": 168,
+    "Sha256": "4476CF4D7797BF3A89C656648C97E1C4BAC9A625512CB0711973CBD5738657D6"
+  },
+  "FullLog": {
+    "Path": "artifacts/root-part308-full-validation.log",
+    "Bytes": 401433,
+    "Sha256": "A4E433CD998367E62870495EA7C612F7475005AF0A6764093CBA88C778715277"
+  },
+  "Tests": {
+    "Path": "artifacts/tests.json",
+    "Bytes": 920213,
+    "Sha256": "E8B9AF2754C0357878205FB9BDD92E86D3E92C82804F29A7AED0AA43DA10DD56"
+  },
+  "PreviousTests": {
+    "Path": "docs/validation/part-307/tests.json",
+    "Bytes": 918657,
+    "Sha256": "53F85225140EB4CCDF629557C6BE5118A0F764FB13EAC1141359573DEB99C1AE"
+  },
+  "Integration": {
+    "Path": "artifacts/integration-results.json",
+    "Bytes": 365,
+    "Sha256": "01DD63DAA9D5BA2D582890386B5C86585CB135797EED17AD5EE55FEEF393CA3A"
+  },
+  "PreviousIntegration": {
+    "Path": "docs/validation/part-307/integration-results.json",
+    "Bytes": 365,
+    "Sha256": "FD6F3C597BA2272FB22DD07F7AF95A6057D0FE9B99DE56219F472256F2314960"
+  },
+  "FullGuard": {
+    "Path": "artifacts/root-part308-full-guard.json",
+    "Bytes": 1747,
+    "Sha256": "00365963510945E44B527CF563BCA51443CC1562F281A22FDE9FE1035F7613E3"
+  },
+  "NativeGuard": {
+    "Path": "artifacts/root-part308-main-native-guard.json",
+    "Bytes": 1133,
+    "Sha256": "46AB3E42B2B344347C4504DFAE7B86E430979EF992F5B3AA2A03A6C74F289E49"
+  },
+  "RegistryGuard": {
+    "Path": "artifacts/root-part308-registry-metadata-guard.json",
+    "Bytes": 1600,
+    "Sha256": "ADA4981FCB1DAB9F7D34DDB6B969A6D4CFF8B4EB8066602140D62C070874B5F4"
+  },
+  "OptionalIoGuard": {
+    "Path": "artifacts/root-part308-optional-io-guard.json",
+    "Bytes": 1045,
+    "Sha256": "BC30C54A9316E73554ED43DEB2B7DD650994157BD03D96917CF40A888C43B1E8"
+  },
+  "NativeSourcePlan": {
+    "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "Bytes": 210634,
+    "Sha256": "29FC1D27A9A11D03C9928C50DDB6A900D5F235ADE731FE3E3934F66181E7CFA0"
+  },
+  "RawRegistry": {
+    "Path": "artifacts/root-part308-raw-supported-mfas.json",
+    "Bytes": 152322,
+    "Sha256": "3B24FC32475BD07622243797E8E2FFB760C88ADDEDA920BA8826773B15A649F9"
+  },
+  "DerivedRegistry": {
+    "Path": "docs/supported-mfas.json",
+    "Bytes": 148427,
+    "Sha256": "96DA504B2D4EA8F9988099A0BACB1B4886891AD2F18FD95FCE9F7A773C010F9B"
+  },
+  "ActiveChangelogBefore": {
+    "Path": "docs/changelog/0046.md",
+    "Bytes": 19455,
+    "Sha256": "D2B320E144CF401882B2CA5A58BE2F5BFF541463A0C6AB037FBD0E6C973B9333"
+  },
+  "ReadinessScopeBefore": {
+    "Path": "docs/module-readiness-scope.json",
+    "Bytes": 110023,
+    "Sha256": "B4FE551EB852202DBF3F02DE20949AEFE8A691623FE388CD6E8B1C0B084FD78C"
+  },
+  "ReadinessResult": {
+    "Path": "docs/module-readiness.json",
+    "Bytes": 631939,
+    "Sha256": "46370941835B63FE5A36CD71DF5706731082CC73412867AEFE230A1FC6E2B071"
+  },
+  "ChangelogIndexBefore": {
+    "Path": "CHANGELOG.md",
+    "Bytes": 3936,
+    "Sha256": "1F27EB2823E8C021689BB09D261A44F4EF4EFF60C9BC2038F9F7172CFC316581"
+  },
+  "MetadataNote": {
+    "Path": "artifacts/part308-packaging-proposal2/part308-metadata-note.txt",
+    "Bytes": 1495,
+    "Sha256": "D7EC39C0BD188D0456D189CDD8A0837374EFB7E65139C7CF2B06964144C08323"
+  },
+  "ChangelogDraft": {
+    "Path": "artifacts/part308-packaging-proposal2/part308-changelog-draft.md",
+    "Bytes": 2508,
+    "Sha256": "43655BFB197793F74B66DA985828DACAAA456145B5ECFBEDF08CB1C6EE303BF4"
+  },
+  "Previous307Ci": {
+    "Path": "artifacts/pack307-ci-38757541050-independent-guard.json",
+    "Bytes": 1118,
+    "Sha256": "27EF61CD6D2836A34433F779FD3BC02769D8935B8A0E117CEEE176D36F994033"
+  },
+  "Previous307Native": {
+    "Path": "artifacts/pack307-native-combined-independent-guard.json",
+    "Bytes": 1739,
+    "Sha256": "9BD42422970730A92F7B47C38951D72766E453D32068A58E8D20B2D19C5BB2B1"
+  },
+  "Previous307Ordinary": {
+    "Path": "artifacts/pack307-original-38757595924-semantic-guard-review2.json",
+    "Bytes": 1692,
+    "Sha256": "3EBBD6974C8364B68C078A738EB4C6C3D77ED2E853EAE87AEB262B7DA67A3C92"
+  },
+  "Previous307Strict": {
+    "Path": "artifacts/pack307-original-strict-audit-attempt.json",
+    "Bytes": 1288,
+    "Sha256": "C73A71B99539E0E074B032237018376D4B0277FE42FB1C5DDF7B7E1CF569FC77"
+  },
+  "PortableReplayGuard": {
+    "Path": "artifacts/part308-composite-portable1/independent-archive-replay-guard.json",
+    "Bytes": 682,
+    "Sha256": "C5B6F780DF563385293FEA3BE95B66E1CA20B5965AED357B0947B7F23812CF9C"
+  },
+  "CompositeArchive": {
+    "Path": "artifacts/part308-composite-portable1/composite2189.zip",
+    "Bytes": 3032484,
+    "Sha256": "C346EA265DFDFDD8EA2708F54218A917F79ABBEF1ECA16AFD3CA55E3DD22611C"
+  },
+  "CompositePeer": {
+    "Path": "artifacts/root-part308-independent-source-review.json",
+    "Bytes": 1616,
+    "Sha256": "23FA72096A7CC0D12BC520964A1ABDCAD97FE2ABAB29C821D95B21EF653BBE0F"
+  },
+  "PortableReferenceIndex": {
+    "Path": "artifacts/part308-composite-portable1/candidate-reference-index.json",
+    "Bytes": 318956,
+    "Sha256": "9BD34B87C0677E8A4F0D57CE36750E9FFA4E2E2B067816DF6B1BCC668408EC6E"
+  },
+  "PortableCompiledClosure": {
+    "Path": "artifacts/part308-composite-portable1/compiled-source-closure.json",
+    "Bytes": 403113,
+    "Sha256": "33B2A1787F716278053C7631FECB7D7641FA84D48574733CD036EC3BD7B6C8D1"
+  },
+  "AddedNames": [
+    "runtime/beam-fun-entry-pending-purge-active-continuation",
+    "runtime/nif-native-requested-backing-allocation-ledger",
+    "mfa/erlang:load_nif/2",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-invalid-path",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-missing-path",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-improper-path-before-validation",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-order",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-failure-before-bif",
+    "oracle/compiled-module/erlang-load-nif-indirect-fun-reference-invalid-path"
+  ],
+  "MetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md"
+  ],
+  "StageMetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0046.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/MODULE_READINESS.md",
+    "docs/supported-mfas.json"
+  ],
+  "ChangelogIndexOldLabel": "parts302\u2013307 (active)",
+  "ChangelogIndexNewLabel": "parts302\u2013308 (active)",
+  "EvidenceIndex": {
+    "Path": "artifacts/part308-packaging-proposal2/evidence-index.json",
+    "Bytes": 189914,
+    "Sha256": "E7B256265E3B30CD56413997742B391BC25706366AA247A384E0DD9A8FD87EBC"
+  }
+}

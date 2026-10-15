@@ -1,0 +1,50 @@
+{
+  "Status": "SOURCE_DECLARATION_PREFLIGHT_ALL_HOST_REFLECTION_TARGETS",
+  "Targets": [
+    {
+      "Target": "PreparedBeamImage.Code",
+      "Visibility": "internal property",
+      "Reader": "Public|NonPublic",
+      "Source": "src/Erlang.Runtime/PreparedBeamImage.cs"
+    },
+    {
+      "Target": "PreparedBeamImage.Bodies",
+      "Visibility": "internal IReadOnlyList<ErlangFunction> property",
+      "Reader": "Public|NonPublic",
+      "Source": "src/Erlang.Runtime/PreparedBeamImage.cs"
+    },
+    {
+      "Target": "BeamLinkedCode.Exports",
+      "Visibility": "public record property on internal type",
+      "Reader": "Public|NonPublic",
+      "Source": "src/Erlang.Runtime/BeamLinkedCode.cs"
+    },
+    {
+      "Target": "BeamLinkedFunction.Name",
+      "Visibility": "public record property on internal type",
+      "Reader": "Public|NonPublic",
+      "Source": "src/Erlang.Runtime/BeamLinkedFunction.cs"
+    },
+    {
+      "Target": "ProcessContext.activeCode",
+      "Visibility": "private Dictionary<ModuleCodeImage,int> field",
+      "Reader": "Instance|NonPublic",
+      "Source": "src/Erlang.Runtime/ProcessContext.cs"
+    },
+    {
+      "Target": "ModuleRegistry.PreparePurge(string)",
+      "Visibility": "single internal method",
+      "Reader": "NifAdmissionHostBridge.Call Instance|NonPublic",
+      "Source": "src/Erlang.Runtime/ModuleRegistry.cs"
+    },
+    {
+      "Target": "ModuleRegistry.FinishPurge(string,ModuleCodeImage,bool)",
+      "Visibility": "single internal method",
+      "Reader": "NifAdmissionHostBridge.Call Instance|NonPublic",
+      "Source": "src/Erlang.Runtime/ModuleRegistry.cs"
+    }
+  ],
+  "NoOtherHostReflectiveTargets": true,
+  "ProductionHelperUnchanged": true,
+  "RuntimeReflectionProbeExecuted": false
+}

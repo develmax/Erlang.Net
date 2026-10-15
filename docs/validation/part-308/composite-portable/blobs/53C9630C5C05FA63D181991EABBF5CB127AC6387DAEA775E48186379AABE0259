@@ -1,0 +1,53 @@
+{
+  "Expected": 24,
+  "Actual": 7,
+  "Passed": 6,
+  "Failed": 1,
+  "MainEdited": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "Cases": [
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-invalid-path",
+      "Passed": true,
+      "Milliseconds": 1405,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-missing-path",
+      "Passed": true,
+      "Milliseconds": 48,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+      "Passed": true,
+      "Milliseconds": 43,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-improper-path-before-validation",
+      "Passed": true,
+      "Milliseconds": 22,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-argument-order",
+      "Passed": true,
+      "Milliseconds": 27,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-apply-argument-failure-before-bif",
+      "Passed": true,
+      "Milliseconds": 39,
+      "Error": null
+    },
+    {
+      "Name": "sdk/erlang-load-nif-indirect-fun-reference-invalid-path",
+      "Passed": false,
+      "Milliseconds": 0,
+      "Error": "Erlang.Compiler.CompileException: Expected a form-terminating dot\r\n   at Erlang.Compiler.Parser.ExpectFormTerminator() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 59\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 196\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\src\\Erlang.Compiler\\CodeGeneration.cs:line 140\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.FunctionalMfaContracts.Run(String name) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\candidate\\tests\\Erlang.Tests\\FunctionalMfaContracts.cs:line 71\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\focus\\Program.cs:line 69"
+    }
+  ]
+}

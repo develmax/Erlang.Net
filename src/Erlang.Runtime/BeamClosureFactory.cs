@@ -37,7 +37,7 @@ internal static class BeamClosureFactory
             lambda.TotalArity - lambda.FreeVariables,
             captured,
             (context, arguments) => context is ProcessContext process
-                ? BeamRegisterInterpreter.ExecuteLocal(
+                ? BeamRegisterInterpreter.ExecuteFunction(
                     process,
                     code,
                     target,

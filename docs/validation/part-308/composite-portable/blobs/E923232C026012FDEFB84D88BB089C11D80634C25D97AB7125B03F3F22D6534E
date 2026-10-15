@@ -1,0 +1,44 @@
+# Pending on_load purge: current 303 rebase audit
+
+Source audit only; no runtime changes, public MFA, native execution, or semantic pass. `source-bindings.json` binds the actual working tree, rather than assuming its published HEAD includes the uncommitted 303 increment. The earlier `raw-onload-purge302-plan1` remains immutable.
+
+## Pinned operation and reusable ownership
+
+OTP commit `ad05823719d77c8faee87348ea39513d4e2f99c5`, `beam_bif_load.c:2088-2188`, requires the actual VM purger process before argument validation. `prepare_on_load` saves the entire prior old module instance, moves the exact pending instance into old, removes pending, and prepares fun entries under code-stage permission. Completion restores the saved old instance after removing the target (`2222-2337`). The wrapper is `erts_code_purger.erl:154-182`. A C# internal session must not imply that a public registered process name grants this authority.
+
+| Requirement | Existing concrete storage/helper | Required bounded change |
+| --- | --- | --- |
+| Full prior old ownership | `ModuleRegistry.oldCode`, `ModuleCodeSnapshot(Entries, Descriptor, Image, SourceOwners)` | Session owns the complete nullable prior snapshot, not only its image. Preserve prior absence separately. |
+| Exact pending target | `pendingBeamImages`, `loaderPendingImages`, `BeamOnLoadTicket.Prepared`, `.CodeImage`, `.Generation`, `.CurrentPhase` | Capture the exact ticket and prepare its snapshot from `Prepared.Code.Exports`, `Prepared.Bodies`, descriptor and `Prepared.ExecutionIdentity.Owner`. Remove both pending indexes atomically only after all validation. Current image stays unchanged. |
+| Target execution fence | `purgeStates`, `ModuleCodePurgeState.Pending/Retired`, `PreparePurge`, `FinishPurge` | A session identity and owned target/saved-old ledger are missing. Do not call ordinary `FinishPurge`: it removes old without restoring the saved prior instance. |
+| Scan/kill/unwind | `ProcessRuntime.PurgeOldCode:1009`, `executingProcesses`, `ProcessContext.IsExecutingCode`, `.Unwound` | Extract an exact-image scan engine. `ProcessCodeRequest` currently stores only a module; a queued request must capture the immutable image/session instead of resolving whichever old image exists when processed. Preserve DOWN plus actual Unwound waits and already-terminated-but-executing cases. |
+| Restore and retirement | `QueueNifRetirement`, `NifRetirementOperation` | Under a short writer section validate the same session/target, restore full prior old, mark only target retired, remove session, then wake waiters. Queue exact target retirement; never await native unload while holding registry/writer gates. |
+| Runtime shutdown | `CloseNifLifetimeAsync`, `nifOwnedImages/nifReservations/nifRetirements` | Add session-owned target and displaced prior old to the registry lifecycle reachability checks, including the dormant-inline shutdown predicate. Existing ready-owner ledger is useful but does not constitute session ownership. |
+| Rollback | `ModuleRegistry.Apply:535` snapshots ordinary module dictionaries | Apply does not snapshot pending indexes, purge state, or future sessions. Preallocate, validate, then commit a nonthrowing state transition, or explicitly extend transactional restoration. Do not assume existing Apply rolls it back. |
+
+## Entry routes and stage fence
+
+`erl_fun.c:181-245` asserts separate stage permission for preparation, abort and completion. `beam_bif_load.c:2108-2188` explains why reloading/relinking code cannot destroy pending fun markers. Current `ModuleCodeModificationPermission` is one global writer semaphore; it is not this separate fence.
+
+* Source named/anonymous functions reach `SourceFunctionInvocation` -> `AdmitSourceFunction`. That method resolves `SourceForCode` against current fingerprint **before** checking the selected image's pending marker. An equivalent-image publication can redirect the fun around a target-only fence. Publication/relink and session admission need one coordinated stage protocol.
+* Source regular/local/tail frames use `AcquireSourceCode`. Existing execution may re-enter its already-leased image during pending purge; preserve this continuation behavior. `SourceImage` sees current/ordinary old only, so displaced prior-old owner lookup requires a session fallback while it is temporarily hidden.
+* BEAM `make_fun` -> `BeamClosureFactory.Create` captures exact `BeamExecutionIdentity`; invocation enters `BeamRegisterInterpreter.ExecuteLocal` -> generic `AcquireSourceCode`. This bypasses Pending for an already-executing image. A dedicated **fun entry** admission distinct from continuation admission is required to match pending-fun suspension. Do not globally remove the continuation exemption.
+* Prepared publication, raw/high-level on_load finalization, source publication/replacement/deletion, and source fun relinking must participate in the stage fence before a session can be exposed. A module-only mutex is not automatically equivalent to OTP's global fun-stage exclusion.
+* Current303 literal source `erlang:load_nif/2` interception retains a captured caller lease through `SourceLoadNifCall`. Keep that lease in exact-image accounting. The interception is not an authorization bypass: `ReserveNifImageAsync` acquires code modification, rejects old, validates pending ticket/owner and revalidates generation at commit. Moving pending to old must invalidate new admission; do not synthesize a pending caller after removal. An already-held initialization ticket must finish before short prepare mutation.
+
+Pinned `beam_bif_load.c:1149-1224` checks IP, native continuation and stack continuation pointers, and clears matching exception stack dumps. It does **not** treat an idle captured fun value as active code. Consequently no new heap-fun scanner or blanket killing of fun holders is justified. CLR leases are the existing logical execution model; native PC/stackdump equivalence remains a separate limitation.
+
+## Lock and termination contract
+
+Acquire a future stage ticket before taking a short code-modification ticket; do not acquire a blocking stage ticket while holding the global writer or registry monitor. Prepare and complete have short writer+registry sections. Between them release the writer and registry monitor before control-aware process requests, killing, DOWN, Unwound, cancellation cleanup, or NIF retirement. Existing `PurgeOldCode` already releases its writer across these waits; reuse that structure, not a surrounding `ModifyCodeAsync(async ...)`.
+
+Session cleanup must remain runtime-owned when the requester dies: cancellation cannot strand the saved-old snapshot, stage fence or pending TCS. The purger worker is currently ephemeral and serialized by `ProcessRuntime.codePurger`; it is not the persistent privileged OTP actor. Preserve the existing initialization/retirement reentry guards and the two historical shutdown constraints (foreign-thread initializer holds registry; caller-owned registry monitor with dormant NIF state). Extending the dormant check to session ownership is essential before new session state becomes reachable.
+
+## Smallest safe port boundaries
+
+1. Add immutable `ModuleOnLoadPurgeSession` plus registry-owned ledger and exact-image `ProcessCodeRequest` path; source-only HOST barriers can verify target selection and saved full snapshot without exposing any operation.
+2. Extract exact-image purge scan/kill/unwind from `PurgeOldCode`, preserving public module-query behavior. Cover queued requests across replacement, requester death, already-terminated-but-not-unwound targets, and cleanup that acquires a fresh global writer.
+3. Add independent stage/fun-entry coordination across all routes above and publication writers. Cover same-fingerprint relink, source and BEAM fun invocation while already active, cancellation, runtime shutdown and session abort/complete. This is a prerequisite for invoking pending prepare, not optional polish.
+4. Implement internal prepare/complete against exact session with atomic restore and queued retirement, then validate before any public wrapper/privileged service integration.
+
+No raw `finish_after_on_load(false)` behavior is changed by this audit. Original nine raw observations now exist, but their first typed review failed a valid three-item function stack-frame schema. That failed job/report remains evidence; independent same-raw review is in progress. Collection alone is not a semantic pass and does not authorize selecting a hypothesis as implementation truth.

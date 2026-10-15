@@ -1,0 +1,37 @@
+{
+  "Status": "BOUNDED_ROSLYN_PARSED_CONSTANT_EXPANSION_SEMANTIC_PEER_PASS",
+  "ParentD99Sha256": "D99BAC0AAD45A4051D9BD53FE0C9749774AC579D8DAFB73AECF8B242B60DD0BF",
+  "Method": "Expand exact internal const literal member references; remove only matching added const declarations; require every remaining Roslyn token Kind/Text identical to parent.",
+  "ChangedTestFiles": 3,
+  "AddedNamesConstants": {
+    "RealPayloadCase": "real-payload-zero-backing-immutable-snapshot-and-free",
+    "ReclamationCase": "double-free-post-reclaim-idempotent-cleanup-and-reuse",
+    "OwnerSeparationCase": "separate-real-owners-refuse-foreign-pointer",
+    "OverflowCase": "checked-cumulative-overflow-before-allocation-with-no-ledger-mutation",
+    "ConcurrentSnapshotCase": "concurrent-real-alloc-free-snapshot-and-lifecycle-serialized-reclamation",
+    "FocusedRuntimeStatus": "ACTUAL_RUNTIME_DLL_ALLOCATION_LEDGER_HOST_PASS"
+  },
+  "AddedParameterConstants": {
+    "PayloadScenarioLiveBlocks": 2,
+    "PayloadScenarioAllocations": 2,
+    "ReclamationInitialAllocations": 2
+  },
+  "ExpandedReferences": 9,
+  "ExecutableControlFlowAfterLiteralExpansionExact": true,
+  "AllProduction3FilesByteExact": true,
+  "UnchangedFiles": [
+    "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+    "src/Erlang.Runtime/NifNativeAllocationParameters.cs",
+    "src/Erlang.Runtime/NifNativeAllocationSnapshot.cs",
+    "tests/Erlang.Tests/NifAllocationLedgerHostOwner.cs",
+    "tests/Erlang.Tests/NifAllocationLedgerHostSnapshot.cs",
+    "tests/Erlang.Tests/Program.cs"
+  ],
+  "HostGroupLabelsPreserved": 5,
+  "NoInlineStringLiteralsInHostChecks": true,
+  "FixtureCountsReviewed": "Three distinct semantic pair/allocation counts moved; zero/one arithmetic, sentinel and zero-size assertions retained.",
+  "BuildExecuted": false,
+  "FocusedRerunPending": true,
+  "MainEdited": false,
+  "GitMutated": false
+}

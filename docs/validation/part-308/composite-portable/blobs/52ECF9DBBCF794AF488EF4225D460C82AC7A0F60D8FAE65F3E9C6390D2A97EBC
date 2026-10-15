@@ -1,0 +1,127 @@
+[
+  {
+    "Member": "VariableFunctionSignature",
+    "Kind": 8511,
+    "Literal": "\"dynamic_call/4\""
+  },
+  {
+    "Member": "ApplyFunctionSignature",
+    "Kind": 8511,
+    "Literal": "\"dynamic_apply/3\""
+  },
+  {
+    "Member": "ApplyInvocationPrefix",
+    "Kind": 8511,
+    "Literal": "\"dynamic_apply(\""
+  },
+  {
+    "Member": "QualifiedApplyInvocationPrefix",
+    "Kind": 8511,
+    "Literal": "\":dynamic_apply(\""
+  },
+  {
+    "Member": "VariableInvocationPrefix",
+    "Kind": 8511,
+    "Literal": "\"dynamic_call(\""
+  },
+  {
+    "Member": "QualifiedVariableInvocationPrefix",
+    "Kind": 8511,
+    "Literal": "\":dynamic_call(\""
+  },
+  {
+    "Member": "ModuleDeclarationPrefix",
+    "Kind": 8511,
+    "Literal": "\"-module(\""
+  },
+  {
+    "Member": "RunAndHelperExportPrefix",
+    "Kind": 8511,
+    "Literal": "\"). -export([run/0,\""
+  },
+  {
+    "Member": "RunBodyPrefix",
+    "Kind": 8511,
+    "Literal": "\"]). run()->\""
+  },
+  {
+    "Member": "HelperSeparator",
+    "Kind": 8511,
+    "Literal": "\". \""
+  },
+  {
+    "Member": "ApplyInvalidPathCase",
+    "Kind": 8511,
+    "Literal": "\"apply-invalid-path\""
+  },
+  {
+    "Member": "ApplyInvalidPathBody",
+    "Kind": 8511,
+    "Literal": "\"dynamic_apply(erlang,load_nif,[42,[]])\""
+  },
+  {
+    "Member": "ApplyMissingPathCase",
+    "Kind": 8511,
+    "Literal": "\"apply-missing-path\""
+  },
+  {
+    "Member": "ApplyMissingPathBody",
+    "Kind": 8511,
+    "Literal": "\"dynamic_apply(erlang,load_nif,[\\\"missing_nif_allocator_audit\\\",[]])\""
+  },
+  {
+    "Member": "VariableInvalidPathCase",
+    "Kind": 8511,
+    "Literal": "\"variable-invalid-path\""
+  },
+  {
+    "Member": "VariableInvalidPathBody",
+    "Kind": 8511,
+    "Literal": "\"dynamic_call(erlang,load_nif,42,[])\""
+  },
+  {
+    "Member": "VariableOpaqueArgumentsCase",
+    "Kind": 8511,
+    "Literal": "\"variable-ignored-argument-types\""
+  },
+  {
+    "Member": "VariableOpaqueArgumentsBody",
+    "Kind": 8511,
+    "Literal": "\"dynamic_call(erlang,load_nif,#{bad=>path},fun()->invalid_info end)\""
+  },
+  {
+    "Member": "FirstEffectAtom",
+    "Kind": 8511,
+    "Literal": "\"first\""
+  },
+  {
+    "Member": "SecondEffectAtom",
+    "Kind": 8511,
+    "Literal": "\"second\""
+  },
+  {
+    "Member": "ApplyOrderCase",
+    "Kind": 8511,
+    "Literal": "\"apply-argument-order\""
+  },
+  {
+    "Member": "ApplyOrderBody",
+    "Kind": 8511,
+    "Literal": "\"Result=dynamic_apply(erlang,load_nif,[begin put(indirect_order,first),42 end,begin put(indirect_order,{get(indirect_order),second}),[] end]),{Result,get(indirect_order)}\""
+  },
+  {
+    "Member": "ApplyFailureCase",
+    "Kind": 8511,
+    "Literal": "\"apply-argument-failure-before-bif\""
+  },
+  {
+    "Member": "ApplyFailureBody",
+    "Kind": 8511,
+    "Literal": "\"try dynamic_apply(erlang,load_nif,[begin put(indirect_order,first),42 end,begin put(indirect_order,{get(indirect_order),second}),error(second_argument_failed) end]) of _->unexpected catch error:second_argument_failed->{failed,get(indirect_order)} end\""
+  },
+  {
+    "Member": "FailedBeforeBifAtom",
+    "Kind": 8511,
+    "Literal": "\"failed\""
+  }
+]
