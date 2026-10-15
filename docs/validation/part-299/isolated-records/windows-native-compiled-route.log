@@ -1,0 +1,19 @@
+Managed backend checks passed; native ABI and original OTP NOT executed.
+Internal trusted native fixture checks passed; general NIF ABI NOT implemented.
+Unhandled exception. System.InvalidOperationException: NIF native backend prerequisite assertion failed.
+   at Erlang.NifNativeBackend.NifNativeHarness.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeHarness.cs:line 8
+   at Erlang.NifNativeBackend.NifNativeCompiledRouteChecks.<>c__DisplayClass0_1.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeCompiledRouteChecks.cs:line 30
+--- End of stack trace from previous location ---
+   at Erlang.ModuleRegistry.AwaitHaltBoundary(ValueTask`1 pending, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 334
+   at Erlang.Compiler.Execution.CallRuntime(ProcessContext context, String module, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Compiler\Execution.cs:line 137
+   at Erlang.Compiler.Execution.InvokeAsync(ModuleDefinition module, String function, ProcessContext context, IReadOnlyList`1 arguments, ModuleCodeImage image, SourceCodeLease lease) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Compiler\Execution.cs:line 80
+   at Erlang.NifNativeBackend.NifNativeCompiledRouteChecks.<>c__DisplayClass0_1.<<Run>b__2>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeCompiledRouteChecks.cs:line 62
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.<>c__DisplayClass1_0.<<Context>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeHarness.cs:line 18
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.Context(ProcessRuntime runtime, Func`2 operation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeHarness.cs:line 28
+   at Erlang.NifNativeBackend.NifNativeCompiledRouteChecks.Run(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeCompiledRouteChecks.cs:line 51
+   at Erlang.NifNativeBackend.NifNativeCompiledRouteChecks.Run(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeCompiledRouteChecks.cs:line 88
+   at Erlang.NifNativeBackend.NifNativeCompiledRouteChecks.Run(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeCompiledRouteChecks.cs:line 92
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\Program.cs:line 19
+   at Program.<Main>(String[] args)

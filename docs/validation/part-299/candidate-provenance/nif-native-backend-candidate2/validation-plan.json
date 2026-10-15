@@ -1,0 +1,26 @@
+{
+  "Status": "PROPOSED_COMMANDS_NOT_EXECUTED",
+  "Managed": [
+    "dotnet build tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj --no-restore -m:1 -nodeReuse:false",
+    "dotnet run --no-build --project tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj"
+  ],
+  "LinuxNativeInputs": "Actual configured OTP-29.1.1 headers matching source bindings; Linux x64 glibc; trusted compiler; no package installation fallback",
+  "LinuxBridgeCompile": "gcc -shared -fPIC -O2 -std=c11 -fvisibility=hidden -Wall -Wextra -Werror -I <pinned-configured-otp-include> nif_bridge_exports.c nif_bridge_varargs.c -o nif_bridge.so",
+  "LinuxProbeCompile": "gcc -shared -fPIC -O2 -std=c11 -fvisibility=hidden -Wall -Wextra -Werror -I <pinned-configured-otp-include> nif_bridge_abi_probe.c -o nif_bridge_abi_probe.so",
+  "NativeInvocation": "dotnet run --no-build --project tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj -- <fixture-absolute-path> <trusted-fixture-binary-sha> [<bridge-absolute-path> <trusted-bridge-binary-sha> [<probe-absolute-path> <trusted-probe-binary-sha>]]",
+  "NativeEvidence": [
+    "readelf/nm dynamic symbols for all twelve exports",
+    "hashes/compiler/headers/architecture",
+    "full command exit stdout stderr",
+    "raw typed fixture results and unload counter before/after",
+    "zero tracked allocations before fallback",
+    "zero/17 argument cursor probe",
+    "pending raw reason handle identity and ignored ordinary return"
+  ],
+  "OriginalNotYetCollected": [
+    "fresh original OTP pending-exception fixture observations",
+    "fresh original tuple/list varargs zero and spill observations"
+  ],
+  "NewSourceOnly": true,
+  "NoMainMutation": true
+}

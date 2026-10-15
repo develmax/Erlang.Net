@@ -10,6 +10,7 @@ try {
     }
     Invoke-DotNet @('build', '-m:1', '--nologo')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
+    Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'

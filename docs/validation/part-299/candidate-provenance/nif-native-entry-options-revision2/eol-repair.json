@@ -1,0 +1,21 @@
+{
+  "Parent": "../nif-native-entry-options-revision1",
+  "ParentFreezeSha256": "362118543F909D17A405CB8656B1E322261F61857C10BC936CDD7373291F8C41",
+  "Rule": "Collapse CR+LF to exactly CRLF in overlay C# only; source and semantics otherwise unchanged",
+  "Files": [
+    {
+      "Path": "overlay/src/Erlang.Runtime/NifNativeAbi.cs",
+      "OriginalSha256": "F220387269FD78BABC75C26C14CB01AAF1E1DC0D5E87DD5D5D475BB79CC79DD4",
+      "CleanSha256": "6F7EA48E9125B220604032EC6FA909A88FCE3A81C977D3F8C0BCF8905E93D841",
+      "DoubleCrSequencesRemoved": 16,
+      "SemanticChangeFromRevision1": false
+    },
+    {
+      "Path": "overlay/src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "OriginalSha256": "31FDCE2B830226D46E2885AED6B71392981F6D88D80D86BF74502C6AFB2957FC",
+      "CleanSha256": "CB4034EC766B102FF2F4A69A968F172CDDAB18D27EC21AFD9E8C9B2393024516",
+      "DoubleCrSequencesRemoved": 204,
+      "SemanticChangeFromRevision1": false
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "Status": "RAW_BINARY_AND_PINNED_SOURCE_INSPECTION_ONLY_NO_NATIVE_EXECUTION",
+  "Binary": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-protocol-nif-290-38688662194-terminal\\artifact-11951535100\\nif-fixture-build\\fixture.dll",
+    "Bytes": 9728,
+    "Sha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+    "ImageBase": "0x180000000",
+    "ExportNifInitRva": "0x1120",
+    "NifInitBytesThroughReturn": "4883ec28488bd141b8b0050000488d0dac200000e8e70b0000488d05001f00004883c428c3",
+    "EntryAddressInstruction": "lea rax,[rip+0x1f00] at nif_init+25; next instruction RVA0x1140 plus displacement0x1f00 equals entry RVA0x3040; followed by stack restore and ret",
+    "EntryRva": "0x3040",
+    "EntryFileOffset": 8256,
+    "EntryFields": {
+      "Major": 2,
+      "Minor": 18,
+      "Name": "memory_allocator_nif_fixture",
+      "FunctionCount": 2,
+      "LoadRva": "0x1000",
+      "Reload": 0,
+      "Upgrade": 0,
+      "UnloadRva": "0x1060",
+      "Variant": "beam.vanilla",
+      "Options": 1,
+      "ResourceInitSize": 40,
+      "MinimumErts": "erts-14.0"
+    },
+    "Functions": [
+      {
+        "Name": "increment",
+        "Arity": 1,
+        "FunctionRva": "0x1080",
+        "Flags": 0
+      },
+      {
+        "Name": "greeting",
+        "Arity": 0,
+        "FunctionRva": "0x10f0",
+        "Flags": 0
+      }
+    ]
+  },
+  "PinnedHeader": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "erts/emulator/beam/erl_nif.h",
+    "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689",
+    "OptionsDeclarationLine": 151,
+    "InitializerMacroStartLine": 422,
+    "Rule": "Header permits 0 or1 as unused options; standard ERL_NIF_INIT initializes1"
+  },
+  "NarrowPolicy": "Trusted exact fixture must use the pinned standard initializer value1. Other entry/function checks unchanged. No arbitrary options or dirty NIF functions enabled.",
+  "ReplacedBaseFiles": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\candidate\\src\\Erlang.Runtime\\NifNativeAbi.cs",
+      "Bytes": 572,
+      "Sha256": "AB8BE976BEAE233A0FB58C87AABECF5AB2F297433B76F36BD85FE8B6259173E6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\candidate\\src\\Erlang.Runtime\\NifNativeLibraryOwner.cs",
+      "Bytes": 9606,
+      "Sha256": "092AEB2E412D4737BD5C22EDB8DD62B8EA74F08CD398BB944C32F7C91C7A96D6"
+    }
+  ],
+  "ActualFailedRunLog": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\windows-native-checks.log",
+    "Sha256": "0B0C9B995EDD77B1D88B2C1B1D7BB4E2A8EA545A4A887767359EB2F6646BFF1D",
+    "Observed": "UnsupportedNativeEntry at ValidateEntry before load callback; successful target/managed run reported separately by root"
+  }
+}

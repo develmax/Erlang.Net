@@ -1,0 +1,3 @@
+# Native ABI layout constants: bounded delta
+
+Apply after the complete frozen candidate2 overlay. This source-only delta replaces exactly two candidate2 files, without changing candidate2 or Main. NifNativeAbi.BridgeTableBytes names the independently expected 104-byte bridge layout while retaining the actual sizeof assertion. EntryVersionPrefixBytes names the two-int 8-byte version prefix used by the shortened-entry rejection specimen. Neither reuses PointerBytes merely because it also equals eight. Fixture markers, success/failure sentinels and unrelated domain values are unchanged. No build, native execution or semantic pass is claimed.

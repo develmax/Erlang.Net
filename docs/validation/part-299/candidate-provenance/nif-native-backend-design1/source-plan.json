@@ -1,0 +1,101 @@
+{
+  "Status": "DESIGN_ONLY_NOT_IMPLEMENTED_NOT_VALIDATED",
+  "Base": "core296 coordinator/source-entry candidate; no Main edit",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FirstIncrement": "internal trusted seven-callback library profile, separate tuple/list ABI bridge tests; no BIF",
+  "CSharpFiles": [
+    [
+      "NifNativeImageInitializer.cs",
+      "Initializes reserved image; returns NifImageInitialized; owns pre-return cleanup"
+    ],
+    [
+      "NifNativeLibraryOwner.cs",
+      "OS handle, entry private data, success/veto cleanup, immutable bindings"
+    ],
+    [
+      "NifNativeCallEnvironment.cs",
+      "Scoped pointer registry, term handles, caller and private data"
+    ],
+    [
+      "NifNativeFailureState.cs",
+      "Separate latest guest reason and host ExceptionDispatchInfo"
+    ],
+    [
+      "NifNativeCallbackScope.cs",
+      "Scoped unmanaged failure capture for APIs without env"
+    ],
+    [
+      "NifNativePrimitiveCallbacks.cs",
+      "Seven fixture-profile callbacks; later genuine raise/pending APIs"
+    ],
+    [
+      "NifNativeAbi.cs",
+      "Exact fixed ABI delegates and platform-width declarations"
+    ],
+    [
+      "NifNativeEntryReader.cs",
+      "Read compatible prefix before versioned optional fields"
+    ],
+    [
+      "NifNativeCapabilityProfile.cs",
+      "Explicit trusted profile/hash; never infer arbitrary callback safety from imports"
+    ],
+    [
+      "NifNativeExportRegistration.cs",
+      "Validated immutable process-wide registration and provider pin"
+    ],
+    [
+      "NifNativePlatformLoader.cs",
+      "Windows local library and verified Linux RTLD_GLOBAL veneer + local NIF"
+    ],
+    [
+      "NifNativeVariadicCursor.cs",
+      "Synchronous typed cursor access; C# tuple/list and later format semantics"
+    ]
+  ],
+  "NativeFiles": [
+    [
+      "nif_bridge_api.h",
+      "Versioned internal registration ABI and opaque cursor; no Term structures"
+    ],
+    [
+      "nif_bridge_exports.c",
+      "Profile-scoped fixed forwarders and real tuple/list va_start/va_end"
+    ],
+    [
+      "nif_bridge_varargs.c",
+      "Opaque va_list cursor typed readers; no format/term algorithms"
+    ]
+  ],
+  "OutOfScopeFiles": [
+    "BEAM routes",
+    "OnLoad",
+    "Prepared",
+    "public erlang:load_nif BIF",
+    "Main project/package edits"
+  ],
+  "TestsSeparateFiles": [
+    "NifNativeFailureHostChecks.cs",
+    "NifNativeOwnershipHostChecks.cs",
+    "NifNativeBridgeAbiChecks.cs",
+    "original pending-exception ETF fixture and typed expected-policy"
+  ],
+  "PromotionGates": [
+    "Root review approves bounded implementation",
+    "Isolated source/build checks",
+    "Native ABI observations Windows x64/Linux x64 glibc",
+    "Fresh original OTP typed semantic guard",
+    "Integrated image lifetime and all entry-route checks",
+    "General ABI coverage before arbitrary public loader"
+  ],
+  "NotPerformed": [
+    "build",
+    "restore",
+    "format",
+    "native execution",
+    "network",
+    "git mutation",
+    "general native loader implementation"
+  ],
+  "NativeAotDecision": "Optional isolated fixed-export experiment; not a replacement for genuine C varargs and not required before documented minimal ABI veneer"
+}

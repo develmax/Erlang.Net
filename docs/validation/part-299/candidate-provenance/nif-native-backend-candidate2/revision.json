@@ -1,0 +1,15 @@
+{
+  "ParentCandidate": "../nif-native-backend-candidate1",
+  "ParentFreezeSha256": "7053FEC42B6A510D6995931C20989057CD5CEE95ED01C153AE346B330C3C4DC2",
+  "PeerReview": "lifecycle read-only; no build/native execution",
+  "ChangedRuntimeFiles": [
+    "NifNativeAllocationOwner.cs",
+    "NifNativeFailureState.cs",
+    "NifNativeLibraryOwner.cs"
+  ],
+  "Reasons": [
+    "free native pointer when ownership insertion throws",
+    "attempt all teardown stages and retain failures",
+    "record host failure without EDI allocation inside callback catch"
+  ]
+}

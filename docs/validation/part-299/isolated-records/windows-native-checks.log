@@ -1,0 +1,18 @@
+Managed backend checks passed; native ABI and original OTP NOT executed.
+Unhandled exception. System.NotSupportedException: Native entry is outside the pinned two-function fixture ABI subset.
+   at Erlang.NifNativeLibraryOwner.ValidateEntry(ModuleCodeDescriptor descriptor) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\NifNativeLibraryOwner.cs:line 86
+   at Erlang.NifNativeLibraryOwner.Initialize(NifNativeCapabilityProfile profile, ModuleCodeDescriptor descriptor, Term loadInfo, CancellationToken cancellation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\NifNativeLibraryOwner.cs:line 54
+   at Erlang.NifNativeImageInitializer.InitializeAsync(NifImageLoadReservation reservation, NifNativeCapabilityProfile profile, Term loadInfo, CancellationToken cancellation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\NifNativeImageInitializer.cs:line 18
+--- End of stack trace from previous location ---
+   at Erlang.NifImageLoadReservation.RunInitialization(Func`2 initializer) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\NifImageLoadReservation.cs:line 61
+   at Erlang.NifImageLoadReservation.RunInitialization(Func`2 initializer) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\src\Erlang.Runtime\NifImageLoadReservation.cs:line 110
+   at Erlang.NifNativeBackend.NifNativeOwnershipChecks.<>c__DisplayClass3_1.<<LoadVeto>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeOwnershipChecks.cs:line 68
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.<>c__DisplayClass1_0.<<Context>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeHarness.cs:line 18
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.Context(ProcessRuntime runtime, Func`2 operation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeHarness.cs:line 28
+   at Erlang.NifNativeBackend.NifNativeOwnershipChecks.LoadVeto(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeOwnershipChecks.cs:line 48
+   at Erlang.NifNativeBackend.NifNativeOwnershipChecks.LoadVeto(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeOwnershipChecks.cs:line 48
+   at Erlang.NifNativeBackend.NifNativeOwnershipChecks.Run(NifNativeCapabilityProfile profile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\NifNativeOwnershipChecks.cs:line 15
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-native299-isolated\candidate\tools\Erlang.NifNativeBackend\Program.cs:line 15
+   at Program.<Main>(String[] args)

@@ -1,0 +1,69 @@
+{
+  "Status": "SOURCE_ONLY_NARROW_FIXTURE_REVISION_NOT_EXECUTED",
+  "BaseCandidateFreezeSha256": "D94C6A285F40C57BAF356478A0EB1CF1126A4DD1BE8CFCB8604DE954227FE605",
+  "ActualIsolatedParents": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\candidate\\tools\\Erlang.NifNativeBackend\\NifNativeCompiledRouteNames.cs",
+      "Bytes": 1637,
+      "Sha256": "9CC2D66D21C4391CA9C1C0353689823FB81AEF24C9A0A6D509C7BF129683CAFE",
+      "NewSha256": "AE84CAB3FD372BFFDE79AC2114A5E1FB0779D9C218B8EEA7D7439F434373BC74"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\candidate\\tools\\Erlang.NifNativeBackend\\compiled_source_fixture.erl",
+      "Bytes": 609,
+      "Sha256": "09905F8C7CD9A1A57EED4029DD9DB266237A9B9B674E22781B44E8BB54C305B4",
+      "NewSha256": "84EDDA8F4836971CC9ED6059232346FC24734624BA8F66D5E8E492963F8A8029"
+    }
+  ],
+  "RetainedActualFailureEvidence": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\windows-native-compiled-route.log",
+      "Bytes": 3481,
+      "Sha256": "1557EC0039E02CBA842D5EC853F21B8EB83DC44DCB9D62CDFC13D0B7AD5B57A7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-native299-isolated\\windows-native-compiled-route-exit.json",
+      "Bytes": 229,
+      "Sha256": "20A4F222DA771E15043E752F3CE56E466685D17C90E97D00AE9EC90B0AC35928"
+    }
+  ],
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "Sha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857",
+      "RelevantLines": [
+        858,
+        865
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE",
+      "RelevantLines": [
+        638,
+        663
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_bif.cpp",
+      "Sha256": "26684C37BDFFF302268E081B0BBD2A14B2215E4B0C1650CFFE4EA75AC5A0DF5E",
+      "RelevantLines": [
+        1177,
+        1200
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "RelevantLines": [
+        4618,
+        4627
+      ]
+    }
+  ],
+  "ProductionCompilerChanged": false,
+  "IdentityAssertionsChanged": false,
+  "GenericTailCallRetentionChanged": false,
+  "FuturePublicLoadNifPrerequisite": "Capture true calling instruction/image before generic tailcall unwind, preserve its code lease across init, and keep dynamic apply rejection distinct; direct OTP load_nif has special instruction rewrites before deallocation/return."
+}

@@ -1,0 +1,42 @@
+{
+  "Status": "SOURCE_EXPECTED_POLICY_AUTHORED_BEFORE_NEW_EXECUTION_NOT_AN_OBSERVATION",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Cases": [
+    {
+      "Name": "raise_twice_return_ordinary",
+      "ExpectedGuestClass": "error",
+      "ExpectedReason": "second reason",
+      "Source": "erl_nif.c enif_raise_exception plus interpreter/JIT pending flag handling"
+    },
+    {
+      "Name": "make_badarg_return_ordinary",
+      "ExpectedGuestClass": "error",
+      "ExpectedReason": "badarg"
+    },
+    {
+      "Name": "pending_null_output",
+      "Expected": "flag true without output write; latest reason otherwise"
+    },
+    {
+      "Name": "is_exception",
+      "Expected": "pending and sentinel true; pending and ordinary term false"
+    },
+    {
+      "Name": "tuple_list_varargs",
+      "Counts": [
+        0,
+        17
+      ],
+      "Expected": "ordered constructor terms, no missing or repeated stack/register args"
+    },
+    {
+      "Name": "load_veto_taint",
+      "Expected": "taint persists; ordinary unload not called for veto"
+    },
+    {
+      "Name": "host_failure",
+      "Expected": "SDK host diagnostic; no invented original OTP semantic equivalence"
+    }
+  ],
+  "Limitations": "No fresh raw original ETF or comparison guard exists for these new cases yet; old seven observations do not prove them."
+}

@@ -1,0 +1,33 @@
+namespace Erlang;
+
+internal sealed class NifNativeCallbackScope : IDisposable
+{
+    [ThreadStatic]
+    private static NifNativeCallbackScope? current;
+    [ThreadStatic]
+    private static Exception? unsupportedThreadFailure;
+    private readonly NifNativeCallbackScope? previous;
+
+    internal NifNativeAllocationOwner Allocations { get; }
+    internal NifNativeFailureState Failure { get; }
+    internal static NifNativeCallbackScope Current
+        => current ?? throw new InvalidOperationException(NifNativeDiagnostics.NativeThreadUnsupported);
+
+    internal NifNativeCallbackScope(NifNativeAllocationOwner allocations, NifNativeFailureState failure)
+    {
+        previous = current;
+        Allocations = allocations;
+        Failure = failure;
+        current = this;
+    }
+
+    internal static void Fail(Exception exception)
+    {
+        if (current is { } scope)
+            scope.Failure.FailHost(exception);
+        else
+            unsupportedThreadFailure ??= exception;
+    }
+
+    public void Dispose() => current = previous;
+}
