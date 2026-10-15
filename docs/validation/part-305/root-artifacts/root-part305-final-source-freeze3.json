@@ -1,0 +1,236 @@
+{
+  "Status": "COMBINED_SOURCE_REVISION3_LEASE_VALUE_CORRECTION_FULL_PENDING",
+  "ParentHead": "51994bed995f9dbf31b8b88b3381cad2642012e0",
+  "SourcePaths": 32,
+  "CSharpPaths": 26,
+  "TokensExactForCSharp": true,
+  "ReviewedSourceInputs": 1009,
+  "ReviewedSourcePlanSha256": "64267EDED370D35DEA5AB176E39A02370F461072784678C0A922C507484F5F56",
+  "ExpectedFullPassed": 6624,
+  "ExpectedRegistry": 503,
+  "ExpectedErlangPresence": 345,
+  "AddedHostNames": [
+    "HOST exact-image process-code requests and purge drain",
+    "HOST raw on_load deferred exports against six captured OTP finals"
+  ],
+  "PublicMfaAdded": false,
+  "PublicLoadNifActivated": false,
+  "NewOriginalExecuted": false,
+  "OriginalSixCapturedFixturesUsed": true,
+  "PendingOnLoadPurgeImplemented": false,
+  "ZeroExportNifOwnerAssociationComplete": false,
+  "Files": [
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "9F9D397C91CB29CD0E6C29EF086B7D8AE8FBACFE3BDF3513E5FEBEBEEB0C145B",
+      "ParentGitSha256": "CBD7A7F222509EF1DF7EB09D5222BA19D1585671FF28F6D36538BAE20AB0E0A5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Bytes": 2150,
+      "Sha256": "4A27A6FD8528B0EAA7EAF8DB737D307FD3CC9C4D06B7AA4EF3C33F562CB33334",
+      "ParentGitSha256": "FAB298CB2585958D25FD8A93E33E46047AB9ACE9CFE57E5916712E80732F8CAC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Bytes": 6955,
+      "Sha256": "9FBE10C9CC2EEBF86CAE29605ED989FFB2E04D9656DA3C2A508ECCDD34E93CB8",
+      "ParentGitSha256": "95C3AF3FA7566D58454E2A561E39B79C9AE765B0892E154AE93C26B0A021CBB6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkNames.cs",
+      "Bytes": 1369,
+      "Sha256": "C44E90A722DBCF019FFC2A1AF930D65376FE9ED78D6C06FD339A3224EF114B21",
+      "ParentGitSha256": "F5D341B017F183D8279CE1B17850D89A9057988A574471BDC9A394DC098092B1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Bytes": 14733,
+      "Sha256": "BA74BA07D654F7700A0B51B9487A398CDC1F27082DCE141B8106B3C6994429AD",
+      "ParentGitSha256": "280EBD97BE9CEC49A4558D369A718896BA493B4D57D5E676888C17A86CD37DC9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadTicket.cs",
+      "Bytes": 1294,
+      "Sha256": "E90795397DC6C621539FAF615960944DB51959E028AC37B13A271D1DD2A6A31B",
+      "ParentGitSha256": "5180BBE36A76F90AD62AC7A04E2B21273BE1412FB6CFDF33CEBFA75623E23A4C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Bytes": 18841,
+      "Sha256": "1B0B39B1F7FABBC9C43A770DC9D4B418A3B28E7F9DE987D4B7D168DE391817CD",
+      "ParentGitSha256": "37C9CF3479F88941FE8B6F10EE96CBD726DAF94BA8F07588BC3400C4399CB756"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterNames.cs",
+      "Bytes": 588,
+      "Sha256": "86289DA75EC3171026778E91EF66DCFB066780265CCE625566A937CA554E8DF1",
+      "ParentGitSha256": "C8715DF267D0E1E6880BCDF0FADED09637770C2141F2F3D4390E8BFE0A495C62"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Bytes": 10208,
+      "Sha256": "95CCDF4BB981447527801E1ADB5153232C4ACD808C2938D675DE207456DECD71",
+      "ParentGitSha256": "72CD991EFB7E0EAC5E6F4852355B39746A4238A0906F239885C2595C62AAAC85"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamZeroFrameValidation.cs",
+      "Bytes": 3263,
+      "Sha256": "DD8E25029919677F7A0F2E20CBBB4FDA2987AF11EC135BA248DD42478D64F798",
+      "ParentGitSha256": "127100A15DCE06535729919D6E7953FD5535CA3C234F93824515B581A0DCCE7E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.Loader.cs",
+      "Bytes": 5618,
+      "Sha256": "21202BC0E0D8D56C8EDDB89A4F74FFA68A980BC8006D19E733ABA82265171CAA",
+      "ParentGitSha256": "CD566A3141998E257C6E451EDA7E44BEB055DB1FA50D38B2E277AAD58CD4FFC0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessCodeRequest.cs",
+      "Bytes": 344,
+      "Sha256": "FD324BEB140CCED0BF91F3917EC99146B7A31D59DBADAA864569F0E01D5EE9F9",
+      "ParentGitSha256": "1BB689169D134E942C178CBB0CA00AC04D31E4C1B722412FB7D907FCB583E0BA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.CodeChecks.cs",
+      "Bytes": 3091,
+      "Sha256": "83F95E1A372A5B230FAF5DAD230FB6770F162C20487178246AA40901CDD8C517",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.CodePurge.cs",
+      "Bytes": 1702,
+      "Sha256": "5B152DAEED8C7397CD20C9413B2DFFA41B9D28ED4A639B3FA7B373CE37CBF14E",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63146,
+      "Sha256": "F149A2E537CC03CCDFA523E4205831220DBD563F7B985BFC6058F1BF72401B42",
+      "ParentGitSha256": "436EC73618185B8F217B6BA65ADF022322E3F82F5A4972815BF5E336936ACB8D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamAllocationHostChecks.cs",
+      "Bytes": 1798,
+      "Sha256": "7DCC620C3B543F948FC5F242D34B32F5D3FAFE66305E3B516C03E33A690D2126",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamAllocationHostWire.cs",
+      "Bytes": 677,
+      "Sha256": "17A2D8AFFB04AC05AC3E9920767D7473C0B97A05A3FADCAA9F60AF0D05055753",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderDirectChecks.cs",
+      "Bytes": 9982,
+      "Sha256": "24F3A5151E460C56178187BF87F5BA0499A501006B8F8265EBBA817FE32E4856",
+      "ParentGitSha256": "4F5B94B360D9DBBFC2054879888D640A8ADE02C01CC267CB45DF00C90BD0DA03"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Bytes": 2209,
+      "Sha256": "E6F78CF2CF49CD39F221AA2EEFE91D723051DBE1DDF7416EBF3D783FD3201166",
+      "ParentGitSha256": "1D19662E9F31357C557CBA42EF3B45B908CE9BF80F91EC2443759DE393DE2743"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ExactImageCodeHostChecks.cs",
+      "Bytes": 11742,
+      "Sha256": "574B058B5FDA91AAFC9F14BCF29624DD70FEEA4419D42DFFDE0B45EAC4AACA8A",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ExactImageCodeHostNames.cs",
+      "Bytes": 1325,
+      "Sha256": "0186D6C7191D71E1A952D11A596B2739169B23925D7FF593C586EDFD480A23BD",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ExactImageCodeHostParameters.cs",
+      "Bytes": 154,
+      "Sha256": "C435A517DA4163839C23DF6C2D2FD96F06AEB04B22B37BB0CBE4FD00932B74FF",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 165069,
+      "Sha256": "4B6DB2FEF5A954ACF89D10A33FA605AEA6378064796BC8A925049151C9A9B446",
+      "ParentGitSha256": "274F1AEF00036CEB5C10964BC381BF73916B66B37ED6C432516627535C2ABD27"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RawOnLoadExportsHostChecks.cs",
+      "Bytes": 9927,
+      "Sha256": "3344802FE9EADCC2620F23B5E43DB817FD24D440F48A2BC7EAE98E84CB2F773E",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/RawOnLoadExportsHostNames.cs",
+      "Bytes": 2033,
+      "Sha256": "AC571330B65BC6F23835BF52782481CEE6D3F46B14F015AF432D10FD35D4732E",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/RawOnLoadExportsHostParameters.cs",
+      "Bytes": 198,
+      "Sha256": "06AD262C70E2D3C0C59E989D5F3B5CDCB4B67C59800652366FFD91C602509C88",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/RawOnLoadDeferredExports/expected-finals.json",
+      "Bytes": 151013,
+      "Sha256": "1A4493F9D73A1425C14F36841132B8DD1EF927E534E65DF3D005E3DEC7406AE2",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/RawOnLoadDeferredExports/new.beam",
+      "Bytes": 1516,
+      "Sha256": "B0160A8A750942D1774602D0208E276667C21EF74C4130C8CBD9105744A54C00",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/RawOnLoadDeferredExports/old.beam",
+      "Bytes": 1096,
+      "Sha256": "BF412E54E3FCD6A58C8EAD7B02F144EC9751549BAED394A529E9C32C477CE6E0",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 208336,
+      "Sha256": "64267EDED370D35DEA5AB176E39A02370F461072784678C0A922C507484F5F56",
+      "ParentGitSha256": "C8577299D35B72112F8FFAE3BEBD689A8BC9D7D8318F1601EBD75178D6B937E0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamPreparedHostChecks.cs",
+      "Bytes": 15145,
+      "Sha256": "0B307AC25D28493C63D89A484061A79CAB33FC68A2A178389800D6A603C22FD5",
+      "ParentGitSha256": "95A7D41F6DECED0C651A1DCE1E601C75344B2F7D5C204496485184415DA64DE3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderAdmissionChecks.cs",
+      "Bytes": 10131,
+      "Sha256": "5F95E563D0DB6B7D6A4FCBF796CCCFC977E69EE8638A860A04927492EE8FFB2B",
+      "ParentGitSha256": "6FCBDDCCE15B914AF0EF8017C4186D9694C7CBB8DF52E1EA1D9EC687C5520730"
+    }
+  ],
+  "PreviousFreezeSha256": "B711900DCA76B52E8D01DAE59BC1FFCDADB6C182ADEB5F4AE2AE70709C3A93C8",
+  "ActualFirstFullPassed": 6622,
+  "ActualFirstFullFailed": 2,
+  "RuntimeAlgorithmChangedAfterFirstFull": false,
+  "LegacyHostPreparationExpectationMigrations": [
+    {
+      "Path": "tests/Erlang.Tests/BeamPreparedHostChecks.cs",
+      "Bytes": 15145,
+      "Sha256": "0B307AC25D28493C63D89A484061A79CAB33FC68A2A178389800D6A603C22FD5",
+      "ParentGitSha256": "95A7D41F6DECED0C651A1DCE1E601C75344B2F7D5C204496485184415DA64DE3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderAdmissionChecks.cs",
+      "Bytes": 10131,
+      "Sha256": "5F95E563D0DB6B7D6A4FCBF796CCCFC977E69EE8638A860A04927492EE8FFB2B",
+      "ParentGitSha256": "6FCBDDCCE15B914AF0EF8017C4186D9694C7CBB8DF52E1EA1D9EC687C5520730"
+    }
+  ],
+  "SecondAttemptBuildOnlyFailure": "CS0117 corrected by owned disposable lease.Value access",
+  "SecondAttemptTestsExecuted": false
+}

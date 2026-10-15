@@ -52,20 +52,19 @@ public static class BeamLoaderAdmissionChecks
                 using (var gzip = new GZipStream(compressed, CompressionMode.Compress, true))
                     gzip.Write(bytes);
                 await GzipErrorArguments(context, compressed.ToArray(), bytes);
-                byte[] unsupportedOnLoad = Resource(BeamPreparedHostNames.OnLoad + BeamLoaderAdmissionNames.Extension);
-                try
-                {
-                    await Call(
-                        context,
-                        BeamLoaderAdmissionNames.Prepare,
-                        Term.A(BeamPreparedHostNames.OnLoad),
-                        new BitString(unsupportedOnLoad)
-                    );
-                    throw new InvalidOperationException(BeamLoaderAdmissionNames.Failure);
-                }
-                catch (NotSupportedException)
-                {
-                }
+                byte[] preparedOnLoad = Resource(BeamPreparedHostNames.OnLoad + BeamLoaderAdmissionNames.Extension);
+                int dictionaryEntries = context.Dictionary.Count;
+                Term preparedReference = await Call(
+                    context,
+                    BeamLoaderAdmissionNames.Prepare,
+                    Term.A(BeamPreparedHostNames.OnLoad),
+                    new BitString(preparedOnLoad)
+                );
+                Require(preparedReference is ResourceReferenceTerm);
+                using var preparedLease = runtime.ReferenceResources.AcquirePrepared((ReferenceTerm)preparedReference);
+                Require(preparedLease is not null && preparedLease.Value.HasOnLoad && !preparedLease.Value.IsConsumed);
+                Require((await Call(context, BeamLoaderAdmissionNames.Query, preparedReference)).Equals(Term.A(ErlangBooleanAtoms.True)));
+                Require(!runtime.Modules.IsModuleLoaded(BeamPreparedHostNames.OnLoad) && context.Dictionary.Count == dictionaryEntries);
                 byte[] onLoad = Resource(BeamLoaderAdmissionNames.SupportedOnLoadResource);
                 Term callbackModule = Term.A(BeamOnLoadHostNames.FreshSuccessModule);
                 Term callbackReference = await Call(

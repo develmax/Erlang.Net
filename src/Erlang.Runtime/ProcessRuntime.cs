@@ -895,60 +895,6 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     private void ReplySavedCallRequest(ProcessSavedCallRequest request, Term result, Term? from = null) => SendSystem(request.Requester.Self, Term.Tuple(request.Id, result), from);
 
-    internal async ValueTask<Term> CheckProcessCode(
-        ProcessContext requester,
-        Pid target,
-        string module,
-        bool async,
-        Term requestId
-    )
-    {
-        requester.Cancellation.ThrowIfCancellationRequested();
-        if (!async && target.Equals(requester.Self))
-            return Term.A(Modules.IsExecutingOldCode(requester, module) ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False);
-        if (!async)
-            requestId = MakeReference();
-        var request = new ProcessCodeRequest(requester, requestId, module);
-        lock (gate)
-        {
-            if (!processes.TryGetValue(target, out var process))
-                ReplyCodeCheck(request, false);
-            else
-            {
-                process.PendingCodeChecks.Add(request);
-                process.Mailbox.SendPending(
-                    Nil.Value,
-                    () =>
-                {
-                    lock (gate)
-                    {
-                        if (process.PendingCodeChecks.Remove(request))
-                            ReplyCodeCheck(request, Modules.IsExecutingOldCode(process, module), process.Self);
-                    }
-
-                    return null;
-                }
-                );
-            }
-        }
-        if (async)
-            return ProcessCodeAtoms.AsyncResult;
-        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 3 } tuple &&
-            tuple.Items[0] is Atom { Name: ProcessCodeCheckNames.ReplyTag } && tuple.Items[1].Equals(requestId) ? tuple : null);
-
-        return reply!.Items[2];
-    }
-
-    private void ReplyCodeCheck(ProcessCodeRequest request, bool result, Term? from = null) => SendSystem(
-        request.Requester.Self,
-        Term.Tuple(
-        ProcessCodeAtoms.ReplyTag,
-        request.Id,
-        Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
-    ),
-        from
-    );
-
     internal async ValueTask<bool> PurgeModule(ProcessContext requester, string module)
     {
         var reference = MakeReference();
@@ -1014,40 +960,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool completed = false;
         try
         {
-            ProcessContext[] candidates;
-            lock (gate)
-                candidates = processes.Values.Concat(executingProcesses).Distinct().ToArray();
-            foreach (var candidate in candidates)
-            {
-                if (ReferenceEquals(candidate, worker))
-                    continue;
-                bool terminated;
-                lock (gate)
-                    terminated = candidate.Terminated;
-                if (terminated)
-                {
-                    if (candidate.IsExecutingCode(image))
-                        await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
-                    continue;
-                }
-                if (!(await CheckProcessCode(
-                    worker,
-                    candidate.Self,
-                    module,
-                    false,
-                    Nil.Value
-                )).Equals(Term.A(ErlangBooleanAtoms.True)))
-                {
-                    if (candidate.IsExecutingCode(image))
-                        await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
-                    continue;
-                }
-                var monitor = Monitor(worker, candidate.Self);
-                Exit(worker, candidate.Self, Term.A(ProcessExitSignals.Kill));
-                await worker.ReceiveAsync(message => message is TupleTerm { Items.Count: 5 } tuple &&
-                    tuple.Items[0] is Atom { Name: ProcessMessageTags.MonitorDown } && tuple.Items[1].Equals(monitor) ? tuple : null);
-                await candidate.Unwound.Task.WaitAsync(worker.Cancellation);
-            }
+            await PurgeCodeImageProcesses(worker, image);
             await Modules.ModifyCodeAsync(() =>
                 {
                     Modules.FinishPurge(module, image, true);

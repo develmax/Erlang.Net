@@ -65,6 +65,11 @@ internal static class BeamRegisterValidation
                     case BeamLinkNames.Line:
                     case BeamLinkNames.Return:
                         break;
+                    case BeamLinkNames.AllocateHeap:
+                        if (operands[0].Value > BeamFrameParameters.MaximumSlots)
+                            throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
+                        Live(operands[2]);
+                        break;
                     case BeamLinkNames.Allocate:
                         if (operands[0].Value > BeamFrameParameters.MaximumSlots)
                             throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);

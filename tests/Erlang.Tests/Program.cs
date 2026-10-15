@@ -38,6 +38,7 @@ Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoad
 Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
 Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
 Test(Erlang.Tests.SourceLoadNifHostNames.Test, Erlang.Tests.SourceLoadNifHostChecks.Run);
+Test(Erlang.Tests.RawOnLoadExportsHostNames.Test, Erlang.Tests.RawOnLoadExportsHostChecks.Run);
 Test(Erlang.Tests.NifBeamEntryHostNames.Test, Erlang.Tests.NifBeamEntryHostChecks.Run);
 Test(Erlang.Tests.NifInventoryHostNames.Test, Erlang.Tests.NifInventoryHostChecks.Run);
 Test(Erlang.Tests.NifLifetimeHostNames.Test, Erlang.Tests.NifLifetimeHostChecks.Run);
@@ -57,6 +58,7 @@ Test(Erlang.Tests.ProcessGarbageCollectionHostNames.Test, Erlang.Tests.ProcessGa
 Test(Erlang.Tests.ProcessInfoObservableHostNames.Test, Erlang.Tests.ProcessInfoObservableHostChecks.Run);
 Test(Erlang.Tests.FunctionReloadHostNames.Test, Erlang.Tests.FunctionReloadHostChecks.Run);
 Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run);
+Test(Erlang.Tests.ExactImageCodeHostNames.Test, Erlang.Tests.ExactImageCodeHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);
 Test(Erlang.Tests.ProcessSuspensionHostNames.Test, Erlang.Tests.ProcessSuspensionHostChecks.Run);
 Test(Erlang.Tests.TermDisplayHostNames.Test, Erlang.Tests.TermDisplayHostChecks.Run);

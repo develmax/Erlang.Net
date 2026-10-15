@@ -1,0 +1,51 @@
+{
+  "Status": "ISOLATED_SIX_CAPTURED_ORIGINAL_FINALS_AND_19_MANAGED_FOCUS_PASS",
+  "CSharpPaths": 17,
+  "OverlayPaths": 21,
+  "NewProductionFiles": 0,
+  "AddedHostRegistrations": 1,
+  "PublicMfaDelta": 0,
+  "NativeAbiExecuted": false,
+  "OriginalRerun": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "RoslynTokensExact": true,
+  "FocusGroups": [
+    "RawOnLoadExportsHostChecks",
+    "SourceLoadNifHostChecks",
+    "NifSourceEntryHostChecks",
+    "NifBeamEntryHostChecks",
+    "NifAdmissionHostChecks",
+    "NifLifetimeHostChecks",
+    "NifImageBindingHostChecks",
+    "CodeModificationHostChecks",
+    "SourceTailHostChecks",
+    "RuntimeTailHostChecks",
+    "ModuleLoadingHostChecks",
+    "CodePurgeHostChecks",
+    "BeamLoaderMfaChecks:Races",
+    "InitializationLifecycleChecks",
+    "BeamLoaderMfaChecks:Direct",
+    "BeamOnLoadHostChecks",
+    "StaticApplyOnLoadChecks",
+    "BeamClosureHostChecks",
+    "BeamReceiveHostChecks"
+  ],
+  "ActualOriginalBinaryCasesPassed": [
+    "PASS raw on_load captured final fresh_direct_true",
+    "PASS raw on_load captured final fresh_false_false_true",
+    "PASS raw on_load captured final current_direct_true",
+    "PASS raw on_load captured final current_false_false_true",
+    "PASS raw on_load captured final deleted_old_direct_true",
+    "PASS raw on_load captured final deleted_old_false_false_true"
+  ],
+  "MalformedAllocationControlsPassed": 5,
+  "DuplicateAllocationKindPositivePassed": true,
+  "SemanticRed": "fresh_direct_true passed then fresh_false_false_true exported-body mismatch beforelatch",
+  "PrerequisiteFailuresRetained": [
+    "red-prerequisite-unsupported.log",
+    "red-prerequisite-external-import.log"
+  ],
+  "OutsideOverlayCandidatePathsVerified": 1957,
+  "KnownDeferredGap": "zero-export current-image NIF reservation owner association; notpublicload_nif"
+}

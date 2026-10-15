@@ -1,0 +1,15 @@
+"""Root-only after actual terminal full; preserve raw exporter bytes before derived metadata."""
+from pathlib import Path
+import hashlib,json,subprocess
+r=Path.cwd();a=r/'artifacts';j=lambda p:json.loads(p.read_bytes());h=lambda b:hashlib.sha256(b).hexdigest().upper();parent='51994bed995f9dbf31b8b88b3381cad2642012e0'
+assert subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()==parent
+assert j(a/'root-part305-full3-exit.json')['ExitCode']==0 and b'Validation passed' in (a/'root-part305-full3-validation.log').read_bytes()
+t=j(a/'tests.json');old=j(r/'docs/validation/part-304/reused303/tests.json');names=[x['Name'] for x in t['Tests']];oldnames=[x['Name'] for x in old['Tests']]
+assert (t['Passed'],t['Failed'])==(6624,0) and len(names)==len(set(names))==6624 and len(oldnames)==6622 and [n for n in names if n in set(oldnames)]==oldnames and set(names)-set(oldnames)=={'HOST exact-image process-code requests and purge drain','HOST raw on_load deferred exports against six captured OTP finals'} and all(x['Status']=='Passed' for x in t['Tests'])
+registry=r/'docs/supported-mfas.json';rows=j(registry);previous=json.loads(subprocess.check_output(['git','cat-file','blob',parent+':docs/supported-mfas.json']));assert rows==previous and len(rows)==503
+raw=a/'root-part305-raw-supported-mfas.json';meta=j(a/'root-part305-registry-metadata-guard.json');assert meta['RawSha256']==h(raw.read_bytes()) and meta['RestoredSha256']==h(registry.read_bytes()) and meta['Other502RowsFieldsAndOrderingExact'] and not meta['SourceExporterChanged']
+scope=r/'docs/module-readiness-scope.json';s=j(scope);runtime=next(c for c in s['Components'] if c['Id']=='Runtime');assert not any('Part305:' in x for x in runtime.get('Implemented',[]))
+for name in ['HOST exact-image process-code requests and purge drain','HOST raw on_load deferred exports against six captured OTP finals']:
+ if name not in runtime['TestPrefixes']:runtime['TestPrefixes'].append(name)
+runtime.setdefault('Implemented',[]).append('Part305: actual6624/full adds internal exact-image process queries and purge-drain helpers without changing public null-image queries. Raw false permanently clears deferred exports; later true publishes the same image with no exports, matching six retained original typed finals through genuine BEAM resources and real dictionary local functions. Allocate_heap uses existing strict descriptor/liveness checks; five negative controls and repeated-kind summation retained. Isolated14/19 focus proofs and independent source/projection reviews are bounded; native/original were not rerun by candidate authors. No new public MFA/default loader;503/345 of351 unchanged. Pending on_load stage/fun fence, privileged purger and zero-export NIF owner association remain incomplete.')
+s['ComparisonTestReport']='validation/part-304/reused303/tests.json';scope.write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf-8');print('Prepared partial Runtime note and exact existing subset disclosure; root regenerates readiness with immutable303 full reused by published304 baseline')

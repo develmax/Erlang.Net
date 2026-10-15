@@ -166,7 +166,16 @@ public static class BeamLoaderDirectChecks
                 Term.A(module),
                 Term.A(ErlangBooleanAtoms.True)
             )).Equals(Term.A(ErlangBooleanAtoms.True)));
-            Require((await runtime.Modules.Call(controller, module, BeamOnLoadHostNames.Run)).Equals(Term.A(BeamOnLoadHostNames.NewImage)));
+            Require(!runtime.Modules.HasExport(module, BeamOnLoadHostNames.Run, 0));
+            try
+            {
+                await runtime.Modules.Call(controller, module, BeamOnLoadHostNames.Run);
+                throw new InvalidOperationException(BeamLoaderDirectNames.Failure);
+            }
+            catch (ErlangException exception)
+            {
+                Require(exception.ExceptionClass == ErlangExceptionClasses.Error && exception.Reason.Equals(Term.A(ErlangErrorReasons.UndefinedFunction)));
+            }
             Require((await runtime.Modules.Call(
                 controller,
                 ErlangModuleNames.Module,

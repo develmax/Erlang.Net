@@ -193,7 +193,8 @@ internal static class BeamRegisterInterpreter
                     case BeamLinkNames.Line:
                         break;
                     case BeamLinkNames.Allocate:
-                        registers.CheckLive((int)operands[1].Value);
+                    case BeamLinkNames.AllocateHeap:
+                        registers.CheckLive((int)operands[instruction.Definition.Name == BeamLinkNames.AllocateHeap ? 2 : 1].Value);
                         continuations.TryPeek(out BeamCallContinuation? savedContinuation);
                         callFrames.Push(new(
                             function.EntryLabel,

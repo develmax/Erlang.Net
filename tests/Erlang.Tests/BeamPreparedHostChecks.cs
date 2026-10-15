@@ -46,7 +46,12 @@ public static class BeamPreparedHostChecks
             Require(duplicate.Status == BeamPublicationStatus.Duplicated
                 && duplicate.Modules.SequenceEqual(new[] { BeamPreparedHostNames.Add, BeamPreparedHostNames.Constant }));
             Require(actual.All(image => !image.IsConsumed));
-            Reject<NotSupportedException>(() => runtime.Modules.PrepareBeam(Resource(BeamPreparedHostNames.OnLoad + BeamPreparedHostNames.BeamExtension)));
+            int dictionaryEntries = controller.Dictionary.Count;
+            PreparedBeamImage callbackImage = runtime.Modules.PrepareBeam(Resource(BeamPreparedHostNames.OnLoad + BeamPreparedHostNames.BeamExtension));
+            Require(callbackImage.HasOnLoad && !callbackImage.IsConsumed && !runtime.Modules.IsModuleLoaded(callbackImage.Name));
+            Require(controller.Dictionary.Count == dictionaryEntries);
+            Reject<InvalidOperationException>(() => runtime.Modules.PublishPreparedBeam(callbackImage));
+            Require(!callbackImage.IsConsumed && !runtime.Modules.IsModuleLoaded(callbackImage.Name));
             Require(runtime.Modules.PublishPreparedBeam(actual).Status == BeamPublicationStatus.Published);
             Reject<InvalidOperationException>(() => runtime.Modules.PublishPreparedBeam(actual));
             for (int index = 0; index < actual.Length; index++)

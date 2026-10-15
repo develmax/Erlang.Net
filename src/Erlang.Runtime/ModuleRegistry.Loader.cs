@@ -98,24 +98,29 @@ public sealed partial class ModuleRegistry
             if (!loaderPendingImages.TryGetValue(module, out BeamOnLoadTicket? ticket))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (!keep)
+            {
+                ticket.HasDeferredExports = false;
+
                 return Term.A(ErlangBooleanAtoms.True);
+            }
             if (loadedModules.ContainsKey(module) && oldCode.ContainsKey(module))
                 throw new NotSupportedException(BeamOnLoadDiagnostics.OldGeneration);
             Apply(registry =>
             {
                 if (loadedModules.ContainsKey(module))
                     registry.DeleteModule(module);
-                for (int index = 0; index < ticket.Prepared.Code.Exports.Count; index++)
-                {
-                    BeamLinkedFunction function = ticket.Prepared.Code.Exports[index];
-                    registry.RegisterSource(
-                        module,
-                        function.Name,
-                        function.Arity,
-                        ticket.Prepared.Bodies[index],
-                        ticket.Prepared.ExecutionIdentity.Owner
-                    );
-                }
+                if (ticket.HasDeferredExports)
+                    for (int index = 0; index < ticket.Prepared.Code.Exports.Count; index++)
+                    {
+                        BeamLinkedFunction function = ticket.Prepared.Code.Exports[index];
+                        registry.RegisterSource(
+                            module,
+                            function.Name,
+                            function.Arity,
+                            ticket.Prepared.Bodies[index],
+                            ticket.Prepared.ExecutionIdentity.Owner
+                        );
+                    }
                 registry.PublishModuleCode(module, ticket.Prepared.Descriptor);
                 codeImages[module] = ticket.CodeImage;
             });

@@ -1,0 +1,27 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "erts/emulator/beam/beam_bif_load.c",
+  "Bytes": 71048,
+  "Sha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D",
+  "RelevantRanges": [
+    {
+      "Start": 593,
+      "End": 612,
+      "Meaning": "module-query resolves old instance under old-code lock"
+    },
+    {
+      "Start": 1149,
+      "End": 1224,
+      "Meaning": "execution/native continuation/stack continuation scan; idle fun values not scanned"
+    },
+    {
+      "Start": 2128,
+      "End": 2165,
+      "Meaning": "pending instance temporarily occupies old; exact target must survive deferred request"
+    }
+  ],
+  "Limitations": [
+    "SDK logical image leases do not emulate native PC addresses or exception-stackdump clearing",
+    "No pending session or stage/fun protocol implemented"
+  ]
+}

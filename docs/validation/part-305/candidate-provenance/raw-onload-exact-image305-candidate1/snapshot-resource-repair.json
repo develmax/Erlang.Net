@@ -1,0 +1,601 @@
+{
+  "Status": "ISOLATED_RESOURCE_CLOSURE_REPAIR_NO_ASSERTION_CHANGE",
+  "ParentBaselineSha256": "EE14A40DE97A9D9ADD8E66679F5173AAFFE8B76B46670DC93F801906ACA7E9A5",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_add.actual.etf",
+      "Bytes": 9,
+      "Sha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_add.erl",
+      "Bytes": 123,
+      "Sha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_add.expected.etf",
+      "Bytes": 9,
+      "Sha256": "F4AB6744C61FD70A2CEAE3B1415CDD4F2219D28FBBCA25ED3AB7FFAFDF62C118"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.actual.etf",
+      "Bytes": 21,
+      "Sha256": "6614D0C9AFAE87830B95DFFD3CFA64551DB3CD8B6A9894A981105CABBF2CFEA2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.erl",
+      "Bytes": 134,
+      "Sha256": "1B29BD3330DE0DFC4BA7DF19FCA667FFACD78B6DE622E0B22186B5B3B8E2AD4D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.expected.etf",
+      "Bytes": 21,
+      "Sha256": "6614D0C9AFAE87830B95DFFD3CFA64551DB3CD8B6A9894A981105CABBF2CFEA2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_constant.actual.etf",
+      "Bytes": 34,
+      "Sha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_constant.erl",
+      "Bytes": 81,
+      "Sha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_constant.expected.etf",
+      "Bytes": 34,
+      "Sha256": "BAC87ED3FD7A6C3D37A01FD176E93630D7D520A4919F1C9AAC78C529AB3EFE38"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_local.actual.etf",
+      "Bytes": 19,
+      "Sha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_local.erl",
+      "Bytes": 127,
+      "Sha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_local.expected.etf",
+      "Bytes": 19,
+      "Sha256": "40FB2A687AEEAD45166370DB99F2C0C9B0989D3178C83D641DE1B8FAE39DFECC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_on_load.erl",
+      "Bytes": 145,
+      "Sha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_receive.actual.etf",
+      "Bytes": 19,
+      "Sha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_receive.erl",
+      "Bytes": 126,
+      "Sha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_receive.expected.etf",
+      "Bytes": 19,
+      "Sha256": "23BE168FD6AC31707440E46583153B6A002194DFC757346916C151EF85258E48"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-binary-fallback/expected.etf",
+      "Bytes": 19,
+      "Sha256": "A35EC6FECACE4393B5E136C83D77D1516E4C02AA61962D2A4FEC2356EBE6E5F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-binary-fallback/independent-selected-code.etf",
+      "Bytes": 23,
+      "Sha256": "DC49E0968E7EEE50E096E1BCFF9A5808DE4664C45C4DE5D103180A39350D1A8B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-binary-fallback/input-arguments.etf",
+      "Bytes": 31,
+      "Sha256": "B3382A469CC432186A10F94FA5C7033B72BB8BA39E4851D9E28AF4812E8B25F2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-list-fallback/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-list-fallback/independent-selected-code.etf",
+      "Bytes": 19,
+      "Sha256": "B7170795BF249E6FFD98F80ED7FA127D8C49AB577FE115521A31CB2D8A9BA320"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/empty-list-fallback/input-arguments.etf",
+      "Bytes": 27,
+      "Sha256": "3F0D95F44189366B0E7D0575C6967098C19CE278F64B75BD5704507BA4410C73"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-empty-payload-list/expected.etf",
+      "Bytes": 19,
+      "Sha256": "A35EC6FECACE4393B5E136C83D77D1516E4C02AA61962D2A4FEC2356EBE6E5F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-empty-payload-list/independent-selected-code.etf",
+      "Bytes": 27,
+      "Sha256": "8F4B50A41A16D761A9EE10A3CBBC3AFD9EEDA6415A134911116342F3E14F48C3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-empty-payload-list/input-arguments.etf",
+      "Bytes": 49,
+      "Sha256": "1DBFF9F1C36FAB9549A3FA3E8BC2A4CAEF1F2627185DFEF40CD977233C3EB6DC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-improper-binary-tail/expected.etf",
+      "Bytes": 47,
+      "Sha256": "CF339A9D5C9D35809C9AFFFA03934377BD0DE209A6AFB38201CE4036FC5E7FE0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-improper-binary-tail/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-improper-binary-tail/input-arguments.etf",
+      "Bytes": 829,
+      "Sha256": "363E9459E9A78DC0F73A058D4EB4103FAB50F0D7929114F9803CCC7AE1956151"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-nested-iodata/expected.etf",
+      "Bytes": 47,
+      "Sha256": "CF339A9D5C9D35809C9AFFFA03934377BD0DE209A6AFB38201CE4036FC5E7FE0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-nested-iodata/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-nested-iodata/input-arguments.etf",
+      "Bytes": 848,
+      "Sha256": "7BF91BEFD3FA82839E4F903E6F80A9D35A93F0ACAF6EA8F1AC803E53ACC55A53"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-proper-byte-list/expected.etf",
+      "Bytes": 47,
+      "Sha256": "CF339A9D5C9D35809C9AFFFA03934377BD0DE209A6AFB38201CE4036FC5E7FE0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-proper-byte-list/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/gzip-proper-byte-list/input-arguments.etf",
+      "Bytes": 820,
+      "Sha256": "F329C966C327B8B61262811EE84F548C89C5E049EC44712FFEB17E69FE43604C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-improper-atom-tail-fallback/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-improper-atom-tail-fallback/independent-selected-code.etf",
+      "Bytes": 39,
+      "Sha256": "93F320259B2C40FC58E0E09C9EEFE2B3AD9F77448A53A3BCDFA2745CD789FCE0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-improper-atom-tail-fallback/input-arguments.etf",
+      "Bytes": 47,
+      "Sha256": "C7BCA73AA28F06CEE9B4C867272E61C8849F7D9293A116FEACF66DF857C1C3D1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-iodata-leaf-fallback/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-iodata-leaf-fallback/independent-selected-code.etf",
+      "Bytes": 1611,
+      "Sha256": "8F050B36802ADA4EACA996A008AD086337150C1C83CDEDD610E764C39A10B436"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-iodata-leaf-fallback/input-arguments.etf",
+      "Bytes": 1619,
+      "Sha256": "7527C0B1DB93592CCC47CE1258A44DD31738568122D53245752A3866ACAEA185"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-binary-tail/expected.etf",
+      "Bytes": 54,
+      "Sha256": "3CA0AD998BEF30CE9DAF3C8A586A79479FE80AC77CB6525B946A279325AB0D28"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-binary-tail/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-binary-tail/input-arguments.etf",
+      "Bytes": 808,
+      "Sha256": "257A20290F63E350A446B950AFA71750C934CF7A095231B8D378D5842D1958D7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-nested/expected.etf",
+      "Bytes": 54,
+      "Sha256": "3CA0AD998BEF30CE9DAF3C8A586A79479FE80AC77CB6525B946A279325AB0D28"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-nested/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-nested/input-arguments.etf",
+      "Bytes": 827,
+      "Sha256": "AEC4D0CE283066149A495AE5292E59828C31D8E354622EECD5FC5BDC1ABBB58A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-proper-list/expected.etf",
+      "Bytes": 54,
+      "Sha256": "3CA0AD998BEF30CE9DAF3C8A586A79479FE80AC77CB6525B946A279325AB0D28"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-proper-list/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-gzip-proper-list/input-arguments.etf",
+      "Bytes": 799,
+      "Sha256": "8AEF442A92D822F751296FAEADD3DEB4400268D9DB93BB1FB91AA0EEC6C594ED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-truncated-list/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-truncated-list/independent-selected-code.etf",
+      "Bytes": 23,
+      "Sha256": "5AB8E60B6ABDAC23A0252D9369DCACF7FA7957C446B6B0B90D628E8107625676"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/invalid-module-truncated-list/input-arguments.etf",
+      "Bytes": 10,
+      "Sha256": "22CDAB0C70831A269D12CEDCE9D7B471C40F29E3EB06E7F0331CBDE6681557E8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/nonmagic-raw-beam-list-fallback/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/nonmagic-raw-beam-list-fallback/independent-selected-code.etf",
+      "Bytes": 1017,
+      "Sha256": "226A51A9E248934BC05D930E9D3A92691A82587FF8AA0071CD6038EDB86F1F49"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/nonmagic-raw-beam-list-fallback/input-arguments.etf",
+      "Bytes": 1025,
+      "Sha256": "B0DCD4F29271566E96149B5FD65817BF2E19DDB36D4B2F57BDAB977B6928105B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-binary-fallback/expected.etf",
+      "Bytes": 19,
+      "Sha256": "A35EC6FECACE4393B5E136C83D77D1516E4C02AA61962D2A4FEC2356EBE6E5F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-binary-fallback/independent-selected-code.etf",
+      "Bytes": 25,
+      "Sha256": "7CE7957FBC1E814DECA06FBEC2B4E81CC0158BA36CA2F943E6D9E0079951F20B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-binary-fallback/input-arguments.etf",
+      "Bytes": 33,
+      "Sha256": "DD2A9ECB79025914018EFFA857050DB9BC27A35A7BBB3CF8B6E845660AB8C169"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-list-fallback/expected.etf",
+      "Bytes": 50,
+      "Sha256": "54F83F7F4E387A08FC97F5A52779D6E5FB0BBEFD3C6684DD25B0FE4D9532375E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-list-fallback/independent-selected-code.etf",
+      "Bytes": 23,
+      "Sha256": "5AB8E60B6ABDAC23A0252D9369DCACF7FA7957C446B6B0B90D628E8107625676"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/truncated-gzip-list-fallback/input-arguments.etf",
+      "Bytes": 31,
+      "Sha256": "D58CAFBC5F61EC9044F25E1D672B920D9333C62C18CAB05B89E7C503EF5FBE2A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/wrong-module-gzip-proper-list/expected.etf",
+      "Bytes": 19,
+      "Sha256": "A35EC6FECACE4393B5E136C83D77D1516E4C02AA61962D2A4FEC2356EBE6E5F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/wrong-module-gzip-proper-list/independent-selected-code.etf",
+      "Bytes": 1023,
+      "Sha256": "8CB9E9E14686B250F63F1E362E8534F0A11F763180BE6A9E41A85F6CE53B0C19"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzip/wrong-module-gzip-proper-list/input-arguments.etf",
+      "Bytes": 823,
+      "Sha256": "43C53E66BD55DE6733331262B44635B7532621DF3E4AB4F7E0C7B5B66ED4E7A6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/dynamic.gzip",
+      "Bytes": 433,
+      "Sha256": "6851BAC7D38E8E4AD9CB72FF4472BADEB68272399522C39EEDC2A35D2E54A473"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/dynamic.raw",
+      "Bytes": 52048,
+      "Sha256": "6A5FA871A513A6ADEDD813BF2D3AACC38B1B4618B2BEB332525691525BFA1350"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/fhcrc-invalid.gzip",
+      "Bytes": 310,
+      "Sha256": "746C1494B4EA313EF0AFC8B002841B451AE941159596B6F42BECBCF7D37273C5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/fhcrc-valid.gzip",
+      "Bytes": 310,
+      "Sha256": "5DE195F4A591DFAA54942364EAEB653D5FF7E466BB94465CF9E2051E423C954F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/fixed.gzip",
+      "Bytes": 308,
+      "Sha256": "B4F860E72474D9367E7F2203AE041774D3A3B003819EA4A1DEA63B82F87F7F14"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/fixed.raw",
+      "Bytes": 2048,
+      "Sha256": "10FC3C51A152E90E5B90319B601D92CCF37290EF53C35FF92507687D8A911A08"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/optional-header.gzip",
+      "Bytes": 326,
+      "Sha256": "E2727A61AC80E328830008D4F99B063E5F25A55D3D740061169FD4D458302AEF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/stored.gzip",
+      "Bytes": 2071,
+      "Sha256": "4E445EEF830760BEAB9C235B2C1998A1247233EDD60546C1E07C28888A65745D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamGzipControls/stored.raw",
+      "Bytes": 2048,
+      "Sha256": "10FC3C51A152E90E5B90319B601D92CCF37290EF53C35FF92507687D8A911A08"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/actual.etf",
+      "Bytes": 98,
+      "Sha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/after.etf",
+      "Bytes": 26,
+      "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/before.etf",
+      "Bytes": 26,
+      "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/callback-down.etf",
+      "Bytes": 88,
+      "Sha256": "93D46048BAB2E5E6D3FB94C0218301E68568D3152CAD96227A0507BBBFE63E3F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/during.etf",
+      "Bytes": 23,
+      "Sha256": "8533755505001ECF7B35AC3436F0A23A55BCA734588D3E1C74F1774D666D5E36"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/expected.etf",
+      "Bytes": 98,
+      "Sha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/new/beam_on_load_fresh_failure.disassembly.term",
+      "Bytes": 3833,
+      "Sha256": "C9C5BE40D96F1A5634EFC979A98DFE7A773232D75FA647B796CC04BB2A67E104"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/new/beam_on_load_fresh_failure.erl",
+      "Bytes": 377,
+      "Sha256": "A995DF8400591B1DE6F21E99A589989F6796B19D6CACDF2877D8E40194973074"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/new/disassembly.eval.erl",
+      "Bytes": 473,
+      "Sha256": "6F729CC3705A98DF311D8C010DBF5E28A27888BE072308C91928B3812FAC70DB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-failure/notice.etf",
+      "Bytes": 91,
+      "Sha256": "D02DC5991860882EE8DF55160EC7825447AD11643300B2A66E8EA58818213658"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/actual.etf",
+      "Bytes": 110,
+      "Sha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/after.etf",
+      "Bytes": 51,
+      "Sha256": "0DFEEB97D0D312B0CA6BB22ED290AB60D61BD5244126A0C52B09FB227FB01A57"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/before.etf",
+      "Bytes": 26,
+      "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/callback-down.etf",
+      "Bytes": 84,
+      "Sha256": "D20CBE7D57519F6FEFF78A4194546403A747F77A12B1890F37D591F4FD49B136"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/during.etf",
+      "Bytes": 23,
+      "Sha256": "8533755505001ECF7B35AC3436F0A23A55BCA734588D3E1C74F1774D666D5E36"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/expected.etf",
+      "Bytes": 110,
+      "Sha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/new/beam_on_load_fresh_success.disassembly.term",
+      "Bytes": 3828,
+      "Sha256": "ED4C686DDC405B80535C922A44EB4BFA2273AEA4CCFDD655B4B381E4389375FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/new/beam_on_load_fresh_success.erl",
+      "Bytes": 373,
+      "Sha256": "BF445FEFC0EFDB382010EC1E4219E6576933CEA5DAA2195925586C3B3611A54B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/new/disassembly.eval.erl",
+      "Bytes": 473,
+      "Sha256": "3808898F21E6DAB35BC441E7C21D2AEB4447C6AA06DD4633E5E7427D48CBF7F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/fresh-success/notice.etf",
+      "Bytes": 91,
+      "Sha256": "4357024D019EC6C594D2084B28F5CAB5D5CA58F4AAB1DE1254DF58DA8473543B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/actual.etf",
+      "Bytes": 113,
+      "Sha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/after.etf",
+      "Bytes": 51,
+      "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/before.etf",
+      "Bytes": 51,
+      "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/callback-down.etf",
+      "Bytes": 88,
+      "Sha256": "258B71B4B2F00B9E8CF1EEFF27DC280B8978200D461AA2DBA91950E5721E3F95"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/during.etf",
+      "Bytes": 51,
+      "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/expected.etf",
+      "Bytes": 113,
+      "Sha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/new/beam_on_load_replace_failure.disassembly.term",
+      "Bytes": 3907,
+      "Sha256": "221AE2ED122BBC128627690082F46A5B8EC0DBE8562BFDB160E1E7A6A8607133"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/new/beam_on_load_replace_failure.erl",
+      "Bytes": 379,
+      "Sha256": "C495099512FEF4212C9A7EF94EAC484875923AA5549E36D8845080FBF6C1D849"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/new/disassembly.eval.erl",
+      "Bytes": 489,
+      "Sha256": "174F77E623AD0BE6F07C64BDF90F68AB7AACF23082CDDDC82905C22D39F17E60"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/notice.etf",
+      "Bytes": 114,
+      "Sha256": "0B9A6346C4608543B499A62A595A16B138E69F1905D16198B74A13F257473352"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/old/beam_on_load_replace_failure.disassembly.term",
+      "Bytes": 1392,
+      "Sha256": "CF5D3ED4E3D71F94F899119A456A305CE5A8C41534E837852D6C06F2F777AD15"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/old/beam_on_load_replace_failure.erl",
+      "Bytes": 77,
+      "Sha256": "9B7F94EFCFE6066AC5EF9F890E71D8974209EC798BA6E92B725F260A716CD9E3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-failure/old/disassembly.eval.erl",
+      "Bytes": 489,
+      "Sha256": "EF6CDD332646A51555ED5F8BADF064A56E180EA4D625A447E716647DC16B241B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/actual.etf",
+      "Bytes": 123,
+      "Sha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/after.etf",
+      "Bytes": 51,
+      "Sha256": "0DFEEB97D0D312B0CA6BB22ED290AB60D61BD5244126A0C52B09FB227FB01A57"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/before.etf",
+      "Bytes": 51,
+      "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/callback-down.etf",
+      "Bytes": 84,
+      "Sha256": "D7D514BBD12EFD505952E75A3B943BB3D0DF6DCA2AD913711FA21A6946164A55"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/during.etf",
+      "Bytes": 51,
+      "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/expected.etf",
+      "Bytes": 123,
+      "Sha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/new/beam_on_load_replace_success.disassembly.term",
+      "Bytes": 3902,
+      "Sha256": "A010566F6DD70CC004992DF18FEC04A091EE45716A3939F2C164AFB6FBE28E89"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/new/beam_on_load_replace_success.erl",
+      "Bytes": 375,
+      "Sha256": "38A4228134F973F2B34303ADB1214C0ACCA12162F3C454B8FADE79C7BC9F8E28"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/new/disassembly.eval.erl",
+      "Bytes": 489,
+      "Sha256": "BC16D0EC658F1D53D622E087A90C3DC9400FDC59B119BF3EC7EBB6188ED06D18"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/notice.etf",
+      "Bytes": 114,
+      "Sha256": "D52E74B7A43FF1B0161EE21922BFEFC0761C623DEC2B49763B1022EF3239CB90"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/old/beam_on_load_replace_success.disassembly.term",
+      "Bytes": 1391,
+      "Sha256": "A30B92D9EA1B61B0294C219DF5279E8B1DDD9549A11D878B58ADD700F7517AC3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/old/beam_on_load_replace_success.erl",
+      "Bytes": 77,
+      "Sha256": "02D68297A17F8243E18A717BEE7A839DF63EE9F0A4D5821F8631B733D1F41FCC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoad/replacement-success/old/disassembly.eval.erl",
+      "Bytes": 489,
+      "Sha256": "3BF64CDFB86BEF7D8BD51771D3E479A320DAA2EB7C2DF4E42A7A6688F518CE08"
+    }
+  ]
+}

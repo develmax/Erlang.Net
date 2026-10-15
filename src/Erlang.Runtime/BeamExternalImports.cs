@@ -10,8 +10,9 @@ internal static class BeamExternalImports
         bool supported = module == ErlangModuleNames.Module && (
             source.Arity == 0 && function == ErlangModuleNames.Self
             || source.Arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error or BeamLoaderNames.CallOnLoad
-            || source.Arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract
-        ) || module == BeamOnLoadNames.CodeModule && function == BeamOnLoadNames.IsLoaded && source.Arity == 1;
+            || source.Arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract or ErlangModuleNames.Put
+        ) || module == BeamOnLoadNames.CodeModule && function == BeamOnLoadNames.IsLoaded && source.Arity == 1
+            || module == BeamRegisterNames.OsModule && function == BeamRegisterNames.GetEnvironment && source.Arity == 1;
         if (!supported)
             throw new NotSupportedException(BeamOnLoadDiagnostics.UnknownImport);
 

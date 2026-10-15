@@ -19,6 +19,7 @@ internal static class BeamLinkNames
     internal const string PutList = "put_list";
     internal const string PutTuple = "put_tuple2";
     internal const string Allocate = "allocate";
+    internal const string AllocateHeap = "allocate_heap";
     internal const string Deallocate = "deallocate";
     internal const string Send = "send";
     internal const string LoopReceive = "loop_rec";

@@ -28,6 +28,7 @@ internal static class BeamZeroFrameValidation
             switch (instruction.Definition.Name)
             {
                 case BeamLinkNames.Allocate:
+                case BeamLinkNames.AllocateHeap:
                     Next(current.Pc + 1, depth + 1);
                     break;
                 case BeamLinkNames.Deallocate:

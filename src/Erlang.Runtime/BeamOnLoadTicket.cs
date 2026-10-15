@@ -26,6 +26,8 @@ public sealed class BeamOnLoadTicket
     {
         get;
     }
+    internal bool HasDeferredExports { get; set; } = true;
+
     internal BeamOnLoadPhase CurrentPhase
     {
         get; set;

@@ -1,0 +1,29 @@
+using System.Reflection;
+using System.Runtime.Loader;
+
+try
+{
+var path = Path.GetFullPath(args[0]);
+var resolver = new AssemblyDependencyResolver(path);
+AssemblyLoadContext.Default.Resolving += (context, name) => resolver.ResolveAssemblyToPath(name) is { } dependency ? context.LoadFromAssemblyPath(dependency) : null;
+var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+foreach (string name in args.Skip(1))
+{
+    string[] parts = name.Split(':');
+    var type = assembly.GetType("Erlang.Tests." + parts[0]) ?? assembly.GetType(parts[0], true)!;
+    var method = type.GetMethod(parts.Length == 1 ? "Run" : parts[1], BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)!;
+    Task invocation = await Task.Run(() => Task.FromResult((Task)method.Invoke(null, null)!)).WaitAsync(TimeSpan.FromSeconds(30));
+    await invocation.WaitAsync(TimeSpan.FromSeconds(30));
+    if (invocation is Task<int> result && result.Result != 0)
+        throw new InvalidOperationException("Focused check returned a nonzero result: " + name);
+    Console.WriteLine("PASS " + name);
+}
+
+    return 0;
+}
+catch (Exception failure)
+{
+    Console.Error.WriteLine(failure);
+
+    return 1;
+}

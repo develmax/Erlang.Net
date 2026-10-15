@@ -1,0 +1,66 @@
+{
+  "Status": "ACTUAL_FIRST_MAIN_FULL_6622_PASS_2_LEGACY_UNSUPPORTED_IMPORT_EXPECTATION_FAILURES",
+  "FailedTests": [
+    {
+      "Name": "BEAM prepared publication, native metadata and actual generation leases",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: BEAM prepared publication contract failed\r\n   at Erlang.Tests.BeamPreparedHostChecks.Reject[T](Action action) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamPreparedHostChecks.cs:line 268\r\n   at Erlang.Tests.BeamPreparedHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamPreparedHostChecks.cs:line 49\r\n   at Erlang.Tests.BeamPreparedHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamPreparedHostChecks.cs:line 90\r\n   at Erlang.Tests.BeamPreparedHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamPreparedHostChecks.cs:line 90\r\n   at Erlang.Tests.BeamPreparedHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamPreparedHostChecks.cs:line 90\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4332",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "host/loader-typed-admission-and-error-metadata",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Loader typed resource admission contract failed\r\n   at Erlang.Tests.BeamLoaderAdmissionChecks.<>c__DisplayClass0_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamLoaderAdmissionChecks.cs:line 64\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamLoaderAdmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamLoaderAdmissionChecks.cs:line 111\r\n   at Erlang.Tests.BeamLoaderAdmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamLoaderAdmissionChecks.cs:line 113\r\n   at Erlang.Tests.BeamLoaderAdmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BeamLoaderAdmissionChecks.cs:line 113\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4332",
+      "Milliseconds": 9
+    }
+  ],
+  "IntegrationExecutedAfterTests": false,
+  "RuntimeAlgorithmRepairNeeded": false,
+  "Files": [
+    {
+      "Path": "artifacts/root-part305-full-validation.log",
+      "Bytes": 396870,
+      "Sha256": "22A34D8017DB90BAD3F6004F928FD1D199C397E606A7AF2606DB8586A093103A"
+    },
+    {
+      "Path": "artifacts/root-part305-full-exit.json",
+      "Bytes": 168,
+      "Sha256": "A9D8AA6910B01C2B95567C8207A74F5881151247F24055D23D1FBB11C6E598AE"
+    },
+    {
+      "Path": "artifacts/root-part305-final-source-freeze.json",
+      "Bytes": 8449,
+      "Sha256": "5D712DACFAA2298F608472CC1D75AF83C25162AFD4FBD7474871A60A8CA4D255"
+    },
+    {
+      "Path": "artifacts/tests.json",
+      "Bytes": 920330,
+      "Sha256": "CBB29BC52655B600326B5C96D0DFC0D5ACF256802570F1B1BF3FCB8729F84556"
+    },
+    {
+      "Path": "docs/supported-mfas.json",
+      "Bytes": 151768,
+      "Sha256": "6BD3E6059B47686A4BD62D13047449287E50C677C6E945EC1212CB7CABDBEE9A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamPreparedHostChecks.cs",
+      "Bytes": 14674,
+      "Sha256": "95A7D41F6DECED0C651A1DCE1E601C75344B2F7D5C204496485184415DA64DE3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderAdmissionChecks.cs",
+      "Bytes": 9714,
+      "Sha256": "6FCBDDCCE15B914AF0EF8017C4186D9694C7CBB8DF52E1EA1D9EC687C5520730"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_on_load.erl",
+      "Bytes": 145,
+      "Sha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_on_load.beam",
+      "Bytes": 1116,
+      "Sha256": "7055414B8F40BF0E864C0076C83B0D27127A2B431C238A6CA271E8160AC061C9"
+    }
+  ]
+}

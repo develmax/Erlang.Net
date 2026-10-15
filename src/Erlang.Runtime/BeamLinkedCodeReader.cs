@@ -65,7 +65,10 @@ internal static class BeamLinkedCodeReader
         Require(functions.Count == structure.Code.FunctionCount && functions.Count != 0, BeamLinkDiagnostics.FunctionCount);
         Require(beginnings[0] == 0, BeamLinkDiagnostics.FunctionBoundary);
         for (int index = 0; index < functions.Count; index++)
-            functions[index] = functions[index] with { EndInstructionIndex = index + 1 < functions.Count ? beginnings[index + 1] : instructions.Count - 1 };
+            functions[index] = functions[index] with
+            {
+                EndInstructionIndex = index + 1 < functions.Count ? beginnings[index + 1] : instructions.Count - 1
+            };
         var byEntry = new Dictionary<int, BeamLinkedFunction>();
         foreach (BeamLinkedFunction function in functions)
             Require(byEntry.TryAdd(function.EntryLabel, function), BeamLinkDiagnostics.FunctionBoundary);
@@ -185,6 +188,11 @@ internal static class BeamLinkedCodeReader
                 Branch(operands[0]);
                 Source(operands[1]);
                 Source(operands[2]);
+                break;
+            case BeamLinkNames.AllocateHeap:
+                _ = Unsigned(operands[0]);
+                _ = Unsigned(operands[1]);
+                _ = Unsigned(operands[2]);
                 break;
             case BeamLinkNames.HeapTest:
             case BeamLinkNames.Allocate:

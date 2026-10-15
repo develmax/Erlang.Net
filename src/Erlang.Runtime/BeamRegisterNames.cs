@@ -4,6 +4,8 @@ internal static class BeamRegisterNames
 {
     public const string Call = "call";
     public const string Erlang = "erlang";
+    internal const string OsModule = "os";
+    internal const string GetEnvironment = "getenv";
     public const string Add = "+";
     public const string Subtract = "-";
     public const string Unsupported = "Unsupported reachable BEAM register instruction";

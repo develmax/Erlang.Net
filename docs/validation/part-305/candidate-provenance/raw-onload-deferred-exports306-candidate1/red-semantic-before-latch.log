@@ -1,0 +1,9 @@
+PASS raw on_load captured final fresh_direct_true
+System.InvalidOperationException: Raw on_load deferred export mismatch: fresh_false_false_true
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Require(Boolean value, String name) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 157
+   at Erlang.Tests.RawOnLoadExportsHostChecks.<>c__DisplayClass1_1.<<Observe>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 81
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Observe(JsonElement test) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 109
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Observe(JsonElement test) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 111
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 20
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\focus\Program.cs:line 16

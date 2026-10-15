@@ -1,0 +1,360 @@
+{
+  "Status": "ORIGINAL_RAW_NINE_CASES_COLLECTED_INDEPENDENT_TYPED_REVIEW_REQUIRED",
+  "Complete": true,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "36F3A580DAAB83675014C835F5537861C894440D761479B839384B722EDD5319",
+  "OrderedFreshVmCases": [
+    "fresh_direct_true",
+    "fresh_false_false_true",
+    "fresh_wrapper_false",
+    "current_direct_true",
+    "current_false_false_true",
+    "current_wrapper_false",
+    "deleted_old_direct_true",
+    "deleted_old_false_false_true",
+    "deleted_old_wrapper_false"
+  ],
+  "ExpectedFreshVmCases": 9,
+  "SemanticAssertionsExecuted": false,
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeFixtureUsed": false,
+  "Exclusions": [],
+  "Tools": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-otp-source/observer-install/bin/erl",
+      "Sha256": "F28E3FC16DC42144AB933133385B8C7AB37B4A647B262E750935FD1D5DA2F43D"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/raw-onload-otp-source/observer-install/bin/erlc",
+      "Sha256": "FA56D8EFAB9A731A391965914B003E1BCE6FC68661AD64E26F2CB4256982E462"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "compile-new.process.json",
+      "Bytes": 544,
+      "Sha256": "AC1A49FFB57E1410852BF1749C207A765C6EA0EFF0D60BE12BEE1470306E14B0"
+    },
+    {
+      "Path": "compile-new.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-new.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-observer.process.json",
+      "Bytes": 546,
+      "Sha256": "A0D6547AD0ADED57F8058B1BE96C8C2B98D69E41ADD3F6696456802C6BCFE136"
+    },
+    {
+      "Path": "compile-observer.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-observer.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-old.process.json",
+      "Bytes": 544,
+      "Sha256": "7E28F56E296C7DC2383A93A912F03D3FB379F0F70147E2D02A3067A47A675D97"
+    },
+    {
+      "Path": "compile-old.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-old.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "current_direct_true/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "0135B3017B6CC47DB23A1EB7CE61C4BB325FA84CD885DBA5A0AA483DA927FEB1"
+    },
+    {
+      "Path": "current_direct_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "current_direct_true/observation.stdout",
+      "Bytes": 2144,
+      "Sha256": "DA778534A6A085ADB3DB9C236FD681729020ED7CB4C63CFCFE3B0B97A3E8BCD5"
+    },
+    {
+      "Path": "current_direct_true/result.etf",
+      "Bytes": 1422,
+      "Sha256": "EF8289598CB5852FB2753FAAA9E09E95B00CA6FDEB803EF4142C52BFDBE2A033"
+    },
+    {
+      "Path": "current_false_false_true/observation.process.json",
+      "Bytes": 686,
+      "Sha256": "07AAFFA7244D5D058516F29482B71489094B9A1FBBCD861DDBC3B9444EC725CB"
+    },
+    {
+      "Path": "current_false_false_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "current_false_false_true/observation.stdout",
+      "Bytes": 4944,
+      "Sha256": "DC0D670ED109F9ECBC971658D76E7CE0684D043C14317832343ADC91E3ACB3A3"
+    },
+    {
+      "Path": "current_false_false_true/result.etf",
+      "Bytes": 2825,
+      "Sha256": "774F2F47903606E2D70A21C59D4318EA2641DD8A7B6C49F084AD750C49F7A66B"
+    },
+    {
+      "Path": "current_wrapper_false/observation.process.json",
+      "Bytes": 683,
+      "Sha256": "3F2CED85ADB1E05ABFC299BCEC9D2AF6CC198C7470B449AA556EC9056ED2869B"
+    },
+    {
+      "Path": "current_wrapper_false/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "current_wrapper_false/observation.stdout",
+      "Bytes": 3109,
+      "Sha256": "6ECB6051C367BEAC19BB1BD855A6B6CA1D2A01F0480E32FD26D91001A9ED2785"
+    },
+    {
+      "Path": "current_wrapper_false/result.etf",
+      "Bytes": 1907,
+      "Sha256": "B3D4F835983C18279C230F1E2A7B042F1E0399814C7C797F45DDB6576F59ADF9"
+    },
+    {
+      "Path": "deleted_old_direct_true/observation.process.json",
+      "Bytes": 685,
+      "Sha256": "C9DFE65AE1E9AE4E4048B53BFF98F965E1DA7375655FA5987B2458C5C3B93E7F"
+    },
+    {
+      "Path": "deleted_old_direct_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "deleted_old_direct_true/observation.stdout",
+      "Bytes": 8157,
+      "Sha256": "D2FE54256609077D8A3E3F5E1AFF89B57E17883E8E49B9334F6EAEB30D245170"
+    },
+    {
+      "Path": "deleted_old_direct_true/result.etf",
+      "Bytes": 5464,
+      "Sha256": "20602FFDBE4AE3561A394D56EDD7804488CBB8E6A37E317587C62B7185516622"
+    },
+    {
+      "Path": "deleted_old_false_false_true/observation.process.json",
+      "Bytes": 690,
+      "Sha256": "0BB1174AF0189D6CF16DF34BBBD89A2CA290CB0F6F5ED554C0ABB0F76514F8B6"
+    },
+    {
+      "Path": "deleted_old_false_false_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "deleted_old_false_false_true/observation.stdout",
+      "Bytes": 17569,
+      "Sha256": "D4E4FB590E2E7AEE22D6C2C1F1FED80A5E3A8780595C155EC74922BE2152FB16"
+    },
+    {
+      "Path": "deleted_old_false_false_true/result.etf",
+      "Bytes": 10049,
+      "Sha256": "D8360EC78BFFDC3CBE421C0BA960AC72CD06AF5B9EABAAE146A5482E462B8816"
+    },
+    {
+      "Path": "deleted_old_wrapper_false/observation.process.json",
+      "Bytes": 687,
+      "Sha256": "91C0762382EFCEAFDA4EEEF2CE715530E1615A0846FD9ECC55D2D87DF4B1C701"
+    },
+    {
+      "Path": "deleted_old_wrapper_false/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "deleted_old_wrapper_false/observation.stdout",
+      "Bytes": 12131,
+      "Sha256": "B90B7638CB9E84C71EFFAF153C8107DDFBAB32E6A5CA7C14EEF090047E69A7AD"
+    },
+    {
+      "Path": "deleted_old_wrapper_false/result.etf",
+      "Bytes": 7413,
+      "Sha256": "11138775D32615FC9149E62541929B74471B0A2832B1D6EE46E0B3CA56C76FE1"
+    },
+    {
+      "Path": "disassembly.etf",
+      "Bytes": 34616,
+      "Sha256": "A778243BC3F0C66B7CFE658EEF3F0F84210E132B4B09A0CF8F2D6120B23C3791"
+    },
+    {
+      "Path": "disassembly.process.json",
+      "Bytes": 684,
+      "Sha256": "B6C3BDCE224A35478113E68ACE552EE5D74EFE282EB7C14BD8151A63BF3D125D"
+    },
+    {
+      "Path": "disassembly.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "disassembly.stdout",
+      "Bytes": 45222,
+      "Sha256": "06DE1B1E2A84BDB0C07464E1B0A1C0367EF1528AEF82E527AE2C563E78FFA0E9"
+    },
+    {
+      "Path": "fresh_direct_true/observation.process.json",
+      "Bytes": 679,
+      "Sha256": "0E42A8B61708D6F0029202E0502A1E3410467342B8109F1A5F896D6020232AA1"
+    },
+    {
+      "Path": "fresh_direct_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "fresh_direct_true/observation.stdout",
+      "Bytes": 8123,
+      "Sha256": "2BA23C017710DB31907CC3D95FDD4F82EBB885585A0A2503132CDC4CD85E51CB"
+    },
+    {
+      "Path": "fresh_direct_true/result.etf",
+      "Bytes": 5426,
+      "Sha256": "B5B4093538894555D3702477764D0B7684D2DADAA18B84732E1E4EEBF1F3CF57"
+    },
+    {
+      "Path": "fresh_false_false_true/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "F7FD37323140A6B356E1660701674E62C8928C71D32D8137D8560BA42E7C255B"
+    },
+    {
+      "Path": "fresh_false_false_true/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "fresh_false_false_true/observation.stdout",
+      "Bytes": 17521,
+      "Sha256": "15DCA4FA6CEA8EC510ECCA2A61421E6E48F3324D6F8F3E5B297F2D8CD9E0A9C1"
+    },
+    {
+      "Path": "fresh_false_false_true/result.etf",
+      "Bytes": 9995,
+      "Sha256": "C78162FEA076ABBAA762A45638AD7E5F239CD73820844D755E88CA859F44724D"
+    },
+    {
+      "Path": "fresh_wrapper_false/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "3C4EEFE9EC377827061F70E5BB80C5319868B309F3E582B5DF73284E56C84508"
+    },
+    {
+      "Path": "fresh_wrapper_false/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "fresh_wrapper_false/observation.stdout",
+      "Bytes": 12097,
+      "Sha256": "825CCC4BA1E5692C1C8277A5AF6DBB99A2F1B52FAD2341A10167A124A1F321BF"
+    },
+    {
+      "Path": "fresh_wrapper_false/result.etf",
+      "Bytes": 7375,
+      "Sha256": "407589744C8A6F2F31F04538ACFC00727E03938DADA3082CDF14769E8F66D6FA"
+    },
+    {
+      "Path": "metadata.etf",
+      "Bytes": 297,
+      "Sha256": "9E93E301D4E504ADB06BC215F91D73E1433AAEEECF16B314DF7C5D978D8F3D22"
+    },
+    {
+      "Path": "metadata.process.json",
+      "Bytes": 667,
+      "Sha256": "5E0E6C322CC4DF3537D6E43BA72E8F85117DE8F0BAD44145C2EB42EE8BF5F809"
+    },
+    {
+      "Path": "metadata.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "metadata.stdout",
+      "Bytes": 335,
+      "Sha256": "C107A5E9AF415B3E138A0B3C9816D036B949168500D71DF29A8E462446C5EABB"
+    },
+    {
+      "Path": "new-ebin/raw_onload_visibility_fixture.beam",
+      "Bytes": 1516,
+      "Sha256": "B0160A8A750942D1774602D0208E276667C21EF74C4130C8CBD9105744A54C00"
+    },
+    {
+      "Path": "observer-ebin/raw_onload_visibility_observer.beam",
+      "Bytes": 10312,
+      "Sha256": "B3D7ACB04CE9034E480D18B4D9DBEC2991A4DC0446551384335FF5679177C818"
+    },
+    {
+      "Path": "old-ebin/raw_onload_visibility_fixture.beam",
+      "Bytes": 1096,
+      "Sha256": "BF412E54E3FCD6A58C8EAD7B02F144EC9751549BAED394A529E9C32C477CE6E0"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 3175,
+      "Sha256": "36F3A580DAAB83675014C835F5537861C894440D761479B839384B722EDD5319"
+    },
+    {
+      "Path": "sources/capture-origin.json",
+      "Bytes": 406,
+      "Sha256": "EBF9871DE85C4A13DD88518E684D6241DFD73D18FFE24F77CF12E316BE969575"
+    },
+    {
+      "Path": "sources/check_process_capture.py",
+      "Bytes": 1851,
+      "Sha256": "7AFB9AAACFA500F88AC664A85FE291A98BD66AE2D6B4AA875712A272D4C1B54D"
+    },
+    {
+      "Path": "sources/collect.py",
+      "Bytes": 7111,
+      "Sha256": "E2DC769E2E41A22A7FDA14E2A7BD51C6572B703C2FBBBDB0D30097D154063F60"
+    },
+    {
+      "Path": "sources/expected-policy.json",
+      "Bytes": 19547,
+      "Sha256": "5FBDB2F091A0A1D3F55C6673B7A6B140D23A1CA2823BDE3F6865AAC8028ED957"
+    },
+    {
+      "Path": "sources/new/raw_onload_visibility_fixture.erl",
+      "Bytes": 294,
+      "Sha256": "A72C96972CD2A207FE79201318DDF98243702DB2B048B731227E9D52F8588118"
+    },
+    {
+      "Path": "sources/old/raw_onload_visibility_fixture.erl",
+      "Bytes": 116,
+      "Sha256": "676414737885B540ADF98F1C0464D4AF2E56F534118A35A4142D5806C0697C09"
+    },
+    {
+      "Path": "sources/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "sources/raw_onload_visibility_observer.erl",
+      "Bytes": 5763,
+      "Sha256": "87DE2BE1447DB9DF44D4622FC54FC8ED1BA10E1D669CEEDA932586F06D16D965"
+    }
+  ]
+}

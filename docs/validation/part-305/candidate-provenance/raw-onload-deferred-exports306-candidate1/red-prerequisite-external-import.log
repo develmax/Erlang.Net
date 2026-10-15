@@ -1,0 +1,14 @@
+System.NotSupportedException: The BEAM external import is outside the supported host subset
+   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, Int32 index) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\BeamExternalImports.cs:line 16
+   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\BeamRegisterValidation.cs:line 62
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\ModuleRegistry.PreparedBeam.cs:line 13
+   at Erlang.BeamLoaderApi.PrepareImage(ProcessContext context, Term module, Term bytes) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\BeamLoaderApi.cs:line 49
+   at Erlang.BeamLoaderApi.Prepare(ProcessContext context, Term module, Term bytes) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\BeamLoaderApi.cs:line 10
+   at Erlang.BeamLoaderRegistrations.<>c.<Register>b__0_0(ProcessContext context, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\BeamLoaderRegistrations.cs:line 11
+   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 295
+   at Erlang.Tests.RawOnLoadExportsHostChecks.<>c__DisplayClass1_1.<<Observe>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 56
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Observe(JsonElement test) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 109
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Observe(JsonElement test) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 111
+   at Erlang.Tests.RawOnLoadExportsHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\candidate\tests\Erlang.Tests\RawOnLoadExportsHostChecks.cs:line 20
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\raw-onload-deferred-exports306-candidate1\focus\Program.cs:line 16

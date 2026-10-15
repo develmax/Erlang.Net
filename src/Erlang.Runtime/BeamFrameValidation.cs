@@ -55,6 +55,7 @@ internal static class BeamFrameValidation
             switch (instruction.Definition.Name)
             {
                 case BeamLinkNames.Allocate:
+                case BeamLinkNames.AllocateHeap:
                     if (slots != BeamFrameParameters.NoFrame)
                         throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
                     slots = (int)operands[0].Value;

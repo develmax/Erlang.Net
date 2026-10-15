@@ -1,0 +1,49 @@
+{
+  "Status": "READ_ONLY_PEER_PASS_TWO_305_PREPARE_FIXTURE_MIGRATIONS_AFTER_LEASE_REPAIR",
+  "SourceFreeze3Sha256": "0B595447CCC12C1735B069F987728D434DFBF1709E04931A23049F70C3115E26",
+  "All32CurrentSourceBytesVerified": true,
+  "CSharpPaths": 26,
+  "ReviewedFiles": [
+    {
+      "Path": "tests/Erlang.Tests/BeamPreparedHostChecks.cs",
+      "Bytes": 15145,
+      "Sha256": "0B307AC25D28493C63D89A484061A79CAB33FC68A2A178389800D6A603C22FD5",
+      "ParentGitSha256": "95A7D41F6DECED0C651A1DCE1E601C75344B2F7D5C204496485184415DA64DE3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BeamLoaderAdmissionChecks.cs",
+      "Bytes": 10131,
+      "Sha256": "5F95E563D0DB6B7D6A4FCBF796CCCFC977E69EE8638A860A04927492EE8FFB2B",
+      "ParentGitSha256": "6FCBDDCCE15B914AF0EF8017C4186D9694C7CBB8DF52E1EA1D9EC687C5520730"
+    }
+  ],
+  "SourceProofSha256": "6EC6D430CD883295B3F630E6ED69EA17B66369F80FC7435E89A41713D345D125",
+  "OriginalCompileOnlyFixture": {
+    "Module": "beam_fixture_on_load",
+    "BeamFile": "beam_fixture_on_load.beam",
+    "BeamSha256": "7055414B8F40BF0E864C0076C83B0D27127A2B431C238A6CA271E8160AC061C9",
+    "SourceFile": "beam_fixture_on_load.erl",
+    "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+    "IndependentExpectedExpression": null,
+    "NativeActualEtfFile": null,
+    "NativeActualEtfSha256": null,
+    "NativeExpectedEtfFile": null,
+    "NativeExpectedEtfSha256": null,
+    "NativeExecuted": false,
+    "OriginalNativeRun": 38491968358,
+    "ProvenanceGuard": "artifacts/part237-beam-ci-provenance-guard.json"
+  },
+  "Findings": [
+    "OldNotSupportedexpectations encodedSDKputimportlimitation; newlyauditedputwhitelistlegitimatelyadmitsgenuinecompiledfixture",
+    "Positiveprepare assertsHasOnLoad/notconsumed/notloaded/nodictionaryexecution; directPublishstillrefusesstagingrequired",
+    "Querytrue provesmetadataonly, notcallbackexecution",
+    "AcquirePreparedleaseCS0117 identifiedandfixedviausing+Value; rootfailure2remainscompilefailurewithnotestsrun"
+  ],
+  "Limits": [
+    "Existingoriginal237onloadfixturecompiledbutnotnativeexecuted",
+    "Noindependentbuild/full/native/Erlangrunbyreviewer",
+    "Full3actualoutcomependingroot"
+  ],
+  "MainEdited": false,
+  "GitMutated": false
+}
