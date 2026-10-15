@@ -1,0 +1,272 @@
+{
+  "Status": "ROOT_REVIEWED_ACTUAL_FINAL310_AUTHORITY",
+  "Part": 310,
+  "SourceFreeze": {
+    "Path": "artifacts/root-part310-final-source-freeze.json",
+    "Bytes": 8810,
+    "Sha256": "E16C4F41565A6D249999F1B386C0ABF10915BEF34BD3D453E423672705828F8F"
+  },
+  "EvidenceBindings": {
+    "FullExit": "artifacts/root-part310-full-exit.json",
+    "FullLog": "artifacts/root-part310-full-validation.log",
+    "Tests": "artifacts/tests.json",
+    "PreviousTests": "docs/validation/part-309/tests.json",
+    "Integration": "artifacts/integration-results.json",
+    "PreviousIntegration": "docs/validation/part-309/integration-results.json",
+    "FullGuard": "artifacts/root-part310-full-guard.json",
+    "NativeGuard": "artifacts/root-part310-main-native/guard.json",
+    "RegistryGuard": "artifacts/root-part310-registry-metadata-guard.json",
+    "OptionalIoGuard": "artifacts/root-part310-optional-io-guard.json",
+    "NativeSourcePlan": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "RawRegistry": "artifacts/root-part310-raw-supported-mfas.json",
+    "DerivedRegistry": "docs/supported-mfas.json",
+    "ActiveChangelogBefore": "docs/changelog/0046.md",
+    "ReadinessScopeCurrent": "docs/module-readiness-scope.json",
+    "ReadinessResult": "docs/module-readiness.json",
+    "ChangelogIndexBefore": "CHANGELOG.md",
+    "MetadataNote": "artifacts/part310-packaging-proposal1/part310-metadata-note.txt",
+    "ChangelogDraft": "artifacts/part310-packaging-proposal1/part310-changelog-draft.md",
+    "Previous308Native": "artifacts/pack308-native-combined-independent-guard.json",
+    "Previous308Ordinary": "artifacts/pack308-original-38763659694-semantic-guard.json",
+    "Previous309Ci": "artifacts/pack309-ci-38766513916-independent-guard.json",
+    "Previous309Beam": "artifacts/pack309-beam-independent-guard.json",
+    "PortableReplayGuard": "artifacts/part310-composite-portable1/independent-archive-replay-guard.json",
+    "CompositeArchive": "artifacts/part310-composite-portable1/immutable-evidence.zip",
+    "PortableReferenceIndex": "artifacts/part310-composite-portable1/portable-index.json",
+    "PortableInputAuthority": "artifacts/part310-composite-portable1/input-authority.json",
+    "PortableReplayBinding": "artifacts/part310-composite-portable1/replay-execution-bindings.json",
+    "FormatGuard": "artifacts/root-part310-combined-isolated/format-token-guard.json",
+    "TokensBefore": "artifacts/root-part310-combined-isolated/tokens-before.json",
+    "TokensAfter": "artifacts/root-part310-combined-isolated/tokens-after.json"
+  },
+  "GuardAssertions": {
+    "FullGuard": {
+      "Status": "ACTUAL_MAIN_6638_FULL_ALL6637_HISTORICAL_ORDERED_NAMES_26_SOURCE_20_CSHARP_AND_11_INTEGRATION_PASS",
+      "Passed": 6638,
+      "Failed": 0,
+      "HistoricalOrderedNamesPreserved": 6637,
+      "SourcePaths": 26,
+      "CSharpPaths": 20,
+      "ReviewedSourceInputs": 1028,
+      "NewPublicMfa": false,
+      "GeneralNifAbiComplete": false,
+      "DefaultNativeLoadInstructionHandlerInstalled": false
+    },
+    "NativeGuard": {
+      "Status": "ACTUAL_MAIN_POST_FULL_WINDOWS_NATIVE_SEVEN_ORDERED_LINES_AND_THREE_ALLOCATION_DOMAIN_ROLES_PASS",
+      "SourceClosurePathsVerifiedBeforeAndAfter": 2149,
+      "NativeTrustedWindowsProfilePassed": true,
+      "ActualGeneratedCSharpRoutePassed": true,
+      "LinuxAbiExecuted": false,
+      "OriginalExecuted": false,
+      "GeneralNifAbiComplete": false,
+      "DefaultNativeLoadInstructionHandlerInstalled": false
+    },
+    "RegistryGuard": {
+      "Status": "ACTUAL_RAW505_CAPTURED_TWO_EXISTING_LIMITS_DISCLOSURES_RESTORED_ALL505_ROWS_EXACT",
+      "Registry": 505,
+      "ErlangMfas": 347,
+      "PublicMfaDelta": 0,
+      "All505RowsFieldsAndOrderingExact": true,
+      "SourceExporterChanged": false
+    },
+    "OptionalIoGuard": {
+      "DefaultExports": 505,
+      "OptionalIoExports": 507,
+      "IndependentAdditionalExecution": false
+    },
+    "Previous308Native": {
+      "Status": "PASS_EXACT_HEAD308_LINUX_TRUSTED_SDK_AND_SEPARATE_ORIGINAL13",
+      "SdkSixArgumentNativePassed": true,
+      "IndependentOriginal13TypedPassed": true,
+      "OriginalCases": 13,
+      "OriginalAndSdkThirteenCasesCompared": false,
+      "SourceInputsVerified": 1020,
+      "GeneralNifAbiComplete": false
+    },
+    "Previous308Ordinary": {
+      "Status": "PASS_EXACT_HEAD308_ORIGINAL5861_FD8_SEVEN_INDIRECT_LOAD_NIF_CASES",
+      "Passed": 5861,
+      "Failed": 0,
+      "FdPassed": 8,
+      "HistoricalRawRowsExact": true,
+      "ObservedNativeMapStdoutVarianceRows": 0,
+      "PredeclaredAllowedNativeMapStdoutVarianceRows": 1,
+      "RawNormalization": false
+    },
+    "Previous309Ci": {
+      "Status": "PASS_EXACT_HEAD309_CI6637_FULL",
+      "Passed": 6637,
+      "Failed": 0,
+      "OrderedNamesExact": true,
+      "RegisteredMfas": 505,
+      "PublishedStageSource8AndCSharp3Exact": true
+    },
+    "Previous309Beam": {
+      "Status": "PASS_EXACT_HEAD309_ORIGINAL_COMPILE_DISASSEMBLY_THREE_ROLES_INDEPENDENT_PASSIVE_REPLAY",
+      "NewOpcodeShapesVerified": true,
+      "NewFixtureBodyExecuted": false,
+      "NewNativeLoadingExecuted": false,
+      "RetainedCompilerFixtures": 6,
+      "RetainedBodyExecutions": 5,
+      "RetainedMetadataMutationCases": 24
+    },
+    "PortableReplayGuard": {
+      "Status": "PASS_ARCHIVE_ONLY_EVERY_FROZEN_LOGICAL_MEMBER_REPLAY",
+      "SourceCandidateDirectoriesRead": false,
+      "BuildExecuted": false,
+      "NativeExecuted": false
+    }
+  },
+  "AllowedTextLfSources": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed_sdk_stdout.py",
+    "tools/Erlang.NifPendingVarargsObservations/run-reviewed.py"
+  ],
+  "RegistryMetadataChanges": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    }
+  ],
+  "PortableSetNames": [
+    "runtime-domain",
+    "trusted-native-domain",
+    "strict-sdk-stdout-reader",
+    "actual-beam-caller",
+    "actual-beam-compiled-source",
+    "final-main-source-resource"
+  ],
+  "PortableFiles": [
+    "artifacts/part310-composite-portable1/immutable-evidence.zip",
+    "artifacts/part310-composite-portable1/portable-index.json",
+    "artifacts/part310-composite-portable1/input-authority.json",
+    "artifacts/part310-composite-portable1/independent-archive-replay-guard.json",
+    "artifacts/part310-composite-portable1/replay-execution-bindings.json"
+  ],
+  "RootProofPaths": [
+    "artifacts/root-part310-final-source-freeze.json",
+    "artifacts/root-part310-full-exit.json",
+    "artifacts/root-part310-full-validation.log",
+    "artifacts/root-part310-full-guard.json",
+    "artifacts/root-part310-raw-supported-mfas.json",
+    "artifacts/root-part310-registry-metadata-guard.json",
+    "artifacts/root-part310-optional-io-guard.json",
+    "artifacts/root-compose310-base.py",
+    "artifacts/root-compose310-beam.py",
+    "artifacts/root-seal310-native-plan.py",
+    "artifacts/root-promote310.py",
+    "artifacts/root-run310-full.ps1",
+    "artifacts/root-guard310-full.py",
+    "artifacts/root-preserve310-registry.py",
+    "artifacts/root-run310-post-full-native.py",
+    "artifacts/root-part310-main-native/guard.json",
+    "artifacts/root-format310.ps1",
+    "artifacts/root-guard310-format.py",
+    "artifacts/root-dispatch310-native.ps1",
+    "artifacts/root-part310-combined-isolated/base-composition.json",
+    "artifacts/root-part310-combined-isolated/baseline-snapshot.json",
+    "artifacts/root-part310-combined-isolated/custom-format.log",
+    "artifacts/root-part310-combined-isolated/format-token-guard.json",
+    "artifacts/root-part310-combined-isolated/native-plan-seal.json",
+    "artifacts/root-part310-combined-isolated/pre-format-composition.json",
+    "artifacts/root-part310-combined-isolated/pre-format-token-inputs.json",
+    "artifacts/root-part310-combined-isolated/tokens-after.json",
+    "artifacts/root-part310-combined-isolated/tokens-before.json",
+    "artifacts/root-part310-main-native/attempt.json",
+    "artifacts/root-part310-main-native/process.json",
+    "artifacts/root-part310-main-native/native.stdout",
+    "artifacts/root-part310-main-native/native.stderr"
+  ],
+  "IndependentReviewPaths": [
+    "artifacts/root-part310-native-domain-source-peer.json",
+    "artifacts/nif-allocation-domain309-native-passive-review1.json",
+    "artifacts/nif-domain-sdk-stdout310-allocator309-peer1.json",
+    "artifacts/nif-allocation-domain309-beam310-source-peer1.json",
+    "artifacts/nif-allocation-domain309-host-beam310-source-peer1.json"
+  ],
+  "PackagingControlPaths": [
+    "artifacts/build310-portable-evidence.py",
+    "artifacts/verify310-portable-evidence.py",
+    "artifacts/part310-packaging-proposal1/bind-actual-evidence.py",
+    "artifacts/part310-packaging-proposal1/make-authority-skeleton.py",
+    "artifacts/part310-packaging-proposal1/part310-changelog-draft.md",
+    "artifacts/part310-packaging-proposal1/part310-common.py",
+    "artifacts/part310-packaging-proposal1/part310-finalize-proposal.py",
+    "artifacts/part310-packaging-proposal1/part310-metadata-note.txt",
+    "artifacts/part310-packaging-proposal1/part310-readiness-proposal.py",
+    "artifacts/part310-packaging-proposal1/part310-stage-guard-proposal.py",
+    "artifacts/part310-packaging-proposal1/README.txt"
+  ],
+  "MetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md"
+  ],
+  "StageMetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0046.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/MODULE_READINESS.md",
+    "docs/supported-mfas.json"
+  ],
+  "PrerequisiteFailureEvidence": [
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/focus-final-report.json"
+    },
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/focus-final-exit.json"
+    },
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/focus-final.log"
+    },
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/prerequisite-failure-classification.json"
+    },
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/source-candidate3/source-freeze.json"
+    },
+    {
+      "ArchiveSet": "actual-beam-caller",
+      "Path": "evidence/retained-preconditions.json"
+    }
+  ],
+  "PrerequisiteFailuresClaimCallerOrNativeSemanticRed": false,
+  "Notes": [
+    "All actual Main full/native, formatting, source-plan, registry, optional IO and portable archive evidence bound; no new same-head original310 execution.",
+    "Seven/eight prerequisite failure and duplicate-HOST unbuilt revision retained in actual-beam-caller frozen evidence.",
+    "Existing active changelog bounds and closed0045 hash remain mandatory."
+  ]
+}

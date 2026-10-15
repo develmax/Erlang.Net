@@ -57,6 +57,7 @@ internal static class NifNativeOwnershipChecks
     {
         await using var runtime = new ProcessRuntime();
         var source = Register(runtime);
+        var domainBefore = runtime.NativeAllocationSnapshot;
         await NifNativeHarness.Context(
             runtime,
             async context =>
@@ -93,6 +94,7 @@ internal static class NifNativeOwnershipChecks
             }
         }
         );
+        NifNativeDomainChecks.VetoClosed(runtime, domainBefore);
     }
 
     private static async Task SuccessfulImage(NifNativeCapabilityProfile profile)
@@ -118,6 +120,7 @@ internal static class NifNativeOwnershipChecks
 
                 return initialized;
             });
+            var loadedDomain = NifNativeDomainChecks.Loaded(runtime, nativeOwner!);
             NifNativeHarness.Require(runtime.Modules.GetNifTaints().SequenceEqual(new[] { NifNativeNames.Module }));
             using (var call = source.Image.NifBindings.Admit(NifNativeNames.Increment, 1)!)
                 NifNativeHarness.Require((await call.InvokeAsync(context, [Term.I(41)])).Equals(Term.I(42)));
@@ -135,12 +138,15 @@ internal static class NifNativeOwnershipChecks
                 }
             }
             using var held = source.Image.NifBindings.Admit(NifNativeNames.Greeting, 0)!;
+            NifNativeDomainChecks.Retained(runtime, loadedDomain);
             Task retirement = source.Image.NifBindings.RetireAsync();
             NifNativeHarness.Require(!retirement.IsCompleted);
+            NifNativeDomainChecks.Retained(runtime, loadedDomain);
             held.Dispose();
             await retirement.WaitAsync(NifNativeHarnessNames.Deadline);
             await source.Image.NifBindings.RetireAsync();
             NifNativeHarness.Require(nativeOwner!.OutstandingAfterNativeUnload == 0);
+            NifNativeDomainChecks.Unloaded(runtime, nativeOwner, loadedDomain);
         }
         );
     }

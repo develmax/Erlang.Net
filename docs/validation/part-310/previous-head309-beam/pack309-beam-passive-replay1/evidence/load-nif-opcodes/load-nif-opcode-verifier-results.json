@@ -1,0 +1,34 @@
+{
+  "Status": "ACTUAL_ORIGINAL_COMPILE_DISASSEMBLY_THREE_ROLES_PASS",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "HarnessCommit": "e829c53ef4323ea8cdd0948cd77c243efa787abd",
+  "RunId": "38766554804",
+  "RunAttempt": "1",
+  "BeamSha256": "9842C5D8B849874B7DCA8EABC3C2FC957C6E6195A821D4AFC34194CAC04340F9",
+  "Roles": [
+    {
+      "Function": "non_tail",
+      "Arity": 3,
+      "ActualOpcode": "call_ext",
+      "FrameSlots": null
+    },
+    {
+      "Function": "tail_last",
+      "Arity": 3,
+      "ActualOpcode": "call_ext_last",
+      "FrameSlots": 2
+    },
+    {
+      "Function": "tail_only",
+      "Arity": 2,
+      "ActualOpcode": "call_ext_only",
+      "FrameSlots": null
+    }
+  ],
+  "OriginalCompilationPerformed": true,
+  "OpcodeShapesVerified": true,
+  "OriginalBodyExecutionPerformed": false,
+  "NativeLoadingExecutionPerformed": false,
+  "RetainedCompilerFixtures": 6,
+  "RetainedBodyExecutions": 5
+}

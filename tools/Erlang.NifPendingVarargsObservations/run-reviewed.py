@@ -163,12 +163,14 @@ def main():
             library = output / name
             arguments.extend([str(library), sha(library)])
         result = collector.execute(arguments, root, environment, prefix, 120)
-        lines = result.stdout.decode('utf-8').splitlines()
-        route_pass = 'Trusted native generated-source entry routes passed; BEAM/old-image/general ABI NOT established.'
-        hash_prefix = 'Native generated source SHA256: '
-        if len(lines) != 5 or lines[:2] != SUCCESS[:2] or lines[3:] != [route_pass, SUCCESS[2]] or not lines[2].startswith(hash_prefix) or not re.fullmatch('[0-9A-F]{64}', lines[2][len(hash_prefix):]) or result.stderr:
-            raise RuntimeError('SDK six-argument success contract differs; raw evidence retained.')
-        write(output / 'sdk-receipt.json', {'Status': 'BOUNDED_TRUSTED_SDK_NATIVE_AND_COMPILED_SOURCE_CHECKS_PASS', 'BuildReceiptSha256': sha(receipt), 'GeneratedCSharpSha256': lines[2][len(hash_prefix):], 'GeneratedCSharpHashIndependentlyCompared': False, 'Original13Compared': False, 'GeneralNifAbiImplemented': False, 'Capture': [record(prefix.with_suffix(suffix), output) for suffix in ('.stdout', '.stderr', '.process.json')]})
+        stdout_spec = importlib.util.spec_from_file_location('reviewed_sdk_stdout', pathlib.Path(__file__).with_name('reviewed_sdk_stdout.py'))
+        stdout_reader = importlib.util.module_from_spec(stdout_spec)
+        stdout_spec.loader.exec_module(stdout_reader)
+        try:
+            stdout_contract = stdout_reader.parse_sdk_stdout(result.stdout, result.stderr, require_abi=True)
+        except (ValueError, UnicodeError) as failure:
+            raise RuntimeError('SDK six-argument success contract differs; raw evidence retained.') from failure
+        write(output / 'sdk-receipt.json', {'Status': 'BOUNDED_TRUSTED_SDK_NATIVE_AND_COMPILED_SOURCE_CHECKS_PASS', 'BuildReceiptSha256': sha(receipt), 'GeneratedCSharpSha256': stdout_contract['GeneratedCSharpSha256'], 'GeneratedCSharpHashIndependentlyCompared': False, 'Original13Compared': False, 'GeneralNifAbiImplemented': False, 'NativePayloadDomainObservations': stdout_contract['NativePayloadDomainObservations'], 'NativePayloadDomainRolesValidated': stdout_contract['NativePayloadDomainRolesValidated'], 'LoadedOwnerSnapshotMatchesRuntime': stdout_contract['LoadedOwnerSnapshotMatchesRuntime'], 'Capture': [record(prefix.with_suffix(suffix), output) for suffix in ('.stdout', '.stderr', '.process.json')]})
 
 
 if __name__ == '__main__':

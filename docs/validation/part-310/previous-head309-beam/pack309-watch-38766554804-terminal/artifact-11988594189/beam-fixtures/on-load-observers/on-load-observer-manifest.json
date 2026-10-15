@@ -1,0 +1,705 @@
+{
+  "SourceTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InstalledOtpRoot": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang",
+  "ExistingSourceBuildEvidence": "../source-build-evidence.json",
+  "ExistingSixFixtureManifest": "../manifest.json",
+  "ScenarioCount": 4,
+  "CompilerFlags": [
+    "-Werror",
+    "\u002Bdebug_info"
+  ],
+  "Scope": "Actual isolated code:load_binary observers; no CLR on_load or loader lifecycle claim",
+  "Scenarios": [
+    {
+      "Name": "fresh-success",
+      "Module": "beam_on_load_fresh_success",
+      "Succeeds": true,
+      "HasOldImage": false,
+      "IndependentExpectedExpression": "{observed,{module,beam_on_load_fresh_success},ok,{error,undef},not_invoked,{value,new_image}}",
+      "ActualSummarySha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+      "ExpectedSummarySha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+      "OriginalObserverExecutionPerformed": true,
+      "CallbackPidNoticeRetainedRaw": true,
+      "CallbackMonitorDownReasonRetainedRaw": true,
+      "CallbackMonitorEstablishedBeforeAcknowledgement": true,
+      "CorrelatedEarlyWorkerDeathRetainedRaw": true,
+      "WorkerMonitorDownRetainedRaw": true,
+      "FreshPendingExportInvocationPerformed": false,
+      "ReplacementPendingOldExportInvocationPerformed": false,
+      "ExitCode": 0,
+      "Files": [
+        {
+          "File": "fresh-success/actual.etf",
+          "Sha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+          "Bytes": 110
+        },
+        {
+          "File": "fresh-success/after.etf",
+          "Sha256": "0DFEEB97D0D312B0CA6BB22ED290AB60D61BD5244126A0C52B09FB227FB01A57",
+          "Bytes": 51
+        },
+        {
+          "File": "fresh-success/before.etf",
+          "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109",
+          "Bytes": 26
+        },
+        {
+          "File": "fresh-success/callback-down.etf",
+          "Sha256": "1928E7E4BCD708D34CFC0DAB6A8F83E4E94CDCDA686FE89B71D4BB95F7A2AAE2",
+          "Bytes": 84
+        },
+        {
+          "File": "fresh-success/during.etf",
+          "Sha256": "8533755505001ECF7B35AC3436F0A23A55BCA734588D3E1C74F1774D666D5E36",
+          "Bytes": 23
+        },
+        {
+          "File": "fresh-success/expected.etf",
+          "Sha256": "407394C01F7930BF47EE42B284EE955C1938E35353C609C5C4EC9353520B8BE2",
+          "Bytes": 110
+        },
+        {
+          "File": "fresh-success/load-result.etf",
+          "Sha256": "986D6C2E3D53D220A00ADD18D6D70D682978C6B8244599F5CCC52254FFE5C4C8",
+          "Bytes": 39
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success.beam",
+          "Sha256": "59C8A07B362337A38E76DB3661B6B91BF3650D235631FA7D47B20488365BC20D",
+          "Bytes": 1648
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success.disassembly.term",
+          "Sha256": "ED4C686DDC405B80535C922A44EB4BFA2273AEA4CCFDD655B4B381E4389375FF",
+          "Bytes": 3828
+        },
+        {
+          "File": "fresh-success/new/beam_on_load_fresh_success.erl",
+          "Sha256": "BF445FEFC0EFDB382010EC1E4219E6576933CEA5DAA2195925586C3B3611A54B",
+          "Bytes": 373
+        },
+        {
+          "File": "fresh-success/new/chunks.json",
+          "Sha256": "D6053FFA720E79559405948C614582932FEA77898CA9AA7EAD7D89FA2BADC8DC",
+          "Bytes": 2251
+        },
+        {
+          "File": "fresh-success/new/disassembly.eval.erl",
+          "Sha256": "3808898F21E6DAB35BC441E7C21D2AEB4447C6AA06DD4633E5E7427D48CBF7F3",
+          "Bytes": 473
+        },
+        {
+          "File": "fresh-success/notice.etf",
+          "Sha256": "4357024D019EC6C594D2084B28F5CAB5D5CA58F4AAB1DE1254DF58DA8473543B",
+          "Bytes": 91
+        },
+        {
+          "File": "fresh-success/observer.eval.erl",
+          "Sha256": "A69EB7852BD8BAD152348232B1DE941F638E1C05DDE5861F5CEC0B287CD11196",
+          "Bytes": 4499
+        },
+        {
+          "File": "fresh-success/observer.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-success/observer.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/observer.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-success/predeclared-contract.json",
+          "Sha256": "D5C541D4B4DD5ED0DF096E1373A1CE4C588AE15874AAB6916399AB09A901F71F",
+          "Bytes": 402
+        },
+        {
+          "File": "fresh-success/worker-down.etf",
+          "Sha256": "37E3A863D74E950734D24CE898BAE55F5D4093B0CBEFE3C88F8D6C930AE5A338",
+          "Bytes": 88
+        }
+      ]
+    },
+    {
+      "Name": "fresh-failure",
+      "Module": "beam_on_load_fresh_failure",
+      "Succeeds": false,
+      "HasOldImage": false,
+      "IndependentExpectedExpression": "{observed,{error,on_load_failure},not_ok,{error,undef},not_invoked,{error,undef}}",
+      "ActualSummarySha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+      "ExpectedSummarySha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+      "OriginalObserverExecutionPerformed": true,
+      "CallbackPidNoticeRetainedRaw": true,
+      "CallbackMonitorDownReasonRetainedRaw": true,
+      "CallbackMonitorEstablishedBeforeAcknowledgement": true,
+      "CorrelatedEarlyWorkerDeathRetainedRaw": true,
+      "WorkerMonitorDownRetainedRaw": true,
+      "FreshPendingExportInvocationPerformed": false,
+      "ReplacementPendingOldExportInvocationPerformed": false,
+      "ExitCode": 0,
+      "Files": [
+        {
+          "File": "fresh-failure/actual.etf",
+          "Sha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+          "Bytes": 98
+        },
+        {
+          "File": "fresh-failure/after.etf",
+          "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109",
+          "Bytes": 26
+        },
+        {
+          "File": "fresh-failure/before.etf",
+          "Sha256": "2B571E47A1C76F705F6EC565838B741012B388FD37500F7A6B0F70682E7F6109",
+          "Bytes": 26
+        },
+        {
+          "File": "fresh-failure/callback-down.etf",
+          "Sha256": "16A92A66F6F7C12629BFCA67C868F5E2F3C70FF9A8A78C44794DC51D4CE4D28C",
+          "Bytes": 88
+        },
+        {
+          "File": "fresh-failure/during.etf",
+          "Sha256": "8533755505001ECF7B35AC3436F0A23A55BCA734588D3E1C74F1774D666D5E36",
+          "Bytes": 23
+        },
+        {
+          "File": "fresh-failure/expected.etf",
+          "Sha256": "80056B4B92293F8B5FE1803480FC7643D400528368E70BDC424977E4DD6496A7",
+          "Bytes": 98
+        },
+        {
+          "File": "fresh-failure/load-result.etf",
+          "Sha256": "D4A207DEE3C15FD71DEC6DD00299175F8739D9C128D16A83B34D79AA9573EE91",
+          "Bytes": 27
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure.beam",
+          "Sha256": "C17EDFF7A77DC225C7CA43FC135FBBFAE9331A91264190A729E06A64F22512AD",
+          "Bytes": 1656
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure.disassembly.term",
+          "Sha256": "C9C5BE40D96F1A5634EFC979A98DFE7A773232D75FA647B796CC04BB2A67E104",
+          "Bytes": 3833
+        },
+        {
+          "File": "fresh-failure/new/beam_on_load_fresh_failure.erl",
+          "Sha256": "A995DF8400591B1DE6F21E99A589989F6796B19D6CACDF2877D8E40194973074",
+          "Bytes": 377
+        },
+        {
+          "File": "fresh-failure/new/chunks.json",
+          "Sha256": "A2C0F37CA44C05280EF864743CB21CF024FBEA55D8F2C214E9A867BD667D9212",
+          "Bytes": 2251
+        },
+        {
+          "File": "fresh-failure/new/disassembly.eval.erl",
+          "Sha256": "6F729CC3705A98DF311D8C010DBF5E28A27888BE072308C91928B3812FAC70DB",
+          "Bytes": 473
+        },
+        {
+          "File": "fresh-failure/notice.etf",
+          "Sha256": "D02DC5991860882EE8DF55160EC7825447AD11643300B2A66E8EA58818213658",
+          "Bytes": 91
+        },
+        {
+          "File": "fresh-failure/observer.eval.erl",
+          "Sha256": "E06F9A4F95DEC598EFF591DB9507999FBC97AB5711E5ECABFC902EF1E24B7938",
+          "Bytes": 4479
+        },
+        {
+          "File": "fresh-failure/observer.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "fresh-failure/observer.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/observer.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "fresh-failure/predeclared-contract.json",
+          "Sha256": "292FB8C3F6FBD5DD6C55296B9D86DF339C8CB6B432C75382AAAA214C2EF4CA0B",
+          "Bytes": 391
+        },
+        {
+          "File": "fresh-failure/worker-down.etf",
+          "Sha256": "A7DF8E9F45569334F85FA3DF21A945490C5479DAC909C8AAEFA50BB22C99E564",
+          "Bytes": 88
+        }
+      ]
+    },
+    {
+      "Name": "replacement-success",
+      "Module": "beam_on_load_replace_success",
+      "Succeeds": true,
+      "HasOldImage": true,
+      "IndependentExpectedExpression": "{observed,{module,beam_on_load_replace_success},ok,{value,old_image},{value,old_image},{value,new_image}}",
+      "ActualSummarySha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+      "ExpectedSummarySha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+      "OriginalObserverExecutionPerformed": true,
+      "CallbackPidNoticeRetainedRaw": true,
+      "CallbackMonitorDownReasonRetainedRaw": true,
+      "CallbackMonitorEstablishedBeforeAcknowledgement": true,
+      "CorrelatedEarlyWorkerDeathRetainedRaw": true,
+      "WorkerMonitorDownRetainedRaw": true,
+      "FreshPendingExportInvocationPerformed": false,
+      "ReplacementPendingOldExportInvocationPerformed": true,
+      "ExitCode": 0,
+      "Files": [
+        {
+          "File": "replacement-success/actual.etf",
+          "Sha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+          "Bytes": 123
+        },
+        {
+          "File": "replacement-success/after.etf",
+          "Sha256": "0DFEEB97D0D312B0CA6BB22ED290AB60D61BD5244126A0C52B09FB227FB01A57",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-success/before.etf",
+          "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-success/callback-down.etf",
+          "Sha256": "E02FCD11827EEB0E6A1703412F748CEDAB2032715009C87A547B8293A899DD5A",
+          "Bytes": 84
+        },
+        {
+          "File": "replacement-success/during.etf",
+          "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-success/expected.etf",
+          "Sha256": "9BD2628B611D69F5A94F1DE3B891ADEEA8AF85205D9D53FB5D791B540CD7DE92",
+          "Bytes": 123
+        },
+        {
+          "File": "replacement-success/load-result.etf",
+          "Sha256": "3D7C4D55789B0F073CCDA6F0F510ECF7521502A83D4046909859557C7F4D3297",
+          "Bytes": 41
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success.beam",
+          "Sha256": "908E56B8EA16A05604A0F8E243E749E2A9F0CEB43ECD01028943273E1E318AE0",
+          "Bytes": 1672
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success.disassembly.term",
+          "Sha256": "A010566F6DD70CC004992DF18FEC04A091EE45716A3939F2C164AFB6FBE28E89",
+          "Bytes": 3902
+        },
+        {
+          "File": "replacement-success/new/beam_on_load_replace_success.erl",
+          "Sha256": "38A4228134F973F2B34303ADB1214C0ACCA12162F3C454B8FADE79C7BC9F8E28",
+          "Bytes": 375
+        },
+        {
+          "File": "replacement-success/new/chunks.json",
+          "Sha256": "378CD0AE075CD14BD0FE79913275C86AE8462261B6A9EC37E585845FBB8BA594",
+          "Bytes": 2251
+        },
+        {
+          "File": "replacement-success/new/disassembly.eval.erl",
+          "Sha256": "BC16D0EC658F1D53D622E087A90C3DC9400FDC59B119BF3EC7EBB6188ED06D18",
+          "Bytes": 489
+        },
+        {
+          "File": "replacement-success/notice.etf",
+          "Sha256": "D52E74B7A43FF1B0161EE21922BFEFC0761C623DEC2B49763B1022EF3239CB90",
+          "Bytes": 114
+        },
+        {
+          "File": "replacement-success/observer.eval.erl",
+          "Sha256": "69EEA93B72A03A3722A8480F86D9FA025814822AA732E41D8215751B7C7F4372",
+          "Bytes": 4907
+        },
+        {
+          "File": "replacement-success/observer.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-success/observer.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/observer.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success.beam",
+          "Sha256": "FCC4FA3C2427588D8D07CC7A2B642566B834F6A5C3C95AC4D6472947FFE05797",
+          "Bytes": 1040
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success.disassembly.term",
+          "Sha256": "A30B92D9EA1B61B0294C219DF5279E8B1DDD9549A11D878B58ADD700F7517AC3",
+          "Bytes": 1391
+        },
+        {
+          "File": "replacement-success/old/beam_on_load_replace_success.erl",
+          "Sha256": "02D68297A17F8243E18A717BEE7A839DF63EE9F0A4D5821F8631B733D1F41FCC",
+          "Bytes": 77
+        },
+        {
+          "File": "replacement-success/old/chunks.json",
+          "Sha256": "A1136F3A57C111798F0C4234456A1B4578D4D4496D35882C8F7BA8C713224892",
+          "Bytes": 2247
+        },
+        {
+          "File": "replacement-success/old/disassembly.eval.erl",
+          "Sha256": "3BF64CDFB86BEF7D8BD51771D3E479A320DAA2EB7C2DF4E42A7A6688F518CE08",
+          "Bytes": 489
+        },
+        {
+          "File": "replacement-success/predeclared-contract.json",
+          "Sha256": "B63A1E1AA82637EF5A56B4FD78D41B48EB9E41116B13FEAEF65225821A1D3F3D",
+          "Bytes": 483
+        },
+        {
+          "File": "replacement-success/worker-down.etf",
+          "Sha256": "7A3D30D4E1DC42DE22D9FC439205922CEDB1891BA812FAD99B56255DE99E9376",
+          "Bytes": 88
+        }
+      ]
+    },
+    {
+      "Name": "replacement-failure",
+      "Module": "beam_on_load_replace_failure",
+      "Succeeds": false,
+      "HasOldImage": true,
+      "IndependentExpectedExpression": "{observed,{error,on_load_failure},not_ok,{value,old_image},{value,old_image},{value,old_image}}",
+      "ActualSummarySha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+      "ExpectedSummarySha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+      "OriginalObserverExecutionPerformed": true,
+      "CallbackPidNoticeRetainedRaw": true,
+      "CallbackMonitorDownReasonRetainedRaw": true,
+      "CallbackMonitorEstablishedBeforeAcknowledgement": true,
+      "CorrelatedEarlyWorkerDeathRetainedRaw": true,
+      "WorkerMonitorDownRetainedRaw": true,
+      "FreshPendingExportInvocationPerformed": false,
+      "ReplacementPendingOldExportInvocationPerformed": true,
+      "ExitCode": 0,
+      "Files": [
+        {
+          "File": "replacement-failure/actual.etf",
+          "Sha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+          "Bytes": 113
+        },
+        {
+          "File": "replacement-failure/after.etf",
+          "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-failure/before.etf",
+          "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-failure/callback-down.etf",
+          "Sha256": "683CDB68A7F9D022E9C808C425ED822A0D53BA929D0A731FDDC86E534F7DF7D1",
+          "Bytes": 88
+        },
+        {
+          "File": "replacement-failure/during.etf",
+          "Sha256": "93627455358AA6A82D7EBC04D500216BCB06760C84B44C3BDB6AEEAFB88BA8FF",
+          "Bytes": 51
+        },
+        {
+          "File": "replacement-failure/expected.etf",
+          "Sha256": "A7883ACADB97EE300D575E9E88E5ECE10033F20B08A7469D4DD5E6D1E1C2B0EC",
+          "Bytes": 113
+        },
+        {
+          "File": "replacement-failure/load-result.etf",
+          "Sha256": "D4A207DEE3C15FD71DEC6DD00299175F8739D9C128D16A83B34D79AA9573EE91",
+          "Bytes": 27
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure.beam",
+          "Sha256": "4B3A41F1D2D2EEDFB02301CBE346A32F42C8C33A28E692F3E3FF73DEE860DC40",
+          "Bytes": 1676
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure.disassembly.term",
+          "Sha256": "221AE2ED122BBC128627690082F46A5B8EC0DBE8562BFDB160E1E7A6A8607133",
+          "Bytes": 3907
+        },
+        {
+          "File": "replacement-failure/new/beam_on_load_replace_failure.erl",
+          "Sha256": "C495099512FEF4212C9A7EF94EAC484875923AA5549E36D8845080FBF6C1D849",
+          "Bytes": 379
+        },
+        {
+          "File": "replacement-failure/new/chunks.json",
+          "Sha256": "566AD09C4164C103A17A075237F9C89FA5CA6EBC2EC55B09EC64B762E1CE359E",
+          "Bytes": 2251
+        },
+        {
+          "File": "replacement-failure/new/disassembly.eval.erl",
+          "Sha256": "174F77E623AD0BE6F07C64BDF90F68AB7AACF23082CDDDC82905C22D39F17E60",
+          "Bytes": 489
+        },
+        {
+          "File": "replacement-failure/notice.etf",
+          "Sha256": "0B9A6346C4608543B499A62A595A16B138E69F1905D16198B74A13F257473352",
+          "Bytes": 114
+        },
+        {
+          "File": "replacement-failure/observer.eval.erl",
+          "Sha256": "11305E5D7B560FEF9F8E7E782C1B03F091982A7EE2D415129DB63E5EBA397B73",
+          "Bytes": 4914
+        },
+        {
+          "File": "replacement-failure/observer.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-failure/observer.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/observer.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-compile.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-compile.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-compile.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-disassemble.exit-code.txt",
+          "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA",
+          "Bytes": 2
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-disassemble.stderr.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure-disassemble.stdout.txt",
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "Bytes": 0
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure.beam",
+          "Sha256": "3EF24EA5EA76049559679D86CE9E406171796E713E902A70909E74BA840744DC",
+          "Bytes": 1040
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure.disassembly.term",
+          "Sha256": "CF5D3ED4E3D71F94F899119A456A305CE5A8C41534E837852D6C06F2F777AD15",
+          "Bytes": 1392
+        },
+        {
+          "File": "replacement-failure/old/beam_on_load_replace_failure.erl",
+          "Sha256": "9B7F94EFCFE6066AC5EF9F890E71D8974209EC798BA6E92B725F260A716CD9E3",
+          "Bytes": 77
+        },
+        {
+          "File": "replacement-failure/old/chunks.json",
+          "Sha256": "9C5BAFC42267288B3B07D948ADE025EE59BD4ECEB2B3FE342299A1AD06E26A4E",
+          "Bytes": 2247
+        },
+        {
+          "File": "replacement-failure/old/disassembly.eval.erl",
+          "Sha256": "EF6CDD332646A51555ED5F8BADF064A56E180EA4D625A447E716647DC16B241B",
+          "Bytes": 489
+        },
+        {
+          "File": "replacement-failure/predeclared-contract.json",
+          "Sha256": "100C170FBCA819DB3181D34A1B662246FAA3E92ABDA7A3134E7C832E325CA3DD",
+          "Bytes": 474
+        },
+        {
+          "File": "replacement-failure/worker-down.etf",
+          "Sha256": "E3658BC0AE542C556C8821E569FD721725144BF9DE9BFE0ABBCF7338DBCD7A32",
+          "Bytes": 88
+        }
+      ]
+    }
+  ]
+}

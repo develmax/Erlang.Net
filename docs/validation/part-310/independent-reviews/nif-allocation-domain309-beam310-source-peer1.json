@@ -1,0 +1,56 @@
+{
+  "Status": "SOURCE_PEER_PASS_PENDING_RUNTIME_VALIDATION",
+  "Limitations": [
+    "Source-only: no runtime concurrency, native fixture or RED/GREEN claim",
+    "Existing Initialize does not reject disposed owner before a new first join if called after Dispose-before-Initialize; actual initializer constructs and initializes exactly once, so this is pre-existing internal misuse outside current production path, not a new public route",
+    "Real malloc-failure/OS crash recovery and temporal native resource lifetime remain separate; transaction scope adds excluded managed overhead"
+  ],
+  "NativeExecuted": false,
+  "CandidatePaths": 7,
+  "ProposalExact": true,
+  "Checks": [
+    {
+      "Finding": "Library lifecycle/library lock -> allocation-owner lock -> domain monitor; domain snapshot/join/commit/end never enters owner/library/runtime registry or callbacks. No reverse domain-to-owner edge.",
+      "Boundary": "Lock order"
+    },
+    {
+      "Finding": "Library construction has no membership. Initialize enters existing default-provider/lifecycle gate and checks cancellation before JoinDomain, before any supported native callback allocation; actual initializer catch disposes joined failures.",
+      "Boundary": "Enrollment"
+    },
+    {
+      "Finding": "Owner gate serializes join/end/alloc; primitive long id and default snapshot insertion complete before assigning owner domain/id. Duplicate same-domain join is idempotent; foreign/history/ended admission rejected.",
+      "Boundary": "Join atomicity"
+    },
+    {
+      "Finding": "Owner and domain checked deltas completed before native mutation; domain monitor retained across malloc/free/table edits and owner+aggregate commits. Existing membership replacement/value assignment introduces no further checked arithmetic or guest callbacks. Scope-construction failure releases monitor; allocation/table-insertion failure leaves counters uncommitted and frees newly allocated pointer.",
+      "Boundary": "Mutation atomicity"
+    },
+    {
+      "Finding": "Current sum changes by checked owner deltas; aggregate peaks track simultaneous current total; cumulative allocation/release counters survive owner retirement; zero requested byte retains actual one-byte backing policy.",
+      "Boundary": "Counters"
+    },
+    {
+      "Finding": "Membership remains through unload and ReclaimAll and closes only if actual current block/byte counters are zero. Checked/precondition failure before reclamation preserves nonempty counters/membership. EndMembership verifies exact owner snapshot. Existing cleanup failures aggregated; no arbitrary native-fault recovery asserted.",
+      "Boundary": "Disposal/failure"
+    },
+    {
+      "Finding": "Domain stores only object monitor, Dictionary<long,NifNativeAllocationSnapshot>, primitive id and value snapshot. No library/image/process/context/delegate/owner references; snapshot record fields primitive values only.",
+      "Boundary": "Strong references"
+    },
+    {
+      "Finding": "Non-null allocate/free encounters inactive membership and fails before native mutation; zero free and already-empty ReclaimAll remain harmless no-ops.",
+      "Boundary": "Post-end operations"
+    }
+  ],
+  "Recommendations": [
+    "Planned HOST barriers should validate join-before-failure cleanup, simultaneous aggregate peaks and checked failure with exact retained state",
+    "Keep synthetic reflection state corruption clearly separated from true native allocator faults"
+  ],
+  "ExactLedgerDependencies": 3,
+  "MainEdited": false,
+  "ExactParentBindings": 8,
+  "GitMutated": false,
+  "BuildExecuted": false,
+  "CandidateFreeze": "041624BB8354EC6E83A9C7C8213C083564AD9ACFA29F4E6FBED3E6F2DF0D8C2B",
+  "OriginalExecuted": false
+}

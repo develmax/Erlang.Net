@@ -1,0 +1,15 @@
+{
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "Module": "beam_fixture_load_nif_opcodes",
+  "SourceSha256": "AD007477B7DE6FE4D44FEBF0965962460CA41BBE40F9BD0CB978CCEFF5033DAE",
+  "ExpectedRoles": [
+    "non_tail/3: call_ext erlang:load_nif/2",
+    "tail_last/3: call_ext_last erlang:load_nif/2 with positive retained Y frame",
+    "tail_only/2: call_ext_only erlang:load_nif/2"
+  ],
+  "Purpose": "Original compilation and file-only disassembly of three literal load_nif caller roles; original body/native loading execution is not requested",
+  "OriginalCompilationPerformed": false,
+  "OriginalBodyExecutionPerformed": false,
+  "NativeLoadingExecutionPerformed": false
+}

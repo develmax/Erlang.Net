@@ -1,0 +1,120 @@
+{
+  "Status": "RUNTIME_NATIVE_AND_READER_COMPOSED_PENDING_ACTUAL_BEAM_HOST_EXTENSION_AND_COMPOSITE_VALIDATION",
+  "ParentHead": "e829c53ef4323ea8cdd0948cd77c243efa787abd",
+  "BaselineSha256": "2A948A7432CEA89AC5C207DE5F666CE1808FB9687F5CAE1A281A93BF792DFFFA",
+  "Actions": [
+    {
+      "Candidate": "nif-allocation-domain309-candidate2",
+      "MapSha256": "3DE90A145710A2051F56213612BB1570D9C97728982C7B98F4247128E7D8C1F5",
+      "Paths": 13
+    },
+    {
+      "Candidate": "nif-allocation-domain309-native-validated1",
+      "MapSha256": "F979754694B840B868978E4E744D396532DDF0C5B250004CEA468C42AB4C3A8C",
+      "Paths": 3
+    },
+    {
+      "Candidate": "nif-domain-sdk-stdout310-validated2",
+      "MapSha256": "F49FBB9C97DFF0DAB20D089EA235C6F949422678836B0C08A7BF9AEF038DFDB2",
+      "Paths": 2
+    }
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
+      "Bytes": 4165,
+      "Sha256": "93D9D88100D80DD51E9B9E06160D5998B43F4018F5DE1D01C4F080D84A3AB3ED"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomainChange.cs",
+      "Bytes": 851,
+      "Sha256": "3E0CF1DBFEE84AD0887C1C644C37B44CADD3BEBD5431298BFCC3907544EC71EE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomainDiagnostics.cs",
+      "Bytes": 758,
+      "Sha256": "2D5071C37D2B3A2DF93D188E80C035EC722825E1B7EEEE843DB7DAA916E4D469"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomainSnapshot.cs",
+      "Bytes": 155,
+      "Sha256": "FE9E96A98B39C1A45FBD404D08CE94C4A0F6446C4A83C258E5621BA07F90FE74"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+      "Bytes": 5714,
+      "Sha256": "26958428D3BBCC6C591939ACCF35722FD285F92D8D82F959118B1B924038B904"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Bytes": 10515,
+      "Sha256": "FB3C3921B64A5F84136421CDA69FAAAFF9BA36F02AEADCC5713537AC37AF7B4F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NativeAllocations.cs",
+      "Bytes": 414,
+      "Sha256": "0038D3EE5D6CEF74F76E3873A86600BBD9AAF5BB330931CB2E50F8797E5C872F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifAllocationDomainHostBridge.cs",
+      "Bytes": 7338,
+      "Sha256": "21035E7C81903A167CB9E27764949D2F4F42E423F059821738D761A2EEC04D01"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifAllocationDomainHostChecks.cs",
+      "Bytes": 12178,
+      "Sha256": "6730A45A48D9D64500CEF05FA1688F04DCA84C68E1E85B45A57E4C1A92DCD328"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifAllocationDomainHostNames.cs",
+      "Bytes": 2857,
+      "Sha256": "49D670E66702FAA686EDE2E6141291ED6E19A7FA369DA7F1260843B8524B987E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifAllocationDomainHostParameters.cs",
+      "Bytes": 460,
+      "Sha256": "1437E52F915BE764DD2C227B9021DCD26F72AD2C60DE93D16920F6266A61903F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifAllocationDomainHostSnapshot.cs",
+      "Bytes": 163,
+      "Sha256": "B3F6109143D246DCBA1F760004586101A70AEE2C761F97D41A8D3DF339E4A6E8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 165567,
+      "Sha256": "1E10EA2B9A54AD57191BC50C296262E3C4E6E710D229F19F74036FB0A844C3FB"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeDomainChecks.cs",
+      "Bytes": 3622,
+      "Sha256": "9BBDA254DA17C9C7AE09C45A391DB6B3CFF2551DF5A963C60EAB5A363E20851F"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeDomainNames.cs",
+      "Bytes": 473,
+      "Sha256": "8A509716EB7BD3AA09DF7A583E579C2DE2F244654112F7584965875D1CA525E8"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeOwnershipChecks.cs",
+      "Bytes": 6790,
+      "Sha256": "A613741F78829898D6255A3EF2262C79942F9C9AE404C329568107F6352E5B58"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed_sdk_stdout.py",
+      "Bytes": 7484,
+      "Sha256": "5224EC2707604BFCB0A10C8CBA5B2E1B42B876C6062F31F1B514E36626EE87D2"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/run-reviewed.py",
+      "Bytes": 12966,
+      "Sha256": "7E8A87D6321D67C82E624F92C5F438BB1C914B4C126120ECAA18E5EE2C273847"
+    }
+  ],
+  "ExpectedFullPassed": 6638,
+  "DefaultRegistry": 505,
+  "ErlangPresence": 347,
+  "NewPublicMfa": false,
+  "MainEdited": false,
+  "BuildExecuted": false
+}

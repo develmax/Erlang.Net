@@ -1,0 +1,23 @@
+{
+  "Status": "PASS_ACTUAL_FULL_HOST_DEFAULT505_OPTIONAL_IO507",
+  "DefaultExports": 505,
+  "OptionalIoExports": 507,
+  "PassedHost": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+  "EvidenceMethod": "Passed full HOST awaits IoCharacterHostChecks.Run, which checks actual registry counts before and after optional registration. No separate additional run.",
+  "IndependentAdditionalExecution": false,
+  "FullTestsSha256": "87E92AC9DB53BD335B98FB5BD6150416F0E71B0C8B208CA774A3F0F6E39097BE",
+  "Sources": [
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessHostChecks.cs",
+      "Sha256": "252C219EE6DE110C6AF3E9508D1B26F3B319E490AE04E9ED4A57137A186C6EA1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/IoCharacterHostChecks.cs",
+      "Sha256": "78615551B66055DC56824FC759983B9A334A646280029D00BF693800EA244181"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Sha256": "318DBEE3C331A6BF6003F50E119E9E247397E78BEFE8C1845F97B3D70DD828D8"
+    }
+  ]
+}

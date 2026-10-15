@@ -1,0 +1,223 @@
+{
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceTag": "OTP-29.1.1",
+  "InstalledVersion": "29.1.1",
+  "InstalledOtpRoot": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang",
+  "Module": "beam_fixture_load_nif_opcodes",
+  "Purpose": "Original compilation and file-only disassembly of three literal load_nif caller roles; original body/native loading execution is not requested",
+  "OriginalCompilationPerformed": true,
+  "FileOnlyDisassemblyPerformed": true,
+  "OriginalModuleLoadPerformed": false,
+  "OriginalBodyExecutionPerformed": false,
+  "NativeLoadingExecutionPerformed": false,
+  "OpcodeShapesVerified": false,
+  "OpcodeShapeStatus": "Unverified hypothesis until the independent verifier accepts actual original disassembly",
+  "ExpectedRoles": [
+    "non_tail/3: call_ext erlang:load_nif/2",
+    "tail_last/3: call_ext_last erlang:load_nif/2 with positive retained Y frame",
+    "tail_only/2: call_ext_only erlang:load_nif/2"
+  ],
+  "CompilerArguments": [
+    "-Werror",
+    "\u002Bdebug_info",
+    "-o",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-fixtures/load-nif-opcodes",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-fixtures/load-nif-opcodes/beam_fixture_load_nif_opcodes.erl"
+  ],
+  "CompilerExecutableSha256": "69C3F194C8A3BFEB8BA3A0D81AB7F5E94C511B6065888B653FCD218EEA13477B",
+  "OracleExecutableSha256": "47E90F6B819F891C7A3A5E57C0E6D45605BF73DABCAC535D9A08898EC9B153A8",
+  "ParentManifestSha256": "F08BC694C8734D67034C3ADA11D53FC63FDA8027FB0785487F9D1A35D5F8A472",
+  "SourceBuildEvidenceSha256": "47D8BE6A24884FCD75C265E6B00F7CD140FFFCD5DD3FB2A24EC90BCB8468F8C5",
+  "SourceBuildLogSha256": "5186408F7F3C2C7E458D6D6CE1E8F5E0549B49895505B2AD8D41742468C526A4",
+  "Chunks": [
+    {
+      "Id": "AtU8",
+      "HeaderOffset": 12,
+      "PayloadBytes": 130,
+      "PayloadSha256": "7AFFBC8F96FDC8C621DCA96D8328D1A9295238F2C6385185B8596BF060771092",
+      "PaddingBytes": 2
+    },
+    {
+      "Id": "Code",
+      "HeaderOffset": 152,
+      "PayloadBytes": 151,
+      "PayloadSha256": "0E407B494585D244E2DB5F7F151736BF73D756100E7E631ACB1057EC7A343B32",
+      "PaddingBytes": 1
+    },
+    {
+      "Id": "StrT",
+      "HeaderOffset": 312,
+      "PayloadBytes": 0,
+      "PayloadSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "PaddingBytes": 0
+    },
+    {
+      "Id": "ImpT",
+      "HeaderOffset": 320,
+      "PayloadBytes": 52,
+      "PayloadSha256": "5079C268C0240E85E958542D2021A2F3189AC2926F6F45CCE518B915681A5CDB",
+      "PaddingBytes": 0
+    },
+    {
+      "Id": "ExpT",
+      "HeaderOffset": 380,
+      "PayloadBytes": 64,
+      "PayloadSha256": "C0365D5DCDE9F662E2F834E59CB9B2DA713C7E40D38C99E8AA610BC45CAC61CA",
+      "PaddingBytes": 0
+    },
+    {
+      "Id": "Meta",
+      "HeaderOffset": 452,
+      "PayloadBytes": 45,
+      "PayloadSha256": "846E52E745C7CCF36C2DA8720765D905C971AD3A5574F9470CA44CFC21D18B4A",
+      "PaddingBytes": 3
+    },
+    {
+      "Id": "LocT",
+      "HeaderOffset": 508,
+      "PayloadBytes": 4,
+      "PayloadSha256": "DF3F619804A92FDB4057192DC43DD748EA778ADC52BC498CE80524C014B81119",
+      "PaddingBytes": 0
+    },
+    {
+      "Id": "Attr",
+      "HeaderOffset": 520,
+      "PayloadBytes": 39,
+      "PayloadSha256": "8F8B24DC0858705943AFE53D047C63E0EA26ADCF4AB8662D9B2C5900A69F4B6A",
+      "PaddingBytes": 1
+    },
+    {
+      "Id": "CInf",
+      "HeaderOffset": 568,
+      "PayloadBytes": 183,
+      "PayloadSha256": "E77DF76440838043EC4D9B50E443C89D07F0C874B53FFA81FC514D627847FAC0",
+      "PaddingBytes": 1
+    },
+    {
+      "Id": "Dbgi",
+      "HeaderOffset": 760,
+      "PayloadBytes": 518,
+      "PayloadSha256": "6DA4653CB6D1CD85E097FB44ED126E3176CA31756E40A9E334F1095ADF89597A",
+      "PaddingBytes": 2
+    },
+    {
+      "Id": "Line",
+      "HeaderOffset": 1288,
+      "PayloadBytes": 104,
+      "PayloadSha256": "D655F091654C994B261B4C7DC528F2B10084CA1151DD1DEBEB3CD4B30D817B71",
+      "PaddingBytes": 0
+    },
+    {
+      "Id": "Type",
+      "HeaderOffset": 1400,
+      "PayloadBytes": 10,
+      "PayloadSha256": "B11486EFE31959068949594E475D32D9230BDB4ADA967828EE06E3527A4BC6DA",
+      "PaddingBytes": 2
+    }
+  ],
+  "Metadata": {
+    "ExitCode": 0,
+    "FileOnlyQuery": true,
+    "ModuleLoadPerformed": false,
+    "EtfFile": "beam_fixture_load_nif_opcodes-metadata.etf",
+    "EtfSha256": "10F8B8727E903E8D21E32FA206809435886296C72B6DC2CCF813AEAF48FEE6ED",
+    "TextFile": "beam_fixture_load_nif_opcodes-metadata.term",
+    "TextSha256": "DA23E2607C2191593821B0F4533FBED182B20A7FA3B38F4855F292471923BD6E",
+    "EvaluationFile": "beam_fixture_load_nif_opcodes-metadata.eval.erl",
+    "EvaluationSha256": "C973D81AF6934611D8AD9B96B26B0A0B362F1E572090039AC0082D5F6E7F3B54",
+    "StandardOutputSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StandardErrorSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Files": [
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.etf",
+      "Bytes": 540,
+      "Sha256": "10F8B8727E903E8D21E32FA206809435886296C72B6DC2CCF813AEAF48FEE6ED"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.eval.erl",
+      "Bytes": 1254,
+      "Sha256": "C973D81AF6934611D8AD9B96B26B0A0B362F1E572090039AC0082D5F6E7F3B54"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.exit-code.txt",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.stdout.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes-metadata.term",
+      "Bytes": 720,
+      "Sha256": "DA23E2607C2191593821B0F4533FBED182B20A7FA3B38F4855F292471923BD6E"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes.beam",
+      "Bytes": 1420,
+      "Sha256": "9842C5D8B849874B7DCA8EABC3C2FC957C6E6195A821D4AFC34194CAC04340F9"
+    },
+    {
+      "File": "beam_fixture_load_nif_opcodes.erl",
+      "Bytes": 340,
+      "Sha256": "AD007477B7DE6FE4D44FEBF0965962460CA41BBE40F9BD0CB978CCEFF5033DAE"
+    },
+    {
+      "File": "compile.exit-code.txt",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "File": "compile.stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "compile.stdout.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "disassemble.exit-code.txt",
+      "Bytes": 2,
+      "Sha256": "9A271F2A916B0B6EE6CECB2426F0B3206EF074578BE55D9BC94F6F3FE3AB86AA"
+    },
+    {
+      "File": "disassemble.stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "disassemble.stdout.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "File": "disassembly.eval.erl",
+      "Bytes": 586,
+      "Sha256": "71422895892D38E6AC1810B9026E88C66411AC4831C2769B4C169BC9BF1A566A"
+    },
+    {
+      "File": "disassembly.term",
+      "Bytes": 3476,
+      "Sha256": "5E9D1B3703486616765192F9F487D38C3B6B32472F9AD14564571ADD4A178D74"
+    },
+    {
+      "File": "functions.etf",
+      "Bytes": 2247,
+      "Sha256": "1FD42A30745E553228C0DF61C800ED6E867CCA1ECC347A3C84CFC326515ABB64"
+    },
+    {
+      "File": "predeclared-contract.json",
+      "Bytes": 714,
+      "Sha256": "DCF325DA94F84EEE3E0543E8BBF2B8AC440FF0D899B3CBBDA08E02E5B573DCAB"
+    }
+  ]
+}

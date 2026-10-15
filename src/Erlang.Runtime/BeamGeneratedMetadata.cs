@@ -10,9 +10,16 @@ internal static class BeamGeneratedMetadata
             .Take(function.EndInstructionIndex - function.FirstInstructionIndex)
             .Where(value => value.Definition.Name is not (BeamLinkNames.Label or BeamLinkNames.Line)).ToArray();
         int length = function.Arity == 0 ? BeamPreparationNames.MetadataZeroBodyInstructions : BeamPreparationNames.MetadataKeyBodyInstructions;
-        if (body.Length != length)
+        int start = 0;
+        if (body.Length != 0 && body[0].Definition.Name == BeamNifNames.Start)
+        {
+            if (body[0].Operands.Count != 0)
+                return false;
+            start++;
+        }
+        if (body.Length != length + start)
             return false;
-        int index = 0;
+        int index = start;
         if (function.Arity == 1)
         {
             if (!Move(

@@ -15,6 +15,7 @@ public static partial class SourceLoadNifHostChecks
         await OwnedCompletion(true);
         await PendingImage();
         await ActualBeamCaller();
+        await ActualOpcodeCallers();
         await ArgumentEvaluationAndGeneratedRoute(false);
         await ArgumentEvaluationAndGeneratedRoute(true);
     }
@@ -402,3 +403,4 @@ public static partial class SourceLoadNifHostChecks
         }
     }
 }
+

@@ -35,6 +35,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
         lock (gate)
         {
             cancellation.ThrowIfCancellationRequested();
+            allocations.JoinDomain(initializationContext.Runtime.NativeAllocationDomain);
             NifNativePlatformLoader.VerifyPlatform();
             if (image.Module != NifNativeNames.Module)
                 throw new NotSupportedException(NifNativeDiagnostics.ModuleIdentity);
@@ -221,6 +222,15 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                     failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
                 }
                 functions.Clear();
+                try
+                {
+                    // Failed reclamation must retain a nonempty membership and its actual bytes.
+                    allocations.TryEndDomainMembership();
+                }
+                catch (Exception membershipFailure)
+                {
+                    failure = failure is null ? membershipFailure : new AggregateException(failure, membershipFailure);
+                }
             }
             if (failure is not null)
                 return ValueTask.FromException(failure);

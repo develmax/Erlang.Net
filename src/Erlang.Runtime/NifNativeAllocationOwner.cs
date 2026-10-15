@@ -7,6 +7,9 @@ internal sealed unsafe class NifNativeAllocationOwner
     private readonly object gate = new();
     private readonly Dictionary<nint, nuint> owned = new();
     private NifNativeAllocationSnapshot snapshot;
+    private NifNativeAllocationDomain? domain;
+    private long domainMembership;
+    private bool domainEnded;
 
     internal int Count
     {
@@ -23,6 +26,43 @@ internal sealed unsafe class NifNativeAllocationOwner
         {
             lock (gate)
                 return snapshot;
+        }
+    }
+
+    internal void JoinDomain(NifNativeAllocationDomain allocationDomain)
+    {
+        ArgumentNullException.ThrowIfNull(allocationDomain);
+        lock (gate)
+        {
+            if (domainEnded)
+                throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.ClosedMembership);
+            if (domain is not null)
+            {
+                if (!ReferenceEquals(domain, allocationDomain))
+                    throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.DifferentDomain);
+
+                return;
+            }
+            if (snapshot != default)
+                throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.ExistingAllocationHistory);
+            long membership = allocationDomain.Join();
+            domain = allocationDomain;
+            domainMembership = membership;
+        }
+    }
+
+    internal bool TryEndDomainMembership()
+    {
+        lock (gate)
+        {
+            if (domain is null || domainEnded)
+                return true;
+            if (snapshot.Count != 0 || snapshot.RequestedBytes != 0 || snapshot.BackingRequestBytes != 0)
+                return false;
+            domain.EndMembership(domainMembership, snapshot);
+            domainEnded = true;
+
+            return true;
         }
     }
 
@@ -45,6 +85,7 @@ internal sealed unsafe class NifNativeAllocationOwner
                 AllocatedBackingRequestBytes = checked(snapshot.AllocatedBackingRequestBytes + backing),
                 SuccessfulAllocations = checked(snapshot.SuccessfulAllocations + 1)
             };
+            using var change = domain?.BeginChange(domainMembership, snapshot, next);
             nint pointer = (nint)NativeMemory.Alloc((nuint)backing);
             if (pointer != 0)
             {
@@ -58,6 +99,7 @@ internal sealed unsafe class NifNativeAllocationOwner
                     throw;
                 }
                 snapshot = next;
+                change?.Commit();
             }
 
             return pointer;
@@ -81,9 +123,11 @@ internal sealed unsafe class NifNativeAllocationOwner
                 ReleasedBackingRequestBytes = checked(snapshot.ReleasedBackingRequestBytes + BackingRequest(size)),
                 ReleasedAllocations = checked(snapshot.ReleasedAllocations + 1)
             };
+            using var change = domain?.BeginChange(domainMembership, snapshot, next);
             owned.Remove(pointer);
             NativeMemory.Free((void*)pointer);
             snapshot = next;
+            change?.Commit();
         }
     }
 
@@ -91,6 +135,8 @@ internal sealed unsafe class NifNativeAllocationOwner
     {
         lock (gate)
         {
+            if (owned.Count == 0)
+                return;
             var next = snapshot with
             {
                 Count = 0,
@@ -100,10 +146,12 @@ internal sealed unsafe class NifNativeAllocationOwner
                 ReleasedBackingRequestBytes = checked(snapshot.ReleasedBackingRequestBytes + snapshot.BackingRequestBytes),
                 ReleasedAllocations = checked(snapshot.ReleasedAllocations + snapshot.Count)
             };
+            using var change = domain?.BeginChange(domainMembership, snapshot, next);
             foreach (nint pointer in owned.Keys)
                 NativeMemory.Free((void*)pointer);
             owned.Clear();
             snapshot = next;
+            change?.Commit();
         }
     }
 
