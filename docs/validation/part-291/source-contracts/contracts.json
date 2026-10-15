@@ -1,0 +1,43 @@
+{
+  "Status": "Source-authored expectations; no compiler/target/style/Host/original/full/CI run",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PositiveCases": 8,
+  "ExpectedPositiveTerm": "{ok,{kept,[],false}}",
+  "PositiveMeaning": "Fallback still executes; installed module_info(nifs) remains[]; consumed control does not appear in ordinary attributes",
+  "NegativeCases": [
+    {
+      "Name": "nif-declaration-undefined-local",
+      "NativeExpected": "{error,[{undefined_nif,{missing,7}}]}",
+      "SdkCode": "ERL005",
+      "SdkMessage": "Undefined nif missing/7",
+      "Source": "-module(nif_declaration_rejection). -export([run/0]). -nifs([missing/7]). run()->ok.",
+      "ReasonBasis": "check_nifs uses actual defined functions; no same-name or samearity7 suggestion candidates"
+    },
+    {
+      "Name": "nif-declaration-invalid-integer-entry",
+      "NativeExpected": "{error,[{invalid_fa_attribute,17}]}",
+      "SdkCode": "ERL005",
+      "SdkMessage": "Badly formed nifs function attribute",
+      "Source": "-module(nif_declaration_rejection). -export([run/0]). -nifs([17]). run()->ok.",
+      "ReasonBasis": "generic attribute parses literal17; func_location_error invalid FA nonpair branch"
+    }
+  ],
+  "MetadataOwnership": "nullable read-only copied tuples; absence null, presentempty count0; union dedup across repeated attrs; source Register copies into image descriptor",
+  "ConstructorAbi": "ModuleDefinition original4args and ModuleCodeDescriptor original8args unchanged; init-only metadata added",
+  "InstalledNifsChanged": false,
+  "OriginalFixtureSourceChanged": false,
+  "HistoricalMigration": {
+    "Path": "tests/Erlang.Tests/ModuleAttributeHostChecks.cs",
+    "OldAssertion": "-nifs([run/0]) unsupported ERL003 with no function body",
+    "NewAssertion": "same named HOST tests valid existing run/0 declaration and exact metadata; other unsupported controls preserved",
+    "CaseNameRemoved": false,
+    "Reason": "Intentional implementation of previously unsupported attribute; root originalfixture beforecompile gap log must be retained"
+  },
+  "DeferredDomains": [
+    "Compiler warning no_load_nif not emitted; existing SDK has no warning-report pipeline",
+    "Suggestion details and aggregate lint diagnostics, malformed/nonlist/wrongtuplekind/hugearity error contracts require broader original captures; this parser rejects instead of recreating upstream compiler crashes",
+    "Source inline/SSA policies and future native dispatch hook; no optimization parity claim",
+    "BEAM nif_start/nifmeta loader support not added; no false synthesized BEAM declaration metadata",
+    "Actual load_nif/2, active callable NIF overrides and generic ABI remain unfinished"
+  ]
+}

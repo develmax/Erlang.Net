@@ -1,0 +1,454 @@
+﻿2026-10-15T05:47:10.2167950Z Current runner version: '2.337.0'
+2026-10-15T05:47:10.2202003Z ##[group]Runner Image Provisioner
+2026-10-15T05:47:10.2202777Z Hosted Compute Agent
+2026-10-15T05:47:10.2203210Z Version: 20260901.588
+2026-10-15T05:47:10.2203712Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-15T05:47:10.2204603Z Build Date: 2026-09-01T19:56:44Z
+2026-10-15T05:47:10.2205178Z Worker ID: {8c772ba8-ed72-49b1-8309-528494145b18}
+2026-10-15T05:47:10.2205778Z Azure Region: centralus
+2026-10-15T05:47:10.2206228Z ##[endgroup]
+2026-10-15T05:47:10.2207350Z ##[group]Operating System
+2026-10-15T05:47:10.2207829Z Microsoft Windows Server 2025
+2026-10-15T05:47:10.2208320Z 10.0.26100
+2026-10-15T05:47:10.2208713Z Datacenter
+2026-10-15T05:47:10.2209112Z ##[endgroup]
+2026-10-15T05:47:10.2209538Z ##[group]Runner Image
+2026-10-15T05:47:10.2210001Z Image: windows-2025-vs2026
+2026-10-15T05:47:10.2210499Z Version: 20260925.250.1
+2026-10-15T05:47:10.2211682Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-15T05:47:10.2213112Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-15T05:47:10.2213958Z ##[endgroup]
+2026-10-15T05:47:10.2214930Z ##[group]GITHUB_TOKEN Permissions
+2026-10-15T05:47:10.2216612Z Contents: read
+2026-10-15T05:47:10.2217416Z Metadata: read
+2026-10-15T05:47:10.2217848Z ##[endgroup]
+2026-10-15T05:47:10.2219842Z Secret source: Actions
+2026-10-15T05:47:10.2220527Z Cache mode: write
+2026-10-15T05:47:10.2221207Z Prepare workflow directory
+2026-10-15T05:47:10.2556096Z Prepare all required actions
+2026-10-15T05:47:10.2591785Z Getting action download info
+2026-10-15T05:47:10.4715970Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-15T05:47:10.5566985Z Download action repository 'actions/setup-dotnet@v6' (SHA:a98b56852c35b8e3190ac28c8c2271da59106c68)
+2026-10-15T05:47:10.9569448Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-15T05:47:11.4604898Z Complete job name: managed-native-fixture
+2026-10-15T05:47:11.5858659Z ##[group]Run actions/checkout@v7
+2026-10-15T05:47:11.5859589Z with:
+2026-10-15T05:47:11.5859978Z   repository: develmax/Erlang.Net
+2026-10-15T05:47:11.5863943Z   token: ***
+2026-10-15T05:47:11.5864309Z   ssh-strict: true
+2026-10-15T05:47:11.5864685Z   ssh-user: git
+2026-10-15T05:47:11.5865060Z   persist-credentials: true
+2026-10-15T05:47:11.5865465Z   clean: true
+2026-10-15T05:47:11.5865830Z   sparse-checkout-cone-mode: true
+2026-10-15T05:47:11.5866280Z   fetch-depth: 1
+2026-10-15T05:47:11.5866635Z   fetch-tags: false
+2026-10-15T05:47:11.5867028Z   show-progress: true
+2026-10-15T05:47:11.5867786Z   lfs: false
+2026-10-15T05:47:11.5868330Z   submodules: false
+2026-10-15T05:47:11.5868733Z   set-safe-directory: true
+2026-10-15T05:47:11.5869114Z   allow-unsafe-pr-checkout: false
+2026-10-15T05:47:11.5869759Z env:
+2026-10-15T05:47:11.5870038Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:47:11.5870323Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:47:11.5870663Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:47:11.5870936Z ##[endgroup]
+2026-10-15T05:47:11.6944859Z Syncing repository: develmax/Erlang.Net
+2026-10-15T05:47:11.6946177Z ##[group]Getting Git version info
+2026-10-15T05:47:11.6946544Z Working directory is 'D:\a\Erlang.Net\Erlang.Net'
+2026-10-15T05:47:11.7439254Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-15T05:47:12.0685457Z git version 2.55.0.windows.5
+2026-10-15T05:47:12.0717540Z ##[endgroup]
+2026-10-15T05:47:12.0731110Z Temporarily overriding HOME='D:\a\_temp\5c015b08-b6aa-439b-858b-d64e7f93d4a3' before making global git config changes
+2026-10-15T05:47:12.0737887Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T05:47:12.0738576Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Erlang.Net\Erlang.Net
+2026-10-15T05:47:12.1295893Z Deleting the contents of 'D:\a\Erlang.Net\Erlang.Net'
+2026-10-15T05:47:12.1300507Z ##[group]Determining repository object format
+2026-10-15T05:47:12.1302166Z ##[endgroup]
+2026-10-15T05:47:12.1302563Z ##[group]Initializing the repository
+2026-10-15T05:47:12.1308851Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\Erlang.Net\Erlang.Net
+2026-10-15T05:47:12.2188874Z Initialized empty Git repository in D:/a/Erlang.Net/Erlang.Net/.git/
+2026-10-15T05:47:12.2227320Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/develmax/Erlang.Net
+2026-10-15T05:47:12.2811442Z ##[endgroup]
+2026-10-15T05:47:12.2812160Z ##[group]Disabling automatic garbage collection
+2026-10-15T05:47:12.2812881Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-15T05:47:12.3066539Z ##[endgroup]
+2026-10-15T05:47:12.3067196Z ##[group]Setting up auth
+2026-10-15T05:47:12.3067708Z Removing SSH command configuration
+2026-10-15T05:47:12.3078594Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T05:47:12.3321790Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-15T05:47:13.5856326Z Removing HTTP extra header
+2026-10-15T05:47:13.5862466Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T05:47:13.6074857Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-15T05:47:13.9817881Z Removing includeIf entries pointing to credentials config files
+2026-10-15T05:47:13.9828148Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T05:47:14.0086286Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-15T05:47:14.4246819Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-15T05:47:14.4482889Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/Erlang.Net/Erlang.Net/.git.path D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:47:14.4710742Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/Erlang.Net/Erlang.Net/.git/worktrees/*.path D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:47:14.5014249Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:47:14.5261566Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:47:14.5484955Z ##[endgroup]
+2026-10-15T05:47:14.5485282Z ##[group]Fetching the repository
+2026-10-15T05:47:14.5494527Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f2e861afc3f1ff2bdfade705ecb058e7cef433d6:refs/remotes/origin/main
+2026-10-15T05:47:23.2435350Z From https://github.com/develmax/Erlang.Net
+2026-10-15T05:47:23.2436405Z  * [new ref]         f2e861afc3f1ff2bdfade705ecb058e7cef433d6 -> origin/main
+2026-10-15T05:47:23.2484945Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/main
+2026-10-15T05:47:23.2828375Z   origin/main
+2026-10-15T05:47:23.2869714Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/main
+2026-10-15T05:47:23.3089882Z f2e861afc3f1ff2bdfade705ecb058e7cef433d6
+2026-10-15T05:47:23.3117895Z ##[endgroup]
+2026-10-15T05:47:23.3118255Z ##[group]Determining the checkout info
+2026-10-15T05:47:23.3118652Z ##[endgroup]
+2026-10-15T05:47:23.3126424Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-15T05:47:23.3504513Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-15T05:47:23.3745059Z ##[group]Checking out the ref
+2026-10-15T05:47:23.3752934Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+2026-10-15T05:47:24.5122302Z Updating files:  11% (2192/19151)
+2026-10-15T05:47:24.7731337Z Updating files:  12% (2299/19151)
+2026-10-15T05:47:25.0091253Z Updating files:  13% (2490/19151)
+2026-10-15T05:47:25.2106889Z Updating files:  14% (2682/19151)
+2026-10-15T05:47:25.3661254Z Updating files:  15% (2873/19151)
+2026-10-15T05:47:25.4350677Z Updating files:  16% (3065/19151)
+2026-10-15T05:47:25.4566940Z Updating files:  16% (3208/19151)
+2026-10-15T05:47:25.5118170Z Updating files:  17% (3256/19151)
+2026-10-15T05:47:25.5464939Z Updating files:  18% (3448/19151)
+2026-10-15T05:47:25.5689159Z Updating files:  19% (3639/19151)
+2026-10-15T05:47:25.6012685Z Updating files:  20% (3831/19151)
+2026-10-15T05:47:25.6254093Z Updating files:  21% (4022/19151)
+2026-10-15T05:47:25.6532755Z Updating files:  22% (4214/19151)
+2026-10-15T05:47:25.6996653Z Updating files:  23% (4405/19151)
+2026-10-15T05:47:25.7455723Z Updating files:  24% (4597/19151)
+2026-10-15T05:47:25.7690550Z Updating files:  25% (4788/19151)
+2026-10-15T05:47:25.7881206Z Updating files:  26% (4980/19151)
+2026-10-15T05:47:25.8277755Z Updating files:  27% (5171/19151)
+2026-10-15T05:47:25.8719045Z Updating files:  28% (5363/19151)
+2026-10-15T05:47:25.9056329Z Updating files:  29% (5554/19151)
+2026-10-15T05:47:25.9487285Z Updating files:  30% (5746/19151)
+2026-10-15T05:47:25.9702588Z Updating files:  31% (5937/19151)
+2026-10-15T05:47:26.1475027Z Updating files:  32% (6129/19151)
+2026-10-15T05:47:26.1796769Z Updating files:  33% (6320/19151)
+2026-10-15T05:47:26.3346339Z Updating files:  34% (6512/19151)
+2026-10-15T05:47:26.3602722Z Updating files:  35% (6703/19151)
+2026-10-15T05:47:26.3891132Z Updating files:  36% (6895/19151)
+2026-10-15T05:47:26.4218706Z Updating files:  37% (7086/19151)
+2026-10-15T05:47:26.4392989Z Updating files:  38% (7278/19151)
+2026-10-15T05:47:26.4589611Z Updating files:  38% (7377/19151)
+2026-10-15T05:47:26.4844028Z Updating files:  39% (7469/19151)
+2026-10-15T05:47:26.5078523Z Updating files:  40% (7661/19151)
+2026-10-15T05:47:26.6347497Z Updating files:  41% (7852/19151)
+2026-10-15T05:47:26.6689807Z Updating files:  42% (8044/19151)
+2026-10-15T05:47:26.6977165Z Updating files:  43% (8235/19151)
+2026-10-15T05:47:26.7186338Z Updating files:  44% (8427/19151)
+2026-10-15T05:47:26.7750372Z Updating files:  45% (8618/19151)
+2026-10-15T05:47:26.9320665Z Updating files:  46% (8810/19151)
+2026-10-15T05:47:27.2602427Z Updating files:  47% (9001/19151)
+2026-10-15T05:47:27.4541643Z Updating files:  48% (9193/19151)
+2026-10-15T05:47:27.4679091Z Updating files:  48% (9355/19151)
+2026-10-15T05:47:27.8762929Z Updating files:  49% (9384/19151)
+2026-10-15T05:47:28.0966451Z Updating files:  50% (9576/19151)
+2026-10-15T05:47:28.1710192Z Updating files:  51% (9768/19151)
+2026-10-15T05:47:28.1993335Z Updating files:  52% (9959/19151)
+2026-10-15T05:47:28.2280566Z Updating files:  53% (10151/19151)
+2026-10-15T05:47:28.3079330Z Updating files:  54% (10342/19151)
+2026-10-15T05:47:28.4482902Z Updating files:  55% (10534/19151)
+2026-10-15T05:47:28.4557497Z Updating files:  56% (10725/19151)
+2026-10-15T05:47:28.5500611Z Updating files:  56% (10742/19151)
+2026-10-15T05:47:28.6472761Z Updating files:  57% (10917/19151)
+2026-10-15T05:47:28.6857586Z Updating files:  58% (11108/19151)
+2026-10-15T05:47:28.7139131Z Updating files:  59% (11300/19151)
+2026-10-15T05:47:28.7487420Z Updating files:  60% (11491/19151)
+2026-10-15T05:47:29.2390581Z Updating files:  61% (11683/19151)
+2026-10-15T05:47:29.3505351Z Updating files:  62% (11874/19151)
+2026-10-15T05:47:29.4247289Z Updating files:  63% (12066/19151)
+2026-10-15T05:47:29.4660768Z Updating files:  64% (12257/19151)
+2026-10-15T05:47:29.5048319Z Updating files:  64% (12416/19151)
+2026-10-15T05:47:29.7180428Z Updating files:  65% (12449/19151)
+2026-10-15T05:47:29.8337034Z Updating files:  66% (12640/19151)
+2026-10-15T05:47:29.9475712Z Updating files:  67% (12832/19151)
+2026-10-15T05:47:30.0766217Z Updating files:  68% (13023/19151)
+2026-10-15T05:47:30.1212749Z Updating files:  69% (13215/19151)
+2026-10-15T05:47:30.1632881Z Updating files:  70% (13406/19151)
+2026-10-15T05:47:30.1901123Z Updating files:  71% (13598/19151)
+2026-10-15T05:47:30.6258700Z Updating files:  72% (13789/19151)
+2026-10-15T05:47:30.7805481Z Updating files:  72% (13889/19151)
+2026-10-15T05:47:31.0469937Z Updating files:  73% (13981/19151)
+2026-10-15T05:47:31.2000636Z Updating files:  74% (14172/19151)
+2026-10-15T05:47:31.4085708Z Updating files:  75% (14364/19151)
+2026-10-15T05:47:31.4852051Z Updating files:  76% (14555/19151)
+2026-10-15T05:47:31.5111635Z Updating files:  76% (14568/19151)
+2026-10-15T05:47:31.5758772Z Updating files:  77% (14747/19151)
+2026-10-15T05:47:31.6368670Z Updating files:  78% (14938/19151)
+2026-10-15T05:47:32.1362696Z Updating files:  79% (15130/19151)
+2026-10-15T05:47:32.1726536Z Updating files:  80% (15321/19151)
+2026-10-15T05:47:32.3581809Z Updating files:  81% (15513/19151)
+2026-10-15T05:47:32.3929721Z Updating files:  82% (15704/19151)
+2026-10-15T05:47:32.4230100Z Updating files:  83% (15896/19151)
+2026-10-15T05:47:32.4916255Z Updating files:  84% (16087/19151)
+2026-10-15T05:47:32.6433357Z Updating files:  84% (16142/19151)
+2026-10-15T05:47:32.7954717Z Updating files:  85% (16279/19151)
+2026-10-15T05:47:32.8180043Z Updating files:  86% (16470/19151)
+2026-10-15T05:47:32.9803987Z Updating files:  87% (16662/19151)
+2026-10-15T05:47:33.1511735Z Updating files:  88% (16853/19151)
+2026-10-15T05:47:33.7064767Z Updating files:  89% (17045/19151)
+2026-10-15T05:47:34.2928228Z Updating files:  89% (17144/19151)
+2026-10-15T05:47:34.3245213Z Updating files:  90% (17236/19151)
+2026-10-15T05:47:34.3444667Z Updating files:  91% (17428/19151)
+2026-10-15T05:47:34.3654652Z Updating files:  92% (17619/19151)
+2026-10-15T05:47:34.3870988Z Updating files:  93% (17811/19151)
+2026-10-15T05:47:34.4079910Z Updating files:  94% (18002/19151)
+2026-10-15T05:47:34.4304906Z Updating files:  95% (18194/19151)
+2026-10-15T05:47:34.4518751Z Updating files:  96% (18385/19151)
+2026-10-15T05:47:34.4741481Z Updating files:  97% (18577/19151)
+2026-10-15T05:47:34.4794685Z Updating files:  98% (18768/19151)
+2026-10-15T05:47:34.4978727Z Updating files:  98% (18809/19151)
+2026-10-15T05:47:34.5202922Z Updating files:  99% (18960/19151)
+2026-10-15T05:47:34.5203308Z Updating files: 100% (19151/19151)
+2026-10-15T05:47:34.5203538Z Updating files: 100% (19151/19151), done.
+2026-10-15T05:47:34.5496258Z Switched to a new branch 'main'
+2026-10-15T05:47:34.5556469Z branch 'main' set up to track 'origin/main'.
+2026-10-15T05:47:34.5854469Z ##[endgroup]
+2026-10-15T05:47:34.6227410Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-15T05:47:34.6452143Z f2e861afc3f1ff2bdfade705ecb058e7cef433d6
+2026-10-15T05:47:34.6852879Z ##[group]Run actions/setup-dotnet@v6
+2026-10-15T05:47:34.6853106Z with:
+2026-10-15T05:47:34.6853239Z   global-json-file: global.json
+2026-10-15T05:47:34.6853382Z   cache: false
+2026-10-15T05:47:34.6853488Z env:
+2026-10-15T05:47:34.6853602Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:47:34.6853746Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:47:34.6853912Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:47:34.6854055Z ##[endgroup]
+2026-10-15T05:47:34.8749389Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command & 'D:\a\_actions\actions\setup-dotnet\v6\externals\install-dotnet.ps1' -SkipNonVersionedFiles -Runtime dotnet -Channel LTS
+2026-10-15T05:47:36.7667126Z dotnet-install: Downloaded file https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.13/dotnet-runtime-10.0.13-win-x64.zip size is 36970749 bytes.
+2026-10-15T05:47:36.7670604Z dotnet-install: Either downloaded or local package size can not be measured. One of them may be corrupted.
+2026-10-15T05:47:36.7688171Z dotnet-install: Extracting the archive.
+2026-10-15T05:47:37.8422948Z dotnet-install: Note that the script does not ensure your Windows version is supported during the installation.
+2026-10-15T05:47:37.8425513Z dotnet-install: To check the list of supported versions, go to https://learn.microsoft.com/dotnet/core/install/windows#supported-versions
+2026-10-15T05:47:37.8429493Z dotnet-install: Installed version is 10.0.13
+2026-10-15T05:47:37.8433740Z dotnet-install: Installation finished
+2026-10-15T05:47:37.9380827Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command & 'D:\a\_actions\actions\setup-dotnet\v6\externals\install-dotnet.ps1' -SkipNonVersionedFiles -Version 10.0.400
+2026-10-15T05:47:44.7378673Z dotnet-install: Downloaded file https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.400/dotnet-sdk-10.0.400-win-x64.zip size is 300546129 bytes.
+2026-10-15T05:47:44.7382588Z dotnet-install: Either downloaded or local package size can not be measured. One of them may be corrupted.
+2026-10-15T05:47:44.7402521Z dotnet-install: Extracting the archive.
+2026-10-15T05:47:57.0231355Z dotnet-install: Note that the script does not ensure your Windows version is supported during the installation.
+2026-10-15T05:47:57.0232022Z dotnet-install: To check the list of supported versions, go to https://learn.microsoft.com/dotnet/core/install/windows#supported-versions
+2026-10-15T05:47:57.0235254Z dotnet-install: Installed version is 10.0.400
+2026-10-15T05:47:57.0238762Z dotnet-install: Installation finished
+2026-10-15T05:47:57.0835305Z ##[group]Run $ErrorActionPreference = 'Stop'
+2026-10-15T05:47:57.0835639Z [36;1m$ErrorActionPreference = 'Stop'[0m
+2026-10-15T05:47:57.0835875Z [36;1mNew-Item -ItemType Directory -Path artifacts -Force | Out-Null[0m
+2026-10-15T05:47:57.0836214Z [36;1mgit clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git ../otp[0m
+2026-10-15T05:47:57.0836514Z [36;1mif ($LASTEXITCODE -ne 0) { throw 'Pinned source clone failed' }[0m
+2026-10-15T05:47:57.0836882Z [36;1mif ((git -C ../otp rev-parse HEAD).Trim() -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5') { throw 'OTP pin differs' }[0m
+2026-10-15T05:47:57.0837406Z [36;1mdotnet build tools/Erlang.NifFixtureHost --disable-build-servers -m:1 -p:UseSharedCompilation=false 2>&1 | Tee-Object artifacts/nif-host-build.log[0m
+2026-10-15T05:47:57.0837839Z [36;1mif ($LASTEXITCODE -ne 0) { throw 'Development host build failed' }[0m
+2026-10-15T05:47:57.0838260Z [36;1mdotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll 2>&1 | Tee-Object artifacts/nif-host-managed.log[0m
+2026-10-15T05:47:57.0838647Z [36;1mif ($LASTEXITCODE -ne 0) { throw 'Internal managed contracts failed' }[0m
+2026-10-15T05:47:57.1196934Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-15T05:47:57.1197173Z env:
+2026-10-15T05:47:57.1197301Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:47:57.1197443Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:47:57.1197591Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:47:57.1197738Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-15T05:47:57.1197879Z ##[endgroup]
+2026-10-15T05:47:57.4139487Z Cloning into '../otp'...
+2026-10-15T05:48:06.8179544Z warning: refs/tags/OTP-29.1.1 906667d86dc2a4b1b8de33e39844bba257b0bb76 is not a commit!
+2026-10-15T05:48:06.8215373Z Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'.
+2026-10-15T05:48:06.8215633Z 
+2026-10-15T05:48:06.8215854Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-15T05:48:06.8217386Z changes and commit them, and you can discard any commits you make in this
+2026-10-15T05:48:06.8217784Z state without impacting any branches by switching back to a branch.
+2026-10-15T05:48:06.8218078Z 
+2026-10-15T05:48:06.8218260Z If you want to create a new branch to retain commits you create, you may
+2026-10-15T05:48:06.8218648Z do so (now or later) by using -c with the switch command. Example:
+2026-10-15T05:48:06.8218854Z 
+2026-10-15T05:48:06.8218973Z   git switch -c <new-branch-name>
+2026-10-15T05:48:06.8219127Z 
+2026-10-15T05:48:06.8219225Z Or undo this operation with:
+2026-10-15T05:48:06.8219360Z 
+2026-10-15T05:48:06.8219422Z   git switch -
+2026-10-15T05:48:06.8219523Z 
+2026-10-15T05:48:06.8219738Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-15T05:48:06.8220008Z 
+2026-10-15T05:48:07.8854182Z Updating files:  36% (4377/12008)
+2026-10-15T05:48:07.8965058Z Updating files:  37% (4443/12008)
+2026-10-15T05:48:07.9083560Z Updating files:  38% (4564/12008)
+2026-10-15T05:48:07.9317258Z Updating files:  39% (4684/12008)
+2026-10-15T05:48:07.9515283Z Updating files:  40% (4804/12008)
+2026-10-15T05:48:07.9710133Z Updating files:  41% (4924/12008)
+2026-10-15T05:48:07.9855139Z Updating files:  42% (5044/12008)
+2026-10-15T05:48:08.0033812Z Updating files:  43% (5164/12008)
+2026-10-15T05:48:08.0288066Z Updating files:  44% (5284/12008)
+2026-10-15T05:48:08.0431742Z Updating files:  45% (5404/12008)
+2026-10-15T05:48:08.0591757Z Updating files:  46% (5524/12008)
+2026-10-15T05:48:08.0742270Z Updating files:  47% (5644/12008)
+2026-10-15T05:48:08.0878798Z Updating files:  48% (5764/12008)
+2026-10-15T05:48:08.1053776Z Updating files:  49% (5884/12008)
+2026-10-15T05:48:08.1321591Z Updating files:  50% (6004/12008)
+2026-10-15T05:48:08.1505691Z Updating files:  51% (6125/12008)
+2026-10-15T05:48:08.1811558Z Updating files:  52% (6245/12008)
+2026-10-15T05:48:08.2066088Z Updating files:  53% (6365/12008)
+2026-10-15T05:48:08.2328168Z Updating files:  54% (6485/12008)
+2026-10-15T05:48:08.2564602Z Updating files:  55% (6605/12008)
+2026-10-15T05:48:08.2769840Z Updating files:  56% (6725/12008)
+2026-10-15T05:48:08.2958497Z Updating files:  57% (6845/12008)
+2026-10-15T05:48:08.3180942Z Updating files:  58% (6965/12008)
+2026-10-15T05:48:08.3305198Z Updating files:  59% (7085/12008)
+2026-10-15T05:48:08.3443413Z Updating files:  60% (7205/12008)
+2026-10-15T05:48:08.3584871Z Updating files:  61% (7325/12008)
+2026-10-15T05:48:08.3720601Z Updating files:  62% (7445/12008)
+2026-10-15T05:48:08.3865786Z Updating files:  63% (7566/12008)
+2026-10-15T05:48:08.4058115Z Updating files:  64% (7686/12008)
+2026-10-15T05:48:08.4253570Z Updating files:  65% (7806/12008)
+2026-10-15T05:48:08.4427079Z Updating files:  66% (7926/12008)
+2026-10-15T05:48:08.4582249Z Updating files:  67% (8046/12008)
+2026-10-15T05:48:08.4752160Z Updating files:  68% (8166/12008)
+2026-10-15T05:48:08.4952748Z Updating files:  69% (8286/12008)
+2026-10-15T05:48:08.5170737Z Updating files:  70% (8406/12008)
+2026-10-15T05:48:08.5382860Z Updating files:  71% (8526/12008)
+2026-10-15T05:48:08.5536858Z Updating files:  72% (8646/12008)
+2026-10-15T05:48:08.5671956Z Updating files:  73% (8766/12008)
+2026-10-15T05:48:08.5796980Z Updating files:  74% (8886/12008)
+2026-10-15T05:48:08.5940748Z Updating files:  75% (9006/12008)
+2026-10-15T05:48:08.6138995Z Updating files:  76% (9127/12008)
+2026-10-15T05:48:08.6350253Z Updating files:  77% (9247/12008)
+2026-10-15T05:48:08.6675564Z Updating files:  78% (9367/12008)
+2026-10-15T05:48:08.6924235Z Updating files:  79% (9487/12008)
+2026-10-15T05:48:08.7079947Z Updating files:  80% (9607/12008)
+2026-10-15T05:48:08.7176325Z Updating files:  81% (9727/12008)
+2026-10-15T05:48:08.7279113Z Updating files:  82% (9847/12008)
+2026-10-15T05:48:08.7653962Z Updating files:  83% (9967/12008)
+2026-10-15T05:48:08.7828735Z Updating files:  84% (10087/12008)
+2026-10-15T05:48:08.7948856Z Updating files:  85% (10207/12008)
+2026-10-15T05:48:08.8095478Z Updating files:  86% (10327/12008)
+2026-10-15T05:48:08.8246601Z Updating files:  87% (10447/12008)
+2026-10-15T05:48:08.8357908Z Updating files:  88% (10568/12008)
+2026-10-15T05:48:08.8369316Z Updating files:  88% (10676/12008)
+2026-10-15T05:48:08.8517576Z Updating files:  89% (10688/12008)
+2026-10-15T05:48:08.9039120Z Updating files:  90% (10808/12008)
+2026-10-15T05:48:08.9244552Z Updating files:  91% (10928/12008)
+2026-10-15T05:48:08.9483102Z Updating files:  92% (11048/12008)
+2026-10-15T05:48:08.9753027Z Updating files:  93% (11168/12008)
+2026-10-15T05:48:08.9937654Z Updating files:  94% (11288/12008)
+2026-10-15T05:48:09.0135175Z Updating files:  95% (11408/12008)
+2026-10-15T05:48:09.0428242Z Updating files:  96% (11528/12008)
+2026-10-15T05:48:09.0875333Z Updating files:  97% (11648/12008)
+2026-10-15T05:48:09.1054056Z Updating files:  98% (11768/12008)
+2026-10-15T05:48:09.2780777Z Updating files:  99% (11888/12008)
+2026-10-15T05:48:09.2781055Z Updating files: 100% (12008/12008)
+2026-10-15T05:48:09.2781686Z Updating files: 100% (12008/12008), done.
+2026-10-15T05:48:10.8939112Z   Determining projects to restore...
+2026-10-15T05:48:11.4009277Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\Erlang.Runtime.csproj (in 38 ms).
+2026-10-15T05:48:11.4010080Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Erlang.Serialization\Erlang.Serialization.csproj (in 103 ms).
+2026-10-15T05:48:11.4135655Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Erlang.Terms\Erlang.Terms.csproj (in 1 ms).
+2026-10-15T05:48:11.4201878Z   Restored D:\a\Erlang.Net\Erlang.Net\tools\Erlang.NifFixtureHost\Erlang.NifFixtureHost.csproj (in 12 ms).
+2026-10-15T05:48:28.2434986Z   Erlang.Terms -> D:\a\Erlang.Net\Erlang.Net\src\Erlang.Terms\bin\Debug\net10.0\Erlang.Terms.dll
+2026-10-15T05:48:29.9736774Z   Erlang.Serialization -> D:\a\Erlang.Net\Erlang.Net\src\Erlang.Serialization\bin\Debug\net10.0\Erlang.Serialization.dll
+2026-10-15T05:48:33.8285722Z   Erlang.Runtime -> D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\bin\Debug\net10.0\Erlang.Runtime.dll
+2026-10-15T05:48:35.1311163Z   Erlang.NifFixtureHost -> D:\a\Erlang.Net\Erlang.Net\tools\Erlang.NifFixtureHost\bin\Debug\net10.0\Erlang.NifFixtureHost.dll
+2026-10-15T05:48:35.1363701Z 
+2026-10-15T05:48:35.1368243Z Build succeeded.
+2026-10-15T05:48:35.1368694Z     0 Warning(s)
+2026-10-15T05:48:35.1369512Z     0 Error(s)
+2026-10-15T05:48:35.1370434Z 
+2026-10-15T05:48:35.1371063Z Time Elapsed 00:00:25.43
+2026-10-15T05:48:35.5514539Z NIF internal checks passed; native fixture NOT executed.
+2026-10-15T05:48:35.6045930Z ##[group]Run $ErrorActionPreference = 'Stop'
+2026-10-15T05:48:35.6046194Z [36;1m$ErrorActionPreference = 'Stop'[0m
+2026-10-15T05:48:35.6046857Z [36;1mpython tools/Erlang.NifFixtureHost/native/build_fixture.py --plan tools/Erlang.NifFixtureHost/native/source-plan.json --approved-plan-sha256 D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63 --output artifacts/nif-fixture-build 2>&1 | Tee-Object artifacts/nif-fixture-build-launch.log[0m
+2026-10-15T05:48:35.6047781Z [36;1mif ($LASTEXITCODE -ne 0) { throw 'Native build/layout/export verification failed' }[0m
+2026-10-15T05:48:35.6102001Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-15T05:48:35.6102194Z env:
+2026-10-15T05:48:35.6102311Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:48:35.6102447Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:48:35.6102593Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:48:35.6102765Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-15T05:48:35.6102955Z ##[endgroup]
+2026-10-15T05:48:43.8362038Z {"Receipt": "D:\\a\\Erlang.Net\\Erlang.Net\\artifacts\\nif-fixture-build\\build-receipt.json", "FixtureDllSha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F", "NativeFixtureBehaviorExecuted": false}
+2026-10-15T05:48:43.9023318Z ##[group]Run $ErrorActionPreference = 'Stop'
+2026-10-15T05:48:43.9023591Z [36;1m$ErrorActionPreference = 'Stop'[0m
+2026-10-15T05:48:43.9023789Z [36;1m$root = (Resolve-Path artifacts/nif-fixture-build).Path[0m
+2026-10-15T05:48:43.9024253Z [36;1m$receipt = Get-Content "$root/build-receipt.json" -Raw | ConvertFrom-Json[0m
+2026-10-15T05:48:43.9024977Z [36;1mif ($receipt.ReviewedPlanSha256 -cne 'D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63' -or !$receipt.LayoutExecutableExecuted -or $receipt.NativeFixtureBehaviorExecuted) { throw 'Unexpected pre-execution receipt' }[0m
+2026-10-15T05:48:43.9025510Z [36;1mforeach ($file in $receipt.Files) {[0m
+2026-10-15T05:48:43.9025672Z [36;1m  $path = Join-Path $root $file.Path[0m
+2026-10-15T05:48:43.9026041Z [36;1m  if ((Get-Item -LiteralPath $path).Length -ne $file.Bytes -or (Get-FileHash -LiteralPath $path).Hash -cne $file.Sha256) { throw "Native receipt mismatch: $($file.Path)" }[0m
+2026-10-15T05:48:43.9026422Z [36;1m}[0m
+2026-10-15T05:48:43.9026852Z [36;1mif ((Get-FileHash "$root/fixture.dll").Hash -cne $receipt.FixtureDllSha256) { throw 'Fixture DLL differs' }[0m
+2026-10-15T05:48:43.9027265Z [36;1mif ((Get-Content "$root/fixture-pe-headers.log" -Raw) -notmatch '8664 machine \(x64\)') { throw 'Unexpected native machine' }[0m
+2026-10-15T05:48:43.9027800Z [36;1mdotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll "$root/fixture.dll" $receipt.FixtureDllSha256 2>&1 | Tee-Object artifacts/nif-host-native.log[0m
+2026-10-15T05:48:43.9028241Z [36;1mif ($LASTEXITCODE -ne 0) { throw 'Native fixture contracts failed' }[0m
+2026-10-15T05:48:43.9028653Z [36;1m@{ Passed = $true; FixtureDllSha256 = $receipt.FixtureDllSha256; GenericNifSupport = $false } | ConvertTo-Json | Set-Content artifacts/nif-host-native-result.json[0m
+2026-10-15T05:48:43.9076616Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-15T05:48:43.9076800Z env:
+2026-10-15T05:48:43.9076920Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:48:43.9077052Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:48:43.9077195Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:48:43.9077329Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-15T05:48:43.9077470Z ##[endgroup]
+2026-10-15T05:48:44.3476999Z NIF internal and native fixture checks passed.
+2026-10-15T05:48:44.4358502Z ##[group]Run actions/upload-artifact@v7
+2026-10-15T05:48:44.4358698Z with:
+2026-10-15T05:48:44.4358812Z   name: nif-managed-native-fixture
+2026-10-15T05:48:44.4359099Z   path: artifacts/nif-host-*
+artifacts/nif-fixture-build-launch.log
+artifacts/nif-fixture-build/**
+
+2026-10-15T05:48:44.4359363Z   if-no-files-found: warn
+2026-10-15T05:48:44.4359485Z   compression-level: 6
+2026-10-15T05:48:44.4359593Z   overwrite: false
+2026-10-15T05:48:44.4359705Z   include-hidden-files: false
+2026-10-15T05:48:44.4359825Z   archive: true
+2026-10-15T05:48:44.4359919Z env:
+2026-10-15T05:48:44.4360016Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-15T05:48:44.4360148Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-15T05:48:44.4360282Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-15T05:48:44.4360414Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-15T05:48:44.4360544Z ##[endgroup]
+2026-10-15T05:48:44.5949537Z With the provided path, there will be 28 files uploaded
+2026-10-15T05:48:44.5953230Z Artifact name is valid!
+2026-10-15T05:48:44.5953852Z Root directory input is valid!
+2026-10-15T05:48:44.9059742Z Uploading artifact: nif-managed-native-fixture.zip
+2026-10-15T05:48:44.9089513Z Beginning upload of artifact content to blob storage
+2026-10-15T05:48:45.1964974Z Uploaded bytes 55364
+2026-10-15T05:48:45.2399355Z Finished uploading artifact content to blob storage!
+2026-10-15T05:48:45.2399880Z SHA256 digest of uploaded artifact is 2752a0ca5391282c2c0e02c7530b97f45f3b85304827bb0c439e2d5963717f6e
+2026-10-15T05:48:45.2400325Z Finalizing artifact upload
+2026-10-15T05:48:45.5240559Z Artifact nif-managed-native-fixture successfully finalized. Artifact ID 11951535100
+2026-10-15T05:48:45.5241115Z Artifact nif-managed-native-fixture has been successfully uploaded! Final size is 55364 bytes. Artifact ID is 11951535100
+2026-10-15T05:48:45.5253502Z Artifact download URL: https://github.com/develmax/Erlang.Net/actions/runs/38688662194/artifacts/11951535100
+2026-10-15T05:48:45.5512872Z Post job cleanup.
+2026-10-15T05:48:45.6705709Z Post job cleanup.
+2026-10-15T05:48:45.7813549Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-15T05:48:45.8004742Z git version 2.55.0.windows.5
+2026-10-15T05:48:45.8048058Z Temporarily overriding HOME='D:\a\_temp\24499ed0-1381-4542-8352-48cf58bbc0da' before making global git config changes
+2026-10-15T05:48:45.8048721Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T05:48:45.8054872Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Erlang.Net\Erlang.Net
+2026-10-15T05:48:45.8272285Z Removing SSH command configuration
+2026-10-15T05:48:45.8281153Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T05:48:45.8540613Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-15T05:48:46.2645110Z Removing HTTP extra header
+2026-10-15T05:48:46.2653440Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T05:48:46.2885637Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-15T05:48:46.6752431Z Removing includeIf entries pointing to credentials config files
+2026-10-15T05:48:46.6761435Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T05:48:46.6956439Z includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git.path
+2026-10-15T05:48:46.6956749Z includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-15T05:48:46.6956972Z includeif.gitdir:/github/workspace/.git.path
+2026-10-15T05:48:46.6957229Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T05:48:46.6989936Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git.path
+2026-10-15T05:48:46.7180417Z D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:48:46.7216093Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git.path D\:\\a\\_temp\\git\-credentials\-2ccb2593\-a7df\-4680\-81fe\-69fbb53c7460\.config
+2026-10-15T05:48:46.7439254Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-15T05:48:46.7628816Z D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:48:46.7666175Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Erlang.Net/Erlang.Net/.git/worktrees/*.path D\:\\a\\_temp\\git\-credentials\-2ccb2593\-a7df\-4680\-81fe\-69fbb53c7460\.config
+2026-10-15T05:48:46.7895593Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-15T05:48:46.8083081Z /github/runner_temp/git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:48:46.8115523Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-2ccb2593\-a7df\-4680\-81fe\-69fbb53c7460\.config
+2026-10-15T05:48:46.8339848Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T05:48:46.8525073Z /github/runner_temp/git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config
+2026-10-15T05:48:46.8599692Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-2ccb2593\-a7df\-4680\-81fe\-69fbb53c7460\.config
+2026-10-15T05:48:46.8838837Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-15T05:48:47.2725239Z Removing credentials config 'D:\a\_temp\git-credentials-2ccb2593-a7df-4680-81fe-69fbb53c7460.config'
+2026-10-15T05:48:47.2880854Z Cleaning up orphan processes
+2026-10-15T05:48:47.3092849Z Terminate orphan process: pid (840) (vctip)

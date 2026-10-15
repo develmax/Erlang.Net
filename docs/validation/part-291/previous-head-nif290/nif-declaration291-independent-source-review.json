@@ -1,0 +1,21 @@
+{
+  "Status": "NO_BLOCKER_IN_DECLARED_SOURCE_ATTRIBUTE_SCOPE",
+  "ReviewOnly": true,
+  "BuildOrOriginalExecutedByThisReviewer": false,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Checks": [
+    "Pinned erl_lint.erl 1859-1871 checks only actual local definitions with pseudolocals removed; candidate uses DeclaredFunctions captured before predefined module functions are inserted.",
+    "Pinned beam_ssa nifs control unions repeated declarations and distinguishes none from present-empty; nullable copied read-only properties preserve that distinction and deduplicate declared pairs.",
+    "Private functions are eligible; source metadata is propagated to ModuleCodeDescriptor without changing original public constructor signatures.",
+    "The generated initializer emits no new field for absent declarations and retains the previous NativeRecords field representation; this is source inspection, not proof that all historical generated hashes remain equal.",
+    "Consumed nifs control does not enter ordinary module attributes; module_info(nifs) remains installed current native functions, currently empty.",
+    "The two narrow typed diagnostic expectations agree with pinned undefined_nif and invalid_fa_attribute paths. Broader malformed declaration diagnostics and suggestions are explicitly deferred.",
+    "Existing unsupported-nifs HOST assertion is intentionally migrated to positive implemented behavior; identity retention does not mean every old assertion is unchanged."
+  ],
+  "Deferred": [
+    "Actual original OTP execution of the new eight compiled and two diagnostic contracts remains required.",
+    "no_load_nif warning pipeline is absent.",
+    "General malformed lists, wrong tuple kinds, huge arities, suggestions, aggregate lint diagnostics are not parity complete.",
+    "No load_nif, native dispatch overrides, ABI completeness, BEAM declarations or NIF lifecycle implementation is implied."
+  ]
+}

@@ -83,6 +83,7 @@ public sealed class Parser
         var exports = new List<(string, int)>();
         var functions = new List<FunctionDefinition>();
         var attributes = new List<ModuleAttribute>();
+        List<(string Name, int Arity)>? declaredNifs = null;
         while (Current.Kind != LexerTokenKinds.EndOfInput)
         {
             if (Take(ErlangSyntaxTokens.AttributeIntroducer))
@@ -124,6 +125,15 @@ public sealed class Parser
                     }
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     ExpectFormTerminator();
+                }
+                else if (attr == ModuleAttributeNames.Nifs)
+                {
+                    int offset = Current.Start;
+                    Term declaration = AttributeLiteral.Normalize(Expression(), offset);
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    ExpectFormTerminator();
+                    declaredNifs ??= [];
+                    declaredNifs.AddRange(NifDeclarationSyntax.Read(declaration, offset));
                 }
                 else if (attr == ModuleAttributeNames.Compile && TakeAtom(CompilerOptionNames.DisableSsaOptimization))
                 {
@@ -195,6 +205,7 @@ public sealed class Parser
             attributes
         )
         {
+            DeclaredNifs = declaredNifs,
             NativeRecords = Array.AsReadOnly(nativeRecords.Values.Select(definition => new NativeRecordDefinition(
                 definition.Name,
                 exportedRecords.Contains(definition.Name),

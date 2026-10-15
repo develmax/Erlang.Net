@@ -24,5 +24,7 @@ public enum DiagnosticCaseKind
     NativeRecord,
     BasedInteger,
     IllegalAtomName,
-    IllegalVariableName
+    IllegalVariableName,
+    NifUndefined,
+    NifInvalidEntry
 }

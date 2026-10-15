@@ -18,6 +18,13 @@ public sealed record ModuleDefinition(
     public IReadOnlyList<FunctionDefinition> Functions { get; init; } = PredefinedModuleFunctions.Add(Name, Functions);
     public IReadOnlyList<ModuleAttribute> Attributes { get; init; } = Array.AsReadOnly((Attributes ?? []).ToArray());
 
+    private IReadOnlyList<(string Name, int Arity)>? declaredNifs;
+    public IReadOnlyList<(string Name, int Arity)>? DeclaredNifs
+    {
+        get => declaredNifs;
+        init => declaredNifs = value is null ? null : Array.AsReadOnly(value.Distinct().ToArray());
+    }
+
     private IReadOnlyList<NativeRecordDefinition> nativeRecords = Array.Empty<NativeRecordDefinition>();
     public IReadOnlyList<NativeRecordDefinition> NativeRecords
     {
@@ -62,6 +69,9 @@ public sealed record ModuleDefinition(
                     this,
                     NativeRecords
                 )
+                {
+                    DeclaredNifs = this.DeclaredNifs
+                }
             );
         });
     }

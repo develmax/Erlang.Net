@@ -31,6 +31,7 @@ Test(Erlang.Tests.FunctionResolutionHostNames.TestName, Erlang.Tests.FunctionRes
 Test(Erlang.Tests.PreloadedModuleHostNames.TestName, Erlang.Tests.PreloadedModuleHostChecks.Run);
 Test(Erlang.Tests.ModuleInformationHostNames.Test, Erlang.Tests.ModuleInformationHostChecks.Run);
 Test(Erlang.Tests.ModuleAttributeHostNames.Test, Erlang.Tests.ModuleAttributeHostChecks.Run);
+Test(Erlang.Tests.NifDeclarationHostNames.Test, Erlang.Tests.NifDeclarationHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);

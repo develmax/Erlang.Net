@@ -306,7 +306,16 @@ public static class CodeGeneration
         "global::Erlang.NativeRecordFieldType"
     )) + ")";
 
-    private static string NativeModuleInitializer(ModuleDefinition module) => module.NativeRecords.Count == 0 ? string.Empty : "{NativeRecords=" + Array(module.NativeRecords, NativeDefinitionCode, "global::Erlang.NativeRecordDefinition") + "}";
+    private static string NativeModuleInitializer(ModuleDefinition module)
+    {
+        var fields = new List<string>();
+        if (module.NativeRecords.Count != 0)
+            fields.Add("NativeRecords=" + Array(module.NativeRecords, NativeDefinitionCode, "global::Erlang.NativeRecordDefinition"));
+        if (module.DeclaredNifs is { } nifs)
+            fields.Add(NifDeclarationCodeNames.Initializer + string.Join(',', nifs.Select(value => "(" + Quote(value.Name) + "," + value.Arity + ")")) + "}");
+
+        return fields.Count == 0 ? string.Empty : "{" + string.Join(',', fields) + "}";
+    }
 
     private static string NativeExpressionCode(NativeRecordExpression expression) => "new global::Erlang.Compiler.NativeRecordExpression(global::Erlang.Compiler.NativeRecordOperation." + expression.Operation + "," + Quote(expression.Module) + "," + (expression.Name is null ? "null" : Quote(expression.Name)) + "," + Quote(expression.Caller) + "," + (expression.External ? "true" : "false") + "," + Optional(expression.Value) + "," + Array(
         expression.Fields,

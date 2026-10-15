@@ -13,6 +13,14 @@ public sealed class ModuleCodeDescriptor
     public object? SourceOwner { get; }
     public IReadOnlyList<NativeRecordDefinition> NativeRecords { get; }
 
+    private IReadOnlyList<(string Name, int Arity)>? declaredNifs;
+    public IReadOnlyList<(string Name, int Arity)>? DeclaredNifs
+    {
+        get => declaredNifs;
+        init => declaredNifs = value is null ? null : Array.AsReadOnly(value.Distinct().ToArray());
+    }
+
+
     public ModuleCodeDescriptor(
         IEnumerable<(string Name, int Arity)> functions,
         IEnumerable<(string Name, int Arity)> exports,

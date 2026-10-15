@@ -1,0 +1,67 @@
+[
+  {
+    "Path": "lib/stdlib/src/erl_parse.yrl",
+    "Sha256": "59339E13BB69E0E539B2EF7088AB9115C31CA8CAB47900E1752AA6755C53DB69",
+    "Ranges": [
+      {
+        "Start": 1717,
+        "End": 1742,
+        "Text": "1717: build_attribute({atom,Aa,Attr}, Val) ->\n1718:     case Val of\n1719: \t[Expr0] ->\n1720: \t    Expr = attribute_farity(Expr0),\n1721: \t    {attribute,Aa,Attr,term(Expr)};\n1722: \t[_,Other|_] -> ret_abstr_err(Other, \"bad attribute\")\n1723:     end.\n1724: \n1725: var_list({cons,_Ac,{var,_,V},Tail}) ->\n1726:     [V|var_list(Tail)];\n1727: var_list({nil,_An}) -> [];\n1728: var_list(Other) ->\n1729:     ret_abstr_err(Other, \"bad variable list\").\n1730: \n1731: attribute_farity({cons,A,H,T}) ->\n1732:     {cons,A,attribute_farity(H),attribute_farity(T)};\n1733: attribute_farity({tuple,A,Args0}) ->\n1734:     Args = attribute_farity_list(Args0),\n1735:     {tuple,A,Args};\n1736: attribute_farity({map,A,Args0}) ->\n1737:     Args = attribute_farity_map(Args0),\n1738:     {map,A,Args};\n1739: attribute_farity({op,A,'/',{atom,_,_}=Name,{integer,_,_}=Arity}) ->\n1740:     {tuple,A,[Name,Arity]};\n1741: attribute_farity(Other) -> Other.\n1742: "
+      }
+    ]
+  },
+  {
+    "Path": "lib/stdlib/src/erl_lint.erl",
+    "Sha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+    "Ranges": [
+      {
+        "Start": 301,
+        "End": 306,
+        "Text": "301: format_error_1({undefined_nif,{F,A}}) ->\n302:     {~\"nif ~tw/~w undefined\", [F,A]};\n303: format_error_1({undefined_nif,{F,A},GuessFA}) ->\n304:     {~\"nif ~tw/~w undefined, did you mean ~s?\", [F,A,format_fa(GuessFA)]};\n305: format_error_1(no_load_nif) ->\n306:     {~\"nifs defined, but no call to erlang:load_nif/2\", []};"
+      },
+      {
+        "Start": 1859,
+        "End": 1871,
+        "Text": "1859: check_nifs(Forms, St0) ->\n1860:     FAsAnno = [{FA,Anno} || {attribute, Anno, nifs, Args} <- Forms,\n1861:                             FA <- Args],\n1862:     St1 = case {FAsAnno, St0#lint.load_nif} of\n1863:               {[{_,Anno1}|_], false} ->\n1864:                   add_warning(Anno1, no_load_nif, St0);\n1865:               _ ->\n1866:                   St0\n1867:           end,\n1868:     DefFunctions = gb_sets:subtract(St1#lint.defined, gb_sets:from_list(pseudolocals())),\n1869:     Bad = [{FA,Anno} || {FA,Anno} <- FAsAnno, not gb_sets:is_element(FA, DefFunctions)],\n1870:     DefFunctions1 = gb_sets:to_list(DefFunctions),\n1871:     func_location_error(undefined_nif, Bad, St1, DefFunctions1)."
+      },
+      {
+        "Start": 1905,
+        "End": 1926,
+        "Text": "1905: func_location_error(Type, [{{Name, Arity}=F,Anno}|Fs], St0, FAList) ->\n1906:     PossibleAs = lists:sort([A || {FName, A} <:- FAList, FName =:= Name]),\n1907:     case PossibleAs of\n1908:         [] ->\n1909:             PossibleFs = [atom_to_list(Func) ||\n1910:                              {Func, A} <:- FAList, A =:= Arity],\n1911:             St1 = case most_possible_string(Name, PossibleFs) of\n1912:                       [] ->\n1913:                           add_error(Anno, {Type,F}, St0);\n1914:                       GuessF ->\n1915:                           add_error(Anno, {Type,F,{GuessF,[Arity]}}, St0)\n1916:                   end,\n1917:             func_location_error(Type, Fs, St1, FAList);\n1918:         _ ->\n1919:             St1 = add_error(Anno, {Type,F,{Name,PossibleAs}}, St0),\n1920:             func_location_error(Type, Fs, St1, FAList)\n1921:     end;\n1922: func_location_error(Type, [{F,Anno}|Fs], St0, FAList) ->\n1923:     St1 = add_error(Anno, {invalid_fa_attribute,F}, St0),\n1924:     func_location_error(Type, Fs, St1, FAList);\n1925: func_location_error(_, [], St, _) ->\n1926:     St."
+      }
+    ]
+  },
+  {
+    "Path": "lib/compiler/src/v3_core.erl",
+    "Sha256": "B406F7F4C6F7B58DC9AA4608703C82EAF302714C874F38DD1C7FEC62D4017637",
+    "Ranges": [
+      {
+        "Start": 244,
+        "End": 254,
+        "Text": "244: form({attribute,_,nifs,Ns}, #imodule{nifs=Nifs0}=Module, _Opts) ->\n245:     Nifs1 = case Nifs0 of\n246:                 none ->\n247:                     sets:new();\n248:                 _ ->\n249:                     Nifs0\n250:             end,\n251:     Nifs = sets:union(sets:from_list(Ns, [{version,2}]), Nifs1),\n252:     Module#imodule{nifs=Nifs};\n253: form({attribute,_,_,_}=F, #imodule{attrs=As}=Module, _Opts) ->\n254:     Module#imodule{attrs=[attribute(F)|As]};"
+      }
+    ]
+  },
+  {
+    "Path": "erts/emulator/beam/erl_nif.c",
+    "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+    "Ranges": [
+      {
+        "Start": 4700,
+        "End": 4704,
+        "Text": "4700: static int check_is_nifable(const BeamCodeHeader* mod_code,\n4701:                             int func_ix)\n4702: {\n4703:     return !mod_code->are_nifs || mod_code->are_nifs[func_ix];\n4704: }"
+      }
+    ]
+  },
+  {
+    "Path": "erts/emulator/beam/erl_bif_info.c",
+    "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+    "Ranges": [
+      {
+        "Start": 5772,
+        "End": 5806,
+        "Text": "5772: nifs_in_module(Process* p, Eterm module)\n5773: {\n5774:     Eterm nif_list, *hp;\n5775:     Module *mod;\n5776: \n5777:     mod = erts_get_module(module, erts_active_code_ix());\n5778:     nif_list = NIL;\n5779: \n5780:     if (mod->curr.nif != NULL) {\n5781:         int func_count, func_ix;\n5782:         ErlNifFunc *funcs;\n5783: \n5784:         func_count = erts_nif_get_funcs(mod->curr.nif, &funcs);\n5785:         hp = HAlloc(p, func_count * 5);\n5786: \n5787:         for (func_ix = func_count - 1; func_ix >= 0; func_ix--) {\n5788:             Eterm name, arity, pair;\n5789:             ErlNifFunc *func;\n5790: \n5791:             func = &funcs[func_ix];\n5792: \n5793:             name = am_atom_put(func->name, sys_strlen(func->name));\n5794:             arity = make_small(func->arity);\n5795: \n5796:             pair = TUPLE2(hp, name, arity);\n5797:             hp += 3;\n5798: \n5799:             nif_list = CONS(hp, pair, nif_list);\n5800:             hp += 2;\n5801:         }\n5802:     }\n5803: \n5804:     return nif_list;\n5805: }\n5806: "
+      }
+    ]
+  }
+]

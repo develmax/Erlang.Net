@@ -1,0 +1,52 @@
+{
+  "Status": "EXACT_HEAD_ORIGINAL_NIF_SEVEN_TYPED_ETF_AND_PROCESS_CONTROLS_PASS",
+  "Head": "f2e861afc3f1ff2bdfade705ecb058e7cef433d6",
+  "Run": 38688662194,
+  "LinuxJob": 116269261420,
+  "LinuxArtifact": 11952131310,
+  "DownloadMembersVerified": 110,
+  "ReceiptFilesVerified": 64,
+  "OriginalCases": {
+    "increment_zero": {
+      "Passed": true,
+      "RawEtfSha256": "F1C839A6EA9C062F80B9B22A418647DFB281C03F855D282A3AD7BAA8CB55FE01"
+    },
+    "increment_negative": {
+      "Passed": true,
+      "RawEtfSha256": "51C80CEE743E9C9394B23145ACAE6FBD2561052E01C44F65556F795F4B0F2658"
+    },
+    "increment_maximum_success": {
+      "Passed": true,
+      "RawEtfSha256": "EAF9F3FD886F5733B561585C882FD4E19BE359F3C71DBD135380FE46ED8C4A65"
+    },
+    "increment_maximum_badarg": {
+      "Passed": true,
+      "RawEtfSha256": "EE782FC3D0AEEBE0D673786C9B8F52DF087336BA22223FF5A3DA99B63ED6A787"
+    },
+    "increment_atom_badarg": {
+      "Passed": true,
+      "RawEtfSha256": "AA59A271268FCFAE46C536570DD6DDA54CD8E4B8DA240B716DF1D8CC7282AA98"
+    },
+    "greeting": {
+      "Passed": true,
+      "RawEtfSha256": "90C38D7128047D3898902D0E9960E664D040AD3E90C66A9DD53897654E84CD88"
+    },
+    "load_veto": {
+      "Passed": true,
+      "RawEtfSha256": "49CA6FE4F28C20064CB04B37D43031F00F7530401E793DDC3AA049AD796CA292"
+    }
+  },
+  "ProcessControls": {
+    "Passed": [
+      "raw-exit-3-preserved",
+      "owned-group-inherited-pipe-bounded"
+    ],
+    "InheritedPipeElapsedSeconds": 0.5029532849999967,
+    "OriginalNifObserved": false
+  },
+  "WindowsGuard": "spawn-protocol-nif290-windows-independent-guard.json",
+  "NativeUnloadCounterCompared": false,
+  "GenericNifSupport": false,
+  "SdkLoadNifImplemented": false,
+  "SemanticScope": "Independent typed original observation review; fixture host managed/native assertions are separate, not a general SDK NIF differential run."
+}

@@ -13,6 +13,7 @@ public static class Semantics
         foreach (var export in module.Exports)
             if (!module.Functions.Any(f => f.Name == export.Name && f.Arity == export.Arity))
                 throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.UndefinedExport(export.Name, export.Arity), 0);
+        NifDeclarationSyntax.Validate(module);
         foreach (var f in module.Functions)
             foreach (var clause in f.Clauses)
                 ValidateClause(clause, [], false);

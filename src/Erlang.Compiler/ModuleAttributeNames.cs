@@ -6,4 +6,5 @@ internal static class ModuleAttributeNames
     public const string Record = "record";
     public const string Module = "module";
     public const string Export = "export";
+    public const string Nifs = "nifs";
 }

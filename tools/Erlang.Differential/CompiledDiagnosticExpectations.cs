@@ -33,6 +33,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Code(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NifUndefined or DiagnosticCaseKind.NifInvalidEntry => NifDeclarationDiagnosticExpectations.Code,
         DiagnosticCaseKind.IllegalAtomName or DiagnosticCaseKind.IllegalVariableName => AtomNameDiagnosticExpectations.Code,
         DiagnosticCaseKind.BasedInteger => BasedIntegerDiagnosticExpectations.Code,
         DiagnosticCaseKind.NativeRecord => NativeRecordDiagnosticCases.Contracts.Single(contract => contract.Case.Name == fixture.Name).Code,
@@ -51,6 +52,7 @@ public static class CompiledDiagnosticExpectations
 
     public static string Message(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NifUndefined or DiagnosticCaseKind.NifInvalidEntry => NifDeclarationDiagnosticExpectations.Message(fixture),
         DiagnosticCaseKind.IllegalAtomName or DiagnosticCaseKind.IllegalVariableName => AtomNameDiagnosticExpectations.Message(fixture),
         DiagnosticCaseKind.BasedInteger => BasedIntegerDiagnosticExpectations.Message(fixture),
         DiagnosticCaseKind.NativeRecord => NativeRecordDiagnosticCases.Contracts.Single(contract => contract.Case.Name == fixture.Name).Message,
@@ -78,6 +80,7 @@ public static class CompiledDiagnosticExpectations
 
     public static Term ReferenceOutcome(CompiledDiagnosticCase fixture) => fixture.Kind switch
     {
+        DiagnosticCaseKind.NifUndefined or DiagnosticCaseKind.NifInvalidEntry => NifDeclarationDiagnosticExpectations.Outcome(fixture),
         DiagnosticCaseKind.IllegalAtomName or DiagnosticCaseKind.IllegalVariableName => AtomNameDiagnosticExpectations.Outcome(fixture),
         DiagnosticCaseKind.BasedInteger => BasedIntegerDiagnosticExpectations.Outcome(fixture),
         DiagnosticCaseKind.NativeRecord => Term.Tuple(

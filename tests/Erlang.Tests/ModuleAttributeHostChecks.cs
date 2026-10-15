@@ -27,7 +27,7 @@ public static class ModuleAttributeHostChecks
         }
         foreach (string attribute in new[]
         {
-            "-on_load(run/0).", "-import(other,[run/0]).", "-compile(export_all).", "-nifs([run/0])."
+            "-on_load(run/0).", "-import(other,[run/0]).", "-compile(export_all)."
         })
         {
             bool rejected = false;
@@ -42,6 +42,9 @@ public static class ModuleAttributeHostChecks
             if (!rejected)
                 throw new InvalidOperationException(ModuleAttributeHostNames.Broken);
         }
+        var nifs = new Parser("-module(attribute_host). -nifs([run/0]). run()->ok.").ParseModule();
+        if (nifs.DeclaredNifs is not { Count: 1 } declarations || declarations[0] != (ModuleAttributeHostNames.RunFunction, 0))
+            throw new InvalidOperationException(ModuleAttributeHostNames.Broken);
         var first = new Parser("-module(attribute_host). -export([run/0]). -custom(first). run()->fun()->kept end.").ParseModule();
         var second = new Parser("-module(attribute_host). -export([run/0]). -custom(second). run()->fun()->kept end.").ParseModule();
         var left = new ModuleRegistry();

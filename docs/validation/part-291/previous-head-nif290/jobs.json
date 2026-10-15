@@ -1,0 +1,205 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 116269261154,
+      "run_id": 38688662194,
+      "workflow_name": "Pinned OTP NIF fixture observations",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38688662194",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbEjAhYg",
+      "head_sha": "f2e861afc3f1ff2bdfade705ecb058e7cef433d6",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116269261154",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38688662194/job/116269261154",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-15T05:47:07Z",
+      "started_at": "2026-10-15T05:47:09Z",
+      "completed_at": "2026-10-15T05:48:48Z",
+      "name": "managed-native-fixture",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T05:47:10Z",
+          "completed_at": "2026-10-15T05:47:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T05:47:11Z",
+          "completed_at": "2026-10-15T05:47:34Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T05:47:34Z",
+          "completed_at": "2026-10-15T05:47:57Z"
+        },
+        {
+          "name": "Pin public ABI headers and build the development host",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T05:47:57Z",
+          "completed_at": "2026-10-15T05:48:35Z"
+        },
+        {
+          "name": "Compile the exact reviewed fixture and verify its ABI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T05:48:35Z",
+          "completed_at": "2026-10-15T05:48:43Z"
+        },
+        {
+          "name": "Execute only the source-bound fixture",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T05:48:43Z",
+          "completed_at": "2026-10-15T05:48:44Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-15T05:48:44Z",
+          "completed_at": "2026-10-15T05:48:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-15T05:48:45Z",
+          "completed_at": "2026-10-15T05:48:45Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-15T05:48:45Z",
+          "completed_at": "2026-10-15T05:48:47Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-15T05:48:47Z",
+          "completed_at": "2026-10-15T05:48:47Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116269261154",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000001173,
+      "runner_name": "GitHub Actions 1000001173",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 116269261420,
+      "run_id": 38688662194,
+      "workflow_name": "Pinned OTP NIF fixture observations",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38688662194",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbEjAibA",
+      "head_sha": "f2e861afc3f1ff2bdfade705ecb058e7cef433d6",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116269261420",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38688662194/job/116269261420",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-15T05:47:07Z",
+      "started_at": "2026-10-15T05:47:09Z",
+      "completed_at": "2026-10-15T05:55:51Z",
+      "name": "original-otp-fixture",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T05:47:10Z",
+          "completed_at": "2026-10-15T05:47:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T05:47:11Z",
+          "completed_at": "2026-10-15T05:47:28Z"
+        },
+        {
+          "name": "Check raw exits and inherited pipe cleanup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T05:47:28Z",
+          "completed_at": "2026-10-15T05:47:28Z"
+        },
+        {
+          "name": "Build the exact development oracle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T05:47:28Z",
+          "completed_at": "2026-10-15T05:55:46Z"
+        },
+        {
+          "name": "Collect seven fresh original VM observations",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T05:55:46Z",
+          "completed_at": "2026-10-15T05:55:48Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T05:55:48Z",
+          "completed_at": "2026-10-15T05:55:49Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-15T05:55:49Z",
+          "completed_at": "2026-10-15T05:55:49Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-15T05:55:49Z",
+          "completed_at": "2026-10-15T05:55:49Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116269261420",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001174,
+      "runner_name": "GitHub Actions 1000001174",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

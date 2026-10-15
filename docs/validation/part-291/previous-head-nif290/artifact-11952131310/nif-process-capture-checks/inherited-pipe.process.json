@@ -1,0 +1,13 @@
+{
+  "Arguments": [
+    "/usr/bin/python3",
+    "-c",
+    "import subprocess,sys;subprocess.Popen([sys.executable,\"-c\",\"import time;time.sleep(30)\"]);print(\"parent-exited\",flush=True)"
+  ],
+  "OwnedPid": 2292,
+  "ExitCode": 0,
+  "TimedOut": true,
+  "TimeoutSeconds": 0.5,
+  "PipesClosed": true,
+  "ParentReaped": true
+}
