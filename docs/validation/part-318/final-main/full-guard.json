@@ -1,0 +1,97 @@
+{
+  "Status": "PASS_ACTUAL_MAIN318_6668_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6668,
+  "Failed": 0,
+  "All6667PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_registered_group_leader_connected_output_ownership"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 20,
+  "CSharpPaths": 6,
+  "SourceResourceClosureFiles": 2272,
+  "SourceFreezeSha256": "0368584A69E20A9A5FCB007CF6F6B2218BF3036FE5B77C2F1EFEE7DFEBC0D854",
+  "SourceClosureSha256": "7B8C0913A6E46324BF8A40DBD8EB86105990AA6DA76B35EF9BA294E7A44D0C03",
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_sizes",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        0
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    }
+  ],
+  "ConnectedGroupLeaderScopeDisclosed": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1088,
+      "Sha256": "BAA70C692C80B832FFF01E712907D931B7732A498E342F60F2BBAA369B78AB07",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1113,
+      "Sha256": "D0DD04F9E15958CA028C25FA4A5A5A86FA9BBE5AF062377A2F8C09DACC8B2293",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "CollectorSourcePlanSha256": "ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F",
+  "CollectorOriginalExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "FullExecutionContext": "Outside sandbox",
+  "GuardSourceSha256": "4827F762A9A4873A18A305E1D6661C0BFC8D66345C21E1A38A2F4C777AB5DA69"
+}

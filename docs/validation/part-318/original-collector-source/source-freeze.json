@@ -1,0 +1,75 @@
+{
+  "Status": "SOURCE_ONLY_COLLECTOR_INTEGRATION_PROPOSAL_NOT_EXECUTED",
+  "SourcePlanSha256": "ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F",
+  "Files": [
+    {
+      "Path": "overlay/.gitattributes",
+      "Bytes": 7223,
+      "Sha256": "53C4387535BF21DC6C88A224FC3BE407CB3AB5A767712F2474A17E9E9608E736"
+    },
+    {
+      "Path": "overlay/.github/workflows/distribution-signal-observations.yml",
+      "Bytes": 5267,
+      "Sha256": "0D6EB9ED05A064CF3438F03064356F118028CB4DA01E1E058F7D6DF60AA4429C"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/collect.py",
+      "Bytes": 14642,
+      "Sha256": "75E3C12528769649AEA8E56A535781CF09D55E2FE8DC5CBF3E42B021D03AEDA5"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/group_leader_outbound318.erl",
+      "Bytes": 3941,
+      "Sha256": "995240AB758E6B74BB51F76BE67D1739CA12E61501D95F9B34B6B35BD52DEEDF"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/group_leader_outbound318_driver.erl",
+      "Bytes": 2680,
+      "Sha256": "CC74B66671ACA4B7B84631007C8155F657B0C0D5529776390540A594D43B14F6"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/README.md",
+      "Bytes": 4976,
+      "Sha256": "DEDC9185F56CA714E35F64C007B37856EEBF52F4C9A871A06A6353C0EA51C5B7"
+    },
+    {
+      "Path": "overlay/tools/Erlang.GroupLeaderOutboundObservations/source-plan.json",
+      "Bytes": 2282,
+      "Sha256": "ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F"
+    },
+    {
+      "Path": "prepare-proposal.py",
+      "Bytes": 6843,
+      "Sha256": "55C9AFD20451EC39081BDD6E4E4F230C1BBEA8BC469B0B766A153038D1D4CB94"
+    }
+  ],
+  "ParentWorkflowSha256": "F99D849C96F9618A6E00CBBB043370784753340D405900792F690B34EEE79B07",
+  "ParentAttributesSha256": "081CBCB90B224071D5DF0203989DA175AFE2FC537DA875EB73767B90C4F30BFC",
+  "BaseClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "PythonSourcesAstParsedOnly": true,
+  "OriginalCompilerVmNetworkExecuted": false,
+  "SdkExecuted": false,
+  "GatesPending": [
+    "source peer",
+    "Root approved composition/workflow integration",
+    "actual pinned erlc",
+    "actual Linux two-node collection",
+    "raw report/process cleanup independent review",
+    "separate SDK HOST/full gates"
+  ]
+}

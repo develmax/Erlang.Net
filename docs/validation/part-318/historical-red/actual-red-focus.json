@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "53E272308B3F106B93B0DCEF9FD5845A0B286137DC7B2B00FFA182810E97F08F"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "6F54ACB3BEA73F0CD29D6BF9952980DE1C285D316D7F27E2F64FAB177D1B8A6E"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGroupLeaderOutputHostChecks:RegisteredPublicationAndOrder",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 719,
+      "Exception": "System.InvalidOperationException: Connected group leader output assertion failed\r\n   at Erlang.Tests.DistributionGroupLeaderOutputHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGroupLeaderOutputHostChecks.cs:line 200\r\n   at Erlang.Tests.DistributionGroupLeaderOutputHostChecks.CheckControl(DistributionDecodedProcessPacket packet, Pid leader, Pid target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGroupLeaderOutputHostChecks.cs:line 181\r\n   at Erlang.Tests.DistributionGroupLeaderOutputHostChecks.RegisteredPublicationAndOrder() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGroupLeaderOutputHostChecks.cs:line 35\r\n   at Erlang.Tests.DistributionGroupLeaderOutputHostChecks.RegisteredPublicationAndOrder() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part318-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGroupLeaderOutputHostChecks.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

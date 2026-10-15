@@ -73,6 +73,21 @@ jobs:
         run: |
           set -euo pipefail
           dotnet run --project tools/Erlang.DistributionSignalObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-signal-observations artifacts/beam-source-build-evidence.json
+      - name: Observe public group leader assignment between two real original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GROUP_LEADER_SOURCE_PLAN_SHA256: ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.GroupLeaderOutboundObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$GROUP_LEADER_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/group-leader-outbound318-original" \
+            2>&1 | tee artifacts/group-leader-outbound318-collector.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -82,3 +97,5 @@ jobs:
             artifacts/beam-otp-build.log
             artifacts/beam-source-build-evidence.json
             artifacts/signal-observation-tool-build.log
+            artifacts/group-leader-outbound318-original
+            artifacts/group-leader-outbound318-collector.log

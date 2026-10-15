@@ -14,8 +14,8 @@ internal static class ProcessSpawnRegistrations
             ErlangModuleNames.Module,
             ProcessGroupLeaderNames.GroupLeader,
             2,
-            (context, arguments) => arguments[0] is Pid leader && arguments[1] is Pid target
-            ? ValueTask.FromResult<Term>(CoreModules.Boolean(context.Runtime.SetGroupLeader(leader, target)))
+            async (context, arguments) => arguments[0] is Pid leader && arguments[1] is Pid target
+            ? CoreModules.Boolean(await context.Runtime.SetGroupLeaderAsync(context, leader, target).ConfigureAwait(false))
             : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         foreach (string name in new[] { ErlangModuleNames.Spawn, ErlangModuleNames.SpawnLink, ErlangModuleNames.SpawnMonitor })

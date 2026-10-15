@@ -1,0 +1,85 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_CANDIDATE2_CONNECTED_GROUP_LEADER",
+  "SourceReviewPassed": true,
+  "Candidate2FreezeSha256": "C008166849E5902EBBBD43065D112AD5B3E256907CE8B29D116097A52A4FAA9A",
+  "Candidate1FreezeSha256": "F25D75379DA8975E5558C5E1B2D45627DE4D5E9A39901A177B74A5E6984BF875",
+  "Design2FreezeSha256": "4354F25C1FEE3B193385E9BC27AFDD24DA6861898646C7C11CC97FA90B0EAC76",
+  "BaseClosureSha256": "A39996D476F7B7D19F1CC7D641E3C2916A2AD66CD4E16C75E0222FEFB099FD26",
+  "BaseRowsRehashed": 2260,
+  "CandidateLogicalRowsVerified": 2264,
+  "CSharpPaths": 6,
+  "CSharpBytesExactCandidate1": true,
+  "OwnedParentBindingsVerified": true,
+  "PinnedSourceObjectsVerified": [
+    {
+      "GitPath": "erts/emulator/beam/bif.c",
+      "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Ranges": [
+        [
+          4914,
+          4970
+        ]
+      ],
+      "ExcerptSha256": "3D8728DF6AC28317CC79FEDFDDC6E04A502BFF4635FFCA88F46D755F16B7F7B3"
+    },
+    {
+      "GitPath": "erts/emulator/beam/dist.c",
+      "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Ranges": [
+        [
+          1832,
+          1840
+        ],
+        [
+          2872,
+          2883
+        ]
+      ],
+      "ExcerptSha256": "C9E9AA096D5383F021B758D4B2DD6543450B44F1987E6F38204C4CEEE93FC54C"
+    },
+    {
+      "GitPath": "erts/preloaded/src/erlang.erl",
+      "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Ranges": [
+        [
+          3316,
+          3350
+        ]
+      ],
+      "ExcerptSha256": "079185E6B52FB4E0743D779E715D12046C26585B6CF10F6A2C2842B9939B90EC"
+    }
+  ],
+  "BlockingFindings": [],
+  "ResolvedCandidate1Findings": [
+    {
+      "Id": "SOURCE_RANGES",
+      "Issue": "bif4965\u20135021 and dist receive2886\u20132902 missed actual group-leader branches",
+      "Resolved": "Design2 exact bif4914\u20134970 and dist receive2872\u20132883 match pinned objects; send1832\u20131840 retained"
+    },
+    {
+      "Id": "READY_CLEANUP",
+      "Issue": "Original ready wait outside try skipped kill/demonitor on ready timeout",
+      "Resolved": "Candidate2 try begins before ready wait"
+    }
+  ],
+  "ReviewedContracts": [
+    "Registered MFA awaits owned runtime/context route; embedding bool API unchanged",
+    "Argument types/foreign identities/local dead-target route are validated before publication",
+    "Runtime/Pending use same reentrant gate; exact entry/connectionId captured and ticket+resource reserved before gate release",
+    "Existing Publish defers encode/admission while runtime gate held; public await is outside it",
+    "Existing finally/using releases ordered ticket/owned operation/resource on commit/cancel/retirement/encoding failure",
+    "Captured retired generation returns false without replaying replacement; public acceptance remains true as declared",
+    "Native opcode7/leader/remote tuple and same-producer ordered following SEND match bounded source guidance",
+    "HOST max5 process capacity respected;1024 packet queue permits initial three packets",
+    "Actual blocked producer kill is joined; queue drained and fresh successor progress checked",
+    "Old registered branch emits no packet: planned historical RED is semantic bounded Take failure, not missing method",
+    "Two existing files only narrow changes; Program additive one HOST row, prior bodies/order retained",
+    "No API presence delta, auto-connect/pending-handshake/full-native transport claim"
+  ],
+  "RemainingExecutionBoundary": "No build/SDK/HOST/original execution performed. Root must run target+historical RED/GREEN/full separately. Original proposal remains uncompiled and requires separate bounded two-node collector/provenance/worker-settlement review before original execution; kill+demonitor alone is not claimed as joined remote worker cleanup.",
+  "MainGitMutation": false,
+  "SdkCompilerNativeVmNetworkExecuted": false
+}

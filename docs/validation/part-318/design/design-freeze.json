@@ -1,0 +1,121 @@
+{
+  "Status": "SOURCE_ONLY_BOUNDED318_OUTBOUND_CONNECTED_GROUP_LEADER_PROPOSAL",
+  "Design": {
+    "Path": "artifacts/group-leader-outbound318-design2/DESIGN.md",
+    "Bytes": 6577,
+    "Sha256": "D897DBC2F78FF3C086FDD2EDABA78339B5EBE1B90AB394F12044211A9D2F642C"
+  },
+  "CurrentSourceBindings": [
+    {
+      "Path": "docs/ERLANG_COMPATIBILITY.md",
+      "Bytes": 127798,
+      "Sha256": "FF195FA5EC99B8DC2A0707C71406ABB27CA4F7237E24848315376A92BA1CD866"
+    },
+    {
+      "Path": "docs/supported-mfas.json",
+      "Bytes": 149215,
+      "Sha256": "A1CD8B30F0BDA1E8744846B8002342F01732E7964D4F10F3D1029C4C61030955"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63448,
+      "Sha256": "E228CAF22E0B2F4D48DBC30B37226873D968C4C4A8609508F6DE91FE5B1059B1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRegistrations.cs",
+      "Bytes": 3357,
+      "Sha256": "E6A9579BD091CED71CF751941B94DDD1132A526870A02A20E23F3BF3ADC700EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionGroupLeader.cs",
+      "Bytes": 996,
+      "Sha256": "7874FFBA2506C08DFADCE062BEF61DAF6ED244BAAAB398393873A8DD8F63EBFE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "Bytes": 7747,
+      "Sha256": "17320AC5EE0CD7609C11CEDBDA7821572317603BD42FB00FD9462F21C43B0CD5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.OwnedOutput.cs",
+      "Bytes": 11887,
+      "Sha256": "948498BAC66FAEEC06D416FFC2F03EAB6A45E3EB5F2893739FCD6DFA9474D168"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.LiveOutput.cs",
+      "Bytes": 3113,
+      "Sha256": "A37F1D09A0D61F82B4515CB23F7E01CBC35D22D7E5985F268E56B5C5EA7FEF23"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPendingEntry.cs",
+      "Bytes": 718,
+      "Sha256": "52E462899727FA7E0437118C1E7D7F18B056A1C92B13FBC085E9356BB3A4489D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGroupLeaderHostChecks.cs",
+      "Bytes": 5784,
+      "Sha256": "375ADF22EA69DB6568762B14D3DE5D4D81EC36F4CBB38E5935FB5F006DDB6B74"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionLifecycleHostFixture.cs",
+      "Bytes": 6633,
+      "Sha256": "BA0FBF21EEB1D95E8C2F98DB82FC93381C0779985A12D3FBED093403EFD6E16D"
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionControlOpcodes.cs",
+      "Bytes": 2873,
+      "Sha256": "D69F4733585D3366EFE2AA1A10C699BA307F5C5052CA490E4D2FC039AF4EE954"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Ranges": [
+        [
+          4914,
+          4970
+        ]
+      ],
+      "ExcerptPath": "artifacts/group-leader-outbound318-design2/pinned-source/bif.c.excerpt.txt",
+      "ExcerptSha256": "3D8728DF6AC28317CC79FEDFDDC6E04A502BFF4635FFCA88F46D755F16B7F7B3"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Ranges": [
+        [
+          1832,
+          1840
+        ],
+        [
+          2872,
+          2883
+        ]
+      ],
+      "ExcerptPath": "artifacts/group-leader-outbound318-design2/pinned-source/dist.c.excerpt.txt",
+      "ExcerptSha256": "C9E9AA096D5383F021B758D4B2DD6543450B44F1987E6F38204C4CEEE93FC54C"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "FullBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Ranges": [
+        [
+          3316,
+          3350
+        ]
+      ],
+      "ExcerptPath": "artifacts/group-leader-outbound318-design2/pinned-source/erlang.erl.excerpt.txt",
+      "ExcerptSha256": "079185E6B52FB4E0743D779E715D12046C26585B6CF10F6A2C2842B9939B90EC"
+    }
+  ],
+  "ImplementationAuthorizedSeparatelyByRoot": true,
+  "NoApiPresenceDelta": true,
+  "OriginalTwoNodeCasesExecuted": false,
+  "MainGitMutation": false,
+  "SdkBuildNativeVmNetworkExecuted": false,
+  "PreviousDesignFreezeSha256": "B0CF513845929D94C0EED8F7C10D019F4E675EC192AB92EB24FA9F6CABC437AF"
+}

@@ -54,6 +54,7 @@ Test(
     Erlang.Tests.DistributionPublicationLifecycleHostChecks.Run
 );
 Test(Erlang.Tests.DistributionOutputAdmissionHostNames.Test, Erlang.Tests.DistributionOutputAdmissionHostChecks.Run);
+Test(Erlang.Tests.DistributionGroupLeaderOutputHostNames.Test, Erlang.Tests.DistributionGroupLeaderOutputHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);

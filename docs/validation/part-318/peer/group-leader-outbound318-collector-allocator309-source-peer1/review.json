@@ -1,0 +1,66 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_318_COLLECTOR_AND_PROBE_REVISION3",
+  "SourceOnly": true,
+  "CollectorFreezeSha256": "F22C73B90D564804E70EC3C1C922C5ECB9763BF8E097B1696615A7F9AF887BBF",
+  "CollectorMembersVerified": 11,
+  "SourcePlanSha256": "ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F",
+  "PlanSourcesVerified": 7,
+  "PinnedSourceObjectsIndependentlyReadAndVerified": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "erts/epmd/src/epmd.c",
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "lib/kernel/src/erl_epmd.erl",
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    },
+    {
+      "Path": "erts/etc/common/erlexec.c",
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    }
+  ],
+  "Candidate3FreezeSha256": "62690523BD0D0B6AB44DCFF0A34E41BA69C78DCB10F0CE58563653A6540A8B9B",
+  "SixCSharpFilesExactPriorC008SourcePeer13B839": true,
+  "ProbeByteExactBetweenCandidate3AndCollector": true,
+  "ParentWorkflowAndAttributesBound": true,
+  "AttributesOnlyCanonicalPlanLfAddition": true,
+  "LegacyProcessCaptureAndPassiveDecoderByteExact": true,
+  "PythonAstParsedOnly": true,
+  "BlockingFindings": [],
+  "ReviewedContracts": [
+    "Exact source plan/hash before loading local helpers, canonicalLF sourceplan and literal workflow hash pin",
+    "Existing controlled pinned configure/make/install workflow and source-build log receipt reused without claiming stronger full-prefix/OS provenance",
+    "Private foreground epmd without-daemon, automaticepmd disabled, unique names/privateport/testcookie and loopback distribution interface",
+    "Three persistent child sessions own separate process groups; stdout/stderr file capture avoids unread PIPE deadlock",
+    "Bounded10s startup/35s session/30s server/all5s receives;singleprocess Git/compiler helpers bounded10/30s;4MiB persistent stream guard",
+    "SIGINT/TERM cancellation reaches bounded checks; finally retires only recorded owned groups in reverse and reaps parents;TERM3s thenKILL5s",
+    "Receipt explicitly discloses process-group cleanup requests/parent reaping, not OS-wide absence of arbitrary daemonized descendants",
+    "Both VMs retain raw9-field metadata and verify actual names/version/root/fullBEAM MD5 identities;BEAM SHA256 files retained",
+    "Source-guided4contracts/6orderedoperations/rawPIDequality/fulloffsetdecode and journals checked without numeric/node normalization",
+    "Fresh worker monitor+kill+boundedDOWN handles prior consumedDOWN; originalmonitor flushed;primarycase exception wins over cleanup exception",
+    "Driver retains outcome/worker cleanup independently and boundedserver handshake;collector waits both actual process exits and raw shutdownETF before PASS",
+    "Original networking/observations are separate from SDK HOST controller packet roles;No liveSDK peer/equalwire/control-byte parity claim",
+    "Workflow uploadifalways retains raw failure logs/reports and newtool step is additive after existing pinned build"
+  ],
+  "RemainingGates": [
+    "Root approved source promotion/plan composition",
+    "Actual pinned erlc compilation; Erlang source not compiled by reviewer",
+    "Actual Linux loopback epmd/twoVM observations and cancellation cleanup captures",
+    "Independent terminal provenance/rawETF/processreceipt review",
+    "Separate historical SDK RED/GREEN and full validation"
+  ],
+  "NativeOriginalSdkBuildCompilerNetworkExecutedByReviewer": false,
+  "MainOrGitMutation": false
+}
