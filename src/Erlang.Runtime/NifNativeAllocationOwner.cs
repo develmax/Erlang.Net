@@ -106,6 +106,52 @@ internal sealed unsafe class NifNativeAllocationOwner
         }
     }
 
+    // Byte histories settle the full old/new requested extent, including in-place resize.
+    // Block admissions/disposals stay unchanged; these are not physical/ERTS API totals.
+    internal nint Reallocate(nint pointer, nuint size)
+    {
+        if (pointer == 0)
+            return Allocate(size);
+        lock (gate)
+        {
+            if (!owned.TryGetValue(pointer, out nuint previous))
+                throw new InvalidOperationException(NifNativeDiagnostics.ForeignAllocationReallocate);
+            ulong backing = BackingRequest(size);
+            var next = snapshot with
+            {
+                RequestedBytes = checked(snapshot.RequestedBytes - (ulong)previous + (ulong)size),
+                BackingRequestBytes = checked(snapshot.BackingRequestBytes - BackingRequest(previous) + backing),
+                AllocatedRequestedBytes = checked(snapshot.AllocatedRequestedBytes + (ulong)size),
+                ReleasedRequestedBytes = checked(snapshot.ReleasedRequestedBytes + (ulong)previous),
+                AllocatedBackingRequestBytes = checked(snapshot.AllocatedBackingRequestBytes + backing),
+                ReleasedBackingRequestBytes = checked(snapshot.ReleasedBackingRequestBytes + BackingRequest(previous))
+            };
+            next = next with
+            {
+                PeakRequestedBytes = Math.Max(snapshot.PeakRequestedBytes, next.RequestedBytes),
+                PeakBackingRequestBytes = Math.Max(snapshot.PeakBackingRequestBytes, next.BackingRequestBytes)
+            };
+            owned.EnsureCapacity(checked(owned.Count + 1));
+            using var change = domain?.BeginChange(domainMembership, snapshot, next);
+            nint resized = (nint)NativeMemory.Realloc((void*)pointer, (nuint)backing);
+            if (resized == 0)
+                return 0;
+            if (resized == pointer)
+                owned[pointer] = size;
+            else
+            {
+                // Capacity and all arithmetic were checked before destructive native resize.
+                // The default nint comparer has no user callback; no rollback can revive pointer.
+                owned.Add(resized, size);
+                owned.Remove(pointer);
+            }
+            snapshot = next;
+            change?.Commit();
+
+            return resized;
+        }
+    }
+
     internal void Free(nint pointer)
     {
         if (pointer == 0)

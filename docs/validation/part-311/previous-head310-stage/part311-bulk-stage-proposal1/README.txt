@@ -1,0 +1,9 @@
+Separate next311 proposal. No current READY310 file, source, index or package is changed by these tools.
+
+Replace only the per-file git show/check-attr calls in a future stage guard with capture(expected_paths, cwd), keeping every existing source/proof/path/hash/mode/receipt check. It runs one git cat-file --batch against :path index blobs and one git check-attr --cached -z --stdin text binary. Binary data are decoded by declared byte lengths, not line splitting. Attribute triples are NUL-delimited and unique. Nonblob/missing/trailing data, repeated paths and unexpected attributes fail. Current proof batches fit the explicit512MiB output bound.
+
+For a published reference, capture(..., revision=published_head) uses immutable head:path objects and git check-attr --source=published_head. The installed Git help confirms --source support. verify-published-reference.py compares every staged byte length/hash and recorded Git attribute against the accepted stage guard using exactly two Git child processes. It does not read later working-tree source bytes, stage files or rerun builds.
+
+The separate actual310 read-only stage review2 verified902 records/865 proofs in2.11 seconds using this approach, then independently captured default and adjusted whitespace checks. Its default single known EOF warning is transparent, not a default-check pass. Do not carry that exception automatically into311. Root plans to trim the extra EOF line within a new normal source freeze/full run. A future311 guard should require the ordinary default git diff --cached --check unless a separately reviewed, explicit bounded exception is authorized.
+
+Wait for root publication before benchmarking against the exact published310 head. Example arguments: artifacts/root-part310-stage-index-guard.json, exact40-characterhead, new artifact report path. Never rewrite the current frozen stageguard or its proof receipt.

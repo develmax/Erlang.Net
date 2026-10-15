@@ -1,0 +1,235 @@
+{
+  "Status": "ROOT_REVIEWED_ACTUAL_FINAL311_AUTHORITY",
+  "Part": 311,
+  "SourceFreeze": {
+    "Path": "artifacts/root-part311-final-source-freeze.json",
+    "Bytes": 4757,
+    "Sha256": "F11E4D1E273CC81CF4FEC46A96E7114348E4D7873ECCC4E9622B8D4E0E716918"
+  },
+  "EvidenceBindings": {
+    "FullExit": "artifacts/root-part311-full-exit.json",
+    "FullLog": "artifacts/root-part311-full-validation.log",
+    "Tests": "artifacts/tests.json",
+    "PreviousTests": "docs/validation/part-310/tests.json",
+    "Integration": "artifacts/integration-results.json",
+    "PreviousIntegration": "docs/validation/part-310/integration-results.json",
+    "FullGuard": "artifacts/root-part311-full-guard.json",
+    "NativeGuard": "artifacts/root-part311-main-native/guard.json",
+    "RegistryGuard": "artifacts/root-part311-registry-metadata-guard.json",
+    "OptionalIoGuard": "artifacts/root-part311-optional-io-guard.json",
+    "NativeSourcePlan": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "RawRegistry": "artifacts/root-part311-raw-supported-mfas.json",
+    "DerivedRegistry": "docs/supported-mfas.json",
+    "ActiveChangelogBefore": "docs/changelog/0046.md",
+    "ReadinessScopeCurrent": "docs/module-readiness-scope.json",
+    "ReadinessResult": "docs/module-readiness.json",
+    "ChangelogIndexBefore": "CHANGELOG.md",
+    "MetadataNote": "artifacts/part311-packaging-proposal1/part311-metadata-note.txt",
+    "ChangelogDraft": "artifacts/part311-packaging-proposal1/part311-changelog-draft.md",
+    "Previous310Ci": "artifacts/pack310-ci-independent-guard.json",
+    "Previous310Native": "artifacts/pack310-native-combined-independent-guard.json",
+    "PortableReplayGuard": "artifacts/part311-composite-portable1/independent-archive-replay-guard.json",
+    "CompositeArchive": "artifacts/part311-composite-portable1/immutable-evidence.zip",
+    "PortableReferenceIndex": "artifacts/part311-composite-portable1/portable-index.json",
+    "PortableInputAuthority": "artifacts/part311-composite-portable1/input-authority.json",
+    "PortableReplayBinding": "artifacts/part311-composite-portable1/replay-execution-bindings.json",
+    "FormatGuard": "artifacts/root-part311-combined-isolated/format-token-guard.json",
+    "TokensBefore": "artifacts/root-part311-combined-isolated/tokens-before.json",
+    "TokensAfter": "artifacts/root-part311-combined-isolated/tokens-after.json",
+    "IsolatedReallocationReceipt": "artifacts/nif-reallocation309-validated1/validation-receipt.json",
+    "EofLayoutMap": "artifacts/part311-eof-layout-candidate1/promotion-map.json"
+  },
+  "GuardAssertions": {
+    "FullGuard": {
+      "Status": "ACTUAL_MAIN_6639_FULL_ALL6638_HISTORICAL_ORDERED_NAMES_11_SOURCE_8_CSHARP_AND_11_INTEGRATION_PASS",
+      "Passed": 6639,
+      "Failed": 0,
+      "HistoricalOrderedNamesPreserved": 6638,
+      "SourcePaths": 11,
+      "CSharpPaths": 8,
+      "ReviewedSourceInputs": 1028,
+      "NewPublicMfa": false,
+      "GeneralNifAbiComplete": false,
+      "DefaultNativeLoadInstructionHandlerInstalled": false
+    },
+    "NativeGuard": {
+      "Status": "ACTUAL_MAIN_POST_FULL_WINDOWS_NATIVE_SEVEN_ORDERED_LINES_AND_THREE_ALLOCATION_DOMAIN_ROLES_PASS",
+      "SourceClosurePathsVerifiedBeforeAndAfter": 2154,
+      "NativeTrustedWindowsProfilePassed": true,
+      "ActualGeneratedCSharpRoutePassed": true,
+      "LinuxAbiExecuted": false,
+      "OriginalExecuted": false,
+      "GeneralNifAbiComplete": false,
+      "DefaultNativeLoadInstructionHandlerInstalled": false
+    },
+    "RegistryGuard": {
+      "Status": "ACTUAL_RAW505_CAPTURED_TWO_EXISTING_LIMITS_DISCLOSURES_RESTORED_ALL505_ROWS_EXACT",
+      "Registry": 505,
+      "ErlangMfas": 347,
+      "PublicMfaDelta": 0,
+      "All505RowsFieldsAndOrderingExact": true,
+      "SourceExporterChanged": false
+    },
+    "OptionalIoGuard": {
+      "DefaultExports": 505,
+      "OptionalIoExports": 507,
+      "IndependentAdditionalExecution": false
+    },
+    "Previous310Ci": {
+      "Status": "PASS_EXACT_HEAD310_CI6638_FULL",
+      "Passed": 6638,
+      "Failed": 0,
+      "Historical6637OrderedNamesExact": true,
+      "RegisteredMfas": 505,
+      "PublishedStageSource26AndCSharp20Exact": true
+    },
+    "Previous310Native": {
+      "Status": "PASS_EXACT_HEAD310_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13",
+      "SdkSixArgumentNativePassed": true,
+      "StrictSdkEightLinesPassed": true,
+      "NativePayloadDomainRolesPassed": 3,
+      "IndependentOriginal13TypedPassed": true,
+      "OriginalCases": 13,
+      "OriginalAndSdkThirteenCasesCompared": false,
+      "SourceInputsVerified": 1028,
+      "WindowsLinuxGeneratedCSharpSha256Exact": true,
+      "GeneralNifAbiComplete": false
+    },
+    "PortableReplayGuard": {
+      "Status": "PASS_ARCHIVE_ONLY_EVERY_FROZEN_LOGICAL_MEMBER_REPLAY",
+      "SourceCandidateDirectoriesRead": false,
+      "BuildExecuted": false,
+      "NativeExecuted": false
+    }
+  },
+  "AllowedTextLfSources": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml"
+  ],
+  "RegistryMetadataChanges": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Field": "Limits",
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    }
+  ],
+  "PortableSetNames": [
+    "reallocation-package",
+    "reallocation-compiled-source",
+    "final-main-source-resource",
+    "eof-source-only"
+  ],
+  "PortableFiles": [
+    "artifacts/part311-composite-portable1/immutable-evidence.zip",
+    "artifacts/part311-composite-portable1/portable-index.json",
+    "artifacts/part311-composite-portable1/input-authority.json",
+    "artifacts/part311-composite-portable1/independent-archive-replay-guard.json",
+    "artifacts/part311-composite-portable1/replay-execution-bindings.json"
+  ],
+  "RootProofPaths": [
+    "artifacts/root-part311-final-source-freeze.json",
+    "artifacts/root-part311-full-exit.json",
+    "artifacts/root-part311-full-validation.log",
+    "artifacts/root-part311-full-guard.json",
+    "artifacts/root-part311-raw-supported-mfas.json",
+    "artifacts/root-part311-registry-metadata-guard.json",
+    "artifacts/root-part311-optional-io-guard.json",
+    "artifacts/root-compose311.py",
+    "artifacts/root-prepare311.py",
+    "artifacts/root-snapshot311.py",
+    "artifacts/root-format311.ps1",
+    "artifacts/root-guard311-format.py",
+    "artifacts/root-run311-full.ps1",
+    "artifacts/root-guard311-full.py",
+    "artifacts/root-preserve311-registry.py",
+    "artifacts/root-run311-post-full-native.py",
+    "artifacts/root-dispatch311-native.ps1",
+    "artifacts/root-part311-main-native/attempt.json",
+    "artifacts/root-part311-main-native/process.json",
+    "artifacts/root-part311-main-native/native.stdout",
+    "artifacts/root-part311-main-native/native.stderr",
+    "artifacts/root-part311-main-native/guard.json",
+    "artifacts/root-part311-combined-isolated/baseline-snapshot.json",
+    "artifacts/root-part311-combined-isolated/custom-format.log",
+    "artifacts/root-part311-combined-isolated/format-token-guard.json",
+    "artifacts/root-part311-combined-isolated/pre-format-composition.json",
+    "artifacts/root-part311-combined-isolated/pre-format-token-inputs.json",
+    "artifacts/root-part311-combined-isolated/tokens-after.json",
+    "artifacts/root-part311-combined-isolated/tokens-before.json"
+  ],
+  "IndependentReviewPaths": [
+    "artifacts/nif-reallocation309-beam310-source-peer1.json"
+  ],
+  "PackagingControlPaths": [
+    "artifacts/build311-portable-evidence.py",
+    "artifacts/verify311-portable-evidence.py",
+    "artifacts/part311-packaging-proposal1/bind-actual-evidence.py",
+    "artifacts/part311-packaging-proposal1/bulk-git.py",
+    "artifacts/part311-packaging-proposal1/make-authority-skeleton.py",
+    "artifacts/part311-packaging-proposal1/part311-changelog-draft.md",
+    "artifacts/part311-packaging-proposal1/part311-common.py",
+    "artifacts/part311-packaging-proposal1/part311-finalize-proposal.py",
+    "artifacts/part311-packaging-proposal1/part311-metadata-note.txt",
+    "artifacts/part311-packaging-proposal1/part311-readiness-proposal.py",
+    "artifacts/part311-packaging-proposal1/part311-stage-guard-proposal.py",
+    "artifacts/part311-packaging-proposal1/README.txt"
+  ],
+  "MetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md"
+  ],
+  "StageMetadataPaths": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0046.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/MODULE_READINESS.md",
+    "docs/supported-mfas.json"
+  ],
+  "RetainedCounterfactualEvidence": [
+    {
+      "ArchiveSet": "reallocation-package",
+      "Path": "logs/red-focus.stdout"
+    },
+    {
+      "ArchiveSet": "reallocation-package",
+      "Path": "evidence/red-only-settlement-delta.diff"
+    },
+    {
+      "ArchiveSet": "reallocation-package",
+      "Path": "evidence/NifNativeAllocationOwner.red.cs"
+    }
+  ],
+  "CounterfactualIsRealNativeMemoryOwnerAccountingRed": true,
+  "CounterfactualClaimsNativeFixtureExecution": false,
+  "Notes": [
+    "Actual Main full6639/all6638historical/11 integration and fresh native2154closure-before-after seven-line profile passed.",
+    "Real NativeMemory realloc proof distinct from native fixture callback; no actualOOM/new publicMFA/ABI expansion.",
+    "Prior310 stage EOF exception remains historical; corrected311 freeze uses default bulk-stage check."
+  ]
+}

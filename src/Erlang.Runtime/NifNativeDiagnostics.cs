@@ -16,6 +16,7 @@ internal static class NifNativeDiagnostics
     internal const string ExpiredEnvironment = "Unknown or expired NIF environment.";
     internal const string TermHandleExhausted = "NIF term handle space exhausted.";
     internal const string ForeignTermHandle = "Unknown or foreign NIF term handle.";
+    internal const string ForeignAllocationReallocate = "Foreign or stale native reallocation.";
     internal const string ForeignAllocationFree = "Foreign or duplicate native free.";
     internal const string NullIntegerOutput = "Null NIF integer output.";
     internal const string UnsupportedStringEncoding = "Fixture only supports nonnull Latin1 NIF strings.";

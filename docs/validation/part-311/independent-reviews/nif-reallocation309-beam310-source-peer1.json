@@ -1,0 +1,58 @@
+{
+  "Status": "PASS_SOURCE_ONLY_READONLY_PEER",
+  "Candidate": "artifacts/nif-reallocation309-candidate2",
+  "SourceFreezeSha256": "B070C1E762079F12F44E011B97CFC02141E1075D73AA199B2AB4ED0D8E4248DD",
+  "OverlayFilesVerified": 7,
+  "SourceBindingsVerified": 15,
+  "RuntimeProductionPaths": 2,
+  "ProgramRegistration": "Exactly one appended realloc row after existing domain row; no other Program delta",
+  "Findings": [],
+  "Reviewed": [
+    "Null pointer delegates existing Allocate; nonnull zero requests positive one-byte backing",
+    "Foreign/stale ownership rejection under owner gate before native call",
+    "All owner byte arithmetic and peak updates checked before native destructive realloc",
+    "Dictionary EnsureCapacity Count+1 precedes domain arithmetic and native realloc; moved add/remove uses default nint comparer with reserved capacity; no fictional old-pointer rollback/free",
+    "Owner gate -> domain gate ordering consistent; unchanged BeginChange preflights aggregate counters, holds monitor through native call, and commits structs/existing long slot without new allocation",
+    "Non-null resize keeps Count/SuccessfulAllocations/ReleasedAllocations unchanged and settles full old/new requested+backing extents even same-size/in-place; null allocation preserves admission counts",
+    "Native null return or precommit exception leaves old map/snapshot/domain unchanged; domain change disposed without commit",
+    "HOST actual Runtime reflection targets verified against declared private fields/methods and public record constructor/property names; no tests namespace guess/new runtime friend",
+    "Synthetic owner/domain overflow restored before cleanup, live payload still read from original pointer; no actual OOM claim",
+    "Actual library adapter takes existing library gate then owner/domain locks; wrong-module Initialize joins before file load failure; fresh domain A snapshot equals aggregate while B empty",
+    "Global current sequence13,30,54,24,48,41,46 proves peak54 rather than sum owner peaks78; subsequent small resizes max48",
+    "Revision2 reader finally cancels and awaits actual writer settlement before outer library disposal; original reader failure preserved; final caller pointer intentionally unused and actual map reclaims it",
+    "Tiny allocations and real prefix checks; writer syscall is not preemptible, no resize/dispose race or native ABI execution claim"
+  ],
+  "PureArithmeticControl": {
+    "Sequence": [
+      13,
+      37,
+      7,
+      7,
+      0,
+      5
+    ],
+    "AllocatedRequested": 69,
+    "ReleasedRequested": 64,
+    "AllocatedBacking": 70,
+    "ReleasedBacking": 65,
+    "CurrentRequested": 5,
+    "OwnerPeak": 37,
+    "DomainGlobalPeak": 54
+  },
+  "ExecutionBoundaries": {
+    "BuildExecuted": false,
+    "HostExecuted": false,
+    "NativeFixtureExecuted": false,
+    "OriginalExecuted": false,
+    "AllocatorOomExecuted": false,
+    "PurePythonArithmeticOnly": true,
+    "MainEdited": false,
+    "GitMutated": false,
+    "PostPerformed": false
+  },
+  "ResidualBoundaries": [
+    "Actual allocation/capacity/native realloc failure not executed by this source peer",
+    "Native allocator may stay in place; source plus payload tests cover moved-pointer map commit without claiming forced movement",
+    "External process timeout is required to bound an uninterruptible native syscall; revision2 safely joins before disposal rather than abandon active writer"
+  ]
+}
