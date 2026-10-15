@@ -1,0 +1,149 @@
+{
+  "CSharpPaths": 3,
+  "MutableReadmeChanged": 1,
+  "OriginalBodyExecutionPerformed": false,
+  "SourceSha256": "AD007477B7DE6FE4D44FEBF0965962460CA41BBE40F9BD0CB978CCEFF5033DAE",
+  "OriginalTag": "OTP-29.1.1",
+  "MainEdited": false,
+  "Hypotheses": [
+    "non_tail/3 call_ext load_nif/2 followed by tuple construction",
+    "tail_last/3 call_ext_last load_nif/2, positive allocated frame, both Path/Info saved/restored in distinct Y slots across existing erlang:put/2",
+    "tail_only/2 no-frame call_ext_only load_nif/2"
+  ],
+  "SourceBindings": [
+    {
+      "Bytes": 7821,
+      "Path": "tools/Erlang.BeamFixtures/FixtureExporter.cs",
+      "Sha256": "86F0417B66B0C8988E2FCCCA5227DAA44B94F1DC8FE98EEE415274F1ED2C2E05"
+    },
+    {
+      "Bytes": 3444,
+      "Path": "tools/Erlang.BeamFixtures/FixtureExecution.cs",
+      "Sha256": "135D1E4D6E882DC4A6480433822FD160B2073B5068DABB318F864077DAD47FD3"
+    },
+    {
+      "Bytes": 2641,
+      "Path": "tools/Erlang.BeamFixtures/FixtureMetadata.cs",
+      "Sha256": "F9444D2FCAD3880EC9AC16D2E93A198AF10F0C149057DA1FFA709AC11BA508B8"
+    },
+    {
+      "Bytes": 4607,
+      "Path": "tools/Erlang.BeamFixtures/verify-on-load-observers.py",
+      "Sha256": "3E7F28ECAB1E13902671A45F299AF2C87834947B927CC0C420EEE35C0636E6E2"
+    },
+    {
+      "Bytes": 14714,
+      "Path": "tools/Erlang.BeamFixtures/verify-metadata-mutations.py",
+      "Sha256": "F09799AD51AB4A49C271977E987F1C186C76FF4A87C943D19E8D6AA709F1DB4C"
+    },
+    {
+      "Bytes": 2533,
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Sha256": "933307F1F93FC873DE1417B40847D9F0878E9FE5AB08C553F5E65D68F0F97804"
+    },
+    {
+      "Bytes": 41234,
+      "Path": "artifacts/nif-actual-beam-caller310-validated1/original-and-pin-evidence/pinned-ops.tab",
+      "Sha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857"
+    },
+    {
+      "Bytes": 724,
+      "Path": "artifacts/nif-actual-beam-caller310-validated1/original-and-pin-evidence/pinned-source-proof.json",
+      "Sha256": "29BD82E2A55D807154C901584F7D60FDDA8B2C3FC456717A8B6E0AC3A674DB11"
+    },
+    {
+      "Bytes": 113233,
+      "Path": "artifacts/nif-actual-beam-caller310-validated1/pinned-evidence/lib_compiler_src_beam_ssa_codegen.erl",
+      "Sha256": "67A6BEC52055069DB56127DD74B4BABBA7AE0F01BDB77AFA9C6AC9FBAB5741CD"
+    }
+  ],
+  "CompilerFlags": [
+    "-Werror",
+    "+debug_info"
+  ],
+  "NetworkPostPerformed": false,
+  "Files": [
+    {
+      "Path": ".github/workflows/beam-fixtures.yml",
+      "ResultSha256": "C30D938A07ACBD23FEE586A46ED37ABA973FA8B562CCC478CF1C2CF1D588752C",
+      "ResultBytes": 5480,
+      "ParentBytes": 5028,
+      "ParentSha256": "1DC335512D41FB8C05C7FF69B33210CDAEC407B7DD44A316D9964DDF77F39392"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/load-nif-opcode-contract.json",
+      "ResultSha256": "54836EB82D0C4A52FA7A00C596EE1D2D882F6E48C770B2BE3C21F2E6DB09EA98",
+      "ResultBytes": 540,
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/LoadNifOpcodeFixtureExporter.cs",
+      "ResultSha256": "24B29F13CFD8AB580F904F066CD8B29B33CA148D8BED9889904C4C074DFDE61D",
+      "ResultBytes": 6316,
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/LoadNifOpcodeFixtureNames.cs",
+      "ResultSha256": "41BB5B9548D56CE8C92194098FBD9264D04678313464C650E0A81C985B7E5E27",
+      "ResultBytes": 2618,
+      "ParentBytes": null,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/Program.cs",
+      "ResultSha256": "54A91F2F24F33C5E8329E92268DA2A5648831717D1DB51FAD905015229E97D19",
+      "ResultBytes": 917,
+      "ParentBytes": 766,
+      "ParentSha256": "095F9FB54A0EBD598E308D06EB80BAA7237DD0DBAEED23F951CE1D63FBCE0A10"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/README.md",
+      "ResultSha256": "1FAEFC897C0B43DF3CB518C0AF62574506E7A22A1CDC0C0DDE2505F1CECC6FB2",
+      "ResultBytes": 4037,
+      "ParentBytes": 2989,
+      "ParentSha256": "C85531B9EDA93401E6CF4267F148FE35924A07BC938D6A1968E6A6C876AE2713"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py",
+      "ResultSha256": "C0DA653D32F1F78D85668A53D2B613EAF25C978ECA8EA96C269BFA971AFFEE77",
+      "ResultBytes": 12462,
+      "ParentBytes": null,
+      "ParentSha256": null
+    }
+  ],
+  "MutableWorkflowChanged": 1,
+  "OriginalDisassemblyObserved": false,
+  "SdkBuildExecuted": false,
+  "PostPublication": "Root publishes tooling then manually runs existing pinned compile workflow at same reviewed head; independently verify job/head/run/artifact and new shape result",
+  "NewToolCSharpClasses": 2,
+  "ReusedWorkflow": ".github/workflows/beam-fixtures.yml",
+  "PythonAstParsed": true,
+  "CSharpSemanticLiterals": "All newly authored CSharp semantic text in owning Names constants; each new class in own file",
+  "SourcePaths": 7,
+  "GitMutated": false,
+  "Status": "SOURCE_ONLY_EXPORTER_CANDIDATE_PENDING_PEER_AND_BUILD",
+  "ReusedHelpers": [
+    "OracleCommand process timeout/capture",
+    "BeamChunkReader raw chunk digest",
+    "FixtureMetadata file-only query",
+    "Existing metadata verifier bounded ETF decoder imported without main"
+  ],
+  "NewVerifierPython": 1,
+  "FallbackPolicy": "Any different compiler opcode/frame choice fails evidence guard and retains raw files/logs; never synthesize BEAM",
+  "RetainedBaselineContract": "Six fixtures/five body executions remain exact; separate output directory manifest",
+  "FutureManagedBoundary": "After actual raw BEAM accepted, add immutable original resource HOST for3forms; no default handler/native ABI activation or new production frame introspection",
+  "OriginalCompilationPerformed": false,
+  "NewStaticContractJson": 1,
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeLoadingExecutionPerformed": false,
+  "PreviousFreezeSha256": "A1546BC47BCDFD88FD0B9F3AD0654BDA3CDC7603F0AF61A36EFB54BB4DA4FDA8",
+  "PeerRevision": [
+    "Exactly five compiler arguments",
+    "Fresh exclusive verifier result and exact actual output file closure",
+    "All metadata file/digest/process fields bound to captured files",
+    "Exact disassembly eval bytes bound to recorded original compile output paths; file-only metadata query binding",
+    "Original serialized compile paths use explicit PurePosixPath/PureWindowsPath to reconstruct byte-exact remote eval independent of verifier host"
+  ]
+}

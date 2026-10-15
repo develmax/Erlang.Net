@@ -1,0 +1,20 @@
+
+#
+# The load_nif/2 BIF is an instruction.
+#
+
+call_ext u==2 u$func:erlang:load_nif/2 =>
+    i_load_nif
+call_ext_last u==2 u$func:erlang:load_nif/2 D =>
+    i_load_nif | deallocate_return D
+call_ext_only u==2 u$func:erlang:load_nif/2 =>
+    i_load_nif | return
+
+%cold
+i_load_nif
+%hot
+
+#
+# apply/2 is an instruction, not a BIF.
+#
+

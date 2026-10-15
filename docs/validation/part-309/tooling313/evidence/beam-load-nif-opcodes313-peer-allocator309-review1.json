@@ -1,0 +1,38 @@
+{
+  "Status": "SOURCE_PEER_PASS_BUILD_CLEARANCE_ONLY",
+  "Candidate": "artifacts\\beam-load-nif-opcodes313-candidate3",
+  "FreezeSha256": "B5E8E5C721138FD61D491DD213B3EB1BB726AD19291351061AD117DDDB37E6D4",
+  "VerifiedOverlayFiles": 7,
+  "VerifiedSourceBindings": 9,
+  "UnchangedCandidate1Files": [
+    ".github/workflows/beam-fixtures.yml",
+    "tools/Erlang.BeamFixtures/load-nif-opcode-contract.json",
+    "tools/Erlang.BeamFixtures/LoadNifOpcodeFixtureExporter.cs",
+    "tools/Erlang.BeamFixtures/LoadNifOpcodeFixtureNames.cs",
+    "tools/Erlang.BeamFixtures/Program.cs",
+    "tools/Erlang.BeamFixtures/README.md"
+  ],
+  "PythonAstParsed": true,
+  "CrossHostOriginalPathFlavorControls": 2,
+  "ResolvedFindings": [
+    "Exactly five compiler arguments",
+    "Fresh exclusive result; flat exact captured output closure",
+    "Metadata referenced-file digests and stdout/stderr linkage",
+    "Exact authored disassembly evaluation reconstructed from original compile paths",
+    "Explicit original POSIX/Windows pure paths independent of review host"
+  ],
+  "ReviewedContract": [
+    "Separate new manifest retains baseline six fixtures/five executions",
+    "Exact OTP pin and source-build/head/run/attempt evidence references",
+    "File-only disassembly/metadata; no module/body/native loading",
+    "Actual opcode/frame mismatch fails and preserves raw capture; no synthesis fallback"
+  ],
+  "OriginalCompilationPerformedByPeer": false,
+  "OpcodeShapesProven": false,
+  "SdkBuildPerformedByPeer": false,
+  "MainEdited": false,
+  "RemainingValidation": [
+    "Isolated SDK build/style/refusal controls",
+    "Published exact-head pinned original compilation and independent raw artifact review"
+  ]
+}

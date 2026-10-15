@@ -79,6 +79,11 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/Erlang.BeamFixtures/verify-metadata-mutations.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-metadata-mutation-guard.log
+      - name: Verify actual compiled load_nif caller opcode roles
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-load-nif-opcode-guard.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -91,3 +96,4 @@ jobs:
             artifacts/beam-fixture-export.log
             artifacts/beam-on-load-observer-guard.log
             artifacts/beam-metadata-mutation-guard.log
+            artifacts/beam-load-nif-opcode-guard.log

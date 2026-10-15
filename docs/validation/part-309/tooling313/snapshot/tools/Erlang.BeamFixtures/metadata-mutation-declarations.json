@@ -1,0 +1,1245 @@
+{
+  "Status": "PREDECLARED_SOURCE_ONLY_NOT_NATIVE_OBSERVED",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Seed": "8a72ad88f907a34d424ecc23648bc45c315213a4",
+  "Cases": [
+    {
+      "Name": "Attr-absent",
+      "Chunk": "Attr",
+      "PayloadKind": "absent",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-zero-length",
+      "Chunk": "Attr",
+      "PayloadKind": "zero",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-empty-list",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-list-without-vsn",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "[{custom,[17]}]",
+      "IndependentExpectedExpression": "[{custom,[17]}]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": [
+              {
+                "Tuple": [
+                  {
+                    "Atom": "custom"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 17
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-duplicates-and-order",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "[{last,[1]},{first,[2]},{last,[3]}]",
+      "IndependentExpectedExpression": "[{last,[1]},{first,[2]},{last,[3]}]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": [
+              {
+                "Tuple": [
+                  {
+                    "Atom": "last"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Tuple": [
+                  {
+                    "Atom": "first"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Tuple": [
+                  {
+                    "Atom": "last"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 3
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-atom",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "custom",
+      "IndependentExpectedExpression": "custom",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Atom": "custom"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-integer",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "73",
+      "IndependentExpectedExpression": "73",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Integer": 73
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-map",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "#{custom=>73}",
+      "IndependentExpectedExpression": "#{custom=>73}",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Map": [
+              [
+                {
+                  "Atom": "custom"
+                },
+                {
+                  "Integer": 73
+                }
+              ]
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-improper-list",
+      "Chunk": "Attr",
+      "PayloadKind": "encoded",
+      "TermExpression": "[73|custom]",
+      "IndependentExpectedExpression": "[73|custom]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "ImproperList": {
+              "Items": [
+                {
+                  "Integer": 73
+                }
+              ],
+              "Tail": {
+                "Atom": "custom"
+              }
+            }
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-trailing-bytes",
+      "Chunk": "Attr",
+      "PayloadKind": "trailing",
+      "TermExpression": "73",
+      "IndependentExpectedExpression": "73",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Integer": 73
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-compressed",
+      "Chunk": "Attr",
+      "PayloadKind": "compressed",
+      "TermExpression": "lists:duplicate(256,73)",
+      "IndependentExpectedExpression": "undefined",
+      "ExpectedLoadAccepted": false,
+      "ExpectedLoadRejection": "{error,badfile}",
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "error"
+          },
+          {
+            "Atom": "badfile"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Attr-truncated-version-only",
+      "Chunk": "Attr",
+      "PayloadKind": "truncated",
+      "TermExpression": "undefined",
+      "IndependentExpectedExpression": "undefined",
+      "ExpectedLoadAccepted": false,
+      "ExpectedLoadRejection": "{error,badfile}",
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "error"
+          },
+          {
+            "Atom": "badfile"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-absent",
+      "Chunk": "CInf",
+      "PayloadKind": "absent",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-zero-length",
+      "Chunk": "CInf",
+      "PayloadKind": "zero",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-empty-list",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "[]",
+      "IndependentExpectedExpression": "[]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": []
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-list-without-vsn",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "[{custom,[17]}]",
+      "IndependentExpectedExpression": "[{custom,[17]}]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": [
+              {
+                "Tuple": [
+                  {
+                    "Atom": "custom"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 17
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-duplicates-and-order",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "[{last,[1]},{first,[2]},{last,[3]}]",
+      "IndependentExpectedExpression": "[{last,[1]},{first,[2]},{last,[3]}]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "List": [
+              {
+                "Tuple": [
+                  {
+                    "Atom": "last"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Tuple": [
+                  {
+                    "Atom": "first"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Tuple": [
+                  {
+                    "Atom": "last"
+                  },
+                  {
+                    "List": [
+                      {
+                        "Integer": 3
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-atom",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "custom",
+      "IndependentExpectedExpression": "custom",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Atom": "custom"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-integer",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "73",
+      "IndependentExpectedExpression": "73",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Integer": 73
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-map",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "#{custom=>73}",
+      "IndependentExpectedExpression": "#{custom=>73}",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Map": [
+              [
+                {
+                  "Atom": "custom"
+                },
+                {
+                  "Integer": 73
+                }
+              ]
+            ]
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-improper-list",
+      "Chunk": "CInf",
+      "PayloadKind": "encoded",
+      "TermExpression": "[73|custom]",
+      "IndependentExpectedExpression": "[73|custom]",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "ImproperList": {
+              "Items": [
+                {
+                  "Integer": 73
+                }
+              ],
+              "Tail": {
+                "Atom": "custom"
+              }
+            }
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-trailing-bytes",
+      "Chunk": "CInf",
+      "PayloadKind": "trailing",
+      "TermExpression": "73",
+      "IndependentExpectedExpression": "73",
+      "ExpectedLoadAccepted": true,
+      "ExpectedLoadRejection": null,
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "accepted"
+          },
+          {
+            "Integer": 73
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Atom": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-compressed",
+      "Chunk": "CInf",
+      "PayloadKind": "compressed",
+      "TermExpression": "lists:duplicate(256,73)",
+      "IndependentExpectedExpression": "undefined",
+      "ExpectedLoadAccepted": false,
+      "ExpectedLoadRejection": "{error,badfile}",
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "error"
+          },
+          {
+            "Atom": "badfile"
+          }
+        ]
+      }
+    },
+    {
+      "Name": "CInf-truncated-version-only",
+      "Chunk": "CInf",
+      "PayloadKind": "truncated",
+      "TermExpression": "undefined",
+      "IndependentExpectedExpression": "undefined",
+      "ExpectedLoadAccepted": false,
+      "ExpectedLoadRejection": "{error,badfile}",
+      "BodyExpected": "{ok,42,[alpha,beta]}",
+      "ExpectedRuntimeTerm": {
+        "Tuple": [
+          {
+            "Atom": "error"
+          },
+          {
+            "Atom": "badfile"
+          }
+        ]
+      }
+    }
+  ],
+  "BaselineSixSources": [
+    {
+      "Module": "beam_fixture_constant",
+      "SourceFile": "beam_fixture_constant.erl",
+      "SourceSha256": "5BE67818DFB330A3E54796128A3A56C2D308E91EABF39B41D8BB76DE5639A507",
+      "IndependentExpectedExpression": "{ok,42,[alpha,beta]}",
+      "ExpectedBodyEnvelope": {
+        "Tuple": [
+          {
+            "Atom": "ok"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 42
+              },
+              {
+                "List": [
+                  {
+                    "Atom": "alpha"
+                  },
+                  {
+                    "Atom": "beta"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Module": "beam_fixture_add",
+      "SourceFile": "beam_fixture_add.erl",
+      "SourceSha256": "99AA33E85DA830AF53B1B6BD37AEA7C8B8F2E4F509D6EC86CB7E339E3E1E8552",
+      "IndependentExpectedExpression": "42",
+      "ExpectedBodyEnvelope": {
+        "Tuple": [
+          {
+            "Atom": "ok"
+          },
+          {
+            "Integer": 42
+          }
+        ]
+      }
+    },
+    {
+      "Module": "beam_fixture_local",
+      "SourceFile": "beam_fixture_local.erl",
+      "SourceSha256": "EC759B5DC2B706A62E21923BE6E1F866C471C9BBEA32A5FA3B4629ACAFDCFACE",
+      "IndependentExpectedExpression": "{ok,[1,2,3]}",
+      "ExpectedBodyEnvelope": {
+        "Tuple": [
+          {
+            "Atom": "ok"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "List": [
+                  {
+                    "Integer": 1
+                  },
+                  {
+                    "Integer": 2
+                  },
+                  {
+                    "Integer": 3
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Module": "beam_fixture_receive",
+      "SourceFile": "beam_fixture_receive.erl",
+      "SourceSha256": "B958E722FFBF935F60D369B699B2532297BF8C4F58CC4419C86917A7DC8A22C7",
+      "IndependentExpectedExpression": "{ok,ping}",
+      "ExpectedBodyEnvelope": {
+        "Tuple": [
+          {
+            "Atom": "ok"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Atom": "ping"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Module": "beam_fixture_on_load",
+      "SourceFile": "beam_fixture_on_load.erl",
+      "SourceSha256": "18617CBD8D4AF53D0D17C70DB8FA73556201414D583C3C31464B0E7CAEC3FC26",
+      "IndependentExpectedExpression": null,
+      "ExpectedBodyEnvelope": null
+    },
+    {
+      "Module": "beam_fixture_closure",
+      "SourceFile": "beam_fixture_closure.erl",
+      "SourceSha256": "1B29BD3330DE0DFC4BA7DF19FCA667FFACD78B6DE622E0B22186B5B3B8E2AD4D",
+      "IndependentExpectedExpression": "{ok,12,true}",
+      "ExpectedBodyEnvelope": {
+        "Tuple": [
+          {
+            "Atom": "ok"
+          },
+          {
+            "Tuple": [
+              {
+                "Atom": "ok"
+              },
+              {
+                "Integer": 12
+              },
+              {
+                "Atom": "true"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "OriginalObserved": false,
+  "OnLoadExecuted": false,
+  "ExpectedAcceptedCases": 20,
+  "ExpectedRejectedCases": 4,
+  "Scope": "Direct raw runtime get_module_info queries after loading separately mutated constant images; file beam_lib metadata sorting is not used as expected runtime ordering.",
+  "VerifierScope": "Static authoring declarations independent of generated actual/expected native files"
+}

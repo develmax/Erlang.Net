@@ -1,0 +1,56 @@
+{
+  "OriginalBodyExecutionPerformed": false,
+  "Passed": 6,
+  "Status": "PASS_ACTUAL_MANAGED_TOOL_REFUSALS_WITH_SYNTHETIC_INPUT_LAYOUTS",
+  "Cases": [
+    {
+      "Name": "usage",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": false,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Usage: BeamFixtureExport"
+    },
+    {
+      "Name": "missing-oracle",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": false,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Installed OTP compiler/oracle is unavailable"
+    },
+    {
+      "Name": "wrong-version",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": false,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Installed OTP_VERSION must be exactly 29.1.1"
+    },
+    {
+      "Name": "wrong-pin",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": false,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Source-build evidence does not bind the pinned source to this installation"
+    },
+    {
+      "Name": "wrong-log-digest",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": false,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Source-build log digest differs from supplied provenance"
+    },
+    {
+      "Name": "existing-output",
+      "ExitCode": 1,
+      "OutputExistedBeforeAndAfter": true,
+      "RefusedBeforeOracleCommand": true,
+      "ExpectedDiagnostic": "Output directory already exists; prior evidence will not be overwritten"
+    }
+  ],
+  "OriginalExecutablesInvoked": false,
+  "NoBeamFabricated": true,
+  "Expected": 6,
+  "OriginalCompilationPerformed": false,
+  "NativeLoadingExecutionPerformed": false,
+  "InertExecutableMarkersAreNotOriginalCompiler": true,
+  "SentinelPreserved": true
+}

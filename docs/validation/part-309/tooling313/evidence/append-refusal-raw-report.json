@@ -1,0 +1,17 @@
+{
+  "Expected": 1,
+  "Actual": 1,
+  "Passed": 0,
+  "Failed": 1,
+  "MainEdited": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "Cases": [
+    {
+      "Name": "new-exporter-existing-subdirectory-refusal",
+      "Passed": false,
+      "Milliseconds": 6,
+      "Error": "System.IO.IOException: Output directory already exists; prior evidence will not be overwritten\r\n   at BeamFixtureExport.LoadNifOpcodeFixtureExporter.Append(String oracleRoot, String existingOutput) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-load-nif-opcodes313-isolated1\\candidate\\tools\\Erlang.BeamFixtures\\LoadNifOpcodeFixtureExporter.cs:line 15\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\indirect-load-nif312-isolated1\\focus\\Program.cs:line 69"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 165, in <module>
+    main()
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 161, in main
+    verify(args.output, args.expected_head, args.expected_run, args.expected_attempt)
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 47, in verify
+    parent = read_json(output / 'manifest.json')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 18, in read_json
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-load-nif-opcodes313-isolated1\\verifier-refusal-controls\\missing-proof\\manifest.json'

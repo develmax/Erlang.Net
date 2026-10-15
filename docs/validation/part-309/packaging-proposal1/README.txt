@@ -1,0 +1,9 @@
+309 tooling-only proposal. Author only reads inputs and writes artifacts; root alone mutates metadata/index.
+
+Authority: sourcefreeze EDB97892181DA1CA458A9ADEFCD60163AF255DF416E0388FDB18E74217832659, eight source paths and three exact CSharp streams. No runtime/compiler/test sources changed. Published308 full6637/integration11/Windows native1020 proof is explicitly reused; no fresh309 full/native/original execution is claimed. New execution is standalone tooling target0warnings/errors plus the retained CLI6/append1/verifier2 controls. All103 immutable313 entries are copied once.
+
+The corrected API table is metadata: root applied its exact three-row candidate before packaging. Common gates verify candidate against published308; finalizer prepends only the309 note; stage guard reconstructs that exact result. Four actually absent APIs remain. All CSharp/proofs are BinaryExact; all five nonCSharp source paths are explicitly allowed TextLF only when Git attributes do not require exact bytes.
+
+Remote308 states are immutable snapshot statements. The existing remote308-states.json fixes chosen snapshot paths and verification states on every binder invocation; later watcher snapshots do not change this package. Verified terminal manifests are copied only when available at that fixed snapshot; running/awaiting-audit states remain explicit. Follow-up compiler/disassembly collection is not a claim of actual new opcode shapes, original fixture-body execution or native loading.
+
+Root sequence: bind-actual-evidence.py; part309-readiness-proposal.py config-actual.json; regenerate readiness from reused308 Tests.json; bind-actual-evidence.py again; common.gates; finalize once; stage guard (default read-only, --apply explicit). ComparisonTestReport remains validation/part-308/tests.json for MFA deltas; current reused tests are archived as part309/tests.json. Ready handoff freezes proposal sources; later changes need a new revision and prior notice.

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 165, in <module>
+    main()
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 161, in main
+    verify(args.output, args.expected_head, args.expected_run, args.expected_attempt)
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 45, in verify
+    require(not result_path.exists(), 'Fresh verifier result required; earlier proof cannot be overwritten')
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-load-nif-opcodes313-isolated1/candidate/tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py", line 10, in require
+    raise ValueError(reason)
+ValueError: Fresh verifier result required; earlier proof cannot be overwritten

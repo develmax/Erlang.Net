@@ -1,0 +1,28 @@
+    [{move,nil,{x,1}}].
+
+build_call(call_ext, 2, {extfunc,erlang,'!',2}, none, Dst) ->
+    [send|copy({x,0}, Dst)];
+build_call(call_ext, 2, {extfunc,erlang,'!',2}, {return,Dst,N}, Dst)
+  when is_integer(N) ->
+    [send,{deallocate,N},return];
+build_call(Prefix, Arity, Func, {return,Dst,none}, Dst) ->
+    I = case Prefix of
+            call -> call_only;
+            call_ext -> call_ext_only
+        end,
+    [{I,Arity,Func}];
+build_call(call_ext, Arity, {extfunc,Mod,Name,Arity}=Func, {return,_,none}, _Dst) ->
+    true = erl_bifs:is_exit_bif(Mod, Name, Arity), %Assertion.
+    [{call_ext_only,Arity,Func}];
+build_call(Prefix, Arity, Func, {return,Dst,N}, Dst) when is_integer(N) ->
+    I = case Prefix of
+            call -> call_last;
+            call_ext -> call_ext_last
+        end,
+    [{I,Arity,Func,N}];
+build_call(I, Arity, Func, {return,Val,N}, _Dst) when is_integer(N) ->
+    [{I,Arity,Func}|copy(Val, {x,0})++[{deallocate,N},return]];
+build_call(I, Arity, Func, none, Dst) ->
+    [{I,Arity,Func}|copy({x,0}, Dst)].
+
+build_fun_call(Arity, #tr{}=Func0, none, Dst, St0) ->

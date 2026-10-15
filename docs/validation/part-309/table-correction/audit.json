@@ -1,0 +1,21 @@
+{
+  "Status": "THREE_STALE_MISSING_ROWS_CORRECTED_AGAINST_ACTUAL505_REGISTRY",
+  "ParentHead": "e1d8a999faac113d98ebf2d4471f80ef30daf84a",
+  "ParentPath": "docs/ERLANG_COMPATIBILITY.md",
+  "ParentSha256": "56CC3E3BB9D759DC7E18F2C92BEC4B76742CA653E23851BF13F61A944589FBF2",
+  "ResultSha256": "23E064438480EF430C02EAB6F5CF62B9E28FA5FC0B3CFB37215A15135182C82E",
+  "ErlangRegisteredMfas": 347,
+  "CorrectedRows": {
+    "dist_get_stat/1": "Partially compatible; registered generation-aware counters and implementation-dependent queued-storage charge. Original statistics observations are retained; complete connected protocol and physical ERTS storage parity remain incomplete.",
+    "load_nif/2": "Partially compatible; registered exact indirect BIF bad_lib error for apply/3 and external fun. Successful literal native loading, the default native instruction handler and general NIF ABI remain incomplete.",
+    "process_info/1": "Partially compatible; registered logical default subset with twelve fields, or thirteen when registered. Four pinned physical heap/stack/GC fields remain omitted; see supported-mfas.json for limits."
+  },
+  "RemainingUnregistered": [
+    "alloc_info/1",
+    "alloc_sizes/1",
+    "memory/0",
+    "memory/1"
+  ],
+  "RuntimeChanged": false,
+  "TestsExecuted": false
+}

@@ -5,6 +5,7 @@ try
     bool metadataMutations = args.Length != 0 && args[^1] == MetadataMutationNames.Option;
     string[] fixtureArguments = metadataMutations ? args[..^1] : args;
     await FixtureExporter.Run(fixtureArguments);
+    await LoadNifOpcodeFixtureExporter.Append(fixtureArguments[FixtureArgumentLayout.OracleRoot], fixtureArguments[FixtureArgumentLayout.NewOutput]);
     if (fixtureArguments.Length == FixtureArgumentLayout.ArgumentsWithExecution)
     {
         await OnLoadObserverExporter.Append(fixtureArguments[FixtureArgumentLayout.OracleRoot], fixtureArguments[FixtureArgumentLayout.NewOutput]);
