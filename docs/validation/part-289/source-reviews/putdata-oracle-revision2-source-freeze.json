@@ -1,0 +1,37 @@
+{
+  "Status": "Revision2 source-only. Revision1 target built but first actual case failed before runtime: unsupported -compile attribute. Original failure and revision1 manifest remain unchanged. Revision2 compiler/style/target/focused/native/full/CI gates unexecuted.",
+  "BaselineHead": "7b26c17df50b77810eecf9c604243af794d37e08",
+  "Revision1ManifestPath": "artifacts\\putdata-oracle-source-freeze.json",
+  "Revision1ManifestSha256": "5553D08D76898526C973020B4B7B71EBD11C52D26689ABDCF1072334B6413E4D",
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "B72B2F2913DD9C014666A0310D3EAA088002263E0DBD0973906A28B5001F76C7",
+      "Bytes": 30064,
+      "Revision1Sha256": "B72B2F2913DD9C014666A0310D3EAA088002263E0DBD0973906A28B5001F76C7",
+      "MainBeforeSha256": "B72B2F2913DD9C014666A0310D3EAA088002263E0DBD0973906A28B5001F76C7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCaseNames.cs",
+      "Sha256": "0CB77E6AF81F8F4B982E9B10565849B8740254B57C5B900BA85473A3BFE795DF",
+      "Bytes": 909,
+      "Revision1Sha256": "A11FFD4C32AC0CE643D18CCD394A3F3C50B04826E887B44F06DD970B9890DBAF",
+      "MainBeforeSha256": "A11FFD4C32AC0CE643D18CCD394A3F3C50B04826E887B44F06DD970B9890DBAF"
+    },
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCases.cs",
+      "Sha256": "5FC50974778F89D208C13371F365D40972B8EE5D605349D3B432BDF01E5A3815",
+      "Bytes": 3215,
+      "Revision1Sha256": "64E8AD13AFE5480CFC5D124B329408356CE867540153DF98B17F22B56D17D42F",
+      "MainBeforeSha256": "64E8AD13AFE5480CFC5D124B329408356CE867540153DF98B17F22B56D17D42F"
+    }
+  ],
+  "ContractsSha256": "A24AE325178DFF19C17258D9B72FC27309DFF0D8565553809275646C30C311AC",
+  "Cases": 10,
+  "UnchangedNamesAndExpectedValues": true,
+  "SourceChangesOnly": [
+    "Export invoke/4 instead of -compile(no_inline).",
+    "Enter invoke/4 through explicit remote oracle_dist_input:invoke/4 call."
+  ],
+  "HistoricalPreservation": "CompiledModuleCases candidate is byte-identical revision1 single-group additive candidate; OriginalOtpDefects untouched. Copy only two changed source candidates if Main already has registration."
+}

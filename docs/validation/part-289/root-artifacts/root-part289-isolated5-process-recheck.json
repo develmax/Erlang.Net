@@ -1,0 +1,7 @@
+{
+  "ProcessId": 75852,
+  "ParentProcessId": 72424,
+  "Name": "pwsh.exe",
+  "CommandLine": "\"C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -Command \"try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}\n$processes=Get-CimInstance Win32_Process -Filter \\\"Name='dotnet.exe' OR Name='Erlang.Tests.exe' OR Name='pwsh.exe' OR Name='python.exe' OR Name='python3.12.exe'\\\"; $selected=@($processes | Where-Object { $_.CommandLine -like '*isolated5*' -or $_.Name -eq 'Erlang.Tests.exe' -or $_.CommandLine -like '*tests/Erlang.Tests*' -or $_.CommandLine -like '*tools/validate.ps1*' -or $_.CommandLine -like '*isolated-runner5.py*' }); @($selected | Select-Object ProcessId,ParentProcessId,Name,CommandLine,CreationDate) | ConvertTo-Json -Depth 3 | Set-Content artifacts/root-part289-isolated5-process-recheck.json; $selected | Select-Object ProcessId,ParentProcessId,Name,CreationDate; foreach($process in $selected){ Get-Process -Id $process.ProcessId -ErrorAction SilentlyContinue | Select-Object Id,CPU,Responding,StartTime }\"",
+  "CreationDate": "2026-10-15T07:34:40.978358+03:00"
+}

@@ -1,0 +1,15 @@
+{
+  "Stage": "EXPLICIT_NEW_HOST_LITERAL_EOL_REVISION_INITIAL_STRICT_GUARD_FAILURE_RETAINED",
+  "Reason": "Repository editorconfig/style mandates LF; helper source tokens, identifiers and line counts unchanged; final complete Main will compile and execute canonical LF source. No change to fixture expected values, original probes or historical source literals.",
+  "Deltas": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionRegisteredInputHostNames.cs",
+      "TokenIndex": 133,
+      "Kind": 8519,
+      "BeforeRawTokenSha256": "6877E699E3AA055BE741E0A36A09202F7DC51F165BB2FEE6FC9FC1BDF0E2B0A3",
+      "AfterRawTokenSha256": "8A1045B82496CBF5EAB24E4569584EA4B461A8F5B59AC22DC04D3D30B16BE7C0",
+      "Delta": "Only CRLF to LF inside newly authored raw HOST helper source; every other token and quoted literal unchanged",
+      "HistoricalOrProductionLiteralChanged": false
+    }
+  ]
+}

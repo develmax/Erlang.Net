@@ -428,7 +428,13 @@ internal static class DistributionNativePayloadContractHostChecks
 
         internal async Task Put(byte[] packet)
         {
-            Term result = await Input.Invoke(context => DistributionInputAdapter.PutData(context, opaque, new BitString(packet)));
+            Term result = await Input.InvokeAsync(async context => await Runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                DistributionInputNames.Function,
+                opaque,
+                new BitString(packet)
+            ));
             Check(result.Equals(DistributionNativePayloadContractHostNames.Accepted));
         }
 

@@ -1,0 +1,98 @@
+{
+  "Status": "Source-only regressions and independent source audit. No Main/Git/heavy/native execution. All new execution gates unexecuted.",
+  "PinnedTag": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCaseNames.cs",
+      "Sha256": "C3B9E7812A6A3F87F3185BC8559AA62967E4DCAFF6D7C5AA7DE99157434A87E5",
+      "Bytes": 1183,
+      "MainBeforeSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCases.cs",
+      "Sha256": "B5FCBE78CCFA3DA37D1E61F68EE531F4B77B682C19784790100FE55B834AD96C",
+      "Bytes": 4064,
+      "MainBeforeSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "FF0F3ED7F6A2E9A21777CAEAF8F66671DCBDFB28037C7A9FC01CF2848B686971",
+      "Bytes": 30092,
+      "MainBeforeSha256": "B72B2F2913DD9C014666A0310D3EAA088002263E0DBD0973906A28B5001F76C7"
+    }
+  ],
+  "Bindings": [
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_call.cpp",
+      "RawSha256": "ADCD796480EF284EE20CF7D16EFC7A3F281F4CF4B015C08AB9FF6DD9A3E13F86",
+      "Lines": [
+        145,
+        185
+      ],
+      "ArchivedFile": "erts_emulator_beam_jit_x86_instr_call.cpp"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "RawSha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857",
+      "Lines": [
+        877,
+        882
+      ],
+      "ArchivedFile": "erts_emulator_beam_emu_ops.tab"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/instrs.tab",
+      "RawSha256": "35F9FDBB899B39E765123F14561075A8C4FC7A56BBA363A7DF930A8C2144F4C2",
+      "Lines": [
+        233,
+        254
+      ],
+      "ArchivedFile": "erts_emulator_beam_emu_instrs.tab"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "RawSha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "Lines": [
+        1434,
+        1574
+      ],
+      "ArchivedFile": "erts_emulator_beam_beam_common.c"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "RawSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Lines": [
+        1549,
+        1710
+      ],
+      "ArchivedFile": "erts_emulator_beam_bif.c"
+    }
+  ],
+  "AppendOnlyReversalPassed": true,
+  "PreservedSixExclusionsSha256": "D2858B5AC937FCDD999EE232D3C6081B0F0D7D92EAB60ABCEB481C52076F9217",
+  "Cases": [
+    "badarg-direct-and-dynamic",
+    "undef-direct-and-dynamic",
+    "invalid-module-keeps-apply-frame",
+    "invalid-function-keeps-apply-frame",
+    "improper-arguments-keeps-apply-frame",
+    "explicit-raise-preserves-all-classes-and-empty-stack"
+  ],
+  "MinimalFixAudit": [
+    "Validate module atom, function atom and proper argument list BEFORE entering dispatch catch. These validation exceptions must keep erlang:apply/3 with original [M,F,Args].",
+    "After successful preparation, await the genuine target registry call inside try. On ErlangException preserve class/reason; retain explicit trace (including empty) and any existing callee trace; fill missing non-explicit trace with target module/function/actual argument list.",
+    "Compiler should suppress only the erlang:apply/3 dispatch wrapper when there is forwarded-callee stack evidence or explicit trace provenance. Do not globally suppress wrappers, do not turn validation errors into target errors, do not prepend target to pre-existing explicit raise traces.",
+    "Both normal Expr.Call and RuntimeTailCall -> CallRuntime attribution routes need the same scoped policy: a change in only one route leaves direct non-tail/tail asymmetry.",
+    "Use rethrow to preserve existing explicit exception and class. For a new absent trace use existing WithStackFrame semantics only when not ExplicitStackTrace. Never convert throw/exit into error/nocatch in this forwarding layer."
+  ],
+  "ExpectedContract": [
+    "Bad hd argument and missing-module undef project the same {Class,Reason,{TargetM,TargetF,ActualArgs}} for direct and runtime-parameter apply. Frame annotations/later frames excluded.",
+    "Invalid M, invalid F and improper Args project {error,badarg,{erlang,apply,[OriginalM,OriginalF,OriginalArgs]}}.",
+    "Dynamic apply to raise/3 preserves exact explicit nonempty stack and exact [] for error/throw/exit. The helper returns the full supplied trace for raise, not the frame projection."
+  ],
+  "Limits": [
+    "This is a bounded error-attribution repair audit, not full stack parity for arbitrary source frames, optimization/inlining, error_handler resolution, arbitrary throw/exit delivery or nested apply.",
+    "No actual original OTP execution of the six new contracts has occurred. Existing source guided expectations remain independent of SDK runtime output."
+  ]
+}

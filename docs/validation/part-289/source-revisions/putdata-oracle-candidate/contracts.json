@@ -1,0 +1,113 @@
+{
+  "Status": "Source only; compiler, style, target, focused, native, full and CI gates unexecuted.",
+  "ExpectedContract": "Each run returns {error,badarg,{erlang,dist_ctrl_put_data,[Handle,OriginalData]}} inside oracle ok. Original top-frame argument identity is asserted before projection. Reference cases replace only the exactly matched Handle with ordinary_reference after identity validation. Annotations and later frames are explicitly excluded.",
+  "DynamicApply": "invoke/4 receives M and F as runtime parameters, explicit no_inline policy, apply(M,F,[H,D]); no literal-module apply expression.",
+  "HistoricalPreservation": "Appending one group only; byte reversal exactly restores current Main. All historical fixture sources and expected values and order preserved. OriginalOtpDefects.cs unchanged.",
+  "ExclusionsSourceSha256": "D2858B5AC937FCDD999EE232D3C6081B0F0D7D92EAB60ABCEB481C52076F9217",
+  "Cases": [
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nil-direct",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-empty-binary-apply",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nested-iolist-direct",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-binary-tail-iolist-apply",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-out-of-range-iolist-direct",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-improper-iolist-apply",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-integer-direct",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-atom-nonbinary-bitstring-apply",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-ordinary-reference-nil-direct",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    },
+    {
+      "Name": "erlang-dist-ctrl-put-data-ordinary-reference-iolist-apply",
+      "ExpectedClass": "error",
+      "ExpectedReason": "badarg",
+      "ExpectedFrameModule": "erlang",
+      "ExpectedFrameFunction": "dist_ctrl_put_data",
+      "NativeExecuted": false
+    }
+  ],
+  "Bindings": [
+    {
+      "OtpTag": "OTP-29.1.1",
+      "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/emulator/beam/dist.c",
+      "RawFileSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Lines": [
+        4333,
+        4407
+      ],
+      "ArchivedFile": "erts_emulator_beam_dist.c"
+    },
+    {
+      "OtpTag": "OTP-29.1.1",
+      "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Path": "erts/preloaded/src/erts_internal.erl",
+      "RawFileSha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+      "Lines": [
+        687,
+        715
+      ],
+      "ArchivedFile": "erts_preloaded_src_erts_internal.erl"
+    }
+  ]
+}

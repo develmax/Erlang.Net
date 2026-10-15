@@ -1,0 +1,20 @@
+[
+  {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRegisteredInputHostNames.cs",
+    "BeforeCount": 137,
+    "AfterCount": 137,
+    "Changes": [
+      {
+        "Index": 133,
+        "Before": {
+          "Kind": 8519,
+          "Text": "\"\"\"\r\n        -module(registered_distribution_input_host).\r\n        -export([direct/2,dynamic/4,capture/2]).\r\n        direct(H,D) -> erlang:dist_ctrl_put_data(H,D).\r\n        dynamic(M,F,H,D) -> apply(M,F,[H,D]).\r\n        capture(H,D) ->\r\n            try erlang:dist_ctrl_put_data(H,D)\r\n            catch C:R:S -> {C,R,S}\r\n            end.\r\n        \"\"\""
+        },
+        "After": {
+          "Kind": 8519,
+          "Text": "\"\"\"\n        -module(registered_distribution_input_host).\n        -export([direct/2,dynamic/4,capture/2]).\n        direct(H,D) -> erlang:dist_ctrl_put_data(H,D).\n        dynamic(M,F,H,D) -> apply(M,F,[H,D]).\n        capture(H,D) ->\n            try erlang:dist_ctrl_put_data(H,D)\n            catch C:R:S -> {C,R,S}\n            end.\n        \"\"\""
+        }
+      }
+    ]
+  }
+]

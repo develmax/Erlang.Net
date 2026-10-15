@@ -1,0 +1,63 @@
+{
+  "Status": "Independent current-source review only. No Main changes, build, tests, formatting, Git mutation, native execution or network by reviewer.",
+  "Head": "7b26c17df50b77810eecf9c604243af794d37e08",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "2E4B327BD96481AFD880ECAA8CCEA25C287B209A83CCCE2998C423055AD0ECB4",
+      "Bytes": 1026
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyLayout.cs",
+      "Sha256": "9186E3C29A2839381F481687D362D4F21CDB755313F8341051F2847154512463",
+      "Bytes": 227
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "Sha256": "FD9C816892E857F48A62F47257953906A1AFD42B95EC65F1369F007E3372F5FA",
+      "Bytes": 551
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B",
+      "Bytes": 6435
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "480AAC4D1C35E2945AEC761F715B49CB6B9D00D6453A7A5E0DF2E98A98C7BDE8",
+      "Bytes": 36455
+    }
+  ],
+  "Blockers": [],
+  "Findings": [
+    {
+      "Invariant": "Validation precedes target-dispatch catch",
+      "Evidence": "Invoke evaluates AtomName module, AtomName function, Cons.Items.ToArray before InvokeTarget. Therefore failures retain absent frame for compiler erlang:apply attribution and preserve original apply arguments."
+    },
+    {
+      "Invariant": "Real target dispatch and minimal missing-frame fill",
+      "Evidence": "InvokeTarget awaits actual Modules.Call and catches only ErlangException whose ExplicitStackTrace is false and StackTraceTerm Nil. It fills target M/F/actual Args. Existing nonempty and explicit traces propagate unchanged."
+    },
+    {
+      "Invariant": "Explicit empty trace remains exact",
+      "Evidence": "RuntimeCallFrames.Capture does not suppress based on Nil, but fallback ErlangException.WithStackFrame immediately returns this when ExplicitStackTrace is true. Therefore explicit [] is preserved without fabricated frame."
+    },
+    {
+      "Invariant": "Scoped wrapper suppression in both compiler routes",
+      "Evidence": "Capture suppresses only module erlang/function apply/argument count3 with Cons trace. Both original WithStackFrame sites in CallRuntime and Expr.Call now delegate same policy; unrelated call attribution unchanged."
+    },
+    {
+      "Invariant": "Exception class and reason preserved",
+      "Evidence": "ErlangApplyDispatch uses existing WithStackFrame retaining Reason and ExceptionClass; no catch converts to error, nocatch, ok or alternate reason. raise/3 explicit traces are never replaced."
+    },
+    {
+      "Invariant": "Registry presence unchanged except earlier dist input addition",
+      "Evidence": "Existing erlang:apply/3 registration swaps implementation to helper and names arity constant3; apply/2 implementation untouched. No new apply registration."
+    }
+  ],
+  "UnexecutedRequiredGates": [
+    "Six new regression cases from artifacts/apply-frame-regression-source-freeze.json need actual target/focused execution, native comparison and full pipeline.",
+    "Arbitrary full-stack parity, excessive apply arity, error-handler and optimizer effects remain outside this bounded source review."
+  ],
+  "RegressionFreezeSha256": "474A78FCB24F549B7061146613943C75C79125D8BE7DA838290EB97149FC7FDD"
+}

@@ -136,7 +136,12 @@ public static class Execution
         }
         catch (ErlangException exception)
         {
-            throw exception.WithStackFrame(module, function, arguments);
+            throw RuntimeCallFrames.Capture(
+                exception,
+                module,
+                function,
+                arguments
+            );
         }
     }
 
@@ -771,7 +776,12 @@ public static class Execution
                     }
                     catch (ErlangException exception)
                     {
-                        throw exception.WithStackFrame(x.Module ?? ErlangModuleNames.Module, x.Function, args);
+                        throw RuntimeCallFrames.Capture(
+                            exception,
+                            x.Module ?? ErlangModuleNames.Module,
+                            x.Function,
+                            args
+                        );
                     }
                 }
             case Expr.Apply x:

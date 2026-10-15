@@ -96,13 +96,8 @@ internal static class ErlangBasicRegistrations
         registry.Register(
             ErlangModuleNames.Module,
             ErlangBasicBifNames.Apply,
-            3,
-            (context, arguments) => context.Runtime.Modules.Call(
-                context,
-                CoreModules.AtomName(arguments[0]),
-                CoreModules.AtomName(arguments[1]),
-                Cons.Items(arguments[2]).ToArray()
-            )
+            ErlangApplyLayout.ModuleApplyArity,
+            ErlangApplyDispatch.Invoke
         );
         registry.Register(
             ErlangModuleNames.Module,

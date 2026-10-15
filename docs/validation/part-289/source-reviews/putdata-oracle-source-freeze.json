@@ -1,0 +1,32 @@
+{
+  "Status": "Source only; compiler, style, target, focused, native, full and CI gates unexecuted.",
+  "BaselineHead": "7b26c17df50b77810eecf9c604243af794d37e08",
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "B72B2F2913DD9C014666A0310D3EAA088002263E0DBD0973906A28B5001F76C7",
+      "Bytes": 30064,
+      "MainBeforeSha256": "9B6870A98CF98217CF74ACD6A9CF37CF83E39D414B52E0897EF0B3617609EFC4"
+    },
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCaseNames.cs",
+      "Sha256": "A11FFD4C32AC0CE643D18CCD394A3F3C50B04826E887B44F06DD970B9890DBAF",
+      "Bytes": 934,
+      "MainBeforeSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/DistributionInputCases.cs",
+      "Sha256": "64E8AD13AFE5480CFC5D124B329408356CE867540153DF98B17F22B56D17D42F",
+      "Bytes": 3197,
+      "MainBeforeSha256": null
+    }
+  ],
+  "ContractsSha256": "76829A967360E97035D1F0957162E42C088DA2AE62BCC8A9C48A9354564E9D7A",
+  "SmokeMapping": {
+    "Mfa": "erlang:dist_ctrl_put_data/2",
+    "Path": "tests/Erlang.Tests/DistributionMfaSmokeContracts.cs",
+    "Sha256": "48D2EC6B087D3B02B9914E697925F8BD968F3609A978A4AAF86EA2B562FC7677",
+    "Behavior": "Adopted opaque handle, canonical SEND to caller, real selective receive and AcceptedInputPackets exactly one."
+  },
+  "AppendOnlyByteInversionPassed": true
+}

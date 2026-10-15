@@ -10,7 +10,8 @@ internal static class DistributionMfaSmokeContracts
             (DistributionControllerNames.SetOption, 3) or
             (DistributionControllerNames.RequestDataNotification, 1) or
             (DistributionControllerNames.GetData, 1) or
-            (DistributionControllerNames.InputHandler, 2);
+            (DistributionControllerNames.InputHandler, 2) or
+            (DistributionInputNames.Function, DistributionInputNames.Arity);
 
     internal static async Task Run(string module, string function, int arity)
     {
@@ -110,6 +111,32 @@ internal static class DistributionMfaSmokeContracts
                     Require(Cons.Items(data).Cast<BitString>().SelectMany(segment => segment.ToArray()).SequenceEqual(expected));
                     Require((await Call(context, function, handle)).Equals(Term.A(DistributionControllerNames.NoData)));
                     break;
+
+                case DistributionInputNames.Function:
+                    {
+                        Require((await Call(
+                            context,
+                            DistributionControllerNames.InputHandler,
+                            handle,
+                            context.Self
+                        )).Equals(Term.A(DistributionMfaSmokeNames.Success)));
+                        Term inputPayload = Term.A(DistributionMfaSmokeNames.PayloadMarker);
+                        byte[] inputPacket = DistributionPassThroughCodec.Encode(
+                            DistributionPassThroughCodec.Send(context.Self, inputPayload));
+                        Require((await Call(
+                            context,
+                            function,
+                            handle,
+                            new BitString(inputPacket)
+                        ))
+                            .Equals(Term.A(DistributionMfaSmokeNames.Success)));
+                        Term? selected = await context.ReceiveAsync(
+                            value => value.Equals(inputPayload) ? value : null,
+                            RuntimeSetNodeHostParameters.Deadline);
+                        Require(selected is not null && selected.Equals(inputPayload));
+                        Require(runtime.DistributionPending.ConnectedSnapshot(pending).AcceptedInputPackets == 1);
+                        break;
+                    }
 
                 default:
                     throw new InvalidOperationException(DistributionMfaSmokeNames.Failure);

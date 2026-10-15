@@ -1,0 +1,20 @@
+PASS DistributionRegisteredInputHostChecks
+PASS DistributionNativePayloadContractHostChecks
+Unhandled exception. Erlang.ErlangException: notsup
+   at Erlang.RuntimeDistributionPending.PutConnectedData(ProcessContext caller, Term handle, Term data) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\RuntimeDistributionPending.RawInput.cs:line 30
+   at Erlang.DistributionInputAdapter.PutData(ProcessContext caller, Term handle, Term data) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\DistributionInputAdapter.cs:line 10
+   at Erlang.DistributionRegistrations.<>c.<Register>b__0_0(ProcessContext context, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\DistributionRegistrations.cs:line 11
+   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 290
+   at Erlang.Tests.DistributionMfaSmokeContracts.Call(ProcessContext context, String name, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 148
+   at Erlang.Tests.DistributionMfaSmokeContracts.<>c__DisplayClass1_1.<<Run>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 120
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.DistributionMfaSmokeContracts.Run(String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 57
+   at Erlang.Tests.DistributionMfaSmokeContracts.Run(String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 141
+   at Erlang.Tests.DistributionMfaSmokeContracts.Run(String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 141
+   at Erlang.Tests.DistributionMfaSmokeContracts.Run(String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 141
+   at Erlang.Tests.DistributionMfaSmokeContracts.Run(String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionMfaSmokeContracts.cs:line 141
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part289-putdata-focus\Program.cs:line 10
+   at Program.<Main>(String[] args)

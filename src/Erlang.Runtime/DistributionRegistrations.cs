@@ -6,6 +6,14 @@ internal static class DistributionRegistrations
     {
         registry.Register(
             ErlangModuleNames.Module,
+            DistributionInputNames.Function,
+            DistributionInputNames.Arity,
+            (context, arguments) => ValueTask.FromResult(
+                DistributionInputAdapter.PutData(context, arguments[0], arguments[1])
+            )
+        );
+        registry.Register(
+            ErlangModuleNames.Module,
             DistributionRegistrationNames.SetNode,
             DistributionRegistrationNames.ControllerAdmissionArity,
             (context, arguments) => DistributionControllerAdapters.SetNode(

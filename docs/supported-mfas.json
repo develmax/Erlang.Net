@@ -2289,6 +2289,14 @@
   },
   {
     "Module": "erlang",
+    "Function": "dist_ctrl_put_data",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erlang:dist_ctrl_put_data/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
     "Function": "setnode",
     "Arity": 3,
     "Status": "Partially compatible",
