@@ -1,0 +1,1 @@
+try ok=distribution_signal_observer:run("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-signal-observations/monitors_name",monitors_name),halt(0) catch C:R:S -> ok=file:write_file("/home/runner/work/Erlang.Net/Erlang.Net/artifacts/distribution-signal-observations/monitors_name/exception.etf",term_to_binary({C,R,S})),halt(1) end.

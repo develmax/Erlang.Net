@@ -1,0 +1,58 @@
+{
+  "Stage": "SOURCE_ONLY_NATIVE_OBSERVER_NOT_EXECUTED",
+  "OtpTag": "OTP-29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Probe": "distribution_trace_probe.erl",
+  "ProbeSha256": "30FD1EA415E99155641E747F51E3381C0573C9DCFD0DDEFD880612ABCC36429D",
+  "Entrypoint": "distribution_trace_probe:run(Case,Output)",
+  "FreshVmRequiredPerCase": true,
+  "Cases": [
+    "send",
+    "registered",
+    "nil",
+    "undefined",
+    "wide_flags",
+    "exit_link",
+    "exit2_trap",
+    "exit2_normal"
+  ],
+  "RequiredOutputs": [
+    "stage.etf",
+    "outer.etf",
+    "setup.etf",
+    "receiver-ready.etf",
+    "links-before.etf",
+    "token-before.etf",
+    "input.etf",
+    "input.packet",
+    "input-result.etf",
+    "queued.etf",
+    "ignored-exit-state.etf",
+    "completion-input.etf",
+    "selected.etf",
+    "tracer-mailbox.etf",
+    "receiver-identities.etf",
+    "receiver-cleanup.etf",
+    "controller-cleanup.etf",
+    "tracer-setting.etf",
+    "tracer-cleanup.etf"
+  ],
+  "SemanticAssertions": false,
+  "NoGuessedExpectedResults": true,
+  "Scope": [
+    "canonical LP64 flags/sender tuple",
+    "nil and undefined raw marker",
+    "suspended actual mailbox snapshot before selection",
+    "linked trapped exit",
+    "explicit trapped exit",
+    "untrapped ignored normal arbitrary token never selected"
+  ],
+  "Unproven": [
+    "fresh source has not been compiled or executed",
+    "native readiness/timeout/cleanup and tracer ordering not yet measured",
+    "noncanonical token selection intentionally excluded unsafe native assertion domain",
+    "outbound language SEND TT propagation excluded",
+    "physical ABI of target must be captured independently"
+  ],
+  "Revision": "Explicit monitored owned tracer cleanup; old observer1 source preserved."
+}

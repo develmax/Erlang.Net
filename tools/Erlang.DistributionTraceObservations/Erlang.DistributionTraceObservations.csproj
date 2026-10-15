@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <None Update="distribution_trace_probe.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="source-plan.json" CopyToOutputDirectory="PreserveNewest" />
+      <Compile Include="../Erlang.DistributionSignalObservations/framework/*.cs" Link="framework/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

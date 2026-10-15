@@ -1,0 +1,29 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess,sys
+base=Path(sys.argv[1]).resolve();area=Path(sys.argv[2]).resolve();assert not area.exists();area.mkdir(parents=True)
+cases=['wrong-argument-count','wrong-pin','wrong-tag','not-built','wrong-root','wrong-log-hash','wrong-version','wrong-source-hash','duplicate-artifact','wrong-scenario','wrong-plan-pin','existing-output','wrong-fresh-vm-metadata','wrong-oracle-metadata'];rows=[]
+closure=[{'Path':x.relative_to(base).as_posix(),'Sha256':hashlib.sha256(x.read_bytes()).hexdigest().upper()} for x in sorted(base.rglob('*')) if x.is_file()]
+for name in cases:
+ case=area/name;case.mkdir();binary=case/'tool';shutil.copytree(base,binary);otp=case/'fake-otp';versions=otp/'releases/29';versions.mkdir(parents=True);(versions/'OTP_VERSION').write_bytes(b'29.1.1')
+ log=case/'fake-build.log';log.write_bytes(b'SYNTHETIC REFUSAL ONLY; NOT ORIGINAL OTP EXECUTION.\n')
+ evidence={'SourceCommit':'ad05823719d77c8faee87348ea39513d4e2f99c5','SourceTag':'OTP-29.1.1','SourceBuildCompleted':True,'InstalledOtpRoot':str(otp),'SourceBuildLog':str(log),'SourceBuildLogSha256':hashlib.sha256(log.read_bytes()).hexdigest().upper()}
+ plan=json.loads((binary/'source-plan.json').read_text())
+ if name=='wrong-pin':evidence['SourceCommit']='wrong'
+ if name=='wrong-tag':evidence['SourceTag']='OTP-29.1.0'
+ if name=='not-built':evidence['SourceBuildCompleted']=False
+ if name=='wrong-root':evidence['InstalledOtpRoot']=str(case/'other-root')
+ if name=='wrong-log-hash':evidence['SourceBuildLogSha256']='0'*64
+ if name=='wrong-version':(versions/'OTP_VERSION').write_bytes(b'29.1.0')
+ if name=='wrong-source-hash':x=binary/'distribution_trace_probe.erl';x.write_bytes(x.read_bytes()+b'\n')
+ if name=='duplicate-artifact':plan['RequiredOutputs'][-1]=plan['RequiredOutputs'][0]
+ if name=='wrong-scenario':plan['Cases']=['other']
+ if name=='wrong-plan-pin':plan['OtpCommit']='wrong'
+ if name=='wrong-fresh-vm-metadata':plan['FreshVmRequiredPerCase']=False
+ if name=='wrong-oracle-metadata':plan['SemanticAssertions']=True
+ if name in ['duplicate-artifact','wrong-scenario','wrong-plan-pin','wrong-fresh-vm-metadata','wrong-oracle-metadata']:(binary/'source-plan.json').write_bytes(json.dumps(plan).encode())
+ proof=case/'evidence.json';proof.write_bytes(json.dumps(evidence).encode());out=case/'output'
+ if name=='existing-output':out.mkdir()
+ command=['dotnet',str(binary/'Erlang.DistributionTraceObservations.dll')]+([] if name=='wrong-argument-count' else [str(otp),str(out),str(proof)])
+ result=subprocess.run(command,capture_output=True,timeout=20);(case/'stdout.raw').write_bytes(result.stdout);(case/'stderr.raw').write_bytes(result.stderr);(case/'exit').write_bytes((str(result.returncode)+'\n').encode())
+ refused=result.returncode==1 and (not out.exists() if name!='existing-output' else not list(out.iterdir()));rows.append({'Name':name,'ExitCode':result.returncode,'RefusedBeforeOutput':refused,'SyntheticEvidence':True,'NativeExecuted':False})
+(area/'receipt.json').write_text(json.dumps({'Stage':'ACTUAL_SYNTHETIC_TRACE_CLI_REFUSALS','Closure':closure,'Rows':rows,'NativeExecuted':False},indent=2)+'\n');print(json.dumps(rows));sys.exit(0 if all(x['RefusedBeforeOutput'] for x in rows) else 1)
