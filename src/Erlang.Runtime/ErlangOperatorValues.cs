@@ -46,6 +46,18 @@ public static class ErlangOperatorValues
         bool noSuspend = false
     )
     {
+        if (target is Pid remote && remote.Node != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedPidAsync(
+                context,
+                remote,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result != DistributionGuestSendResult.NotConnected)
+                return result == DistributionGuestSendResult.Accepted;
+        }
         if (target is PortTerm || target is Atom name && context.Runtime.WhereIs(name.Name) is PortTerm)
         {
             context.SavedCalls.Sent();

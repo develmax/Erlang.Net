@@ -1269,7 +1269,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, async_dist, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed."
   },
   {
     "Module": "erlang",
@@ -1277,7 +1277,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:!/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, async_dist, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed."
   },
   {
     "Module": "erlang",
@@ -2701,7 +2701,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, async_dist, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed."
   },
   {
     "Module": "erlang",
@@ -2709,7 +2709,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, async_dist, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed."
   },
   {
     "Module": "erlang",
@@ -2717,7 +2717,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:send_nosuspend/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, async_dist, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed."
   },
   {
     "Module": "erlang",

@@ -1,0 +1,29 @@
+47: #define DFLAG_MAP_TAG               ((Uint64)0x20000)
+48: #define DFLAG_BIG_CREATION          ((Uint64)0x40000)
+49: #define DFLAG_SEND_SENDER           ((Uint64)0x80000)
+50: #define DFLAG_BIG_SEQTRACE_LABELS  ((Uint64)0x100000)
+51: #define DFLAG_PENDING_CONNECT      ((Uint64)0x200000) /* internal */
+52: #define DFLAG_EXIT_PAYLOAD         ((Uint64)0x400000)
+53: #define DFLAG_FRAGMENTS            ((Uint64)0x800000)
+54: #define DFLAG_HANDSHAKE_23        ((Uint64)0x1000000)
+55: #define DFLAG_UNLINK_ID           ((Uint64)0x2000000)
+56: #define DFLAG_MANDATORY_25_DIGEST ((Uint64)0x4000000)
+57: #define DFLAG_RESERVED           ((Uint64)0xf8000000)
+58: 
+59: /*
+60:  * As the old handshake only support 32 flag bits, we reserve the remaining
+61:  * bits in the lower 32 for changes in the handshake protocol or potentially
+62:  * new capabilities that we also want to backport to OTP-22 or older.
+63:  */
+64: #define DFLAG_SPAWN            (((Uint64)0x1) << 32)
+65: #define DFLAG_NAME_ME          (((Uint64)0x2) << 32)
+66: #define DFLAG_V4_NC            (((Uint64)0x4) << 32)
+67: #define DFLAG_ALIAS            (((Uint64)0x8) << 32)
+68: #define DFLAG_LOCAL_EXT        (((Uint64)0x10) << 32) /* internal */
+69: #define DFLAG_ALTACT_SIG       (((Uint64)0x20) << 32)
+70: #define DFLAG_NATIVE_RECORDS   (((Uint64)0x40) << 32)
+188: #define ERTS_DOP_ALTACT_SIG_FLG_PRIO    (1 << 0)
+189: #define ERTS_DOP_ALTACT_SIG_FLG_TOKEN   (1 << 1)
+190: #define ERTS_DOP_ALTACT_SIG_FLG_ALIAS   (1 << 2)
+191: #define ERTS_DOP_ALTACT_SIG_FLG_NAME    (1 << 3)
+192: #define ERTS_DOP_ALTACT_SIG_FLG_EXIT    (1 << 4)

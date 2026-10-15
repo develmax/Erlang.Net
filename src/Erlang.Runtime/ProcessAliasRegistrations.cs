@@ -108,7 +108,23 @@ internal static class ProcessAliasRegistrations
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
-        if (noConnect && (target is Pid remotePid && remotePid.Node != context.Runtime.Node || target is ReferenceTerm remoteReference && remoteReference.Node != context.Runtime.Node || target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom && address.Items[1] is Atom remoteNode && remoteNode.Name != context.Runtime.Node))
+        if (target is Pid remotePid && remotePid.Node != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedPidAsync(
+                context,
+                remotePid,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result == DistributionGuestSendResult.Accepted)
+                return Term.A(CommonAtomNames.Ok);
+            if (result == DistributionGuestSendResult.WouldSuspend)
+                return Term.A(ProcessSendResultNames.NoSuspend);
+            if (noConnect)
+                return Term.A(ProcessSendResultNames.NoConnect);
+        }
+        if (noConnect && (target is ReferenceTerm remoteReference && remoteReference.Node != context.Runtime.Node || target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom && address.Items[1] is Atom remoteNode && remoteNode.Name != context.Runtime.Node))
             return Term.A(ProcessSendResultNames.NoConnect);
         bool sent = await ErlangOperatorValues.TrySendAsync(
             context,

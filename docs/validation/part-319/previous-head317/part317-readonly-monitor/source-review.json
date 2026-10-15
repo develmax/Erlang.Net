@@ -1,0 +1,30 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_EXACT_HEAD317_AUTHENTICATED_READ_ONLY_GET_MONITOR",
+  "Head": "50cee883796a95c11fcde318098ce8a1156685ca",
+  "Files": [
+    {
+      "Path": "artifacts/part317-readonly-monitor/map-and-status.ps1",
+      "Sha256": "BFF0A4B738EAC6A55487D45F5B66FECB500B5A945AC941459E4D5C696488BF67",
+      "ParentSha256": "8C77CCC0E4CD3EA76DF785F2238B53BF658B8FE3FD35260ED467CD133740D637",
+      "OnlyChanges": "Part316\u2192317 and exact published head"
+    },
+    {
+      "Path": "artifacts/part317-readonly-monitor/download-terminal.ps1",
+      "Sha256": "0B116FEA9DC8142A7876A5BC420DA587C18596E22D39522E19C660A92DAE8219",
+      "ParentSha256": "99CC5A34B8DA598239BEAE7EC627D48ECE9BCB6611045DAAB546C029E3FA6EE8",
+      "OnlyChanges": "Part316\u2192317 and exact published head"
+    },
+    {
+      "Path": "artifacts/part317-readonly-monitor/extract-and-freeze.py",
+      "Sha256": "2B818A6D4032B5B85CF3C505F65BAEBB5AD2970FD27D6CF665BE8E7402C84999",
+      "ParentSha256": "CF8864AD3801E0B79EEAD9625C7F942621C139D4EE69EDE81950F0BFB92C1FA7",
+      "OnlyChanges": "Part316\u2192317 and exact published head"
+    }
+  ],
+  "PollMinimumSeconds": 60,
+  "ExpectedRuns": 4,
+  "MappingRequiresWorkflowPathEventHeadAttemptAndDispatchTimeWindow": true,
+  "SecretCapturedInternallyAndClearedFinally": true,
+  "PostOrDispatcherInvoked": false,
+  "DownloadNativeExecution": false
+}

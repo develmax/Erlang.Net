@@ -1,0 +1,85 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD317_ALL_FOUR_TERMINAL_JOBS_AND_SEPARATE_DECLARED_BACKEND_MEMORY_PROFILES",
+  "Head": "50cee883796a95c11fcde318098ce8a1156685ca",
+  "Attempt": 1,
+  "Ci": {
+    "Run": 38820787044,
+    "Passed": 6667,
+    "Integrations": 11,
+    "Mfa": 509,
+    "ErlangMfa": 351
+  },
+  "Native": {
+    "Run": 38821047935,
+    "PlanInputs": 1086,
+    "LinuxStdoutRows": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13Validated": true,
+    "Original13ComparedWithSdk13": false
+  },
+  "Reallocation": {
+    "Run": 38821039567,
+    "PlanInputs": 1111,
+    "WholePrefixFilesRehashed": 2646,
+    "NativeLibrariesActuallyBuiltAndReviewed": 4,
+    "FreshOriginalCases": 3,
+    "FreshSdkCases": 3,
+    "ActualTypedComparisonPassed": true
+  },
+  "Ordinary": {
+    "Run": 38821055667,
+    "Passed": 5880,
+    "FdPassed": 8,
+    "Historical5870OrderedRawRowsExact": true,
+    "NewComparableMemoryCases": 10,
+    "ObservedMapVarianceRelativeTo316": 0,
+    "Previous316ObservedMapVarianceRelativeTo308": 1,
+    "Previous316VarianceAlreadyPublishedAndPreserved": true,
+    "SeparateBackendAndMemoryProfileTypedPass": true,
+    "OriginalBackend": "libc",
+    "SdkBackend": "dotnet_native_memory",
+    "RawResultsDiffer": true,
+    "NumericPartitionsValidatedPerSnapshot": true,
+    "NoEqualityExpectationAcrossIndependentMemoryCallsOrBackends": true
+  },
+  "GuardBindings": [
+    {
+      "Path": "artifacts/pack317-ci-independent-guard.json",
+      "Sha256": "48073C12905C7FC81772E29ED3A7C693EDD43C2751CDEFE614CF64CC3305FE32",
+      "Status": "PASS_EXACT_HEAD317_CI6667_FULL"
+    },
+    {
+      "Path": "artifacts/pack317-native-combined-independent-guard.json",
+      "Sha256": "F8E625543886E20732A9814FD8D6A21D32928ADD7BB355E097FECC9B7BFB296A",
+      "Status": "PASS_EXACT_HEAD317_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Path": "artifacts/pack317-reallocation-independent-guard.json",
+      "Sha256": "0486972A5F7E67BE9200ADAAAA33C9995C2B0A328F87582CF8A87FA1FF32A5F2",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD317_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON"
+    },
+    {
+      "Path": "artifacts/pack317-ordinary-strict-independent-guard.json",
+      "Sha256": "C14663C282F133854212C4200E7362ED14165852D350DBDD864AF73F619623A5",
+      "Status": "PASS_EXACT_HEAD317_FRESH_ORIGINAL5880_FD8_PRESERVED316_CORPUS_PLUS_TEN_MEMORY_CASES"
+    },
+    {
+      "Path": "artifacts/pack317-allocator-profile-independent-guard.json",
+      "Sha256": "107F59F33C04BDF9EF468415EF7155959507F27F565EE9BF4C32C2F21C85FC8D",
+      "Status": "PASS_EXACT_HEAD317_SEPARATE_ACTUAL_ORIGINAL_LIBC_VS_SDK_DOTNET_BACKEND_PROFILE"
+    },
+    {
+      "Path": "artifacts/pack317-memory-profile-independent-guard.json",
+      "Sha256": "F8577C2575296D84F6A1CD30563086E535F5A92DE90D3B11681A9DE92A951CE7",
+      "Status": "PASS_EXACT_HEAD317_ACTUAL_RAW_MEMORY_PROFILE_BOTH_BACKENDS_TWO_INDEPENDENT_NINE_KEY_SNAPSHOTS"
+    }
+  ],
+  "Current317RemoteAllCompletedAndAudited": true,
+  "NoFurther317GetNeeded": true,
+  "NativeVmSdkExecutedByReviewer": false,
+  "PostExecutedByReviewer": false,
+  "MainOrGitMutation": false,
+  "PhysicalOrWholeGcParityClaimed": false,
+  "GeneralNativeAbiComplete": false,
+  "RawZipTarDllPortableArchiveClaimed": false
+}

@@ -59,7 +59,11 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
                 if (value is not TupleTerm { Items: [Integer previous, Integer current] } || previous.Value < SequenceTraceParameters.MinimumSerial || previous.Value > SequenceTraceParameters.MaximumSerial || current.Value < SequenceTraceParameters.MinimumSerial || current.Value > SequenceTraceParameters.MaximumSerial)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 SequenceTraceToken token = EnsureToken(context);
-                state.Token = token with { LastCount = (long)previous.Value, Serial = (long)current.Value };
+                state.Token = token with
+                {
+                    LastCount = (long)previous.Value,
+                    Serial = (long)current.Value
+                };
                 state.LastCount = SequenceTraceParameters.Unsigned((long)previous.Value);
                 state.Clock = SequenceTraceParameters.Unsigned((long)current.Value);
 
@@ -68,7 +72,10 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
             if (item.Name == SequenceTraceNames.Label)
             {
                 SequenceTraceToken token = EnsureToken(context);
-                state.Token = token with { Label = value };
+                state.Token = token with
+                {
+                    Label = value
+                };
 
                 return token.Label;
             }
@@ -77,7 +84,10 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             SequenceTraceToken existing = EnsureToken(context);
             bool old = (existing.Flags & flag) != 0;
-            state.Token = existing with { Flags = boolean.Name == ErlangBooleanAtoms.True ? existing.Flags | flag : existing.Flags & ~flag };
+            state.Token = existing with
+            {
+                Flags = boolean.Name == ErlangBooleanAtoms.True ? existing.Flags | flag : existing.Flags & ~flag
+            };
 
             return CoreModules.Boolean(old);
         }
@@ -145,6 +155,42 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
                 tracer = null;
 
             return tracer ?? (Term)Term.A(ErlangBooleanAtoms.False);
+        }
+    }
+
+    internal SequenceTraceSendPreview PreviewSent(ProcessContext sender)
+    {
+        lock (gate)
+        {
+            var state = sender.SequentialTrace;
+            bool selfTracer = Tracer().Equals(sender.Self);
+            SequenceTraceToken? next = state.Token;
+            if (next is not null && !selfTracer)
+                next = next with
+                {
+                    Sender = sender.Self,
+                    Serial = SequenceTraceParameters.Signed(unchecked(state.Clock + 1)),
+                    LastCount = SequenceTraceParameters.Signed(state.LastCount)
+                };
+
+            return new(
+                state.Token,
+                state.Clock,
+                state.LastCount,
+                selfTracer,
+                next
+            );
+        }
+    }
+
+    internal bool IsCurrentSendPreview(ProcessContext sender, SequenceTraceSendPreview preview)
+    {
+        lock (gate)
+        {
+            var state = sender.SequentialTrace;
+
+            return ReferenceEquals(state.Token, preview.Original) && state.Clock == preview.Clock &&
+                state.LastCount == preview.LastCount && Tracer().Equals(sender.Self) == preview.SelfTracer;
         }
     }
 
@@ -295,7 +341,12 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
         if (state.Token is null || Tracer().Equals(context.Self))
             return state.Token;
         state.Clock = unchecked(state.Clock + 1);
-        state.Token = state.Token with { Sender = context.Self, Serial = SequenceTraceParameters.Signed(state.Clock), LastCount = SequenceTraceParameters.Signed(state.LastCount) };
+        state.Token = state.Token with
+        {
+            Sender = context.Self,
+            Serial = SequenceTraceParameters.Signed(state.Clock),
+            LastCount = SequenceTraceParameters.Signed(state.LastCount)
+        };
 
         return state.Token;
     }

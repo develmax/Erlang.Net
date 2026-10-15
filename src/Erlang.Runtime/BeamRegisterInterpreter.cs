@@ -291,8 +291,13 @@ internal static class BeamRegisterInterpreter
                         registers.Write(operands[1], await context.Runtime.Modules.Call(context, ErlangModuleNames.Module, ErlangModuleNames.Self));
                         break;
                     case BeamLinkNames.Send:
-                        registers.Write(0, ErlangOperatorValues.Send(context, registers.Read(0), registers.Read(1)));
-                        break;
+                        {
+                            Term recipient = registers.Read(0);
+                            Term sentMessage = registers.Read(1);
+                            await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                            registers.Write(0, sentMessage);
+                            break;
+                        }
                     case BeamLinkNames.LoopReceive:
                         BeamReceivePlan plan = BeamReceivePlanner.Build(code, function, pc - 1);
                         BeamRegisterState before = registers.Clone();

@@ -1,0 +1,48 @@
+{
+  "Status": "PASS_PASSIVE_SOURCE_BINDING_ONLY",
+  "Findings": [
+    {
+      "Finding": "TrySendAsync has port-only async path then synchronous PID Send",
+      "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
+      "MatchingSourceLines": [
+        53,
+        110
+      ]
+    },
+    {
+      "Finding": "Local-only traced delivery",
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "MatchingSourceLines": [
+        529,
+        539,
+        554
+      ]
+    },
+    {
+      "Finding": "Connected noconnect rejected by node inequality",
+      "Path": "src/Erlang.Runtime/ProcessAliasRegistrations.cs",
+      "MatchingSourceLines": [
+        111,
+        112
+      ]
+    },
+    {
+      "Finding": "BEAM Send still synchronous",
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "MatchingSourceLines": [
+        294
+      ]
+    },
+    {
+      "Finding": "Generated operator has actual shared async guest route",
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "MatchingSourceLines": [
+        723
+      ]
+    }
+  ],
+  "GuestPendingAutoconnectImplemented": false,
+  "RuntimeControllerPendingHandlesExist": true,
+  "ProposalPrioritizesExistingConnectedGuestPidDelivery": true,
+  "SdkOrNativeBehaviorExecuted": false
+}

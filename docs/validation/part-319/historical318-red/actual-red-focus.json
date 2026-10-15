@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "24706E0D7630C547CE7EB3C4EE7E9233042069C2A0BB7564D890E1395D9B12D6"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "F79082DF53BEFFA00574FB5A58AA9A10FB9D1A0692FAE436ADB37A1260C0FC45"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "F1255891B9BC7DDD870C40EB6096C7D1EC96DC1B0BEFD942189FC5DAB798DF7F"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestSendPublicRouteHostChecks",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 2050,
+      "Exception": "System.InvalidOperationException: Connected guest PID send assertion failed\r\n   at Erlang.Tests.DistributionGuestSendPublicRouteHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestSendPublicRouteHostChecks.cs:line 77\r\n   at Erlang.Tests.DistributionGuestSendPublicRouteHostChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eg__Take|1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestSendPublicRouteHostChecks.cs:line 67\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.DistributionGuestSendPublicRouteHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestSendPublicRouteHostChecks.cs:line 55\r\n   at Erlang.Tests.DistributionGuestSendPublicRouteHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestSendPublicRouteHostChecks.cs:line 60\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

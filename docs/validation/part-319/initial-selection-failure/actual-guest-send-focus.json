@@ -1,0 +1,43 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-composed2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "922EE014258C2775561A91704FE00FABF12747C7CCE9EB39A0F4971A168B2613"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-composed2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "3444D02E52A66E02FBB7DC66929C1CAE3893E15CCEEDA3E7DF907ABA233C0869"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part319-composed2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "67994BE8E3687F778C8A7933E6EFA0B357E3308642E221243B0B2B399CFDF337"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestSendHostChecks",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 2084
+    },
+    {
+      "Name": "DistributionGroupLeaderOutputHostChecks",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 249
+    },
+    {
+      "Name": "DistributionOutputAdmissionHostChecks",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 204
+    },
+    {
+      "Name": "DistributionOutputPublicationHostChecks",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 0,
+      "Exception": "System.TypeLoadException: Could not resolve type \u0027DistributionOutputPublicationHostChecks\u0027 in assembly \u0027Erlang.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\u0027.\r\n   at System.Reflection.TypeNameResolver.GetType(String escapedTypeName, ReadOnlySpan\u00601 nestedTypeNames, TypeName parsedName)\r\n   at System.Reflection.TypeNameResolver.GetSimpleType(TypeName typeName)\r\n   at System.Reflection.TypeNameResolver.Resolve(TypeName typeName)\r\n   at System.Reflection.TypeNameResolver.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Assembly topLevelAssembly)\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 19"
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+2381: static Sint remote_send(Process *p, DistEntry *dep,
+2382: 			Eterm to, Eterm node, Eterm full_to, Eterm msg,
+2383:                         Eterm return_term, Eterm *ctxpp,
+2384:                         int connect, int suspend, int prio)
+2385: {
+2386:     Sint res;
+2387:     int code;
+2388:     ErtsDSigSendContext ctx;
+2389:     ASSERT(is_atom(to) || is_external_pid(to) || is_external_ref(to));
+2390: 
+2391:     code = erts_dsig_prepare(&ctx, dep, p, ERTS_PROC_LOCK_MAIN,
+2392: 			     ERTS_DSP_NO_LOCK,
+2393: 			     !suspend, 0, connect);
+2394:     ctx.return_term = return_term;
+2395:     ctx.node = node;
+2396:     switch (code) {
+2397:     case ERTS_DSIG_PREP_NOT_ALIVE:
+2398:     case ERTS_DSIG_PREP_NOT_CONNECTED:
+2399: 	res = SEND_NOCONNECT;
+2400: 	break;
+2401:     case ERTS_DSIG_PREP_WOULD_SUSPEND:
+2402: 	ASSERT(!suspend);
+2403: 	res = SEND_YIELD;
+2404: 	break;
+2405:     case ERTS_DSIG_PREP_CONNECTED:
+2406:         if (!(ctx.dflags & DFLAG_ALIAS) && is_external_ref(to)) {
+2407:             /*
+2408:              * Receiver does not support alias, so the alias is
+2409:              * obviously not present at the receiver. Just drop
+2410:              * it...
+2411:              */
+2412:             res = 0;
+2413:             break;
+2414:         }
+2415:         ERTS_FALLTHROUGH();
+2416:     case ERTS_DSIG_PREP_PENDING: {
+2417: 
+2418:         code = erts_dsig_send_msg(&ctx, to, full_to, msg, prio);
+2419: 	/*
+2420: 	 * Note that reductions have been bumped on calling
+2421: 	 * process by erts_dsig_send_msg().
+2422: 	 */
+2423: 	if (code == ERTS_DSIG_SEND_YIELD)
+2424: 	    res = SEND_YIELD_RETURN;
+2425: 	else if (code == ERTS_DSIG_SEND_CONTINUE) {
+2426:             erts_set_gc_state(p, 0);
+2427: 
+2428:             /* Keep a reference to the dist entry if the
+2429:                name is an not a pid. */
+2430:             if (is_atom(to)) {
+2431:                 erts_ref_dist_entry(ctx.dep);
+2432:                 ctx.deref_dep = 1;
+2433:             }
+2434: 
+2435:             *ctxpp = erts_dsend_export_trap_context(p, &ctx);
+2436: 	    res = SEND_YIELD_CONTINUE;
+2437: 	} else if (code == ERTS_DSIG_SEND_TOO_LRG)
+2438: 	    res = SEND_SYSTEM_LIMIT;
+2439: 	else
+2440: 	    res = 0;
+2441: 	break;
+2442:     }
+2443:     default:
+2444: 	ASSERT(! "Invalid dsig prepare result");
+2445: 	res = SEND_INTERNAL_ERROR;
+2446:     }
+2447: 
+2448:     if (res >= 0) {
+2449:         if (ERTS_IS_P_TRACED_FL(p, F_TRACE_SEND))
+2450: 	    trace_send(p, full_to, msg);
+2451: 	if (ERTS_PROC_GET_SAVED_CALLS_BUF(p))
+2452: 	    save_calls(p, &exp_send);
+2453:     }
+2454: 
+2455:     return res;
+2459: do_send(Process *p, Eterm to, Eterm msg, Eterm return_term, Eterm *refp,
+2460:         Eterm *dist_ctx, int connect, int suspend, int prio)
+2461: {
+2462:     Eterm portid;
+2463:     Port *pt;
+2464:     Process* rp;
+2465:     DistEntry *dep;
+2466:     Eterm* tp;
+2467:     Eterm to_proc;
+2468: 
+2469:     if (is_internal_pid(to)) {
+2470:         if (ERTS_IS_P_TRACED_FL(p, F_TRACE_SEND))
+2471: 	    trace_send(p, to, msg);
+2472: 	if (ERTS_PROC_GET_SAVED_CALLS_BUF(p))
+2473: 	    save_calls(p, &exp_send);
+2474:         if (prio) {
+2475:             to_proc = to;
+2476:             goto send_altact_message;
+2477:         }
+2478: 	rp = erts_proc_lookup_raw(to);	
+2479: 	if (!rp)
+2480: 	    return 0;
+2481:     }
+2482:     else if (is_internal_ref(to)) {
+2483:         if (ERTS_IS_P_TRACED_FL(p, F_TRACE_SEND))
+2484: 	    trace_send(p, to, msg);
+2485: 	if (ERTS_PROC_GET_SAVED_CALLS_BUF(p))
+2486: 	    save_calls(p, &exp_send);
+2487:         to_proc = to;
+2488:         goto send_altact_message;
+2489:     } else if (is_external_pid(to) || is_external_ref(to)) {
+2490: 	dep = external_dist_entry(to);
+2491: 	if(dep == erts_this_dist_entry) {
+2492: 	    erts_dsprintf_buf_t *dsbufp = erts_create_logger_dsbuf();
+2493: 	    erts_dsprintf(dsbufp,
+2494: 			  "Discarding message %T from %T to %T in an old "
+2495: 			  "incarnation (%u) of this node (%u)\n",
+2496: 			  msg,
+2497: 			  p->common.id,
+2498: 			  to,
+2499: 			  external_pid_creation(to),
+2500: 			  erts_this_node->creation);
+2501: 	    erts_send_error_to_logger(p->group_leader, dsbufp);
+2502: 	    return 0;
+2503: 	}
+2504: 	return remote_send(p, dep, to, dep->sysname, to, msg, return_term,
+2505:                            dist_ctx, connect, suspend, prio);
+2697: BIF_RETTYPE send_3(BIF_ALIST_3)
+2698: {
+2699:     BIF_RETTYPE retval;
+2700:     Eterm ref;
+2701:     Process *p = BIF_P;
+2702:     Eterm to = BIF_ARG_1;
+2703:     Eterm msg = BIF_ARG_2;
+2704:     Eterm opts = BIF_ARG_3;
+2705: 
+2706:     Eterm l = opts;
+2707:     Sint result;
+2708:     int connect = 1, suspend = 1, prio = 0;
+2709:     Eterm ctx;
+2710: 
+2711:     ERTS_MSACC_PUSH_STATE_M_X();
+2712: 
+2713:     while (is_list(l)) {
+2714: 	if (CAR(list_val(l)) == am_noconnect) {
+2715: 	    connect = 0;
+2716: 	} else if (CAR(list_val(l)) == am_nosuspend) {
+2717: 	    suspend = 0;
+2718: 	} else if (CAR(list_val(l)) == am_priority) {
+2719: 	    prio = !0;
+2720: 	} else {
+2721:             BIF_P->fvalue = am_badopt;
+2722:             ERTS_BIF_PREP_ERROR(retval, p, BADARG | EXF_HAS_EXT_INFO);
+2723: 	    goto done;
+2724: 	}
+2725: 	l = CDR(list_val(l));
+2726:     }
+2727:     if(!is_nil(l)) {
+2728: 	BIF_P->fvalue = am_badopt;
+2729: 	ERTS_BIF_PREP_ERROR(retval, p, BADARG | EXF_HAS_EXT_INFO);
+2730: 	goto done;
+2731:     }
+2732: 
+2733: #ifdef DEBUG
+2734:     ref = NIL;
+2735: #endif
+2736: 
+2737:     ERTS_MSACC_SET_STATE_CACHED_M_X(ERTS_MSACC_STATE_SEND);
+2738:     result = do_send(p, to, msg, am_ok, &ref, &ctx, connect, suspend, prio);
+2739:     ERTS_MSACC_POP_STATE_M_X();
+2740: 
+2741:     if (result >= 0) {
+2742: 	ERTS_VBUMP_REDS(p, 4);
+2743: 	if (ERTS_IS_PROC_OUT_OF_REDS(p))
+2744: 	    goto yield_return;
+2745: 	ERTS_BIF_PREP_RET(retval, am_ok);
+2746: 	goto done;
+2747:     }
+2748: 
+2749:     switch (result) {
+2750:     case SEND_NOCONNECT:
+2751: 	if (connect) {
+2752: 	    ERTS_BIF_PREP_RET(retval, am_ok);
+2753: 	} else {
+2754: 	    ERTS_BIF_PREP_RET(retval, am_noconnect);
+2755: 	}
+2756: 	break;
+2757:     case SEND_YIELD:
+2758: 	if (suspend) {
+2759: 	    ERTS_BIF_PREP_YIELD3(retval, BIF_TRAP_EXPORT(BIF_send_3), p, to, msg, opts);
+2760: 	} else {
+2761: 	    ERTS_BIF_PREP_RET(retval, am_nosuspend);
+2762: 	}
+2763: 	break;
+2764:     case SEND_YIELD_RETURN:
+2765: 	if (!suspend) {
+2766: 	    ERTS_BIF_PREP_RET(retval, am_nosuspend);
+2767: 	    break;
+2768: 	}
+2769:     yield_return:
+2770: 	ERTS_BIF_PREP_YIELD_RETURN(retval, p, am_ok);
+2771:         break;
+2772:     case SEND_AWAIT_RESULT:
+2773: 	ASSERT(is_internal_ordinary_ref(ref));
+2774: 	ERTS_BIF_PREP_TRAP3(retval, await_port_send_result_trap, p, ref, am_nosuspend, am_ok);
+2775: 	break;
+2776:     case SEND_BADARG:
+2777: 	ERTS_BIF_PREP_ERROR(retval, p, BADARG);
+2778: 	break;
+2801: BIF_RETTYPE send_2(BIF_ALIST_2)
+2802: {
+2803:     return erl_send(BIF_P, BIF_ARG_1, BIF_ARG_2);
+2804: }
+2845: Eterm erl_send(Process *p, Eterm to, Eterm msg)
+2846: {
+2847:     Eterm retval;
+2848:     Eterm ref;
+2849:     Sint result;
+2850:     Eterm ctx;
+2851:     ERTS_MSACC_PUSH_AND_SET_STATE_M_X(ERTS_MSACC_STATE_SEND);
+2852: 
+2853: #ifdef DEBUG
+2854:     ref = NIL;
+2855: #endif
+2856: 
+2857:     result = do_send(p, to, msg, msg, &ref, &ctx, 1, 1, 0);
+2858: 
+2859:     ERTS_MSACC_POP_STATE_M_X();
+2860: 
+2861:     if (result >= 0) {
+2862: 	ERTS_VBUMP_REDS(p, 4);
+2863: 	if (ERTS_IS_PROC_OUT_OF_REDS(p))
+2864: 	    goto yield_return;
+2865: 	ERTS_BIF_PREP_RET(retval, msg);
+2866: 	goto done;
+2867:     }
+2868: 
+2869:     switch (result) {
+2870:     case SEND_NOCONNECT:
+2871: 	ERTS_BIF_PREP_RET(retval, msg);
+2872: 	break;
+2873:     case SEND_YIELD:
+2874: 	ERTS_BIF_PREP_YIELD2(retval, BIF_TRAP_EXPORT(BIF_send_2), p, to, msg);
+2875: 	break;
+2876:     case SEND_YIELD_RETURN:
+2877:     yield_return:
+2878: 	ERTS_BIF_PREP_YIELD_RETURN(retval, p, msg);
+2879:         break;
+2880:     case SEND_AWAIT_RESULT:
+2881: 	ASSERT(is_internal_ordinary_ref(ref));
+2882: 	ERTS_BIF_PREP_TRAP3(retval,
+2883: 			    await_port_send_result_trap, p, ref, msg, msg);
+2884: 	break;
+2885:     case SEND_BADARG:
+2886: 	ERTS_BIF_PREP_ERROR(retval, p, BADARG);
+2887: 	break;
+2888:     case SEND_SYSTEM_LIMIT:
+2889: 	ERTS_BIF_PREP_ERROR(retval, p, SYSTEM_LIMIT);
+2890: 	break;
+2891:     case SEND_USER_ERROR:
+2892: 	ERTS_BIF_PREP_ERROR(retval, p, EXC_ERROR);
+4914: BIF_RETTYPE erts_internal_group_leader_2(BIF_ALIST_2)
+4915: {
+4916:     if (is_not_pid(BIF_ARG_1))
+4917:         BIF_RET(am_badarg);
+4918: 
+4919:     if (is_internal_pid(BIF_ARG_2)) {
+4920:         Process *rp;
+4921:         int res;
+4922: 
+4923:         if (BIF_ARG_2 == BIF_P->common.id)
+4924:             rp = BIF_P;
+4925:         else {
+4926:             rp = erts_try_lock_sig_free_proc(BIF_ARG_2,
+4927:                                              ERTS_PROC_LOCK_MAIN,
+4928:                                              NULL);
+4929:             if (!rp)
+4930:                 BIF_RET(am_badarg);
+4931:             if (rp == ERTS_PROC_LOCK_BUSY)
+4932:                 BIF_RET(am_false);
+4933:         }
+4934: 
+4935:         res = erts_set_group_leader(rp, BIF_ARG_1);
+4936: 
+4937:         if (rp != BIF_P)
+4938:             erts_proc_unlock(rp, ERTS_PROC_LOCK_MAIN);
+4939: 
+4940:         BIF_RET(res ? am_true : am_badarg);
+4941:     }
+4942: 
+4943:     if (is_external_pid(BIF_ARG_2)) {
+4944: 	DistEntry *dep;
+4945: 	int code;
+4946: 	ErtsDSigSendContext ctx;
+4947: 	dep = external_pid_dist_entry(BIF_ARG_2);
+4948: 	ERTS_ASSERT(dep);
+4949: 	if(dep == erts_this_dist_entry)
+4950: 	    BIF_ERROR(BIF_P, BADARG);
+4951: 
+4952: 	code = erts_dsig_prepare(&ctx, dep, BIF_P, ERTS_PROC_LOCK_MAIN,
+4953: 				 ERTS_DSP_NO_LOCK, 0, 1, 1);
+4954: 	switch (code) {
+4955: 	case ERTS_DSIG_PREP_NOT_ALIVE:
+4956: 	case ERTS_DSIG_PREP_NOT_CONNECTED:
+4957: 	    BIF_RET(am_true);
+4958: 	case ERTS_DSIG_PREP_PENDING:
+4959: 	case ERTS_DSIG_PREP_CONNECTED:
+4960: 	    code = erts_dsig_send_group_leader(&ctx, BIF_ARG_1, BIF_ARG_2);
+4961: 	    if (code == ERTS_DSIG_SEND_YIELD)
+4962: 		ERTS_BIF_YIELD_RETURN(BIF_P, am_true);
+4963: 	    BIF_RET(am_true);
+4964: 	default:
+4965: 	    ERTS_ASSERT(! "Invalid dsig prepare result");
+4966: 	}
+4967:     }
+4968: 
+4969:     BIF_RET(am_badarg);
+4970: }

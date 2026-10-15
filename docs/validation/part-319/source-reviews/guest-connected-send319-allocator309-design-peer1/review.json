@@ -1,0 +1,39 @@
+{
+  "Status": "PASS_SOURCE_DIRECTED_DESIGN_WITH_REQUIRED_IMPLEMENTATION_SCOPE_CLARIFICATIONS",
+  "DesignFreezeSha256": "E561B7E85B450FF3B35C9A9AF26F62109683D0A3315619E7066911F8FCB98D82",
+  "BaseClosureSha256": "7B8C0913A6E46324BF8A40DBD8EB86105990AA6DA76B35EF9BA294E7A44D0C03",
+  "SourceBindingsVerified": 26,
+  "PinnedFullGitObjectsAndExactExcerptsVerified": 3,
+  "ConfirmedBugs": [
+    "Connected remote PID send/2 and ! reach only local processes dictionary and return payload without publication",
+    "send/3 noconnect rejects every external-node PID before existing connection lookup",
+    "BEAM Send opcode calls synchronous helper while generated source operator already awaits TrySendAsync"
+  ],
+  "ArchitectureAssessment": "Use captured connected entry/generation, entry resource lease, producer ticket and original sender/snapshot; release runtime gate before encode/capacity waits; immediate reservation plus immediate capacity for nosuspend; full option validation before state/result selection. Pending/autoconnect correctly deferred as a separate entry-owned foundation.",
+  "RequiredImplementationClarifications": [
+    {
+      "Priority": "P2",
+      "Topic": "Negotiated priority needs serialization support",
+      "Evidence": "DistributionControlOpcodes.AlternativeActionSend exists, but DistributionPassThroughCodec.ValidateControl only accepts SEND/SEND_SENDER/REG_SEND payload controls; Encode rejects opcode37.",
+      "Required": "Include narrow PID ALTACT payload codec shape and negotiated flag validation in owned scope; keep priority fallback without capability and reject malformed controls. Merely adding Runtime constants is insufficient."
+    },
+    {
+      "Priority": "P2",
+      "Topic": "Trace/token advancement and admission phase must be explicit",
+      "Evidence": "Pinned dist.c1613-1616 advances seqtrace before erts_dsig_send; bif.c2448-2452 records process trace/saved calls by actual result. Existing PublishOwnedPacket encodes once then retries capacity, and commit runs only after queue admission.",
+      "Required": "Do not put SequenceTracing.Sent in a retry/validation callback or call it again through SendTraced; determine token once in a gate-owned phase after immediate refusal preconditions, preserve source-guided error/cancel behavior, and document bounded queue adaptation. Test no increments/duplicate traces on refused nosuspend and exact once on admitted send."
+    }
+  ],
+  "OwnershipReviewNotes": [
+    "Exact captured generation cancellation filtering must not turn caller cancellation on current generation into success",
+    "Immediate route must release resource/ticket on every encode/admission/commit exception; existing TryPublishImmediateControl alone has no entry resource lease and is not a ready payload replacement",
+    "Do not reuse current ProcessTracing.Sent remote existence=false classification: connected remote destination cannot be inferred locally dead; define proper native remote send trace phase",
+    "Keep synchronous public embedding helpers out of claimed async guest completion and preserve BEAM x0 message across await"
+  ],
+  "BlockingArchitecturalFinding": false,
+  "CodeScopeMustIncludeRequiredClarificationsBeforeFinalSourcePeer": true,
+  "ImplementationBuildSdkVmNativeNetworkOrMainGitMutationExecuted": false,
+  "ReadOnlyPinnedGitShowExecuted": true,
+  "NoActualRemoteBehaviorClaimed": true,
+  "AuditScriptSha256": "14BC2FDB58C3E5EAD6EF0F04951A7DC3692FF92B05C97CEC87F10036660C5E9C"
+}

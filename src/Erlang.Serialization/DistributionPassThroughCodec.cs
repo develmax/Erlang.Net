@@ -12,7 +12,12 @@ public static partial class DistributionPassThroughCodec
         ArgumentNullException.ThrowIfNull(message);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
         ValidateFlags(negotiatedFlags);
-        ValidateControl(message.Control, requireSenderNegotiation: true, negotiatedFlags: negotiatedFlags);
+        ValidateControl(
+            message.Control,
+            requireSenderNegotiation: true,
+            negotiatedFlags: negotiatedFlags,
+            allowAlternativePidSend: true
+        );
         ArgumentNullException.ThrowIfNull(message.Payload);
         options ??= new EtfEncodingOptions();
         long required = checked(DistributionPassThroughLayout.MarkerBytes +
@@ -40,7 +45,8 @@ public static partial class DistributionPassThroughCodec
         EtfDecodeOptions? options = null,
         int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
         ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
-        Action<TupleTerm>? unsupportedControlValidator = null
+        Action<TupleTerm>? unsupportedControlValidator = null,
+        bool allowAlternativePidSend = false
     )
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
@@ -51,7 +57,12 @@ public static partial class DistributionPassThroughCodec
         var control = ReadTerm(packet[DistributionPassThroughLayout.MarkerBytes..], options, maximumBytes);
         if (control.Term is not TupleTerm tuple)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
-        ValidateControl(tuple, unsupportedControlValidator, negotiatedFlags);
+        ValidateControl(
+            tuple,
+            unsupportedControlValidator,
+            negotiatedFlags,
+            allowAlternativePidSend: allowAlternativePidSend
+        );
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
         if (payloadOffset + payload.Used != packet.Length)
@@ -68,7 +79,8 @@ public static partial class DistributionPassThroughCodec
         EtfDecodeOptions? options = null,
         int maximumBytes = ExternalTermFormat.DefaultMaxBytes,
         ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
-        Action<TupleTerm>? unsupportedControlValidator = null
+        Action<TupleTerm>? unsupportedControlValidator = null,
+        bool allowAlternativePidSend = false
     )
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumBytes);
@@ -143,7 +155,12 @@ public static partial class DistributionPassThroughCodec
 
             throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
         }
-        ValidateControl(tuple, unsupportedControlValidator, negotiatedFlags);
+        ValidateControl(
+            tuple,
+            unsupportedControlValidator,
+            negotiatedFlags,
+            allowAlternativePidSend: allowAlternativePidSend
+        );
         var payload = ReadTerm(packet[payloadOffset..], options, maximumBytes);
         if (payloadOffset + payload.Used != packet.Length)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
@@ -323,12 +340,22 @@ public static partial class DistributionPassThroughCodec
         TupleTerm control,
         Action<TupleTerm>? unsupportedControlValidator = null,
         ulong negotiatedFlags = DistributionPassThroughFlags.Mandatory,
-        bool requireSenderNegotiation = false
+        bool requireSenderNegotiation = false,
+        bool allowAlternativePidSend = false
     )
     {
         ArgumentNullException.ThrowIfNull(control);
         if (control.Items.Count == 0 || control.Items[DistributionPassThroughLayout.OpcodeIndex] is not Integer opcode)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        if (opcode.Value == DistributionControlOpcodes.AlternativeActionSend)
+        {
+            if (!allowAlternativePidSend)
+                throw new NotSupportedException(DistributionPassThroughDiagnostics.UnsupportedControl);
+            ValidateAlternativePidSend(control, negotiatedFlags);
+            unsupportedControlValidator?.Invoke(control);
+
+            return;
+        }
         if (opcode.Value == DistributionControlOpcodes.SendSender || opcode.Value == DistributionControlOpcodes.SendSenderTrace)
         {
             if (requireSenderNegotiation && (negotiatedFlags & DistributionPassThroughFlags.SendSender) == 0)

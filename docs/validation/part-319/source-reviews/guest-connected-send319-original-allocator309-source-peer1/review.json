@@ -1,0 +1,43 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_ORIGINAL319_COLLECTOR_REVISION2",
+  "CandidateFreezeSha256": "67FEFC493A2D8D6B2BD9A5CB012D27B19428CD399D52539C6AF4DA6954D7DC41",
+  "SourcePaths": 10,
+  "CSharpPaths": 0,
+  "SourcePlanSha256": "5E047B44B2B1905843EC99DC8FB7142B65BBD6D220B28A3B102A3D412A5E40F5",
+  "RootProbeSha256": "B09075605252609035B805374FEDA62149191C68C1ABCA26A8F5F1FB3C824D0F",
+  "AllOwnedAndEvidenceBindingsVerified": true,
+  "PythonToolAstParsed": [
+    "tools/Erlang.GuestConnectedSendObservations/collect.py",
+    "tools/Erlang.GuestConnectedSendObservations/owned_process.py",
+    "tools/Erlang.GuestConnectedSendObservations/passive_etf.py",
+    "tools/Erlang.GuestConnectedSendObservations/process_capture.py"
+  ],
+  "CanonicalToolLfAndExactWorkflowPlanPinVerified": true,
+  "ExistingWorkflowOnlyAdditive": true,
+  "Prior318SixPinnedSourceHashesAndThreeHelpersExact": true,
+  "PureControls": {
+    "Accepted": 1,
+    "Refused": 18,
+    "ReplaySha256": "CFB19A30DD747FE9196A1CEE8CBCF7D5402C397C0CE6215454B8EAEBCDA81FAB",
+    "OnlyReplayReportDestinationChanged": true,
+    "SyntheticImageBytesOnlyInMemory": true
+  },
+  "ContractReview": [
+    "Probe verifies actual connected nodes before spawn; five public send forms actualreturns+remoteorderedack; group_leader then publicsend observes updated actualleader",
+    "Successfulrawpayload retains typedowner/remote/reference/history/leader; seven exactcontractrows/order, compiledprobe/driverwholebinaryMD5 and source/outputSHA remain distinct",
+    "Freshcleanupmonitor kills/joinsactualworker; primaryexception dominatescleanupfault; rawworker/servercleanupseparate",
+    "Client/server metadata and sourcebuildroot/pin/version checks; existing controlled sourcebuildreceipt/logscope not relabeledwholeprefixauthority",
+    "Privateforegroundepmd/two127.0.0.1nodes, autoepmddisabled, freshoutput, boundedstartup/session/processgroups/logbudget and reversecleanup",
+    "Workflowstep additive afterreviewedsourcebuild, ownstrictplan, alwaysretainedseparateoutput/logs;318collectorunchanged"
+  ],
+  "Findings": [],
+  "Limitations": [
+    "Nooriginalexecutionoractualsevencontractpassclaimed",
+    "NoSDKcomparison/liveSDKpeer/nativewireequality/prioritytraceorpressureproof",
+    "Processgroupcleanupisownedforegroundscope,notOSwideprocessabsence",
+    "Syntheticcontrolsvalidatepassiveprotocolonly,notvalidcompiledBEAMorVMbehavior"
+  ],
+  "ReviewerVmCompilerSdkNativeNetworkOrMainGitMutationExecuted": false,
+  "CollectorMainInvoked": false,
+  "AuditScriptSha256": "48AF25037E8CBDBF5145C163F70CDEB3A4F5070D4F22A8AD5ED18ABF59BA4895"
+}

@@ -88,6 +88,21 @@ jobs:
             --approved-source-plan-sha256 "$GROUP_LEADER_SOURCE_PLAN_SHA256" \
             --output "$GITHUB_WORKSPACE/artifacts/group-leader-outbound318-original" \
             2>&1 | tee artifacts/group-leader-outbound318-collector.log
+      - name: Observe public connected sends between two real original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256: 7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.GuestConnectedSendObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/guest-connected-send319-original" \
+            2>&1 | tee artifacts/guest-connected-send319-collector.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -99,3 +114,5 @@ jobs:
             artifacts/signal-observation-tool-build.log
             artifacts/group-leader-outbound318-original
             artifacts/group-leader-outbound318-collector.log
+            artifacts/guest-connected-send319-original
+            artifacts/guest-connected-send319-collector.log

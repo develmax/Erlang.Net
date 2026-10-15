@@ -1,0 +1,270 @@
+1573: static int can_send_seqtrace_token(ErtsDSigSendContext* ctx, Eterm token) {
+1574:     Eterm label;
+1575: 
+1576:     if (ctx->dflags & DFLAG_BIG_SEQTRACE_LABELS) {
+1577:         /* The other end is capable of handling arbitrary seq_trace labels. */
+1578:         return 1;
+1579:     }
+1580: 
+1581:     /* The other end only tolerates smalls, but since we could potentially be
+1582:      * talking to an old 32-bit emulator from a 64-bit one, we have to check
+1583:      * whether the label is small on any emulator. */
+1584:     label = SEQ_TRACE_T_LABEL(token);
+1585: 
+1586:     return is_small(label) &&
+1587:         signed_val(label) <= (ERTS_SINT32_MAX >> _TAG_IMMED1_SIZE) &&
+1588:         signed_val(label) >= (ERTS_SINT32_MIN >> _TAG_IMMED1_SIZE);
+1589: }
+1590: 
+1592: erts_dsig_send_msg(ErtsDSigSendContext* ctx, Eterm remote, Eterm full_remote,
+1593:                    Eterm message, int prio)
+1594: {
+1595:     Eterm ctl;
+1596:     Eterm token = NIL;
+1597:     Process *sender = ctx->c_p;
+1598:     int res;
+1599: #ifdef USE_VM_PROBES
+1600:     Sint tok_label = 0;
+1601:     Sint tok_lastcnt = 0;
+1602:     Sint tok_serial = 0;
+1603:     Uint msize = 0;
+1604:     DTRACE_CHARBUF(node_name, 64);
+1605:     DTRACE_CHARBUF(sender_name, 64);
+1606:     DTRACE_CHARBUF(receiver_name, 2050);
+1607: #endif
+1608: 
+1609:     ASSERT(is_external_pid(remote)
+1610:            || is_external_ref(remote)
+1611:            || is_atom(remote));
+1612: 
+1613:     if (have_seqtrace(SEQ_TRACE_TOKEN(sender))) {
+1614: 	seq_trace_update_serial(sender);
+1615: 	token = SEQ_TRACE_TOKEN(sender);
+1616: 	seq_trace_output(token, message, SEQ_TRACE_SEND, full_remote, sender);
+1617:     }
+1618: #ifdef USE_VM_PROBES
+1619:     *node_name = *sender_name = *receiver_name = '\0';
+1620:     if (DTRACE_ENABLED(message_send) || DTRACE_ENABLED(message_send_remote)) {
+1621:         erts_snprintf(node_name, sizeof(DTRACE_CHARBUF_NAME(node_name)),
+1622:                       "%T", ctx->dep->sysname);
+1623:         erts_snprintf(sender_name, sizeof(DTRACE_CHARBUF_NAME(sender_name)),
+1624:                       "%T", sender->common.id);
+1625:         if (is_not_atom(remote))
+1626:             erts_snprintf(receiver_name, sizeof(DTRACE_CHARBUF_NAME(receiver_name)),
+1627:                           "%T", remote);
+1628:         else
+1629:             erts_snprintf(receiver_name, sizeof(DTRACE_CHARBUF_NAME(receiver_name)),
+1630:                           "{%T,%s}", remote, node_name);
+1631:         msize = size_object(message);
+1632:         if (have_seqtrace(token)) {
+1633:             tok_label = SEQ_TRACE_T_DTRACE_LABEL(token);
+1634:             tok_lastcnt = signed_val(SEQ_TRACE_T_LASTCNT(token));
+1635:             tok_serial = signed_val(SEQ_TRACE_T_SERIAL(token));
+1636:         }
+1637:     }
+1638: #endif
+1639: 
+1640:     {
+1641:         Eterm dist_op, sender_id;
+1642:         int send_token;
+1643: 
+1644:         send_token = (token != NIL && can_send_seqtrace_token(ctx, token));
+1645: 
+1646:         if ((prio || is_external_ref(remote))
+1647:             && (ctx->dflags & DFLAG_ALTACT_SIG)) {
+1648:             int fs = 0;
+1649:             Eterm flags, *hp = &ctx->ctl_heap[0];
+1650:             if (is_external_ref(remote))
+1651:                 fs |= ERTS_DOP_ALTACT_SIG_FLG_ALIAS;
+1652:             else if (is_atom(remote))
+1653:                 fs |= ERTS_DOP_ALTACT_SIG_FLG_NAME;
+1654:             if (prio)
+1655:                 fs |= ERTS_DOP_ALTACT_SIG_FLG_PRIO;
+1656:             if (send_token)
+1657:                 fs |= ERTS_DOP_ALTACT_SIG_FLG_TOKEN;
+1658:             dist_op = make_small(DOP_ALTACT_SIG_SEND);
+1659:             flags = make_small(fs);
+1660:             sender_id = sender->common.id;
+1661:             if (send_token) {
+1662:                 ctl = TUPLE5(hp, dist_op, flags, sender_id, remote, token);
+1663:             }
+1664:             else {
+1665:                 ctl = TUPLE4(hp, dist_op, flags, sender_id, remote);
+1666:             }
+1667:         }
+1668:         else if (is_atom(remote)) {
+1669:             if (send_token)
+1670:                 ctl = TUPLE5(&ctx->ctl_heap[0], make_small(DOP_REG_SEND_TT),
+1671:                              sender->common.id, am_Empty, remote, token);
+1672:             else
+1673:                 ctl = TUPLE4(&ctx->ctl_heap[0], make_small(DOP_REG_SEND),
+1674:                              sender->common.id, am_Empty, remote);
+1675:         }
+1676:         else {
+1677: 
+1678:             if (is_external_ref(remote)) {
+1679:                 dist_op = make_small(send_token ?
+1680:                                      DOP_ALIAS_SEND_TT :
+1681:                                      DOP_ALIAS_SEND);
+1682:                 sender_id = sender->common.id;
+1683:             }
+1684:             else if (ctx->dflags & DFLAG_SEND_SENDER) {
+1685:                 dist_op = make_small(send_token ?
+1686:                                      DOP_SEND_SENDER_TT :
+1687:                                      DOP_SEND_SENDER);
+1688:                 sender_id = sender->common.id;
+1689:             } else {
+1690:                 dist_op = make_small(send_token ?
+1691:                                      DOP_SEND_TT :
+1692:                                      DOP_SEND);
+1693:                 sender_id = am_Empty;
+1694:             }
+1695: 
+1696:             if (send_token) {
+1697:                 ctl = TUPLE4(&ctx->ctl_heap[0], dist_op, sender_id, remote, token);
+1698:             } else {
+1699:                 ctl = TUPLE3(&ctx->ctl_heap[0], dist_op, sender_id, remote);
+1700:             }
+1701:         }
+1702:     }
+1703: 
+1704:     DTRACE6(message_send, sender_name, receiver_name,
+1705:             msize, tok_label, tok_lastcnt, tok_serial);
+1706:     DTRACE7(message_send_remote, sender_name, node_name, receiver_name,
+1707:             msize, tok_label, tok_lastcnt, tok_serial);
+1708:     ctx->ctl = ctl;
+1709:     ctx->msg = message;
+1710:     res = erts_dsig_send(ctx);
+1711:     return res;
+3216: erts_dsig_prepare(ErtsDSigSendContext *ctx,
+3217: 		  DistEntry *dep,
+3218: 		  Process *proc,
+3219:                   ErtsProcLocks proc_locks,
+3220: 		  ErtsDSigPrepLock dspl,
+3221: 		  int no_suspend,
+3222:                   int no_trap,
+3223: 		  int connect)
+3224: {
+3225:     /*
+3226:      * No process imply that we should force data through. That
+3227:      * is, ignore busy state of dist entry and allow enqueue
+3228:      * regardless of its state...
+3229:      */
+3230:     int res;
+3231: 
+3232:     ASSERT(no_trap || proc);
+3233: 
+3234:     if (!erts_is_alive)
+3235: 	return ERTS_DSIG_PREP_NOT_ALIVE;
+3236:     if (!dep) {
+3237:         ASSERT(!connect);
+3238:         return ERTS_DSIG_PREP_NOT_CONNECTED;
+3239:     }
+3240: 
+3241: #ifdef ERTS_ENABLE_LOCK_CHECK
+3242:     if (connect) {
+3243:         erts_proc_lc_might_unlock(proc, proc_locks);
+3244:     }
+3245: #endif
+3246: 
+3247: retry:
+3248:     erts_de_rlock(dep);
+3249: 
+3250:     if (dep->state == ERTS_DE_STATE_CONNECTED) {
+3251: 	res = ERTS_DSIG_PREP_CONNECTED;
+3252:     }
+3253:     else if (dep->state == ERTS_DE_STATE_PENDING) {
+3254: 	res = ERTS_DSIG_PREP_PENDING;
+3255:     }
+3256:     else if (dep->state == ERTS_DE_STATE_EXITING) {
+3257: 	res = ERTS_DSIG_PREP_NOT_CONNECTED;
+3258: 	goto fail;
+3259:     }
+3260:     else if (connect) {
+3261:         ASSERT(dep->state == ERTS_DE_STATE_IDLE);
+3262:         erts_de_runlock(dep);
+3263:         if (!erts_auto_connect(dep, proc, proc_locks)) {
+3264:             return ERTS_DSIG_PREP_NOT_ALIVE;
+3265:         }
+3266: 	goto retry;
+3267:     }
+3268:     else {
+3269:         ASSERT(dep->state == ERTS_DE_STATE_IDLE);
+3270: 	res = ERTS_DSIG_PREP_NOT_CONNECTED;
+3271: 	goto fail;
+3272:     }
+3273: 
+3274:     if (!proc || (proc->flags & F_ASYNC_DIST)) {
+3275:         ctx->ignore_busy = !0;
+3276:     }
+3277:     else {
+3278:         ctx->ignore_busy = 0;
+3279:         if (no_suspend) {
+3280:             if (de_qflags_read(dep) & ERTS_DE_QFLG_BUSY) {
+3281:                 res = ERTS_DSIG_PREP_WOULD_SUSPEND;
+3282:                 goto fail;
+3283:             }
+3284:         }
+3285:     }
+3286: 
+3287:     ctx->c_p = proc;
+3288:     ctx->dep = dep;
+3289:     ctx->deref_dep = 0;
+3290:     ctx->cid = dep->cid;
+3291:     ctx->connection_id = dep->connection_id;
+3292:     ctx->no_suspend = no_suspend;
+3293:     ctx->no_trap = no_trap;
+3294:     ctx->dflags = dep->dflags;
+3295:     ctx->return_term = am_true;
+3296:     ctx->phase = ERTS_DSIG_SEND_PHASE_INIT;
+3297:     ctx->from = proc ? proc->common.id : am_undefined;
+3298:     ctx->reds = no_trap ? 1 : (Sint) (ERTS_BIF_REDS_LEFT(proc) * TERM_TO_BINARY_LOOP_FACTOR);
+3299:     if (dspl == ERTS_DSP_NO_LOCK)
+3300: 	erts_de_runlock(dep);
+5713: int erts_auto_connect(DistEntry* dep, Process *proc, ErtsProcLocks proc_locks)
+5714: {
+5715:     erts_de_rwlock(dep);
+5716:     if (dep->state != ERTS_DE_STATE_IDLE) {
+5717:         erts_de_rwunlock(dep);
+5718:     }
+5719:     else {
+5720:         Process* net_kernel;
+5721:         ErtsProcLocks nk_locks = ERTS_PROC_LOCK_MSGQ;
+5722:         Eterm *hp;
+5723:         ErlOffHeap *ohp;
+5724:         ErtsMessage *mp;
+5725:         Eterm msg, dhandle;
+5726:         Uint32 conn_id;
+5727: 
+5728:         erts_set_dist_entry_pending(dep);
+5729:         conn_id = dep->connection_id;
+5730:         erts_de_rwunlock(dep);
+5731: 
+5732:         net_kernel = erts_whereis_process(proc, proc_locks,
+5733:                                           am_net_kernel, nk_locks, 0);
+5734:         if (!net_kernel) {
+5735:             abort_pending_connection(dep, conn_id, NULL);
+5736:             return 0;
+5737:         }
+5738: 
+5739:         if (proc == net_kernel)
+5740:             nk_locks |= ERTS_PROC_LOCK_MAIN;
+5741: 
+5742:         /*
+5743:          * Send {auto_connect, Node, DHandle} to net_kernel
+5744:          */
+5745:         mp = erts_alloc_message_heap(net_kernel, &nk_locks,
+5746:                                      4 + ERTS_DHANDLE_SIZE,
+5747:                                      &hp, &ohp);
+5748:         dhandle = erts_build_dhandle(&hp, ohp, dep, conn_id);
+5749:         msg = TUPLE3(hp, am_auto_connect, dep->sysname, dhandle);
+5750:         ERL_MESSAGE_TOKEN(mp) = am_undefined;
+5751:         erts_queue_proc_message(proc, net_kernel, nk_locks, mp, msg);
+5752: 
+5753:         if (proc == net_kernel)
+5754:             nk_locks &= ~ERTS_PROC_LOCK_MAIN;
+5755: 
+5756:         erts_proc_unlock(net_kernel, nk_locks);
+5757:     }
+5758: 
+5759:     return 1;

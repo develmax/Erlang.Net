@@ -1,0 +1,132 @@
+{
+  "Status": "PASS_ACTUAL_MAIN319_6669_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6669,
+  "Failed": 0,
+  "All6668PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_guest_connected_pid_send_routes_options_and_trace"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 31,
+  "CSharpPaths": 17,
+  "SourceResourceClosureFiles": 2290,
+  "SourceFreezeSha256": "B1F25DACCEC94D98348DF3717027473BFA4B9B05BA4A018DFD7262DA69D57E0B",
+  "SourceClosureSha256": "E78578685DF11BE146CDE007C8DBDF16640A7CBAB18DDCA6A7322AD4A511EC3C",
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "group_leader",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest connected-remote assignment uses owned ordered publication with capacity waits, producer cancellation and generation isolation. Disconnected/pending autoconnect and the legacy synchronous embedding setter remain incomplete. SDK controller HOST and original two-node observations are separate roles; no live SDK-peer or native wire equality is claimed."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_sizes",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        0
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    }
+  ],
+  "GuestSendScopeUpdated": [
+    [
+      "erlang",
+      "send",
+      2
+    ],
+    [
+      "erlang",
+      "!",
+      2
+    ],
+    [
+      "erlang",
+      "send",
+      3
+    ],
+    [
+      "erlang",
+      "send_nosuspend",
+      2
+    ],
+    [
+      "erlang",
+      "send_nosuspend",
+      3
+    ]
+  ],
+  "ExistingGroupLeader318LimitsPreserved": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1094,
+      "Sha256": "472CD9CCC741763373579CA369B70B77AA6BC9D2EBF3140C4247C72FEF561EC7",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1119,
+      "Sha256": "10E5D92A4C4A9B0F751A6C3C0DB9DDB7C99ABB4A45AF50EB180A37983E9FBB02",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "CollectorOriginalExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "FullExecutionContext": "Outside sandbox",
+  "GuardSourceSha256": "B4EE16A6AF0E661F8BF00B3C7142606008E66559E0482008CEE0E7BEB8A63FD4"
+}
