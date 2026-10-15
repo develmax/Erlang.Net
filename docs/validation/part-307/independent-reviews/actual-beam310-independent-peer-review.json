@@ -1,0 +1,56 @@
+{
+  "Status": "BOUNDED_INDEPENDENT_SOURCE_AND_RETAINED_EVIDENCE_PASS",
+  "CandidateFreezeSha256": "6C9F0AD268237E161147AD457E9D02F1DF30056634F3A874F37F38321B4EEBAA",
+  "PromotionMapSha256": "79A1571B2C56892FCB3F756E22A676333FE907D3AD4843A221D91D26BDA5CDDC",
+  "FrozenFilesVerified": 94,
+  "SourcePaths": 9,
+  "CSharpPaths": 8,
+  "RuntimePaths": 5,
+  "Tokens8Exact": true,
+  "PinnedCompilerValidatorLoaderMarkerRolesVerified": true,
+  "PinnedGitBlobIdentities": [
+    {
+      "Path": "lib/compiler/src/beam_ssa_codegen.erl",
+      "GitBlob": "ef27cbe78388323938ae08bbeb2e7c5026d6606a",
+      "Sha256": "67A6BEC52055069DB56127DD74B4BABBA7AE0F01BDB77AFA9C6AC9FBAB5741CD"
+    },
+    {
+      "Path": "lib/compiler/src/beam_validator.erl",
+      "GitBlob": "02015219f81dddb754bc6588c6c41f93a3116812",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/emu_load.c",
+      "GitBlob": "6da03bea82b40fe00b6a29a5e432230bbafebece",
+      "Sha256": "82616BE048979455ECF7D5B6321AD846B2DC7498D0220F402343FE8D17AA6427"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "GitBlob": "28b45c27582da900f2a0af47feceddc7641632c2",
+      "Sha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "GitBlob": "fafe4cd65b1bf02ccb52cfa4a8685efdac8ddb09",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE"
+    }
+  ],
+  "ActualArchivedCallExtOnlyManagedHostProven": true,
+  "CallExtAndCallExtLastActualExecutionProven": false,
+  "OriginalNifEligibilityMetadataParity": false,
+  "PendingPurgeAndFunFenceCompleted": false,
+  "PublicLoadNifActivated": false,
+  "GeneralNativeAbiComplete": false,
+  "NewNativeSourceInputsExpected": 1013,
+  "FullCasesExpectedUnchanged": 6627,
+  "BuildExecutedByReviewer": false,
+  "NativeExecutedByReviewer": false,
+  "OriginalExecutedByReviewer": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "Bounds": [
+    "nif_start is admitted as bounded marker; native loader eligibility bitmap metadata is not implemented.",
+    "call_ext_last ordering is source-guided only; preserved real fixture executes call_ext_only.",
+    "Managed image binding installation through actual load/2 is not native shared-library activation."
+  ]
+}

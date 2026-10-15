@@ -1,0 +1,10 @@
+{
+  "Status": "UNSUPPORTED_OPCODE_PREREQUISITE",
+  "ActualBeamUnchanged": true,
+  "ActualLoadCallerExecuted": false,
+  "Failure": "nif_start role unsupported at BeamLinkedCodeReader before any load caller execution",
+  "PinnedCompiler": "beam_ssa_codegen cg_instr(nif_start,[],_) emits zero operand marker; beam_validator vi(nif_start,Vst)->Vst unchanged",
+  "PinnedEmulator": "bif_instrs.tab nif_start(){}; loader records native-eligible function marker; no operand arity or placement restriction in validator",
+  "Fix": "Admit exact already-catalogued opcode179 nif_start/0 in linker, bounded validation and interpreter only; retain unknown opcode refusal",
+  "NativeActivation": false
+}

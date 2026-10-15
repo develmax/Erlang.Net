@@ -1,0 +1,76 @@
+2485: /*
+2486:  * This function takes care of calls to erlang:system_info/1 when the argument
+2487:  * is a tuple.
+2488:  */
+2489: static BIF_RETTYPE
+2490: info_1_tuple(Process* BIF_P,	/* Pointer to current process. */
+2491: 	     Eterm* tp,		/* Pointer to first element in tuple */
+2492: 	     int arity)		/* Arity of tuple (untagged). */
+2493: {
+2494:     Eterm ret;
+2495:     Eterm sel;
+2496: 
+2497:     sel = *tp++;
+2498: 
+2499:     if (sel == am_memory_internal) {
+2500: 	switch (arity) {
+2501: 	case 3:
+2502: 	    if (erts_request_alloc_info(BIF_P, tp[0], tp[1], 1, 1))
+2503: 		return am_true;
+2504: 	default:
+2505: 	    goto badarg;
+2506: 	}
+2507:     }
+2508:     else if (sel == am_allocator_sizes) {
+2509: 	switch (arity) {
+2510: 	case 2:
+2511: 	    ERTS_BIF_PREP_TRAP1(ret, alloc_sizes_trap, BIF_P, *tp);
+2512: 	    return ret;
+2513: 	case 3:
+2514: 	    if (erts_request_alloc_info(BIF_P, tp[0], tp[1], 1, 0))
+2515: 		return am_true;
+2516: 	default:
+2517: 	    goto badarg;
+2518: 	}
+2519:     }
+2520:     else if (sel == am_wordsize && arity == 2) {
+2521: 	if (tp[0] == am_internal) {
+2522: 	    return make_small(sizeof(Eterm));
+2523: 	}
+2524: 	if (tp[0] == am_external) {
+2525: 	    return make_small(sizeof(UWord));
+2526: 	}
+2527: 	goto badarg;
+2528:     } else if (sel == am_allocator) {
+2529: 	switch (arity) {
+2530: 	case 2:
+2531: 	    ERTS_BIF_PREP_TRAP1(ret, alloc_info_trap, BIF_P, *tp);
+2532: 	    return ret;
+2533: 	case 3:
+2534: 	    if (erts_request_alloc_info(BIF_P, tp[0], tp[1], 0, 0))
+2535: 		return am_true;
+2536: 	default:
+2537: 	    goto badarg;
+2538: 	}
+2539:     } else if (ERTS_IS_ATOM_STR("internal_cpu_topology", sel) && arity == 2) {
+2540: 	return erts_get_cpu_topology_term(BIF_P, *tp);
+2541:     } else if (ERTS_IS_ATOM_STR("cpu_topology", sel) && arity == 2) {
+2542: 	Eterm res = erts_get_cpu_topology_term(BIF_P, *tp);
+2543: 	if (res == THE_NON_VALUE)
+2544: 	    goto badarg;
+2545: 	ERTS_BIF_PREP_TRAP1(ret, erts_format_cpu_topology_trap, BIF_P, res);
+2546: 	return ret;
+2547:     } else if (ERTS_IS_ATOM_STR("memory_checker", sel)) {
+2548:         if (arity == 2 && ERTS_IS_ATOM_STR("test_leak", *tp)) {
+2549: #if defined(VALGRIND) || defined(ADDRESS_SANITIZER)
+2550:             erts_alloc(ERTS_ALC_T_HEAP , 100);
+2551: #endif
+2552:             BIF_RET(am_ok);
+2553:         }
+2554:         else if (arity == 2 && ERTS_IS_ATOM_STR("test_overflow", *tp)) {
+2555:             static int test[2];
+2556:             BIF_RET(make_small(test[2]));
+2557:         }
+2558: #if defined(VALGRIND) || defined(ADDRESS_SANITIZER)
+2559: 	if (arity == 2 && *tp == am_running) {
+2560: #  if defined(VALGRIND)

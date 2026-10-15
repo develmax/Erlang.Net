@@ -61,6 +61,7 @@ internal static class BeamRegisterValidation
                     case BeamOnLoadNames.ExternalLast:
                         _ = BeamExternalImports.Resolve(code, (int)operands[1].Value);
                         break;
+                    case BeamNifNames.Start:
                     case BeamLinkNames.Label:
                     case BeamLinkNames.Line:
                     case BeamLinkNames.Return:

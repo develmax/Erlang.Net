@@ -144,6 +144,7 @@ internal static class BeamLinkedCodeReader
             case BeamLinkNames.Send:
             case BeamLinkNames.RemoveMessage:
             case BeamLinkNames.Timeout:
+            case BeamNifNames.Start:
             case BeamLinkNames.OnLoad:
                 break;
             case BeamOnLoadNames.InitY:

@@ -1,0 +1,63 @@
+{
+  "Status": "SOURCE_ONLY_PENDING_BUILD_GATE",
+  "Base": "Main305 0494375635061b4952d40a3c7667234db321a931",
+  "Dependency": "nif-zero-export-owner308-validated2 overlay3",
+  "ActualBeamSha256": "C0FC5C9546BCFFBA32E9519E3ECD1ED3AC0F7EB26F17733EB5CD5060731E7D4E",
+  "ActualBeamInstruction": "call_ext_only erlang:load_nif/2",
+  "SourceFiles": [
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Bytes": 2538,
+      "Sha256": "EF87895B513D37E2E70523CC4A7F527F02886D320FB7A05344ACF032789CC577"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Bytes": 19452,
+      "Sha256": "E58CF38963E0849F0CC74B110067C1E0B18896BDEC62AE6C349226D0CDA888A9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ActualBeamLoadNifHostNames.cs",
+      "Bytes": 521,
+      "Sha256": "6B78D2B0776B9AF5F38B89D813590E749EA9E5C7E4732A9620C48C27720020AE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.ActualBeam.cs",
+      "Bytes": 6109,
+      "Sha256": "1EE8EAA8EE7C7FF7388EAAE87DCB0C1F38C0E5B7088B0E16428B8D25F49B929C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 14872,
+      "Sha256": "8BA5C53CFD31801B9FFBC83C21F345A25A26B12472394A033FCC59A1018F3D48"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/nif_pending_varargs_fixture.beam",
+      "Bytes": 2080,
+      "Sha256": "C0FC5C9546BCFFBA32E9519E3ECD1ED3AC0F7EB26F17733EB5CD5060731E7D4E"
+    }
+  ],
+  "PublicMfaAdded": false,
+  "NativeAbiActivated": false,
+  "BuildExecuted": false,
+  "HostExecuted": false,
+  "Coverage": [
+    "unchanged archived actual compiled load/2 caller",
+    "standalone actual BeamModule owner",
+    "installed actual PreparedBeamImage owner with current exact image",
+    "arguments from actual x registers",
+    "one-shot consume; reject reuse after completion",
+    "extra image lease survives asynchronous handler and exception unwind",
+    "existing actual nif_error/1 ordinary registered MFA route",
+    "call_ext_last load_nif only frame deallocation deferred until handler completion"
+  ],
+  "Limitations": [
+    "Actual compiled fixture covers call_ext_only; call_ext and call_ext_last pinned-source ordering source-audited only.",
+    "Managed internal handler only, no native ABI or default public load_nif registration."
+  ],
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSourceProofSha256": "29BD82E2A55D807154C901584F7D60FDDA8B2C3FC456717A8B6E0AC3A674DB11",
+  "PinnedOrdering": [
+    "ops.tab857-862 maps call_ext/call_ext_last/call_ext_only to i_load_nif before deallocate_return/return",
+    "bif_instrs.tab638-651 passes actual I,x(0),x(1) to erts_load_nif then writes result x(0)"
+  ]
+}

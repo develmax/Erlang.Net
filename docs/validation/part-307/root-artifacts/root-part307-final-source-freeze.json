@@ -1,0 +1,90 @@
+{
+  "Status": "EXACT_SOURCE_FROZEN_FULL_PENDING",
+  "ParentHead": "ae4cd999e20e461f7f5917ec346ade31416e2874",
+  "SourcePaths": 12,
+  "CSharpPaths": 8,
+  "TokensExactForCSharp": true,
+  "ReviewedSourceInputs": 1013,
+  "ReviewedSourcePlanSha256": "FD758C0CBD4B6AAF29FB3B3A82BDF97473FE1848E2079BB3B3B3C95F0176B299",
+  "ExpectedFullPassed": 6627,
+  "ExpectedRegistry": 504,
+  "ExpectedErlangPresence": 346,
+  "AddedHostNames": [],
+  "ExtendedExistingHost": "runtime/source-load-nif-direct-caller-capability",
+  "PublicMfaAdded": false,
+  "PublicLoadNifActivated": false,
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 5470,
+      "Sha256": "A83D21D16ACC20921B00005477DF708E5D4F8C4860CEE718EF5438E24AE5EABE",
+      "ParentGitSha256": "4202F4AF634F8A22C8DEBCE27C910B6E8A82B87884BDDC8A5379310B494E02A8"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "FA94E5FAD4C72945C32349A173AF23CB32FA975AAF3FD3BE0E4E60AF489FB4AA",
+      "ParentGitSha256": "E8E189E1590EDD0CA4045C893C1E382F33ADFF2AB31289802B2631ED1C089F5F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Bytes": 2533,
+      "Sha256": "933307F1F93FC873DE1417B40847D9F0878E9FE5AB08C553F5E65D68F0F97804",
+      "ParentGitSha256": "4A27A6FD8528B0EAA7EAF8DB737D307FD3CC9C4D06B7AA4EF3C33F562CB33334"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Bytes": 14770,
+      "Sha256": "695C7903A526B9A907ADDEC2E2ADCD1591E5DE7DE9735E62D637A60027C948B4",
+      "ParentGitSha256": "BA74BA07D654F7700A0B51B9487A398CDC1F27082DCE141B8106B3C6994429AD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamNifNames.cs",
+      "Bytes": 105,
+      "Sha256": "EFD77C425FE671E53EA508DF0F714FDBD6F8C9A99CA929044861B14930D7256E",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Bytes": 19478,
+      "Sha256": "AA09DE35F1E1DCB2AC0A7B9DA0FF8DF05101B4739B43929FF2D817581349C7EB",
+      "ParentGitSha256": "1B0B39B1F7FABBC9C43A770DC9D4B418A3B28E7F9DE987D4B7D168DE391817CD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Bytes": 10253,
+      "Sha256": "A56AC55F7C9A10F2767976ADB5F4633A0541213B9AD8B019F94FAFCFAED0123B",
+      "ParentGitSha256": "95CCDF4BB981447527801E1ADB5153232C4ACD808C2938D675DE207456DECD71"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ActualBeamLoadNifHostNames.cs",
+      "Bytes": 520,
+      "Sha256": "25EE64D5996D0B450B01F7EFAAFF4A7704F795C365E0782F742C2DCD5F433C59",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/nif_pending_varargs_fixture.beam",
+      "Bytes": 2080,
+      "Sha256": "C0FC5C9546BCFFBA32E9519E3ECD1ED3AC0F7EB26F17733EB5CD5060731E7D4E",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.ActualBeam.cs",
+      "Bytes": 8540,
+      "Sha256": "950DC8F06A602D1CDFD349CF24399FFDA756FC3C47152301670CC5AFA09B86E3",
+      "ParentGitSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "Bytes": 14871,
+      "Sha256": "3D5CC8ED763FCF589EBF9EC3EA347EA0B1E41846A2326FFBB056A65D3EE5E3BB",
+      "ParentGitSha256": "F5564A4EBD8741EA4160A0030030EEF5496CCC7EAEFC623163A48AF41254098C"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 209180,
+      "Sha256": "FD758C0CBD4B6AAF29FB3B3A82BDF97473FE1848E2079BB3B3B3C95F0176B299",
+      "ParentGitSha256": "6EE3EFCFDC24A8A78AD3D3276AD514070748AFCA996A4EB89FC41E3649A9ACC0"
+    }
+  ]
+}

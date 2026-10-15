@@ -137,6 +137,7 @@ internal static class BeamRegisterInterpreter
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamNifNames.Start:
                     case BeamLinkNames.OnLoad:
                         break;
                     case BeamOnLoadNames.InitY:
@@ -174,14 +175,25 @@ internal static class BeamRegisterInterpreter
                         BeamExternalImport import = BeamExternalImports.Resolve(code, (int)operands[1].Value);
                         registers.CheckLive(import.Arity);
                         Term[] importedArguments = Enumerable.Range(0, import.Arity).Select(registers.Read).ToArray();
+                        BeamCallFrame? externalLastFrame = null;
+                        bool sourceLoadNif = BeamExternalImports.IsSourceLoadNif(import);
                         if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
                         {
-                            if (!callFrames.TryPop(out BeamCallFrame? lastFrame) || lastFrame.FunctionEntryLabel != function.EntryLabel
-                                || lastFrame.ContinuationDepth != continuations.Count || lastFrame.Slots != operands[2].Value)
+                            if (!callFrames.TryPeek(out externalLastFrame) || externalLastFrame.FunctionEntryLabel != function.EntryLabel
+                                || externalLastFrame.ContinuationDepth != continuations.Count || externalLastFrame.Slots != operands[2].Value)
                                 throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
-                            registers.Deallocate(lastFrame.Slots);
+                            if (!sourceLoadNif)
+                            {
+                                callFrames.Pop();
+                                registers.Deallocate(externalLastFrame.Slots);
+                            }
                         }
                         Term imported = await BeamExternalImports.Invoke(context, import, importedArguments);
+                        if (sourceLoadNif && externalLastFrame is not null)
+                        {
+                            callFrames.Pop();
+                            registers.Deallocate(externalLastFrame.Slots);
+                        }
                         registers.Write(0, imported);
                         if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
                         {

@@ -1,0 +1,13 @@
+Actual BEAM caller310 isolated validated candidate
+
+Snapshot actual Main306 sources/resources:2109 files. Exact frozen source-only input46AA preserved; narrow prerequisite nif_start/0 added after initial unchanged-BEAM preparation refusal. Final overlay9 paths:8 CSharp plus original compiled fixture resource. Five runtime paths and three test CSharp paths; BeamNifNames.cs is the sole new production path (next native closure expected1013).
+
+CPU2 target build0warnings/0errors. Existing SourceLoadNifHostChecks.Run now executes the actual archived unchanged pinned fixture both standalone and prepared/published. Actual tail load/2 receives evaluated x-register arguments and exact image/owner capability. No handler falls through to absent public MFA undef. One-shot capability and extra image lease survive await; success and exception unwind release them. Actual nif_start plus ordinary registered nif_error/1 fallback executes before installation, then the same actual compiled stub invokes a managed image-owned binding installed through the actual compiled load/2 handler. This proves managed dispatch and prerequisites, not native ABI loading.
+
+Focused16 groups pass: BEAM/register, prepared/closure/receive/onload/loader, owner308 six actual-image cases, NIF lifetime/admission/binding/source/BEAM, actual source caller, raw onload six finals and reference resource. Original existing HOST row name retained, no registration discarded or new public MFA; expected full row count remains6627. Main full was not rerun here.
+
+Initial unsupported nif_start opcode role failure is retained and classified as a prerequisite refusal before load/2 executes; it is not a genuine caller semantic red. Pinned zero-operand compiler marker emits no state change in validator; emulator loader records eligible function then removes marker; runtime nif_start handler is empty. This candidate admits only the existing exact opcode179/0; unknown opcode handling remains unchanged. General raw declaration/native eligibility metadata is not claimed.
+
+call_ext_last load_nif ordering now validates/keeps the Y frame until handler completion and deallocates afterward. Other imports keep prior deallocation order. Exact OTP pin rewrites load_nif before deallocate_return/return. Actual preserved compiled fixture exercises call_ext_only; call_ext and call_ext_last execution remain unverified.
+
+Eight final Roslyn token streams are byte-identical before/after SDK whitespace + project style formatting. All2104 parent source files outside overlay compare exactly; Main snapshot files remain unchanged. Promotion map records exact actualMain306 parent hashes and final result bytes. No Main/Git mutation or original/native execution.

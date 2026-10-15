@@ -1,0 +1,17 @@
+{
+  "Status": "ROOT_BOUNDED_SOURCE_REVIEW_PASS",
+  "CandidateFreezeSha256": "6C9F0AD268237E161147AD457E9D02F1DF30056634F3A874F37F38321B4EEBAA",
+  "SourcePaths": 9,
+  "CSharpPaths": 8,
+  "SourceAndPinHashesExact": true,
+  "SemanticsReviewed": [
+    "Only exact erlang load_nif/2 imports dispatch internal caller capability; nif_error/1 remains ordinary registered call.",
+    "nif_start zero-operand marker admitted narrowly at link/validation/execution; pinned compiler-validator and loader proof; no generic unknown-opcode no-op.",
+    "load_nif call_ext_last awaits internal invocation before Y-frame deallocation; generic import order preserved.",
+    "Genuine unchanged original compiled tail-only load and nif_start/nif_error fallback plus managed binding tested; no executed non-tail/last or native ABI claim."
+  ],
+  "PublicMfaAdded": false,
+  "NativeExecutedByReview": false,
+  "TestsExecutedByReview": false,
+  "CandidateFocusGroups": 16
+}

@@ -1,0 +1,515 @@
+{
+  "Status": "ORIGINAL_RAW_BASE18_PLUS_FULLINFO_COLLECTED_INDEPENDENT_TYPED_REVIEW_REQUIRED",
+  "Complete": true,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "B565EA20C36B326D98CE9F854556C432142F0E074D33077679F6BF482CDBCC54",
+  "OrderedFreshVmCases": [
+    "alloc_info_empty",
+    "alloc_sizes_empty",
+    "alloc_nonlist",
+    "alloc_unknown",
+    "alloc_duplicate",
+    "alloc_improper",
+    "alloc_atom",
+    "alloc_order",
+    "alloc_raw_ref",
+    "memory_all",
+    "memory_empty",
+    "memory_order_duplicates",
+    "memory_invalid",
+    "memory_maximum",
+    "memory_improper",
+    "process_default",
+    "nif_apply_invalid_path",
+    "nif_apply_missing_path",
+    "alloc_info_binary_full"
+  ],
+  "ExpectedFreshVmCases": 19,
+  "SemanticAssertionsExecuted": false,
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeFixtureUsed": false,
+  "Exclusions": [],
+  "Tools": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/allocator-memory-otp-source/observer-install/bin/erl",
+      "Sha256": "98757183140A760E5F6CBEB8AD3D6649F90B42EE833A2ACA879F197975309408"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/allocator-memory-otp-source/observer-install/bin/erlc",
+      "Sha256": "DBC36C5B78A7E70F40340AB5AD29B11D626427039BFFF6E5B8DEC760779B8EDA"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "alloc_atom/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "15D5D7398FF9907DF27DB2796F7750D4FA99F5256665BBC6172B56F1E0038891"
+    },
+    {
+      "Path": "alloc_atom/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_atom/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_atom/result.etf",
+      "Bytes": 469,
+      "Sha256": "DF95506D29C0372B76A9E3D33AAC096E071E31F1BF11D10FFBE096C99BD23D45"
+    },
+    {
+      "Path": "alloc_duplicate/observation.process.json",
+      "Bytes": 686,
+      "Sha256": "BB48CB7950C7CA006CD23375CD4876D7E3DE09E2215910074ED0D132F62CA373"
+    },
+    {
+      "Path": "alloc_duplicate/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_duplicate/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_duplicate/result.etf",
+      "Bytes": 555,
+      "Sha256": "54CAA5DDD0BC7B5504443E21156F885FA4DFAD1E79509786F630F9A029549EC8"
+    },
+    {
+      "Path": "alloc_improper/observation.process.json",
+      "Bytes": 685,
+      "Sha256": "0452BB4861694F21127D443133626A267EAFFBA3DB77E912218CB1206CC8F2F6"
+    },
+    {
+      "Path": "alloc_improper/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_improper/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_improper/result.etf",
+      "Bytes": 552,
+      "Sha256": "16D0978330C77498A04E11C9D73CF55F5DC15C870FCB516B0BE3F7915E1FD38E"
+    },
+    {
+      "Path": "alloc_info_binary_full/observation.process.json",
+      "Bytes": 693,
+      "Sha256": "6E0D2508F0C3913D0D4750025ACC6D2B6F092EDC7133AEDBE9927636D8CB0427"
+    },
+    {
+      "Path": "alloc_info_binary_full/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_info_binary_full/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_info_binary_full/result.etf",
+      "Bytes": 2256,
+      "Sha256": "84B9686DCC621091D1B483FDE772D73CD7AE048EE53CE6A88188FD27EC1909D5"
+    },
+    {
+      "Path": "alloc_info_empty/observation.process.json",
+      "Bytes": 687,
+      "Sha256": "8DE5A948BB9F15F3B1FEA53943379CAFDA00BBE1E15DCD0F907B88C6F0F3E53B"
+    },
+    {
+      "Path": "alloc_info_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_info_empty/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_info_empty/result.etf",
+      "Bytes": 522,
+      "Sha256": "A24615A01CC5DAA7C94A4C09A14E96D1C1EC450A08DF01044EA7785DB1F3AC74"
+    },
+    {
+      "Path": "alloc_nonlist/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "2D2B61D341843DA3A1CC13AD69C892ACB062CC2B82F80147D77EEA665F571E1D"
+    },
+    {
+      "Path": "alloc_nonlist/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_nonlist/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_nonlist/result.etf",
+      "Bytes": 441,
+      "Sha256": "8569345F491F8854AB6458AAD731A4E170DB2FB1E940AB801A0ACE70E10B45EA"
+    },
+    {
+      "Path": "alloc_order/observation.process.json",
+      "Bytes": 682,
+      "Sha256": "C82813D721ADA7BA9983566CECC9BF362977183557BD88133BC30E207B414028"
+    },
+    {
+      "Path": "alloc_order/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_order/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_order/result.etf",
+      "Bytes": 847,
+      "Sha256": "81485411DA103295F128336300981494D779DA353B91B9BB3BBBBB88F4D0B99F"
+    },
+    {
+      "Path": "alloc_raw_ref/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "3E3DF9682C91EC7F5F8A324C4678CE428F8108E9FD3395969E52D44AD9503F29"
+    },
+    {
+      "Path": "alloc_raw_ref/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_raw_ref/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_raw_ref/result.etf",
+      "Bytes": 593,
+      "Sha256": "E85C0E87E3D64208DAA661F645B5744C05B7BCEA7D41ECA27C40ED0D9C6BC510"
+    },
+    {
+      "Path": "alloc_sizes_empty/observation.process.json",
+      "Bytes": 688,
+      "Sha256": "E088E9B9A7CEDBC4287B155E8FF5DC1EFB193A3F1E5018A90F4BD3DC1CC62336"
+    },
+    {
+      "Path": "alloc_sizes_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_sizes_empty/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_sizes_empty/result.etf",
+      "Bytes": 528,
+      "Sha256": "BA6ACC14C1DA02A92BDF75AC1D6674A509BA85C19C59CF0CE586F1AD10494AEC"
+    },
+    {
+      "Path": "alloc_unknown/observation.process.json",
+      "Bytes": 684,
+      "Sha256": "2048E94733149B0ACCDD4B4963D2C9E31B8AECF52D20D25D5B5BDC20041C77F2"
+    },
+    {
+      "Path": "alloc_unknown/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "alloc_unknown/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "alloc_unknown/result.etf",
+      "Bytes": 560,
+      "Sha256": "9E184A33A080E05D2CCAB40D2CC4822E34B5728A321A81693A41EF15378F362D"
+    },
+    {
+      "Path": "compile-observer.process.json",
+      "Bytes": 556,
+      "Sha256": "01AEC17CA703E1D24138FDB23CEB2F3C03C78FD387E65EE7C9BE51E8F76214A4"
+    },
+    {
+      "Path": "compile-observer.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile-observer.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "disassembly.etf",
+      "Bytes": 14422,
+      "Sha256": "0462FBABF98A4F5F2B78D7E3946410909E6FE439C1D8AD82C45B45A3988313AB"
+    },
+    {
+      "Path": "disassembly.process.json",
+      "Bytes": 703,
+      "Sha256": "A1922B462345973D15618F4748A94C280E089606521F382DB15CD7F0015A31A4"
+    },
+    {
+      "Path": "disassembly.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "disassembly.stdout",
+      "Bytes": 19,
+      "Sha256": "D76F275E63C5886D6A54DCB98EE18F4E134CB653D078CD04ADC9ABC99B6AFC8D"
+    },
+    {
+      "Path": "memory_all/observation.process.json",
+      "Bytes": 681,
+      "Sha256": "B5B5545D17EFD2A77E64FEEA6AAE157BAB1A853728129E1FB2F79E76B22668DA"
+    },
+    {
+      "Path": "memory_all/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_all/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_all/result.etf",
+      "Bytes": 158,
+      "Sha256": "4DBB6D73A636CE9EF5164F9C06F1EA3412B1287839E5E4827C18F3025A2B5A6B"
+    },
+    {
+      "Path": "memory_empty/observation.process.json",
+      "Bytes": 683,
+      "Sha256": "ABF76C08E316A8022435C06061131055896116068D2E0215BFC3563C6E652BAA"
+    },
+    {
+      "Path": "memory_empty/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_empty/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_empty/result.etf",
+      "Bytes": 12,
+      "Sha256": "6BEB145A2E37856F5FB9CFC115E85492517F311E47D9E709C7F2D7343743D480"
+    },
+    {
+      "Path": "memory_improper/observation.process.json",
+      "Bytes": 686,
+      "Sha256": "16123F61E99E7A2B638BAD4438F5ED5C21A25F205916FEFEFDB0379A8A72FB04"
+    },
+    {
+      "Path": "memory_improper/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_improper/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_improper/result.etf",
+      "Bytes": 486,
+      "Sha256": "9D4594E2198C0CFA0787454B50A44FAD864CDEED1D94EAC215559AC1F69E11A7"
+    },
+    {
+      "Path": "memory_invalid/observation.process.json",
+      "Bytes": 685,
+      "Sha256": "1FDF629DA6327F79EEA9092C19F8D4C2B391035CEDB7EDBD62F3C1A3CFD9EB8F"
+    },
+    {
+      "Path": "memory_invalid/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_invalid/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_invalid/result.etf",
+      "Bytes": 482,
+      "Sha256": "DA62607D96E21050BD2F8E57280A32A09AAF4B5F6C88C41D4451AF652F6E0F4E"
+    },
+    {
+      "Path": "memory_maximum/observation.process.json",
+      "Bytes": 685,
+      "Sha256": "59EE24778CC9401A0DC4C34BDE34143D86C38A15D1944C5F458888F54DA83A35"
+    },
+    {
+      "Path": "memory_maximum/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_maximum/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_maximum/result.etf",
+      "Bytes": 469,
+      "Sha256": "EB0BFFD6DAE31C041F42DF585A727F30E5793EBB1A568145B9A12998F8EB5872"
+    },
+    {
+      "Path": "memory_order_duplicates/observation.process.json",
+      "Bytes": 694,
+      "Sha256": "3A19754FCEE75D88238C7595F2B89CE8825BB14E1A621C52E571F470DB5BBF40"
+    },
+    {
+      "Path": "memory_order_duplicates/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "memory_order_duplicates/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "memory_order_duplicates/result.etf",
+      "Bytes": 55,
+      "Sha256": "E8E328801BCF18A0CFDF80BC5F749632679469B82D9BC3C939CE51DC66E2DBFA"
+    },
+    {
+      "Path": "metadata.etf",
+      "Bytes": 292,
+      "Sha256": "966BCC4C6B3C3F18BFC58B679D97B6A100C8A5144F6FD74C959C70516EE0DF66"
+    },
+    {
+      "Path": "metadata.process.json",
+      "Bytes": 673,
+      "Sha256": "48E4DB44597E152ECF122D8A9B73A8F2EDF73989CD94BCED37AA012049AEAE7A"
+    },
+    {
+      "Path": "metadata.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "metadata.stdout",
+      "Bytes": 16,
+      "Sha256": "F6F4187798F05FF97575D7E9F5432A5237D225B6FBF9D7CAEF2AF1CB6E931919"
+    },
+    {
+      "Path": "nif_apply_invalid_path/observation.process.json",
+      "Bytes": 693,
+      "Sha256": "623AA959DD4C3035CDB119B6933090E1C2D2DF9D57F5876F4991C35C668EF5D6"
+    },
+    {
+      "Path": "nif_apply_invalid_path/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "nif_apply_invalid_path/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "nif_apply_invalid_path/result.etf",
+      "Bytes": 128,
+      "Sha256": "C14A818E67537DBD79A975BAAA507517A44EEFBFAAFCD89CC137BE63B1EDD4BB"
+    },
+    {
+      "Path": "nif_apply_missing_path/observation.process.json",
+      "Bytes": 693,
+      "Sha256": "DD4CA1BD7410DAE7D04B165618062A773BCD4D08757D7546E8649530DF4B173F"
+    },
+    {
+      "Path": "nif_apply_missing_path/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "nif_apply_missing_path/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "nif_apply_missing_path/result.etf",
+      "Bytes": 128,
+      "Sha256": "C14A818E67537DBD79A975BAAA507517A44EEFBFAAFCD89CC137BE63B1EDD4BB"
+    },
+    {
+      "Path": "observer-ebin/memory_allocator_probe.beam",
+      "Bytes": 6044,
+      "Sha256": "ED27128FBA9AA3260B70C5851DF5C1B3674E2ECDB217A51A0AC9DB7B20903571"
+    },
+    {
+      "Path": "process_default/observation.process.json",
+      "Bytes": 686,
+      "Sha256": "788D1E41A8FB435C9C7A460288ECB2F200A3D182029C0A0A112091551E3E354A"
+    },
+    {
+      "Path": "process_default/observation.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "process_default/observation.stdout",
+      "Bytes": 19,
+      "Sha256": "430FBB392C33DF34181BCC3FEBBC60AA9A6FCF48993430F3A09FF2D762357BE5"
+    },
+    {
+      "Path": "process_default/result.etf",
+      "Bytes": 630,
+      "Sha256": "D77B0592150B4D7E19EB61443E287D6B8708F19D2B5EC029308C2BDA846ADD96"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 4146,
+      "Sha256": "B565EA20C36B326D98CE9F854556C432142F0E074D33077679F6BF482CDBCC54"
+    },
+    {
+      "Path": "sources/check_process_capture.py",
+      "Bytes": 1851,
+      "Sha256": "7AFB9AAACFA500F88AC664A85FE291A98BD66AE2D6B4AA875712A272D4C1B54D"
+    },
+    {
+      "Path": "sources/collect.py",
+      "Bytes": 6663,
+      "Sha256": "995787A052BBEBE86E1E337FFDDFC9ED8453B86A78C6B9F3B2C0A64DA63242B8"
+    },
+    {
+      "Path": "sources/expected-policy.json",
+      "Bytes": 2412,
+      "Sha256": "8C205BF5171D233DEAD25A12C8F36E1CA90F2866C531BC2D29A0295997515C4B"
+    },
+    {
+      "Path": "sources/memory_allocator_probe.erl",
+      "Bytes": 2374,
+      "Sha256": "AD018B580F579847F2B3AA06F56CA76C928B32BF4A09D2968F8D69DFA4A5D174"
+    },
+    {
+      "Path": "sources/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    }
+  ]
+}

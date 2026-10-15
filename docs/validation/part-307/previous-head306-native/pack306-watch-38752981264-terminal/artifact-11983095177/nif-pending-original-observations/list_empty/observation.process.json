@@ -1,0 +1,25 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-pending-otp-source/observer-install/bin/erl",
+    "+S",
+    "1:1",
+    "+SDcpu",
+    "1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-pending-original-observations/ebin",
+    "-eval",
+    "Result=nif_pending_varargs_observer:run(list_empty),ok=file:write_file(os:getenv(\"NIF_OBSERVER_ETF\"),term_to_binary(Result)),io:format(\"~tp.~n\",[Result]),halt()."
+  ],
+  "OwnedPid": 83392,
+  "ExitCode": 0,
+  "TimedOut": false,
+  "TimeoutSeconds": 90,
+  "PipesClosed": true,
+  "ParentReaped": true
+}

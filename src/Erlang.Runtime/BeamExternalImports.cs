@@ -9,8 +9,8 @@ internal static class BeamExternalImports
         string function = code.Structure.Atoms[source.FunctionAtomIndex]!;
         bool supported = module == ErlangModuleNames.Module && (
             source.Arity == 0 && function == ErlangModuleNames.Self
-            || source.Arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error or BeamLoaderNames.CallOnLoad
-            || source.Arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract or ErlangModuleNames.Put
+            || source.Arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error or BeamLoaderNames.CallOnLoad or ErlangErrorMetadataNames.NifError
+            || source.Arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract or ErlangModuleNames.Put or SourceLoadNifNames.Function
         ) || module == BeamOnLoadNames.CodeModule && function == BeamOnLoadNames.IsLoaded && source.Arity == 1
             || module == BeamRegisterNames.OsModule && function == BeamRegisterNames.GetEnvironment && source.Arity == 1;
         if (!supported)
@@ -19,8 +19,13 @@ internal static class BeamExternalImports
         return new(module, function, source.Arity);
     }
 
+    internal static bool IsSourceLoadNif(BeamExternalImport import)
+        => import.Module == ErlangModuleNames.Module && import.Function == SourceLoadNifNames.Function && import.Arity == 2;
+
     internal static ValueTask<Term> Invoke(ProcessContext context, BeamExternalImport import, Term[] arguments)
     {
+        if (IsSourceLoadNif(import))
+            return context.Runtime.Modules.InvokeSourceLoadNif(context, arguments);
         if (import.Module == ErlangModuleNames.Module && import.Function == BeamLoaderNames.CallOnLoad && import.Arity == 1)
             return context.Runtime.Modules.InvokeLoaderOnLoad(context, arguments[0]);
         if (import.Module == BeamOnLoadNames.CodeModule)
