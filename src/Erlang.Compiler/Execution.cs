@@ -1,6 +1,6 @@
 namespace Erlang.Compiler;
 
-public static class Execution
+public static partial class Execution
 {
     private sealed record Selection(Clause Clause, Dictionary<string, Term> Bindings);
     private sealed class TailCall(string function, IReadOnlyList<Term> arguments, ModuleCodeImage? image) : Exception
@@ -737,6 +737,9 @@ public static class Execution
                     if (RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
                         return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
+                    if (x.Module == ErlangModuleNames.Module && x.Function == SourceLoadNifNames.Function
+                        && args.Length == SourceLoadNifNames.Arity)
+                        return await CallSourceLoadNif(ctx, args);
                     if (module is not null && x.Module is null && module.Functions.Any(f => f.Name == x.Function && f.Arity == args.Length))
                     {
                         if (tail)

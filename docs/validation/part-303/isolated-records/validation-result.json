@@ -1,0 +1,252 @@
+{
+  "Status": "ISOLATED_TARGET_AND_13_MANAGED_FOCUS_PASS",
+  "PublishedBaselineHead": "c2d2cc304d03201dd52592c77d0389062aea0268",
+  "ActualPart301FinalSourceFreezeSha256": "A763E55596D771736233F06A197ED46485013D8EFD0D01D13B854BE44AFAED90",
+  "UnchangedSnapshotPathsRehashed": 2044,
+  "ChangedCSharpPaths": 11,
+  "ActualRoslynTokensExact": true,
+  "TokenSnapshotSha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012",
+  "Checks": {
+    "target-initial": "PASS",
+    "target-focus-final": "PASS",
+    "format11-final": "PASS_TOKENS_EXACT",
+    "focus13-revised": "PASS_13_GROUPS",
+    "format11-initial": "INFRASTRUCTURE_NAMED_PIPE_FAILURE_RETAINED",
+    "format11-folder": "INVALID_FOLDER_NO_RESTORE_OPTIONS_RETAINED",
+    "focus13-initial": "HARNESS_PARAMETER_COUNT_FAILURE_RETAINED"
+  },
+  "FocusGroupsPassed": [
+    "SourceLoadNifHostChecks",
+    "NifSourceEntryHostChecks",
+    "NifBeamEntryHostChecks",
+    "NifAdmissionHostChecks",
+    "NifLifetimeHostChecks",
+    "NifImageBindingHostChecks",
+    "CodeModificationHostChecks",
+    "SourceTailHostChecks",
+    "RuntimeTailHostChecks",
+    "ModuleLoadingHostChecks",
+    "CodePurgeHostChecks",
+    "BeamLoaderMfaChecks:Races",
+    "InitializationLifecycleChecks"
+  ],
+  "SourceCallerHostIncludes": [
+    "original-four-managed-scenarios",
+    "two-effect-and-second-failure-parser-route",
+    "two-effect-and-second-failure-actual-CodeGeneration-Roslyn-loaded-entry-route"
+  ],
+  "PublicMfaAdded": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "NativeExecuted": false,
+  "OriginalExecuted": false,
+  "SdkNativeParityClaim": false,
+  "HeavyGateReleased": true,
+  "FormattedSourceFiles": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "AuthoredPreformatSha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2",
+      "FormattedBytes": 37213,
+      "FormattedSha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.LoadNif.cs",
+      "AuthoredPreformatSha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249",
+      "FormattedBytes": 589,
+      "FormattedSha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "AuthoredPreformatSha256": "DFBDEB46ABC5AC4E39CAD96DBBE75B6E1CEC5690B80B321EAF9B84F7992747BB",
+      "FormattedBytes": 2465,
+      "FormattedSha256": "86A04A810020D7432069E4ECBDF0D0361ABE363033F5CD911B794E322A542E2A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifCall.cs",
+      "AuthoredPreformatSha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542",
+      "FormattedBytes": 913,
+      "FormattedSha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifNames.cs",
+      "AuthoredPreformatSha256": "578550BBCD140A49E769EC0D192D644358D2765D135D9824F17E305E9D790DAB",
+      "FormattedBytes": 403,
+      "FormattedSha256": "578550BBCD140A49E769EC0D192D644358D2765D135D9824F17E305E9D790DAB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "AuthoredPreformatSha256": "470C7DE0F0628C544D6681936A0B2C6437300A9ACAD8039E4CC4837CC99880A5",
+      "FormattedBytes": 14837,
+      "FormattedSha256": "F5564A4EBD8741EA4160A0030030EEF5496CCC7EAEFC623163A48AF41254098C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostFields.cs",
+      "AuthoredPreformatSha256": "8FC2E4208BB3BBBC6607669374991B6EF9FDD660A02A3E05C8DDAFB7B37E101C",
+      "FormattedBytes": 128,
+      "FormattedSha256": "8FC2E4208BB3BBBC6607669374991B6EF9FDD660A02A3E05C8DDAFB7B37E101C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostNames.cs",
+      "AuthoredPreformatSha256": "800F6BB00B8291FD4095A99F615D8BA9FDA566EE5138B5E96C381448ABA072CA",
+      "FormattedBytes": 2588,
+      "FormattedSha256": "800F6BB00B8291FD4095A99F615D8BA9FDA566EE5138B5E96C381448ABA072CA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifArgumentHostNames.cs",
+      "AuthoredPreformatSha256": "A447F50223D68BBBCF0A314AF557CF9C0331AA27B28C4213D2CBD811DEB17A56",
+      "FormattedBytes": 1193,
+      "FormattedSha256": "A447F50223D68BBBCF0A314AF557CF9C0331AA27B28C4213D2CBD811DEB17A56"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.Arguments.cs",
+      "AuthoredPreformatSha256": "A09D304563B51C006EA82274770FC51A4689F2A280A0703084331615E2DA1DE9",
+      "FormattedBytes": 4167,
+      "FormattedSha256": "392430AB6ECA3F989842FF5BD7E5D0287DFFA8FAEAB4E24C5D71387ED57ED543"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "AuthoredPreformatSha256": "274F1AEF00036CEB5C10964BC381BF73916B66B37ED6C432516627535C2ABD27",
+      "FormattedBytes": 164881,
+      "FormattedSha256": "274F1AEF00036CEB5C10964BC381BF73916B66B37ED6C432516627535C2ABD27"
+    }
+  ],
+  "ProofFiles": [
+    {
+      "Path": "target-initial.log",
+      "Bytes": 3921,
+      "Sha256": "88C893ED4CF59D3640EC6F46B9BE93E7B2BF052AA8ABC84ED905269E0B2C3566"
+    },
+    {
+      "Path": "target-initial-exit.json",
+      "Bytes": 192,
+      "Sha256": "87DF6F8CFC146F3099BAA868CE507F46A5E573C8A433595C001D797FBA37BBF1"
+    },
+    {
+      "Path": "target-focus-final.log",
+      "Bytes": 2460,
+      "Sha256": "DA513BBDEAA2093FA98A4B4CCBFEE6657E25085927CC3730E7C894917ACE5BBD"
+    },
+    {
+      "Path": "target-focus-final-exit.json",
+      "Bytes": 192,
+      "Sha256": "926B395868E9171D4240E88EBDF183EDB196BB85D0640D649A593F41A8C935F7"
+    },
+    {
+      "Path": "format11-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sdk11-format.log",
+      "Bytes": 4653,
+      "Sha256": "6E886B91F6B51F4DEF3D300CDEE67C9155EA874AE994BA53E6356FA640B04D5F"
+    },
+    {
+      "Path": "format11-initial-failure.json",
+      "Bytes": 218,
+      "Sha256": "E22E16CFA57D25951109E990D06D56889783FC4C4FD2154D6EA2C46DF407A328"
+    },
+    {
+      "Path": "format11-folder-launch.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sdk11-folder-format.log",
+      "Bytes": 2950,
+      "Sha256": "5C9D37EA6933A8F0D3051D3CB199DE0ACF3973D63529C241B7612DB404043108"
+    },
+    {
+      "Path": "format11-folder2-launch.log",
+      "Bytes": 305,
+      "Sha256": "C44AA1CC33BE08C85DECD9A57F08A81E5DA1375CF7B3C7E0218AB486581F706D"
+    },
+    {
+      "Path": "sdk11-folder2-format.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "custom11-folder2-format.log",
+      "Bytes": 32,
+      "Sha256": "E27828D691BEB8FA1DC514F49F0DF8C1538FDEEC7DBDC465DDBC1C929F6D5B64"
+    },
+    {
+      "Path": "format11-folder2-guard.json",
+      "Bytes": 305,
+      "Sha256": "C44AA1CC33BE08C85DECD9A57F08A81E5DA1375CF7B3C7E0218AB486581F706D"
+    },
+    {
+      "Path": "tokens11-folder2-before.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "tokens11-folder2-after.json",
+      "Bytes": 1248159,
+      "Sha256": "72DD52C78AF3370EE9E33C220144DE2CEB8B52C408A22F8806E8010071188012"
+    },
+    {
+      "Path": "focus13.log",
+      "Bytes": 1678,
+      "Sha256": "9B336BB6CCDD266C77162C3BD911116FB6F909E265A41EC6CB57B77B6953CB36"
+    },
+    {
+      "Path": "focus13-exit.json",
+      "Bytes": 632,
+      "Sha256": "8E583FEDDDC6710F71E9135603D2EAC22E332EC459CBEE11E43513D1273EDAEA"
+    },
+    {
+      "Path": "focus13-revised.log",
+      "Bytes": 515,
+      "Sha256": "803E80668014F76A902382C6EFA49FCDDDAAA1A2B8779C5EC0063A8D1A475EA6"
+    },
+    {
+      "Path": "focus13-revised-exit.json",
+      "Bytes": 629,
+      "Sha256": "527121B6C6D7DEAF46E81B1E4D0F4F9CB221C116298C608A21EC8422B4D658F9"
+    },
+    {
+      "Path": "focus-plan-revision2.json",
+      "Bytes": 1812,
+      "Sha256": "2A95AFD259AD9842AB280E9F2E47DAC62EDCA7205A28056CBFCF8292238511FA"
+    },
+    {
+      "Path": "completion-freeze.json",
+      "Bytes": 5077,
+      "Sha256": "D3AE11FE075B84B4F0A65FE978E40F5524CBE62B2018F7037054FC178561D6A4"
+    },
+    {
+      "Path": "source-paths.json",
+      "Bytes": 3797,
+      "Sha256": "0FAD7EADC4CF5FC8A89CEAF597E854410D967AD9D239B91A5B95BAD49BDFF074"
+    },
+    {
+      "Path": "snapshot-manifest.json",
+      "Bytes": 501745,
+      "Sha256": "9CAD4A94F986DC2FE1DEF981089380711A1DAC5DD22C923FB83F5AB1EA98E1DA"
+    }
+  ],
+  "ActualBuiltAssemblies": [
+    {
+      "Path": "candidate/tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll",
+      "Bytes": 2364416,
+      "Sha256": "9BA8C1BE06384DA7F179528A943008B05BC066AE59290103C496DDB35BE00FD5"
+    },
+    {
+      "Path": "candidate/src/Erlang.Compiler/bin/Release/net10.0/Erlang.Compiler.dll",
+      "Bytes": 326144,
+      "Sha256": "1B802036986CA7BE7CB626BEC6667510299D6DAD7A11E174DA75E7D9F99F8481"
+    },
+    {
+      "Path": "candidate/src/Erlang.Runtime/bin/Release/net10.0/Erlang.Runtime.dll",
+      "Bytes": 1162752,
+      "Sha256": "F1EA45771E4CE7C6149C3F579C142B9D0D8B9A9038C5F55ECD10599AFFD85C96"
+    },
+    {
+      "Path": "focus/bin/Release/net10.0/RegressionFocus.dll",
+      "Bytes": 8192,
+      "Sha256": "A69EC3E42D4F5874A9B520350640242CE256848B6F89A7B4C49123710CB50F77"
+    }
+  ]
+}

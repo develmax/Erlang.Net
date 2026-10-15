@@ -1,0 +1,73 @@
+{
+  "Status": "SOURCE_ONLY_POST_PUBLICATION_VERIFICATION_PLAN_NOT_EXECUTED",
+  "PublishedHead": null,
+  "ParentHead": "c2d2cc304d03201dd52592c77d0389062aea0268",
+  "DispatchAuthorizedForThisAgent": false,
+  "Reader": "pack301-read-three-runs-proposal.ps1",
+  "ExpectedNamedRuns": [
+    "Validate CLR implementation",
+    "Pinned OTP differential oracle",
+    "Pinned OTP pending and bounded native backend observations"
+  ],
+  "RequiredAttempt": 1,
+  "MinimumReadBackoffSeconds": 60,
+  "ExpectedCI": {
+    "Passed": 6621,
+    "Failed": 0,
+    "RegisteredMfas": 503,
+    "OrderedNamesMatchPublishedReport": true,
+    "Historical6611OrderedNamesRetained": true,
+    "IntegrationAndPackages": 11
+  },
+  "ExpectedOriginal": {
+    "PlannedExecutedPassed": 5854,
+    "Expressions": 778,
+    "CompiledModules": 4911,
+    "HistoricalModuleRows": 4903,
+    "UnchangedHistoricalSourceRows": 4902,
+    "AddedModuleRows": 8,
+    "Diagnostics": 165,
+    "FdPassed": 8,
+    "OriginalOtpDefectExclusions": 6,
+    "NativeExecutedInExclusions": false,
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Baseline": "OTP-29.1.1",
+    "SourceHashRule": "SHA256 exact UTF8 Source; compare every expected/source/generated/native/SDK/context row. Preserve strict differences before semantic policy; no raw normalization.",
+    "SingleApprovedHistoricalMigration": {
+      "Name": "erlang-system-profile-dead-receiver",
+      "Index": 4769,
+      "OldSource": "-module(system_profile_contract). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,normal}->ok end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile(),done.",
+      "OldSourceSha256": "A1F09ACEAA4E37BCE17B0701C6BA7AFF075878B4351638FAA5A025ED36A491D5",
+      "NewSource": "-module(system_profile_contract). -export([run/0]). run()->P=spawn(fun()->receive stop->ok end end),R=monitor(process,P),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile(),done.",
+      "NewSourceSha256": "4655920B01E421AA0747FCE5C2DDD907775E495680F37F3BAF16572989CB5C73",
+      "OldCSharpSha256": "673BF20F6058BB8249C7733E34DD85624D3066E5E3C62D4921C917530C1706CE",
+      "NewCSharpSha256": null,
+      "NewCSharpBindingRequired": "Bind fresh exact-head SDK-generated row or source-code-generation report; never copy old generated hash after source migration.",
+      "ExpectedOutcome": "{ok,done}",
+      "OldBody": "P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,normal}->ok end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()",
+      "NewBody": "P=spawn(fun()->receive stop->ok end end),R=monitor(process,P),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile()",
+      "AllowedSemanticChanges": [
+        "Source",
+        "SourceSha256",
+        "CSharpSha256"
+      ],
+      "ExpectedAndNativeSdkOutcomeUnchanged": true
+    },
+    "AllowedPredeclaredMapStdoutVariance": {
+      "Name": "erlang-term-display-map",
+      "Policy": "Compare against committed TermDisplayCases and CompiledStandardOutputContract, preserve raw delta; only native map ordering and exact-stream-equality flag can vary."
+    }
+  },
+  "ExpectedNative": {
+    "SourceInputs": 1003,
+    "ReviewedSourcePlanSha256": "DCDB739375C0CA2C11EB8DC2998A9B790BD6F202D46FAAB136F13F471544D03D",
+    "SdkSixArgumentActualBinaryGate": true,
+    "SeparateOriginalTypedCases": 13,
+    "OriginalAndSdkThirteenCasesCompared": false,
+    "ActualGeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+    "NoGeneralAbiOrPublicLoadNifClaim": true
+  },
+  "DetachedDestination": "docs/validation/part-302/",
+  "PreserveAnyFailedRawOrVerifierAttempt": true,
+  "NewOriginalExecutionClaimed": false
+}

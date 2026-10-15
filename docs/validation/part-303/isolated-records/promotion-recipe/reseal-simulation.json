@@ -1,0 +1,28 @@
+{
+  "Status": "CANDIDATE_ONLY_SOURCE_RESEAL_VERIFIED",
+  "Command": [
+    "py",
+    "-3",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-source-caller303-isolated\\candidate\\tools\\Erlang.NifPendingVarargsObservations\\seal-source-plan.py",
+    "--repository",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-source-caller303-isolated\\candidate",
+    "--output",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-nif-source-caller303-isolated\\candidate\\tools\\Erlang.NifPendingVarargsObservations\\reviewed-source-plan.json"
+  ],
+  "ExitCode": 0,
+  "InputClosureRecordsVerified": 1007,
+  "AddedOnlyFourProductionPaths": [
+    "src/Erlang.Compiler/Execution.LoadNif.cs",
+    "src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+    "src/Erlang.Runtime/SourceLoadNifCall.cs",
+    "src/Erlang.Runtime/SourceLoadNifNames.cs"
+  ],
+  "RemovedInputs": [],
+  "WorkflowReplacementCount": 1,
+  "NativeExecuted": false,
+  "MainEdited": false,
+  "GitMutated": false,
+  "ChangedExistingPlanInputs": [
+    "src/Erlang.Compiler/Execution.cs"
+  ]
+}

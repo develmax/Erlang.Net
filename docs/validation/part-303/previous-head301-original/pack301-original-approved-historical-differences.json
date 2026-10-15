@@ -1,0 +1,105 @@
+[
+  {
+    "Name": "erlang-term-display-map",
+    "ChangedFields": [
+      "NativeAndSdkStandardOutputExactlyMatch",
+      "NativeStandardOutputHex"
+    ],
+    "Historical": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": false,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    "Actual": {
+      "Name": "erlang-term-display-map",
+      "Source": "-module(term_display_contract). -export([run/0]). run()->true=erlang:display(#{b=>[65],a=>{0}}),done.",
+      "SourceSha256": "E8C2BD4B2CFB9AA91A3F20DB3F76F9017CB8653EBB30DDC6A205F61ADDF55F4F",
+      "CSharpSha256": "7095EA765E47D77B036AA28E2A5B406F6AA1F519F6D9A247E99B377557C4E45D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "ExpectedStandardOutputAlternatives": [
+        "237B623D3E2241222C613D3E7B307D7D0D0A"
+      ],
+      "ExpectedStandardErrorHex": "",
+      "NativeStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "NativeStandardErrorHex": "",
+      "SdkStandardOutputHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+      "SdkStandardErrorHex": "",
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  },
+  {
+    "Name": "erlang-system-profile-dead-receiver",
+    "ChangedFields": [
+      "CSharpSha256",
+      "Source",
+      "SourceSha256"
+    ],
+    "Historical": {
+      "Name": "erlang-system-profile-dead-receiver",
+      "Source": "-module(system_profile_contract). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,normal}->ok end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile(),done.",
+      "SourceSha256": "A1F09ACEAA4E37BCE17B0701C6BA7AFF075878B4351638FAA5A025ED36A491D5",
+      "CSharpSha256": "673BF20F6058BB8249C7733E34DD85624D3066E5E3C62D4921C917530C1706CE",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    "Actual": {
+      "Name": "erlang-system-profile-dead-receiver",
+      "Source": "-module(system_profile_contract). -export([run/0]). run()->P=spawn(fun()->receive stop->ok end end),R=monitor(process,P),P!stop,receive {'DOWN',R,process,P,normal}->ok after 5000->error(no_down) end,try erlang:system_profile(P,[timestamp]) of _->error(accepted) catch error:badarg->ok end,undefined=erlang:system_profile(),done.",
+      "SourceSha256": "4655920B01E421AA0747FCE5C2DDD907775E495680F37F3BAF16572989CB5C73",
+      "CSharpSha256": "37F12F5C433DB5D1B1DEBD6CB938A749354E872838AA1D3FA60C5B4B77BD649D",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  }
+]

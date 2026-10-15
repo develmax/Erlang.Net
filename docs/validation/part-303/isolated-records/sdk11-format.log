@@ -1,0 +1,29 @@
+Unhandled exception: System.Exception: The build host was started but we were unable to connect to it's pipe. The process exited with -1. Process output:
+info: BuildHost Runtime Version: .NET 10.0.11
+
+ ---> System.UnauthorizedAccessException: Access to the path is denied.
+   at System.IO.Pipes.NamedPipeClientStream.TryConnect(Int32 timeout)
+   at System.IO.Pipes.NamedPipeClientStream.ConnectInternal(Int32 timeout, CancellationToken cancellationToken, Int32 startTime)
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager.BuildHostProcess.ConnectAsync(String pipeName)
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager.<GetBuildHostAsync>g__NoLock_GetBuildHostAsync|17_0(BuildHostProcessKind buildHostKind, String projectOrSolutionFilePath, String dotnetPath, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager.<GetBuildHostAsync>g__NoLock_GetBuildHostAsync|17_0(BuildHostProcessKind buildHostKind, String projectOrSolutionFilePath, String dotnetPath, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager.GetBuildHostAsync(BuildHostProcessKind buildHostKind, String projectOrSolutionFilePath, String dotnetPath, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager.GetBuildHostWithFallbackAsync(BuildHostProcessKind buildHostKind, String projectOrSolutionFilePath, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.BuildHostProjectFileInfoProvider.LoadProjectFileInfosAsync(String projectPath, DiagnosticReportingOptions reportingOptions, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.MSBuildProjectLoader.Worker.LoadProjectInfosFromPathAsync(String projectPath, DiagnosticReportingOptions reportingOptions, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.MSBuildProjectLoader.Worker.LoadAsync(CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.MSBuildProjectLoader.LoadInfoAsync(ImmutableArray`1 projectPaths, ProjectMap projectMap, IProgress`1 progress, ILogger msbuildLogger, DiagnosticReportingOptions requestedProjectOptions, DiagnosticReportingOptions discoveredProjectOptions, Boolean preferMetadataForReferencesOfDiscoveredProjects, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.MSBuildProjectLoader.LoadInfoAsync(ImmutableArray`1 projectPaths, ProjectMap projectMap, IProgress`1 progress, ILogger msbuildLogger, DiagnosticReportingOptions requestedProjectOptions, DiagnosticReportingOptions discoveredProjectOptions, Boolean preferMetadataForReferencesOfDiscoveredProjects, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.MSBuild.MSBuildWorkspace.OpenProjectAsync(String projectFilePath, ILogger msbuildLogger, IProgress`1 progress, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.Tools.Workspaces.MSBuildWorkspaceLoader.LoadAsync(String solutionOrProjectPath, WorkspaceType workspaceType, String binaryLogPath, Boolean logWorkspaceWarnings, ILogger logger, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.Tools.CodeFormatter.OpenMSBuildWorkspaceAsync(String solutionOrProjectPath, WorkspaceType workspaceType, Boolean noRestore, Boolean requiresSemantics, String binaryLogPath, Boolean logWorkspaceWarnings, ILogger logger, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.Tools.CodeFormatter.FormatWorkspaceAsync(FormatOptions formatOptions, ILogger logger, CancellationToken cancellationToken, String binaryLogPath)
+   at Microsoft.CodeAnalysis.Tools.FormatCommandCommon.FormatAsync(FormatOptions formatOptions, ILogger`1 logger, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.Tools.Commands.FormatWhitespaceCommand.FormatWhitespaceHandler.InvokeAsync(ParseResult parseResult, CancellationToken cancellationToken)
+   at System.CommandLine.Invocation.InvocationPipeline.InvokeAsync(ParseResult parseResult, CancellationToken cancellationToken)

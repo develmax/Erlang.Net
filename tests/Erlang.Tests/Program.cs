@@ -37,6 +37,7 @@ Test(Erlang.Tests.CodeModificationHostNames.Test, Erlang.Tests.CodeModificationH
 Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoadCallbackFaultHostChecks.Run);
 Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
 Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
+Test(Erlang.Tests.SourceLoadNifHostNames.Test, Erlang.Tests.SourceLoadNifHostChecks.Run);
 Test(Erlang.Tests.NifBeamEntryHostNames.Test, Erlang.Tests.NifBeamEntryHostChecks.Run);
 Test(Erlang.Tests.NifInventoryHostNames.Test, Erlang.Tests.NifInventoryHostChecks.Run);
 Test(Erlang.Tests.NifLifetimeHostNames.Test, Erlang.Tests.NifLifetimeHostChecks.Run);

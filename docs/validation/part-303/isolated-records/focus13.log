@@ -1,0 +1,24 @@
+PASS SourceLoadNifHostChecks
+PASS NifSourceEntryHostChecks
+PASS NifBeamEntryHostChecks
+PASS NifAdmissionHostChecks
+PASS NifLifetimeHostChecks
+PASS NifImageBindingHostChecks
+PASS CodeModificationHostChecks
+PASS SourceTailHostChecks
+PASS RuntimeTailHostChecks
+PASS ModuleLoadingHostChecks
+PASS CodePurgeHostChecks
+Unhandled exception. System.Reflection.TargetParameterCountException: Parameter count mismatch.
+   at System.Reflection.MethodBaseInvoker.ThrowTargetParameterCountException()
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Program.<>c__DisplayClass0_1.<<Main>$>b__1() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-source-caller303-isolated\focus\Program.cs:line 13
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-nif-source-caller303-isolated\focus\Program.cs:line 13
+   at Program.<Main>(String[] args)

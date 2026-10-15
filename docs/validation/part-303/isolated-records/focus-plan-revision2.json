@@ -1,0 +1,29 @@
+{
+  "Status": "PREPARED_NOT_EXECUTED",
+  "Target": "candidate/tests/Erlang.Tests/Erlang.Tests.csproj",
+  "FocusProject": "focus/RegressionFocus.csproj",
+  "FocusInputAssembly": "candidate/tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll",
+  "Groups": [
+    "SourceLoadNifHostChecks",
+    "NifSourceEntryHostChecks",
+    "NifBeamEntryHostChecks",
+    "NifAdmissionHostChecks",
+    "NifLifetimeHostChecks",
+    "NifImageBindingHostChecks",
+    "CodeModificationHostChecks",
+    "SourceTailHostChecks",
+    "RuntimeTailHostChecks",
+    "ModuleLoadingHostChecks",
+    "CodePurgeHostChecks",
+    "BeamLoaderMfaChecks:Races",
+    "InitializationLifecycleChecks"
+  ],
+  "PerInvocationTimeoutSeconds": 30,
+  "PerCompletionTimeoutSeconds": 30,
+  "Reference": "Focus project references candidateTests; harness calls actual named HOST methods by reflection, handles Task<int> nonzero, does not run Tests Main automatically.",
+  "FutureBuild": "dotnet build focus/RegressionFocus.csproj -c Release -m:1 -nodeReuse:false -p:UseSharedCompilation=false",
+  "FutureRun": "dotnet run --project focus/RegressionFocus.csproj -c Release --no-build -- <absolute candidateTests.dll> SourceLoadNifHostChecks NifSourceEntryHostChecks NifBeamEntryHostChecks NifAdmissionHostChecks NifLifetimeHostChecks NifImageBindingHostChecks CodeModificationHostChecks SourceTailHostChecks RuntimeTailHostChecks ModuleLoadingHostChecks CodePurgeHostChecks BeamLoaderMfaChecks InitializationLifecycleChecks",
+  "NativeOrOriginalRunIncluded": false,
+  "PreviousPlanSha256": "BB80CDDCF9645529C40E93B73621A1897BB48A74DA17AFDA1B98C39BD93F8820",
+  "Correction": "Initial default Run required BeamLoaderMfaCase argument; Races is intended unchanged parameterless historical group, no production/HOST source changed. Initial failed focus retained."
+}

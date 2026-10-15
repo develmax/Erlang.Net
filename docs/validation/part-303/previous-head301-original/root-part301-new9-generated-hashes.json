@@ -1,0 +1,112 @@
+{
+  "Status": "ACTUAL_MAIN301_NINE_GENERATED_HASH_EXPORT",
+  "Head": "ca33514ba537688aaa8a265200b8d270a01f98fb",
+  "HeadAfter": "ca33514ba537688aaa8a265200b8d270a01f98fb",
+  "SourceFreezePath": "artifacts/root-part301-final-source-freeze.json",
+  "SourceFreezeSha256": "A763E55596D771736233F06A197ED46485013D8EFD0D01D13B854BE44AFAED90",
+  "SourceFreezePathsVerifiedBefore": 14,
+  "SourceFreezePathsVerifiedAfter": 14,
+  "CaseCount": 9,
+  "OrderedCases": [
+    {
+      "Name": "process-info-default-subset-common-fields",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003EI=process_info(self()),lists:foreach(fun(K)-\u003E{K,_}=lists:keyfind(K,1,I) end,[current_function,initial_call,status,message_queue_len,links,dictionary,trap_exit,error_handler,priority,group_leader,reductions,suspending]),false=lists:keymember(registered_name,1,I),done.",
+      "SourceSha256": "B339F6AD2A39B84711AD605C4C749142882DA478243864B0028616EBEFEF4FB6",
+      "CSharpSha256": "6F383FE9E7A9AEBDB9ABF744098C13BB6B83C60DF5776CE193A5CA4961695737",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-common-types",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003EI=process_info(self()),lists:foreach(fun(K)-\u003E{K,V}=lists:keyfind(K,1,I),true=is_integer(V),true=(V\u003E=0) end,[message_queue_len,reductions]),{trap_exit,B}=lists:keyfind(trap_exit,1,I),true=is_boolean(B),{group_leader,G}=lists:keyfind(group_leader,1,I),true=is_pid(G),lists:foreach(fun(K)-\u003E{K,V}=lists:keyfind(K,1,I),true=is_list(V) end,[links,dictionary,suspending]),done.",
+      "SourceSha256": "6C811CEA0E8E3612C5C65DDC66A216AC8621AD1C659DC9A9A40BA8C64441C0AF",
+      "CSharpSha256": "9DD70C9A6F7794A61C65EB476388745046A9A2B22C2366314615D36C6ED89D9E",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-registered-name",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003Etrue=register(default_subset_contract,self()),I=process_info(self()),{registered_name,default_subset_contract}=lists:keyfind(registered_name,1,I),{registered_name,default_subset_contract}=process_info(self(),registered_name),done.",
+      "SourceSha256": "5D9AC91FED4CB6CC8667B3150585994EBD5B3C5128F997C1F9A2E46B87E4A246",
+      "CSharpSha256": "03D0A1489C2CB69002F081AB4AA68CF33AE6075D4E45CB8D0FA63631A5A63D4C",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-query2-stable-projection",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003EI=process_info(self()),lists:foreach(fun(K)-\u003ET=process_info(self(),K),T=lists:keyfind(K,1,I) end,[trap_exit,error_handler,priority,group_leader,dictionary]),done.",
+      "SourceSha256": "5686DDD0D2A38768223F9B01B555447D4E1CC1E104C796A380F3069BD983A9BC",
+      "CSharpSha256": "464AF80D66762AC785B0DE52604E77815DC8A1BFA0E716C88E7B70E9FA83CDE0",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-invalid-targets",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003Elists:foreach(fun(V)-\u003Eok=try process_info(V) of _-\u003Eunexpected catch error:badarg-\u003Eok end end,[0,ok,{},[],make_ref(),\u003C\u003C\u003E\u003E,fun()-\u003Eok end]),done.",
+      "SourceSha256": "4BC49ED278AC3540EE06B99A4BEDEE447FC47BF33E4FCBCA7B721832048B0939",
+      "CSharpSha256": "EDD897708EA9B68966CBAF3F9C1B941FE194E53F5F591C93E5C8A3D4633569E7",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-dead-local",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003EP=spawn(fun()-\u003Eok end),R=monitor(process,P),receive {\u0027DOWN\u0027,R,process,P,_}-\u003Eok end,undefined=process_info(P),done.",
+      "SourceSha256": "A33945337F441F80141DEB7084803EB9F87047FA0A32376520A99D1377634672",
+      "CSharpSha256": "BA37404827C03D605FA66D0A51D1BCCFE1C0D55D876F29AC81733E3058F04A27",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-stale-local",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003EB=term_to_binary(self()),\u003C\u003C131,88,_/binary\u003E\u003E=B,S=byte_size(B)-4,\u003C\u003CH:S/binary,C:32\u003E\u003E=B,P=binary_to_term(\u003C\u003CH/binary,(C bxor 1):32\u003E\u003E),true=is_pid(P),undefined=process_info(P),done.",
+      "SourceSha256": "8DA892BE347F0B16BA855A30AD33EC32F464A4CCB486D15DDDAD458501BC4098",
+      "CSharpSha256": "135CD612EEB5440A356DE4B74920685F60FBB989416DFB702BEF6FE5873D6B91",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "process-info-default-subset-remote-target",
+      "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()-\u003E\u003C\u003C131,A/binary\u003E\u003E=term_to_binary(default_subset_remote@invalid),P=binary_to_term(\u003C\u003C131,88,A/binary,1:32,0:32,0:32\u003E\u003E),true=is_pid(P),ok=try process_info(P) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "5D77C65AECE99CC4DE3E1AF610ED0A6F06B86B40254E947D8994AEFF22257CEF",
+      "CSharpSha256": "F8726E4C7F2A5E8CF9F3EBE20A78580ECA1C39E2FC438CDBAD9CD946622218B8",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    },
+    {
+      "Name": "erlang-system-profile-dead-receiver",
+      "Source": "-module(system_profile_contract). -export([run/0]). run()-\u003EP=spawn(fun()-\u003Ereceive stop-\u003Eok end end),R=monitor(process,P),P!stop,receive {\u0027DOWN\u0027,R,process,P,normal}-\u003Eok after 5000-\u003Eerror(no_down) end,try erlang:system_profile(P,[timestamp]) of _-\u003Eerror(accepted) catch error:badarg-\u003Eok end,undefined=erlang:system_profile(),done.",
+      "SourceSha256": "4655920B01E421AA0747FCE5C2DDD907775E495680F37F3BAF16572989CB5C73",
+      "CSharpSha256": "37F12F5C433DB5D1B1DEBD6CB938A749354E872838AA1D3FA60C5B4B77BD649D",
+      "GeneratedAssemblyCompiledAndLoaded": true,
+      "FixtureBodyExecuted": false
+    }
+  ],
+  "ActualInputDlls": [
+    {
+      "Name": "Erlang.Compiler",
+      "LoadedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part301-new9-generated-hash-export\\bin\\Release\\net10.0\\Erlang.Compiler.dll",
+      "LoadedSha256": "A441CFF338F9D1347AD349FE1B7BE815BBFF9834BC2DDFC3C032C90600E74D36",
+      "ActualMainPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src/Erlang.Compiler/bin/Release/net10.0/Erlang.Compiler.dll",
+      "ActualMainSha256": "A441CFF338F9D1347AD349FE1B7BE815BBFF9834BC2DDFC3C032C90600E74D36"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "LoadedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part301-new9-generated-hash-export\\bin\\Release\\net10.0\\Erlang.Runtime.dll",
+      "LoadedSha256": "26224CD5048B4707215D708691AF09EFFA775E0F043FC025195B47C05C08EAE6",
+      "ActualMainPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src/Erlang.Runtime/bin/Release/net10.0/Erlang.Runtime.dll",
+      "ActualMainSha256": "26224CD5048B4707215D708691AF09EFFA775E0F043FC025195B47C05C08EAE6"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "LoadedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part301-new9-generated-hash-export\\bin\\Release\\net10.0\\Erlang.Differential.dll",
+      "LoadedSha256": "55AEB6293FAF6A626C3416C57F6129E93FE152EEA8BE8DA66E07F4971847C26B",
+      "ActualMainPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools/Erlang.Differential/bin/Release/net10.0/Erlang.Differential.dll",
+      "ActualMainSha256": "55AEB6293FAF6A626C3416C57F6129E93FE152EEA8BE8DA66E07F4971847C26B"
+    }
+  ],
+  "FixtureBodyExecuted": false,
+  "OriginalExecuted": false,
+  "NativeExecuted": false,
+  "MainTrackedSourceEdited": false,
+  "SdkOriginalParityClaim": false
+}
