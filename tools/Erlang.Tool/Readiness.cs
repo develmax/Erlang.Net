@@ -60,6 +60,14 @@ internal static class Readiness
         if (registered.Length != declared.Count || !actual.SetEquals(declared) || registered.Any(export => export.Evidence != ReadinessText.MfaTestPrefix + Key(export.Module, export.Function, export.Arity) || !report.Tests.Any(test => test.Name == export.Evidence && test.Status == ReadinessText.Passed)))
             throw new InvalidOperationException(ToolDiagnostics.ReadinessRegistryMismatch);
 
+        var compatibility = MfaCompatibility.Load(
+            docs,
+            baseline.Tag,
+            baseline.Commit,
+            declared
+        );
+        var compatibilityByMfa = compatibility.Entries.ToDictionary(entry => entry.Key, StringComparer.Ordinal);
+
         var previousMfas = previous.Tests.Where(test => test.Status == ReadinessText.Passed && test.Name.StartsWith(ReadinessText.MfaTestPrefix, StringComparison.Ordinal)).Select(test => test.Name[ReadinessText.MfaTestPrefix.Length..]).ToHashSet();
         var references = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
         foreach (var module in inventory.Modules)
@@ -88,6 +96,9 @@ internal static class Readiness
                 Name = name,
                 Status = mfAs.Length > 0 ? ReadinessText.Partial : ReadinessText.NotStarted,
                 RegisteredMfas = mfAs.Length,
+                VerifiedCompatibleMfas = mfAs.Count(mfa => compatibilityByMfa[mfa].Status == MfaCompatibilityNames.Verified),
+                NeedsVerificationMfas = mfAs.Count(mfa => compatibilityByMfa[mfa].Status == MfaCompatibilityNames.Pending),
+                KnownDifferenceMfas = mfAs.Count(mfa => compatibilityByMfa[mfa].Status == MfaCompatibilityNames.Different),
                 PreviousRegisteredMfas = previousMfas.Count(mfa => mfa.StartsWith(name + ":", StringComparison.Ordinal)),
                 Delta = mfAs.Length - previousMfas.Count(mfa => mfa.StartsWith(name + ":", StringComparison.Ordinal)),
                 ReferenceDeclarations = referenceCount,
@@ -113,6 +124,13 @@ internal static class Readiness
             baseline.Tag,
             baseline.Commit,
             Methodology = ReadinessText.Method,
+            CompatibilityMethodology = MfaCompatibilityNames.Method,
+            CompatibilityLedger = MfaCompatibilityNames.File,
+            compatibility.VerifiedSourceFiles,
+            VerifiedCompatibleMfas = compatibility.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Verified),
+            NeedsVerificationMfas = compatibility.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Pending),
+            KnownDifferenceMfas = compatibility.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Different),
+            MfaCompatibility = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray(),
             ComparisonTestReport = scope.ComparisonTestReport,
             LocalPassedTests = report.Passed,
             RegisteredMfas = registered.Length,
@@ -130,7 +148,24 @@ internal static class Readiness
             previousMfas.Count,
             data.ImplementedApiModules,
             inventory.Modules.Length
-        )).AppendLine().AppendLine(ReadinessText.Method).AppendLine().AppendLine(ReadinessText.ComponentHeading).AppendLine().AppendLine(ReadinessText.ComponentHeader).AppendLine(ReadinessText.ComponentSeparator);
+        )).AppendLine().AppendLine(ReadinessText.Method).AppendLine().AppendLine(ReadinessText.ModuleHeading).AppendLine()
+            .AppendLine(ReadinessText.ModuleHeader).AppendLine(ReadinessText.ModuleSeparator);
+        foreach (var module in modules.Where(module => module.RegisteredMfas > 0 || scope.FocusModules.Contains(module.Name)))
+            markdown.AppendLine(ReadinessText.ModuleRow(
+                module.Name,
+                module.RegisteredMfas,
+                module.Delta,
+                module.ReferenceDeclarations,
+                module.VerifiedCompatibleMfas,
+                module.NeedsVerificationMfas,
+                module.KnownDifferenceMfas
+            ));
+        markdown.AppendLine().AppendLine(MfaCompatibilityNames.Heading).AppendLine().AppendLine(MfaCompatibilityNames.Method).AppendLine()
+            .AppendLine($"Verified compatible: **{data.VerifiedCompatibleMfas}**; needs verification: **{data.NeedsVerificationMfas}**; known differences: **{data.KnownDifferenceMfas}**.")
+            .AppendLine().AppendLine($"[{MfaCompatibilityNames.CommandsLinkLabel}]({MfaCompatibilityNames.Report}).").AppendLine();
+        foreach (var entry in compatibility.Entries.Where(entry => entry.Status == MfaCompatibilityNames.Verified))
+            markdown.AppendLine($"- {MfaCompatibilityMarkdown.Code(entry.Key)}: {MfaCompatibilityMarkdown.Escape(entry.Scope)}.");
+        markdown.AppendLine().AppendLine(ReadinessText.ComponentHeading).AppendLine().AppendLine(ReadinessText.ComponentHeader).AppendLine(ReadinessText.ComponentSeparator);
         foreach (var component in components)
             markdown.AppendLine(ReadinessText.ComponentRow(
                 component.Id,
@@ -139,18 +174,13 @@ internal static class Readiness
                 component.Implemented,
                 component.Remaining
             ));
-        markdown.AppendLine().AppendLine(ReadinessText.ModuleHeading).AppendLine().AppendLine(ReadinessText.ModuleHeader).AppendLine(ReadinessText.ModuleSeparator);
-        foreach (var module in modules.Where(module => module.RegisteredMfas > 0 || scope.FocusModules.Contains(module.Name)))
-            markdown.AppendLine(ReadinessText.ModuleRow(
-                module.Name,
-                module.RegisteredMfas,
-                module.Delta,
-                module.ReferenceDeclarations,
-                module.ApiPresencePercent,
-                module.Status
-            ));
         markdown.AppendLine().AppendLine(ReadinessText.FacadeBoundary);
         Directory.CreateDirectory(output);
+        await File.WriteAllTextAsync(
+            Path.Combine(output, MfaCompatibilityNames.Report),
+            MfaCompatibilityMarkdown.Generate(compatibility with { Entries = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray() }),
+            new UTF8Encoding(false)
+        );
         await File.WriteAllTextAsync(Path.Combine(output, ReadinessText.ReportJson), JsonSerializer.Serialize(data, JsonOptions) + "\n", new UTF8Encoding(false));
         await File.WriteAllTextAsync(Path.Combine(output, ReadinessText.ReportMarkdown), markdown.ToString().Replace("\r\n", "\n"), new UTF8Encoding(false));
     }

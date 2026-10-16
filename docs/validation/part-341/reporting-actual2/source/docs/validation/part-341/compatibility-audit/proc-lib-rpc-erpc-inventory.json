@@ -1,0 +1,663 @@
+{
+  "Status": "READ_ONLY_MFA_SPECIFIC_COMPATIBILITY_INVENTORY_NOT_EXHAUSTIVE",
+  "PublishedHead": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Presence": {
+    "proc_lib": {
+      "Registered": 39,
+      "OriginalExports": 39
+    },
+    "rpc": {
+      "Registered": 2,
+      "OriginalExports": 35
+    },
+    "erpc": {
+      "Registered": 3,
+      "OriginalExports": 33
+    }
+  },
+  "ProcLibMfas": [
+    {
+      "Mfa": "proc_lib:format/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:format/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:format/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:get_label/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:hibernate/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "PHYSICAL_HIBERNATE",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_ack/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_ack/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_fail/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_fail/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/5",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:initial_call/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:report_cb/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:set_label/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/2",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "SPAWN_NATIVE_TUNING",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/5",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "SPAWN_NATIVE_TUNING",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start/5",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_link/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_link/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_link/5",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/4",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/5",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:stop/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:stop/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [],
+      "NoKnownSpecificMismatchInThisAudit": true,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:translate_initial_call/1",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    },
+    {
+      "Mfa": "proc_lib:wake_up/3",
+      "Registered": true,
+      "RegistryStatus": "Partially compatible",
+      "Gaps": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "PHYSICAL_HIBERNATE",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "NoKnownSpecificMismatchInThisAudit": false,
+      "ExhaustivelyVerified": false
+    }
+  ],
+  "GapGroups": [
+    {
+      "Id": "FRESH_RECEIVER_CAPTURED_FUN",
+      "Class": "Known published340 defect; private341 correction awaiting completion",
+      "Mfas": [
+        "proc_lib:init_p/3",
+        "proc_lib:initial_call/1",
+        "proc_lib:spawn/1",
+        "proc_lib:spawn/2",
+        "proc_lib:spawn_link/1",
+        "proc_lib:spawn_link/2",
+        "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:translate_initial_call/1"
+      ],
+      "Description": "A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
+      "Evidence": "artifacts/remote-source-fun-resolution-proposal5/source-freeze.json",
+      "Next": "Finish source5 image/current-old/purge/undefined_lambda HOST controls and full validation; execute the independent original real-peer eight-case collector. Earlier SDK2 passed lexical and three network flows but failed later duplicate Core setup; source5 removes that setup only. No executed source5 outcome independently read here."
+    },
+    {
+      "Id": "SPAWN_NATIVE_TUNING",
+      "Class": "Known unsupported valid option families",
+      "Mfas": [
+        "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:spawn_opt/4",
+        "proc_lib:spawn_opt/5",
+        "proc_lib:start/5",
+        "proc_lib:start_link/5",
+        "proc_lib:start_monitor/5"
+      ],
+      "Description": "Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart.",
+      "Evidence": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Next": "Implement each native option or document explicit platform policy with original error/precedence probes; do not count accepted link/monitor options as all spawn_opt parity."
+    },
+    {
+      "Id": "CRASH_PHYSICAL_FIELDS",
+      "Class": "Confirmed deliberate platform divergence",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibCrashReportBuilder.cs",
+      "Next": "Either supply an honest documented managed physical metric contract or retain this explicit incompatibility; never manufacture BEAM values."
+    },
+    {
+      "Id": "LOGGER_BACKEND_BREADTH",
+      "Class": "Known dependency scope limitation",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "Evidence": "src/Erlang.Otp.Behaviours/OtpLoggerDefaultOutput.cs",
+      "Next": "Port remaining backend/configuration/formatting behavior; test handler failure/concurrency/overload with original. This is distinct from the already tested structured crash report contracts."
+    },
+    {
+      "Id": "PHYSICAL_HIBERNATE",
+      "Class": "Platform semantics not established",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "Next": "Keep observable wake-up tests and physical/performance claims separate; no faster-than-OTP claim without measurement."
+    },
+    {
+      "Id": "REMOTE_WHOLE_TRACE_TCP",
+      "Class": "Verification gap, not a new proven packet defect",
+      "Mfas": [
+        "erpc:call/4",
+        "erpc:call/5",
+        "proc_lib:get_label/1",
+        "proc_lib:spawn/2",
+        "proc_lib:spawn/4",
+        "proc_lib:spawn_link/2",
+        "proc_lib:spawn_link/4",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:spawn_opt/5",
+        "rpc:call/4",
+        "rpc:call/5"
+      ],
+      "Description": "Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched.",
+      "Evidence": "artifacts/part339-connected-sdk-crosswalk2/crosswalk.json",
+      "Next": "Execute real-peer original acquisition and compare stable contracts; add actual cross-runtime transport before claiming interoperability."
+    },
+    {
+      "Id": "FORMAT_EXHAUSTIVENESS",
+      "Class": "Coverage limit, no known mismatch in executed76",
+      "Mfas": [
+        "proc_lib:format/1",
+        "proc_lib:format/2",
+        "proc_lib:format/3",
+        "proc_lib:report_cb/2"
+      ],
+      "Description": "All executed57 report plus19 primitive observations match original exactly, including raw nested lists. That finite corpus does not prove every term/layout/grapheme/encoding/extended-error callback combination or BCL Unicode-version parity.",
+      "Evidence": "artifacts/root-formatter-original-full-comparison4.json",
+      "Next": "Add counterexample-driven original cases without relabeling the existing76 matches as exhaustive."
+    },
+    {
+      "Id": "REMOTE_NEIGHBOUR_CRASH_STACK",
+      "Class": "Verification gap",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibCrashReportBuilder.cs",
+      "Next": "Add real visible/hidden/dead-neighbour and stable stack-frame original cases; preserve nondeterministic physical values separately."
+    }
+  ],
+  "RelatedImplementedMfas": [
+    "rpc:call/4",
+    "rpc:call/5",
+    "erpc:call/4",
+    "erpc:call/5",
+    "erpc:execute_call/4"
+  ],
+  "RelatedUnimplementedMfas": {
+    "rpc": [
+      "rpc:start/0",
+      "rpc:start_link/0",
+      "rpc:stop/0",
+      "rpc:block_call/4",
+      "rpc:block_call/5",
+      "rpc:server_call/4",
+      "rpc:cast/4",
+      "rpc:abcast/2",
+      "rpc:abcast/3",
+      "rpc:sbcast/2",
+      "rpc:sbcast/3",
+      "rpc:eval_everywhere/3",
+      "rpc:eval_everywhere/4",
+      "rpc:multi_server_call/2",
+      "rpc:multi_server_call/3",
+      "rpc:multicall/3",
+      "rpc:multicall/4",
+      "rpc:multicall/5",
+      "rpc:async_call/4",
+      "rpc:yield/1",
+      "rpc:nb_yield/2",
+      "rpc:nb_yield/1",
+      "rpc:parallel_eval/1",
+      "rpc:pmap/3",
+      "rpc:pinfo/1",
+      "rpc:pinfo/2",
+      "rpc:init/1",
+      "rpc:handle_call/3",
+      "rpc:handle_cast/2",
+      "rpc:handle_info/2",
+      "rpc:terminate/2",
+      "rpc:code_change/3",
+      "rpc:proxy_user_flush/0"
+    ],
+    "erpc": [
+      "erpc:call/2",
+      "erpc:call/3",
+      "erpc:cast/2",
+      "erpc:cast/4",
+      "erpc:send_request/2",
+      "erpc:send_request/4",
+      "erpc:send_request/6",
+      "erpc:receive_response/1",
+      "erpc:receive_response/2",
+      "erpc:receive_response/3",
+      "erpc:wait_response/1",
+      "erpc:wait_response/2",
+      "erpc:wait_response/3",
+      "erpc:check_response/2",
+      "erpc:check_response/3",
+      "erpc:multicall/2",
+      "erpc:multicall/3",
+      "erpc:multicall/4",
+      "erpc:multicall/5",
+      "erpc:multicast/2",
+      "erpc:multicast/4",
+      "erpc:reqids_new/0",
+      "erpc:reqids_size/1",
+      "erpc:reqids_add/3",
+      "erpc:reqids_to_list/1",
+      "erpc:execute_call/3",
+      "erpc:execute_cast/3",
+      "erpc:is_arg_error/4",
+      "erpc:trim_stack/4",
+      "erpc:call_result/4"
+    ]
+  },
+  "VerificationPending": [
+    {
+      "Scope": "Published340",
+      "Expected": "CI7193/11 and original6260+fd8",
+      "Actual": "Readers prepared only in this audit; Root owns terminal capture. Previous338 original6216+fd8 and native339 crosswalk are separate completed evidence."
+    },
+    {
+      "Scope": "Private341",
+      "Expected": "Fresh receiver captured-fun correction and original eight real-peer observations",
+      "Actual": "Latest source5 is inspected as source proposal; original collector2 not executed. No claim of actual source5 completion from source status alone."
+    }
+  ],
+  "Interpretation": "39/39 means export presence only. Empty MFA gap list means this audit found no concrete API-specific outstanding mismatch, never whole semantics complete. rpc/erpc missing exports are independent module backlog, not all required by proc_lib:get_label.",
+  "Evidence": [
+    {
+      "Path": "docs/supported-mfas.json",
+      "Sha256": "261D1C36FD324FBD152009DFEE9DF303BFE043DA0D5B9049D7FB8E96F88EF0FA"
+    },
+    {
+      "Path": "docs/otp-inventory.json",
+      "Sha256": "B1A4A75A76DF82CDE0AD7D87D17F7BD4619CD929974B6356CCCB8F1CFBDFDEE3"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "Sha256": "E70689209710B6221209B43C5011C6163AE2412D9711AD98DD77330E8F45E8A0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Sha256": "E756D073002391E059296DC2B2CA196E1692833F469FD3D1E3C841966D78F4CF"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibCrashReportBuilder.cs",
+      "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/OtpLoggerDefaultOutput.cs",
+      "Sha256": "0DC88A5EC2BE1DE2D22E265D23AFC93CF49909A449DF3D6FAF80B2EC84679796"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibProcessInfoQuery.cs",
+      "Sha256": "260CB2C1A012152DCA9D4BFAEAF254E463A78375E89FB77C3E4D5001B08D8568"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erpc.cs",
+      "Sha256": "48ED6BCDD0FB8C04F246E465B58A0C0890D07CDAEEAE8B2D900B4AE5599E466D"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Rpc.cs",
+      "Sha256": "1CC9E38188CE0B957DD2C9AAE05C982E2498F37191E8E747363ADF784B4154DB"
+    },
+    {
+      "Path": "artifacts/remote-source-fun-resolution-proposal5/source-freeze.json",
+      "Sha256": "8B60CD50A37E1CC8AC7521FC3F6A2373525A3497746911734B20C3F4D2A02371"
+    },
+    {
+      "Path": "artifacts/part339-connected-sdk-crosswalk2/crosswalk.json",
+      "Sha256": "914B07E77BF3E95EA9E9137AF2C8BE518BE26D5F86C861CD62123EE060E2C853"
+    },
+    {
+      "Path": "artifacts/root-formatter-original-full-comparison4.json",
+      "Sha256": "8551EAD632CA94C46B836F15136B97A0C5926725514A46701F0F643E60973093"
+    },
+    {
+      "Path": "artifacts/connected-remote-completion-full-actual4/completion-guard.json",
+      "Sha256": "F57E4C5F051190D83EC031DB417FAA8292DB9B8834404EA63C89E21098033C37"
+    }
+  ],
+  "MainEdited": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

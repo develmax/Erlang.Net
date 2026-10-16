@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part341 — Reuse the existing C# readiness generator, System.Text.Json and BCL SHA256 with no new third-party or production BEAM dependency. The test project references the existing Tool project for direct admission/generator controls. Preserve upstream notices and leave LICENSE.local.txt uncommitted.
+
 Part340 — Reuse owned distribution controllers, existing process/mailbox/monitor/alias/trace channels, real registry apply dispatch and process-info requests. Add only rpc:call/4,5 and erpc:call/4,5,execute_call/4 needed for remote proc_lib metadata. Node enumeration reads actual connection entries; no fake registry or local substitute for remote labels. No third-party package or actor framework is added.
 
 Part338 — Reuse process monitors, dictionaries, mailbox queries, runtime standard streams and immutable term/map iterators. Port only the pinned logger/environment/limiter dependency paths required by real crash reports; introduce no new package or actor framework. Physical per-process BEAM allocation is unavailable in CLR and is never simulated with guessed counts. Keep existing third-party notices and the owner-local license proposal uncommitted.

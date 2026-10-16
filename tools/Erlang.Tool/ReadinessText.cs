@@ -1,5 +1,3 @@
-using System.Globalization;
-
 internal static class ReadinessText
 {
     public const string Command = "readiness";
@@ -19,8 +17,8 @@ internal static class ReadinessText
     public const string ComponentHeader = "| Component | Status | Related passed tests | Delivered | Next milestone |";
     public const string ComponentSeparator = "| --- | --- | ---: | --- | --- |";
     public const string ModuleHeading = "## Erlang API modules";
-    public const string ModuleHeader = "| Module | Registered MFAs | Change | Reference declarations | API presence | Status |";
-    public const string ModuleSeparator = "| --- | ---: | ---: | ---: | ---: | --- |";
+    public const string ModuleHeader = "| Module | Registered APIs | Change | Reference declarations | Verified compatible | Needs verification | Known differences |";
+    public const string ModuleSeparator = "| --- | ---: | ---: | ---: | ---: | ---: | ---: |";
     public const string FacadeBoundary = "gen_server and supervisor have C# host facades and selected registered Erlang-module adapters; full behaviour contracts remain partial. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.";
 
     public static string Summary(
@@ -45,7 +43,8 @@ internal static class ReadinessText
         int registered,
         int delta,
         int reference,
-        decimal? percent,
-        string status
-    ) => $"| {name} | {registered} | {delta:+0;-0;0} | {reference} | {(percent is null ? "n/a" : percent.Value.ToString("0.0", CultureInfo.InvariantCulture) + "%")} | {status} |";
+        int verified,
+        int pending,
+        int differences
+    ) => $"| {name} | {registered} | {delta:+0;-0;0} | {reference} | {verified} | {pending} | {differences} |";
 }

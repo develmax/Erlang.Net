@@ -1,5 +1,7 @@
 # Decisions
 
+Part341 — Keep API registration and semantic verification separate. Require an explicit per-command audit with original evidence, no unresolved semantic limits and current-source hashes for Verified compatible. Preserve the registered/reference counts, remove the misleading Markdown presence percentage, and group detailed commands by verification state.
+
 Part340 — Port proc_lib node overloads through actual connected spawn and preserve erpc reference-correlated DOWN and timeout races. Keep local infinite RPC execution in its caller. Obtain independent original controller observations and assert only the shared checked contracts; do not fabricate physical process metrics or claim full captured-trace/TCP equivalence.
 
 Part338 — Port real proc_lib initialization and crash orchestration over existing runtime processes. Add actual logger/application/error_logger dependencies rather than test-only handlers. Preserve unavailable physical fields explicitly as undefined in the private crash-report bridge; public process_info support and other report assertions stay unchanged. Iterative source prechecking retains immutable object identity without an Equals shortcut.

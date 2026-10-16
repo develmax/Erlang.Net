@@ -1,8 +1,51 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **7193 passed**. Runtime MFAs **587** (previous snapshot **576**, delta **+11**), in **14** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Local tests **7193 passed**. Runtime MFAs **587** (previous snapshot **587**, delta **0**), in **14** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
+
+## Erlang API modules
+
+| Module | Registered APIs | Change | Reference declarations | Verified compatible | Needs verification | Known differences |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| application | 4 | 0 | 38 | 0 | 4 | 0 |
+| binary | 0 | 0 | 31 | 0 | 0 | 0 |
+| code | 0 | 0 | 69 | 0 | 0 | 0 |
+| dets | 0 | 0 | 64 | 0 | 0 | 0 |
+| erlang | 351 | 0 | 351 | 5 | 345 | 1 |
+| erpc | 3 | 0 | 33 | 0 | 3 | 0 |
+| error_logger | 2 | 0 | 29 | 0 | 2 | 0 |
+| ets | 0 | 0 | 76 | 0 | 0 | 0 |
+| file | 0 | 0 | 69 | 0 | 0 | 0 |
+| gen_event | 0 | 0 | 43 | 0 | 0 | 0 |
+| gen_server | 10 | 0 | 41 | 0 | 10 | 0 |
+| gen_statem | 0 | 0 | 39 | 0 | 0 | 0 |
+| io | 1 | 0 | 53 | 0 | 1 | 0 |
+| lists | 91 | 0 | 91 | 0 | 91 | 0 |
+| logger | 26 | 0 | 77 | 0 | 26 | 0 |
+| maps | 34 | 0 | 34 | 0 | 34 | 0 |
+| proc_lib | 39 | 0 | 39 | 0 | 22 | 17 |
+| records | 8 | 0 | 8 | 0 | 8 | 0 |
+| rpc | 2 | 0 | 35 | 0 | 2 | 0 |
+| string | 0 | 0 | 71 | 0 | 0 | 0 |
+| supervisor | 14 | 0 | 23 | 0 | 14 | 0 |
+| sys | 2 | 0 | 36 | 0 | 2 | 0 |
+| timer | 0 | 0 | 36 | 0 | 0 | 0 |
+| unicode | 0 | 0 | 22 | 0 | 0 | 0 |
+
+## Compatibility of registered APIs
+
+Compatibility is tracked per command in an explicit, baseline-bound audited ledger. Direct registry tests establish API presence only. Verified requires an audit of the command's complete observable semantic contract on the supported Erlang term model, actual original OTP comparisons, and no known or unresolved semantic gaps. Selected-case or subcontract-only evidence remains Needs verification. Verification does not claim identical internal VM layout, timings or performance; APIs exposing resource values or options still require their complete observable contracts.
+
+Verified compatible: **5**; needs verification: **564**; known differences: **18**.
+
+[Every command, evidence and limits](API_COMPATIBILITY.md).
+
+- `erlang:self/0`: Returns the calling Erlang process identifier. No argument/error branches at arity0; identity is relational within its runtime, not literal PID-number equality across runtimes. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
+- `erlang:is_binary/1`: True for bitstrings whose bit length is byte-aligned (including empty), false otherwise. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
+- `erlang:is_bitstring/1`: True for both byte-aligned binaries and partial bitstrings including empty, false for non-bitstrings. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
+- `erlang:is_map/1`: True exactly for Erlang map terms, false for every other supported Erlang term including native record. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
+- `erlang:node/0`: Returns current local node atom, nonode@nohost while undistributed; concerns name query, not distribution connection implementation. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
 
 ## C# components
 
@@ -29,34 +72,5 @@ Separate original allocator observations for the exact part 306 head passed all 
 | NifNativeBackend | Partially compatible | 0 | Part299: actual managed prerequisite integration plus separately gated Windows trusted fixture and compiled-source native checks; reviewed992-input seal and manual Linux SDK/original13 infrastructure. C veneer is bounded ABI forwarding only; original13 is a separate fixture/typed gate.; Part300: separately recorded post-full Windows trusted native/generated-source checks include controlled actual-owner fence cancellation/re-entry and non-default provider refusal. Published299 Linux SDK checks and separate original13 typed cases independently pass; actual generated C# hash matches Windows. No thirteen-case SDK/original differential claim; new same-head native/ordinary checks pending. | Changed lifetime source needs new exact-head original/native observations; no general load_nif/ABI, arbitrary libraries, native threads/resources/dirty scheduling, automatic lifecycle, BEAM/old-image native replacement or performance parity. |
 | proc_lib adapters | Partially compatible | 310 | Part331: six local spawn/1,3,spawn_link/1,3,init_ack/1,2 registrations; parent registered-name/ancestry, native wrapper initial_call, atomic links and arbitrary acknowledgement terms. Main6775/6775 and11 integrations,21 new compiled scenarios/six direct contracts/nine HOST translation controls; original331 comparison pending.; Part331 completion: all21 compiled local spawn/spawn_link/init_ack scenarios match pinned original OTP; complete5962/5962+fd8, all5941 prior contracts retained, zero strict ordinary variance. CI6775/11 and all other terminal typed scopes pass.; Part332: start/3,4,start_link/3,4,init_fail/2,3 using real ACK/NACK/DOWN, unlink-before-timeout kill and shared deferred timeout value validation. Actual6822/6822 and eleven cumulative integration/package outcomes; promoted2431 source bytes exact. Original332 pending.; Part332 completion: original6001/6001+fd8, all5962 prior contracts and39 new source/local/original/SDK chains match; strict ordinary variance0; all five terminal typed scopes pass.; Part333: seven local monitored/option APIs; original monitor retention, real DOWN tail requeue, ordered monitor precheck and existing atomic option parser. Actual6871/6871 and eleven integrations/packages;19/39 API presence. Original333 pending.; Part333 completion: original6042/6042+fd8 and CI6871/11; all6001 previous and41 new contracts match. Allfive typed scopes pass; one predeclared ordinary map stdout-order variance and distribution strict repr refusal remain separately retained without normalization.; Part334: initial_call/1, translate_initial_call/1 and arbitrary process labels set_label/1,get_label/1; actual6918/6918 plus11 integrations,43 compiled scenarios and4 direct contracts. Registry532/proc_lib23/39. Original334 pending.; Part335: cooperative stop/1,3 plus sys terminate/2,3 and ACK-before-callback/child shutdown; actual6952/11,29 compiled+4direct+1bare HOST. Registry536/proc_lib25/39/sys2; original335 pending. Published334 CI6918/11 verified; original334 pending.; Part336: published334 original6085/fd8 verifies43 introspection/label cases and6042 previous contracts. Standalone formatter collector is infrastructure only; private57+19 SDK observations are not original matches or exports.; Part337: format/1,2,3 and report_cb/2; independent original57report+19primitive exactterm matches, raw12 nested lists preserved. Actual7017/11,28sourcepretty/async-callback/deep controls. Registry540/proc_lib29/39. Published335 original6114/fd8 and336 original76 verified separately.; Part338 implements proc_lib init_p/3,5, hibernate/3 and wake_up/3, shared initialization and real crash logger dependencies. Actual frozen-source 7105/7105 tests; a separate exact readiness/integration suffix completes11 outcomes after restoring one omitted immutable comparison report. The initial exit1 is preserved; no uninterrupted full-pass claim. All7017 previous ordered tests and540 registry rows remain exact. Registry576 across12 modules; proc_lib33/39. Add logger26, application4 and error_logger2 source-guided exports with real per-runtime configuration, guest callback delivery, standard streams and iterative term limiting. Local crash reports preserve data and field order but expose heap_size/stack_size as undefined because public CLR process_info deliberately lacks BEAM physical metrics. No physical values are fabricated; the two explicit platform alternatives are recorded. Published337 CI7017/11 and separate original6171/fd8 are independently complete, including all prior6114 ordered contracts and57 new formatter cases. The known map stdout-order variance remains a separate strict refusal. Six node proc_lib overloads, remote RPC label queries, full logger background/overload/configuration/formatting, physical scheduling/resources and performance parity remain unfinished. Current338 original verification awaits publication. API presence is not semantic completion.; Part 340 implements all 39 registered proc_lib exports, including six node-qualified spawn/spawn_link/spawn_opt overloads and real remote process labels through rpc/erpc. Actual validation passes 7193/7193 tests and 11 integration/package outcomes after the recorded failed launches. Retain the initial Windows PowerShell preflight exit 1, the second build failure caused by an omitted immutable build/Erlang.Net.targets input, and the third result of 7191 passed/2 failed. The first two did not reach guest tests; all 88 new tests passed in the third. Two historical negative protocol fixtures are explicitly migrated because their previously unsupported spawn/alias packets are now implemented, preserving malformed-frame and missing-feature refusals. The corrected pipeline uses PowerShell 7 and the complete tracked input set outside documentation. All 7105 previous ordered test names and 576 registry rows/custom Limits remain exact. Registry: 587 APIs across 14 modules; proc_lib 39/39, rpc 2/35, erpc 3/33; erlang 351 unchanged. Connected spawn/TT/link/monitor/priority/alias33/34, visible/hidden/current-generation nodes and apply/3 native1023-argument traversal are implemented. The new 44 portable cases, 11 direct contracts, 23 connected HOST checks and 11 RPC/lifecycle HOST checks pass. Original part 339 supplies 12 independently audited observations, with a precise contract crosswalk and explicit unmatched whole-trace fields. Published part 338 original 6216/fd8 and CI 7105/11 plus part 339 CI 7105/11 are complete; the old predeclared map stdout-order strict refusal remains separate. Current part 340 CI/original comparison awaits publication. The receiver must still resolve anonymous/captured source funs when its matching module is loaded but the closure constructor has never run there; current connected fun tests use external functions. This concrete gap is next, with an independent real two-node original observer. API presence is not whole-module compatibility: inherited native tuning, physical heap/stack/scheduler values, broad logger/RPC exports, physical TCP interoperability and performance parity remain partial. | Resolve fresh receiver anonymous/captured source funs when their matching module is loaded but closure constructor has never executed locally; real two-node original verification; Inherited native spawn heap/scheduler tuning options and physical BEAM heap/stack/resource metrics; Full crash-stack/remote-neighbour and logger background/configuration/overload/formatting parity; Full captured trace/TCP interoperability, VM scheduling and performance parity |
 | sys system protocol | Partially compatible | 32 | Part335 terminate/2,3; actual monitor/alias/reply protocol and ACK-before-termination; matching proc_lib stop shares original DOWN deadline.6952/11 local full; original335 pending. | Suspend/resume, status/state, code changes, debugging and complete gen/sys callbacks; Global registry and genuine connected remote-peer/physical/scheduler/performance contracts |
-
-## Erlang API modules
-
-| Module | Registered MFAs | Change | Reference declarations | API presence | Status |
-| --- | ---: | ---: | ---: | ---: | --- |
-| application | 4 | 0 | 38 | 10.5% | Partially compatible |
-| binary | 0 | 0 | 31 | 0.0% | Not started |
-| code | 0 | 0 | 69 | 0.0% | Not started |
-| dets | 0 | 0 | 64 | 0.0% | Not started |
-| erlang | 351 | 0 | 351 | 100.0% | Partially compatible |
-| erpc | 3 | +3 | 33 | 9.1% | Partially compatible |
-| error_logger | 2 | 0 | 29 | 6.9% | Partially compatible |
-| ets | 0 | 0 | 76 | 0.0% | Not started |
-| file | 0 | 0 | 69 | 0.0% | Not started |
-| gen_event | 0 | 0 | 43 | 0.0% | Not started |
-| gen_server | 10 | 0 | 41 | 24.4% | Partially compatible |
-| gen_statem | 0 | 0 | 39 | 0.0% | Not started |
-| io | 1 | 0 | 53 | 1.9% | Partially compatible |
-| lists | 91 | 0 | 91 | 100.0% | Partially compatible |
-| logger | 26 | 0 | 77 | 33.8% | Partially compatible |
-| maps | 34 | 0 | 34 | 100.0% | Partially compatible |
-| proc_lib | 39 | +6 | 39 | 100.0% | Partially compatible |
-| records | 8 | 0 | 8 | 100.0% | Partially compatible |
-| rpc | 2 | +2 | 35 | 5.7% | Partially compatible |
-| string | 0 | 0 | 71 | 0.0% | Not started |
-| supervisor | 14 | 0 | 23 | 60.9% | Partially compatible |
-| sys | 2 | 0 | 36 | 5.6% | Partially compatible |
-| timer | 0 | 0 | 36 | 0.0% | Not started |
-| unicode | 0 | 0 | 22 | 0.0% | Not started |
 
 gen_server and supervisor have C# host facades and selected registered Erlang-module adapters; full behaviour contracts remain partial. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.

@@ -6,6 +6,7 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.MfaCompatibilityHostNames.Test, Erlang.Tests.MfaCompatibilityHostChecks.Run);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.ParseAll, Erlang.Tests.ProcLibLifecycleMfaContracts.ParseAll);
 Test(Erlang.Tests.ErrorLoggerTermLimitHostNames.Test, Erlang.Tests.ErrorLoggerTermLimitHostChecks.Run);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.Isolation, Erlang.Tests.ProcLibLifecycleHostChecks.IsolatedConfiguration);
@@ -4575,7 +4576,16 @@ if (failed == 0 && args.Length > 1)
     await File.WriteAllTextAsync(
         args[1],
         JsonSerializer.Serialize(
-            exportRegistry.Exports.Select(e => new { e.Module, e.Function, e.Arity, Status = "Partially compatible", Evidence = $"mfa/{e.Module}:{e.Function}/{e.Arity}", Limits = "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending" }),
+            exportRegistry.Exports.Select(e => new
+            {
+                e.Module,
+                e.Function,
+                e.Arity,
+                Status = Erlang.Tests.MfaRegistryMetadataNames.Implemented,
+                CompatibilityLedger = Erlang.Tests.MfaRegistryMetadataNames.CompatibilityLedger,
+                Evidence = $"mfa/{e.Module}:{e.Function}/{e.Arity}",
+                Limits = "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+            }),
             new JsonSerializerOptions { WriteIndented = true }
         )
     );

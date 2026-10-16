@@ -1,0 +1,114 @@
+{
+  "Status": "PASS_ACTUAL_REPORTING341_TARGETED_VALIDATION",
+  "ParentHead": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+  "Candidate": "artifacts/reporting341-candidate",
+  "SourceBasePath": "artifacts/reporting341-focused-actual2/source",
+  "SourceFreezePath": "artifacts/reporting341-delivery/source-freeze.json",
+  "SourceFreezeSha256": "645873341295BE4113385C6C19330F4B1795FE98D44B93190C349B555B21AD9A",
+  "OwnedPaths": 25,
+  "CSharpFiles": 14,
+  "RuntimeSourceModified": false,
+  "CapturedFunCandidateModified": false,
+  "OutsideOwnedParentRows": 2658,
+  "OutsideParentManifestSha256": "43F61EFB772EB5CB58B80770D3FBE99664E4233642DEB203C6D66DE013BC3EB8",
+  "RegisteredMfas": 587,
+  "RegistryNamesOrderEvidenceAndLimitsPreserved": true,
+  "RegistryStatusMigration": "Implemented; compatibility authority is separate explicit ledger",
+  "VerifiedCompatible": 5,
+  "KnownDifferences": 18,
+  "NeedsVerification": 564,
+  "VerifiedSourceFiles": 10,
+  "CompactEvidenceFiles": 7,
+  "NewTargetedHostGroups": 1,
+  "AdmissionControls": "wrong baseline/schema, duplicate/unknown/missing MFAs, absent status/evidence/arity, invalid status/scope/limits, missing/hash-mismatched/traversing evidence, source drift, no direct-test auto-promotion, exact output/name order/counts and operator rendering",
+  "BaselineFullTests": 7193,
+  "BaselineRegistryDelta": 0,
+  "NewFullRuntimeValidationExecuted": false,
+  "FreshOriginalOtpExecutionByThisTask": false,
+  "Receipts": {
+    "style-write": {
+      "Path": "artifacts/reporting341-focused-actual2/style-write.exit.json",
+      "Sha256": "4541832E70FED00550407D9504E9E8D3300D9E700886A9D9B68D0BBF834C3444",
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-completion-candidate\\tools\\Erlang.Style\\bin\\Release\\net10.0\\Erlang.Style.dll",
+        "--write",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-focused-actual2\\layout"
+      ],
+      "Seconds": 1.375
+    },
+    "style-check": {
+      "Path": "artifacts/reporting341-focused-actual2/style-check.exit.json",
+      "Sha256": "BCAD29B5164934E22422B8887A4943FE280897DA2BCF6FCD886590F26E736A83",
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-completion-candidate\\tools\\Erlang.Style\\bin\\Release\\net10.0\\Erlang.Style.dll",
+        "--check",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-focused-actual2\\layout"
+      ],
+      "Seconds": 1.2970000000059372
+    },
+    "build": {
+      "Path": "artifacts/reporting341-focused-actual2/build.exit.json",
+      "Sha256": "F847BBCC4DD54F4C0DA4B2312B834128E752B5B6F0A249E11E2503D4F1DFF632",
+      "Command": [
+        "dotnet",
+        "build",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-focused-harness\\Focus.csproj",
+        "-c",
+        "Release",
+        "--disable-build-servers",
+        "-m:1",
+        "-v:minimal"
+      ],
+      "Seconds": 11.156000000002678
+    },
+    "admission-generator": {
+      "Path": "artifacts/reporting341-focused-actual2/admission-generator.exit.json",
+      "Sha256": "B95689F10AB4791EC0644B9FF4E90CEC4A903AF43FCBAA32A429802A19A5DEF4",
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-focused-harness\\bin\\Release\\net10.0\\Focus.dll"
+      ],
+      "Seconds": 0.4529999999940628
+    },
+    "actual-readiness": {
+      "Path": "artifacts/reporting341-focused-actual2/actual-readiness.exit.json",
+      "Sha256": "47C82CCE6B156EFAB206E7E67427891E0D1275BD2F805EC47E30E7DAF751DEB3",
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-candidate\\tools\\Erlang.Tool\\bin\\Release\\net10.0\\Erlang.Tool.dll",
+        "readiness",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-candidate\\docs",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-candidate\\docs\\validation\\part-340\\final-candidate\\tests.json",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\reporting341-focused-actual2\\generated"
+      ],
+      "Seconds": 0.9379999999946449
+    }
+  },
+  "GeneratedFiles": [
+    {
+      "Path": "artifacts/reporting341-focused-actual2/generated/MODULE_READINESS.md",
+      "TargetPath": "docs/MODULE_READINESS.md",
+      "Bytes": 143733,
+      "Sha256": "CD62F50F01523DAC69142ADD9E41BBCA1F5EA34811510CA4B40619CE9D221E36"
+    },
+    {
+      "Path": "artifacts/reporting341-focused-actual2/generated/module-readiness.json",
+      "TargetPath": "docs/module-readiness.json",
+      "Bytes": 1171662,
+      "Sha256": "CC2405623274648400B2519CB1013D562BD0DE4694F484CB5E3838B2C201DD39"
+    },
+    {
+      "Path": "artifacts/reporting341-focused-actual2/generated/API_COMPATIBILITY.md",
+      "TargetPath": "docs/API_COMPATIBILITY.md",
+      "Bytes": 243255,
+      "Sha256": "24257B96207D88B2D14A346C1B2F5933B7746B1064416CCAA12DA82FFF08078B"
+    }
+  ],
+  "ExecutionDllsSha256": "11A9880C7E32409FA148DED92A939BAF14E26A1437A15B35865DE2B58A095C6A",
+  "InitialFailedAttemptSettlementSha256": "63CDE000BAC8387E5B9B6F13E474519AA9C35A8315D46BC8F0963968D2C87F56",
+  "Source3PeerSha256": "810BD412E00DC624840ACFED381889E5FE8A181580EF87A550970520E49AE52F",
+  "MetadataPeerSha256": "5CA90D77722BB8892D7DB4C8EF6BF2D2BF02210B6F90656B9E4020FDF64FB3FC",
+  "NoMainEdits": true
+}

@@ -1,0 +1,252 @@
+{
+  "Status": "PASS_EXACT_SELECTED_ORIGINAL_AND_SDK_ROWS",
+  "ReferenceCount": 10,
+  "UniqueRawRows": 9,
+  "SharedWitness": "Results[58] independently supports is_binary/1 and is_bitstring/1; not a tenth unique run.",
+  "RawReport": {
+    "Path": "validation/part-338/prior337/ordinary/artifact-12067112755/differential.json",
+    "Sha256": "884B840C1ECF7E3D4ACEF8A052AC57097B64DDA26C9E8FAD9AF128FCF7E4BF99"
+  },
+  "PublishedOriginal": {
+    "Head": "add206c03c801cbd68c51d23dbbdb8e36f2d581f",
+    "Run": 38944461863,
+    "Job": 117119955320,
+    "Artifact": 12067112755,
+    "ReportSha256": "884B840C1ECF7E3D4ACEF8A052AC57097B64DDA26C9E8FAD9AF128FCF7E4BF99",
+    "IndependentGuardSha256": "FB55415678802056876D8B2E18A5BD965B2829894EFEE5BD954B9E26C089BA26",
+    "ReportTotals": {
+      "Passed": 6171,
+      "Failed": 0
+    },
+    "StrictRawReportHadUnrelatedPredeclaredMapStdoutVariance": true,
+    "SelectedRowsNoStdoutVariance": true
+  },
+  "Witnesses": [
+    {
+      "Mfa": "erlang:self/0",
+      "Track": "Results",
+      "Index": 417,
+      "CanonicalAuditRowSha256": "95B95EECE7D9080D2F4382A367B97146B8EC1B7A57D4AFEA2D0C5403124F2146",
+      "SourceSha256": "F85A383F90EDEA95C592B7B6C633B23B7B7D4A91921B00484B30BB3D86E8503A",
+      "RawOriginalReportRow": {
+        "Source": "begin self() ! X=42,receive X -> X after 0 -> no end end",
+        "Expected": "{ok,42}",
+        "Actual": "{ok,42}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:self/0",
+      "Track": "ModuleResults",
+      "Index": 1766,
+      "CanonicalAuditRowSha256": "2A092FAE4ABD23EFF1B74E46F93ED5BEFA6671D848ECF5CBADA29556CB37E456",
+      "SourceSha256": "17A7AAD63D7CF0434C54E029ECA4BFBB0982DB8A272A0BE5892B4E3BA4197FD6",
+      "RawOriginalReportRow": {
+        "Name": "erlang-process-query-export-processes-0",
+        "Source": "-module(oracle_process_query). -export([run/0]). run()->true=lists:member(self(),erlang:processes()),true=lists:all(fun(X)->is_pid(X) end,erlang:processes()),done.",
+        "SourceSha256": "17A7AAD63D7CF0434C54E029ECA4BFBB0982DB8A272A0BE5892B4E3BA4197FD6",
+        "CSharpSha256": "B26D74B6566BF2CBF7433503E0A02CFF5CC33D681A5A568ED309029B1F4595C4",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:node/0",
+      "Track": "ModuleResults",
+      "Index": 1764,
+      "CanonicalAuditRowSha256": "863E49073D49026BBED70E99FA429EE62CF1E6B50DE78F6CA3E5DAE23EA73399",
+      "SourceSha256": "9010FAF5FE463AA519E066ED6515DB972D2A5068E36B73845F833AAE032C7B9B",
+      "RawOriginalReportRow": {
+        "Name": "erlang-process-query-export-node-0",
+        "Source": "-module(oracle_process_query). -export([run/0]). run()->'nonode@nohost'=erlang:node(),done.",
+        "SourceSha256": "9010FAF5FE463AA519E066ED6515DB972D2A5068E36B73845F833AAE032C7B9B",
+        "CSharpSha256": "0B80EA4E3D4E18ED800B93A75AEA34E029BADFA4CF7E8DCE881B6F67077C338A",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:node/0",
+      "Track": "ModuleResults",
+      "Index": 3617,
+      "CanonicalAuditRowSha256": "14A4D890CD7EFD64E811499DF8991F9CE74FC24486252417D92B1C7F444C44A8",
+      "SourceSha256": "D2349039FE47090A2BF3354AA9F4D49C6F334488E069E8FFD01B65F278D5D84D",
+      "RawOriginalReportRow": {
+        "Name": "erlang-node-query-this",
+        "Source": "-module(node_query_contract). -export([run/0]). run()->N=node(),[N]=erlang:nodes(this),done.",
+        "SourceSha256": "D2349039FE47090A2BF3354AA9F4D49C6F334488E069E8FFD01B65F278D5D84D",
+        "CSharpSha256": "0876C39C73873768B2A1DA8EAD43A7949252A0A5FF1EB2946CBFE4397768D57F",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:node/0",
+      "Track": "ModuleResults",
+      "Index": 3622,
+      "CanonicalAuditRowSha256": "8FA164EC31FD39F8006DACAD6A1A61744ABA5373BC8FAD0ED8F0B3AFFB94D2FD",
+      "SourceSha256": "7A84BC7B08EC1A8B87E18BCFCAEFAAE275273761F950936F3EAD983AA39E81E5",
+      "RawOriginalReportRow": {
+        "Name": "erlang-node-query-known-local",
+        "Source": "-module(node_query_contract). -export([run/0]). run()->true=lists:member(node(),erlang:nodes(known)),done.",
+        "SourceSha256": "7A84BC7B08EC1A8B87E18BCFCAEFAAE275273761F950936F3EAD983AA39E81E5",
+        "CSharpSha256": "1FDE6D9C21291D27D0AC7016F93B5CDF91D4A23B50B0209BCAA9D761EAB92FC1",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_map/1",
+      "Track": "Results",
+      "Index": 26,
+      "CanonicalAuditRowSha256": "B852938E693A35C52F63BC52AC335EC01F1473B653E62843412D80A3683CA01D",
+      "SourceSha256": "3F8F43CFB2A2097B138FBFF6DAD52FE6CED415C4528D5DE5A1AD943DB503A9E9",
+      "RawOriginalReportRow": {
+        "Source": "{is_map(#{}),is_map([]),map_size(#{a => 1}),is_map_key(a,#{a => 42}),map_get(a,#{a => 42})}",
+        "Expected": "{ok,{true,false,1,true,42}}",
+        "Actual": "{ok,{true,false,1,true,42}}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_map/1",
+      "Track": "ModuleResults",
+      "Index": 4246,
+      "CanonicalAuditRowSha256": "82B8BBEE3DEB3670C0354BBF3C55D1742B9053E4EB4A6C66B400C606B2004089",
+      "SourceSha256": "3E3C6259E0A6EB08E853757D9F3445C84527B8AC60BE4C0129B330ACB4A517AD",
+      "RawOriginalReportRow": {
+        "Name": "erlang-native-record-introspection",
+        "Source": "-module(native_record_contract). -export([run/0]). run()->R=records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),test=records:get_module(R),a=records:get_name(R),[z,x,y]=records:get_field_names(R),true=records:is_exported(R),1=records:get(x,R),false=is_tuple(R),false=is_map(R),done. ",
+        "SourceSha256": "3E3C6259E0A6EB08E853757D9F3445C84527B8AC60BE4C0129B330ACB4A517AD",
+        "CSharpSha256": "A51F314DEEA228ACFB7F3E710DE33F1B3DBED41DF8DE570403D6DDBF27123403",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_binary/1",
+      "Track": "Results",
+      "Index": 58,
+      "CanonicalAuditRowSha256": "F69AC3A0A69565A6AD7C56BE0CDDDD49A9E9B6747DAAE1372EA8E32ED53B1C07",
+      "SourceSha256": "120958A1828E4EF2F52E287815095EB2D4D5A330CD68B7A4FFEE129F0A2333E3",
+      "RawOriginalReportRow": {
+        "Source": "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}",
+        "Expected": "{ok,{true,true,true,false,false}}",
+        "Actual": "{ok,{true,true,true,false,false}}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_binary/1",
+      "Track": "ModuleResults",
+      "Index": 1664,
+      "CanonicalAuditRowSha256": "DC3D77F4BBC575B430EE536B860C7C6428B8D01F3854D09619AE245730F0AE52",
+      "SourceSha256": "143CECEBAE5DE7078C189680161BE9C50FE2B423D1C710AFA4C5BFC2CDA37598",
+      "RawOriginalReportRow": {
+        "Name": "erlang-md5-export-md5_init-0",
+        "Source": "-module(oracle_erlang_md5). -export([run/0]). run()->C=erlang:md5_init(),true=is_binary(C),H=erlang:md5_final(C),H=erlang:md5([]),done.",
+        "SourceSha256": "143CECEBAE5DE7078C189680161BE9C50FE2B423D1C710AFA4C5BFC2CDA37598",
+        "CSharpSha256": "1C17AC540D486E9300DFD2A71BB9BB8FE9EBC1404AD98C7CFD5D4D08046B4242",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_bitstring/1",
+      "Track": "Results",
+      "Index": 58,
+      "CanonicalAuditRowSha256": "F69AC3A0A69565A6AD7C56BE0CDDDD49A9E9B6747DAAE1372EA8E32ED53B1C07",
+      "SourceSha256": "120958A1828E4EF2F52E287815095EB2D4D5A330CD68B7A4FFEE129F0A2333E3",
+      "RawOriginalReportRow": {
+        "Source": "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}",
+        "Expected": "{ok,{true,true,true,false,false}}",
+        "Actual": "{ok,{true,true,true,false,false}}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    }
+  ],
+  "FreshOriginalExecution": false,
+  "Normalization": false
+}

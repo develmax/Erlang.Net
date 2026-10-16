@@ -1,0 +1,51 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_REPORTING_CODE_WITH_PENDING_SEED_NOT_FINAL_CLASSIFICATIONS",
+  "Passed": true,
+  "Role": "INDEPENDENT_REPORTING_SOURCE_REVIEW",
+  "SourceFreezeSha256": "B21D5A8B5C353F2A92DF39B5C382CF54415BFA48F2C223FBA6411CF9F0388680",
+  "ParentHead": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+  "ReviewedPaths": 18,
+  "CSharpPaths": 14,
+  "Checks": {
+    "All18FrozenRowsRehashed": true,
+    "NoRuntimeSourcePaths": true,
+    "Registered587UniqueAndSameOrderedKeys": true,
+    "AllOldRegistryFieldsExceptStatusPreservedExact": true,
+    "AllOldLimitsPreservedExact": true,
+    "RegistryStatusImplementedNotCompatible": true,
+    "SeedLedger587UniqueAllNeedsVerification": true,
+    "AllRegisteredLedgerKeysRequiredExact": true,
+    "DuplicateMissingExtraUnknownStatusAndWrongBaselineRejectBeforeOutput": true,
+    "VerifiedRequiresOriginalAndAuditNoLimitsAndCurrentSourceHashes": true,
+    "CurrentSourceDigestDriftRefused": true,
+    "DirectTestNotPromotedToVerified": true,
+    "ThreeExclusiveStatusesPartitionRegisteredCounts": true,
+    "ApiPresencePercentRemainsSeparatelyNamedJsonOnly": true,
+    "CompactModuleTableThenFullPerMfaGroupedReport": true,
+    "HistoricalComparisonChanged338To340Only": true,
+    "PreviousReportsNotModified": true,
+    "HostAdmissionAndGeneratorChecksWired": true,
+    "ToolFriendAndTestProjectReferenceWired": true
+  },
+  "SourceReviewedTests": [
+    "valid pending admission",
+    "wrong tag/commit/schema",
+    "duplicate/missing/extra MFA",
+    "unknown status/empty scope/missing required fields",
+    "verified without original/audit/current source or with limits",
+    "source hash drift, evidence hash/path/file/kind refusal",
+    "known difference requires evidence and limits",
+    "all pending generator preserves587 and zero verified",
+    "per-module pending counts, complete command list and module-before-component order",
+    "wrong baseline generator does not create output"
+  ],
+  "Limitations": [
+    "Source-only review; no C# build or HOST execution was performed by this reviewer.",
+    "Seed ledger deliberately classifies all587 as Needs verification; final five verified/known classifications and their actual proof bundle require separate metadata review before publication.",
+    "Generator validates shape, exact keys and evidence/current-source hashes; it cannot infer complete semantics from file existence. The independent per-MFA audit remains the authority for Verified entries.",
+    "Existing JSON ApiPresencePercent is retained as export-presence only, never a compatibility percentage."
+  ],
+  "MainEdited": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

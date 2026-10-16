@@ -1,0 +1,28 @@
+{
+  "ClassificationSha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+  "SelfAndNodeSupportingIdentityBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Published340Sha256": "63846E423438F2F03D51346FF41C30C8C8AE172BC31E0632132474123EA113C1",
+      "Actual337Sha256": "ADA79DD9390FBA0C7D1C0728B09090B513E13CCBC7ED5A8D281ABC6F0D928E9E",
+      "WholeFileUnchanged": false,
+      "ReviewedRelevantBranchExcerpts": [
+        "public string Node => LocalIdentity.Snapshot.Node;",
+        "public Atom NodeAtom => Term.A(LocalIdentity.Snapshot.Node);"
+      ],
+      "RelevantBranchesExactBothCommits": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Published340Sha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D",
+      "Actual337Sha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D",
+      "WholeFileUnchanged": true,
+      "ReviewedRelevantBranchExcerpts": [
+        "public Pid Self\n    {\n        get;\n    }"
+      ],
+      "RelevantBranchesExactBothCommits": true
+    }
+  ],
+  "ProofScope": "Readonly/getonly selfPID andcurrentlocalidentityatom; confirms dependencies referenced by5verifiedlogicalMFAcontractcandidate.",
+  "NoMainSdkNetwork": true
+}

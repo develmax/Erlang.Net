@@ -1,0 +1,51 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL_METADATA_AND_SOURCE2_REVIEW",
+  "Passed": true,
+  "EvidenceManifestSha256": "8B4562C4E9C2E551FB35115E3024460188C78E806338481A0A85B53A3419F252",
+  "LedgerCandidateSha256": "B9DBBDE4842D47A7BBBF122E0429958943A9BFCC671855EAA3B4E532022B1129",
+  "IntegratedSourceFreezeSha256": "61880A4EEA7092FFF0107E6ED57D0AA1BC8BBFDE13858D875E5450EB6A2D92F5",
+  "FilesRehashed": 25,
+  "CompactEvidenceFiles": 7,
+  "CompactEvidenceBytes": 125303,
+  "RegisteredMfas": 587,
+  "VerifiedCompatibleMfas": 5,
+  "KnownDifferenceMfas": 18,
+  "NeedsVerificationMfas": 564,
+  "CountsSum587": true,
+  "VerifiedMfas": [
+    "erlang:self/0",
+    "erlang:node/0",
+    "erlang:is_map/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1"
+  ],
+  "Checks": {
+    "All587KeysExactCurrentRegistered": true,
+    "All60CandidateStatusesEvidenceLimitsPreserved": true,
+    "Other527RemainPending": true,
+    "AllLedgerEvidenceDocsRelativeExistsAndExactSha": true,
+    "All10VerifiedCurrentSourceHashesExact": true,
+    "All4PinnedOtpSourceFilesRehashed": true,
+    "FiveVerifiedSdkAndOtpAnchorsInspected": true,
+    "CompleteLogicalBranchPartitionsForFiveReviewed": true,
+    "ActualOriginal6171ReportRehashed": true,
+    "Selected10WitnessReferencesExactlyRawRows": true,
+    "UniqueWitnessRows9Not10Runs": true,
+    "SharedWitnessExplicitlyDisclosed": true,
+    "Native337EvidenceNotRelabeledFresh340Or341": true,
+    "PendingCapturedFunCorrectionNotClaimedVerified": true,
+    "OriginalFullReportReferencedWithoutDuplication": true,
+    "ResourceApiObservableContractsStillRequired": true,
+    "Source2CodeDeltaNarrowTrailingSeparatorFixAndTestPlusMethodWording": true
+  },
+  "PriorCodeSourcePeerSha256": "1492AD3D69FFCEB63D3CF77E9AAA0F5EF37C06452B9BCCD2DF053CBFB9456101",
+  "AuthorshipDisclosure": "Reviewer authored the imported proc_lib/rpc/erpc gap inventory; independently reviewed the five erlang classifications, bundle/source links, exact original witness rows and merged generator metadata. Publisher authored the bundle, Root authored bounded five-MFA audit.",
+  "Limitations": [
+    "No SDK or generator execution by this reviewer; targeted SDK remains separate authority.",
+    "Five verified statuses cover complete stated logical contracts on supported valid Erlang terms, not universal physical VM or performance equivalence.",
+    "Remaining582 entries are explicitly pending or known differences, not percentage extrapolated from registry/direct tests."
+  ],
+  "MainEdited": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

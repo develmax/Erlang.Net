@@ -1,0 +1,1899 @@
+{
+  "Status": "CANDIDATE_MFA_SPECIFIC_LOGICAL_COMPATIBILITY_CLASSIFICATION_NOT_MAIN_PUBLISHED",
+  "PublishedHead": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Definition": "verified/100 means complete specified Erlang-observable return/error/side-effect API contract on the supported valid Erlang term model, established by complete source branch/partition argument plus actual pinned-original comparisons. It does not mean identical dynamic PID bytes, VM internals, timing, resource capacity or speed.",
+  "States": {
+    "verified": "Bounded complete logical API contract source-reviewed with actualoriginal evidence; eligiblefor100 underdefinition.",
+    "pending_verification": "Implemented or no known mismatch is insufficient; identified contract evidence gaps remain.",
+    "known_difference": "Confirmed source/observed divergence or unsupported valid inputs; never eligible100.",
+    "unimplemented": "No registered implementation; presence separate."
+  },
+  "DefaultForUnreviewedRegisteredMfas": "pending_verification",
+  "PresenceIsSeparateFromCompatibility": true,
+  "VerifiedMfas": [
+    "erlang:self/0",
+    "erlang:node/0",
+    "erlang:is_map/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1"
+  ],
+  "ReviewedErlangMfas": [
+    {
+      "Mfa": "erlang:self/0",
+      "Registered": true,
+      "Classification": "verified",
+      "EligibleFor100PercentLogicalContract": true,
+      "Contract": "Returns the calling Erlang process identifier. No argument/error branches at arity0; identity is relational within its runtime, not literal PID-number equality across runtimes.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 29,
+        "Anchor": "(c, a) => c.Self"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+        "Line": 3819,
+        "Anchor": "BIF_RETTYPE self_0("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 417,
+          "Name": null,
+          "SourceSha256": "F85A383F90EDEA95C592B7B6C633B23B7B7D4A91921B00484B30BB3D86E8503A",
+          "Source": "begin self() ! X=42,receive X -> X after 0 -> no end end",
+          "NativeExpected": "{ok,42}",
+          "SdkActual": "{ok,42}",
+          "Passed": true,
+          "RowSha256": "95B95EECE7D9080D2F4382A367B97146B8EC1B7A57D4AFEA2D0C5403124F2146"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 1766,
+          "Name": "erlang-process-query-export-processes-0",
+          "SourceSha256": "17A7AAD63D7CF0434C54E029ECA4BFBB0982DB8A272A0BE5892B4E3BA4197FD6",
+          "Source": "-module(oracle_process_query). -export([run/0]). run()->true=lists:member(self(),erlang:processes()),true=lists:all(fun(X)->is_pid(X) end,erlang:processes()),done.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "2A092FAE4ABD23EFF1B74E46F93ED5BEFA6671D848ECF5CBADA29556CB37E456"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "Single valid invocation domain: current ProcessContext; SDK directly returns context.Self, OTP directly returns BIF_P.common.id.",
+        "No inputs, mutation, allocation-dependent value conversion or type branch; normal dispatch and guard source reviewed."
+      ],
+      "RemainingGaps": [],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:node/0",
+      "Registered": true,
+      "Classification": "verified",
+      "EligibleFor100PercentLogicalContract": true,
+      "Contract": "Returns current local node atom, nonode@nohost while undistributed; concerns name query, not distribution connection implementation.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "0A1A3F6A52AED376204ED203AC8D2FD5927078A1E715B61192E196FA24050E32",
+        "Line": 13,
+        "Anchor": "Add(ErlangProcessQueryNames.Node, 0,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/dist.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+        "Line": 6230,
+        "Anchor": "BIF_RETTYPE node_0("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 1764,
+          "Name": "erlang-process-query-export-node-0",
+          "SourceSha256": "9010FAF5FE463AA519E066ED6515DB972D2A5068E36B73845F833AAE032C7B9B",
+          "Source": "-module(oracle_process_query). -export([run/0]). run()->'nonode@nohost'=erlang:node(),done.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "863E49073D49026BBED70E99FA429EE62CF1E6B50DE78F6CA3E5DAE23EA73399"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 3617,
+          "Name": "erlang-node-query-this",
+          "SourceSha256": "D2349039FE47090A2BF3354AA9F4D49C6F334488E069E8FFD01B65F278D5D84D",
+          "Source": "-module(node_query_contract). -export([run/0]). run()->N=node(),[N]=erlang:nodes(this),done.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "14A4D890CD7EFD64E811499DF8991F9CE74FC24486252417D92B1C7F444C44A8"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 3622,
+          "Name": "erlang-node-query-known-local",
+          "SourceSha256": "7A84BC7B08EC1A8B87E18BCFCAEFAAE275273761F950936F3EAD983AA39E81E5",
+          "Source": "-module(node_query_contract). -export([run/0]). run()->true=lists:member(node(),erlang:nodes(known)),done.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "8FA164EC31FD39F8006DACAD6A1A61744ABA5373BC8FAD0ED8F0B3AFFB94D2FD"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "Single valid invocation domain: current runtime local identity snapshot. SDK NodeAtom is Term.A(LocalIdentity.Snapshot.Node); OTP returns this-dist-entry sysname.",
+        "No argument/error cases; atom result before/after node identity changes is source-defined. Native339 setup changes node via actual setnode and then uses node-dependent request identities; separate guard3096 binds those captures."
+      ],
+      "RemainingGaps": [],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_map/1",
+      "Registered": true,
+      "Classification": "verified",
+      "EligibleFor100PercentLogicalContract": true,
+      "Contract": "True exactly for Erlang map terms, false for every other supported Erlang term including native record.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 131,
+        "Anchor": "(c, a) => Boolean(a[0] is MapTerm)"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 352,
+        "Anchor": "BIF_RETTYPE is_map_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 26,
+          "Name": null,
+          "SourceSha256": "3F8F43CFB2A2097B138FBFF6DAD52FE6CED415C4528D5DE5A1AD943DB503A9E9",
+          "Source": "{is_map(#{}),is_map([]),map_size(#{a => 1}),is_map_key(a,#{a => 42}),map_get(a,#{a => 42})}",
+          "NativeExpected": "{ok,{true,false,1,true,42}}",
+          "SdkActual": "{ok,{true,false,1,true,42}}",
+          "Passed": true,
+          "RowSha256": "B852938E693A35C52F63BC52AC335EC01F1473B653E62843412D80A3683CA01D"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 4246,
+          "Name": "erlang-native-record-introspection",
+          "SourceSha256": "3E3C6259E0A6EB08E853757D9F3445C84527B8AC60BE4C0129B330ACB4A517AD",
+          "Source": "-module(native_record_contract). -export([run/0]). run()->R=records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),test=records:get_module(R),a=records:get_name(R),[z,x,y]=records:get_field_names(R),true=records:is_exported(R),1=records:get(x,R),false=is_tuple(R),false=is_map(R),done. ",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "82B8BBEE3DEB3670C0354BBF3C55D1742B9053E4EB4A6C66B400C606B2004089"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "Partition1 any MapTerm (empty/nonempty, allkeys/values): true.",
+        "Partition2 every other valid term class: false from single C# type test, including separate NativeRecordTerm. This is exhaustive source proof over supported term representation, not a finite sample extrapolation.",
+        "OTP same single map-tag predicate; no errors/options/state changes. Guard dispatch reaches same handler."
+      ],
+      "RemainingGaps": [],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_binary/1",
+      "Registered": true,
+      "Classification": "verified",
+      "EligibleFor100PercentLogicalContract": true,
+      "Contract": "True for bitstrings whose bit length is byte-aligned (including empty), false otherwise.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 95,
+        "Anchor": "(c, a) => Boolean(a[0] is BitString b && b.IsBinary)"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 206,
+        "Anchor": "BIF_RETTYPE is_binary_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 58,
+          "Name": null,
+          "SourceSha256": "120958A1828E4EF2F52E287815095EB2D4D5A330CD68B7A4FFEE129F0A2333E3",
+          "Source": "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}",
+          "NativeExpected": "{ok,{true,true,true,false,false}}",
+          "SdkActual": "{ok,{true,true,true,false,false}}",
+          "Passed": true,
+          "RowSha256": "F69AC3A0A69565A6AD7C56BE0CDDDD49A9E9B6747DAAE1372EA8E32ED53B1C07"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 1664,
+          "Name": "erlang-md5-export-md5_init-0",
+          "SourceSha256": "143CECEBAE5DE7078C189680161BE9C50FE2B423D1C710AFA4C5BFC2CDA37598",
+          "Source": "-module(oracle_erlang_md5). -export([run/0]). run()->C=erlang:md5_init(),true=is_binary(C),H=erlang:md5_final(C),H=erlang:md5([]),done.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "DC3D77F4BBC575B430EE536B860C7C6428B8D01F3854D09619AE245730F0AE52"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "Partition1 BitString with BitLength%8==0, including0: true.",
+        "Partition2 BitString with residual1..7 bits: false.",
+        "Partition3 all non-BitString valid term classes: false. BitString is sealed and enforces a nonnegative consistent length. OTP tests bitstring tag plus TAIL_BITS(size)==0.",
+        "No data contents/endian/length variation changes the predicate; normal and guard dispatch share handler."
+      ],
+      "RemainingGaps": [],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_bitstring/1",
+      "Registered": true,
+      "Classification": "verified",
+      "EligibleFor100PercentLogicalContract": true,
+      "Contract": "True for both byte-aligned binaries and partial bitstrings including empty, false for non-bitstrings.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 101,
+        "Anchor": "(c, a) => Boolean(a[0] is BitString)"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 215,
+        "Anchor": "BIF_RETTYPE is_bitstring_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 58,
+          "Name": null,
+          "SourceSha256": "120958A1828E4EF2F52E287815095EB2D4D5A330CD68B7A4FFEE129F0A2333E3",
+          "Source": "{is_bitstring(<<>>),is_binary(<<>>),is_bitstring(<<1:1>>),is_binary(<<1:1>>),is_bitstring([])}",
+          "NativeExpected": "{ok,{true,true,true,false,false}}",
+          "SdkActual": "{ok,{true,true,true,false,false}}",
+          "Passed": true,
+          "RowSha256": "F69AC3A0A69565A6AD7C56BE0CDDDD49A9E9B6747DAAE1372EA8E32ED53B1C07"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "Partition1 any sealed BitString, aligned orpartial, empty ornonempty: true.",
+        "Partition2 all other valid term classes: false. OTP same bitstring-tag predicate; no error/option/state branches. Guard dispatch reaches same handler."
+      ],
+      "RemainingGaps": [],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_atom/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 63,
+        "Anchor": "ErlangModuleNames.IsAtom,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 133,
+        "Anchor": "BIF_RETTYPE is_atom_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 13,
+          "Name": null,
+          "SourceSha256": "8E56119662B35CA2D2984010CDC1DC3CDDCE73FD2C6799B7BE8C2457BA5027D8",
+          "Source": "case a of X when hd(X) == 1; is_atom(X) -> ok end",
+          "NativeExpected": "{ok,ok}",
+          "SdkActual": "{ok,ok}",
+          "Passed": true,
+          "RowSha256": "633C2E5ED1CB3DD8C7F2731E01B8B8147DD1639D217C54C4B590BFE0DF290678"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 326,
+          "Name": null,
+          "SourceSha256": "AC80454DE242DD5B99AAA59600BC6055EF238DFC7659774857B60E13F261DF6C",
+          "Source": "if hd(atom) =:= 1; is_atom(atom) -> yes end",
+          "NativeExpected": "{ok,yes}",
+          "SdkActual": "{ok,yes}",
+          "Passed": true,
+          "RowSha256": "6A3F864F3F3543EB7BBDE0BF3BB24C2D35D0345956F5FEF0CCF82654E380ED35"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Return source aligns, but dedicated positive/negative term-partition native witnesses and compiled/guard dispatch audit were not completed for this MFA."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_integer/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 69,
+        "Anchor": "ErlangModuleNames.IsInteger,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 149,
+        "Anchor": "BIF_RETTYPE is_integer_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 327,
+          "Name": null,
+          "SourceSha256": "300AC91A935DD35887B97C1EA90942E152752A11B6E3E8127DE988179BEE8EBA",
+          "Source": "if is_integer(1), 1 > 2 -> no; true -> yes end",
+          "NativeExpected": "{ok,yes}",
+          "SdkActual": "{ok,yes}",
+          "Passed": true,
+          "RowSha256": "2E52E94DE1C900B39274FFBC90E1A604E0C8A96228CC443E19728DE661831C4B"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 91,
+          "Name": null,
+          "SourceSha256": "47B2BF81194DD8F41EC3B25285B1746A19B055FE45E6431D32C2FC4F1FE1CCC9",
+          "Source": "case 42 of X -> F = fun(X) when is_integer(X) -> X; (_) -> X end, F(atom) end",
+          "NativeExpected": "{ok,42}",
+          "SdkActual": "{ok,42}",
+          "Passed": true,
+          "RowSha256": "BC0AC8F31C15336760E4F75FBC52D17869A3026BF99759084B820D13361039AB"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Full small/big integer versus all other term-category differential partition not completed."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_float/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 75,
+        "Anchor": "ErlangModuleNames.IsFloat,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 141,
+        "Anchor": "BIF_RETTYPE is_float_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 525,
+          "Name": null,
+          "SourceSha256": "560E4F4B241BCDA7316ECBD4CC326EEAEBFDE70606169810F12C44B3CDE50C39",
+          "Source": "maybe 1 ?= 1.0 else V -> is_float(V) end",
+          "NativeExpected": "{ok,true}",
+          "SdkActual": "{ok,true}",
+          "Passed": true,
+          "RowSha256": "FDE76ED5B1C984EB1501666A31C85879FBACF11BC395B63E406F3428535C266C"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Only positive native float-path witnesses selected; negative category partition not independently audited."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_number/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 81,
+        "Anchor": "ErlangModuleNames.IsNumber,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 165,
+        "Anchor": "BIF_RETTYPE is_number_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 1087,
+          "Name": "erlang-basic-guards",
+          "SourceSha256": "4FAFB9DEC2B9D36D1991D4DE092A92C5933E4BB41AE17961FA89B04788395486",
+          "Source": "-module(oracle_erlang_basic). -export([run/0]). run()->yes=guard(-2.5,fun(X)->X end),no=guard(wrong,wrong),done. guard(X,F) when is_number(X),abs(X)=:=2.5,round(X)=:=-3,is_function(F,1),is_boolean(true),is_integer(5,0,9),size({a})=:=1,min(X,0)=:=X->yes;guard(_,_) ->no.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "4B51E2DD4BA31FF9B7BBA98A84CFD2CE6B45D55058AE05F4EB33F5C976699481"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Float and atom guard examples exist, but integer/big integer and full false-partition witness audit pending."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_list/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 117,
+        "Anchor": "ErlangModuleNames.IsList,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 157,
+        "Anchor": "BIF_RETTYPE is_list_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 411,
+          "Name": null,
+          "SourceSha256": "AB904084BA24B0B5C9362D58C8CBF0C1E1C7480E220C3BB348341327E82904A4",
+          "Source": "is_list(element(2,element(2,catch error(boom))))",
+          "NativeExpected": "{ok,true}",
+          "SdkActual": "{ok,true}",
+          "Passed": true,
+          "RowSha256": "CB5B03593EF993A32927AE753F9389BA94663BA409251AB72D26D85BDA8B81FB"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Source Cons-or-Nil agrees with native semantics, including improper Cons. Need explicit MFA normal-call empty/proper/improper/non-list partition evidence, not match-spec is_list operator evidence."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:is_tuple/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 87,
+        "Anchor": "ErlangModuleNames.IsTuple,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_op.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+        "Line": 198,
+        "Anchor": "BIF_RETTYPE is_tuple_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 3391,
+          "Name": "erlang-module-information-compile",
+          "SourceSha256": "6F5FEE3179C2686CAB8987678449D1623EAC6B0D0462823F4721D222B673C6C7",
+          "Source": "-module(module_information_contract). -export([run/0]). run()->C=module_info(compile),true=is_list(C),true=lists:all(fun(X)->is_tuple(X) end,C),done. hidden()->secret.",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "73F3A06CD4AC793B5EBBBE3BBCE5C4A282B67A3D92CFDAE05E98B1B39566721A"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "ModuleResults",
+          "Index": 4246,
+          "Name": "erlang-native-record-introspection",
+          "SourceSha256": "3E3C6259E0A6EB08E853757D9F3445C84527B8AC60BE4C0129B330ACB4A517AD",
+          "Source": "-module(native_record_contract). -export([run/0]). run()->R=records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),test=records:get_module(R),a=records:get_name(R),[z,x,y]=records:get_field_names(R),true=records:is_exported(R),1=records:get(x,R),false=is_tuple(R),false=is_map(R),done. ",
+          "NativeExpected": "{ok,done}",
+          "SdkActual": "{ok,done}",
+          "Passed": true,
+          "RowSha256": "82B8BBEE3DEB3670C0354BBF3C55D1742B9053E4EB4A6C66B400C606B2004089"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Positive compile-info loop and negative native-record example exist; direct empty/nonempty tuple and non-tuple partition evidence not fully audited."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:hd/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 39,
+        "Anchor": "ErlangModuleNames.Head,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+        "Line": 2918,
+        "Anchor": "BIF_RETTYPE hd_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 17,
+          "Name": null,
+          "SourceSha256": "7CC5EAC37866702DEBBB0599EED32D768083F7199979D7803394237E46EAE14B",
+          "Source": "{length([1,2]), hd([ok]), tl([1,2])}",
+          "NativeExpected": "{ok,{2,ok,[2]}}",
+          "SdkActual": "{ok,{2,ok,[2]}}",
+          "Passed": true,
+          "RowSha256": "D15545240EC22CEA7F52286F3338CB4F34A87E37A42C2EF1B8832DCEC20ABBBB"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 565,
+          "Name": null,
+          "SourceSha256": "4CA2B85FF412713A51846F5F155571749EDFF716AD9EA054201A9E481D7C8EED",
+          "Source": "[X || X <- [[],[1],atom],hd(X)=:=1]",
+          "NativeExpected": "{ok,[[1]]}",
+          "SdkActual": "{ok,[[1]]}",
+          "Passed": true,
+          "RowSha256": "627FD85030F964D46E689E6F229D57CB83D8FEDF7A412D4C4FA149486E74F877"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Proper list result witnessed; improper tail, empty list/non-cons direct badarg and top-frame contract need dedicated original comparison."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:tl/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 45,
+        "Anchor": "ErlangModuleNames.Tail,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+        "Line": 2931,
+        "Anchor": "BIF_RETTYPE tl_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 17,
+          "Name": null,
+          "SourceSha256": "7CC5EAC37866702DEBBB0599EED32D768083F7199979D7803394237E46EAE14B",
+          "Source": "{length([1,2]), hd([ok]), tl([1,2])}",
+          "NativeExpected": "{ok,{2,ok,[2]}}",
+          "SdkActual": "{ok,{2,ok,[2]}}",
+          "Passed": true,
+          "RowSha256": "D15545240EC22CEA7F52286F3338CB4F34A87E37A42C2EF1B8832DCEC20ABBBB"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Proper list result witnessed; improper tail must be returned unchanged and empty/non-cons direct badarg not fully covered by selected evidence."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:tuple_size/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 57,
+        "Anchor": "ErlangModuleNames.TupleSize,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+        "Line": 2963,
+        "Anchor": "BIF_RETTYPE tuple_size_1("
+      },
+      "OriginalComparedEvidence": [],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "No literal tuple_size invocation found in published337 original expression/compiled report; direct registeredMFA test is not original differential verification."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:element/2",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 51,
+        "Anchor": "ErlangModuleNames.Element,"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+        "Line": 2944,
+        "Anchor": "BIF_RETTYPE element_2("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 427,
+          "Name": null,
+          "SourceSha256": "C7A0219453E095B5D9111D3FA0A2748300D3530B21005DF61048DCCD8C31FE85",
+          "Source": "begin T=element(X=1,Y={2}),{T,X,Y} end",
+          "NativeExpected": "{ok,{2,1,{2}}}",
+          "SdkActual": "{ok,{2,1,{2}}}",
+          "Passed": true,
+          "RowSha256": "9360B2EF70F5B03897EE10291D1C79732FC84F855FCEB0999327BDBBD82ECDA8"
+        },
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 431,
+          "Name": null,
+          "SourceSha256": "BB6A51C0479661BDFB4BFC8A89B42AD764197138E0C7CCB667E37F9A43BB3CB7",
+          "Source": "begin T=element(1,{X=42}),{T,X} end",
+          "NativeExpected": "{ok,{42,42}}",
+          "SdkActual": "{ok,{42,42}}",
+          "Passed": true,
+          "RowSha256": "4860C769FD2737089089E14600B1F8CA054E0B41E685EEB473FFC441327FCF58"
+        }
+      ],
+      "ExhaustivePartitionArgument": [],
+      "RemainingGaps": [
+        "Normal index/evaluation-order witnesses exist; emptytuple/negative/zero/large/noninteger/index and non-tuple direct errors need bounded contract completion."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    },
+    {
+      "Mfa": "erlang:length/1",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "Contract": "List length return/badarg source logic aligns, but long traversal scheduling behavior differs.",
+      "SdkSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+        "FileSha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+        "Line": 35,
+        "Anchor": "(c, a) => Term.I(Cons.Items(a[0]).LongCount())"
+      },
+      "OtpSource": {
+        "Path": "erts/emulator/beam/erl_bif_guard.c",
+        "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+        "FileSha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67",
+        "Line": 270,
+        "Anchor": "Eterm erts_trapping_length_1("
+      },
+      "OriginalComparedEvidence": [
+        {
+          "Report": "artifacts/part337-remote-new-review/ordinary/artifact-12067112755/differential.json",
+          "Track": "Results",
+          "Index": 17,
+          "Name": null,
+          "SourceSha256": "7CC5EAC37866702DEBBB0599EED32D768083F7199979D7803394237E46EAE14B",
+          "Source": "{length([1,2]), hd([ok]), tl([1,2])}",
+          "NativeExpected": "{ok,{2,ok,[2]}}",
+          "SdkActual": "{ok,{2,ok,[2]}}",
+          "Passed": true,
+          "RowSha256": "D15545240EC22CEA7F52286F3338CB4F34A87E37A42C2EF1B8832DCEC20ABBBB"
+        }
+      ],
+      "ExhaustivePartitionArgument": [
+        "SDK Cons.Items enforces proper tail; LongCount increments once per cons.",
+        "OTP erts_trapping_length_1 uses reduction budget and trapping continuation; SDK current LongCount is synchronous and has no yield/cancellation checkpoint inside traversal."
+      ],
+      "RemainingGaps": [
+        "Known source-level cooperative scheduling divergence for long lists; no measured numeric performance claim.",
+        "Complete input/error/frame partition and long-list interruption comparison still pending."
+      ],
+      "PresenceOrDirectTestAloneUsedForVerification": false
+    }
+  ],
+  "ImportedCurrentProcLibRpcErpcCandidates": [
+    {
+      "Mfa": "proc_lib:format/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:format/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FORMAT_EXHAUSTIVENESS"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:format/2",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:format/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FORMAT_EXHAUSTIVENESS"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:format/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:format/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FORMAT_EXHAUSTIVENESS"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:get_label/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:get_label/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:hibernate/3",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "PHYSICAL_HIBERNATE",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:hibernate/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "CRASH_PHYSICAL_FIELDS",
+          "LOGGER_BACKEND_BREADTH",
+          "PHYSICAL_HIBERNATE",
+          "REMOTE_NEIGHBOUR_CRASH_STACK"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_ack/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_ack/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_ack/2",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_ack/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_fail/2",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_fail/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_fail/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_fail/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_p/3",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_p/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN",
+          "CRASH_PHYSICAL_FIELDS",
+          "LOGGER_BACKEND_BREADTH",
+          "REMOTE_NEIGHBOUR_CRASH_STACK"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:init_p/5",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:init_p/5",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "CRASH_PHYSICAL_FIELDS",
+          "LOGGER_BACKEND_BREADTH",
+          "REMOTE_NEIGHBOUR_CRASH_STACK"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:initial_call/1",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:initial_call/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:report_cb/2",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FORMAT_EXHAUSTIVENESS"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:report_cb/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FORMAT_EXHAUSTIVENESS"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:set_label/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:set_label/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn/1",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn/2",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN",
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/1",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_link/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/2",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_link/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN",
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_link/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_link/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_link/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/2",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_opt/2",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN",
+          "SPAWN_NATIVE_TUNING"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/3",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN",
+        "SPAWN_NATIVE_TUNING",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_opt/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN",
+          "SPAWN_NATIVE_TUNING",
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/4",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_opt/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "SPAWN_NATIVE_TUNING"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/5",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "SPAWN_NATIVE_TUNING",
+        "REMOTE_WHOLE_TRACE_TCP"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:spawn_opt/5",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "SPAWN_NATIVE_TUNING",
+          "REMOTE_WHOLE_TRACE_TCP"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start/5",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start/5",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "SPAWN_NATIVE_TUNING"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_link/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_link/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_link/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_link/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_link/5",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_link/5",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "SPAWN_NATIVE_TUNING"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_monitor/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_monitor/4",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/5",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "SPAWN_NATIVE_TUNING"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:start_monitor/5",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "SPAWN_NATIVE_TUNING"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:stop/1",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:stop/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:stop/3",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:stop/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [],
+        "NoKnownSpecificMismatchInThisAudit": true,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:translate_initial_call/1",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "FRESH_RECEIVER_CAPTURED_FUN"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:translate_initial_call/1",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "FRESH_RECEIVER_CAPTURED_FUN"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "proc_lib:wake_up/3",
+      "Registered": true,
+      "Classification": "known_difference",
+      "EligibleFor100PercentLogicalContract": false,
+      "GapIds": [
+        "CRASH_PHYSICAL_FIELDS",
+        "LOGGER_BACKEND_BREADTH",
+        "PHYSICAL_HIBERNATE",
+        "REMOTE_NEIGHBOUR_CRASH_STACK"
+      ],
+      "EvidenceInventory": "artifacts/proc-lib340-compatibility-inventory/inventory.json",
+      "SourceRow": {
+        "Mfa": "proc_lib:wake_up/3",
+        "Registered": true,
+        "RegistryStatus": "Partially compatible",
+        "Gaps": [
+          "CRASH_PHYSICAL_FIELDS",
+          "LOGGER_BACKEND_BREADTH",
+          "PHYSICAL_HIBERNATE",
+          "REMOTE_NEIGHBOUR_CRASH_STACK"
+        ],
+        "NoKnownSpecificMismatchInThisAudit": false,
+        "ExhaustivelyVerified": false
+      },
+      "Note": "No-known-mismatch or zero-gap row is not exhaustive verification; private341 corrections do not certify published340."
+    },
+    {
+      "Mfa": "rpc:call/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Reason": "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
+    },
+    {
+      "Mfa": "rpc:call/5",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Reason": "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
+    },
+    {
+      "Mfa": "erpc:call/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Reason": "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
+    },
+    {
+      "Mfa": "erpc:call/5",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Reason": "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
+    },
+    {
+      "Mfa": "erpc:execute_call/4",
+      "Registered": true,
+      "Classification": "pending_verification",
+      "EligibleFor100PercentLogicalContract": false,
+      "Reason": "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
+    }
+  ],
+  "ImportedGapGroups": [
+    {
+      "Id": "FRESH_RECEIVER_CAPTURED_FUN",
+      "Class": "Known published340 defect; private341 correction awaiting completion",
+      "Mfas": [
+        "proc_lib:init_p/3",
+        "proc_lib:initial_call/1",
+        "proc_lib:spawn/1",
+        "proc_lib:spawn/2",
+        "proc_lib:spawn_link/1",
+        "proc_lib:spawn_link/2",
+        "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:translate_initial_call/1"
+      ],
+      "Description": "A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
+      "Evidence": "artifacts/remote-source-fun-resolution-proposal5/source-freeze.json",
+      "Next": "Finish source5 image/current-old/purge/undefined_lambda HOST controls and full validation; execute the independent original real-peer eight-case collector. Earlier SDK2 passed lexical and three network flows but failed later duplicate Core setup; source5 removes that setup only. No executed source5 outcome independently read here."
+    },
+    {
+      "Id": "SPAWN_NATIVE_TUNING",
+      "Class": "Known unsupported valid option families",
+      "Mfas": [
+        "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:spawn_opt/4",
+        "proc_lib:spawn_opt/5",
+        "proc_lib:start/5",
+        "proc_lib:start_link/5",
+        "proc_lib:start_monitor/5"
+      ],
+      "Description": "Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart.",
+      "Evidence": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Next": "Implement each native option or document explicit platform policy with original error/precedence probes; do not count accepted link/monitor options as all spawn_opt parity."
+    },
+    {
+      "Id": "CRASH_PHYSICAL_FIELDS",
+      "Class": "Confirmed deliberate platform divergence",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibCrashReportBuilder.cs",
+      "Next": "Either supply an honest documented managed physical metric contract or retain this explicit incompatibility; never manufacture BEAM values."
+    },
+    {
+      "Id": "LOGGER_BACKEND_BREADTH",
+      "Class": "Known dependency scope limitation",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "Evidence": "src/Erlang.Otp.Behaviours/OtpLoggerDefaultOutput.cs",
+      "Next": "Port remaining backend/configuration/formatting behavior; test handler failure/concurrency/overload with original. This is distinct from the already tested structured crash report contracts."
+    },
+    {
+      "Id": "PHYSICAL_HIBERNATE",
+      "Class": "Platform semantics not established",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "Next": "Keep observable wake-up tests and physical/performance claims separate; no faster-than-OTP claim without measurement."
+    },
+    {
+      "Id": "REMOTE_WHOLE_TRACE_TCP",
+      "Class": "Verification gap, not a new proven packet defect",
+      "Mfas": [
+        "erpc:call/4",
+        "erpc:call/5",
+        "proc_lib:get_label/1",
+        "proc_lib:spawn/2",
+        "proc_lib:spawn/4",
+        "proc_lib:spawn_link/2",
+        "proc_lib:spawn_link/4",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:spawn_opt/5",
+        "rpc:call/4",
+        "rpc:call/5"
+      ],
+      "Description": "Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched.",
+      "Evidence": "artifacts/part339-connected-sdk-crosswalk2/crosswalk.json",
+      "Next": "Execute real-peer original acquisition and compare stable contracts; add actual cross-runtime transport before claiming interoperability."
+    },
+    {
+      "Id": "FORMAT_EXHAUSTIVENESS",
+      "Class": "Coverage limit, no known mismatch in executed76",
+      "Mfas": [
+        "proc_lib:format/1",
+        "proc_lib:format/2",
+        "proc_lib:format/3",
+        "proc_lib:report_cb/2"
+      ],
+      "Description": "All executed57 report plus19 primitive observations match original exactly, including raw nested lists. That finite corpus does not prove every term/layout/grapheme/encoding/extended-error callback combination or BCL Unicode-version parity.",
+      "Evidence": "artifacts/root-formatter-original-full-comparison4.json",
+      "Next": "Add counterexample-driven original cases without relabeling the existing76 matches as exhaustive."
+    },
+    {
+      "Id": "REMOTE_NEIGHBOUR_CRASH_STACK",
+      "Class": "Verification gap",
+      "Mfas": [
+        "proc_lib:hibernate/3",
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3"
+      ],
+      "Description": "Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap.",
+      "Evidence": "src/Erlang.Otp.Behaviours/ProcLibCrashReportBuilder.cs",
+      "Next": "Add real visible/hidden/dead-neighbour and stable stack-frame original cases; preserve nondeterministic physical values separately."
+    }
+  ],
+  "ImportedInventorySha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+  "ImportedInventoryVerificationPendingStatusNotReused": "340CI is now7193/11actualPASS; inventory older pendingCI text not promoted. Original340 stillpending.",
+  "OriginalEvidence": {
+    "Head": "add206c03c801cbd68c51d23dbbdb8e36f2d581f",
+    "Run": 38944461863,
+    "Job": 117119955320,
+    "Artifact": 12067112755,
+    "ReportSha256": "884B840C1ECF7E3D4ACEF8A052AC57097B64DDA26C9E8FAD9AF128FCF7E4BF99",
+    "IndependentGuardSha256": "FB55415678802056876D8B2E18A5BD965B2829894EFEE5BD954B9E26C089BA26",
+    "ReportTotals": {
+      "Passed": 6171,
+      "Failed": 0
+    },
+    "StrictRawReportHadUnrelatedPredeclaredMapStdoutVariance": true,
+    "SelectedRowsNoStdoutVariance": true
+  },
+  "SdkSourceUnchangedBetweenActual337AndPublished340": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
+      "Sha256": "0A1A3F6A52AED376204ED203AC8D2FD5927078A1E715B61192E196FA24050E32",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Sha256": "BB9F639D16F02943B4B12759BCC05A8E34F5399092FB61CD46597FE38B2ECDE1",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Sha256": "66C7A14040D3F7AF80DEF58B1C06ACAB067D40172C423AED64D86F436183CDD0",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850",
+      "UnchangedSinceActualOriginal337": true
+    },
+    {
+      "Path": "src/Erlang.Terms/Cons.cs",
+      "Sha256": "46D73379F77BC6339AC7E5C035FAF5AB8B4EE8CEB286877C92DAC0C8CC3125D9",
+      "UnchangedSinceActualOriginal337": true
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_guard.c",
+      "Sha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67"
+    }
+  ],
+  "SharedNormalGuardAndTermModelSourceReview": {
+    "NormalCall": "Execution.CallRuntime \u2192 Runtime.Modules.Call \u2192 registered CoreModules handler; generated module bodies use same Execution interpreter and registry.",
+    "GuardCall": "Execution.GuardValue generic approved guard call uses Runtime.Modules.Call to identical registered handler; no separate result-changing fastpath for these type predicates/self/node.",
+    "GuardSource": {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+      "FileSha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5",
+      "Line": 378,
+      "Anchor": "Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains"
+    },
+    "GuardAdmissionSource": {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Commit": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+      "FileSha256": "BB9F639D16F02943B4B12759BCC05A8E34F5399092FB61CD46597FE38B2ECDE1",
+      "Line": 6,
+      "Anchor": "GuardBifs ="
+    },
+    "NativeRecordBoundary": "NativeRecordTerm : Term, distinct from sealed MapTerm/BitString; originalnative-record-introspection case confirms false is_map and false is_tuple."
+  },
+  "Private341SourceFixNotClaimedPublished": true,
+  "RegistryMainModified": false,
+  "SDKExecutedByAudit": false,
+  "NetworkUsedByAudit": false,
+  "UnimplementedRelatedMfas": {
+    "rpc": [
+      "rpc:start/0",
+      "rpc:start_link/0",
+      "rpc:stop/0",
+      "rpc:block_call/4",
+      "rpc:block_call/5",
+      "rpc:server_call/4",
+      "rpc:cast/4",
+      "rpc:abcast/2",
+      "rpc:abcast/3",
+      "rpc:sbcast/2",
+      "rpc:sbcast/3",
+      "rpc:eval_everywhere/3",
+      "rpc:eval_everywhere/4",
+      "rpc:multi_server_call/2",
+      "rpc:multi_server_call/3",
+      "rpc:multicall/3",
+      "rpc:multicall/4",
+      "rpc:multicall/5",
+      "rpc:async_call/4",
+      "rpc:yield/1",
+      "rpc:nb_yield/2",
+      "rpc:nb_yield/1",
+      "rpc:parallel_eval/1",
+      "rpc:pmap/3",
+      "rpc:pinfo/1",
+      "rpc:pinfo/2",
+      "rpc:init/1",
+      "rpc:handle_call/3",
+      "rpc:handle_cast/2",
+      "rpc:handle_info/2",
+      "rpc:terminate/2",
+      "rpc:code_change/3",
+      "rpc:proxy_user_flush/0"
+    ],
+    "erpc": [
+      "erpc:call/2",
+      "erpc:call/3",
+      "erpc:cast/2",
+      "erpc:cast/4",
+      "erpc:send_request/2",
+      "erpc:send_request/4",
+      "erpc:send_request/6",
+      "erpc:receive_response/1",
+      "erpc:receive_response/2",
+      "erpc:receive_response/3",
+      "erpc:wait_response/1",
+      "erpc:wait_response/2",
+      "erpc:wait_response/3",
+      "erpc:check_response/2",
+      "erpc:check_response/3",
+      "erpc:multicall/2",
+      "erpc:multicall/3",
+      "erpc:multicall/4",
+      "erpc:multicall/5",
+      "erpc:multicast/2",
+      "erpc:multicast/4",
+      "erpc:reqids_new/0",
+      "erpc:reqids_size/1",
+      "erpc:reqids_add/3",
+      "erpc:reqids_to_list/1",
+      "erpc:execute_call/3",
+      "erpc:execute_cast/3",
+      "erpc:is_arg_error/4",
+      "erpc:trim_stack/4",
+      "erpc:call_result/4"
+    ]
+  }
+}
