@@ -1,0 +1,757 @@
+{
+  "Status": "PASS_ACTUAL_ORIGINAL_THREE_NODE_BUSY_QUERY_AND_REMOTE_KILL",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705",
+  "PrimaryFailure": null,
+  "CleanupFailures": [],
+  "ActualCases": [
+    {
+      "Mode": "send",
+      "Nodes": {
+        "a": "cw323_send_a_44f16f8b8eb5@127.0.0.1",
+        "b": "cw323_send_b_44f16f8b8eb5@127.0.0.1",
+        "c": "cw323_send_c_44f16f8b8eb5@127.0.0.1"
+      },
+      "Proof": {
+        "Mode": "send",
+        "RawObservation": "('tuple', (('atom', 'observation'), ('atom', 'send'), ('tuple', (('atom', 'identities'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 10, 0, 1792153331, 88), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('pid', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 88, 0, 1792153331, 88), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('pid', ('atom', 'cw323_send_c_44f16f8b8eb5@127.0.0.1'), 10, 0, 1792153331, 88), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 10, 1792153331, 120))), ('tuple', (('atom', 'prepared'), ('list', (('tuple', (('atom', 'links'), ('list', (('pid', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 88, 0, 1792153331, 88),)))), ('tuple', (('atom', 'trap_exit'), ('atom', 'true'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))))), ('tuple', (('atom', 'busy'), ('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('list', (('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751784))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751783))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 61, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751612))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120))), ('integer', -576460751361))))), ('list', (('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 1))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 2))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 3))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 4))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 5))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 6))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 7))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 8))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 9))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 10))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 11))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 12))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 13))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 14))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 15))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 16))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 17))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 18))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 19))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 20))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 21))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 22))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 23))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 24))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 25))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 26))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 27))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 28))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 29))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 30))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 31))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 32))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 33))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 34))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 35))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 36))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 37))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 38))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 39))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11054, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('integer', 40))))))), ('tuple', (('atom', 'query'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11114, 3989569537, 3384339148), 90), ('tuple', (('atom', 'return'), ('tuple', (('list', (('tuple', (('atom', 'links'), ('list', (('pid', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 88, 0, 1792153331, 88),)))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))), ('tuple', (('atom', 'current_function'), ('tuple', (('atom', 'erlang'), ('atom', 'bif_return_trap'), ('integer', 2))))))), ('integer', -576460751361), ('integer', -576460751361))))))), ('tuple', (('atom', 'kill'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11121, 3989569537, 3384339148), 90), ('tuple', (('atom', 'kill_ack'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11121, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_c_44f16f8b8eb5@127.0.0.1'), 10, 0, 1792153331, 88), ('tuple', (('atom', 'return'), ('atom', 'true'))))), ('tuple', (('atom', 'DOWN'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11046, 3989569537, 3384339148), 90), ('atom', 'process'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('atom', 'killed'))))), ('tuple', (('atom', 'postcall'), ('atom', 'false')))))",
+        "ActualTargetBusy": "('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 7, 1792153331, 120)))",
+        "ActualPublicQuery": "(('atom', 'query'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11114, 3989569537, 3384339148), 90), ('tuple', (('atom', 'return'), ('tuple', (('list', (('tuple', (('atom', 'links'), ('list', (('pid', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 88, 0, 1792153331, 88),)))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))), ('tuple', (('atom', 'current_function'), ('tuple', (('atom', 'erlang'), ('atom', 'bif_return_trap'), ('integer', 2))))))), ('integer', -576460751361), ('integer', -576460751361))))))",
+        "ActualRemoteKillAndDown": "(('atom', 'kill'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11121, 3989569537, 3384339148), 90), ('tuple', (('atom', 'kill_ack'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11121, 3989569537, 3384339148), 90), ('pid', ('atom', 'cw323_send_c_44f16f8b8eb5@127.0.0.1'), 10, 0, 1792153331, 88), ('tuple', (('atom', 'return'), ('atom', 'true'))))), ('tuple', (('atom', 'DOWN'), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11046, 3989569537, 3384339148), 90), ('atom', 'process'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('atom', 'killed'))))",
+        "NativeWireCaptured": false,
+        "SdkExecuted": false,
+        "TicketTurnEquivalent": false
+      },
+      "ActualCleanup": {
+        "RawAWorkers": "('list', (('tuple', (('atom', 'query_worker'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 100, 0, 1792153331, 88), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11873, 3989569537, 3384339148), 90), ('atom', 'noproc'))))))), ('tuple', (('atom', 'target'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 98, 0, 1792153331, 88), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11874, 3989569537, 3384339148), 90), ('atom', 'noproc'))))))), ('tuple', (('atom', 'filler'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 99, 0, 1792153331, 88), ('reference', ('atom', 'cw323_send_a_44f16f8b8eb5@127.0.0.1'), 1792153331, (11876, 3989569537, 3384339148), 90), ('atom', 'killed')))))))))",
+        "RawBWorker": "(('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 88, 0, 1792153331, 88), ('reference', ('atom', 'cw323_send_b_44f16f8b8eb5@127.0.0.1'), 1792153331, (252742, 3989045249, 3728032184), 90), ('atom', 'killed'))))",
+        "Mode": "send"
+      }
+    },
+    {
+      "Mode": "link",
+      "Nodes": {
+        "a": "cw323_link_a_770bcfb1fe79@127.0.0.1",
+        "b": "cw323_link_b_770bcfb1fe79@127.0.0.1",
+        "c": "cw323_link_c_770bcfb1fe79@127.0.0.1"
+      },
+      "Proof": {
+        "Mode": "link",
+        "RawObservation": "('tuple', (('atom', 'observation'), ('atom', 'link'), ('tuple', (('atom', 'identities'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 10, 0, 1792153332, 88), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('pid', ('atom', 'cw323_link_b_770bcfb1fe79@127.0.0.1'), 88, 0, 1792153332, 88), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('pid', ('atom', 'cw323_link_c_770bcfb1fe79@127.0.0.1'), 10, 0, 1792153332, 88), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 10, 1792153332, 120))), ('tuple', (('atom', 'prepared'), ('list', (('tuple', (('atom', 'links'), ('list', ()))), ('tuple', (('atom', 'trap_exit'), ('atom', 'true'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))))), ('tuple', (('atom', 'busy'), ('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('list', (('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751854))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751853))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 61, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751682))), ('tuple', (('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120))), ('integer', -576460751431))))), ('list', (('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 1))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 2))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 3))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 4))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 5))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 6))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 7))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 8))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 9))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 10))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 11))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 12))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 13))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 14))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 15))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 16))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 17))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 18))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 19))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 20))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 21))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 22))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 23))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 24))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 25))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 26))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 27))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 28))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 29))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 30))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 31))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 32))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 33))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 34))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 35))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 36))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 37))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 38))), ('tuple', (('atom', 'progress'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6713, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('integer', 39))))))), ('tuple', (('atom', 'query'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6759, 4258004993, 145228984), 90), ('tuple', (('atom', 'return'), ('tuple', (('list', (('tuple', (('atom', 'links'), ('list', (('pid', ('atom', 'cw323_link_b_770bcfb1fe79@127.0.0.1'), 88, 0, 1792153332, 88),)))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))), ('tuple', (('atom', 'current_function'), ('tuple', (('atom', 'erlang'), ('atom', 'bif_return_trap'), ('integer', 2))))))), ('integer', -576460751431), ('integer', -576460751431))))))), ('tuple', (('atom', 'kill'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6766, 4258004993, 145228984), 90), ('tuple', (('atom', 'kill_ack'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6766, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_c_770bcfb1fe79@127.0.0.1'), 10, 0, 1792153332, 88), ('tuple', (('atom', 'return'), ('atom', 'true'))))), ('tuple', (('atom', 'DOWN'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6705, 4258004993, 145228984), 90), ('atom', 'process'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('atom', 'killed'))))), ('tuple', (('atom', 'postcall'), ('atom', 'false')))))",
+        "ActualTargetBusy": "('tuple', (('atom', 'monitor'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('atom', 'busy_dist_port'), ('port', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 7, 1792153332, 120)))",
+        "ActualPublicQuery": "(('atom', 'query'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6759, 4258004993, 145228984), 90), ('tuple', (('atom', 'return'), ('tuple', (('list', (('tuple', (('atom', 'links'), ('list', (('pid', ('atom', 'cw323_link_b_770bcfb1fe79@127.0.0.1'), 88, 0, 1792153332, 88),)))), ('tuple', (('atom', 'status'), ('atom', 'suspended'))), ('tuple', (('atom', 'async_dist'), ('atom', 'false'))), ('tuple', (('atom', 'current_function'), ('tuple', (('atom', 'erlang'), ('atom', 'bif_return_trap'), ('integer', 2))))))), ('integer', -576460751431), ('integer', -576460751431))))))",
+        "ActualRemoteKillAndDown": "(('atom', 'kill'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6766, 4258004993, 145228984), 90), ('tuple', (('atom', 'kill_ack'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6766, 4258004993, 145228984), 90), ('pid', ('atom', 'cw323_link_c_770bcfb1fe79@127.0.0.1'), 10, 0, 1792153332, 88), ('tuple', (('atom', 'return'), ('atom', 'true'))))), ('tuple', (('atom', 'DOWN'), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (6705, 4258004993, 145228984), 90), ('atom', 'process'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('atom', 'killed'))))",
+        "NativeWireCaptured": false,
+        "SdkExecuted": false,
+        "TicketTurnEquivalent": false
+      },
+      "ActualCleanup": {
+        "RawAWorkers": "('list', (('tuple', (('atom', 'query_worker'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 100, 0, 1792153332, 88), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (7681, 4258004993, 145228984), 90), ('atom', 'noproc'))))))), ('tuple', (('atom', 'target'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 98, 0, 1792153332, 88), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (7682, 4258004993, 145228984), 90), ('atom', 'noproc'))))))), ('tuple', (('atom', 'filler'), ('tuple', (('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 99, 0, 1792153332, 88), ('reference', ('atom', 'cw323_link_a_770bcfb1fe79@127.0.0.1'), 1792153332, (7684, 4258004993, 145228984), 90), ('atom', 'killed')))))))))",
+        "RawBWorker": "(('atom', 'return'), ('tuple', (('atom', 'joined'), ('pid', ('atom', 'cw323_link_b_770bcfb1fe79@127.0.0.1'), 88, 0, 1792153332, 88), ('reference', ('atom', 'cw323_link_b_770bcfb1fe79@127.0.0.1'), 1792153332, (15537, 4257742849, 1101428338), 90), ('atom', 'killed'))))",
+        "Mode": "link"
+      }
+    }
+  ],
+  "Tools": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erl",
+      "Bytes": 1470,
+      "Sha256": "47E90F6B819F891C7A3A5E57C0E6D45605BF73DABCAC535D9A08898EC9B153A8"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erlc",
+      "Bytes": 539576,
+      "Sha256": "69C3F194C8A3BFEB8BA3A0D81AB7F5E94C511B6065888B653FCD218EEA13477B"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/epmd",
+      "Bytes": 213656,
+      "Sha256": "E4D74A07833B6F752EE6C175CF68376A90E086EB252C3C2F6B163F41DB278A7D"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/erts-17.1/bin/beam.smp",
+      "Bytes": 56061192,
+      "Sha256": "F6DD0EDF54B2420893E96AB74FC651D5668D6DE48FE7B9F9D44AEA7277F04336"
+    }
+  ],
+  "SdkExecuted": false,
+  "NativeWireCaptured": false,
+  "TicketTurnEquivalent": false,
+  "Files": [
+    {
+      "Path": "compile.process.json",
+      "Bytes": 670,
+      "Sha256": "5BFB646622575EA3BFB667CC77A71650EFA33D8222B63A1D5969FB3C89B7D28A"
+    },
+    {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "ebin/distribution_control_wait323.beam",
+      "Bytes": 15416,
+      "Sha256": "7A7F1D3178A548A97968B6B72CAABD485C828C73C8A5D4DA8AC3572283B587A0"
+    },
+    {
+      "Path": "ebin/distribution_control_wait323_driver.beam",
+      "Bytes": 9788,
+      "Sha256": "BC5007BACB7B4C8125BE5335FF6E0271553CB9CFF26C20F5786DF728083F2B76"
+    },
+    {
+      "Path": "link/a/connections.etf",
+      "Bytes": 304,
+      "Sha256": "3D4FE4F6E01E3AFED13970ECE0824C8846E39B91C624AA88A6DC9C048075E657"
+    },
+    {
+      "Path": "link/a/local-worker-cleanup.etf",
+      "Bytes": 445,
+      "Sha256": "EE52914146E222D694F7B084160DE81B0BA1A238E05EA61B31830F90A8F065D5"
+    },
+    {
+      "Path": "link/a/measurement.etf",
+      "Bytes": 11659,
+      "Sha256": "373B1EBA5997D14D07CDB6C64B0632D2493566234A1A71C96ACBE1C3C034708E"
+    },
+    {
+      "Path": "link/a/phase-outcome.etf",
+      "Bytes": 11669,
+      "Sha256": "88B7DBE32D272B1811160B7D999F7993EBEFCAC02DCA5E2EDE30A12837C66627"
+    },
+    {
+      "Path": "link/a/process.process.json",
+      "Bytes": 1027,
+      "Sha256": "223D073939AAC0D782CDB276F78BFA0A71CB534F16A4D1227702A54FE00C4088"
+    },
+    {
+      "Path": "link/a/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "link/a/process.stdout",
+      "Bytes": 150,
+      "Sha256": "582FC80F0BF0B7C0837E790657D129996A81B6D8752DD1CBE8302D0E4463513F"
+    },
+    {
+      "Path": "link/a/query.etf",
+      "Bytes": 249,
+      "Sha256": "D0881B5AB691DD1539C6D0E4844C085632BE809278DFE5E4C7E0F9B48519B0AE"
+    },
+    {
+      "Path": "link/a/resume-ack",
+      "Bytes": 32,
+      "Sha256": "F91EF2852299827DBBFFCF8DE473249BDC0B82820CFA597DF991124CC92589B4"
+    },
+    {
+      "Path": "link/a/resume-request.etf",
+      "Bytes": 11767,
+      "Sha256": "81CE34AEB55078097A4392B42B1E3A6B1EFCD1B93C68676803D9292164A5E830"
+    },
+    {
+      "Path": "link/a/role-outcome.etf",
+      "Bytes": 12166,
+      "Sha256": "1B8AC20DEDFC4C73372BF4F1D74AE585799DE29D83C147D62B603E8254E36684"
+    },
+    {
+      "Path": "link/a/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "50EBB864868D04C8F74BD41A8383D16846E990CBA7B8598E3440FD7EE21070EE"
+    },
+    {
+      "Path": "link/a/stop-ack",
+      "Bytes": 32,
+      "Sha256": "F91EF2852299827DBBFFCF8DE473249BDC0B82820CFA597DF991124CC92589B4"
+    },
+    {
+      "Path": "link/a/stop-request.etf",
+      "Bytes": 142,
+      "Sha256": "C15E039386B569DE54BD59B4E3BBD676BDF55A87E044CBC9A2A3859345FF8733"
+    },
+    {
+      "Path": "link/b/cleanup-go",
+      "Bytes": 32,
+      "Sha256": "F91EF2852299827DBBFFCF8DE473249BDC0B82820CFA597DF991124CC92589B4"
+    },
+    {
+      "Path": "link/b/connections.etf",
+      "Bytes": 304,
+      "Sha256": "CC151298141B966A8C1AF6E54608DFAEBBA717EED07FCED4E7CE33C3FCAD4266"
+    },
+    {
+      "Path": "link/b/process.process.json",
+      "Bytes": 1026,
+      "Sha256": "0999E9DF3EE4CC2964913E5B1D75DC72147DFBACA2D402B87E24CEA1FC7C1B12"
+    },
+    {
+      "Path": "link/b/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "link/b/process.stdout",
+      "Bytes": 81,
+      "Sha256": "FD3AB3F6DF28916A5A21B269BFF71610A6AEBA916B359F7CCDC0BF51C7B61ED6"
+    },
+    {
+      "Path": "link/b/role-outcome.etf",
+      "Bytes": 31,
+      "Sha256": "8508EC6F19CE2C9FE183E39C1E8940DDF981C9C51972BB45EE94C62E24BC4D0D"
+    },
+    {
+      "Path": "link/b/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "8FB8545858ED85F2BE6648B858753D1798FB28AA406443E19D23C23889504B4F"
+    },
+    {
+      "Path": "link/b/worker-cleanup.etf",
+      "Bytes": 135,
+      "Sha256": "D4B974F36763E5DD81505F52119D22103C81528E1EEEB1996746ECC1068CA44A"
+    },
+    {
+      "Path": "link/b/worker-ready.etf",
+      "Bytes": 86,
+      "Sha256": "8B8761E98B1AAE29F05A852A2D3A90F4A6E59366C7C9DDF4F044734C6408914D"
+    },
+    {
+      "Path": "link/c/cleanup-go",
+      "Bytes": 32,
+      "Sha256": "F91EF2852299827DBBFFCF8DE473249BDC0B82820CFA597DF991124CC92589B4"
+    },
+    {
+      "Path": "link/c/connections.etf",
+      "Bytes": 304,
+      "Sha256": "7147638C44D8FE8DD509B9DB4A722C74815DAA7BB9960EB15326FB032BCA787C"
+    },
+    {
+      "Path": "link/c/kill-call.etf",
+      "Bytes": 225,
+      "Sha256": "A736F5F49A0572FF86F6C2899901EC29B858D393761CA5365D4631E2F57AFF23"
+    },
+    {
+      "Path": "link/c/process.process.json",
+      "Bytes": 1026,
+      "Sha256": "4D72DC24ADB7091A1B846248166E0E21D40BF739FA357F4A12AFB6E76087A069"
+    },
+    {
+      "Path": "link/c/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "link/c/process.stdout",
+      "Bytes": 78,
+      "Sha256": "B1AD7EF493E1A580739D18277D99413208E222934A019F2FA3DAFABA2A17D16E"
+    },
+    {
+      "Path": "link/c/role-outcome.etf",
+      "Bytes": 31,
+      "Sha256": "920B5DAF5F732BBC02646BA0E42E0BAD5E0E34A78C5B21D20BA276C64B13304E"
+    },
+    {
+      "Path": "link/c/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "1DF7AF0CF95FB5A4EE509E54989472B8410D535A5A9B8D465AEF7950FE11DB84"
+    },
+    {
+      "Path": "link/c/worker-cleanup.etf",
+      "Bytes": 22,
+      "Sha256": "FBBD1C7A31F317551F71A62F52B0AEC49B39E0A3FCB3D320455A1CD5F78B80F6"
+    },
+    {
+      "Path": "link/epmd.process.json",
+      "Bytes": 569,
+      "Sha256": "74289814C4E5146DA1DFFA3A107EB7656EE408138BFCDD83F7EBFB89A5709B36"
+    },
+    {
+      "Path": "link/epmd.stderr",
+      "Bytes": 82,
+      "Sha256": "A0F45D5B1075073351558659E0EDCDC399CC3811E8670AF91B1D9A5EB9F513B7"
+    },
+    {
+      "Path": "link/epmd.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "link/journal.json",
+      "Bytes": 40317,
+      "Sha256": "1676FAC9FACC103CB7E829D16D0A90887F6F116BF5D779812F83574710CD3D4A"
+    },
+    {
+      "Path": "pin-0.process.json",
+      "Bytes": 340,
+      "Sha256": "F7EBC6943831675CDF75984EF10EDC75A27F44FAAC387FB87F644BEF66FE3D22"
+    },
+    {
+      "Path": "pin-0.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-0.stdout",
+      "Bytes": 30443,
+      "Sha256": "97B53D98D572FA2DF3B268B1AB1677F37CCA1FD487403913230FA76B8717DFA1"
+    },
+    {
+      "Path": "pin-1.process.json",
+      "Bytes": 339,
+      "Sha256": "DB38F16E532B9678E201AAC7F3A2374715387EF50F1082D752688E1C6D9EB5F4"
+    },
+    {
+      "Path": "pin-1.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-1.stdout",
+      "Bytes": 76203,
+      "Sha256": "0FC081A469A2101B91F07CF7304091209A8E7F387D7AC98A969C0A4648746EA8"
+    },
+    {
+      "Path": "pin-10.process.json",
+      "Bytes": 329,
+      "Sha256": "E8FF4116E5C3F48C754C724B64BD6A4D21139A60E47C12416E49F7E24B234443"
+    },
+    {
+      "Path": "pin-10.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-10.stdout",
+      "Bytes": 15533,
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "pin-11.process.json",
+      "Bytes": 334,
+      "Sha256": "CE5A76B55D5A582EA692E2E50AB6458FA569B1992DF2CA895D24408FC39F6D5C"
+    },
+    {
+      "Path": "pin-11.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-11.stdout",
+      "Bytes": 60322,
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    },
+    {
+      "Path": "pin-12.process.json",
+      "Bytes": 338,
+      "Sha256": "C412C871EDF1E744A9DC8FB61ED2E77C71AA34047419A44145A3FA77E1CF618C"
+    },
+    {
+      "Path": "pin-12.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-12.stdout",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "pin-13.process.json",
+      "Bytes": 336,
+      "Sha256": "3D6D74E0FDABFF4DCF0935E37E4D390C8B71674BECFA71B05E933F936A991538"
+    },
+    {
+      "Path": "pin-13.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-13.stdout",
+      "Bytes": 21131,
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    },
+    {
+      "Path": "pin-2.process.json",
+      "Bytes": 333,
+      "Sha256": "8DCB738BE990C84EB956C9A32B9ACD9649F644C55FA03E095CF8EC41829B4A66"
+    },
+    {
+      "Path": "pin-2.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-2.stdout",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "pin-3.process.json",
+      "Bytes": 334,
+      "Sha256": "E053ECA4F6FD6FFCD3C29E829FB47AD876BFA3DA9155EC12F91997BEAA7916B8"
+    },
+    {
+      "Path": "pin-3.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-3.stdout",
+      "Bytes": 220150,
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "pin-4.process.json",
+      "Bytes": 342,
+      "Sha256": "DFE6B1BDD202C050D4378110AC2A61C95F7DD7D033F9E752B81F75982ED6F25E"
+    },
+    {
+      "Path": "pin-4.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-4.stdout",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "pin-5.process.json",
+      "Bytes": 338,
+      "Sha256": "4E95FDFAFDD1A21CA7AB6FEFCA65916A2022AEE07CCD5E150F63D46F5198731C"
+    },
+    {
+      "Path": "pin-5.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-5.stdout",
+      "Bytes": 89801,
+      "Sha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027"
+    },
+    {
+      "Path": "pin-6.process.json",
+      "Bytes": 348,
+      "Sha256": "E990F4D115F47800A6A922FAB5C1251FFF886B672A9BC84A4B447B75273725E8"
+    },
+    {
+      "Path": "pin-6.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-6.stdout",
+      "Bytes": 344508,
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519"
+    },
+    {
+      "Path": "pin-7.process.json",
+      "Bytes": 341,
+      "Sha256": "7A0AA610A612A13F98C817E8165189BADEB3323A7B67A562F6E8DAE1FFDF033E"
+    },
+    {
+      "Path": "pin-7.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-7.stdout",
+      "Bytes": 459197,
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9"
+    },
+    {
+      "Path": "pin-8.process.json",
+      "Bytes": 339,
+      "Sha256": "0367A33AE1C5FEBE125E54ED40387A3916407D3CE1B626C9B716B1B2FD8AE512"
+    },
+    {
+      "Path": "pin-8.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-8.stdout",
+      "Bytes": 114424,
+      "Sha256": "4E40C747C86285534E6B3CB030EDF5FB005806CAA411330F707DD64102250972"
+    },
+    {
+      "Path": "pin-9.process.json",
+      "Bytes": 350,
+      "Sha256": "CFEC2BD96409AC5479DE77502CDE6F0FB30A469E233D3817F1B69241CF8F08C2"
+    },
+    {
+      "Path": "pin-9.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-9.stdout",
+      "Bytes": 151644,
+      "Sha256": "E85AAAC1B14D8F69AEFC5D3CFE9F3092341456A6678E37143C7F15EF02609F2C"
+    },
+    {
+      "Path": "send/a/connections.etf",
+      "Bytes": 304,
+      "Sha256": "06D57AB20ED3497340A973911B26B3421FFEBA1D942FBC9AEA4A5A68DB73F4EB"
+    },
+    {
+      "Path": "send/a/local-worker-cleanup.etf",
+      "Bytes": 445,
+      "Sha256": "364BDD1DDBCA7CDFFDE4E0B4A30B3BE6C8316E3E5B0499F77356BD64EDD80B0E"
+    },
+    {
+      "Path": "send/a/measurement.etf",
+      "Bytes": 11971,
+      "Sha256": "83445AFC27D411CBE9F08E6B5949D308E20398330F7A5F2D107599367DCF2C08"
+    },
+    {
+      "Path": "send/a/phase-outcome.etf",
+      "Bytes": 11981,
+      "Sha256": "C748417A40733F04197C0555EFC4CC49BEDC0C30C87F8F23B23BF663279C9081"
+    },
+    {
+      "Path": "send/a/process.process.json",
+      "Bytes": 1027,
+      "Sha256": "C601CE959CCA7D20C9A5F407CF57029C572F72840BA493A786D5D54CDCA4BAC4"
+    },
+    {
+      "Path": "send/a/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "send/a/process.stdout",
+      "Bytes": 150,
+      "Sha256": "582FC80F0BF0B7C0837E790657D129996A81B6D8752DD1CBE8302D0E4463513F"
+    },
+    {
+      "Path": "send/a/query.etf",
+      "Bytes": 249,
+      "Sha256": "8DBABF3CD997B1848A8C4F3CA8D09F55C62EFE94D46A51BC760899E963573B67"
+    },
+    {
+      "Path": "send/a/resume-ack",
+      "Bytes": 32,
+      "Sha256": "CA0A179FB1CA3AF18042E51EABF5CEA7F0DB52CBD2BAC1D7801C485C7B3BF564"
+    },
+    {
+      "Path": "send/a/resume-request.etf",
+      "Bytes": 12079,
+      "Sha256": "1E26F45BC3CFEC277FFF2B7D87152692C50AD95A7AAA81CF2435448128EF5FB2"
+    },
+    {
+      "Path": "send/a/role-outcome.etf",
+      "Bytes": 12478,
+      "Sha256": "3F7786C7A62281544CBBB6BB967E27337B42BC69AC10192D348A615249C41F55"
+    },
+    {
+      "Path": "send/a/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "480FBFF2DF950AC243FDCB01BDBFDDA61EF482578F0444784C603734BA7CA9EE"
+    },
+    {
+      "Path": "send/a/stop-ack",
+      "Bytes": 32,
+      "Sha256": "CA0A179FB1CA3AF18042E51EABF5CEA7F0DB52CBD2BAC1D7801C485C7B3BF564"
+    },
+    {
+      "Path": "send/a/stop-request.etf",
+      "Bytes": 142,
+      "Sha256": "D7A6670D0842F3E076045ECED69CFD78B0670BFF198B8B50643C7039451A57A2"
+    },
+    {
+      "Path": "send/b/cleanup-go",
+      "Bytes": 32,
+      "Sha256": "CA0A179FB1CA3AF18042E51EABF5CEA7F0DB52CBD2BAC1D7801C485C7B3BF564"
+    },
+    {
+      "Path": "send/b/connections.etf",
+      "Bytes": 304,
+      "Sha256": "49C2C117BB023ADE8E4165EA187B0473D346BC466A0481A5875F84D07F950C25"
+    },
+    {
+      "Path": "send/b/process.process.json",
+      "Bytes": 1027,
+      "Sha256": "741814DF357DAD315392F2540FB073372AD8ED051C2C928E45BDB357A0712DBD"
+    },
+    {
+      "Path": "send/b/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "send/b/process.stdout",
+      "Bytes": 301,
+      "Sha256": "ADE9EEF348867B08719496CB7877023D9D9DD7F6E2EF9D7BA03680A4E6D1494A"
+    },
+    {
+      "Path": "send/b/role-outcome.etf",
+      "Bytes": 31,
+      "Sha256": "8508EC6F19CE2C9FE183E39C1E8940DDF981C9C51972BB45EE94C62E24BC4D0D"
+    },
+    {
+      "Path": "send/b/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "2A7BA2D67106FE39470B8878F845AB8DE97E958B5AF1BD33D13B5F164675150A"
+    },
+    {
+      "Path": "send/b/worker-cleanup.etf",
+      "Bytes": 135,
+      "Sha256": "D691474F46D03B7C19B84926FB93B431778B2A88A9CB74A70B0EC65088B34D9E"
+    },
+    {
+      "Path": "send/b/worker-ready.etf",
+      "Bytes": 86,
+      "Sha256": "A9EE001D4C8D49952B4F6EFD42162D53D2F9FC09FFC65E0E0EB134E600B201C0"
+    },
+    {
+      "Path": "send/c/cleanup-go",
+      "Bytes": 32,
+      "Sha256": "CA0A179FB1CA3AF18042E51EABF5CEA7F0DB52CBD2BAC1D7801C485C7B3BF564"
+    },
+    {
+      "Path": "send/c/connections.etf",
+      "Bytes": 304,
+      "Sha256": "5CC86CD5E1FF1EF2E0EBB64C29579984855FDBD0A1845255895DD924EF1CF73F"
+    },
+    {
+      "Path": "send/c/kill-call.etf",
+      "Bytes": 225,
+      "Sha256": "5770BE7F5DA49EA8EFA89FC01B8984A45F9AD4E4172FD38B5BB4E473880E7111"
+    },
+    {
+      "Path": "send/c/process.process.json",
+      "Bytes": 1026,
+      "Sha256": "8D75555D53BD15640828EC7D302B6E92DBD13B3025245A3B2013FC5EB65D4B9A"
+    },
+    {
+      "Path": "send/c/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "send/c/process.stdout",
+      "Bytes": 78,
+      "Sha256": "B1AD7EF493E1A580739D18277D99413208E222934A019F2FA3DAFABA2A17D16E"
+    },
+    {
+      "Path": "send/c/role-outcome.etf",
+      "Bytes": 31,
+      "Sha256": "920B5DAF5F732BBC02646BA0E42E0BAD5E0E34A78C5B21D20BA276C64B13304E"
+    },
+    {
+      "Path": "send/c/runtime.etf",
+      "Bytes": 412,
+      "Sha256": "A913CD0CCAE13C86B16EAFEEF9B38ADB6E895929186A9DC0325D5F0257CFBA3F"
+    },
+    {
+      "Path": "send/c/worker-cleanup.etf",
+      "Bytes": 22,
+      "Sha256": "FBBD1C7A31F317551F71A62F52B0AEC49B39E0A3FCB3D320455A1CD5F78B80F6"
+    },
+    {
+      "Path": "send/epmd.process.json",
+      "Bytes": 569,
+      "Sha256": "F6C7DC4F8974A8A53397132675A23877D17F69488E731755E382C3E5A2B9B736"
+    },
+    {
+      "Path": "send/epmd.stderr",
+      "Bytes": 82,
+      "Sha256": "C2086825CD3A6C70DA740AD88AA763AE64553AE82DCCB0DEE6555BA6540B4A19"
+    },
+    {
+      "Path": "send/epmd.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "send/journal.json",
+      "Bytes": 41000,
+      "Sha256": "64AFC6CB59AE9C165C94D0A81BB91818C5176CA600C9A574773F38DE8CAC1CAE"
+    },
+    {
+      "Path": "source-build-evidence.json",
+      "Bytes": 841,
+      "Sha256": "A1BBF4E35D95B3F42093F1F2B1C9CB6FC67912DAD0D8F758DD561BC13F9E3F40"
+    },
+    {
+      "Path": "source-head.process.json",
+      "Bytes": 277,
+      "Sha256": "273F488E1BF14741C8D519897F0567E20237E1C1E51E3E8D2C8D9674E1217C35"
+    },
+    {
+      "Path": "source-head.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-head.stdout",
+      "Bytes": 41,
+      "Sha256": "063A85610325BB1993B92255BE48C9A95C69DD7DD9BD74855A7480264E608391"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 3866,
+      "Sha256": "146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705"
+    },
+    {
+      "Path": "source-status.process.json",
+      "Bytes": 309,
+      "Sha256": "ECCA99EFFA66EBC26BC98E39AFBDB2B16118CD94C209B4DA3221889373209DD6"
+    },
+    {
+      "Path": "source-status.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-status.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sources/README.md",
+      "Bytes": 3942,
+      "Sha256": "6DD949CC9192966F3B532B32C129BAA0085F11FA0F9D580E154A19A10E789D20"
+    },
+    {
+      "Path": "sources/collect.py",
+      "Bytes": 30615,
+      "Sha256": "78CFB8DC6F6CCA9D88AC3A5AF97D75A278D8468EA00E776C56464B5C1A586C44"
+    },
+    {
+      "Path": "sources/distribution_control_wait323.erl",
+      "Bytes": 8950,
+      "Sha256": "4FBBCB8BCD1F38EF6709A8C97062DBD4BDA2EE86568E2110F020E793FAE25A8D"
+    },
+    {
+      "Path": "sources/distribution_control_wait323_driver.erl",
+      "Bytes": 5036,
+      "Sha256": "F3136C2158515A7AB5AB6925A2A6205F7C7031641F63566083DDE7A924B6E9B3"
+    },
+    {
+      "Path": "sources/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "sources/passive_control_etf.py",
+      "Bytes": 7619,
+      "Sha256": "CADBAD3ABA60D2AA9B549E4376245F4D2149C47440F7E0E4BDA2EC130BFA9052"
+    },
+    {
+      "Path": "sources/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "sources/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    }
+  ]
+}

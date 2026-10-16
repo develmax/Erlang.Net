@@ -1,0 +1,42 @@
+{
+  "Status": "PASS_ISOLATED515_SIGNATURES",
+  "CurrentCount": 515,
+  "PreviousCount": 509,
+  "AllPreviousSignaturesRetained": true,
+  "ErlangMfasUnchanged": 351,
+  "NewSignatures": [
+    [
+      "proc_lib",
+      "init_ack",
+      1
+    ],
+    [
+      "proc_lib",
+      "init_ack",
+      2
+    ],
+    [
+      "proc_lib",
+      "spawn",
+      1
+    ],
+    [
+      "proc_lib",
+      "spawn",
+      3
+    ],
+    [
+      "proc_lib",
+      "spawn_link",
+      1
+    ],
+    [
+      "proc_lib",
+      "spawn_link",
+      3
+    ]
+  ],
+  "CurrentRegistrySha256": "44A42CA352DEE369A8D1BA48518F49BF8EFA500CE1FC6890617C78EA2FFA1137",
+  "BaselineRegistrySha256": "FEDFAFE308877362BB2853140B284D1EBEA41B73D6780B791BB5E2E2580F7413",
+  "Note": "This checks signature preservation only. Generated test registry has generic Limits; publication must retain prior metadata and its thirty custom Limits, as in existing finalizer."
+}

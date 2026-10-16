@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>SupplementalCleanup</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(ApprovedBinaries)/*.dll" />
+  </ItemGroup>
+  <Target Name="RequireApprovedBinaries" BeforeTargets="PrepareForBuild" Condition="'$(ApprovedBinaries)' == ''">
+    <Error Text="Pass the approved existing differential binary directory as ApprovedBinaries." />
+  </Target>
+</Project>

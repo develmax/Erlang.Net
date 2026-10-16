@@ -1,0 +1,5 @@
+FAIL Erlang.Tests.ProcLibInitialCallHostChecks:Run
+System.InvalidOperationException: proc_lib gen initial-call translation failed; case=3; expected={supervisor_bridge,host_callback,1}; actual={supervisor,17,1}; exit={clr_error,[65,114,103,117,109,101,110,116,69,120,99,101,112,116,105,111,110]}
+   at Erlang.Tests.ProcLibInitialCallHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib330-candidate\tests\Erlang.Tests\ProcLibInitialCallHostChecks.cs:line 66
+   at Erlang.Tests.ProcLibInitialCallHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib330-candidate\tests\Erlang.Tests\ProcLibInitialCallHostChecks.cs:line 66
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

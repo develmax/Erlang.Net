@@ -1,0 +1,144 @@
+--- D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\part329-main-native-template1\guard329-main-native.py
++++ D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib331-native-template2\guard-main-native.py
+@@ -2,7 +2,13 @@
+ import hashlib,importlib.util,json,sys
+ sys.dont_write_bytecode=True
+ import argparse
+-parser = argparse.ArgumentParser(description='Reviewed post-full329 Main Windows trusted probes; no build or original VM.')
++parser = argparse.ArgumentParser(description='Reviewed post-full Main Windows trusted probes with explicit source/count authority; no build or original VM.')
++parser.add_argument('--main-proof', required=True, type=Path)
++parser.add_argument('--part', required=True, type=int)
++parser.add_argument('--expected-full-passed', required=True, type=int)
++parser.add_argument('--expected-integration-results', required=True, type=int)
++parser.add_argument('--legacy-input-count', required=True, type=int)
++parser.add_argument('--reallocation-input-count', required=True, type=int)
+ parser.add_argument('--main-freeze-sha256', required=True)
+ parser.add_argument('--full-guard-sha256', required=True)
+ parser.add_argument('--source-peer', required=True, type=Path)
+@@ -10,12 +16,18 @@
+ parser.add_argument('--tool-sha256', required=True)
+ parser.add_argument('--runtime-sha256', required=True)
+ parser.add_argument('--output', required=True, type=Path)
+-parser.add_argument('--author-final-freeze-sha256',required=True)
++parser.add_argument('--tested-freeze', required=True, type=Path)
++parser.add_argument('--tested-freeze-sha256',required=True)
++parser.add_argument('--tested-actual-guard', required=True, type=Path)
++parser.add_argument('--tested-actual-guard-sha256',required=True)
++parser.add_argument('--main-composition-peer', required=True, type=Path)
++parser.add_argument('--main-composition-peer-sha256',required=True)
+ parser.add_argument('--closure-sha256',required=True)
+ args = parser.parse_args()
+ 
+-R=Path.cwd().resolve();D=args.output.resolve();C=R;P=R/'artifacts/root-part329-main1';F=P/'source-freeze.json'
+-assert D==R/'artifacts/root-part329-main-windows-native1' and D.is_dir()
++R=Path.cwd().resolve();D=args.output.resolve();C=R;P=args.main_proof.resolve();F=P/'source-freeze.json'
++assert D.is_relative_to(R/'artifacts') and D!=P and D.is_dir() and P.is_relative_to(R/'artifacts')
++assert args.part >= 331 and args.expected_full_passed > 0 and args.expected_integration_results > 0
+ peer=args.source_peer.resolve();assert peer.is_relative_to(R/'artifacts')
+ sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+ load=lambda p:json.loads(p.read_text(encoding='utf-8-sig'))
+@@ -25,21 +37,54 @@
+ CONFIGURATION = Path(__file__).resolve().parent / 'configuration.json'
+ assert sha(CONFIGURATION.read_bytes()) == '8742307F6361D8ABD53B29FA0E23E9979B0BA767DB6EE4703FB70F357A239857'
+ CONFIG = load(CONFIGURATION)
+-assert re.fullmatch('[A-Fa-f0-9]{64}',args.author_final_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.closure_sha256)
+-CONFIG['AuthorFinalFreezeSha256']=args.author_final_freeze_sha256.upper()
++assert re.fullmatch('[A-Fa-f0-9]{64}',args.tested_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.closure_sha256)
++CONFIG['TestedFreezeSha256']=args.tested_freeze_sha256.upper()
+ CONFIG['MainClosureSha256']=args.closure_sha256.upper()
+ MAIN_FREEZE=load(F)
+ MAIN_PLANS=MAIN_FREEZE['Plans']
+ assert len(MAIN_PLANS)==2 and {x['Path'] for x in MAIN_PLANS}=={'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json','tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json'}
++EXPECTED_INPUTS={'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json':args.legacy_input_count,'tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json':args.reallocation_input_count}
++assert all(value > 0 for value in EXPECTED_INPUTS.values())
++assert {item['Path']:item['Inputs'] for item in MAIN_PLANS}==EXPECTED_INPUTS
+ 
+ assert re.fullmatch('[A-Fa-f0-9]{64}',args.main_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.source_peer_sha256)
++tested_freeze = args.tested_freeze.resolve()
++tested_guard = args.tested_actual_guard.resolve()
++composition_peer = args.main_composition_peer.resolve()
++for authority in (tested_freeze, tested_guard, composition_peer):
++    assert authority.is_relative_to(R/'artifacts')
++
++def independent_inputs_exact():
++    assert sha(tested_freeze.read_bytes()) == args.tested_freeze_sha256.upper() == MAIN_FREEZE['TestedFreezeSha256']
++    assert sha(tested_guard.read_bytes()) == args.tested_actual_guard_sha256.upper() == MAIN_FREEZE['TestedActualGuardSha256']
++    assert sha(peer.read_bytes()) == args.source_peer_sha256.upper() == MAIN_FREEZE['IndependentSourcePeerSha256']
++    assert sha(composition_peer.read_bytes()) == args.main_composition_peer_sha256.upper()
++    composition = load(composition_peer)
++    assert composition.get('Passed') is True and str(composition['Status']).startswith('PASS')
++    assert composition['Role'] == CONFIG['IndependentPeerRole']
++    assert composition['SourceFreezeSha256'] == args.main_freeze_sha256.upper()
++    assert composition['SourceClosureSha256'] == args.closure_sha256.upper() == MAIN_FREEZE['SourceClosureSha256']
++    implementation = load(peer)
++    assert str(implementation['Status']).startswith('PASS') and implementation['SourceFreezeSha256'] == MAIN_FREEZE['TestedFreezeSha256']
++    actual = load(tested_guard)
++    assert actual['Passed'] == MAIN_FREEZE['ExpectedTests'] == args.expected_full_passed and actual['Failed'] == 0
++    assert actual['FormattedSourceFreezeSha256'] == MAIN_FREEZE['TestedFreezeSha256'] and actual['All6747PreviousOrderedTestNamesRetained'] is True
++    assert actual['NewCompiledScenarios'] == 21 and actual['NewDirectMfaContracts'] == 6 and actual['NewHostGroups'] == 1
++    tested = load(tested_freeze)
++    assert len(tested['Files']) == MAIN_FREEZE['CSharpPaths'] == 15
++    frozen_main = {row['Path']:row for row in MAIN_FREEZE['Files']}
++    for row in tested['Files']:
++        assert frozen_main[row['Path']] == row
++        raw = (R/row['Path']).read_bytes()
++        assert len(raw) == row['Bytes'] and sha(raw) == row['Sha256'], row['Path']
++
+ def references_exact():
+-    ledger=MAIN_FREEZE['ActualCaseLedger']
+-    assert sha((R / ledger['Path']).read_bytes()) == ledger['Sha256']
++    independent_inputs_exact()
+     for item in CONFIG['References']:
+         raw = (R / item['Path']).read_bytes()
+         assert len(raw) == item['Bytes'] and sha(raw) == item['Sha256'], item['Path']
+     for item in MAIN_PLANS:
++        assert len(json.loads((R/item['Path']).read_bytes())['Files'])==EXPECTED_INPUTS[item['Path']]
+         raw = (R / item['Path']).read_bytes()
+         assert b'\r' not in raw and not raw.startswith(b'\xef\xbb\xbf') and sha(raw) == item['Sha256']
+         workflow = (R / item['Workflow']).read_bytes().replace(b'\r\n', b'\n')
+@@ -49,17 +94,12 @@
+ assert CONFIG['IndependentPeerRole']=='FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW'
+ def bind(p):return {'Path':p.relative_to(R).as_posix(),'Bytes':p.stat().st_size,'Sha256':sha(p.read_bytes())}
+ assert sha(F.read_bytes())==args.main_freeze_sha256.upper()
+-assert load(F)['AuthorFinalFreeze']['Sha256']==CONFIG['AuthorFinalFreezeSha256']
+-assert load(F)['IndependentPeerRole']==CONFIG['IndependentPeerRole']
++assert args.source_peer_sha256.upper() == load(F)['IndependentSourcePeerSha256']
+ cl=P/'source-resource-closure.json';assert sha(cl.read_bytes())==args.closure_sha256.upper()
+ rows=load(cl)['Files'];assert len(rows)==load(F)['SourceClosurePaths']
+ assert load(F)['SourcePaths']==len(load(F)['Files']) and load(F)['CSharpPaths']==sum(x['Path'].endswith('.cs') for x in load(F)['Files'])
+-assert peer.relative_to(R).as_posix()==load(F)['IndependentPeer']['Path']
+-assert args.source_peer_sha256.upper()==load(F)['IndependentPeer']['Sha256']
+-assert load(F)['IndependentPeer']=={'Path':peer.relative_to(R).as_posix(),'Sha256':args.source_peer_sha256.upper()}
+ assert sha(peer.read_bytes())==args.source_peer_sha256.upper()
+-assert load(peer).get('Passed') is True or str(load(peer).get('Status','')).startswith('PASS')
+-assert CONFIG['AuthorFinalFreezeSha256'] in json.dumps(load(peer)) and CONFIG['MainClosureSha256'] in json.dumps(load(peer))
++independent_inputs_exact()
+ for r in rows:
+  b=(C/r['Path']).read_bytes();assert len(b)==r['Bytes'] and sha(b)==r['Sha256'],r['Path']
+ tool=C/'tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll';runtime=tool.with_name('Erlang.Runtime.dll')
+@@ -78,7 +118,7 @@
+  assert p['StdoutSha256']==sha(out) and p['StderrSha256']==sha(err) and p['NativeProbeInvoked'] is True and p['NativeExecutionValidated'] is False and p['OriginalExecuted'] is False and p['MainExecution'] is True
+  bi={x['Path']:x['Sha256'] for x in a['Bindings']};assert len(bi)==len(a['Bindings']) and binaryset.issubset(bi)
+  for name,h in bi.items():assert sha((R/name).read_bytes())==h,name
+- assert len(bi)==len(binaryset)+7
++ assert len(bi)==len(binaryset)+10
+  if common is None:common=bi
+  else:assert bi==common
+  for b in p['ActualSdkAssemblies']:assert sha((R/b['Path']).read_bytes())==b['Sha256']
+@@ -111,11 +151,12 @@
+ isolated_typed=load(R/'artifacts/root-part315-isolated-windows1/manual-typed-review.json')
+ for k,v in typed.items():assert isolated_typed[k]==v,k
+ assert typed['LoadedRequestedBytes']==typed['LoadedBackingRequestBytes'] and typed['LoadedRequestedBytes']>0
+-full=load(P/'full-guard.json');assert str(full['Status']).startswith('PASS_ACTUAL_MAIN329_')
+-assert full['Passed']==load(F)['ExpectedFullPassed'] and full['Passed']==6747 and load(F)['ActualCaseLedger'] and full['Failed']==0 and full['IntegrationResults']==11
++full=load(P/'full-guard.json');assert str(full['Status']).startswith(f'PASS_ACTUAL_MAIN{args.part}_')
++assert full['Passed']==load(F)['ExpectedTests'] and full['Passed']==args.expected_full_passed and full['Failed']==0 and full['IntegrationResults']==args.expected_integration_results
+ assert full['SourceFreezeSha256']==sha(F.read_bytes()) and full['SourceClosureSha256']==sha(cl.read_bytes())
+-assert load(P/'full-exit.json')['ExitCode']==0
+-report={'Status':'PASS_ACTUAL_MAIN329_POST_FULL_WINDOWS_LEGACY_QUERY_FIVE_PHASES_AND_REALLOCATION_THREE','SourceFreeze':bind(F),'SourceClosure':bind(cl),'SourceRowsRehashed':len(rows),'ActualTool':bind(tool),'ActualRuntime':bind(runtime),'Roles':roles,'RuntimeDependencyAssetsVerified':len(assets),'EveryRecursiveToolDllJsonBoundAcrossAllThreeAttempts':True,'FullPassed':load(F)['ExpectedFullPassed'],'SourceFreezeSha256':sha(F.read_bytes()),'SourceFilesRehashed':len(rows),'ActualFullGuard':bind(P/'full-guard.json'),'ManualReader':bind(reader),'IndependentTypedReplayMatchesRoot':True,'QueryPhases':typed['Completion']['Phases'],'RuntimeOrdinals':[q['RuntimeOrdinal'] for q in typed['QueryObservations']],'JoinedOwners':[q['JoinedOwners'] for q in typed['QueryObservations']],'RequestedAndBackingPairs':[q['QueryResult'] for q in typed['QueryObservations']],'LoadedOwnerLedgerEqualsActualQuery':True,'UnloadedCurrentZeroAndHistoryRetained':True,'Scope':typed['Scope'],'TrustedBridgeSha256':None,'LegacyAndReallocationRawByteExactPreviousActual317':True,'OriginalExecuted':False,'PhysicalMemoryCompared':False,'NewCCompiled':False,'ReviewerExecutedNativeVmSdkGitOrMainMutation':False,'ReviewedInterpretation':'Actual trusted Windows C callback/owner lifecycle queried through the same live SDK runtime; requested payload ledger scope only. No original Erlang comparison or physical allocator footprint claim.'}
++full_exit=load(P/'full-exit.json')
++assert full_exit['ExitCode']==0 and full_exit['TimedOut'] is False and full_exit['Settled'] is True
++report={'Status':f'PASS_ACTUAL_MAIN{args.part}_POST_FULL_WINDOWS_LEGACY_QUERY_FIVE_PHASES_AND_REALLOCATION_THREE','SourceFreeze':bind(F),'SourceClosure':bind(cl),'SourceRowsRehashed':len(rows),'ActualTool':bind(tool),'ActualRuntime':bind(runtime),'Roles':roles,'RuntimeDependencyAssetsVerified':len(assets),'EveryRecursiveToolDllJsonBoundAcrossAllThreeAttempts':True,'FullPassed':load(F)['ExpectedTests'],'SourceFreezeSha256':sha(F.read_bytes()),'SourceFilesRehashed':len(rows),'ActualFullGuard':bind(P/'full-guard.json'),'ImplementationSourcePeer':bind(peer),'MainCompositionPeer':bind(composition_peer),'TestedSourceFreeze':bind(tested_freeze),'TestedActualGuard':bind(tested_guard),'ManualReader':bind(reader),'IndependentTypedReplayMatchesRoot':True,'QueryPhases':typed['Completion']['Phases'],'RuntimeOrdinals':[q['RuntimeOrdinal'] for q in typed['QueryObservations']],'JoinedOwners':[q['JoinedOwners'] for q in typed['QueryObservations']],'RequestedAndBackingPairs':[q['QueryResult'] for q in typed['QueryObservations']],'LoadedOwnerLedgerEqualsActualQuery':True,'UnloadedCurrentZeroAndHistoryRetained':True,'Scope':typed['Scope'],'TrustedBridgeSha256':None,'LegacyAndReallocationRawByteExactPreviousActual317':True,'OriginalExecuted':False,'PhysicalMemoryCompared':False,'NewCCompiled':False,'ReviewerExecutedNativeVmSdkGitOrMainMutation':False,'ReviewedInterpretation':'Actual trusted Windows C callback/owner lifecycle queried through the same live SDK runtime; requested payload ledger scope only. No original Erlang comparison or physical allocator footprint claim.'}
+ references_exact()
+ out=D/'guard.json';assert not out.exists();report['IndependentPeerRole']=CONFIG['IndependentPeerRole'];report['MainExecution']=True;report['SourcePaths']=load(F)['SourcePaths'];report['CSharpPaths']=load(F)['CSharpPaths'];report['ActualTrustedCQueryExecuted']=True;report['MainSourceFreezeSha256']=sha(F.read_bytes());out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');print(json.dumps({'Path':out.relative_to(R).as_posix(),'Sha256':sha(out.read_bytes()),'Status':report['Status']}))
+ 

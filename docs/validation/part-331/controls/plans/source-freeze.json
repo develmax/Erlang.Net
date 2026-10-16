@@ -1,0 +1,73 @@
+{
+  "Status": "SOURCE_ONLY_NATIVE_PLAN331_COMPOSITION_OVERLAY",
+  "ParentHead": "b7484cb0dacc13c04ac818a3c58e4ff4f6afe344",
+  "TestedSourceFreezeSha256": "51F3917E5981ED8C570605FC205E22889994CA49B2DA071E2EFA65E44C1B295D",
+  "MainWritten": false,
+  "SdkOrNativeExecuted": false,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1123,
+      "Sha256": "D5959E69FADBEC0FB6D48DF356965F2212050454EA1B3B35927CBF73BEA09A5E",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        "src/Erlang.Otp.Behaviours/OtpModules.cs",
+        "src/Erlang.Runtime/FriendAssemblies.cs",
+        "src/Erlang.Runtime/RuntimeAssemblyNames.cs"
+      ],
+      "AllNonFilesFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1148,
+      "Sha256": "E3221E2A0B12DA57598BF67B00285538AD964396EB0747F254F1FE2FAAB6C6A1",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Otp.Behaviours/OtpModules.cs",
+        "src/Erlang.Runtime/FriendAssemblies.cs",
+        "src/Erlang.Runtime/RuntimeAssemblyNames.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "AllNonFilesFieldsUnchanged": true
+    }
+  ],
+  "Files": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 232678,
+      "Sha256": "D5959E69FADBEC0FB6D48DF356965F2212050454EA1B3B35927CBF73BEA09A5E",
+      "ParentSha256": "3187D751083A34B7434E8B6C229C6D631277CBC7F98612D1888FB27ECA56D342"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "D2CC797F6C269D8F1CDA88C4E59539D8494D5CD43C0E16444555CD1088B4A62D",
+      "ParentSha256": "02776EFBC01B4078516EE8AFE4F9DE3421F0108409601B98CAD0FCE98EDE90FB"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 242722,
+      "Sha256": "E3221E2A0B12DA57598BF67B00285538AD964396EB0747F254F1FE2FAAB6C6A1",
+      "ParentSha256": "0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5790,
+      "Sha256": "80E1B70DAEFF95D0696A490F56A3C5A25583DFB6F91BF67C4BF10DFFF2F8203A",
+      "ParentSha256": "22817F9271DDDCA0710013CDD7AC633DCFD3A0F36C590621C39773BBD8DFA757"
+    }
+  ]
+}

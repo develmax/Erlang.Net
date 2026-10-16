@@ -1,0 +1,151 @@
+--- D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\part329-main-native-template1\run329-main-native.py
++++ D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib331-native-template2\run-main-native.py
+@@ -9,7 +9,13 @@
+ 
+ sys.dont_write_bytecode = True
+ import argparse
+-parser = argparse.ArgumentParser(description='Reviewed post-full329 Main Windows trusted probes; no build or original VM.')
++parser = argparse.ArgumentParser(description='Reviewed post-full Main Windows trusted probes with explicit source/count authority; no build or original VM.')
++parser.add_argument('--main-proof', required=True, type=Path)
++parser.add_argument('--part', required=True, type=int)
++parser.add_argument('--expected-full-passed', required=True, type=int)
++parser.add_argument('--expected-integration-results', required=True, type=int)
++parser.add_argument('--legacy-input-count', required=True, type=int)
++parser.add_argument('--reallocation-input-count', required=True, type=int)
+ parser.add_argument('--main-freeze-sha256', required=True)
+ parser.add_argument('--full-guard-sha256', required=True)
+ parser.add_argument('--source-peer', required=True, type=Path)
+@@ -17,15 +23,22 @@
+ parser.add_argument('--tool-sha256', required=True)
+ parser.add_argument('--runtime-sha256', required=True)
+ parser.add_argument('--output', required=True, type=Path)
+-parser.add_argument('--author-final-freeze-sha256',required=True)
++parser.add_argument('--tested-freeze', required=True, type=Path)
++parser.add_argument('--tested-freeze-sha256',required=True)
++parser.add_argument('--tested-actual-guard', required=True, type=Path)
++parser.add_argument('--tested-actual-guard-sha256',required=True)
++parser.add_argument('--main-composition-peer', required=True, type=Path)
++parser.add_argument('--main-composition-peer-sha256',required=True)
+ parser.add_argument('--closure-sha256',required=True)
+ args = parser.parse_args()
+ 
+ root = Path.cwd().resolve()
+ assert (root / '.git').exists(), 'Main repository required'
+-assert args.output.resolve()==root/'artifacts/root-part329-main-windows-native1'
++assert args.output.resolve().is_relative_to(root/'artifacts') and args.output.resolve()!=args.main_proof.resolve()
++assert args.part >= 331 and args.expected_full_passed > 0 and args.expected_integration_results > 0
+ candidate = root
+-proof = root / 'artifacts/root-part329-main1'
++proof = args.main_proof.resolve()
++assert proof.is_relative_to(root/'artifacts')
+ freeze_path = proof / 'source-freeze.json'
+ closure_path = proof / 'source-resource-closure.json'
+ peer_path = args.source_peer.resolve()
+@@ -39,21 +52,54 @@
+ CONFIGURATION = Path(__file__).resolve().parent / 'configuration.json'
+ assert sha(CONFIGURATION.read_bytes()) == '8742307F6361D8ABD53B29FA0E23E9979B0BA767DB6EE4703FB70F357A239857'
+ CONFIG = read(CONFIGURATION)
+-assert re.fullmatch('[A-Fa-f0-9]{64}',args.author_final_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.closure_sha256)
+-CONFIG['AuthorFinalFreezeSha256']=args.author_final_freeze_sha256.upper()
++assert re.fullmatch('[A-Fa-f0-9]{64}',args.tested_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.closure_sha256)
++CONFIG['TestedFreezeSha256']=args.tested_freeze_sha256.upper()
+ CONFIG['MainClosureSha256']=args.closure_sha256.upper()
+ MAIN_FREEZE=read(proof / 'source-freeze.json')
+ MAIN_PLANS=MAIN_FREEZE['Plans']
+ assert len(MAIN_PLANS)==2 and {x['Path'] for x in MAIN_PLANS}=={'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json','tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json'}
++EXPECTED_INPUTS={'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json':args.legacy_input_count,'tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json':args.reallocation_input_count}
++assert all(value > 0 for value in EXPECTED_INPUTS.values())
++assert {item['Path']:item['Inputs'] for item in MAIN_PLANS}==EXPECTED_INPUTS
+ 
+ assert re.fullmatch('[A-Fa-f0-9]{64}',args.main_freeze_sha256) and re.fullmatch('[A-Fa-f0-9]{64}',args.source_peer_sha256)
++tested_freeze = args.tested_freeze.resolve()
++tested_guard = args.tested_actual_guard.resolve()
++composition_peer = args.main_composition_peer.resolve()
++for authority in (tested_freeze, tested_guard, composition_peer):
++    assert authority.is_relative_to(root/'artifacts')
++
++def independent_inputs_exact():
++    assert sha(tested_freeze.read_bytes()) == args.tested_freeze_sha256.upper() == MAIN_FREEZE['TestedFreezeSha256']
++    assert sha(tested_guard.read_bytes()) == args.tested_actual_guard_sha256.upper() == MAIN_FREEZE['TestedActualGuardSha256']
++    assert sha(peer_path.read_bytes()) == args.source_peer_sha256.upper() == MAIN_FREEZE['IndependentSourcePeerSha256']
++    assert sha(composition_peer.read_bytes()) == args.main_composition_peer_sha256.upper()
++    composition = read(composition_peer)
++    assert composition.get('Passed') is True and str(composition['Status']).startswith('PASS')
++    assert composition['Role'] == CONFIG['IndependentPeerRole']
++    assert composition['SourceFreezeSha256'] == args.main_freeze_sha256.upper()
++    assert composition['SourceClosureSha256'] == args.closure_sha256.upper() == MAIN_FREEZE['SourceClosureSha256']
++    implementation = read(peer_path)
++    assert str(implementation['Status']).startswith('PASS') and implementation['SourceFreezeSha256'] == MAIN_FREEZE['TestedFreezeSha256']
++    actual = read(tested_guard)
++    assert actual['Passed'] == MAIN_FREEZE['ExpectedTests'] == args.expected_full_passed and actual['Failed'] == 0
++    assert actual['FormattedSourceFreezeSha256'] == MAIN_FREEZE['TestedFreezeSha256'] and actual['All6747PreviousOrderedTestNamesRetained'] is True
++    assert actual['NewCompiledScenarios'] == 21 and actual['NewDirectMfaContracts'] == 6 and actual['NewHostGroups'] == 1
++    tested = read(tested_freeze)
++    assert len(tested['Files']) == MAIN_FREEZE['CSharpPaths'] == 15
++    frozen_main = {row['Path']:row for row in MAIN_FREEZE['Files']}
++    for row in tested['Files']:
++        assert frozen_main[row['Path']] == row
++        raw = (root/row['Path']).read_bytes()
++        assert len(raw) == row['Bytes'] and sha(raw) == row['Sha256'], row['Path']
++
+ def references_exact():
+-    ledger=MAIN_FREEZE['ActualCaseLedger']
+-    assert sha((root / ledger['Path']).read_bytes()) == ledger['Sha256']
++    independent_inputs_exact()
+     for item in CONFIG['References']:
+         raw = (root / item['Path']).read_bytes()
+         assert len(raw) == item['Bytes'] and sha(raw) == item['Sha256'], item['Path']
+     for item in MAIN_PLANS:
++        assert len(json.loads((root/item['Path']).read_bytes())['Files'])==EXPECTED_INPUTS[item['Path']]
+         raw = (root / item['Path']).read_bytes()
+         assert b'\r' not in raw and not raw.startswith(b'\xef\xbb\xbf') and sha(raw) == item['Sha256']
+         workflow = (root / item['Workflow']).read_bytes().replace(b'\r\n', b'\n')
+@@ -63,26 +109,23 @@
+ assert CONFIG['IndependentPeerRole']=='FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW'
+ assert os.name == 'nt' and not out.exists()
+ freeze = read(freeze_path)
+-assert freeze['AuthorFinalFreeze']['Sha256']==CONFIG['AuthorFinalFreezeSha256']
+-assert freeze['IndependentPeerRole']==CONFIG['IndependentPeerRole']
+-assert peer_path.relative_to(root).as_posix() == freeze['IndependentPeer']['Path']
+-assert args.source_peer_sha256.upper() == freeze['IndependentPeer']['Sha256']
+-assert freeze['IndependentPeer']=={'Path':peer_path.relative_to(root).as_posix(),'Sha256':args.source_peer_sha256.upper()}
++assert args.source_peer_sha256.upper() == freeze['IndependentSourcePeerSha256']
+ closure = read(closure_path)
+ assert freeze['SourcePaths'] == len(freeze['Files']) and freeze['CSharpPaths'] == sum(x['Path'].endswith('.cs') for x in freeze['Files'])
+ assert len(closure['Files']) == freeze['SourceClosurePaths']
+ assert sha(freeze_path.read_bytes()) == args.main_freeze_sha256.upper() 
+-assert sha(closure_path.read_bytes()) == freeze['FinalSourceClosureSha256'] == args.closure_sha256.upper()
++assert sha(closure_path.read_bytes()) == freeze['SourceClosureSha256'] == args.closure_sha256.upper()
+ assert sha(peer_path.read_bytes()) == args.source_peer_sha256.upper()
+ assert read(peer_path).get('Passed') is True or str(read(peer_path).get('Status', '')).startswith('PASS')
+-assert CONFIG['AuthorFinalFreezeSha256'] in json.dumps(read(peer_path)) and CONFIG['MainClosureSha256'] in json.dumps(read(peer_path))
++independent_inputs_exact()
+ full_path = proof / 'full-guard.json'
+ full = read(full_path)
+ assert sha(full_path.read_bytes()) == args.full_guard_sha256.upper()
+-assert str(full['Status']).startswith('PASS_ACTUAL_MAIN329')
+-assert full['Passed'] == freeze['ExpectedFullPassed'] and full['Failed'] == 0 and full['IntegrationResults'] == 11 and freeze['ExpectedFullPassed']==6747 and freeze['ActualCaseLedger']
++assert str(full['Status']).startswith(f'PASS_ACTUAL_MAIN{args.part}_')
++assert full['Passed'] == freeze['ExpectedTests'] and full['Failed'] == 0 and full['IntegrationResults'] == args.expected_integration_results and freeze['ExpectedTests']==args.expected_full_passed
+ assert full['SourceFreezeSha256'] == sha(freeze_path.read_bytes()) and full['SourceClosureSha256'] == sha(closure_path.read_bytes())
+-assert read(proof / 'full-exit.json')['ExitCode'] == 0
++full_exit = read(proof / 'full-exit.json')
++assert full_exit['ExitCode'] == 0 and full_exit['TimedOut'] is False and full_exit['Settled'] is True
+ 
+ def source_exact():
+     references_exact()
+@@ -112,6 +155,8 @@
+ pins[freeze_path] = sha(freeze_path.read_bytes())
+ pins[closure_path] = sha(closure_path.read_bytes())
+ pins[peer_path] = sha(peer_path.read_bytes())
++for authority in (tested_freeze, tested_guard, composition_peer):
++    pins[authority] = sha(authority.read_bytes())
+ out.mkdir()
+ env = os.environ.copy()
+ env['DOTNET_PROCESSOR_COUNT'] = '2'
+@@ -147,4 +192,4 @@
+         assert sha(path.read_bytes()) == expected, path
+     print(json.dumps(receipt))
+     assert code == 0 and not timed_out and not stderr, role + ': preserve first capture; no retry'
+-print('Actual post-full Main328 processes completed; independent passive typed review remains required.')
++print('Actual post-full Main processes completed; independent passive typed review remains required.')

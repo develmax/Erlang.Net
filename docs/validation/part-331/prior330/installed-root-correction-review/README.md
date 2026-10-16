@@ -1,0 +1,7 @@
+# Installed OTP root path correction
+
+The published330 driver checks `<prefix>/releases/*/OTP_VERSION` when the workflow supplies `<prefix>/bin/erl`. Pinned OTP installs release metadata under `<prefix>/lib/erlang/releases/29/OTP_VERSION`; make/install_bin publishes the bin launcher as a symlink when ln -s is available, with an explicit copy fallback. Makefile.in install.otp_version uses ERLANG_LIBDIR, not the public prefix.
+
+This narrow correction resolves the actual selected launcher using Path.resolve(strict=True), then locates releases relative to that resolved launcher. The original fixture process already executes the same resolved launcher, so the metadata and execution now agree. It retains exact source commit and OTP_VERSION 29.1.1 assertions; missing metadata still fails. It adds resolved launcher/root identities to the provenance report. It does not fabricate original execution or relax a version assertion. A copy-only installation remains unsupported unless metadata is adjacent to its real installed launcher; no guessed fallback is introduced.
+
+The current330 workflow is still running. Its actual eventual failure, if any, must be retained separately; this source review does not establish that the original branch has executed or failed. The symlink path reasoning follows pinned source, not an installed runtime observed locally. No source-built OTP is available on this Windows host.

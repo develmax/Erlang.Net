@@ -1,0 +1,376 @@
+﻿2026-10-16T12:15:57.7934255Z Current runner version: '2.337.0'
+2026-10-16T12:15:57.7969619Z ##[group]Runner Image Provisioner
+2026-10-16T12:15:57.7971069Z Hosted Compute Agent
+2026-10-16T12:15:57.7972369Z Version: 20261012.601
+2026-10-16T12:15:57.7973433Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-16T12:15:57.7974770Z Build Date: 2026-10-12T17:48:21Z
+2026-10-16T12:15:57.7975924Z Worker ID: {af903dce-f791-4826-832a-48a3fe25490c}
+2026-10-16T12:15:57.7977103Z Region: eastus2
+2026-10-16T12:15:57.7978115Z Cloud: Azure
+2026-10-16T12:15:57.7978986Z ##[endgroup]
+2026-10-16T12:15:57.7982043Z ##[group]Operating System
+2026-10-16T12:15:57.7983174Z Ubuntu
+2026-10-16T12:15:57.7984150Z 24.04.5
+2026-10-16T12:15:57.7985222Z LTS
+2026-10-16T12:15:57.7986196Z ##[endgroup]
+2026-10-16T12:15:57.7987277Z ##[group]Runner Image
+2026-10-16T12:15:57.7988369Z Image: ubuntu-24.04
+2026-10-16T12:15:57.7989358Z Version: 20261012.334.1
+2026-10-16T12:15:57.7991944Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-16T12:15:57.7995036Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-16T12:15:57.7996885Z ##[endgroup]
+2026-10-16T12:15:57.7998929Z ##[group]GITHUB_TOKEN Permissions
+2026-10-16T12:15:57.8002124Z Contents: read
+2026-10-16T12:15:57.8003662Z Metadata: read
+2026-10-16T12:15:57.8004926Z ##[endgroup]
+2026-10-16T12:15:57.8007846Z Secret source: Actions
+2026-10-16T12:15:57.8009565Z Cache mode: write
+2026-10-16T12:15:57.8011236Z Prepare workflow directory
+2026-10-16T12:15:57.8571715Z Prepare all required actions
+2026-10-16T12:15:57.8641850Z Getting action download info
+2026-10-16T12:15:58.0923086Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-16T12:15:58.2098385Z Download action repository 'actions/setup-dotnet@v6' (SHA:a98b56852c35b8e3190ac28c8c2271da59106c68)
+2026-10-16T12:15:58.4667325Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-16T12:15:58.8192918Z Complete job name: original-and-sdk-reallocation
+2026-10-16T12:15:58.9005189Z ##[group]Run actions/checkout@v7
+2026-10-16T12:15:58.9006142Z with:
+2026-10-16T12:15:58.9006612Z   repository: develmax/Erlang.Net
+2026-10-16T12:15:58.9011010Z   token: ***
+2026-10-16T12:15:58.9011932Z   ssh-strict: true
+2026-10-16T12:15:58.9012412Z   ssh-user: git
+2026-10-16T12:15:58.9012881Z   persist-credentials: true
+2026-10-16T12:15:58.9013413Z   clean: true
+2026-10-16T12:15:58.9013881Z   sparse-checkout-cone-mode: true
+2026-10-16T12:15:58.9014453Z   fetch-depth: 1
+2026-10-16T12:15:58.9014896Z   fetch-tags: false
+2026-10-16T12:15:58.9015360Z   show-progress: true
+2026-10-16T12:15:58.9015830Z   lfs: false
+2026-10-16T12:15:58.9016267Z   submodules: false
+2026-10-16T12:15:58.9016750Z   set-safe-directory: true
+2026-10-16T12:15:58.9017285Z   allow-unsafe-pr-checkout: false
+2026-10-16T12:15:58.9018428Z env:
+2026-10-16T12:15:58.9018886Z   ERLC_USE_SERVER: false
+2026-10-16T12:15:58.9019445Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-16T12:15:58.9019993Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-16T12:15:58.9020620Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-16T12:15:58.9021818Z   REVIEWED_REALLOCATION_PLAN_SHA256: 0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D
+2026-10-16T12:15:58.9022884Z ##[endgroup]
+2026-10-16T12:15:59.0075461Z Syncing repository: develmax/Erlang.Net
+2026-10-16T12:15:59.0083850Z ##[group]Getting Git version info
+2026-10-16T12:15:59.0085200Z Working directory is '/home/runner/work/Erlang.Net/Erlang.Net'
+2026-10-16T12:15:59.0087385Z [command]/usr/bin/git version
+2026-10-16T12:15:59.0158666Z git version 2.55.0
+2026-10-16T12:15:59.0182981Z ##[endgroup]
+2026-10-16T12:15:59.0209388Z Temporarily overriding HOME='/home/runner/work/_temp/4a8718bf-74ca-4292-8f02-b12f9e4bf24a' before making global git config changes
+2026-10-16T12:15:59.0212634Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-16T12:15:59.0217725Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-16T12:15:59.0280170Z Deleting the contents of '/home/runner/work/Erlang.Net/Erlang.Net'
+2026-10-16T12:15:59.0285611Z ##[group]Determining repository object format
+2026-10-16T12:15:59.0287672Z ##[endgroup]
+2026-10-16T12:15:59.0289656Z ##[group]Initializing the repository
+2026-10-16T12:15:59.0293447Z [command]/usr/bin/git init /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-16T12:15:59.0458019Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-16T12:15:59.0459950Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-16T12:15:59.0462035Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-16T12:15:59.0463424Z hint: call:
+2026-10-16T12:15:59.0464073Z hint:
+2026-10-16T12:15:59.0465035Z hint: 	git config --global init.defaultBranch <name>
+2026-10-16T12:15:59.0466259Z hint:
+2026-10-16T12:15:59.0467308Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-16T12:15:59.0469175Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-16T12:15:59.0470626Z hint:
+2026-10-16T12:15:59.0471577Z hint: 	git branch -m <name>
+2026-10-16T12:15:59.0472432Z hint:
+2026-10-16T12:15:59.0473548Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-16T12:15:59.0475999Z Initialized empty Git repository in /home/runner/work/Erlang.Net/Erlang.Net/.git/
+2026-10-16T12:15:59.0479281Z [command]/usr/bin/git remote add origin https://github.com/develmax/Erlang.Net
+2026-10-16T12:15:59.0544404Z ##[endgroup]
+2026-10-16T12:15:59.0545940Z ##[group]Disabling automatic garbage collection
+2026-10-16T12:15:59.0547717Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-16T12:15:59.0584393Z ##[endgroup]
+2026-10-16T12:15:59.0585803Z ##[group]Setting up auth
+2026-10-16T12:15:59.0586939Z Removing SSH command configuration
+2026-10-16T12:15:59.0593032Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-16T12:15:59.0633197Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-16T12:15:59.1036164Z Removing HTTP extra header
+2026-10-16T12:15:59.1041743Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-16T12:15:59.1078877Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-16T12:15:59.1306599Z Removing includeIf entries pointing to credentials config files
+2026-10-16T12:15:59.1311016Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-16T12:15:59.1348835Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-16T12:15:59.1583904Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-16T12:15:59.1624630Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path /home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:15:59.1659458Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:15:59.1697580Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:15:59.1733193Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:15:59.1764428Z ##[endgroup]
+2026-10-16T12:15:59.1765275Z ##[group]Fetching the repository
+2026-10-16T12:15:59.1771450Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d83ed875d0c77939e20049afcb46fa297fee82dd:refs/remotes/origin/main
+2026-10-16T12:16:17.8359491Z From https://github.com/develmax/Erlang.Net
+2026-10-16T12:16:17.8361023Z  * [new ref]           d83ed875d0c77939e20049afcb46fa297fee82dd -> origin/main
+2026-10-16T12:16:17.8373289Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-16T12:16:17.8405000Z   origin/main
+2026-10-16T12:16:17.8415072Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-16T12:16:17.8442922Z d83ed875d0c77939e20049afcb46fa297fee82dd
+2026-10-16T12:16:17.8473164Z ##[endgroup]
+2026-10-16T12:16:17.8474838Z ##[group]Determining the checkout info
+2026-10-16T12:16:17.8476635Z ##[endgroup]
+2026-10-16T12:16:17.8477994Z [command]/usr/bin/git sparse-checkout disable
+2026-10-16T12:16:17.8513281Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-16T12:16:17.8549026Z ##[group]Checking out the ref
+2026-10-16T12:16:17.8554993Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-16T12:16:18.9147301Z Updating files:  15% (5110/33483)
+2026-10-16T12:16:18.9527628Z Updating files:  16% (5358/33483)
+2026-10-16T12:16:18.9874828Z Updating files:  17% (5693/33483)
+2026-10-16T12:16:19.0121722Z Updating files:  18% (6027/33483)
+2026-10-16T12:16:19.1356892Z Updating files:  19% (6362/33483)
+2026-10-16T12:16:19.1546403Z Updating files:  20% (6697/33483)
+2026-10-16T12:16:19.1768276Z Updating files:  21% (7032/33483)
+2026-10-16T12:16:19.2032981Z Updating files:  22% (7367/33483)
+2026-10-16T12:16:19.4127315Z Updating files:  23% (7702/33483)
+2026-10-16T12:16:19.4397610Z Updating files:  24% (8036/33483)
+2026-10-16T12:16:19.4579799Z Updating files:  25% (8371/33483)
+2026-10-16T12:16:19.8348764Z Updating files:  26% (8706/33483)
+2026-10-16T12:16:19.9510204Z Updating files:  27% (9041/33483)
+2026-10-16T12:16:20.3323360Z Updating files:  27% (9140/33483)
+2026-10-16T12:16:20.8350247Z Updating files:  28% (9376/33483)
+2026-10-16T12:16:20.9112720Z Updating files:  29% (9711/33483)
+2026-10-16T12:16:21.0980933Z Updating files:  29% (9737/33483)
+2026-10-16T12:16:21.1200166Z Updating files:  30% (10045/33483)
+2026-10-16T12:16:21.3252913Z Updating files:  31% (10380/33483)
+2026-10-16T12:16:21.5580167Z Updating files:  32% (10715/33483)
+2026-10-16T12:16:21.5838064Z Updating files:  33% (11050/33483)
+2026-10-16T12:16:21.6372810Z Updating files:  34% (11385/33483)
+2026-10-16T12:16:21.9204689Z Updating files:  35% (11720/33483)
+2026-10-16T12:16:21.9696089Z Updating files:  35% (11923/33483)
+2026-10-16T12:16:22.1026125Z Updating files:  36% (12054/33483)
+2026-10-16T12:16:22.3412368Z Updating files:  37% (12389/33483)
+2026-10-16T12:16:22.5222161Z Updating files:  38% (12724/33483)
+2026-10-16T12:16:22.6208184Z Updating files:  39% (13059/33483)
+2026-10-16T12:16:22.6691964Z Updating files:  40% (13394/33483)
+2026-10-16T12:16:22.9180085Z Updating files:  41% (13729/33483)
+2026-10-16T12:16:23.0417251Z Updating files:  41% (13979/33483)
+2026-10-16T12:16:23.3517620Z Updating files:  42% (14063/33483)
+2026-10-16T12:16:23.6407465Z Updating files:  43% (14398/33483)
+2026-10-16T12:16:23.6983046Z Updating files:  44% (14733/33483)
+2026-10-16T12:16:23.7436596Z Updating files:  45% (15068/33483)
+2026-10-16T12:16:23.9396649Z Updating files:  46% (15403/33483)
+2026-10-16T12:16:23.9461301Z Updating files:  46% (15699/33483)
+2026-10-16T12:16:23.9810036Z Updating files:  47% (15738/33483)
+2026-10-16T12:16:24.3523305Z Updating files:  48% (16072/33483)
+2026-10-16T12:16:24.3718211Z Updating files:  49% (16407/33483)
+2026-10-16T12:16:24.6807991Z Updating files:  50% (16742/33483)
+2026-10-16T12:16:24.7091696Z Updating files:  51% (17077/33483)
+2026-10-16T12:16:24.7790926Z Updating files:  52% (17412/33483)
+2026-10-16T12:16:24.8321701Z Updating files:  53% (17746/33483)
+2026-10-16T12:16:24.8702753Z Updating files:  54% (18081/33483)
+2026-10-16T12:16:24.9015169Z Updating files:  55% (18416/33483)
+2026-10-16T12:16:25.0039813Z Updating files:  55% (18487/33483)
+2026-10-16T12:16:25.0729712Z Updating files:  56% (18751/33483)
+2026-10-16T12:16:25.1068977Z Updating files:  57% (19086/33483)
+2026-10-16T12:16:25.1732073Z Updating files:  58% (19421/33483)
+2026-10-16T12:16:25.2624347Z Updating files:  59% (19755/33483)
+2026-10-16T12:16:25.3079544Z Updating files:  60% (20090/33483)
+2026-10-16T12:16:25.3686152Z Updating files:  61% (20425/33483)
+2026-10-16T12:16:25.4284804Z Updating files:  62% (20760/33483)
+2026-10-16T12:16:25.5017453Z Updating files:  63% (21095/33483)
+2026-10-16T12:16:25.5765961Z Updating files:  64% (21430/33483)
+2026-10-16T12:16:25.6445195Z Updating files:  65% (21764/33483)
+2026-10-16T12:16:25.7179973Z Updating files:  66% (22099/33483)
+2026-10-16T12:16:25.7398922Z Updating files:  67% (22434/33483)
+2026-10-16T12:16:25.7758983Z Updating files:  68% (22769/33483)
+2026-10-16T12:16:25.8572800Z Updating files:  69% (23104/33483)
+2026-10-16T12:16:25.8923265Z Updating files:  70% (23439/33483)
+2026-10-16T12:16:25.9548283Z Updating files:  70% (23489/33483)
+2026-10-16T12:16:26.0750171Z Updating files:  71% (23773/33483)
+2026-10-16T12:16:26.4466566Z Updating files:  72% (24108/33483)
+2026-10-16T12:16:26.4927717Z Updating files:  73% (24443/33483)
+2026-10-16T12:16:26.5390840Z Updating files:  74% (24778/33483)
+2026-10-16T12:16:26.5940689Z Updating files:  75% (25113/33483)
+2026-10-16T12:16:26.6366089Z Updating files:  76% (25448/33483)
+2026-10-16T12:16:26.6753014Z Updating files:  77% (25782/33483)
+2026-10-16T12:16:26.7097799Z Updating files:  78% (26117/33483)
+2026-10-16T12:16:26.7366695Z Updating files:  79% (26452/33483)
+2026-10-16T12:16:26.7700888Z Updating files:  80% (26787/33483)
+2026-10-16T12:16:26.8024908Z Updating files:  81% (27122/33483)
+2026-10-16T12:16:26.8347179Z Updating files:  82% (27457/33483)
+2026-10-16T12:16:26.8773627Z Updating files:  83% (27791/33483)
+2026-10-16T12:16:26.8941566Z Updating files:  84% (28126/33483)
+2026-10-16T12:16:26.8972279Z Updating files:  84% (28397/33483)
+2026-10-16T12:16:26.9408453Z Updating files:  85% (28461/33483)
+2026-10-16T12:16:26.9715333Z Updating files:  86% (28796/33483)
+2026-10-16T12:16:26.9966968Z Updating files:  87% (29131/33483)
+2026-10-16T12:16:27.0334520Z Updating files:  88% (29466/33483)
+2026-10-16T12:16:27.1100349Z Updating files:  89% (29800/33483)
+2026-10-16T12:16:27.1406688Z Updating files:  90% (30135/33483)
+2026-10-16T12:16:27.1669270Z Updating files:  91% (30470/33483)
+2026-10-16T12:16:27.1965344Z Updating files:  92% (30805/33483)
+2026-10-16T12:16:27.2121207Z Updating files:  93% (31140/33483)
+2026-10-16T12:16:27.2304430Z Updating files:  94% (31475/33483)
+2026-10-16T12:16:27.2468297Z Updating files:  95% (31809/33483)
+2026-10-16T12:16:27.2647124Z Updating files:  96% (32144/33483)
+2026-10-16T12:16:27.2818975Z Updating files:  97% (32479/33483)
+2026-10-16T12:16:27.2994582Z Updating files:  98% (32814/33483)
+2026-10-16T12:16:27.3261161Z Updating files:  99% (33149/33483)
+2026-10-16T12:16:27.3261942Z Updating files: 100% (33483/33483)
+2026-10-16T12:16:27.3262427Z Updating files: 100% (33483/33483), done.
+2026-10-16T12:16:27.3976397Z Switched to a new branch 'main'
+2026-10-16T12:16:27.3978214Z branch 'main' set up to track 'origin/main'.
+2026-10-16T12:16:27.4122298Z ##[endgroup]
+2026-10-16T12:16:27.4169414Z [command]/usr/bin/git log -1 --format=%H
+2026-10-16T12:16:27.4201231Z d83ed875d0c77939e20049afcb46fa297fee82dd
+2026-10-16T12:16:27.6575401Z ##[group]Run actions/setup-dotnet@v6
+2026-10-16T12:16:27.6575706Z with:
+2026-10-16T12:16:27.6575918Z   global-json-file: global.json
+2026-10-16T12:16:27.6576171Z   cache: false
+2026-10-16T12:16:27.6576363Z env:
+2026-10-16T12:16:27.6576549Z   ERLC_USE_SERVER: false
+2026-10-16T12:16:27.6576776Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-16T12:16:27.6577015Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-16T12:16:27.6577281Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-16T12:16:27.6577950Z   REVIEWED_REALLOCATION_PLAN_SHA256: 0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D
+2026-10-16T12:16:27.6578421Z ##[endgroup]
+2026-10-16T12:16:27.7903152Z [command]/home/runner/work/_actions/actions/setup-dotnet/v6/externals/install-dotnet.sh --skip-non-versioned-files --runtime dotnet --channel LTS
+2026-10-16T12:16:28.5650223Z dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.13/dotnet-runtime-10.0.13-linux-x64.tar.gz
+2026-10-16T12:16:28.8594811Z dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.13/dotnet-runtime-10.0.13-linux-x64.tar.gz size is 36648012 bytes.
+2026-10-16T12:16:28.8599653Z dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.13/dotnet-runtime-10.0.13-linux-x64.tar.gz
+2026-10-16T12:16:29.6215274Z dotnet-install: Downloaded file size is 36648012 bytes.
+2026-10-16T12:16:29.6216419Z dotnet-install: The remote and local file sizes are equal.
+2026-10-16T12:16:29.6498379Z dotnet-install: Installed version is 10.0.13
+2026-10-16T12:16:29.6555418Z dotnet-install: Adding to current process PATH: `/usr/share/dotnet`. Note: This change will be visible only when sourcing script.
+2026-10-16T12:16:29.6556995Z dotnet-install: Note that the script does not resolve dependencies during installation.
+2026-10-16T12:16:29.6558958Z dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
+2026-10-16T12:16:29.6560846Z dotnet-install: Installation finished successfully.
+2026-10-16T12:16:29.6583785Z [command]/home/runner/work/_actions/actions/setup-dotnet/v6/externals/install-dotnet.sh --skip-non-versioned-files --version 10.0.400
+2026-10-16T12:16:30.6568261Z dotnet-install: Attempting to download using primary link https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.400/dotnet-sdk-10.0.400-linux-x64.tar.gz
+2026-10-16T12:16:31.4495346Z dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.400/dotnet-sdk-10.0.400-linux-x64.tar.gz size is 240133692 bytes.
+2026-10-16T12:16:31.4497185Z dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.400/dotnet-sdk-10.0.400-linux-x64.tar.gz
+2026-10-16T12:16:36.5388905Z dotnet-install: Downloaded file size is 240133692 bytes.
+2026-10-16T12:16:36.5389365Z dotnet-install: The remote and local file sizes are equal.
+2026-10-16T12:16:36.7890833Z dotnet-install: Installed version is 10.0.400
+2026-10-16T12:16:36.7947613Z dotnet-install: Adding to current process PATH: `/usr/share/dotnet`. Note: This change will be visible only when sourcing script.
+2026-10-16T12:16:36.7948716Z dotnet-install: Note that the script does not resolve dependencies during installation.
+2026-10-16T12:16:36.7950015Z dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
+2026-10-16T12:16:36.7951068Z dotnet-install: Installation finished successfully.
+2026-10-16T12:16:36.8095606Z ##[group]Run set -euo pipefail
+2026-10-16T12:16:36.8095993Z [36;1mset -euo pipefail[0m
+2026-10-16T12:16:36.8096279Z [36;1mtest "$EXPECTED_HEAD" = "$GITHUB_SHA"[0m
+2026-10-16T12:16:36.8096683Z [36;1mtest "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"[0m
+2026-10-16T12:16:36.8097069Z [36;1mexport ROOT="$GITHUB_WORKSPACE"[0m
+2026-10-16T12:16:36.8097409Z [36;1mexport BASE="$ROOT/artifacts/reallocation-native"[0m
+2026-10-16T12:16:36.8097744Z [36;1mexport SOURCE="$BASE/otp-source"[0m
+2026-10-16T12:16:36.8098112Z [36;1mexport TOOL="$ROOT/tools/Erlang.NifReallocationObservations"[0m
+2026-10-16T12:16:36.8098502Z [36;1mexport PLAN="$TOOL/SOURCE-PLAN.json"[0m
+2026-10-16T12:16:36.8098797Z [36;1mtest ! -e "$BASE"[0m
+2026-10-16T12:16:36.8099047Z [36;1mmkdir -p "$BASE/control"[0m
+2026-10-16T12:16:36.8099784Z [36;1mgit clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git "$SOURCE" >"$BASE/control/clone.stdout" 2>"$BASE/control/clone.stderr"[0m
+2026-10-16T12:16:36.8100908Z [36;1mtest "$(git --no-optional-locks -C "$SOURCE" rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5[0m
+2026-10-16T12:16:36.8102162Z [36;1mcommon=(--repository "$ROOT" --otp-source "$SOURCE" --plan "$PLAN" --expected-head "$GITHUB_SHA" --approved-plan-sha256 "$REVIEWED_REALLOCATION_PLAN_SHA256")[0m
+2026-10-16T12:16:36.8102943Z [36;1msource_common=("${common[@]}" --source-build "$BASE/source-build")[0m
+2026-10-16T12:16:36.8103507Z [36;1mpython3 -B "$TOOL/controlled_source_build.py" "${common[@]}" --output "$BASE/source-build"[0m
+2026-10-16T12:16:36.8104234Z [36;1mpython3 -B "$TOOL/verify_source_build.py" source-build "${source_common[@]}" --output "$BASE/control/source-review.json"[0m
+2026-10-16T12:16:36.8105151Z [36;1mreview_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$BASE/control/source-review.json")[0m
+2026-10-16T12:16:36.8106892Z [36;1mpython3 -B "$TOOL/runtime_receipt_adapter.py" --source "$SOURCE" --installed-prefix "$SOURCE/observer-install" --provenance "$BASE/source-build/legacy-provenance.json" --build-log "$BASE/source-build/complete-build.log" --independent-review "$BASE/control/source-review.json" --approved-review-sha256 "$review_sha" --output "$BASE/runtime-receipt"[0m
+2026-10-16T12:16:36.8108578Z [36;1mruntime_common=(--review "$BASE/control/source-review.json" --runtime-receipt "$BASE/runtime-receipt/source-build-receipt.json")[0m
+2026-10-16T12:16:36.8109529Z [36;1mpython3 -B "$TOOL/verify_source_build.py" runtime-receipt "${source_common[@]}" "${runtime_common[@]}" --output "$BASE/control/runtime-approval.json"[0m
+2026-10-16T12:16:36.8110545Z [36;1mruntime_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedSourceBuildReceiptSha256"])' "$BASE/control/runtime-approval.json")[0m
+2026-10-16T12:16:36.8111642Z [36;1mtar -czf "$BASE/control/installed-runtime.tar.gz" -C "$SOURCE/observer-install" .[0m
+2026-10-16T12:16:36.8112344Z [36;1msha256sum "$BASE/control/installed-runtime.tar.gz" > "$BASE/control/installed-runtime.tar.gz.sha256"[0m
+2026-10-16T12:16:36.8113266Z [36;1mpython3 -B "$TOOL/run-reviewed.py" native-build "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --output "$BASE/sdk-native"[0m
+2026-10-16T12:16:36.8114265Z [36;1mpython3 -B "$TOOL/verify_native_build.py" "${common[@]}" --native-build "$BASE/sdk-native" --output "$BASE/control/native-approval.json"[0m
+2026-10-16T12:16:36.8115223Z [36;1mnative_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedBuildReceiptSha256"])' "$BASE/control/native-approval.json")[0m
+2026-10-16T12:16:36.8116843Z [36;1mpython3 -B "$TOOL/original/collect.py" "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --otp-bin "$SOURCE/observer-install/bin" --source-build-receipt "$BASE/runtime-receipt/source-build-receipt.json" --approved-source-build-receipt-sha256 "$runtime_sha" --output "$BASE/original3"[0m
+2026-10-16T12:16:36.8118820Z [36;1mpython3 -B "$TOOL/run-reviewed.py" sdk "${common[@]}" --otp-include "$SOURCE/observer-install/lib/erlang/usr/include" --approved-build-receipt-sha256 "$native_sha" --output "$BASE/sdk-native"[0m
+2026-10-16T12:16:36.8120557Z [36;1mpython3 -B "$TOOL/verify_source_build.py" captured-receipts "${source_common[@]}" "${runtime_common[@]}" --runtime-approval "$BASE/control/runtime-approval.json" --native-approval "$BASE/control/native-approval.json" --original "$BASE/original3" --sdk "$BASE/sdk-native" --output "$BASE/control/capture-approval.json"[0m
+2026-10-16T12:16:36.8122421Z [36;1moriginal_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedOriginalReceiptSha256"])' "$BASE/control/capture-approval.json")[0m
+2026-10-16T12:16:36.8123420Z [36;1msdk_sha=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["ApprovedSdkReceiptSha256"])' "$BASE/control/capture-approval.json")[0m
+2026-10-16T12:16:36.8125318Z [36;1mpython3 -B "$TOOL/review-results.py" --repository "$ROOT" --plan "$PLAN" --expected-head "$GITHUB_SHA" --approved-plan-sha256 "$REVIEWED_REALLOCATION_PLAN_SHA256" --original "$BASE/original3" --sdk "$BASE/sdk-native" --approved-original-receipt-sha256 "$original_sha" --approved-sdk-receipt-sha256 "$sdk_sha" --output "$BASE/control/original-sdk-three-comparison.json"[0m
+2026-10-16T12:16:36.8407781Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-16T12:16:36.8408178Z env:
+2026-10-16T12:16:36.8408392Z   ERLC_USE_SERVER: false
+2026-10-16T12:16:36.8408642Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-16T12:16:36.8408898Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-16T12:16:36.8409179Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-16T12:16:36.8409655Z   REVIEWED_REALLOCATION_PLAN_SHA256: 0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D
+2026-10-16T12:16:36.8410174Z   DOTNET_ROOT: /usr/share/dotnet
+2026-10-16T12:16:36.8410514Z   EXPECTED_HEAD: d83ed875d0c77939e20049afcb46fa297fee82dd
+2026-10-16T12:16:36.8410833Z ##[endgroup]
+2026-10-16T12:25:42.2263153Z ##[group]Run actions/upload-artifact@v7
+2026-10-16T12:25:42.2263451Z with:
+2026-10-16T12:25:42.2263694Z   name: pinned-reallocation-original-sdk-evidence
+2026-10-16T12:25:42.2264694Z   path: artifacts/reallocation-native/control/**
+artifacts/reallocation-native/source-build/**
+artifacts/reallocation-native/runtime-receipt/**
+artifacts/reallocation-native/sdk-native/**
+artifacts/reallocation-native/original3/**
+
+2026-10-16T12:25:42.2265655Z   if-no-files-found: warn
+2026-10-16T12:25:42.2265884Z   compression-level: 6
+2026-10-16T12:25:42.2266094Z   overwrite: false
+2026-10-16T12:25:42.2266303Z   include-hidden-files: false
+2026-10-16T12:25:42.2266535Z   archive: true
+2026-10-16T12:25:42.2266725Z env:
+2026-10-16T12:25:42.2266906Z   ERLC_USE_SERVER: false
+2026-10-16T12:25:42.2267135Z   DOTNET_PROCESSOR_COUNT: 2
+2026-10-16T12:25:42.2267379Z   DOTNET_CLI_USE_MSBUILD_SERVER: 0
+2026-10-16T12:25:42.2267651Z   MSBUILDDISABLENODEREUSE: 1
+2026-10-16T12:25:42.2268128Z   REVIEWED_REALLOCATION_PLAN_SHA256: 0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D
+2026-10-16T12:25:42.2268612Z   DOTNET_ROOT: /usr/share/dotnet
+2026-10-16T12:25:42.2268846Z ##[endgroup]
+2026-10-16T12:25:42.4281782Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-16T12:25:42.4286513Z The least common ancestor is /home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native. This will be the root directory of the artifact
+2026-10-16T12:25:42.4288123Z With the provided path, there will be 192 files uploaded
+2026-10-16T12:25:42.4289222Z Artifact name is valid!
+2026-10-16T12:25:42.4289823Z Root directory input is valid!
+2026-10-16T12:25:42.6874284Z Uploading artifact: pinned-reallocation-original-sdk-evidence.zip
+2026-10-16T12:25:42.6932896Z Beginning upload of artifact content to blob storage
+2026-10-16T12:25:43.1870768Z Uploaded bytes 8388608
+2026-10-16T12:25:43.4383080Z Uploaded bytes 16777216
+2026-10-16T12:25:43.6466115Z Uploaded bytes 25165824
+2026-10-16T12:25:43.9818415Z Uploaded bytes 33554432
+2026-10-16T12:25:44.1325278Z Uploaded bytes 41943040
+2026-10-16T12:25:44.5890843Z Uploaded bytes 50331648
+2026-10-16T12:25:44.6951041Z Uploaded bytes 58720256
+2026-10-16T12:25:45.0320142Z Uploaded bytes 67108864
+2026-10-16T12:25:45.7099048Z Uploaded bytes 75497472
+2026-10-16T12:25:45.7367231Z Uploaded bytes 75796900
+2026-10-16T12:25:45.7478506Z Finished uploading artifact content to blob storage!
+2026-10-16T12:25:45.7481468Z SHA256 digest of uploaded artifact is b4374a8860f7e06dac07989879042ee48a3f4c70008d1aa003b3ecc51e3e1cee
+2026-10-16T12:25:45.7483931Z Finalizing artifact upload
+2026-10-16T12:25:46.0277471Z Artifact pinned-reallocation-original-sdk-evidence successfully finalized. Artifact ID 12045009296
+2026-10-16T12:25:46.0278723Z Artifact pinned-reallocation-original-sdk-evidence has been successfully uploaded! Final size is 75796900 bytes. Artifact ID is 12045009296
+2026-10-16T12:25:46.0283603Z Artifact download URL: https://github.com/develmax/Erlang.Net/actions/runs/38899307374/artifacts/12045009296
+2026-10-16T12:25:46.0471093Z Post job cleanup.
+2026-10-16T12:25:46.1769335Z Post job cleanup.
+2026-10-16T12:25:46.2694287Z [command]/usr/bin/git version
+2026-10-16T12:25:46.2742142Z git version 2.55.0
+2026-10-16T12:25:46.2788151Z Temporarily overriding HOME='/home/runner/work/_temp/530c3dac-eb55-4236-a0b6-c318b899aaed' before making global git config changes
+2026-10-16T12:25:46.2789659Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-16T12:25:46.2794954Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-16T12:25:46.2829009Z Removing SSH command configuration
+2026-10-16T12:25:46.2836494Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-16T12:25:46.2876188Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-16T12:25:46.3159167Z Removing HTTP extra header
+2026-10-16T12:25:46.3165345Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-16T12:25:46.3204879Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-16T12:25:46.3510695Z Removing includeIf entries pointing to credentials config files
+2026-10-16T12:25:46.3511790Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-16T12:25:46.3547108Z includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path
+2026-10-16T12:25:46.3548130Z includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-16T12:25:46.3548975Z includeif.gitdir:/github/workspace/.git.path
+2026-10-16T12:25:46.3549821Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-16T12:25:46.3556420Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path
+2026-10-16T12:25:46.3589072Z /home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:25:46.3600389Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-91282625\-0cc4\-40b4\-abb3\-2b7b4470df1a\.config
+2026-10-16T12:25:46.3643614Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-16T12:25:46.3671652Z /home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:25:46.3682304Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-91282625\-0cc4\-40b4\-abb3\-2b7b4470df1a\.config
+2026-10-16T12:25:46.3736796Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-16T12:25:46.3763847Z /github/runner_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:25:46.3773609Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-91282625\-0cc4\-40b4\-abb3\-2b7b4470df1a\.config
+2026-10-16T12:25:46.3818374Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-16T12:25:46.3842612Z /github/runner_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config
+2026-10-16T12:25:46.3849852Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-91282625\-0cc4\-40b4\-abb3\-2b7b4470df1a\.config
+2026-10-16T12:25:46.3889144Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-16T12:25:46.4145970Z Removing credentials config '/home/runner/work/_temp/git-credentials-91282625-0cc4-40b4-abb3-2b7b4470df1a.config'
+2026-10-16T12:25:46.4296947Z Cleaning up orphan processes

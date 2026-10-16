@@ -1,5 +1,7 @@
 # Progress checkpoint — 2026-10-16
 
+Part331: six proc_lib APIs are implemented and locally validated. Actual Main6775 tests,11 integrations and three post-full native roles pass; total515 registered MFAs in8 modules, proc_lib6/39, erlang351 unchanged. Original331 comparison is pending publication. Part329 is closed within its bounded scope: allfive remote workflows pass, ordinary5941+fd8 and extra corrected330 original2/SDK2 recursive-kill cleanup observations match. First330 metadata-path failure is retained. Next: synchronous proc_lib startup, then gen/sys.
+
 Part330 correction: resolve the actual installed erl launcher before checking OTP_VERSION; pinned source/version assertions remain strict. Fixture and subject329 bytes are unchanged. Corrected original execution remains pending; the earlier workflow is retained separately.
 
 Part330: published329 subject d83ed875 has independently verified Windows CI6747/6747 and11 integrations. New standalone named/anonymous recursive kill/after collector builds without warnings and passes both local SDK cases. A separate workflow checks that same published subject against source-built OTP29.1.1; original observations remain pending. Registry509/erlang351 unchanged. The dependency-directed next API slice is proc_lib local spawn/spawn_link/init_ack; its candidate is not yet promoted.

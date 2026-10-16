@@ -1,0 +1,78 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_MAIN331_POSTFULL_THREE_NATIVE_ROLES_AND_TYPED_QUERY",
+  "Passed": true,
+  "ActualGuardSha256": "23E80C50CFCB217975D5B87F1D431F8B008C7503E336EADC43513D2C1F8DDC1D",
+  "SourceFreezeSha256": "559184A858FEDF503164F7D303B9E17DEFAD80292533EE4AB7D9B7C221EBCA5E",
+  "SourceClosureSha256": "9E6119DDB243964E57FB9AC2A35B550B03B4B4495DE54AD6505BE6CB5A76FF34",
+  "SourceRowsRehashed": 2417,
+  "Full6775AndElevenIntegrationsBound": true,
+  "AllThreeRoles": [
+    {
+      "Role": "legacy",
+      "ExitCode": 0,
+      "ElapsedSeconds": 1.7190000000118744,
+      "BindingsRehashed": 46,
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "Role": "provider-query",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.4210000000020955,
+      "BindingsRehashed": 46,
+      "StdoutSha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF"
+    },
+    {
+      "Role": "reallocation",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.3129999999946449,
+      "BindingsRehashed": 46,
+      "StdoutSha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    }
+  ],
+  "SourceImplementationMainCompositionTestedFreezeActualGuardSeparate": true,
+  "FiveQueryPhases": [
+    "VetoClosed",
+    "Loaded",
+    "AdmissionHeld",
+    "RetirementPending",
+    "Unloaded"
+  ],
+  "JoinedOwners": [
+    0,
+    1,
+    1,
+    1,
+    0
+  ],
+  "RequestedBackingPairs": [
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    }
+  ],
+  "AllElevenTypedDtoFieldsExactPriorExpected": true,
+  "PriorReceiptEnrichmentFieldsValidatedSeparatelyViaCurrentCaptureBindings": true,
+  "CurrentCaptureAndActualDllBindingsRehashed": true,
+  "LegacyAndReallocationRawExactPrevious317": true,
+  "OriginalVmExecuted": false,
+  "PhysicalMemoryCompared": false,
+  "ReviewerExecutedSdkBuildVmNativeNetworkOrMainMutation": false,
+  "Scope": "Trusted Windows C callback/payload-owner lifecycle in current SDK, requested/backing payload ledger only. No original-Erlang equivalence or physical allocator footprint claim.",
+  "FirstAuditShapeFailureRetained": true
+}

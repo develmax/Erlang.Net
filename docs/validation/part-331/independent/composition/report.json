@@ -1,0 +1,60 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_MAIN331_COMPOSITION_AND_CORRECTED_FULL_GUARD_SOURCE",
+  "SourceFreezeSha256": "559184A858FEDF503164F7D303B9E17DEFAD80292533EE4AB7D9B7C221EBCA5E",
+  "SourceClosureSha256": "9E6119DDB243964E57FB9AC2A35B550B03B4B4495DE54AD6505BE6CB5A76FF34",
+  "SourceClosureRowsRehashed": 2417,
+  "OwnedSourcePaths": 19,
+  "OwnedCSharpFiles": 15,
+  "All15MainCSharpRowsExactActuallyTestedFreeze": true,
+  "TestedFreezeSha256": "51F3917E5981ED8C570605FC205E22889994CA49B2DA071E2EFA65E44C1B295D",
+  "TestedActualGuardSha256": "D3B26DC19062DE5F07E3D34E71D124C2A47E2620C858CA3490507DE450073795",
+  "OriginalSourcePeerSha256": "FAF001C2D6D3DB1ACC454F7619D6B17D258562AEAAF76B1634153F6656C8F2C7",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1123,
+      "Sha256": "D5959E69FADBEC0FB6D48DF356965F2212050454EA1B3B35927CBF73BEA09A5E",
+      "AllRowsRehashed": true,
+      "NonFilesFieldsExactParent": true,
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        "src/Erlang.Otp.Behaviours/OtpModules.cs",
+        "src/Erlang.Runtime/FriendAssemblies.cs",
+        "src/Erlang.Runtime/RuntimeAssemblyNames.cs"
+      ],
+      "WorkflowOnlyDigestUpdated": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1148,
+      "Sha256": "E3221E2A0B12DA57598BF67B00285538AD964396EB0747F254F1FE2FAAB6C6A1",
+      "AllRowsRehashed": true,
+      "NonFilesFieldsExactParent": true,
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Otp.Behaviours/OtpModules.cs",
+        "src/Erlang.Runtime/FriendAssemblies.cs",
+        "src/Erlang.Runtime/RuntimeAssemblyNames.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "WorkflowOnlyDigestUpdated": true
+    }
+  ],
+  "FullAuditGuardSourceSha256": "7C85AB09B4D7B6FC2C11FB5E41E7B55DF44CF162FFA30AF252BC2793D5876BA4",
+  "FullAuditGuardSourceReviewed": true,
+  "ElevenIntegrationExpectedDictionaryShapeCorrect": true,
+  "BeforeRegistryRestoreAllNonLimitsFieldsMustMatchOld509": true,
+  "FullAuditGuardPerformsMetadataRestoration": true,
+  "MainFullExecutionNotCertifiedByThisSourcePeer": true,
+  "OriginalOtpExecutionNotCertified": true,
+  "NoSdkBuildVmNetworkOrTrackedMutationByReviewer": true
+}

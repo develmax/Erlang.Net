@@ -1,0 +1,43 @@
+{
+  "Status": "PASS_BOTH_GUEST_OBSERVABLE_RECURSIVE_CLEANUP_COMPARISONS",
+  "SubjectCommit": "d83ed875d0c77939e20049afcb46fa297fee82dd",
+  "OriginalSourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceFreeze": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.RecursiveCleanupObservations/source-freeze.json",
+    "Bytes": 1705,
+    "Sha256": "F57391AB9AE06404FB2ACFA6AD7CC71C8CE33472AAA7BB06BCFCBEE8632FB911"
+  },
+  "Cases": [
+    {
+      "Case": "named",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "SourceSha256": "DAFD7307B1FA93F54B7519DCD933BBF944FFC25551A9A04D314A7CD6BC9577E4",
+      "Sdk": {
+        "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/recursive-cleanup/sdk-named.json",
+        "Bytes": 2495,
+        "Sha256": "8322D009BAFEB85050D6014655A280447F81AEB3D56EE87F111E390567DF8E78"
+      },
+      "Original": {
+        "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/recursive-cleanup/original-named.json",
+        "Bytes": 1986,
+        "Sha256": "0F519A457DD5EF724B0F3A6D801A27224D214433125C1DF86149699923C0D07A"
+      }
+    },
+    {
+      "Case": "anonymous",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "SourceSha256": "67560C058C98A0C42EFBAA8D2BB680F8077AA5F682F49CDE7888419E8E1F623D",
+      "Sdk": {
+        "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/recursive-cleanup/sdk-anonymous.json",
+        "Bytes": 2499,
+        "Sha256": "FAF05EB761E2AA433FAF96D51C346A14C12209B506AADD3B5FABE250EE133C09"
+      },
+      "Original": {
+        "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/recursive-cleanup/original-anonymous.json",
+        "Bytes": 1990,
+        "Sha256": "67DB230C6BF8D4BC23A4EE66A13179435FA6B4E6710CB595FC36BC07C8437EBC"
+      }
+    }
+  ],
+  "Scope": "Finite depth256 named and anonymous external-kill cleanup observations. No equivalence claim for host leases, Unwound or physical resources."
+}

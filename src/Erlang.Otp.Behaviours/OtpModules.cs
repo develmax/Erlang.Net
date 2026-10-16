@@ -165,6 +165,7 @@ public static class OtpModules
                     Timeout(arguments[2])
                 )
             );
+            ProcLib.Register(registry);
             Installed.Add(registry, new());
         }
     }

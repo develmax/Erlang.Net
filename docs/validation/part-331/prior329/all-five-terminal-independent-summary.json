@@ -1,0 +1,101 @@
+{
+  "Status": "PASS_ALL_FIVE_ACTUAL_PUBLISHED329_TYPED_TERMINAL_SCOPES_WITH_DISTRIBUTION_STRICT_REPR_REFUSAL_RETAINED",
+  "Passed": true,
+  "Head": "d83ed875d0c77939e20049afcb46fa297fee82dd",
+  "TerminalStatusSnapshot": {
+    "Path": "artifacts/part329-remote-new-review/monitor/status-20261016T1245144804995Z.json",
+    "Bytes": 3732,
+    "Sha256": "EB0165B1391BAAC09A06E8C35000FBDF3C3DED2CE8C26A22E7397A4923F5C067"
+  },
+  "InitialMapping": {
+    "Path": "artifacts/part329-remote-new-review/monitor/mapped-runs.json",
+    "Bytes": 3716,
+    "Sha256": "DA4D44C9D9F1083D02303C33C6E5FE3FEA7270C68E9B528A5D48DF026B49B7D7"
+  },
+  "Guards": [
+    {
+      "Role": "ci",
+      "Path": "artifacts/part329-remote-new-review/ci/independent-ci-guard.json",
+      "Bytes": 1588,
+      "Sha256": "B679F3190780DACF31E38F85E16AA6C9CD4872514F4AFA42AB052F2CA04863FE"
+    },
+    {
+      "Role": "ordinary",
+      "Path": "artifacts/part329-remote-new-review/ordinary-semantic-independent-guard.json",
+      "Bytes": 1167,
+      "Sha256": "92A90E8432A395AE75BC255999526B5CDB2397F1227C4BBBAADF441A0DCCED27"
+    },
+    {
+      "Role": "native",
+      "Path": "artifacts/part329-native-new-independent/guard.json",
+      "Bytes": 9860,
+      "Sha256": "E8E0A195C2C0605191F166119F3DDBF2F7A3B472534346D666F6F4D5B29EFE07"
+    },
+    {
+      "Role": "reallocation",
+      "Path": "artifacts/part329-reallocation-new-independent/guard.json",
+      "Bytes": 16863,
+      "Sha256": "32C4D19D399BAF03C51CFF6EEAC7F5792F4166D7ED604333E1FC90FA5FF15788"
+    },
+    {
+      "Role": "distribution",
+      "Path": "artifacts/part329-distribution-independent/summary.json",
+      "Bytes": 3277,
+      "Sha256": "269DAC3CD5C4C3491C027A851E1C2D8AC3EF2E5A524A423AB456184A61498137"
+    }
+  ],
+  "CiPassed": 6747,
+  "CiFailed": 0,
+  "IntegrationResults": 11,
+  "PublishedStageBlobsRehashed": 1170,
+  "OriginalOrdinaryPassed": 5941,
+  "OriginalOrdinaryFailed": 0,
+  "FdPassed": 8,
+  "AllPrevious5933OrderedContractsPreserved": true,
+  "NewOrdinaryOriginalAndManagedCases": 8,
+  "StrictOrdinaryGuard": {
+    "Path": "artifacts/part329-remote-new-review/ordinary-strict-independent-guard.json",
+    "Bytes": 1167,
+    "Sha256": "92A90E8432A395AE75BC255999526B5CDB2397F1227C4BBBAADF441A0DCCED27"
+  },
+  "StrictOrdinaryRawEqualityPassed": true,
+  "OrdinaryMapStdoutVarianceRows": 0,
+  "SeparateBackendProfileGuards": [
+    {
+      "Path": "artifacts/part329-remote-new-review/allocator-profile-independent-guard.json",
+      "Bytes": 1312,
+      "Sha256": "BF522F0FB57CA9DB4A8F6AA678C1FD1C2AB62291DC7E994C50611D60BE52D8C1"
+    },
+    {
+      "Path": "artifacts/part329-remote-new-review/memory-profile-independent-guard.json",
+      "Bytes": 1653,
+      "Sha256": "199D45F66E8CA7F50973B4296E5C0564DFCA5924A56913D16B3C22F8B14A692D"
+    }
+  ],
+  "SeparateLibcDotnetBackendProfiles": true,
+  "EachMemorySnapshotNineKeyRelationsValidated": true,
+  "MemoryEqualityOrPhysicalWholeGcClaimed": false,
+  "NativeSdkOrderedLines": 8,
+  "NativeDomainRoles": 3,
+  "SeparateOriginal13": true,
+  "Original13SdkCompared": false,
+  "ReallocationActualOriginal3Sdk3Compared": true,
+  "ReallocationWholePinnedInstalledPrefixVerified": true,
+  "DistributionOriginalGroups": {
+    "group-leader": 4,
+    "guest-send": 7,
+    "guest-links": 7,
+    "guest-exit": 8,
+    "control-wait": 2,
+    "retention": 2
+  },
+  "DistributionStrictExitReprEqualityPassed": false,
+  "DistributionFreshStrictReprRefusalRetained": true,
+  "DistributionStrictRefusalSha256": "FB79FF33612CE39CE82632CBBD1237646E692174C6A513F3B6B17159FC79BEDA",
+  "DistributionRawNormalization": false,
+  "SdkLivePeerWirePhaseEqualityClaimed": false,
+  "All5TerminalCapturedAndPassivelyAudited": true,
+  "NoFurtherGetRequiredFor329": true,
+  "NoPostRetrySdkNativeVmOrDownloadedArtifactCodeExecutionByMonitor": true,
+  "NoMainOrGitMutation": true
+}

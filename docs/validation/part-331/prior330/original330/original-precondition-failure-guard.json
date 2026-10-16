@@ -1,0 +1,34 @@
+{
+  "Status": "ACTUAL_OLD330_ORIGINAL_PRECONDITION_FAILURE_SDK_TWO_PASS_NOT_ORIGINAL_RESULT",
+  "Head": "ed2785a000ae8b1c520707df3224c2807c959bc3",
+  "SubjectCommit": "d83ed875d0c77939e20049afcb46fa297fee82dd",
+  "Run": 38900841707,
+  "Job": 116972421011,
+  "Artifact": 12046521153,
+  "Attempt": 1,
+  "PinnedOriginalBuildAndSubjectCollectorBuildSucceeded": true,
+  "SdkCases": [
+    {
+      "Case": "named",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "SourceSha256": "DAFD7307B1FA93F54B7519DCD933BBF944FFC25551A9A04D314A7CD6BC9577E4",
+      "ReportSha256": "CC158B37A3391B58F626141D5020F3712689314951FB059FEB92BA78C7BDB5E6"
+    },
+    {
+      "Case": "anonymous",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "SourceSha256": "67560C058C98A0C42EFBAA8D2BB680F8077AA5F682F49CDE7888419E8E1F623D",
+      "ReportSha256": "00EE9E0E044B628476A80D314A3C6A3BBF107895647A25B8095A98DE593CED0F"
+    }
+  ],
+  "OriginalFixtureExecuted": false,
+  "OriginalComparisonComplete": false,
+  "Failure": "Driver asserted OTP_VERSION lookup before starting any original fixture; published driver looked under public prefix/releases while metadata installs under prefix/lib/erlang/releases.",
+  "NotLanguageCompatibilityMismatch": true,
+  "FailurePreservedNotReclassifiedAsPass": true,
+  "RawRowsRehashed": 16,
+  "RawZipSha256": "20CF2A1B3F050BC2149D94C1A2B59BE7808A0F67F4B4B9B054A9DEED7D3A936C",
+  "RawJobLogSha256": "86A3F385F726D7F4B5A61589004389E9DACB88EEA9EB926405D051E45D6A1EDF",
+  "CorrectedToolingHeadSeparateRun": "b7484cb0dacc13c04ac818a3c58e4ff4f6afe344",
+  "NoNetworkSdkVmBuildOrMainMutationByReviewer": true
+}

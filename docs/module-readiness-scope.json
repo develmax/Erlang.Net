@@ -572,6 +572,23 @@
         "Changed lifetime source needs new exact-head original/native observations; no general load_nif/ABI, arbitrary libraries, native threads/resources/dirty scheduling, automatic lifecycle, BEAM/old-image native replacement or performance parity."
       ],
       "TestPrefixes": []
+    },
+    {
+      "Id": "proc_lib adapters",
+      "Project": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Status": "Partially compatible",
+      "Implemented": [
+        "Part331: six local spawn/1,3,spawn_link/1,3,init_ack/1,2 registrations; parent registered-name/ancestry, native wrapper initial_call, atomic links and arbitrary acknowledgement terms. Main6775/6775 and11 integrations,21 new compiled scenarios/six direct contracts/nine HOST translation controls; original331 comparison pending."
+      ],
+      "Remaining": [
+        "Synchronous start/start_link/start_monitor, options, remote overloads and init_fail",
+        "Crash logger integration, complete error-stack parity and new proc_lib-specific original sequential tracing observations"
+      ],
+      "TestPrefixes": [
+        "mfa/proc_lib:",
+        "oracle/compiled-module/proc-lib-",
+        "host_proc_lib"
+      ]
     }
   ],
   "FocusModules": [

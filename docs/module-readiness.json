@@ -3,12 +3,12 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
   "ComparisonTestReport": "validation/part-329/final-main/tests.json",
-  "LocalPassedTests": 6747,
-  "RegisteredMfas": 509,
+  "LocalPassedTests": 6775,
+  "RegisteredMfas": 515,
   "PreviousRegisteredMfas": 509,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 6,
   "SourceModuleRows": 1289,
-  "ImplementedApiModules": 7,
+  "ImplementedApiModules": 8,
   "Components": [
     {
       "Id": "Terms",
@@ -284,7 +284,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1548
+      "RelatedPassedTests": 1554
     },
     {
       "Id": "gen_server adapters",
@@ -446,7 +446,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5190
+      "RelatedPassedTests": 5211
     },
     {
       "Id": "Style checks",
@@ -525,6 +525,19 @@
         "Changed lifetime source needs new exact-head original/native observations; no general load_nif/ABI, arbitrary libraries, native threads/resources/dirty scheduling, automatic lifecycle, BEAM/old-image native replacement or performance parity."
       ],
       "RelatedPassedTests": 0
+    },
+    {
+      "Id": "proc_lib adapters",
+      "Project": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Status": "Partially compatible",
+      "Implemented": [
+        "Part331: six local spawn/1,3,spawn_link/1,3,init_ack/1,2 registrations; parent registered-name/ancestry, native wrapper initial_call, atomic links and arbitrary acknowledgement terms. Main6775/6775 and11 integrations,21 new compiled scenarios/six direct contracts/nine HOST translation controls; original331 comparison pending."
+      ],
+      "Remaining": [
+        "Synchronous start/start_link/start_monitor, options, remote overloads and init_fail",
+        "Crash logger integration, complete error-stack parity and new proc_lib-specific original sequential tracing observations"
+      ],
+      "RelatedPassedTests": 28
     }
   ],
   "Modules": [
@@ -11454,17 +11467,24 @@
     },
     {
       "Name": "proc_lib",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 6,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 6,
       "ReferenceDeclarations": 39,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 15.4,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/proc_lib.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "proc_lib:init_ack/1",
+        "proc_lib:init_ack/2",
+        "proc_lib:spawn/1",
+        "proc_lib:spawn/3",
+        "proc_lib:spawn_link/1",
+        "proc_lib:spawn_link/3"
+      ],
       "AbsentFromReference": []
     },
     {

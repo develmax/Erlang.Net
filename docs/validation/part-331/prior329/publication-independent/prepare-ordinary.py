@@ -1,0 +1,12 @@
+from pathlib import Path
+r=Path.cwd();p=r/'artifacts/part329-remote-new-review/review-ordinary.py';s=(r/'artifacts/part328-remote-beam310/review-ordinary.py').read_text()
+s=s.replace('bb71b9ce04b21e4ec58ba1d62028f3a2c33c3612','d83ed875d0c77939e20049afcb46fa297fee82dd').replace('38865257906','38899260501')
+s=s.replace("oldroot=m.A/'pack327-watch-38856979991-terminal/artifact-12027904580'","oldroot=m.A/'part328-remote-beam310/ordinary/artifact-12031689572'")
+s=s.replace("m.A/'pack327-ordinary-semantic-independent-guard.json'","m.A/'part328-remote-beam310/ordinary-semantic-independent-guard.json'").replace('4bc4c00b713c1cc0bbf32a1c74add45174bbd10a','bb71b9ce04b21e4ec58ba1d62028f3a2c33c3612')
+s=s.replace('5933','NEW_COUNT').replace('5925','5933').replace('NEW_COUNT','5941').replace('4982','4990').replace("pold,pnew=paths(327),paths(328);assert len(pold)==235 and len(pnew)==237","pold,pnew=paths(328),paths(329);assert len(pold)==237 and len(pnew)==239")
+s=s.replace("{'tools/Erlang.Differential/UndefinedLambdaCases.cs','tools/Erlang.Differential/UndefinedLambdaCaseNames.cs'}","{'tools/Erlang.Differential/NonTailRecursionCases.cs','tools/Erlang.Differential/NonTailRecursionCaseNames.cs'}")
+s=s.replace("newtext.replace('        .. ProcessErrorHandlerCases.Modules,\\n        .. UndefinedLambdaCases.Modules','        .. ProcessErrorHandlerCases.Modules')","newtext.replace('        .. UndefinedLambdaCases.Modules,\\n        .. NonTailRecursionCases.Modules','        .. UndefinedLambdaCases.Modules')")
+s=s.replace("m.A/'undefined-lambda328-root-focus3/managed-run/actual.json'","m.A/'non-tail-stack329-managed-eight-actual1.json'").replace('6980D372D8A123E8F2F2AF9EC6A620D243E7B5C5B7427EBA3B477FB151E176A5','8EDEC069F52DAEA88B78D59859DC765CFAFFA2A576CA31F99334BE0CB098A36C')
+s=s.replace("native['Expected']==native['FixtureExpected']==native['Actual']==sdk['Actual']==sdk['Expected']=='{ok,done}'","native['Expected']==native['FixtureExpected']==native['Actual']==sdk['Actual']==sdk['Expected']")
+s=s.replace('PUBLISHED328','PUBLISHED329').replace('Previous327','Previous328').replace('Current328','Current329').replace('Prior327','Prior328').replace('AllOld235','AllOld237').replace("'CompiledModules':4990","'CompiledModules':4998")
+p.write_bytes(s.encode());print('Prepared passive ordinary reader for actual329 5941+fd8 and eight case-specific expected outcomes')

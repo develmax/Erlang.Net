@@ -1768,6 +1768,8 @@ Test(
  }
 );
 
+Test(Erlang.Tests.ProcLibInitialCallHostNames.Test, Erlang.Tests.ProcLibInitialCallHostChecks.Run);
+
 // Every registered MFA has a direct contract smoke test. Error/option completeness still needs OTP differential coverage.
 var exportRegistry = new ModuleRegistry();
 CoreModules.Register(exportRegistry);
@@ -1777,6 +1779,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.ProcLibMfaContracts.Owns(export.Module))
+        {
+            await Erlang.Tests.ProcLibMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
         if (export.Module is "gen_server" or "supervisor")
         {
             await Erlang.Tests.OtpMfaContracts.Run(export.Module, export.Function, export.Arity);

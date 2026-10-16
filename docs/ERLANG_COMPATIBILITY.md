@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part331 adds six proc_lib MFAs; erlang remains351/351 and total registry becomes515. Main6775/11 passes. Bounded329 original recursion comparisons5941/fd8 and separate original2/SDK2 recursive-kill cleanup gates are closed; this does not establish whole erlang, all stack/interleaving or native physical-resource parity.
+
 Part330 is test tooling only: registered erlang remains351/351 and total registry509. Both new bounded recursive-kill/after SDK cases pass, while pinned original observations are pending. They complement329 host lease/unwind checks without equating CLR ownership objects with native OTP resources.
 
 Part 329: the CLR source evaluator checks physical stack availability at named and anonymous function entries and yields on a low-stack result without charging guest reductions; halt/cancellation and the existing source-image lease/owner flow remain in force. Actual bounded compiled4096, retained original input, module-null interpreted and lifecycle controls, fresh Main6747/11, post-full SDK native roles and readiness509 total/351 erlang are mandatory evidence for this slice. Registered MFA rows and all thirty prior custom Limits remain unchanged. This does not establish arbitrary AST/term/pattern or all host-context/completion/unwind stack safety, nor native physical layout, scheduler or performance parity. The existing BCL mechanism is reused without a new third-party component; selected prior328 all-five typed proofs remain separate from future original329 observations.

@@ -1,0 +1,41 @@
+{
+  "Status": "PASS_ACTUAL_SUBJECT329_RECURSIVE_CLEANUP_ORIGINAL_COMPARISON_WITH_OLD330_FAILURE_PRESERVED",
+  "SubjectCommit": "d83ed875d0c77939e20049afcb46fa297fee82dd",
+  "CorrectedToolingCommit": "b7484cb0dacc13c04ac818a3c58e4ff4f6afe344",
+  "OriginalToolingCommit": "ed2785a000ae8b1c520707df3224c2807c959bc3",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalOtpVersion": "29.1.1",
+  "OriginalCasesPassed": 2,
+  "SdkCasesPassed": 2,
+  "Expected": "{ok,{killed,no_cleanup}}",
+  "Depth": 256,
+  "QuietWindowMilliseconds": 100,
+  "OldOriginalPreconditionFailurePreserved": true,
+  "OldFailureNotReclassifiedAsPass": true,
+  "BothToolingCiTests": 6747,
+  "BothToolingCiIntegrations": 11,
+  "NoNewApiCountClaimFromTheseObservations": true,
+  "Guards": [
+    {
+      "Path": "artifacts/part330-remote-cleanup-review/independent-ci-guard.json",
+      "Bytes": 1566,
+      "Sha256": "C199B34D34548084D0145622E75DA90DA6B2873FD0773959F229AEADBB311167"
+    },
+    {
+      "Path": "artifacts/part330-remote-cleanup-review/original-precondition-failure-guard.json",
+      "Bytes": 1610,
+      "Sha256": "A48E6D8D37C58207D38E2FA7F8E24CF6FBB02AA1AFA7C1F195D214729DC3517C"
+    },
+    {
+      "Path": "artifacts/part330-corrected-remote-cleanup-review/independent-ci-guard.json",
+      "Bytes": 1633,
+      "Sha256": "A2655B17F49AC4C2B51B9AB87700D01FE5023DB27C166900B1F94B30034CCA0F"
+    },
+    {
+      "Path": "artifacts/part330-corrected-remote-cleanup-review/independent-cleanup-guard.json",
+      "Bytes": 1986,
+      "Sha256": "33CD9C61137F880DE50A195B2C0F25F3D488BADCF1168E2F6617B57016F2A6F8"
+    }
+  ],
+  "Scope": "Combined guest-observable external kill with256 recursive try-after frames, named and anonymous. Existing host leases/Unwound and full331 API tests are distinct proofs. No arbitrary interleaving, physical memory or performance parity claim."
+}

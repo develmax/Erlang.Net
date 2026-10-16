@@ -71,3 +71,5 @@ lifecycle cases, a scenario involving its dependent module, original-OTP
 comparison, current readiness data and an English changelog entry. Test count
 and export count alone are not acceptance criteria. No performance improvement
 is claimed without comparable measurements.
+
+Part331 checkpoint: the first six local proc_lib APIs pass Main6775/11 and remain pending original331 observations. Synchronous startup is the next slice. The bounded329 recursion/cancellation reference gates are now complete; this is not whole-runtime completion.
