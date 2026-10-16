@@ -1,0 +1,157 @@
+{
+  "Status": "PASS_EXISTING_LOCAL_RECURSION_EVIDENCE_INDEPENDENT_REVIEW",
+  "NoNewRuntimeExecution": true,
+  "NoTrackedFilesChanged": true,
+  "BoundFilesRehashed": 130,
+  "Guards": [
+    {
+      "Path": "artifacts/non-tail-stack329-managed-eight-actual-guard1.json",
+      "Sha256": "8109F8236D3743D9A8A50AB5596D454C16417EEF92C093E63A7EF49DB7EBB82F",
+      "Status": "PASS_ACTUAL329_EIGHT_ORDINARY_FINITE4096"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-green-actual-guard1.json",
+      "Sha256": "0F0A5E5ECAE6DC55BC1D658B4F60CE454DFCBCDCE44E782756C5988981A2B1E2",
+      "Status": "PASS_ACTUAL329_GREEN_TEN_HOST_EIGHT_ORDINARY"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-actual-guard1.json",
+      "Sha256": "6BEF008BE489042FB94C2EC33901B1E0E696C93B1E7BDCD79096342F3821CDAC",
+      "Status": "PASS_VERIFIED_CONTROLLED_HISTORICAL328_STACK_OVERFLOW_EVIDENCE"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-original-retained-actual-guard1.json",
+      "Sha256": "08C611788A754BDDFFCBBF5151BC1127DB9E18A96B71A96F6B0EA82799431659",
+      "Status": "PASS_ACTUAL329_ORIGINAL_RETAINED"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-interpreted-anonymous-actual-guard1.json",
+      "Sha256": "B6387FDCEE2F61F42A003159AF4DEA124CD39F00CBE2989EFCF2857936B4831A",
+      "Status": "PASS_ACTUAL329_INTERPRETED_ANONYMOUS"
+    }
+  ],
+  "ActualRecursionProcesses": [
+    {
+      "Selector": "anonymous-self-argument-finite-checksum",
+      "Actual": "{ok,{8390656,4096}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "argument-effects-before-and-after-recursive-call",
+      "Actual": "{ok,{12,[{entered,12},{entered,11},{entered,10},{entered,9},{entered,8},{entered,7},{entered,6},{entered,5},{entered,4},{entered,3},{entered,2},{entered,1},{returned,1},{returned,2},{returned,3},{returned,4},{returned,5},{returned,6},{returned,7},{returned,8},{returned,9},{returned,10},{returned,11},{returned,12}]}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "interpreted-anonymous",
+      "Actual": "{ok,{8390656,4096}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "mutual-finite-checksum",
+      "Actual": "{ok,{8390656,4096}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "named-finite-checksum",
+      "Actual": "{ok,{8390656,4096}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "original-retained",
+      "Actual": "{ok,done}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "shallow-decrement-base-and-checksums",
+      "Actual": "{ok,[{0,0},{1,1},{2,3},{3,6},{4,10},{5,15},{6,21},{7,28},{8,36},{9,45},{10,55},{11,66},{12,78}]}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "tail-accumulator-control",
+      "Actual": "{ok,{8390656,4096}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "try-after-error-and-throw-cleanup-once",
+      "Actual": "{ok,{caught_error,[12,11,10,9,8,7,6,5,4,3,2,1],caught_throw,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    },
+    {
+      "Selector": "try-after-normal-return-cleanup-order",
+      "Actual": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+      "ExitCode": 0,
+      "OwnedProcessSettled": true,
+      "OriginalExecuted": false
+    }
+  ],
+  "MainAndStagedCSharpSourcesMatchFocusedEvidence": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 38568,
+      "Sha256": "B22876C7A44F0364C2289339084CD90E95F5356A666781839EBDFA0B8126ECAB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+      "Bytes": 9045,
+      "Sha256": "E8133E70B96A770448334B37AA019F67D870C696D0DB8C3B70368755EBE94E8F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs",
+      "Bytes": 1877,
+      "Sha256": "FA1C18CE613E7C2E6914D1678307FE9C3B94B1AEAAD2E9615D8CAC173F2D93D1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 168999,
+      "Sha256": "2B43AC806F813F8E05F89B0B21EC5FB0F7A8BE5A219EBAF8BC4445BFA6195325"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31592,
+      "Sha256": "02263266149EEACC9706D510D710625082246A51CC1115DC8DA0CCC0DC8FC66F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCaseNames.cs",
+      "Bytes": 1992,
+      "Sha256": "48D1B32EBB00BCA32A6EE8FE2D5049557C88C75D6BB8FE5DD2D89B03C587CD05"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCases.cs",
+      "Bytes": 4645,
+      "Sha256": "C123E1F15B513C7428C8B655D071615107D28FBE4D69758BE2195A683DD1E92E"
+    }
+  ],
+  "PinnedOtp": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "erts/emulator/beam/emu/instrs.tab",
+    "GitBlob": "7ba9f41c4753dc81244d9df1ade0b97f10bdd6a8",
+    "Sha256": "35F9FDBB899B39E765123F14561075A8C4FC7A56BBA363A7DF930A8C2144F4C2"
+  },
+  "Interpretation": "OTP saves guest continuations and dispatches guest calls; CLR physical-stack yielding is an adaptation, not literal emulator code or scheduler parity.",
+  "Original329ExecutedInReviewedLocalReceipts": false,
+  "Limits": [
+    "4096 bounded named/mutual/anonymous ordinary recursion; no unlimited-depth claim.",
+    "Retained original input is byte-identical across historical failure and current success; historical named depth256 differs from final4096.",
+    "Deep arbitrary AST/pattern/term traversal, all SynchronizationContexts, physical stack behavior, performance and guest scheduling parity are not established.",
+    "Task.Yield resumes through captured host scheduling policy; tests do not establish every custom host policy.",
+    "Cancellation lifecycle and native OTP observations require their separate independent reviews."
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_IMAGE_CLEANUP_LOCAL_EVIDENCE_REVIEW",
+  "ReviewerRole": "new_cleanup329_review",
+  "NoBuildVmNetworkCommitDispatchOrTrackedMutation": true,
+  "MainSourceClosureRowsRehashed": 2397,
+  "GreenBindingsRehashed": 64,
+  "LifecycleSelectors": [
+    {
+      "Selector": "RunNormal",
+      "Actual": {
+        "Path": "artifacts/non-tail-stack329-root-focus5/selector-07/actual.json",
+        "Bytes": 1148,
+        "Sha256": "803B25557D15DB083BDE214479B8BF0814A82F29E1419CD386C5DD2C5BE01B95"
+      },
+      "Status": "PASS"
+    },
+    {
+      "Selector": "RunError",
+      "Actual": {
+        "Path": "artifacts/non-tail-stack329-root-focus5/selector-08/actual.json",
+        "Bytes": 1148,
+        "Sha256": "717BC9F18F1B32D0192FB654D5488C55650F34C7D5629BA3D5AB842DB0CBE899"
+      },
+      "Status": "PASS"
+    },
+    {
+      "Selector": "RunCancellation",
+      "Actual": {
+        "Path": "artifacts/non-tail-stack329-root-focus5/selector-09/actual.json",
+        "Bytes": 1154,
+        "Sha256": "D2815E7F319E1CFDDA2208BAE8B0437C6DAE7C208890DBE76270289C07B3D4DD"
+      },
+      "Status": "PASS"
+    }
+  ],
+  "NamedAndAnonymousSubcontrols": 6,
+  "Depth": 256,
+  "SourceImageRemainsOldAcrossRealAsyncLeafAndReplacement": true,
+  "LeaseInactiveAssertedAfterCompletionAndActualUnwound": true,
+  "PendingPurgeRetainedUntilExplicitFinishPurge": true,
+  "NormalAndErrorGuestCleanupEffectsPerSubcontrol": 256,
+  "CancellationGuestCleanupEffectsPerSubcontrol": 0,
+  "CancellationHostBridgeFinallyStillObserved": true,
+  "AfterAstMayBeAttemptedButChargeAsyncRejectsCancelledGuestExecution": true,
+  "CompletionIsNotProofOfUnwound": true,
+  "OuterInvokeFinallyRetainsSourceLeaseDisposalAcrossYield": true,
+  "CodePurgeWaitsUnwoundBeforeCompleting": true,
+  "MainFullPassed": 6747,
+  "MainIntegrationResults": 11,
+  "LocalNativeRolesPassed": 3,
+  "OriginalOtpSourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalOtpExitDocumentationBlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+  "OriginalOtpExecutionPerformedByThisReview": false,
+  "MainFullExecutedOriginalOtp": false,
+  "NativeGuardExecutedOriginalOtp": false,
+  "ExistingOrdinaryKillFixtures": [
+    {
+      "Name": "erlang-exit-exit-other-kill",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "erlang-exit-exit_signal-other-kill",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "erlang-exit-signal-kill-cannot-trap",
+      "Expected": "{ok,done}"
+    }
+  ],
+  "ExistingOrdinaryNormalAndErrorCleanupFixtures": [
+    "non-tail-recursion-try-after-normal-return-cleanup-order",
+    "non-tail-recursion-try-after-error-and-throw-cleanup-once"
+  ],
+  "OrdinaryKillDuringRecursiveTryAfterNoGuestEffectsFixtureFound": false,
+  "MissingExplicitCoverage": "Existing kill fixtures establish killed/untrappable behavior but do not surround the killed receive leaf with recursive try-after cleanup messages. A separate named/anonymous pinned OTP plus SDK comparison is needed for that combined guest-observable claim.",
+  "RemainingRequirement": "Fresh pinned original OTP comparison for this part remains a remote publication gate. Internal CLR lease and Unwound mechanics are host adaptation assertions, not OTP object-layout equivalence.",
+  "Limitations": [
+    "Finite observed depths only.",
+    "No generic deep-AST or arbitrary synchronization-context claim.",
+    "No performance or physical stack/memory parity claim.",
+    "No claim that cancellation never enters after AST."
+  ],
+  "StagedSourceBindings": [
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+      "StagedSha256": "E8133E70B96A770448334B37AA019F67D870C696D0DB8C3B70368755EBE94E8F",
+      "WorktreeSha256": "E8133E70B96A770448334B37AA019F67D870C696D0DB8C3B70368755EBE94E8F",
+      "TextExactIgnoringGitNewlineConversion": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs",
+      "StagedSha256": "FA1C18CE613E7C2E6914D1678307FE9C3B94B1AEAAD2E9615D8CAC173F2D93D1",
+      "WorktreeSha256": "FA1C18CE613E7C2E6914D1678307FE9C3B94B1AEAAD2E9615D8CAC173F2D93D1",
+      "TextExactIgnoringGitNewlineConversion": true
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "StagedSha256": "B22876C7A44F0364C2289339084CD90E95F5356A666781839EBDFA0B8126ECAB",
+      "WorktreeSha256": "B22876C7A44F0364C2289339084CD90E95F5356A666781839EBDFA0B8126ECAB",
+      "TextExactIgnoringGitNewlineConversion": true
+    }
+  ],
+  "Bindings": [
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+      "Bytes": 9045,
+      "Sha256": "E8133E70B96A770448334B37AA019F67D870C696D0DB8C3B70368755EBE94E8F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs",
+      "Bytes": 1877,
+      "Sha256": "FA1C18CE613E7C2E6914D1678307FE9C3B94B1AEAAD2E9615D8CAC173F2D93D1"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 38568,
+      "Sha256": "B22876C7A44F0364C2289339084CD90E95F5356A666781839EBDFA0B8126ECAB"
+    },
+    {
+      "Path": "src/Erlang.Compiler/TryExpressionExecution.cs",
+      "Bytes": 2848,
+      "Sha256": "A187CCC4CCB3B16FB80FED41F844BFC247D245A1F6DB3F4B84ECD7D5E258737D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63789,
+      "Sha256": "ADA79DD9390FBA0C7D1C0728B09090B513E13CCBC7ED5A8D281ABC6F0D928E9E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.CodePurge.cs",
+      "Bytes": 1702,
+      "Sha256": "5B152DAEED8C7397CD20C9413B2DFFA41B9D28ED4A639B3FA7B373CE37CBF14E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 12840,
+      "Sha256": "2BF142203C7C9C1839F189A4EC751953E478746952B751D8DFDADB7B9EF7506E"
+    },
+    {
+      "Path": "artifacts/root-part329-main1/source-freeze.json",
+      "Bytes": 30310,
+      "Sha256": "FFBF65596ED330ACF20F82FC2BFBB3F319824A4B54184AB8ECCE2F66E4757F52"
+    },
+    {
+      "Path": "artifacts/root-part329-main1/source-resource-closure.json",
+      "Bytes": 443586,
+      "Sha256": "911C51D20E8D98B19CE85B40947C4A6D4CBBF245BDF38452C0ABA7ED56C65C64"
+    },
+    {
+      "Path": "artifacts/root-part329-main1/full-guard.json",
+      "Bytes": 3061,
+      "Sha256": "C6A8AFDB13B0E6241A765FFFFA48808489626CA8D6138093692CB2027D755D17"
+    },
+    {
+      "Path": "artifacts/root-part329-main-windows-native1/guard.json",
+      "Bytes": 5357,
+      "Sha256": "FBA3D3C731E2DB27978FD4317B36669D0EE765FA3D0C077E05C81DACF8C754F5"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-green-actual-guard1.json",
+      "Bytes": 13191,
+      "Sha256": "0F0A5E5ECAE6DC55BC1D658B4F60CE454DFCBCDCE44E782756C5988981A2B1E2"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-focus5-putdata-actual-peer1.json",
+      "Bytes": 31584,
+      "Sha256": "4E5C1675C551942EB8AC607F178CC7A542ABF1F8772702F9DDEFD71A47FE5F7C"
+    },
+    {
+      "Path": "artifacts/part329-new-cleanup-review/review.py",
+      "Bytes": 6207,
+      "Sha256": "7994712CF8F3DE464186F2B24CAF263F5D4F4B83F3FE7597AB5B0A1C79865563"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "Status": "PASS_LOCAL_SUPPLEMENTAL_COLLECTOR_AND_BOTH_SDK_CASES_ORIGINAL_PENDING",
+  "SubjectCommit": "d83ed875d0c77939e20049afcb46fa297fee82dd",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "MainRegressionPassed": 6747,
+  "MainRegressionReport": "../part-329/final-main/tests.json",
+  "MainFullReexecuted": false,
+  "ApiRegistryTotal": 509,
+  "ErlangRegistered": 351,
+  "NewRegisteredApis": 0,
+  "CollectorBuildExitCode": 0,
+  "CollectorBuildWarnings": 0,
+  "CollectorProject": "tools/Erlang.RecursiveCleanupObservations/Erlang.RecursiveCleanupObservations.csproj",
+  "CollectorSourceFreezeSha256": "581A37C6CFBAC37F9124672BE2E2629DA01B75EC1ACCB3EDADE55241FE282C51",
+  "OriginalExecuted": false,
+  "SdkCaseCount": 2,
+  "Expected": "{ok,{killed,no_cleanup}}",
+  "QuietWindowMilliseconds": 100,
+  "Depth": 256,
+  "Fixtures": [
+    {
+      "Name": "named",
+      "SourceSha256": "DAFD7307B1FA93F54B7519DCD933BBF944FFC25551A9A04D314A7CD6BC9577E4",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "Report": "sdk/sdk-named.json"
+    },
+    {
+      "Name": "anonymous",
+      "SourceSha256": "67560C058C98A0C42EFBAA8D2BB680F8077AA5F682F49CDE7888419E8E1F623D",
+      "Actual": "{ok,{killed,no_cleanup}}",
+      "Report": "sdk/sdk-anonymous.json"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "sdk/sdk-anonymous.attempt.json",
+      "Bytes": 5176,
+      "Sha256": "88A9345426145B90FA2A55ED7EEE05F568CC43BE1D92634082312CA6182DD746"
+    },
+    {
+      "Path": "sdk/sdk-anonymous.json",
+      "Bytes": 2638,
+      "Sha256": "C0C32C8FFC06E1F8D1EB5FE44768FC1480F892F74D22B2CD076A8CD08531CFC4"
+    },
+    {
+      "Path": "sdk/sdk-anonymous.process.json",
+      "Bytes": 302,
+      "Sha256": "40E6077253F7E31B45AEE4FB90756F058A2D307D34AF52470F5A87A44AA6EF41"
+    },
+    {
+      "Path": "sdk/sdk-anonymous.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sdk/sdk-anonymous.stdout",
+      "Bytes": 150,
+      "Sha256": "19792BC5CF2D17D72D5313D669078E478EACB09B08EFEDE0966B2A58DBC1AB66"
+    },
+    {
+      "Path": "sdk/sdk-named.attempt.json",
+      "Bytes": 5164,
+      "Sha256": "E35D94C1F763BE6DD357F05BC4C59D557A3F24F42D69FD247B4222B92D0DE0BB"
+    },
+    {
+      "Path": "sdk/sdk-named.json",
+      "Bytes": 2634,
+      "Sha256": "6329A669115375F96091A640C8FE9292F7A0C069341260D5A33855BC0754C4BB"
+    },
+    {
+      "Path": "sdk/sdk-named.process.json",
+      "Bytes": 298,
+      "Sha256": "410E7245A29C2E9EFB62A58D85454B564D8CE10C1A53B1354510309D1ACC8AC9"
+    },
+    {
+      "Path": "sdk/sdk-named.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sdk/sdk-named.stdout",
+      "Bytes": 150,
+      "Sha256": "B996474ED70536BDEB3665980F5E82E4AC3BBA2CD07473DC674055A55F834524"
+    },
+    {
+      "Path": "independent329/recursion.json",
+      "Bytes": 6250,
+      "Sha256": "37B987800366F47566AFEA1DDFD31EFDCBD63A8752CD70AA608CFDA3E02E65E5"
+    },
+    {
+      "Path": "independent329/cleanup.json",
+      "Bytes": 7071,
+      "Sha256": "159ABF31DC41FFFA8CAE8C9BFF5742B324B35F174D95B78D6175DD7C2D0687D0"
+    },
+    {
+      "Path": "independent329/stage.json",
+      "Bytes": 1010,
+      "Sha256": "4471069FF478951EC38358DDA97C5D85E90908730BFB26C60E1C0C2454F43EC0"
+    },
+    {
+      "Path": "independent329/publication.json",
+      "Bytes": 313,
+      "Sha256": "6DDA0BD00CD2288A737D90D606708321C028D931D9B7AB2D04B9D7819E69D425"
+    },
+    {
+      "Path": "collector-promotion.json",
+      "Bytes": 1451,
+      "Sha256": "382BF521BA4378C4D9F8BD924CD219A11F14FB2DD1B92FD6AF78ADB016E24F58"
+    },
+    {
+      "Path": "independent329/ci.json",
+      "Bytes": 1588,
+      "Sha256": "B679F3190780DACF31E38F85E16AA6C9CD4872514F4AFA42AB052F2CA04863FE"
+    }
+  ],
+  "Published329CiPassed": true,
+  "ReadinessCliExitCode": 0,
+  "ComparisonTestReport": "validation/part-329/final-main/tests.json"
+}
