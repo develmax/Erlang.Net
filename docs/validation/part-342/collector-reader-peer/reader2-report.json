@@ -1,0 +1,23 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_REVIEW_READER2_NOT_EXECUTED",
+  "SourceFreezeSha256": "522D7F5DFCE6065B9DFABE2C5049970FB97E71861C8E52C6E79E1E614BCDD15E",
+  "PriorFindingSha256": "B2CD0B7BCBEB069CF72BEBE363DB6F7E56F6A153D097B684D5D6DF35020FA0E2",
+  "AllSourceRowsRehashed": 3,
+  "FindingsResolved": [
+    "artifact-run-identity",
+    "zip-extracted-fileset",
+    "local-fun-proplist-contract"
+  ],
+  "ReviewedContracts": [
+    "Exact requested artifact run/head/name plus API ZIP digest",
+    "Extracted file set equals ZIP member file set, every member byte exact",
+    "Proper unique atom-key two-field fun_info proplist; native module/local/arity0/environment/creatorPID/name relations checked against actual child capture",
+    "Nested map/list/binary/three-bit payload and constructor marker, ancestry/link/label/initial-call assertions match reviewed probe",
+    "Normal owned child/peer/EPMD cleanup remains required"
+  ],
+  "CrosswalkUnchanged": true,
+  "Limit": "Source review of passive reader only. No original outcomes acquired or reader executed; source crosswalk is not actual SDK/native comparison.",
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "MainModified": false
+}

@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part342: publish the exact tested source, audit current-head CI, and dispatch each original workflow once at the verified head. Complete the eight real-peer and6261 ordinary contracts plus fd8 from actual receipts. Then integrate the isolated cooperative length/1 implementation across normal/guard/pattern/receive and match-spec contexts; retain Known differences until source, SDK, original and regression checks actually pass.
+
 Part341: audit the564 pending API contracts and address the18 known differences using the explicit command ledger. Continue the separately focused captured-source-function receiver repair and real two-node proc_lib/label checks against pinned OTP. Do not promote selected-case coverage or complete export presence to full compatibility. Published340 original6260/fd8 and WindowsCI7193/11 are now complete.
 
 Part340: publish the frozen proc_lib/RPC dependency slice and dispatch the enlarged ordinary comparison once. Audit exact-head CI and 6260 planned original cases plus fd8 without treating planned counts as results. Next resolve anonymous/captured source functions against exact receiving code images without requiring prior constructor execution; compare real two-node proc_lib and label behavior with the original. Preserve all 6216 old contracts, explicit physical-report adaptation and raw map stdout refusal. No proc_lib export is absent; inherited native tuning, physical/TCP/whole-module/performance compatibility remains partial.

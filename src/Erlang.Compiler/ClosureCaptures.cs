@@ -2,6 +2,25 @@ namespace Erlang.Compiler;
 
 internal static class ClosureCaptures
 {
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Expr.Fun, string[]> Plans = new();
+
+    internal static void Remember(Expr.Fun function, IEnumerable<string> bound)
+    {
+        var bindings = bound.ToDictionary(name => name, _ => (Term)Nil.Value, StringComparer.Ordinal);
+        string[] names = Capture(function, bindings).Keys.ToArray();
+        lock (Plans)
+        {
+            Plans.Remove(function);
+            Plans.Add(function, names);
+        }
+    }
+
+    internal static string[]? Names(Expr.Fun function)
+    {
+        lock (Plans)
+            return Plans.TryGetValue(function, out var names) ? names : null;
+    }
+
     public static Dictionary<string, Term> Capture(Expr.Fun function, IReadOnlyDictionary<string, Term> bindings)
     {
         var collector = new Collector(bindings.Keys);

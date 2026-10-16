@@ -118,7 +118,12 @@ public sealed class RuntimeFunctionEntries
             return publication.Factory(values, null);
         FunctionTerm? restored = null;
         restored = new FunctionTerm(
-            () => cell.Current.Identity,
+            () =>
+            {
+                var current = cell.Current.Identity;
+
+                return current.Name is not null ? current : runtime.Modules.ResolveSourceLocalIdentity(current, arity) ?? current;
+            },
             arity,
             values,
             (context, arguments) => InvokeRestored(
@@ -157,6 +162,18 @@ public sealed class RuntimeFunctionEntries
                     var temporary = publication.Factory(environment, invocation);
 
                     return await temporary.Invoke(context, arguments);
+                }
+
+                if (publication.Factory is null)
+                {
+                    FunctionTerm? source = context.Runtime.Modules.ResolveSourceLocalFunction(
+                        identity,
+                        arity,
+                        environment,
+                        invocation
+                    );
+                    if (source is not null)
+                        return await source.Invoke(context, arguments);
                 }
 
                 return await context.Runtime.Modules.InvokeUndefinedLambda(

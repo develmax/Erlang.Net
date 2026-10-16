@@ -428,6 +428,7 @@ public static class Semantics
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardFun, 0);
                 foreach (var c in f.Clauses)
                     ValidateClause(c, bound, true);
+                ClosureCaptures.Remember(f, bound);
                 if (f.Clauses.Select(c => c.Patterns.Count).Distinct().Count() != 1)
                     throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.FunClauseArityMismatch, 0);
                 break;

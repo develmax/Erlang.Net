@@ -1,0 +1,27 @@
+{
+  "Status": "SOURCE_REVIEW_REVISION_REQUIRED",
+  "ReaderSourceFreezeSha256": "E55F90FD4383A4A4B71D272578106E6F2DE438DF6B20B5C4397F551C624AC1C4",
+  "Scope": "Passive source review only; no actual original outputs available or executed",
+  "Findings": [
+    {
+      "Id": "artifact-run-identity",
+      "Detail": "Require artifact workflow_run.id equal requested run and exact proc-lib-real-peer-original-eight artifact name, in addition to head SHA."
+    },
+    {
+      "Id": "zip-extracted-fileset",
+      "Detail": "Require exact extracted file path set equal ZIP member file path set; current per-member byte checks alone leave extra files unbound."
+    },
+    {
+      "Id": "local-fun-proplist-contract",
+      "Detail": "Reject duplicate/non-pair origin-fun proplist entries and require module proc_lib_remote_payload, type local, arity zero, environment matching child capture state, creator PID matching captured parent; current name-only check is insufficient."
+    }
+  ],
+  "PositiveObservations": [
+    "Nested payload and three-bit bitstring match reviewed collector fixture",
+    "Child/peer/EPMD normal cleanup required",
+    "Group leader origin-node constraint is explicit; exact original GL is not separately captured"
+  ],
+  "NativeExecuted": false,
+  "SdkExecuted": false,
+  "MainModified": false
+}

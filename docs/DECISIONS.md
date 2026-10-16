@@ -1,5 +1,7 @@
 # Decisions
 
+Part342 — Resolve source funs by exact module fingerprint/index/arity and captured environment under existing current/old ownership and invocation leases. Never execute a receiver constructor or publish a sender delegate as a substitute. Keep API presence, local SDK results, original observations and full compatibility distinct; preserve5/18/564 while native comparison is pending.
+
 Part341 — Keep API registration and semantic verification separate. Require an explicit per-command audit with original evidence, no unresolved semantic limits and current-source hashes for Verified compatible. Preserve the registered/reference counts, remove the misleading Markdown presence percentage, and group detailed commands by verification state.
 
 Part340 — Port proc_lib node overloads through actual connected spawn and preserve erpc reference-correlated DOWN and timeout races. Keep local infinite RPC execution in its caller. Obtain independent original controller observations and assert only the shared checked contracts; do not fabricate physical process metrics or claim full captured-trace/TCP equivalence.

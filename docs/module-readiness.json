@@ -11,7 +11,7 @@
     },
     {
       "Path": "src/Erlang.Compiler/Semantics.cs",
-      "Sha256": "BB9F639D16F02943B4B12759BCC05A8E34F5399092FB61CD46597FE38B2ECDE1"
+      "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
     },
     {
       "Path": "src/Erlang.Runtime/CoreModules.cs",
@@ -80,6 +80,12 @@
           "Path": "validation/part-341/compatibility-audit/identity-dependencies.json",
           "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B",
           "Scope": "Self/node dependency checks; raw current source guard contains all ten audited files."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-342/current-verified-source-review.json",
+          "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
+          "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
         }
       ],
       "Limits": [],
@@ -306,6 +312,12 @@
           "Path": "validation/part-341/compatibility-audit/identity-dependencies.json",
           "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B",
           "Scope": "Self/node dependency checks; raw current source guard contains all ten audited files."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-342/current-verified-source-review.json",
+          "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
+          "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
         }
       ],
       "Limits": [],
@@ -341,6 +353,12 @@
           "Path": "validation/part-341/compatibility-audit/identity-dependencies.json",
           "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B",
           "Scope": "Self/node dependency checks; raw current source guard contains all ten audited files."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-342/current-verified-source-review.json",
+          "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
+          "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
         }
       ],
       "Limits": [],
@@ -431,6 +449,12 @@
           "Path": "validation/part-341/compatibility-audit/identity-dependencies.json",
           "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B",
           "Scope": "Self/node dependency checks; raw current source guard contains all ten audited files."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-342/current-verified-source-review.json",
+          "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
+          "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
         }
       ],
       "Limits": [],
@@ -3070,6 +3094,12 @@
           "Path": "validation/part-341/compatibility-audit/identity-dependencies.json",
           "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B",
           "Scope": "Self/node dependency checks; raw current source guard contains all ten audited files."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-342/current-verified-source-review.json",
+          "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
+          "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
         }
       ],
       "Limits": [],
@@ -7878,7 +7908,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-340/final-candidate/tests.json",
-  "LocalPassedTests": 7193,
+  "LocalPassedTests": 7200,
   "RegisteredMfas": 587,
   "PreviousRegisteredMfas": 587,
   "RegisteredMfaDelta": 0,
@@ -8321,7 +8351,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5509
+      "RelatedPassedTests": 5510
     },
     {
       "Id": "Style checks",

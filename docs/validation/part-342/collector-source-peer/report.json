@@ -1,0 +1,57 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE2_LOADED_CODE_IDENTITY_ADMISSION_NOT_EXECUTED",
+  "SourceFreezeSha256": "13A3F91C659E6C053415D8CDC8CBC89AE06FF7B0DC974288CADE980752C8DB12",
+  "PreviousReviewSha256": "B509A7BF1C873FF016E4330E2BC4CB90D92E2CD4FC95A0597F3F2869B581E659",
+  "SourceManifestSha256": "78D4C5B9268520DED2C79C846894DEA8CAFC7DCB9BD07A68A6564E26BF595032",
+  "Files": [
+    {
+      "Path": ".github/workflows/proc-lib-real-peer-original.yml",
+      "Bytes": 2699,
+      "Sha256": "F42DA35887D9351211CF57CE6B2210C850A558A3B02C09779B5CDE3A8F3D6439"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/collect-original.py",
+      "Bytes": 18480,
+      "Sha256": "3451F256A7FFF8580DBF295C4D6FFE04710A61D063994C3648DA38B0E2035286"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_real_peer_probe.erl",
+      "Bytes": 6291,
+      "Sha256": "D38B1300E57513EE0E2032EDEC43BF6445F9930C9F057B0E0088215A5F3BB58A"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_remote_payload.erl",
+      "Bytes": 898,
+      "Sha256": "51CF003E978C004B2F3B374BDF9FF96A1459BF6BD000C07945B54F6D877041EF"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/README.md",
+      "Bytes": 3108,
+      "Sha256": "55F5EB15670A3FC0CD4294EC790E041900A9067A6BF2AD8EFD0F30D84E4C1AC3"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/source-manifest.json",
+      "Bytes": 3138,
+      "Sha256": "78D4C5B9268520DED2C79C846894DEA8CAFC7DCB9BD07A68A6564E26BF595032"
+    }
+  ],
+  "Checks": [
+    "Native sixfields are Module,loadedPath,objectPath,actualmodule_info(md5),beam_lib:md5(retrievedImage),fullImageMd5.",
+    "Loaded code checksum must equal retrievedimagecodechecksum, independentfullfileMD5 verifiesactualretrieveddiskimage; code:which/objectpath equality alone is no longer treatedasloadedimage proof.",
+    "Pythonrequires exact4unique module identities, exactsixfieldtuples, eachdigestbinary16, reviewedroot andloadedobjectpaths equal.",
+    "AllchecksumvaluesremainrawETFs forlaterindependent nativeartifactaudit; no normalization orSDKexpectations.",
+    "Sharedpayload51CFexact; workflow/processownershipandstrictnormalreturnadmission reviewedpreviously unchanged inpurpose."
+  ],
+  "CorrectionToPreviousReview": "B509 source review incorrectly called code:get_object_code fullimage MD5 actuallyloadedimage identity. Previouscapturemechanism onlyproved retrieved file hash/path. This revision adds necessary real loaded module checksum and comparison; priorreport retained.",
+  "ConcreteBlockers": [],
+  "PythonAstParsed": true,
+  "ErlangCompiled": false,
+  "LinuxOwnershipExecuted": false,
+  "SDKExecuted": false,
+  "NetworkUsed": false,
+  "MainModified": false,
+  "Limitations": [
+    "Actual8nativecapture still required; sourcepeer is not nativeErlangcompilation or runtimeproof.",
+    "LoadedcodeMD5 identifies code identity; rawfullimagechecksum separately binds fullBEAMbytes. No identicaldebugmetadataexecutionclaim."
+  ]
+}

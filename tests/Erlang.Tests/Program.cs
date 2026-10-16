@@ -7,6 +7,17 @@ using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.MfaCompatibilityHostNames.Test, Erlang.Tests.MfaCompatibilityHostChecks.Run);
+Test("proc-lib-node-captured-spawn", Erlang.Tests.RemoteSourceFunHostChecks.SpawnCaptured);
+Test("proc-lib-node-captured-spawn-link", Erlang.Tests.RemoteSourceFunHostChecks.SpawnLinkCaptured);
+Test("proc-lib-node-captured-spawn-opt", Erlang.Tests.RemoteSourceFunHostChecks.SpawnOptCaptured);
+Test(
+    "source-fun-current-old-purged-sibling-captures",
+    Erlang.Tests.RemoteSourceFunImageHostChecks.CurrentOldPurgedAndSiblingCaptures
+);
+Test(
+    "source-fun-fresh-receiver-lexical-boundaries",
+    Erlang.Tests.RemoteSourceFunLexicalHostChecks.FreshReceiverLexicalCaptureBoundaries
+);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.ParseAll, Erlang.Tests.ProcLibLifecycleMfaContracts.ParseAll);
 Test(Erlang.Tests.ErrorLoggerTermLimitHostNames.Test, Erlang.Tests.ErrorLoggerTermLimitHostChecks.Run);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.Isolation, Erlang.Tests.ProcLibLifecycleHostChecks.IsolatedConfiguration);

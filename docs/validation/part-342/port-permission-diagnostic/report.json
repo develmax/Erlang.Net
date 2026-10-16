@@ -1,0 +1,88 @@
+{
+  "Status": "PASS_ENVIRONMENT_DIAGNOSIS_NOT_FULL_VALIDATION",
+  "FailedFull2Exit": {
+    "Command": [
+      "C:/Users/Maksim/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "tools/validate.ps1"
+    ],
+    "ExitCode": 1,
+    "TimedOut": false,
+    "Settled": true,
+    "ElapsedSeconds": 312.0929999999935
+  },
+  "FailedFull2Tests": {
+    "Passed": 7184,
+    "Failed": 16
+  },
+  "FailedOldNames": [
+    "oracle/compiled-module/erlang-port-native-option-echo-3",
+    "oracle/compiled-module/erlang-port-native-option-echo-4",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+    "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+    "oracle/compiled-module/erlang-port-native-option-arg0-9",
+    "oracle/compiled-module/erlang-port-native-option-arg0-10",
+    "oracle/compiled-module/erlang-port-native-option-arg0-11",
+    "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+    "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+    "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+    "oracle/compiled-module/erlang-port-native-option-output-only-no-data"
+  ],
+  "ExactNativeFailure": "WindowsPortChildProcess.Pipe CreateFileW at source line212, Win32Exception.NativeErrorCode=5",
+  "SameDllComparison": {
+    "DefaultSandboxPipeFailed": 3,
+    "ApprovedOutsideSandboxPipePassed": 3,
+    "ApprovedOutsideSandboxExistingCompiledPortCasesPassed": 25
+  },
+  "ProductionOrExpectationChanges": false,
+  "Artifacts": [
+    {
+      "Path": "artifacts/runtime342-full-actual2/full-exit.json",
+      "Sha256": "DB61A10AA17D58C23E272A68ED35893872E3DBE5B046F6022D1E8B77736AADE7"
+    },
+    {
+      "Path": "artifacts/runtime342-full-actual2/tests.json",
+      "Sha256": "7A2A1F9EE32E45582B2DCE06128FD4B4E3122AC5BE96977C9694FCE16A3D9E45"
+    },
+    {
+      "Path": "artifacts/runtime342-full-actual2/full-validation.log",
+      "Sha256": "CB376DC5347A728E44398C9DED465995F110A76E203CC49478684E6F9805F040"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/default.json",
+      "Sha256": "C5C39D824439F467C25B63BD3D16CEC9803A5433D6182B7FB678DA97D7AFD3D2"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/escalated.json",
+      "Sha256": "4E0507BD80558609C1ECB29F6E61770B375A61FE0DF6E52A064CDC00583D7C34"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/focused-escalated.json",
+      "Sha256": "7DBB24180210D62B48AD4FC62F8EE15574653D5676C5EDB3C16CE9238BFDCEEC"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/dlls-before.json",
+      "Sha256": "CFB0C490858B8F0D32216DE3DB22BE50D2DED2F0A6920392E1D1E319475F4B89"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/inspect-pipe.ps1",
+      "Sha256": "B1477FA597721C001471FBB9FA7B5386ED9FF22146858A8AFA3B09AA40670AC1"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/harness/Program.cs",
+      "Sha256": "89201792AA4B2CDB0021D9B2A9764E40AC9E8978A376B5E91D65F15B3318DABD"
+    },
+    {
+      "Path": "artifacts/runtime342-port-diagnostic/harness/Focus.csproj",
+      "Sha256": "05B9F0BF371D5004EC2C45E9A2FC5FCE9F09621B5739DA52505BECE9670D6A9B"
+    }
+  ]
+}

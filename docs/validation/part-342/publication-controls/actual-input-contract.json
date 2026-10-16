@@ -1,0 +1,87 @@
+{
+  "ParentHead": "7b43e00608c41303c1b03a25ebd5385d12517ee5",
+  "ProducerGuard": {
+    "Path": "completion-guard.json",
+    "Sha256": "1BACFA5518D2BE5A72F97976AE7C0D490DC3EE0A1AF584BD5612F81EF58B56A7"
+  },
+  "Inputs": {
+    "SourceFreeze": {
+      "Path": "source-freeze.json",
+      "Sha256": "07F9E80B6E43264A7D108C146F6E650CBE101232DD710D1FDCAEC42DDDA08CED"
+    },
+    "SourceClosure": {
+      "Path": "source-resource-closure.json",
+      "Sha256": "C577450ADF3BEF71EC6219D135681834696A66A8856D00440FFBAD8DE8E80D98"
+    },
+    "PackageResources": {
+      "Path": "package-resources.json",
+      "Sha256": "13053E88C4FA086C9C5B5FABBC729E8145BE8803408B66898863BCFF9B655F66"
+    },
+    "FullExit": {
+      "Path": "full-exit.json",
+      "Sha256": "9DF6DB718AF1A693281A3B204DC81CA74C1D0B9B6DB7A945727A75BFB7FDED8B"
+    },
+    "Tests": {
+      "Path": "tests.json",
+      "Sha256": "B6EEA682C95B8E5254C39686BACDDBB424B432DFFDC6968BAAAA9CB968618092"
+    },
+    "Integrations": {
+      "Path": "integration-results.json",
+      "Sha256": "34DFFE04D87C93EE5039D03612A56ED0455D87A43D092CE141ADA0B9E0E03A52"
+    },
+    "Registry": {
+      "Path": "raw-supported-mfas.json",
+      "Sha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB"
+    },
+    "PackageOutputs": {
+      "Path": "packages.json",
+      "Sha256": "FEC7014A2628AA6F1E07585F1FC0CFA695D13581A8BD4DDF3514DB80C009B96A"
+    },
+    "AddedTests": {
+      "Path": "added-tests.json",
+      "Sha256": "AA32C707D00E53D05D119F61AF5EA49E625490DD5A10EE08F4F187CD633B8D1F"
+    }
+  },
+  "History": [
+    {
+      "ProducerField": "InitialLaunchExitSha256",
+      "Path": "artifacts/runtime342-full-actual1/full-exit.json",
+      "Sha256": "AD3B815E92971E37199480181B5763DB09A9E3B7C0C04CB48D6FEFD9A6F3E8EF"
+    },
+    {
+      "ProducerField": "InitialLaunchLogSha256",
+      "Path": "artifacts/runtime342-full-actual1/full-validation.log",
+      "Sha256": "7A59B318566AC7EE3A4745FF4BE267D7A4736E9B1C0593CD09626C5EEF45BF82"
+    },
+    {
+      "ProducerField": "PreviousSandboxFullExitSha256",
+      "Path": "artifacts/runtime342-full-actual2/full-exit.json",
+      "Sha256": "DB61A10AA17D58C23E272A68ED35893872E3DBE5B046F6022D1E8B77736AADE7"
+    },
+    {
+      "ProducerField": "PreviousSandboxFullTestReportSha256",
+      "Path": "artifacts/runtime342-full-actual2/tests.json",
+      "Sha256": "7A2A1F9EE32E45582B2DCE06128FD4B4E3122AC5BE96977C9694FCE16A3D9E45"
+    },
+    {
+      "ProducerField": "PreviousSandboxFullLogSha256",
+      "Path": "artifacts/runtime342-full-actual2/full-validation.log",
+      "Sha256": "CB376DC5347A728E44398C9DED465995F110A76E203CC49478684E6F9805F040"
+    },
+    {
+      "ProducerField": "PortPermissionDiagnosticSha256",
+      "Path": "artifacts/runtime342-port-diagnostic/default.json",
+      "Sha256": "C5C39D824439F467C25B63BD3D16CEC9803A5433D6182B7FB678DA97D7AFD3D2"
+    },
+    {
+      "ProducerField": "PortPermissionEscalatedDiagnosticSha256",
+      "Path": "artifacts/runtime342-port-diagnostic/escalated.json",
+      "Sha256": "4E0507BD80558609C1ECB29F6E61770B375A61FE0DF6E52A064CDC00583D7C34"
+    },
+    {
+      "ProducerField": "PortFocused25Sha256",
+      "Path": "artifacts/runtime342-port-diagnostic/focused-escalated.json",
+      "Sha256": "7DBB24180210D62B48AD4FC62F8EE15574653D5676C5EDB3C16CE9238BFDCEEC"
+    }
+  ]
+}

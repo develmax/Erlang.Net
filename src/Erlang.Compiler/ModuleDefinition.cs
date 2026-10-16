@@ -5,12 +5,12 @@ using System.Security.Cryptography;
 
 namespace Erlang.Compiler;
 
-public sealed record ModuleDefinition(
+public sealed partial record ModuleDefinition(
     string Name,
     IReadOnlyList<(string Name, int Arity)> Exports,
     IReadOnlyList<FunctionDefinition> Functions,
     IReadOnlyList<ModuleAttribute>? Attributes = null
-)
+) : ISourceLocalFunctionResolver
 {
     public IReadOnlyList<(string Name, int Arity)> DeclaredExports { get; } = Array.AsReadOnly(Exports.ToArray());
     public IReadOnlyList<FunctionDefinition> DeclaredFunctions { get; } = Array.AsReadOnly(Functions.ToArray());

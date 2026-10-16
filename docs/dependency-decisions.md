@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part342 — Reuse C# module/image ownership, read-only per-module dictionaries and ConditionalWeakTable capture plans; add no framework, package or production BEAM dependency. Standalone original tooling builds pinned OTP with owned private EPMD/TCP peers. Preserve Main unowned EOL bytes, recorded failure history, notices and uncommitted LICENSE.local.txt; no NuGet publication.
+
 Part341 — Reuse the existing C# readiness generator, System.Text.Json and BCL SHA256 with no new third-party or production BEAM dependency. The test project references the existing Tool project for direct admission/generator controls. Preserve upstream notices and leave LICENSE.local.txt uncommitted.
 
 Part340 — Reuse owned distribution controllers, existing process/mailbox/monitor/alias/trace channels, real registry apply dispatch and process-info requests. Add only rpc:call/4,5 and erpc:call/4,5,execute_call/4 needed for remote proc_lib metadata. Node enumeration reads actual connection entries; no fake registry or local substitute for remote labels. No third-party package or actor framework is added.

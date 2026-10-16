@@ -37,6 +37,18 @@ internal static class LocalFunctionEntries
         );
     }
 
+    internal static (Expr.Fun? Anonymous, string? Named, LocalFunctionIdentity Identity)? Resolve(
+        ModuleDefinition module,
+        LocalFunctionIdentity identity,
+        int arity
+    )
+    {
+        var entries = Modules.GetValue(module, value => new ModuleEntries(value));
+
+        return entries.Resolved.TryGetValue((identity.Index, arity), out var entry) && entry.Identity.Unique.Equals(identity.Unique)
+            ? entry : null;
+    }
+
     private static LocalFunctionIdentity Identity(
         string module,
         string owner,
@@ -55,6 +67,8 @@ internal static class LocalFunctionEntries
     {
         public Dictionary<Expr.Fun, LocalFunctionIdentity> Entries { get; } = new(ReferenceEqualityComparer.Instance);
         public Dictionary<(string Name, int Arity), LocalFunctionIdentity> NamedEntries { get; } = new();
+        public IReadOnlyDictionary<(int Index, int Arity), (Expr.Fun? Anonymous, string? Named, LocalFunctionIdentity Identity)> Resolved { get; }
+
 
         public ModuleEntries(ModuleDefinition module)
         {
@@ -80,6 +94,12 @@ internal static class LocalFunctionEntries
                         new BitString(unique)
                     )
                 );
+            var resolved = new Dictionary<(int Index, int Arity), (Expr.Fun? Anonymous, string? Named, LocalFunctionIdentity Identity)>();
+            foreach (var entry in Entries)
+                resolved.Add((entry.Value.Index, entry.Key.Clauses[0].Patterns.Count), (entry.Key, null, entry.Value));
+            foreach (var entry in NamedEntries)
+                resolved.Add((entry.Value.Index, entry.Key.Arity), (null, entry.Key.Name, entry.Value));
+            Resolved = new System.Collections.ObjectModel.ReadOnlyDictionary<(int Index, int Arity), (Expr.Fun? Anonymous, string? Named, LocalFunctionIdentity Identity)>(resolved);
         }
     }
 
