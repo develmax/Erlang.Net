@@ -634,6 +634,7 @@ public static class CompiledModuleCases
         .. ProcLibStartupCases.Modules,
         .. ReceiveWaitCases.Modules,
         .. ProcLibOptionCases.Modules,
-        .. ProcLibMetadataCases.Modules
+        .. ProcLibMetadataCases.Modules,
+        .. ProcLibStopCases.Modules
     ];
 }

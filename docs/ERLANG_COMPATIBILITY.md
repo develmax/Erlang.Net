@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part335 keeps351 erlang registrations. Sys/proc_lib reuse existing real monitor aliases, sends and selective receives; no primitive or physical accounting implementation is changed. All6918 prior tests remain in6952 passing tests. Published334 CI6918/11 is verified; original334 and new335 comparisons remain separate pending scopes.
+
 Part334 leaves351 erlang registrations unchanged. The four new proc_lib exports reuse actual process_info, dictionary, integer/atom conversion and process identifiers. No new erlang semantics, physical metrics or performance result is claimed. Published333 original6042/fd8 and CI6871/11 are complete, with strict textual refusals separate from semantic success.
 
 Part333 leaves351 erlang registrations unchanged. A narrow existing spawn_opt option-error parser helper is shared with proc_lib so builtin wrapper arguments and badopt metadata follow the same path. No new scheduler/heap configuration or physical-resource parity is claimed. Existing contracts remain covered by6871 tests; new333 original observations remain pending.

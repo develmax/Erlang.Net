@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part335 — Pinned OTP29.1.1 proc_lib.erl stop, sys.erl system messages and gen.erl call/reply/name resolution guide the adaptation. Existing project/runtime/BCL primitives supply actual monitors, aliases, sends, ownership and cancellation. No third-party framework, production BEAM dependency or new license header is added; existing notices and license decisions remain. Global registry implementation and complete system protocol are separate dependencies.
+
 Part334 — Pinned OTP29.1.1 proc_lib.erl and c.erl guide raw_initial_call, initial_call, translate_initial_call and process labels. Existing C# runtime/BCL facilities are reused; separate actor or logging libraries would not supply these source contracts. Existing OTP notices and the repository license decision remain unchanged; no license headers or new third-party dependency are introduced.
 
 Part333 — Source/license/reuse: pinned OTP29.1.1 proc_lib.erl supplies sync_start_monitor and VERIFY_NO_MONITOR_OPT contracts. Existing project C# process, monitor, mailbox, option parser, sequence descriptions and BCL mechanisms remain the implementation; existing licensing decisions apply and no dependency is added. A separate actor framework would duplicate ownership and alter mailbox/failure semantics. Native tuning options unsupported by the current parser remain unsupported, rather than reporting fabricated heap/scheduler effects.

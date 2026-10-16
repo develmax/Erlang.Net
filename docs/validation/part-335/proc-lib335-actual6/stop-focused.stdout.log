@@ -1,0 +1,36 @@
+{"Name":"proc-lib-stop-default-normal","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-exact-reason","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-equal-exit-before-ack","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-different-exit-before-ack","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-ack-then-different-exit","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-missing-process","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-missing-name","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-stop-self","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-named-stop","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-named-tuple-stop","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-sys-returns-before-death","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-stop-waits-for-death","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-timeout-preserves-target","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-alias-drops-late-reply","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-sys-missing-name","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-sys-self","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-via-registry","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-via-missing","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-sys-disconnected","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-mailbox-order","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-sys-invalid-timeout","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-stop-invalid-timeout","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-gen-server-ack-before-callback","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-gen-server-stop-waits-for-callback","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-supervisor-ack-before-child-shutdown","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-after-ack-timeout-waits-for-real-down","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-one-timeout-budget","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-local-infinity-noconnection-reason","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-lib-stop-local-finite-noconnection-translation","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS Erlang.Tests.ProcLibStopMfaContracts:RunAll
+{"Module":"proc_lib","Function":"stop","Arity":1,"Direct":true,"Passed":true}
+{"Module":"proc_lib","Function":"stop","Arity":3,"Direct":true,"Passed":true}
+{"Module":"sys","Function":"terminate","Arity":2,"Direct":true,"Passed":true}
+{"Module":"sys","Function":"terminate","Arity":3,"Direct":true,"Passed":true}
+PASS Erlang.Tests.ProcLibStopMfaContracts:RunDirect
+PASS Erlang.Tests.ProcLibStopHostChecks:Run

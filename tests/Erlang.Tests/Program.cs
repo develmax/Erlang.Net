@@ -1413,6 +1413,10 @@ Test(
 );
 Test("compiler/signed-zero-pattern", async () => Equal(await Eval("case -0.0 of 0.0 -> wrong; -0.0 -> ok end"), Term.A("ok")));
 Test(
+    "host_proc_lib_stop_bare_runtime_ack_consumed",
+    Erlang.Tests.ProcLibStopHostChecks.Run
+);
+Test(
     "otp/gen-server-call-cast-info-stop",
     async () =>
 {
@@ -1786,6 +1790,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         if (Erlang.Tests.ProcLibMetadataMfaContracts.Owns(export.Module, export.Function))
         {
             await Erlang.Tests.ProcLibMetadataMfaContracts.Run(export.Function);
+
+            return;
+        }
+        if (Erlang.Tests.ProcLibStopMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProcLibStopMfaContracts.Run(export.Module, export.Function, export.Arity);
 
             return;
         }

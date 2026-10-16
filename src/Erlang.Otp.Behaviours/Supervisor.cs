@@ -373,6 +373,7 @@ public static class Supervisor
                     }
                     if (message is TupleTerm { Items.Count: 3 } system && system.Items[0] is Atom { Name: BehaviourAtoms.System } && system.Items[2] is TupleTerm { Items.Count: 2 } stop && stop.Items[0] is Atom { Name: BehaviourAtoms.Terminate })
                     {
+                        await SystemMessageReply.Send(context, system.Items[1], ProcLibAtoms.Ok);
                         for (int i = children.Count - 1; i >= 0; i--)
                             await StopChild(i);
                         context.Exit(stop.Items[1]);

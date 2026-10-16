@@ -1,5 +1,7 @@
 # Decisions
 
+Part335 — Port proc_lib stop and required sys/gen call/reply logic directly over existing CLR process, alias, monitor and receive primitives. The host GenServer.Stop helper stays usable in a bare runtime without module-registration side effects; it consumes ACK and awaits DOWN under one Stopwatch budget. Preserve source error/catch boundaries and matching-node registry failures. Avoid a separate actor or message-bus dependency.
+
 Part334 — Reuse existing process_info dictionary queries, lists:keyfind, process dictionary put/get, PID text parsing and atom admission. Dummy arguments are built cooperatively with existing reductions/cancellation. Keep wrong-arity/malformed query behavior and the source precedence rather than flattening all query forms. No actor framework, production BEAM dependency, package or synthetic process state is added.
 
 Part333 — Share the existing startup wait core while retaining the old distinct four-argument helper and its contract. Ordinary startup removes the monitor; monitored startup retains it or requeues the original DOWN. Reuse actual lists functions for the ordered monitor-option precheck and existing ProcessSpawnOptions/SpawnWithOptions for creation. Expose only a narrow internal existing parser/error helper; no new actor framework, scheduler, production BEAM dependency or package. The full candidate binds six package resources before execution, avoiding the prior missing-README setup error.

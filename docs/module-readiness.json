@@ -2,13 +2,13 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-333/final-candidate/tests.json",
-  "LocalPassedTests": 6918,
-  "RegisteredMfas": 532,
-  "PreviousRegisteredMfas": 528,
+  "ComparisonTestReport": "validation/part-334/final-candidate/tests.json",
+  "LocalPassedTests": 6952,
+  "RegisteredMfas": 536,
+  "PreviousRegisteredMfas": 532,
   "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
-  "ImplementedApiModules": 8,
+  "ImplementedApiModules": 9,
   "Components": [
     {
       "Id": "Terms",
@@ -284,7 +284,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1571
+      "RelatedPassedTests": 1575
     },
     {
       "Id": "gen_server adapters",
@@ -446,7 +446,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5334
+      "RelatedPassedTests": 5363
     },
     {
       "Id": "Style checks",
@@ -537,14 +537,28 @@
         "Part332 completion: original6001/6001\u002Bfd8, all5962 prior contracts and39 new source/local/original/SDK chains match; strict ordinary variance0; all five terminal typed scopes pass.",
         "Part333: seven local monitored/option APIs; original monitor retention, real DOWN tail requeue, ordered monitor precheck and existing atomic option parser. Actual6871/6871 and eleven integrations/packages;19/39 API presence. Original333 pending.",
         "Part333 completion: original6042/6042\u002Bfd8 and CI6871/11; all6001 previous and41 new contracts match. Allfive typed scopes pass; one predeclared ordinary map stdout-order variance and distribution strict repr refusal remain separately retained without normalization.",
-        "Part334: initial_call/1, translate_initial_call/1 and arbitrary process labels set_label/1,get_label/1; actual6918/6918 plus11 integrations,43 compiled scenarios and4 direct contracts. Registry532/proc_lib23/39. Original334 pending."
+        "Part334: initial_call/1, translate_initial_call/1 and arbitrary process labels set_label/1,get_label/1; actual6918/6918 plus11 integrations,43 compiled scenarios and4 direct contracts. Registry532/proc_lib23/39. Original334 pending.",
+        "Part335: cooperative stop/1,3 plus sys terminate/2,3 and ACK-before-callback/child shutdown; actual6952/11,29 compiled\u002B4direct\u002B1bare HOST. Registry536/proc_lib25/39/sys2; original335 pending. Published334 CI6918/11 verified; original334 pending."
       ],
       "Remaining": [
-        "Sixteen lifecycle, node-overload and report-formatting exports; gen/sys/logger integration",
-        "Connected remote RPC and numeric PID channels; unrestricted native tuning options",
-        "Complete stack/tracing/scheduler/physical and performance parity"
+        "Fourteen initializer/hibernate, node-overload and report-formatting exports; crash logger integration",
+        "Connected remote RPC/numeric PID channels and unrestricted native tuning",
+        "Complete gen/sys, stack/tracing/scheduler/physical and performance parity"
       ],
-      "RelatedPassedTests": 162
+      "RelatedPassedTests": 194
+    },
+    {
+      "Id": "sys system protocol",
+      "Project": "src/Erlang.Otp.Behaviours",
+      "Status": "Partially compatible",
+      "Implemented": [
+        "Part335 terminate/2,3; actual monitor/alias/reply protocol and ACK-before-termination; matching proc_lib stop shares original DOWN deadline.6952/11 local full; original335 pending."
+      ],
+      "Remaining": [
+        "Suspend/resume, status/state, code changes, debugging and complete gen/sys callbacks",
+        "Global registry and genuine connected remote-peer/physical/scheduler/performance contracts"
+      ],
+      "RelatedPassedTests": 32
     }
   ],
   "Modules": [
@@ -11475,11 +11489,11 @@
     {
       "Name": "proc_lib",
       "Status": "Partially compatible",
-      "RegisteredMfas": 23,
-      "PreviousRegisteredMfas": 19,
-      "Delta": 4,
+      "RegisteredMfas": 25,
+      "PreviousRegisteredMfas": 23,
+      "Delta": 2,
       "ReferenceDeclarations": 39,
-      "ApiPresencePercent": 59.0,
+      "ApiPresencePercent": 64.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/proc_lib.erl"
@@ -11507,6 +11521,8 @@
         "proc_lib:start_monitor/3",
         "proc_lib:start_monitor/4",
         "proc_lib:start_monitor/5",
+        "proc_lib:stop/1",
+        "proc_lib:stop/3",
         "proc_lib:translate_initial_call/1"
       ],
       "AbsentFromReference": []
@@ -15004,17 +15020,20 @@
     },
     {
       "Name": "sys",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 2,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 36,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 5.6,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/sys.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "sys:terminate/2",
+        "sys:terminate/3"
+      ],
       "AbsentFromReference": []
     },
     {

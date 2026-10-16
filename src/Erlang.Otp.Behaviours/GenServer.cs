@@ -102,6 +102,7 @@ public static class GenServer
                         var message = await context.ReceiveAsync(t => t, timeout) ?? Term.A(BehaviourAtoms.Timeout);
                         if (message is TupleTerm { Items.Count: 3 } system && system.Items[0] is Atom { Name: BehaviourAtoms.System } && system.Items[2] is TupleTerm { Items.Count: 2 } stop && stop.Items[0] is Atom { Name: BehaviourAtoms.Terminate })
                         {
+                            await SystemMessageReply.Send(context, system.Items[1], ProcLibAtoms.Ok);
                             reason = stop.Items[1];
                             if (runtime.Lifecycle is not (RuntimeLifecycleState.Stopping or RuntimeLifecycleState.Stopped))
                                 await Terminate();
@@ -224,28 +225,57 @@ public static class GenServer
     )
     {
         if (server.Equals(context.Self))
-            throw new ErlangException(Term.A(BehaviourAtoms.CallingSelf), ErlangExceptionClasses.Exit);
-        var reference = context.Runtime.Monitor(context, server);
+            throw new ErlangException(SysTerminationAtoms.CallingSelf, ErlangExceptionClasses.Exit);
+
+        var reference = context.Runtime.MonitorSource(
+            context,
+            ProcessMonitorKinds.Process,
+            server,
+            new ProcessMonitorOptions(false, SysTerminationNames.Demonitor, ProcLibStartupAtoms.Down)
+        );
+        Term tag = new Cons(SysTerminationAtoms.Alias, reference);
+        long started = System.Diagnostics.Stopwatch.GetTimestamp();
         try
         {
-            context.Runtime.Send(
+            await ErlangOperatorValues.TrySendAsync(
+                context,
                 server,
-                Term.Tuple(Term.A(BehaviourAtoms.System), Term.Tuple(context.Self, reference), Term.Tuple(Term.A(BehaviourAtoms.Terminate), reason))
+                Term.Tuple(
+                    SysTerminationAtoms.System,
+                    Term.Tuple(context.Self, tag),
+                    Term.Tuple(SysTerminationAtoms.Terminate, reason)
+                )
             );
-            var down = await context.ReceiveAsync(
-                t => t is TupleTerm { Items.Count: 5 } tuple && tuple.Items[0].Equals(Term.A(ProcessMessageTags.MonitorDown)) && tuple.Items[1].Equals(reference) ? tuple : null,
-                timeout
-            );
-            if (down is null)
-                throw new ErlangException(Term.A(ErlangErrorReasons.Timeout), ErlangExceptionClasses.Exit);
-            if (!down.Items[4].Equals(reason))
-                throw new ErlangException(down.Items[4], ErlangExceptionClasses.Exit);
+            while (true)
+            {
+                TimeSpan? remaining = timeout is null
+                    ? null
+                    : timeout.Value - System.Diagnostics.Stopwatch.GetElapsedTime(started);
+                if (remaining < TimeSpan.Zero)
+                    remaining = TimeSpan.Zero;
 
-            return Term.A(BehaviourAtoms.Ok);
+                TupleTerm? response = await context.ReceiveAsync(
+                    value => value is TupleTerm { Items: [var candidate, _] } reply && candidate.Equals(tag)
+                        ? reply
+                        : value is TupleTerm { Items: [var downTag, var downReference, _, _, _] } down &&
+                          downTag.Equals(ProcLibStartupAtoms.Down) && downReference.Equals(reference)
+                            ? down
+                            : null,
+                    remaining
+                );
+                if (response is null)
+                    context.Exit(ProcLibStopAtoms.Timeout);
+                if (response!.Items.Count == 2)
+                    continue;
+                if (!response.Items[^1].Equals(reason))
+                    context.Exit(response.Items[^1]);
+
+                return ProcLibAtoms.Ok;
+            }
         }
         finally
         {
-            context.Runtime.Demonitor(context, reference, true);
+            context.Runtime.Demonitor(context, reference, flush: true);
         }
     }
 }

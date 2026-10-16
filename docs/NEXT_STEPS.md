@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part335: publish cooperative stop/system termination and compare29 new scenarios with pinned OTP. Finish pending original334 and current335 CI. Continue faithful report formatting, then initializer/hibernate/crash-report and node overloads. Keep unverified formatter/lifecycle drafts isolated and uncounted; no direct kill replacement or generic full-module/performance claim. LICENSE.local.txt and unrelated caches remain uncommitted.
+
 Part334: publish and compare the43 new introspection/label scenarios against pinned OTP. Continue all remaining proc_lib exports: real sys termination and DOWN budget, init_p/wake_up/hibernate plus crash reports, node overloads and faithful report formatting. Keep unverified drafts isolated; never count absent backends or disconnected-only spawning as full compatibility. LICENSE.local.txt and unrelated caches remain uncommitted.
 
 Part333 next: publish and audit exact-head CI and original observations for monitored/option-bearing local startup. Continue the minimal gen/sys system protocol, state inspection and suspend/resume required by local behaviours; supply proc_lib introspection/lifecycle contracts where those source modules call them. Other valid OTP heap/scheduler tuning options and remote proc_lib overloads remain explicit gaps. Keep LICENSE.local.txt and unrelated caches out of commits.
