@@ -20,6 +20,22 @@ internal sealed class ProcessSpawnOptions
     }
     public ProcessMonitorOptions MonitorOptions { get; private set; } = ProcessMonitorOptions.Default;
 
+    internal static ProcessSpawnOptions ParseRemote(Term value)
+    {
+        var result = new ProcessSpawnOptions();
+        foreach (Term option in Cons.Items(value))
+        {
+            var current = Parse(Term.List(option));
+            result.Link |= current.Link;
+            result.PriorityLink |= current.PriorityLink;
+            result.Monitor |= current.Monitor;
+            if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Monitor }, _] })
+                result.MonitorOptions = current.MonitorOptions;
+        }
+
+        return result;
+    }
+
     public static ProcessSpawnOptions Parse(Term value)
     {
         var result = new ProcessSpawnOptions();

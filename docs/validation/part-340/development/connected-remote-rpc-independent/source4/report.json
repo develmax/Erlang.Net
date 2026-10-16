@@ -1,0 +1,20 @@
+{
+  "Status": "PASS_NARROW_HOST_REAL_RECEIVE_TARGET_CORRECTION",
+  "Passed": true,
+  "SourceFreezeSha256": "27E53DD33A3F869BD99007BE9B1FD41A7A814ABD18FCEB469EA6C26A0C140D50",
+  "FilesRehashed": 87,
+  "ProductionRawExactActuallyFormatted3": true,
+  "ChangedPaths": [
+    "tests/Erlang.Tests/ConnectedRpcLabelHostChecks.cs"
+  ],
+  "BlockingFindings": [],
+  "Review": [
+    "Real runtime.Spawn target sets label before ready handshake, then waits via actual ProcessContext.ReceiveAsync; process_info pending signals can be admitted.",
+    "Arbitrary label equality, genuine request MFA/payload, deadtarget undefined, retirement undefined, hidden no-output checks retained.",
+    "Target released and genuine Completion joined before deadtarget query and in finally; failure-only caller cleanup remains bounded.",
+    "No production behavior or native expected value changed; prior10/11 failed observation retained."
+  ],
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

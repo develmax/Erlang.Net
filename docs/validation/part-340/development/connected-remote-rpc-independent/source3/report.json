@@ -1,0 +1,30 @@
+{
+  "Status": "PASS_NARROW_INTEGRATED_NODES_AND_HOST_REPAIR_SOURCE_FOR_CORRECTED_FOCUSED_SDK",
+  "Passed": true,
+  "SourceFreezeSha256": "DF474CF6624AD51AF89D0A03E111CB1465BD47398D0F29A2DBFEFA42CB728B34",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FilesRawExact": 87,
+  "ClosureRowsRehashed": 1044,
+  "SourceClosureSha256": "EAD9862FD77E1B4CBDB34EF72856D9BF12F97249606C3146C46A956D76F2919A",
+  "NodesProposalSha256": "49442233E7B20D102EF5FA3408D49C78A64C86B893D66FB2FFE173D5F2BFD378",
+  "NodesPeerSha256": "3A50E31862A177A6B4ECC8F8D1330DCA8BD40C6B48080704E70A94758FA1F089",
+  "PreviousActualFailureHistoryPreserved": true,
+  "ProductionChangesFromActuallyFormatted2": [
+    "src/Erlang.Runtime/RuntimeDistributionPending.NodeQueries.cs",
+    "src/Erlang.Runtime/RuntimeNodeQuery.cs",
+    "src/Erlang.Runtime/RuntimeNodeQueryRegistrations.cs"
+  ],
+  "BlockingFindings": [],
+  "Review": [
+    "RPC production exact actual2formatted; only independently reviewed real nodes selector/snapshot/query production changes added.",
+    "Diagnostic external-function decode uses actual receiving runtime Function registry; real input path unchanged.",
+    "Failure-only caller kill uses public runtime.Exit through real controller actor with bounded wait; original exception propagates and cleanup diagnostics retained.",
+    "Remote label test requires genuinely visible nodes result before exchange; original arbitrary label/deadPID/retirement/hidden/noqueuedoutput assertions retained.",
+    "Raw packet/control/generation observations added, no expected value or source assertion normalization."
+  ],
+  "AuthorshipDisclosure": "Reviewer authored nodes proposal and shared apply3 component; separate independent nodes peer3A50 and apply peer8D13 cover those. This narrow peer reviews integration and other author HOST repair.",
+  "Scope": "Source-only readiness for corrected11 focused run; previous6PASS4FAIL preserved, no corrected SDK/native outcome claimed.",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

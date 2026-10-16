@@ -25,7 +25,7 @@ internal static class ProcessSpawnRequestRegistrations
         );
     }
 
-    private static ValueTask<Term> Start(ProcessContext context, IReadOnlyList<Term> arguments)
+    private static async ValueTask<Term> Start(ProcessContext context, IReadOnlyList<Term> arguments)
     {
         string node = context.Runtime.Node;
         Term options = Nil.Value;
@@ -97,14 +97,25 @@ internal static class ProcessSpawnRequestRegistrations
                 badOption: node == context.Runtime.Node && !(callback == 1 && arguments.Count == 3)
             );
         Term? failure = parsed.BadOptions ? Term.A(ProcessSpawnOptionNames.BadOption) : node != context.Runtime.Node ? Term.A(NodeSpawnNames.Disconnected) : null;
+        if (disconnected && !parsed.BadOptions)
+        {
+            var remote = await context.Runtime.DistributionPending.TryStartConnectedSpawnRequestAsync(
+                context,
+                node,
+                description,
+                parsed
+            );
+            if (remote is not null)
+                return remote;
+        }
 
-        return ValueTask.FromResult<Term>(context.Runtime.SpawnRequest(
+        return context.Runtime.SpawnRequest(
             context,
             body,
             parsed,
             failure,
             description with { ReplyTag = parsed.Tag }
-        ));
+        );
     }
 
     private static IReadOnlyList<Term> NormalizeMfa(ProcessContext context, IReadOnlyList<Term> arguments)

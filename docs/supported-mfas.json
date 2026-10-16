@@ -4330,6 +4330,54 @@
   {
     "Module": "proc_lib",
     "Function": "spawn",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_link",
+    "Arity": 2,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn_link/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_link",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn_link/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 3,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn_opt/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 5,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/proc_lib:spawn_opt/5",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn",
     "Arity": 1,
     "Status": "Partially compatible",
     "Evidence": "mfa/proc_lib:spawn/1",
@@ -4605,6 +4653,46 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/proc_lib:hibernate/3",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erpc",
+    "Function": "call",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erpc:call/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erpc",
+    "Function": "call",
+    "Arity": 5,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erpc:call/5",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erpc",
+    "Function": "execute_call",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/erpc:execute_call/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "rpc",
+    "Function": "call",
+    "Arity": 4,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/rpc:call/4",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "rpc",
+    "Function": "call",
+    "Arity": 5,
+    "Status": "Partially compatible",
+    "Evidence": "mfa/rpc:call/5",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   }
 ]

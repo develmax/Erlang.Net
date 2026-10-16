@@ -1,0 +1,120 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_PERMANENT44_DIRECT11_REQUIRES_PARSE_AND_EXECUTION",
+  "SourceFreezeSha256": "7ACEC24BB2CC57005F78CD79A44B53A24ED6081B7547756F33735E84B5419C92",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceRowsVerified": 49,
+  "CompiledFixtures": 44,
+  "GeneratedStringsEqual44FixtureFilesExactly": true,
+  "GeneratedNamesOrderAndExpectedOkOuterProtocolExact": true,
+  "DirectMfas": [
+    {
+      "Module": "proc_lib",
+      "Function": "spawn",
+      "Arity": 2,
+      "Case": "proc-node-local-spawn-fun"
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn",
+      "Arity": 4,
+      "Case": "proc-node-local-spawn-mfa"
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_link",
+      "Arity": 2,
+      "Case": "proc-node-local-spawn-link-fun"
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_link",
+      "Arity": 4,
+      "Case": "proc-node-local-spawn-link-mfa"
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 3,
+      "Case": "proc-node-local-spawn-opt-fun"
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 5,
+      "Case": "proc-node-local-spawn-opt-mfa"
+    },
+    {
+      "Module": "rpc",
+      "Function": "call",
+      "Arity": 4,
+      "Case": "rpc-local-caller"
+    },
+    {
+      "Module": "rpc",
+      "Function": "call",
+      "Arity": 5,
+      "Case": "rpc-zero-timeout-real-child-cleanup"
+    },
+    {
+      "Module": "erpc",
+      "Function": "call",
+      "Arity": 4,
+      "Case": "rpc-local-caller"
+    },
+    {
+      "Module": "erpc",
+      "Function": "call",
+      "Arity": 5,
+      "Case": "rpc-finite-uses-child"
+    },
+    {
+      "Module": "erpc",
+      "Function": "execute_call",
+      "Arity": 4,
+      "Case": "erpc-execute-call-child-envelope"
+    }
+  ],
+  "ReviewedContracts": {
+    "ProcLib19": "Function/MFA guard before lower erlang node validation; local metadata/registered ancestors preserved; stop with monitor installed and matching actor joined; disconnected normal spawn permits noconnection/noproc race while link/opt contracts strict.",
+    "RpcErpc10": "Local infinity executes caller unless always_spawn; finite options execute child. Exact throw/EXIT/error/nodedown envelopes and user system_limit separate from apply argument error; execute_call4 reference-tagged exit.",
+    "ZeroTimeoutJoin": "Pinned erpc call_abandon abandons spawn_request or demonitor, never kills worker. Local worker signals holding; fixture monitors actual child before stop and joins its exact {reference,return,ok} DOWN envelope. No kill shortcut.",
+    "Apply7": "Pinned beam_common.c uses MAX_REG-1 (1023), distinct from MAX_ARG255. Function/module validity before listwalk; 1024th cons system_limit before improper tail, 1023 improper badarg, missing256/1023 undef.",
+    "Nodes8": "Flag union deduplicates; known includes this; nodes0 visible; proper selectors and boolean-only known option keys; empty info map wraps with empty map; this has undefined connection_id."
+  },
+  "Blockers": [],
+  "Limitations": [
+    "No parser/compiler/native/SDK execution by review; source-only acceptance.",
+    "Fresh per-case runtime and external runner deadline required; guest matching-actor joins intentionally have no fallback that would mask failure.",
+    "Direct11 representative export checks do not establish whole modules or TCP interoperability."
+  ],
+  "PinnedSourceFiles": [
+    {
+      "File": "beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47"
+    },
+    {
+      "File": "dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "File": "erl_vm.h",
+      "Sha256": "C362C2C222F5342BC0EDD3B666BA58EF571DFF6D6F37542169316C208FAB9816"
+    },
+    {
+      "File": "erpc.erl",
+      "Sha256": "7E5615627BB94221EB9371046CDA801922711672C09CECA21B4B2BF19F3572DB"
+    },
+    {
+      "File": "proc_lib.erl",
+      "Sha256": "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5"
+    },
+    {
+      "File": "rpc.erl",
+      "Sha256": "E62D0420294E320FA9185C43A9DFF1F8B14438704A78386341A149D2A4896FE8"
+    }
+  ],
+  "ReviewPreconditionFailure": "Initial passive regex expected wrong parenthesis cardinality; no fixture change or semantic failure; corrected catalogue parser checks exact44 constructor prefixes and exact44 outer expectations.",
+  "Network": false,
+  "SDK": false,
+  "MainModified": false
+}

@@ -4,6 +4,7 @@ internal static class ProcLib
 {
     public static void Register(ModuleRegistry registry)
     {
+        ProcLibNodeSpawn.Register(registry);
         foreach (bool link in new[] { false, true })
         {
             string function = link ? ProcLibNames.SpawnLink : ProcLibNames.Spawn;

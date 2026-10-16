@@ -1,5 +1,7 @@
 # Decisions
 
+Part340 — Port proc_lib node overloads through actual connected spawn and preserve erpc reference-correlated DOWN and timeout races. Keep local infinite RPC execution in its caller. Obtain independent original controller observations and assert only the shared checked contracts; do not fabricate physical process metrics or claim full captured-trace/TCP equivalence.
+
 Part338 — Port real proc_lib initialization and crash orchestration over existing runtime processes. Add actual logger/application/error_logger dependencies rather than test-only handlers. Preserve unavailable physical fields explicitly as undefined in the private crash-report bridge; public process_info support and other report assertions stay unchanged. Iterative source prechecking retains immutable object identity without an Equals shortcut.
 
 Part337 — Port proc_lib report/exception orchestration and the required pretty/control algorithms directly over immutable C# terms and existing runtime primitives. Retain actual raw iolist structure, not only rendered text. Obtain expected ETF exclusively from pinned source-built OTP; a separate independent decoder verifies76 comparisons. Keep generic io_lib/string and unverified logger/remote drafts outside this registration slice.

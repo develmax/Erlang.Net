@@ -1,0 +1,120 @@
+{
+  "Status": "SOURCE_ONLY_SHARED_APPLY3_BOUNDARY_NOT_BUILT",
+  "ParentHead": "36e6da6dfc2696adce6bff8808ca96bbd46596b6",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Bytes": 1322,
+      "Sha256": "331B417F9898A69D4706D760F12DE3A01B086A2972C893ECE9EA44343B4AA35C"
+    }
+  ],
+  "OwnedProductionPaths": [
+    "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+    "src/Erlang.Runtime/ErlangApplyLimits.cs"
+  ],
+  "Files": [
+    {
+      "Path": "fixtures/apply-invalid-function-precedes-cap.erl",
+      "Bytes": 398,
+      "Sha256": "C525B46EF95E855D62E3DC525C56E6771EC9423FFD6EDC99C2D2A8A2CD856882"
+    },
+    {
+      "Path": "fixtures/apply-invalid-module-precedes-cap.erl",
+      "Bytes": 381,
+      "Sha256": "39BB1FF0653554B601AFFFD5097E331CB24B9D106CF8DC8654ECBCE136CF3A2F"
+    },
+    {
+      "Path": "fixtures/apply1023-improper-badarg.erl",
+      "Bytes": 406,
+      "Sha256": "3541F97AB781AB5F44B9140E3CDE06E87F2CDD93FBCB41B06D2DF92A8414AD20"
+    },
+    {
+      "Path": "fixtures/apply1023-undef.erl",
+      "Bytes": 389,
+      "Sha256": "AB004942423802C51D4D96B6C32CD97690558953A6B860EB86DD65475E6AA4EC"
+    },
+    {
+      "Path": "fixtures/apply1024-improper-system-limit.erl",
+      "Bytes": 418,
+      "Sha256": "213B28B212DE640815AB403A58013D24901CEBA4B2A0AF5942F96B30BC972F98"
+    },
+    {
+      "Path": "fixtures/apply1024-system-limit.erl",
+      "Bytes": 403,
+      "Sha256": "C1BED5F07428384E40D460FC1720E7237A8FD2864E16336CA49D6865EA1EDBB9"
+    },
+    {
+      "Path": "fixtures/apply256-undef.erl",
+      "Bytes": 387,
+      "Sha256": "49E4AC72F9D4920123BE4C5D0B077CAAFC0E29D335E8147767B8AF8029EA808A"
+    },
+    {
+      "Path": "source/src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Bytes": 1731,
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "source/src/Erlang.Runtime/ErlangApplyLimits.cs",
+      "Bytes": 121,
+      "Sha256": "64A03BC0EAD821AE12A0CB9DB42EE2205C05ED5E19D0D5D98E71E9F114CFA716"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "apply256-undef",
+      "Module": "apply256_undef",
+      "Source": "fixtures/apply256-undef.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply1023-undef",
+      "Module": "apply1023_undef",
+      "Source": "fixtures/apply1023-undef.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply1024-system-limit",
+      "Module": "apply1024_system_limit",
+      "Source": "fixtures/apply1024-system-limit.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply1024-improper-system-limit",
+      "Module": "apply1024_improper_system_limit",
+      "Source": "fixtures/apply1024-improper-system-limit.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply1023-improper-badarg",
+      "Module": "apply1023_improper_badarg",
+      "Source": "fixtures/apply1023-improper-badarg.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply-invalid-module-precedes-cap",
+      "Module": "apply_invalid_module_precedes_cap",
+      "Source": "fixtures/apply-invalid-module-precedes-cap.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    },
+    {
+      "Name": "apply-invalid-function-precedes-cap",
+      "Module": "apply_invalid_function_precedes_cap",
+      "Source": "fixtures/apply-invalid-function-precedes-cap.erl",
+      "Expected": "ok",
+      "ExpectationOrigin": "Pinned beam_common.c apply traversal and missing export; not SDK output"
+    }
+  ],
+  "Apply2Audit": "Pinned apply_fun performs cons traversal and MAX_REG-1 boundary BEFORE call_fun validates fun. Existing apply/2 remains untouched in this narrow proposal; its boundary is a separate known follow-up, not covered by apply3 correction.",
+  "NativeNestedApplyAudit": "Pinned apply unwraps exact erlang:apply/3 argument triples before bounded target traversal; existing registry recursion preserves these reason/limit outcomes but no tail-call stack equivalence is claimed.",
+  "PreparationHistory": "Initial source generator asserted before writing files because LF parent was matched as CRLF; retried with explicit newline handling. No build/runtime failure.",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

@@ -1,0 +1,33 @@
+{
+  "Status": "PINNED_SOURCE_APPLY_BOUNDARY_FINDING",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "MainEdited": false,
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_vm.h",
+      "Sha256": "C362C2C222F5342BC0EDD3B666BA58EF571DFF6D6F37542169316C208FAB9816"
+    },
+    {
+      "Path": "lib/kernel/src/erpc.erl",
+      "Sha256": "7E5615627BB94221EB9371046CDA801922711672C09CECA21B4B2BF19F3572DB"
+    }
+  ],
+  "Findings": [
+    "MAX_ARG255 is distinct from MAX_REG1024.",
+    "beam_common.c apply copies elements while arity < MAX_REG-1, allowing1023 elements before export lookup; a1024th cons causes SYSTEM_LIMIT before checking improper terminal tail.",
+    "Pinned erpc is_arg_error(system_limit,_,_,A) probes apply(erpc,nonexisting,A) and catches only resulting system_limit. It has no explicit255 count cap.",
+    "Main ErlangApplyDispatch currently materializes Cons.Items then invokes registry without this native register-bound guard; this is an existing shared apply gap, not justification for invented erpc255 cap."
+  ],
+  "RequestedAction": "Remove manual erpc255 cap; reuse real apply and implement/test native argument register boundary in shared dispatch if included in scope. Preserve improper-tail precedence.",
+  "SuggestedSourceComparableCases": [
+    "256properargs to missing export:undef wrapper rather than erpc-system_limit",
+    "1023properargs:export lookup;1024properargs:system_limit",
+    "1023cons plus improper tail:badarg;1024cons plus improper tail:system_limit"
+  ]
+}

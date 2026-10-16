@@ -1,0 +1,57 @@
+[
+  {
+    "Name": "rpc-local-caller-and-exceptions",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "rpc-connected-label-lifecycle",
+    "Passed": false,
+    "Error": "System.Threading.Tasks.TaskCanceledException: A task was canceled.\r\n   at Erlang.Tests.ConnectedSpawnHostEndpoint.TakePacket() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedSpawnHostEndpoint.cs:line 67\r\n   at Erlang.Tests.ConnectedRpcHostTrace.Forward(ConnectedSpawnHostEndpoint from, ConnectedSpawnHostEndpoint to) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcHostTrace.cs:line 21\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CVisibleLabelDeathAndNodeRetirement\u003Eg__CompleteRead|2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 48\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 59\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 74\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 74\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 74\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 74\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 74\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\Program.cs:line 22"
+  },
+  {
+    "Name": "rpc-queued-down-before-zero-wait",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "rpc-timeout-loses-to-admitted-down",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnfun",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnmfa",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnlinkfun",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnlinkmfa",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnoptfun",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnoptmfa",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "nodes-real-connected-query",
+    "Passed": true,
+    "Error": null
+  }
+]

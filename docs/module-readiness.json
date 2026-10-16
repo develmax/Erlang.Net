@@ -2,13 +2,13 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-337/final-candidate/tests.json",
-  "LocalPassedTests": 7105,
-  "RegisteredMfas": 576,
-  "PreviousRegisteredMfas": 540,
-  "RegisteredMfaDelta": 36,
+  "ComparisonTestReport": "validation/part-338/final-candidate/tests.json",
+  "LocalPassedTests": 7193,
+  "RegisteredMfas": 587,
+  "PreviousRegisteredMfas": 576,
+  "RegisteredMfaDelta": 11,
   "SourceModuleRows": 1289,
-  "ImplementedApiModules": 12,
+  "ImplementedApiModules": 14,
   "Components": [
     {
       "Id": "Terms",
@@ -197,7 +197,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 678
+      "RelatedPassedTests": 710
     },
     {
       "Id": "Compiler",
@@ -254,7 +254,7 @@
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 896
+      "RelatedPassedTests": 897
     },
     {
       "Id": "Core library modules",
@@ -284,7 +284,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1615
+      "RelatedPassedTests": 1626
     },
     {
       "Id": "gen_server adapters",
@@ -446,7 +446,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5465
+      "RelatedPassedTests": 5509
     },
     {
       "Id": "Style checks",
@@ -541,14 +541,16 @@
         "Part335: cooperative stop/1,3 plus sys terminate/2,3 and ACK-before-callback/child shutdown; actual6952/11,29 compiled\u002B4direct\u002B1bare HOST. Registry536/proc_lib25/39/sys2; original335 pending. Published334 CI6918/11 verified; original334 pending.",
         "Part336: published334 original6085/fd8 verifies43 introspection/label cases and6042 previous contracts. Standalone formatter collector is infrastructure only; private57\u002B19 SDK observations are not original matches or exports.",
         "Part337: format/1,2,3 and report_cb/2; independent original57report\u002B19primitive exactterm matches, raw12 nested lists preserved. Actual7017/11,28sourcepretty/async-callback/deep controls. Registry540/proc_lib29/39. Published335 original6114/fd8 and336 original76 verified separately.",
-        "Part338 implements proc_lib init_p/3,5, hibernate/3 and wake_up/3, shared initialization and real crash logger dependencies. Actual frozen-source 7105/7105 tests; a separate exact readiness/integration suffix completes11 outcomes after restoring one omitted immutable comparison report. The initial exit1 is preserved; no uninterrupted full-pass claim. All7017 previous ordered tests and540 registry rows remain exact. Registry576 across12 modules; proc_lib33/39. Add logger26, application4 and error_logger2 source-guided exports with real per-runtime configuration, guest callback delivery, standard streams and iterative term limiting. Local crash reports preserve data and field order but expose heap_size/stack_size as undefined because public CLR process_info deliberately lacks BEAM physical metrics. No physical values are fabricated; the two explicit platform alternatives are recorded. Published337 CI7017/11 and separate original6171/fd8 are independently complete, including all prior6114 ordered contracts and57 new formatter cases. The known map stdout-order variance remains a separate strict refusal. Six node proc_lib overloads, remote RPC label queries, full logger background/overload/configuration/formatting, physical scheduling/resources and performance parity remain unfinished. Current338 original verification awaits publication. API presence is not semantic completion."
+        "Part338 implements proc_lib init_p/3,5, hibernate/3 and wake_up/3, shared initialization and real crash logger dependencies. Actual frozen-source 7105/7105 tests; a separate exact readiness/integration suffix completes11 outcomes after restoring one omitted immutable comparison report. The initial exit1 is preserved; no uninterrupted full-pass claim. All7017 previous ordered tests and540 registry rows remain exact. Registry576 across12 modules; proc_lib33/39. Add logger26, application4 and error_logger2 source-guided exports with real per-runtime configuration, guest callback delivery, standard streams and iterative term limiting. Local crash reports preserve data and field order but expose heap_size/stack_size as undefined because public CLR process_info deliberately lacks BEAM physical metrics. No physical values are fabricated; the two explicit platform alternatives are recorded. Published337 CI7017/11 and separate original6171/fd8 are independently complete, including all prior6114 ordered contracts and57 new formatter cases. The known map stdout-order variance remains a separate strict refusal. Six node proc_lib overloads, remote RPC label queries, full logger background/overload/configuration/formatting, physical scheduling/resources and performance parity remain unfinished. Current338 original verification awaits publication. API presence is not semantic completion.",
+        "Part 340 implements all 39 registered proc_lib exports, including six node-qualified spawn/spawn_link/spawn_opt overloads and real remote process labels through rpc/erpc. Actual validation passes 7193/7193 tests and 11 integration/package outcomes after the recorded failed launches. Retain the initial Windows PowerShell preflight exit 1, the second build failure caused by an omitted immutable build/Erlang.Net.targets input, and the third result of 7191 passed/2 failed. The first two did not reach guest tests; all 88 new tests passed in the third. Two historical negative protocol fixtures are explicitly migrated because their previously unsupported spawn/alias packets are now implemented, preserving malformed-frame and missing-feature refusals. The corrected pipeline uses PowerShell 7 and the complete tracked input set outside documentation. All 7105 previous ordered test names and 576 registry rows/custom Limits remain exact. Registry: 587 APIs across 14 modules; proc_lib 39/39, rpc 2/35, erpc 3/33; erlang 351 unchanged. Connected spawn/TT/link/monitor/priority/alias33/34, visible/hidden/current-generation nodes and apply/3 native1023-argument traversal are implemented. The new 44 portable cases, 11 direct contracts, 23 connected HOST checks and 11 RPC/lifecycle HOST checks pass. Original part 339 supplies 12 independently audited observations, with a precise contract crosswalk and explicit unmatched whole-trace fields. Published part 338 original 6216/fd8 and CI 7105/11 plus part 339 CI 7105/11 are complete; the old predeclared map stdout-order strict refusal remains separate. Current part 340 CI/original comparison awaits publication. The receiver must still resolve anonymous/captured source funs when its matching module is loaded but the closure constructor has never run there; current connected fun tests use external functions. This concrete gap is next, with an independent real two-node original observer. API presence is not whole-module compatibility: inherited native tuning, physical heap/stack/scheduler values, broad logger/RPC exports, physical TCP interoperability and performance parity remain partial."
       ],
       "Remaining": [
-        "Six node spawning overloads and real remote RPC process-label queries",
-        "Full crash stack, remote-neighbour, logger background/configuration/overload/formatting parity",
-        "BEAM physical heap/stack/scheduler/resources and performance parity"
+        "Resolve fresh receiver anonymous/captured source funs when their matching module is loaded but closure constructor has never executed locally; real two-node original verification",
+        "Inherited native spawn heap/scheduler tuning options and physical BEAM heap/stack/resource metrics",
+        "Full crash-stack/remote-neighbour and logger background/configuration/overload/formatting parity",
+        "Full captured trace/TCP interoperability, VM scheduling and performance parity"
       ],
-      "RelatedPassedTests": 304
+      "RelatedPassedTests": 310
     },
     {
       "Id": "sys system protocol",
@@ -584,8 +586,8 @@
       "Name": "application",
       "Status": "Partially compatible",
       "RegisteredMfas": 4,
-      "PreviousRegisteredMfas": 0,
-      "Delta": 4,
+      "PreviousRegisteredMfas": 4,
+      "Delta": 0,
       "ReferenceDeclarations": 38,
       "ApiPresencePercent": 10.5,
       "RequiresPreprocessing": false,
@@ -6190,17 +6192,21 @@
     },
     {
       "Name": "erpc",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 3,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 3,
       "ReferenceDeclarations": 33,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 9.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/kernel/src/erpc.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "erpc:call/4",
+        "erpc:call/5",
+        "erpc:execute_call/4"
+      ],
       "AbsentFromReference": []
     },
     {
@@ -6222,8 +6228,8 @@
       "Name": "error_logger",
       "Status": "Partially compatible",
       "RegisteredMfas": 2,
-      "PreviousRegisteredMfas": 0,
-      "Delta": 2,
+      "PreviousRegisteredMfas": 2,
+      "Delta": 0,
       "ReferenceDeclarations": 29,
       "ApiPresencePercent": 6.9,
       "RequiresPreprocessing": false,
@@ -8735,8 +8741,8 @@
       "Name": "logger",
       "Status": "Partially compatible",
       "RegisteredMfas": 26,
-      "PreviousRegisteredMfas": 0,
-      "Delta": 26,
+      "PreviousRegisteredMfas": 26,
+      "Delta": 0,
       "ReferenceDeclarations": 77,
       "ApiPresencePercent": 33.8,
       "RequiresPreprocessing": false,
@@ -11527,11 +11533,11 @@
     {
       "Name": "proc_lib",
       "Status": "Partially compatible",
-      "RegisteredMfas": 33,
-      "PreviousRegisteredMfas": 29,
-      "Delta": 4,
+      "RegisteredMfas": 39,
+      "PreviousRegisteredMfas": 33,
+      "Delta": 6,
       "ReferenceDeclarations": 39,
-      "ApiPresencePercent": 84.6,
+      "ApiPresencePercent": 100,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/proc_lib.erl"
@@ -11552,11 +11558,17 @@
         "proc_lib:report_cb/2",
         "proc_lib:set_label/1",
         "proc_lib:spawn/1",
+        "proc_lib:spawn/2",
         "proc_lib:spawn/3",
+        "proc_lib:spawn/4",
         "proc_lib:spawn_link/1",
+        "proc_lib:spawn_link/2",
         "proc_lib:spawn_link/3",
+        "proc_lib:spawn_link/4",
         "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/3",
         "proc_lib:spawn_opt/4",
+        "proc_lib:spawn_opt/5",
         "proc_lib:start/3",
         "proc_lib:start/4",
         "proc_lib:start/5",
@@ -12184,17 +12196,20 @@
     },
     {
       "Name": "rpc",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 2,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 35,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 5.7,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/kernel/src/rpc.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "rpc:call/4",
+        "rpc:call/5"
+      ],
       "AbsentFromReference": []
     },
     {

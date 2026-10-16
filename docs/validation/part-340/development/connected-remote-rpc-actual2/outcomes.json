@@ -1,0 +1,52 @@
+[
+  {
+    "Name": "rpc-local-caller-and-exceptions",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "rpc-connected-label-lifecycle",
+    "Passed": false,
+    "Error": "System.Threading.Tasks.TaskCanceledException: A task was canceled.\r\n   at Erlang.Tests.ConnectedSpawnHostEndpoint.TakePacket() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedSpawnHostEndpoint.cs:line 67\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CVisibleLabelDeathAndNodeRetirement\u003Eg__CompleteRead|2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 39\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 50\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 59\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 59\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 59\r\n   at Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedRpcLabelHostChecks.cs:line 59\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\Program.cs:line 22"
+  },
+  {
+    "Name": "rpc-queued-down-before-zero-wait",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "rpc-timeout-loses-to-admitted-down",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnfun",
+    "Passed": false,
+    "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 57\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\Program.cs:line 61"
+  },
+  {
+    "Name": "proc-lib-node-spawnmfa",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnlinkfun",
+    "Passed": false,
+    "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 57\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\Program.cs:line 87"
+  },
+  {
+    "Name": "proc-lib-node-spawnlinkmfa",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "proc-lib-node-spawnoptfun",
+    "Passed": false,
+    "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 57\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Erlang.Tests.ConnectedProcLibNodeHostChecks.Exchange(ConnectedProcLibNodeApi api) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\ConnectedProcLibNodeHostChecks.cs:line 131\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-rpc-candidate\\tests\\Erlang.Tests\\Program.cs:line 113"
+  },
+  {
+    "Name": "proc-lib-node-spawnoptmfa",
+    "Passed": true,
+    "Error": null
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "Status": "CONCRETE_SOURCE_LEVEL_REMOTE_ANONYMOUS_FUN_RESOLUTION_GAP_NOT_EXECUTED",
+  "ReviewedCandidate": "artifacts/connected-remote-completion-candidate",
+  "SdkExecutionPerformedByAudit": false,
+  "Network": false,
+  "MainModified": false,
+  "ExistingConnectedSixTargets": "ThreeFun variants SpawnFun/SpawnLinkFun/SpawnOptFun use erlang:make_fun(Module,Child,0), external exported MFA fun. OtherthreeMFA variants pass directMFA. None constructs or sends source-generated anonymous/captured fun across peers.",
+  "CurrentProductionPath": [
+    "Source Expr.Fun captures environment and computes module/index/code-hash identity, then registers sourcefactory in creating runtime during evaluation.",
+    "NEW_FUN_EXT serializes identity plus environment; connected process packet decoder calls receiving runtime Functions.Restore with identity/environment.",
+    "Receiver Restore creates deferred function cell, but merely loaded module has not executed Expr.Fun and therefore has no factory in receiver per-runtime entries.",
+    "InvokeRestored sees nofactory and invokes UndefinedLambda; loadedmodule makes badfun true, resulting {badfun,Fun}.",
+    "If receiver had independently evaluated samefun withcompatible code/environment shape, sourcefactorymay exist and invocation can work; that precondition is not normal OTP requirement and not testedbycurrentconnectedHOST."
+  ],
+  "ConcreteMissingDependency": "Lazily resolve compatible local anonymous/named function identity+environment against receiver loaded source/code image without needing receiver to execute constructor first. Preserve existing code-image admission/lease/publication checks; do not reuse sender delegate or autoexecute guest constructor for registration.",
+  "CoveredAdjacentButNotThis": [
+    "Existing FunctionReloadHostChecks tests localfun retargeting and held closures within one runtime; not proof of remote decoder factory reconstruction.",
+    "Existing ETF LocalFunctionFactory support proves transport term decoding, not executable resolution when nofactory is published."
+  ],
+  "ExpectedCommonCase": "Same defining source module loaded at both peers, A creates fun()->CapturedX end, proc_lib:spawn(B,Fun), B should execute matched code with transferred CapturedX without precreating samefun at B.",
+  "ApiReadinessImplication": "Six connected proc_lib node exports have passed namedexternalfun/MFA contracts, but fun-taking remote APIs must not be called complete for ordinary source-generated captured closures until this dependency is fixed and executed against pinnedoriginal.",
+  "Evidence": [
+    {
+      "Path": "tests/Erlang.Tests/ConnectedProcLibNodeHostChecks.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/tests/Erlang.Tests/ConnectedProcLibNodeHostChecks.cs",
+      "Sha256": "1BF9242D34205E3B5EEB8F004B9E4C73BE38ED85112AAD73A4F779093BD840FB",
+      "Line": 75,
+      "Anchor": "Term callback = fun ? await a.Runtime.Modules.Call("
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedProcLibNodeHostNames.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/tests/Erlang.Tests/ConnectedProcLibNodeHostNames.cs",
+      "Sha256": "32CE6D5053C62365261D491E7B8C45BE8253C2263E2E392DE2645CE64CF27E3C",
+      "Line": 13,
+      "Anchor": "MakeFun = \"make_fun\""
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Runtime/RuntimeDistributionPending.ProcessPacket.cs",
+      "Sha256": "6A4FF100E1B9DF2826DB9FC2762CD079F4A1CBDCBCAAC8EB26BD62374AA799D9",
+      "Line": 37,
+      "Anchor": "LocalFunctionFactory = (code, arity, environment) => runtime.Functions.Restore("
+    },
+    {
+      "Path": "src/Erlang.Serialization/ExternalTermFormat.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Serialization/ExternalTermFormat.cs",
+      "Sha256": "FFE99B4E8FBBAE18F96353E513A1430A1CC717E6AFBC09A47C9925CA99A80F42",
+      "Line": 764,
+      "Anchor": "case EtfTags.NewFunction:"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Compiler/Execution.cs",
+      "Sha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5",
+      "Line": 927,
+      "Anchor": "identity = ctx.Runtime.Functions.RegisterSourceFactory("
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Sha256": "4628984FFC45D0026CE240ED9D757936927672C759F4034FA4B96787A45E6667",
+      "Line": 36,
+      "Anchor": "RegisterSourceFactory("
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalFunctionEntries.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Compiler/LocalFunctionEntries.cs",
+      "Sha256": "419968B0FC4CDEE866CCF0605CFA5FD5982BE27D39A99A1572C68CC27240CAB8",
+      "Line": 61,
+      "Anchor": "byte[] unique = MD5.HashData"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Sha256": "47539076FB7B14AACC0103753553D95DCFBF6D95FA9E9924F1E054A646540C54",
+      "Line": 153,
+      "Anchor": "if (publication.Factory is not null && publication.EnvironmentCount == environment.Count)"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Sha256": "47539076FB7B14AACC0103753553D95DCFBF6D95FA9E9924F1E054A646540C54",
+      "Line": 162,
+      "Anchor": "return await context.Runtime.Modules.InvokeUndefinedLambda("
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "Sha256": "FC6ECE23AA25152DD7DF14E0F7890B7CF925131AF791E9C6F1A61E4F101ACBEA",
+      "Line": 30,
+      "Anchor": "bool badfun = incompatibleFactory || loadedModules.ContainsKey(module);"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "Sha256": "FC6ECE23AA25152DD7DF14E0F7890B7CF925131AF791E9C6F1A61E4F101ACBEA",
+      "Line": 37,
+      "Anchor": "throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), original))"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+      "CandidatePath": "artifacts/connected-remote-completion-candidate/src/Erlang.Compiler/SourceFunctionInvocation.cs",
+      "Sha256": "62A38A9E23C2CADB0FFBDF631D1A98D98E743D16859F833A242E96C2B2404838",
+      "Line": 16,
+      "Anchor": "var admission = await context.Runtime.Modules.AdmitSourceFunction("
+    }
+  ],
+  "NoBroaderClaim": "Not claiming all local fun calls fail or capture serialization absent. Concrete condition is receiver localfunction publication missing despite matching module loaded."
+}

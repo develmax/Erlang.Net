@@ -1,0 +1,227 @@
+namespace Erlang.Differential;
+
+public static class ConnectedDependencyCases
+{
+    public static IReadOnlyList<CompiledModuleCase> Modules { get; } = [
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnFun,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnMfa,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnLinkFun,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnLinkFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnLinkMfa,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnLinkMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnOptFun,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnOptFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeLocalSpawnOptMfa,
+            ConnectedDependencyCaseSources.ProcNodeLocalSpawnOptMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidFun,
+            ConnectedDependencyCaseSources.ProcNodeInvalidFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidLinkFun,
+            ConnectedDependencyCaseSources.ProcNodeInvalidLinkFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidModule,
+            ConnectedDependencyCaseSources.ProcNodeInvalidModule,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidFunction,
+            ConnectedDependencyCaseSources.ProcNodeInvalidFunction,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidList,
+            ConnectedDependencyCaseSources.ProcNodeInvalidList,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidNode,
+            ConnectedDependencyCaseSources.ProcNodeInvalidNode,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeInvalidOptions,
+            ConnectedDependencyCaseSources.ProcNodeInvalidOptions,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnFun,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnMfa,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnLinkFun,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnLinkFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnLinkMfa,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnLinkMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnOptFun,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnOptFun,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ProcNodeDisconnectedSpawnOptMfa,
+            ConnectedDependencyCaseSources.ProcNodeDisconnectedSpawnOptMfa,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcLocalCaller,
+            ConnectedDependencyCaseSources.RpcLocalCaller,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcThrows,
+            ConnectedDependencyCaseSources.RpcThrows,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcExits,
+            ConnectedDependencyCaseSources.RpcExits,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcErrors,
+            ConnectedDependencyCaseSources.RpcErrors,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcGuards,
+            ConnectedDependencyCaseSources.RpcGuards,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcDisconnected,
+            ConnectedDependencyCaseSources.RpcDisconnected,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcAlwaysSpawn,
+            ConnectedDependencyCaseSources.RpcAlwaysSpawn,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcFiniteUsesChild,
+            ConnectedDependencyCaseSources.RpcFiniteUsesChild,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ApplyInvalidFunctionPrecedesCap,
+            ConnectedDependencyCaseSources.ApplyInvalidFunctionPrecedesCap,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ApplyInvalidModulePrecedesCap,
+            ConnectedDependencyCaseSources.ApplyInvalidModulePrecedesCap,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.Apply1023ImproperBadarg,
+            ConnectedDependencyCaseSources.Apply1023ImproperBadarg,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.Apply1023Undef,
+            ConnectedDependencyCaseSources.Apply1023Undef,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.Apply1024ImproperSystemLimit,
+            ConnectedDependencyCaseSources.Apply1024ImproperSystemLimit,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.Apply1024SystemLimit,
+            ConnectedDependencyCaseSources.Apply1024SystemLimit,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.Apply256Undef,
+            ConnectedDependencyCaseSources.Apply256Undef,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.ErpcExecuteCallChildEnvelope,
+            ConnectedDependencyCaseSources.ErpcExecuteCallChildEnvelope,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.RpcZeroTimeoutRealChildCleanup,
+            ConnectedDependencyCaseSources.RpcZeroTimeoutRealChildCleanup,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesDefaultVisible,
+            ConnectedDependencyCaseSources.NodesDefaultVisible,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesThis,
+            ConnectedDependencyCaseSources.NodesThis,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesEmptyInfo,
+            ConnectedDependencyCaseSources.NodesEmptyInfo,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesThisInfo,
+            ConnectedDependencyCaseSources.NodesThisInfo,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesDuplicates,
+            ConnectedDependencyCaseSources.NodesDuplicates,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesInfoEmptyMap,
+            ConnectedDependencyCaseSources.NodesInfoEmptyMap,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesInvalidSelector,
+            ConnectedDependencyCaseSources.NodesInvalidSelector,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+        new(
+            ConnectedDependencyCaseNames.NodesInvalidOptions,
+            ConnectedDependencyCaseSources.NodesInvalidOptions,
+            Term.Tuple(Term.A(OracleOutcomeTags.Success), Term.A(ConnectedDependencyCaseNames.Ok))
+        ),
+    ];
+}

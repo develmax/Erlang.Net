@@ -102,13 +102,7 @@ internal static class ProcLibIntrospection
     {
         try
         {
-            Term information = await context.Runtime.Modules.Call(
-                context,
-                ProcLibNames.Erlang,
-                ProcLibNames.ProcessInfo,
-                target,
-                query
-            );
+            Term information = await ProcLibProcessInfoQuery.Read(context, target, query);
 
             return information is TupleTerm { Items: [var key, var value] } && key.Equals(query) ? value : ProcessInfoAtoms.Undefined;
         }

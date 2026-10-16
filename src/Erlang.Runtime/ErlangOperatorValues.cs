@@ -58,6 +58,18 @@ public static class ErlangOperatorValues
             if (result != DistributionGuestSendResult.NotConnected)
                 return result == DistributionGuestSendResult.Accepted;
         }
+        if (target is ReferenceTerm remoteAlias && remoteAlias.Node != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedAliasAsync(
+                context,
+                remoteAlias,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result != DistributionGuestSendResult.NotConnected)
+                return result == DistributionGuestSendResult.Accepted;
+        }
         if (target is PortTerm || target is Atom name && context.Runtime.WhereIs(name.Name) is PortTerm)
         {
             context.SavedCalls.Sent();

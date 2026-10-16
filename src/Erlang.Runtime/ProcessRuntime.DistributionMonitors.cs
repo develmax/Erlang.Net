@@ -106,6 +106,18 @@ public sealed partial class ProcessRuntime
 
     private void QueueConnectedMonitorDown(DistributionProcessMonitor monitor, Term watched, Term reason)
     {
+        if (monitor.SpawnOptions && monitors.TryGetValue(monitor.Reference, out var localOptions))
+        {
+            distributionProcessMonitors.Remove(monitor);
+            MonitorDown(
+                monitor.Local,
+                monitor.Reference,
+                localOptions,
+                reason
+            );
+
+            return;
+        }
         Term reported = watched is Atom name ? Term.Tuple(name, Term.A(monitor.Entry.Node.Name)) : watched;
         monitor.Local.Mailbox.SendPending(
             Term.Tuple(

@@ -1,0 +1,105 @@
+{
+  "Status": "SOURCE_ONLY_CONNECTED_NODE_SELECTORS_INFO_NOT_BUILT",
+  "ParentHead": "36e6da6dfc2696adce6bff8808ca96bbd46596b6",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentFiles": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeQuery.cs",
+      "Bytes": 2388,
+      "Sha256": "CFAE29878A51A88D6C2105390BD51EB6C9D6C725E48B95071E73BE102C7A40A3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeQueryRegistrations.cs",
+      "Bytes": 2480,
+      "Sha256": "387AF5D427D96C099E6A2F00B5B480AA854FE74F7226811E9C2661EE12DB24BC"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.NodeQueries.cs",
+      "Bytes": 890,
+      "Sha256": "E71C95DB0CC487FBE56B1AF00D587C5E508C92EF646A9260844943428FCF46C4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeQuery.cs",
+      "Bytes": 2931,
+      "Sha256": "814817526C5B69A00ED41D32E3E06D341CF21701B4D2881FCFF4F0FD8E44AD91"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNodeQueryRegistrations.cs",
+      "Bytes": 3464,
+      "Sha256": "60587CED0B4B1211E2B391BC32EC46DA540B77B1BCA615FD5202F307D6A65B5D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeConnectedNodeQueryHostChecks.cs",
+      "Bytes": 3753,
+      "Sha256": "BD6A231B55AECD09ADAFD69D966623AD5D26558FCC70696FFB2167FE68293CBA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeConnectedNodeQueryHostNames.cs",
+      "Bytes": 247,
+      "Sha256": "936C6D3CCCC7003A411C988309B98140C161408668B0E65867F39313B3464D15"
+    }
+  ],
+  "PortableFixtures": [
+    {
+      "Path": "fixtures/nodes-default-visible.erl",
+      "Bytes": 200,
+      "Sha256": "7DA9B4229DFBDD27699C3364A6C3166CA9C583860B31291EB5BF3058B88E8E99"
+    },
+    {
+      "Path": "fixtures/nodes-duplicates.erl",
+      "Bytes": 238,
+      "Sha256": "81032AC333584CF8B1F71DA02AB425682AEAA858DD8FB39F623D944287FB967F"
+    },
+    {
+      "Path": "fixtures/nodes-empty-info.erl",
+      "Bytes": 191,
+      "Sha256": "5DEB1DC1207A1A530893263F4C6E9D6EAF6FAF193D2DAC89BAFF2253EE4B0486"
+    },
+    {
+      "Path": "fixtures/nodes-info-empty-map.erl",
+      "Bytes": 184,
+      "Sha256": "428AD68BDD619FA40226B3DD5AD23628E83C82564FE8EB0B4E65431CC0F04D22"
+    },
+    {
+      "Path": "fixtures/nodes-invalid-options.erl",
+      "Bytes": 332,
+      "Sha256": "6B116B094EBBA5B307BFB399A4DE126B384A269C0247F90C405312B31AC62AAA"
+    },
+    {
+      "Path": "fixtures/nodes-invalid-selector.erl",
+      "Bytes": 225,
+      "Sha256": "3B57D66E381589BE765D23AFF56F031DC8509D9AC78CAEBA7B158DD78DD24305"
+    },
+    {
+      "Path": "fixtures/nodes-this-info.erl",
+      "Bytes": 254,
+      "Sha256": "019C58567DBD46FE2E37ABDEA9F22D0ECE406BD7DABD0B1DF0FBC6359EB23167"
+    },
+    {
+      "Path": "fixtures/nodes-this.erl",
+      "Bytes": 165,
+      "Sha256": "3E46F543B261C433F66A639FAC10490D7C5AAFDCA77A6CEDC656D36079DFA175"
+    }
+  ],
+  "PortableCasesSha256": "D71DD7E0D9297571CA9D122C3950AC02E661DD6BB8405802BD62A56C9CE135E8",
+  "ProductionPaths": 3,
+  "HostTargets": [
+    "RuntimeConnectedNodeQueryHostChecks.Run"
+  ],
+  "NativeSemantics": [
+    "Parse selector union visible/hidden/connected/known/this; known includes all three remote groups and this; proper list/options only.",
+    "Connected generation flags determine visible/hidden, actual connection_id integer; this and nonconnected known use undefined.",
+    "Native grouping builds this, visible, hidden, known then cons-reverses. Within-group ordering is not guaranteed by public API; managed snapshot entry order retained, no exact native linked-list order claim.",
+    "Known live pending/idle entries and actual known-term registry are unioned and connected/this excluded from duplicate known rows."
+  ],
+  "Limitations": [
+    "No SDK/build/original execution yet.",
+    "No change to proc_lib nodes visibility guard; real connected snapshot feeds it.",
+    "Snapshot copied under shared runtime gate, then result materialized; concurrent node rename between independent local/known reads remains unverified, no exact VM atomic scheduling claim."
+  ],
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

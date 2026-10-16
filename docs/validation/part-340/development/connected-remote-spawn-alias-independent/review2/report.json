@@ -1,0 +1,25 @@
+{
+  "Status": "PASS_NARROW_NATIVE_EXIT_ORDER_SOURCE_REPAIR_FOR_FOCUSED_RERUN",
+  "Passed": true,
+  "SourceFreezeSha256": "EB45F2F8999FAF1CA1B5EEA5465D2A247067850B330610071B4A2FC1DB543086",
+  "FrozenAndCandidateRowsExact": 59,
+  "ProductionPaths": 38,
+  "HostTargets": 21,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InitialActualFailurePreserved": true,
+  "InitialActualFocusExitSha256": "DD51A1EA41D183568F4F02CAF6CEFC593F64F9D08EF14B50E051E1C9C724374F",
+  "ChangedPaths": [
+    "src/Erlang.Runtime/ProcessRuntime.ExitContinuation.cs",
+    "tests/Erlang.Tests/ConnectedSpawnCleanupHostChecks.cs"
+  ],
+  "Review": [
+    "Pinned erl_process.c origin DIST_PROC monitor branch invokes erts_proc_exit_dist_demonitor in MONITORS phase, before deferred distribution links in DIST_LINKS.",
+    "Stable prefix only Origin && SpawnOptions monitor output precedes existing output; all other link/monitor relative order unchanged. Removal and captured generation fields unchanged.",
+    "HOST requires DEMONITOR-first after accepted reply, retains actual child DOWN and no extra output assertion; diagnostic now decodes unexpected packet instead of suppressing it."
+  ],
+  "BlockingFindings": [],
+  "Scope": "Source repair only; initial actual 20/21 outcome retained; corrected SDK rerun and original comparison not claimed.",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

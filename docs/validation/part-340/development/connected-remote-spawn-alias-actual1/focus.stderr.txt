@@ -1,0 +1,11 @@
+System.InvalidOperationException: Connected remote spawn HOST contract failed.
+   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.<>c__DisplayClass3_0.<<Cleanup>b__4>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\ConnectedSpawnCleanupHostChecks.cs:line 112
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\ConnectedSpawnCleanupHostChecks.cs:line 102
+   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\ConnectedSpawnCleanupHostChecks.cs:line 117
+   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\ConnectedSpawnCleanupHostChecks.cs:line 117
+   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\ConnectedSpawnCleanupHostChecks.cs:line 117
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-remote-spawn-alias-candidate\tests\Erlang.Tests\Program.cs:line 73

@@ -163,6 +163,7 @@ public sealed partial class RuntimeDistributionPending
             exitingInputControllers.Remove(process);
             var failures = new List<Exception>();
             RetireStep(() => RetireControllerAdoptions(controller: process));
+            RetireStep(() => ConnectedSpawnOwnerTerminated(process, reason));
             if (ReferenceEquals(kernelSetup, process))
             {
                 kernelSetup = null;
@@ -238,6 +239,7 @@ public sealed partial class RuntimeDistributionPending
             entries.Clear();
             pending.Clear();
             controllers.Clear();
+            connectedSpawnRequests.Clear();
             kernelSetup = null;
         }
     }

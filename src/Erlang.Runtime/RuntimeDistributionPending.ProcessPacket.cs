@@ -95,7 +95,16 @@ public sealed partial class RuntimeDistributionPending
                     caller,
                     wire
                 );
-                if (decoded.Payload is null)
+                if (DistributionPassThroughCodec.IsSpawnRequest(decoded.Control))
+                    RouteConnectedSpawnRequest(
+                        entry,
+                        connected,
+                        decoded.Control,
+                        decoded.Payload!
+                    );
+                else if (DistributionPassThroughCodec.IsSpawnReply(decoded.Control))
+                    RouteConnectedSpawnReply(entry, connected, decoded.Control);
+                else if (decoded.Payload is null)
                     RouteRawConnectedProcessControl(entry, connected, decoded.Control);
                 else
                     DeliverConnectedTracePayload(decoded.Control, decoded.Payload);

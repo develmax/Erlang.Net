@@ -2,9 +2,9 @@ namespace Erlang;
 
 public sealed partial class RuntimeDistributionPending
 {
-    internal async ValueTask<DistributionGuestSendResult> SendConnectedPidAsync(
+    private async ValueTask<DistributionGuestSendResult> SendConnectedTargetAsync(
         ProcessContext producer,
-        Pid remote,
+        Term remote,
         Term payload,
         bool priority,
         bool noSuspend
@@ -32,14 +32,16 @@ public sealed partial class RuntimeDistributionPending
         {
             producer.Cancellation.ThrowIfCancellationRequested();
             RequireProcess(producer);
-            if (remote.LocalIdentity is not null && !ReferenceEquals(remote.LocalIdentity, runtime.LocalIdentity))
+            if (GuestTargetHasForeignIdentity(remote))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            if (remote.Node == runtime.Node || !entries.TryGetValue(remote.Node, out var weak) ||
+            if (GuestTargetNode(remote) == runtime.Node || !entries.TryGetValue(GuestTargetNode(remote), out var weak) ||
                 !weak.TryGetTarget(out var found) || found.Connected is not { } active ||
                 !IsConnectedSignalGeneration(found, active, found.ConnectionId))
                 return DistributionGuestSendResult.NotConnected;
             entry = found;
             connected = active;
+            if (remote is ReferenceTerm && (connected.Flags & DistributionPassThroughFlags.Alias) == 0)
+                throw new ErlangException(DistributionSpawnNames.NotSupported);
             connectionId = entry.ConnectionId;
             resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference)
                 ?? throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
@@ -169,7 +171,7 @@ public sealed partial class RuntimeDistributionPending
     private static DistributionPassThroughMessage GuestPidMessage(
         ulong flags,
         Pid sender,
-        Pid remote,
+        Term remote,
         Term payload,
         bool priority,
         SequenceTraceToken? token
@@ -178,6 +180,15 @@ public sealed partial class RuntimeDistributionPending
         bool sendToken = token is not null && ((flags & DistributionPassThroughFlags.BigSequenceTraceLabels) != 0 ||
             token.Label is Integer label && label.Value >= DistributionGuestSendLayout.MinimumLegacyTraceLabel &&
             label.Value <= DistributionGuestSendLayout.MaximumLegacyTraceLabel);
+        if (remote is ReferenceTerm alias)
+            return GuestAliasMessage(
+                flags,
+                sender,
+                alias,
+                payload,
+                priority,
+                sendToken ? token : null
+            );
         if (priority && (flags & DistributionPassThroughFlags.AlternativeActionSignal) != 0)
         {
             int actionFlags = DistributionAlternativePidSendLayout.Priority |

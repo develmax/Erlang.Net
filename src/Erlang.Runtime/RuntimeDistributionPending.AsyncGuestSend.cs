@@ -4,7 +4,7 @@ public sealed partial class RuntimeDistributionPending
 {
     private async ValueTask<DistributionGuestSendResult> SendConnectedPidAsynchronously(
         ProcessContext producer,
-        Pid remote,
+        Term remote,
         Term payload,
         bool priority
     )
@@ -19,14 +19,16 @@ public sealed partial class RuntimeDistributionPending
         {
             producer.Cancellation.ThrowIfCancellationRequested();
             RequireProcess(producer);
-            if (remote.LocalIdentity is not null && !ReferenceEquals(remote.LocalIdentity, runtime.LocalIdentity))
+            if (GuestTargetHasForeignIdentity(remote))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            if (remote.Node == runtime.Node || !entries.TryGetValue(remote.Node, out var weak) ||
+            if (GuestTargetNode(remote) == runtime.Node || !entries.TryGetValue(GuestTargetNode(remote), out var weak) ||
                 !weak.TryGetTarget(out var found) || found.Connected is not { } active ||
                 !IsConnectedSignalGeneration(found, active, found.ConnectionId))
                 return DistributionGuestSendResult.NotConnected;
             entry = found;
             connected = active;
+            if (remote is ReferenceTerm && (connected.Flags & DistributionPassThroughFlags.Alias) == 0)
+                throw new ErlangException(DistributionSpawnNames.NotSupported);
             connectionId = entry.ConnectionId;
             snapshot = runtime.LocalIdentity.Snapshot;
             resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference)

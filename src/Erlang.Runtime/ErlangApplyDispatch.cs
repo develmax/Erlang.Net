@@ -4,15 +4,25 @@ internal static class ErlangApplyDispatch
 {
     internal static ValueTask<Term> Invoke(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        string module = CoreModules.AtomName(arguments[ErlangApplyLayout.ModuleArgument]);
         string function = CoreModules.AtomName(arguments[ErlangApplyLayout.FunctionArgument]);
-        Term[] values = Cons.Items(arguments[ErlangApplyLayout.ArgumentList]).ToArray();
+        string module = CoreModules.AtomName(arguments[ErlangApplyLayout.ModuleArgument]);
+        var values = new List<Term>();
+        Term remaining = arguments[ErlangApplyLayout.ArgumentList];
+        while (remaining is Cons cell)
+        {
+            if (values.Count == ErlangApplyLimits.MaximumArgumentCount)
+                throw new ErlangException(ErlangErrorReasons.SystemLimit);
+            values.Add(cell.Head);
+            remaining = cell.Tail;
+        }
+        if (remaining is not Nil)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
 
         return InvokeTarget(
             context,
             module,
             function,
-            values
+            values.ToArray()
         );
     }
 

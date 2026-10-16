@@ -280,7 +280,35 @@ internal static class DistributionGuestSendHostChecks
         catch (NotSupportedException)
         {
         }
-        foreach (int invalidFlags in new[] { -1, 4, DistributionAlternativePidSendLayout.Token })
+        Check((fixture.Flags & DistributionPassThroughFlags.Alias) == 0);
+        try
+        {
+            DistributionPassThroughCodec.Encode(
+                new DistributionPassThroughMessage(
+                    Term.Tuple(Term.I(DistributionControlOpcodes.AliasSend), fixture.Producer.Process.Pid, fixture.Runtime.MakeReference()),
+                    valid.Payload
+                ),
+                negotiatedFlags: fixture.Flags
+            );
+            Check(false);
+        }
+        catch (NotSupportedException)
+        {
+        }
+        try
+        {
+            DistributionPassThroughCodec.Encode(
+                new DistributionPassThroughMessage(
+                Term.Tuple(Term.I(DistributionControlOpcodes.AliasSend), fixture.Producer.Process.Pid),
+                valid.Payload),
+                negotiatedFlags: fixture.Flags | DistributionPassThroughFlags.Alias
+            );
+            Check(false);
+        }
+        catch (ArgumentException)
+        {
+        }
+        foreach (int malformedPacketFlags in new[] { -1, DistributionAliasSendLayout.AlternativeAlias, DistributionAlternativePidSendLayout.Token })
         {
             try
             {
@@ -288,13 +316,13 @@ internal static class DistributionGuestSendHostChecks
                     new(
                         Term.Tuple(
                             Term.I(DistributionControlOpcodes.AlternativeActionSend),
-                            Term.I(invalidFlags),
+                            Term.I(malformedPacketFlags),
                             fixture.Producer.Process.Pid,
                             fixture.Connection.Remote
                         ),
                         valid.Payload
                     ),
-                    negotiatedFlags: fixture.Flags
+                    negotiatedFlags: fixture.Flags | DistributionPassThroughFlags.Alias
                 );
                 Check(false);
             }

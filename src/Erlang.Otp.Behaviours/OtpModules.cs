@@ -167,6 +167,8 @@ public static class OtpModules
             );
             ProcLibCrashReportDependencies.Register(registry);
             ProcLib.Register(registry);
+            Erpc.Register(registry);
+            Rpc.Register(registry);
             Installed.Add(registry, new());
         }
     }

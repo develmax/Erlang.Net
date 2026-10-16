@@ -1,0 +1,61 @@
+{
+  "Status": "PASS_READ_ONLY340_PREFULL_PREREQUISITES",
+  "ParentHead": "36e6da6dfc2696adce6bff8808ca96bbd46596b6",
+  "OwnedPaths": 92,
+  "ClosureRows": 2691,
+  "PackageRows": 6,
+  "ReadinessInputs": [
+    {
+      "Path": "reference-baseline.json",
+      "Bytes": 135,
+      "Sha256": "3A676AC4915283B11E240D75E40157D5D2A1CFFAC3F0BFA71B4A4277AC55791A"
+    },
+    {
+      "Path": "docs/otp-inventory.json",
+      "Bytes": 4952887,
+      "Sha256": "B1A4A75A76DF82CDE0AD7D87D17F7BD4619CD929974B6356CCCB8F1CFBDFDEE3"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "Bytes": 146276,
+      "Sha256": "91AE5B3B6340ED20AC8FE98A96692038B65E6EF809FA6C857AC3675A95D8837F"
+    },
+    {
+      "Path": "docs/supported-mfas.json",
+      "Bytes": 199713,
+      "Sha256": "89226BBAD3F4A9923DAF47176AFB4065A1BC507131C3DE85945B198D62B26C11"
+    },
+    {
+      "Path": "docs/validation/part-337/final-candidate/tests.json",
+      "Bytes": 977186,
+      "Sha256": "EB99B62C1495313D23B0D42106E5311FE4864A530D91EB78BA7D19626FFC8B00"
+    },
+    {
+      "Path": "docs/validation/part-338/final-candidate/tests.json",
+      "Bytes": 989404,
+      "Sha256": "7DCEB5E4DFAE213C2F4CCAB5A3584E35572B1D8291ED44274A40227F1A31BDD6"
+    }
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1231,
+      "Sha256": "CC2B76619C79D579C3C853C6934E75999A7B4DBB52E3D1B93899D35F0367D73A",
+      "NonFilesUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1256,
+      "Sha256": "0BDC8CC3252B8428DB878AEE8295422AA50CC29798E8F9B94D3CF86ECED9DC3F",
+      "NonFilesUnchanged": true
+    }
+  ],
+  "ExpectedRegistryAfterFull": 587,
+  "ExpectedProcLibPresenceAfterFull": 39,
+  "ExpectedImplementedModulesAfterFull": 14,
+  "NativeExecuted": false,
+  "SdkExecuted": false,
+  "MainEdited": false,
+  "GitUsed": false,
+  "NetworkUsed": false
+}

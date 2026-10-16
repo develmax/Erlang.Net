@@ -19,6 +19,8 @@ public static partial class DistributionPassThroughCodec
             allowAlternativePidSend: true
         );
         ArgumentNullException.ThrowIfNull(message.Payload);
+        if (IsSpawnRequest(message.Control))
+            ValidateSpawnArguments(message.Control, message.Payload);
         options ??= new EtfEncodingOptions();
         long required = checked(DistributionPassThroughLayout.MarkerBytes +
             ExternalTermFormat.EncodedSize(message.Control, options) +
@@ -71,6 +73,9 @@ public static partial class DistributionPassThroughCodec
         ValidateFeatures(tuple, negotiatedFlags);
         ValidateFeatures(payload.Term, negotiatedFlags);
 
+        if (IsSpawnRequest(tuple))
+            ValidateSpawnArguments(tuple, payload.Term);
+
         return new(tuple, payload.Term);
     }
 
@@ -96,6 +101,25 @@ public static partial class DistributionPassThroughCodec
             !DistributionControlOpcodes.IsKnown((int)opcode.Value))
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
         int payloadOffset = checked(DistributionPassThroughLayout.MarkerBytes + control.Used);
+        if (IsSpawnRequest(tuple) || IsSpawnReply(tuple))
+        {
+            ValidateSpawnControl(tuple, negotiatedFlags);
+            ValidateFeatures(tuple, negotiatedFlags);
+            if (IsSpawnReply(tuple))
+            {
+                if (payloadOffset != packet.Length)
+                    throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+
+                return new(tuple, null);
+            }
+            var arguments = ReadTerm(packet[payloadOffset..], options, maximumBytes);
+            if (payloadOffset + arguments.Used != packet.Length)
+                throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(packet));
+            ValidateSpawnArguments(tuple, arguments.Term);
+            ValidateFeatures(arguments.Term, negotiatedFlags);
+
+            return new(tuple, arguments.Term);
+        }
         bool link = opcode.Value == DistributionControlOpcodes.Link;
         bool exit = opcode.Value == DistributionControlOpcodes.Exit || opcode.Value == DistributionControlOpcodes.Exit2 ||
             opcode.Value == DistributionControlOpcodes.ExitTrace || opcode.Value == DistributionControlOpcodes.Exit2Trace;
@@ -199,6 +223,11 @@ public static partial class DistributionPassThroughCodec
                 id.Value >= (opcode.Value == DistributionControlOpcodes.UnlinkId ? 1 : 0) && id.Value <= ulong.MaxValue &&
                 control.Items[DistributionControlOpcodes.UnlinkFromIndex] is Pid &&
                 control.Items[DistributionControlOpcodes.UnlinkTargetIndex] is Pid;
+        if (IsSpawnReply(control))
+        {
+            ValidateSpawnControl(control, negotiatedFlags);
+            valid = true;
+        }
         valid |= IsMonitorControl(control) || IsGroupLeaderControl(control);
         if (!valid)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
@@ -347,6 +376,18 @@ public static partial class DistributionPassThroughCodec
         ArgumentNullException.ThrowIfNull(control);
         if (control.Items.Count == 0 || control.Items[DistributionPassThroughLayout.OpcodeIndex] is not Integer opcode)
             throw new ArgumentException(DistributionPassThroughDiagnostics.PacketFormat, nameof(control));
+        if (IsSpawnRequest(control))
+        {
+            ValidateSpawnControl(control, negotiatedFlags);
+
+            return;
+        }
+        if (IsAliasSend(control))
+        {
+            ValidateAliasSend(control, negotiatedFlags);
+
+            return;
+        }
         if (opcode.Value == DistributionControlOpcodes.AlternativeActionSend)
         {
             if (!allowAlternativePidSend)

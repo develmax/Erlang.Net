@@ -1,0 +1,30 @@
+using Erlang.Tests;
+using System.Text.Json;
+
+await ConnectedDependencyMfaContracts.ParseAll();
+Console.WriteLine("PASS parse-all-44");
+if (args.Length == 1 && args[0] == "parse")
+    return;
+await ConnectedDependencyMfaContracts.RunAll();
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn", 2);
+Console.WriteLine("PASS direct-proc_lib:spawn/2");
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn", 4);
+Console.WriteLine("PASS direct-proc_lib:spawn/4");
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn_link", 2);
+Console.WriteLine("PASS direct-proc_lib:spawn_link/2");
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn_link", 4);
+Console.WriteLine("PASS direct-proc_lib:spawn_link/4");
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn_opt", 3);
+Console.WriteLine("PASS direct-proc_lib:spawn_opt/3");
+await ConnectedDependencyMfaContracts.Run("proc_lib", "spawn_opt", 5);
+Console.WriteLine("PASS direct-proc_lib:spawn_opt/5");
+await ConnectedDependencyMfaContracts.Run("rpc", "call", 4);
+Console.WriteLine("PASS direct-rpc:call/4");
+await ConnectedDependencyMfaContracts.Run("rpc", "call", 5);
+Console.WriteLine("PASS direct-rpc:call/5");
+await ConnectedDependencyMfaContracts.Run("erpc", "call", 4);
+Console.WriteLine("PASS direct-erpc:call/4");
+await ConnectedDependencyMfaContracts.Run("erpc", "call", 5);
+Console.WriteLine("PASS direct-erpc:call/5");
+await ConnectedDependencyMfaContracts.Run("erpc", "execute_call", 4);
+Console.WriteLine("PASS direct-erpc:execute_call/4");

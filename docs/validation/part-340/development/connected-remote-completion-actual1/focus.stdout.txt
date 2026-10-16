@@ -1,0 +1,67 @@
+PASS parse-all-44
+{"Name":"proc-node-local-spawn-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-link-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-link-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-opt-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-opt-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-link-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-module","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-function","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-list","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-node","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-invalid-options","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-link-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-link-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-opt-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-disconnected-spawn-opt-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-local-caller","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-throws","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-exits","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-errors","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-guards","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-disconnected","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-always-spawn","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-finite-uses-child","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply-invalid-function-precedes-cap","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply-invalid-module-precedes-cap","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply1023-improper-badarg","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply1023-undef","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply1024-improper-system-limit","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply1024-system-limit","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"apply256-undef","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"erpc-execute-call-child-envelope","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"rpc-zero-timeout-real-child-cleanup","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-default-visible","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-this","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-empty-info","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-this-info","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-duplicates","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-info-empty-map","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-invalid-selector","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"nodes-invalid-options","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+{"Name":"proc-node-local-spawn-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn/2
+{"Name":"proc-node-local-spawn-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn/4
+{"Name":"proc-node-local-spawn-link-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn_link/2
+{"Name":"proc-node-local-spawn-link-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn_link/4
+{"Name":"proc-node-local-spawn-opt-fun","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn_opt/3
+{"Name":"proc-node-local-spawn-opt-mfa","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-proc_lib:spawn_opt/5
+{"Name":"rpc-local-caller","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-rpc:call/4
+{"Name":"rpc-zero-timeout-real-child-cleanup","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-rpc:call/5
+{"Name":"rpc-local-caller","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-erpc:call/4
+{"Name":"rpc-finite-uses-child","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-erpc:call/5
+{"Name":"erpc-execute-call-child-envelope","Expected":"{ok,ok}","Actual":"{ok,ok}","Passed":true}
+PASS direct-erpc:execute_call/4

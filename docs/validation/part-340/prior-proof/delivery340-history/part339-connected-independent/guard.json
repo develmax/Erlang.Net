@@ -1,0 +1,176 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED339_ORIGINAL12_TYPED_OBSERVATIONS",
+  "Head": "36e6da6dfc2696adce6bff8808ca96bbd46596b6",
+  "Run": 38950404832,
+  "Job": 117140058101,
+  "Artifact": 12068192649,
+  "ArtifactApiDigest": "sha256:9548e9a4ce691fc170e47d2b7a4775a939d94f26c46e165b9ea81d7e2c58766e",
+  "ZipMembers": 381,
+  "DownloadManifestRows": 387,
+  "PublishedBlobRows": 31,
+  "SourceManifestSha256": "C942C5C8CD4150A72F353F255D035A11CB74703F51B9314AE3C770FA381A43BE",
+  "OriginalPinnedSourceRowsRehashed": 5,
+  "InstalledRuntimeBinaries": "Receipt hashes only: installed binaries not archived and not available for independent raw rehash; runtime/root/version/module paths are independently crosslinked to captured stdout and percase ETF.",
+  "Cases": [
+    {
+      "Name": "inbound_plain",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 17,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "no trace events"
+      ]
+    },
+    {
+      "Name": "inbound_trace",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 17,
+      "TraceEventCount": 32,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "TT core messages found among unnormalized real trace events"
+      ]
+    },
+    {
+      "Name": "inbound_badopt_trace",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 15,
+      "TraceEventCount": 2,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "TT core messages found among unnormalized real trace events"
+      ]
+    },
+    {
+      "Name": "outbound_plain",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 17,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "no trace events"
+      ]
+    },
+    {
+      "Name": "outbound_trace",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 17,
+      "TraceEventCount": 48,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "TT core messages found among unnormalized real trace events"
+      ]
+    },
+    {
+      "Name": "outbound_monitor_options",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 21,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "request/reply reference and actor identity exact",
+        "monitor flag and child/parent state exact",
+        "no trace events"
+      ]
+    },
+    {
+      "Name": "alias_input_explicit",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 25,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "explicit alias survives demonitor only",
+        "two child monitors before explicit demonitor",
+        "unalias blocks later delivery; no extra DOWN"
+      ]
+    },
+    {
+      "Name": "alias_input_demonitor",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 25,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "alias drops after demonitor",
+        "two child monitors before explicit demonitor",
+        "unalias blocks later delivery; no extra DOWN"
+      ]
+    },
+    {
+      "Name": "alias_input_reply_demonitor",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 25,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "alias drops after reply_demonitor",
+        "reply_demonitor removes exactly one monitor before explicit demonitor",
+        "unalias blocks later delivery; no extra DOWN"
+      ]
+    },
+    {
+      "Name": "alias_input_trace",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 25,
+      "TraceEventCount": 73,
+      "Assertions": [
+        "explicit alias survives demonitor only",
+        "two child monitors before explicit demonitor",
+        "unalias blocks later delivery; no extra DOWN"
+      ]
+    },
+    {
+      "Name": "alias_output_send2",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 12,
+      "TraceEventCount": 0,
+      "Assertions": [
+        "alias target, sender and payload exact",
+        "send/2 returns payload with33"
+      ]
+    },
+    {
+      "Name": "alias_output_trace_send3",
+      "Status": "PASS_TYPED_ORIGINAL_OBSERVATION",
+      "RawFiles": 12,
+      "TraceEventCount": 22,
+      "Assertions": [
+        "alias target, sender and payload exact",
+        "send/3 noconnect returns ok with TT34"
+      ]
+    }
+  ],
+  "RequiredRawFiles": 228,
+  "IndependentDecoderControls": [
+    "small-int",
+    "signed-int",
+    "utf8-atom",
+    "latin1-atom",
+    "tuple",
+    "nil",
+    "string-byte-list",
+    "improper-list",
+    "binary",
+    "truncated",
+    "trailing",
+    "bad-version",
+    "unsupported",
+    "atom-list-type-distinction"
+  ],
+  "IndependentDecoderSha256": "5E8DD3753BBE1BE29903D6A165638E0D4DBB3A470FF0F98BA222E3084408641D",
+  "TypedDecodedSha256": "DB565B6198EED30CA1C16C1DEBE265971D5B428A2D2DAD59F4EDEDE1871AEDC9",
+  "LocalCandidateCorrelation": {
+    "Path": "artifacts/connected-remote-spawn-alias-actual2/outcomes.json",
+    "Sha256": "B3D5DCFCF8B5E94904F0C034510DA43F2C032B5F2240C12ED932BEEBA6D75199",
+    "Passed": 21,
+    "Scope": "Related source-reviewed local HOST contracts, not identical native fixtures or cross-runtime identity equality; no complete SDK/native comparison claimed."
+  },
+  "SourceExecutionByAudit": false,
+  "SdkExecutedByAudit": false,
+  "NetworkUsedByAudit": false,
+  "TcpInteroperabilityProven": false,
+  "FullSdkCompatibilityProven": false
+}

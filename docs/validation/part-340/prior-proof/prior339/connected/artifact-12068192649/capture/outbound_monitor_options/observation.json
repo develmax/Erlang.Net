@@ -1,0 +1,138 @@
+{
+  "Name": "outbound_monitor_options",
+  "Status": "OBSERVED_AND_CLEANED",
+  "Source": {
+    "Path": "source/connected_spawn_probe.erl",
+    "Bytes": 13370,
+    "Sha256": "4421C0540E2CDF124271D0EA7D043CB0B76B45919F3FFB0D70FD0664DB147E3D"
+  },
+  "SdkExecuted": false,
+  "ExpectedValuesPresent": false,
+  "RawNormalization": false,
+  "CompileReceipt": {
+    "Path": "compile.process.json",
+    "Bytes": 779,
+    "Sha256": "290FF59F6321598765C5A4B1B239CD6C10CE5D398802D3A62D9519B189AF6477"
+  },
+  "Beam": {
+    "Path": "beam/connected_spawn_probe.beam",
+    "Bytes": 11420,
+    "Sha256": "3F24713F42F5EC0C6BA0BC1BF4E4B1914C54473B3CF80950572F466D129E80F7"
+  },
+  "RunReceipt": {
+    "Path": "run.process.json",
+    "Bytes": 1248,
+    "Sha256": "00D2501E772B8FC60EAB0980D52B71FACAAF3A36A4C06DEC7A5C0F9E55652C75"
+  },
+  "RawFiles": [
+    {
+      "Path": "alias-removal.etf",
+      "Bytes": 7,
+      "Sha256": "C302BC3F963852A470550C0E363EFEDDC3FF92649E022EA61C36D913032008A3"
+    },
+    {
+      "Path": "controller-cleanup.etf",
+      "Bytes": 21,
+      "Sha256": "F6AF1693C26C849744EA5F5500E4615287AEFE4D62EB58231FF28B436DF8790D"
+    },
+    {
+      "Path": "down-input-result.etf",
+      "Bytes": 5,
+      "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Path": "down.etf",
+      "Bytes": 125,
+      "Sha256": "4378F36A9908B71FFF97264BC94E7D877373C7014B25E1C181F8C08A69B99D8A"
+    },
+    {
+      "Path": "down.packet",
+      "Bytes": 142,
+      "Sha256": "CC26BFDAFE5E721A4588373F12B4FF139230AF467B9641EE9E7164C1163775F1"
+    },
+    {
+      "Path": "outer.etf",
+      "Bytes": 15,
+      "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+    },
+    {
+      "Path": "parent-state.etf",
+      "Bytes": 245,
+      "Sha256": "C73C32A92AEA5390BE6F8FFC05DDBE038E9C726FDC9B7199F32BB91E2CD1968A"
+    },
+    {
+      "Path": "parent-token.etf",
+      "Bytes": 2,
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14"
+    },
+    {
+      "Path": "reply-control.etf",
+      "Bytes": 130,
+      "Sha256": "3C7ABCE5045D21AA75883AED96F26E8E66D8A5BAF6079F3D6A37C558DA69CAD7"
+    },
+    {
+      "Path": "reply-input-result.etf",
+      "Bytes": 5,
+      "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Path": "reply.packet",
+      "Bytes": 131,
+      "Sha256": "2737E73BCD33A901F035D97ABB6922C83456DD1DB10DBBD2490A987338D49CB3"
+    },
+    {
+      "Path": "request-arguments.etf",
+      "Bytes": 2,
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14"
+    },
+    {
+      "Path": "request-control.etf",
+      "Bytes": 160,
+      "Sha256": "CD4365F3752F177C883FD7E27AE90CD19D2B2D85B213BC0CF9734D2BF314CC03"
+    },
+    {
+      "Path": "request.packet",
+      "Bytes": 163,
+      "Sha256": "15FEBC083DD726103D2D9B35096A8A8072172243BA13125CD073CEDFB0C76D0E"
+    },
+    {
+      "Path": "runtime.etf",
+      "Bytes": 271,
+      "Sha256": "0AE58A1077AC9645AD08CA44F0D90916A4B1EC556575121CD158B810F27163F9"
+    },
+    {
+      "Path": "setup.etf",
+      "Bytes": 317,
+      "Sha256": "A301779A2651015C63CFA25AD32649483BDA5DCD3130995A2B92F255168D29EE"
+    },
+    {
+      "Path": "spawn-reply.etf",
+      "Bytes": 107,
+      "Sha256": "59D38ED3B45521E95D35EC246EDE52BC5CBB907F99E2F4719423DE01EC721F35"
+    },
+    {
+      "Path": "stage.etf",
+      "Bytes": 39,
+      "Sha256": "F76D8A3878F56402553345EF437DB9CA8AA0DF948E09162DB1672B6E37CA6F68"
+    },
+    {
+      "Path": "trace-events.etf",
+      "Bytes": 2,
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14"
+    },
+    {
+      "Path": "tracer-cleanup.etf",
+      "Bytes": 21,
+      "Sha256": "F6AF1693C26C849744EA5F5500E4615287AEFE4D62EB58231FF28B436DF8790D"
+    },
+    {
+      "Path": "tracer-setting.etf",
+      "Bytes": 8,
+      "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+    }
+  ],
+  "ActorCleanupFiles": [
+    "controller-cleanup.etf",
+    "tracer-cleanup.etf"
+  ]
+}

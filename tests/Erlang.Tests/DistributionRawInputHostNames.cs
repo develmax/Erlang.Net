@@ -14,10 +14,9 @@ internal static class DistributionRawInputHostNames
     internal const string Failure = "Raw distribution input assertion failed";
     internal const int LinkOpcode = 1;
     internal const int ExitOpcode = 3;
-    internal const int UnsupportedSpawnRequestOpcode = DistributionControlOpcodes.SpawnRequest;
-    internal const ulong UnsupportedSpawnRequestFlag = 0x1UL << 32;
-    internal const string UnsupportedSpawnModule = "raw_input_spawn_module";
-    internal const string UnsupportedSpawnFunction = "raw_input_spawn_function";
+    internal const int UnsupportedAlternativeActionOpcode = DistributionControlOpcodes.AlternativeActionSend;
+    internal const int AlternativeActionPlainFlags = 0;
+    internal const ulong UnsupportedAlternativeActionFlag = DistributionPassThroughFlags.AlternativeActionSignal;
     internal const byte PassThrough = 112;
     internal const int PartialBits = 1;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);

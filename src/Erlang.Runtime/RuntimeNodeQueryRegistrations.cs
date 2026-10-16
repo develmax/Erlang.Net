@@ -36,12 +36,24 @@ internal static class RuntimeNodeQueryRegistrations
             };
         }
         Term result = Nil.Value;
-        var names = new List<(Atom Name, Atom Type)>();
+        var names = new List<(Atom Name, Atom Type, uint? ConnectionId)>();
+        var snapshot = context.Runtime.DistributionPending.QueryNodeSnapshot();
         if (query.This)
-            names.Add((context.Runtime.NodeAtom, Term.A(RuntimeNodeQueryNames.This)));
+            names.Add((context.Runtime.NodeAtom, Term.A(RuntimeNodeQueryNames.This), null));
+        foreach (bool visible in new[] { true, false })
+        {
+            if (visible ? !query.Visible : !query.Hidden)
+                continue;
+            foreach (var node in snapshot.Where(node => node.Visible == visible))
+                names.Add((node.Node, Term.A(visible ? RuntimeNodeQueryNames.Visible : RuntimeNodeQueryNames.Hidden), node.ConnectionId));
+        }
         if (query.Known)
-            foreach (string name in context.Runtime.KnownNodes.Snapshot())
-                names.Add((Term.A(name), Term.A(RuntimeNodeQueryNames.Known)));
+        {
+            var connected = snapshot.Where(node => node.ConnectionId is not null).Select(node => node.Node.Name).ToHashSet(StringComparer.Ordinal);
+            foreach (string name in context.Runtime.KnownNodes.Snapshot().Concat(snapshot.Where(node => node.ConnectionId is null).Select(node => node.Node.Name)).Distinct(StringComparer.Ordinal))
+                if (name != context.Runtime.Node && !connected.Contains(name))
+                    names.Add((Term.A(name), Term.A(RuntimeNodeQueryNames.Known), null));
+        }
         foreach (var node in names)
         {
             Term item = node.Name;
@@ -49,7 +61,10 @@ internal static class RuntimeNodeQueryRegistrations
             {
                 var entries = new List<KeyValuePair<Term, Term>>();
                 if (query.ConnectionId)
-                    entries.Add(new(Term.A(RuntimeNodeQueryNames.ConnectionId), Term.A(RuntimeNodeQueryNames.Undefined)));
+                    entries.Add(new(
+                        Term.A(RuntimeNodeQueryNames.ConnectionId),
+                        node.ConnectionId is uint id ? Term.I(id) : Term.A(RuntimeNodeQueryNames.Undefined)
+                    ));
                 if (query.NodeType)
                     entries.Add(new(Term.A(RuntimeNodeQueryNames.NodeType), node.Type));
                 item = Term.Tuple(node.Name, new MapTerm(entries));

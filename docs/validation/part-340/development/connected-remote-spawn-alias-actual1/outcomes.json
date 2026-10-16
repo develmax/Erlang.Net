@@ -1,0 +1,107 @@
+[
+  {
+    "Name": "codec-frames",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "real-request-reply-death",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "stale-reply-generation",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "owner-death-before-reply",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "abandon-before-reply",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "owner-death-after-reply-before-selection",
+    "Passed": false,
+    "Error": "System.InvalidOperationException: Connected remote spawn HOST contract failed.\r\n   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CCleanup\u003Eb__4\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\ConnectedSpawnCleanupHostChecks.cs:line 112\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\ConnectedSpawnCleanupHostChecks.cs:line 102\r\n   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\ConnectedSpawnCleanupHostChecks.cs:line 117\r\n   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\ConnectedSpawnCleanupHostChecks.cs:line 117\r\n   at Erlang.Tests.ConnectedSpawnCleanupHostChecks.Cleanup(Boolean abandon, Boolean replyBeforeDeath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\ConnectedSpawnCleanupHostChecks.cs:line 117\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-remote-spawn-alias-candidate\\tests\\Erlang.Tests\\Program.cs:line 73"
+  },
+  {
+    "Name": "producer-death-during-capacity-wait",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "unchanged-node-spawn-regressions",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "unchanged-local-spawn-request-regressions",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "traced-success",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "traced-creator-error",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "priority-customtag-explicit-alias",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "priority-customtag-demonitor-alias",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "priority-customtag-reply-demonitor-alias",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "real-demonitor-after-connected-success",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "priority-linked-exit",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "wire-order-last-tuple-precedence",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "remote-alias-send2",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "remote-alias-trace-send2",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "remote-alias-send3-noconnect",
+    "Passed": true,
+    "Error": null
+  },
+  {
+    "Name": "remote-alias-alternative-trace-send3",
+    "Passed": true,
+    "Error": null
+  }
+]

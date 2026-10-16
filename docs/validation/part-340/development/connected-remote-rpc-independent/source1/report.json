@@ -1,0 +1,49 @@
+{
+  "Status": "PASS_SOURCE_RPC5_PROC_LIB_NODE6_FOR_FIRST_FOCUSED_SDK",
+  "Passed": true,
+  "SourceFreezeSha256": "1D25124061BE738FE5A3FB79CB0E7FCCF5EA8BFAD8E8B7B1EBAFDF549FA4A0AF",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OwnedRowsRawExact": 81,
+  "SourceClosureRowsRehashed": 1043,
+  "SourceClosureSha256": "5941EA45E1207A40B829DE5FCBA7532D0DE8F34FC41F54F9DA78E812EEEEB060",
+  "PortableProposalRowsRehashed": 9,
+  "ExecutionTargets": 10,
+  "NewExports": [
+    "rpc:call/4",
+    "rpc:call/5",
+    "erpc:call/4",
+    "erpc:call/5",
+    "erpc:execute_call/4",
+    "proc_lib:spawn/2",
+    "proc_lib:spawn/4",
+    "proc_lib:spawn_link/2",
+    "proc_lib:spawn_link/4",
+    "proc_lib:spawn_opt/3",
+    "proc_lib:spawn_opt/5"
+  ],
+  "BlockingFindings": [],
+  "Reviewed": [
+    "RPCIFY maps successful/throw EXIT tuples and error/exit exception/signal wrappers according to pinned rpc.erl; unrelated errors rethrow.",
+    "erpc local infinity default runs apply in caller; finite/always_spawn uses actual spawn_request error_only monitor. Validation and absolute timeout occur before request.",
+    "Manual255 cap removed; system_limit argument classification performs actual async apply(erpc,nonexisting,A). Shared apply3 proposal exactly integrated and independently source reviewed.",
+    "Timeout path preserves native abandon then demonitor(info) then zero-time queued-result fallback; separate genuine queued DOWN HOST controls exercise public real spawn_request and actual private branch helper, retaining unrelated mailbox content.",
+    "proc_info uses actual nodes visibility and real rpc call, mapping nodedown to undefined; remote get_label reads arbitrary returned dictionary values without synthesized labels.",
+    "Six proc_lib node wrapper guards/parent name/ancestors/initializer MFA and arguments match pinned proc_lib; real registered remote target and external fun tests forbid local fallback and check GL, initial_call, ancestry and actual link/monitor termination.",
+    "Existing alias2 corrected actual21 result is inherited; this review does not attribute those executions to new RPC code."
+  ],
+  "Limitations": [
+    "Partial rpc/erpc modules",
+    "No original VM execution or TCP interoperability evidence yet",
+    "Shared apply/3 bound fixed, apply/2 separate existing gap",
+    "No broad full validation or readiness completion claim",
+    "HOST connected packet transport exercises actual managed distribution controllers",
+    "Portable .erl proposals are source-only; ParseAll/build/execution still required.",
+    "HOST timeout method extraction invokes actual private production helpers but does not by itself establish native scheduling equality.",
+    "Shared apply2 bound remains explicit existing gap; full RPC/erpc export completeness and optimized stack equivalence are not claimed."
+  ],
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false,
+  "ProductionAuthor": false,
+  "AuthorshipDisclosure": "Reviewer authored the separately reviewed two-file apply3 boundary and seven portable apply fixtures; independent source peer8D13 exists for that component. RPC, node wrappers and connected HOST tests were authored by another agent."
+}

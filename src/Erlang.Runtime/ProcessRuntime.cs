@@ -481,7 +481,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             RequireAlive(owner.Self);
             if (!spawnRequests.TryGetValue(reference, out var request) || !request.Owner.Equals(owner.Self))
-                return false;
+                return distributionPending?.AbandonConnectedSpawnRequest(owner, reference) ?? false;
             spawnRequests.Remove(reference);
             monitors.Remove(reference);
             aliases.Remove(reference);
@@ -635,6 +635,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     {
                         aliases.Remove(reference);
                         monitors.Remove(reference);
+                        DetachConnectedSpawnMonitor(owner, reference);
                     }
 
                     return priority && current.Priority;
@@ -1226,12 +1227,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             if (reference.Node != Node)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             monitors.TryGetValue(reference, out var monitor);
-            bool removed = !spawnRequests.ContainsKey(reference) && monitor is not null && monitor.Observer.Equals(observer.Self);
+            bool removed = !spawnRequests.ContainsKey(reference) &&
+                distributionPending?.IsPendingConnectedSpawn(observer, reference) != true && monitor is not null && monitor.Observer.Equals(observer.Self);
             if (removed)
             {
                 monitors.Remove(reference);
                 if (!monitor!.KeepAlias)
                     aliases.Remove(reference);
+                DetachConnectedSpawnMonitor(observer, reference);
             }
             if (flush && removed && monitor!.Source == ProcessMonitorSource.TimeOffset)
                 observer.Mailbox.Remove(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));

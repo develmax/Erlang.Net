@@ -112,6 +112,7 @@ public sealed partial class ProcessRuntime
     private IReadOnlyList<DistributionExitOutput> CaptureDistributionExitOutput(ProcessContext process, Term reason)
     {
         var output = new List<DistributionExitOutput>();
+        var spawnMonitorOutput = new List<DistributionExitOutput>();
         foreach (var link in distributionProcessLinks.Where(item => ReferenceEquals(item.Local, process)).ToArray())
         {
             distributionProcessLinks.Remove(link);
@@ -150,7 +151,8 @@ public sealed partial class ProcessRuntime
                     monitor.Reference,
                     monitor.Established ? reason : Term.A(ErlangErrorReasons.NoProcess)
                 );
-            output.Add(new(
+            var target = monitor.Origin && monitor.SpawnOptions ? spawnMonitorOutput : output;
+            target.Add(new(
                 monitor.Entry,
                 monitor.Connection,
                 monitor.ConnectionId,
@@ -159,6 +161,7 @@ public sealed partial class ProcessRuntime
             ));
         }
 
-        return output;
+        // Native origin monitors retire in MONITORS, before deferred distribution links.
+        return spawnMonitorOutput.Concat(output).ToArray();
     }
 }

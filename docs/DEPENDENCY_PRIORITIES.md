@@ -1,5 +1,7 @@
 # Dependency-directed API implementation
 
+Part 340 — proc_lib has 39/39 API presence and remote labels. Complete exact-head original/CI audits and the newly identified fresh-receiver captured-function dependency with real two-node original observations. Then continue wider gen/sys lifecycle and state protocols required by gen_server/supervisor. Full logger/RPC modules, physical runtime/tuning/TCP and performance remain separate milestones.
+
 Part338 — proc_lib33/39: prioritize six real node spawning overloads and their connected spawn/TT/monitor/link/alias dependencies, followed by actual erpc/rpc label queries. Broader logger overload handling and physical/runtime equivalence remain separate measured work.
 
 Part337 — proc_lib29/39 now has original-verified report formatting. Prioritize the real logger/error_logger/application-environment dependencies and shared initializer/crash-report path, then connected spawn protocol/ownership and six node overloads. Test real delivery and resource/order boundaries; retain unsupported native tuning/physical/performance scope explicitly.

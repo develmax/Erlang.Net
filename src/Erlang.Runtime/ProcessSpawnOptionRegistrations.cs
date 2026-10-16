@@ -13,7 +13,7 @@ internal static class ProcessSpawnOptionRegistrations
             );
     }
 
-    private static ValueTask<Term> Start(ProcessContext context, IReadOnlyList<Term> arguments)
+    private static async ValueTask<Term> Start(ProcessContext context, IReadOnlyList<Term> arguments)
     {
         bool remote = arguments.Count is 3 or 5;
         string node = context.Runtime.Node;
@@ -67,19 +67,37 @@ internal static class ProcessSpawnOptionRegistrations
         }
         ProcessSpawnOptions options = ParseOptions(context, arguments);
         if (node != context.Runtime.Node)
+        {
+            var remoteResult = await context.Runtime.DistributionPending.TrySpawnConnectedAsync(
+                context,
+                node,
+                description,
+                options
+            );
+            if (remoteResult?.Value is { } value)
+                return value;
+            Term failure = remoteResult?.Failure ?? Term.A(NodeSpawnNames.Disconnected);
+            if (!failure.Equals(Term.A(NodeSpawnNames.Disconnected)) && !failure.Equals(Term.A(DistributionSpawnNames.NotSupported)))
+                throw Invalid(
+                    context,
+                    arguments,
+                    failure.Equals(Term.A(ProcessSpawnOptionNames.BadOption)),
+                    failure.Equals(Term.A(ProcessSpawnOptionNames.BadOption)) ? null : failure
+                );
             body = child =>
             {
-                child.Exit(Term.A(NodeSpawnNames.Disconnected));
+                child.Exit(failure);
 
                 return ValueTask.FromResult<Term>(Nil.Value);
             };
+        }
 
-        return ValueTask.FromResult(context.Runtime.SpawnWithOptions(
+        return context.Runtime.SpawnWithOptions(
             context,
             body,
             options,
             node == context.Runtime.Node ? description : null
-        ));
+        );
     }
 
     internal static ProcessSpawnOptions ParseOptions(ProcessContext context, IReadOnlyList<Term> arguments)
@@ -94,7 +112,12 @@ internal static class ProcessSpawnOptionRegistrations
         }
     }
 
-    private static ErlangException Invalid(ProcessContext context, IReadOnlyList<Term> arguments, bool badOption = false)
+    private static ErlangException Invalid(
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        bool badOption = false,
+        Term? reason = null
+    )
     {
         var fields = new List<KeyValuePair<Term, Term>>
         {
@@ -103,7 +126,7 @@ internal static class ProcessSpawnOptionRegistrations
         if (badOption)
             fields.Add(new(Term.A(ProcessSpawnOptionNames.Cause), Term.A(ProcessSpawnOptionNames.BadOption)));
 
-        return new ErlangException(ErlangErrorReasons.BadArgument)
+        return new ErlangException(reason ?? Term.A(ErlangErrorReasons.BadArgument))
         {
             ExplicitStackTrace = true,
             StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), new MapTerm(fields), ProcessSpawnOptionNames.Function)

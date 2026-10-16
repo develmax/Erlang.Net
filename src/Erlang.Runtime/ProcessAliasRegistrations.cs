@@ -124,6 +124,20 @@ internal static class ProcessAliasRegistrations
             if (noConnect)
                 return Term.A(ProcessSendResultNames.NoConnect);
         }
+        if (target is ReferenceTerm remoteAlias && remoteAlias.Node != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedAliasAsync(
+                context,
+                remoteAlias,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result == DistributionGuestSendResult.Accepted)
+                return Term.A(CommonAtomNames.Ok);
+            if (result == DistributionGuestSendResult.WouldSuspend)
+                return Term.A(ProcessSendResultNames.NoSuspend);
+        }
         if (noConnect && (target is ReferenceTerm remoteReference && remoteReference.Node != context.Runtime.Node || target is TupleTerm { Items.Count: 2 } address && address.Items[0] is Atom && address.Items[1] is Atom remoteNode && remoteNode.Name != context.Runtime.Node))
             return Term.A(ProcessSendResultNames.NoConnect);
         bool sent = await ErlangOperatorValues.TrySendAsync(

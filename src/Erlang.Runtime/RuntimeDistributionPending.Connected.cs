@@ -360,7 +360,15 @@ public sealed partial class RuntimeDistributionPending
                     wire
                 );
                 connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
-                DeliverConnectedTracePayload(message.Control, message.Payload);
+                if (DistributionPassThroughCodec.IsSpawnRequest(message.Control))
+                    RouteConnectedSpawnRequest(
+                        entry,
+                        connected,
+                        message.Control,
+                        message.Payload
+                    );
+                else
+                    DeliverConnectedTracePayload(message.Control, message.Payload);
             }
         }
     }
@@ -433,6 +441,7 @@ public sealed partial class RuntimeDistributionPending
         RetireStep(() => RetireControllerAdoptions(entry: entry));
         RetireStep(() => runtime.RetireConnectedProcessLinks(entry, connected));
         RetireStep(() => runtime.RetireConnectedProcessMonitors(entry, connected));
+        RetireStep(() => RetireConnectedSpawnRequests(entry, connected));
         RetireStep(() => NotifyConnectedNode(
             entry,
             connected,

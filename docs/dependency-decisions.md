@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part340 — Reuse owned distribution controllers, existing process/mailbox/monitor/alias/trace channels, real registry apply dispatch and process-info requests. Add only rpc:call/4,5 and erpc:call/4,5,execute_call/4 needed for remote proc_lib metadata. Node enumeration reads actual connection entries; no fake registry or local substitute for remote labels. No third-party package or actor framework is added.
+
 Part338 — Reuse process monitors, dictionaries, mailbox queries, runtime standard streams and immutable term/map iterators. Port only the pinned logger/environment/limiter dependency paths required by real crash reports; introduce no new package or actor framework. Physical per-process BEAM allocation is unavailable in CLR and is never simulated with guessed counts. Keep existing third-party notices and the owner-local license proposal uncommitted.
 
 Part337 — Inspect pinned proc_lib, io_lib_format, io_lib_pretty, erl_error, string and Unicode generator/data. Reuse the existing terms, runtime identity/float/function-information facilities, System.Text.Rune/strict UTF8, and current BCL grapheme measurement with its Unicode-version gap explicit. A general .NET text/JSON serializer cannot preserve Erlang raw report lists or source depth/budget rules; no external formatter, actor framework or new package is introduced. Preserve existing third-party notices and keep the owner-local public-license proposal uncommitted.

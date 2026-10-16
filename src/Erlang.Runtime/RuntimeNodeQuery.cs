@@ -3,6 +3,8 @@ namespace Erlang;
 internal sealed record RuntimeNodeQuery(
     bool This,
     bool Known,
+    bool Visible,
+    bool Hidden,
     bool Info,
     bool ConnectionId,
     bool NodeType
@@ -12,6 +14,8 @@ internal sealed record RuntimeNodeQuery(
     {
         bool includeThis = false;
         bool includeKnown = false;
+        bool includeVisible = false;
+        bool includeHidden = false;
         Term remaining = types is Atom ? Term.List(types) : types;
         while (remaining is Cons cell)
         {
@@ -21,9 +25,16 @@ internal sealed record RuntimeNodeQuery(
                     includeThis = true;
                     break;
                 case Atom { Name: RuntimeNodeQueryNames.Known }:
-                    includeThis = includeKnown = true;
+                    includeThis = includeKnown = includeVisible = includeHidden = true;
                     break;
-                case Atom { Name: RuntimeNodeQueryNames.Visible or RuntimeNodeQueryNames.Hidden or RuntimeNodeQueryNames.Connected }:
+                case Atom { Name: RuntimeNodeQueryNames.Visible }:
+                    includeVisible = true;
+                    break;
+                case Atom { Name: RuntimeNodeQueryNames.Hidden }:
+                    includeHidden = true;
+                    break;
+                case Atom { Name: RuntimeNodeQueryNames.Connected }:
+                    includeVisible = includeHidden = true;
                     break;
                 default:
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -60,6 +71,8 @@ internal sealed record RuntimeNodeQuery(
         return new(
             includeThis,
             includeKnown,
+            includeVisible,
+            includeHidden,
             options is not null,
             connectionId,
             nodeType

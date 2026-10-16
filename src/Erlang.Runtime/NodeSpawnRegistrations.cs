@@ -14,7 +14,7 @@ internal static class NodeSpawnRegistrations
                 );
     }
 
-    private static ValueTask<Term> Start(ProcessContext context, string function, IReadOnlyList<Term> arguments)
+    private static async ValueTask<Term> Start(ProcessContext context, string function, IReadOnlyList<Term> arguments)
     {
         Func<ProcessContext, ValueTask<Term>> body;
         SequenceSpawnDescription description;
@@ -62,12 +62,32 @@ internal static class NodeSpawnRegistrations
             );
         }
         if (node.Name != context.Runtime.Node)
+        {
+            var options = ProcessSpawnOptions.Parse(description.Options);
+            var remote = await context.Runtime.DistributionPending.TrySpawnConnectedAsync(
+                context,
+                node.Name,
+                description,
+                options
+            );
+            if (remote?.Value is { } value)
+                return value;
+            Term failure = remote?.Failure ?? Term.A(NodeSpawnNames.Disconnected);
+            if (!failure.Equals(Term.A(NodeSpawnNames.Disconnected)) && !failure.Equals(Term.A(DistributionSpawnNames.NotSupported)))
+                throw Invalid(
+                    context,
+                    function,
+                    arguments,
+                    failure.Equals(Term.A(ProcessSpawnOptionNames.BadOption))
+                    ? Term.A(ErlangErrorReasons.BadArgument) : failure
+                );
             body = child =>
             {
-                child.Exit(Term.A(NodeSpawnNames.Disconnected));
+                child.Exit(failure);
 
                 return ValueTask.FromResult<Term>(Nil.Value);
             };
+        }
         try
         {
             if (function == ErlangModuleNames.SpawnMonitor)
@@ -79,15 +99,15 @@ internal static class NodeSpawnRegistrations
                     node.Name == context.Runtime.Node ? description : null
                 );
 
-                return ValueTask.FromResult<Term>(Term.Tuple(monitored.Process.Pid, monitored.Reference));
+                return Term.Tuple(monitored.Process.Pid, monitored.Reference);
             }
 
-            return ValueTask.FromResult<Term>(context.Runtime.SpawnTraced(
+            return context.Runtime.SpawnTraced(
                 body,
                 context,
                 function == ErlangModuleNames.SpawnLink,
                 node.Name == context.Runtime.Node ? description : null
-            ).Pid);
+            ).Pid;
         }
         catch (ErlangException exception)
         {

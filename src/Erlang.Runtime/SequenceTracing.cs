@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dictionary<Pid, ProcessContext> processes)
+internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gate, Dictionary<Pid, ProcessContext> processes)
 {
     private Pid? tracer;
 
@@ -359,7 +359,24 @@ internal sealed class SequenceTracing(ProcessRuntime runtime, object gate, Dicti
         Term message
     )
     {
-        if (token is null || (token.Flags & kind) == 0 || Tracer() is not Pid recipient || recipient.Equals(context.Self))
+        Output(
+            context.Self,
+            token,
+            kind,
+            destination,
+            message
+        );
+    }
+
+    private void Output(
+        Term tracee,
+        SequenceTraceToken? token,
+        SequenceTraceFlags kind,
+        Term destination,
+        Term message
+    )
+    {
+        if (token is null || (token.Flags & kind) == 0 || Tracer() is not Pid recipient || recipient.Equals(tracee))
             return;
         string type = kind switch
         {

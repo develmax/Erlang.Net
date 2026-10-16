@@ -1,0 +1,23 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/connected-spawn-otp/bin/erl",
+    "+S",
+    "2:2",
+    "+pc",
+    "latin1",
+    "-start_epmd",
+    "false",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/connected-spawn-original/capture/alias_output_send2/beam",
+    "-eval",
+    "D=os:getenv(\"ERLANG_NET_SPAWN_CAPTURE\"),{module,connected_spawn_probe}=code:ensure_loaded(connected_spawn_probe),{connected_spawn_probe,Image,_}=code:get_object_code(connected_spawn_probe),ok=file:write_file(filename:join(D,\"runtime.etf\"),term_to_binary({runtime,erlang:system_info(otp_release),code:root_dir(),io:printable_range(),erlang:md5(Image),code:which(connected_spawn_probe)})),connected_spawn_probe:run(alias_output_send2,D),halt(0)."
+  ],
+  "WorkingDirectory": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/connected-spawn-original/capture/alias_output_send2",
+  "TimeoutSeconds": 45,
+  "StartedUnix": 1792177162.9783008,
+  "NewOwnedSession": true
+}

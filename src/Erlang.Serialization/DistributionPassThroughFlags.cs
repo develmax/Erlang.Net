@@ -23,6 +23,8 @@ public static class DistributionPassThroughFlags
     public const ulong Fragments = 0x800000;
     public const ulong Handshake23 = 0x1000000;
     public const ulong UnlinkId = 0x2000000;
+    public const ulong Alias = 0x8UL << 32;
+    public const ulong Spawn = 0x1UL << 32;
     public const ulong V4NodeContainer = 0x4UL << 32;
     public const ulong NativeRecords = 0x40UL << 32;
     public const ulong Mandatory = ExtendedReferences | FunctionTags | NewFunctionTags |

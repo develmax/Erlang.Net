@@ -1,0 +1,53 @@
+{
+  "Status": "SOURCE_ONLY_NATIVE339_CONTRACT_HOST_GAPS_PROPOSAL_NOT_BUILT",
+  "NativeGuardSha256": "3096F324C1FB942B2938477E8B2DF97014E08AED5C32F12A01531044896B7829",
+  "SdkParentFocusedReportSha256": "ABFB9F1CA9566D063788F3676E63B71D4B0F2CD742407F8292966DE5E27E5C72",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/ConnectedSpawnAliasWireHostChecks.cs",
+      "Bytes": 8872,
+      "Sha256": "5C0D68E48AE3A49D65699B1A84741A411E93F389A78AD95A9212328B19D82B40",
+      "ParentActual2Sha256": "6E5DFD95E8D873FB26304F28CFE7B0AEB9D321C007DDD0E032D9790C1CE2F4C1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedSpawnNativeAliasHostChecks.cs",
+      "Bytes": 6309,
+      "Sha256": "DB38A3EA9DBD4DF0A92F7360B90E943C227243ADD3FBABD9E5DB31AD59861D8F",
+      "ParentActual2Sha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedSpawnNativeHostNames.cs",
+      "Bytes": 432,
+      "Sha256": "1F4EA8F7E7391319F4C5713FD2BE69F4EF860880A501D9EBD5B994C4AFCA9538",
+      "ParentActual2Sha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedSpawnTraceHostChecks.cs",
+      "Bytes": 9810,
+      "Sha256": "369BE08179F92D17A3A3003420D86FD485F72090556EB7981FC0FBD8666AAD62",
+      "ParentActual2Sha256": "58CA4D9C98E5A2018C516CE1D897E3808755C16A06D13A6E35120F97880FC552"
+    }
+  ],
+  "NewTargets": [
+    {
+      "Name": "native-three-monitor-alias-sequences",
+      "Method": "ConnectedSpawnNativeAliasHostChecks.ThreeMonitorAliasModes",
+      "Scope": "Three proper real monitors+alias33 across two controllers; exact first/select,demonitor info,second/drop-or-deliver,unalias,third/drop; childmonitor2->1 relations and matching normal cleanup monitor."
+    },
+    {
+      "Name": "native-legacy-traced-send3-noconnect",
+      "Method": "ConnectedSpawnAliasWireHostChecks.LegacyTracedSend3",
+      "Scope": "Combined traced send3+noconnect withoutALTACT, opcode34, okreturn, sender identity, fullcontrolled token and aliasselection/replaydrop."
+    }
+  ],
+  "AugmentedTargets": [
+    "traced-success checks exact initial_call and empty links for actual zero-arity MFA child",
+    "traced-creator-error checks exact badopt and no child callback/process-table delta",
+    "existing nonalternative alias wirechecks assert actual sender and controlled fullTTtuple; enablesbothsendreceive and explicitserialsetup"
+  ],
+  "Integration": "Overlay onlyfour test files on exact semantic actual2 parents; style may differ in busycandidate so compareLF/semanticdiff before patching. Addtwo newfocused targets andpermanentHOST rows to Program/catalog usingexisting conventions. Run all23connectedHOST; no newproductionfiles.",
+  "DynamicIdentityPolicy": "All actual reference/actor equalities are within a test; controlled serialderived from configured InitialSerial+1, no captured native PID/ref or side-effect-shifted tracefinalserial hardcoded.",
+  "SdkExecuted": false,
+  "NetworkUsed": false,
+  "MainModified": false
+}

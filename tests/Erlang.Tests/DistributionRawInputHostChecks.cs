@@ -63,19 +63,12 @@ internal static class DistributionRawInputHostChecks
         Check(pending.ConnectedSnapshot(host).AcceptedInputPackets == 1);
         Check(pending.ConnectedSnapshot(host).RawInputAttempts == 5);
         var remote = new Pid(DistributionRawInputHostNames.Remote, 1, 0);
-        var reference = new ReferenceTerm(DistributionRawInputHostNames.Remote, new uint[] { 1 }, 0);
         await Unsupported(
             Term.Tuple(
-                Term.I(DistributionRawInputHostNames.UnsupportedSpawnRequestOpcode),
-                reference,
+                Term.I(DistributionRawInputHostNames.UnsupportedAlternativeActionOpcode),
+                Term.I(DistributionRawInputHostNames.AlternativeActionPlainFlags),
                 remote,
-                receiver.Process.Pid,
-                Term.Tuple(
-                    Term.A(DistributionRawInputHostNames.UnsupportedSpawnModule),
-                    Term.A(DistributionRawInputHostNames.UnsupportedSpawnFunction),
-                    Term.I(0)
-                ),
-                Nil.Value
+                receiver.Process.Pid
             ),
             Nil.Value
         );
@@ -235,7 +228,7 @@ internal static class DistributionRawInputHostChecks
                     Term.A(DistributionRawInputHostNames.Remote),
                     context.Self,
                     Term.Tuple(
-                        new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor | DistributionRawInputHostNames.UnsupportedSpawnRequestFlag),
+                        new Integer(DistributionPassThroughFlags.Mandatory | DistributionPassThroughFlags.ExitPayload | DistributionPassThroughFlags.ProcessMonitor | DistributionRawInputHostNames.UnsupportedAlternativeActionFlag),
                         Term.I(0)
                     )
                 ));

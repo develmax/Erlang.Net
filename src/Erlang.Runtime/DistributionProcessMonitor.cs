@@ -20,4 +20,5 @@ internal sealed class DistributionProcessMonitor(
     internal ReferenceTerm Reference { get; } = reference;
     internal bool Origin { get; } = origin;
     internal bool Established { get; set; }
+    internal bool SpawnOptions { get; set; }
 }

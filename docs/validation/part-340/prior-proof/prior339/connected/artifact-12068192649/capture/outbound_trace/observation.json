@@ -1,0 +1,118 @@
+{
+  "Name": "outbound_trace",
+  "Status": "OBSERVED_AND_CLEANED",
+  "Source": {
+    "Path": "source/connected_spawn_probe.erl",
+    "Bytes": 13370,
+    "Sha256": "4421C0540E2CDF124271D0EA7D043CB0B76B45919F3FFB0D70FD0664DB147E3D"
+  },
+  "SdkExecuted": false,
+  "ExpectedValuesPresent": false,
+  "RawNormalization": false,
+  "CompileReceipt": {
+    "Path": "compile.process.json",
+    "Bytes": 760,
+    "Sha256": "416724478C9EF18F87D41E0775DB570C62CDA7B72FECD8AD94330574C354ADB2"
+  },
+  "Beam": {
+    "Path": "beam/connected_spawn_probe.beam",
+    "Bytes": 11408,
+    "Sha256": "4EE0753604B424C4D189E3F2E40CD206202D5E04CBE0FE532CF7F3E16BBF1CF9"
+  },
+  "RunReceipt": {
+    "Path": "run.process.json",
+    "Bytes": 1228,
+    "Sha256": "3BA606CD0994185BAB43E6D65F7276A6E4F21E41FC9C42358F3790E8D79AEBF5"
+  },
+  "RawFiles": [
+    {
+      "Path": "controller-cleanup.etf",
+      "Bytes": 21,
+      "Sha256": "F6AF1693C26C849744EA5F5500E4615287AEFE4D62EB58231FF28B436DF8790D"
+    },
+    {
+      "Path": "outer.etf",
+      "Bytes": 15,
+      "Sha256": "60337F99C827A4F0F3E73C546817E65C048914A93CC24967258E4BD740F8A93B"
+    },
+    {
+      "Path": "parent-state.etf",
+      "Bytes": 198,
+      "Sha256": "53F48E2EFCEB489AEBF4B9921247902E19639E332640547D8552E3DCDC02592D"
+    },
+    {
+      "Path": "parent-token.etf",
+      "Bytes": 47,
+      "Sha256": "2824CCBB030C4A1679A7A9F1E08FE6D75182B5A7E0BF89822A061B878D3F257A"
+    },
+    {
+      "Path": "reply-control.etf",
+      "Bytes": 169,
+      "Sha256": "011EE299A69C73298B556CFC4B707BB6053311BB9ADEBD21DFBA81BC1B9F6EAD"
+    },
+    {
+      "Path": "reply-input-result.etf",
+      "Bytes": 5,
+      "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Path": "reply.packet",
+      "Bytes": 170,
+      "Sha256": "1BF240F109D9C692E348856E773662C54EEC22D97DB6C150899A3F4F7452AA94"
+    },
+    {
+      "Path": "request-arguments.etf",
+      "Bytes": 2,
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14"
+    },
+    {
+      "Path": "request-control.etf",
+      "Bytes": 184,
+      "Sha256": "6F891808649F7D94E75619EA4D4CC53B80EF292B0E78D6D0D50F2693AD9BC36C"
+    },
+    {
+      "Path": "request.packet",
+      "Bytes": 187,
+      "Sha256": "17466E232699F2136C6B8F07E6E1AF17B6462EB5C174AE3064ED4757F183EB22"
+    },
+    {
+      "Path": "runtime.etf",
+      "Bytes": 261,
+      "Sha256": "2136E6D9D044296EC7AB58AFE020389883F32E03177EFC229F80E92FC49BD8DB"
+    },
+    {
+      "Path": "setup.etf",
+      "Bytes": 307,
+      "Sha256": "A46B879A061D8E5DE1DF100B8B0732BA74AB3136131028161259B5439468BDBD"
+    },
+    {
+      "Path": "spawn-reply.etf",
+      "Bytes": 99,
+      "Sha256": "C31B8D380EDA34A142A0E718ED15286DCA6D72A7FA4D9AD2A57C0B821E15F57B"
+    },
+    {
+      "Path": "stage.etf",
+      "Bytes": 29,
+      "Sha256": "E0D6107BDA45AEC306C439586D0A040538A892336B7DDFDBB59E245FB4BCDEE3"
+    },
+    {
+      "Path": "trace-events.etf",
+      "Bytes": 14017,
+      "Sha256": "3232CF34427579277B81FC34DD269818EAE44CC5AE2C5AE249DEF270E4A6FEEC"
+    },
+    {
+      "Path": "tracer-cleanup.etf",
+      "Bytes": 21,
+      "Sha256": "F6AF1693C26C849744EA5F5500E4615287AEFE4D62EB58231FF28B436DF8790D"
+    },
+    {
+      "Path": "tracer-setting.etf",
+      "Bytes": 8,
+      "Sha256": "81A213E7CAB9BF8D4F9474467D8129DF6F3B7C5E36097BE79E1A3619F3AE0B81"
+    }
+  ],
+  "ActorCleanupFiles": [
+    "controller-cleanup.etf",
+    "tracer-cleanup.etf"
+  ]
+}

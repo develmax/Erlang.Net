@@ -1,0 +1,41 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_FOR_FIRST_FOCUSED_SDK",
+  "Passed": true,
+  "Role": "INDEPENDENT_SOURCE_REVIEW",
+  "SourceFreezeSha256": "42E9D4ECC725DA9032D16ACD4D7BC84D7A10D93FFE68FD676EBE8A5E92002E17",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProductionPaths": 37,
+  "HostTargets": 21,
+  "FrozenAndCandidateRawRowsExact": 58,
+  "BlockingFindings": [],
+  "ReviewedSemantics": [
+    "Caller-consumed tuple link/monitor options normalize to wire atoms; retained atom order and duplicate handling match pinned remote option preparation. Last tuple monitor options survive atomic monitor and priority link accumulates.",
+    "Successful spawn_reply remains ordinary; monitor priority applies to later DOWN. HOST explicitly preserves earlier ordinary message.",
+    "33/34 and ALTACT alias/token/priority layouts align with current native sender branches; alias capability is required.",
+    "Actual local alias table/mailbox admission handles missing alias and reply_demonitor deactivation; real remote monitor detach emits DEMONITOR against captured generation.",
+    "Public send/2 and send/3 reference paths reuse owned ordered output reservation, capacity wait, cancellation and generation fencing; existing PID wrapper remains.",
+    "Incoming token is carried through actual pending mailbox admission; duplicate alias delivery is rejected after reply deactivation.",
+    "HOST sources exercise four real alias packet routes plus existing monitor options, TT, owner death and capacity controls. Source assertions are not execution evidence."
+  ],
+  "PinnedSources": [
+    "erts/emulator/beam/dist.c:erts_dsig_send_msg and DOP_ALIAS_SEND/DOP_ALIAS_SEND_TT/DOP_ALTACT_SIG_SEND",
+    "erts/emulator/beam/erl_proc_sig_queue.c:handle_dist_spawn_reply and alias signal handling",
+    "erts/preloaded/src/erlang.erl:remote spawn option preparation"
+  ],
+  "Limitations": [
+    "No SDK build/execution or original capture for this expanded revision.",
+    "Alias alternative flags restricted to current known alias/priority/token; name/exit/future unknown bits remain unsupported.",
+    "Owner asynchronous SPAWN output (separate from reused asynchronous alias send), oldpeer/autoconnect, physical creator tuning and native deferred malformedargument boundary remain incomplete.",
+    "Pending pre-ack alias/process_info/sequence-trace timing not established.",
+    "Remote rpc/erpc label and process_info dependency remains a later source task; no fake export.",
+    "No all39proc_lib completeness, currentpublishedAPI or nativeinteroperability claim.",
+    "Current ALTACT validation deliberately rejects future/unknown flag bits and extra tuple fields that native forward-compatible receiver can ignore. This is an explicit protocol subset, not complete ALTACT parity.",
+    "Four alias HOST routes do not independently cover every alias nosuspend/cancellation/retirement combination; they reuse the already tested owned output mechanism.",
+    "No SDK, original OTP VM, TCP interoperability, published API, or performance result is claimed by this review."
+  ],
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "NetworkUsed": false,
+  "MainEdited": false,
+  "ProductionAuthor": false
+}

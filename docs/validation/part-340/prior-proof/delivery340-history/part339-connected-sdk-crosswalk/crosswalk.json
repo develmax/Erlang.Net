@@ -1,0 +1,262 @@
+{
+  "Status": "INDEPENDENT_SEMANTIC_CONTRACT_CROSSWALK_WITH_EXPLICIT_GAPS",
+  "NativeGuardSha256": "3096F324C1FB942B2938477E8B2DF97014E08AED5C32F12A01531044896B7829",
+  "NativeSupplementSha256": "FB28ACE603F0E38F8C77211F19CD8A9DE756F9C07A0B043F0826A65F19FF5D0D",
+  "SdkFocusedReportSha256": "ABFB9F1CA9566D063788F3676E63B71D4B0F2CD742407F8292966DE5E27E5C72",
+  "SdkActuallyTestedSourceSha256": "DE630FFB23302D912658FED0FF0B21707BD88602C68CC55CCD81786466671D0D",
+  "SdkOutcomesSha256": "B3D5DCFCF8B5E94904F0C034510DA43F2C032B5F2240C12ED932BEEBA6D75199",
+  "NativeCasesAccounted": 12,
+  "SdkExecutedContracts": 21,
+  "Crosswalk": [
+    {
+      "Native": [
+        "inbound_plain",
+        "outbound_plain"
+      ],
+      "Sdk": [
+        "codec-frames",
+        "real-request-reply-death"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnHostChecks.cs",
+          "Sha256": "B9C89F7C178F1CD8CD538FBDE241FB71C38A3DB92E208528028C082DB3C25F8C",
+          "Line": 81,
+          "AssertionAnchor": "public static async Task RealRequestReplyAndDeath()"
+        },
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnHostChecks.cs",
+          "Sha256": "B9C89F7C178F1CD8CD538FBDE241FB71C38A3DB92E208528028C082DB3C25F8C",
+          "Line": 5,
+          "AssertionAnchor": "public static Task CodecFrames()"
+        }
+      ],
+      "SharedAssertions": [
+        "SPAWN_REQUEST29 with six control fields and separately encoded argument payload; SPAWN_REPLY31 has no payload.",
+        "Reference survives request, response and delivered spawn_reply; spawned PID is on target runtime; inherited group leader equals request leader.",
+        "Success monitor flag and monitor-death correlation use the same request reference and child identity."
+      ],
+      "DifferencesAndGaps": [
+        "Native inbound uses monitor only (flag2), child/1, normal exit; SDK real exchange uses link+monitor(flag3), child/1, custom exit and also checks link EXIT. These are shared field/bit semantics, not identical whole cases.",
+        "Native initial_call and empty links for monitor-only child are captured/asserted; this SDK test checks group leader and positive linked parent, not native exact initial_call/empty-links pair.",
+        "Codec roundtrip checks structural layout/validation, not external byte-for-byte golden native packets."
+      ]
+    },
+    {
+      "Native": [
+        "inbound_trace",
+        "outbound_trace"
+      ],
+      "Sdk": [
+        "traced-success"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnTraceHostChecks.cs",
+          "Sha256": "58CA4D9C98E5A2018C516CE1D897E3808755C16A06D13A6E35120F97880FC552",
+          "Line": 9,
+          "AssertionAnchor": "private static async Task Exchange(bool badOption)"
+        }
+      ],
+      "SharedAssertions": [
+        "Request30 and reply32 with trace token, no reply payload.",
+        "Header serial11, argument/reply serial12; reply previous11 and sender equal child on success; token sender tracks real caller/child identity.",
+        "Core header send/receive, reply send/receive and argument send/receive events use corresponding actors/messages and causal serial roles."
+      ],
+      "DifferencesAndGaps": [
+        "SDK uses zero-arity empty arguments/no monitor; native inbound uses arity1/caller argument/monitor.",
+        "Native tracer records genuine extra file/code/RPC events; SDK checks selected first core events. No claim all events or final side-effect-shifted parent/child token serials equal.",
+        "No dynamic PID/reference literal equality across executions; relationships only."
+      ]
+    },
+    {
+      "Native": [
+        "inbound_badopt_trace"
+      ],
+      "Sdk": [
+        "traced-creator-error"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnTraceHostChecks.cs",
+          "Sha256": "58CA4D9C98E5A2018C516CE1D897E3808755C16A06D13A6E35120F97880FC552",
+          "Line": 9,
+          "AssertionAnchor": "private static async Task Exchange(bool badOption)"
+        }
+      ],
+      "SharedAssertions": [
+        "Trace30 invalid creator option produces reply32 with error-status spawn_reply; reply token sender is target node rather than child.",
+        "Two target-side core events header receive and reply send; no argument receive for rejected creator."
+      ],
+      "DifferencesAndGaps": [
+        "Native exact reason badopt/no_child_expected is asserted in independent native audit. SDK focused trace case checks error status and token/node relationships, but does not explicitly assert reply reason badopt or absence of all children.",
+        "Different invalid option atom spelling is semantically same unknown creator option, not raw argument equality."
+      ]
+    },
+    {
+      "Native": [
+        "outbound_monitor_options"
+      ],
+      "Sdk": [
+        "priority-customtag-explicit-alias",
+        "priority-customtag-demonitor-alias",
+        "priority-customtag-reply-demonitor-alias",
+        "real-demonitor-after-connected-success"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnMonitorOptionHostChecks.cs",
+          "Sha256": "95AEB9DF2E449044FB481FF5691C1917950CF53F5979E531137ACFDEB1EDF6F3",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(string mode, bool removeMonitor = false)"
+        },
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnWireOptionHostChecks.cs",
+          "Sha256": "5C422D7CDC89AE50A49E51490CF21E7D42266153932FA8D5B0A2E1D5F3A8F6E6",
+          "Line": 5,
+          "AssertionAnchor": "public static async Task WireOrderAndLastTuplePrecedence()"
+        }
+      ],
+      "SharedAssertions": [
+        "Priority/custom-tag/alias monitor options are handled at requesting owner; remote success is correlated to original reference and child.",
+        "Explicit alias can be unaliased after monitor-death handling; delivered custom DOWN contains exact reference/child/reason.",
+        "Local monitor removal emits remote DEMONITOR and suppresses subsequent remote monitor-down, verified with actual child termination."
+      ],
+      "DifferencesAndGaps": [
+        "Native explicitly checks process_info priority_messages=true and monitor list; SDK proves priority by custom DOWN preceding queued unrelated message, not same process_info fields.",
+        "Native injects remote_done monitor-exit and later unalias; SDK actual child emits custom reason and owns extra child cleanup monitor.",
+        "Only SDK extra wire-order-last-tuple-precedence case checks duplicate option precedence; native12 does not provide corresponding oracle."
+      ]
+    },
+    {
+      "Native": [
+        "alias_input_explicit",
+        "alias_input_demonitor",
+        "alias_input_reply_demonitor"
+      ],
+      "Sdk": [
+        "priority-customtag-explicit-alias",
+        "priority-customtag-demonitor-alias",
+        "priority-customtag-reply-demonitor-alias",
+        "real-demonitor-after-connected-success",
+        "remote-alias-send2"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnMonitorOptionHostChecks.cs",
+          "Sha256": "95AEB9DF2E449044FB481FF5691C1917950CF53F5979E531137ACFDEB1EDF6F3",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(string mode, bool removeMonitor = false)"
+        },
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnAliasWireHostChecks.cs",
+          "Sha256": "6E5DFD95E8D873FB26304F28CFE7B0AEB9D321C007DDD0E032D9790C1CE2F4C1",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(bool traced, bool send3, bool alternative)"
+        }
+      ],
+      "SharedAssertions": [
+        "Alias selects actual message; reply_demonitor selection removes monitor and emits DEMONITOR; demonitor and unalias affect owner-side monitor/alias lifecycle.",
+        "Explicit mode returns true on unalias; demonitor/reply_demonitor modes yield false after automatic removal under tested termination/removal paths.",
+        "Replaying already consumed reply_demonitor alias packet produces no mailbox message and child cleanup is joined."
+      ],
+      "DifferencesAndGaps": [
+        "Native directly creates local monitor alias then injects33; SDK creates alias by connected spawn monitor option, and monitor tests send alias message locally while wire tests use only reply_demonitor.",
+        "Exact native sequence first selection -> explicit demonitor -> second selection -> unalias -> third selection is NOT executed for all three modes by SDK21.",
+        "Native duplicate monitor counts2->1 for reply_demonitor and no extra DOWN are native-only observational assertions; no same count assertion in SDK21."
+      ]
+    },
+    {
+      "Native": [
+        "alias_input_trace"
+      ],
+      "Sdk": [
+        "remote-alias-trace-send2"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnAliasWireHostChecks.cs",
+          "Sha256": "6E5DFD95E8D873FB26304F28CFE7B0AEB9D321C007DDD0E032D9790C1CE2F4C1",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(bool traced, bool send3, bool alternative)"
+        }
+      ],
+      "SharedAssertions": [
+        "ALIAS_SEND_TT34 selects alias payload and restores trace label77 at receiver; consumed reply alias rejects repeated delivery."
+      ],
+      "DifferencesAndGaps": [
+        "Native uses explicit_unalias input then demonitor/unalias sequence; SDK traced wire uses reply_demonitor mode.",
+        "Native tracer receive event/core message and exact injected token sender are verified; SDK test checks receiver label, not complete trace event/sender/serial equality."
+      ]
+    },
+    {
+      "Native": [
+        "alias_output_send2"
+      ],
+      "Sdk": [
+        "remote-alias-send2"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnAliasWireHostChecks.cs",
+          "Sha256": "6E5DFD95E8D873FB26304F28CFE7B0AEB9D321C007DDD0E032D9790C1CE2F4C1",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(bool traced, bool send3, bool alternative)"
+        }
+      ],
+      "SharedAssertions": [
+        "send/2 returns message; output ALIAS_SEND33 targets original alias reference and carries payload unchanged; receiver actually selects payload."
+      ],
+      "DifferencesAndGaps": [
+        "Native targets fixed fabricated remote reference; SDK obtains a real remotely exchanged connected-spawn alias.",
+        "SDK source assertion checks target and payload/opcode but not an explicit sender PID equality at alias output; native audit checks sender equals setup parent."
+      ]
+    },
+    {
+      "Native": [
+        "alias_output_trace_send3"
+      ],
+      "Sdk": [
+        "remote-alias-trace-send2",
+        "remote-alias-send3-noconnect",
+        "remote-alias-alternative-trace-send3"
+      ],
+      "Evidence": [
+        {
+          "Path": "artifacts/connected-remote-spawn-alias-actual2/source/tests/Erlang.Tests/ConnectedSpawnAliasWireHostChecks.cs",
+          "Sha256": "6E5DFD95E8D873FB26304F28CFE7B0AEB9D321C007DDD0E032D9790C1CE2F4C1",
+          "Line": 13,
+          "AssertionAnchor": "private static async Task Exchange(bool traced, bool send3, bool alternative)"
+        }
+      ],
+      "SharedAssertions": [
+        "Traced send/2 exercises34 and receiver label; plain send/3 noconnect exercises ok return; alternate traced send/3 exercises alternative action encoding with same alias target/payload."
+      ],
+      "DifferencesAndGaps": [
+        "Native exact combined path traced send/3 noconnect -> legacy34 -> ok is NOT one SDK21 test: alternative-trace-send3 negotiates ALTACT instead of34. Component coverage does not prove that combined path.",
+        "Native token tuple {3,77,11,sender,0} and trace send event are not all explicitly asserted by SDK alias tests."
+      ]
+    }
+  ],
+  "AdditionalSdkOnlyCoverage": [
+    "stale-reply-generation",
+    "owner-death-before-reply",
+    "abandon-before-reply",
+    "owner-death-after-reply-before-selection",
+    "producer-death-during-capacity-wait",
+    "priority-linked-exit",
+    "wire-order-last-tuple-precedence",
+    "unchanged-node-spawn-regressions",
+    "unchanged-local-spawn-request-regressions"
+  ],
+  "CleanupScope": "Native12 explicitly observed normal child/controller/tracer exits. SDK uses await using runtime/controller/actor disposal plus concrete matching child monitors in real/alias/monitor tests and specialized retirement/capacity tests. The latter do not independently reproduce native actor-cleanup ETF or prove no leaked OS actors; SDK endpoints are in-process controllers.",
+  "DeterministicWireScope": "Control opcode/arity/field semantics and flags, reference/actor correlation and payload equality at test boundaries; not exact dynamicETF byte identity or entire raw packet golden comparison.",
+  "FullTwelveWholeCaseEquivalenceProven": false,
+  "DynamicIdsOrFinalTraceSerialsComparedBytewise": false,
+  "TcpInteroperabilityProven": false,
+  "FullModuleParityProven": false,
+  "NewSDKExecuted": false,
+  "NetworkUsed": false,
+  "MainModified": false,
+  "RpcScope": "RPC wrapper proposal is separate; no RPC run needed to establish connected transport crosswalk and no RPC claim added."
+}

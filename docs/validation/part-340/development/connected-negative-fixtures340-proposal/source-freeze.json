@@ -1,0 +1,53 @@
+{
+  "Status": "SOURCE_ONLY_TWO_HISTORICAL_NEGATIVE_PROTOCOL_FIXTURE_REPAIR_NOT_APPLIED",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestSendHostChecks.cs",
+      "Bytes": 18448,
+      "Sha256": "3285CEC83052367DBE234DF0248243E58D179F28819EE269C90B3205519D8941"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "Bytes": 13669,
+      "Sha256": "649D01B984928EA7ABA383CD3964D8AFFD70807AB55B92FD6DC8E464EFA054B4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostNames.cs",
+      "Bytes": 1277,
+      "Sha256": "05D2385752D9247AD8394ED62EDE623830818ACE5746F02119AB20587EEE30D8"
+    }
+  ],
+  "Parents": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestSendHostChecks.cs",
+      "Bytes": 17114,
+      "Sha256": "A9DEBF2A753C3CF45EE10D5ED51628EEBB2164776A42DF48D48CBAEB4EBEC7A2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostChecks.cs",
+      "Bytes": 13668,
+      "Sha256": "D85431FA8252DA88AD0A04FF107D0C507884D1468597EF569C99059A0E11B7F5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawInputHostNames.cs",
+      "Bytes": 1295,
+      "Sha256": "21D624D160AEF98BF53B3C5549C6B127236FB092627D928C10D299AE3C413109"
+    }
+  ],
+  "ProductionUnchanged": true,
+  "OldNamesPreserved": [
+    "host_guest_connected_pid_send_routes_options_and_trace",
+    "runtime/distribution-raw-input-attempt-generation-owner-exiting-lifecycle"
+  ],
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeAnchors": [
+    "erts/emulator/beam/dist.h DOP_ALTACT_SIG_SEND37;DFLAG_ALTACT_SIG;ALIASflagbit2",
+    "erts/emulator/beam/dist.h DFLAG_ALIAS bit8<<32; ALTACT flags0 isplainPIDpayload"
+  ],
+  "Changes": [
+    "Malformed ALTACT controls negotiate Alias beforeassertingArgumentException; flag4 nowvalidaliastargetkindbutPIDtargetstillmalformed",
+    "AddvalidAliasSendwithmissingAliasfeature->NotSupported andmalformedAliasaritywithAliasfeature->ArgumentException",
+    "Raw unsupportedframe isvalidALTACT plainPIDpayload37/0 withnegotiatedALTACT; rawinputdefaultallowAlternativePidSendfalse deliberatelyunsupported; newlyimplementedSpawnRequestisnotcalledunsupported"
+  ],
+  "FailedFullTestReportSha256": "F3B85DAA8F45B7D0E14B65CD39BFC79C17FDEF518AD8036D0020D9FA8ECDBEE0"
+}

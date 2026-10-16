@@ -51,7 +51,7 @@ internal sealed class ProcessSpawnRequestOptions
                 // reach the remote creator only after connection succeeds.
                 try
                 {
-                    result.Spawn = ProcessSpawnOptions.Parse(Cons.From(spawn));
+                    result.Spawn = ProcessSpawnOptions.ParseRemote(Cons.From(spawn));
                 }
                 catch (ErlangException)
                 {
@@ -63,7 +63,9 @@ internal sealed class ProcessSpawnRequestOptions
         }
         try
         {
-            result.Spawn = ProcessSpawnOptions.Parse(Cons.From(spawn));
+            result.Spawn = disconnected
+                ? ProcessSpawnOptions.ParseRemote(Cons.From(spawn))
+                : ProcessSpawnOptions.Parse(Cons.From(spawn));
         }
         catch (ErlangException)
         {

@@ -1789,6 +1789,65 @@ Test(Erlang.Tests.ProcLibStartupWaitHostNames.InterpretedTest, Erlang.Tests.Proc
 
 Test(Erlang.Tests.ProcLibInitialCallHostNames.Test, Erlang.Tests.ProcLibInitialCallHostChecks.Run);
 
+Test(Erlang.Tests.ConnectedDependencyHostNames.ParseAll, Erlang.Tests.ConnectedDependencyMfaContracts.ParseAll);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host1, Erlang.Tests.ConnectedSpawnHostChecks.CodecFrames);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host2, Erlang.Tests.ConnectedSpawnHostChecks.RealRequestReplyAndDeath);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host3, Erlang.Tests.ConnectedSpawnRetirementHostChecks.StaleReplyCannotRebind);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host4, Erlang.Tests.ConnectedSpawnCleanupHostChecks.ParentDeathBeforeReply);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host5, Erlang.Tests.ConnectedSpawnCleanupHostChecks.AbandonBeforeReply);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host6,
+    Erlang.Tests.ConnectedSpawnCleanupHostChecks.ParentDeathAfterReplyBeforeSelection
+);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host7,
+    Erlang.Tests.ConnectedSpawnCapacityHostChecks.ProducerDeathDuringCapacityWait
+);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host8, Erlang.Tests.ConnectedSpawnTraceHostChecks.TracedSuccess);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host9, Erlang.Tests.ConnectedSpawnTraceHostChecks.TracedCreatorError);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host10, Erlang.Tests.ConnectedSpawnMonitorOptionHostChecks.ExplicitAlias);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host11, Erlang.Tests.ConnectedSpawnMonitorOptionHostChecks.DemonitorAlias);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host12,
+    Erlang.Tests.ConnectedSpawnMonitorOptionHostChecks.ReplyDemonitorAlias
+);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host13,
+    Erlang.Tests.ConnectedSpawnMonitorOptionHostChecks.DemonitorAfterSuccess
+);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host14, Erlang.Tests.ConnectedSpawnPriorityLinkHostChecks.PriorityLinkedExit);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host15,
+    Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence
+);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host16, Erlang.Tests.ConnectedSpawnAliasWireHostChecks.PlainSend2);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host17, Erlang.Tests.ConnectedSpawnAliasWireHostChecks.TracedSend2);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host18, Erlang.Tests.ConnectedSpawnAliasWireHostChecks.PlainSend3);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host19, Erlang.Tests.ConnectedSpawnAliasWireHostChecks.AlternativeTracedSend3);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host20, Erlang.Tests.ConnectedRpcLocalHostChecks.LocalCallerAndExceptions);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.Host21,
+    Erlang.Tests.ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement
+);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host22, Erlang.Tests.ConnectedRpcTimeoutHostChecks.QueuedDownBeforeZeroWait);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host23, Erlang.Tests.ConnectedRpcTimeoutHostChecks.TimeoutLosesToAdmittedDown);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host24, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnFun);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host25, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnMfa);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host26, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnLinkFun);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host27, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnLinkMfa);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host28, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnOptFun);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host29, Erlang.Tests.ConnectedProcLibNodeHostChecks.SpawnOptMfa);
+Test(Erlang.Tests.ConnectedDependencyHostNames.Host30, Erlang.Tests.RuntimeConnectedNodeQueryHostChecks.Run);
+
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.NativeAliases,
+    Erlang.Tests.ConnectedSpawnNativeAliasHostChecks.ThreeMonitorAliasModes
+);
+Test(
+    Erlang.Tests.ConnectedDependencyHostNames.LegacyTracedSend,
+    Erlang.Tests.ConnectedSpawnAliasWireHostChecks.LegacyTracedSend3
+);
+
 // Every registered MFA has a direct contract smoke test. Error/option completeness still needs OTP differential coverage.
 var exportRegistry = new ModuleRegistry();
 CoreModules.Register(exportRegistry);
@@ -1798,6 +1857,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.ConnectedDependencyMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ConnectedDependencyMfaContracts.Run(export.Module, export.Function, export.Arity);
+
+            return;
+        }
         if (Erlang.Tests.ProcLibMetadataMfaContracts.Owns(export.Module, export.Function))
         {
             await Erlang.Tests.ProcLibMetadataMfaContracts.Run(export.Function);
