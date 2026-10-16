@@ -1,0 +1,124 @@
+{
+  "Status": "PASS_PASSIVE_FAILURE_DIAGNOSIS_SEVEN_PARTIAL_ACQUISITIONS_NOT_EIGHT_CASE_SUCCESS",
+  "Run": 38968442431,
+  "Job": 117200623776,
+  "Artifact": 12075724247,
+  "Head": "0114bc4ba2c7b8152612e930e3cd36db1caf4180",
+  "OriginalOverallStatus": "ORIGINAL_REAL_PEER_OBSERVATIONS_FAILED",
+  "Cases": [
+    {
+      "Name": "mfa_spawn",
+      "AcquisitionStatus": "FAILED_RAW_RETAINED",
+      "RawEtfRowsRehashed": 1,
+      "RunReceiptSha256": "FF0F30CF82408ED52387BDF064402DF0BC3CC36A609269E6A42E4B64DAF8B951"
+    },
+    {
+      "Name": "mfa_spawn_link",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 19,
+      "RunReceiptSha256": "25742BE849D8CD5D075D1B9B3C0B647D702D664F9E8AE5E51F790994F6660864"
+    },
+    {
+      "Name": "mfa_spawn_opt",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 19,
+      "RunReceiptSha256": "7307B695A569C320939971A95BB3FCC56D824586BC469B4ACE4DBF25A9B2DC7F"
+    },
+    {
+      "Name": "fun_spawn",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 19,
+      "RunReceiptSha256": "6108424C4DA8D4D26D79FC609371A9D47A486C23B4A764B0AA5B85164AA31476"
+    },
+    {
+      "Name": "fun_spawn_link",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 20,
+      "RunReceiptSha256": "C8406775C31617B83D7B4C4A6561B0B582F901F467B8787666BC20876B1D3E42"
+    },
+    {
+      "Name": "fun_spawn_opt",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 20,
+      "RunReceiptSha256": "EB923E279F15F90DE388EB551B1E729AB742EB96A69EEECA86EB5C0FFA17F25C"
+    },
+    {
+      "Name": "labels_visible",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 18,
+      "RunReceiptSha256": "09C1A753D2A8A196BCEC8F3E673F540CBBB40EE3C3BA506CF17EEE68D1E62B16"
+    },
+    {
+      "Name": "labels_hidden",
+      "AcquisitionStatus": "OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP",
+      "RawEtfRowsRehashed": 18,
+      "RunReceiptSha256": "BD3908F51F3CB1C02E08A021B13824BA5DC32D6C4332029831988D8967764CCD"
+    }
+  ],
+  "FailedCase": "mfa_spawn",
+  "FailureStage": "Original probe saved peer-options before peer:start_link completed; no peeridentity/spawnresult/outer result retained",
+  "ObservedError": "ProcessLookupError(3, 'No such process')",
+  "OriginVmElapsedSeconds": 0.2445028420000881,
+  "OriginTerminatedByCollector": true,
+  "Diagnosis": "Read-only descendant procfs observation does not handle ESRCH, so OwnedProcess.wait propagates callback error and finally close terminates its origin VM. This is an acquisition/observer failure, not evidence of an MFA spawn semantic failure.",
+  "PrecisionLimit": "Failure row retained repr(error) only, not traceback/file path; exact failing procfs syscall cannot be recovered from this run. The four read-only discovery operations all have the same source-level missing ESRCH handling. Peer nodistribution dump follows interrupted startup/cleanup and is not independently attributed as an initial language/runtime defect.",
+  "SevenPartialAcquisitionsNormalReceiptAndEtfHashesVerified": true,
+  "AllEightSemanticPassClaimed": false,
+  "CorrectionSourceFreezeSha256": "40DFA630C0D484B41928531964DE1B6BAC53213A8D1FAB773AF899908F51B096",
+  "ControlResultSha256": "1218497C4B1877989C6B687CC1163DF3CEED346141CE46025B27D13975E5501F",
+  "Controls": 12,
+  "UnchangedContracts": [
+    "Eight required scenario identities and Erlang fixture bytes",
+    "Full loaded-module identity provenance",
+    "Real child/controller/peer/EPMD normal cleanup and deadlines",
+    "UID/executable/name/beam/generation ownership refusals; permission errors still fail",
+    "Workflow source-manifest input remains explicit; use new reviewed C86FA manifest"
+  ],
+  "Evidence": [
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/observations.json",
+      "Sha256": "2157683FE9C8F9425F904B695ADBF8ED659A3F9A7FAB9D09996FB6D72A0B2513"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/collection.log",
+      "Sha256": "8713F6891EEDCDACBB36AFB591CE1510075A5F8CABC921290C0AD762E27E89E0"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/run.stdout",
+      "Sha256": "D6ABCE19B24B54275FDE85C0555514966D5E2B02ACD8F2172E0409656BE971C1"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/run.process.json",
+      "Sha256": "FF0F30CF82408ED52387BDF064402DF0BC3CC36A609269E6A42E4B64DAF8B951"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/observation.json",
+      "Sha256": "76F23626438434D31C202B3F960D2AFA15DC445C2202FA72D8CAC52D6F55BB8E"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/erl_crash.dump",
+      "Sha256": "8558BB54A9BDEAACEAA3CB2889D9AB16A1570ACEA241D7A4F76E2B928EAF7D81"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/epmd-owner.json",
+      "Sha256": "23FD41FF9CEE6D1CEAE6C1D8688C3B8351990336CE48D422BCAC223F76B36801"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/mfa_spawn/peer-os-cleanup.json",
+      "Sha256": "8371B997C972C39F4089FFA4FA0F8276B75EA03CCE0E80ED630EC9E0D64EB5E5"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/original-provenance.json",
+      "Sha256": "7791AFF996BF2FF56C15BBB8ABFFA415A923EB59AB15ADE7C3A9ABA4174F1A5F"
+    },
+    {
+      "Path": "artifacts/part342-remote-new-review/real-peer/artifact-12075724247/capture/runtime-control.stdout",
+      "Sha256": "8FF5ED87362A0530C62B008BD0F8F46EA8111C6722A7F8ABF2D38D23C29EA70E"
+    }
+  ],
+  "DownloadedCodeExecuted": false,
+  "NewOriginalExecution": false,
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

@@ -1,0 +1,78 @@
+{
+  "Status": "PASS_INDEPENDENT_NARROW_PROCFS_SOURCE_AND_SYNTHETIC_CONTROLS",
+  "SourceFreezeSha256": "40DFA630C0D484B41928531964DE1B6BAC53213A8D1FAB773AF899908F51B096",
+  "DiagnosisSha256": "195A0368C8BAD1EACCB41D14D57248F96D9588D28EAF563055196717EE15CA58",
+  "SourceFiles": [
+    {
+      "Path": ".github/workflows/proc-lib-real-peer-original.yml",
+      "Bytes": 2699,
+      "Sha256": "F42DA35887D9351211CF57CE6B2210C850A558A3B02C09779B5CDE3A8F3D6439",
+      "ParentSha256": "F42DA35887D9351211CF57CE6B2210C850A558A3B02C09779B5CDE3A8F3D6439"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/collect-original.py",
+      "Bytes": 18617,
+      "Sha256": "FCC46428B84CBB1AEBB74286D13897C3F835C12C22D56D86106C99C9E97C8C82",
+      "ParentSha256": "3451F256A7FFF8580DBF295C4D6FFE04710A61D063994C3648DA38B0E2035286"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_real_peer_probe.erl",
+      "Bytes": 6291,
+      "Sha256": "D38B1300E57513EE0E2032EDEC43BF6445F9930C9F057B0E0088215A5F3BB58A",
+      "ParentSha256": "D38B1300E57513EE0E2032EDEC43BF6445F9930C9F057B0E0088215A5F3BB58A"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_remote_payload.erl",
+      "Bytes": 898,
+      "Sha256": "51CF003E978C004B2F3B374BDF9FF96A1459BF6BD000C07945B54F6D877041EF",
+      "ParentSha256": "51CF003E978C004B2F3B374BDF9FF96A1459BF6BD000C07945B54F6D877041EF"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/README.md",
+      "Bytes": 3953,
+      "Sha256": "44E1E993D19B583E5C1E50E5D8D3EEEA5E03764BD1955758D80E6AFE28620FDF",
+      "ParentSha256": "55F5EB15670A3FC0CD4294EC790E041900A9067A6BF2AD8EFD0F30D84E4C1AC3"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/source-manifest.json",
+      "Bytes": 3574,
+      "Sha256": "C86FA344D5FB2CB1FCAAFC85B8A0370D03D2B252E693C0004DC654429F41E311",
+      "ParentSha256": "78D4C5B9268520DED2C79C846894DEA8CAFC7DCB9BD07A68A6564E26BF595032"
+    }
+  ],
+  "ExactDeltaOnlyFourDisappearanceCatchesAndTraceback": true,
+  "OwnedCleanupGenerationAndNormalExitGatesAstUnchanged": true,
+  "OriginalControlCount": 12,
+  "IndependentExtendedStageControls": 27,
+  "IndependentEpmdFdControls": [
+    {
+      "Error": "FileNotFoundError",
+      "Passed": true
+    },
+    {
+      "Error": "ProcessLookupError",
+      "Passed": true
+    },
+    {
+      "Error": "PermissionError",
+      "Passed": true
+    },
+    {
+      "Error": "OSError",
+      "Passed": true
+    },
+    {
+      "Error": "RuntimeError",
+      "Passed": true
+    }
+  ],
+  "PermissionAndUnexpectedErrorsRemainFatal": true,
+  "FixtureAndWorkflowRawUnchanged": true,
+  "FailureHistoryRehashed": true,
+  "SevenPartialObservationsNotEightPass": true,
+  "OriginalReexecuted": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false,
+  "MainModified": false,
+  "SourceControlsOnlyNotLinuxRuntimeProof": true
+}

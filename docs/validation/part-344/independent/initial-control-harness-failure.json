@@ -1,0 +1,8 @@
+{
+  "Status": "INDEPENDENT_HARNESS_PRECONDITION_FAILURE_NOT_COLLECTOR_FAILURE",
+  "Cause": "The extended control instantiated OSError with errno2, which Python converts to FileNotFoundError; the collector correctly treated it as disappearance. The test's expected fatal generic-error classification was invalid.",
+  "Repair": "Use errno5 for the generic OSError control; keep FileNotFoundError and ProcessLookupError cases unchanged.",
+  "CollectorSourceChanged": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

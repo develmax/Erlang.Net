@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib-real-peer-procfs-correction\controls-red-original.py", line 47, in <module>
+    try:actual()
+        ^^^^^^^^
+  File "reviewed_local_collector_functions", line 153, in observe
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib-real-peer-procfs-correction\controls-red-original.py", line 38, in read_bytes
+    assert self.parts[-1]=='cmdline';self.fail('cmdline');return b'beam\x00peer_control@127.0.0.1\x00'+str(d/'beam').encode()+b'\x00'
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib-real-peer-procfs-correction\controls-red-original.py", line 30, in fail
+    if stage==kind and ((kind=='children' and self.pid==100) or (kind!='children' and self.pid==11)) and error:raise error(3 if error is ProcessLookupError else 2,'controlled transient procfs operation')
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ProcessLookupError: [Errno 3] controlled transient procfs operation

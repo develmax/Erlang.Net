@@ -1,0 +1,71 @@
+{
+  "Status": "PASS_LOCAL_PROCFS_OBSERVATION_COMPONENT_CONTROLS",
+  "SourceSha256": "FCC46428B84CBB1AEBB74286D13897C3F835C12C22D56D86106C99C9E97C8C82",
+  "Checks": 12,
+  "Results": [
+    {
+      "Name": "cmdline-disappeared",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "stat-disappeared",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "exe-disappeared",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "uid-disappeared",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "children-disappeared",
+      "Passed": true,
+      "Expected": "none"
+    },
+    {
+      "Name": "cmdline-missing",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "cmdline-permission",
+      "Passed": true,
+      "Expected": "raise"
+    },
+    {
+      "Name": "uid-mismatch",
+      "Passed": true,
+      "Expected": "reject"
+    },
+    {
+      "Name": "exe-mismatch",
+      "Passed": true,
+      "Expected": "live"
+    },
+    {
+      "Name": "proc-token-FileNotFoundError",
+      "Passed": true
+    },
+    {
+      "Name": "proc-token-ProcessLookupError",
+      "Passed": true
+    },
+    {
+      "Name": "proc-token-PermissionError",
+      "Passed": true
+    }
+  ],
+  "Scope": "Only AST-extracted local reviewed proc_token/observe functions with deterministic synthetic procfs seams. No original runtime, lifecycle success or native interoperability claim.",
+  "SubprocessesStarted": 0,
+  "SignalsSent": 0,
+  "NetworkUsed": false,
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "DownloadedCodeExecuted": false
+}

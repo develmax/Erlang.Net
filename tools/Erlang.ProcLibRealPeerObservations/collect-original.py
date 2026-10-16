@@ -1,5 +1,5 @@
 """Original-only real two-node proc_lib observations, fresh owned foreground EPMD per case."""
-import argparse, ast, hashlib, importlib.util, json, os, re, secrets, signal, socket, subprocess, sys, time
+import argparse, ast, hashlib, importlib.util, json, os, re, secrets, signal, socket, subprocess, sys, time, traceback
 from pathlib import Path, PurePosixPath
 sys.dont_write_bytecode = True
 PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
@@ -62,14 +62,14 @@ def verify_module_identities(identity,installed,beam):
 def proc_token(pid):
     try:
         raw=Path('/proc',str(pid),'stat').read_text();parts=raw[raw.rfind(')')+2:].split();return (int(parts[1]),int(parts[19]))
-    except FileNotFoundError:return None
+    except (FileNotFoundError, ProcessLookupError):return None
 
 def epmd_owner(process,port):
     pid=process.process.pid;require(process.poll() is None,'Owned EPMD exited')
     inodes=set()
     for fd in Path('/proc',str(pid),'fd').iterdir():
         try:target=os.readlink(fd)
-        except FileNotFoundError:continue
+        except (FileNotFoundError, ProcessLookupError):continue
         match=re.fullmatch(r'socket:\[(\d+)\]',target)
         if match:inodes.add(match.group(1))
     found=[]
@@ -146,7 +146,7 @@ def collect(a):
                     if current is None or current in seen:continue
                     seen.add(current)
                     try:children=Path('/proc',str(current),'task',str(current),'children').read_text().split()
-                    except FileNotFoundError:continue
+                    except (FileNotFoundError, ProcessLookupError):continue
                     for child in children:
                         child=int(child);pending.append(child);proc=Path('/proc',str(child))
                         try:
@@ -154,7 +154,7 @@ def collect(a):
                             if token is not None and (env['ERLANG_NET_PEER_NAME']+'@127.0.0.1').encode() in args and str(d/'beam').encode() in args and (proc/'exe').resolve(strict=True).is_relative_to(installed):
                                 require(proc.stat().st_uid==os.getuid(),'Peer owner UID');peer_pid=child;peer_start=token[1]
                                 save(d/'peer-owned-process.json',dict(Pid=peer_pid,StartTicks=peer_start,OriginOwnedPid=parent_pid[0]));break
-                        except FileNotFoundError:continue
+                        except (FileNotFoundError, ProcessLookupError):continue
             p=d/'peer-identity.etf'
             if p.exists():
                 identity=map_fields(decode(decoder,p));reported=int(text(identity[('atom','os_pid')]))
@@ -194,7 +194,7 @@ def collect(a):
                 identity=map_fields(decode(decoder,d/name));require(text(identity[('atom','otp')])=='29' and Path(text(identity[('atom','root')])).resolve()==installed,'Both exact original runtime roots')
                 verify_module_identities(identity,installed,(d/'beam').resolve())
             row['Status']='OBSERVED_NORMAL_CHILD_PEER_AND_OS_CLEANUP'
-        except Exception as error:row.update(Status='FAILED_RAW_RETAINED',Error=repr(error))
+        except Exception as error:row.update(Status='FAILED_RAW_RETAINED',Error=repr(error),ErrorTraceback=traceback.format_exc())
         finally:
             try:
                 if peer_pid is None and (d/'peer-identity.etf').exists():
