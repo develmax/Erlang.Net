@@ -1,5 +1,7 @@
 # Decisions
 
+Part336 — Obtain independently captured original outcomes before assigning formatter expectations. Use existing Python standard-library development-observer infrastructure, exact pinned source-built OTP and isolated owned processes; do not add a runtime BEAM or third-party package dependency. Decode ETF terms for later comparison while retaining text bytes and nested lists; never infer expected values from SDK output.
+
 Part335 — Port proc_lib stop and required sys/gen call/reply logic directly over existing CLR process, alias, monitor and receive primitives. The host GenServer.Stop helper stays usable in a bare runtime without module-registration side effects; it consumes ACK and awaits DOWN under one Stopwatch budget. Preserve source error/catch boundaries and matching-node registry failures. Avoid a separate actor or message-bus dependency.
 
 Part334 — Reuse existing process_info dictionary queries, lists:keyfind, process dictionary put/get, PID text parsing and atom admission. Dummy arguments are built cooperatively with existing reductions/cancellation. Keep wrong-arity/malformed query behavior and the source precedence rather than flattening all query forms. No actor framework, production BEAM dependency, package or synthetic process state is added.

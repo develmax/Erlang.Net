@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part336: publish the source-reviewed standalone collector, dispatch exactly once with its manifest SHA, then compare actual original raw returned terms against private SDK observations. Finish exact335 CI/original audits. Continue all14 missing proc_lib exports and label remote dependencies; no fake logger or disconnected-only completion claim.
+
 Part335: publish cooperative stop/system termination and compare29 new scenarios with pinned OTP. Finish pending original334 and current335 CI. Continue faithful report formatting, then initializer/hibernate/crash-report and node overloads. Keep unverified formatter/lifecycle drafts isolated and uncounted; no direct kill replacement or generic full-module/performance claim. LICENSE.local.txt and unrelated caches remain uncommitted.
 
 Part334: publish and compare the43 new introspection/label scenarios against pinned OTP. Continue all remaining proc_lib exports: real sys termination and DOWN budget, init_p/wake_up/hibernate plus crash reports, node overloads and faithful report formatting. Keep unverified drafts isolated; never count absent backends or disconnected-only spawning as full compatibility. LICENSE.local.txt and unrelated caches remain uncommitted.

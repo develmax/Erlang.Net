@@ -1,0 +1,627 @@
+{
+  "SchemaVersion": 1,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CombinedSourceFreezeSha256": "1AA18520EFD15C71072542C794CE88589AFFEF3A22FFDCB42BA078B7E9B5D132",
+  "ReportCases": 57,
+  "PrimitiveOriginalOnlyCases": 19,
+  "Cases": [
+    {
+      "Track": "report",
+      "Name": "empty-default",
+      "Path": "fixtures/empty-default.erl",
+      "Bytes": 206,
+      "Sha256": "9A963637F3A70B0BBDFC5BAE0C514EB2342426015580D11FE8CB81AF401D4438",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "empty-explicit-latin1",
+      "Path": "fixtures/empty-explicit-latin1.erl",
+      "Bytes": 213,
+      "Sha256": "2366B4E57445C9BEC2A81B778E7A6EA18EBB7A033627438DD434BAD64E5075C1",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "empty-depth-unused",
+      "Path": "fixtures/empty-depth-unused.erl",
+      "Bytes": 216,
+      "Sha256": "CF8291A6AD71114F4106D06E20F4BB0E9468EEA79CEA604C016E7ED49476B81F",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "ordinary-tags",
+      "Path": "fixtures/ordinary-tags.erl",
+      "Bytes": 270,
+      "Sha256": "410CE0724EDD6E10EC2A4ED91F1EAB5973DD4C6C2225FEB0F76BDC71228A6F8C",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "process-label-suppression",
+      "Path": "fixtures/process-label-suppression.erl",
+      "Bytes": 272,
+      "Sha256": "2E71299EA750553483DD0139870E1E609FD549283B29B37DA1B43CF482A0B0E4",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "initial-mfa",
+      "Path": "fixtures/initial-mfa.erl",
+      "Bytes": 243,
+      "Sha256": "A3525469B9D28FC927CE532065C4DF7212E18955B824DFC1E89E4DF88D70E954",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "initial-quoted-atom",
+      "Path": "fixtures/initial-quoted-atom.erl",
+      "Bytes": 243,
+      "Sha256": "634EAA312BDB1820B46661A87FEA4E091A497A9C37AEFBBEB0433B8513C5B31E",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "initial-nonatom-fallback",
+      "Path": "fixtures/initial-nonatom-fallback.erl",
+      "Bytes": 233,
+      "Sha256": "3B98B38CFBF17B1B91865E64C8A39320F921C8F66B07B3734EDD1BC309820334",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "initial-improper-fallback",
+      "Path": "fixtures/initial-improper-fallback.erl",
+      "Bytes": 243,
+      "Sha256": "11991C8C07CA3C776EE45C8B94A69E3CBD354D676AC86DE5764B368014D4C064",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "neighbours",
+      "Path": "fixtures/neighbours.erl",
+      "Bytes": 300,
+      "Sha256": "38B381224E5C694159F137070A7F00D97B8608540821E8B7CD071D4DC6702E8A",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "raw-neighbour-report",
+      "Path": "fixtures/raw-neighbour-report.erl",
+      "Bytes": 219,
+      "Sha256": "B23C605B6376A4E21B34E8653B2C5A37026210D3D00F57099C801C54E55DE596",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "single-line",
+      "Path": "fixtures/single-line.erl",
+      "Bytes": 328,
+      "Sha256": "A397FC6B4A31800AA0841ADD72016A13872C6C82AD7CABA8BB322F8CD4507CE2",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "single-error",
+      "Path": "fixtures/single-error.erl",
+      "Bytes": 336,
+      "Sha256": "5364BC9D563DFAF108A33D31EE47B60BA3842B2AA5274D7B271CE0A42CB3399A",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "exit-error",
+      "Path": "fixtures/exit-error.erl",
+      "Bytes": 237,
+      "Sha256": "042EB55E13C200BD4752D7C309CD5CADFD3A90B4855CC7D6111FCE3197088CD7",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "error-badmatch",
+      "Path": "fixtures/error-badmatch.erl",
+      "Bytes": 246,
+      "Sha256": "0CECD8A9C7D1C22393B5D2DEB4DE2F98D10EF8A587693BAF379B0249E14D5379",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "error-stack",
+      "Path": "fixtures/error-stack.erl",
+      "Bytes": 279,
+      "Sha256": "3B6B65C6B6C236477EDCD17C3D7B2628EE1C67B73FB85916604BD7A615CE59B8",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "error-stack-filter",
+      "Path": "fixtures/error-stack-filter.erl",
+      "Bytes": 299,
+      "Sha256": "7C02AC89110D02029A488CD770F4325BD9950B5FD34E4B4F2BBF1A3AC9040FA2",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "depth-two",
+      "Path": "fixtures/depth-two.erl",
+      "Bytes": 279,
+      "Sha256": "886FB8328E9B770DD757D4C8FAA113A81B4694E13084427AACD40546B0848C37",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "wide-report",
+      "Path": "fixtures/wide-report.erl",
+      "Bytes": 259,
+      "Sha256": "69C46F28A72FB0FC27593F7BC6D367091E4438372170048294F40E7D8738AA2E",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "chars-budget",
+      "Path": "fixtures/chars-budget.erl",
+      "Bytes": 370,
+      "Sha256": "4CE0D9EDC44D8F3794CC1721F0E226A1FB92A74F2E36AF6CC58D04CB7AFE782F",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "chars-zero",
+      "Path": "fixtures/chars-zero.erl",
+      "Bytes": 274,
+      "Sha256": "68147D1A2E8A4A2C85762515AFBBFC52789BE21A811AC8239EBEB8820C9D0A50",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "chars-negative",
+      "Path": "fixtures/chars-negative.erl",
+      "Bytes": 276,
+      "Sha256": "774215EA91394934BA9D8DAE07CEA00C0ADB037C9FA60D80D6945262E8BF3794",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "unicode-latin1",
+      "Path": "fixtures/unicode-latin1.erl",
+      "Bytes": 244,
+      "Sha256": "95FF61F8CB749EA450A8DF025D5770D6C35927BAF849025C9D782FF1DCE42B16",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "unicode-native",
+      "Path": "fixtures/unicode-native.erl",
+      "Bytes": 245,
+      "Sha256": "EC51D89DB57DBA1345FB6E820C71B76E03B5E4057A3021068268F36958F7CB48",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "malformed-element-stops",
+      "Path": "fixtures/malformed-element-stops.erl",
+      "Bytes": 248,
+      "Sha256": "9F0F362F847E90BDB65CF526CF2540B315F9E80278CB9FADAD43013F61E9A272",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "improper-report-tail-stops",
+      "Path": "fixtures/improper-report-tail-stops.erl",
+      "Bytes": 225,
+      "Sha256": "7804B901D864D6208D08CB24BE0C750C005C933897C605C9D5B89D6854FDBC72",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "error-info-malformed-prefix",
+      "Path": "fixtures/error-info-malformed-prefix.erl",
+      "Bytes": 244,
+      "Sha256": "34608D77B60567D0FF9FBB1EABA3AA1116D2E0BF824D322ADC232DC923EF85BC",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "nonlist-own-report",
+      "Path": "fixtures/nonlist-own-report.erl",
+      "Bytes": 220,
+      "Sha256": "309146F2689B1DB97DF7F2A259F0A15D13382196D6BAFAE26AA21DA21AB84F3D",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-outer-report",
+      "Path": "fixtures/invalid-outer-report.erl",
+      "Bytes": 201,
+      "Sha256": "333C3B8D4981F1120F3311DBF6195EA7ACD5ECDD9CBF2C8111F8AE9CABBF6468",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-initial-call-shape",
+      "Path": "fixtures/invalid-initial-call-shape.erl",
+      "Bytes": 224,
+      "Sha256": "194A4510FA5B668A4738C39C3384AC2145EE7891ECC4F2F818CC2FE35C497EF4",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-error-info",
+      "Path": "fixtures/invalid-error-info.erl",
+      "Bytes": 222,
+      "Sha256": "19D666BF843BC6064E2E6FEE97E72152797838CBE207B23808D0863630AD16A3",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-callback-label",
+      "Path": "fixtures/invalid-callback-label.erl",
+      "Bytes": 245,
+      "Sha256": "F6724DE5F284A0B3909E056EFDB0F093964A6547825D27A26E111A9C4B54C558",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-callback-extra",
+      "Path": "fixtures/invalid-callback-extra.erl",
+      "Bytes": 248,
+      "Sha256": "3EF987C75E2AF2759CCA68DFD6C0389239FC2155AEBE9597B88E8458338AB154",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-single-line",
+      "Path": "fixtures/invalid-single-line.erl",
+      "Bytes": 246,
+      "Sha256": "0379AB426564524617E8BF9E872A4AC773003B83057CEB83023C0CB348E09E81",
+      "Expected": "ok; only error:function_clause accepted",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-chars-limit",
+      "Path": "fixtures/invalid-chars-limit.erl",
+      "Bytes": 264,
+      "Sha256": "4D1760A068ED45F861CBC27895EEE225878DB9A3E3607A9704366890E6FBE966",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "empty-limited-report",
+      "Path": "fixtures/empty-limited-report.erl",
+      "Bytes": 263,
+      "Sha256": "0BCEA9A173710AC51D8C0D0F00CC0A9F3DBC588D957E456D614C22EA3DBDE692",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "invalid-link-generator",
+      "Path": "fixtures/invalid-link-generator.erl",
+      "Bytes": 276,
+      "Sha256": "BAC0DE77CFE56B74495E2CCFC221AC05E3DC1F7201E77002D16DCECA673BED7F",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "empty-default-raw",
+      "Path": "fixtures/empty-default-raw.erl",
+      "Bytes": 190,
+      "Sha256": "B251B2770293C542490B5C0AA51F64697F310D98D7E77655CAC5DAE16CD49FF7",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "ordinary-tags-raw",
+      "Path": "fixtures/ordinary-tags-raw.erl",
+      "Bytes": 254,
+      "Sha256": "2C4D80D2F08F35BAAE6049D00CC2C3B96C961196FDD3F4BF2A3A5535CB1F2815",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "initial-mfa-raw",
+      "Path": "fixtures/initial-mfa-raw.erl",
+      "Bytes": 227,
+      "Sha256": "2700402F2BB3D4CA578EDBE4F9B936D23BEC623A382C9319E00A6C0F28E6AD5D",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "neighbours-raw",
+      "Path": "fixtures/neighbours-raw.erl",
+      "Bytes": 284,
+      "Sha256": "8DAA0252143CABC8BE4CC4E7873F608FC76430DA06DE0AA00E6809574B0A19E1",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "single-line-raw",
+      "Path": "fixtures/single-line-raw.erl",
+      "Bytes": 312,
+      "Sha256": "E07557D64FB57AB47AE9936AEF9AF7CFCB34416D94B12845AFA2EAC37BFAE46A",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "single-error-raw",
+      "Path": "fixtures/single-error-raw.erl",
+      "Bytes": 320,
+      "Sha256": "8D563CDE2594A5CA90E90561994973906CDB6C5E1F46D75DDE4065137B58F9BE",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "exit-error-raw",
+      "Path": "fixtures/exit-error-raw.erl",
+      "Bytes": 221,
+      "Sha256": "398BD8AA461013BAEC66DE1FFCCB4FE6883636FE369F23886F97620BED8668BF",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "depth-two-raw",
+      "Path": "fixtures/depth-two-raw.erl",
+      "Bytes": 263,
+      "Sha256": "99FACE6B0D7C1D9AF99991CC737108ABE47B37EFA191BA89E7D5B7375A11D50E",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "chars-budget-raw",
+      "Path": "fixtures/chars-budget-raw.erl",
+      "Bytes": 354,
+      "Sha256": "6F83D9A535A1867F712915141CDE254FA228BA80DF70E1CE43ECAC6B5123262A",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-reason-override",
+      "Path": "fixtures/extended-reason-override.erl",
+      "Bytes": 462,
+      "Sha256": "73A54CC9FE47276C1B17C20680DC6335C9259CDFEA43EFD81F7F41A40A30F760",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-error-ignored",
+      "Path": "fixtures/extended-error-ignored.erl",
+      "Bytes": 412,
+      "Sha256": "427588B503EED8D9F55014665C8E3405809B96E1A1AAA3CA4BBFE58BDA6E3649",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-throw-propagates",
+      "Path": "fixtures/extended-throw-propagates.erl",
+      "Bytes": 405,
+      "Sha256": "D6A3FD2D88F6708679B88A75CF97B8286A662543790EBBFA1FB716D69CD9ADFA",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-exit-propagates",
+      "Path": "fixtures/extended-exit-propagates.erl",
+      "Bytes": 404,
+      "Sha256": "D82B208CF828B065B05B3206E13EF630580E9941DEC39443B0CF3EB845D075BC",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-nonmap",
+      "Path": "fixtures/extended-nonmap.erl",
+      "Bytes": 392,
+      "Sha256": "B532A183893A6083F80F1ADDCB89AB0B850D7AB8A8363DC24686DF894CF7A1DE",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-real-receive",
+      "Path": "fixtures/extended-real-receive.erl",
+      "Bytes": 494,
+      "Sha256": "70375E25CA84A10EE942AD5581EA574C5C094C811E728201389193EC3EB0B2E2",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-reason-override-raw",
+      "Path": "fixtures/extended-reason-override-raw.erl",
+      "Bytes": 446,
+      "Sha256": "9C9CA761771C3A559297F61B811B23AB20085FE85C74A3C7CFE2910B201262CC",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "extended-real-receive-raw",
+      "Path": "fixtures/extended-real-receive-raw.erl",
+      "Bytes": 478,
+      "Sha256": "AA0F03307E5D45B1F22D3919512381F8FBF2FA7601695258CB623C94F3B827A1",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "report",
+      "Name": "undef-head-no-extended-callback",
+      "Path": "fixtures/undef-head-no-extended-callback.erl",
+      "Bytes": 374,
+      "Sha256": "9A22F3FD83D39A53A0E202BFF53AD2344012DD25C96C82852BA78AD81CA0EF0E",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "override-still-evaluates-default-reason",
+      "Path": "fixtures/override-still-evaluates-default-reason.erl",
+      "Bytes": 357,
+      "Sha256": "1BFC8075B20F01750EAA3D14D86AF3A5C765038FA2D23A3549AE4CF5497D8327",
+      "SourceReturnProfile": "reviewed-report-source-result"
+    },
+    {
+      "Track": "report",
+      "Name": "nonlist-neighbour-data",
+      "Path": "fixtures/nonlist-neighbour-data.erl",
+      "Bytes": 89,
+      "Sha256": "31B1CE7AACBB3186042DDC6BCBDE1392D5AEF584F5EA366EB5D5BA8C12793FDC",
+      "SourceReturnProfile": "raw-report-iolist"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "surrogate-pair",
+      "Path": "primitive-oracle-cases/surrogate-pair.erl",
+      "Bytes": 175,
+      "Sha256": "38BE9B8C63D2AFBFD646B9143083EBC75C67273E7F7F44C7C99077BB74AC226B",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "surrogate-and-combining",
+      "Path": "primitive-oracle-cases/surrogate-and-combining.erl",
+      "Bytes": 174,
+      "Sha256": "584EA0B858ABD8727EAC363856C147DF6515E788EBF1B02142DCC8BE52BA86B5",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "complete-binary-grapheme",
+      "Path": "primitive-oracle-cases/complete-binary-grapheme.erl",
+      "Bytes": 183,
+      "Sha256": "97732F8C0D90C406097C26686AD8F29BE9469CFD096F20034BF9F8094633C5A3",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "incomplete-binary-boundary",
+      "Path": "primitive-oracle-cases/incomplete-binary-boundary.erl",
+      "Bytes": 179,
+      "Sha256": "08CC7CF037E6AB55BF33FED2F69B983CC160CA3F911A17CCC25EBEE8CF87B9E7",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "surrogate-single",
+      "Path": "primitive-oracle-cases/surrogate-single.erl",
+      "Bytes": 167,
+      "Sha256": "8B81E27E0E065B67B7D33B28F3132D2CA16A7459A302C261A7B04346A127F9F4",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "latin1-byte-size",
+      "Path": "primitive-oracle-cases/latin1-byte-size.erl",
+      "Bytes": 177,
+      "Sha256": "9DEB01CFEC06481638933EE0F054D3BB096CB65429BADA1975176D8ECFAA460A",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "unicode-default-printable",
+      "Path": "primitive-oracle-cases/unicode-default-printable.erl",
+      "Bytes": 174,
+      "Sha256": "CB2DF122B12C7E27F4D5E60D3C9EB7718A41C419274F4795354FC1DA73BCCBE4",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "nested-list-depth",
+      "Path": "primitive-oracle-cases/nested-list-depth.erl",
+      "Bytes": 189,
+      "Sha256": "86801500762225F98EC94D645F66D751760643670E7CC0F8D15308FCAA1684E5",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "write-string-disabled",
+      "Path": "primitive-oracle-cases/write-string-disabled.erl",
+      "Bytes": 171,
+      "Sha256": "01864F4ACC1CF8E66E2DA3F1617DFAF59B04C200F303DF3C8876C408534D6430",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "unicode-prefix-budget",
+      "Path": "primitive-oracle-cases/unicode-prefix-budget.erl",
+      "Bytes": 218,
+      "Sha256": "F92CAA430A6C2554FD1F63CFC2782E32564E9A776BABD9FA687608D20D2E5AC0",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "utf8-binary",
+      "Path": "primitive-oracle-cases/utf8-binary.erl",
+      "Bytes": 181,
+      "Sha256": "EFD1ED040C00837AF9AAE76B0FE23B1A1DCB4277DB66F027C1EBC1D2CED2AAFF",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "latin1-binary-fallback",
+      "Path": "primitive-oracle-cases/latin1-binary-fallback.erl",
+      "Bytes": 175,
+      "Sha256": "C28A59253FF3D5F14DF70A43DF9AA070C2694C69FEC0B9F6B1B8DB4FAF2D032B",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "partial-bits",
+      "Path": "primitive-oracle-cases/partial-bits.erl",
+      "Bytes": 172,
+      "Sha256": "C31B3D62FCF7CF4BD47D446242FD2022BB57C529ABE1EE2BD72712AF6CA1F808",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "map-tail-depth-budget",
+      "Path": "primitive-oracle-cases/map-tail-depth-budget.erl",
+      "Bytes": 239,
+      "Sha256": "0CBCF1F0C443A2BE87134514AC2920FF011100FB6B5E261CE727F921388092ED",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "column18-width",
+      "Path": "primitive-oracle-cases/column18-width.erl",
+      "Bytes": 189,
+      "Sha256": "F7502EED15B2597D19D54E7DAEEB9ECD3E33DA3AFE62A6DCAD6160349F81429F",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "width0",
+      "Path": "primitive-oracle-cases/width0.erl",
+      "Bytes": 187,
+      "Sha256": "E830CC51E3107016A697F910A9DC98810FC09F6883CFF5DFF1F5DD02EF398B43",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "unicode-printable-prefix-control",
+      "Path": "primitive-oracle-cases/unicode-printable-prefix-control.erl",
+      "Bytes": 190,
+      "Sha256": "FDAB8EEA11E0DD9704C13F2B1081AED7417667E0E68B5C6157F1A57B0BED571C",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "unicode-printable-prefix-nested",
+      "Path": "primitive-oracle-cases/unicode-printable-prefix-nested.erl",
+      "Bytes": 193,
+      "Sha256": "4F3EA9070557F661C2A572762EC3361846B1E221A9EFCF4B6C5A85659C50B273",
+      "SourceReturnProfile": "primitive-unflattened"
+    },
+    {
+      "Track": "primitive-original-only",
+      "Name": "unicode-prefix-whole-grapheme",
+      "Path": "primitive-oracle-cases/unicode-prefix-whole-grapheme.erl",
+      "Bytes": 195,
+      "Sha256": "2FFC575D72146DC121DC7458DC07392D01B3213875365A70FDE7341E9CCEDC48",
+      "SourceReturnProfile": "primitive-unflattened"
+    }
+  ],
+  "ExpectedValuesPresent": false,
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "Scope": "Original observations only. Report sources retain their existing flattened or raw returns; collector never flattens or normalizes. Primitive sources are original-only inputs for future direct HOST backend comparisons, not module API implementations.",
+  "ReturnProfiles": {
+    "reviewed-report-source-result": 45,
+    "raw-report-iolist": 12,
+    "primitive-unflattened": 19
+  }
+}

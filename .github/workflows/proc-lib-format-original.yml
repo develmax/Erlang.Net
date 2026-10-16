@@ -1,0 +1,64 @@
+name: Original proc_lib formatter observations
+on:
+  workflow_dispatch:
+    inputs:
+      source_manifest_sha256:
+        description: SHA256 of the reviewed collector source manifest at this ref
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      SOURCE_MANIFEST_SHA256: ${{ inputs.source_manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify exact collector and fixture source closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/proc-lib-format-original
+          python3 tools/Erlang.ProcLibFormatOriginalObservations/collect-original.py verify \
+            --repository "$GITHUB_WORKSPACE" \
+            --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            2>&1 | tee artifacts/proc-lib-format-original/source-verification.log
+          python3 tools/Erlang.ProcLibFormatOriginalObservations/check-source-controls.py \
+            2>&1 | tee artifacts/proc-lib-format-original/source-controls.log
+      - name: Build exact pinned original OTP
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            set -x
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/proc-lib-format-otp-source
+            test "$(git -C artifacts/proc-lib-format-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            cd artifacts/proc-lib-format-otp-source
+            ./configure --prefix="$GITHUB_WORKSPACE/artifacts/proc-lib-format-otp" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/proc-lib-format-original/original-build.log
+      - name: Capture all57 report and19 original-only primitive sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.ProcLibFormatOriginalObservations/collect-original.py collect \
+            --repository "$GITHUB_WORKSPACE" \
+            --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/proc-lib-format-otp-source" \
+            --erl "$GITHUB_WORKSPACE/artifacts/proc-lib-format-otp/bin/erl" \
+            --output "$GITHUB_WORKSPACE/artifacts/proc-lib-format-original/capture" \
+            --timeout-seconds 30 \
+            2>&1 | tee artifacts/proc-lib-format-original/collection.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: proc-lib-format-original-76
+          path: artifacts/proc-lib-format-original/**
+          if-no-files-found: warn

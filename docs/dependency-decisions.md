@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part336 — Inspected the existing differential workflow and source-capture observer tools. Reuse their pinned OTP build/configuration, Python standard-library process and hashing facilities, with fresh erlc/VM percase. Python is development observation infrastructure only; production/runtime formatter remains C#. No package or public license decision changes; existing third-party notices and owner-local uncommitted license are preserved.
+
 Part335 — Pinned OTP29.1.1 proc_lib.erl stop, sys.erl system messages and gen.erl call/reply/name resolution guide the adaptation. Existing project/runtime/BCL primitives supply actual monitors, aliases, sends, ownership and cancellation. No third-party framework, production BEAM dependency or new license header is added; existing notices and license decisions remain. Global registry implementation and complete system protocol are separate dependencies.
 
 Part334 — Pinned OTP29.1.1 proc_lib.erl and c.erl guide raw_initial_call, initial_call, translate_initial_call and process labels. Existing C# runtime/BCL facilities are reused; separate actor or logging libraries would not supply these source contracts. Existing OTP notices and the repository license decision remain unchanged; no license headers or new third-party dependency are introduced.

@@ -1,5 +1,7 @@
 # Dependency-directed API implementation
 
+Part336 — Capture original57 report and19 primitive results first; compare with private SDK observations, fix actual differences and only then publish four report exports. In parallel complete initializer/hibernate with real crash-report/logger dependencies; six node overloads also require actual connected spawning.
+
 Reference: OTP-29.1.1, commit `ad05823719d77c8faee87348ea39513d4e2f99c5`.
 The starting inventory is part329: 509 registered MFAs across seven modules.
 Registration measures API presence, not semantic completion. Explicit reference
