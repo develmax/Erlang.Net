@@ -1,0 +1,78 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED333_ACTUAL_ORIGINAL_DISTRIBUTION_SIX_TYPED_GROUPS",
+  "Passed": true,
+  "Head": "e9725c4b2eef68014aeb70afd0abcf9f646065fd",
+  "Run": 38920823267,
+  "Job": 117039983912,
+  "Artifact": 12055337031,
+  "Attempt": 1,
+  "Counts": {
+    "group-leader": 4,
+    "guest-send": 7,
+    "guest-links": 7,
+    "guest-exit": 8,
+    "control-wait": 2,
+    "retention": 2
+  },
+  "RawRowsRehashed": 600,
+  "DownloadManifestSha256": "6B30E620C3F24ED13B8473EB72D9216F5F574F173B48223C60887E1A103A36A5",
+  "RawZipSha256": "6E19530F79151577BEBE2FEBB93B34E7AAB5D6B0D89B5AB37A5367546635F8D5",
+  "StrictExitRemoteReprEqualityPassed": false,
+  "FreshStrictRefusalCreated": true,
+  "StrictRefusalSha256": "B60B1ECE22253BFFF22E9377F38614B78C58655A1B3AD2FFE00DC736BFA7495A",
+  "DisplayFieldsDifferent": [
+    "ActualRawOutcome",
+    "AllEightRawCaseRows"
+  ],
+  "RawNormalization": false,
+  "PublishedTypedSemanticAssertionsPassed": true,
+  "PinnedSourceBuiltOriginalMetadataCompileAndOwnedCleanupVerified": true,
+  "SdkLivePeerOrWireSchedulerEqualityClaimed": false,
+  "NoDownloadedCodeExecuted": true,
+  "NoNetworkBuildSdkVmMainMutationByReviewer": true,
+  "Guards": [
+    {
+      "Group": "group-leader",
+      "Contracts": 4,
+      "Path": "artifacts/part333-distribution-independent/group-leader-independent-guard.json",
+      "Bytes": 1986,
+      "Sha256": "20DB65DD78AEFEA48B4431AE584FE9E3E1CEA098434B17681967F1F77CF6D9A3"
+    },
+    {
+      "Group": "guest-send",
+      "Contracts": 7,
+      "Path": "artifacts/part333-distribution-independent/guest-send-independent-guard.json",
+      "Bytes": 2572,
+      "Sha256": "2D1C6D568067F23BEA147A302D23DB617F86574B1F3F911781A48B61964F484E"
+    },
+    {
+      "Group": "guest-links",
+      "Contracts": 7,
+      "Path": "artifacts/part333-distribution-independent/guest-links-independent-guard.json",
+      "Bytes": 3786,
+      "Sha256": "69509D67A87E27E1168BDF746FFD53CA9996216552192AA9828BF567A9CC64D5"
+    },
+    {
+      "Group": "guest-exit",
+      "Contracts": 8,
+      "Path": "artifacts/part333-distribution-independent/guest-exit-independent-guard.json",
+      "Bytes": 4151,
+      "Sha256": "E0EDD1CF2C59E5BC805D7B3A845E67E5398A5E156F0699E451527B374FF20315"
+    },
+    {
+      "Group": "control-wait",
+      "Contracts": 2,
+      "Path": "artifacts/part333-distribution-independent/control-wait-independent-guard.json",
+      "Bytes": 2027,
+      "Sha256": "2608D9FA6E46017C56B41D99102A4B70E1705794CD0A3C8D43A477D2FCBD49E4"
+    },
+    {
+      "Group": "retention",
+      "Contracts": 2,
+      "Path": "artifacts/part333-distribution-independent/retention-independent-guard.json",
+      "Bytes": 3001,
+      "Sha256": "7365BFF04D9EA783C3E290E957F3905B213CB4D3646ED5BA39902F5BE3685E39"
+    }
+  ],
+  "New333ProcLibFixturesVerifiedByThisRun": false
+}

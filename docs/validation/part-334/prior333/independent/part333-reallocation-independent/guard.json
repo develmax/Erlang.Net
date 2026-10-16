@@ -1,0 +1,425 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD333_PINNED_PREFIX_AND_ORIGINAL3_SDK3_REALLOCATION",
+  "Passed": true,
+  "Head": "e9725c4b2eef68014aeb70afd0abcf9f646065fd",
+  "Run": 38920814683,
+  "Job": 117039955307,
+  "Artifact": 12054667305,
+  "Attempt": 1,
+  "DownloadedManifestRows": 198,
+  "ArtifactMemberFiles": 192,
+  "RawZipSha256": "CFBCE3292DB6305E58E3582C3FC4C3A2635168B0CAA819C11C86974A8A620057",
+  "OwnPlanInputs": 1155,
+  "OwnPlanSha256": "57DDC44995189476F1366F9C4CEE945A9C00F4D589915CB5E7314401294DA8CB",
+  "LegacyPlanInputs": 1130,
+  "LegacyPlanSha256": "FEE73B2B6794CDFEB55A6F90A943756BD64B829D989500C4F70029EA476D876D",
+  "PublishedPlanInputsRehashed": 1155,
+  "CanonicalPlanAndWorkflowPinExact": true,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ConfigureBuildInstallActualExitZero": true,
+  "InstalledPrefixRegularFilesRehashed": 2646,
+  "InstalledNamespaceEntries": 2858,
+  "InstalledFileSymlinks": 10,
+  "WholeInstalledPrefixClosureExact": true,
+  "OriginalFourRuntimeRolesVerified": true,
+  "PinnedHeaders": {
+    "erl_nif.h": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689",
+    "ei.h": "F6F9546D892C6263830C70150964F0130EAEE157C44C144192835D950712929B",
+    "erl_nif_api_funcs.h": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11",
+    "erl_fixed_size_int_types.h": "E13B0257D2391E77EFF6170B2BFDFF59DB8BEBBCA36ADE5A160282803A79C75A",
+    "eicode.h": "01DC282CB51A5D2C5EAA3BC7ED1BB9B6F171DCD18CB7A14F92FD1ED8A94696F0",
+    "erl_driver.h": "6E16BB71680539ED95494601FA5335EB7DFE7E091755CB8B10154115EA255C80",
+    "driver_int.h": "D318DC9F8FDB6A01B246CFFB6DDAFC71ACD3B28C8D8AA0FC8A6FE4F9289B9CE7",
+    "ei_connect.h": "862FCFCE07ADBB5AC0E8AB413447EA5607EB83436D9C35B2D8D9E5CE5F3AA7E1",
+    "erl_int_sizes_config.h": "9778F570E78AEFE130C9CBDB38FEF1BBFAB9A7A6F0018859C70C1AEC9FBB904A",
+    "erl_drv_nif.h": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+  },
+  "RawNativeElfChecks": [
+    {
+      "Name": "reallocation_fixture.so",
+      "Sha256": "42F7C4A8EA3B336F7E0EA008C44583BF30005F36D6AEA1FB89791FCACD26323B",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_realloc"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "reallocation_extension.so",
+      "Sha256": "E2613ADCE1BEFD7FCFE511BED8E91EF846386525016FFB9083E64A8A5BEA50CD",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_realloc",
+          "erlang_net_reallocation_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "legacy_fixture.so",
+      "Sha256": "6DEB2213C0F49FF31C4C9D8C395577874DBF5245DA913132EF3A4211BCEC95B1",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "memory_allocator_fixture_unload_count",
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_priv_data"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "legacy_bridge.so",
+      "Sha256": "9E3C19595CDAA7392AB6F4CBFE56AED83A0F044567E8C3E5286D69BE170B1B17",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_is_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_list",
+          "enif_make_string",
+          "enif_make_tuple",
+          "enif_priv_data",
+          "enif_raise_exception",
+          "nif_bridge_read_term",
+          "nif_bridge_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    }
+  ],
+  "SourceBuildNativeCaptureApprovalsLinked": true,
+  "ManagedDependencyAssetsPresent": 34,
+  "Original3Sdk3Exact": true,
+  "Cases": [
+    {
+      "Case": "null_positive",
+      "ActualOriginalMask": 1539,
+      "ActualSdkMask": 1539,
+      "RequestedSizesKind": "AuthoredControl"
+    },
+    {
+      "Case": "null_zero",
+      "ActualOriginalMask": 1601,
+      "ActualSdkMask": 1601,
+      "RequestedSizesKind": "AuthoredControl"
+    },
+    {
+      "Case": "resize_sequence",
+      "ActualOriginalMask": 2047,
+      "ActualSdkMask": 2047,
+      "RequestedSizesKind": "AuthoredControl"
+    }
+  ],
+  "IndependentComparisonSha256": "EF7527CCA80C7E2F08578BE8688ADB74A1C18C7D98B693020A3EF5BC1179897B",
+  "PublishedComparisonSourceSha256": "875F4EA8DC6AC00494D4F88F21CB6C18EDDF825FBBAE7E0C8926463B4E2CF031",
+  "PublishedLocalSingleFullValidationScope": {
+    "Passed": 6871,
+    "IntegrationResults": 11,
+    "UninterruptedLocalFullPass": true
+  },
+  "DownloadedCodeOrBinariesExecuted": false,
+  "ReviewerSdkVmNativeExecuted": false,
+  "PhysicalMemoryCompared": false,
+  "ActualAllocatorOom": false,
+  "DisabledProfileCompared": false,
+  "GeneralNifAbiComplete": false,
+  "MainMutated": false,
+  "NetworkOrPostExecuted": false,
+  "Bindings": [
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/run-map.json",
+      "Bytes": 580,
+      "Sha256": "C482A90DC35D9F290EFA8F1713A2107902DC979870449E1A0CE2F5C4F976BCD0"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/run.json",
+      "Bytes": 13629,
+      "Sha256": "CABCF2F9E26C959EE5361151078D02622A23C69C69FF194BBEFE2A679995060F"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/jobs.json",
+      "Bytes": 3359,
+      "Sha256": "3B83F90624B067657920F810CFA8F0596531FD0FF12FCDE70C774716D482AC3C"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifacts.json",
+      "Bytes": 942,
+      "Sha256": "06289C0AB63BD0AAD65F4E40982ADAF91C6850B5695B8F69AB72954D92E15A05"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/download-manifest.json",
+      "Bytes": 37827,
+      "Sha256": "324F8C4FFB29D7436BABCA1B6185C70D06D6CE2D56434BB7A004E0BB107B7F21"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/raw-capture.json",
+      "Bytes": 409,
+      "Sha256": "DBF1B9841B1CC50F16C129E69B65FE26F5A591BB09480BB8AB16953E4403D638"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/job-117039955307.log",
+      "Bytes": 33378,
+      "Sha256": "3A3E9805543EFAB8341CE3ECABBA7419B42AD5231E2372DBECC5B096B18B7EFB"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/review-results.py",
+      "Bytes": 10745,
+      "Sha256": "7BCF4F0C32FB3050AAD7CE76ED9C8A83CEFA73BE69D2775F862A83822C7B486F"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/reviewed_common.py",
+      "Bytes": 4085,
+      "Sha256": "68269B896C5DED6A4F494E5F012FE05BFB06A634E89514E18E7B5B6865CBAF61"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/runtime_receipt_adapter.py",
+      "Bytes": 11834,
+      "Sha256": "2264FF1908F480919C100ADAF1185CA11C38EE76C87F3727EF6651A8D48D9001"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_native_build.py",
+      "Bytes": 9933,
+      "Sha256": "13CB08A05F0965DE451AEE59173257CFFD3955B9B2773DAA86BEA684A22B1208"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/configure.process.json",
+      "Bytes": 1320,
+      "Sha256": "49F966413D8D5E62D8C4B90297BDC382E4158E3D7C763AA51270EE2DE9CB3105"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/build.process.json",
+      "Bytes": 998,
+      "Sha256": "36D9F165172E28ABF865B979D3DE1E61931432AD473BF65C631D8559011BFF08"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/install.process.json",
+      "Bytes": 1004,
+      "Sha256": "A4B226562946BB374C133534503605DFA0E3F8C72DBAA6B053EF18F2D352D9FA"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_fixture-so-compile.process.json",
+      "Bytes": 677,
+      "Sha256": "CD63A19E2E7FEA1DB94FDC201B797B1813AF64D30F6FA0EDFA3EBC81635B5948"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_fixture-so-defined.process.json",
+      "Bytes": 317,
+      "Sha256": "8AFFD0885127D37975BB43FE0C31BDB355588217DF50A38209F7625D63CC7EB6"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_fixture-so-undefined.process.json",
+      "Bytes": 319,
+      "Sha256": "8D18552475E9EB19E2AAE9F230AD330DD03BFF4FE6227D922CE369FC98E835D3"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_fixture-so-readelf.process.json",
+      "Bytes": 321,
+      "Sha256": "DD047BF521D5217BB939F78FA206922FC798409E7A380DB23158A290BB81A3BD"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_extension-so-compile.process.json",
+      "Bytes": 682,
+      "Sha256": "AAD3C22F6171DCAACBBF6F791D3988DEAD23BB7E7B13CCA5E072389BD98F1A5C"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_extension-so-defined.process.json",
+      "Bytes": 319,
+      "Sha256": "C005C27270BAE2C39B2419AC6E7AD1326E7E5F8BF6D52847BF9489A1A0F4C528"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_extension-so-undefined.process.json",
+      "Bytes": 321,
+      "Sha256": "5B5110A0E996F7D319225FE6F8DB9FF9315E624A8422F47125345F9F8D182CA7"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/reallocation_extension-so-readelf.process.json",
+      "Bytes": 323,
+      "Sha256": "C1DB5FFA0180A862CAA7AB369C69A7DDF1C5C20D206F4D112C3A246C930D2D73"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_fixture-so-compile.process.json",
+      "Bytes": 645,
+      "Sha256": "227029E1E72A2DCB08728F628EED503C3573FABBABB62478CB9FB4DD1AF4E02F"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_fixture-so-defined.process.json",
+      "Bytes": 311,
+      "Sha256": "C231356BE688E4A8BAEA7119B9F60944875CDD77254390C7491713B40147695C"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_fixture-so-undefined.process.json",
+      "Bytes": 313,
+      "Sha256": "DD989253B8288424E88F424F876A283C72E25B33A231872B68CC7D15071D2B88"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_fixture-so-readelf.process.json",
+      "Bytes": 315,
+      "Sha256": "0E45676DD3C080EE9D06090D0DFEC55074CE6ADE96D7D2D760E7157CD9D68191"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_bridge-so-compile.process.json",
+      "Bytes": 762,
+      "Sha256": "5FCAEA456A331040BCA0A3FD78A30A65643A49918DC052D3E340CB5B1E668CEC"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_bridge-so-defined.process.json",
+      "Bytes": 310,
+      "Sha256": "E25D3A3C21286A7C669F6FF9A7B5E5B2E13EC58B950B7B55FC70241441E8048C"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_bridge-so-undefined.process.json",
+      "Bytes": 312,
+      "Sha256": "582DBB177954711FB2649C2A2116C3E72C1C81D1A728BE36D328628651F33508"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/legacy_bridge-so-readelf.process.json",
+      "Bytes": 314,
+      "Sha256": "DB3685A4CC0AE9395580BDAD04AA9A2757454EE5BB58031C71A2B4A2887AAAEB"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/build-managed.process.json",
+      "Bytes": 566,
+      "Sha256": "C685DD721DFFA6355CC52726B0AA57A46E200279F3A7A815EFD9706ED059314E"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/sdk.process.json",
+      "Bytes": 1063,
+      "Sha256": "B8433BA08530F076DD64018E205434F5824234020B53EE8813C8B323B8BA3E05"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/build-process-receipt.json",
+      "Bytes": 1159896,
+      "Sha256": "E4E42C53C543DE31AEF30A4FC8573F1AEFD1223BA6A9400C2AD05E569CF9D6AA"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/legacy-provenance.json",
+      "Bytes": 934,
+      "Sha256": "70CCE0347AFAF3C22A0FB3DC2641EA29BB32BA78486DBC83840E20C56AD1BD4A"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/source-build/complete-build.log",
+      "Bytes": 497293,
+      "Sha256": "BA3C50CE3315B471942B8E94C7DF34FE9E58DB4A06DBB16FBDBBFDFD5D4AA24C"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/runtime-receipt/source-build-receipt.json",
+      "Bytes": 1910455,
+      "Sha256": "B17485C0360AD705B1AD5B3264D219B9B6DCA4AEFD4CA6AF03430F7105466C42"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/control/source-review.json",
+      "Bytes": 1206,
+      "Sha256": "73D04080B54601FAE8B3B939FF1B8EB747FB4EE5DB1162D1F9CA669E7AFE0BF6"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/control/runtime-approval.json",
+      "Bytes": 565,
+      "Sha256": "B23A1B5EDF7B3747A5B4BB6CB3CD0B6C1FF45109B8924377F156F85289E032C5"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/control/native-approval.json",
+      "Bytes": 7011,
+      "Sha256": "C85E56FF8BD83C00BC46D80D621759A00F1A8C0D103B8C6AED2B447DE2DA1302"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/control/capture-approval.json",
+      "Bytes": 540,
+      "Sha256": "E2609E30E04C1C76CB078C7B38F62E9FC0AF1D9E6D0A8D79ECE986CFAA537E8D"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/control/original-sdk-three-comparison.json",
+      "Bytes": 901,
+      "Sha256": "708DA03D848C9193949F1A4BD6C7DE3DB11F81B904DE93C0C024685551029686"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/original3/receipt.json",
+      "Bytes": 8866,
+      "Sha256": "C282AA597265C591C45D8F014F190618FF8F851C8892A38CE651C175ADBEDF56"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/sdk-receipt.json",
+      "Bytes": 19875,
+      "Sha256": "D95B50EB5BC9DDF21A243AFAB7C579BE939F592002899A2E496F8B1D98778DA9"
+    },
+    {
+      "Path": "artifacts/part333-remote-new-review/reallocation/artifact-12054667305/sdk-native/build-receipt.json",
+      "Bytes": 19055,
+      "Sha256": "85DED34E9A9EF54CE5CD46D495D3516798C6E7555728A6F1D7856D4C29F1A300"
+    }
+  ]
+}

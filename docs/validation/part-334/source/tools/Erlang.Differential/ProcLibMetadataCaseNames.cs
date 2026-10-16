@@ -1,0 +1,55 @@
+namespace Erlang.Differential;
+
+public static class ProcLibMetadataCaseNames
+{
+    public const string Module = "proc_lib";
+    public const string InitialCall = "initial_call";
+    public const string TranslateInitialCall = "translate_initial_call";
+    public const string SetLabel = "set_label";
+    public const string GetLabel = "get_label";
+    public const string Ok = "ok";
+    public const string Mismatch = "proc_lib initial call and label contract mismatch";
+    public const string InitialDictionary = "proc-lib-metadata-initial-call-dictionary-dummy-arguments";
+    public const string InitialSpecific = "proc-lib-metadata-initial-call-specific-dictionary-key";
+    public const string InitialZero = "proc-lib-metadata-initial-call-zero-arity";
+    public const string InitialNonAtoms = "proc-lib-metadata-initial-call-unguarded-module-and-function-fields";
+    public const string TranslateEmpty = "proc-lib-metadata-translate-empty-fallback";
+    public const string InitialEmpty = "proc-lib-metadata-initial-empty-false";
+    public const string TranslateMalformedArity = "proc-lib-metadata-translate-preserves-unvalidated-arity";
+    public const string SpecificPrecedence = "proc-lib-metadata-specific-key-wins-over-earlier-full-dictionary";
+    public const string InvalidSpecificPrecedence = "proc-lib-metadata-invalid-specific-suppresses-fallback";
+    public const string DuplicateSpecific = "proc-lib-metadata-first-specific-key-wins";
+    public const string MalformedOuterDictionary = "proc-lib-metadata-malformed-full-dictionary-item-false";
+    public const string MalformedStoredMfa = "proc-lib-metadata-stored-non-triple-false";
+    public const string MalformedInnerItem = "proc-lib-metadata-malformed-inner-keyfind-result-false";
+    public const string ImproperSpecific = "proc-lib-metadata-matching-specific-prefix-before-improper-tail";
+    public const string ImproperNoSpecific = "proc-lib-metadata-improper-list-error-before-full-dictionary-fallback";
+    public const string InvalidDictionary = "proc-lib-metadata-invalid-full-dictionary-value-raises";
+    public const string SpecificTupleOne = "proc-lib-metadata-malformed-specific-item-arity-one-case-clause";
+    public const string SpecificTupleThree = "proc-lib-metadata-malformed-specific-item-arity-three-case-clause";
+    public const string InvalidInput = "proc-lib-metadata-invalid-input-function-clause";
+    public const string InvalidPidTupleFields = "proc-lib-metadata-pid-tuple-guard-before-conversion";
+    public const string InvalidPidTupleValue = "proc-lib-metadata-pid-tuple-conversion-badarg";
+    public const string PidTupleSelf = "proc-lib-metadata-integer-pid-tuple-roundtrip";
+    public const string SelfDictionary = "proc-lib-metadata-self-query-reads-stored-initial-call";
+    public const string FullSnapshot = "proc-lib-metadata-full-process-info-list-projection";
+    public const string SpecificSnapshot = "proc-lib-metadata-specific-process-info-list-projection";
+    public const string LiveChild = "proc-lib-metadata-live-proc-lib-child-mfa";
+    public const string PlainChild = "proc-lib-metadata-plain-child-has-no-proc-lib-metadata";
+    public const string DeadChild = "proc-lib-metadata-dead-child-initial-call-fallback";
+    public const string ArityAtom = "proc-lib-metadata-arityatom-badarg";
+    public const string ArityFloatZero = "proc-lib-metadata-arityfloatzero-badarg";
+    public const string ArityFloat = "proc-lib-metadata-arityfloat-badarg";
+    public const string LabelDefaults = "proc-lib-metadata-label-missing-self-is-undefined";
+    public const string LabelOverwrite = "proc-lib-metadata-label-set-overwrite-any-structured-term";
+    public const string LabelFalseAndNil = "proc-lib-metadata-label-false-and-nil-retain-values";
+    public const string LabelDictionary = "proc-lib-metadata-label-observes-direct-process-dictionary-writes";
+    public const string LabelLiveChild = "proc-lib-metadata-label-live-child-dictionary-query";
+    public const string LabelNoInheritance = "proc-lib-metadata-labels-are-not-inherited";
+    public const string LabelDeadChild = "proc-lib-metadata-label-dead-child-undefined";
+    public const string LabelInvalidInputs = "proc-lib-metadata-label-has-no-pid-guard";
+    public const string LabelRegisteredName = "proc-lib-metadata-label-does-not-resolve-registered-name";
+    public const string DisconnectedPid = "proc-lib-metadata-disconnected-external-pid-fallbacks";
+    public const string LabelPidValue = "proc-lib-metadata-label-can-be-pid";
+    public const string LabelBinary = "proc-lib-metadata-label-can-be-bitstring";
+}

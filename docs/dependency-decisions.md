@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part334 — Pinned OTP29.1.1 proc_lib.erl and c.erl guide raw_initial_call, initial_call, translate_initial_call and process labels. Existing C# runtime/BCL facilities are reused; separate actor or logging libraries would not supply these source contracts. Existing OTP notices and the repository license decision remain unchanged; no license headers or new third-party dependency are introduced.
+
 Part333 — Source/license/reuse: pinned OTP29.1.1 proc_lib.erl supplies sync_start_monitor and VERIFY_NO_MONITOR_OPT contracts. Existing project C# process, monitor, mailbox, option parser, sequence descriptions and BCL mechanisms remain the implementation; existing licensing decisions apply and no dependency is added. A separate actor framework would duplicate ownership and alter mailbox/failure semantics. Native tuning options unsupported by the current parser remain unsupported, rather than reporting fabricated heap/scheduler effects.
 
 Part332 — Local proc_lib startup and receive ordering. Reviewed pinned OTP29.1.1 proc_lib.erl and VM receive instructions. Reuse the project's existing C# ProcessRuntime, monitor/link machinery, immutable terms, Mailbox and BCL timing/cancellation; their source and licensing decisions remain unchanged. A new actor framework would require adapting its mailbox and failure semantics and is unnecessary for this slice. No new third-party component or license header is introduced. Source review and bounded tests do not establish native scheduling, full module compatibility or performance.

@@ -1,0 +1,15 @@
+# Part333 source-only publication controls
+
+UNEXECUTED. No authority or future success is created by source preparation. No network, POST, SDK, Git mutation, or Main edit.
+
+Known source AA5249A3, closure BBECB7B3,18 owned/14 CSharp/2439 closure plus six separately hash-bound package resources. Plans1130/FEE73B2B and1155/57DDC449. Expected6871 tests,528 API,proc_lib19,erlang351. These expectations must match actual full/native/readiness before execution. Ordinary6042 and41 new cases remain planned until terminal original evidence.
+
+After exact source promotion, actual final guards, metadata/proof finalization, independent cached-stage review, commit, push and Root remote verification, Root supplies --published-head ACTUAL40 --verified-remote-head ACTUAL40 --bindings artifacts/ACTUAL.json --bindings-sha256 ACTUAL64 --promotion-receipt artifacts/ACTUAL.json --promotion-receipt-sha256 ACTUAL64.
+
+The nine RequiredBindings roles are SourceFreeze, FullGuard, NativeGuard, IndependentActualPeer, StageGuard, IndependentStagePeer, EvidenceReceipt, Readiness, DispatcherSourcePeer. Each has repository-relative Path and uppercase Sha256. Both actual peer roles may reference one rich independently captured cached-stage report with actual Records[{Path,StagedBytes,StagedSha256}], five source/receipt/stage/full/native crosslinks, CachedBeamAndProvenanceBinaryAttributesAndBytesExact=true, four ActualStagedRawSourcePlanSeals and two ActualStagedEmbeddedBeamAndProvenanceResources (same proven332 schema).
+
+FullGuard schema follows actual single-full producer proc-lib333-full.py: PASS_ACTUAL_ISOLATED333_FULL,6871/0, registry528/proclib19, eleven exact integration outcomes, full-exit hash with ExitCode0/TimedOutfalse/Settledtrue, package manifest hash and six resource rows. It does not inherit332 composite or suffix fields. Native schema follows reviewed333 native producer. Promotion receipt must bind source/full hashes and18 owned/2439 closure.
+
+Receipt simple index schema uses Passed/Failed/IntegrationOutcomes/RegisteredMfas/ProcLibMfas/ErlangMfas/OwnedPaths/SourceClosurePaths, EvidenceIndexSha256/CopiedFiles/CopiedBytes. Copied count is variable. Root stage internals are deliberately not assigned guessed count/record fields: bound PASS-status JSON is preserved, actual path sets/counts and cached bytes come from rich peer and are independently checked against published commit diff and raw source/proof versus LF metadata. No public proof is changed to fit a template.
+
+Binder exclusively creates artifacts/root-part333-post-publication-dispatch-authority.json only after all actual checks. Root independently reviews that actual authority before dispatch-once.ps1 -Kind ordinary|native|reallocation|distribution -ExpectedHead ACTUAL40 -ReviewedAuthorityPath ACTUAL -ExpectedAuthoritySha256 ACTUAL64. Attempt exclusive create precedes sole POST; never retry an ambiguous request. Only reallocation gets expected_head input. CI starts automatically on push. Never repeat historical332 POSTs.

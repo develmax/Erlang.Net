@@ -1,0 +1,121 @@
+{
+  "Status": "ACTUAL334_FOCUSED_PASS_SOURCE_FOR_FULL",
+  "ParentHead": "e9725c4b2eef68014aeb70afd0abcf9f646065fd",
+  "SourcePeerSha256": "7CC0E10B9EB1B190FFC8100C3833D1B7187BDD1C362AF29316791455C50FF4DF",
+  "FormattedFreezeSha256": "57F6E8BA5BC0A2EE44327450E0D90E1DC2B9351700096C29328140EC9611C861",
+  "SourceClosureSha256": "903FBF9C5477838C0C4619973CA6DEF8CD2172520BC32B8344E6FEA970CE2D27",
+  "PackageResourceManifestSha256": "7C1109EFC5F17FD01FD761C1E8F2982CEFCCB8A85F8C6CC42A416FEBFCA753F3",
+  "ReadinessInputManifestSha256": "99BFAA65E288CD2ADD1C044A22D59CFEAE32BB6379A017B849CD273D67186392",
+  "SourceClosurePaths": 2446,
+  "OwnedCSharpFiles": 11,
+  "OwnedPaths": 15,
+  "Files": [
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "8E9964DC6FF5C19D6213D8D314B7D8D6CDA59EBA2268D95A0714CCCBE979E428"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5790,
+      "Sha256": "D826D9480D335AE6F562AF75408F9F74C868D24F1AC09008D8411597576C5BEE"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Bytes": 6922,
+      "Sha256": "09716746C11180C7E641A6ACBCB859E90D86041B33728B9D013E63FD300FC37B"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+      "Bytes": 6174,
+      "Sha256": "FDA712D83145037D25D0CE309F5DCEA1D8BE4F3C090BB6512710257415B08202"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibIntrospectionAtoms.cs",
+      "Bytes": 703,
+      "Sha256": "2884FB13607EC22D0D93AE4355833A9CDAB39F152DBB1D616788D1FD05D6FC80"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibIntrospectionNames.cs",
+      "Bytes": 592,
+      "Sha256": "983B7FC00DAF090A33D5596D1C4441D58C1F7A66A602B5FE4584DFA9CAC061DB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Bytes": 173,
+      "Sha256": "FCD6BB05AB73BD6836CB057F51E861374540A543CDCD634DB2DD3E07A05E13E3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibMetadataMfaContracts.cs",
+      "Bytes": 2626,
+      "Sha256": "2FB453BED6846A6EDDF338D910EE78677F0B2C31B12DBE334109A6C40CC41739"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 170284,
+      "Sha256": "8C83F1D5CFF0A8E22A7A8750C453BFBE9C4F369D3598CFF436C203CC8F80CA02"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31782,
+      "Sha256": "2896E653E80FC8E70A8E13E839213160A5C86E5502EF3006F5E62CD688115D69"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibMetadataCaseNames.cs",
+      "Bytes": 4623,
+      "Sha256": "3A20C5ACD4C8067F41363C949C60BA597296722838CFE6299FCF1F3E483C96EF"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibMetadataCaseSources.cs",
+      "Bytes": 30665,
+      "Sha256": "A21BE3CC4841D09767ECE31C7C426FF1DF3944C4DDF82974E660653C7A717DE0"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibMetadataCases.cs",
+      "Bytes": 10033,
+      "Sha256": "3CF793557CB56C3C1E22D102A4D25A68196D41194C82B55E7E170934C34F56BA"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 234780,
+      "Sha256": "2A085249EF5599052016F6BC807BC7F3268D5A5E57054EE0FAEF7A25A9F61774"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 244824,
+      "Sha256": "D4F292AB9FD7E5ACC24DB05BDE4AFC7FA68B1EB4E42580F5F003E7959A9F98FF"
+    }
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1133,
+      "Sha256": "2A085249EF5599052016F6BC807BC7F3268D5A5E57054EE0FAEF7A25A9F61774",
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospectionAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospectionNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLib.cs"
+      ],
+      "NonFilesFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1158,
+      "Sha256": "D4F292AB9FD7E5ACC24DB05BDE4AFC7FA68B1EB4E42580F5F003E7959A9F98FF",
+      "AddedInputs": [
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospectionAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibIntrospectionNames.cs"
+      ],
+      "ChangedExistingInputs": [
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "NonFilesFieldsUnchanged": true
+    }
+  ]
+}

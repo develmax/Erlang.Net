@@ -1,0 +1,103 @@
+{
+  "Status": "ROOT_REVIEWED_PART333_POST_PUBLICATION_DISPATCH_AUTHORITY",
+  "Part": 333,
+  "RootExecutionApproved": true,
+  "PublishedHead": "e9725c4b2eef68014aeb70afd0abcf9f646065fd",
+  "RemoteHeadReportedVerifiedByRoot": "e9725c4b2eef68014aeb70afd0abcf9f646065fd",
+  "DispatcherSourceSha256": "04494631FA32123B5CD79AE00DADDB1DA96EF43925E3D6E086C247E7CD915786",
+  "RootBinderSha256": "D2B689A30B8E994BC22BD9AB78CABD433EBB5215AD4176D943EA703B7AE82FF9",
+  "BindingManifestSha256": "8DD7ACF46EA4B5B973D669279BCAEA23DD725D5044F7F189FA585BD43C5B341F",
+  "ReviewedPlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1130,
+      "Sha256": "FEE73B2B6794CDFEB55A6F90A943756BD64B829D989500C4F70029EA476D876D"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1155,
+      "Sha256": "57DDC44995189476F1366F9C4CEE945A9C00F4D589915CB5E7314401294DA8CB"
+    }
+  ],
+  "PublishedCommitBlobsRehashed": 947,
+  "ActualChangedMetadataPaths": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "docs/COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/DEPENDENCY_PRIORITIES.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/MODULE_READINESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/PROC_LIB_COMPATIBILITY.md",
+    "docs/PROGRESS.md",
+    "docs/changelog/0052.md",
+    "docs/dependency-decisions.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/semantic-differences.md",
+    "docs/supported-mfas.json"
+  ],
+  "ActualProofPaths": 913,
+  "RequiredBindings": [
+    {
+      "Role": "SourceFreeze",
+      "Path": "artifacts/proc-lib333-full-source/source-freeze.json",
+      "Sha256": "AA5249A3F81F74F825626EAAF1DACB1E44564105B6BD0589DB5A0DD9CA4046C4"
+    },
+    {
+      "Role": "FullGuard",
+      "Path": "artifacts/proc-lib333-full-source/full-guard.json",
+      "Sha256": "368E328BD251F219270018D37E2FAE4681460A83808B9F741C78B34DBD6C5E72"
+    },
+    {
+      "Role": "NativeGuard",
+      "Path": "artifacts/proc-lib333-native-actual/guard.json",
+      "Sha256": "70DF7D06147EDE401D7FB44912CA503590BA016BF10BC6200448AFDEF722FD81"
+    },
+    {
+      "Role": "IndependentActualPeer",
+      "Path": "artifacts/proc-lib333-actual-stage-independent/report.json",
+      "Sha256": "3FF02F66120FDFC4966B54E52DC669C14871950DA8627EF55430B62F87D83B9F"
+    },
+    {
+      "Role": "StageGuard",
+      "Path": "artifacts/root-part333-stage-index-guard.json",
+      "Sha256": "627AAA3230503E7524718E057FCBDA83CE9D22045396B2C7549579AD6A4DA277"
+    },
+    {
+      "Role": "IndependentStagePeer",
+      "Path": "artifacts/proc-lib333-actual-stage-independent/report.json",
+      "Sha256": "3FF02F66120FDFC4966B54E52DC669C14871950DA8627EF55430B62F87D83B9F"
+    },
+    {
+      "Role": "EvidenceReceipt",
+      "Path": "docs/validation/part-333/evidence-receipt.json",
+      "Sha256": "8C80E1850D47BEE6671FE1138CAD7AFFFBA620BC5725A9E7152226C7148CFFF5"
+    },
+    {
+      "Role": "Readiness",
+      "Path": "docs/module-readiness.json",
+      "Sha256": "95758CABD6A2C79B6459A5915052DF028A7505E797B05A96464144DE9D2BD24E"
+    },
+    {
+      "Role": "DispatcherSourcePeer",
+      "Path": "artifacts/part333-publication-source-independent/report.json",
+      "Sha256": "EAB35D7541E0DFE910D5EF6E2314EC3D81CAD18F8AE86CAA6E159A7E411D9A4D"
+    }
+  ],
+  "ExpectedFullPassed": 6871,
+  "ExpectedRegistry": 528,
+  "PromotionReceiptSha256": "F4A4A8CFDD01438CC965F475C5437D4C015ABD24EB21D77A910794F1E96184E0",
+  "ValidationMode": "Single complete source-bound validation pipeline exit0 plus six package resources",
+  "InitialPipelineCompleted": true,
+  "PackagingResumed": false,
+  "ActualBoundStageStatus": "EXACT_333_STAGE_PASS",
+  "SingleFullValidationPassed": true,
+  "IntegrationAndPackagesPassed": true,
+  "FreshPostFullWindowsLegacyPassed": true,
+  "FreshPostFullWindowsReallocationPassed": true,
+  "FreshPostFullWindowsProviderFivePhasesPassed": true,
+  "ActualStagedCanonicalSourcePlansPassed": true,
+  "DefaultGitWhitespaceCheckPassed": true
+}

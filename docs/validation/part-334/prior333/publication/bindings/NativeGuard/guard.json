@@ -1,0 +1,164 @@
+{
+  "Status": "PASS_ACTUAL_ISOLATED333_POST_FULL_WINDOWS_NATIVE_THREE_ROLES",
+  "SourceFreezeSha256": "AA5249A3F81F74F825626EAAF1DACB1E44564105B6BD0589DB5A0DD9CA4046C4",
+  "SourceClosureSha256": "BBECB7B32C2807BB7DC74F06AD500C5517283468864F0203FE35C54F084DC2CE",
+  "ActualFullGuard": {
+    "Path": "artifacts/proc-lib333-full-source/full-guard.json",
+    "Bytes": 4804,
+    "Sha256": "368E328BD251F219270018D37E2FAE4681460A83808B9F741C78B34DBD6C5E72"
+  },
+  "SourceRowsRehashed": 2439,
+  "CompositionPeer": {
+    "Path": "artifacts/proc-lib333-full-source-independent/report.json",
+    "Bytes": 2427,
+    "Sha256": "CDC9830365B7C0CC3429D53301F507F6FA05257045FF55EADE2EADB0C2C378CC"
+  },
+  "ActualTool": {
+    "Path": "artifacts/proc-lib333-candidate/tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+    "Bytes": 126976,
+    "Sha256": "969E57A1475A2A6890EA0C9728F297B350A360E4A4714900046FF47E2033E2C7"
+  },
+  "ActualRuntime": {
+    "Path": "artifacts/proc-lib333-candidate/tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.Runtime.dll",
+    "Bytes": 1402368,
+    "Sha256": "9EDEA266C1B5B0C40A954FCBBE000EAA7D4CE2601457A783AD69ABD26F34AF3B"
+  },
+  "Roles": [
+    {
+      "Role": "legacy",
+      "Attempt": {
+        "Path": "artifacts/proc-lib333-native-actual/legacy.attempt.json",
+        "Bytes": 14578,
+        "Sha256": "692673566E1E10F972C0C80CBE3A29F582E07107F7FCEC59FFA76D184645B554"
+      },
+      "Process": {
+        "Path": "artifacts/proc-lib333-native-actual/legacy.process.json",
+        "Bytes": 431,
+        "Sha256": "B62BD75517D748FB6D6B49A089238D9259D05B4C7D325EBF40D924B87A9A5F83"
+      },
+      "Stdout": {
+        "Path": "artifacts/proc-lib333-native-actual/legacy.stdout",
+        "Bytes": 1839,
+        "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+      },
+      "Stderr": {
+        "Path": "artifacts/proc-lib333-native-actual/legacy.stderr",
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Role": "provider-query",
+      "Attempt": {
+        "Path": "artifacts/proc-lib333-native-actual/provider-query.attempt.json",
+        "Bytes": 14626,
+        "Sha256": "D724D34E325A8168C7FAE8BA5C8E775B293746BAA7FE667A4582A098EEBC4ED8"
+      },
+      "Process": {
+        "Path": "artifacts/proc-lib333-native-actual/provider-query.process.json",
+        "Bytes": 440,
+        "Sha256": "2E2FE18366610E6B0167B696E5851507BD5959DC61993AF689E253274FEC280F"
+      },
+      "Stdout": {
+        "Path": "artifacts/proc-lib333-native-actual/provider-query.stdout",
+        "Bytes": 4594,
+        "Sha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF"
+      },
+      "Stderr": {
+        "Path": "artifacts/proc-lib333-native-actual/provider-query.stderr",
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Role": "reallocation",
+      "Attempt": {
+        "Path": "artifacts/proc-lib333-native-actual/reallocation.attempt.json",
+        "Bytes": 15003,
+        "Sha256": "E9B221C793740BCE5AF1EFEB8D72161664B0E293A3ECC2B54A08DDA0DB064F79"
+      },
+      "Process": {
+        "Path": "artifacts/proc-lib333-native-actual/reallocation.process.json",
+        "Bytes": 423,
+        "Sha256": "96AF8AE4E698081F9F0BF8C0BC1DD90F9C761D8B52B04BDE408ADB57E21EA78B"
+      },
+      "Stdout": {
+        "Path": "artifacts/proc-lib333-native-actual/reallocation.stdout",
+        "Bytes": 2875,
+        "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+      },
+      "Stderr": {
+        "Path": "artifacts/proc-lib333-native-actual/reallocation.stderr",
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    }
+  ],
+  "FullPassed": 6871,
+  "IntegrationResults": {
+    "Readiness": "Passed",
+    "PackagedReadiness": "Passed",
+    "Build": "Passed",
+    "Tests": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "HybridOutput": "Hello World",
+    "Incremental": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "CleanRebuild": "Passed",
+    "PackageConsumer": "Passed",
+    "LocalTool": "Passed"
+  },
+  "RuntimeDependencyAssetsVerified": 34,
+  "RecursiveDllJsonPins": 36,
+  "IndependentTypedReplayMatchesBaseline": true,
+  "LegacyAndReallocationRawBytesMatchPreviousActual317": true,
+  "QueryPhases": [
+    "VetoClosed",
+    "Loaded",
+    "AdmissionHeld",
+    "RetirementPending",
+    "Unloaded"
+  ],
+  "RuntimeOrdinals": [
+    1,
+    2,
+    2,
+    2,
+    2
+  ],
+  "JoinedOwners": [
+    0,
+    1,
+    1,
+    1,
+    0
+  ],
+  "RequestedAndBackingPairs": [
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    }
+  ],
+  "Scope": "sdk_joined_nif_payload_requests",
+  "CandidateExecution": true,
+  "MainExecution": false,
+  "OriginalExecuted": false,
+  "NewCCompiled": false,
+  "PhysicalMemoryCompared": false
+}

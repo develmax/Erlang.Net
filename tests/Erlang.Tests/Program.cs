@@ -1783,6 +1783,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.ProcLibMetadataMfaContracts.Owns(export.Module, export.Function))
+        {
+            await Erlang.Tests.ProcLibMetadataMfaContracts.Run(export.Function);
+
+            return;
+        }
         if (Erlang.Tests.ProcLibOptionMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.ProcLibOptionMfaContracts.Run(export.Function, export.Arity);

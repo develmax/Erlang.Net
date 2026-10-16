@@ -1,5 +1,9 @@
 # proc_lib local process foundation
 
+Part334 implements proc_lib initial_call/1, translate_initial_call/1, set_label/1 and get_label/1. Actual6918/6918 and eleven integration/package checks pass in one complete isolated pipeline; all6871 prior ordered tests and528 registry rows/custom Limits are preserved. Registry532 across eight modules; proc_lib23/39, erlang351 unchanged. Forty-three new compiled scenarios and four direct API checks pass. Published333 is fully audited: CI6871/11, original6042/6042 plusfd8, all6001 previous and41 new contracts match semantically; all five typed terminal scopes pass. One predeclared map stdout-order variance and the separate distribution strict representation refusal remain raw and explicit. Original334 and current-head CI await publication. API presence is not semantic completion. Remaining16 proc_lib exports cover lifecycle, node overloads and report formatting, with gen/sys/logger and connected-node dependencies still incomplete.
+
+New APIs: initial_call/1 and translate_initial_call/1 query live PIDs, numeric PID tuples and source-shaped process-info lists. set_label/1 stores any term in the actual process dictionary; get_label/1 reads self or another process without inventing label inheritance. Remote RPC and nonlocal numeric PID channels remain explicitly incomplete. Local labels/introspection are validated by43 compiled scenarios plus4 direct contracts; original334 is pending.
+
 Reference: [OTP29.1.1 proc_lib.erl](https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/proc_lib.erl).
 
 Part333 registers19 of39 declarations. Status: **Partially compatible**.

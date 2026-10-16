@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part334 leaves351 erlang registrations unchanged. The four new proc_lib exports reuse actual process_info, dictionary, integer/atom conversion and process identifiers. No new erlang semantics, physical metrics or performance result is claimed. Published333 original6042/fd8 and CI6871/11 are complete, with strict textual refusals separate from semantic success.
+
 Part333 leaves351 erlang registrations unchanged. A narrow existing spawn_opt option-error parser helper is shared with proc_lib so builtin wrapper arguments and badopt metadata follow the same path. No new scheduler/heap configuration or physical-resource parity is claimed. Existing contracts remain covered by6871 tests; new333 original observations remain pending.
 
 Part332 changes no erlang registrations (351 present). It repairs shared source receive timeout ordering needed by proc_lib synchronous startup. Bounded source/host tests pass; original332 comparison remains pending. All erlang exports being registered does not establish whole-module, scheduler, resource-layout or performance compatibility.

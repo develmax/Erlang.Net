@@ -1,5 +1,7 @@
 # Known semantic boundaries
 
+Part334: proc_lib initial-call queries preserve specific dictionary-item precedence over dictionary-list fallback; initial_call makes Argument__1..N atoms and translate_initial_call retains the native default. Labels are arbitrary real dictionary values, return ok, do not inherit into children, and unavailable/invalid targets return undefined through the source exception boundary. Connected remote RPC and nonlocal numeric PID-channel parsing remain incomplete; lifecycle/crash reports, report formatting and unrestricted native tuning are not completed by these four APIs.
+
 Part333: start_monitor ACK retains its original real monitor. NACK, early DOWN and timeout paths send the same consumed DOWN to the mailbox tail through actual erlang send. Option-bearing startup checks MFA guards before ordered lists:member/keyfind monitor rejection; wrong-arity monitor tuples retain case_clause. Existing option parsing, atomic links/monitors and spawn wrapper metadata are reused. Other native tuning options, remote overloads, full stack/tracing/scheduler/physical parity remain incomplete.
 
 Part332: matching queued messages precede invalid timeout VALUE rejection; the timeout EXPRESSION still executes once before selection, including its side effects/errors. Startup uses actual ack/nack/DOWN and removes a link before timeout kill. Existing zero-timeout snapshot policy is retained without claiming exact VM concurrent-arrival scheduling. Crash logging, complete stack parity and gen/sys integration remain incomplete; original332 is pending.

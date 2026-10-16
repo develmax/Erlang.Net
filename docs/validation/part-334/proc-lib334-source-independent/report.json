@@ -1,0 +1,28 @@
+{
+  "Status": "PASS_SOURCE_REVIEW334_LOCAL_METADATA_AND_PROCESS_LABELS",
+  "Passed": true,
+  "SourceFreezeSha256": "95D2852FE70352621456586E7FB7EF13BB8036880E4A2E50D0CE9CA1C9F57B49",
+  "ReviewedOwnedCSharpFiles": 11,
+  "ReviewedCompiledCases": 43,
+  "ReviewedDirectContracts": 4,
+  "PinnedOriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReviewedSemantics": [
+    "Specific dictionary-key priority and malformed outer case_clause; proper and improper list keyfind traversal",
+    "Raw tuple MFA accepted without atom/arity guards; dummy arguments through integer_to_list and list_to_atom, exact integer zero and cooperative reductions",
+    "PID tuple c:pid local text conversion; self/live/dead/disconnected process_info paths",
+    "Arbitrary labels; self dictionary path, other query errors collapse to undefined, no PID guard",
+    "ParseAll before focused execution; 43 cases include malformed arities and metadata, real-child handshakes and monitored cleanup"
+  ],
+  "All11FrozenSnapshotsAndCandidateBytesExact": true,
+  "ModifiedParentFilesOnlyExpectedRegistrationFixtureCountChanges": true,
+  "ConnectedRemoteRpcParityClaimed": false,
+  "NonlocalPidTextChannelParityClaimed": false,
+  "NegativeArityBoundedOriginalExecutionClaimed": false,
+  "Limitations": [
+    "Connected remote process_info requires rpc path not implemented by these local routes",
+    "Nonlocal integer PID text channels inherit existing list_to_pid limitations",
+    "Negative stored arity follows cancellable nonterminating original-style decrement; no unbounded original fixture proposed"
+  ],
+  "BuildOrSdkOrOriginalExecutionByReviewer": false,
+  "MainMutationByReviewer": false
+}

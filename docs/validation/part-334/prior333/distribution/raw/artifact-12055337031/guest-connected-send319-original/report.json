@@ -1,0 +1,340 @@
+{
+  "Status": "PASS_ACTUAL_ORIGINAL_TWO_NODE_GUEST_CONNECTED_SEND_OBSERVATION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399",
+  "PrimaryFailure": null,
+  "CleanupFailures": [],
+  "ActualAssertions": {
+    "OrderedOriginalContracts": [
+      "send_two_returns_message_and_delivers",
+      "bang_returns_message_and_delivers",
+      "connected_noconnect_delivers",
+      "connected_no_suspend_delivers",
+      "connected_no_suspend_noconnect_delivers",
+      "same_sender_five_message_order",
+      "group_leader_then_public_send_order"
+    ],
+    "DeliveredPublicSendOrder": [
+      "send_two",
+      "bang",
+      "no_connect",
+      "no_suspend",
+      "no_suspend_no_connect"
+    ],
+    "ActualRawOutcome": "(('atom', 'return'), ('tuple', (('atom', 'guest_connected_send319'), ('list', (('tuple', (('atom', 'send_two_returns_message_and_delivers'), ('atom', 'true'))), ('tuple', (('atom', 'bang_returns_message_and_delivers'), ('atom', 'true'))), ('tuple', (('atom', 'connected_noconnect_delivers'), ('atom', 'true'))), ('tuple', (('atom', 'connected_no_suspend_delivers'), ('atom', 'true'))), ('tuple', (('atom', 'connected_no_suspend_noconnect_delivers'), ('atom', 'true'))), ('tuple', (('atom', 'same_sender_five_message_order'), ('atom', 'true'))), ('tuple', (('atom', 'group_leader_then_public_send_order'), ('atom', 'true'))))), ('tuple', (('atom', 'raw'), ('pid', ('atom', 'gs319_client_727cb933cd36@127.0.0.1'), 10, 0, 1792163597, 88), ('pid', ('atom', 'gs319_server_727cb933cd36@127.0.0.1'), 91, 0, 1792163597, 88), ('reference', ('atom', 'gs319_client_727cb933cd36@127.0.0.1'), 1792163597, (134766, 2405171201, 2922127438), 90), ('list', (('atom', 'send_two'), ('atom', 'bang'), ('atom', 'no_connect'), ('atom', 'no_suspend'), ('atom', 'no_suspend_no_connect'))), ('pid', ('atom', 'gs319_client_727cb933cd36@127.0.0.1'), 10, 0, 1792163597, 88))))))",
+    "ActualWorkerCleanup": "('tuple', (('atom', 'return'), ('tuple', (('atom', 'worker_joined'), ('atom', 'killed')))))",
+    "NativeControlWireBytesCaptured": false,
+    "SdkExecuted": false,
+    "SdkCompared": false,
+    "PriorityTraceOrPressureObserved": false,
+    "Roles": [
+      "original public send/2, !, send/3 noconnect, send_nosuspend/2,3 -> live original remote worker",
+      "original public group_leader/2 followed by public send/2 observes updated remote leader",
+      "separate SDK HOST/controller packet tests are not executed or compared by this collector"
+    ]
+  },
+  "Tools": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erl",
+      "Bytes": 1470,
+      "Sha256": "47E90F6B819F891C7A3A5E57C0E6D45605BF73DABCAC535D9A08898EC9B153A8"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erlc",
+      "Bytes": 539576,
+      "Sha256": "69C3F194C8A3BFEB8BA3A0D81AB7F5E94C511B6065888B653FCD218EEA13477B"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/erts-17.1/bin/epmd",
+      "Bytes": 213656,
+      "Sha256": "E4D74A07833B6F752EE6C175CF68376A90E086EB252C3C2F6B163F41DB278A7D"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/erts-17.1/bin/beam.smp",
+      "Bytes": 56061192,
+      "Sha256": "F6DD0EDF54B2420893E96AB74FC651D5668D6DE48FE7B9F9D44AEA7277F04336"
+    }
+  ],
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeControlWireBytesCaptured": false,
+  "NativeNetworkingUsed": true,
+  "PriorityTraceOrPressureObserved": false,
+  "Files": [
+    {
+      "Path": "client/connection.etf",
+      "Bytes": 120,
+      "Sha256": "1DA6AFFF2FD4BD627D89D37FB339608F95F91A5D84077B94BBB843329C6FD9D9"
+    },
+    {
+      "Path": "client/outcome.etf",
+      "Bytes": 627,
+      "Sha256": "2AA16016243331035EBF57E95EB8B22AA83C55390FE37F9B2F51B01497B62913"
+    },
+    {
+      "Path": "client/process.process.json",
+      "Bytes": 1005,
+      "Sha256": "8162D782C2D3BB85D45E5769806BACF374ACC22C135826BB7B38726736951BCD"
+    },
+    {
+      "Path": "client/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "client/process.stdout",
+      "Bytes": 1558,
+      "Sha256": "A66ED33C1C995B141653726D0A1DEE709A1BE90825EC665EEE5996860685EB0F"
+    },
+    {
+      "Path": "client/runtime.etf",
+      "Bytes": 325,
+      "Sha256": "3EFE307D7EF94145AB7548DD04F138E2DA32F8AED471D999ACA5F4BC71E358D9"
+    },
+    {
+      "Path": "client/server-cleanup.etf",
+      "Bytes": 35,
+      "Sha256": "64D6D1AAA2B3C0A558FCF03B8D5E42227D855FF0797C79F4EE033218348B2C91"
+    },
+    {
+      "Path": "client/worker-cleanup.etf",
+      "Bytes": 36,
+      "Sha256": "C32FFE77EE216BF074334BB2415385E13C64819ED5A45FEB43B92632B204E65F"
+    },
+    {
+      "Path": "compile.process.json",
+      "Bytes": 645,
+      "Sha256": "A667718E67C6A34CA5EA252EEA82C6D9B82C3EACE384910EF9EAB7544E4AC70B"
+    },
+    {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "ebin/guest_connected_send319.beam",
+      "Bytes": 6488,
+      "Sha256": "2306C0C21F7F0E95BE4934C0230FA042B8EF864EF67438EBB637274AE8D5136D"
+    },
+    {
+      "Path": "ebin/guest_connected_send319_driver.beam",
+      "Bytes": 5692,
+      "Sha256": "3CF66C9610920E031F4DDED402F7D1EF83437CF31E87E046240CA5F2A6879B5C"
+    },
+    {
+      "Path": "epmd.process.json",
+      "Bytes": 569,
+      "Sha256": "B77CBADA06E79A8E802ABB2F202F6CD501F4A769E171382F1752DF9C65E323C6"
+    },
+    {
+      "Path": "epmd.stderr",
+      "Bytes": 82,
+      "Sha256": "B32E946B9BC51EF1EED9F235376962AAB8561523BFD062BF5F781699BDEAB82E"
+    },
+    {
+      "Path": "epmd.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-0.process.json",
+      "Bytes": 333,
+      "Sha256": "04403EA22118F42FBA6B937202C16AD418F23E4875685EC78FDB9B939D3DCA42"
+    },
+    {
+      "Path": "pin-0.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-0.stdout",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "pin-1.process.json",
+      "Bytes": 334,
+      "Sha256": "B53370C63F0F12A5879987A5385B449B069A7D80597B550EF34D3F4436E5E66B"
+    },
+    {
+      "Path": "pin-1.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-1.stdout",
+      "Bytes": 220150,
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "pin-2.process.json",
+      "Bytes": 338,
+      "Sha256": "8C498BB76AC26D60FE1930080594BCA3560FF316D74DFB5CED59A65DAEE383EB"
+    },
+    {
+      "Path": "pin-2.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-2.stdout",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "pin-3.process.json",
+      "Bytes": 329,
+      "Sha256": "999FF08D402BCB6E1CE6E6FE2DD5A8161AEC19C6BC7029F4A328CA1108105329"
+    },
+    {
+      "Path": "pin-3.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-3.stdout",
+      "Bytes": 15533,
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "pin-4.process.json",
+      "Bytes": 336,
+      "Sha256": "1BBF19921CF36AD567D2F9D69E286AEB08D9E0309FC8D5D8916E3E377F4FF665"
+    },
+    {
+      "Path": "pin-4.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-4.stdout",
+      "Bytes": 21131,
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    },
+    {
+      "Path": "pin-5.process.json",
+      "Bytes": 334,
+      "Sha256": "48D34292E265F84E09918E96C27FAF17285097196A8149D9FCC2103915B53229"
+    },
+    {
+      "Path": "pin-5.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-5.stdout",
+      "Bytes": 60322,
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    },
+    {
+      "Path": "server/process.process.json",
+      "Bytes": 1011,
+      "Sha256": "E69DB219295DC60D7331E675EC84F5995B174D84AA1B8FC0E8F2B41BB059DEA1"
+    },
+    {
+      "Path": "server/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "server/process.stdout",
+      "Bytes": 563,
+      "Sha256": "1944BE1CE6980BB8CDC018247DE155B7DCD79B17066583CFEE14326BB43CAB2C"
+    },
+    {
+      "Path": "server/runtime.etf",
+      "Bytes": 325,
+      "Sha256": "D24E79F02295C477D2817F1ECEC651F8BD0427DD8422DEB32C6A7E98408EACFB"
+    },
+    {
+      "Path": "server/shutdown.etf",
+      "Bytes": 35,
+      "Sha256": "64D6D1AAA2B3C0A558FCF03B8D5E42227D855FF0797C79F4EE033218348B2C91"
+    },
+    {
+      "Path": "source-build-evidence.json",
+      "Bytes": 841,
+      "Sha256": "0B0CFBDFC487950A092F23555DAE2E267316B473B34525FFF5B3A1AAAD3914AB"
+    },
+    {
+      "Path": "source-build.log",
+      "Bytes": 453388,
+      "Sha256": "C58698A5E1B1795BBAB1D5A142EC3412F3B5127BCE71F7CF710B4ACA8D71FE02"
+    },
+    {
+      "Path": "source-head.process.json",
+      "Bytes": 277,
+      "Sha256": "A58F23E4A58A94E480FFFF10037F474213E59435F16E6A8918B93D4F9E49D2B7"
+    },
+    {
+      "Path": "source-head.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-head.stdout",
+      "Bytes": 41,
+      "Sha256": "063A85610325BB1993B92255BE48C9A95C69DD7DD9BD74855A7480264E608391"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 2391,
+      "Sha256": "7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399"
+    },
+    {
+      "Path": "source-status.process.json",
+      "Bytes": 309,
+      "Sha256": "6A200CE2D3D06B2664DBDF485B764E1762DE8277248D66020C17C107506B4385"
+    },
+    {
+      "Path": "source-status.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-status.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sources/README.md",
+      "Bytes": 3445,
+      "Sha256": "088C03C641A1A1FE062E26E10FB4088830E7F789C399365655AACAFC0D8AA719"
+    },
+    {
+      "Path": "sources/collect.py",
+      "Bytes": 14664,
+      "Sha256": "370ABE0D4FBEB1EC1F328E63570B20D76BD51A4D91E2C8A955E5EA215F4A3F23"
+    },
+    {
+      "Path": "sources/guest_connected_send319.erl",
+      "Bytes": 3815,
+      "Sha256": "BC16D45A89013E80746EBD68AEC44BEA1711120568D834FE21A0D5DFECD88707"
+    },
+    {
+      "Path": "sources/guest_connected_send319_driver.erl",
+      "Bytes": 2612,
+      "Sha256": "8BCC156AE0B8D9A1640FF5E552280627BB6ED1DC9C5E96FFD85D8A9A81A8654F"
+    },
+    {
+      "Path": "sources/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "sources/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "sources/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    }
+  ]
+}

@@ -2,11 +2,11 @@
   "Tag": "OTP-29.1.1",
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Methodology": "API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.",
-  "ComparisonTestReport": "validation/part-332/final-candidate/tests.json",
-  "LocalPassedTests": 6871,
-  "RegisteredMfas": 528,
-  "PreviousRegisteredMfas": 521,
-  "RegisteredMfaDelta": 7,
+  "ComparisonTestReport": "validation/part-333/final-candidate/tests.json",
+  "LocalPassedTests": 6918,
+  "RegisteredMfas": 532,
+  "PreviousRegisteredMfas": 528,
+  "RegisteredMfaDelta": 4,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 8,
   "Components": [
@@ -284,7 +284,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1567
+      "RelatedPassedTests": 1571
     },
     {
       "Id": "gen_server adapters",
@@ -446,7 +446,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5291
+      "RelatedPassedTests": 5334
     },
     {
       "Id": "Style checks",
@@ -535,14 +535,16 @@
         "Part331 completion: all21 compiled local spawn/spawn_link/init_ack scenarios match pinned original OTP; complete5962/5962\u002Bfd8, all5941 prior contracts retained, zero strict ordinary variance. CI6775/11 and all other terminal typed scopes pass.",
         "Part332: start/3,4,start_link/3,4,init_fail/2,3 using real ACK/NACK/DOWN, unlink-before-timeout kill and shared deferred timeout value validation. Actual6822/6822 and eleven cumulative integration/package outcomes; promoted2431 source bytes exact. Original332 pending.",
         "Part332 completion: original6001/6001\u002Bfd8, all5962 prior contracts and39 new source/local/original/SDK chains match; strict ordinary variance0; all five terminal typed scopes pass.",
-        "Part333: seven local monitored/option APIs; original monitor retention, real DOWN tail requeue, ordered monitor precheck and existing atomic option parser. Actual6871/6871 and eleven integrations/packages;19/39 API presence. Original333 pending."
+        "Part333: seven local monitored/option APIs; original monitor retention, real DOWN tail requeue, ordered monitor precheck and existing atomic option parser. Actual6871/6871 and eleven integrations/packages;19/39 API presence. Original333 pending.",
+        "Part333 completion: original6042/6042\u002Bfd8 and CI6871/11; all6001 previous and41 new contracts match. Allfive typed scopes pass; one predeclared ordinary map stdout-order variance and distribution strict repr refusal remain separately retained without normalization.",
+        "Part334: initial_call/1, translate_initial_call/1 and arbitrary process labels set_label/1,get_label/1; actual6918/6918 plus11 integrations,43 compiled scenarios and4 direct contracts. Registry532/proc_lib23/39. Original334 pending."
       ],
       "Remaining": [
-        "Remote overloads and unsupported native tuning options",
-        "gen/sys integration and required introspection/lifecycle helpers",
-        "Crash logger, complete stack/tracing/scheduler/physical parity"
+        "Sixteen lifecycle, node-overload and report-formatting exports; gen/sys/logger integration",
+        "Connected remote RPC and numeric PID channels; unrestricted native tuning options",
+        "Complete stack/tracing/scheduler/physical and performance parity"
       ],
-      "RelatedPassedTests": 115
+      "RelatedPassedTests": 162
     }
   ],
   "Modules": [
@@ -11473,20 +11475,23 @@
     {
       "Name": "proc_lib",
       "Status": "Partially compatible",
-      "RegisteredMfas": 19,
-      "PreviousRegisteredMfas": 12,
-      "Delta": 7,
+      "RegisteredMfas": 23,
+      "PreviousRegisteredMfas": 19,
+      "Delta": 4,
       "ReferenceDeclarations": 39,
-      "ApiPresencePercent": 48.7,
+      "ApiPresencePercent": 59.0,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/proc_lib.erl"
       ],
       "Mfas": [
+        "proc_lib:get_label/1",
         "proc_lib:init_ack/1",
         "proc_lib:init_ack/2",
         "proc_lib:init_fail/2",
         "proc_lib:init_fail/3",
+        "proc_lib:initial_call/1",
+        "proc_lib:set_label/1",
         "proc_lib:spawn/1",
         "proc_lib:spawn/3",
         "proc_lib:spawn_link/1",
@@ -11501,7 +11506,8 @@
         "proc_lib:start_link/5",
         "proc_lib:start_monitor/3",
         "proc_lib:start_monitor/4",
-        "proc_lib:start_monitor/5"
+        "proc_lib:start_monitor/5",
+        "proc_lib:translate_initial_call/1"
       ],
       "AbsentFromReference": []
     },
