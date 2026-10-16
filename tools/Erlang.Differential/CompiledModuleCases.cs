@@ -636,6 +636,8 @@ public static class CompiledModuleCases
         .. ProcLibOptionCases.Modules,
         .. ProcLibMetadataCases.Modules,
         .. ProcLibStopCases.Modules,
-        .. ProcLibReportCases.Modules
+        .. ProcLibReportCases.Modules,
+        .. ProcLibLifecycleCases.Modules,
+        .. ErrorLoggerTermLimitCases.Modules
     ];
 }

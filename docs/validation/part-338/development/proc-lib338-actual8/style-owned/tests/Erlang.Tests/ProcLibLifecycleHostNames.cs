@@ -1,0 +1,54 @@
+namespace Erlang.Tests;
+
+internal static class ProcLibLifecycleHostNames
+{
+    public const string ParseAll = "proc_lib lifecycle/logger parses all source fixtures";
+    public const string Isolation = "logger and application configuration are isolated per runtime";
+    public const string Await = "logger waits for its actual handler callback";
+    public const string Streams = "logger writes actual report callback output to stdout";
+    public const string Cancellation = "logger propagates actual handler cancellation without removing it";
+    public const string Observations = "proc_lib structured reports satisfy source invariants and retain raw observations";
+    public const string Logger = "logger";
+    public const string Application = "application";
+    public const string SetEnv = "set_env";
+    public const string GetEnv = "get_env";
+    public const string SetPrimary = "set_primary_config";
+    public const string Allow = "allow";
+    public const string RemoveHandler = "remove_handler";
+    public const string AddHandler = "add_handler";
+    public const string GetHandler = "get_handler_config";
+    public const string MacroLog = "macro_log";
+    public const string Default = "default";
+    public const string Module = "lifecycle_host_handler";
+    public const string Handler = "lifecycle_capture";
+    public const string Log = "log";
+    public const string Kernel = "kernel";
+    public const string Key = "isolated_value";
+    public const string Fallback = "fallback";
+    public const string Level = "level";
+    public const string Debug = "debug";
+    public const string Error = "error";
+    public const string True = "true";
+    public const string False = "false";
+    public const string Ok = "ok";
+    public const string Event = "event";
+    public const string Captured = "captured";
+    public const string ReportCallback = "report_cb";
+    public const string SingleLine = "single_line";
+    public const string ProcLib = "proc_lib";
+    public const string Format = "format";
+    public const string Erlang = "erlang";
+    public const string Kill = "kill";
+    public const string Killed = "killed";
+    public const string Normal = "normal";
+    public const string Rendered = "actual report callback";
+    public const string StreamPrefix = "nested café ";
+    public const string StreamSuffix = "λ";
+    public const string InvalidStreamDiagnostic = "FORMATTER ERROR: bad return value\n";
+    public const int UnpairedSurrogate = 0xD800;
+    public const string Newline = "\n";
+    public const string Mismatch = "The real lifecycle/logger host effect differs from its contract.";
+    public const int HandlerArity = 2;
+    public const int IsolationValue = 42;
+    public static readonly TimeSpan Deadline = TimeSpan.FromSeconds(10);
+}

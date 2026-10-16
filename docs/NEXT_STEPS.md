@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part338: publish the passed initializer/crash-report slice and dispatch the enlarged original comparison once. Complete six node-qualified proc_lib overloads with actual connected spawning, TT token and monitor/link/alias semantics; then complete remote RPC process labels. Preserve raw failed fixtures and the explicit two-field physical-report divergence. Full logger and whole-module compatibility remain partial.
+
 Part337: publish the original-verified formatter and dispatch the enlarged ordinary oracle once. Complete all ten remaining proc_lib exports with actual init_p/crash-report/logger, hibernate/wake_up and connected remote-spawn behavior. Source-only logger and remote prototypes remain uncounted until their source findings and actual checks are resolved. Preserve original76 baselines and failed70/75 comparisons; no unsupported backend may masquerade as a completed module.
 
 Part336: publish the source-reviewed standalone collector, dispatch exactly once with its manifest SHA, then compare actual original raw returned terms against private SDK observations. Finish exact335 CI/original audits. Continue all14 missing proc_lib exports and label remote dependencies; no fake logger or disconnected-only completion claim.

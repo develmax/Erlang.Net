@@ -6,6 +6,13 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.ProcLibLifecycleHostNames.ParseAll, Erlang.Tests.ProcLibLifecycleMfaContracts.ParseAll);
+Test(Erlang.Tests.ErrorLoggerTermLimitHostNames.Test, Erlang.Tests.ErrorLoggerTermLimitHostChecks.Run);
+Test(Erlang.Tests.ProcLibLifecycleHostNames.Isolation, Erlang.Tests.ProcLibLifecycleHostChecks.IsolatedConfiguration);
+Test(Erlang.Tests.ProcLibLifecycleHostNames.Await, Erlang.Tests.ProcLibLifecycleHostChecks.AwaitHandler);
+Test(Erlang.Tests.ProcLibLifecycleHostNames.Streams, Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput);
+Test(Erlang.Tests.ProcLibLifecycleHostNames.Cancellation, Erlang.Tests.ProcLibLifecycleHostChecks.CancelHandler);
+Test(Erlang.Tests.ProcLibLifecycleHostNames.Observations, Erlang.Tests.ProcLibLifecycleObservationChecks.Run);
 Test(Erlang.Tests.ProcLibReportProbeNames.PrimitiveTest, Erlang.Tests.ProcLibReportProbeChecks.CapturePrimitives);
 Test(Erlang.Tests.ProcLibReportProbeNames.PrettyTest, Erlang.Tests.ProcLibReportProbeChecks.PrettySourceContracts);
 Test(Erlang.Tests.ProcLibReportProbeNames.CallbackTest, Erlang.Tests.ProcLibReportProbeChecks.CallbackAwaitControl);
@@ -1812,6 +1819,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         if (Erlang.Tests.ProcLibStartupMfaContracts.Owns(export.Module, export.Function))
         {
             await Erlang.Tests.ProcLibStartupMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+        if (Erlang.Tests.ProcLibLifecycleMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProcLibLifecycleMfaContracts.Run(export.Module, export.Function, export.Arity);
 
             return;
         }

@@ -1,0 +1,442 @@
+{
+  "Status": "UNPARSED_UNEXECUTED_PERMANENT_SOURCE_PROPOSAL",
+  "Asserted36": false,
+  "Observations7": true,
+  "DirectMfas36": [
+    {
+      "Module": "logger",
+      "Function": "allow",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "macro_log",
+      "Arity": 4
+    },
+    {
+      "Module": "logger",
+      "Function": "get_primary_config",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_primary_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "update_primary_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "set_primary_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "add_handler",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_handler",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_config",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_ids",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_handler_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "update_handler_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "set_handler_config",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "add_primary_filter",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_primary_filter",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "add_handler_filter",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_handler_filter",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "set_module_level",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_module_level",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_module_level",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_module_level",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "get_process_metadata",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_process_metadata",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "update_process_metadata",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_process_metadata",
+      "Arity": 0
+    },
+    {
+      "Module": "application",
+      "Function": "get_env",
+      "Arity": 2
+    },
+    {
+      "Module": "application",
+      "Function": "get_env",
+      "Arity": 3
+    },
+    {
+      "Module": "application",
+      "Function": "set_env",
+      "Arity": 3
+    },
+    {
+      "Module": "application",
+      "Function": "unset_env",
+      "Arity": 2
+    },
+    {
+      "Module": "error_logger",
+      "Function": "get_format_depth",
+      "Arity": 0
+    },
+    {
+      "Module": "error_logger",
+      "Function": "limit_term",
+      "Arity": 1
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 3
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 5
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "wake_up",
+      "Arity": 3
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "hibernate",
+      "Arity": 3
+    }
+  ],
+  "FixtureOnlyUndefinedMacroCorrections": [
+    "logger_report_delivery",
+    "logger_level_gate",
+    "logger_metadata_priority",
+    "logger_primary_filter_stop",
+    "logger_filter_ignore_default",
+    "logger_filter_transform",
+    "logger_failing_filter_removed",
+    "logger_failing_handler_removed",
+    "logger_handler_threshold",
+    "logger_handler_config_callback",
+    "logger_filter_failure_restores_log",
+    "logger_filter_failure_restores_stop",
+    "logger_improper_message_guards"
+  ],
+  "NativeExpectedInvented": false,
+  "RegisteredMfaInventoryDerivedFromActualRegistration": [
+    {
+      "Module": "logger",
+      "Function": "allow",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "macro_log",
+      "Arity": 4
+    },
+    {
+      "Module": "logger",
+      "Function": "get_primary_config",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_primary_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "update_primary_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "set_primary_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "add_handler",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_handler",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_config",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_config",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "get_handler_ids",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_handler_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "update_handler_config",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "set_handler_config",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "add_primary_filter",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_primary_filter",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "add_handler_filter",
+      "Arity": 3
+    },
+    {
+      "Module": "logger",
+      "Function": "remove_handler_filter",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "set_module_level",
+      "Arity": 2
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_module_level",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_module_level",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "get_module_level",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "get_process_metadata",
+      "Arity": 0
+    },
+    {
+      "Module": "logger",
+      "Function": "set_process_metadata",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "update_process_metadata",
+      "Arity": 1
+    },
+    {
+      "Module": "logger",
+      "Function": "unset_process_metadata",
+      "Arity": 0
+    },
+    {
+      "Module": "application",
+      "Function": "get_env",
+      "Arity": 2
+    },
+    {
+      "Module": "application",
+      "Function": "get_env",
+      "Arity": 3
+    },
+    {
+      "Module": "application",
+      "Function": "set_env",
+      "Arity": 3
+    },
+    {
+      "Module": "application",
+      "Function": "unset_env",
+      "Arity": 2
+    },
+    {
+      "Module": "error_logger",
+      "Function": "get_format_depth",
+      "Arity": 0
+    },
+    {
+      "Module": "error_logger",
+      "Function": "limit_term",
+      "Arity": 1
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 3
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 5
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "wake_up",
+      "Arity": 3
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "hibernate",
+      "Arity": 3
+    }
+  ],
+  "LoggerFixtureRepairsCanonicalPending": false,
+  "Asserted43": true,
+  "AddedOriginalComparableAssertions7": [
+    {
+      "Name": "structured-crash-error-contract",
+      "OriginalObservationSourceSha256": "B327EAA1467C347E53588CCCD6B027DE1D46D302C10DFDB1E035A3A89AC2222F",
+      "Path": "assertion-fixtures/structured-crash-error-contract.erl",
+      "Bytes": 5193,
+      "Sha256": "E2DDDC19A04B0B7427A8B6BFE5D57F3DB653F0752DD2106FF814B11053CF56B0"
+    },
+    {
+      "Name": "structured-crash-error_normal-contract",
+      "OriginalObservationSourceSha256": "E0783A20146D987D6E4654BBB1ADF49169FC3C88CF79EBC89BEA866AA4AE2D96",
+      "Path": "assertion-fixtures/structured-crash-error_normal-contract.erl",
+      "Bytes": 5207,
+      "Sha256": "ABAF03E07D82C3F02C8203718EB4DEF0ED4E26AA91E4CF0CF1063F3B01D2DAA7"
+    },
+    {
+      "Name": "structured-crash-throw-contract",
+      "OriginalObservationSourceSha256": "25CD90ADADEC915513927E9D5445A5BB06C84C7616D219E0FA538F534A0E12A3",
+      "Path": "assertion-fixtures/structured-crash-throw-contract.erl",
+      "Bytes": 5193,
+      "Sha256": "D35DA2D46323542925DEB53D60C06766E1EF2B5E5C70A03CEC02B5C34740E847"
+    },
+    {
+      "Name": "structured-crash-exit-contract",
+      "OriginalObservationSourceSha256": "3171561E892A9D440AED9E0C6A1054D18D7F5FE688F42C87D9C20ACF223728EB",
+      "Path": "assertion-fixtures/structured-crash-exit-contract.erl",
+      "Bytes": 5191,
+      "Sha256": "97CE4AD91182C453BE4BCB57B4B34A9795FF142CA37C235447E2A2FB747F3311"
+    },
+    {
+      "Name": "structured-crash-explicit_empty-contract",
+      "OriginalObservationSourceSha256": "7F204E5BC40C40EC61C5ACCA277578DD23947EFFAE563FD170F53B6ED981E3F4",
+      "Path": "assertion-fixtures/structured-crash-explicit_empty-contract.erl",
+      "Bytes": 5211,
+      "Sha256": "B61756D54995E7C4514C1398F675013BFB8DB9A772E76AA4A7366CC8E48EE941"
+    },
+    {
+      "Name": "structured-crash-explicit_user-contract",
+      "OriginalObservationSourceSha256": "0745AF3ECD78EFF51B10F3AF0F204934798DABB8D51B0E2E0CC4761B9E258DB2",
+      "Path": "assertion-fixtures/structured-crash-explicit_user-contract.erl",
+      "Bytes": 5209,
+      "Sha256": "BE558C469E6A0940246B8238E48B38B939ECA45CB4AFC16BC1EDCD465962FE2C"
+    },
+    {
+      "Name": "structured-crash-cleared-contract",
+      "OriginalObservationSourceSha256": "AC8C1C1CFB5B83B5E45970EB3B00673B297BDEF5FA73E61B3C505E2EB20119A5",
+      "Path": "assertion-fixtures/structured-crash-cleared-contract.erl",
+      "Bytes": 5178,
+      "Sha256": "AC902A1388F86D873A9BE0B9DC5D65BABF91BB8EE52928D87CB693067197373C"
+    }
+  ],
+  "RawObservationalSourcesPreserved": true,
+  "Justification": "Pinned proc_lib crash_report/my_info1: exact reportfield order incloptionalinitial_call, ownpid/unregisteredname/links/trap_exit, cleaned dictionary/label/ancestor chain, error_info and realDOWN correlation; logger location/report_cb identity; physicalmetrics onlytype/nonnegative; explicitraise source alreadyassertsexacttrace; othertrace frames onlystructural. Exitnormal/shutdown/tuple suppression verifiedwithatomicspawn_monitor\u2192init_p andactualDOWN-before-noreport check. No variable nativevalues fabricated.",
+  "CanonicalLoggerFreeze4Sha256": "A394D980BAF402094F197F71705A5DA467F0875569FBAE0104F2053B0E6E21FE",
+  "CanonicalLoggerFixtures14CopiedAndAsserted": true
+}

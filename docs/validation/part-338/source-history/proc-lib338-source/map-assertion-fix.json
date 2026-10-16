@@ -1,0 +1,25 @@
+{
+  "Status": "FIXTURE_WRAPPER_SYNTAX_FIXED_NO_EXPECTED_VALUE_CHANGE",
+  "Reason": "Map construction => cannot appear in Erlang matching pattern; strict =:= equality expresses intended whole-value assertion for both managed/native source.",
+  "Rows": [
+    {
+      "Module": "logger_filter_transform",
+      "ExpectedExpressionUnchanged": "{report,#{tag=>changed}}",
+      "BeforeSourceSha256": "D8427666470B6EE3BE1684A4712D80A1F1666A906A3EB72D15C3EE36BB860F28",
+      "AfterSourceSha256": "19D69882437823BC43C16D0742BF6C95ED25ADE4242EA31AFABB63724CF0944C"
+    },
+    {
+      "Module": "logger_failing_filter_removed",
+      "ExpectedExpressionUnchanged": "{{report,#{event=>crash}},[]}",
+      "BeforeSourceSha256": "4EFA6A12943EDE85EBCFC3D4015F8FB223C4E470286491785A27E22BAD64F542",
+      "AfterSourceSha256": "EFDC91062C96D867D29EB44B07A80FB6899B440A318DC4EF4730A8A2172674F2"
+    },
+    {
+      "Module": "logger_filter_failure_restores_log",
+      "ExpectedExpressionUnchanged": "{report,#{event=>crash}}",
+      "BeforeSourceSha256": "55B94E10ED424FA5CD7FE90BC606EE18ED89A68FCFE6FD4915AEEF625A6B4A5B",
+      "AfterSourceSha256": "ED65FB891775C04EF5B42ACFE951F940BFBF1327AC7127CCB0C818A4A891EAB0"
+    }
+  ],
+  "GuestCasesExecutedBeforeFix": 0
+}

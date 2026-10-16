@@ -1,0 +1,12 @@
+FAIL Erlang.Tests.ProcLibLifecycleMfaContracts:ParseAll
+Erlang.Compiler.CompileException: Unsupported expression '?'
+   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 547
+   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 301
+   at Erlang.Compiler.Parser.Arguments() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 905
+   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 562
+   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 301
+   at Erlang.Compiler.Parser.Body() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 267
+   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList`1 patterns) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 248
+   at Erlang.Compiler.Parser.ParseModule() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\src\Erlang.Compiler\Parser.cs:line 185
+   at Erlang.Tests.ProcLibLifecycleMfaContracts.ParseAll() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-candidate\tests\Erlang.Tests\ProcLibLifecycleMfaContracts.cs:line 25
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib338-focus\Program.cs:line 38

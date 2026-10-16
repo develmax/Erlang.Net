@@ -1,0 +1,349 @@
+{
+  "Status": "UNPARSED_SOURCE_DERIVED_CASES_NOT_ORIGINAL_BASELINE",
+  "Cases": [
+    {
+      "Name": "init-fun-metadata",
+      "Path": "fixtures/lifecycle/init-fun-metadata.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1168,
+      "Sha256": "DC4C5158DCFAE2F92CB43FA395F2ECDDD6B5362C14253DD2333A18030EE82D01"
+    },
+    {
+      "Name": "init-mfa-metadata",
+      "Path": "fixtures/lifecycle/init-mfa-metadata.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1146,
+      "Sha256": "70748855BB89A22F6DF7F6D47D2C2B12AFF6F6189E9DB234EDA0715C0E5D0D41"
+    },
+    {
+      "Name": "init-callback-guard-before-metadata",
+      "Path": "fixtures/lifecycle/init-callback-guard-before-metadata.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1242,
+      "Sha256": "799E35706B5AFA4D4A2AF13632BB0A01AC04803625B1167734F0DD90804EEF4C"
+    },
+    {
+      "Name": "init-mfa-guard-before-metadata",
+      "Path": "fixtures/lifecycle/init-mfa-guard-before-metadata.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1251,
+      "Sha256": "CC38B437F91436DF39E17A546D3021E01C8AD4379CC0304481531B243B58693C"
+    },
+    {
+      "Name": "init-generic-improper-before-catch",
+      "Path": "fixtures/lifecycle/init-generic-improper-before-catch.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1231,
+      "Sha256": "7EF4D2F09C1D9C989B118CB90D22130CBBAC26314D45E319BF1E04F858629F47"
+    },
+    {
+      "Name": "wake-preserves-existing-metadata",
+      "Path": "fixtures/lifecycle/wake-preserves-existing-metadata.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1193,
+      "Sha256": "96A6DFA2A8867D0D69E7E174BFB5CE326E6AB6E07EA30F9EB52CA6A19AA3F4AF"
+    },
+    {
+      "Name": "wake-invalid-guard",
+      "Path": "fixtures/lifecycle/wake-invalid-guard.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1118,
+      "Sha256": "FEA750DF27ADC958F1FB776E657A59056004A07B10D27CE3B1B619F36F5D89B9"
+    },
+    {
+      "Name": "hibernate-invalid-guard",
+      "Path": "fixtures/lifecycle/hibernate-invalid-guard.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1135,
+      "Sha256": "6206F9659DA640404B80995EC37187FDBDD8855CCFB3AC8373F619F1FDEA062E"
+    },
+    {
+      "Name": "wake-exit-normal-suppressed",
+      "Path": "fixtures/lifecycle/wake-exit-normal-suppressed.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1116,
+      "Sha256": "1A14971BB3646F07EEDBD7004B0CA22A3D77B9759A017D16A3B54CAD5CC09DD2"
+    },
+    {
+      "Name": "wake-exit-shutdown-suppressed",
+      "Path": "fixtures/lifecycle/wake-exit-shutdown-suppressed.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1120,
+      "Sha256": "D86DCC6ABE75A9E32E9A1DD462E1BFE38383EF60E05BDA2503CD64EB147402CF"
+    },
+    {
+      "Name": "wake-exit-shutdown-tuple-suppressed",
+      "Path": "fixtures/lifecycle/wake-exit-shutdown-tuple-suppressed.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1142,
+      "Sha256": "456EE6A219F3761AD3ABF8753AD17DC39B167C2CA6BE6D9EF9FB634A9A84F858"
+    },
+    {
+      "Name": "hibernate-real-message-resume",
+      "Path": "fixtures/lifecycle/hibernate-real-message-resume.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 1525,
+      "Sha256": "05BD382586939BEC056C8500DC215095604D0B1AA0AEB2F172783406C516C8BB"
+    },
+    {
+      "Name": "structured-crash-error",
+      "Path": "fixtures/lifecycle/structured-crash-error.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3245,
+      "Sha256": "B327EAA1467C347E53588CCCD6B027DE1D46D302C10DFDB1E035A3A89AC2222F"
+    },
+    {
+      "Name": "structured-crash-error_normal",
+      "Path": "fixtures/lifecycle/structured-crash-error_normal.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3259,
+      "Sha256": "E0783A20146D987D6E4654BBB1ADF49169FC3C88CF79EBC89BEA866AA4AE2D96"
+    },
+    {
+      "Name": "structured-crash-throw",
+      "Path": "fixtures/lifecycle/structured-crash-throw.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3245,
+      "Sha256": "25CD90ADADEC915513927E9D5445A5BB06C84C7616D219E0FA538F534A0E12A3"
+    },
+    {
+      "Name": "structured-crash-exit",
+      "Path": "fixtures/lifecycle/structured-crash-exit.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3243,
+      "Sha256": "3171561E892A9D440AED9E0C6A1054D18D7F5FE688F42C87D9C20ACF223728EB"
+    },
+    {
+      "Name": "structured-crash-explicit_empty",
+      "Path": "fixtures/lifecycle/structured-crash-explicit_empty.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3263,
+      "Sha256": "7F204E5BC40C40EC61C5ACCA277578DD23947EFFAE563FD170F53B6ED981E3F4"
+    },
+    {
+      "Name": "structured-crash-explicit_user",
+      "Path": "fixtures/lifecycle/structured-crash-explicit_user.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3261,
+      "Sha256": "0745AF3ECD78EFF51B10F3AF0F204934798DABB8D51B0E2E0CC4761B9E258DB2"
+    },
+    {
+      "Name": "structured-crash-cleared",
+      "Path": "fixtures/lifecycle/structured-crash-cleared.erl",
+      "Expected": "{ok,ActualOriginalOrderedMfaTrace}; original capture still required",
+      "ObservedOriginal": false,
+      "Bytes": 3249,
+      "Sha256": "AC8C1C1CFB5B83B5E45970EB3B00673B297BDEF5FA73E61B3C505E2EB20119A5"
+    },
+    {
+      "Name": "format-depth-default",
+      "Path": "fixtures/lifecycle/limiter-format-depth-default.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 181,
+      "Sha256": "A086059A374A1B8A91B886FF8B41318DEE09FDE869AFE9AC7755FDBD70D7503F"
+    },
+    {
+      "Name": "format-depth-clamp",
+      "Path": "fixtures/lifecycle/limiter-format-depth-clamp.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 234,
+      "Sha256": "1126A98FBEB6D6A615DD16D10C75286E6E5A20CC9E8BD9FA8DBAADF759265D76"
+    },
+    {
+      "Name": "format-depth-live-reread",
+      "Path": "fixtures/lifecycle/limiter-format-depth-live-reread.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 328,
+      "Sha256": "DB97CB9C6D62B3B406984F2B1B5BA7DE9A2145AB25A3D30285C84DCEFCE910D9"
+    },
+    {
+      "Name": "format-depth-invalid-case",
+      "Path": "fixtures/lifecycle/limiter-format-depth-invalid-case.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 309,
+      "Sha256": "EDF67F275CC88FBBB146EC6CDFBC08A2F8608FD4F8D5319B31FA7897A5ECEC67"
+    },
+    {
+      "Name": "limit-tuple-prefix",
+      "Path": "fixtures/lifecycle/limiter-limit-tuple-prefix.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 280,
+      "Sha256": "3F8CA052D40EA744C7C44221EE1FEE78AF760F35F1F440DCFDAC39BA9E1C2934"
+    },
+    {
+      "Name": "limit-list-prefix",
+      "Path": "fixtures/lifecycle/limiter-limit-list-prefix.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 271,
+      "Sha256": "7251F15B4CFE12AEDE7FFA7F09B9E9056A754C8285D7F19548EB66B2EB1CFF62"
+    },
+    {
+      "Name": "limit-printable-identity",
+      "Path": "fixtures/lifecycle/limiter-limit-printable-identity.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 264,
+      "Sha256": "46FB270AB259734DC0BAC5664C2CE1B061A87B2211F8A9F59F4AA3F5F0E24500"
+    },
+    {
+      "Name": "limit-binary-identity",
+      "Path": "fixtures/lifecycle/limiter-limit-binary-identity.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 257,
+      "Sha256": "843A5B047DF1CE618A98DE10F7F247ED772D799C998EF4B1C8A82AAC080475D0"
+    },
+    {
+      "Name": "limit-map-extra-association",
+      "Path": "fixtures/lifecycle/limiter-limit-map-extra-association.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 288,
+      "Sha256": "F71746DB55F12F9E7CC30825964891250C0BB51EAE049DCB80AD5FDE006ED236"
+    },
+    {
+      "Name": "limit-unlimited-preserves",
+      "Path": "fixtures/lifecycle/limiter-limit-unlimited-preserves.erl",
+      "Expected": "ok",
+      "ObservedOriginal": false,
+      "Bytes": 278,
+      "Sha256": "D9BA772606E58C43FBCD223027573207A61312A7D09E99F81723D7CB63B49D00"
+    },
+    {
+      "Name": "logger_report_delivery",
+      "Path": "fixtures/logger/logger_report_delivery.erl",
+      "Expected": "{true,true,true}",
+      "ObservedOriginal": false,
+      "Bytes": 1338,
+      "Sha256": "5443C3383B715A9CF3EFB319B9B66875D21B51C89AB3ECB1B47CC8BC82D31A68"
+    },
+    {
+      "Name": "logger_level_gate",
+      "Path": "fixtures/logger/logger_level_gate.erl",
+      "Expected": "{true,false,true,false,true,false}",
+      "ObservedOriginal": false,
+      "Bytes": 1410,
+      "Sha256": "760F4DC8B9BC76293D837ADD700B949D61F421DD8F359E250165F14850C2EEA7"
+    },
+    {
+      "Name": "logger_metadata_priority",
+      "Path": "fixtures/logger/logger_metadata_priority.erl",
+      "Expected": "{call,kept,kept,42}",
+      "ObservedOriginal": false,
+      "Bytes": 1371,
+      "Sha256": "7A072047F085BA57184C7068D1223E5AB6A26E6540CFD254AB34714932DF8FFB"
+    },
+    {
+      "Name": "logger_primary_filter_stop",
+      "Path": "fixtures/logger/logger_primary_filter_stop.erl",
+      "Expected": "stopped",
+      "ObservedOriginal": false,
+      "Bytes": 1254,
+      "Sha256": "9373B6F81675DB8728C662657E125089966483BCD14B2853707CC95C13B70790"
+    },
+    {
+      "Name": "logger_filter_ignore_default",
+      "Path": "fixtures/logger/logger_filter_ignore_default.erl",
+      "Expected": "stopped",
+      "ObservedOriginal": false,
+      "Bytes": 1322,
+      "Sha256": "0A28F4124222A619B8B05E28A66BC8B8D5612774E4BDB860B4CD43912824C53C"
+    },
+    {
+      "Name": "logger_filter_transform",
+      "Path": "fixtures/logger/logger_filter_transform.erl",
+      "Expected": "{report,#{tag=>changed}}",
+      "ObservedOriginal": false,
+      "Bytes": 1303,
+      "Sha256": "026320005B16702C920ECE38C3451E4241D9CBCC847A48514DC8E5AC758C4E18"
+    },
+    {
+      "Name": "logger_failing_filter_removed",
+      "Path": "fixtures/logger/logger_failing_filter_removed.erl",
+      "Expected": "{{report,#{event=>crash}},[]}",
+      "ObservedOriginal": false,
+      "Bytes": 1306,
+      "Sha256": "70F931A5CFDA9FFBBE75964A21106565E77C2A60A27DC287524C791C8998AC84"
+    },
+    {
+      "Name": "logger_failing_handler_removed",
+      "Path": "fixtures/logger/logger_failing_handler_removed.erl",
+      "Expected": "[]",
+      "ObservedOriginal": false,
+      "Bytes": 1232,
+      "Sha256": "FE227409851219DDDCEF4814C8A3597425E3B3994715477191E65ED18121A293"
+    },
+    {
+      "Name": "logger_handler_threshold",
+      "Path": "fixtures/logger/logger_handler_threshold.erl",
+      "Expected": "{stopped,error}",
+      "ObservedOriginal": false,
+      "Bytes": 1330,
+      "Sha256": "B9D272AF5EC1DEB73617865A641FC74E2C2C73E3C056F764736A9D231F4C1252"
+    },
+    {
+      "Name": "logger_handler_config_callback",
+      "Path": "fixtures/logger/logger_handler_config_callback.erl",
+      "Expected": "{update,kept}",
+      "ObservedOriginal": false,
+      "Bytes": 1359,
+      "Sha256": "D7F3CDAAABF14AFE9083413394A597CDCC78020EFD31A624B60B17B07E05665D"
+    },
+    {
+      "Name": "error_logger_live_depth",
+      "Path": "fixtures/logger/error_logger_live_depth.erl",
+      "Expected": "{unlimited,10,20,case_clause}",
+      "ObservedOriginal": false,
+      "Bytes": 1624,
+      "Sha256": "DFB7E2231DDBE7D319EB719862945AE7452FBC5798BF49E92C8E7CA8F229099C"
+    },
+    {
+      "Name": "logger_filter_failure_restores_log",
+      "Path": "fixtures/logger/logger_filter_failure_restores_log.erl",
+      "Expected": "{report,#{event=>crash}}",
+      "ObservedOriginal": false,
+      "Bytes": 1411,
+      "Sha256": "09C6D3BB70B0933E9A9AC72013783C5E7F7B4AA34F85022D98BA9CBCBDF64D90"
+    },
+    {
+      "Name": "logger_filter_failure_restores_stop",
+      "Path": "fixtures/logger/logger_filter_failure_restores_stop.erl",
+      "Expected": "stopped",
+      "ObservedOriginal": false,
+      "Bytes": 1432,
+      "Sha256": "9E531F61D2E010479C81C80B949B9270C067702F3223AE45B2CA583143F5F6BC"
+    },
+    {
+      "Name": "logger_improper_message_guards",
+      "Path": "fixtures/logger/logger_improper_message_guards.erl",
+      "Expected": "{{string,[65|tail]},{report,[{tag,value}|tail]},{\"~tp\",[value|tail]}}",
+      "ObservedOriginal": false,
+      "Bytes": 1335,
+      "Sha256": "32BC00C77BB59BE4E3DD66B3B0767CB1FFE18C0FCA68FF35530A544BF8FBC940"
+    }
+  ]
+}

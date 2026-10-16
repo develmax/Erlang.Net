@@ -1,0 +1,113 @@
+PASS compiled:proc-lib-lifecycle-init-fun-metadata
+PASS compiled:proc-lib-lifecycle-init-mfa-metadata
+PASS compiled:proc-lib-lifecycle-init-callback-guard-before-metadata
+PASS compiled:proc-lib-lifecycle-init-mfa-guard-before-metadata
+PASS compiled:proc-lib-lifecycle-init-generic-improper-before-catch
+PASS compiled:proc-lib-lifecycle-wake-preserves-existing-metadata
+PASS compiled:proc-lib-lifecycle-wake-invalid-guard
+PASS compiled:proc-lib-lifecycle-hibernate-invalid-guard
+PASS compiled:proc-lib-lifecycle-wake-exit-normal-suppressed
+PASS compiled:proc-lib-lifecycle-wake-exit-shutdown-suppressed
+PASS compiled:proc-lib-lifecycle-wake-exit-shutdown-tuple-suppressed
+PASS compiled:proc-lib-lifecycle-hibernate-real-message-resume
+PASS compiled:proc-lib-lifecycle-format-depth-default
+PASS compiled:proc-lib-lifecycle-format-depth-clamp
+PASS compiled:proc-lib-lifecycle-format-depth-live-reread
+PASS compiled:proc-lib-lifecycle-format-depth-invalid-case
+PASS compiled:proc-lib-lifecycle-limit-tuple-prefix
+PASS compiled:proc-lib-lifecycle-limit-list-prefix
+PASS compiled:proc-lib-lifecycle-limit-printable-identity
+PASS compiled:proc-lib-lifecycle-limit-binary-identity
+PASS compiled:proc-lib-lifecycle-limit-map-extra-association
+PASS compiled:proc-lib-lifecycle-limit-unlimited-preserves
+PASS compiled:proc-lib-lifecycle-logger_report_delivery
+PASS compiled:proc-lib-lifecycle-logger_level_gate
+PASS compiled:proc-lib-lifecycle-logger_metadata_priority
+PASS compiled:proc-lib-lifecycle-logger_primary_filter_stop
+PASS compiled:proc-lib-lifecycle-logger_filter_ignore_default
+PASS compiled:proc-lib-lifecycle-logger_filter_transform
+PASS compiled:proc-lib-lifecycle-logger_failing_filter_removed
+PASS compiled:proc-lib-lifecycle-logger_failing_handler_removed
+PASS compiled:proc-lib-lifecycle-logger_handler_threshold
+PASS compiled:proc-lib-lifecycle-logger_handler_config_callback
+PASS compiled:proc-lib-lifecycle-error_logger_live_depth
+PASS compiled:proc-lib-lifecycle-logger_filter_failure_restores_log
+PASS compiled:proc-lib-lifecycle-logger_filter_failure_restores_stop
+PASS compiled:proc-lib-lifecycle-logger_improper_message_guards
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{erlang,error,[boom],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-error-contract
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {normal,[{erlang,error,[normal],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-error_normal-contract
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, throw: {thrown,[{erlang,throw,[thrown],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-throw-contract
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, exit: {custom_exit,[{erlang,exit,[custom_exit],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-exit-contract
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 20; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-explicit_empty-contract
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{sample,user,0,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 25; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-explicit_user-contract
+crasher: pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{erlang,error,[boom],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 22; neighbours: 
+PASS compiled:proc-lib-lifecycle-structured-crash-cleared-contract
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:allow:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:macro_log:4
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_primary_config:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_primary_config:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_primary_config:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_primary_config:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_handler:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_handler:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_config:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_config:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_ids:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_handler_config:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_handler_config:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_handler_config:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_primary_filter:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_primary_filter:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_handler_filter:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_handler_filter:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_module_level:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_module_level:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_module_level:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_module_level:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_process_metadata:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_process_metadata:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_process_metadata:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_process_metadata:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:get_env:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:get_env:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:set_env:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:unset_env:2
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:error_logger:get_format_depth:0
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:error_logger:limit_term:1
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:init_p:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:init_p:5
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:wake_up:3
+PASS Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:hibernate:3
+PASS Erlang.Tests.ProcLibLifecycleHostChecks:IsolatedConfiguration
+PASS Erlang.Tests.ProcLibLifecycleHostChecks:AwaitHandler
+{"Role":"ActualStandardOutput","CallbackInvoked":true,"StandardOutputHex":"61637475616C207265706F72742063616C6C6261636B0A","StandardErrorHex":""}
+{"Role":"ActualStandardOutput","CallbackInvoked":true,"StandardOutputHex":"6E657374656420636166C3A920CEBB0A","StandardErrorHex":""}
+{"Role":"ActualStandardOutput","CallbackInvoked":true,"StandardOutputHex":"6E657374656420636166C3A920CEBB0A","StandardErrorHex":""}
+{"Role":"ActualStandardOutput","CallbackInvoked":true,"StandardOutputHex":"464F524D4154544552204552524F523A206261642072657475726E2076616C75650A","StandardErrorHex":""}
+PASS Erlang.Tests.ProcLibLifecycleHostChecks:ActualStandardOutput
+PASS Erlang.Tests.ProcLibLifecycleHostChecks:CancelHandler
+{"ParsedSources":88,"Failures":0,"GuestCasesExecuted":0}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{erlang,error,[boom],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+{"Name":"structured-crash-error","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAACaAN3BmVybGFuZ3cFZXJyb3JhAWgDdwhwcm9jX2xpYncPaW5pdF9wX2RvX2FwcGx5YQNq"}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {normal,[{erlang,error,[normal],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+{"Name":"structured-crash-error_normal","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAACaAN3BmVybGFuZ3cFZXJyb3JhAWgDdwhwcm9jX2xpYncPaW5pdF9wX2RvX2FwcGx5YQNq"}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, throw: {thrown,[{erlang,throw,[thrown],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+{"Name":"structured-crash-throw","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAACaAN3BmVybGFuZ3cFdGhyb3dhAWgDdwhwcm9jX2xpYncPaW5pdF9wX2RvX2FwcGx5YQNq"}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, exit: {custom_exit,[{erlang,exit,[custom_exit],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 18; neighbours: 
+{"Name":"structured-crash-exit","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAACaAN3BmVybGFuZ3cEZXhpdGEBaAN3CHByb2NfbGlidw9pbml0X3BfZG9fYXBwbHlhA2o="}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 20; neighbours: 
+{"Name":"structured-crash-explicit_empty","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2o="}
+crasher: initial call: oracle_proc_lifecycle:fail/2, pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{sample,user,0,[]}]}, ancestors: [<0.1.0>], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 25; neighbours: 
+{"Name":"structured-crash-explicit_user","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAABaAN3BnNhbXBsZXcEdXNlcmEAag=="}
+crasher: pid: <0.2.0>, registered_name: [], process_label: worker_label, error: {boom,[{erlang,error,[boom],[]},{proc_lib,init_p_do_apply,3,[]}]}, ancestors: [], message_queue_len: 0, messages: [], links: [], dictionary: [{kept,42}], trap_exit: false, status: running, heap_size: undefined, stack_size: undefined, reductions: 22; neighbours: 
+{"Name":"structured-crash-cleared","SourceInvariantsPassed":true,"OriginalCompared":false,"RawEtfBase64":"g2gCdwJva2gCdwJva2wAAAACaAN3BmVybGFuZ3cFZXJyb3JhAWgDdwhwcm9jX2xpYncPaW5pdF9wX2RvX2FwcGx5YQNq"}
+PASS Erlang.Tests.ProcLibLifecycleObservationChecks:Run
+PASS compiled:proc-lib-lifecycle-limit-small-map-values
+PASS compiled:proc-lib-lifecycle-limit-large-own-iterator
+PASS Erlang.Tests.ErrorLoggerTermLimitHostChecks:Run

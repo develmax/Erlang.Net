@@ -1,0 +1,291 @@
+{
+  "Status": "FIXTURE_SOURCE_ONLY_PREDEFINED_MODULE_MATERIALIZED",
+  "Reason": "Direct Parser/GeneratedModuleCompiler currently lack Erlang macro preprocessing. Declared module atom is substituted in each permanent source for the same code to execute in both managed/original pipelines. No compiler module replacement or macro support claim.",
+  "OriginalCaseDataSha256": "2171D6CB758D57690E7E4DC820406ADF9AFE1C14FD7D8B4B667C8994C4001F88",
+  "MaterializedCaseDataSha256": "99AC97AD69ECD54820BB135615103A68A043EB55690EA2C37ABD56A7634AADFB",
+  "ChangedSourceRows": 40,
+  "Rows": [
+    {
+      "DeclaredModule": "logger_report_delivery",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "BA7A0F083CB296617001F93BDFF8C0203D0CF043900FE35A4C6FD3978547BE94",
+      "MaterializedSourceSha256": "6B81051FCCA3790EAD11CE43FF0189C8878E05FB0A43827E3488C4A3CB4DE9F6",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_level_gate",
+      "MacroOccurrences": 8,
+      "OriginalSourceSha256": "B0B2E5C433A070D65E1541C18A1EB4BBF10619AD255C2C709A6F88810C2EBE15",
+      "MaterializedSourceSha256": "E3C998DCD8D224576D2E8AB53E33CEF8013E14A113629A9FD4743C6EDCF9F08E",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_metadata_priority",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "F10CD1BBAC9DD5001C439A8720D0D00D8A5DAF987895DAD503068DFFDFB7FFC0",
+      "MaterializedSourceSha256": "F913AA452C9178292A582D64D000B459EB78FF664C219E81DE8A0BFFB4B0FB88",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_primary_filter_stop",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "D3D1E51236C8155CFE64D877B607D2CB8A717EB2CE3CA552B9FDB2CDCF5FC4F8",
+      "MaterializedSourceSha256": "701459527680558B8F319FE14750BA5CAE51EEA52D8A9E460DA222C7C02233C1",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_filter_ignore_default",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "7884782AE0364A1BAF2925AC2E667D24E5CB1A777D47854E7DCBB6C96F751503",
+      "MaterializedSourceSha256": "61A2117BA46CB5D1B86EBEA2A325AB5BA0137CF2A0B0765AAC9EA0C5CB95546B",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_filter_transform",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "9039860106CA810B0D5D8821E87B84F0B142354245EA7BC6AF3DD07BC9AE0FEC",
+      "MaterializedSourceSha256": "D8427666470B6EE3BE1684A4712D80A1F1666A906A3EB72D15C3EE36BB860F28",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_failing_filter_removed",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "5B7E60AADF42E49289A31E9EA1648F12BFCCF966B47FD6CAD3CE6FE9AEC7A254",
+      "MaterializedSourceSha256": "4EFA6A12943EDE85EBCFC3D4015F8FB223C4E470286491785A27E22BAD64F542",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_failing_handler_removed",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "E8AE588FE545A23CF0143B44DB2A8A6AEBAF5A74E9D17568782A129AC223D096",
+      "MaterializedSourceSha256": "18BC9871D4FC631F5FABD55D1A281AD9ED4B3287A776F4CFB3B5581AA0D4B7C1",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_handler_threshold",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "1F1B191B334E311A3440CEE3F9D6B7A77916FC29FF1B538AC6363767F531A5BC",
+      "MaterializedSourceSha256": "2E295B6C2DCEAA7ADCBE4F4F63B4FB5D83833A1B44167655F31C8E7C79403485",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_handler_config_callback",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "DC77F16CBFBFA2A41F8A7A8422FCB9FC52B3F44620DA461CF56593E9D5FBB8CF",
+      "MaterializedSourceSha256": "F45A931652E9FE5DB30E27DA567AB701E46A39E942B8090C02D574D805CC2C9E",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "error_logger_live_depth",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "BD55F9F506ABD2B656ACB086BB8D8EF32F806E473D19C1A7E842106FB9B917A0",
+      "MaterializedSourceSha256": "58FFC694DBCD1DEA9E1668790D54F4CBD8C7E64DA7A162865C396E2FEB601062",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_filter_failure_restores_log",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "3041C8BA6330AEAB0B9774B18BE38C5C011EF6D6CD7B4BC938CFB866E66084BB",
+      "MaterializedSourceSha256": "55B94E10ED424FA5CD7FE90BC606EE18ED89A68FCFE6FD4915AEEF625A6B4A5B",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_filter_failure_restores_stop",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "359CCBFA5D9678489A6A4F0B2FDAD96E2A9DE42C4D46B0AB42382E99D3E51A95",
+      "MaterializedSourceSha256": "A239BA794BFA9756730238C1BE0E51E4D93EF98AE8496FDDC18572094436C843",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "logger_improper_message_guards",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "2EF386DC918486C8A47E10715FA87451A84B449263C15544A7BAB4D6E5FEBE52",
+      "MaterializedSourceSha256": "E1DBE5A8D22E5AF58B82C131ED0ADBA844939FA093565BA71594E16A08D7EFBD",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "F8A4A6E6F2AD3359EB027E8BBD9FC6BF2F8D4457D578D9D3D1A40170B3F200F2",
+      "MaterializedSourceSha256": "56923FCDF456535A71D1A1ECBB6F424DFA8261A8378A5E60001DA28C05539BBD",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "3A24B1A29EEE72C7ABC099E9BABD7C2163ECC9C9A5C3EACDA3739AE1CF4CFD82",
+      "MaterializedSourceSha256": "A72724C41D64B18CC173CDBD92B242C73EAEB3255091BC854D712C6E14FE7E66",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "B057831FD3BDEF73E8C3D5F0F74CAABEBC34C690845DEFD37893E5339D0D15D9",
+      "MaterializedSourceSha256": "6487AD3C4F9808BC43F7EF3E9C648ADCCB3EB6C6D5C92753ED6E5992EE9201C4",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "BC80ED6400DAFED297848B2957F1E5E744F77DFB1ED244B78FF2B698DA140AC7",
+      "MaterializedSourceSha256": "99B167FE937A14324E3F897A2CE0B9E6631B4F1DB3F86DB5FEC6E376A8362F1A",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "CBB9410CAB07A44D5459D230B852A3C2E5C8262E1A88514792C8733981902AFC",
+      "MaterializedSourceSha256": "737F8626AFC8CBCC477BDC31F2E94E2463E4D6CD79902D5DBBA59E1AE5B2FBE3",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "B9B09E398875932EE934E4830AACCFB790E2104A6472F9C449C3F5AB216E4683",
+      "MaterializedSourceSha256": "83BC74D43780E738E34D61190A24DA74DE34EED0456EFCAF3EBC063AB623C937",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "6446B396BDD0747DAF3AD5D9647B84C363AB16C6341CBCF78A411416A030E78C",
+      "MaterializedSourceSha256": "1D89026921B8B41DD1E9F83B1A8D867E8D11D492EA83DAE3FEC1298391AE7B1D",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "B4594DA8C8D194493593148C220D8436DCD4305295166E699528B9B07C8DD180",
+      "MaterializedSourceSha256": "731ADA74A88400A7AE11AD8934BADC3AA77F1C85A1CC2B927DF2CC994335BBC2",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "CE973A690264D6BA53555E9C38024654CD8BD2F2E2C2021C7CC47CD93AEDE7C7",
+      "MaterializedSourceSha256": "961ABEADAE8AECED3CC3F2F65AAE8595E5F474726549E60132D0F2D2EB743010",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 2,
+      "OriginalSourceSha256": "A6BDB014288CA2030D5984FB772AC22E54A27290E6FBAF4CBE2691A91BE821AC",
+      "MaterializedSourceSha256": "C746121B40BB47A418664948E4D41F29ED6E1FA1F7BD1062F553F696012866AA",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "6446B396BDD0747DAF3AD5D9647B84C363AB16C6341CBCF78A411416A030E78C",
+      "MaterializedSourceSha256": "1D89026921B8B41DD1E9F83B1A8D867E8D11D492EA83DAE3FEC1298391AE7B1D",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "7A35FE1291A4B605A09C0755138F910C0958A3CC079CFAB71133B2A017E94717",
+      "MaterializedSourceSha256": "DAF5446DF8B188EF1351F80EF08BC7485A68E6ED0CB0B5A74D5A537C2B7EDBEA",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "4192434299CD2D272A395EFAF0ED759A9B2B3B20CFDE7EAA820FBCFA29AA7540",
+      "MaterializedSourceSha256": "3BA16754E26EB59AFD98D10EC30BD0BE7BA1C3F63B51FDC69EF57599FF45A053",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "6ABA40FA163BF359EED81008DFC5BC0D6AEF9087EB28950C1077D351AD3BBAFC",
+      "MaterializedSourceSha256": "CCCE5BF65CCD5C685838BA17C2E391D30BFB2FB5ACB35C76CDD8A1CD0F26373D",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "BFE25F7D1F8195065BB9C7A917258C7CA6A395874022E833687B6FD42DB6C35C",
+      "MaterializedSourceSha256": "8DC70E7951086CA0FD452585CCB2102B6A57F889488E2860D1BC610B6D02D47F",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "EFEEF83106CF0187CAEB9D8ED1F71BC691FD276B8DD0EC13D0F2135C5D7CBD2C",
+      "MaterializedSourceSha256": "F44513B8BB4FA7F946CB092A1A0F66D66C42202A0422270BF045C5DF07C55AB9",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "01A6C4D390FB4067FEEB5AA1C02101AFBC5AE2DA2A3000551227A0DC7C2E7E6B",
+      "MaterializedSourceSha256": "1961C5A59A68FA59A43BCB8AAADB09DD00BED6A9C1A8A3225C739373DCB1646B",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "05B67C34381FC44A68DB0B77AC66A6F1B6DBDBCBFE2A30D0A39AE6C3F80C5851",
+      "MaterializedSourceSha256": "095F014E536879A6D5509ED2CCDB633847F4FC72D2DC1510A878DFF5F47C3B0B",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "42BF4532FC47E8B62875C7AC62CCEEFDB0E4D26C1AC66740173EF0357300C57D",
+      "MaterializedSourceSha256": "AED7D1B45D1FB541C3B42C2EC722541820EB6F58FD4B3C97FF6DC54C715D898A",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "043DF4D7772F8D7AE5ADC40F2685B5FCDB13A7AF39FA0CBFC54019196C3DA16A",
+      "MaterializedSourceSha256": "4B72DBF8E156E4FA09F088FF841C1E0AAC5894331BA1C00CC87ED680F38D2139",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 4,
+      "OriginalSourceSha256": "E310D31E99843A2CBA1051C2DB60A7EEBED360556C76063A214A1AB942592181",
+      "MaterializedSourceSha256": "F447A6B82056A11370ACB978968F448127A9ECE988444EE8265BF6B4C60B9C79",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 3,
+      "OriginalSourceSha256": "BECAC8912CEAAFF3E3A59436B899ADD23E9D3FF208D2F8BD14DEC2E50571525B",
+      "MaterializedSourceSha256": "EAD8B0379861E70B9D5D7188A8353235D61089F1219980E85E9C4C336D4C134E",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "0D63F7075256E59318609FB80C0B7B777A1896D17FE69882F7CBCD2927ACD36D",
+      "MaterializedSourceSha256": "EA8B7CF628C0AA0A70E7C03ADA7BE7FEF983ED2088B94757DF37953AA4A43C58",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "0D63F7075256E59318609FB80C0B7B777A1896D17FE69882F7CBCD2927ACD36D",
+      "MaterializedSourceSha256": "EA8B7CF628C0AA0A70E7C03ADA7BE7FEF983ED2088B94757DF37953AA4A43C58",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "D66C15DF74356E82F447A73FCF59B72EBACCAEFBBDAC57FD322B76A1D323B79F",
+      "MaterializedSourceSha256": "E5C56093F0D128B0F08AF90EA335B639753DB9DD8A5A0C8A1A1C3A6E5A819FC6",
+      "RuntimeExpectedChanged": false
+    },
+    {
+      "DeclaredModule": "oracle_logger_direct",
+      "MacroOccurrences": 1,
+      "OriginalSourceSha256": "6AFB758A1D294DC01E5CBA6C5280091CCD4A26EE70C84880E8D2136DFDB0B7D1",
+      "MaterializedSourceSha256": "8DEEAC5EFADEB3F83582B2827EA8D8F7B491C4B332F56D0D8AF197E7616601A4",
+      "RuntimeExpectedChanged": false
+    }
+  ],
+  "SdkGuestCasesExecutedBeforeFix": 0,
+  "OriginalExecuted": false
+}

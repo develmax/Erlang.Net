@@ -1,0 +1,67 @@
+{
+  "Status": "SOURCE_ONLY_338_LIMIT_TERM_ITERATIVE_PREPASS_AND_ITERATOR_PROPOSAL",
+  "Files": [
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ErrorLoggerTermLimiter.cs",
+      "Bytes": 6477,
+      "Sha256": "9DAAEC95AEF5972CB67A89F5C0334007E98F6CCB9E9887A230355518A11F90D7",
+      "ParentSha256": "3E10F38F85222986512BEEC0BADE086E0F07153BAA4AEC73DFEBC0492049876B"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ErrorLoggerTermLimitProbe.cs",
+      "Bytes": 3035,
+      "Sha256": "1C2F1C75E8A66223C148AE1089B2C0CF7A72CE52B9EAECE68A11B3F9CB193935",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ErrorLoggerTermLimitHostChecks.cs",
+      "Bytes": 3783,
+      "Sha256": "D28A4E5F5464754283882BEAD3DB9D7F409DA93D835DB6E5C6B29C9F2B5DC0C0",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ErrorLoggerTermLimitHostNames.cs",
+      "Bytes": 754,
+      "Sha256": "964DA1000F569E220B59C4BED383F7DD10C08B4820A247E3666C50A44489F246",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ErrorLoggerTermLimitCaseData.cs",
+      "Bytes": 1096,
+      "Sha256": "1837245F9FC2F77795E30963383D323E92D4D8B7A31295CE361758B96E23D012",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ErrorLoggerTermLimitCases.cs",
+      "Bytes": 418,
+      "Sha256": "A54B3174650DB5D756A5444EB89B5C103934EF8FFE2A037CB7CF9372D5AF5AE1",
+      "ParentSha256": null
+    }
+  ],
+  "Fixtures": [
+    {
+      "Path": "fixtures/limit-large-own-iterator.erl",
+      "Bytes": 534,
+      "Sha256": "45AB51B1BE797705AF89BB11147E15C96FE0964BE53E9B6A08B95FD3E6E62765",
+      "Expected": "ok",
+      "OriginalExecuted": false
+    },
+    {
+      "Path": "fixtures/limit-small-map-values.erl",
+      "Bytes": 295,
+      "Sha256": "F97C024F361694219407BAD4B3A52E3589276C53988BD6F326FA78674177AB57",
+      "Expected": "ok",
+      "OriginalExecuted": false
+    }
+  ],
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Reference": "lib/stdlib/src/io_lib.erl:limit_term/2,test_limit/test_limit_tail/test_limit_tuple/test_limit_map_body/assoc,limit_map",
+  "Classification": "Missing source optimization and HOST identity/performance retention; sorted map.Entries vs defaultiterator was not demonstrated Erlang value regression because existing defaultiterator uses sameentries. Reuseactualiterator avoids relying on representation.",
+  "Identity": "Returnoriginal onlyif iterative pinnedtest_limit passes; do not use result.Equalsinput shortcut. Conservativefailswith equal rebuilt maps are explicitly HOSTchecked.",
+  "MapSemantics": "Prepass decreasesdepth perassoc andcheckskeys+values; actual limiting keepskeys unmodified andallselectedvalues atfixedD-1. Select firstD+1 through MapIteration.Iterator/Next.",
+  "IntegrationSha256": "A402DE0677B380FB4F4DF6C26D11B2180AD818F8CDAEC3CE51661E8C81E66C8B",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false,
+  "Candidate338Changed": false
+}

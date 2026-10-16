@@ -38,6 +38,7 @@ internal static class ProcLib
         ProcLibStop.Register(registry);
         SysTermination.Register(registry);
         ProcLibReportFormattingRegistrations.Register(registry);
+        ProcLibLifecycle.Register(registry);
     }
 
     private static async ValueTask<Term> Spawn(ProcessContext context, IReadOnlyList<Term> arguments, bool link)
@@ -88,29 +89,8 @@ internal static class ProcLib
             arguments[2]
         );
 
-        async ValueTask<Term> Body(ProcessContext child)
-        {
-            using var frame = child.EnterFunction(ProcLibNames.Module, ProcLibNames.Initializer, callback is null ? 5 : 3);
-            child.Dictionary[ProcLibAtoms.Ancestors] = new Cons(parent, ancestors);
-            Term[] values = callback is null ? Cons.Items(arguments[2]).ToArray() : [];
-            child.Dictionary[ProcLibAtoms.InitialCall] = callback is not null
-                ? await child.Runtime.Modules.Call(
-                    child,
-                    ProcLibNames.Erlang,
-                    ProcLibNames.FunInfoMfa,
-                    callback
-                )
-                : TranslateInitialCall(module!, function!, values);
-
-            return callback is not null
-                ? await callback.Invoke(child, [])
-                : await child.Runtime.Modules.Call(
-                    child,
-                    module!.Name,
-                    function!.Name,
-                    values
-                );
-        }
+        ValueTask<Term> Body(ProcessContext child)
+            => ProcLibLifecycle.Initialize(child, Cons.Items(wrapperArguments).ToArray());
 
         return (
             Body,
@@ -157,26 +137,4 @@ internal static class ProcLib
         return ProcLibAtoms.Ok;
     }
 
-    private static Term TranslateInitialCall(Atom module, Atom function, Term[] arguments)
-    {
-        if (module.Name == ProcLibNames.Gen && function.Name == ProcLibNames.InitIt)
-        {
-            int behaviourIndex = arguments.Length == 6 ? 3 : 4;
-            if (arguments.Length is 6 or 7 && arguments[0] is Atom { Name: ProcLibNames.GenServer })
-            {
-                if (arguments[behaviourIndex] is Atom { Name: ProcLibNames.Supervisor } && arguments[behaviourIndex + 1] is TupleTerm { Items: [_, var supervisor, _] })
-                    return Term.Tuple(Term.A(ProcLibNames.Supervisor), supervisor, Term.I(1));
-                if (arguments[behaviourIndex] is Atom { Name: ProcLibNames.SupervisorBridge } && arguments[behaviourIndex + 1] is Cons { Head: var bridge })
-                    return Term.Tuple(Term.A(ProcLibNames.SupervisorBridge), bridge, Term.I(1));
-            }
-            if (arguments.Length > 0 && arguments[0] is Atom { Name: ProcLibNames.GenEvent })
-                return Term.Tuple(Term.A(ProcLibNames.GenEvent), Term.A(ProcLibNames.InitIt), Term.I(6));
-            if (arguments.Length == 6 && arguments[3] is Atom sixModule)
-                return Term.Tuple(sixModule, Term.A(ProcLibNames.Init), Term.I(1));
-            if (arguments.Length >= 5 && arguments[4] is Atom otherModule)
-                return Term.Tuple(otherModule, Term.A(ProcLibNames.Init), Term.I(1));
-        }
-
-        return Term.Tuple(module, function, Term.I(arguments.Length));
-    }
 }

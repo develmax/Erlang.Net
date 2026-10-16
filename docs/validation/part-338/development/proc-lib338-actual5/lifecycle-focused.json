@@ -1,0 +1,208 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "DDA2A51AAECBE9945A817CBF886D6824C6F3D9FAEA9D3F1FA304AFE464E0D6D0"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "64B84ED409B6B253CE7F0406EA8CD8BD0222C7344666FFFD346B0C14BDECF5B4"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "6DC4142A71CE7D8BDAD0D3C00EFC69EBA1096FBF82F3101B0B057B250AE35089"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-fun-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 1424
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-mfa-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 65
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-callback-guard-before-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 63
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-mfa-guard-before-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 74
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-generic-improper-before-catch",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 64
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-preserves-existing-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 58
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-invalid-guard",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 54
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-hibernate-invalid-guard",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 56
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-normal-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 61
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-shutdown-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 57
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-shutdown-tuple-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 57
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-hibernate-real-message-resume",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 91
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-default",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 26
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-clamp",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 27
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-live-reread",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 29
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-invalid-case",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 27
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-tuple-prefix",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 36
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-list-prefix",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 35
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-printable-identity",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 30
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-binary-identity",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 35
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-map-extra-association",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 39
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-unlimited-preserves",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 36
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_report_delivery",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 88
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_level_gate",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 89
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_metadata_priority",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 67
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_primary_filter_stop",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 61
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_ignore_default",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 83
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_transform",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 70
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_failing_filter_removed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 60
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_failing_handler_removed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 57
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_handler_threshold",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 59
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_handler_config_callback",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 57
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-error_logger_live_depth",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 65
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_failure_restores_log",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 62
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_failure_restores_stop",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 54
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_improper_message_guards",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 65
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-error-contract",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 5195,
+      "Exception": "System.InvalidOperationException: Expected {ok,ok}, got {error,exit,no_report}\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-focus\\Program.cs:line 30"
+    }
+  ]
+}

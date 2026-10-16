@@ -1,5 +1,7 @@
 # Decisions
 
+Part338 — Port real proc_lib initialization and crash orchestration over existing runtime processes. Add actual logger/application/error_logger dependencies rather than test-only handlers. Preserve unavailable physical fields explicitly as undefined in the private crash-report bridge; public process_info support and other report assertions stay unchanged. Iterative source prechecking retains immutable object identity without an Equals shortcut.
+
 Part337 — Port proc_lib report/exception orchestration and the required pretty/control algorithms directly over immutable C# terms and existing runtime primitives. Retain actual raw iolist structure, not only rendered text. Obtain expected ETF exclusively from pinned source-built OTP; a separate independent decoder verifies76 comparisons. Keep generic io_lib/string and unverified logger/remote drafts outside this registration slice.
 
 Part336 — Obtain independently captured original outcomes before assigning formatter expectations. Use existing Python standard-library development-observer infrastructure, exact pinned source-built OTP and isolated owned processes; do not add a runtime BEAM or third-party package dependency. Decode ETF terms for later comparison while retaining text bytes and nested lists; never infer expected values from SDK output.

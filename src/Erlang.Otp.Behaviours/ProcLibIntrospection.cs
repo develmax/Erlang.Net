@@ -118,7 +118,7 @@ internal static class ProcLibIntrospection
         }
     }
 
-    private static async ValueTask<Term> MakeDummyArguments(ProcessContext context, Term arity)
+    internal static async ValueTask<Term> MakeDummyArguments(ProcessContext context, Term arity)
     {
         Term result = Nil.Value;
         while (arity is not Integer integer || !integer.Value.IsZero)

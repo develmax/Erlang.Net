@@ -1,0 +1,53 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "5B1B5A5C36933F4EF57B7693E27CA2850CFBB21160C3A784A8C70FC25FBC0762"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "B7A0092167590A38804900A6D27D6BE35454C9FD712A5A3C0ED71F2EFD80C9FA"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "6DC4142A71CE7D8BDAD0D3C00EFC69EBA1096FBF82F3101B0B057B250AE35089"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-small-map-values",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 909
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-large-own-iterator",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 55
+    },
+    {
+      "Name": "Erlang.Tests.ErrorLoggerTermLimitHostChecks:Run",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 5
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleHostChecks:CancelHandler",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 21
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleObservationChecks:Run",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 1010
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleHostChecks:ActualStandardOutput",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 4,
+      "Exception": "System.InvalidOperationException: The real lifecycle/logger host effect differs from its contract.\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 207\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 207\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 207\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-focus\\Program.cs:line 38"
+    }
+  ]
+}

@@ -1,0 +1,433 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "9FD3E0A0FCDEE533E0CC7633E7FA6063F4DEBF9012D7FA55D6520AA249D8CDCE"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "B7A0092167590A38804900A6D27D6BE35454C9FD712A5A3C0ED71F2EFD80C9FA"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "6DC4142A71CE7D8BDAD0D3C00EFC69EBA1096FBF82F3101B0B057B250AE35089"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-fun-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 987
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-mfa-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 79
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-callback-guard-before-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 52
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-mfa-guard-before-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 65
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-init-generic-improper-before-catch",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 49
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-preserves-existing-metadata",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 50
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-invalid-guard",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 47
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-hibernate-invalid-guard",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 51
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-normal-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 49
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-shutdown-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 46
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-wake-exit-shutdown-tuple-suppressed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 49
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-hibernate-real-message-resume",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 77
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-default",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 22
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-clamp",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 23
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-live-reread",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 25
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-format-depth-invalid-case",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 23
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-tuple-prefix",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 33
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-list-prefix",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 30
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-printable-identity",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 24
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-binary-identity",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 34
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-map-extra-association",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 34
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-limit-unlimited-preserves",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 29
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_report_delivery",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 67
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_level_gate",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 82
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_metadata_priority",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 62
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_primary_filter_stop",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 64
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_ignore_default",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 86
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_transform",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 66
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_failing_filter_removed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 68
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_failing_handler_removed",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 47
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_handler_threshold",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 49
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_handler_config_callback",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 46
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-error_logger_live_depth",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 90
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_failure_restores_log",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 55
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_filter_failure_restores_stop",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 51
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-logger_improper_message_guards",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 61
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-error-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 218
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-error_normal-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 175
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-throw-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 189
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-exit-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 194
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-explicit_empty-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 172
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-explicit_user-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 186
+    },
+    {
+      "Name": "compiled:proc-lib-lifecycle-structured-crash-cleared-contract",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 199
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:allow:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 55
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:macro_log:4",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 41
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_primary_config:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 45
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_primary_config:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 36
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_primary_config:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 40
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_primary_config:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_handler:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 37
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_handler:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_config:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 42
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_config:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 39
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_handler_ids:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 37
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_handler_config:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 40
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_handler_config:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 43
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_handler_config:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 47
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_primary_filter:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 41
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_primary_filter:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:add_handler_filter:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 42
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:remove_handler_filter:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 41
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_module_level:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 42
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_module_level:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 37
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_module_level:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_module_level:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:get_process_metadata:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 38
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:set_process_metadata:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 42
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:update_process_metadata:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 42
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:logger:unset_process_metadata:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 37
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:get_env:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 24
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:get_env:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 24
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:set_env:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 22
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:application:unset_env:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 22
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:error_logger:get_format_depth:0",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 21
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:error_logger:limit_term:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 31
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:init_p:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 56
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:init_p:5",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 61
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:wake_up:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 52
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleMfaContracts:Run:proc_lib:hibernate:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 73
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleHostChecks:IsolatedConfiguration",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 10
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleHostChecks:AwaitHandler",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 3
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibLifecycleHostChecks:ActualStandardOutput",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 3,
+      "Exception": "System.InvalidOperationException: The real lifecycle/logger host effect differs from its contract.\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcLibLifecycleHostChecks.ActualStandardOutput() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-candidate\\tests\\Erlang.Tests\\ProcLibLifecycleHostChecks.cs:line 200\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib338-focus\\Program.cs:line 38"
+    }
+  ]
+}
