@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "B0A5CCE2AC6DC4A69CE5C063B122D4661972523DD278082E5C672D0B64D47B73"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "D53F5A829157880305A7B6472042F1F84BF964067F5029F32D7374A3D959EF47"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C78F733F42667088DA07364ECF02FBB8F5C04384AB37046F5CDFCB48C77165EE"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionControlWaitPublicRouteHostChecks:QueryDuringTurn",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 5696,
+      "Exception": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Query(Boolean turn, String function) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionControlWaitPublicRouteHostChecks.cs:line 51\r\n   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Finish(DistributionLifecycleHostFixture fixture, ProcessHandle guest, Task unwound, Task\u00601 blocker, Task\u00601 query, Exception primary) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionControlWaitPublicRouteHostChecks.cs:line 281\r\n   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Query(Boolean turn, String function) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionControlWaitPublicRouteHostChecks.cs:line 61\r\n   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Query(Boolean turn, String function) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionControlWaitPublicRouteHostChecks.cs:line 61\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

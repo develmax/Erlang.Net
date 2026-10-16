@@ -1,0 +1,35 @@
+{
+  "Status": "SOURCE_ONLY323_HISTORICAL_RED_PRODUCTION322_PLUS_SAME_THREE_FORMATTED_HOSTS_PENDING_ACTUAL_BUILD",
+  "ParentFreezeSha256": "4370C19D8D454424956D3EFEA314269624B976C557352554C1AFAFA2E332629C",
+  "ParentClosureSha256": "0AAC713323A387F424034A35CE78665161F13BCA5DC2B5C9BF9009EA6412C566",
+  "ActualGreen323FormattedFreezeSha256": "5DC06B0D895EEC67562DE36D36CEA0C700D95297769BEC7454FCB9BCA21AAF06",
+  "SourcePaths": 3,
+  "CSharpPaths": 3,
+  "ProductionChanges": 0,
+  "ProgramChanges": 0,
+  "SourceClosurePaths": 2317,
+  "SourceClosureSha256": "4C342B7A502C734A549BA447FAD5DA281E75263AB8E8B4C401F2E42C80221250",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionControlWaitHostChecks.cs",
+      "Bytes": 7837,
+      "Sha256": "BFB5252D7BEE922B1CE6BF29695026C060B61D1857A5C84CDC20E4F90E838B2F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionControlWaitPublicRouteHostChecks.cs",
+      "Bytes": 11927,
+      "Sha256": "1F3C448CE91A25B98ED4575EA87C2311E510E7AB85BEA1BC79413E23BFD327C3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionControlWaitHostNames.cs",
+      "Bytes": 2119,
+      "Sha256": "096660A0385CC1D5B8A42AD32257DF372F986A02AFB5CA8D8667C586351400B1"
+    }
+  ],
+  "ExpectedEntryMethods": [
+    "Erlang.Tests.DistributionControlWaitPublicRouteHostChecks:RunQueries",
+    "Erlang.Tests.DistributionControlWaitPublicRouteHostChecks:RunKills"
+  ],
+  "ActualBuildExecuted": false,
+  "ActualRedReproduced": false
+}

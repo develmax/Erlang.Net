@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class ProcessContext : ITermExecutionContext
+public sealed partial class ProcessContext : ITermExecutionContext
 {
     internal ProcessContext(
         ProcessRuntime runtime,

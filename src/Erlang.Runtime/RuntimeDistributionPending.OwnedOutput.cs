@@ -123,7 +123,8 @@ public sealed partial class RuntimeDistributionPending
                         }
                     ).AsMemory()]),
                     stop.Token,
-                    commit
+                    commit,
+                    waitingProducer: producer
                 ).ConfigureAwait(false);
 
                 return true;
@@ -294,9 +295,12 @@ public sealed partial class RuntimeDistributionPending
         Action validateProducer,
         Func<HostDistributionBuffer> encode,
         CancellationToken cancellation,
-        Action? commit = null
+        Action? commit = null,
+        ProcessContext? waitingProducer = null
     )
     {
+        Func<Task, CancellationToken, ValueTask>? wait = waitingProducer is null
+            ? null : waitingProducer.WaitForDistributionControlCompletionAsync;
         await connected.Output.Publish(
             ticket,
             () =>
@@ -329,7 +333,8 @@ public sealed partial class RuntimeDistributionPending
                 }
             },
             cancellation,
-            deferStart: System.Threading.Monitor.IsEntered(gate)
+            deferStart: System.Threading.Monitor.IsEntered(gate),
+            wait: wait
         ).ConfigureAwait(false);
 
         void Validate()

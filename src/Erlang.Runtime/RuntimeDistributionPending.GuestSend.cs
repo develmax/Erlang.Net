@@ -123,7 +123,8 @@ public sealed partial class RuntimeDistributionPending
                             RequireProcess(producer);
                         },
                         Encode,
-                        stop.Token
+                        stop.Token,
+                        waitingProducer: producer
                     ).ConfigureAwait(false);
                 }
                 RecordAccepted();

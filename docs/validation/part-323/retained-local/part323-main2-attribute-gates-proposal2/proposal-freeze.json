@@ -1,0 +1,77 @@
+{
+  "Status": "SOURCE_ONLY_EXACT_REPAIRED_MAIN323_MAIN2_METADATA_GATES_NOT_EXECUTED",
+  "PublishedParent": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+  "PreviousSuccessfulMain1FreezeSha256": "E0DB86F611D1DC8FCF9004F1163398C6C13F3AA3198F2B76F39CEF84F48D1E28",
+  "PreviousSuccessfulMain1ClosureSha256": "B395DACAD8CEC82498A91B59342CC1217A66FE4F4ACA18AF1B8BC8EF63F6ABB7",
+  "PreviousSuccessfulFullSha256": "ADD6EB861985721B45AB819E9314D67F2A49A1F90F5B05DBF7D088936AE46204",
+  "PreviousSuccessfulNativeSha256": "D1AE74EF1EA498F1376986156665798F8532614D9D1A04D09B63D218FDAE4556",
+  "RootConfirmedAutocrlfByteProbeSha256": "87C5EB2424ECB634C32EA1812DE59DCC5F1A9F0713B1BB872583BA5AB07CF112",
+  "RequiredNewFinalFreezeClosurePeerAndProofCli": true,
+  "SourcePaths": 30,
+  "CSharpPaths": 13,
+  "SourceClosurePaths": 2349,
+  "PermittedMetadataDelta": 3,
+  "OtherRowsRawExact": 2346,
+  "NativePlans": [
+    1108,
+    1133
+  ],
+  "FreshExpectedFullPassed": 6685,
+  "Integrations": 11,
+  "Registry": 509,
+  "ErlangMfas": 351,
+  "PreviousSuccessNotRelabeledFailure": true,
+  "PythonAstParsed": true,
+  "ProposedScriptsExecuted": false,
+  "Files": [
+    {
+      "Path": "execution-bindings.json",
+      "Bytes": 1201,
+      "Sha256": "F726772BBC0965F48883DC679791219E70DCB7E71D5284CC9402B4F7AA6A045A"
+    },
+    {
+      "Path": "guard323-main2-full.py",
+      "Bytes": 9484,
+      "Sha256": "76986AE466D0F94713D37F265BF072B3136C29C9313EE46395C49D0D69CCA889"
+    },
+    {
+      "Path": "promote323-main2.py",
+      "Bytes": 7702,
+      "Sha256": "A6438DC24BBDD9075BEFE2E3B64DFF99F04C06D69FE1ED77CDC2A9DE6D15954E"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 4104,
+      "Sha256": "D5766E0C4F84E4DCE099EC533BC02D21C7DFDB783ED936BE41F1D3EE5719262C"
+    },
+    {
+      "Path": "run323-main2-full.ps1",
+      "Bytes": 2888,
+      "Sha256": "EA37B383F8B07ECF72D27D5E13D55FA452692776CBB5A13680798D87F4AAC2BF"
+    }
+  ],
+  "PreviousProposalFreezeSha256": "8F40606F0192AA91C06274016DDBB6FC9A587898416935BB85CE33D580F8F370",
+  "ExactRepairInputs": [
+    {
+      "Role": "FinalFreeze",
+      "Path": "artifacts/root-part323-composed2/source-freeze.json",
+      "Sha256": "F4A6F6E64D5D587BA48F70CA2A849981A1D697A93954C275A8C8825C7CD18EAD"
+    },
+    {
+      "Role": "FinalClosure",
+      "Path": "artifacts/root-part323-composed2/source-resource-closure.json",
+      "Sha256": "6DD7EE300C2E63C5599A1D8E43FA1DCF506146F6B761876859092B1399F1E6E8"
+    },
+    {
+      "Role": "SourcePeer",
+      "Path": "artifacts/root323-provenance-checkout-repair-beam310-peer.json",
+      "Sha256": "B99E8E0D4F85486A56565CCB0D1375DE4B1C13F5B8AD261E510F4120053D66EF"
+    },
+    {
+      "Role": "RepairedCheckoutProof",
+      "Path": "artifacts/root-part323-composed2/repaired-checkout-proof.json",
+      "Sha256": "1C645163E13515D1D9B2FAC1EAF0CED8CAC35033A8FAB5C3BA569AE04D3CB2F7"
+    }
+  ],
+  "ScriptsByteExactProposal1": true
+}

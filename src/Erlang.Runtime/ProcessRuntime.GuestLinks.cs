@@ -100,7 +100,8 @@ public sealed partial class ProcessRuntime
         }
         Task publication = await preparation.ConfigureAwait(false);
         // Cancel only the guest wait. A precommitted unlink belongs to the connection and global owned-output drain.
-        await publication.WaitAsync(caller.Cancellation).ConfigureAwait(false);
+        await caller.WaitForDistributionControlCompletionAsync(
+            publication.WaitAsync(caller.Cancellation), caller.Cancellation).ConfigureAwait(false);
     }
 
     internal bool GuestUnlinkStillCurrent(DistributionProcessLink link)

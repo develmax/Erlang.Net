@@ -1,0 +1,17 @@
+--- exact322/passive_etf.py
++++ additive323/passive_control_etf.py
+@@ -97,6 +97,14 @@
+             require(all(baseline_map_key(key) for key, _ in pairs), 'Extended identity-bearing map key outside diagnostic profile')
+             require(len({key for key, _ in pairs}) == size, 'Duplicate map key')
+             return ('map', frozenset(pairs))
++        if tag in (102, 89, 120):
++            node = term(depth + 1)
++            require(node[0] == 'atom', 'Port node atom')
++            identity = int.from_bytes(take(8 if tag == 120 else 4), 'big')
++            creation = int.from_bytes(take(1 if tag == 102 else 4), 'big')
++            require(tag == 120 or identity <= 0x0fffffff, 'Legacy and new port significant ID bits')
++            require(tag != 102 or creation <= 3, 'Legacy port creation bits')
++            return ('port', node, identity, creation, tag)
+         if tag in (88, 103):
+             node = term(depth + 1)
+             require(node[0] == 'atom', 'PID node must be atom')

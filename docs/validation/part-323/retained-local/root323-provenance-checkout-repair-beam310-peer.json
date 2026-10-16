@@ -1,0 +1,55 @@
+{
+  "Status": "PASS_SOURCE_REPAIR_AND_ACTUAL_READONLY_GIT_SMUDGE_RESOURCE_BYTE_PROFILES",
+  "SourceFreezeSha256": "F4A6F6E64D5D587BA48F70CA2A849981A1D697A93954C275A8C8825C7CD18EAD",
+  "SourceClosureSha256": "6DD7EE300C2E63C5599A1D8E43FA1DCF506146F6B761876859092B1399F1E6E8",
+  "SourceRowsRehashed": 2349,
+  "OwnedPaths": 30,
+  "CSharpPaths": 13,
+  "ChangedPaths": [
+    ".gitattributes",
+    ".github/workflows/nif-reallocation-native.yml",
+    "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json"
+  ],
+  "ActualProfiles": [
+    {
+      "Phase": "before",
+      "CoreAutocrlf": "false",
+      "Bytes": 2809,
+      "Sha256": "3718A2F53E9BF8B19110BD33AD00FC5D487AB285C9DAEE87EE8494FC21FAB631",
+      "EffectiveAttributes": "",
+      "RawExact": true
+    },
+    {
+      "Phase": "before",
+      "CoreAutocrlf": "true",
+      "Bytes": 2872,
+      "Sha256": "4675CEE94EC78D926DD678D831A0AA42A398E97C8C1DC5E659CC552B42388404",
+      "EffectiveAttributes": "",
+      "RawExact": false
+    },
+    {
+      "Phase": "after",
+      "CoreAutocrlf": "false",
+      "Bytes": 2809,
+      "Sha256": "3718A2F53E9BF8B19110BD33AD00FC5D487AB285C9DAEE87EE8494FC21FAB631",
+      "EffectiveAttributes": "tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: binary: set\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: diff: unset\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: merge: unset\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: text: unset\n",
+      "RawExact": true
+    },
+    {
+      "Phase": "after",
+      "CoreAutocrlf": "true",
+      "Bytes": 2809,
+      "Sha256": "3718A2F53E9BF8B19110BD33AD00FC5D487AB285C9DAEE87EE8494FC21FAB631",
+      "EffectiveAttributes": "tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: binary: set\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: diff: unset\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: merge: unset\ntests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json: text: unset\n",
+      "RawExact": true
+    }
+  ],
+  "AllThirteenCompiledCSharpAndBothResourcesRawUnchanged": true,
+  "Legacy1108PlanRawUnchanged": true,
+  "Own1133PlanOnlyAttributeInputRowChangedAndWorkflowResealed": true,
+  "NativeNonFilesPoliciesAndSelectorsExact": true,
+  "HazardCaughtBeforePublicationNotRuntimeFailure": true,
+  "PriorMain1FullAndNativePassStillValidAsPreattributeEvidence": true,
+  "FreshMain2FullRequiredForReboundAuthority": true,
+  "ReviewerGitObjectWritesOrMainSdkNativeBuildVmMutation": false
+}

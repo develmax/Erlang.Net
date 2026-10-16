@@ -72,7 +72,8 @@ public sealed partial class RuntimeDistributionPending
                     ticket,
                     ValidateProducer,
                     Encode,
-                    producer.Cancellation
+                    producer.Cancellation,
+                    waitingProducer: producer
                 ).ConfigureAwait(false);
 
                 return true;

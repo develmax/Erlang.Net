@@ -1,0 +1,42 @@
+380: ## PORT_EXT
+381: 
+382: | 1     | N      | 4    | 1          |
+383: | ----- | ------ | ---- | ---------- |
+384: | `102` | `Node` | `ID` | `Creation` |
+385: 
+386: Same as [`NEW_PORT_EXT`](erl_ext_dist.md#new_port_ext) except the `Creation`
+387: field is only one byte and only two bits are significant, the rest are to be 0.
+388: 
+389: ## NEW_PORT_EXT
+390: 
+391: | 1    | N      | 4    | 4          |
+392: | ---- | ------ | ---- | ---------- |
+393: | `89` | `Node` | `ID` | `Creation` |
+394: 
+395: Same as [`V4_PORT_EXT`](erl_ext_dist.md#v4_port_ext) except the `ID` field is
+396: only four bytes. Only 28 bits are significant; the rest are to be 0.
+397: 
+398: `NEW_PORT_EXT` was introduced in OTP 19, but only to be decoded and echoed back.
+399: Not encoded for local ports.
+400: 
+401: In OTP 23 distribution flag
+402: [`DFLAG_BIG_CREATION`](erl_dist_protocol.md#DFLAG_BIG_CREATION) became
+403: mandatory. All ports are now encoded using `NEW_PORT_EXT`, even external ports
+404: received as [`PORT_EXT`](erl_ext_dist.md#port_ext) from older nodes.
+405: 
+406: ## V4_PORT_EXT
+407: 
+408: | 1     | N      | 8    | 4          |
+409: | ----- | ------ | ---- | ---------- |
+410: | `120` | `Node` | `ID` | `Creation` |
+411: 
+412: Encodes a port identifier (obtained from `erlang:open_port/2`). `Node` is the
+413: originating node, [encoded as an atom](erl_ext_dist.md#utf8_atoms). `ID` is a
+414: 64-bit big endian unsigned integer. The `Creation` works just like in
+415: [`NEW_PID_EXT`](erl_ext_dist.md#new_pid_ext). Port operations are not allowed
+416: across node boundaries.
+417: 
+418: In OTP 26 distribution flag [`DFLAG_V4_NC`](erl_dist_protocol.md#DFLAG_V4_NC) as
+419: well as `V4_PORT_EXT` became mandatory accepting full 64-bit ports to be decoded
+420: and echoed back.
+421: 

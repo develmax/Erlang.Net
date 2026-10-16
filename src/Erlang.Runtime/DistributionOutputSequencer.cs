@@ -42,7 +42,8 @@ internal sealed class DistributionOutputSequencer : IDisposable
         Func<HostDistributionBuffer, bool> admit,
         Func<HostDistributionBuffer, Task> capacity,
         CancellationToken cancellation,
-        bool deferStart
+        bool deferStart,
+        Func<Task, CancellationToken, ValueTask>? wait = null
     )
     {
         lock (gate)
@@ -58,7 +59,7 @@ internal sealed class DistributionOutputSequencer : IDisposable
             if (deferStart)
                 await Task.Yield();
             using var stop = CancellationTokenSource.CreateLinkedTokenSource(cancellation, retired.Token);
-            await ticket.Turn.Task.WaitAsync(stop.Token).ConfigureAwait(false);
+            await Wait(ticket.Turn.Task, stop.Token).ConfigureAwait(false);
             stop.Token.ThrowIfCancellationRequested();
             HostDistributionBuffer packet = encode();
             while (true)
@@ -66,13 +67,16 @@ internal sealed class DistributionOutputSequencer : IDisposable
                 stop.Token.ThrowIfCancellationRequested();
                 if (admit(packet))
                     return;
-                await capacity(packet).WaitAsync(stop.Token).ConfigureAwait(false);
+                await Wait(capacity(packet), stop.Token).ConfigureAwait(false);
             }
         }
         finally
         {
             Release(ticket);
         }
+
+        ValueTask Wait(Task completion, CancellationToken stop)
+            => wait is null ? new ValueTask(completion.WaitAsync(stop)) : wait(completion, stop);
     }
 
     internal void Abandon(DistributionOutputTicket ticket)

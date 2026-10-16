@@ -1,0 +1,147 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL323_FOUR_HISTORICAL_PUBLIC_WAIT_REDS_AND_SIXTEEN_GREEN",
+  "RedSourceFreeze": {
+    "Path": "artifacts/distribution-control-wait323-historical-red1/source-freeze.json",
+    "Bytes": 1465,
+    "Sha256": "1510A40806DACDCE7675FA74BFAAC8F048DD056BD70608C5CFD8AFCD8BD23EAB"
+  },
+  "RedSourceClosure": {
+    "Path": "artifacts/distribution-control-wait323-historical-red1/source-resource-closure.json",
+    "Bytes": 427955,
+    "Sha256": "4C342B7A502C734A549BA447FAD5DA281E75263AB8E8B4C401F2E42C80221250"
+  },
+  "RedSourceRowsRehashed": 2317,
+  "AllFormatted322ProductionAndProgram2314RawExact": true,
+  "ThreeSharedFormattedHostSourcesExactGreenRed": [
+    "tests/Erlang.Tests/DistributionControlWaitHostChecks.cs",
+    "tests/Erlang.Tests/DistributionControlWaitPublicRouteHostChecks.cs",
+    "tests/Erlang.Tests/DistributionControlWaitHostNames.cs"
+  ],
+  "ActualRedTargetWarningsErrors": [
+    0,
+    0
+  ],
+  "ActualRedReports": [
+    {
+      "Role": "query-capacity",
+      "Report": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-query-red.json",
+        "Bytes": 3015,
+        "Sha256": "F40CDCF1E0C60CA9099A07578685404E9F9255C6248A74E8F1FF6DC6191DE193"
+      },
+      "Exit": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-query-exit.json",
+        "Bytes": 49,
+        "Sha256": "5A8025C2B55607C94E5040E56D7A353002F528E9780B20C8EF7AD811233213F1"
+      },
+      "Failure": "public_process_info_wait_timeout_line51",
+      "Cleanup": "Finish rethrows sole primary at line281 after awaited unwound/process/blocker/query settlement; no aggregate cleanup failure"
+    },
+    {
+      "Role": "query-turn",
+      "Report": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-query-turn-red.json",
+        "Bytes": 2744,
+        "Sha256": "39CA4D485FA3FF34127CB4EAB1E0B87B817E3E91B05B347797C232C89A754D8B"
+      },
+      "Exit": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-query-turn-exit.json",
+        "Bytes": 49,
+        "Sha256": "5A8025C2B55607C94E5040E56D7A353002F528E9780B20C8EF7AD811233213F1"
+      },
+      "Failure": "public_process_info_wait_timeout_line51",
+      "Cleanup": "Finish rethrows sole primary at line281 after awaited unwound/process/blocker/query settlement; no aggregate cleanup failure"
+    },
+    {
+      "Role": "kill-capacity",
+      "Report": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-kill-capacity-red.json",
+        "Bytes": 3064,
+        "Sha256": "282B57E7410B4AD9A2D49A794CC81F47D007D92ECAB3EC6EAE845819A41CDDA9"
+      },
+      "Exit": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-kill-capacity-exit.json",
+        "Bytes": 49,
+        "Sha256": "5A8025C2B55607C94E5040E56D7A353002F528E9780B20C8EF7AD811233213F1"
+      },
+      "Failure": "public_monitor_DOWN_missing_after_bounded_receive_line90",
+      "Cleanup": "Finish rethrows sole primary at line281 after awaited unwound/process/blocker/query settlement; no aggregate cleanup failure"
+    },
+    {
+      "Role": "kill-turn",
+      "Report": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-kill-turn-red.json",
+        "Bytes": 3060,
+        "Sha256": "29FB59FC8323FBF9D11320BCCBE2C1C9E7590C644A7AA6FEB1CB6BA813BA61AA"
+      },
+      "Exit": {
+        "Path": "artifacts/distribution-control-wait323-historical-red1/actual-kill-turn-exit.json",
+        "Bytes": 49,
+        "Sha256": "5A8025C2B55607C94E5040E56D7A353002F528E9780B20C8EF7AD811233213F1"
+      },
+      "Failure": "public_monitor_DOWN_missing_after_bounded_receive_line90",
+      "Cleanup": "Finish rethrows sole primary at line281 after awaited unwound/process/blocker/query settlement; no aggregate cleanup failure"
+    }
+  ],
+  "ActualRedDllIdentities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "B0A5CCE2AC6DC4A69CE5C063B122D4661972523DD278082E5C672D0B64D47B73"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "D53F5A829157880305A7B6472042F1F84BF964067F5029F32D7374A3D959EF47"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C78F733F42667088DA07364ECF02FBB8F5C04384AB37046F5CDFCB48C77165EE"
+    }
+  ],
+  "GreenSourceFreeze": {
+    "Path": "artifacts/distribution-control-wait323-focus1/formatted-source-freeze.json",
+    "Bytes": 2843,
+    "Sha256": "5DC06B0D895EEC67562DE36D36CEA0C700D95297769BEC7454FCB9BCA21AAF06"
+  },
+  "GreenSourceClosure": {
+    "Path": "artifacts/distribution-control-wait323-focus1/formatted-source-resource-closure.json",
+    "Bytes": 428142,
+    "Sha256": "FEF4EF7CAF603DCBE9A395C815A10984FA8C95AD23051BAF4387B45A88509E9D"
+  },
+  "GreenReport": {
+    "Path": "artifacts/distribution-control-wait323-focus1/actual-green-focus.json",
+    "Bytes": 3181,
+    "Sha256": "84EF799E892DB999387534D4AA78608D8F2BAA8336748596AD7A564FFDA07CBE"
+  },
+  "IndependentGreenPeer": {
+    "Path": "artifacts/distribution-control-wait323-actual-green-beam310-peer.json",
+    "Bytes": 1727,
+    "Sha256": "197A145452AF7C6D39666F49A4C2E9F45B8CDD951FAF39D88BCDD7878BF42891"
+  },
+  "ActualGreenGroups": 16,
+  "GreenSourceRowsRehashed": 2318,
+  "ElevenFormattingTokenStreamsExact": true,
+  "ActualGreenDllIdentities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "CBDBBDF44ECE962B990F8785503D3B30D8E93D7EA2A155A8156AE10AFA6BBD55"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "DE22C909521A56F86015E302A6E47E10F24FC56E96279B8E10F29E1A3F928BF7"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\distribution-control-wait323-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C04541DD72E17A723DF128B33DC8D1B52F7020E0EB7ED98D3F39D65FC4EA1FC2"
+    }
+  ],
+  "NoHarnessTypeSelectorOrCleanupAggregateFailure": true,
+  "KillFailureIsMissingDownAssertionNotTimeoutException": true,
+  "NoMainFullOriginalNativeWireOrSchedulerParityClaim": true,
+  "ReviewerExecutedSdkBuildNativeVmMainGitMutation": false
+}

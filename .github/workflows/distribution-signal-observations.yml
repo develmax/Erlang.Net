@@ -133,6 +133,22 @@ jobs:
             --approved-source-plan-sha256 "$GUEST_CONNECTED_EXIT_SOURCE_PLAN_SHA256" \
             --output "$GITHUB_WORKSPACE/artifacts/guest-connected-exit322-original" \
             2>&1 | tee artifacts/guest-connected-exit322-collector.log
+      - name: Observe genuine busy owner queries and remote kill on three original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        timeout-minutes: 6
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          CONTROL_WAIT_SOURCE_PLAN_SHA256: 146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.DistributionControlWaitObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$CONTROL_WAIT_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/distribution-control-wait323-original" \
+            2>&1 | tee artifacts/distribution-control-wait323-collector.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -150,3 +166,5 @@ jobs:
             artifacts/guest-connected-links321-collector.log
             artifacts/guest-connected-exit322-original
             artifacts/guest-connected-exit322-collector.log
+            artifacts/distribution-control-wait323-original
+            artifacts/distribution-control-wait323-collector.log
