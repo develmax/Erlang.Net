@@ -1,0 +1,495 @@
+{
+  "Status": "SOURCE_ONLY_COMPLETE_PARTITION_AUDIT_PROPOSAL_NATIVE_AND_FULL_PENDING",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CurrentCandidate": "artifacts/guard345-candidate",
+  "CurrentManagedSources": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "B0771827A437A320B1D94D6CFA0B9FA87CE5972DD32658392DA34DFDF3400484"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+      "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionGuard.cs",
+      "Sha256": "9BDCE99B896F2FBC323C5384CDB227326995F47CFE3F7F7B91E03713A5750565"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
+      "Sha256": "1EA5E7C1189CF7F37357397720175BB45EBDF39DBCDD5314FBF7B05EF6612DD4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindings.cs",
+      "Sha256": "AE52E9A9A7FF4EB6030EB5703D2AFA152921DAF64AD55E3191097B37C9EA36C8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/AutoImportSignatures.cs",
+      "Sha256": "13FBAD08FC4EC9EDD2B4CCDB661115A43F4CB737F681DCE0F5EDEB096BB2EC2F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Sha256": "374855A51103017CADF86DE92B0ADAFF705CBB32E62707F2C6E70396CF54247F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingCode.cs",
+      "Sha256": "22564BF033FCDD3BDAC2E08776F4E7858244881BAF6A57AF94EE4616F8E63317"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Sha256": "6FFA154BFCC58F9D13A41F1A29FD39E48AB2DB5A666D9ACB4DF1D9B62D283903"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+    },
+    {
+      "Path": "src/Erlang.Terms/Atom.cs",
+      "Sha256": "E1772CEA8524236CD6BF34E47697574E69445FB3581246067D6061BAEEAF4A50"
+    },
+    {
+      "Path": "src/Erlang.Terms/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Erlang.Terms/TupleTerm.cs",
+      "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+    },
+    {
+      "Path": "src/Erlang.Terms/Nil.cs",
+      "Sha256": "93D91D6D1400387B0E31B8C2ED36760921A6FDACFCD64953DA086F3D02B63366"
+    },
+    {
+      "Path": "src/Erlang.Terms/Cons.cs",
+      "Sha256": "46D73379F77BC6339AC7E5C035FAF5AB8B4EE8CEB286877C92DAC0C8CC3125D9"
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Sha256": "66C7A14040D3F7AF80DEF58B1C06ACAB067D40172C423AED64D86F436183CDD0"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+    }
+  ],
+  "PinnedOriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_db_util.c",
+      "Sha256": "9228A0FD19A784FE52EDAEBFC3F0F714DB9648FD939E268CEEB855E73181E1F5",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_common.cpp",
+      "Sha256": "ABDD8D5B22F406FA9C8D0AA972D3962B62A34A93C6783703D3D8F0A6E383A2A3",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Sha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_internal.erl",
+      "Sha256": "D7D62083E74560591851D85821B379274FDCC88A7E10870AE6A7448775ABEF9D",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    }
+  ],
+  "Entries": [
+    {
+      "Module": "erlang",
+      "Function": "is_atom",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "SourceConclusion": "Complete type-partition argument on supported valid Erlang term model; actual same-head native matrix and full audit still required before promotion.",
+      "PositiveClasses": [
+        "Atom"
+      ],
+      "NegativeClasses": [
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "PartitionCompletenessArgument": [
+        "Every supported guest term belongs to one listed runtime class; classification reads only the outer class, without traversing members or invoking functions. Arbitrary nesting or collection size cannot change the result.",
+        "Atoms include Boolean atoms, empty names and Unicode names; all are Atom. Integers use BigInteger with no small/bignum representation branch. Finite floating-point values, including both zero signs, subnormal and maximum finite, are FloatTerm.",
+        "Ordinary records are tuple terms; native records are a distinct term class and therefore false for is_tuple. Lists include Nil and Cons with proper or improper tail; aligned binaries and partial bitstrings remain BitString, false for these five predicates.",
+        "Local/external function identities, PIDs, references, resource references and ports remain nonpositive classes without identity resolution, liveness queries or side effects."
+      ],
+      "ErrorAndEffectContract": "Exactly one admitted guest term always yields cached Boolean atom true/false. No guest error branch or observable side effect. Wrong arity is another MFA; expression failures occur before invocation. CLR null, arbitrary host-only Term subclasses and nonfinite FloatTerm values are outside the admitted guest term model.",
+      "OtpBranches": "erl_bif_op.c is_atom_1: type macro true/false; erl_term.h atom/float/integer/number/tuple tags; erl_db_util guard table uses same arity1 BIF. x86 JIT direct guard paths implement those tag partitions.",
+      "DispatchAndAdmission": "Explicit erlang call, normal unsuppressed auto-import, apply and external named-fun target the same registered handler. Qualified guards and legal unqualified guards use the same BIF; local/foreign imported names are other MFAs and cannot take the guard fast path. Explicit erlang imports restore suppressed guards but remain ordinary comprehension calls under erl_lint import classification. Guard alternatives/failure conversion do not catch cancellation as a Boolean.",
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-atom-term-partitions",
+        "SourceSha256": "BA748D08E5BAAFD7246221E6FFB74B4B82D57D4EF2812C64C55262EF974A0883",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "RequiredEvidenceBeforeVerified": [
+        "Exact final published345-or-successor head and staged source bytes, final current-source audit hash bindings.",
+        "Settled same-source full local validation preserving all previous contracts, all five fixture names and independent source-derived expected done results.",
+        "Actual pinned OTP source-built ordinary capture at that exact head, complete compiled rows for all five names; Source/Sha256/Expected/FixtureExpected/Actual match published catalog and local cases, caller context UntrappedFresh, compiler policy Default, empty expected/native/SDK streams.",
+        "Explicit source/exclusion/caller track audit proving no new predicate fixture is skipped or investigation-only; exact job PASS order, native pin/version and transport/API ZIP digest preserved.",
+        "Guard directive positive/negative native diagnostics cover admission correction separately; do not equate unsupported source with predicate API behavior.",
+        "Independent complete branch/category review plus native comparison; no status promotion from registry presence, initial ten legacy rows or source-only proof."
+      ],
+      "EvidencePending": [
+        "Original five new38-partition fixtures at final published head",
+        "Final full345 source-freeze and settled outcomes",
+        "Independent final combined compatibility audit"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_integer",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "SourceConclusion": "Complete type-partition argument on supported valid Erlang term model; actual same-head native matrix and full audit still required before promotion.",
+      "PositiveClasses": [
+        "Integer"
+      ],
+      "NegativeClasses": [
+        "Atom",
+        "FloatTerm",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "PartitionCompletenessArgument": [
+        "Every supported guest term belongs to one listed runtime class; classification reads only the outer class, without traversing members or invoking functions. Arbitrary nesting or collection size cannot change the result.",
+        "Atoms include Boolean atoms, empty names and Unicode names; all are Atom. Integers use BigInteger with no small/bignum representation branch. Finite floating-point values, including both zero signs, subnormal and maximum finite, are FloatTerm.",
+        "Ordinary records are tuple terms; native records are a distinct term class and therefore false for is_tuple. Lists include Nil and Cons with proper or improper tail; aligned binaries and partial bitstrings remain BitString, false for these five predicates.",
+        "Local/external function identities, PIDs, references, resource references and ports remain nonpositive classes without identity resolution, liveness queries or side effects."
+      ],
+      "ErrorAndEffectContract": "Exactly one admitted guest term always yields cached Boolean atom true/false. No guest error branch or observable side effect. Wrong arity is another MFA; expression failures occur before invocation. CLR null, arbitrary host-only Term subclasses and nonfinite FloatTerm values are outside the admitted guest term model.",
+      "OtpBranches": "erl_bif_op.c is_integer_1: type macro true/false; erl_term.h atom/float/integer/number/tuple tags; erl_db_util guard table uses same arity1 BIF. x86 JIT direct guard paths implement those tag partitions.",
+      "DispatchAndAdmission": "Explicit erlang call, normal unsuppressed auto-import, apply and external named-fun target the same registered handler. Qualified guards and legal unqualified guards use the same BIF; local/foreign imported names are other MFAs and cannot take the guard fast path. Explicit erlang imports restore suppressed guards but remain ordinary comprehension calls under erl_lint import classification. Guard alternatives/failure conversion do not catch cancellation as a Boolean.",
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-integer-term-partitions",
+        "SourceSha256": "B8B720DB9948335DEB8651C67E584B6572C5A36D5E2FAC166FAA8B3C428D1B30",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "RequiredEvidenceBeforeVerified": [
+        "Exact final published345-or-successor head and staged source bytes, final current-source audit hash bindings.",
+        "Settled same-source full local validation preserving all previous contracts, all five fixture names and independent source-derived expected done results.",
+        "Actual pinned OTP source-built ordinary capture at that exact head, complete compiled rows for all five names; Source/Sha256/Expected/FixtureExpected/Actual match published catalog and local cases, caller context UntrappedFresh, compiler policy Default, empty expected/native/SDK streams.",
+        "Explicit source/exclusion/caller track audit proving no new predicate fixture is skipped or investigation-only; exact job PASS order, native pin/version and transport/API ZIP digest preserved.",
+        "Guard directive positive/negative native diagnostics cover admission correction separately; do not equate unsupported source with predicate API behavior.",
+        "Independent complete branch/category review plus native comparison; no status promotion from registry presence, initial ten legacy rows or source-only proof."
+      ],
+      "EvidencePending": [
+        "Original five new38-partition fixtures at final published head",
+        "Final full345 source-freeze and settled outcomes",
+        "Independent final combined compatibility audit"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_float",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "SourceConclusion": "Complete type-partition argument on supported valid Erlang term model; actual same-head native matrix and full audit still required before promotion.",
+      "PositiveClasses": [
+        "FloatTerm"
+      ],
+      "NegativeClasses": [
+        "Atom",
+        "Integer",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "PartitionCompletenessArgument": [
+        "Every supported guest term belongs to one listed runtime class; classification reads only the outer class, without traversing members or invoking functions. Arbitrary nesting or collection size cannot change the result.",
+        "Atoms include Boolean atoms, empty names and Unicode names; all are Atom. Integers use BigInteger with no small/bignum representation branch. Finite floating-point values, including both zero signs, subnormal and maximum finite, are FloatTerm.",
+        "Ordinary records are tuple terms; native records are a distinct term class and therefore false for is_tuple. Lists include Nil and Cons with proper or improper tail; aligned binaries and partial bitstrings remain BitString, false for these five predicates.",
+        "Local/external function identities, PIDs, references, resource references and ports remain nonpositive classes without identity resolution, liveness queries or side effects."
+      ],
+      "ErrorAndEffectContract": "Exactly one admitted guest term always yields cached Boolean atom true/false. No guest error branch or observable side effect. Wrong arity is another MFA; expression failures occur before invocation. CLR null, arbitrary host-only Term subclasses and nonfinite FloatTerm values are outside the admitted guest term model.",
+      "OtpBranches": "erl_bif_op.c is_float_1: type macro true/false; erl_term.h atom/float/integer/number/tuple tags; erl_db_util guard table uses same arity1 BIF. x86 JIT direct guard paths implement those tag partitions.",
+      "DispatchAndAdmission": "Explicit erlang call, normal unsuppressed auto-import, apply and external named-fun target the same registered handler. Qualified guards and legal unqualified guards use the same BIF; local/foreign imported names are other MFAs and cannot take the guard fast path. Explicit erlang imports restore suppressed guards but remain ordinary comprehension calls under erl_lint import classification. Guard alternatives/failure conversion do not catch cancellation as a Boolean.",
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-float-term-partitions",
+        "SourceSha256": "C70A1C228D0473865A3179A351E02D37FEEE7EFC898DD0B322897DBE0387D731",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "RequiredEvidenceBeforeVerified": [
+        "Exact final published345-or-successor head and staged source bytes, final current-source audit hash bindings.",
+        "Settled same-source full local validation preserving all previous contracts, all five fixture names and independent source-derived expected done results.",
+        "Actual pinned OTP source-built ordinary capture at that exact head, complete compiled rows for all five names; Source/Sha256/Expected/FixtureExpected/Actual match published catalog and local cases, caller context UntrappedFresh, compiler policy Default, empty expected/native/SDK streams.",
+        "Explicit source/exclusion/caller track audit proving no new predicate fixture is skipped or investigation-only; exact job PASS order, native pin/version and transport/API ZIP digest preserved.",
+        "Guard directive positive/negative native diagnostics cover admission correction separately; do not equate unsupported source with predicate API behavior.",
+        "Independent complete branch/category review plus native comparison; no status promotion from registry presence, initial ten legacy rows or source-only proof."
+      ],
+      "EvidencePending": [
+        "Original five new38-partition fixtures at final published head",
+        "Final full345 source-freeze and settled outcomes",
+        "Independent final combined compatibility audit"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_number",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "SourceConclusion": "Complete type-partition argument on supported valid Erlang term model; actual same-head native matrix and full audit still required before promotion.",
+      "PositiveClasses": [
+        "Integer",
+        "FloatTerm"
+      ],
+      "NegativeClasses": [
+        "Atom",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "PartitionCompletenessArgument": [
+        "Every supported guest term belongs to one listed runtime class; classification reads only the outer class, without traversing members or invoking functions. Arbitrary nesting or collection size cannot change the result.",
+        "Atoms include Boolean atoms, empty names and Unicode names; all are Atom. Integers use BigInteger with no small/bignum representation branch. Finite floating-point values, including both zero signs, subnormal and maximum finite, are FloatTerm.",
+        "Ordinary records are tuple terms; native records are a distinct term class and therefore false for is_tuple. Lists include Nil and Cons with proper or improper tail; aligned binaries and partial bitstrings remain BitString, false for these five predicates.",
+        "Local/external function identities, PIDs, references, resource references and ports remain nonpositive classes without identity resolution, liveness queries or side effects."
+      ],
+      "ErrorAndEffectContract": "Exactly one admitted guest term always yields cached Boolean atom true/false. No guest error branch or observable side effect. Wrong arity is another MFA; expression failures occur before invocation. CLR null, arbitrary host-only Term subclasses and nonfinite FloatTerm values are outside the admitted guest term model.",
+      "OtpBranches": "erl_bif_op.c is_number_1: type macro true/false; erl_term.h atom/float/integer/number/tuple tags; erl_db_util guard table uses same arity1 BIF. x86 JIT direct guard paths implement those tag partitions.",
+      "DispatchAndAdmission": "Explicit erlang call, normal unsuppressed auto-import, apply and external named-fun target the same registered handler. Qualified guards and legal unqualified guards use the same BIF; local/foreign imported names are other MFAs and cannot take the guard fast path. Explicit erlang imports restore suppressed guards but remain ordinary comprehension calls under erl_lint import classification. Guard alternatives/failure conversion do not catch cancellation as a Boolean.",
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-number-term-partitions",
+        "SourceSha256": "42E0F420D4696BFC55834FF42CC7C676D90A439626115F91EE37DDC699CC903A",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "RequiredEvidenceBeforeVerified": [
+        "Exact final published345-or-successor head and staged source bytes, final current-source audit hash bindings.",
+        "Settled same-source full local validation preserving all previous contracts, all five fixture names and independent source-derived expected done results.",
+        "Actual pinned OTP source-built ordinary capture at that exact head, complete compiled rows for all five names; Source/Sha256/Expected/FixtureExpected/Actual match published catalog and local cases, caller context UntrappedFresh, compiler policy Default, empty expected/native/SDK streams.",
+        "Explicit source/exclusion/caller track audit proving no new predicate fixture is skipped or investigation-only; exact job PASS order, native pin/version and transport/API ZIP digest preserved.",
+        "Guard directive positive/negative native diagnostics cover admission correction separately; do not equate unsupported source with predicate API behavior.",
+        "Independent complete branch/category review plus native comparison; no status promotion from registry presence, initial ten legacy rows or source-only proof."
+      ],
+      "EvidencePending": [
+        "Original five new38-partition fixtures at final published head",
+        "Final full345 source-freeze and settled outcomes",
+        "Independent final combined compatibility audit"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_tuple",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "SourceConclusion": "Complete type-partition argument on supported valid Erlang term model; actual same-head native matrix and full audit still required before promotion.",
+      "PositiveClasses": [
+        "TupleTerm"
+      ],
+      "NegativeClasses": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "PartitionCompletenessArgument": [
+        "Every supported guest term belongs to one listed runtime class; classification reads only the outer class, without traversing members or invoking functions. Arbitrary nesting or collection size cannot change the result.",
+        "Atoms include Boolean atoms, empty names and Unicode names; all are Atom. Integers use BigInteger with no small/bignum representation branch. Finite floating-point values, including both zero signs, subnormal and maximum finite, are FloatTerm.",
+        "Ordinary records are tuple terms; native records are a distinct term class and therefore false for is_tuple. Lists include Nil and Cons with proper or improper tail; aligned binaries and partial bitstrings remain BitString, false for these five predicates.",
+        "Local/external function identities, PIDs, references, resource references and ports remain nonpositive classes without identity resolution, liveness queries or side effects."
+      ],
+      "ErrorAndEffectContract": "Exactly one admitted guest term always yields cached Boolean atom true/false. No guest error branch or observable side effect. Wrong arity is another MFA; expression failures occur before invocation. CLR null, arbitrary host-only Term subclasses and nonfinite FloatTerm values are outside the admitted guest term model.",
+      "OtpBranches": "erl_bif_op.c is_tuple_1: type macro true/false; erl_term.h atom/float/integer/number/tuple tags; erl_db_util guard table uses same arity1 BIF. x86 JIT direct guard paths implement those tag partitions.",
+      "DispatchAndAdmission": "Explicit erlang call, normal unsuppressed auto-import, apply and external named-fun target the same registered handler. Qualified guards and legal unqualified guards use the same BIF; local/foreign imported names are other MFAs and cannot take the guard fast path. Explicit erlang imports restore suppressed guards but remain ordinary comprehension calls under erl_lint import classification. Guard alternatives/failure conversion do not catch cancellation as a Boolean.",
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-tuple-term-partitions",
+        "SourceSha256": "EE8376F28663ECE8BA7805E18969BEB3255B0121335B761DF871E32C9E91B206",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "RequiredEvidenceBeforeVerified": [
+        "Exact final published345-or-successor head and staged source bytes, final current-source audit hash bindings.",
+        "Settled same-source full local validation preserving all previous contracts, all five fixture names and independent source-derived expected done results.",
+        "Actual pinned OTP source-built ordinary capture at that exact head, complete compiled rows for all five names; Source/Sha256/Expected/FixtureExpected/Actual match published catalog and local cases, caller context UntrappedFresh, compiler policy Default, empty expected/native/SDK streams.",
+        "Explicit source/exclusion/caller track audit proving no new predicate fixture is skipped or investigation-only; exact job PASS order, native pin/version and transport/API ZIP digest preserved.",
+        "Guard directive positive/negative native diagnostics cover admission correction separately; do not equate unsupported source with predicate API behavior.",
+        "Independent complete branch/category review plus native comparison; no status promotion from registry presence, initial ten legacy rows or source-only proof."
+      ],
+      "EvidencePending": [
+        "Original five new38-partition fixtures at final published head",
+        "Final full345 source-freeze and settled outcomes",
+        "Independent final combined compatibility audit"
+      ]
+    }
+  ],
+  "LegacySelectedWitnesses": "artifacts/erlang-type-predicates-next-proposal/existing-original-witnesses.json",
+  "LegacyWitnessLimits": "Ten selected actual340 rows are supplementary only; positive examples do not establish complete negative partition coverage. is_number combined-guard atom rejection is not isolated; is_integer/3 is not is_integer/1 evidence.",
+  "GuardResolutionReviews": [
+    "artifacts/guard345-verified-source-independent/current-verified-source-review.json",
+    "artifacts/guard345-verified-source-independent/current-verified-source-review2.json"
+  ],
+  "StatusPromotionPerformed": false,
+  "CurrentCompatibilityCountsUnchanged": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "NativeOrSdkExecutionByAuthor": false,
+  "NetworkUsed": false,
+  "MainModified": false,
+  "StalenessRule": "Every current candidate source hash must be rebound to the actual final published/tested source before this proposal is used as compatibility evidence. No future head/run/job/artifact identity is assumed."
+}

@@ -12,7 +12,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | binary | 0 | 0 | 31 | 0 | 0 | 0 |
 | code | 0 | 0 | 69 | 0 | 0 | 0 |
 | dets | 0 | 0 | 64 | 0 | 0 | 0 |
-| erlang | 351 | 0 | 351 | 5 | 344 | 2 |
+| erlang | 351 | 0 | 351 | 10 | 339 | 2 |
 | erpc | 3 | 0 | 33 | 0 | 3 | 0 |
 | error_logger | 2 | 0 | 29 | 0 | 2 | 0 |
 | ets | 0 | 0 | 76 | 0 | 0 | 0 |
@@ -37,11 +37,16 @@ API presence is the registered, directly tested MFA count divided by the union o
 
 Compatibility is tracked per command in an explicit, baseline-bound audited ledger. Direct registry tests establish API presence only. Verified requires an audit of the command's complete observable semantic contract on the supported Erlang term model, actual original OTP comparisons, and no known or unresolved semantic gaps. Selected-case or subcontract-only evidence remains Needs verification. Verification does not claim identical internal VM layout, timings or performance; APIs exposing resource values or options still require their complete observable contracts.
 
-Verified compatible: **5**; needs verification: **563**; known differences: **19**.
+Verified compatible: **10**; needs verification: **558**; known differences: **19**.
 
 [Every command, evidence and limits](API_COMPATIBILITY.md).
 
 - `erlang:self/0`: Returns the calling Erlang process identifier. No argument/error branches at arity0; identity is relational within its runtime, not literal PID-number equality across runtimes. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
+- `erlang:is_atom/1`: True exactly for Atom terms, including true, false and empty/Unicode atoms. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim..
+- `erlang:is_integer/1`: True exactly for Integer terms of every admitted BigInteger magnitude. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim..
+- `erlang:is_float/1`: True exactly for FloatTerm values, including finite signed zero, subnormal and maximum values. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim..
+- `erlang:is_number/1`: True exactly for Integer or FloatTerm values. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim..
+- `erlang:is_tuple/1`: True exactly for TupleTerm values of every arity, including ordinary records; distinct NativeRecord values are false. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim..
 - `erlang:is_binary/1`: True for bitstrings whose bit length is byte-aligned (including empty), false otherwise. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
 - `erlang:is_bitstring/1`: True for both byte-aligned binaries and partial bitstrings including empty, false for non-bitstrings. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..
 - `erlang:is_map/1`: True exactly for Erlang map terms, false for every other supported Erlang term including native record. Complete observable semantic contract on the supported Erlang term model; not an assertion of identical internal VM layout, timings or performance..

@@ -1,0 +1,76 @@
+{
+  "Status": "PASS_ORIGINAL_REAL_PEER8_TYPED_CONTRACTS",
+  "Head": "83dde925f0b15707d0406d6028a85b9877764c3c",
+  "Run": 38976214750,
+  "Artifact": 12079855433,
+  "SourceManifestSha256": "C1B3C8BADDCC519B48E557628522E42E5EB31C2CF4055DC343CCBD436EEECD16",
+  "Cases": [
+    {
+      "Name": "mfa_spawn",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_1f7ae3860a58d9b0@127.0.0.1",
+      "RemoteNode": "peer_1f7ae3860a58d9b0@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "mfa_spawn_link",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_b30df2f5c465a2da@127.0.0.1",
+      "RemoteNode": "peer_b30df2f5c465a2da@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "mfa_spawn_opt",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_d282f479f8fd3c81@127.0.0.1",
+      "RemoteNode": "peer_d282f479f8fd3c81@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "fun_spawn",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_98223c6f2b34e91a@127.0.0.1",
+      "RemoteNode": "peer_98223c6f2b34e91a@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "fun_spawn_link",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_444481232a038e7b@127.0.0.1",
+      "RemoteNode": "peer_444481232a038e7b@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "fun_spawn_opt",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_9fc778bf63052097@127.0.0.1",
+      "RemoteNode": "peer_9fc778bf63052097@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "labels_visible",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_5f81d78f9fd3e548@127.0.0.1",
+      "RemoteNode": "peer_5f81d78f9fd3e548@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    },
+    {
+      "Name": "labels_hidden",
+      "Status": "PASS_TYPED_ORIGINAL_SHARED_CONTRACTS",
+      "OriginNode": "origin_399f6bd54c428dba@127.0.0.1",
+      "RemoteNode": "peer_399f6bd54c428dba@127.0.0.1",
+      "RawSourceEtfRehashed": true
+    }
+  ],
+  "ActualOriginalCases": 8,
+  "SdkExecutedByReader": false,
+  "SdkSemanticComparisonClaimed": false,
+  "LiveNativeSdkInteroperabilityClaimed": false,
+  "Limits": [
+    "Pinned fun_info(pid) returns the init-process PID, not the creator; exact init PID was not separately captured. Its origin node and creation are checked and the complete raw PID is retained.",
+    "Installed binary/fullmodule MD5 values are captured provenance, not independently recomputed absent original installed files.",
+    "Saved peer StartTicks and EPMD PID/socket inode ownership receipts are checked; live /proc is not re-observed by passive reader.",
+    "Group leader is checked as origin-node PID; exact origin GL was not separately captured.",
+    "SDK source assertions/crosswalk remain separate from executed SDK outcomes; whole dynamic trace/packet identity and performance not claimed."
+  ]
+}

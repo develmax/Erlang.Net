@@ -1,0 +1,27 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/real-peer-otp/bin/erl",
+    "+S",
+    "2:2",
+    "+pc",
+    "latin1",
+    "-name",
+    "origin_399f6bd54c428dba@127.0.0.1",
+    "-setcookie",
+    "private_peer_399f6bd54c428dba",
+    "-start_epmd",
+    "false",
+    "-kernel",
+    "inet_dist_use_interface",
+    "{127,0,0,1}",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-real-peer-original/capture/labels_hidden/beam",
+    "-eval",
+    "proc_lib_real_peer_probe:run(labels_hidden,os:getenv(\"ERLANG_NET_PEER_CAPTURE\")),halt(0)."
+  ],
+  "TimeoutSeconds": 60
+}

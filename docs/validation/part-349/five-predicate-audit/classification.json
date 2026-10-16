@@ -1,0 +1,213 @@
+{
+  "Status": "PASS_COMBINED_EVIDENCE_CLASSIFICATION_PROPOSAL_FIVE_PREDICATES",
+  "ParentHead": "d1bd571fc1f655abf81bdc0336b7133f3d023fac",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OldCounts": {
+    "Verified compatible": 5,
+    "Known differences": 19,
+    "Needs verification": 563
+  },
+  "ProposedCounts": {
+    "Verified compatible": 10,
+    "Known differences": 19,
+    "Needs verification": 558
+  },
+  "Entries": [
+    {
+      "Module": "erlang",
+      "Function": "is_atom",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "CompleteContract": "True exactly for Atom terms, including true, false and empty/Unicode atoms. False for all other admitted guest term classes. The handler only inspects the outer class; deep contents, identity and liveness do not change the result.",
+      "OwnErrorBranches": "None for a single admitted guest term. Argument-expression failures precede the call; other arities are different MFAs.",
+      "ContextEvidence": "Current-source audit covers ordinary/qualified calls, apply/external named fun, guards and alternatives, comprehensions/import resolution, and unary table match specifications. Actual original fixture covers 38 term partitions in 12 contexts.",
+      "PhysicalScope": "Observable supported-term contract; no identical VM layout, scheduling duration, physical resource metric or performance claim."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_integer",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "CompleteContract": "True exactly for Integer terms of every admitted BigInteger magnitude. False for all other admitted guest term classes. The handler only inspects the outer class; deep contents, identity and liveness do not change the result.",
+      "OwnErrorBranches": "None for a single admitted guest term. Argument-expression failures precede the call; other arities are different MFAs.",
+      "ContextEvidence": "Current-source audit covers ordinary/qualified calls, apply/external named fun, guards and alternatives, comprehensions/import resolution, and unary table match specifications. Actual original fixture covers 38 term partitions in 12 contexts.",
+      "PhysicalScope": "Observable supported-term contract; no identical VM layout, scheduling duration, physical resource metric or performance claim."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_float",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "CompleteContract": "True exactly for FloatTerm values, including finite signed zero, subnormal and maximum values. False for all other admitted guest term classes. The handler only inspects the outer class; deep contents, identity and liveness do not change the result.",
+      "OwnErrorBranches": "None for a single admitted guest term. Argument-expression failures precede the call; other arities are different MFAs.",
+      "ContextEvidence": "Current-source audit covers ordinary/qualified calls, apply/external named fun, guards and alternatives, comprehensions/import resolution, and unary table match specifications. Actual original fixture covers 38 term partitions in 12 contexts.",
+      "PhysicalScope": "Observable supported-term contract; no identical VM layout, scheduling duration, physical resource metric or performance claim."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_number",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "CompleteContract": "True exactly for Integer or FloatTerm values. False for all other admitted guest term classes. The handler only inspects the outer class; deep contents, identity and liveness do not change the result.",
+      "OwnErrorBranches": "None for a single admitted guest term. Argument-expression failures precede the call; other arities are different MFAs.",
+      "ContextEvidence": "Current-source audit covers ordinary/qualified calls, apply/external named fun, guards and alternatives, comprehensions/import resolution, and unary table match specifications. Actual original fixture covers 38 term partitions in 12 contexts.",
+      "PhysicalScope": "Observable supported-term contract; no identical VM layout, scheduling duration, physical resource metric or performance claim."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_tuple",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "CompleteContract": "True exactly for TupleTerm values of every arity, including ordinary records; distinct NativeRecord values are false. False for all other admitted guest term classes. The handler only inspects the outer class; deep contents, identity and liveness do not change the result.",
+      "OwnErrorBranches": "None for a single admitted guest term. Argument-expression failures precede the call; other arities are different MFAs.",
+      "ContextEvidence": "Current-source audit covers ordinary/qualified calls, apply/external named fun, guards and alternatives, comprehensions/import resolution, and unary table match specifications. Actual original fixture covers 38 term partitions in 12 contexts.",
+      "PhysicalScope": "Observable supported-term contract; no identical VM layout, scheduling duration, physical resource metric or performance claim."
+    }
+  ],
+  "CurrentSourceBindings": 62,
+  "ExistingBindingsPreserved": 35,
+  "AddedBindings": 27,
+  "Evidence": [
+    {
+      "SourcePath": "artifacts/type-predicate348-complete-contract-independent/report.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/complete-source-review.json",
+      "Bytes": 19643,
+      "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF"
+    },
+    {
+      "SourcePath": "artifacts/type-predicate348-complete-contract-independent/current-source-bindings.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/current-source-bindings.json",
+      "Bytes": 11144,
+      "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5"
+    },
+    {
+      "SourcePath": "artifacts/part345-ordinary-independent/selected-five-predicate-witnesses.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+      "Bytes": 24464,
+      "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A"
+    },
+    {
+      "SourcePath": "artifacts/part345-ordinary-independent/semantic-guard.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/original-semantic-guard.json",
+      "Bytes": 28706,
+      "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F"
+    },
+    {
+      "SourcePath": "artifacts/term-order348-full-actual2/completion-guard.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/full348-producer.json",
+      "Bytes": 2882,
+      "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346"
+    },
+    {
+      "SourcePath": "artifacts/term-order348-full-independent/report.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/full348-independent.json",
+      "Bytes": 2757,
+      "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E"
+    },
+    {
+      "SourcePath": "artifacts/term-order348-finalization-independent/report.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/full348-finalization.json",
+      "Bytes": 2577,
+      "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2"
+    },
+    {
+      "SourcePath": "artifacts/successor348-ci-independent/report.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348-independent.json",
+      "Bytes": 3955,
+      "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/run-map.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/run-map.json",
+      "Bytes": 475,
+      "Sha256": "428896CF564E79CEC527EC1C187ADE7B68F1F580F8CD6759DDF27C2DF92484D4"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/run.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/run.json",
+      "Bytes": 13592,
+      "Sha256": "F44F7DFD13D92A49AEA777FD1785078F98C8DA5CD5C5A1A5B9FA807E67727C74"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/jobs.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/jobs.json",
+      "Bytes": 3300,
+      "Sha256": "766BA0BA3FBF1753E0F7135C7B011E42E380834B10131A412327672520E9E245"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/artifacts.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/artifacts.json",
+      "Bytes": 908,
+      "Sha256": "9E1250C49876F0E6EF356C4C22FBB4AE792C5AC47235CD756A432EE26893E428"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/download-manifest.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/download-manifest.json",
+      "Bytes": 1395,
+      "Sha256": "6D2BF1BA55943DC9AC3D3FAA783D4B4BA3ACFA70FF200ED5AC3F36C83F44FD46"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/raw-capture.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/raw-capture.json",
+      "Bytes": 399,
+      "Sha256": "0DF0E373CADF534973A2977C73EF39ABA1812B860E4B240DF8E84872C8809638"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/job-117236403832.log",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/job-117236403832.log",
+      "Bytes": 713970,
+      "Sha256": "B41FE2261A058CA080DABFC3FB1FD8FDCC6D7F8844790AE9DBE731576A2F7429"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/artifact-12080353461/tests.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/tests.json",
+      "Bytes": 1007497,
+      "Sha256": "C985CA9D395D506B5475CCC52BD25C40D2126E0B17C46E43FD81DFA012D1E5ED"
+    },
+    {
+      "SourcePath": "artifacts/part348-remote-new-review/ci/artifact-12080353461/integration-results.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "6082661639A28EB7E9C6B9940632184463C1ED96389659A3420AC1B327DFEEB0"
+    },
+    {
+      "SourcePath": "artifacts/successor348-ci-independent/reader2-failure.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/reader2-failure.json",
+      "Bytes": 9943,
+      "Sha256": "566B9DA202666CBFCB21B29575F09745912E8248F82D0DC718198C9320EEC40C"
+    },
+    {
+      "SourcePath": "artifacts/successor348-ci-independent/build-eol-proof.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/build-eol-proof.json",
+      "Bytes": 10636,
+      "Sha256": "AF634B1E221CC96954469BFE1A31B3E4450D903B3EA5B04A2FBD7A6C380618C2"
+    },
+    {
+      "SourcePath": "artifacts/successor348-ci-independent/source-freeze3.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/source-freeze3.json",
+      "Bytes": 992,
+      "Sha256": "A58B5C4F16729901575D25D198BFC01A2E6D54D05AD798E81B348D7438462061"
+    },
+    {
+      "SourcePath": "artifacts/successor348-ci-independent/review3.py",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/review3.py",
+      "Bytes": 12162,
+      "Sha256": "2C870EAE259C7C189FD48CCD212447E9B557A8C8B3E2884A5CD74A009F7C8CEF"
+    },
+    {
+      "SourcePath": "artifacts/root-part348-build-eol-review.json",
+      "TargetPath": "docs/validation/part-349/five-predicate-audit/ci348/root-build-eol-review.json",
+      "Bytes": 8750,
+      "Sha256": "2F65525257F5E32E5D5CBD13F224B333E47412C886D2FEAA1263704D1BD2D881"
+    }
+  ],
+  "CiEolAdmission": "Reader2 refused 22 inherited project XML/slnx CRLF versus Git LF rows. Reviewed reader3 admits exactly the bound EOL-only variants; actual CI tests/integrations passed. This was a reader precondition failure, not a runtime failure.",
+  "FullHistory": "Full348 completed successfully. Finalization supplement preserves the later children-before metadata overwrite incident and distinguishes reconstructed logical membership from unavailable original serialized bytes; original full outcome and child receipts remain bound.",
+  "AllOther582EntriesUnchanged": true,
+  "OldFiveVerifiedEvidenceUnchanged": true,
+  "MainModified": false,
+  "SdkExecutedByThisProposal": false,
+  "NetworkUsed": false,
+  "StatusPromotionPerformed": false,
+  "RootReviewRequired": true
+}

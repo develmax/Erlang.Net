@@ -1,5 +1,7 @@
 # Decisions
 
+Part349 — Promote a bounded API contract only when complete branch/category/dispatch reasoning, original evidence, current-source bindings and current CI agree. Preserve prior582 entries and scopes. Correct passive-reader assumptions through reviewed revisions, retain refusals and declare uncaptured identities rather than normalizing observations.
+
 Part348 — Use explicit disposable traversal frames to preserve short-circuit compound comparison phases, per-pair exactness and one shared NodeComparisonContext. Preserve the process-seeded internal HashCode fold rather than replacing it with a different hash. Bound deep controls in owned children and retain streams/lifecycle failures. Current-source dependency guards extend30→35 without changing any API classification.
 
 Part347 — A source-proven differing valid OTP branch is Known differences even while other partitions need verification. Change exactly process_info/1,2; preserve all verified evidence and other MFA scopes. Keep projections, source proof, native observations, implementation and reporting distinct.

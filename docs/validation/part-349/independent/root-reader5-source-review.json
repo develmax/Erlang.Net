@@ -1,0 +1,23 @@
+{
+  "Status": "PASS_ROOT_READER5_NARROW_SOURCE_CORRECTION",
+  "ReaderFreezeSha256": "B2030C71D27FE3FD965D37F0E4C9A5BA779F2CC39B155DBF6ECB6AB71247FA63",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "RequiredBranch": "val = is_local_fun(funp) ? erts_init_process_id : am_undefined;"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_init.c",
+      "Sha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027",
+      "RequiredBranch": "erts_init_process_id = erl_first_process_otp(init, boot_argc, boot_argv);"
+    }
+  ],
+  "AllOtherExecutableBytesUnchanged": true,
+  "EnvironmentEqualityRetained": true,
+  "InitMetadataPidNodeCreationChecked": true,
+  "ExactInitializationPidIndependentlyUncaptured": true,
+  "Reader4RefusalRetained": true,
+  "RuntimeChanged": false,
+  "NativeExecuted": false
+}

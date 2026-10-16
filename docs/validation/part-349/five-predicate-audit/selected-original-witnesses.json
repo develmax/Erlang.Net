@@ -1,0 +1,158 @@
+{
+  "Status": "PASS_ACTUAL_ORIGINAL345_FIVE_PREDICATE_WITNESSES",
+  "Head": "fe3dc9582997ee1365289e8f08ff20da14e74cb0",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Run": 38975762912,
+  "Job": 117224702296,
+  "Artifact": 12079873039,
+  "RawReport": {
+    "Path": "artifacts/part345-remote-new-review/ordinary/artifact-12079873039/differential.json",
+    "Sha256": "B9A111684C008BBA718F3521213C29F00389FF431ED522A1436B61A4DEA89E9B"
+  },
+  "SemanticGuard": {
+    "Path": "artifacts/part345-ordinary-independent/semantic-guard.json",
+    "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F"
+  },
+  "SourceAuthority": "Each UTF-8 source and fixture expected value was checked against exact published345 TypePredicateCaseSources/Names/Cases by the linked semantic reader; observations are not seeded from SDK.",
+  "PublishedSourceBindings": [
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCaseNames.cs",
+      "Bytes": 542,
+      "Sha256": "4717E88B01172BDE295AA94F37DAA7BD411D36A52DD11D64817FC3E3ED589C1E"
+    },
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCaseSources.cs",
+      "Bytes": 18298,
+      "Sha256": "CEF3FE980996731976B60970DF48D07E17626BF73B4CB8E9D7DBA236DDA39DE1"
+    },
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCases.cs",
+      "Bytes": 1203,
+      "Sha256": "112AF10CD6CEE72CE1CED628EA0449B797F6FE07308E15E76A85FE23650948CD"
+    }
+  ],
+  "Scope": "Five observed compiled fixtures, each with 38 term partitions and 12 call/guard/match-spec routes; full API classification requires the independent current-source contract audit and current validation evidence.",
+  "MfaStatusPromoted": false,
+  "Rows": [
+    {
+      "ModuleResultsIndexZeroBased": 5338,
+      "RawRow": {
+        "Name": "erlang-type-predicate-is-atom-term-partitions",
+        "Source": "-module(oracle_type_predicate_is_atom).\n-export([run/0]).\n-record(ordinary,{value}).\nrun() ->\n    Big = 1 bsl 200,\n    Captured = fun()->Big end,\n    Subnormal = binary_to_term(<<131,70,0,0,0,0,0,0,0,1>>),\n    Maximum = binary_to_term(<<131,70,127,239,255,255,255,255,255,255>>),\n    ExternalPid = binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),\n    ExternalReference = binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),\n    ExternalPort = binary_to_term(<<131,89,119,13,\"external@host\",0,0,0,1,0,0,0,0>>),\n    true = is_pid(ExternalPid),\n    true = is_reference(ExternalReference),\n    true = is_port(ExternalPort),\n    Native = records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),\n    LargeMap = large_map(40,#{}),\n    check([\n        {plain_atom,plain_atom,true},\n        {empty_atom,'',true},\n        {unicode_atom,'λ',true},\n        {true_atom,true,true},\n        {false_atom,false,true},\n        {zero_integer,0,false},\n        {positive_integer,42,false},\n        {negative_integer,-42,false},\n        {large_integer,Big,false},\n        {large_negative_integer,-Big,false},\n        {float_positive,1.5,false},\n        {float_negative,-2.5,false},\n        {float_zero,0.0,false},\n        {float_negative_zero,-0.0,false},\n        {float_subnormal,Subnormal,false},\n        {float_max_finite,Maximum,false},\n        {empty_tuple,{},false},\n        {single_tuple,{a},false},\n        {nested_tuple,{a,1,[b]},false},\n        {ordinary_record,#ordinary{value=42},false},\n        {empty_list,[],false},\n        {proper_list,[a,b],false},\n        {improper_list,[a|tail],false},\n        {empty_map,#{},false},\n        {nonempty_map,#{a=>1},false},\n        {large_map,LargeMap,false},\n        {empty_binary,<<>>,false},\n        {aligned_binary,<<0,255>>,false},\n        {partial_bitstring,<<1:1>>,false},\n        {anonymous_fun,fun()->ok end,false},\n        {captured_fun,Captured,false},\n        {external_fun,fun erlang:self/0,false},\n        {local_pid,self(),false},\n        {external_pid,ExternalPid,false},\n        {local_reference,make_ref(),false},\n        {external_reference,ExternalReference,false},\n        {external_port,ExternalPort,false},\n        {native_record,Native,false}\n    ]),\n    done.\ncheck([]) -> ok;\ncheck([{Label,Value,Expected}|Rest]) ->\n    Expected = erlang:is_atom(Value),\n    Expected = apply(erlang,is_atom,[Value]),\n    Named = fun erlang:is_atom/1,\n    Expected = Named(Value),\n    Expected = guarded(Value),\n    Expected = case Value of CaseValue when is_atom(CaseValue) -> true; _ -> false end,\n    Expected = if is_atom(Value) -> true; true -> false end,\n    Expected = case Value of AlternativeValue when hd(invalid_guard) =:= never; is_atom(AlternativeValue) -> true; _ -> false end,\n    Expected = (false orelse erlang:is_atom(Value)),\n    Expected = (true andalso erlang:is_atom(Value)),\n    Accepted = case Expected of true -> [Label]; false -> [] end,\n    Accepted = [Label || ComprehensionValue <- [Value], is_atom(ComprehensionValue)],\n    self() ! {probe,Label,Value},\n    Expected = receive {probe,Label,ReceiveValue} when is_atom(ReceiveValue) -> true; {probe,Label,_} -> false after 1000 -> error(receive_timeout) end,\n    {ok,Expected,[],[]} = erlang:match_spec_test({Value},[{{'$1'},[{is_atom,'$1'}],[true]},{'_',[],[false]}],table),\n    check(Rest).\nguarded(Value) when is_atom(Value) -> true;\nguarded(_) -> false.\nlarge_map(0,Map) -> Map;\nlarge_map(N,Map) -> large_map(N-1,Map#{N=>N}).\n",
+        "SourceSha256": "BA748D08E5BAAFD7246221E6FFB74B4B82D57D4EF2812C64C55262EF974A0883",
+        "CSharpSha256": "D07B7616B28BF69A02DEBD57DB4F8EF8EF95F09EA562E378BD9B5217C468CB3C",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "ModuleResultsIndexZeroBased": 5339,
+      "RawRow": {
+        "Name": "erlang-type-predicate-is-integer-term-partitions",
+        "Source": "-module(oracle_type_predicate_is_integer).\n-export([run/0]).\n-record(ordinary,{value}).\nrun() ->\n    Big = 1 bsl 200,\n    Captured = fun()->Big end,\n    Subnormal = binary_to_term(<<131,70,0,0,0,0,0,0,0,1>>),\n    Maximum = binary_to_term(<<131,70,127,239,255,255,255,255,255,255>>),\n    ExternalPid = binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),\n    ExternalReference = binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),\n    ExternalPort = binary_to_term(<<131,89,119,13,\"external@host\",0,0,0,1,0,0,0,0>>),\n    true = is_pid(ExternalPid),\n    true = is_reference(ExternalReference),\n    true = is_port(ExternalPort),\n    Native = records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),\n    LargeMap = large_map(40,#{}),\n    check([\n        {plain_atom,plain_atom,false},\n        {empty_atom,'',false},\n        {unicode_atom,'λ',false},\n        {true_atom,true,false},\n        {false_atom,false,false},\n        {zero_integer,0,true},\n        {positive_integer,42,true},\n        {negative_integer,-42,true},\n        {large_integer,Big,true},\n        {large_negative_integer,-Big,true},\n        {float_positive,1.5,false},\n        {float_negative,-2.5,false},\n        {float_zero,0.0,false},\n        {float_negative_zero,-0.0,false},\n        {float_subnormal,Subnormal,false},\n        {float_max_finite,Maximum,false},\n        {empty_tuple,{},false},\n        {single_tuple,{a},false},\n        {nested_tuple,{a,1,[b]},false},\n        {ordinary_record,#ordinary{value=42},false},\n        {empty_list,[],false},\n        {proper_list,[a,b],false},\n        {improper_list,[a|tail],false},\n        {empty_map,#{},false},\n        {nonempty_map,#{a=>1},false},\n        {large_map,LargeMap,false},\n        {empty_binary,<<>>,false},\n        {aligned_binary,<<0,255>>,false},\n        {partial_bitstring,<<1:1>>,false},\n        {anonymous_fun,fun()->ok end,false},\n        {captured_fun,Captured,false},\n        {external_fun,fun erlang:self/0,false},\n        {local_pid,self(),false},\n        {external_pid,ExternalPid,false},\n        {local_reference,make_ref(),false},\n        {external_reference,ExternalReference,false},\n        {external_port,ExternalPort,false},\n        {native_record,Native,false}\n    ]),\n    done.\ncheck([]) -> ok;\ncheck([{Label,Value,Expected}|Rest]) ->\n    Expected = erlang:is_integer(Value),\n    Expected = apply(erlang,is_integer,[Value]),\n    Named = fun erlang:is_integer/1,\n    Expected = Named(Value),\n    Expected = guarded(Value),\n    Expected = case Value of CaseValue when is_integer(CaseValue) -> true; _ -> false end,\n    Expected = if is_integer(Value) -> true; true -> false end,\n    Expected = case Value of AlternativeValue when hd(invalid_guard) =:= never; is_integer(AlternativeValue) -> true; _ -> false end,\n    Expected = (false orelse erlang:is_integer(Value)),\n    Expected = (true andalso erlang:is_integer(Value)),\n    Accepted = case Expected of true -> [Label]; false -> [] end,\n    Accepted = [Label || ComprehensionValue <- [Value], is_integer(ComprehensionValue)],\n    self() ! {probe,Label,Value},\n    Expected = receive {probe,Label,ReceiveValue} when is_integer(ReceiveValue) -> true; {probe,Label,_} -> false after 1000 -> error(receive_timeout) end,\n    {ok,Expected,[],[]} = erlang:match_spec_test({Value},[{{'$1'},[{is_integer,'$1'}],[true]},{'_',[],[false]}],table),\n    check(Rest).\nguarded(Value) when is_integer(Value) -> true;\nguarded(_) -> false.\nlarge_map(0,Map) -> Map;\nlarge_map(N,Map) -> large_map(N-1,Map#{N=>N}).\n",
+        "SourceSha256": "B8B720DB9948335DEB8651C67E584B6572C5A36D5E2FAC166FAA8B3C428D1B30",
+        "CSharpSha256": "1F00B98DDE007586B8FF28A4BEEAFD054D27E43A0804F01F2D5A18D3BEBDBF88",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "ModuleResultsIndexZeroBased": 5340,
+      "RawRow": {
+        "Name": "erlang-type-predicate-is-float-term-partitions",
+        "Source": "-module(oracle_type_predicate_is_float).\n-export([run/0]).\n-record(ordinary,{value}).\nrun() ->\n    Big = 1 bsl 200,\n    Captured = fun()->Big end,\n    Subnormal = binary_to_term(<<131,70,0,0,0,0,0,0,0,1>>),\n    Maximum = binary_to_term(<<131,70,127,239,255,255,255,255,255,255>>),\n    ExternalPid = binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),\n    ExternalReference = binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),\n    ExternalPort = binary_to_term(<<131,89,119,13,\"external@host\",0,0,0,1,0,0,0,0>>),\n    true = is_pid(ExternalPid),\n    true = is_reference(ExternalReference),\n    true = is_port(ExternalPort),\n    Native = records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),\n    LargeMap = large_map(40,#{}),\n    check([\n        {plain_atom,plain_atom,false},\n        {empty_atom,'',false},\n        {unicode_atom,'λ',false},\n        {true_atom,true,false},\n        {false_atom,false,false},\n        {zero_integer,0,false},\n        {positive_integer,42,false},\n        {negative_integer,-42,false},\n        {large_integer,Big,false},\n        {large_negative_integer,-Big,false},\n        {float_positive,1.5,true},\n        {float_negative,-2.5,true},\n        {float_zero,0.0,true},\n        {float_negative_zero,-0.0,true},\n        {float_subnormal,Subnormal,true},\n        {float_max_finite,Maximum,true},\n        {empty_tuple,{},false},\n        {single_tuple,{a},false},\n        {nested_tuple,{a,1,[b]},false},\n        {ordinary_record,#ordinary{value=42},false},\n        {empty_list,[],false},\n        {proper_list,[a,b],false},\n        {improper_list,[a|tail],false},\n        {empty_map,#{},false},\n        {nonempty_map,#{a=>1},false},\n        {large_map,LargeMap,false},\n        {empty_binary,<<>>,false},\n        {aligned_binary,<<0,255>>,false},\n        {partial_bitstring,<<1:1>>,false},\n        {anonymous_fun,fun()->ok end,false},\n        {captured_fun,Captured,false},\n        {external_fun,fun erlang:self/0,false},\n        {local_pid,self(),false},\n        {external_pid,ExternalPid,false},\n        {local_reference,make_ref(),false},\n        {external_reference,ExternalReference,false},\n        {external_port,ExternalPort,false},\n        {native_record,Native,false}\n    ]),\n    done.\ncheck([]) -> ok;\ncheck([{Label,Value,Expected}|Rest]) ->\n    Expected = erlang:is_float(Value),\n    Expected = apply(erlang,is_float,[Value]),\n    Named = fun erlang:is_float/1,\n    Expected = Named(Value),\n    Expected = guarded(Value),\n    Expected = case Value of CaseValue when is_float(CaseValue) -> true; _ -> false end,\n    Expected = if is_float(Value) -> true; true -> false end,\n    Expected = case Value of AlternativeValue when hd(invalid_guard) =:= never; is_float(AlternativeValue) -> true; _ -> false end,\n    Expected = (false orelse erlang:is_float(Value)),\n    Expected = (true andalso erlang:is_float(Value)),\n    Accepted = case Expected of true -> [Label]; false -> [] end,\n    Accepted = [Label || ComprehensionValue <- [Value], is_float(ComprehensionValue)],\n    self() ! {probe,Label,Value},\n    Expected = receive {probe,Label,ReceiveValue} when is_float(ReceiveValue) -> true; {probe,Label,_} -> false after 1000 -> error(receive_timeout) end,\n    {ok,Expected,[],[]} = erlang:match_spec_test({Value},[{{'$1'},[{is_float,'$1'}],[true]},{'_',[],[false]}],table),\n    check(Rest).\nguarded(Value) when is_float(Value) -> true;\nguarded(_) -> false.\nlarge_map(0,Map) -> Map;\nlarge_map(N,Map) -> large_map(N-1,Map#{N=>N}).\n",
+        "SourceSha256": "C70A1C228D0473865A3179A351E02D37FEEE7EFC898DD0B322897DBE0387D731",
+        "CSharpSha256": "5C76997DEF58D94762C126996850A962B180BEA126EB8D55A878AD42C20286A6",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "ModuleResultsIndexZeroBased": 5341,
+      "RawRow": {
+        "Name": "erlang-type-predicate-is-number-term-partitions",
+        "Source": "-module(oracle_type_predicate_is_number).\n-export([run/0]).\n-record(ordinary,{value}).\nrun() ->\n    Big = 1 bsl 200,\n    Captured = fun()->Big end,\n    Subnormal = binary_to_term(<<131,70,0,0,0,0,0,0,0,1>>),\n    Maximum = binary_to_term(<<131,70,127,239,255,255,255,255,255,255>>),\n    ExternalPid = binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),\n    ExternalReference = binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),\n    ExternalPort = binary_to_term(<<131,89,119,13,\"external@host\",0,0,0,1,0,0,0,0>>),\n    true = is_pid(ExternalPid),\n    true = is_reference(ExternalReference),\n    true = is_port(ExternalPort),\n    Native = records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),\n    LargeMap = large_map(40,#{}),\n    check([\n        {plain_atom,plain_atom,false},\n        {empty_atom,'',false},\n        {unicode_atom,'λ',false},\n        {true_atom,true,false},\n        {false_atom,false,false},\n        {zero_integer,0,true},\n        {positive_integer,42,true},\n        {negative_integer,-42,true},\n        {large_integer,Big,true},\n        {large_negative_integer,-Big,true},\n        {float_positive,1.5,true},\n        {float_negative,-2.5,true},\n        {float_zero,0.0,true},\n        {float_negative_zero,-0.0,true},\n        {float_subnormal,Subnormal,true},\n        {float_max_finite,Maximum,true},\n        {empty_tuple,{},false},\n        {single_tuple,{a},false},\n        {nested_tuple,{a,1,[b]},false},\n        {ordinary_record,#ordinary{value=42},false},\n        {empty_list,[],false},\n        {proper_list,[a,b],false},\n        {improper_list,[a|tail],false},\n        {empty_map,#{},false},\n        {nonempty_map,#{a=>1},false},\n        {large_map,LargeMap,false},\n        {empty_binary,<<>>,false},\n        {aligned_binary,<<0,255>>,false},\n        {partial_bitstring,<<1:1>>,false},\n        {anonymous_fun,fun()->ok end,false},\n        {captured_fun,Captured,false},\n        {external_fun,fun erlang:self/0,false},\n        {local_pid,self(),false},\n        {external_pid,ExternalPid,false},\n        {local_reference,make_ref(),false},\n        {external_reference,ExternalReference,false},\n        {external_port,ExternalPort,false},\n        {native_record,Native,false}\n    ]),\n    done.\ncheck([]) -> ok;\ncheck([{Label,Value,Expected}|Rest]) ->\n    Expected = erlang:is_number(Value),\n    Expected = apply(erlang,is_number,[Value]),\n    Named = fun erlang:is_number/1,\n    Expected = Named(Value),\n    Expected = guarded(Value),\n    Expected = case Value of CaseValue when is_number(CaseValue) -> true; _ -> false end,\n    Expected = if is_number(Value) -> true; true -> false end,\n    Expected = case Value of AlternativeValue when hd(invalid_guard) =:= never; is_number(AlternativeValue) -> true; _ -> false end,\n    Expected = (false orelse erlang:is_number(Value)),\n    Expected = (true andalso erlang:is_number(Value)),\n    Accepted = case Expected of true -> [Label]; false -> [] end,\n    Accepted = [Label || ComprehensionValue <- [Value], is_number(ComprehensionValue)],\n    self() ! {probe,Label,Value},\n    Expected = receive {probe,Label,ReceiveValue} when is_number(ReceiveValue) -> true; {probe,Label,_} -> false after 1000 -> error(receive_timeout) end,\n    {ok,Expected,[],[]} = erlang:match_spec_test({Value},[{{'$1'},[{is_number,'$1'}],[true]},{'_',[],[false]}],table),\n    check(Rest).\nguarded(Value) when is_number(Value) -> true;\nguarded(_) -> false.\nlarge_map(0,Map) -> Map;\nlarge_map(N,Map) -> large_map(N-1,Map#{N=>N}).\n",
+        "SourceSha256": "42E0F420D4696BFC55834FF42CC7C676D90A439626115F91EE37DDC699CC903A",
+        "CSharpSha256": "D5D85FC4DC0782848ABE719DDEFCD29068057F7C16522DECD503EA243666DE15",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "ModuleResultsIndexZeroBased": 5342,
+      "RawRow": {
+        "Name": "erlang-type-predicate-is-tuple-term-partitions",
+        "Source": "-module(oracle_type_predicate_is_tuple).\n-export([run/0]).\n-record(ordinary,{value}).\nrun() ->\n    Big = 1 bsl 200,\n    Captured = fun()->Big end,\n    Subnormal = binary_to_term(<<131,70,0,0,0,0,0,0,0,1>>),\n    Maximum = binary_to_term(<<131,70,127,239,255,255,255,255,255,255>>),\n    ExternalPid = binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),\n    ExternalReference = binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),\n    ExternalPort = binary_to_term(<<131,89,119,13,\"external@host\",0,0,0,1,0,0,0,0>>),\n    true = is_pid(ExternalPid),\n    true = is_reference(ExternalReference),\n    true = is_port(ExternalPort),\n    Native = records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),\n    LargeMap = large_map(40,#{}),\n    check([\n        {plain_atom,plain_atom,false},\n        {empty_atom,'',false},\n        {unicode_atom,'λ',false},\n        {true_atom,true,false},\n        {false_atom,false,false},\n        {zero_integer,0,false},\n        {positive_integer,42,false},\n        {negative_integer,-42,false},\n        {large_integer,Big,false},\n        {large_negative_integer,-Big,false},\n        {float_positive,1.5,false},\n        {float_negative,-2.5,false},\n        {float_zero,0.0,false},\n        {float_negative_zero,-0.0,false},\n        {float_subnormal,Subnormal,false},\n        {float_max_finite,Maximum,false},\n        {empty_tuple,{},true},\n        {single_tuple,{a},true},\n        {nested_tuple,{a,1,[b]},true},\n        {ordinary_record,#ordinary{value=42},true},\n        {empty_list,[],false},\n        {proper_list,[a,b],false},\n        {improper_list,[a|tail],false},\n        {empty_map,#{},false},\n        {nonempty_map,#{a=>1},false},\n        {large_map,LargeMap,false},\n        {empty_binary,<<>>,false},\n        {aligned_binary,<<0,255>>,false},\n        {partial_bitstring,<<1:1>>,false},\n        {anonymous_fun,fun()->ok end,false},\n        {captured_fun,Captured,false},\n        {external_fun,fun erlang:self/0,false},\n        {local_pid,self(),false},\n        {external_pid,ExternalPid,false},\n        {local_reference,make_ref(),false},\n        {external_reference,ExternalReference,false},\n        {external_port,ExternalPort,false},\n        {native_record,Native,false}\n    ]),\n    done.\ncheck([]) -> ok;\ncheck([{Label,Value,Expected}|Rest]) ->\n    Expected = erlang:is_tuple(Value),\n    Expected = apply(erlang,is_tuple,[Value]),\n    Named = fun erlang:is_tuple/1,\n    Expected = Named(Value),\n    Expected = guarded(Value),\n    Expected = case Value of CaseValue when is_tuple(CaseValue) -> true; _ -> false end,\n    Expected = if is_tuple(Value) -> true; true -> false end,\n    Expected = case Value of AlternativeValue when hd(invalid_guard) =:= never; is_tuple(AlternativeValue) -> true; _ -> false end,\n    Expected = (false orelse erlang:is_tuple(Value)),\n    Expected = (true andalso erlang:is_tuple(Value)),\n    Accepted = case Expected of true -> [Label]; false -> [] end,\n    Accepted = [Label || ComprehensionValue <- [Value], is_tuple(ComprehensionValue)],\n    self() ! {probe,Label,Value},\n    Expected = receive {probe,Label,ReceiveValue} when is_tuple(ReceiveValue) -> true; {probe,Label,_} -> false after 1000 -> error(receive_timeout) end,\n    {ok,Expected,[],[]} = erlang:match_spec_test({Value},[{{'$1'},[{is_tuple,'$1'}],[true]},{'_',[],[false]}],table),\n    check(Rest).\nguarded(Value) when is_tuple(Value) -> true;\nguarded(_) -> false.\nlarge_map(0,Map) -> Map;\nlarge_map(N,Map) -> large_map(N-1,Map#{N=>N}).\n",
+        "SourceSha256": "EE8376F28663ECE8BA7805E18969BEB3255B0121335B761DF871E32C9E91B206",
+        "CSharpSha256": "9CFF6695767787ED24C79B261DFA7F5F021008F4F3768CE09D3C455223E22A74",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "Status": "INCIDENT_POST_COMPLETION_DUPLICATE_LAUNCH_REFUSED_BEFORE_SDK_WITH_ONE_METADATA_OVERWRITE",
+  "RecordedAtUtc": "2026-10-16T23:03:02.043808+00:00",
+  "Cause": "I attempted the prior authorized launch after the task had shifted to read-only original345 review; the existing-exit guard refused the launch. The wrapper wrongly writes children-before metadata before checking existing full-exit.",
+  "AttemptTimestampBasis": "File last-write UTC of the sole write immediately before the refusing assertion; no independently recorded command-start clock is available",
+  "OverwrittenFileLastWriteUtc": "2026-10-16T23:01:07.026501+00:00",
+  "OverwrittenFileLastWriteNanoseconds": 1792191667026500800,
+  "OverwrittenPath": "artifacts/term-order348-full-actual2/children-before.json",
+  "OverwrittenSha256": "84DDD6887927A8BE80ECB53CBE3A3AD88FBD16C1932EE2742BA97476F6A5A791",
+  "OverwrittenGuidCount": 24,
+  "PreservedCopySha256": "84DDD6887927A8BE80ECB53CBE3A3AD88FBD16C1932EE2742BA97476F6A5A791",
+  "RunnerSha256": "84071F7AAA8809E7A2455236D1F4E3B61DCA682299A4265C77549CE0AD118FD2",
+  "NoPopenOrDotnetStarted": true,
+  "ProcessStartStatementAfterRefusingAssertion": true,
+  "SourceTestsExitGuardNotWrittenByAttempt": true,
+  "ExistingFullBindings": [
+    {
+      "Path": "artifacts/term-order348-full-actual2/full-exit.json",
+      "Sha256": "6F36412E301AA63BBDCEF287ED9001CA685CB63C91F41A3B38FB06CD159C0E8F",
+      "LastWriteUtc": "2026-10-16T22:58:35.736842+00:00"
+    },
+    {
+      "Path": "artifacts/term-order348-full-actual2/completion-guard.json",
+      "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+      "LastWriteUtc": "2026-10-16T22:58:36.038841+00:00"
+    },
+    {
+      "Path": "artifacts/term-order348-full-actual2/tests.json",
+      "Sha256": "8FAA3BC28E67FD7B8F5CD8387B96B863C60DF1F1D96F9F53D6BB0DFC94E4FCAF",
+      "LastWriteUtc": "2026-10-16T22:58:35.737842+00:00"
+    },
+    {
+      "Path": "artifacts/term-order348-full-actual2/bounded-child-controls.json",
+      "Sha256": "BCA3830FD2D729D865D8C4BB635B0CEF0E74CE2EC3BF081D3290265C26168702",
+      "LastWriteUtc": "2026-10-16T22:58:36.015341+00:00"
+    }
+  ],
+  "OriginalChildrenBeforeCopySearchScopes": [
+    "docs/validation/part-348",
+    "artifacts/part348-docs-delivery-plan",
+    "artifacts/term-order348-full-independent",
+    "artifacts/part348-delivery-helpers-draft"
+  ],
+  "OriginalRawBytesNotRecovered": true,
+  "NoRestorationPerformed": true,
+  "No348FileMutatedAfterRootStop": true,
+  "TranscriptSha256": "6AEB28227382B021354A7458B4642B0F472F0A920BF81EBBF60BAD19F7E4A4C0",
+  "Limit": "The original prelaunch set can be witnessed by the twelve narrow-focused child receipt paths, but original unordered JSON byte order cannot be inferred. Do not present a reconstructed file as byte-exact original.",
+  "PriorReportSha256": "315DBEFFDE6A79B618FC88E5FA1489C4DE09CC872BC78947997D95237431D93A",
+  "CandidateCopiesFound": [
+    {
+      "Path": "artifacts/part348-docs-delivery-plan/final-overlay/docs/validation/part-348/full/children-before.json",
+      "Sha256": "84DDD6887927A8BE80ECB53CBE3A3AD88FBD16C1932EE2742BA97476F6A5A791",
+      "MatchesOverwrittenPostCompletionBytes": true,
+      "ClassifiedOriginal": false
+    }
+  ],
+  "OriginalChildrenBeforeCopiesFound": [],
+  "OriginalCopyRecoveryStatus": "Not recovered in named scopes; one final-overlay copy equals post-completion overwritten24-GUID bytes, so it is not evidence of the prelaunch original.",
+  "MetadataCorrection": "Clarifies candidate copy classification and exact tool workdir spelling; original incident files preserved."
+}

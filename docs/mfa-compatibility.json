@@ -180,91 +180,351 @@
       "Module": "erlang",
       "Function": "is_atom",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "True exactly for Atom terms, including true, false and empty/Unicode atoms. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-349/five-predicate-audit/classification-runtime59.json",
+          "Sha256": "4B7E202C0953DFB7397F73185B1D6D5E8C6EE300F2A1A6501FC07C0817C098F3",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/complete-source-review.json",
+          "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/current-source-bindings.json",
+          "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+          "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/original-semantic-guard.json",
+          "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-producer.json",
+          "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-independent.json",
+          "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-finalization.json",
+          "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
+          "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
         }
       ],
-      "Limits": [
-        "Return source aligns, but dedicated positive/negative term-partition native witnesses and compiled/guard dispatch audit were not completed for this MFA."
-      ]
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "is_integer",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "True exactly for Integer terms of every admitted BigInteger magnitude. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-349/five-predicate-audit/classification-runtime59.json",
+          "Sha256": "4B7E202C0953DFB7397F73185B1D6D5E8C6EE300F2A1A6501FC07C0817C098F3",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/complete-source-review.json",
+          "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/current-source-bindings.json",
+          "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+          "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/original-semantic-guard.json",
+          "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-producer.json",
+          "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-independent.json",
+          "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-finalization.json",
+          "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
+          "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
         }
       ],
-      "Limits": [
-        "Full small/big integer versus all other term-category differential partition not completed."
-      ]
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "is_float",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "True exactly for FloatTerm values, including finite signed zero, subnormal and maximum values. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-349/five-predicate-audit/classification-runtime59.json",
+          "Sha256": "4B7E202C0953DFB7397F73185B1D6D5E8C6EE300F2A1A6501FC07C0817C098F3",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/complete-source-review.json",
+          "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/current-source-bindings.json",
+          "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+          "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/original-semantic-guard.json",
+          "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-producer.json",
+          "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-independent.json",
+          "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-finalization.json",
+          "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
+          "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
         }
       ],
-      "Limits": [
-        "Only positive native float-path witnesses selected; negative category partition not independently audited."
-      ]
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "is_number",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "True exactly for Integer or FloatTerm values. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-349/five-predicate-audit/classification-runtime59.json",
+          "Sha256": "4B7E202C0953DFB7397F73185B1D6D5E8C6EE300F2A1A6501FC07C0817C098F3",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/complete-source-review.json",
+          "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/current-source-bindings.json",
+          "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+          "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/original-semantic-guard.json",
+          "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-producer.json",
+          "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-independent.json",
+          "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-finalization.json",
+          "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
+          "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
         }
       ],
-      "Limits": [
-        "Float and atom guard examples exist, but integer/big integer and full false-partition witness audit pending."
-      ]
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "is_tuple",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "True exactly for TupleTerm values of every arity, including ordinary records; distinct NativeRecord values are false. False for every other admitted guest term class. Complete observable semantic contract on the supported Erlang term model, with current source branch coverage and actual original 38-partition/12-context witnesses; no identical internal VM layout, physical metrics, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-349/five-predicate-audit/classification-runtime59.json",
+          "Sha256": "4B7E202C0953DFB7397F73185B1D6D5E8C6EE300F2A1A6501FC07C0817C098F3",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/complete-source-review.json",
+          "Sha256": "EF3B6D92A4C4EEA0E95C405AAAEABB7E4F6A8B5CB5D93F9F5A80ED0DDA87F7AF",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/current-source-bindings.json",
+          "Sha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/selected-original-witnesses.json",
+          "Sha256": "9667E452C32EF697CF139208FD3A13C49712DAEC39DE241D84D3EE519B02070A",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-349/five-predicate-audit/original-semantic-guard.json",
+          "Sha256": "334250AA3AC806005A4E867F5BC761FC80753424B9BF498CFCFDCF24ECE0635F",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-producer.json",
+          "Sha256": "202536512FC22F9A72C1CA82CDDDEEEE7607DC25B883276C8AC7E4A8BE1BB346",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-independent.json",
+          "Sha256": "4B11CE804C40705B8630D44C84F486399F84C8CF1D91DB22645A963F5FF1055E",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/full348-finalization.json",
+          "Sha256": "80FF7FEF72BB3E4D5E5162C269E9B680121FDD221F34B85BB011463F565068E2",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
+          "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
+          "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
         }
       ],
-      "Limits": [
-        "Positive compile-info loop and negative native-record example exist; direct empty/nonempty tuple and non-tuple partition evidence not fully audited."
-      ]
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -7566,6 +7826,102 @@
     {
       "Path": "src/Erlang.Terms/TermOrder.cs",
       "Sha256": "B2E92018FAE4A40A7A3A03910227AEBDDACE23473A650C7E6A6FEC649E79A589"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyLimits.cs",
+      "Sha256": "CF072BE6E5652D443B5352E1A06BF3D289DD30B27917E6151B6EECBA728D3649"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+      "Sha256": "10760FBD45AA4E023386A678A11C05266D33BD6FC7BE709C837DFC028A40DB8A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+      "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecRegistrations.cs",
+      "Sha256": "677F3F0B7ED4B12139841EDD7D1871A88A4627A10254DD95428347751367B1C8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalTerms.cs",
+      "Sha256": "B7FE057B5228BAD9DC90BC5B70A49BC060F421BE6AC06A9C9C49359C5CE15E7D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeKnownNodes.cs",
+      "Sha256": "3A05794C9D10EF0BE358F223F8D3FFCE04D276A5A8922E049F4AA96E3704DA96"
+    },
+    {
+      "Path": "src/Erlang.Terms/Atom.cs",
+      "Sha256": "E1772CEA8524236CD6BF34E47697574E69445FB3581246067D6061BAEEAF4A50"
+    },
+    {
+      "Path": "src/Erlang.Terms/AtomCache.cs",
+      "Sha256": "37DE45772B404F5590FB420CD3604F23E35DD74A5975D44C07B0A49803644244"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangBooleanAtoms.cs",
+      "Sha256": "9140F2E799740BE5FDA0A36A2A7BA27D3DF3A5A203AD23BBA32C36AE52A06F82"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangModuleNames.cs",
+      "Sha256": "1C284D03463B93940AC39550E63BF818A33BBE121A7DDEBC2EFB1BF1148B1402"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+    },
+    {
+      "Path": "src/Erlang.Terms/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Erlang.Terms/Nil.cs",
+      "Sha256": "93D91D6D1400387B0E31B8C2ED36760921A6FDACFCD64953DA086F3D02B63366"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+    },
+    {
+      "Path": "src/Erlang.Terms/Term.cs",
+      "Sha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644"
+    },
+    {
+      "Path": "src/Erlang.Terms/TupleTerm.cs",
+      "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
     }
   ]
 }

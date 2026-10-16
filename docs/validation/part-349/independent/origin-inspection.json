@@ -1,0 +1,32 @@
+[
+  {
+    "Case": "fun_spawn",
+    "Env": "('list', (('map', frozenset({(('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'parent'), ('pid', ('atom', 'origin_98223c6f2b34e91a@127.0.0.1'), 10, 0, 1792190406, 88)), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_98223c6f2b34e91a')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))}))), (('atom', 'marker'), ('atom', 'maker_98223c6f2b34e91a'))})),))",
+    "ExpectedSingleMapEnv": "('list', (('map', frozenset({(('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'parent'), ('pid', ('atom', 'origin_98223c6f2b34e91a@127.0.0.1'), 10, 0, 1792190406, 88)), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_98223c6f2b34e91a')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))}))), (('atom', 'marker'), ('atom', 'maker_98223c6f2b34e91a'))})),))",
+    "EnvMatches": true,
+    "CreatorPid": "('pid', ('atom', 'origin_98223c6f2b34e91a@127.0.0.1'), 0, 0, 1792190406, 88)",
+    "CaptureParentPid": "('pid', ('atom', 'origin_98223c6f2b34e91a@127.0.0.1'), 10, 0, 1792190406, 88)",
+    "CreatorMatchesParent": false,
+    "OriginInfoRawSha256": "5DFA0B804A03D2B103E12382B255F11288AEEDD257E74EE3A0CC74C3BF6B318B"
+  },
+  {
+    "Case": "fun_spawn_link",
+    "Env": "('list', (('map', frozenset({(('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_444481232a038e7b')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))}))), (('atom', 'parent'), ('pid', ('atom', 'origin_444481232a038e7b@127.0.0.1'), 10, 0, 1792190407, 88)), (('atom', 'marker'), ('atom', 'maker_444481232a038e7b'))})),))",
+    "ExpectedSingleMapEnv": "('list', (('map', frozenset({(('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_444481232a038e7b')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))}))), (('atom', 'parent'), ('pid', ('atom', 'origin_444481232a038e7b@127.0.0.1'), 10, 0, 1792190407, 88)), (('atom', 'marker'), ('atom', 'maker_444481232a038e7b'))})),))",
+    "EnvMatches": true,
+    "CreatorPid": "('pid', ('atom', 'origin_444481232a038e7b@127.0.0.1'), 0, 0, 1792190407, 88)",
+    "CaptureParentPid": "('pid', ('atom', 'origin_444481232a038e7b@127.0.0.1'), 10, 0, 1792190407, 88)",
+    "CreatorMatchesParent": false,
+    "OriginInfoRawSha256": "AAC380A5A908ABD6B289431FCE2B10597B942BCC0A9D9D900132BDB9695949E4"
+  },
+  {
+    "Case": "fun_spawn_opt",
+    "Env": "('list', (('map', frozenset({(('atom', 'marker'), ('atom', 'maker_9fc778bf63052097')), (('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'parent'), ('pid', ('atom', 'origin_9fc778bf63052097@127.0.0.1'), 10, 0, 1792190407, 88)), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_9fc778bf63052097')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))})))})),))",
+    "ExpectedSingleMapEnv": "('list', (('map', frozenset({(('atom', 'marker'), ('atom', 'maker_9fc778bf63052097')), (('atom', 'payload'), ('tuple', (('bit_binary', b'\\xe0', 3), ('map', frozenset({(('atom', 'values'), ('list', (('integer', 1), ('integer', 2), ('integer', 3))))})), ('list', (('integer', 99), ('integer', 97), ('integer', 112), ('integer', 116), ('integer', 117), ('integer', 114), ('integer', 101), ('integer', 100)))))), (('atom', 'parent'), ('pid', ('atom', 'origin_9fc778bf63052097@127.0.0.1'), 10, 0, 1792190407, 88)), (('atom', 'label'), ('map', frozenset({(('atom', 'marker'), ('atom', 'maker_9fc778bf63052097')), (('atom', 'nested'), ('tuple', (('binary', b'\\x00\\xff\\x80'), ('list', (('integer', -123456789), ('tuple', (('atom', 'arbitrary'), ('atom', 'label'))))))))})))})),))",
+    "EnvMatches": true,
+    "CreatorPid": "('pid', ('atom', 'origin_9fc778bf63052097@127.0.0.1'), 0, 0, 1792190407, 88)",
+    "CaptureParentPid": "('pid', ('atom', 'origin_9fc778bf63052097@127.0.0.1'), 10, 0, 1792190407, 88)",
+    "CreatorMatchesParent": false,
+    "OriginInfoRawSha256": "B2E126756B1941D4795ADA07005F15F89A61D43E12ACCEBE805C7AA382A753F6"
+  }
+]

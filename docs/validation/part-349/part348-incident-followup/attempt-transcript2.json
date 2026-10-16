@@ -1,0 +1,22 @@
+{
+  "Tool": "tools.exec_command via functions.exec",
+  "Input": {
+    "cmd": "& 'C:/Users/Maksim/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -B artifacts/run-term-order348-full.py",
+    "workdir": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net",
+    "login": false,
+    "sandbox_permissions": "require_escalated",
+    "justification": "Полный прогон собственного Erlang.Net в изолированной копии: нативные проверки Windows pipes/CreateProcess требуют разрешений вне sandbox, как подтверждено прогоном342. Один процесс сборки CPU2, фиксированный таймаут и сохранение результатов.",
+    "yield_time_ms": 1000,
+    "max_output_tokens": 1000
+  },
+  "Returned": {
+    "chunk_id": "da4aa5",
+    "wall_time_seconds": 0.3399058,
+    "exit_code": 1,
+    "original_token_count": 69,
+    "output": "Traceback (most recent call last):\r\n  File \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\run-term-order348-full.py\", line 14, in <module>\r\n    assert not(o/'full-exit.json').exists();start=time.monotonic()\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAssertionError\r\n"
+  },
+  "Provenance": "Transcribed from the exact tool input/result visible in this agent turn; not a second execution",
+  "PriorTranscriptSha256": "FD97DBCCE64DBD4E54F131B32A384EBA1D1C3D62B82B597A90A32F7E62B06458",
+  "Correction": "Preserve exact slash spelling of tool input working-directory string; resolved directory is unchanged."
+}

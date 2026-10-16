@@ -1,0 +1,46 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_REVIEW_EXACT_RUNTIME59_AMENDMENT",
+  "OriginalProposalLedgerSha256": "217CEA29E257E3D095D32B4A4984BA6C85DAA660779B5F1FC7BB47528DB1E470",
+  "ValidatorPath": "tools/Erlang.Tool/MfaCompatibility.cs",
+  "ValidatorSha256": "1D2307DE1E7B4272000025DE66A1BADD39345C1B484110AC9CF60A50D125DE28",
+  "ValidatorRule": "VerifiedSourceFiles paths must begin src/; fixture sources remain independently hashed audit/comparison evidence.",
+  "OriginalAuditBindings": 62,
+  "CanonicalRuntimeBindings": 59,
+  "Old35BindingsPreservedExact": true,
+  "AddedRuntimeBindings": 24,
+  "ExcludedFixtureBindingsRetainedInBothImmutable62ManifestAndOriginalWitnesses": [
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCaseNames.cs",
+      "Sha256": "4717E88B01172BDE295AA94F37DAA7BD411D36A52DD11D64817FC3E3ED589C1E"
+    },
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCaseSources.cs",
+      "Sha256": "CEF3FE980996731976B60970DF48D07E17626BF73B4CB8E9D7DBA236DDA39DE1"
+    },
+    {
+      "Path": "tools/Erlang.Differential/TypePredicateCases.cs",
+      "Sha256": "112AF10CD6CEE72CE1CED628EA0449B797F6FE07308E15E76A85FE23650948CD"
+    }
+  ],
+  "All62CurrentFilesRehashed": true,
+  "All587EntryDictionariesUnchangedByRuntimeFilter": true,
+  "FivePromotionsUnchanged": true,
+  "Counts": {
+    "Verified compatible": 10,
+    "Known differences": 19,
+    "Needs verification": 558
+  },
+  "Original62ProposalHistoryMustRemainImmutable": true,
+  "CanonicalClassificationRequired": "New classification-runtime59 must explicitly distinguish59 runtime guard bindings from62 audited source/fixture bindings; retain prior classification62 as historical proposal and preserve original CLI refusal.",
+  "ActualCliRefusal": {
+    "ExitReceiptSha256": "17B06CE7F69FFDA51B1A108FE9F1505DB09AA4CD682A191BECEBCE20237567EE",
+    "StderrSha256": "248516F149ECDEB1B53017CB1BB9053F903C6610B2347BD40CE336ABC3EACF79",
+    "ExitCode": 1,
+    "Reason": "Ledger admission rejects the3tools fixture paths; no runtime/test failure demonstrated."
+  },
+  "NoValidatorRelaxationRequired": true,
+  "ActualCorrectedCliOutcome": "Not executed by this reviewer; Root owns new output directory2.",
+  "MainModified": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

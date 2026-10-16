@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part349: promote the exact five-row ledger and regenerate readiness from the existing348 tool/report. Keep six additional predicates pending original/current-source/full-contract completion. Continue current-head original348 traversal comparisons and actual next-increment CI. Implement process-owned physical accounting before removing process_info known differences; preserve timing/interoperability limits.
+
 Part348: publish the exact tested25-source increment, verify current-head CI and compare five new portable scenarios with pinned OTP. Complete independent pending original3456290/fd8 and corrected346real-peer8 audits. Keep resource process_info differences known until implemented with real accounting; keep type-predicate promotions gated on complete native/current-source evidence.
 
 Part347: regenerate readiness from the corrected two-MFA ledger using the existing345Tool/7259report, publish the reporting change, then verify current-head CI. Continue actual pending original3456290/fd8 and corrected346real-peer8 audits. Develop a real process-owned resource/accounting model before claiming process_info physical compatibility; do not fabricate counters. Continue isolated TermOrder comparison/hash work after rebasing to347.

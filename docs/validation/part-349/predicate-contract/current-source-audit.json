@@ -1,0 +1,488 @@
+{
+  "Status": "PASS_SOURCE_ONLY_COMPLETE_FIVE_TYPE_PREDICATE_CONTRACT_AUDIT_CURRENT348",
+  "Head": "d1bd571fc1f655abf81bdc0336b7133f3d023fac",
+  "PriorAuditProposalSha256": "5FEE468106B35B26F507F73810BF8A067314B260C2E66F029775FB2B8DB84E44",
+  "All27PriorManagedSourcesRawExactCurrent348": true,
+  "CurrentSourceBindingManifestSha256": "5DB44106023AB0E8506F798696224EE4FF80AC830B427D461F4509246F4188E5",
+  "CurrentSourceBindingRows": 62,
+  "PinnedOriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_db_util.c",
+      "Sha256": "9228A0FD19A784FE52EDAEBFC3F0F714DB9648FD939E268CEEB855E73181E1F5",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_common.cpp",
+      "Sha256": "ABDD8D5B22F406FA9C8D0AA972D3962B62A34A93C6783703D3D8F0A6E383A2A3",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_lint.erl",
+      "Sha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_internal.erl",
+      "Sha256": "D7D62083E74560591851D85821B379274FDCC88A7E10870AE6A7448775ABEF9D",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    }
+  ],
+  "SupportedGuestOuterClassInventory": [
+    {
+      "Class": "ResourceReferenceTerm",
+      "Base": "ReferenceTerm",
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs"
+    },
+    {
+      "Class": "Atom",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/Atom.cs"
+    },
+    {
+      "Class": "BitString",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/BitString.cs"
+    },
+    {
+      "Class": "Cons",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/Cons.cs"
+    },
+    {
+      "Class": "FloatTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/FloatTerm.cs"
+    },
+    {
+      "Class": "FunctionTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/FunctionTerm.cs"
+    },
+    {
+      "Class": "Integer",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/Integer.cs"
+    },
+    {
+      "Class": "MapTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/MapTerm.cs"
+    },
+    {
+      "Class": "NativeRecordTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs"
+    },
+    {
+      "Class": "Nil",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/Nil.cs"
+    },
+    {
+      "Class": "Pid",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/Pid.cs"
+    },
+    {
+      "Class": "PortTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/PortTerm.cs"
+    },
+    {
+      "Class": "ReferenceTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs"
+    },
+    {
+      "Class": "TupleTerm",
+      "Base": "Term",
+      "Path": "src/Erlang.Terms/TupleTerm.cs"
+    }
+  ],
+  "Entries": [
+    {
+      "Module": "erlang",
+      "Function": "is_atom",
+      "Arity": 1,
+      "CurrentStatusPreserved": "Needs verification",
+      "SourceContractConclusion": "PASS_COMPLETE_SUPPORTED_TERM_PARTITION_AND_ADMITTED_CALL_CONTEXT_ARGUMENT",
+      "ConcreteCurrentSemanticGapFound": false,
+      "PositiveOuterClasses": [
+        "Atom"
+      ],
+      "NegativeOuterClasses": [
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "SelectedPartitionCases": 38,
+      "PositiveFixtureRows": 5,
+      "Contexts": [
+        "qualified ordinary",
+        "apply",
+        "named external fun invocation",
+        "function guard",
+        "case guard",
+        "if guard",
+        "guard alternatives after guard error",
+        "andalso",
+        "orelse",
+        "list comprehension",
+        "receive guard and fallback",
+        "table match_spec_test"
+      ],
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-atom-term-partitions",
+        "SourceSha256": "BA748D08E5BAAFD7246221E6FFB74B4B82D57D4EF2812C64C55262EF974A0883",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "OwnErrorBranches": "None for one admitted valid guest term; wrong arity belongs to another MFA, argument-expression errors occur before the predicate. No class-dependent validation/callback/identity-resolution branch.",
+      "EffectsScope": "Predicate handler is pure and outer-type-only. General runtime dispatch still performs shared node admission/tracing/scheduling; do not claim the entire runtime call has no bookkeeping or performance cost.",
+      "RequiredCombinationBeforeAnyLedgerChange": [
+        "Independent actual original345 row audit, matching five published fixture sources/expected/actual/streams and caller/compiler policy",
+        "Bind current348 source unchanged original27 plus iterative TermOrder/shared paths and same-source full/CI evidence",
+        "Final independent combined per-MFA classification review; do not promote from source or registry presence"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_integer",
+      "Arity": 1,
+      "CurrentStatusPreserved": "Needs verification",
+      "SourceContractConclusion": "PASS_COMPLETE_SUPPORTED_TERM_PARTITION_AND_ADMITTED_CALL_CONTEXT_ARGUMENT",
+      "ConcreteCurrentSemanticGapFound": false,
+      "PositiveOuterClasses": [
+        "Integer"
+      ],
+      "NegativeOuterClasses": [
+        "Atom",
+        "FloatTerm",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "SelectedPartitionCases": 38,
+      "PositiveFixtureRows": 5,
+      "Contexts": [
+        "qualified ordinary",
+        "apply",
+        "named external fun invocation",
+        "function guard",
+        "case guard",
+        "if guard",
+        "guard alternatives after guard error",
+        "andalso",
+        "orelse",
+        "list comprehension",
+        "receive guard and fallback",
+        "table match_spec_test"
+      ],
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-integer-term-partitions",
+        "SourceSha256": "B8B720DB9948335DEB8651C67E584B6572C5A36D5E2FAC166FAA8B3C428D1B30",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "OwnErrorBranches": "None for one admitted valid guest term; wrong arity belongs to another MFA, argument-expression errors occur before the predicate. No class-dependent validation/callback/identity-resolution branch.",
+      "EffectsScope": "Predicate handler is pure and outer-type-only. General runtime dispatch still performs shared node admission/tracing/scheduling; do not claim the entire runtime call has no bookkeeping or performance cost.",
+      "RequiredCombinationBeforeAnyLedgerChange": [
+        "Independent actual original345 row audit, matching five published fixture sources/expected/actual/streams and caller/compiler policy",
+        "Bind current348 source unchanged original27 plus iterative TermOrder/shared paths and same-source full/CI evidence",
+        "Final independent combined per-MFA classification review; do not promote from source or registry presence"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_float",
+      "Arity": 1,
+      "CurrentStatusPreserved": "Needs verification",
+      "SourceContractConclusion": "PASS_COMPLETE_SUPPORTED_TERM_PARTITION_AND_ADMITTED_CALL_CONTEXT_ARGUMENT",
+      "ConcreteCurrentSemanticGapFound": false,
+      "PositiveOuterClasses": [
+        "FloatTerm"
+      ],
+      "NegativeOuterClasses": [
+        "Atom",
+        "Integer",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "SelectedPartitionCases": 38,
+      "PositiveFixtureRows": 6,
+      "Contexts": [
+        "qualified ordinary",
+        "apply",
+        "named external fun invocation",
+        "function guard",
+        "case guard",
+        "if guard",
+        "guard alternatives after guard error",
+        "andalso",
+        "orelse",
+        "list comprehension",
+        "receive guard and fallback",
+        "table match_spec_test"
+      ],
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-float-term-partitions",
+        "SourceSha256": "C70A1C228D0473865A3179A351E02D37FEEE7EFC898DD0B322897DBE0387D731",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "OwnErrorBranches": "None for one admitted valid guest term; wrong arity belongs to another MFA, argument-expression errors occur before the predicate. No class-dependent validation/callback/identity-resolution branch.",
+      "EffectsScope": "Predicate handler is pure and outer-type-only. General runtime dispatch still performs shared node admission/tracing/scheduling; do not claim the entire runtime call has no bookkeeping or performance cost.",
+      "RequiredCombinationBeforeAnyLedgerChange": [
+        "Independent actual original345 row audit, matching five published fixture sources/expected/actual/streams and caller/compiler policy",
+        "Bind current348 source unchanged original27 plus iterative TermOrder/shared paths and same-source full/CI evidence",
+        "Final independent combined per-MFA classification review; do not promote from source or registry presence"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_number",
+      "Arity": 1,
+      "CurrentStatusPreserved": "Needs verification",
+      "SourceContractConclusion": "PASS_COMPLETE_SUPPORTED_TERM_PARTITION_AND_ADMITTED_CALL_CONTEXT_ARGUMENT",
+      "ConcreteCurrentSemanticGapFound": false,
+      "PositiveOuterClasses": [
+        "Integer",
+        "FloatTerm"
+      ],
+      "NegativeOuterClasses": [
+        "Atom",
+        "TupleTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "SelectedPartitionCases": 38,
+      "PositiveFixtureRows": 11,
+      "Contexts": [
+        "qualified ordinary",
+        "apply",
+        "named external fun invocation",
+        "function guard",
+        "case guard",
+        "if guard",
+        "guard alternatives after guard error",
+        "andalso",
+        "orelse",
+        "list comprehension",
+        "receive guard and fallback",
+        "table match_spec_test"
+      ],
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-number-term-partitions",
+        "SourceSha256": "42E0F420D4696BFC55834FF42CC7C676D90A439626115F91EE37DDC699CC903A",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "OwnErrorBranches": "None for one admitted valid guest term; wrong arity belongs to another MFA, argument-expression errors occur before the predicate. No class-dependent validation/callback/identity-resolution branch.",
+      "EffectsScope": "Predicate handler is pure and outer-type-only. General runtime dispatch still performs shared node admission/tracing/scheduling; do not claim the entire runtime call has no bookkeeping or performance cost.",
+      "RequiredCombinationBeforeAnyLedgerChange": [
+        "Independent actual original345 row audit, matching five published fixture sources/expected/actual/streams and caller/compiler policy",
+        "Bind current348 source unchanged original27 plus iterative TermOrder/shared paths and same-source full/CI evidence",
+        "Final independent combined per-MFA classification review; do not promote from source or registry presence"
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_tuple",
+      "Arity": 1,
+      "CurrentStatusPreserved": "Needs verification",
+      "SourceContractConclusion": "PASS_COMPLETE_SUPPORTED_TERM_PARTITION_AND_ADMITTED_CALL_CONTEXT_ARGUMENT",
+      "ConcreteCurrentSemanticGapFound": false,
+      "PositiveOuterClasses": [
+        "TupleTerm"
+      ],
+      "NegativeOuterClasses": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "NativeRecordTerm",
+        "Nil",
+        "Cons",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "PortTerm",
+        "ResourceReferenceTerm (ReferenceTerm subclass)"
+      ],
+      "SelectedPartitionCases": 38,
+      "PositiveFixtureRows": 4,
+      "Contexts": [
+        "qualified ordinary",
+        "apply",
+        "named external fun invocation",
+        "function guard",
+        "case guard",
+        "if guard",
+        "guard alternatives after guard error",
+        "andalso",
+        "orelse",
+        "list comprehension",
+        "receive guard and fallback",
+        "table match_spec_test"
+      ],
+      "Fixture": {
+        "Name": "erlang-type-predicate-is-tuple-term-partitions",
+        "SourceSha256": "EE8376F28663ECE8BA7805E18969BEB3255B0121335B761DF871E32C9E91B206",
+        "Partitions": 38,
+        "Contexts": [
+          "qualified ordinary",
+          "apply",
+          "named external fun invocation",
+          "function guard",
+          "case guard",
+          "if guard",
+          "guard alternatives after guard error",
+          "andalso",
+          "orelse",
+          "list comprehension",
+          "receive guard and fallback",
+          "table match_spec_test"
+        ]
+      },
+      "OwnErrorBranches": "None for one admitted valid guest term; wrong arity belongs to another MFA, argument-expression errors occur before the predicate. No class-dependent validation/callback/identity-resolution branch.",
+      "EffectsScope": "Predicate handler is pure and outer-type-only. General runtime dispatch still performs shared node admission/tracing/scheduling; do not claim the entire runtime call has no bookkeeping or performance cost.",
+      "RequiredCombinationBeforeAnyLedgerChange": [
+        "Independent actual original345 row audit, matching five published fixture sources/expected/actual/streams and caller/compiler policy",
+        "Bind current348 source unchanged original27 plus iterative TermOrder/shared paths and same-source full/CI evidence",
+        "Final independent combined per-MFA classification review; do not promote from source or registry presence"
+      ]
+    }
+  ],
+  "SharedContextsReviewed": [
+    "Normal/qualified dispatch and evaluation-before-call; cached true/false atoms",
+    "Apply/named external fun arity1 resolves exact same registered handler",
+    "Function/case/if/receive guards await the same handler; guard errors false, cancellation not caught as Boolean",
+    "Local/import/no_auto_import resolution separates non-BIF local/foreign calls; explicit erlang import guarded but comprehension classification remains expression",
+    "Match-spec pure unary1 routes synchronously to same already-completed handler; is_integer/3 is a separate exact-arity entry",
+    "Generated source binding metadata and current TermOrder exact atom/result matching preserve these predicates; current35guard proof covers iterative5 dependency"
+  ],
+  "NoConcretePredicateImplementationBlockerFound": true,
+  "PriorProposalStalenessCorrections": [
+    "Old27source bytes are still current; bind published348 identity instead of guard345-candidate path",
+    "Current statuscounts are5/19/563, not historical5/17/565",
+    "Full345 and full348 source evidence now exist; this review does not execute them or replace their independent guards",
+    "Original345 five fixture comparison must come from actual independent raw audit; not from old selected10legacy witnesses",
+    "Negative compiler diagnostics not modeled are not promoted as native exact; imported/invalid source admission and predicate result domains remain distinct"
+  ],
+  "EvidenceScope": [
+    "Native record is a distinct type and false for is_tuple; ordinary records are TupleTerm and true",
+    "ResourceReferenceTerm is a ReferenceTerm subclass and false for allfive by outer-class proof; no fake native resource fixture claimed",
+    "Finite IEEE doubles include signedzero/subnormal/max; all BigInteger magnitudes share Integer branch",
+    "CLRnull/nonfinite rejectedconstructor values/arbitrary host-only subclasses are outside admitted guest terms; no valid guest term category omitted",
+    "Deep shape/content/identity/liveness does not enter the predicate handler; shared generic dispatcher bookkeeping is separate"
+  ],
+  "CurrentCompatibilityCountsPreserved": {
+    "Verified compatible": 5,
+    "Needs verification": 563,
+    "Known differences": 19
+  },
+  "StatusPromotionPerformed": false,
+  "OriginalComparisonExecutedByReviewer": false,
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "NextGate": "Combine Rec actual original345 five38x12 fixture rows with source/current348CI+full evidence; only then produce explicit per-MFA classification proposal."
+}
