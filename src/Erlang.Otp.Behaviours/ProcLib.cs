@@ -33,6 +33,7 @@ internal static class ProcLib
             Acknowledge
         );
         ProcLibStartup.Register(registry);
+        ProcLibOptionStartup.Register(registry);
     }
 
     private static async ValueTask<Term> Spawn(ProcessContext context, IReadOnlyList<Term> arguments, bool link)

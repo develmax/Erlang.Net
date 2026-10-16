@@ -1,0 +1,51 @@
+{
+  "Status": "PASS_ACTUAL333_NATIVE_CAPTURES_PASSIVE_AUDIT",
+  "Passed": true,
+  "ActualGuardSha256": "70DF7D06147EDE401D7FB44912CA503590BA016BF10BC6200448AFDEF722FD81",
+  "NativeProposalFreezeSha256": "A7952DDE0C729B229EE9DAED9101C16A7CABF36FAC0D358E5F3DB64C88E506E6",
+  "SourceRowsRehashed": 2439,
+  "BindingsExactAcrossThreeAttempts": 59,
+  "Roles": [
+    {
+      "Role": "legacy",
+      "ElapsedSeconds": 1.4220000000059372,
+      "Pins": 59,
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "Role": "provider-query",
+      "ElapsedSeconds": 0.32800000000861473,
+      "Pins": 59,
+      "StdoutSha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF"
+    },
+    {
+      "Role": "reallocation",
+      "ElapsedSeconds": 0.25,
+      "Pins": 59,
+      "StdoutSha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    }
+  ],
+  "LegacyAndReallocationRawBaselineExact": true,
+  "TypedQueryBaselineFieldsMatched": 11,
+  "Phases": [
+    "VetoClosed",
+    "Loaded",
+    "AdmissionHeld",
+    "RetirementPending",
+    "Unloaded"
+  ],
+  "JoinedOwners": [
+    0,
+    1,
+    1,
+    1,
+    0
+  ],
+  "ActualFullGuardSha256": "368E328BD251F219270018D37E2FAE4681460A83808B9F741C78B34DBD6C5E72",
+  "UninterruptedCurrentFullExitCode": 0,
+  "SixPackageInputsUnchanged": true,
+  "SdkNativeOriginalProcessesExecutedByReviewer": false,
+  "ReviewerAuthoredDriver": true,
+  "SourcePeerByOtherAgent": "artifacts/proc-lib333-native-proposal-peer/report.json",
+  "MainMutationByReviewer": false
+}

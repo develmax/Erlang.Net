@@ -75,3 +75,5 @@ is claimed without comparable measurements.
 Part331 checkpoint: the first six local proc_lib APIs pass Main6775/11 and remain pending original331 observations. Synchronous startup is the next slice. The bounded329 recursion/cancellation reference gates are now complete; this is not whole-runtime completion.
 
 Part332 checkpoint:12 local proc_lib APIs are present after adding synchronous start/start_link and init_fail. Actual6822 tests and eleven cumulative integration/package outcomes pass; original332 remains pending. Continue monitored/option-bearing startup, then gen/sys. Presence is not complete compatibility.
+
+Part333 checkpoint:19/39 proc_lib APIs, including the local monitored and option-bearing startup family. Actual6871/11 local validation; original333 pending. Priority now moves to minimal gen/sys protocols with required proc_lib introspection/lifecycle support. Native tuning options and remote overloads remain explicit gaps.

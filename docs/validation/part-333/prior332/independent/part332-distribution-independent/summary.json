@@ -1,0 +1,79 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED332_ACTUAL_ORIGINAL_DISTRIBUTION_SIX_TYPED_GROUPS",
+  "Passed": true,
+  "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "Run": 38911991552,
+  "Job": 117009874087,
+  "Artifact": 12050678550,
+  "Attempt": 1,
+  "Counts": {
+    "group-leader": 4,
+    "guest-send": 7,
+    "guest-links": 7,
+    "guest-exit": 8,
+    "control-wait": 2,
+    "retention": 2
+  },
+  "RawRowsRehashed": 600,
+  "DownloadManifestSha256": "C91CF8D6B705A966BA165E7FFD999FF068AA92C3B7EA997BBC543D6596F3DC61",
+  "RawZipSha256": "51F0707BA72B9E6DA24A9EA4EF5697BB30B2C3869C3315C8F79CFD476E968B4E",
+  "StrictExitRemoteReprEqualityPassed": false,
+  "FreshStrictRefusalCreated": true,
+  "StrictRefusalSha256": "664992F616EBE029946FA718C3F3BB84A618116933C267347AD27609B445EF40",
+  "DisplayFieldsDifferent": [
+    "ActualRawOutcome",
+    "AllEightRawCaseRows"
+  ],
+  "RawNormalization": false,
+  "PublishedTypedSemanticAssertionsPassed": true,
+  "PinnedSourceBuiltOriginalMetadataCompileAndOwnedCleanupVerified": true,
+  "SdkLivePeerOrWireSchedulerEqualityClaimed": false,
+  "New332ProcLibStartupOrReceiveTimeoutFixturesVerifiedByThisRun": false,
+  "NoDownloadedCodeExecuted": true,
+  "NoNetworkBuildSdkVmMainMutationByReviewer": true,
+  "InheritedStatusLabelNote": "Control-wait and retention guard Status strings retain PUBLISHED331 template wording; their explicit Head/Run/Job/Artifact and every input are actual332. Raw guard outputs retained unchanged; this summary binds current332 scope.",
+  "Guards": [
+    {
+      "Group": "group-leader",
+      "Contracts": 4,
+      "Path": "artifacts/part332-distribution-independent/group-leader-independent-guard.json",
+      "Bytes": 1986,
+      "Sha256": "36E7BB1884E6D891BEE1283F2708624EE1452377E229A818BBA031782116B08E"
+    },
+    {
+      "Group": "guest-send",
+      "Contracts": 7,
+      "Path": "artifacts/part332-distribution-independent/guest-send-independent-guard.json",
+      "Bytes": 2572,
+      "Sha256": "C7E983464425D8137273FDE8D4D853BE8EDEC8636F71991D04CDA2153DDCAAE2"
+    },
+    {
+      "Group": "guest-links",
+      "Contracts": 7,
+      "Path": "artifacts/part332-distribution-independent/guest-links-independent-guard.json",
+      "Bytes": 3786,
+      "Sha256": "F817CCFBA18F0B0E657CBBA550675116C427AB5256AFF9C2BAD7D3D9E5052E19"
+    },
+    {
+      "Group": "guest-exit",
+      "Contracts": 8,
+      "Path": "artifacts/part332-distribution-independent/guest-exit-independent-guard.json",
+      "Bytes": 4151,
+      "Sha256": "F3210227039190CBD89D0B644E399D060AFED02A350D70E74730B2869C0D9187"
+    },
+    {
+      "Group": "control-wait",
+      "Contracts": 2,
+      "Path": "artifacts/part332-distribution-independent/control-wait-independent-guard.json",
+      "Bytes": 2027,
+      "Sha256": "6968A621007D7E98A6020B9E768AA46938556C83DCC50A70420294D96DAB368B"
+    },
+    {
+      "Group": "retention",
+      "Contracts": 2,
+      "Path": "artifacts/part332-distribution-independent/retention-independent-guard.json",
+      "Bytes": 3001,
+      "Sha256": "8FEADFF839F74C8DB537AAC5EAFE0A1C8D3E41A9E52C58AF419D273EB0655F3C"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+FAIL Erlang.Tests.ProcLibOptionMfaContracts:RunAll
+Erlang.Compiler.CompileException: Stacktrace must be a variable
+   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 374
+   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 301
+   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 308
+   at Erlang.Compiler.Parser.Body() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 267
+   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList`1 patterns) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 248
+   at Erlang.Compiler.Parser.ParseModule() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\Parser.cs:line 185
+   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\src\Erlang.Compiler\CodeGeneration.cs:line 140
+   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\tools\Erlang.Differential\GeneratedModuleCompiler.cs:line 14
+   at Erlang.Tests.ProcLibOptionMfaContracts.RunAll() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\proc-lib333-candidate\tests\Erlang.Tests\ProcLibOptionMfaContracts.cs:line 14
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

@@ -1,0 +1,80 @@
+{
+  "Status": "PASS_SOURCE_ONLY333_MONITORED_AND_OPTION_STARTUP_PROPOSAL2",
+  "Passed": true,
+  "SourceFreezeSha256": "8EA5A0078B271736271787CF5A3F7B585DF89AE0C8063E4CAF3689FC3ACE7D8E",
+  "PinnedSourceReviewSha256": "5CDF01851F412DD1A0F67DE5FD9A58756ADB142B15777F430244A6F5A63A395A",
+  "PinnedOriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentHead": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "OwnedCSharpRowsRehashed": 14,
+  "NewCSharpFiles": 8,
+  "UntouchedParentRowsRehashed": 2425,
+  "SixPackagingInputsRawMatchMain": true,
+  "ReviewedNewMfas": [
+    [
+      "proc_lib",
+      "start_monitor",
+      3
+    ],
+    [
+      "proc_lib",
+      "start_monitor",
+      4
+    ],
+    [
+      "proc_lib",
+      "start_monitor",
+      5
+    ],
+    [
+      "proc_lib",
+      "start",
+      5
+    ],
+    [
+      "proc_lib",
+      "start_link",
+      5
+    ],
+    [
+      "proc_lib",
+      "spawn_opt",
+      2
+    ],
+    [
+      "proc_lib",
+      "spawn_opt",
+      4
+    ]
+  ],
+  "CompiledFixtureSourcesReviewed": 41,
+  "DirectMfaContractsReviewed": 7,
+  "DeterministicHostScenariosReviewed": 3,
+  "ProductionReview": {
+    "MfaGuardBeforeOptionMacroBeforeMetadata": true,
+    "MemberBeforeKeyfindAndMalformedMonitorTupleCaseClause": true,
+    "OptionOrderPrependedMonitorAndLinkPreserved": true,
+    "OriginalSpawnOptionParserAndRealSpawnWithOptionsReused": true,
+    "BuiltinBadOptionErrorMetadataExtractionNarrow": true,
+    "AckKeepsOriginalMonitorReference": true,
+    "NackAndTimeoutAwaitActualChildDown": true,
+    "ActualDownRequeuedThroughErlangSendAtTail": true,
+    "UniqueOriginalFourArgumentWaitHelperPreserved": true,
+    "TimeoutExpressionAndQueuedReplyPrecedenceInherited332": true,
+    "ExistingOldTestsAdditiveAndMfaRoutingPrecedesOldStartupRoute": true
+  },
+  "MeaningfulHostCoverageCorrection": {
+    "Proposal1ProductionUnchanged": true,
+    "NewTailMarkerQueuedAfterActualDownBeforeWait": true,
+    "ExpectedUnrelatedThenMarkerThenSameDown": true,
+    "DistinguishesRequeueFromLeavingOriginalDownInPlace": true
+  },
+  "OptionBoundary": "Inherits existing ProcessSpawnOptions link/monitor/async_dist and supported relation flags only. Other native tuning/heap/scheduler options remain unsupported; no physical or full option parity claim.",
+  "Scope": {
+    "SdkBuildExecuted": false,
+    "OriginalExecuted": false,
+    "MainMutated": false,
+    "PerformanceOrUnrestrictedOtpTuningParityClaimed": false,
+    "ReviewerAuthoredCandidateProductionOrTests": false
+  },
+  "BlockingFindings": []
+}

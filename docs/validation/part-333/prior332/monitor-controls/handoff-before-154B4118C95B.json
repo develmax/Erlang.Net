@@ -1,0 +1,190 @@
+{
+  "Status": "PARTIAL_ACTUAL_TERMINAL_AUDITS_REMAINING_ordinary",
+  "ObservedUtc": "2026-10-16T14:11:43.587313+00:00",
+  "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "MainMutationAllowed": false,
+  "PostRetryAllowed": false,
+  "Part331ChecksCompleteDoNotRepeat": true,
+  "Mapping": {
+    "Path": "artifacts/part332-remote-new-review/monitor/mapped-runs.json",
+    "Sha256": "849F4ABF4ECEC09F441C7B1B1EB36B30F415A60B96F5D625B8E5E7AC68C59638"
+  },
+  "Runs": [
+    {
+      "HeadBranch": "main",
+      "Event": "push",
+      "HtmlUrl": "https://github.com/develmax/Erlang.Net/actions/runs/38911204008",
+      "UpdatedAt": "2026-10-16T13:57:06Z",
+      "RunAttempt": 1,
+      "RunId": 38911204008,
+      "Kind": "ci",
+      "Conclusion": "success",
+      "DispatchAttemptTime": null,
+      "DispatchAcceptedTime": null,
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+      "WorkflowId": 379611755,
+      "Status": "completed",
+      "Path": ".github/workflows/validate.yml",
+      "CreatedAt": "2026-10-16T13:52:13Z"
+    },
+    {
+      "HeadBranch": "main",
+      "Event": "workflow_dispatch",
+      "HtmlUrl": "https://github.com/develmax/Erlang.Net/actions/runs/38911976189",
+      "UpdatedAt": "2026-10-16T14:07:27Z",
+      "RunAttempt": 1,
+      "RunId": 38911976189,
+      "Kind": "native",
+      "Conclusion": "success",
+      "DispatchAttemptTime": "2026-10-16T13:58:04.4237612Z",
+      "DispatchAcceptedTime": "2026-10-16T13:58:06.273912Z",
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+      "WorkflowId": 385402049,
+      "Status": "completed",
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "CreatedAt": "2026-10-16T13:58:06Z"
+    },
+    {
+      "HeadBranch": "main",
+      "Event": "workflow_dispatch",
+      "HtmlUrl": "https://github.com/develmax/Erlang.Net/actions/runs/38911967903",
+      "UpdatedAt": "2026-10-16T13:58:08Z",
+      "RunAttempt": 1,
+      "RunId": 38911967903,
+      "Kind": "ordinary",
+      "Conclusion": null,
+      "DispatchAttemptTime": "2026-10-16T13:58:00.684649Z",
+      "DispatchAcceptedTime": "2026-10-16T13:58:02.5381921Z",
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+      "WorkflowId": 379611753,
+      "Status": "in_progress",
+      "Path": ".github/workflows/differential.yml",
+      "CreatedAt": "2026-10-16T13:58:02Z"
+    },
+    {
+      "HeadBranch": "main",
+      "Event": "workflow_dispatch",
+      "HtmlUrl": "https://github.com/develmax/Erlang.Net/actions/runs/38911983677",
+      "UpdatedAt": "2026-10-16T14:08:07Z",
+      "RunAttempt": 1,
+      "RunId": 38911983677,
+      "Kind": "reallocation",
+      "Conclusion": "success",
+      "DispatchAttemptTime": "2026-10-16T13:58:08.1371213Z",
+      "DispatchAcceptedTime": "2026-10-16T13:58:09.9160408Z",
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+      "WorkflowId": 385962240,
+      "Status": "completed",
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "CreatedAt": "2026-10-16T13:58:09Z"
+    },
+    {
+      "HeadBranch": "main",
+      "Event": "workflow_dispatch",
+      "HtmlUrl": "https://github.com/develmax/Erlang.Net/actions/runs/38911991552",
+      "UpdatedAt": "2026-10-16T14:04:59Z",
+      "RunAttempt": 1,
+      "RunId": 38911991552,
+      "Kind": "distribution",
+      "Conclusion": "success",
+      "DispatchAttemptTime": "2026-10-16T13:58:11.6705509Z",
+      "DispatchAcceptedTime": "2026-10-16T13:58:13.3562195Z",
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+      "WorkflowId": 384978317,
+      "Status": "completed",
+      "Path": ".github/workflows/distribution-signal-observations.yml",
+      "CreatedAt": "2026-10-16T13:58:13Z"
+    }
+  ],
+  "AcceptedDispatches": [
+    {
+      "Kind": "ordinary",
+      "Path": "artifacts/root-part332-ordinary-dispatch-result.json",
+      "Sha256": "5B553E44BAE93435909136FD1F5E041C7F15A7FF7F7CCB95401716DC1857A5C8",
+      "AcceptedOnce": true,
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73"
+    },
+    {
+      "Kind": "native",
+      "Path": "artifacts/root-part332-native-dispatch-result.json",
+      "Sha256": "C7568E8FF02D49A9A39C52834E5141EA5AEB0A90CFF35CFFE0EA1CD66C012060",
+      "AcceptedOnce": true,
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73"
+    },
+    {
+      "Kind": "reallocation",
+      "Path": "artifacts/root-part332-reallocation-dispatch-result.json",
+      "Sha256": "638978B443D68A098982299CD0FA8FC784108B8961639A950A4351138596CB16",
+      "AcceptedOnce": true,
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73"
+    },
+    {
+      "Kind": "distribution",
+      "Path": "artifacts/root-part332-distribution-dispatch-result.json",
+      "Sha256": "F3EDAC3C718ECD6C8F1C3F01D622CA957A381205037F8FAC05B6AA521553978F",
+      "AcceptedOnce": true,
+      "Head": "aaf48552bee429b0447d3e28e8274d34ad590d73"
+    }
+  ],
+  "CiGuard": {
+    "Path": "artifacts/part332-remote-new-review/ci/independent-ci-guard.json",
+    "Sha256": "C9C8CCC0B53AAE11DD71364FF4929FA712BAC662D9E4E82DD2CFC1DAA21BE33C",
+    "Passed": 6822,
+    "Failed": 0,
+    "IntegrationResults": 11,
+    "PublishedBlobsRehashed": 946
+  },
+  "CurrentOriginalCompleted": false,
+  "PlannedOrdinaryCases": 6001,
+  "PlannedNewCases": 39,
+  "PlannedCountIsNotObservedResult": true,
+  "NextAction": "Do not repeat POST. Inspect RemainingScopes and latest GET snapshot. Reuse existing terminal raw folders; never redownload a captured role. Poll >=120 seconds, back off to5min while corpus runs; download only newly terminal missing role, join before passive extraction, audit typed outcomes.",
+  "GetMonitor": "artifacts/part332-remote-new-review/map-and-status.ps1",
+  "ExpectedHeadArgument": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "Authority": {
+    "Path": "artifacts/root-part332-post-publication-dispatch-authority.json",
+    "Sha256": "3FCA395151A93A30D71BF8B6B701A682A806D989C81D08B2A0A633719231AC10"
+  },
+  "SourcePeer": {
+    "Path": "artifacts/part332-publication-source-independent/report.json",
+    "Sha256": "BE52A42D21DE0B14D36485153201C1CE9E6D431FB93B0AFF7F5A7386A347EA9C"
+  },
+  "LegacyLocalValidation": "Initial isolated pipeline exited1; exact remaining package suffix exited0; current published-head CI passed independently. Historical composite classification must remain.",
+  "PreviousHandoff": {
+    "Path": "artifacts/part332-remote-new-review/handoff-before-5AE2C98E86F1.json",
+    "Sha256": "5AE2C98E86F1FA105DE13F76AD1788915212CD29B1F83D097E5A99101ADE4C1F"
+  },
+  "LatestStatusSnapshot": {
+    "Path": "artifacts/part332-remote-new-review/monitor/status-20261016T1410313842379Z.json",
+    "Sha256": "7498EA4A609B990C808F1ED9271D385243438D5E8011DBB4FA07CC8B81C24358"
+  },
+  "IndependentlyAuditedScopes": [
+    {
+      "Kind": "ci",
+      "Path": "artifacts/part332-remote-new-review/ci/independent-ci-guard.json",
+      "Sha256": "C9C8CCC0B53AAE11DD71364FF4929FA712BAC662D9E4E82DD2CFC1DAA21BE33C",
+      "Status": "PASS_ACTUAL_PUBLISHED332_CI6822_ELEVEN_INTEGRATIONS_AND946_COMMITTED_BLOBS"
+    },
+    {
+      "Kind": "native",
+      "Path": "artifacts/part332-native-independent/guard.json",
+      "Sha256": "5C4D6436F3F890E330BCBD9E6974A3BB4CA444B966B54785CB363830D57CB531",
+      "Status": "PASS_EXACT_HEAD332_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Kind": "reallocation",
+      "Path": "artifacts/part332-reallocation-independent/guard.json",
+      "Sha256": "CA6EEB0484E142EA3DDDA622A0EF0B9118161FD251DBA977C987D8515EEC4FCD",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD332_PINNED_PREFIX_AND_ORIGINAL3_SDK3_REALLOCATION"
+    },
+    {
+      "Kind": "distribution",
+      "Path": "artifacts/part332-distribution-independent/summary.json",
+      "Sha256": "4F5C34E23AD2C05BD7B829576AF7CE65C47B901794F87D551C0F8A696BA984B1",
+      "Status": "PASS_INDEPENDENT_PUBLISHED332_ACTUAL_ORIGINAL_DISTRIBUTION_SIX_TYPED_GROUPS"
+    }
+  ],
+  "RemainingScopes": [
+    "ordinary"
+  ]
+}

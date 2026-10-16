@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part333 leaves351 erlang registrations unchanged. A narrow existing spawn_opt option-error parser helper is shared with proc_lib so builtin wrapper arguments and badopt metadata follow the same path. No new scheduler/heap configuration or physical-resource parity is claimed. Existing contracts remain covered by6871 tests; new333 original observations remain pending.
+
 Part332 changes no erlang registrations (351 present). It repairs shared source receive timeout ordering needed by proc_lib synchronous startup. Bounded source/host tests pass; original332 comparison remains pending. All erlang exports being registered does not establish whole-module, scheduler, resource-layout or performance compatibility.
 
 Part331 adds six proc_lib MFAs; erlang remains351/351 and total registry becomes515. Main6775/11 passes. Bounded329 original recursion comparisons5941/fd8 and separate original2/SDK2 recursive-kill cleanup gates are closed; this does not establish whole erlang, all stack/interleaving or native physical-resource parity.

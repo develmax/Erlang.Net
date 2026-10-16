@@ -1,0 +1,171 @@
+{
+  "Status": "SOURCE_ONLY333_MONITORED_AND_OPTION_STARTUP_NOT_BUILT",
+  "ParentHead": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "PinnedOriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OwnedSourceFiles": 14,
+  "NewCSharpFiles": 8,
+  "OutsideOwnedParentFilesRawExact": 2425,
+  "NewMfas": [
+    [
+      "proc_lib",
+      "start_monitor",
+      3
+    ],
+    [
+      "proc_lib",
+      "start_monitor",
+      4
+    ],
+    [
+      "proc_lib",
+      "start_monitor",
+      5
+    ],
+    [
+      "proc_lib",
+      "start",
+      5
+    ],
+    [
+      "proc_lib",
+      "start_link",
+      5
+    ],
+    [
+      "proc_lib",
+      "spawn_opt",
+      2
+    ],
+    [
+      "proc_lib",
+      "spawn_opt",
+      4
+    ]
+  ],
+  "ProposedCompiledCases": 41,
+  "ProposedDirectContracts": 7,
+  "ProposedHostGroups": 1,
+  "DeterministicHostScenarios": 3,
+  "ImplementedOptionBoundary": "Inherits existing ProcessSpawnOptions link/monitor/async_dist and supported relation flags only. Other native tuning/heap/scheduler options remain unsupported; no physical or full option parity claim.",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptionRegistrations.cs",
+      "Bytes": 3935,
+      "Sha256": "AB43532E8CA1B40EC44AE4570CA68642F965F8D67C9326EDEA4655CA383855DD",
+      "ParentSha256": "CE7F176F9CCC616697396BF11E6E4C9CFF02CDD234CB349ECE283C505D4EAE05"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Bytes": 6873,
+      "Sha256": "00C6F8BD840835DBF7410B58891C68C5FB156411A3D1046037C44EA774979098",
+      "ParentSha256": "8F41F4CE0D5308C192AE159369ABF1F87E78A2AE74E290B9F1F478B0A623F9FE"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibStartup.cs",
+      "Bytes": 8181,
+      "Sha256": "F4935EE203E6B02BFAB88C9C927AC3F47659B0752AEEB11E1C0E95C51EB15C51",
+      "ParentSha256": "498E6C43C324B5A5EE835AC78B4656479C3667FD8D7C89B41E88BD19698F80D2"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibOptionNames.cs",
+      "Bytes": 172,
+      "Sha256": "C19AEAC99FBA950C1EF76F0CCC5BB5D1AA8E78F47703C0996A7140A129D13162",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibOptionStartup.cs",
+      "Bytes": 5150,
+      "Sha256": "38BE2C622605A473EED1211294BABAF950579C2D3B8067102235800311E6D5A2",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31741,
+      "Sha256": "A5A33CBED6D5D29F77CF25F667E1D80E6D1F899BC8F274E401ECF159B00D723F",
+      "ParentSha256": "91EEBB5B580C5DA24E8023EF3625A844F3BF6767CA3890F747CC7F005E4E2306"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibOptionCaseNames.cs",
+      "Bytes": 4115,
+      "Sha256": "E383CE6FBF6DA52386ADB00D70E55CD1BF7295B9FB98072E39355986488735C7",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibOptionCaseSources.cs",
+      "Bytes": 34256,
+      "Sha256": "03F2BB5848909CFE52E00D25088D9B41B31579210888302DE7FD4308947972C7",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibOptionCases.cs",
+      "Bytes": 9189,
+      "Sha256": "CFCA9F99B8ED0CCA2DF37FFDB47CB7FCCA9CC8BC9EC8A2761D19E3BDC4B9D7F1",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 170071,
+      "Sha256": "CFC252F150829EE8FC57F495E8DA28E47AC234C0AEA789E22112E893AB38FD25",
+      "ParentSha256": "BE0646B8DD1B82B52FBA96EB713E94AB07D589F69497A8AE4359C4552AAF5807"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Bytes": 173,
+      "Sha256": "D9F391D6171C02D64450A63A97D576621DF6C1CEB51C70BC637C135BD3E4702D",
+      "ParentSha256": "AAB7998D2BBBC44B261D896EA2C0A6B47729ED9E5CC21FE687297B9B32750337"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibOptionMfaContracts.cs",
+      "Bytes": 2930,
+      "Sha256": "052775F06AFE987E742C43FB3961FE21CC18356227625101D04AA90BC142DAB1",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibMonitorHostNames.cs",
+      "Bytes": 430,
+      "Sha256": "700546E31654CB6DB8DEDB75BC1F248CD857E6788A72717CE6ABBACBDB9E2106",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibMonitorHostChecks.cs",
+      "Bytes": 5535,
+      "Sha256": "3C65C44A7636EB83A7F986051CCDBDE3CA80ADE268D8AA8AE9FD763DFD883900",
+      "ParentSha256": null
+    }
+  ],
+  "PackageResources": [
+    {
+      "Path": "README.md",
+      "Bytes": 8709,
+      "Sha256": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78"
+    },
+    {
+      "Path": "docs/ROSLYN-LICENSE.txt",
+      "Bytes": 1113,
+      "Sha256": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35"
+    },
+    {
+      "Path": "docs/DOTNET-LICENSE.txt",
+      "Bytes": 9513,
+      "Sha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7"
+    },
+    {
+      "Path": "docs/DOTNET-ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F"
+    },
+    {
+      "Path": "docs/OTP-LICENSE.txt",
+      "Bytes": 11904,
+      "Sha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Bytes": 233171,
+      "Sha256": "59352E3F3C1502BF074220B06A368F19A6D9FEEFF2B48601EA3952DCB430F631"
+    }
+  ],
+  "ChangeFromProposal1": "Narrow deterministic HOST tail marker appended after actual child Completion, before realDOWN selection. Expected queue then unrelated,tailMarker,actualDOWN proves consumption/requeue rather than leaving oldDOWN untouched. Production sources unchanged.",
+  "ChangeFromProposal2": "Formatter whitespace only, plus quote reserved maybe token as atom in invalid async_dist fixture. Initial build0warnings and first35cases PASS; parser refusal retained in actual1, no production semantic change.",
+  "ChangeFromProposal3": "Fix invalid Erlang catch stacktrace syntax: bind Stack variable in catch then assert identical original full stack-head pattern in branch body. Initialactual2 38casePASS then parser rejects non-variable stack; preserved. Production unchanged."
+}

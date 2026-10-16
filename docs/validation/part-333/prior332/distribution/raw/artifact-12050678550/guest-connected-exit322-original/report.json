@@ -1,0 +1,367 @@
+{
+  "Status": "PASS_ACTUAL_ORIGINAL_TWO_NODE_GUEST_CONNECTED_EXIT_OBSERVATION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B",
+  "PrimaryFailure": null,
+  "CleanupFailures": [],
+  "ActualAssertions": {
+    "OrderedOriginalContracts": [
+      "exit_two",
+      "exit_three",
+      "exit_signal_two",
+      "exit_signal_three",
+      "duplicate_priority",
+      "unknown_option",
+      "improper_options",
+      "kill_trapped_worker"
+    ],
+    "ActualRawOutcome": "(('atom', 'return'), ('tuple', (('atom', 'guest_connected_exit322'), ('list', (('tuple', (('atom', 'exit_two'), ('atom', 'true'))), ('tuple', (('atom', 'exit_three'), ('atom', 'true'))), ('tuple', (('atom', 'exit_signal_two'), ('atom', 'true'))), ('tuple', (('atom', 'exit_signal_three'), ('atom', 'true'))), ('tuple', (('atom', 'duplicate_priority'), ('atom', 'true'))), ('tuple', (('atom', 'unknown_option'), ('atom', 'true'))), ('tuple', (('atom', 'improper_options'), ('atom', 'true'))), ('tuple', (('atom', 'kill_trapped_worker'), ('atom', 'true'))))), ('tuple', (('atom', 'raw'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('list', (('tuple', (('atom', 'case_result'), ('atom', 'exit_two'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251570, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_two'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_two'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_three'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251575, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_three'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_three'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_signal_two'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251576, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_two'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_two'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_signal_three'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251577, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_three'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_three'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'duplicate_priority'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251578, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'duplicate_priority'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'duplicate_priority'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'unknown_option'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'exception'), ('atom', 'error'), ('atom', 'badarg'), ('list', (('tuple', (('atom', 'erlang'), ('atom', 'exit'), ('list', (('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('tuple', (('atom', 'unknown_option'), ('binary', b'\\x01\\x02\\x03'))), ('list', (('atom', 'priority'), ('atom', 'invalid_exit_option'))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors')), (('atom', 'cause'), ('atom', 'badopt'))})))),)))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-5-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 26))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'observe'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 82))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-7-'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 25))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'run'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 14))))))), ('tuple', (('atom', 'guest_connected_exit322_driver'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 95), ('integer', 100), ('integer', 114), ('integer', 105), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 59))))))))))), ('tuple', (('atom', 'no_exit'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251579, 3736600577, 1789689265), 90))), ('list', ()))), ('tuple', (('atom', 'case_result'), ('atom', 'improper_options'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'exception'), ('atom', 'error'), ('atom', 'badarg'), ('list', (('tuple', (('atom', 'erlang'), ('atom', 'exit_signal'), ('list', (('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('tuple', (('atom', 'improper_options'), ('binary', b'\\x01\\x02\\x03'))), ('improper', (('atom', 'priority'),), ('atom', 'invalid_exit_tail')))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors')), (('atom', 'cause'), ('atom', 'badopt'))})))),)))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-6-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 28))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'observe'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 82))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-7-'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 27))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'run'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 14))))))), ('tuple', (('atom', 'guest_connected_exit322_driver'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 95), ('integer', 100), ('integer', 114), ('integer', 105), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 59))))))))))), ('tuple', (('atom', 'no_exit'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251580, 3736600577, 1789689265), 90))), ('list', ()))), ('tuple', (('atom', 'case_result'), ('atom', 'kill_trapped_worker'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'down'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251582, 3736600577, 1789689265), 90), ('atom', 'process'), ('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('atom', 'killed'))), ('list', ()))))))))))",
+    "AllEightRawCaseRows": "(('tuple', (('atom', 'case_result'), ('atom', 'exit_two'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251570, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_two'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_two'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_three'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251575, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_three'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_three'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_signal_two'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251576, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_two'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_two'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'exit_signal_three'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251577, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_three'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'exit_signal_three'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'duplicate_priority'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'observed'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251578, 3736600577, 1789689265), 90), ('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'duplicate_priority'), ('binary', b'\\x01\\x02\\x03'))))), ('list', ()))), ('list', (('tuple', (('atom', 'EXIT'), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('tuple', (('atom', 'duplicate_priority'), ('binary', b'\\x01\\x02\\x03'))))),)))), ('tuple', (('atom', 'case_result'), ('atom', 'unknown_option'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'exception'), ('atom', 'error'), ('atom', 'badarg'), ('list', (('tuple', (('atom', 'erlang'), ('atom', 'exit'), ('list', (('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('tuple', (('atom', 'unknown_option'), ('binary', b'\\x01\\x02\\x03'))), ('list', (('atom', 'priority'), ('atom', 'invalid_exit_option'))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors')), (('atom', 'cause'), ('atom', 'badopt'))})))),)))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-5-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 26))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'observe'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 82))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-7-'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 25))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'run'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 14))))))), ('tuple', (('atom', 'guest_connected_exit322_driver'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 95), ('integer', 100), ('integer', 114), ('integer', 105), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 59))))))))))), ('tuple', (('atom', 'no_exit'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251579, 3736600577, 1789689265), 90))), ('list', ()))), ('tuple', (('atom', 'case_result'), ('atom', 'improper_options'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'exception'), ('atom', 'error'), ('atom', 'badarg'), ('list', (('tuple', (('atom', 'erlang'), ('atom', 'exit_signal'), ('list', (('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('tuple', (('atom', 'improper_options'), ('binary', b'\\x01\\x02\\x03'))), ('improper', (('atom', 'priority'),), ('atom', 'invalid_exit_tail')))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_erts_errors')), (('atom', 'cause'), ('atom', 'badopt'))})))),)))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-6-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 28))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'observe'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 82))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', '-run/1-fun-7-'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 27))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 155))))))), ('tuple', (('atom', 'guest_connected_exit322'), ('atom', 'run'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 14))))))), ('tuple', (('atom', 'guest_connected_exit322_driver'), ('atom', 'capture'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 115), ('integer', 111), ('integer', 117), ('integer', 114), ('integer', 99), ('integer', 101), ('integer', 115), ('integer', 47), ('integer', 103), ('integer', 117), ('integer', 101), ('integer', 115), ('integer', 116), ('integer', 95), ('integer', 99), ('integer', 111), ('integer', 110), ('integer', 110), ('integer', 101), ('integer', 99), ('integer', 116), ('integer', 101), ('integer', 100), ('integer', 95), ('integer', 101), ('integer', 120), ('integer', 105), ('integer', 116), ('integer', 51), ('integer', 50), ('integer', 50), ('integer', 95), ('integer', 100), ('integer', 114), ('integer', 105), ('integer', 118), ('integer', 101), ('integer', 114), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 59))))))))))), ('tuple', (('atom', 'no_exit'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251580, 3736600577, 1789689265), 90))), ('list', ()))), ('tuple', (('atom', 'case_result'), ('atom', 'kill_trapped_worker'), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('integer', 1), ('integer', 42), ('integer', 8), ('pid', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 10, 0, 1792159490, 88), ('integer', 4))), ('tuple', (('atom', 'return'), ('atom', 'true'))), ('tuple', (('atom', 'down'), ('reference', ('atom', 'ge322_client_857932bd6c76@127.0.0.1'), 1792159490, (251582, 3736600577, 1789689265), 90), ('atom', 'process'), ('pid', ('atom', 'ge322_server_857932bd6c76@127.0.0.1'), 91, 0, 1792159490, 88), ('atom', 'killed'))), ('list', ()))))",
+    "ExactTokenComparisonBeforeAnyReceive": true,
+    "PublicExitHasNoRemoteToken": true,
+    "DuplicatePriorityAcceptedOnce": true,
+    "UnknownAndImproperNoRemoteExit": true,
+    "KillFreshDownKilledWhileRemoteTraps": true,
+    "ActualWorkerCleanup": "('tuple', (('atom', 'return'), ('tuple', (('atom', 'worker_joined'), ('atom', 'noproc')))))",
+    "NativeControlWireBytesCaptured": false,
+    "SdkExecuted": false,
+    "SdkCompared": false,
+    "PriorityDeliveryOrderingObserved": false,
+    "PressureOrSchedulerPhaseObserved": false,
+    "Roles": [
+      "original public exit/2,3 and exit_signal/2,3 on a real trapping original remote worker",
+      "full raw sender token before/after call precedes every receive/probe acknowledgement",
+      "SDK HOST/controller packets and live-peer/network equivalence are separate unclaimed roles"
+    ]
+  },
+  "Tools": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erl",
+      "Bytes": 1470,
+      "Sha256": "47E90F6B819F891C7A3A5E57C0E6D45605BF73DABCAC535D9A08898EC9B153A8"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/bin/erlc",
+      "Bytes": 539576,
+      "Sha256": "69C3F194C8A3BFEB8BA3A0D81AB7F5E94C511B6065888B653FCD218EEA13477B"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/erts-17.1/bin/epmd",
+      "Bytes": 213656,
+      "Sha256": "E4D74A07833B6F752EE6C175CF68376A90E086EB252C3C2F6B163F41DB278A7D"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang/erts-17.1/bin/beam.smp",
+      "Bytes": 56061192,
+      "Sha256": "F6DD0EDF54B2420893E96AB74FC651D5668D6DE48FE7B9F9D44AEA7277F04336"
+    }
+  ],
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeControlWireBytesCaptured": false,
+  "NativeNetworkingUsed": true,
+  "PublicExitTokenContractsObserved": true,
+  "PriorityDeliveryOrderingObserved": false,
+  "Files": [
+    {
+      "Path": "client/connection.etf",
+      "Bytes": 120,
+      "Sha256": "7FFEFC8809F22D25F6C57A9AB36256E81F7415FA370BD3C10E4387454C9A1034"
+    },
+    {
+      "Path": "client/outcome.etf",
+      "Bytes": 5060,
+      "Sha256": "38CA37D5D511F8949CD84FE72E9374052A0FBF18304CEF8E5A3342C3458E3FD6"
+    },
+    {
+      "Path": "client/process.process.json",
+      "Bytes": 1005,
+      "Sha256": "E0CF31014994AD4FA4A41F3EB55C178749208D9CF2F319E4691897EB8DB9D69E"
+    },
+    {
+      "Path": "client/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "client/process.stdout",
+      "Bytes": 6473,
+      "Sha256": "3C862F901F46A821E514458AEFAEA4D4E01E7C78E87F55F1274A6763A2C2FB3F"
+    },
+    {
+      "Path": "client/runtime.etf",
+      "Bytes": 346,
+      "Sha256": "FF02588D0B6F6C962776DA4A218C7BDEA83D3F4BFE6C02236A7CBBD316B11B7A"
+    },
+    {
+      "Path": "client/server-cleanup.etf",
+      "Bytes": 35,
+      "Sha256": "64D6D1AAA2B3C0A558FCF03B8D5E42227D855FF0797C79F4EE033218348B2C91"
+    },
+    {
+      "Path": "client/worker-cleanup.etf",
+      "Bytes": 36,
+      "Sha256": "FBA78A82B2E975C5D9DF7F5E37996F59BEB0C268BD24D5662ED0C6EFFCF0C90B"
+    },
+    {
+      "Path": "compile.process.json",
+      "Bytes": 771,
+      "Sha256": "8D7E267956B73AB68E8EEE5BBAC18D7216C88DEA937F098AE89D0FB938F274FC"
+    },
+    {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "ebin/guest_connected_bang322.beam",
+      "Bytes": 964,
+      "Sha256": "12CFD99C37447E556E90ADB1567CEB3B7A9FDB0DD830D54F68415D01C772D553"
+    },
+    {
+      "Path": "ebin/guest_connected_exit322.beam",
+      "Bytes": 10620,
+      "Sha256": "279A4FDB05C79EEAD90959D9411EC9B4EE80F8A37E9C59372C5251643251CF7F"
+    },
+    {
+      "Path": "ebin/guest_connected_exit322_driver.beam",
+      "Bytes": 5748,
+      "Sha256": "7E27A40F9EC2237B5495E216C5C35667AD194317B2CA3B6B70F3680F758D2C0C"
+    },
+    {
+      "Path": "epmd.process.json",
+      "Bytes": 568,
+      "Sha256": "8EFED940154591570BEF3F2D62F65AB53CB563F4CD320910997DE945BA7B10A8"
+    },
+    {
+      "Path": "epmd.stderr",
+      "Bytes": 82,
+      "Sha256": "FF68CAC784831CE2EF28D30824BCA856BB27AA9FDE950CB10DB5B1755EFCC32A"
+    },
+    {
+      "Path": "epmd.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-0.process.json",
+      "Bytes": 333,
+      "Sha256": "A7643139B677E139B7320A721CD047FCBECC34D54735FE97BBBDDB85DF452A0F"
+    },
+    {
+      "Path": "pin-0.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-0.stdout",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "pin-1.process.json",
+      "Bytes": 334,
+      "Sha256": "B652BBC938595B82811BC6A1F06D4C21F6ED7ADE669A82F67E503F81FC53DA89"
+    },
+    {
+      "Path": "pin-1.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-1.stdout",
+      "Bytes": 220150,
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "pin-2.process.json",
+      "Bytes": 338,
+      "Sha256": "03FDD856D62D26FB534D408A8990214DC577F0D037C12D5D2F6CCF5AD31F7FF7"
+    },
+    {
+      "Path": "pin-2.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-2.stdout",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "pin-3.process.json",
+      "Bytes": 329,
+      "Sha256": "FDB1F214F49DE1D79AED8F3BD60D74565BAA55707D863C9B1022C19191CBF0EA"
+    },
+    {
+      "Path": "pin-3.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-3.stdout",
+      "Bytes": 15533,
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "pin-4.process.json",
+      "Bytes": 336,
+      "Sha256": "5F81DB28400EECE10ABB6D24742421EC2C3E18B7425B598FED68140097DD41C4"
+    },
+    {
+      "Path": "pin-4.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-4.stdout",
+      "Bytes": 21131,
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    },
+    {
+      "Path": "pin-5.process.json",
+      "Bytes": 334,
+      "Sha256": "D218A923CC6CC5EAD92B804CBDB79F42A531F0B8044152FEEEA376277833944A"
+    },
+    {
+      "Path": "pin-5.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-5.stdout",
+      "Bytes": 60322,
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    },
+    {
+      "Path": "pin-6.process.json",
+      "Bytes": 337,
+      "Sha256": "6A0BE33D1FC57631D7DA370AF83A277F25FC2552DD3F2804DA8C40AB9B720D8C"
+    },
+    {
+      "Path": "pin-6.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "pin-6.stdout",
+      "Bytes": 23025,
+      "Sha256": "D0B10C929AD331E4D907202EEA4DA12EB243A91E41DE0FA0F286ACBD66FA32D9"
+    },
+    {
+      "Path": "server/process.process.json",
+      "Bytes": 1010,
+      "Sha256": "37C259268C24E797A1752F53C7B7EC0BA48B37B9BD5CBD96B7B50FBDFDAAC2D8"
+    },
+    {
+      "Path": "server/process.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "server/process.stdout",
+      "Bytes": 646,
+      "Sha256": "62DE1837A6F0FC5220510B71F8A7A1A351F85DCB8371A29AA47DDA2BB4E445DB"
+    },
+    {
+      "Path": "server/runtime.etf",
+      "Bytes": 346,
+      "Sha256": "AEFD2D35DBF6E04E4D05A75FB1738C4C13292E8854E9F8173380B678B80FEE03"
+    },
+    {
+      "Path": "server/shutdown.etf",
+      "Bytes": 35,
+      "Sha256": "64D6D1AAA2B3C0A558FCF03B8D5E42227D855FF0797C79F4EE033218348B2C91"
+    },
+    {
+      "Path": "source-build-evidence.json",
+      "Bytes": 841,
+      "Sha256": "A82B61C78E4A6116E372B30C3BD551C7B1A4B7762B7EC602763592939809FA27"
+    },
+    {
+      "Path": "source-build.log",
+      "Bytes": 452961,
+      "Sha256": "5053167A2275219C6D222F176534AA2AC34D2224EE82BE1E1A6F66F36C0F2F5D"
+    },
+    {
+      "Path": "source-head.process.json",
+      "Bytes": 277,
+      "Sha256": "3D940B76686E38B5DD8323600EC7F32A7BF656F48D03C6BFC6B458F0112F2576"
+    },
+    {
+      "Path": "source-head.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-head.stdout",
+      "Bytes": 41,
+      "Sha256": "063A85610325BB1993B92255BE48C9A95C69DD7DD9BD74855A7480264E608391"
+    },
+    {
+      "Path": "source-plan.json",
+      "Bytes": 2755,
+      "Sha256": "F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B"
+    },
+    {
+      "Path": "source-status.process.json",
+      "Bytes": 309,
+      "Sha256": "8260868B4E11E904FD8FEC370C36E5F8B2CF5124A2CB6AF47532C69BADBA7A43"
+    },
+    {
+      "Path": "source-status.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "source-status.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "sources/README.md",
+      "Bytes": 1914,
+      "Sha256": "5D0219EA94519A24DF8BD3F965D7E6FA67FC093C767EF1B7347862DBB342E217"
+    },
+    {
+      "Path": "sources/collect.py",
+      "Bytes": 16878,
+      "Sha256": "A2DA84794301236BC3205A003DF0A90DA565045BD698C568BE12E10EB6091EE7"
+    },
+    {
+      "Path": "sources/guest_connected_bang322.erl",
+      "Bytes": 91,
+      "Sha256": "CEEB8FC07A31051DCB74F0BB6A592A2AF57FF602201BED00FEA73A1AC7692577"
+    },
+    {
+      "Path": "sources/guest_connected_exit322.erl",
+      "Bytes": 6473,
+      "Sha256": "9F52B6976213D8C69FDAB86C3CF80446BDDD93FBC5CFC12158CBBC56F10D54AC"
+    },
+    {
+      "Path": "sources/guest_connected_exit322_driver.erl",
+      "Bytes": 2647,
+      "Sha256": "743325A00B78869B679B9D945B8227D3372BD383BE213983C2D7FF47E2D940E1"
+    },
+    {
+      "Path": "sources/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "sources/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "sources/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    }
+  ]
+}

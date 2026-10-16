@@ -632,6 +632,7 @@ public static class CompiledModuleCases
         .. NonTailRecursionCases.Modules,
         .. ProcLibCases.Modules,
         .. ProcLibStartupCases.Modules,
-        .. ReceiveWaitCases.Modules
+        .. ReceiveWaitCases.Modules,
+        .. ProcLibOptionCases.Modules
     ];
 }

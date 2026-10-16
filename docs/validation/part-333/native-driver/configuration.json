@@ -1,0 +1,185 @@
+{
+  "Candidate": "artifacts/proc-lib333-candidate",
+  "Proof": "artifacts/proc-lib333-full-source",
+  "Tool": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+  "SourceFreezeSha256": "AA5249A3F81F74F825626EAAF1DACB1E44564105B6BD0589DB5A0DD9CA4046C4",
+  "SourceClosureSha256": "BBECB7B32C2807BB7DC74F06AD500C5517283468864F0203FE35C54F084DC2CE",
+  "CompositionPeer": {
+    "Path": "artifacts/proc-lib333-full-source-independent/report.json",
+    "Sha256": "CDC9830365B7C0CC3429D53301F507F6FA05257045FF55EADE2EADB0C2C378CC"
+  },
+  "OwnedPaths": 18,
+  "OwnedCSharpFiles": 14,
+  "ClosureRows": 2439,
+  "ExpectedFull": {
+    "Status": "PASS_ACTUAL_ISOLATED333_FULL",
+    "Passed": 6871,
+    "Failed": 0,
+    "PreviousOrderedNames": 6822,
+    "PreviousOrderedNamesUnchanged": true,
+    "Registry": 528,
+    "PreviousRegistry": 521,
+    "ErlangMfas": 351,
+    "ProcLibMfas": 19,
+    "OriginalExecuted": false,
+    "IntegrationResults": {
+      "Readiness": "Passed",
+      "PackagedReadiness": "Passed",
+      "Build": "Passed",
+      "Tests": "Passed",
+      "OracleUnavailableReport": "Expected failure recorded",
+      "HybridOutput": "Hello World",
+      "Incremental": "Passed",
+      "DisabledPreprocessing": "Expected failure",
+      "CleanRebuild": "Passed",
+      "PackageConsumer": "Passed",
+      "LocalTool": "Passed"
+    },
+    "All521PreviousRegistryRowsRestoredExact": true,
+    "PackageResourceRows": 6
+  },
+  "TimeoutSeconds": 120,
+  "Roles": [
+    {
+      "Name": "legacy",
+      "Arguments": [
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        }
+      ]
+    },
+    {
+      "Name": "provider-query",
+      "Arguments": [
+        {
+          "Literal": "--native-payload-provider-query"
+        },
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        }
+      ]
+    },
+    {
+      "Name": "reallocation",
+      "Arguments": [
+        {
+          "Literal": "--reallocation-probe"
+        },
+        {
+          "Path": "artifacts/root-part313-native-windows-build1/reallocation_fixture.dll"
+        },
+        {
+          "Literal": "EAFD8CECED541CCFC0C02CE04EC19428448BD64630F343D28C360E19DE848E21"
+        },
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        },
+        {
+          "Path": "artifacts/root-part313-native-windows-layout1/layout.json"
+        },
+        {
+          "Literal": "35231D9DA206E7A3E3BB07F9CA59BA67FE91AE3AF34B64C920D0FE841CE30D45"
+        }
+      ]
+    }
+  ],
+  "References": [
+    {
+      "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll",
+      "Bytes": 9728,
+      "Sha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-build1/reallocation_fixture.dll",
+      "Bytes": 10240,
+      "Sha256": "EAFD8CECED541CCFC0C02CE04EC19428448BD64630F343D28C360E19DE848E21"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-layout1/layout.json",
+      "Bytes": 143,
+      "Sha256": "35231D9DA206E7A3E3BB07F9CA59BA67FE91AE3AF34B64C920D0FE841CE30D45"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+      "Bytes": 8076,
+      "Sha256": "A8205F7577A9FB991EB8FDFF860571B375E5B57A944BF70F4AFBEC5B4A837FAA"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/source-freeze.json",
+      "Bytes": 2019,
+      "Sha256": "5920861E12EC8964EB3CB0F8BF3C02A902130C0E0A289772C2D01D92E3EB103D"
+    },
+    {
+      "Path": "artifacts/root-part315-isolated-windows1/manual-typed-review.json",
+      "Bytes": 7204,
+      "Sha256": "EA16210AA0B2F38F69803AAD5E59AE3686E0972635A0C7FA81704A64D5B643FC"
+    },
+    {
+      "Path": "artifacts/root-part317-main-windows-native1/legacy.stdout",
+      "Bytes": 1839,
+      "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "Path": "artifacts/root-part317-main-windows-native1/reallocation.stdout",
+      "Bytes": 2875,
+      "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    },
+    {
+      "Path": "artifacts/proc-lib333-full-source/package-resources.json",
+      "Bytes": 959,
+      "Sha256": "7C1109EFC5F17FD01FD761C1E8F2982CEFCCB8A85F8C6CC42A416FEBFCA753F3"
+    },
+    {
+      "Path": "artifacts/proc-lib333-actual3/focused-guard.json",
+      "Bytes": 8734,
+      "Sha256": "B4FC8B7DF8E2C20A4578630B41AF4E88AEB46ECFC0482CF2FDAC5E4C5C8DA302"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/README.md",
+      "Bytes": 8709,
+      "Sha256": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/docs/ROSLYN-LICENSE.txt",
+      "Bytes": 1113,
+      "Sha256": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/docs/DOTNET-LICENSE.txt",
+      "Bytes": 9513,
+      "Sha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/docs/DOTNET-ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/docs/OTP-LICENSE.txt",
+      "Bytes": 11904,
+      "Sha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F"
+    },
+    {
+      "Path": "artifacts/proc-lib333-candidate/docs/OTP-PORTS.md",
+      "Bytes": 233171,
+      "Sha256": "59352E3F3C1502BF074220B06A368F19A6D9FEEFF2B48601EA3952DCB430F631"
+    }
+  ],
+  "PassiveReader": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+  "LegacyReader": "tools/Erlang.NifPendingVarargsObservations/reviewed_sdk_stdout.py",
+  "FixtureSource": "tools/Erlang.NifFixtureHost/native/fixture.c",
+  "FixtureSha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+  "TypedBaseline": "artifacts/root-part315-isolated-windows1/manual-typed-review.json",
+  "RawBaseline": "artifacts/root-part317-main-windows-native1",
+  "PackageResourceManifestSha256": "7C1109EFC5F17FD01FD761C1E8F2982CEFCCB8A85F8C6CC42A416FEBFCA753F3",
+  "PackageResourceRows": 6
+}

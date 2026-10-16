@@ -1,0 +1,102 @@
+{
+  "Status": "BOUNDED_TRUSTED_SDK_NATIVE_AND_COMPILED_SOURCE_CHECKS_PASS",
+  "BuildReceiptSha256": "E899A2015A16AA09B7C592BB9196B07410B7DC1BD935125AEF4F0758DAB062EF",
+  "GeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+  "GeneratedCSharpHashIndependentlyCompared": false,
+  "Original13Compared": false,
+  "GeneralNifAbiImplemented": false,
+  "NativePayloadDomainObservations": [
+    {
+      "Role": "actual-native-load-veto-before-payload-allocation-domain-closed",
+      "Snapshot": {
+        "JoinedOwners": 0,
+        "Allocations": {
+          "Count": 0,
+          "RequestedBytes": 0,
+          "BackingRequestBytes": 0,
+          "PeakRequestedBytes": 0,
+          "PeakBackingRequestBytes": 0,
+          "AllocatedRequestedBytes": 0,
+          "ReleasedRequestedBytes": 0,
+          "AllocatedBackingRequestBytes": 0,
+          "ReleasedBackingRequestBytes": 0,
+          "SuccessfulAllocations": 0,
+          "ReleasedAllocations": 0
+        }
+      }
+    },
+    {
+      "Role": "actual-native-load-callback-payload-matches-library-owner-ledger",
+      "Snapshot": {
+        "JoinedOwners": 1,
+        "Allocations": {
+          "Count": 1,
+          "RequestedBytes": 4,
+          "BackingRequestBytes": 4,
+          "PeakRequestedBytes": 4,
+          "PeakBackingRequestBytes": 4,
+          "AllocatedRequestedBytes": 4,
+          "ReleasedRequestedBytes": 0,
+          "AllocatedBackingRequestBytes": 4,
+          "ReleasedBackingRequestBytes": 0,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 0
+        }
+      },
+      "OwnerSnapshot": {
+        "Count": 1,
+        "RequestedBytes": 4,
+        "BackingRequestBytes": 4,
+        "PeakRequestedBytes": 4,
+        "PeakBackingRequestBytes": 4,
+        "AllocatedRequestedBytes": 4,
+        "ReleasedRequestedBytes": 0,
+        "AllocatedBackingRequestBytes": 4,
+        "ReleasedBackingRequestBytes": 0,
+        "SuccessfulAllocations": 1,
+        "ReleasedAllocations": 0
+      }
+    },
+    {
+      "Role": "actual-native-retirement-unload-releases-payload-and-domain-membership",
+      "Snapshot": {
+        "JoinedOwners": 0,
+        "Allocations": {
+          "Count": 0,
+          "RequestedBytes": 0,
+          "BackingRequestBytes": 0,
+          "PeakRequestedBytes": 4,
+          "PeakBackingRequestBytes": 4,
+          "AllocatedRequestedBytes": 4,
+          "ReleasedRequestedBytes": 4,
+          "AllocatedBackingRequestBytes": 4,
+          "ReleasedBackingRequestBytes": 4,
+          "SuccessfulAllocations": 1,
+          "ReleasedAllocations": 1
+        }
+      }
+    }
+  ],
+  "NativePayloadDomainRolesValidated": true,
+  "LoadedOwnerSnapshotMatchesRuntime": true,
+  "Capture": [
+    {
+      "Path": "sdk-six-argument.stdout",
+      "Bytes": 1924,
+      "Sha256": "71AFFE2DC249022C3853A85BF92C9D8A675CF3B4200CD08F0D590887BDDD7E9B",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "sdk-six-argument.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "sdk-six-argument.process.json",
+      "Bytes": 762,
+      "Sha256": "A5B2C9E8FD2ABA86952A52836F6A2D58551891088753F88C351E5B89BA5E09BF",
+      "HashMode": "BinaryExact"
+    }
+  ]
+}

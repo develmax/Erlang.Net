@@ -1,0 +1,41 @@
+{
+  "Status": "PASS_SOURCE_ONLY333_FULL_COMPOSITION_NATIVE_PLANS_AND_INPUTS",
+  "Passed": true,
+  "Role": "FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW",
+  "SourceFreezeSha256": "AA5249A3F81F74F825626EAAF1DACB1E44564105B6BD0589DB5A0DD9CA4046C4",
+  "SourceClosureSha256": "BBECB7B32C2807BB7DC74F06AD500C5517283468864F0203FE35C54F084DC2CE",
+  "FormattedFreezeSha256": "DA84E5D06108FF9DD0CF808759E4BEE0E7FBE8721A10905B028E2FA4459FB4A6",
+  "ParentHead": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "OwnedPathsRehashed": 18,
+  "OwnedCSharpRowsExactActuallyFocusedFreeze": 14,
+  "ClosureRowsRehashed": 2439,
+  "PackageResourceManifestSha256": "7C1109EFC5F17FD01FD761C1E8F2982CEFCCB8A85F8C6CC42A416FEBFCA753F3",
+  "AllSixPackageRowsRawMatchMain": true,
+  "ReadinessInputManifestSha256": "E5910E7C4657BCB7881EEB7EFDDBD5EC08298A0B0DD2DD2A2754C5B3C8CC8020",
+  "FourReadinessInputsManifestedExactBeforeFull": true,
+  "ReadinessScopeIntentionalDeltaOnly": "ComparisonTestReport advances from part331/final-main to actual immutable part332/final-candidate/tests.json. Other three inputs rawmatchMain.",
+  "MutableReadinessOutputNote": "docs/supported-mfas.json is expected to change during validation; four-input equality is a before-full precondition only.",
+  "InitialReviewAssumptionCorrection": "Initial passive audit stopped on expected readiness-scope/Main delta before writing any report; no source or execution failure. Corrected assertion binds this one reviewed JSON field.",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "InputsRehashed": 1130,
+      "Sha256": "FEE73B2B6794CDFEB55A6F90A943756BD64B829D989500C4F70029EA476D876D",
+      "TwoAddedProductionPathsExact": true,
+      "ThreeOldProductionRowsAndOwnDependenciesOnly": true,
+      "NonFilesAndHashModesExactParent": true,
+      "WorkflowOnlyDigestReplacementRawLf": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "InputsRehashed": 1155,
+      "Sha256": "57DDC44995189476F1366F9C4CEE945A9C00F4D589915CB5E7314401294DA8CB",
+      "TwoAddedProductionPathsExact": true,
+      "ThreeOldProductionRowsAndOwnDependenciesOnly": true,
+      "NonFilesAndHashModesExactParent": true,
+      "WorkflowOnlyDigestReplacementRawLf": true
+    }
+  ],
+  "NoBuildSdkNativeOriginalNetworkOrMainMutation": true,
+  "BlockingFindings": []
+}

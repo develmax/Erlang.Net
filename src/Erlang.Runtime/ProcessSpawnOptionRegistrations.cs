@@ -65,15 +65,7 @@ internal static class ProcessSpawnOptionRegistrations
                 arguments[^1]
             );
         }
-        ProcessSpawnOptions options;
-        try
-        {
-            options = ProcessSpawnOptions.Parse(arguments[^1]);
-        }
-        catch (ErlangException)
-        {
-            throw Invalid(context, arguments, true);
-        }
+        ProcessSpawnOptions options = ParseOptions(context, arguments);
         if (node != context.Runtime.Node)
             body = child =>
             {
@@ -88,6 +80,18 @@ internal static class ProcessSpawnOptionRegistrations
             options,
             node == context.Runtime.Node ? description : null
         ));
+    }
+
+    internal static ProcessSpawnOptions ParseOptions(ProcessContext context, IReadOnlyList<Term> arguments)
+    {
+        try
+        {
+            return ProcessSpawnOptions.Parse(arguments[^1]);
+        }
+        catch (ErlangException)
+        {
+            throw Invalid(context, arguments, true);
+        }
     }
 
     private static ErlangException Invalid(ProcessContext context, IReadOnlyList<Term> arguments, bool badOption = false)

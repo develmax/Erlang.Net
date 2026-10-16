@@ -1,0 +1,21 @@
+from pathlib import Path
+import importlib.util,json,hashlib,ast
+r=Path.cwd();d=r/'artifacts/part332-remote-new-review';s=(r/'artifacts/part331-remote-new-review/review-ordinary2.py').read_text()
+s=s.replace('part331-remote-new-review','part332-remote-new-review').replace('6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d','aaf48552bee429b0447d3e28e8274d34ad590d73').replace('38905274355','38911967903')
+s=s.replace("oldroot=m.A/'part329-remote-new-review/ordinary/artifact-12046826413'","oldroot=m.A/'part331-remote-new-review/ordinary/artifact-12049037977'").replace("m.A/'part329-remote-new-review/ordinary-semantic-independent-guard.json'","m.A/'part331-remote-new-review/ordinary-semantic-independent-guard.json'").replace('d83ed875d0c77939e20049afcb46fa297fee82dd','6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d')
+s=s.replace('5962','CURRENT_COUNT').replace('5941','5962').replace('CURRENT_COUNT','6001').replace('4998','5019').replace("n+(21 if key=='ModuleResults' else 0)","n+(39 if key=='ModuleResults' else 0)")
+s=s.replace('pold,pnew=paths(329),paths(331);assert len(pold)==239 and len(pnew)==242','pold,pnew=paths(331),paths(332);assert len(pold)==242 and len(pnew)==248')
+s=s.replace("{'tools/Erlang.Differential/ProcLibCases.cs','tools/Erlang.Differential/ProcLibCaseNames.cs','tools/Erlang.Differential/ProcLibCaseSources.cs'}","{'tools/Erlang.Differential/'+g+n for g in ['ProcLibStartup','ReceiveWait'] for n in ['Cases.cs','CaseNames.cs','CaseSources.cs']}")
+s=s.replace("newtext.replace('        .. NonTailRecursionCases.Modules,\\n        .. ProcLibCases.Modules','        .. NonTailRecursionCases.Modules')","newtext.replace('        .. ProcLibCases.Modules,\\n        .. ProcLibStartupCases.Modules,\\n        .. ReceiveWaitCases.Modules','        .. ProcLibCases.Modules')")
+start=s.index('localtests=');end=s.index("for native,contract in zip",start)
+block="""localtests=m.read(m.ROOT/'docs/validation/part-332/final-candidate/tests.json');assert localtests['Passed']==6822 and localtests['Failed']==0
+localnames={x['Name'] for x in localtests['Tests'] if x['Status']=='Passed'}
+focuspath=m.A/'proc-lib332-actual2/focused-guard.json';focus=m.read(focuspath);assert focus['Status'].startswith('PASS')
+catalogpaths=['tools/Erlang.Differential/'+g+n for g in ['ProcLibStartup','ReceiveWait'] for n in ['CaseNames.cs','CaseSources.cs','Cases.cs']]
+spec=importlib.util.spec_from_file_location('case_contracts',Path(__file__).with_name('new-case-source-contracts.py'));catalogreader=importlib.util.module_from_spec(spec);spec.loader.exec_module(catalogreader);declared=catalogreader.contracts(m.blobs(H,catalogpaths))
+"""
+s=s[:start]+block+s[end:];s=s.replace("zip(v['ModuleResults'][-21:],declared)","zip(v['ModuleResults'][-39:],declared)").replace("native['Name'].startswith('proc-lib-local-')", "native['Name'].startswith(('proc-lib-startup-','receive-wait-timeout-'))")
+s=s.replace('PUBLISHED331','PUBLISHED332').replace('Previous329','Previous331').replace('Current331','Current332').replace('Prior329','Prior331').replace('AllOld239','AllOld242').replace("'CompiledModules':5019","'CompiledModules':5058").replace("'NewSourceFiles':3","'NewSourceFiles':6").replace("'NewOriginalCases':21","'NewOriginalCases':39").replace("'Managed21GroupReceiptSha256'","'Managed39FocusedReceiptSha256'").replace('TWENTY_ONE_NEW_PROC_LIB_ORIGINAL_AND_SDK_CASES','THIRTY_NINE_NEW_STARTUP_RECEIVE_ORIGINAL_AND_SDK_CASES')
+ast.parse(s);(d/'review-ordinary.py').write_bytes(s.encode())
+spec=importlib.util.spec_from_file_location('contracts332',d/'new-case-source-contracts.py');reader=importlib.util.module_from_spec(spec);spec.loader.exec_module(reader);prefix='tools/Erlang.Differential/';rows=reader.contracts({prefix+g+n:(r/prefix/(g+n)).read_bytes() for g in ['ProcLibStartup','ReceiveWait'] for n in ['CaseNames.cs','CaseSources.cs','Cases.cs']});assert len(rows)==39
+p=d/'ordinary-reader-source-freeze.json';p.write_bytes((json.dumps(dict(Status='SOURCE_ONLY_332_39_DECLARED_STARTUP_RECEIVE_SOURCE_CONTRACTS',PlannedOrdinary=6001,CountNotYetObserved=True,ParsedPublishedCatalogRows=39,Files=[dict(Path=n,Bytes=(d/n).stat().st_size,Sha256=hashlib.sha256((d/n).read_bytes()).hexdigest().upper()) for n in ['review-ordinary.py','new-case-source-contracts.py']]),indent=2)+'\n').encode());print(hashlib.sha256(p.read_bytes()).hexdigest().upper())

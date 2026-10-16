@@ -49,6 +49,34 @@ internal static class ProcLibStartup
         ReferenceTerm reference,
         Term timeoutValue
     )
+        => await WaitInitializationCore(
+            context,
+            child,
+            reference,
+            timeoutValue,
+            false
+        );
+
+    internal static async ValueTask<Term> WaitMonitoredInitialization(
+        ProcessContext context,
+        Pid child,
+        ReferenceTerm reference,
+        Term timeoutValue
+    ) => await WaitInitializationCore(
+        context,
+        child,
+        reference,
+        timeoutValue,
+        true
+    );
+
+    private static async ValueTask<Term> WaitInitializationCore(
+        ProcessContext context,
+        Pid child,
+        ReferenceTerm reference,
+        Term timeoutValue,
+        bool keepMonitor
+    )
     {
         TupleTerm? response = await context.ReceiveErlangAsync(
             value =>
@@ -62,23 +90,69 @@ internal static class ProcLibStartup
             context.Runtime.Unlink(context, child);
             context.Runtime.Exit(context, child, ProcLibStartupAtoms.Kill);
             await FlushLinkedExit(context, child);
-            await AwaitDown(context, child, reference);
+            TupleTerm down = await AwaitDown(context, child, reference);
 
-            return Term.Tuple(ProcLibStartupAtoms.Error, ProcLibStartupAtoms.Timeout);
+            return await Complete(
+                context,
+                Term.Tuple(ProcLibStartupAtoms.Error, ProcLibStartupAtoms.Timeout),
+                reference,
+                keepMonitor,
+                down
+            );
         }
         if (response.Items[0].Equals(ProcLibAtoms.Ack))
         {
-            context.Runtime.Demonitor(context, reference, flush: true);
+            if (!keepMonitor)
+                context.Runtime.Demonitor(context, reference, flush: true);
 
-            return response.Items[2];
+            return await Complete(
+                context,
+                response.Items[2],
+                reference,
+                keepMonitor
+            );
         }
         context.Runtime.Unlink(context, child);
         await FlushLinkedExit(context, child);
         if (response.Items.Count == StartupHandshakeLayout.DownFields)
-            return Term.Tuple(ProcLibStartupAtoms.Error, response.Items[StartupHandshakeLayout.DownReasonIndex]);
-        await AwaitDown(context, child, reference);
+            return await Complete(
+                context,
+                Term.Tuple(ProcLibStartupAtoms.Error, response.Items[StartupHandshakeLayout.DownReasonIndex]),
+                reference,
+                keepMonitor,
+                response
+            );
+        TupleTerm rejected = await AwaitDown(context, child, reference);
 
-        return response.Items[2];
+        return await Complete(
+            context,
+            response.Items[2],
+            reference,
+            keepMonitor,
+            rejected
+        );
+    }
+
+    private static async ValueTask<Term> Complete(
+        ProcessContext context,
+        Term result,
+        ReferenceTerm reference,
+        bool keepMonitor,
+        TupleTerm? down = null
+    )
+    {
+        if (!keepMonitor)
+            return result;
+        if (down is not null)
+            await context.Runtime.Modules.Call(
+                context,
+                ProcLibNames.Erlang,
+                ProcLibNames.Send,
+                context.Self,
+                down
+            );
+
+        return Term.Tuple(result, reference);
     }
 
     private static bool IsDown(Term value, Pid child, ReferenceTerm reference) => value is TupleTerm

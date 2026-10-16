@@ -1,0 +1,102 @@
+{
+  "Status": "ROOT_REVIEWED_PART332_POST_PUBLICATION_DISPATCH_AUTHORITY",
+  "Part": 332,
+  "RootExecutionApproved": true,
+  "PublishedHead": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "RemoteHeadReportedVerifiedByRoot": "aaf48552bee429b0447d3e28e8274d34ad590d73",
+  "DispatcherSourceSha256": "51289BAA40B44968875D97D884F427351BBF2B2D6C22DA69B5E757A4988AF6AB",
+  "RootBinderSha256": "BA2E90C4106E3FD54225C7295FFF6AF8A701E4A48F23C0CCC876B5A9B5F1078E",
+  "BindingManifestSha256": "14D46CE0E03F07CA9CC1DF5A27311854C13307130A4F9EABE066C5CD8592A3A4",
+  "ReviewedPlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1128,
+      "Sha256": "1DED3D93FDFD0FE001D017B9E340C0D0D9619C0FFEE1E5CFE255F5735DAFF182"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1153,
+      "Sha256": "8E72D62549B86793F9819B6C1D432C38F91B36D204007BEC9BD27CFE1C1EC155"
+    }
+  ],
+  "PublishedCommitBlobsRehashed": 946,
+  "ActualChangedMetadataPaths": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "docs/COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/DEPENDENCY_PRIORITIES.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/MODULE_READINESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/PROC_LIB_COMPATIBILITY.md",
+    "docs/PROGRESS.md",
+    "docs/changelog/0052.md",
+    "docs/dependency-decisions.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/semantic-differences.md",
+    "docs/supported-mfas.json"
+  ],
+  "ActualProofPaths": 905,
+  "RequiredBindings": [
+    {
+      "Role": "SourceFreeze",
+      "Path": "artifacts/proc-lib332-full-source/source-freeze.json",
+      "Sha256": "8CA193FB17ED3418F6FD79127FE3CBB64AAFCC423AE32EB564A1B8E82D417E71"
+    },
+    {
+      "Role": "FullGuard",
+      "Path": "artifacts/proc-lib332-full-source/full-guard.json",
+      "Sha256": "FBB9A95750DD49DA34C8FF76B4CE10D2D1EC640C98A32555D9D4667BFDC899E7"
+    },
+    {
+      "Role": "NativeGuard",
+      "Path": "artifacts/proc-lib332-native-actual/guard.json",
+      "Sha256": "6D7AB1B8944B2A17B8D7CA034E4210F702CF34795E5C5149D875A80E855DAAE8"
+    },
+    {
+      "Role": "IndependentActualPeer",
+      "Path": "artifacts/proc-lib332-actual-stage-independent/report-rich.json",
+      "Sha256": "5FA698CBBD7C47DC404DDBC2C29D12897C37C570614D46A8AF84D2E36E039580"
+    },
+    {
+      "Role": "StageGuard",
+      "Path": "artifacts/root-part332-stage-index-guard.json",
+      "Sha256": "97808D3F7930B696202F3863AA6B7017BBCCB1ED3F9B8B1FC11DC1C5172FF654"
+    },
+    {
+      "Role": "IndependentStagePeer",
+      "Path": "artifacts/proc-lib332-actual-stage-independent/report-rich.json",
+      "Sha256": "5FA698CBBD7C47DC404DDBC2C29D12897C37C570614D46A8AF84D2E36E039580"
+    },
+    {
+      "Role": "EvidenceReceipt",
+      "Path": "docs/validation/part-332/evidence-receipt.json",
+      "Sha256": "B27382A006256C37A8E4AFE684A273D2D9D9663C56112ADF5BEFD3256A83FD42"
+    },
+    {
+      "Role": "Readiness",
+      "Path": "docs/module-readiness.json",
+      "Sha256": "27F73E861B4D764E009681780DEB1DA3CC69283F276A9509082C30AB3A01C5E1"
+    },
+    {
+      "Role": "DispatcherSourcePeer",
+      "Path": "artifacts/part332-publication-source-independent/report.json",
+      "Sha256": "BE52A42D21DE0B14D36485153201C1CE9E6D431FB93B0AFF7F5A7386A347EA9C"
+    }
+  ],
+  "ExpectedFullPassed": 6822,
+  "ExpectedRegistry": 521,
+  "PromotionReceiptSha256": "7DB2439F85BC5159A2C72D2CF71A29324C953F79C5F64A5426407BCA41675705",
+  "ValidationMode": "Exact promoted source with initial tests and integration prefix plus successful resumed package suffix",
+  "InitialPipelineCompleted": false,
+  "PackagingResumed": true,
+  "CompositeFullValidationPassed": true,
+  "IntegrationAndPackagesPassed": true,
+  "FreshPostFullWindowsLegacyPassed": true,
+  "FreshPostFullWindowsReallocationPassed": true,
+  "FreshPostFullWindowsProviderFivePhasesPassed": true,
+  "ActualStagedCanonicalSourcePlansPassed": true,
+  "DefaultGitWhitespaceCheckPassed": true
+}

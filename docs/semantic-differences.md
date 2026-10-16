@@ -1,5 +1,7 @@
 # Known semantic boundaries
 
+Part333: start_monitor ACK retains its original real monitor. NACK, early DOWN and timeout paths send the same consumed DOWN to the mailbox tail through actual erlang send. Option-bearing startup checks MFA guards before ordered lists:member/keyfind monitor rejection; wrong-arity monitor tuples retain case_clause. Existing option parsing, atomic links/monitors and spawn wrapper metadata are reused. Other native tuning options, remote overloads, full stack/tracing/scheduler/physical parity remain incomplete.
+
 Part332: matching queued messages precede invalid timeout VALUE rejection; the timeout EXPRESSION still executes once before selection, including its side effects/errors. Startup uses actual ack/nack/DOWN and removes a link before timeout kill. Existing zero-timeout snapshot policy is retained without claiming exact VM concurrent-arrival scheduling. Crash logging, complete stack parity and gen/sys integration remain incomplete; original332 is pending.
 
 Part331 proc_lib preserves is_list Cons/Nil guards including improper lists: invalid nonlist inputs fail in the caller, while improper MFA arguments fail in the child. Only ancestry is inherited, arbitrary init_ack terms are accepted, and registered parent/native wrapper initial-call identities are retained. Crash logging, full stack shape, remote/start/options APIs and new proc_lib-specific original tracing remain incomplete. Original331 is pending; corrected330 guest cleanup original2/SDK2 matches exact329 within the recorded depth256/100ms scope.

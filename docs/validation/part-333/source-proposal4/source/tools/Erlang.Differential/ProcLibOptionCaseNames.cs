@@ -1,0 +1,51 @@
+namespace Erlang.Differential;
+
+public static class ProcLibOptionCaseNames
+{
+    public const string Module = "proc_lib";
+    public const string StartMonitor = "start_monitor";
+    public const string SpawnOpt = "spawn_opt";
+    public const string Mismatch = "proc_lib option startup contract mismatch";
+    public const string Ok = "ok";
+    public const string MonitorThree = "proc-lib-options-start-monitor-three-retains-live-monitor";
+    public const string MonitorFour = "proc-lib-options-start-monitor-four-infinity";
+    public const string MonitorFive = "proc-lib-options-start-monitor-five-async-dist-last-wins";
+    public const string StartFive = "proc-lib-options-start-five-empty-options";
+    public const string LinkFive = "proc-lib-options-start-link-five-atomic-link";
+    public const string StartLinkOption = "proc-lib-options-start-five-link-option";
+    public const string SpawnFun = "proc-lib-options-spawn-opt-two-pid-shape";
+    public const string SpawnMfa = "proc-lib-options-spawn-opt-four-monitor-shape-and-initial-call";
+    public const string SpawnFunMonitor = "proc-lib-options-spawn-opt-fun-monitor-relation";
+    public const string SpawnLink = "proc-lib-options-spawn-opt-mfa-link-relation";
+    public const string SpawnCustomTag = "proc-lib-options-spawn-opt-duplicate-monitor-custom-tag";
+    public const string SpawnAsyncFalse = "proc-lib-options-spawn-opt-duplicate-async-dist-last-false";
+    public const string MonitorErrorAck = "proc-lib-options-start-monitor-arbitrary-error-ack-retains-monitor";
+    public const string RejectError = "proc-lib-options-start-monitor-nack-error-requeues-real-down";
+    public const string RejectExit = "proc-lib-options-start-monitor-nack-exit-requeues-real-down";
+    public const string RejectThrow = "proc-lib-options-start-monitor-nack-throw-requeues-real-down";
+    public const string NormalDown = "proc-lib-options-start-monitor-death-before-ack";
+    public const string ZeroTimeout = "proc-lib-options-start-monitor-zero-timeout-requeues-killed";
+    public const string FiniteTimeout = "proc-lib-options-start-monitor-finite-timeout";
+    public const string LinkedMonitorTimeout = "proc-lib-options-start-monitor-link-timeout-unlinks-before-kill";
+    public const string StartOptionTimeout = "proc-lib-options-start-five-timeout-discards-down";
+    public const string LinkOptionTimeout = "proc-lib-options-start-link-five-timeout-no-stale-replies";
+    public const string ImproperArguments = "proc-lib-options-start-monitor-improper-args-fails-in-child";
+    public const string NonzeroFun = "proc-lib-options-spawn-opt-function-arity-fails-in-child";
+    public const string GuardFirst = "proc-lib-options-start-five-mfa-guard-before-monitor-precheck";
+    public const string InvalidSpawnFun = "proc-lib-options-spawn-opt-two-function-guard";
+    public const string InvalidSpawnMfa = "proc-lib-options-spawn-opt-four-mfa-guard";
+    public const string ForbiddenAtom = "proc-lib-options-forbiddenatom";
+    public const string ForbiddenTuple = "proc-lib-options-forbiddentuple";
+    public const string ForbiddenTagged = "proc-lib-options-forbiddentagged";
+    public const string MonitorTupleOne = "proc-lib-options-monitortupleone";
+    public const string MonitorTupleThree = "proc-lib-options-monitortuplethree";
+    public const string MemberBeforeKeyfind = "proc-lib-options-memberbeforekeyfind";
+    public const string NotListOptions = "proc-lib-options-notlistoptions";
+    public const string ImproperOptions = "proc-lib-options-improperoptions";
+    public const string ImproperMonitorPrefix = "proc-lib-options-impropermonitorprefix";
+    public const string UnknownOption = "proc-lib-options-unknownoption";
+    public const string BadAsyncDist = "proc-lib-options-badasyncdist";
+    public const string WrapperBadoptStack = "proc-lib-options-spawn-opt-error-metadata-wrapper-arguments";
+    public const string MonitorInvalidTimeout = "proc-lib-options-start-monitor-invalid-timeout-after-spawn";
+    public const string RegisteredParent = "proc-lib-options-spawn-opt-registered-parent-ancestors";
+}

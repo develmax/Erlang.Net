@@ -1768,6 +1768,7 @@ Test(
  }
 );
 
+Test(Erlang.Tests.ProcLibMonitorHostNames.Test, Erlang.Tests.ProcLibMonitorHostChecks.Run);
 Test(Erlang.Tests.ProcLibStartupWaitHostNames.Test, Erlang.Tests.ProcLibStartupWaitHostChecks.Run);
 Test(Erlang.Tests.ProcLibStartupWaitHostNames.InterpretedTest, Erlang.Tests.ProcLibStartupWaitHostChecks.RunInterpreted);
 
@@ -1782,6 +1783,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.ProcLibOptionMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProcLibOptionMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
         if (Erlang.Tests.ProcLibStartupMfaContracts.Owns(export.Module, export.Function))
         {
             await Erlang.Tests.ProcLibStartupMfaContracts.Run(export.Function, export.Arity);

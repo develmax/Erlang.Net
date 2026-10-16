@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "95A332863A05A5B02CB9CD824146C1985CBC11330FBECB9F2BBE97DF0864916D"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "1311E3362677FD50421F13F8332AD49131FB4C99B968FC2338679C3735FA128D"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "9EDEA266C1B5B0C40A954FCBBE000EAA7D4CE2601457A783AD69ABD26F34AF3B"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.ProcLibOptionMfaContracts:RunAll",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 3297,
+      "Exception": "Erlang.Compiler.CompileException: Unsupported expression \u0027}\u0027\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 547\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 330\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 508\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 522\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Arguments() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 905\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 562\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 267\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 348\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 308\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 267\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 248\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\Parser.cs:line 185\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\src\\Erlang.Compiler\\CodeGeneration.cs:line 140\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.ProcLibOptionMfaContracts.RunAll() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib333-candidate\\tests\\Erlang.Tests\\ProcLibOptionMfaContracts.cs:line 14\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}
