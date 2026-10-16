@@ -1,0 +1,77 @@
+{
+  "RecipePassed": true,
+  "Selector": "tail-accumulator-control",
+  "ExpectedCases": 1,
+  "Executed": 1,
+  "FixturePassed": 1,
+  "FixtureFailed": 0,
+  "Case": "non-tail-recursion-tail-accumulator-control",
+  "Source": "-module(oracle_stack_tail). -export([run/0]). run()-\u003E{walk(256,0),256}. walk(0,Acc)-\u003EAcc;walk(N,Acc)-\u003Ewalk(N-1,Acc\u002BN).",
+  "SourceSha256": "E01049FF848DE763B2EBB1A67CC0739AFF145040EA1384E21773A5C21E483596",
+  "GeneratedCSharpSha256": "F3139DE25DA4FDFB040E562B146C4047CCD85EC8082DB163CA30587F909CEC54",
+  "CallerContext": "UntrappedFresh",
+  "CompilerPolicy": "Default",
+  "Expected": "{ok,{32896,256}}",
+  "Actual": "{ok,{32896,256}}",
+  "StandardOutputHex": "",
+  "StandardErrorHex": "",
+  "Exception": null,
+  "ApprovedSourceFreezePath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\source-freeze.json",
+  "ApprovedSourceFreezeSha256": "03A3933C2D4AE3D91A7C6783E0EDDA488A7EF6E4B6D293914690E61FEC0F3204",
+  "SourceFreezeUnchanged": true,
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\recursion-project-non-tail-recursion329-root-managed-repair1\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1399296,
+      "Sha256": "AF24CEB1D207FB7A01E3552DB6B124E73D3BCEFA9DF15D7DD7F65578589FE849",
+      "LoadedModuleVersionId": "5a647656-e47f-466a-9f70-807ee259bd4c"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\recursion-project-non-tail-recursion329-root-managed-repair1\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 354304,
+      "Sha256": "7D73D2D6B96DABEACEC812D906CF4F988D019D1B1884F12C6BB44598D5DA9CCF",
+      "LoadedModuleVersionId": "da38613b-a802-4333-bcb3-be3740d0b41f"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\recursion-project-non-tail-recursion329-root-managed-repair1\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1644544,
+      "Sha256": "C4E8CB0DC4E4AC2B62B30566F3A2ABFFBC85FBFD1CA26947266F1638549F8773",
+      "LoadedModuleVersionId": "bff71a5b-6e86-454f-92da-ba5416d6f2cf"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\recursion-project-non-tail-recursion329-root-managed-repair1\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 96768,
+      "Sha256": "08E51D1E5F1288499A75FB7E32A29F147630C60CFE791A86D468B29F90DEC879",
+      "LoadedModuleVersionId": "bd208494-ed5c-4753-a493-2123eb220498"
+    },
+    {
+      "Name": "NonTailRecursionManagedFocus",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-historical328-focus1\\recursion-project-non-tail-recursion329-root-managed-repair1\\bin\\Debug\\net10.0\\NonTailRecursionManagedFocus.dll",
+      "Bytes": 30208,
+      "Sha256": "0671B4036C86D8F2E809B07956327BB3509B23DF05BF585CBBDAD4091A6134FD",
+      "LoadedModuleVersionId": "bfe28a3a-511f-44ce-9da3-ca4bfd31a1c5"
+    }
+  ],
+  "LoadedAssemblyFilesUnchanged": true,
+  "RetainedOriginal328SourcePath": null,
+  "RetainedOriginal328SourceExact": true,
+  "EightNewCatalogNames": [
+    "non-tail-recursion-named-finite-checksum",
+    "non-tail-recursion-mutual-finite-checksum",
+    "non-tail-recursion-anonymous-self-argument-finite-checksum",
+    "non-tail-recursion-tail-accumulator-control",
+    "non-tail-recursion-shallow-decrement-base-and-checksums",
+    "non-tail-recursion-argument-effects-before-and-after-recursive-call",
+    "non-tail-recursion-try-after-normal-return-cleanup-order",
+    "non-tail-recursion-try-after-error-and-throw-cleanup-once"
+  ],
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false,
+  "OuterProcessDeadlineAndTreeSettlementRequired": true,
+  "FatalStackOverflowMayProduceNoReport": true,
+  "ChildRunCapturedCompletedBeforeReport": true
+}

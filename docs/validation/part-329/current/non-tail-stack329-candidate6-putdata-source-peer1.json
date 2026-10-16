@@ -1,0 +1,25 @@
+{
+  "Status": "PASS_SOURCE_ONLY_CANDIDATE6_REAL_UNWIND_BOUNDARY_NOT_ASSERTION_RELAXATION",
+  "Passed": true,
+  "CandidateFreezeSha256": "FDB76D1C844B15C1D4F5011AE9C23D38B89FF2C962749D5FEFF590F593113C34",
+  "SourceClosureSha256": "801C5888B5D58BF0E2A97C1653F27EE8FBB6EA5C93DB8DAE79FBA8EC48B9B5B6",
+  "ActualFormattedParentFreezeSha256": "34BC162AC3D5C79C18DC13005C34ADAEC12F6C70EA4260B883526B1394C40023",
+  "SourceRowsRehashed": 2397,
+  "OwnedCSharp": 7,
+  "ChangedPaths": [
+    "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+    "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs"
+  ],
+  "ProductionRawExactActualFocus3": true,
+  "OtherFiveOwnedSourcesRawExactActualFocus3": true,
+  "Findings": [
+    "ProcessContext.Unwound is the existing internal non-generic TaskCompletionSource property; existing NonPublic NifAdmissionHostBridge.Property lookup/cast matches exact runtime signature.",
+    "ProcessRuntime.Terminate can publish public process.Completion before actual actor callback stack finally completes. ctx.Unwound completes in outer callback-finally after source body unwinds and executingProcesses removal; CodePurge and halt use this exact barrier.",
+    "After bridgeHOSTfinally and public Completion, test now awaits actual context.Unwound.Task with existing15sdeadline before unchanged heldCalls1/!Active and cleanup/reason assertions. No polling, relaxed count, fake snapshot or productionyieldhook.",
+    "Normal/error/cancel count/lease assertions and Finish(true)-after-real-unwind order remain intact. Supported delete\u2192register\u2192prepare fix remains exact. Cancellation cleanup0 remains no guest-after callback effects, not proof after AST was never attempted.",
+    "Failed focus3 immediate !Active after Completion remains a real fixture lifetime-boundary assumption failure, not a production semantic pass. New actual corrected selector execution still required.",
+    "Production guard/guest reductions/logical frame/sourcelease code raw unchanged against actualformattedfocus3. Source peer does not establish generic physical stack safety/native equivalence/performance."
+  ],
+  "EarlierLocalPreflight": "Initial comparison incorrectly used preformatted candidate5 rawCRLF instead of actualformattedfocus3 LF; pure assertion refused before reportwrite, no runtime execution; comparison now binds exact actual34BC as requested.",
+  "ReviewerExecutedSdkVmBuildNetworkMainGitMutation": false
+}

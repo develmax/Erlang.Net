@@ -1,0 +1,135 @@
+*.cs -text
+*.beam binary
+*.etf binary
+tests/Erlang.Tests/Resources/Beam/*.erl -text
+tests/Erlang.Tests/Resources/BeamOnLoad/**/*.erl -text
+tests/Erlang.Tests/Resources/BeamOnLoad/** binary
+docs/validation/part-256/native-metadata/** binary
+docs/validation/part-257/managed-child-evidence/** binary
+docs/validation/part-259/native-loader/** binary
+docs/validation/part-261/** binary
+docs/validation/part-262/** binary
+docs/validation/part-263/** binary
+tests/Erlang.Tests/Resources/BeamLoader/** binary
+docs/validation/part-264/** binary
+docs/validation/part-265/** binary
+docs/validation/part-266/** binary
+tests/Erlang.Tests/Resources/BeamGzip/** binary
+tests/Erlang.Tests/Resources/BeamGzipControls/** binary
+docs/validation/part-267/** binary
+docs/validation/part-268/** binary
+tools/Erlang.ApplyOptimizerContrasts/*.erl -text
+docs/validation/part-269/** binary
+tools/Erlang.NodeIdentityContrasts/*.erl -text
+docs/validation/part-270/** binary
+docs/validation/part-271/** binary
+tools/Erlang.DistributionPacketContrasts/*.erl -text
+tools/Erlang.MixedMapIdentityContrasts/*.erl -text
+docs/validation/part-272/** binary
+docs/validation/part-273/** binary
+docs/validation/part-274/** binary
+tools/Erlang.LocalNodeAdmissionContrasts/*.erl binary
+tools/Erlang.LocalNodeAdmissionContrasts/source-plan.json binary
+docs/validation/part-275/** binary
+tools/Erlang.NodeCreationContrasts/*.erl binary
+tools/Erlang.NodeCreationContrasts/source-plan.json binary
+docs/validation/part-276/** binary
+docs/validation/part-277/** binary
+tools/Erlang.DistributionQueueContrasts/*.erl binary
+tools/Erlang.DistributionQueueContrasts/*source-plan.json binary
+docs/validation/part-278/** binary
+docs/validation/part-279/** binary
+docs/validation/part-280/** binary
+docs/validation/part-281/** binary
+docs/validation/part-282/** binary
+tools/Erlang.DistributionSignalObservations/source-plan.json binary
+tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl binary
+docs/validation/part-283/** binary
+tools/Erlang.DistributionTraceObservations/source-plan.json binary
+tools/Erlang.DistributionTraceObservations/distribution_trace_probe.erl binary
+docs/validation/part-284/** binary
+tools/Erlang.DistributionSenderObservations/source-plan.json binary
+tools/Erlang.DistributionSenderObservations/distribution_sender_observer.erl binary
+docs/validation/part-285/** binary
+docs/validation/part-286/** binary
+docs/validation/part-287/** binary
+tools/Erlang.DistributionPayloadExitObservations/distribution_payload_exit_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionPayloadExitObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionMonitorPayloadObservations/distribution_monitor_payload_observer.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionMonitorPayloadObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-288/** binary
+docs/validation/part-289/** binary
+tools/Erlang.NifFixtureHost/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifFixtureHost/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-290/** binary
+docs/validation/part-291/** binary
+docs/validation/part-292/** binary
+docs/validation/part-293/** binary
+tools/Erlang.DistributionPressureObservations/distribution_pressure_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionPressureObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.DistributionPressureObservations/expected-policy.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-294/** binary
+docs/validation/part-295/** binary
+docs/validation/part-296/** binary
+docs/validation/part-297/** binary
+docs/validation/part-298/** binary
+tools/Erlang.NifNativeBackend/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifNativeBackend/compiled_source_fixture.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifPendingVarargsObservations/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.BeamFixtures/verify-metadata-mutations.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-299/** binary
+docs/validation/part-300/** binary
+docs/validation/part-301/** binary
+tools/Erlang.RawOnLoadVisibilityObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+.github/workflows/raw-onload-original-observations.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifPendingVarargsObservations/verify-original13.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-302/** binary
+docs/validation/part-303/** binary
+docs/validation/part-304/** binary
+docs/validation/part-305/** binary
+tests/Erlang.Tests/Resources/RawOnLoadDeferredExports/** binary
+tools/Erlang.AllocatorMemoryObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+.github/workflows/allocator-memory-original-observations.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-306/** binary
+docs/validation/part-307/** binary
+docs/validation/part-308/** binary
+docs/validation/part-309/** binary
+docs/validation/part-310/** binary
+docs/validation/part-311/** binary
+docs/validation/part-312/** binary
+tools/Erlang.NifReallocationObservations/native/reallocation_fixture.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/native/reallocation_probe_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/result-schema.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/profile-source-identity.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.NifReallocationObservations/profile-digest.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-313/** binary
+docs/validation/part-314/** binary
+docs/validation/part-315/** binary
+tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json text eol=lf
+tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json text eol=lf
+docs/validation/part-316/** binary
+docs/validation/part-317/** binary
+tools/Erlang.GroupLeaderOutboundObservations/source-plan.json text eol=lf
+docs/validation/part-318/** binary
+tools/Erlang.GuestConnectedSendObservations/source-plan.json text eol=lf
+docs/validation/part-319/** binary
+docs/validation/part-320/** binary
+tools/Erlang.GuestConnectedLinkObservations/source-plan.json text eol=lf
+docs/validation/part-321/** binary
+tools/Erlang.GuestConnectedExitObservations/source-plan.json text eol=lf
+docs/validation/part-322/** binary
+tools/Erlang.DistributionControlWaitObservations/source-plan.json text eol=lf
+docs/validation/part-323/** binary
+tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json binary
+docs/validation/part-324/** binary
+tools/Erlang.DistributionLinkRetentionObservations/source-plan.json text eol=lf
+docs/validation/part-325/** binary
+docs/validation/part-326/** binary
+docs/validation/part-327/** binary
+docs/validation/part-328/** binary
+docs/validation/part-329/** binary

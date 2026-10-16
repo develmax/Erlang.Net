@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "0756A5A287A5F9D07E1036400CBA631F2F86122AA6C587D6EE441157B6CEC85A"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "A513088BFDCB1DE0BED254738A946CB46886399B3F85A856A81CCFB2261ECC07"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "2F8DC619AB9225C5067874C21DDC0DEACBB30BD9D3CE9113A6BBA324B276CF3A"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 647,
+      "Exception": "System.ArgumentException: An item with the same key has already been added. Key: (oracle_stack_lifecycle, run, 1)\r\n   at System.Collections.Generic.Dictionary\u00602.TryInsert(TKey key, TValue value, InsertionBehavior behavior)\r\n   at System.Collections.Generic.Dictionary\u00602.Add(TKey key, TValue value)\r\n   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 132\r\n   at Erlang.ModuleRegistry.RegisterSource(String module, String function, Int32 arity, ErlangFunction body, Object sourceOwner) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 153\r\n   at Erlang.Compiler.ModuleDefinition.\u003CRegister\u003Eb__33_0(ModuleRegistry target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Compiler\\ModuleDefinition.cs:line 48\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 626\r\n   at Erlang.ModuleRegistry.ApplySourceCode(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.SourceMutation.cs:line 71\r\n   at Erlang.Compiler.ModuleDefinition.Register(ModuleRegistry registry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\src\\Erlang.Compiler\\ModuleDefinition.cs:line 43\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 120\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 192\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 192\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.RunCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus2\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

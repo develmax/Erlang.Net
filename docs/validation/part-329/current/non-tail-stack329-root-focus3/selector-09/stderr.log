@@ -1,0 +1,8 @@
+FAIL Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation
+System.InvalidOperationException: Non-tail recursion changed async leaf, old source image, cleanup or lease lifetime.
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus3\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 212
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus3\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 131
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus3\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 193
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus3\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 193
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.RunCancellation() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus3\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 30
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

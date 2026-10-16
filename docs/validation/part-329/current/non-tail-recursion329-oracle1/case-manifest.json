@@ -1,0 +1,77 @@
+{
+  "Status": "SOURCE_ONLY_STATIC_EXPECTATIONS_NOT_EXECUTED",
+  "Cases": [
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/named-finite-checksum.erl",
+      "SourceSha256": "FC2C8C261D24FCCC4E316FF9D9DB52F4C3D91382D74A84280C62FD0B5658EC8E",
+      "Expected": "{ok,{32896,256}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-mutual-finite-checksum",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/mutual-finite-checksum.erl",
+      "SourceSha256": "74300B9613C81E0A15ABDBBC28ABDEB1E7A718DFADB32D7B7C7E76732E4942A8",
+      "Expected": "{ok,{32896,256}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-anonymous-self-argument-finite-checksum",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/anonymous-self-argument-finite-checksum.erl",
+      "SourceSha256": "D53882E9260BB29E9005E6CAA613DDF61D85D852709770483DE38E6AD359F6D6",
+      "Expected": "{ok,{32896,256}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-tail-accumulator-control",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/tail-accumulator-control.erl",
+      "SourceSha256": "E01049FF848DE763B2EBB1A67CC0739AFF145040EA1384E21773A5C21E483596",
+      "Expected": "{ok,{32896,256}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-shallow-decrement-base-and-checksums",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/shallow-decrement-base-and-checksums.erl",
+      "SourceSha256": "0A09AA4A37456E37FBADA02419D886F56403428046D3FBE849D5E863F8829FCE",
+      "Expected": "{ok,[{0,0},{1,1},{2,3},{3,6},{4,10},{5,15},{6,21},{7,28},{8,36},{9,45},{10,55},{11,66},{12,78}]}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-argument-effects-before-and-after-recursive-call",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/argument-effects-before-and-after-recursive-call.erl",
+      "SourceSha256": "3D953348E49613103089D315ECD682A3A7CC997D95129F44374E3AF244970953",
+      "Expected": "{ok,{12,[{entered,12},{entered,11},{entered,10},{entered,9},{entered,8},{entered,7},{entered,6},{entered,5},{entered,4},{entered,3},{entered,2},{entered,1},{returned,1},{returned,2},{returned,3},{returned,4},{returned,5},{returned,6},{returned,7},{returned,8},{returned,9},{returned,10},{returned,11},{returned,12}]}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/try-after-normal-return-cleanup-order.erl",
+      "SourceSha256": "63C0D5EE8F163822870B3FD7AD53BBEA5F94948A0D9A4B5228A0BC040763704F",
+      "Expected": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    },
+    {
+      "Name": "non-tail-recursion-try-after-error-and-throw-cleanup-once",
+      "SourcePath": "artifacts/non-tail-recursion329-oracle1/erlang/try-after-error-and-throw-cleanup-once.erl",
+      "SourceSha256": "AEBE17A154B78834FBB1C8C06233C37942CDEC12CFA200B53AED3DA2EA82E453",
+      "Expected": "{ok,{caught_error,[12,11,10,9,8,7,6,5,4,3,2,1],caught_throw,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Executed": false
+    }
+  ]
+}

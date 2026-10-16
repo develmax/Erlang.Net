@@ -1,0 +1,65 @@
+{
+  "Status": "DIAGNOSTIC_HAS_FAILURES_OR_EXPECTATION_MISMATCH",
+  "Passed": false,
+  "Mode": "diagnostic",
+  "AuthorFreezeSha256": "D5C3858A66F68C74C424562FB8F4ACAA922A8F225010BB9FC5EE1EE31D8F7864",
+  "FormattedFreezeSha256": "34BC162AC3D5C79C18DC13005C34ADAEC12F6C70EA4260B883526B1394C40023",
+  "SourceFiles": 2397,
+  "OwnedCSharpFiles": 7,
+  "TargetBuildExitZero": true,
+  "Results": [
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaLifecycleHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.ConnectedIngressHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionRawInputHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.NonTailStackLifecycleHostChecks:RunNormal",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.NonTailStackLifecycleHostChecks:RunError",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation",
+      "Classification": "ACTUAL_SELECTOR_FAILURE_NOT_EXPECTED_SEMANTIC_RED",
+      "ValidationError": null
+    }
+  ],
+  "OrdinaryCasesNotExecuted": true,
+  "ProductionCompletionNotClaimed": true,
+  "MainOrOriginalOrNativeExecution": false
+}

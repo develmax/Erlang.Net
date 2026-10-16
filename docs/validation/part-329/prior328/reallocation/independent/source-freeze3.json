@@ -1,0 +1,13 @@
+{
+  "Status": "SOURCE_PASSIVE_READER_REVISION3_BOUNDED_FILE_SYMLINK_CHAIN",
+  "PreviousFreezeSha256": "A72D0452F4BFA2BAAA938A6477D2DA8AE31A3395B5D0F49A918C6F7FCB18E092",
+  "SourcePreconditionRefusal": "Revision2 incorrectly assumed file symlinks resolve in one hop. Revision3 follows exact captured file-link chain with cycle/containment/namespace checks to canonical Target; directory symlinks remain refused.",
+  "Files": [
+    {
+      "Path": "audit3.py",
+      "Bytes": 15186,
+      "Sha256": "D7495C58AF29ACC140C69441BD7A564201E8B51B2C677A220CF3424EC4B047FA"
+    }
+  ],
+  "EntryPointExecuted": false
+}

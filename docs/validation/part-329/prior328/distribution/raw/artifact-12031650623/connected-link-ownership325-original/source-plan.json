@@ -1,0 +1,126 @@
+{
+  "Status": "SOURCE_ONLY_COLLECTOR_NOT_EXECUTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OtpVersion": "29.1.1",
+  "OriginalNodesPerScenario": 3,
+  "Scenarios": [
+    "normal",
+    "async"
+  ],
+  "NativeNetworkingRequired": true,
+  "LoopbackOnlyRecipe": true,
+  "DesignFreezeSha256": "BC5F6966B76E6165F5CC43B2AB4AA78E935A34A66678A010199CB9FB4483F49E",
+  "Sources": [
+    {
+      "Path": "collect.py",
+      "Bytes": 33502,
+      "Sha256": "C96B503EF98E69BDC4049FA77A95336340C882684168B153B513581919F11647"
+    },
+    {
+      "Path": "distribution_link_receiver325.erl",
+      "Bytes": 1091,
+      "Sha256": "ABCCEA2B7DF91CE098E047ED5D6D343B5E8E4D0A63CAAC40E1D0D5A081609218"
+    },
+    {
+      "Path": "distribution_link_retention325.erl",
+      "Bytes": 10324,
+      "Sha256": "96E0B421CC36188B26A2F5583ACF93542085A175038CC9F9D3F769104B378331"
+    },
+    {
+      "Path": "distribution_link_retention325_driver.erl",
+      "Bytes": 5215,
+      "Sha256": "14F2B82CD1000958AEFEEF797BB07FFA922A38CF51A72FCD0B10D3116F8D8AC2"
+    },
+    {
+      "Path": "owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "passive_control_etf.py",
+      "Bytes": 7619,
+      "Sha256": "CADBAD3ABA60D2AA9B549E4376245F4D2149C47440F7E0E4BDA2EC130BFA9052"
+    },
+    {
+      "Path": "passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 4414,
+      "Sha256": "3025FB4AE43064B2C7DE8E622692542B364BFAAD97D39D0CB6387AA4E702DB0E"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/doc/guides/erl_ext_dist.md",
+      "Sha256": "97B53D98D572FA2DF3B268B1AB1677F37CCA1FD487403913230FA76B8717DFA1"
+    },
+    {
+      "Path": "erts/doc/references/erl_cmd.md",
+      "Sha256": "0FC081A469A2101B91F07CF7304091209A8E7F387D7AC98A969C0A4648746EA8"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_init.c",
+      "Sha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_trace.c",
+      "Sha256": "4E40C747C86285534E6B3CB030EDF5FB005806CAA411330F707DD64102250972"
+    },
+    {
+      "Path": "erts/emulator/test/distribution_SUITE.erl",
+      "Sha256": "E85AAAC1B14D8F69AEFC5D3CFE9F3092341456A6678E37143C7F15EF02609F2C"
+    },
+    {
+      "Path": "erts/epmd/src/epmd.c",
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "erts/etc/common/erlexec.c",
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "lib/kernel/src/erl_epmd.erl",
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    }
+  ],
+  "ActualCompiledImagesExpected": 3,
+  "ActualRolesPerScenario": 3,
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeWireCaptured": false,
+  "NoRetryOrAutomaticBudgetRelaxation": true,
+  "ActualReceiverLinkedExitRequired": true,
+  "ExplicitExitToBAllowed": false
+}

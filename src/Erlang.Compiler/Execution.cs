@@ -100,6 +100,17 @@ public static partial class Execution
         ModuleCodeImage? image
     )
     {
+        if (!System.Runtime.CompilerServices.RuntimeHelpers.TryEnsureSufficientExecutionStack())
+        {
+            context.Runtime.ThrowIfHalted();
+            context.Cancellation.ThrowIfCancellationRequested();
+
+            await Task.Yield();
+
+            context.Runtime.ThrowIfHalted();
+            context.Cancellation.ThrowIfCancellationRequested();
+        }
+
         using var frame = context.EnterFunction(module.Name, function, arguments.Count);
         if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))
         {
@@ -238,6 +249,17 @@ public static partial class Execution
         IReadOnlyList<Term> arguments
     )
     {
+        if (!System.Runtime.CompilerServices.RuntimeHelpers.TryEnsureSufficientExecutionStack())
+        {
+            context.Runtime.ThrowIfHalted();
+            context.Cancellation.ThrowIfCancellationRequested();
+
+            await Task.Yield();
+
+            context.Runtime.ThrowIfHalted();
+            context.Cancellation.ThrowIfCancellationRequested();
+        }
+
         using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
         foreach (var clause in expression.Clauses)
         {

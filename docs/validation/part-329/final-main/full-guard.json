@@ -1,0 +1,67 @@
+{
+  "Status": "PASS_ACTUAL_MAIN329_6747_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6747,
+  "Failed": 0,
+  "IntegrationResults": 11,
+  "All6738PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_non_tail_stack_async_leaf_old_image_and_lease_cleanup",
+    "oracle/compiled-module/non-tail-recursion-anonymous-self-argument-finite-checksum",
+    "oracle/compiled-module/non-tail-recursion-argument-effects-before-and-after-recursive-call",
+    "oracle/compiled-module/non-tail-recursion-mutual-finite-checksum",
+    "oracle/compiled-module/non-tail-recursion-named-finite-checksum",
+    "oracle/compiled-module/non-tail-recursion-shallow-decrement-base-and-checksums",
+    "oracle/compiled-module/non-tail-recursion-tail-accumulator-control",
+    "oracle/compiled-module/non-tail-recursion-try-after-error-and-throw-cleanup-once",
+    "oracle/compiled-module/non-tail-recursion-try-after-normal-return-cleanup-order"
+  ],
+  "SourceFreezeSha256": "FFBF65596ED330ACF20F82FC2BFBB3F319824A4B54184AB8ECCE2F66E4757F52",
+  "SourceClosureSha256": "911C51D20E8D98B19CE85B40947C4A6D4CBBF245BDF38452C0ABA7ED56C65C64",
+  "SourcePaths": 12,
+  "CSharpPaths": 7,
+  "SourceResourceClosureFiles": 2397,
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ThirtyPriorCustomLimitsRestored": true,
+  "AllThirtyCustomLimitsExactParent": true,
+  "AllRegistryRowsExactParent": true,
+  "NoMfaLimitsScopeAppended": true,
+  "UnrelatedMfaRowsExactParent": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1120,
+      "Sha256": "3187D751083A34B7434E8B6C229C6D631277CBC7F98612D1888FB27ECA56D342",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "InputPathSetExactParent": true,
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "ChangedInputRows": [
+        "src/Erlang.Compiler/Execution.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1145,
+      "Sha256": "0A1FAE308FBFC653924ED02A99705DE8C4622D293A15197784C205FE664D778D",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "InputPathSetExactParent": true,
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "ChangedInputRows": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Compiler/Execution.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ]
+    }
+  ],
+  "FullExecutionContext": "Outside sandbox",
+  "OriginalExecutedByFullPipeline": false,
+  "NativeExecutedByFullPipeline": false,
+  "ReadinessStillRequiredSeparately": true,
+  "GuardSourceSha256": "70FD0DDE008A56AC546C4EEA42ACFCE2168B21F4A0BEFF809641176EBF066BB2"
+}

@@ -1,0 +1,47 @@
+{
+  "Status": "SOURCE_ONLY_PUBLISHED328_EXECUTION_WITH_IDENTICAL_FORMATTED329_FIXTURES",
+  "AuthorFreezeSha256": "89DC22BFE697100D4AF4988D6D7BB09F545134BC5E21C155C93C3453357FB322",
+  "SourcePaths": 4,
+  "CSharpPaths": 4,
+  "SourceClosurePaths": 2395,
+  "SourceClosureSha256": "1A1B52431D2922AEDDE03A1493E3C7F4ABFE6DC3119A1899BF4976A12973B1DC",
+  "Files": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37824,
+      "Sha256": "696C484A18F4052DD1AC2C18E6B309E9B1D9B50C0A8E1921E84F0E68D0BF2627"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31592,
+      "Sha256": "02263266149EEACC9706D510D710625082246A51CC1115DC8DA0CCC0DC8FC66F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCaseNames.cs",
+      "Bytes": 1991,
+      "Sha256": "2FF71B2EDD7221A5495299255A9474615A3A583741C0047B70A5F9CD28F15CE7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCases.cs",
+      "Bytes": 4645,
+      "Sha256": "C123E1F15B513C7428C8B655D071615107D28FBE4D69758BE2195A683DD1E92E"
+    }
+  ],
+  "Selectors": [
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+    "Erlang.Tests.UndefinedLambdaLifecycleHostChecks:Run",
+    "Erlang.Tests.ConnectedIngressHostChecks:Run",
+    "Erlang.Tests.DistributionRawInputHostChecks:Run",
+    "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run"
+  ],
+  "AllOwnedTokensByteExact": true,
+  "OutsideOwnedRawExact": 2391,
+  "WhitespaceChangedPaths": [
+    "tools/Erlang.Differential/NonTailRecursionCases.cs"
+  ],
+  "NativePlansNotResealed": true,
+  "HistoricalPublishedHead": "bb71b9ce04b21e4ec58ba1d62028f3a2c33c3612",
+  "OnlyDifferenceFromGreen": "Published328 Execution.cs replaces prototype guard; all2394 other bytes exact"
+}

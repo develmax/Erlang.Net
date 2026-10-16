@@ -1,0 +1,122 @@
+{
+  "Status": "PASS_ALL_FIVE_ACTUAL_PUBLISHED328_TYPED_TERMINAL_SCOPES",
+  "Passed": true,
+  "Head": "bb71b9ce04b21e4ec58ba1d62028f3a2c33c3612",
+  "TerminalStatusSnapshot": {
+    "Path": "artifacts/part328-remote-beam310/monitor/status-20261016T0737265737183Z.json",
+    "Bytes": 3733,
+    "Sha256": "40C248B5AC16C4364F3EC317FF4C799421048757B0697C26CC177304CCA9410E"
+  },
+  "InitialMapping": {
+    "Path": "artifacts/part328-remote-beam310/monitor/mapped-runs.json",
+    "Bytes": 3718,
+    "Sha256": "06C8C377DC2C7377E98D4CF0F2D2BE6756DD5B78947EE9AA3C522E61950FF497"
+  },
+  "Guards": [
+    {
+      "Role": "ci",
+      "Path": "artifacts/part328-remote-beam310/ci/independent-ci-guard.json",
+      "Bytes": 1686,
+      "Sha256": "01A72697AD23AB24EF65242A23D0BCAF3460E1698068B619F69390180A75A5CC"
+    },
+    {
+      "Role": "ordinary",
+      "Path": "artifacts/part328-remote-beam310/ordinary-semantic-independent-guard.json",
+      "Bytes": 1167,
+      "Sha256": "249B2153D782AAF92992BEED6D640079B1E6DD2C8B54FE5777CF70745988D05B"
+    },
+    {
+      "Role": "native",
+      "Path": "artifacts/part328-native-allocator309-independent/guard.json",
+      "Bytes": 9764,
+      "Sha256": "1FB0121E0F63D253F3D5CB22A5DCF650729C80BCF94C2B1DDA7513E0F71C1F8F"
+    },
+    {
+      "Role": "reallocation",
+      "Path": "artifacts/part328-reallocation-allocator309-independent/guard.json",
+      "Bytes": 16743,
+      "Sha256": "B3978DA32FA360A0F35F477F3DE9DD2AA4F9C797EE503FD759162D519606B0C4"
+    },
+    {
+      "Role": "distribution",
+      "Path": "artifacts/pack328-distribution-independent-summary.json",
+      "Bytes": 2926,
+      "Sha256": "2044B68FB4C550929A5E92C27EA9F922EB8FBF9F14F9DA7D93DF5FC5120D3F72"
+    }
+  ],
+  "CiPassed": 6738,
+  "CiFailed": 0,
+  "IntegrationResults": 11,
+  "PublishedStageBlobsRehashed": 1365,
+  "OriginalOrdinaryPassed": 5933,
+  "OriginalOrdinaryFailed": 0,
+  "FdPassed": 8,
+  "Previous327All5925OrderedContractsPreserved": true,
+  "NewOrdinaryOriginalAndManagedCases": 8,
+  "StrictOrdinaryGuard": {
+    "Path": "artifacts/part328-remote-beam310/ordinary-strict-independent-guard.json",
+    "Bytes": 1167,
+    "Sha256": "249B2153D782AAF92992BEED6D640079B1E6DD2C8B54FE5777CF70745988D05B"
+  },
+  "StrictRawEqualityPassed": true,
+  "MapStdoutVarianceRows": 0,
+  "RawNormalization": false,
+  "SeparateBackendProfileGuards": [
+    {
+      "Path": "artifacts/part328-remote-beam310/allocator-profile-independent-guard.json",
+      "Bytes": 1312,
+      "Sha256": "15E10FDBC6FF0D6BEEEA66AA325261C282E3E920C2EAA86F919B22CA932B8F90"
+    },
+    {
+      "Path": "artifacts/part328-remote-beam310/memory-profile-independent-guard.json",
+      "Bytes": 1653,
+      "Sha256": "A60DB130CA1C759AFA674240EBB4C606A4868E08A52BBE8F66003628C8EE504C"
+    }
+  ],
+  "SeparateLibcDotnetBackendProfiles": true,
+  "EachMemorySnapshotNineKeyRelationsValidated": true,
+  "MemoryEqualityOrPhysicalWholeGcClaimed": false,
+  "NativeSdkOrderedLines": 8,
+  "NativeDomainRoles": 3,
+  "SeparateOriginal13": true,
+  "Original13SdkCompared": false,
+  "ReallocationActualOriginal3Sdk3Compared": true,
+  "ReallocationWholePinnedInstalledPrefixVerified": true,
+  "DistributionOriginalGroups": [
+    "groupLeader4",
+    "send7",
+    "link7",
+    "exit8",
+    "controlWait2",
+    "retention2"
+  ],
+  "SdkLivePeerWirePhaseEqualityClaimed": false,
+  "SelectedCopyPlans": [
+    {
+      "Path": "artifacts/pack328-three-terminal-lean-copy-rows.json",
+      "Bytes": 233939,
+      "Sha256": "564836C66B4839801939409966AFAAA8437A7725A49124F37FEA722D546A4B43"
+    },
+    {
+      "Path": "artifacts/pack328-ci-terminal-lean-copy-rows.json",
+      "Bytes": 4065,
+      "Sha256": "6A57B3E65BA7FFCE6E8BE8BE5DD171B87CD2F769212F606692CD23AEB07F25B4"
+    },
+    {
+      "Path": "artifacts/pack328-ordinary-terminal-lean-copy-rows.json",
+      "Bytes": 6271,
+      "Sha256": "9CF65B4ED7266ED1C55D17CE39997C20B2471A633E8E346E72192E387A02CEFC"
+    }
+  ],
+  "CombinedSelectedCopyRows": {
+    "Path": "artifacts/pack328-five-terminal-selected-copy-rows.json",
+    "Bytes": 244269,
+    "Sha256": "2FDB8FB12D1E6858EBF145C698E9A1399F623040003277E00CC7C384BF9E5342"
+  },
+  "CombinedSelectedRows": 642,
+  "CombinedSelectedBytes": 19566241,
+  "SelectedRawProofNotCompleteBinaryArchive": true,
+  "NoFurtherGetRequired": true,
+  "NoPostRetrySdkNativeVmOrDownloadedArtifactCodeExecutionByMonitor": true,
+  "NoMainOrGitMutation": true
+}

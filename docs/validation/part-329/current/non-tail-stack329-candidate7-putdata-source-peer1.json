@@ -1,0 +1,17 @@
+{
+  "Status": "PASS_SOURCE_ONLY_CANDIDATE7_EXPLICIT_TWO_TEST_FILE_LF_NORMALIZATION",
+  "Passed": true,
+  "CandidateFreezeSha256": "72C8D5115B63E9C421F35ED34858F8093B466960056D586265FFF66D0EF58D70",
+  "SourceClosureSha256": "20D62400387890604A65B8FC8982243ED8FBC472471A98BF20CD92B7240A23D8",
+  "PreviousFreezeSha256": "FDB76D1C844B15C1D4F5011AE9C23D38B89FF2C962749D5FEFF590F593113C34",
+  "SourceRowsRehashed": 2397,
+  "OnlyChangedPaths": [
+    "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+    "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs"
+  ],
+  "AllOther2395FilesRawExactCandidate6": true,
+  "ProductionRawExactCandidate6AndActualFocus3": true,
+  "UnwoundBarrierAndAllAssertionsUnchanged": true,
+  "Qualification": "Candidate6 formatter lexical precondition refused before build because raw literal line endings changed; candidate7 intentionally normalizes only the two owned test files before the unchanged strict lexical guard. This is source-only clearance, not actual execution or generic stack safety proof.",
+  "ReviewerExecutedSdkBuildVmNetworkMainGitMutation": false
+}

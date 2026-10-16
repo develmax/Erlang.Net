@@ -1,0 +1,27 @@
+{
+  "Status": "PASS_SOURCE_ONLY_BOUNDED_STACK_ENTRY_GUARD_FOR_DIAGNOSTIC_NOT_STACK_SAFETY_PROOF",
+  "Passed": true,
+  "PrototypeFreezeSha256": "D455F495463B0A52B952D29F6C20BF11940C1541D0CD2EFAB98204697EBD7231",
+  "SourceFreezeSha256": "D271BB9413E501517247C765B7C329EEF36BC9871C0CA70410DC610ECAE893A6",
+  "CandidateExecutionSha256": "2E27363822424F3B13F3AEE68105273965D65B8FF70A023CBF8D01CB4713F514",
+  "ExactlyTwoEntryGuardInsertionsNoOtherSemanticBytesChanged": true,
+  "Findings": [
+    "Actual RuntimeHelpers.TryEnsureSufficientExecutionStack guards both InvokeFrame and InvokeAnonymousFrame immediately before EnterFunction. False branch checks halted/cancellation, awaits actual Task.Yield, checks again. True path performs no extra guest operation.",
+    "ThrowIfHalted is internal Runtime API accessible through existing Compiler friend identity; Cancellation public. No new assembly import, hooks, resources or APIs.",
+    "InvokeAsync/InvokeAnonymousAsync already acquired and attached actual source lease before these frame entries; enclosing finally releases on success/failure/cancel/halt. Normal await keeps execution context/image flow, no Task.Run or flow suppression.",
+    "No registry/runtime monitor held by the inserted block. Existing argument evaluation/admission occurs before guard; no factory/user body is replayed. Logical callee EnterFunction is after guard, so no invented physical-guard Erlang frame.",
+    "No ChargeAsync/ReduceAsync, guest reduction increment/reset, Runtime.AdmitSignals or Yielding flag mutation is added; existing later Evaluate charge/suspension behavior remains. Observable scheduler/frame-start timing is not asserted equal.",
+    "Source alone does not prove return/completion-chain or exception/finally unwind physical stack boundedness, host synchronization-context behavior, deep AST/pattern/term recursion or active kill/purge/lease effects. Fatal first328 input must be replayed unchanged in bounded fresh child, not replaced by tailhelper success."
+  ],
+  "DiagnosticExecutionSourceClear": true,
+  "PromotionOrGenericStackSafetyEstablished": false,
+  "RequiredFutureActualChecks": [
+    "retained87C602 first328 fatal source",
+    "eight329 checksum/order/after fixtures perchild",
+    "normal/exception return chain limits",
+    "actual cancellation/halt/leases/reduction accounting",
+    "pinned original same-source outcomes"
+  ],
+  "ProductionAuthorship": "Reviewer did not author Execution guard; ordinary329 fixtures authored by reviewer are excluded independent fixture peer claims.",
+  "ReviewerExecutedSdkVmBuildGitMain": false
+}

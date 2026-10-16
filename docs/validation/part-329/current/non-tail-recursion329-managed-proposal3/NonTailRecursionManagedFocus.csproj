@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(FocusDifferentialProject)' != ''">
+    <ProjectReference Include="$(FocusDifferentialProject)" />
+  </ItemGroup>
+  <Target Name="RequireFocusDifferentialProject" BeforeTargets="PrepareForBuild" Condition="'$(FocusDifferentialProject)' == ''">
+    <Error Text="Pass the absolute approved candidate Erlang.Differential.csproj as FocusDifferentialProject." />
+  </Target>
+</Project>

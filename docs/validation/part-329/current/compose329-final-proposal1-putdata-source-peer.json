@@ -1,0 +1,27 @@
+{
+  "Status": "NEEDS_SMALL_SOURCE_REVISION_PREOUTPUT_TOKEN_AND_OWNED_ROW_VALIDATION",
+  "Passed": false,
+  "ProposalFreezeSha256": "7F3441D5A3E84E9D084AD509706E1E5CE782B428F280C1960DC2FF3985F783E7",
+  "ComposerSha256": "02417914050E4EC9EC57C61ED8BB9F93A4BC612761F61F6E88B2BD54456117C6",
+  "Findings": [
+    {
+      "Scope": "Source preflight only",
+      "Issue": "tokens-before and after are byte-equal with length7, but token-inputs.json absolute path set is never tied to seven owned sdk paths.",
+      "RequiredChange": "Before output creation, assert absolute token-inputs set equals {green/candidate/name for name in sdk}."
+    },
+    {
+      "Scope": "Source preflight only",
+      "Issue": "sdk Files rows are compared to actual copied raw inputs only after output creation; complete gm rows are checked earlier but sdk metadata can disagree until late.",
+      "RequiredChange": "Before output creation, assert each sdk row equals gm[name]. Keep later final copied raw check."
+    }
+  ],
+  "ReviewedSoundBoundaries": [
+    "Exact clean published328/Main2 parent raw2393+canonicalGit,closed0050,actualformatted7/2397/outside2390 and4newcompilepaths.",
+    "Mandatory exact futureactual G/managed/retainedoriginal/interpreted/historical/sourcepeer roles; oldfatalclassification separate. No futureMain pass fabricated.",
+    "Only12owned outputs;compiled7raw preserved;native1120/1145 inputpathsets/HashModes/nonFiles/import/ABI/profile exact, onlyExecution+necessaryownmetadata refresh; UTF8LF legacy/workflow thenown/workflow.",
+    "Artifacts-onlyfreshoutput;noMain/Git/SDK mutation. Sourceguard is boundeddiagnostic; genericphysicalstack safety not established."
+  ],
+  "ObservedFailureOrRuntimeDefect": false,
+  "ComposerExecutedByReviewer": false,
+  "ReviewerExecutedSdkVmNativeMainGit": false
+}

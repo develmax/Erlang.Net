@@ -1,0 +1,71 @@
+{
+  "Status": "SOURCE_ONLY_RECURSION4096_AND_CORRECTED_DELETE_REGISTER_LIFECYCLE",
+  "AuthorFreezeSha256": "18A5F5BF6C43357A59DCF1CD58E13080C9BB540E9A3A1E289F9286EEB9195EFC",
+  "SourcePaths": 7,
+  "CSharpPaths": 7,
+  "SourceClosurePaths": 2397,
+  "SourceClosureSha256": "BE8D858984F77E2AA452038EEE833EB9D58794F76D3898FB6E39FD630EB64E06",
+  "Files": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 39579,
+      "Sha256": "AFDB03B08F717E828134C7CC53BA5387BDAD158B82F23F29FBA7B83AC0486CBE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+      "Bytes": 9048,
+      "Sha256": "A3BC1106ACD1711ADABC8605E4751774C0F5D1972D411EC24CDEC617ABB8FA05"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs",
+      "Bytes": 1830,
+      "Sha256": "5AF7B8695D6C4DBD4A60008AAD879FFDCA84F318D71205C6CD7239B86E177A70"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 168999,
+      "Sha256": "2B43AC806F813F8E05F89B0B21EC5FB0F7A8BE5A219EBAF8BC4445BFA6195325"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31592,
+      "Sha256": "02263266149EEACC9706D510D710625082246A51CC1115DC8DA0CCC0DC8FC66F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCaseNames.cs",
+      "Bytes": 1992,
+      "Sha256": "48D1B32EBB00BCA32A6EE8FE2D5049557C88C75D6BB8FE5DD2D89B03C587CD05"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCases.cs",
+      "Bytes": 4645,
+      "Sha256": "C123E1F15B513C7428C8B655D071615107D28FBE4D69758BE2195A683DD1E92E"
+    }
+  ],
+  "Selectors": [
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+    "Erlang.Tests.UndefinedLambdaLifecycleHostChecks:Run",
+    "Erlang.Tests.ConnectedIngressHostChecks:Run",
+    "Erlang.Tests.DistributionRawInputHostChecks:Run",
+    "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run",
+    "Erlang.Tests.NonTailStackLifecycleHostChecks:RunNormal",
+    "Erlang.Tests.NonTailStackLifecycleHostChecks:RunError",
+    "Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation"
+  ],
+  "AllOwnedTokensByteExact": true,
+  "OutsideOwnedRawExact": 2390,
+  "WhitespaceChangedPaths": [
+    "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs",
+    "tests/Erlang.Tests/NonTailStackLifecycleHostNames.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tools/Erlang.Differential/NonTailRecursionCaseNames.cs"
+  ],
+  "NativePlansNotResealed": true,
+  "ParentHead": "bb71b9ce04b21e4ec58ba1d62028f3a2c33c3612",
+  "ReplacedFailedFocusFreezeSha256": "C3887D93B55DCA16DED9E707BBAF1B6C7ED52071B92C887BE4B351BE544A881C",
+  "FailedFocusRetained": true,
+  "ExpectedFutureFullPassed": 6747,
+  "NoMainWrites": true
+}

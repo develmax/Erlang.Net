@@ -95,6 +95,7 @@ Test(Erlang.Tests.ProcessInfoAsyncDistributionHostNames.Test, Erlang.Tests.Proce
 Test(Erlang.Tests.SpawnAsyncDistributionHostNames.Test, Erlang.Tests.SpawnAsyncDistributionHostChecks.Run);
 Test(Erlang.Tests.ProcessErrorHandlerHostNames.Test, Erlang.Tests.ProcessErrorHandlerHostChecks.Run);
 Test(Erlang.Tests.UndefinedLambdaPublicationHostNames.Test, Erlang.Tests.UndefinedLambdaPublicationHostChecks.Run);
+Test(Erlang.Tests.NonTailStackLifecycleHostNames.Test, Erlang.Tests.NonTailStackLifecycleHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);

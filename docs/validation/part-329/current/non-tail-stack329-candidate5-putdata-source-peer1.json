@@ -1,0 +1,30 @@
+{
+  "Status": "PASS_SOURCE_ONLY_CORRECTED_LIFECYCLE_FIXTURE_AND_UNCHANGED_PRODUCTION_GUARD_TOKENS",
+  "Passed": true,
+  "CandidateFreezeSha256": "D5C3858A66F68C74C424562FB8F4ACAA922A8F225010BB9FC5EE1EE31D8F7864",
+  "SourceClosureSha256": "BE8D858984F77E2AA452038EEE833EB9D58794F76D3898FB6E39FD630EB64E06",
+  "OwnedPaths": 7,
+  "CSharpPaths": 7,
+  "ClosureRowsRehashed": 2397,
+  "OutsideOwnedParentExact": 2390,
+  "ChangedPathsVersusCandidate4": [
+    "src/Erlang.Compiler/Execution.cs",
+    "tests/Erlang.Tests/NonTailStackLifecycleHostChecks.cs"
+  ],
+  "ProductionDeltaOnlySixEmptyLines": true,
+  "ProductionCSharpTokenSpellingsUnchangedByInspection": true,
+  "RoslynTokenizerNotExecutedByReviewer": true,
+  "HostDeltaOnlyRequiredDeleteAssertPlusWhitespaceFormatting": true,
+  "KnownFixtureDefectResolvedBySource": true,
+  "Findings": [
+    "Exact supported transition now DeleteModule==true while originalimageactive, then register replacement, then PreparePurge targets retainedoldimage. Registry current run/1 duplicate Add defect from candidate4 is removed without runtime/publicAPI change.",
+    "Intrinsic held/cleanup callbacks retain real source image and IsExecutingCode codeGate-locked state. Source lease spans actual asynchronous leaf and original frame recursion; success/fault require Depth cleanup effects and actorcompletion before !Active and Finish(true).",
+    "Cancellation uses realobserver exit(kill), requires completion killed/resultCancellation/bridgeHOSTfinally/cleanup0/imageinactive before retiring. TryAfter cancellation wording remains zero guest-after effects because canceled Evaluate prevents cleanup callback, not necessarily absence of after AST attempt.",
+    "Production helper checks/await position before EnterFunction unchanged. No guest reduction/slice accounting, ReduceAsync, admission/signal pumping, sourceimage acquisition or logical frame creation added by whitespace revision. Source admission before guard and enclosing finally lease release preserved.",
+    "No source weakening of factory tests, arithmetic expectations, caughtErlang reason, callback counts or cleanup. Candidate4/focus2 actual fixture failure remains historical; new actual lifecycle pass still required.",
+    "Current actual source guard is diagnostic mechanism only; physical return/unwind, host-context/deepAST/cancel/halt timing, original equivalence/performance require separate observed evidence. Existing Rootreported original+8+interpreted and named4096 are not reviewer executions."
+  ],
+  "EarlierPeerNeedsRevisionPreserved": "artifacts/non-tail-stack329-candidate4-putdata-source-peer1.json",
+  "ReviewerAuthorshipQualification": "Initial ordinary329 fixtures authored by reviewer; peer independently covers Root-authored lifecycle/production whitespace delta and preservation, not independent original-fixture semantic approval.",
+  "ReviewerExecutedSdkVmBuildNativeNetworkMainGitMutation": false
+}

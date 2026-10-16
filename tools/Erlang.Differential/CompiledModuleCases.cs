@@ -628,6 +628,7 @@ public static class CompiledModuleCases
         .. ProcessInfoAsyncDistributionCases.Modules,
         .. SpawnAsyncDistributionCases.Modules,
         .. ProcessErrorHandlerCases.Modules,
-        .. UndefinedLambdaCases.Modules
+        .. UndefinedLambdaCases.Modules,
+        .. NonTailRecursionCases.Modules
     ];
 }

@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "7BC77F25136106D40F557172090CAB7A7C164315B5BAC6B0E761F9D6180C6D3E"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "3B269762FAE7651F1574A912E5BCC4A69CA0B4290C3A2FD2DD823EE03892D5A7"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "184108DF3037418C9465E9865BBC8C272B3A0F3D391DDBF42F5E67894B62B34B"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 712,
+      "Exception": "System.InvalidOperationException: Non-tail recursion changed async leaf, old source image, cleanup or lease lifetime.\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 212\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 131\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 193\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 193\r\n   at Erlang.Tests.NonTailStackLifecycleHostChecks.RunCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\non-tail-stack329-root-focus3\\candidate\\tests\\Erlang.Tests\\NonTailStackLifecycleHostChecks.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

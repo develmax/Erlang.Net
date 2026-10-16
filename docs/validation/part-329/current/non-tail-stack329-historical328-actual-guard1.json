@@ -1,0 +1,108 @@
+{
+  "Status": "PASS_VERIFIED_CONTROLLED_HISTORICAL328_STACK_OVERFLOW_EVIDENCE",
+  "Passed": true,
+  "ControlledGuestFailuresNotGuestPasses": true,
+  "HistoricalFreezeSha256": "03A3933C2D4AE3D91A7C6783E0EDDA488A7EF6E4B6D293914690E61FEC0F3204",
+  "CurrentGreenSourceFreezeSha256": "E17BE62528B6FEEE6AFF86A519EED48169C94DEBF5CD22C3EA64F392FCEC9D76",
+  "OriginalRetainedSourceSha256": "87C6025BECE5C525D430257D10EF1308EA4B623AA53EF89355E83CFB7EB01BF5",
+  "OldNamedDepth": 256,
+  "CurrentNamedDepth": 4096,
+  "SourceProductionExecutionExactPublished328": true,
+  "Controls": [
+    {
+      "Selector": "original-retained",
+      "ExitCode": 3221225725,
+      "GuestPass": false,
+      "OwnedProcessSettled": true
+    },
+    {
+      "Selector": "named-finite-checksum",
+      "ExitCode": 3221225725,
+      "GuestPass": false,
+      "OwnedProcessSettled": true
+    }
+  ],
+  "TailControlPassed": true,
+  "Bindings": [
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/source-freeze.json",
+      "Bytes": 1946,
+      "Sha256": "03A3933C2D4AE3D91A7C6783E0EDDA488A7EF6E4B6D293914690E61FEC0F3204"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/source-resource-closure.json",
+      "Bytes": 455190,
+      "Sha256": "1A1B52431D2922AEDDE03A1493E3C7F4ABFE6DC3119A1899BF4976A12973B1DC"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-build-non-tail-recursion329-root-managed-repair1/process.json",
+      "Bytes": 1572,
+      "Sha256": "CEB93EFFCE35658334057BA2A64AE0FC07C1181396E83549ABDF15ECC4CF86E9"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-original-retained/attempt.json",
+      "Bytes": 1942,
+      "Sha256": "CDF30BDFFDB9DA6A0CE2678D789DC50582A8D1E6C97817F500261C97083EABBA"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-original-retained/process.json",
+      "Bytes": 1757,
+      "Sha256": "7EAA301DAC9963BEC17EBA8C774CDF236A1871D00D629CD78E6E71BB61F72014"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-original-retained/stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-original-retained/stderr.log",
+      "Bytes": 144407,
+      "Sha256": "0B8273FF9301D7BA97CA1AD2634308D75C6AB027F0337226B460699AC6E7D8E9"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-named-finite-checksum/attempt.json",
+      "Bytes": 1791,
+      "Sha256": "71E0DE8F01891D655453037204291C84DDAB9C707B7E50EAB6206483C3DB1573"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-named-finite-checksum/process.json",
+      "Bytes": 1597,
+      "Sha256": "2D91BA98CF1C509F1220434A2AEA12CB62DA9194EDC7D582C4603A1964689015"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-named-finite-checksum/stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-named-finite-checksum/stderr.log",
+      "Bytes": 168117,
+      "Sha256": "9064E70275EEAD71109F126138BBFFB535446FFA406E22008FBB9A9B2C06FD6D"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-tail-accumulator-control/actual.json",
+      "Bytes": 4234,
+      "Sha256": "577DA87AC35356537D857FB333CE2E5414C91CCE6CA01C0E867BFB8646D908C2"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-tail-accumulator-control/attempt.json",
+      "Bytes": 1797,
+      "Sha256": "70608D4A3A01B06CDEDF47CCB60DBEE0DB19BF030AF40C88043D08EA082C0E15"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-tail-accumulator-control/process.json",
+      "Bytes": 1661,
+      "Sha256": "BC2E7DA87B6FF480F9F3E18BC2975767D7AD0D77E2FF4A9DF715EF54F8A4B9D5"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-tail-accumulator-control/stdout.log",
+      "Bytes": 97,
+      "Sha256": "305CFC8F7D696208FCC80F4785E1E6031DD319F2E0E23BA13E01BD80E94A0320"
+    },
+    {
+      "Path": "artifacts/non-tail-stack329-historical328-focus1/recursion-tail-accumulator-control/stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ]
+}

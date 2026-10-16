@@ -1,0 +1,15 @@
+FAIL Erlang.Tests.NonTailStackLifecycleHostChecks:RunCancellation
+System.ArgumentException: An item with the same key has already been added. Key: (oracle_stack_lifecycle, run, 1)
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 132
+   at Erlang.ModuleRegistry.RegisterSource(String module, String function, Int32 arity, ErlangFunction body, Object sourceOwner) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 153
+   at Erlang.Compiler.ModuleDefinition.<Register>b__33_0(ModuleRegistry target) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Compiler\ModuleDefinition.cs:line 48
+   at Erlang.ModuleRegistry.Apply(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 626
+   at Erlang.ModuleRegistry.ApplySourceCode(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Runtime\ModuleRegistry.SourceMutation.cs:line 71
+   at Erlang.Compiler.ModuleDefinition.Register(ModuleRegistry registry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\src\Erlang.Compiler\ModuleDefinition.cs:line 43
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 120
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 192
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.Check(Boolean anonymous, Boolean fail, Boolean cancel) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 192
+   at Erlang.Tests.NonTailStackLifecycleHostChecks.RunCancellation() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\non-tail-stack329-root-focus2\candidate\tests\Erlang.Tests\NonTailStackLifecycleHostChecks.cs:line 30
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22
