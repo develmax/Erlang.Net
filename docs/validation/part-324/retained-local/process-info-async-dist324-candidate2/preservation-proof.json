@@ -1,0 +1,59 @@
+{
+  "Status": "SOURCE_ONLY_PASS_NO_EXECUTION",
+  "ParentRowsRehashed": 2318,
+  "ProductionChanges": 2,
+  "RegistrationReversals": [
+    "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+    "src/Erlang.Runtime/ProcessRuntime.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tests/Erlang.Tests/Program.cs"
+  ],
+  "UnchangedBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoItem.cs",
+      "Bytes": 925,
+      "Sha256": "56831E7519AE1D2ACC09D1AD8F624111A4424A1E45A6A46CA3E0C144030BDC4A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultCatalog.cs",
+      "Bytes": 1429,
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessAsyncDistributionNames.cs",
+      "Bytes": 122,
+      "Sha256": "81E9DC4B99C40CA32ECE3EC254FC4EBCC6AEB61790560723A6D952DC2B110A38"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionControlWaitPublicRouteHostChecks.cs",
+      "Bytes": 11927,
+      "Sha256": "1F3C448CE91A25B98ED4575EA87C2311E510E7AB85BEA1BC79413E23BFD327C3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionControlWaitHostNames.cs",
+      "Bytes": 2119,
+      "Sha256": "096660A0385CC1D5B8A42AD32257DF372F986A02AFB5CA8D8667C586351400B1"
+    }
+  ],
+  "PriorCaseSourceExpectedOrderAndExclusions": "Existing complete closure preserved except the four exact reversible additive edits",
+  "OrdinaryCasesAuthored": 6,
+  "HostGroupsAuthored": 1,
+  "HostSubgroupsAuthored": 3,
+  "ActualSdkOrOriginalResults": null,
+  "Pending": [
+    "style/tokens",
+    "target",
+    "SDK six ordinary and HOST three",
+    "identical historical RED",
+    "full checks/readiness",
+    "original OTP ordinary"
+  ],
+  "Revision1FreezeSha256": "8C91902FFE0C7B5E2B4EA5FD394CAD94357364D5F23F68B2519E48B22BD9A925",
+  "Revision2Changes": [
+    "tools/Erlang.Differential/ProcessInfoAsyncDistributionCaseNames.cs",
+    "DESIGN.md",
+    "three additional exact pinned validation source objects"
+  ],
+  "OtherSevenCSharpRawExact": true,
+  "ProductionAndOtherFiveCasesAndAllExpectedOutcomesUnchanged": true
+}

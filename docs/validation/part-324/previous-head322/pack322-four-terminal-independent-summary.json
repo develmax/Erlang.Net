@@ -1,0 +1,154 @@
+{
+  "Status": "ACTUAL_PUBLISHED322_FOUR_TERMINAL_WORKFLOWS_INDEPENDENTLY_PASS_ORDINARY_PENDING",
+  "Head": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+  "Workflows": [
+    {
+      "Kind": "ci",
+      "Run": 38838563172,
+      "Job": 116773097970,
+      "Artifact": 12019939955,
+      "Attempt": 1,
+      "Head": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "63EEAE0701994BD24913DAF75E45F73072E65C6E1CCD03A02DC7CC23F558AEF7",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "native",
+      "Run": 38838728386,
+      "Job": 116773621118,
+      "Artifact": 12021055761,
+      "Attempt": 1,
+      "Head": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "BB8C6B203149F2558E7721A47D66171B25C360D4E1DBDD5D74CA0A9E341C7A7C",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "reallocation",
+      "Run": 38838733687,
+      "Job": 116773638113,
+      "Artifact": 12020950401,
+      "Attempt": 1,
+      "Head": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "2F0EAE6E468745E61339F5ACCD76566C1642A33D26D3C126B783DCF658240BFC",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "distribution",
+      "Run": 38838738546,
+      "Job": 116773655220,
+      "Artifact": 12020885847,
+      "Attempt": 1,
+      "Head": "e2cb95a9658584a0985b4e8c037241264d576aa7",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "954FFBBB6A80E0E7B7D50CDAD5C3E5E7C87FF4A6438B06E701F76CBD0F84108B",
+      "RawArchiveIncludedInLeanRows": false
+    }
+  ],
+  "IndependentGuards": [
+    {
+      "Path": "artifacts/pack322-ci-independent-guard.json",
+      "Sha256": "99FD83083034DD525D78A3F89A91CCE565D3B568005D2E889CFE00BA7B14C9C0"
+    },
+    {
+      "Path": "artifacts/pack322-native-combined-independent-guard.json",
+      "Sha256": "02D26372978C904886DAE8A69CB0B1366344547F8DEB4ECB1BB0DC02E9337520"
+    },
+    {
+      "Path": "artifacts/pack322-native-38838728386-independent-envelope-and-sdk-guard.json",
+      "Sha256": "8ADC293E39F3739A234FAE20BA37BE231888A8C7389D65943FC9D499A9F3543B"
+    },
+    {
+      "Path": "artifacts/pack322-original13-independent-local-report.json",
+      "Sha256": "FFB1BA0D8BE11689B7F8749D927A6B8E377A31D80D5B84BCCBBB9F3444B18627"
+    },
+    {
+      "Path": "artifacts/pack322-original13-independent-local-capture.json",
+      "Sha256": "A95F16BE895471F121E023A953BEB77F8B3CD920B8E2BC2F98464800CB5C6E0A"
+    },
+    {
+      "Path": "artifacts/pack322-reallocation-independent-guard.json",
+      "Sha256": "C91BC1DE2AD115DDD7DB95C8F8DEB7FC2DDF860DAB9BA4C3A6D9A7EF5AF71B9B"
+    },
+    {
+      "Path": "artifacts/pack322-reallocation-independent-published-comparison.json",
+      "Sha256": "BF935D94496F43A71C36118C02E859A7546D7EF6EC0B7EAB6459F6D5E29046B0"
+    },
+    {
+      "Path": "artifacts/pack322-reallocation-independent-published-comparison-process.json",
+      "Sha256": "5D65B7A505C8D04F3D30792CBAAAC1310B01041F1B644E5B0E7823062D8F6261"
+    },
+    {
+      "Path": "artifacts/pack322-group-leader-independent-guard.json",
+      "Sha256": "E5A654C5748AEFA21909178706D080A5A6B5D10C8645E8712A699B6A2C988CCF"
+    },
+    {
+      "Path": "artifacts/pack322-guest-send-independent-guard.json",
+      "Sha256": "E2F9F38AB87DE7D90B976F8EDB455ACC2638EDA25D8DEBF0DBD1BFEC26DE1790"
+    },
+    {
+      "Path": "artifacts/pack322-guest-links-independent-guard.json",
+      "Sha256": "1758C9B323D9379EE3980F84DE4DE2F6D22C096E4BFC84C8B97B1364332F3AA8"
+    },
+    {
+      "Path": "artifacts/pack322-guest-exit-independent-guard.json",
+      "Sha256": "20657327F795007BF049C6A97047224C43E5305C58162DAC4A9F677574C1DBDC"
+    },
+    {
+      "Path": "artifacts/pack322-ci-local-reader-precondition.json",
+      "Sha256": "F8E21FA1AB96093786711A54E8E6D48D20B25272923A5261A6DB3E0FA66702D7"
+    }
+  ],
+  "Ci": {
+    "Passed": 6681,
+    "Integrations": 11,
+    "Mfas": 509,
+    "Erlang": 351,
+    "PublishedStageBlobs": 263
+  },
+  "Native": {
+    "SourcePlanInputs": 1107,
+    "SourcePlanSha256": "A2350C9F402106AC1D834CE56FBCB651F6FF6BA80AFC7904B821659189AE2D1B",
+    "StrictLinuxLines": 8,
+    "DomainRoles": 3,
+    "Original13SeparateTypedPass": true,
+    "Original13SdkCompared": false
+  },
+  "Reallocation": {
+    "SourcePlanInputs": 1132,
+    "SourcePlanSha256": "80449E1C3996B459777A84FA62DE84226DCBB6EC36CACC0293CE713FE83A8CD7",
+    "InstalledPrefixFiles": 2646,
+    "NativeBuilds": 4,
+    "OriginalCases": 3,
+    "SdkCases": 3,
+    "PureComparisonPassed": true
+  },
+  "Distribution": {
+    "GroupLeaderOriginalContracts": 4,
+    "GuestSendOriginalContracts": 7,
+    "NewLinkOriginalContracts": 7,
+    "NewExplicitExitContracts": 8,
+    "FullSenderTokenBeforeAfterAndRemoteHistoryVerified": true,
+    "NewLinkRelationPhases": 9,
+    "ActualOriginalNodes": 2,
+    "ActualCompiledImageCount": 3,
+    "BothNodeMetadataFields": 10,
+    "MinimalBang322BeamImagesCapturedAndMd5VerifiedBothNodes": true,
+    "MinimalBang322SdkPreparedOrInvoked": false
+  },
+  "Ordinary322": {
+    "Status": "PENDING_NOT_AUDITED",
+    "Passed": null,
+    "DifferentialResultClaimed": false
+  },
+  "Current323OriginalBusyWaitExecuted": false,
+  "LeanRowsAreSelectedRawProofsNotSelfContainedRuntimeOrWholeApiArchives": true,
+  "RawArchivesRetainedExternallyByExactApiArtifactIdentityAndDigest": true,
+  "NoNewGetPostVmNativeSdkBuildMainGitMutation": true
+}

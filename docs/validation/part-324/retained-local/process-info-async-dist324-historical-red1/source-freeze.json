@@ -1,0 +1,42 @@
+{
+  "Status": "SOURCE_ONLY_HISTORICAL323_PLUS_EXACT_GREEN324_FOUR_HELPERS_PENDING_BUILD_AND_RED",
+  "Parent323FreezeSha256": "C0D5852614A819F20152FFDD8894DA4B119D5E4B1898EB4933EF90519699D524",
+  "Parent323ClosureSha256": "B395DACAD8CEC82498A91B59342CC1217A66FE4F4ACA18AF1B8BC8EF63F6ABB7",
+  "ActualGreen324FormattedFreezeSha256": "5DB2781B3B5A67D93235989967DBA02592A88C9BAED5DB9AC8B8F206A6AFB2E9",
+  "ActualGreen324HostReceiptSha256": "947B8FABC41DBA18713B5BB052C571ED1074C2039711A0F47B7EEAFDAEC5825B",
+  "ProductionChanges": 0,
+  "ProgramChanges": 0,
+  "OrdinaryCaseRegistrationChanges": 0,
+  "SourcePaths": 4,
+  "CSharpPaths": 4,
+  "SourceClosurePaths": 2353,
+  "SourceClosureSha256": "26E9AE09771884270D64B89F4019C813A49BB9D67B57BB256A7D355E4F77D9D0",
+  "Parent2349RowsRawExact": true,
+  "FourHelperFilesActualGreenRawExact": true,
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoAsyncDistributionHostChecks.cs",
+      "Bytes": 4897,
+      "Sha256": "F5EF058D25D7DB98C520F22F4B4E8A309D8B83399B5A5749D962B85F936D65F7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoAsyncDistributionHostNames.cs",
+      "Bytes": 330,
+      "Sha256": "FDD98704BEDE712650AE8CDDBB85C0F8CCAACBC6EAB777F06531A0FC841B46EE"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoAsyncDistributionCases.cs",
+      "Bytes": 1222,
+      "Sha256": "7E1EFDAD1FDDAD91E8AA667D2210F0126EE1BF02DB9977783D56246259C6B9B1"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoAsyncDistributionCaseNames.cs",
+      "Bytes": 4193,
+      "Sha256": "ED73C14D75783B174E7A413DE5BC5B354B43982636F8C24781A3E33CF3D9EC81"
+    }
+  ],
+  "ActualExecuted": false,
+  "RequiredHostSelector": "ProcessInfoAsyncDistributionHostChecks:DefaultQuery",
+  "ExpectedHostRed": "Successful build, assertion failure from actual generated badarg result",
+  "ManagedCompanionMode": "historical-default"
+}

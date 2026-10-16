@@ -747,6 +747,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     ProcessInfoLogicalNames.InitialCall => process.InitialCall,
                     ProcessInfoLogicalNames.ErrorHandler => process.ErrorHandler,
                     ProcessInfoLogicalNames.Priority => process.SchedulingPriority,
+                    ProcessAsyncDistributionNames.Flag => CoreModules.Boolean(process.AsyncDistribution),
                     ProcessInfoLogicalNames.Reductions => Term.I(process.CumulativeReductions),
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
                     ProcessInfoNames.PriorityMessages => Term.A(PriorityPermissionCount(process) != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),

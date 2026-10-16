@@ -1,0 +1,211 @@
+{
+  "Status": "SOURCE_ONLY_324_PENDING_COMPILE_SDK_RED_AND_ORIGINAL",
+  "ParentFreezeSha256": "5DC06B0D895EEC67562DE36D36CEA0C700D95297769BEC7454FCB9BCA21AAF06",
+  "ParentClosureSha256": "FEF4EF7CAF603DCBE9A395C815A10984FA8C95AD23051BAF4387B45A88509E9D",
+  "SourcePaths": 8,
+  "CSharpPaths": 8,
+  "NewSourcePaths": 4,
+  "SourceClosurePaths": 2322,
+  "SourceClosureSha256": "B676CA1D9B7788D9E8A412B74B1CFEE8FB9768705CF964CD5E18206EEBE4F856",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Bytes": 1240,
+      "Sha256": "1B350A44C3E677FADF0162BEE77733F4985BCE96A9351B8A740CC17EEEAEBA03",
+      "Parent": {
+        "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+        "Bytes": 1202,
+        "Sha256": "8DC5361DC310D95EBD7D8F8910CB463774B1EF391600E2352D1EC19320A08728"
+      }
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63554,
+      "Sha256": "1436A30AE7C2E90852B2D6327078E1971AF88ED7EAC5929C90C063ED301A7B17",
+      "Parent": {
+        "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+        "Bytes": 63448,
+        "Sha256": "E228CAF22E0B2F4D48DBC30B37226873D968C4C4A8609508F6DE91FE5B1059B1"
+      }
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoAsyncDistributionHostChecks.cs",
+      "Bytes": 4345,
+      "Sha256": "7224ECF44D4D1D695E7B5D96C544A07E2D66D9835E4A4DE3260FD8423BABA398",
+      "Parent": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessInfoAsyncDistributionHostNames.cs",
+      "Bytes": 330,
+      "Sha256": "FDD98704BEDE712650AE8CDDBB85C0F8CCAACBC6EAB777F06531A0FC841B46EE",
+      "Parent": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 168339,
+      "Sha256": "8F0A32AFE8B6CA1CA4B1C52DE0CBC7E4518E0E59B03D0C158DE073397CF1F156",
+      "Parent": {
+        "Path": "tests/Erlang.Tests/Program.cs",
+        "Bytes": 168219,
+        "Sha256": "6DAAD8BC0FD09A1EAD0B15EB3722AA70201715561CFBCFEC97E19E1C37BCD904"
+      }
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31416,
+      "Sha256": "4D5A61E4A5AAD186927A301B7C72857E4701E7A66F3EEFD29B70659E9C266729",
+      "Parent": {
+        "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+        "Bytes": 31362,
+        "Sha256": "90CA6CD36730A3D7AF0C788FC1D0B2FDC25C1047E8896FEC5C6ABB0929029C51"
+      }
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoAsyncDistributionCaseNames.cs",
+      "Bytes": 4156,
+      "Sha256": "529F08712604B4473E452763BE6D18CD2DDBA82C4534BB11DFB17F08A92BE51D",
+      "Parent": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessInfoAsyncDistributionCases.cs",
+      "Bytes": 1206,
+      "Sha256": "50737B3F027BB21191FDAF5D3D75A89CD5166CA04BC706B656AEF8F8D63080E1",
+      "Parent": null
+    }
+  ],
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinObjects": [
+    {
+      "Path": "pin/erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "OriginalPath": "erts/emulator/beam/erl_bif_info.c",
+      "Extract": {
+        "Path": "pin/erts__emulator__beam__erl_bif_info.c.excerpt.txt",
+        "Bytes": 15293,
+        "Sha256": "5FA23DA221CC453F2D052A831BEBFC6A97EDD1CE020D86639E190FD1DC4B5FEA"
+      },
+      "LineRanges": [
+        [
+          790,
+          860
+        ],
+        [
+          976,
+          1028
+        ],
+        [
+          1110,
+          1191
+        ],
+        [
+          1271,
+          1415
+        ],
+        [
+          1540,
+          1565
+        ],
+        [
+          2264,
+          2276
+        ]
+      ]
+    },
+    {
+      "Path": "pin/erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "OriginalPath": "erts/preloaded/src/erlang.erl",
+      "Extract": {
+        "Path": "pin/erts__preloaded__src__erlang.erl.excerpt.txt",
+        "Bytes": 3398,
+        "Sha256": "5E4929E0D5562C30186A1F7F1CD83769EA351BC8FFFB63443FE001A04DD21793"
+      },
+      "LineRanges": [
+        [
+          8020,
+          8060
+        ],
+        [
+          8465,
+          8484
+        ]
+      ]
+    },
+    {
+      "Path": "pin/erts/doc/guides/erl_ext_dist.md",
+      "Bytes": 30443,
+      "Sha256": "97B53D98D572FA2DF3B268B1AB1677F37CCA1FD487403913230FA76B8717DFA1",
+      "OriginalPath": "erts/doc/guides/erl_ext_dist.md",
+      "Extract": {
+        "Path": "pin/erts__doc__guides__erl_ext_dist.md.excerpt.txt",
+        "Bytes": 1218,
+        "Sha256": "FB7CD79DAA4BBC0F05336CFF12A235C83183C950A69B6599D9DD43124D1BE300"
+      },
+      "LineRanges": [
+        [
+          433,
+          459
+        ]
+      ]
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "Path": "DESIGN.md",
+      "Bytes": 3868,
+      "Sha256": "2F913FC3C8F41DE6643A3C34E5FEE5832661122B97A31B12AC1905EF15C065C7"
+    },
+    {
+      "Path": "pin/erts/doc/guides/erl_ext_dist.md",
+      "Bytes": 30443,
+      "Sha256": "97B53D98D572FA2DF3B268B1AB1677F37CCA1FD487403913230FA76B8717DFA1"
+    },
+    {
+      "Path": "pin/erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "pin/erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "pin/erts__doc__guides__erl_ext_dist.md.excerpt.txt",
+      "Bytes": 1218,
+      "Sha256": "FB7CD79DAA4BBC0F05336CFF12A235C83183C950A69B6599D9DD43124D1BE300"
+    },
+    {
+      "Path": "pin/erts__emulator__beam__erl_bif_info.c.excerpt.txt",
+      "Bytes": 15293,
+      "Sha256": "5FA23DA221CC453F2D052A831BEBFC6A97EDD1CE020D86639E190FD1DC4B5FEA"
+    },
+    {
+      "Path": "pin/erts__preloaded__src__erlang.erl.excerpt.txt",
+      "Bytes": 3398,
+      "Sha256": "5E4929E0D5562C30186A1F7F1CD83769EA351BC8FFFB63443FE001A04DD21793"
+    },
+    {
+      "Path": "preservation-proof.json",
+      "Bytes": 1719,
+      "Sha256": "09AA3E06ED71EA0AED191218EB6BF58228F11D05BE0B10DE1C5A2184FB5E343F"
+    },
+    {
+      "Path": "proposed-source-resource-closure.json",
+      "Bytes": 428928,
+      "Sha256": "B676CA1D9B7788D9E8A412B74B1CFEE8FB9768705CF964CD5E18206EEBE4F856"
+    },
+    {
+      "Path": "token-inputs.json",
+      "Bytes": 1360,
+      "Sha256": "9478C8DA36DF838CDFC6654BCB84870662FBB4DF1B25955C60F5CAAF1ED72A8D"
+    }
+  ],
+  "SealScript": {
+    "Path": "artifacts/seal-process-info-async-dist324.py",
+    "Bytes": 5584,
+    "Sha256": "EC31C1A8C254424FBAAB7A3E4E8BB563EA96D4F7395F89B3A4FE0561B5B2A72D"
+  }
+}

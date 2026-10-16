@@ -1,0 +1,32 @@
+{
+  "Status": "SOURCE_REVIEW_REQUIRES_TWO_BOUNDED_WRAPPER_REPAIRS_NO_EXECUTION",
+  "ReviewedScriptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-run324-managed.py",
+  "ReviewedScriptSha256": "2E48B0F883D46D9E341EA3B70A5390296867CDD8E2C155646C96B62D3B071749",
+  "ReviewerAuthorshipDisclosure": "Reviewer authored A948 runner/recipe but did not author Root wrapper under review",
+  "Findings": [
+    {
+      "Priority": 1,
+      "Lines": "10-15",
+      "Issue": "Closure is not bound to approved freeze",
+      "Evidence": "rows=read(cl)[Files] followed only by len2353; source_exact trusts those rows, with no h(cl)==read(fp)[SourceClosureSha256] assertion",
+      "RequiredFix": "Bind closure hash to frozen SourceClosureSha256 before and after execution; reassert approved fp hash at end; retain before/after actual source rehash"
+    },
+    {
+      "Priority": 1,
+      "Lines": "29-31",
+      "Issue": "Timeout cleanup itself can block indefinitely and does not record settlement",
+      "Evidence": "taskkill subprocess.run has no timeout; subsequent proc.communicate() has no timeout; taskkill return/status discarded",
+      "RequiredFix": "Bound taskkill and postkill communicate/wait; retain raw kill outcome; incomplete cleanup fails and must not be labeled joined"
+    }
+  ],
+  "ReviewedPositiveControls": [
+    "Exact recipe freeze and all authored Files hashes checked",
+    "Exact green5DB/red6D0 initial source freeze SHA checked",
+    "Four explicit phases and new per-phase output directories",
+    "Actual command/stdout/stderr/report hashes retained",
+    "red-host only process-envelope classification pending separate semantic Root review",
+    "All2353 current rows rehashed before/after (needs closure binding fix)"
+  ],
+  "ExecutedSdkBuildVmNativeNetwork": false,
+  "MainEdited": false
+}

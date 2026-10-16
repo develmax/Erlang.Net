@@ -1,0 +1,116 @@
+{
+  "Status": "SOURCE_ONLY_ROOT_EXECUTABLE_324_PREPARER_FINALIZER_FUTURE_FULL_NATIVE_READINESS_REQUIRED",
+  "ReadyToFinalize": false,
+  "ParentHead": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+  "ActualMainFreezeSha256": "371AAF15D4F5912F157B864DB6FCE759F880C793B9770639C9C2B07FF719B884",
+  "AuthorFinalFreezeSha256": "838CC1521EF85070807809A71BCC2D1E218B69EDDFDC03BA67B0508A33DA0DFC",
+  "FinalClosureSha256": "A5A3A99DF27EA4B496557F6DF37F7FB0941BE59C8DBF09F12D0C6D949253651B",
+  "FinalCompositionPeerSha256": "6EBDAADEBD6F7D87C8F89A18B140FC8E225E5C055EA35E8719D3BFE381DDAC2F",
+  "FullGuardSource": {
+    "Path": "artifacts/part324-main-gates-proposal1/guard324-main-full.py",
+    "Bytes": 7606,
+    "Sha256": "F0C3A9186821BB79BC913868220F7BDDDF7294B766658571F6D320F4FF42CA6C"
+  },
+  "ActualFullGuardSha256": null,
+  "ActualNativeGuardSha256": null,
+  "ActualReadinessSha256": null,
+  "ActualReadinessExitSha256": null,
+  "FullAndNativeHashesRequiredFromCli": true,
+  "SourcePaths": 13,
+  "CSharpPaths": 8,
+  "SourceClosurePaths": 2353,
+  "MetadataFiles": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md"
+  ],
+  "NewVolume": "docs/changelog/0050.md",
+  "Closed0049": {
+    "Path": "docs/changelog/0049.md",
+    "Bytes": 29730,
+    "Sha256": "9F1E6B3D9A9919C36628347668904E9343FF09E2DF049CD9F734C57D8B1FC6FC"
+  },
+  "MetadataBefore": [
+    {
+      "Path": "AGENTS.md",
+      "Bytes": 248638,
+      "Sha256": "3B549A3FF5B1A4CD3FD1730C11BCCF9177242BAADCE564DE0A6274971A5D1D6A"
+    },
+    {
+      "Path": "docs/PROGRESS.md",
+      "Bytes": 344648,
+      "Sha256": "9EA5D6409BA049FCCF06030A4825350E3A98F12DBC89D19AB9FC1FF67D125075"
+    },
+    {
+      "Path": "docs/NEXT_STEPS.md",
+      "Bytes": 233514,
+      "Sha256": "19E2DE05DDB298BE22EC961039D904797733D615A83C188F2F4CA41518AA696A"
+    },
+    {
+      "Path": "docs/COMPATIBILITY.md",
+      "Bytes": 315144,
+      "Sha256": "F2388EAD4EAD7E19CDF6D5D1B07182848F8A68CF758415D96F356A8C73D6C831"
+    },
+    {
+      "Path": "docs/ERLANG_COMPATIBILITY.md",
+      "Bytes": 141517,
+      "Sha256": "6D1CC65AFDDCFFF0F0E5947139A7E6DD6089F0C5C07FF3CB2BB09A8D4106F46E"
+    },
+    {
+      "Path": "docs/DECISIONS.md",
+      "Bytes": 239699,
+      "Sha256": "B6DCB002460202B4CDA060F4DEFC9F3D0D13BDE264F6997B15BDAA66B6535266"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Bytes": 224768,
+      "Sha256": "B476B6267BCD34C7E37AA7336CA5EAE012315EFFFEC46747C07E148641852977"
+    },
+    {
+      "Path": "CHANGELOG.md",
+      "Bytes": 4130,
+      "Sha256": "F390946DF38F9B3BAEA240393A1FA7FB2713B3B1354F74013907483DE6ED1F91"
+    },
+    {
+      "Path": "docs/changelog/0049.md",
+      "Bytes": 29730,
+      "Sha256": "9F1E6B3D9A9919C36628347668904E9343FF09E2DF049CD9F734C57D8B1FC6FC"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "Bytes": 132434,
+      "Sha256": "7832AAE9040E6E5685E28C14E80DF0A2ED958AF69B6E70407B66D48428AF4D61"
+    }
+  ],
+  "MetadataStageFiles": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0050.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/supported-mfas.json",
+    "docs/MODULE_READINESS.md"
+  ],
+  "ProcessInfo2CompatibilityRowBefore": "| `process_info/2` | Registered; bounded functional evidence, see supported-mfas.json |",
+  "ProcessInfo2CompatibilityRowAfter": "| `process_info/2` | Partial: async_dist returns the actual target boolean with complete item validation, order/duplicate preservation and existing mixed owner-query cooperation; default process_info/1 catalog unchanged, full PID/resource/native-scheduler scope remains incomplete |",
+  "ProcessInfo2LimitsSuffix": " Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, LINK phase/retention follow-up325, native scheduler parity or general wire equality.",
+  "ChangelogIndexBefore": "- [0049.md](docs/changelog/0049.md) \u2014 parts321\u2013323 (active)",
+  "ChangelogIndexAfter": "- [0049.md](docs/changelog/0049.md) \u2014 parts321\u2013323 (closed)\n- [0050.md](docs/changelog/0050.md) \u2014 part324 (active)",
+  "FocusedCases": 6,
+  "FocusedHostSubgroups": 3,
+  "HistoricalRawBadargCompanionExecuted": false,
+  "Current324OriginalExecuted": false,
+  "OriginalPlannedOrdinary": 5891,
+  "FdPlanned": 8,
+  "FinalizationPlanSha256": "EF85962DC884F8DE74D44C36A53FD8745EBDEC01C66AFB014374C57B90279F7D"
+}

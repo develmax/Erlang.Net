@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "D760738FFC70740DA07F4A2EBB284E03E6C4545519F8E8D964DB4730C7B8F351"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "AF067FAA4F96F6B3315D3B15FD3DA69B68C672B3F989D948E9ACAFD28F551A4E"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "96CF5814AD1C9B8B5777EF831C4BF9073C400BD19E1E7AFBF9FA723C229D766B"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "ProcessInfoAsyncDistributionHostChecks:DefaultQuery",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 1181,
+      "Exception": "System.InvalidOperationException: Process information async distribution assertion failed\r\n   at Erlang.Tests.ProcessInfoAsyncDistributionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessInfoAsyncDistributionHostChecks.cs:line 116\r\n   at Erlang.Tests.ProcessInfoAsyncDistributionHostChecks.DefaultQuery() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessInfoAsyncDistributionHostChecks.cs:line 21\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}
