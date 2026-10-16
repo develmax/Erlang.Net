@@ -1,0 +1,97 @@
+{
+  "Passed": true,
+  "ExpectedCases": 5,
+  "Executed": 5,
+  "Unexecuted": 0,
+  "CaseDeadlineSeconds": 40,
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\async-dist320-managed-focus2\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1364992,
+      "Sha256": "8835F77D9C740A0EA5404A18819FF81E6E5102C477212DF8F295BD928718C3E7"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\async-dist320-managed-focus2\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 353280,
+      "Sha256": "E6A5D68C259AA843984F0EBCEB7A17288DB17C592F78E901D7A3F94651CFB811"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\async-dist320-managed-focus2\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1534976,
+      "Sha256": "A14A084F6C5DA93A3EAA25D9F8F9274C3DF8606ED7E9B0D4C1CE60687D078B64"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\async-dist320-managed-focus2\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 96256,
+      "Sha256": "28E8F309D89783D7BEEEC8EB3416C5F0D453F5EFC10037FE94324522E7C98FF5"
+    }
+  ],
+  "Cases": [
+    {
+      "Case": "async-dist-default-false",
+      "SourceSha256": "60F6768CC649DC9B03756981F20085CB1497636E3B718E5F1B8EAFE0261A3972",
+      "GeneratedCSharpSha256": "5A9158C453EA6CCCEEAFA180AF0883F283BBCBE22CF681F023F957C642600F6D",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,false}",
+      "Expected": "{ok,false}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "async-dist-boolean-previous-values",
+      "SourceSha256": "4C9C0BE4347245780EA5144FCD7B5884C8C2EA4DDE99F26CF7B9D986B9808D54",
+      "GeneratedCSharpSha256": "5CA44F43D1BE452EB6EBF741884E737A8A2C6CCC8950DE51F23EA506E3A7F6E6",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,{false,true,true,false}}",
+      "Expected": "{ok,{false,true,true,false}}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "async-dist-integer-value-badarg",
+      "SourceSha256": "441A201A157212FFC4D4188EEA4C420063F0A18EC7FEE3AE27C2530A95366BFA",
+      "GeneratedCSharpSha256": "E8794B6ACD1F50D3B28BBE77339A7301E53213C199C469C7C3FEE415D6C04BD7",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,badarg}",
+      "Expected": "{error,error,badarg}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "async-dist-invalid-atom-no-mutation",
+      "SourceSha256": "EE47562C9FF1241EE7C0C6C447B5A32AEBFA06DAAE47C3B731A2C8CBFD6C5CFE",
+      "GeneratedCSharpSha256": "6C9548E9DFA568EDDB567E158E15A4C1667493F1C67F4D448E04A5EFDBD5829C",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,true}",
+      "Expected": "{ok,true}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "Passed": true,
+      "Exception": null
+    },
+    {
+      "Case": "async-dist-child-does-not-inherit-parent-flag",
+      "SourceSha256": "E145AFFBECF5DB8A261CBE135730E6FF22F17312A4572A2828076FC56583595C",
+      "GeneratedCSharpSha256": "462B484B7E64A2F51F4C5EB4782D9BFF0F53CD5707DD8F9448BC6463D8DC6B53",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,{false,true}}",
+      "Expected": "{ok,{false,true}}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "Passed": true,
+      "Exception": null
+    }
+  ],
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false
+}

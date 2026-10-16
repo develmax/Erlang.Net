@@ -623,6 +623,7 @@ public static class CompiledModuleCases
         .. ProcessInfoDefaultSubsetCases.Modules,
         .. IndirectLoadNifCases.Modules,
         .. SystemAllocatorQueryCases.Modules,
-        .. ClrMemoryCases.Modules
+        .. ClrMemoryCases.Modules,
+        .. AsyncDistributionCases.Modules
     ];
 }

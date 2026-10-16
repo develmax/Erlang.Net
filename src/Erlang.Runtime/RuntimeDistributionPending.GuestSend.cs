@@ -10,6 +10,16 @@ public sealed partial class RuntimeDistributionPending
         bool noSuspend
     )
     {
+        bool asyncDistribution;
+        lock (gate)
+            asyncDistribution = producer.AsyncDistribution;
+        if (asyncDistribution)
+            return await SendConnectedPidAsynchronously(
+                producer,
+                remote,
+                payload,
+                priority
+            ).ConfigureAwait(false);
         RuntimeDistributionPendingEntry entry;
         DistributionConnectedEntry connected;
         DistributionOutputTicket ticket;

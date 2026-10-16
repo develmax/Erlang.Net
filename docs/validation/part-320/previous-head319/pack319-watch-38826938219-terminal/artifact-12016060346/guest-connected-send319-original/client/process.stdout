@@ -1,0 +1,26 @@
+runtime.etf {guest_connected_send319_runtime,
+                'gs319_client_59f484cc5a43@127.0.0.1',"29","29.1.1",
+                "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/beam-otp-oracle/lib/erlang",
+                <<79,159,107,10,25,66,30,40,93,102,140,164,238,27,153,6>>,
+                <<6,140,59,252,85,46,56,248,205,109,18,226,207,255,166,128>>,
+                "Erlang/OTP 29 [erts-17.1] [source] [64-bit] [smp:1:1] [ds:1:1:1] [async-threads:1] [jit:ns]\n",
+                "x86_64-pc-linux-gnu"}.
+connection.etf {'gs319_client_59f484cc5a43@127.0.0.1',
+                   'gs319_server_59f484cc5a43@127.0.0.1',
+                   ['gs319_server_59f484cc5a43@127.0.0.1']}.
+outcome.etf {return,
+                {guest_connected_send319,
+                    [{send_two_returns_message_and_delivers,true},
+                     {bang_returns_message_and_delivers,true},
+                     {connected_noconnect_delivers,true},
+                     {connected_no_suspend_delivers,true},
+                     {connected_no_suspend_noconnect_delivers,true},
+                     {same_sender_five_message_order,true},
+                     {group_leader_then_public_send_order,true}],
+                    {raw,<0.10.0>,<10869.91.0>,
+                        #Ref<0.3022096475.2801795073.117116>,
+                        [send_two,bang,no_connect,no_suspend,
+                         no_suspend_no_connect],
+                        <0.10.0>}}}.
+worker-cleanup.etf {return,{worker_joined,killed}}.
+server-cleanup.etf {return,server_joined_protocol}.

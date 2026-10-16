@@ -1,0 +1,105 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD319_ALL_FIVE_TERMINAL_WORKFLOWS",
+  "Head": "c206e70147195831b44fef1c49a8ed8ca9fc1335",
+  "Attempt": 1,
+  "Ci": {
+    "Run": 38826856922,
+    "Passed": 6669,
+    "Integrations": 11,
+    "Mfa": 509,
+    "ErlangMfa": 351
+  },
+  "Native": {
+    "Run": 38826926415,
+    "PlanInputs": 1094,
+    "LinuxStdoutRows": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13Validated": true,
+    "Original13ComparedWithSdk13": false
+  },
+  "Reallocation": {
+    "Run": 38826932385,
+    "PlanInputs": 1119,
+    "WholePrefixFilesRehashed": 2646,
+    "NativeLibrariesActuallyBuiltAndReviewed": 4,
+    "OriginalCases": 3,
+    "SdkCases": 3
+  },
+  "Distribution": {
+    "Run": 38826938219,
+    "ActualOriginalNodes": 2,
+    "GroupLeaderContracts": 4,
+    "GuestPublicSendContracts": 7,
+    "ExistingInputControllerCaptures": 5,
+    "New319SevenSendProbeExecuted": true,
+    "SdkLivePeerEqualityClaimed": false
+  },
+  "Ordinary": {
+    "Run": 38826919904,
+    "Passed": 5880,
+    "FdPassed": 8,
+    "AllOrderedRowsChecked": true,
+    "DifferentialSourcesUnchanged318": 227,
+    "ObservedPredeclaredMapVarianceRelative318": 1,
+    "StrictFailurePreserved": true,
+    "SemanticGateUsesExistingPublishedRule": true,
+    "RawNormalization": false,
+    "SeparateBackendMemoryProfilesTypedPass": true,
+    "RawBackendEqualityClaimed": false,
+    "NumericPartitionsValidatedPerSnapshot": true
+  },
+  "GuardBindings": [
+    {
+      "Path": "artifacts/pack319-ci-independent-guard.json",
+      "Sha256": "B3B3699A6A411808EA521BB6480B9678EBA678F6FC9BEE0E7EC6D3D01B141068",
+      "Status": "PASS_EXACT_HEAD319_CI6669_FULL"
+    },
+    {
+      "Path": "artifacts/pack319-native-combined-independent-guard.json",
+      "Sha256": "1D7D1C592C3D1FD89D4CC73B5225C4F747DACFDBAEA77BF67ED72DEA671A635A",
+      "Status": "PASS_EXACT_HEAD319_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Path": "artifacts/pack319-reallocation-independent-guard.json",
+      "Sha256": "A207ED6B6F8E4CE80E68737936A63061B9778CC1C7DD0C6B9803720C52403FF4",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD319_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON"
+    },
+    {
+      "Path": "artifacts/pack319-group-leader-independent-guard.json",
+      "Sha256": "A5DE9D87BEACAA33A9BDCEE7BF7A9F29B6AD90891256C1F2B396B4AE92C330C2",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD319_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack319-guest-send-independent-guard.json",
+      "Sha256": "F4479B189E02CA7ABF7B24E78C9154FAF2D20EAEFE93F0C1F2E7614E66B681A8",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD319_ACTUAL_ORIGINAL_TWO_NODE_GUEST_PUBLIC_SEND_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack319-ordinary-semantic-independent-guard.json",
+      "Sha256": "914F0AC9F8DBF18AB04118C7F2D51CEF752B3713D7595350052FADCA8929DCF8",
+      "Status": "PASS_EXACT_HEAD319_FRESH_ORIGINAL5880_FD8_UNCHANGED318_CORPUS_AND_RULES"
+    },
+    {
+      "Path": "artifacts/pack319-allocator-profile-independent-guard.json",
+      "Sha256": "92376D46F7C4676E3C9079E16B9436F9CF28AD4A206F15FD6700113EBCCC1DA8",
+      "Status": "PASS_EXACT_HEAD319_SEPARATE_ACTUAL_ORIGINAL_LIBC_VS_SDK_DOTNET_BACKEND_PROFILE"
+    },
+    {
+      "Path": "artifacts/pack319-memory-profile-independent-guard.json",
+      "Sha256": "190D397C96B470DD64FE5F0AC56CC84F2D0DB5FEBA7CED1E780D4840DE9D1237",
+      "Status": "PASS_EXACT_HEAD319_ACTUAL_RAW_MEMORY_PROFILE_BOTH_BACKENDS_TWO_INDEPENDENT_NINE_KEY_SNAPSHOTS"
+    }
+  ],
+  "StrictFailureBinding": {
+    "Path": "artifacts/pack319-ordinary-strict-independent-failure.json",
+    "Sha256": "AC09D0080CAFC45DB21F15C66E3EA4FA2C342FC961D6E1A5C9424ACA20AB7E86"
+  },
+  "All319RunsTerminalAudited": true,
+  "NoFurther319GetNeeded": true,
+  "NativeVmSdkExecutedByReviewer": false,
+  "PostExecutedByReviewer": false,
+  "MainOrGitMutation": false,
+  "GeneralNativeAbiComplete": false,
+  "PhysicalWholeGcParityClaimed": false,
+  "PortableBinaryArchiveClaimed": false
+}

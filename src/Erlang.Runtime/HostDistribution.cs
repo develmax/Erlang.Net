@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class HostDistribution : IDisposable
+public sealed partial class HostDistribution : IDisposable
 {
     private readonly object gate = new();
     private readonly ProcessRuntime runtime;
@@ -102,7 +102,7 @@ public sealed class HostDistribution : IDisposable
             if (closed || entry.Closed)
                 return (true, 0, 0);
 
-            return (false, entry.OutputPackets, entry.QueuedAccountedBytes);
+            return (false, entry.OutputPackets, checked(entry.QueuedAccountedBytes + entry.StagedAccountedBytes));
         }
     }
 
@@ -308,6 +308,12 @@ public sealed class HostDistribution : IDisposable
         entry.NotificationArmed = false;
         entry.CapacityChanged?.TrySetCanceled();
         entry.CapacityChanged = null;
+        foreach (var staged in entry.StagedOutput)
+            staged.Active = false;
+        entry.StagedOutput.Clear();
+        entry.StagedPayloadBytes = 0;
+        entry.StagedAccountedBytes = 0;
+        entry.StagedSegments = 0;
         entry.Output.Clear();
         entry.QueuedPayloadBytes = 0;
         entry.QueuedAccountedBytes = 0;

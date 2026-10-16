@@ -251,6 +251,8 @@ public static class CoreModules
          return nodeMonitorResult;
      if (a[0] is Atom { Name: ProcessSavedCallNames.Flag })
          return ProcessSavedCallRegistrations.ChangeSelf(c, a);
+     if (a[0] is Atom { Name: ProcessAsyncDistributionNames.Flag })
+         return ProcessAsyncDistributionRegistration.ChangeSelf(c, a[1]);
      if (AtomName(a[0]) != ProcessFlagNames.TrapExit)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
      bool previous = c.TrapExits;

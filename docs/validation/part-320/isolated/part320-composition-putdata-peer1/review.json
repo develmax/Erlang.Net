@@ -1,0 +1,77 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL320_SOURCE_COMPOSITION_PEER",
+  "SourceFreezeSha256": "E74FD57783671F79D29A0575311FEC5A703FA7C8C0E94FD1F9695B3367B125FE",
+  "ClosureSha256": "C16204DBBFEAD09B34361781761F5D7320D09D040376C92C3ACDCCD092B2647E",
+  "SourceFilesRehashed": 2302,
+  "SourcePaths": 24,
+  "CSharpPaths": 19,
+  "NineteenActualCompiledSourcesExactFocus": true,
+  "ChangedParentPaths": [
+    ".gitattributes",
+    ".github/workflows/nif-pending-native.yml",
+    ".github/workflows/nif-reallocation-native.yml",
+    "src/Erlang.Runtime/CoreModules.cs",
+    "src/Erlang.Runtime/HostDistribution.cs",
+    "src/Erlang.Runtime/HostDistributionEntry.cs",
+    "src/Erlang.Runtime/ProcessContext.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.GuestSend.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json"
+  ],
+  "AddedPaths": [
+    "src/Erlang.Runtime/AsyncDistributionOutput.cs",
+    "src/Erlang.Runtime/HostDistribution.StagedOutput.cs",
+    "src/Erlang.Runtime/HostDistributionStagedOutput.cs",
+    "src/Erlang.Runtime/ProcessAsyncDistributionNames.cs",
+    "src/Erlang.Runtime/ProcessAsyncDistributionRegistration.cs",
+    "src/Erlang.Runtime/ProcessRuntime.AsyncDistribution.cs",
+    "src/Erlang.Runtime/RuntimeDistributionPending.AsyncGuestSend.cs",
+    "tests/Erlang.Tests/AsyncDistributionHostChecks.cs",
+    "tests/Erlang.Tests/AsyncDistributionHostNames.cs",
+    "tests/Erlang.Tests/AsyncDistributionHostParameters.cs",
+    "tools/Erlang.Differential/AsyncDistributionCaseNames.cs",
+    "tools/Erlang.Differential/AsyncDistributionCases.cs"
+  ],
+  "OutsideOwnedPathsExactParentAndCurrentMain": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "RowsRehashed": 1101,
+      "RawCanonicalGitTextLfAndWorkflowSha256": "86064DA2ACA06827CDF1FE8EF2D2DC4E0C9D73CD9E2759D50F05B0962DAC6D52",
+      "NonFileAbiImportPolicyFieldsExactParent": true,
+      "AddedRuntimeRows": [
+        "src/Erlang.Runtime/AsyncDistributionOutput.cs",
+        "src/Erlang.Runtime/HostDistribution.StagedOutput.cs",
+        "src/Erlang.Runtime/HostDistributionStagedOutput.cs",
+        "src/Erlang.Runtime/ProcessAsyncDistributionNames.cs",
+        "src/Erlang.Runtime/ProcessAsyncDistributionRegistration.cs",
+        "src/Erlang.Runtime/ProcessRuntime.AsyncDistribution.cs",
+        "src/Erlang.Runtime/RuntimeDistributionPending.AsyncGuestSend.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "RowsRehashed": 1126,
+      "RawCanonicalGitTextLfAndWorkflowSha256": "4C5492122F1749A2312280F74A1F6A3E2FCEB936DB327F8F8FB938551F4E24E9",
+      "NonFileAbiImportPolicyFieldsExactParent": true,
+      "AddedRuntimeRows": [
+        "src/Erlang.Runtime/AsyncDistributionOutput.cs",
+        "src/Erlang.Runtime/HostDistribution.StagedOutput.cs",
+        "src/Erlang.Runtime/HostDistributionStagedOutput.cs",
+        "src/Erlang.Runtime/ProcessAsyncDistributionNames.cs",
+        "src/Erlang.Runtime/ProcessAsyncDistributionRegistration.cs",
+        "src/Erlang.Runtime/ProcessRuntime.AsyncDistribution.cs",
+        "src/Erlang.Runtime/RuntimeDistributionPending.AsyncGuestSend.cs"
+      ]
+    }
+  ],
+  "ProtectedNativeCAbiProfilesUnchanged": true,
+  "ActualGreenAndControlledRedGuardSha256": "85E06CBCE333B8585C345D2BC80210DC6C594772DB463BD1B749AC191FC42041",
+  "RedIsMixedOldGuestRouteOnlyNotWholeHistorical319": true,
+  "OriginalFiveCasesExecuted": false,
+  "BlockingFindings": [],
+  "MainGitSdkBuildNativeVmNetworkExecutionByReviewer": false,
+  "ReviewSourceSha256": "E28447436EB496857EDF5B4ECE01F604C3D94CFD6A7532AA5A8ACCECDAC987F5"
+}

@@ -1,0 +1,44 @@
+{
+  "Status": "CONTROLLED_MIXED_ASYNC320_PREREQUISITE_WITH_EXACT319_GUEST_PUBLIC_ROUTE_PENDING_EXECUTION",
+  "GreenFreeze": {
+    "Path": "artifacts/root-part320-composed2/focus-source-freeze.json",
+    "Sha256": "BAB3BB5537B1614FD66B1EC1E91FD4ADAFD99FEAFCD1838256C6D6593DA9E5E2"
+  },
+  "GreenClosureSha256": "B282A2B8C2AC9B1D246ADA817FC6B3A4EB479498DCE9B5DB2565CCF173DDFE3B",
+  "GreenSourcePaths": 19,
+  "SourceClosurePaths": 2302,
+  "SourceClosureSha256": "DD20B9B5578C7851D538C271A57A9465C39DF867A5AB58A74BC1DBE6D0C00CC4",
+  "OnlyChangedSource": "src/Erlang.Runtime/RuntimeDistributionPending.GuestSend.cs",
+  "Exact319SourceSha256": "89527DB819C4C919E874E4535D964FB979CEC5278F10FDA8353BEA0AC8149CD8",
+  "Exact319ClosureSha256": "E78578685DF11BE146CDE007C8DBDF16640A7CBAB18DDCA6A7322AD4A511EC3C",
+  "Other2301RowsRawExactGreen": true,
+  "SameFourGreenHostSources": [
+    {
+      "Path": "tests/Erlang.Tests/AsyncDistributionHostChecks.cs",
+      "Bytes": 16339,
+      "Sha256": "0546F5C2E4980C375E4A204D4001EBA62BEAABC3CC04799A2A34FF8CB3269C21"
+    },
+    {
+      "Path": "tests/Erlang.Tests/AsyncDistributionHostNames.cs",
+      "Bytes": 1471,
+      "Sha256": "DF3A27C8E36C66E36C9255454ECADAE3CC0AEBF506EF6CA15FDD90470A359E84"
+    },
+    {
+      "Path": "tests/Erlang.Tests/AsyncDistributionHostParameters.cs",
+      "Bytes": 220,
+      "Sha256": "6F8994940AB256B15D607BC56F2CE6E9D7C4B4D0EA224A7D0B7B264292558C03"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 166987,
+      "Sha256": "3D243A3785924B2C55A0B7A6466A151FF2E5F1871CB7E26DF3F42D1D804016B2"
+    }
+  ],
+  "FlagRegistrationStageStatsAndAllNewTypesRetained": true,
+  "HistoricalWhole319ProductionClaimed": false,
+  "ExpectedTarget": "AsyncDistributionHostChecks:AcceptedOrderSurvivesProducerDeath",
+  "ExpectedFailure": "Actual producer task timeout/return-before-drain barrier with real full queue and predecessor; all fixture cleanup must settle before task completes",
+  "MissingMemberOrCompilationFailureIsNotSemanticRed": true,
+  "BuildOrHostExecuted": false,
+  "ComposerSha256": "A05A47640E5CCFF9B5A5C5BCF27A86B7B5AE1C4B3424A59C197287BA044C9DDB"
+}

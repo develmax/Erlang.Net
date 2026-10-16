@@ -15,6 +15,19 @@ internal sealed class HostDistributionEntry(
         get; set;
     }
     internal Queue<HostDistributionBuffer> Output { get; } = new();
+    internal HashSet<HostDistributionStagedOutput> StagedOutput { get; } = new();
+    internal long StagedPayloadBytes
+    {
+        get; set;
+    }
+    internal long StagedAccountedBytes
+    {
+        get; set;
+    }
+    internal int StagedSegments
+    {
+        get; set;
+    }
     internal bool Closed
     {
         get; set;

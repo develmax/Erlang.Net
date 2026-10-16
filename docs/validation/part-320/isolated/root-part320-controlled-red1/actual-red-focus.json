@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-controlled-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "AD16339C04995E4854AAEA269FA5852AB3B4B5F75EB008C89E25F4ECF00DB339"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-controlled-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "3002C50E3156BD7F6DD8A509AE5194A3E7CB9438116C2A70721AE1D9145A4321"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "AsyncDistributionHostChecks:FlagContracts",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 526
+    },
+    {
+      "Name": "AsyncDistributionHostChecks:AcceptedOrderSurvivesProducerDeath",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 8100,
+      "Exception": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.AsyncDistributionHostChecks.AcceptedOrderSurvivesProducerDeath() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-controlled-red1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 111\r\n   at Erlang.Tests.AsyncDistributionHostChecks.AcceptedOrderSurvivesProducerDeath() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-controlled-red1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 161\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

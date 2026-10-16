@@ -1,0 +1,9 @@
+PASS AsyncDistributionHostChecks:AcceptedOrderSurvivesProducerDeath
+FAIL AsyncDistributionHostChecks:HardBoundAndHalt
+System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'System.String'.
+   at Erlang.ProcessRuntime.get_DistributionPending() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part320-composed1\candidate\src\Erlang.Runtime\ProcessRuntime.Distribution.cs:line 13
+   at Erlang.Tests.AsyncDistributionHostChecks.Drain(ProcessRuntime runtime) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part320-composed1\candidate\tests\Erlang.Tests\AsyncDistributionHostChecks.cs:line 329
+   at Erlang.Tests.AsyncDistributionHostChecks.HardBoundAndHalt() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part320-composed1\candidate\tests\Erlang.Tests\AsyncDistributionHostChecks.cs:line 195
+   at Erlang.Tests.AsyncDistributionHostChecks.HardBoundAndHalt() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\root-part320-composed1\candidate\tests\Erlang.Tests\AsyncDistributionHostChecks.cs:line 195
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

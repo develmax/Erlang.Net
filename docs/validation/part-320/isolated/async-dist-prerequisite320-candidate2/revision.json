@@ -1,0 +1,37 @@
+{
+  "Status": "SOURCE_ONLY_TEST_CORRECTION_TWO_ACTUAL_HARNESS_FAILURES",
+  "PriorFreezeSha256": "9605D14CD60481A5DA7F8AE15E6D7AE9926CDF41AA683FEA306A48165ED8D417",
+  "ChangedOnly": [
+    "tests/Erlang.Tests/AsyncDistributionHostChecks.cs"
+  ],
+  "RuntimePathsByteExact": 12,
+  "DifferentialPathsByteExact": 3,
+  "Corrections": [
+    "Observe actual spawned-body Flag(false) through TCS<Term>; separately join Completion exit-reason task in finally",
+    "Capture actual DistributionPending owner before halt; retain HaltQuiescence and reflect DrainOwnedOutputOperations on captured owner after halt"
+  ],
+  "ActualPriorEvidence": [
+    {
+      "Path": "artifacts/root-part320-composed1/focus-source-freeze.json",
+      "Bytes": 7500,
+      "Sha256": "B1C85770A5242BA39E244A9005E86B27F955CAB6C997E09F95EFEA206FCBB2B9"
+    },
+    {
+      "Path": "artifacts/root-part320-composed1/actual-green-focus.json",
+      "Bytes": 2169,
+      "Sha256": "3B58F232E18B00C360937B673F2189F27D27CDD364EC6A71D72EC3EE731A143E"
+    },
+    {
+      "Path": "artifacts/root-part320-composed1/actual-remaining-subgroups-focus.json",
+      "Bytes": 2161,
+      "Sha256": "63754F5A196FD1F8C1178DF8CB4191BB22EFA517B468D28DF609C8AE0AF39CD5"
+    },
+    {
+      "Path": "artifacts/root-part320-composed1/actual-cancel-retire-focus.json",
+      "Bytes": 1274,
+      "Sha256": "B408F8B3E31C18D62AB5907C9E539A64EA5591ADF3EFCF8D50FA01406E95731F"
+    }
+  ],
+  "NoProductionOrExpectedGuestSemanticsChanged": true,
+  "BuildOrHostExecutionByAuthor": false
+}

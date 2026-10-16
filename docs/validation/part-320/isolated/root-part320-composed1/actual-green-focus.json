@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "0BE618592D0E231D1940788FFE7213187FDB545AB477FED025806B9932A7FF43"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "D2EB27F562AA2D176FBDB093E3023F7A5D4F14A105E926324D726A72BBCA8E5E"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "AsyncDistributionHostChecks",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 375,
+      "Exception": "System.InvalidOperationException: Async distribution staging assertion failed\r\n   at Erlang.Tests.AsyncDistributionHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 354\r\n   at Erlang.Tests.AsyncDistributionHostChecks.FlagContracts() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 65\r\n   at Erlang.Tests.AsyncDistributionHostChecks.FlagContracts() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 65\r\n   at Erlang.Tests.AsyncDistributionHostChecks.FlagContracts() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 65\r\n   at Erlang.Tests.AsyncDistributionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part320-composed1\\candidate\\tests\\Erlang.Tests\\AsyncDistributionHostChecks.cs:line 13\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

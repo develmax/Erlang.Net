@@ -1,0 +1,152 @@
+{
+  "Status": "PASS_ACTUAL_MAIN320_POST_FULL_WINDOWS_LEGACY_QUERY_FIVE_PHASES_AND_REALLOCATION_THREE",
+  "SourceFreeze": {
+    "Path": "artifacts/root-part320-main1/source-freeze.json",
+    "Bytes": 8131,
+    "Sha256": "E9EEB7173E55DB14577B76798D35512756A35EBDD180CF95CCBDA06BE05EC62D"
+  },
+  "SourceClosure": {
+    "Path": "artifacts/root-part320-main1/source-resource-closure.json",
+    "Bytes": 425059,
+    "Sha256": "C16204DBBFEAD09B34361781761F5D7320D09D040376C92C3ACDCCD092B2647E"
+  },
+  "SourceRowsRehashed": 2302,
+  "ActualTool": {
+    "Path": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+    "Bytes": 126976,
+    "Sha256": "8DD3634996C5C7F80D27F3B6528C03CF45B027F91BE00966B1260FE08E5B1A2C"
+  },
+  "ActualRuntime": {
+    "Path": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.Runtime.dll",
+    "Bytes": 1364992,
+    "Sha256": "E4D7AC50608F8C58FF7E5ED34F5B6946FB652532E063660F6405AFFCBB5353D6"
+  },
+  "Roles": [
+    {
+      "Role": "legacy",
+      "StdoutSha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78",
+      "ExitCode": 0,
+      "ElapsedSeconds": 1.375,
+      "RecursiveDllJsonPins": 36,
+      "Attempt": {
+        "Path": "artifacts/root-part320-main-windows-native1/legacy.attempt.json",
+        "Bytes": 9705,
+        "Sha256": "4136DF36ED6B4CB1EB77BBB2C307293D9F9BCD6733347259392C7FFC64368D09"
+      },
+      "Process": {
+        "Path": "artifacts/root-part320-main-windows-native1/legacy.process.json",
+        "Bytes": 813,
+        "Sha256": "CC719625926A5811752523F8C6B71C0D581C2DF888CBF9ECED3CAF662603E022"
+      }
+    },
+    {
+      "Role": "provider-query",
+      "StdoutSha256": "E8A2C1E031842C48F5B3D98E3A588E002FE6432E6D7A87ACCE73F4D20A1FCBFF",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.31199999999807915,
+      "RecursiveDllJsonPins": 36,
+      "Attempt": {
+        "Path": "artifacts/root-part320-main-windows-native1/provider-query.attempt.json",
+        "Bytes": 9753,
+        "Sha256": "6B98DF59CDA58D7682B05E47952CF88C9DCA39500D6BE17B5B9B55BB7BE97E01"
+      },
+      "Process": {
+        "Path": "artifacts/root-part320-main-windows-native1/provider-query.process.json",
+        "Bytes": 835,
+        "Sha256": "E583006AC0ED041832FF88823EBEECB88D80773828D30B0C20239D58DA2508B5"
+      }
+    },
+    {
+      "Role": "reallocation",
+      "StdoutSha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.26599999999598367,
+      "RecursiveDllJsonPins": 36,
+      "Attempt": {
+        "Path": "artifacts/root-part320-main-windows-native1/reallocation.attempt.json",
+        "Bytes": 10130,
+        "Sha256": "7B6FC6B534622FE9F95CEEFC4D7BCD26D569C42919CF4F72224C92A0F43D7582"
+      },
+      "Process": {
+        "Path": "artifacts/root-part320-main-windows-native1/reallocation.process.json",
+        "Bytes": 833,
+        "Sha256": "D53721BF8217B063C6CDB69409EBD3A85336926A9F4329139F664A1CD2F53C77"
+      }
+    }
+  ],
+  "RuntimeDependencyAssetsVerified": 34,
+  "EveryRecursiveToolDllJsonBoundAcrossAllThreeAttempts": true,
+  "FullPassed": 6675,
+  "SourceFreezeSha256": "E9EEB7173E55DB14577B76798D35512756A35EBDD180CF95CCBDA06BE05EC62D",
+  "SourceFilesRehashed": 2302,
+  "ActualFullGuard": {
+    "Path": "artifacts/root-part320-main1/full-guard.json",
+    "Bytes": 11043,
+    "Sha256": "5021639A74EE17CF7C25A97B2A1B09452B0A3162FAD09E00FDF69961791B9E3E"
+  },
+  "ManualReader": {
+    "Path": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+    "Bytes": 8076,
+    "Sha256": "A8205F7577A9FB991EB8FDFF860571B375E5B57A944BF70F4AFBEC5B4A837FAA"
+  },
+  "IndependentTypedReplayMatchesRoot": true,
+  "QueryPhases": [
+    "VetoClosed",
+    "Loaded",
+    "AdmissionHeld",
+    "RetirementPending",
+    "Unloaded"
+  ],
+  "RuntimeOrdinals": [
+    1,
+    2,
+    2,
+    2,
+    2
+  ],
+  "JoinedOwners": [
+    0,
+    1,
+    1,
+    1,
+    0
+  ],
+  "RequestedAndBackingPairs": [
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 4,
+      "backing_request_bytes": 4
+    },
+    {
+      "requested_bytes": 0,
+      "backing_request_bytes": 0
+    }
+  ],
+  "LoadedOwnerLedgerEqualsActualQuery": true,
+  "UnloadedCurrentZeroAndHistoryRetained": true,
+  "Scope": "sdk_joined_nif_payload_requests",
+  "TrustedBridgeSha256": null,
+  "LegacyAndReallocationRawByteExactPreviousActual317": true,
+  "OriginalExecuted": false,
+  "PhysicalMemoryCompared": false,
+  "NewCCompiled": false,
+  "ReviewerExecutedNativeVmSdkGitOrMainMutation": false,
+  "ReviewedInterpretation": "Actual trusted Windows C callback/owner lifecycle queried through the same live SDK runtime; requested payload ledger scope only. No original Erlang comparison or physical allocator footprint claim.",
+  "IndependentPeerRole": "FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW",
+  "MainExecution": true,
+  "SourcePaths": 24,
+  "CSharpPaths": 19,
+  "ActualTrustedCQueryExecuted": true,
+  "MainSourceFreezeSha256": "E9EEB7173E55DB14577B76798D35512756A35EBDD180CF95CCBDA06BE05EC62D"
+}

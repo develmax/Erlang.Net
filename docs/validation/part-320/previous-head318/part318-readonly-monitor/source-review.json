@@ -1,0 +1,32 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_EXACT_HEAD318_AUTHENTICATED_READ_ONLY_FIVE_RUN_GET_MONITOR",
+  "Head": "f7ef36d1ddba1af2e52f77b7536f34e5db71a04f",
+  "Files": [
+    {
+      "Path": "artifacts/part318-readonly-monitor/map-and-status.ps1",
+      "Sha256": "B6F10F3E1329FB51B3D499725136D67FF259773257652E10023FA7FEB9C5A384",
+      "ParentSha256": "BFF0A4B738EAC6A55487D45F5B66FECB500B5A945AC941459E4D5C696488BF67"
+    },
+    {
+      "Path": "artifacts/part318-readonly-monitor/download-terminal.ps1",
+      "Sha256": "C01A71FDFDC03F9838490F9D1B4D1DBF7F17287D85D4B8DFCF8D651A840955C0",
+      "ParentSha256": "0B116FEA9DC8142A7876A5BC420DA587C18596E22D39522E19C660A92DAE8219"
+    },
+    {
+      "Path": "artifacts/part318-readonly-monitor/extract-and-freeze.py",
+      "Sha256": "376679BAE0F5D532106BCBF801793A2D27E9D0292C01829383715C61A8E5C6A9",
+      "ParentSha256": "2B818A6D4032B5B85CF3C505F65BAEBB5AD2970FD27D6CF665BE8E7402C84999"
+    }
+  ],
+  "Changes": [
+    "Part/head318",
+    "Newdistribution-signal-observations workflow_dispatch role and downloadkind",
+    "Statuslabel FIVE_RUNS"
+  ],
+  "PollMinimumSeconds": 60,
+  "ExpectedRuns": 5,
+  "MappingRequiresWorkflowPathEventHeadAttemptAndDispatchTimeWindow": true,
+  "SecretCapturedInternallyAndClearedFinally": true,
+  "PostOrDispatcherInvoked": false,
+  "NativeVmSdkExecution": false
+}

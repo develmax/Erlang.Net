@@ -51,6 +51,10 @@ public sealed class ProcessContext : ITermExecutionContext
     internal HashSet<PortTerm> PortLinks { get; } = new();
     internal HashSet<PortTerm> PriorityPortLinks { get; } = new();
     internal HashSet<Pid> PriorityLinks { get; } = new();
+    internal bool AsyncDistribution
+    {
+        get; set;
+    }
     internal bool Terminated;
     internal volatile bool SuspensionRequested;
     internal HashSet<ProcessCodeRequest> PendingCodeChecks { get; } = new();

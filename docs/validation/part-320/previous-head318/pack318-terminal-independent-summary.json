@@ -1,0 +1,99 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD318_ALL_FIVE_TERMINAL_WORKFLOWS",
+  "Head": "f7ef36d1ddba1af2e52f77b7536f34e5db71a04f",
+  "Attempt": 1,
+  "Ci": {
+    "Run": 38823988109,
+    "Passed": 6668,
+    "Integrations": 11,
+    "Mfa": 509,
+    "ErlangMfa": 351
+  },
+  "Native": {
+    "Run": 38824089484,
+    "PlanInputs": 1088,
+    "LinuxStdoutRows": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13Validated": true,
+    "Original13ComparedWithSdk13": false
+  },
+  "Reallocation": {
+    "Run": 38824094836,
+    "PlanInputs": 1113,
+    "WholePrefixFilesRehashed": 2646,
+    "NativeLibrariesActuallyBuiltAndReviewed": 4,
+    "OriginalCases": 3,
+    "SdkCases": 3
+  },
+  "Distribution": {
+    "Run": 38824100620,
+    "ActualOriginalNodes": 2,
+    "GroupLeaderContracts": 4,
+    "ExistingInputControllerCaptures": 5,
+    "New319SevenSendProbeExecuted": false,
+    "SdkLivePeerEqualityClaimed": false
+  },
+  "Ordinary": {
+    "Run": 38824083331,
+    "Passed": 5880,
+    "FdPassed": 8,
+    "AllOrderedRowsChecked": true,
+    "DifferentialSourcesUnchanged317": 227,
+    "ObservedPredeclaredMapVarianceRelative317": 1,
+    "StrictFailurePreserved": true,
+    "SemanticGateUsesExistingPublishedRule": true,
+    "RawNormalization": false,
+    "SeparateBackendMemoryProfilesTypedPass": true,
+    "RawBackendEqualityClaimed": false,
+    "NumericPartitionsValidatedPerSnapshot": true
+  },
+  "GuardBindings": [
+    {
+      "Path": "artifacts/pack318-ci-independent-guard.json",
+      "Sha256": "3A272040EA03124A0AD7F77285311531C84FB10BD63FF613FC09EE97C63F1832",
+      "Status": "PASS_EXACT_HEAD318_CI6668_FULL"
+    },
+    {
+      "Path": "artifacts/pack318-native-combined-independent-guard.json",
+      "Sha256": "D0BBAB9F9B3B440C7AEACBB79BD85AAF1DA2E0A2E9FC743EE76A0C6B317AB6C2",
+      "Status": "PASS_EXACT_HEAD318_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Path": "artifacts/pack318-reallocation-independent-guard.json",
+      "Sha256": "BD857D4220AEC044A404F9B3D9EFA63D011D8FCA5D7773D6AF45BF0D5CE1FFE7",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD318_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON"
+    },
+    {
+      "Path": "artifacts/pack318-distribution-independent-guard.json",
+      "Sha256": "64890126E090A1643C0E9FC4DC38A25087DA07FC85F27611CC552591DEBE6F45",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD318_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack318-ordinary-semantic-independent-guard.json",
+      "Sha256": "0F968A8979FF2F668633DBE4A487C8D8557F3B19B340E10C3D140EF6656B38A9",
+      "Status": "PASS_EXACT_HEAD318_FRESH_ORIGINAL5880_FD8_UNCHANGED317_CORPUS_AND_RULES"
+    },
+    {
+      "Path": "artifacts/pack318-allocator-profile-independent-guard.json",
+      "Sha256": "70DA02685C74B260036086DE00947B4883C45AD5046537F18455AC47AAF297EA",
+      "Status": "PASS_EXACT_HEAD318_SEPARATE_ACTUAL_ORIGINAL_LIBC_VS_SDK_DOTNET_BACKEND_PROFILE"
+    },
+    {
+      "Path": "artifacts/pack318-memory-profile-independent-guard.json",
+      "Sha256": "F1A40347B1B00388EBCA85751E02E81280BE4FABED447DD26073E438DC504320",
+      "Status": "PASS_EXACT_HEAD318_ACTUAL_RAW_MEMORY_PROFILE_BOTH_BACKENDS_TWO_INDEPENDENT_NINE_KEY_SNAPSHOTS"
+    }
+  ],
+  "StrictFailureBinding": {
+    "Path": "artifacts/pack318-ordinary-strict-independent-failure.json",
+    "Sha256": "60A2F7BA006184005828A1772E15FDB73423DE9B7ECBBAA3E3556FDC1A1B6C6C"
+  },
+  "All318RunsTerminalAudited": true,
+  "NoFurther318GetNeeded": true,
+  "NativeVmSdkExecutedByReviewer": false,
+  "PostExecutedByReviewer": false,
+  "MainOrGitMutation": false,
+  "GeneralNativeAbiComplete": false,
+  "PhysicalWholeGcParityClaimed": false,
+  "PortableBinaryArchiveClaimed": false
+}
