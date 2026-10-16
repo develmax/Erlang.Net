@@ -1,0 +1,53 @@
+{
+  "Status": "PASS_INDEPENDENT_NARROW_PUBLIC_ADMISSION_SOURCE_DELTA_NOT_ACTUAL_EXECUTION",
+  "CandidateFreezeSha256": "28E773857A6D8B465A3C79EA4FC30AD7AE4646549947F33058ED6DC5C94FFA9B",
+  "ClosureSha256": "7811C954C7345556ECD6F90A6FC02098AD9AD7C3C4B9B990798312358D80D253",
+  "OwnedPaths": 24,
+  "CSharpPaths": 24,
+  "ProductionPaths": 14,
+  "ClosurePathsRehashed": 2393,
+  "OutsideOwnedParentExact": 2369,
+  "OnlyChangedProductionPath": [
+    "src/Erlang.Runtime/ModuleRegistry.cs"
+  ],
+  "OtherThirteenProductionRawExactCandidate1": true,
+  "InternalSevenArgumentAndFollowingRegistryBytesExactCandidate1": true,
+  "PublicCompatibilityFindings": [
+    "Public six-argument async ValueTask signature remains the baseline external shape and awaits internal overload with null invocation.",
+    "MissingCurrentLocalFunction is converted to legacy undef without invoking either handler callback; the returned missing admission has null image/lease, so this branch does not abandon a source lease.",
+    "Admitted same image/owner/lease is returned unchanged. Retry requires nonnull invocation and cannot arise through this wrapper. Existing badfun/current and pending-purge wait behavior flows through the same internal core.",
+    "Internal compiler seven-argument path retains new undefined_lambda dispatch and original wrapper identity. No production scope expansion or new lock/publication boundary."
+  ],
+  "EarlierReviewQualification": "D6D39 source review did not detect candidate1 public-six-argument behavior regression. Root source review found it before production promotion; this peer explicitly qualifies the earlier diagnostic-only clearance and verifies the candidate2 correction. No historical executed RED is claimed for this public-contract gap.",
+  "ReviewerAuthoredFixturesExcludedFromIndependentReview": [
+    "oracle2 DB0B",
+    "lifecycle HOST3 A51E"
+  ],
+  "DiagnosticSourceClear": true,
+  "ProductionPromotionReadyNotAsserted": true,
+  "RootActualBuildFullNativeOriginalReadinessStillSeparate": true,
+  "SdkVmBuildExecutionByReviewer": false,
+  "MainGitModified": false,
+  "Bindings": [
+    {
+      "Path": "artifacts/undefined-lambda328-candidate2/source-freeze.json",
+      "Bytes": 8329,
+      "Sha256": "28E773857A6D8B465A3C79EA4FC30AD7AE4646549947F33058ED6DC5C94FFA9B"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate2/source-resource-closure.json",
+      "Bytes": 442976,
+      "Sha256": "7811C954C7345556ECD6F90A6FC02098AD9AD7C3C4B9B990798312358D80D253"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1/source-freeze.json",
+      "Bytes": 7379,
+      "Sha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1-putdata-source-peer.json",
+      "Bytes": 4072,
+      "Sha256": "D6D39B3D81AB4C55AA019490884F8EEE9320D19856B48878D61D0945429AE5A6"
+    }
+  ]
+}

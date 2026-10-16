@@ -1,0 +1,93 @@
+{
+  "Status": "PASS_SAME_FAILED_MAIN1_DLL_FIVE_EXISTING_ASSERTION_REDS",
+  "Passed": true,
+  "SnapshotCaptureSha256": "C1252335323D98761C5B548C07F4ED498EECEF60E51087A0438C68D3AA8A0065",
+  "NoBuildOrSourceEdit": true,
+  "Cases": [
+    {
+      "Selector": "Erlang.Tests.ConnectedIngressHostChecks:Run",
+      "ExpectedOriginalAssertionLine": 142,
+      "ExitCode": 1,
+      "OwnedProcessSettled": true,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.5159999999959837,
+      "SameLegacyAssertionReproduced": true,
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\bin\\Debug\\net10.0\\Focus.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-five-legacy-red\\ConnectedIngressHostChecks\\actual.json",
+        "Erlang.Tests.ConnectedIngressHostChecks:Run"
+      ],
+      "RawReportSha256": "CDE2368C876EE16B82ABA8693C9074E13DF2801E3FD331077EA3E2CB2BEF0534"
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionRawInputHostChecks:Run",
+      "ExpectedOriginalAssertionLine": 138,
+      "ExitCode": 1,
+      "OwnedProcessSettled": true,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.46899999999732245,
+      "SameLegacyAssertionReproduced": true,
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\bin\\Debug\\net10.0\\Focus.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-five-legacy-red\\DistributionRawInputHostChecks\\actual.json",
+        "Erlang.Tests.DistributionRawInputHostChecks:Run"
+      ],
+      "RawReportSha256": "E589C0A6918AEDAA2C74B37BFCA4BB2BF8AF86CDB1D6B5485623ABD562E47EBD"
+    },
+    {
+      "Selector": "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+      "ExpectedOriginalAssertionLine": 197,
+      "ExitCode": 1,
+      "OwnedProcessSettled": true,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.48399999999674037,
+      "SameLegacyAssertionReproduced": true,
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\bin\\Debug\\net10.0\\Focus.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-five-legacy-red\\DeferredOwnerDrainHostChecks\\actual.json",
+        "Erlang.Tests.DeferredOwnerDrainHostChecks:Run"
+      ],
+      "RawReportSha256": "72114E8BACF2CF61059D595CBBFA2A76C80F2BEDBE0D6B6C6825DEC83595AB7D"
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+      "ExpectedOriginalAssertionLine": 120,
+      "ExitCode": 1,
+      "OwnedProcessSettled": true,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.4530000000013388,
+      "SameLegacyAssertionReproduced": true,
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\bin\\Debug\\net10.0\\Focus.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-five-legacy-red\\DistributionPayloadExitHostChecks\\actual.json",
+        "Erlang.Tests.DistributionPayloadExitHostChecks:Run"
+      ],
+      "RawReportSha256": "FD0C11667362A23084D6DE69F599CB4C454E41C51BFDF978CCDA564AAE7E343D"
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run",
+      "ExpectedOriginalAssertionLine": 183,
+      "ExitCode": 1,
+      "OwnedProcessSettled": true,
+      "TimedOut": false,
+      "ElapsedSeconds": 0.4219999999986612,
+      "SameLegacyAssertionReproduced": true,
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\bin\\Debug\\net10.0\\Focus.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-five-legacy-red\\DistributionPayloadMonitorHostChecks\\actual.json",
+        "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run"
+      ],
+      "RawReportSha256": "8F0A2CE74A5138A80D8D6F742F98C53EC78960B956C80E447F45B7C516BF4418"
+    }
+  ]
+}

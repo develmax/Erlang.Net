@@ -1,0 +1,20 @@
+{
+  "Status": "NEEDS_REVISION_PUBLIC_SIX_ARGUMENT_SOURCE_ADMISSION_EXCEPTION_COMPATIBILITY328_CANDIDATE1",
+  "Passed": false,
+  "CandidateFreezeSha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD",
+  "PrecedingDiagnosticProductionPeerSha256": "27D7323E9BE4DA962995C8ED98DC1637FE8727C728A692237D2AD0E91ECD0703",
+  "SourceFindingInitiallyIdentifiedBy": "Root",
+  "IndependentAssessmentAgrees": true,
+  "Finding": {
+    "Id": "P1",
+    "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+    "Issue": "The preserved public six-argument method forwards the new internal Missing result. Retired/no-CURRENT previously threw Erlang undef; external callers cannot read internal Kind and can interpret null-image/lease as successful admission. Signature compatibility alone does not preserve the public contract.",
+    "RequiredFix": "Keep internal seven-argument Missing for compiler callback routing, but make the existing public six-argument wrapper await the result and throw the previous Erlang undef for Missing. Null invocation cannot produce Retry. Preserve admitted result, old/current badfun and pending-purge waits.",
+    "ActualRuntimeRegressionObserved": false,
+    "PublicConstructorOrMethodSignatureChanged": false
+  },
+  "OtherFourteenPathPublicationOriginalWrapperAndLockReviewUnchanged": true,
+  "PromotionCleared": false,
+  "ReviewerAuthoredInitialHostHelpersExcluded": true,
+  "ReviewerSdkVmBuildMainGitNetworkMutation": false
+}

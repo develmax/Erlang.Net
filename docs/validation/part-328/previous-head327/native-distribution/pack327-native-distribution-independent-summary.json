@@ -1,0 +1,179 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED327_NATIVE_AND_DISTRIBUTION_TYPED_SCOPES",
+  "Head": "4bc4c00b713c1cc0bbf32a1c74add45174bbd10a",
+  "Native": {
+    "Run": 38856984833,
+    "Job": 116830578254,
+    "Artifact": 12027638018,
+    "RawRows": 205,
+    "StrictSdkStdoutLines": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13": true,
+    "Original13ComparedWithSdk": false,
+    "GeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+    "PublishedWindowsGuardSha256": "0A1B22F39402516C3E41B5869CB5DEFE672E1CD6932F56ED33F3C44A9FC226A0"
+  },
+  "Distribution": {
+    "Run": 38856994168,
+    "Job": 116830596757,
+    "Artifact": 12027209546,
+    "RawRows": 600,
+    "GroupLeaderContracts": 4,
+    "SendContracts": 7,
+    "LinkContracts": 7,
+    "ExitContracts": 8,
+    "ControlWaitFreshThreeVmCases": 2,
+    "RetainedLinkFreshThreeVmCases": 2,
+    "ActualRetentionCases": [
+      {
+        "Mode": "normal",
+        "Nodes": {
+          "a": "lr325_normal_a_76a751ddd9c1@127.0.0.1",
+          "b": "lr325_normal_b_76a751ddd9c1@127.0.0.1",
+          "c": "lr325_normal_c_76a751ddd9c1@127.0.0.1"
+        },
+        "Nonce": "76a751ddd9c1433a9a7451095a3d68c6",
+        "CompiledImagesPerRole": 3,
+        "ActualVmRoles": 3,
+        "FullOwnerQuery": true,
+        "NormalTargetBusy": true,
+        "AsyncReturnedBeforeDrainWithoutTargetBusy": false,
+        "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+        "ReceiverNonceLinkedExitKilledAfterCont": true,
+        "StoppedSeconds": 0.464478164,
+        "AllWorkerAndVmCleanupSettled": true
+      },
+      {
+        "Mode": "async",
+        "Nodes": {
+          "a": "lr325_async_a_14b7b58bba3a@127.0.0.1",
+          "b": "lr325_async_b_14b7b58bba3a@127.0.0.1",
+          "c": "lr325_async_c_14b7b58bba3a@127.0.0.1"
+        },
+        "Nonce": "14b7b58bba3a4bfe9bb4dd4c49f0166d",
+        "CompiledImagesPerRole": 3,
+        "ActualVmRoles": 3,
+        "FullOwnerQuery": true,
+        "NormalTargetBusy": false,
+        "AsyncReturnedBeforeDrainWithoutTargetBusy": true,
+        "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+        "ReceiverNonceLinkedExitKilledAfterCont": true,
+        "StoppedSeconds": 0.47279095,
+        "AllWorkerAndVmCleanupSettled": true
+      }
+    ],
+    "ActualRetentionCompiledImages": [
+      {
+        "Module": "distribution_link_retention325",
+        "Bytes": 17224,
+        "Sha256": "7ABE549D11862F0B22C65747E3A872593FB4503D396152713CDBBD18D0C97A2F",
+        "FullImageMd5": "8EE5DF0B19BA4D3FA5AA6B50A4C88AA7"
+      },
+      {
+        "Module": "distribution_link_retention325_driver",
+        "Bytes": 10088,
+        "Sha256": "83E7824BA5E1E44E5AE8D755BE797A6075CD4ACCA094252F0196201AFE2769F8",
+        "FullImageMd5": "8B3989C77715FC77D4315D5E9AF1CD0C"
+      },
+      {
+        "Module": "distribution_link_receiver325",
+        "Bytes": 2464,
+        "Sha256": "4097B2547CA82029B85A7BFFE82EDA5169594F2B8F37710450B8F2AA64B9CEA7",
+        "FullImageMd5": "2E353BD061BCED5E059F08C68E1E7789"
+      }
+    ],
+    "AllOwnedCleanupVerified": true
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1114,
+      "Sha256": "D1A3A9533A9A4537E7C7B596318E690083677B154B8A912B5AC36A0672137344",
+      "NonFilesImportAbiPoliciesExact326": true,
+      "AddedSourcePaths": [
+        "src/Erlang.Runtime/ModuleCallDispatchKind.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+        "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+        "src/Erlang.Runtime/ProcessRuntime.ErrorHandler.cs",
+        "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs"
+      ],
+      "UpdatedExistingRecords": [
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Runtime/CoreModules.cs",
+        "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/ProcessContext.cs",
+        "src/Erlang.Terms/ErlangException.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1139,
+      "Sha256": "0096F13F945A7494F704C518EDFCEC766DF38167B8EE76898F53FA3077E118D9",
+      "NonFilesImportAbiPoliciesExact326": true,
+      "AddedSourcePaths": [
+        "src/Erlang.Runtime/ModuleCallDispatchKind.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+        "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+        "src/Erlang.Runtime/ProcessRuntime.ErrorHandler.cs",
+        "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs"
+      ],
+      "UpdatedExistingRecords": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Runtime/CoreModules.cs",
+        "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/ProcessContext.cs",
+        "src/Erlang.Terms/ErlangException.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ]
+    }
+  ],
+  "Guards": [
+    {
+      "Path": "artifacts/pack327-native-combined-independent-guard.json",
+      "Bytes": 1430,
+      "Sha256": "B183F6E83A076BEFFA59A4963A461B9FA2A724C48CED4EF146AD7B440217EF07"
+    },
+    {
+      "Path": "artifacts/pack327-group-leader-independent-guard.json",
+      "Bytes": 1986,
+      "Sha256": "49810D32AAF6D670A112759CD5A1CACFA4870B47142645DD86E12DD84518E8CF"
+    },
+    {
+      "Path": "artifacts/pack327-guest-send-independent-guard.json",
+      "Bytes": 2568,
+      "Sha256": "B835B2039AEA012FA559C467A6B37696E493489DC06D538E186FF643D24E434F"
+    },
+    {
+      "Path": "artifacts/pack327-guest-links-independent-guard.json",
+      "Bytes": 3774,
+      "Sha256": "A0889E5FD0FB7519B7E60AA5EF3C29FC20108BD962EEC163FBD6DED9C1185211"
+    },
+    {
+      "Path": "artifacts/pack327-guest-exit-independent-guard.json",
+      "Bytes": 4021,
+      "Sha256": "2B93E695361514B98FA6F07C21C328CCB0D2A49A25EF1CD985786A5F1137A992"
+    },
+    {
+      "Path": "artifacts/pack327-control-wait-independent-guard.json",
+      "Bytes": 2027,
+      "Sha256": "A0F451F8CAD18D0F94C8C74C69FD6D37DF01B36EADB739F83C43934E22CB3001"
+    },
+    {
+      "Path": "artifacts/pack327-retention-independent-guard.json",
+      "Bytes": 3000,
+      "Sha256": "0EBB520800ADBEDA55031055C4E8AEF5BB42A81D7C7FA5032B43C7E746CAC1D0"
+    }
+  ],
+  "StrictExitRemotePythonReprEqualityPassed": true,
+  "ExitDisplayDifferenceFields": [],
+  "FreshStrictExitReprRefusalSha256": null,
+  "NoRawNormalization": true,
+  "NoInheritedOrAssumedDisplayDifference": true,
+  "Ordinary327ErrorHandlerCasesNotInferred": true,
+  "WholeErlangGeneralAbiOrWirePhaseParityClaimed": false,
+  "ReviewerNativeVmSdkBuildNetworkMainGitMutation": false
+}

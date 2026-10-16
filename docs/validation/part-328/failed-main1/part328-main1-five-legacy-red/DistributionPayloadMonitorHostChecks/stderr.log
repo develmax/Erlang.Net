@@ -1,0 +1,14 @@
+FAIL Erlang.Tests.DistributionPayloadMonitorHostChecks:Run
+System.InvalidOperationException: Deferred payload monitor assertion failed
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.Check(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 258
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.<>c.<<CheckUnknownReferenceFactory>b__6_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 183
+--- End of stack trace from previous location ---
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.WithConnection(Func`7 body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 224
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.CheckUnknownReferenceFactory() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 130
+   at Erlang.Tests.DistributionPayloadMonitorHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\DistributionPayloadMonitorHostChecks.cs:line 15
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

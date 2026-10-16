@@ -1,0 +1,96 @@
+{
+  "SchemaVersion": 1,
+  "Status": "PROPOSED_NOT_COMPILED_OR_EXECUTED",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "EntryModule": "memory_allocator_nif_fixture",
+  "Entries": [
+    {
+      "Name": "increment",
+      "Arity": 1
+    },
+    {
+      "Name": "greeting",
+      "Arity": 0
+    }
+  ],
+  "LoadMarker": 42,
+  "Greeting": "native realloc probe",
+  "Bits": {
+    "INITIAL_NON_NULL": 1,
+    "INITIAL_PAYLOAD_VERIFIED": 2,
+    "GROW_NON_NULL": 4,
+    "GROW_PREFIX_VERIFIED": 8,
+    "SHRINK_NON_NULL": 16,
+    "SHRINK_PREFIX_VERIFIED": 32,
+    "ZERO_NON_NULL": 64,
+    "AFTER_ZERO_NON_NULL": 128,
+    "AFTER_ZERO_NEW_PAYLOAD_VERIFIED": 256,
+    "NO_PENDING_EXCEPTION": 512,
+    "CURRENT_POINTER_FREE_RETURNED": 1024
+  },
+  "Cases": [
+    {
+      "Case": "null_positive",
+      "Selector": 1,
+      "RequestedSizes": [
+        13
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "RequiredBits": [
+        "INITIAL_NON_NULL",
+        "INITIAL_PAYLOAD_VERIFIED",
+        "NO_PENDING_EXCEPTION",
+        "CURRENT_POINTER_FREE_RETURNED"
+      ],
+      "ExpectedReturnedMask": 1539
+    },
+    {
+      "Case": "null_zero",
+      "Selector": 2,
+      "RequestedSizes": [
+        0
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "RequiredBits": [
+        "INITIAL_NON_NULL",
+        "ZERO_NON_NULL",
+        "NO_PENDING_EXCEPTION",
+        "CURRENT_POINTER_FREE_RETURNED"
+      ],
+      "ExpectedReturnedMask": 1601
+    },
+    {
+      "Case": "resize_sequence",
+      "Selector": 3,
+      "RequestedSizes": [
+        13,
+        37,
+        7,
+        0,
+        5
+      ],
+      "RequestedSizesKind": "AuthoredControl",
+      "RequiredBits": [
+        "INITIAL_NON_NULL",
+        "INITIAL_PAYLOAD_VERIFIED",
+        "GROW_NON_NULL",
+        "GROW_PREFIX_VERIFIED",
+        "SHRINK_NON_NULL",
+        "SHRINK_PREFIX_VERIFIED",
+        "ZERO_NON_NULL",
+        "AFTER_ZERO_NON_NULL",
+        "AFTER_ZERO_NEW_PAYLOAD_VERIFIED",
+        "NO_PENDING_EXCEPTION",
+        "CURRENT_POINTER_FREE_RETURNED"
+      ],
+      "ExpectedReturnedMask": 2047
+    }
+  ],
+  "RawNativeResult": "Actual ERL_NIF_TERM integer from fixed enif_make_int; no tuple/list ABI required",
+  "RequestedSizesAreMeasured": false,
+  "NativePointersSerialized": false,
+  "OriginalZeroPrecondition": "Actual enabled driver_alloc pinned util path verified before invoking fixture; no disabled/libc-zero profile",
+  "AnyPartialMaskFailsComparison": true,
+  "UnknownBitsRejected": true,
+  "SdkSnapshotComparison": "SDK-only requested/backing-request accounting, no cross-runtime physical byte parity"
+}

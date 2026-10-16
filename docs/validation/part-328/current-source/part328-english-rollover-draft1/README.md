@@ -1,0 +1,3 @@
+# Part328 English source draft
+
+SOURCE ONLY; no Main writes or finalization run. Complete0051 entry is draft with required actual placeholders. CHANGELOG candidate changes only0050 active→closed and adds0051; preserve closed0050 bytes (32576) and all prior volumes. Five reserved proof targets must be populated by actual gates before finalization. Snippets are proposals for dependency-decisions/OTP-PORTS/AGENTS/progress/compatibility/source ledger and must be integrated surgically; no authoritative JSON/readiness/inventory values are fabricated. New entry size is checked here; Root may substitute actual outcomes then enforce32KiB/400lines again. Existing immutable source freezes and actual327 summary provide source/evidence bindings, not new328 runtime proof.

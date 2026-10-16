@@ -1,0 +1,36 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "PinnedPath": "erts/emulator/beam/external.c",
+      "Path": "artifacts/undefined-lambda328-oracle1/pinned/erts/emulator/beam/external.c",
+      "Bytes": 212461,
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B",
+      "Excerpts": [
+        {
+          "StartLine": 5102,
+          "EndLine": 5184,
+          "Text": "5102: \tcase NEW_FUN_EXT:\n5103: \t    {\n5104: \t\tErlFunThing *funp;\n5105: \t\tUint arity;\n5106: \t\tEterm module;\n5107: \t\tconst byte* uniq;\n5108: \t\tint index;\n5109: \t\tSint old_uniq;\n5110: \t\tSint old_index;\n5111: \t\tunsigned num_free;\n5112: \t\tint i;\n5113: \t\tEterm temp;\n5114: \n5115: \t\tep += 4;\t/* Skip total size in bytes */\n5116: \t\tarity = *ep++;\n5117: \t\tuniq = ep;\n5118: \t\tep += 16;\n5119: \t\tindex = get_int32(ep);\n5120: \t\tep += 4;\n5121: \t\tnum_free = get_int32(ep);\n5122: \t\tep += 4;\n5123: \n5124:                 funp = (ErlFunThing*)hp;\n5125:                 funp->thing_word = MAKE_FUN_HEADER(arity, num_free, 0);\n5126:                 *objp = make_fun(funp);\n5127: \n5128:                 hp += ERL_FUN_SIZE + num_free;\n5129: \n5130: \t\t/* Module */\n5131: \t\tif ((ep = dec_atom(edep, ep, &module, flags)) == NULL) {\n5132: \t\t    goto error;\n5133: \t\t}\n5134: \t\tfactory->hp = hp;\n5135: \t\t/* Index */\n5136: \t\tif ((ep = dec_term(edep, factory, ep, &temp, NULL, flags)) == NULL) {\n5137: \t\t    goto error;\n5138: \t\t}\n5139: \t\tif (!is_small(temp)) {\n5140: \t\t    goto error;\n5141: \t\t}\n5142: \t\told_index = unsigned_val(temp);\n5143: \n5144: \t\t/* Uniq */\n5145: \t\tif ((ep = dec_term(edep, factory, ep, &temp, NULL, flags)) == NULL) {\n5146: \t\t    goto error;\n5147: \t\t}\n5148: \t\tif (!is_small(temp)) {\n5149: \t\t    goto error;\n5150: \t\t}\n5151: \t\told_uniq = unsigned_val(temp);\n5152: \n5153:                 /* Creator pid, discarded */\n5154:                 if ((ep = dec_term(edep, factory, ep, &temp, NULL,\n5155:                                    flags)) == NULL) {\n5156:                     goto error;\n5157:                 }\n5158:                 if (!is_pid(temp)) {\n5159:                     goto error;\n5160:                 }\n5161: \n5162:                 funp->entry.fun = erts_fun_entry_get_or_make_stub(module,\n5163:                                                                   old_uniq,\n5164:                                                                   old_index,\n5165:                                                                   uniq,\n5166:                                                                   index,\n5167:                                                                   arity);\n5168:                 hp = factory->hp;\n5169: \n5170: \t\t/* Environment */\n5171: \t\tfor (i = num_free-1; i >= 0; i--) {\n5172: \t\t    funp->env[i] = (Eterm) next;\n5173: \t\t    next = funp->env + i;\n5174: \t\t}\n5175: \t\tbreak;\n5176: \t    }\n5177: \tcase ATOM_INTERNAL_REF2:\n5178: \t    n = get_int16(ep);\n5179: \t    ep += 2;\n5180:             if (!erts_is_atom_index_ok(n)) {\n5181: \t\tgoto error;\n5182: \t    }\n5183: \t    *objp = make_atom(n);\n5184: \t    break;"
+        }
+      ]
+    },
+    {
+      "PinnedPath": "erts/emulator/beam/erl_fun.c",
+      "Path": "artifacts/undefined-lambda328-oracle1/pinned/erts/emulator/beam/erl_fun.c",
+      "Bytes": 9181,
+      "Sha256": "C3C201A5B0EB26001788CD9BDC7C140D01BF7DB40A239E7B7CD01BD2DB83D95F",
+      "Excerpts": [
+        {
+          "StartLine": 64,
+          "EndLine": 101,
+          "Text": "64:     HashValue components[2];\n65: \n66: #ifdef ARCH_64\n67:     ERTS_CT_ASSERT(sizeof(HashValue) == sizeof(Uint64));\n68:     sys_memcpy(&components[0], &fe->uniq[0], sizeof(Uint64));\n69:     sys_memcpy(&components[1], &fe->uniq[8], sizeof(Uint64));\n70: #else\n71:     ERTS_CT_ASSERT(sizeof(HashValue) == sizeof(Uint32));\n72:     sys_memcpy(&components[0], &fe->uniq[0], sizeof(Uint32));\n73:     sys_memcpy(&components[1], &fe->uniq[4], sizeof(Uint32));\n74: #endif\n75: \n76:     return components[0] ^ components[1] ^ (HashValue)fe->index;\n77: }\n78: \n79: static int fun_cmp(ErlFunEntry *lhs, ErlFunEntry *rhs)\n80: {\n81:     return !(lhs->module == rhs->module &&\n82:              lhs->index == rhs->index &&\n83:              lhs->arity == rhs->arity &&\n84:              !sys_memcmp(lhs->uniq, rhs->uniq, sizeof(lhs->uniq)));\n85: }\n86: \n87: static void fun_init(ErlFunEntry *dst, const ErlFunEntry *template)\n88: {\n89:     ErtsDispatchable *dispatch = &dst->dispatch;\n90: \n91:     sys_memcpy(dst, template, sizeof(ErlFunEntry));\n92: \n93:     for (int ix = 0; ix < ERTS_NUM_CODE_IX; ix++) {\n94:         dispatch->addresses[ix] = beam_unloaded_fun;\n95:     }\n96: \n97: #ifdef BEAMASM\n98:     dispatch->addresses[ERTS_SAVE_CALLS_CODE_IX] = beam_save_calls_fun;\n99: #endif\n100: \n101:     dst->pend_purge_address = NULL;"
+        },
+        {
+          "StartLine": 299,
+          "EndLine": 310,
+          "Text": "299: const ErlFunEntry *erts_fun_entry_get_or_make_stub(Eterm mod,\n300:                                                    int old_uniq,\n301:                                                    int old_index,\n302:                                                    const byte* uniq,\n303:                                                    int index,\n304:                                                    int arity)\n305: {\n306:     fun_template_t template;\n307:     init_fun_template(&template, mod, old_uniq, old_index, uniq, index, arity);\n308:     return fun_staged_upsert(&template);\n309: }\n310: "
+        }
+      ]
+    }
+  ]
+}

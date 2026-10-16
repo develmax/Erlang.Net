@@ -1,0 +1,35 @@
+{
+  "Status": "EXPECTED_DIAGNOSTIC_CONTRACT_SATISFIED",
+  "Passed": true,
+  "Mode": "diagnostic",
+  "AuthorFreezeSha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD",
+  "FormattedFreezeSha256": "708EB8B263C907097E1493261D75E5509C4C936E94662925AC7EB1B69127AADE",
+  "SourceFiles": 2391,
+  "OwnedCSharpFiles": 22,
+  "TargetBuildExitZero": true,
+  "Results": [
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunPublicationRace",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOldAndRetired",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunRetryCancellation",
+      "Classification": "SELECTOR_PASS",
+      "ValidationError": null
+    }
+  ],
+  "OrdinaryCasesNotExecuted": true,
+  "ProductionCompletionNotClaimed": true,
+  "MainOrOriginalOrNativeExecution": false
+}

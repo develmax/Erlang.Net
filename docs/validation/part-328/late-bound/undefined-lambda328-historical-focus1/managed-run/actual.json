@@ -1,0 +1,65 @@
+{
+  "RecipePassed": true,
+  "Mode": "historical-lambda",
+  "ExpectedCases": 1,
+  "Executed": 1,
+  "FixturePassed": 0,
+  "FixtureFailed": 1,
+  "HistoricalUndefinedFunctionConfirmed": 1,
+  "HistoricalExpectedOutcome": "{error,error,undef}",
+  "Unexecuted": 0,
+  "ApprovedSourceFreezePath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\formatted-source-freeze.json",
+  "ApprovedSourceFreezeSha256": "1BBC2FCE9B59E958FDB25F1609F42A4E1B4757F0D7855714D7DB0E876E4F3671",
+  "SourceFreezeUnchanged": true,
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\managed-project\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1391104,
+      "Sha256": "9CC39C329ABE9B96D0C6516C20E6887306414E668A12DB04F1DFFA2CB513620D",
+      "LoadedModuleVersionId": "0f523fd1-0657-4dcc-86b7-c09dfe418e73"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\managed-project\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 353280,
+      "Sha256": "C7C339A3D382105ADC1D4BE31798E4B90C43AA087F6BB97BF7391C5A49E226DA",
+      "LoadedModuleVersionId": "8defb573-6334-4afa-afb1-041f419cadc3"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\managed-project\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1637376,
+      "Sha256": "967C89331A2099257EA4D61484832C2645BE62B4AFC25367AEF8AF1EB7638260",
+      "LoadedModuleVersionId": "3e855420-1624-4056-b952-db0d156ff9c3"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\managed-project\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 96768,
+      "Sha256": "EB764165B0911503BD43031827B0A33294A3EA72749171B157F1A55F3EB393FB",
+      "LoadedModuleVersionId": "7720498c-e9af-4f28-b4a7-bee12320ec8f"
+    }
+  ],
+  "LoadedAssemblyFilesUnchanged": true,
+  "Cases": [
+    {
+      "Case": "undefined-lambda-no-current-original-fun-environment-arguments-self",
+      "Source": "-module(oracle_lambda_handler).\n-export([run/0,make/1,make_undef/0,invoke/2,child/2,undefined_lambda/3,undefined_function/3]).\nrun()-\u003Eprocess_flag(error_handler,oracle_lambda_handler),Fun=unresolved(),Self=self(),{forwarded,absent_lambda_handler,[payload],Self}=oracle_lambda_handler:invoke(Fun,[payload]),{absent_lambda_handler,Observed,[payload],Self}=get(called),true=Observed=:=Fun,undefined=get(wrong_callback),done.\nmake(Value)-\u003Efun(Argument)-\u003E{real_body,Value,Argument} end.\nmake_undef()-\u003Efun(_)-\u003Eerlang:error(undef) end.\ninvoke(Fun,Arguments)-\u003Eapply(Fun,Arguments).\nundefined_lambda(Module,Fun,Arguments)-\u003E\n    true=Fun=:=get(expected_fun),\n    {module,Module}=erlang:fun_info(Fun,module),\n    put(called,{Module,Fun,Arguments,self()}),\n    case get(mode) of\n        error_mode-\u003Eerlang:error(boom);\n        throw_mode-\u003Ethrow(boom);\n        exit_mode-\u003Eexit(boom);\n        explicit_mode-\u003Eerlang:raise(error,boom,[]);\n        _-\u003E{forwarded,Module,Arguments,self()}\n    end.\nundefined_function(Module,Function,Arguments)-\u003E\n    put(wrong_callback,{Module,Function,Arguments}),erlang:error(wrong_callback).\nunresolved()-\u003E\n    erase(called),erase(wrong_callback),false=erlang:module_loaded(absent_lambda_handler),\n    Original=oracle_lambda_handler:make(99),Binary=erlang:term_to_binary(Original),\n    From=erlang:atom_to_list(oracle_lambda_handler),To=erlang:atom_to_list(absent_lambda_handler),\n    true=length(From)=:=length(To),\n    {Patched,1}=replace_name(erlang:binary_to_list(Binary),From,To),\n    Fun=erlang:binary_to_term(erlang:list_to_binary(Patched)),\n    undefined=get(called),undefined=get(wrong_callback),\n    {module,absent_lambda_handler}=erlang:fun_info(Fun,module),\n    {arity,1}=erlang:fun_info(Fun,arity),{env,[99]}=erlang:fun_info(Fun,env),\n    put(expected_fun,Fun),Fun.\nreplace_name(Bytes,From,To)-\u003Ereplace_name(Bytes,From,To,[],0).\nreplace_name([],_,_,Acc,Count)-\u003E{lists:reverse(Acc),Count};\nreplace_name(Bytes,From,To,Acc,Count)-\u003E\n    case lists:prefix(From,Bytes) of\n        true-\u003Ereplace_name(lists:nthtail(length(From),Bytes),From,To,lists:reverse(To,Acc),Count\u002B1);\n        false-\u003E[Head|Tail]=Bytes,replace_name(Tail,From,To,[Head|Acc],Count)\n    end.\nincompatible()-\u003E\n    Original=oracle_lambda_handler:make(99),Binary=erlang:term_to_binary(Original),\n    ExternalTermVersion=131,LocalFunctionTag=112,\n    \u003C\u003CExternalTermVersion,LocalFunctionTag,Size:32,Arity,FirstUniqueByte,Rest/binary\u003E\u003E=Binary,\n    ChangedUniqueByte=FirstUniqueByte bxor 1,\n    Fun=erlang:binary_to_term(\u003C\u003CExternalTermVersion,LocalFunctionTag,Size:32,Arity,ChangedUniqueByte,Rest/binary\u003E\u003E),\n    put(expected_fun,Fun),Fun.\nfailed(Fun,Class)-\u003E\n    try oracle_lambda_handler:invoke(Fun,[payload]) of _-\u003Eerlang:error(accepted)\n    catch Class:boom-\u003Eok end.\nchild(Parent,Fun)-\u003E\n    error_handler=process_flag(error_handler,oracle_lambda_handler),put(expected_fun,Fun),\n    Result=oracle_lambda_handler:invoke(Fun,[payload]),Parent!{lambda_child,self(),Result}.\ncleanup(Child,OriginalMonitor)-\u003E\n    CleanupMonitor=erlang:monitor(process,Child),erlang:exit(Child,kill),\n    receive {\u0027DOWN\u0027,CleanupMonitor,process,Child,_}-\u003Eok after 5000-\u003Eerlang:error(cleanup_timeout) end,\n    erlang:demonitor(OriginalMonitor,[flush]).",
+      "SourceSha256": "9BA8D361C440CA3E8AAA5DDBABC0CCCFBCB29C7A564F211451F6071F1F1D1B48",
+      "GeneratedCSharpSha256": "F50197D27E4C957B2112008A551074D06D7CCF17AE147911DA2FF36B17B52BFD",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{error,error,undef}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": false,
+      "ExpectedHistoricalUndefinedFunctionObserved": true,
+      "Exception": null
+    }
+  ],
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false,
+  "OuterProcessDeadlineRequired": true,
+  "HistoricalModeRequiresOuterSourceAndSettlementProof": true
+}

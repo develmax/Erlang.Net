@@ -1,0 +1,64 @@
+{
+  "Status": "PASS_BOUNDED_PRODUCTION_SOURCE_REVIEW_NOT_PROMOTION_READY",
+  "CandidateFreezeSha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD",
+  "ClosureSha256": "6F565C7D18B1833CC14EA275850ECF1F1E92402F0A0D4B29F7FACAF8CDDB4B53",
+  "OwnedPaths": 22,
+  "ProductionPaths": 14,
+  "CSharpPaths": 22,
+  "ClosurePathsRehashed": 2391,
+  "ParentArchiveRowsRehashed": 2379,
+  "OutsideOwnedParentExact": 2369,
+  "ProductionSourceDirectionClear": true,
+  "DiagnosticExecutionSourceClear": true,
+  "PromotionReady": false,
+  "RequiredFutureInputs": [
+    "oracle2 DB0B tailrecursive equivalent fixtures",
+    "lifecycle HOST CE047 and actual execution",
+    "allocator positive helpers latest revision",
+    "fresh final source peer/full/original/readiness gates"
+  ],
+  "Findings": [
+    "All14 production files source-reviewed independently; original8ordinary fixtures authored by reviewer and not presented as independent fixture peer.",
+    "Stable per-key cells never removed/replaced; fresh immutable publication object each write, Volatile.Read/Write reference validation. Capture releases Functions gate before registry linearization; registry does not acquire Functions gate.",
+    "Final publication validation is after metadata selection/classification and before source lease/error/handler invocation. Changed exact token retries only outside gates with ReduceAsync; module-null source lambda validates before its body as approved.",
+    "Original restored FunctionTerm flows through BOTH named and anonymous factory producers and source admission; actual invoking ProcessContext.Runtime selects factory/code/handler; Restore creates a deferred wrapper and never executes callback.",
+    "Badarity remains FunctionTerm.Invoke check before restored dispatch. Current-module test uses loadedModules.ContainsKey, including true zero-export state; no Exports.Any proxy, no undefined_function fallback from missing undefined_lambda.",
+    "Public SourceFunctionAdmission positional3 constructor/deconstruct retained; internal kind property only. Normal sourceOwner lease acquisition stays inside Execution.InvokeAsync; shared327 actual-handler capture helper reused unchanged except exact image selector extraction.",
+    "Existing legacy Register factory uses explicitly scoped publication-only pre-factory validation. Fresh compatible no-factory resolver and direct foreign captured-image invocation remain outside firstslice; no broader native purge/lock/scheduling parity claim.",
+    "Initial candidate1 carries old non-tail ordinary fixture and lacks completed pending/positivelease controls; subsequent Root execution stack-overflow/refinements do not invalidate this source integrity review but forbid promotion of revision1 as complete."
+  ],
+  "ExecutionByReviewer": false,
+  "MainGitModified": false,
+  "Bindings": [
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1/source-freeze.json",
+      "Bytes": 7379,
+      "Sha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1/source-resource-closure.json",
+      "Bytes": 442587,
+      "Sha256": "6F565C7D18B1833CC14EA275850ECF1F1E92402F0A0D4B29F7FACAF8CDDB4B53"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1/baseline-source-resource-closure.json",
+      "Bytes": 746177,
+      "Sha256": "4B3542580F10D6448650177D8261CC759CA6D0E5DADCD6F92414E3D1DC629956"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-candidate1/baseline-source-resources.zip",
+      "Bytes": 2358231,
+      "Sha256": "F4E18B91C93903112B9DA76C0CFD9CC55C8C6C5C4AE040688120C66C0E89A562"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-putdata-design3/design-freeze.json",
+      "Bytes": 3273,
+      "Sha256": "0633A619E9E39B6B3B0E727196F75D04418A06A9A62AD5C2ADDFF4F505C6F9E7"
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-allocator309-source-peer3.json",
+      "Bytes": 2394,
+      "Sha256": "AF9899C2B4E0C4D8C499FC2720CE04A6527AFB74AEC88F72BFDDAF6D7322A520"
+    }
+  ]
+}

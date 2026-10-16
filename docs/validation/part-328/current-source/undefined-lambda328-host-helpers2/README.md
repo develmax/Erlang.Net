@@ -1,0 +1,5 @@
+# Additive328 HOST source helpers2
+
+SOURCE ONLY: one Tests C# overlay derived exact frozen candidate1 F4CDE0FB, no production, Program or Main changes; uncompiled/unformatted/unexecuted. Adds RunCompatibleFactory selector and appends it to the existing Run aggregator. Four actual-source cases: named/anonymous x B-pre-registered genuine maker/custom handler installs B source then executes maker and reapplies the identical restored wrapper. Actual B body checks executing runtime and source image lease flow, A bodies0/B bodies1, callback0 or1. Handler checks original wrapper reference and exact arguments before retry. This does not pretend fresh CURRENT without a registered factory can resolve its fun.
+
+Also adds monitor assertions to genuine factory wrappers in existing publication/decode/retry tests, not only to the eventual body. All methods delegate through actual Capture/RegisterSourceFactory typed bridges, with no private writes or fabricated snapshots. Existing four selectors remain; pending purge tests are owned separately by Putdata. Root owns source composition, formatting/token/build/actual checks. These helpers contain no SDK result claim.

@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "C025905CEF86A19618DA809D8F88C0222909226A0A3DF7370D9921D259DACC48"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "9CC39C329ABE9B96D0C6516C20E6887306414E668A12DB04F1DFFA2CB513620D"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C7C339A3D382105ADC1D4BE31798E4B90C43AA087F6BB97BF7391C5A49E226DA"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 1448,
+      "Exception": "Erlang.ErlangException: undef\r\n   at Erlang.Compiler.Execution.Evaluate(Expr e, ProcessContext ctx, Dictionary\u00602 b, ModuleDefinition module, Boolean tail) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\src\\Erlang.Compiler\\Execution.cs:line 797\r\n   at Erlang.Compiler.Execution.Evaluate(Expr e, ProcessContext ctx, Dictionary\u00602 b, ModuleDefinition module, Boolean tail) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\src\\Erlang.Compiler\\Execution.cs:line 581\r\n   at Erlang.Compiler.Execution.InvokeFrame(ModuleDefinition module, String function, ProcessContext context, IReadOnlyList\u00601 arguments, ModuleCodeImage image) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\src\\Erlang.Compiler\\Execution.cs:line 119\r\n   at Erlang.Compiler.Execution.InvokeAsync(ModuleDefinition module, String function, ProcessContext context, IReadOnlyList\u00601 arguments, ModuleCodeImage image, SourceCodeLease lease) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\src\\Erlang.Compiler\\Execution.cs:line 52\r\n   at Erlang.Compiler.SourceFunctionInvocation.Named(ModuleDefinition module, LocalFunctionIdentity identity, String function, ProcessContext context, ModuleCodeImage image, IReadOnlyList\u00601 arguments, FunctionTerm functionTerm) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\src\\Erlang.Compiler\\SourceFunctionInvocation.cs:line 26\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunOriginalIdentity\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 49\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.RunOriginalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 46\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.RunOriginalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 46\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.RunOriginalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 46\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.RunOriginalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 46\r\n   at Erlang.Tests.UndefinedLambdaPublicationHostChecks.RunOriginalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-historical-focus1\\candidate\\tests\\Erlang.Tests\\UndefinedLambdaPublicationHostChecks.cs:line 46\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

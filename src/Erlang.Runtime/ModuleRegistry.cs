@@ -40,6 +40,31 @@ public sealed partial class ModuleRegistry
         FunctionTerm function
     )
     {
+        var admission = await AdmitSourceFunction(
+            context,
+            module,
+            fingerprint,
+            owner,
+            capturedImage,
+            function,
+            null
+        );
+        if (admission.Kind == SourceFunctionAdmissionKind.MissingCurrentLocalFunction)
+            throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+
+        return admission;
+    }
+
+    internal async ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
+        ProcessContext context,
+        string module,
+        BitString fingerprint,
+        object owner,
+        ModuleCodeImage? capturedImage,
+        FunctionTerm function,
+        LocalFunctionInvocation? invocation
+    )
+    {
         while (true)
         {
             Task? pending;
@@ -51,11 +76,34 @@ public sealed partial class ModuleRegistry
                 var image = current?.Image ?? capturedImage;
                 var selectedOwner = current?.Owner ?? owner;
                 if (image is null)
+                {
+                    if (invocation is not null && !invocation.IsCurrent)
+                        return new(selectedOwner, null, null)
+                        {
+                            Kind = SourceFunctionAdmissionKind.Retry
+                        };
+
                     return new(selectedOwner, null, null);
+                }
                 var state = purgeStates.GetOrCreateValue(image);
-                if (state.Retired)
-                    throw new ErlangException(loadedModules.ContainsKey(module) ? Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), function) : Term.A(ErlangErrorReasons.UndefinedFunction));
-                pending = state.Pending?.Task;
+                bool retired = state.Retired;
+                bool currentModule = retired && loadedModules.ContainsKey(module);
+                pending = retired ? null : state.Pending?.Task;
+                if (invocation is not null && !invocation.IsCurrent)
+                    return new(selectedOwner, null, null)
+                    {
+                        Kind = SourceFunctionAdmissionKind.Retry
+                    };
+                if (retired)
+                {
+                    if (currentModule)
+                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), function));
+
+                    return new(selectedOwner, null, null)
+                    {
+                        Kind = SourceFunctionAdmissionKind.MissingCurrentLocalFunction
+                    };
+                }
                 if (pending is null)
                     return new(selectedOwner, image, context.ReserveSourceCode(image));
             }
@@ -233,12 +281,19 @@ public sealed partial class ModuleRegistry
                 function = ProcessErrorHandlerNames.UndefinedFunction;
                 handler = true;
             }
-            var signature = (module, function, arguments.Length);
-            ModuleCodeImage? currentImage = codeImages.GetValueOrDefault(module);
-            image = sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
-            code = image is null || body is null ? null : context.EnterSourceCode(image, body);
             if (handler)
+            {
+                image = SelectErrorHandlerImage(module, function, body!);
+                code = image is null ? null : context.EnterSourceCode(image, body!);
                 dispatch = ModuleCallDispatchKind.UndefinedFunctionHandler;
+            }
+            else
+            {
+                var signature = (module, function, arguments.Length);
+                ModuleCodeImage? currentImage = codeImages.GetValueOrDefault(module);
+                image = sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
+                code = image is null || body is null ? null : context.EnterSourceCode(image, body);
+            }
         }
 
         return handler

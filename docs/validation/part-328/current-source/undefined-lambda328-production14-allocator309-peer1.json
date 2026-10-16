@@ -1,0 +1,136 @@
+{
+  "Status": "PASS_INDEPENDENT_PRODUCTION_ONLY328_CANDIDATE1_SOURCE_DIAGNOSTIC_NOT_PROMOTION",
+  "Passed": true,
+  "CandidateFreezeSha256": "F4CDE0FBFAC4674201D2E1F13D968CA3DA590A85B1D020294D2A0D14B8A53BCD",
+  "CandidateClosureSha256": "6F565C7D18B1833CC14EA275850ECF1F1E92402F0A0D4B29F7FACAF8CDDB4B53",
+  "CandidateSourceClosureFiles": 2391,
+  "ProductionPathsReviewed": 14,
+  "DesignFreezeSha256": "0633A619E9E39B6B3B0E727196F75D04418A06A9A62AD5C2ADDFF4F505C6F9E7",
+  "DesignPeerSha256": "AF9899C2B4E0C4D8C499FC2720CE04A6527AFB74AEC88F72BFDDAF6D7322A520",
+  "ProductionFiles": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37824,
+      "Sha256": "696C484A18F4052DD1AC2C18E6B309E9B1D9B50C0A8E1921E84F0E68D0BF2627",
+      "Added": false,
+      "ParentSha256": "CB7602472725F2C51CA23939940E67DA029FBAE26AAA2D6EF109C8C93BC6FE27"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Bytes": 2099,
+      "Sha256": "4628984FFC45D0026CE240ED9D757936927672C759F4034FA4B96787A45E6667",
+      "Added": false,
+      "ParentSha256": "FD69E61A72E3FEB975FD88509B9976A8A8F3792BB9588A1F1CC9356B12606FAC"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+      "Bytes": 3202,
+      "Sha256": "E1D6BEBF8F43460DE658B4BDF1F6CA6FF2FDD31BE6454E3E5FB7622D1C897670",
+      "Added": false,
+      "ParentSha256": "6511A5A1BC97C46E6DB1B3A4336B292DD55216A8A235DDD05620688CFD0611E0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+      "Bytes": 248,
+      "Sha256": "CCD15CF00005490DD573CC361CF28A3DD84A31F35F0BAE65AA43E7DF0FE89451",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionPublication.cs",
+      "Bytes": 239,
+      "Sha256": "F6EF074535DA3D5597068A3466F797BD0AD5F57DA883B562279AD1FA41EC5BC2",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+      "Bytes": 469,
+      "Sha256": "3953F49940903496E57CE8926E84C9B96B4F0A27349A1EF295519A65F5E8125A",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionPublicationChangedException.cs",
+      "Bytes": 205,
+      "Sha256": "CCABA700C3DA1DFDDB0F6C15BB9018465721C9F7AB8EF723F9ABE297C8DB1173",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 25175,
+      "Sha256": "3302394E4FFF609428331D0CED7535067F428A4F3C7DAB635290757B370AF689",
+      "Added": false,
+      "ParentSha256": "804741BFFAFE459D3C829F0D0EC5A0B56D32181E3ABAE67A64F9E7914AFEE845"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "Bytes": 1715,
+      "Sha256": "E11FBDCB76287F0F54854E4B07FE0358CC391E48FBC56DB7410AB9817726B903",
+      "Added": false,
+      "ParentSha256": "50C2576C9811DC7950D1E8D500843DDDE1006CB8A7B61E1E8D49C70E51A8B850"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "Bytes": 2034,
+      "Sha256": "FC6ECE23AA25152DD7DF14E0F7890B7CF925131AF791E9C6F1A61E4F101ACBEA",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+      "Bytes": 236,
+      "Sha256": "B1A6C9162C5E49B85D8BF14312FAACCBCBC69498064070AF02D9263A4BA43965",
+      "Added": false,
+      "ParentSha256": "436ECC10E81ADD33F59E6A18FA73FEDEB1407CC1226536326CA16255465F61F0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Bytes": 6185,
+      "Sha256": "5B351023C2EAF74DF91D471FAB3086AFDAD4C80031917EF2800DA2446FF853DB",
+      "Added": false,
+      "ParentSha256": "C3B98B59A3FB9902EEB55E55C6EEE4FF007EE5CCA8958A915219528D495A8305"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceFunctionAdmission.cs",
+      "Bytes": 231,
+      "Sha256": "99DB10ECD07AA9C943AB4881DC9ABCFA8C384B4CCE59BC5B35C271D0477D7992",
+      "Added": false,
+      "ParentSha256": "02949E0A96A9C883B5F967923F3AEFDD7E57292BD21288DE8D6C55AE46F1E040"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceFunctionAdmissionKind.cs",
+      "Bytes": 122,
+      "Sha256": "2CF735370B05C463AAA5D3CD76817E45B082B70429CEDD883CA04762C08F19E9",
+      "Added": true,
+      "ParentSha256": null
+    }
+  ],
+  "SelectedStateBeforeFinalPublicationValidation": true,
+  "NoReverseRegistryToFunctionsLock": true,
+  "RetryAndMissingBeforeLeaseOrUserBody": true,
+  "OriginalWrapperThroughBothCompilerProducers": true,
+  "ModuleNullPublicationOnlyPreflight": true,
+  "ExecutingRuntimeFactoryCodeAndHandlerAuthority": true,
+  "Shared327SelectedHandlerCaptureOnce": true,
+  "PublicConstructorAndSixArgumentAdmissionSignaturePreserved": true,
+  "ReviewerAuthoredInitialFourHostFilesExcludedFromIndependentVerdict": true,
+  "PromotionCleared": false,
+  "PendingBeforePromotion": [
+    "actual pending purge abort/retire/cancel",
+    "actual source callback lease retirement and unwind",
+    "actual positive B-maker and same-wrapper handler retry",
+    "all actual initial publication/identity/interpreted/cancellation controls"
+  ],
+  "RetainedPartialScopes": [
+    "fresh CURRENT compatible factory resolver absent maker",
+    "direct foreign captured source-image ownership",
+    "default error-handler autoload",
+    "native first-frame and continuation parity"
+  ],
+  "Findings": [],
+  "ReviewMarkdownSha256": "14A8178DA13A79267C4C8B6255D4DA730DC62EA0D5393A60C47BB351255315D5",
+  "DiffSha256": "917D8916DD95E18EF1C849F7B72D0FE489DFC5E0D3A88984CB8549F45DE1BD49",
+  "ReviewerSdkBuildVmNativeNetworkMainOrGitMutation": false
+}

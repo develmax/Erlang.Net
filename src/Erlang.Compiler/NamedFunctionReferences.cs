@@ -9,7 +9,7 @@ internal static class NamedFunctionReferences
             var identity = LocalFunctionEntries.GetNamed(module, reference.Name, reference.Arity);
             var image = context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
 
-            FunctionTerm Create(IReadOnlyList<Term> environment)
+            FunctionTerm Create(IReadOnlyList<Term> environment, LocalFunctionInvocation? invocation = null)
             {
                 if (environment.Count != 0)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -26,13 +26,14 @@ internal static class NamedFunctionReferences
                         (ProcessContext)execution,
                         image,
                         arguments,
-                        result!
+                        invocation?.OriginalFunction ?? result!,
+                        invocation
                     )
                 );
 
                 return result;
             }
-            identity = context.Runtime.Functions.Register(
+            identity = context.Runtime.Functions.RegisterSourceFactory(
                 identity,
                 reference.Arity,
                 0,

@@ -1,0 +1,555 @@
+{
+  "Status": "PASS_PASSIVE_FOCUS3_TWELVE_HOST_EIGHT_MANAGED_AND_SAME_FAILED_MAIN1_FIVE_REDS",
+  "Passed": true,
+  "FormattedSourceFreezeSha256": "4B93B56228351AE390BFD88103E2FA56B64EDCE5039410D4FF76D5B5A549E47C",
+  "SourceClosureSha256": "A86D8206206E85BF6B654D485483971103C707760F1AC8FFEE2910AF927D495A",
+  "SourceClosureFiles": 2393,
+  "RawExactTokenStreams": 24,
+  "TargetWarnings": 0,
+  "TargetErrors": 0,
+  "HostSelectorsPassed": 12,
+  "ManagedCasesPassed": 8,
+  "ManagedActualSha256": "6980D372D8A123E8F2F2AF9EC6A620D243E7B5C5B7427EBA3B477FB151E176A5",
+  "HostSelectors": [
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunPublicationRace",
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOldAndRetired",
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunRetryCancellation",
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunCompatibleFactory",
+    "Erlang.Tests.UndefinedLambdaLifecycleHostChecks:Run",
+    "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunLegacyConstructionBoundary",
+    "Erlang.Tests.ConnectedIngressHostChecks:Run",
+    "Erlang.Tests.DistributionRawInputHostChecks:Run",
+    "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+    "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run"
+  ],
+  "ActualLoadedHostAssemblies": {
+    "Erlang.Tests": "1CC01C83A7B4AF5022B99BF5B45D94A0A84F639CCAD9726561F800560119A475",
+    "Erlang.Runtime": "FB333FC6EC47D543BA589D9E41F91B39DA5BA5D90965CE003F8A2933CC6A93D0",
+    "Erlang.Compiler": "18D60A79FC42C304CEF666E7472E07DE656A34C22008DB988AF932899E4BE3BB"
+  },
+  "FailedMain1CaptureSha256": "C1252335323D98761C5B548C07F4ED498EECEF60E51087A0438C68D3AA8A0065",
+  "FailedMain1FullPassed": 6733,
+  "FailedMain1FullFailed": 5,
+  "FailedMain1IntegrationSuffixExecuted": false,
+  "ControlledSameDllRedSummarySha256": "835FE221E2D83E5E6AB2A19737817E44F1A0C59A1C38E8A2A059BE3182532D57",
+  "ControlledSameDllRedCases": [
+    {
+      "Selector": "Erlang.Tests.ConnectedIngressHostChecks:Run",
+      "AssertionLine": 142,
+      "SettledExitCode": 1
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionRawInputHostChecks:Run",
+      "AssertionLine": 138,
+      "SettledExitCode": 1
+    },
+    {
+      "Selector": "Erlang.Tests.DeferredOwnerDrainHostChecks:Run",
+      "AssertionLine": 197,
+      "SettledExitCode": 1
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+      "AssertionLine": 120,
+      "SettledExitCode": 1
+    },
+    {
+      "Selector": "Erlang.Tests.DistributionPayloadMonitorHostChecks:Run",
+      "AssertionLine": 183,
+      "SettledExitCode": 1
+    }
+  ],
+  "CurrentMainFullPassClaimed": false,
+  "GeneralNonTailStackOverflowFixed": false,
+  "ReviewerExecutedSdk": false,
+  "Bindings": [
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/formatted-source-freeze.json",
+      "Sha256": "4B93B56228351AE390BFD88103E2FA56B64EDCE5039410D4FF76D5B5A549E47C",
+      "Bytes": 5947
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/formatted-source-resource-closure.json",
+      "Sha256": "A86D8206206E85BF6B654D485483971103C707760F1AC8FFEE2910AF927D495A",
+      "Bytes": 454806
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/tokens-before.json",
+      "Sha256": "276CFC6495B6737D9A717AD44246B48242053FC13C047CE8A3D838CC21708B08",
+      "Bytes": 1717510
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/tokens-after.json",
+      "Sha256": "276CFC6495B6737D9A717AD44246B48242053FC13C047CE8A3D838CC21708B08",
+      "Bytes": 1717510
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/target-build/process.json",
+      "Sha256": "24AB64840BEC2891AA279C8F58B91A4688250CAE63A0D268AA9AE4AF69DE8376",
+      "Bytes": 777
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/target-build/stdout.log",
+      "Sha256": "23E045B76F619953D3FBA27D3DE7FB41B339CFD55BE04A1B578A5C0F8AB26A14",
+      "Bytes": 3844
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/target-build/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-check/process.json",
+      "Sha256": "97725724E8F87FEB728359E4948BB77EDD77AD0A298320C4ADA4736E9EA40BA1",
+      "Bytes": 704
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-check/stdout.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+      "Bytes": 40
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-check/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-write/process.json",
+      "Sha256": "299D2ECC50831915B0140572765CE9B9FA4141A240ECEDADB149EE37FF79A8A6",
+      "Bytes": 704
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-write/stdout.log",
+      "Sha256": "22708DD90501B6C16B79F76AF7848FED313FF665F44A79EDB71E77CBB809714C",
+      "Bytes": 32
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/style-write/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/sdk-format/process.json",
+      "Sha256": "A740A827DB78E0ED7C05C3239C0A4F49A8683E44173FF919C4A79EC0AAFEBBB1",
+      "Bytes": 4600
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/sdk-format/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/sdk-format/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-before/process.json",
+      "Sha256": "53AB7E300176E9E22FFF15E30FD4AFDA3FD3AAD2C0AF44969EF3D183D717E393",
+      "Bytes": 899
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-before/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-before/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-after/process.json",
+      "Sha256": "6D5B40A8333CB9DD857CF586BD949D0585523342175FD5462169CFB31BBCA7EB",
+      "Bytes": 899
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-after/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/token-after/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/managed-build/process.json",
+      "Sha256": "F615539ADDB6BEFE458EA774487A125A2A7AA6CEFE2583FE09948353AABBCD03",
+      "Bytes": 1156
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/managed-build/stdout.log",
+      "Sha256": "02347A7E15233DAE27705E6D636174C50719047E5BB3FC9E231C6B79D5A9ABCA",
+      "Bytes": 1943
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/managed-build/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-00/process.json",
+      "Sha256": "09FF5704551E54B8D473F6434D0D0EB0F6965424AD88C0981F90897F1157954D",
+      "Bytes": 1003
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-00/actual.json",
+      "Sha256": "95BEBC46AEB113F64D4463066D48AD6358071EE3C7902EB5394138749D160AB0",
+      "Bytes": 1170
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-00/stdout.log",
+      "Sha256": "2C857160AC6C9FB3147ACC78B8552952972BDE62E91C3FB576B2F4093EA0B8EB",
+      "Bytes": 76
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-00/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-01/process.json",
+      "Sha256": "30F015275F35E59728A5CBA3A25857816754D8A278C29117582A0045D79EAB42",
+      "Bytes": 1002
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-01/actual.json",
+      "Sha256": "1FB4FC0A7DEA80FA8FC9BC12B73F3368453BCD15134419CC93ABEA7A5F190B35",
+      "Bytes": 1169
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-01/stdout.log",
+      "Sha256": "CF0526533BD70D847500E0B555DA0F2CBD0B56B94A26F885D9C7E4B3A04F6976",
+      "Bytes": 75
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-01/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-02/process.json",
+      "Sha256": "0E1F9AF54D2A88B8E79161B8BCB77E41F9F9630DA046766BED83D8717CC87F28",
+      "Bytes": 1000
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-02/actual.json",
+      "Sha256": "622C0990071C49B1097691BA64E7B191C93537C6F845A6FFFFE4CC0A53095B89",
+      "Bytes": 1166
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-02/stdout.log",
+      "Sha256": "4F2AC72A1A773ECDC2F8A232914CFE8C7964B47FEC0EF3191CF63825DC5AEC0C",
+      "Bytes": 73
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-02/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-03/process.json",
+      "Sha256": "FBC02797DFD8CFEC244481ECE965716A30DD6F496D56C97B37595B1AFFF6DAA3",
+      "Bytes": 1004
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-03/actual.json",
+      "Sha256": "FD24D1DD2C6E6A2DCA7E70E2AE7179246A57471AFFC94E3102E7E97AB917A771",
+      "Bytes": 1170
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-03/stdout.log",
+      "Sha256": "E453E5D13AA191983D0FF507E7BD419B314F3B271A30B923CCDE3E0D868A345D",
+      "Bytes": 77
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-03/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-04/process.json",
+      "Sha256": "2E273C7DBA507DB02FB337FAE41837AEEE94B3015A5FA6906D9D7C9A211DC5D7",
+      "Bytes": 991
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-04/actual.json",
+      "Sha256": "6A359599AC5E28B5FBBE1503C8DD80B3C83B9ED76E216DF7A3384D79F662269A",
+      "Bytes": 1171
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-04/stdout.log",
+      "Sha256": "42429AB1A873BF28DD13C57E622920E938B177A1FD67C76FC4266746B86C3A10",
+      "Bytes": 77
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-04/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-05/process.json",
+      "Sha256": "21AB3E75D1BAAEE9307DBA125B17D86051A011B7ACAFDEBE23EF772260F795F9",
+      "Bytes": 985
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-05/actual.json",
+      "Sha256": "BA8A41DA2B0973D6155654ADEB34EDBADF113B1CEBB7C568ACC1934DC0C4FB70",
+      "Bytes": 1152
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-05/stdout.log",
+      "Sha256": "C9AD94A17D025C0556251BEBABE3F14B5A91734312D0B3B1EDA4057E195FF007",
+      "Bytes": 58
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-05/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-06/process.json",
+      "Sha256": "3A8C2770700BCB40559FBCAF6C05D76FFD932A8F8C1D0190EAFA0757136321A1",
+      "Bytes": 1013
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-06/actual.json",
+      "Sha256": "367061921AA3E4E194B4DDD75549B832B548A080116B6BA2E24EA057F4F6004F",
+      "Bytes": 863
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-06/stdout.log",
+      "Sha256": "77A46AFF2A047473196EF825BD26A8997050056C246BC8046AA23A03E9C2B8F4",
+      "Bytes": 86
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-06/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-07/process.json",
+      "Sha256": "2269DDCF27576FE9D6F1E59AC6BFC651EB3134D3FF7205AC470283C982F39D2A",
+      "Bytes": 977
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-07/actual.json",
+      "Sha256": "A70C9543A6FB7AE92B70579730B0C86AEE160CDF02D41F9103F8D5D394A9F804",
+      "Bytes": 827
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-07/stdout.log",
+      "Sha256": "ED1A5452FF7E4B3768E2CA4D794781CDE824D3CC8961073FFB324048257DF2DC",
+      "Bytes": 145
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-07/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-08/process.json",
+      "Sha256": "20D7A52A3F0FF44B1F54DC1344301C85061FF5082AECF25D8571A0A68759D23D",
+      "Bytes": 981
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-08/actual.json",
+      "Sha256": "EA28E995AE6AB8685AD6FADA9B7CD2F8CBE1BB1779CA052B3F7AAEABA01F5789",
+      "Bytes": 831
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-08/stdout.log",
+      "Sha256": "5D5B60642BAF5A746A1C260B8FF0A42EB8447EEEC756AF46D30005B0D3591D41",
+      "Bytes": 201
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-08/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-09/process.json",
+      "Sha256": "176B7F33FD7C5411585EC7BF8BCEFA7F39174B6B00541F4C5D72581307DB4AD9",
+      "Bytes": 979
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-09/actual.json",
+      "Sha256": "7142209C08A2E269558053B84D4C0F70125C7D95AA1EC9F2DEDE1184CB0BCCB8",
+      "Bytes": 829
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-09/stdout.log",
+      "Sha256": "5E170CEA961F4E12F7B8E423B7DE246052E4C86523EA33C260F82191B36CC276",
+      "Bytes": 52
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-09/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-10/process.json",
+      "Sha256": "7386F87FAE0208445093A45A4AFC3D8E7A1762F430BC31CEA31E4F1FA3DCFA7F",
+      "Bytes": 984
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-10/actual.json",
+      "Sha256": "66E1D74A94B24E548A42ABD685E96D14A2FDAE515DF84FCA3CAB59BCB90A35AE",
+      "Bytes": 834
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-10/stdout.log",
+      "Sha256": "D7A4F55FC572FEDC3FD0AF291EF649DFA11B34B0258FE2D175AFF393B90CED92",
+      "Bytes": 57
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-10/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-11/process.json",
+      "Sha256": "E23268E15520527390554AD499B815C338959E4C2BE1B7BEDBBECFC8518383DC",
+      "Bytes": 987
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-11/actual.json",
+      "Sha256": "D131F67E258B61933E78A17BED62CCDCC766C6D18F8D2B5464B1E6A445646CCE",
+      "Bytes": 837
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-11/stdout.log",
+      "Sha256": "F6EAB7FD49C6DF8680AC72D170F75DF578CFC19702E0C39F89DC04115ED4B7E6",
+      "Bytes": 60
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/selector-11/stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/managed-run/process.json",
+      "Sha256": "160904E534CB21EC8D0FD007E0DDF1288A27E0EAF1BE11E4B6280AC3FD4B9010",
+      "Bytes": 1208
+    },
+    {
+      "Path": "artifacts/undefined-lambda328-root-focus3/managed-run/actual.json",
+      "Sha256": "6980D372D8A123E8F2F2AF9EC6A620D243E7B5C5B7427EBA3B477FB151E176A5",
+      "Bytes": 35702
+    },
+    {
+      "Path": "artifacts/part328-main1-failure/capture.json",
+      "Sha256": "C1252335323D98761C5B548C07F4ED498EECEF60E51087A0438C68D3AA8A0065",
+      "Bytes": 29786
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/summary.json",
+      "Sha256": "835FE221E2D83E5E6AB2A19737817E44F1A0C59A1C38E8A2A059BE3182532D57",
+      "Bytes": 4749
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/ConnectedIngressHostChecks/process.json",
+      "Sha256": "94B1B88651D45D111AFCD5C211D5641104F1A164CC85DBCB9D73090F95B0373B",
+      "Bytes": 818
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/ConnectedIngressHostChecks/actual.json",
+      "Sha256": "CDE2368C876EE16B82ABA8693C9074E13DF2801E3FD331077EA3E2CB2BEF0534",
+      "Bytes": 2511
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/ConnectedIngressHostChecks/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/ConnectedIngressHostChecks/stderr.log",
+      "Sha256": "1919A319F04BF533976079A0D803B2F52012A55C723C9F913C690A9611AEA783",
+      "Bytes": 1698
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionRawInputHostChecks/process.json",
+      "Sha256": "77AB58FD4C0B7813EA163E397CD46B813FAABDE4DE36FD620E1612B4A4250810",
+      "Bytes": 831
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionRawInputHostChecks/actual.json",
+      "Sha256": "E589C0A6918AEDAA2C74B37BFCA4BB2BF8AF86CDB1D6B5485623ABD562E47EBD",
+      "Bytes": 2800
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionRawInputHostChecks/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionRawInputHostChecks/stderr.log",
+      "Sha256": "AA4E749205B90E9B1F782B26913742A06D28369A131A28FFE0B6E79E6462C6B0",
+      "Bytes": 1987
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DeferredOwnerDrainHostChecks/process.json",
+      "Sha256": "1F76237E0C421420B885F4834E9388BE567A817E66E52828583DDF2137A0C105",
+      "Bytes": 825
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DeferredOwnerDrainHostChecks/actual.json",
+      "Sha256": "72114E8BACF2CF61059D595CBBFA2A76C80F2BEDBE0D6B6C6825DEC83595AB7D",
+      "Bytes": 2145
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DeferredOwnerDrainHostChecks/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DeferredOwnerDrainHostChecks/stderr.log",
+      "Sha256": "1163CC748DD139EE9CA9CEE1BA513A9E0829FAE1AC21DD3BA2101D0B2D82D579",
+      "Bytes": 1382
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadExitHostChecks/process.json",
+      "Sha256": "9C59D10D880FE98BEA31CC5A7B9954779B521AED49B76F740FC8F3344D6AB091",
+      "Bytes": 839
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadExitHostChecks/actual.json",
+      "Sha256": "FD0C11667362A23084D6DE69F599CB4C454E41C51BFDF978CCDA564AAE7E343D",
+      "Bytes": 3106
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadExitHostChecks/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadExitHostChecks/stderr.log",
+      "Sha256": "01AE8B226C888D4D9A7524B1285A06A98516696E095458F98AA767D9C18AE277",
+      "Bytes": 2241
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadMonitorHostChecks/process.json",
+      "Sha256": "E92881B8E24056AFADED641181DEC80EBD9A6567E313EE92D79B52F79A340B2A",
+      "Bytes": 848
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadMonitorHostChecks/actual.json",
+      "Sha256": "8F0A2CE74A5138A80D8D6F742F98C53EC78960B956C80E447F45B7C516BF4418",
+      "Bytes": 3177
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadMonitorHostChecks/stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/part328-main1-five-legacy-red/DistributionPayloadMonitorHostChecks/stderr.log",
+      "Sha256": "EE875AEC84E2898613EF4794CCB3DD57B86B4691111B07741E2EA0D81E797DEA",
+      "Bytes": 2312
+    }
+  ],
+  "Qualification": "Passive source/token/process/DLL verification only. Initial four helper authorship is excluded from independent semantic reapproval. Historical failed Main1 remains failed; no original/native/SDK rerun by reviewer."
+}

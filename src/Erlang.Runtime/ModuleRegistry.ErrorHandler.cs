@@ -2,6 +2,14 @@ namespace Erlang;
 
 public sealed partial class ModuleRegistry
 {
+    private ModuleCodeImage? SelectErrorHandlerImage(string module, string function, ErlangFunction body)
+    {
+        var signature = (module, function, ProcessErrorHandlerNames.Arity);
+        var currentImage = codeImages.GetValueOrDefault(module);
+
+        return sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
+    }
+
     private ValueTask<Term> InvokeErrorHandler(
         ProcessContext context,
         string module,

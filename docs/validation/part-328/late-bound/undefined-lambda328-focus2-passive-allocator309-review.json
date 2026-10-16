@@ -1,0 +1,194 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL328_FOCUS2_TARGET_SIX_HOST_AND_EIGHT_MANAGED_SOURCE_DLL_TOKEN_CLOSURE",
+  "Passed": true,
+  "PromotionOrMainFullPassed": false,
+  "AuthorFreezeSha256": "28E773857A6D8B465A3C79EA4FC30AD7AE4646549947F33058ED6DC5C94FFA9B",
+  "FormattedFreezeSha256": "384D2853DEA53F51C080E48A5C91861AAB144F20180EF1FA8F2506B0FBA9435E",
+  "SourceClosureSha256": "A218C19FB8CAA2FE05CF83A7C2ABC4CE9A33B6D3ED6DDA65FBFD9810914E3CDC",
+  "All2393SourceRowsRehashed": true,
+  "All24TokenStreamsRawExact": true,
+  "WhitespaceOnlyOwnedChanges": [
+    "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+    "src/Erlang.Runtime/ModuleRegistry.cs",
+    "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+    "tests/Erlang.Tests/UndefinedLambdaLifecycleHostChecks.cs",
+    "tests/Erlang.Tests/UndefinedLambdaPublicationHostChecks.cs",
+    "tests/Erlang.Tests/UndefinedLambdaPublicationHostReflection.cs",
+    "tools/Erlang.Differential/UndefinedLambdaCases.cs"
+  ],
+  "StyleCheckZero": true,
+  "TargetWarnings": 0,
+  "TargetErrors": 0,
+  "TargetProcess": {
+    "Path": "artifacts/undefined-lambda328-root-focus2/target-build/process.json",
+    "Bytes": 790,
+    "Sha256": "86516EC0A1C7526786951E7680C20DC1194EA6771AF524D3AB6057178ECAE2E5"
+  },
+  "ActualSixHostSelectors": [
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOriginalIdentity",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-00/actual.json",
+        "Bytes": 1170,
+        "Sha256": "36F0A2873D5784CFA7370F49E560E9E081BE4BE33B05309B552D60D42B5EACCF"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-00/process.json",
+        "Bytes": 1003,
+        "Sha256": "B677C3CA20B5444B4935C54531CB565894AB44B28E5BFB02067C85C274B05814"
+      },
+      "ElapsedSeconds": 1.9840000000040163
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunPublicationRace",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-01/actual.json",
+        "Bytes": 1169,
+        "Sha256": "22EFB21C862389B21C08774B9AF14B7DAB2F1FAF2FA12D5BCF8C65EEF780A0A0"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-01/process.json",
+        "Bytes": 1002,
+        "Sha256": "F05B887A08120D9843D00ED65A79D9B3D3FA92F86FD653FEDC36FAB463CAF147"
+      },
+      "ElapsedSeconds": 1.5470000000059372
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunOldAndRetired",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-02/actual.json",
+        "Bytes": 1167,
+        "Sha256": "F1E689893259C762BA09142B00FB1899F8225F5544076E3D6961A1550C735CAF"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-02/process.json",
+        "Bytes": 985,
+        "Sha256": "9A51068679115155DD34619A435105E7042EAC3DB5C7B8BB14F0E3B77F21BC61"
+      },
+      "ElapsedSeconds": 1.5
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunRetryCancellation",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-03/actual.json",
+        "Bytes": 1170,
+        "Sha256": "A709856DDDE8047EB220FE4B2A624FD49FB62CDA0EC1D6D4D0157C9EF1E95049"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-03/process.json",
+        "Bytes": 1004,
+        "Sha256": "5ED4D873A0540344C2CDFCE0B165BD67BE00CA69C5EF3CD340839659C88AED00"
+      },
+      "ElapsedSeconds": 1.2029999999940628
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaPublicationHostChecks:RunCompatibleFactory",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-04/actual.json",
+        "Bytes": 1170,
+        "Sha256": "DA8FE39870596497AEDB1AFA3D1B522C57EF635972C722E9922B7CA0EEA39076"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-04/process.json",
+        "Bytes": 1004,
+        "Sha256": "FF0B8AB4E6E31539A21A40B3CE7EA7E7A1F218797988A744531DC43E345B784F"
+      },
+      "ElapsedSeconds": 1.2340000000040163
+    },
+    {
+      "Selector": "Erlang.Tests.UndefinedLambdaLifecycleHostChecks:Run",
+      "Actual": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-05/actual.json",
+        "Bytes": 1152,
+        "Sha256": "B155CE60A22098FA519BE5EFB0F20B9D17FA4DF32805E910444F88217E61B546"
+      },
+      "Process": {
+        "Path": "artifacts/undefined-lambda328-root-focus2/selector-05/process.json",
+        "Bytes": 985,
+        "Sha256": "0F79B7987E8A737E8F653D7329B30331676D48C4F3138475D14070A404C96FA6"
+      },
+      "ElapsedSeconds": 2.0319999999992433
+    }
+  ],
+  "ActualHostDllIdentities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "B908DED87EBF16AEB2A29DFE043B5F8D5FFCFEE472E2954B7B721A7FAFF6254F"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "60B165ABCB7ED341F19B98A5AA79114FF7F05B27FFA32353325002312FD6462E"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "D9DB1AF0E990A845983820AAD72E8618EA40655D054F719F675EB366608538C1"
+    }
+  ],
+  "ActualManagedEightCases": [
+    "undefined-lambda-no-current-original-fun-environment-arguments-self",
+    "undefined-lambda-missing-handler-module-and-export-retain-undef",
+    "undefined-lambda-badarity-precedes-missing-code-and-handler",
+    "undefined-lambda-callback-error-throw-exit-explicit-trace-and-live-body-undef",
+    "undefined-lambda-current-code-unresolved-identity-is-badfun",
+    "undefined-lambda-child-handler-is-process-local-with-default-first",
+    "undefined-lambda-active-old-direct-and-restored-funs-after-delete",
+    "undefined-lambda-arguments-evaluate-before-local-fun-callback"
+  ],
+  "ActualManagedReport": {
+    "Path": "artifacts/undefined-lambda328-root-focus2/managed-run/actual.json",
+    "Bytes": 35702,
+    "Sha256": "5B5D1F72F27003495CE22D7E87F66862EEA7308BE97D7AA7E517E2A8F5BA2F4B"
+  },
+  "ManagedProcess": {
+    "Path": "artifacts/undefined-lambda328-root-focus2/managed-run/process.json",
+    "Bytes": 1196,
+    "Sha256": "6A14B90293E7A3A22F5A05EAA4E909D98A14BD43F49B1FB71A9311744B9B31E8"
+  },
+  "ActualManagedDllIdentities": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\managed-project\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1399296,
+      "Sha256": "60B165ABCB7ED341F19B98A5AA79114FF7F05B27FFA32353325002312FD6462E",
+      "LoadedModuleVersionId": "8600f6fe-f5b5-4736-87d6-9ada435cbd82"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\managed-project\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 354304,
+      "Sha256": "D9DB1AF0E990A845983820AAD72E8618EA40655D054F719F675EB366608538C1",
+      "LoadedModuleVersionId": "f9dd4ad7-d72f-4f77-9cfb-65ecfc8b553f"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\managed-project\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1637376,
+      "Sha256": "BBA0F15EC79B12B60D3E8BF6ECCC8B399188ED9372B9453AF387A493375E8B77",
+      "LoadedModuleVersionId": "58bb671a-a620-4abc-8f74-4ac8a886e4c2"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\undefined-lambda328-root-focus2\\managed-project\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 96768,
+      "Sha256": "9517BD56A791D8A8C46EC7C376973704461A9F5DA82055ED74D58493C4E8F45D",
+      "LoadedModuleVersionId": "0d3347dc-9f28-47b4-9038-cdffa3fcf582"
+    }
+  ],
+  "ManagedCompilerRuntimeMatchHostDllBytes": true,
+  "PublicSixArgumentMissingToUndefWrapperCorrectionPresent": true,
+  "LifecycleAggregatorPassedPendingPurgeAndSourceLeaseAndPublicAdmissionSelectors": true,
+  "EarlierFocus1StackOverflowRetained": {
+    "Path": "artifacts/undefined-lambda328-root-focus1/managed-run/stderr.log",
+    "Bytes": 143794,
+    "Sha256": "5457188834788EDA5702C071A3EB0489C9B6AC2BB17F108DE4FD70AED75F59AB"
+  },
+  "EarlierFocus1NotRelabeledPassed": true,
+  "GeneralStackOrTailCallFixClaimed": false,
+  "OriginalOrNativeRunClaimed": false,
+  "Historical327RedStillSeparateRequiredProof": true,
+  "ReviewerAuthoredPublicationHelpersExcludedFromIndependentSourceVerdict": true,
+  "ReviewerExecutedSdkVmBuildNativeNetworkMainOrGitMutation": false
+}

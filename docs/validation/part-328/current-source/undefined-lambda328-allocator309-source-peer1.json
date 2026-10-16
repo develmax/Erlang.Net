@@ -1,0 +1,78 @@
+{
+  "Status": "NEEDS_REVISION_SOURCE_ONLY328_CONCRETE_DESIGN_TWO_CODE_READY_BLOCKERS",
+  "Passed": false,
+  "DesignFreezeSha256": "AC2D4D5854E8A6DA86F5D62607D4A34067918DDB5A626C9BA7A1E9D907E658C7",
+  "Baseline326BindingsVerified": 13,
+  "Working327MainFreezeSha256": "380AF06807C90F6891C3C834A66573536310F23118954512E6A538E3E4BD8AD3",
+  "Working327FinalAuthorFreeze": {
+    "Path": "artifacts/root-part327-composed1/source-freeze.json",
+    "Sha256": "464C81BB1624BC63CEA8B404ACAFEEF7246FFA745EDC3FC0D10D59C447593EDA"
+  },
+  "Working327ClosureSha256": "57275A459C17E8A6F991CE0FAD8C3FDE16F3DF0D6B132CF8A9C53D0EC9491C3F",
+  "Working327Published": false,
+  "NativeFunctionalDirectionSupported": true,
+  "Blockers": [
+    {
+      "Id": "B1",
+      "Issue": "Function-entry publication/snapshot/version-retry linearization not specified. Existing Functions to Registry safe-External lock order forbids reverse acquisition."
+    },
+    {
+      "Id": "B2",
+      "Issue": "Original restored Fun identity is lost through temporary factory FunctionTerm result closures. Explicit threading through both compiler producers/admission required before the eight-path ceiling is implementable."
+    }
+  ],
+  "CompatibleCurrentCodeWithoutPreRegisteredFactoryRemainsPartial": true,
+  "DirectForeignCapturedImageOwnershipRemainsPartial": true,
+  "ZeroExportCurrentAndActiveOldBeforeMissingRequired": true,
+  "NoUndefinedProcessInvented": true,
+  "NoImplementationApproval": true,
+  "ReviewerSdkVmNativeNetworkMainGitMutation": false,
+  "ReviewMarkdownSha256": "81B7A135D2F26D0B0DFBEEBF1D4351862476F028A99ED98CA5FEA568FA39F61E",
+  "CurrentWorkingSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Bytes": 3982,
+      "Sha256": "C3B98B59A3FB9902EEB55E55C6EEE4FF007EE5CCA8958A915219528D495A8305"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 23820,
+      "Sha256": "804741BFFAFE459D3C829F0D0EC5A0B56D32181E3ABAE67A64F9E7914AFEE845"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "Bytes": 1334,
+      "Sha256": "50C2576C9811DC7950D1E8D500843DDDE1006CB8A7B61E1E8D49C70E51A8B850"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceEntry.cs",
+      "Bytes": 873,
+      "Sha256": "6621B046FE530DD5537565E441DBD8112D9DEDE58F3C973109276B9E62A6324B"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Bytes": 1974,
+      "Sha256": "FD69E61A72E3FEB975FD88509B9976A8A8F3792BB9588A1F1CC9356B12606FAC"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37691,
+      "Sha256": "CB7602472725F2C51CA23939940E67DA029FBAE26AAA2D6EF109C8C93BC6FE27"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+      "Bytes": 2120,
+      "Sha256": "6511A5A1BC97C46E6DB1B3A4336B292DD55216A8A235DDD05620688CFD0611E0"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Bytes": 1991,
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceFunctionAdmission.cs",
+      "Bytes": 127,
+      "Sha256": "02949E0A96A9C883B5F967923F3AEFDD7E57292BD21288DE8D6C55AE46F1E040"
+    }
+  ]
+}

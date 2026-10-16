@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Tests.dll",
+      "Sha256": "2F5F08A1773E3D5EC4CD093F6BD0FF874A70CA948F5BCEF3B0FC183F84EE1EE6"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part328-main1-failure\\bin\\Erlang.Runtime.dll",
+      "Sha256": "4AE784A1D4B8E92530EC63E5C211CCCA30E1911AE75CC3179893D62F57598F69"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.DistributionPayloadExitHostChecks:Run",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 305,
+      "Exception": "System.InvalidOperationException: Deferred payload exit assertion failed\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 343\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.\u003C\u003Ec.\u003C\u003CCheckFactoryTimingAndDrops\u003Eb__2_0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 120\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.WithConnection(Func\u00607 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 299\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.CheckFactoryTimingAndDrops() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 52\r\n   at Erlang.Tests.DistributionPayloadExitHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionPayloadExitHostChecks.cs:line 24\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

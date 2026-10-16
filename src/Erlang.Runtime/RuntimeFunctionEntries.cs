@@ -3,7 +3,7 @@ namespace Erlang;
 public sealed class RuntimeFunctionEntries
 {
     private readonly object gate = new();
-    private readonly Dictionary<(string Module, int Index, int Arity, string Unique), Entry> entries = new();
+    private readonly Dictionary<(string Module, int Index, int Arity, string Unique), LocalFunctionPublicationCell> entries = new();
     private readonly Dictionary<ExternalFunctionIdentity, FunctionTerm> externalEntries = new();
 
     public bool IsExternalEntry(FunctionTerm function)
@@ -40,14 +40,60 @@ public sealed class RuntimeFunctionEntries
         int arity,
         int environmentCount,
         Func<IReadOnlyList<Term>, FunctionTerm> factory
+    ) => Publish(
+        identity,
+        arity,
+        environmentCount,
+        (environment, _) => factory(environment),
+        false
+    );
+
+    internal LocalFunctionIdentity RegisterSourceFactory(
+        LocalFunctionIdentity identity,
+        int arity,
+        int environmentCount,
+        Func<IReadOnlyList<Term>, LocalFunctionInvocation?, FunctionTerm> factory
+    ) => Publish(
+        identity,
+        arity,
+        environmentCount,
+        factory,
+        true
+    );
+
+    private LocalFunctionIdentity Publish(
+        LocalFunctionIdentity identity,
+        int arity,
+        int environmentCount,
+        Func<IReadOnlyList<Term>, LocalFunctionInvocation?, FunctionTerm> factory,
+        bool sourceFactory
     )
     {
         lock (gate)
         {
             var key = Key(identity, arity);
-            if (entries.TryGetValue(key, out Entry? previous))
-                identity = identity with { OldUnique = previous.Identity.OldUnique, LegacyIndex = previous.Identity.OldIndex };
-            entries[key] = new Entry(identity, environmentCount, factory);
+            if (entries.TryGetValue(key, out var cell))
+            {
+                var previous = cell.Current;
+                identity = identity with
+                {
+                    OldUnique = previous.Identity.OldUnique,
+                    LegacyIndex = previous.Identity.OldIndex
+                };
+                cell.Publish(new(
+                    identity,
+                    environmentCount,
+                    factory,
+                    sourceFactory
+                ));
+            }
+            else
+                entries.Add(key, new(new(
+                    identity,
+                    environmentCount,
+                    factory,
+                    sourceFactory
+                )));
 
             return identity;
         }
@@ -61,42 +107,100 @@ public sealed class RuntimeFunctionEntries
     )
     {
         var values = Array.AsReadOnly(environment.ToArray());
-        Entry entry;
+        LocalFunctionPublicationCell cell;
+        LocalFunctionPublication publication;
         lock (gate)
         {
-            var key = Key(identity, arity);
-            if (!entries.TryGetValue(key, out entry!))
-                entries[key] = entry = new Entry(identity, null, null);
+            cell = FindOrAdd(identity, arity);
+            publication = cell.Current;
         }
-        if (entry.Factory is not null && entry.EnvironmentCount == values.Count)
-            return entry.Factory(values);
-        FunctionTerm? unresolved = null;
-        unresolved = new FunctionTerm(
-            () => Find(identity, arity).Identity,
+        if (!publication.IsSourceFactory && publication.Factory is not null && publication.EnvironmentCount == values.Count)
+            return publication.Factory(values, null);
+        FunctionTerm? restored = null;
+        restored = new FunctionTerm(
+            () => cell.Current.Identity,
             arity,
             values,
-            (context, arguments) =>
-            {
-                Entry loaded = Find(identity, arity);
-                if (loaded.Factory is not null && loaded.EnvironmentCount == values.Count)
-                    return loaded.Factory(values).Invoke(context, arguments);
-                if (loaded.Factory is not null || runtime.Modules.Exports.Any(export => export.Module == identity.Module.Name))
-                    throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), unresolved!));
-
-                throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-            }
+            (context, arguments) => InvokeRestored(
+                (ProcessContext)context,
+                identity,
+                arity,
+                values,
+                restored!,
+                arguments
+            )
         );
 
-        return unresolved;
+        return restored;
     }
 
-    private Entry Find(LocalFunctionIdentity identity, int arity)
+    private static async ValueTask<Term> InvokeRestored(
+        ProcessContext context,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment,
+        FunctionTerm original,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        while (true)
+        {
+            context.Runtime.ThrowIfHalted();
+            var invocation = context.Runtime.Functions.Capture(identity, arity, original);
+            var publication = invocation.Publication;
+            try
+            {
+                if (publication.Factory is not null && publication.EnvironmentCount == environment.Count)
+                {
+                    if (!publication.IsSourceFactory && !context.Runtime.Modules.ValidateLocalFunctionPublication(invocation))
+                        throw new LocalFunctionPublicationChangedException(invocation);
+                    var temporary = publication.Factory(environment, invocation);
+
+                    return await temporary.Invoke(context, arguments);
+                }
+
+                return await context.Runtime.Modules.InvokeUndefinedLambda(
+                    context,
+                    identity.Module.Name,
+                    original,
+                    arguments,
+                    invocation,
+                    publication.Factory is not null
+                );
+            }
+            catch (LocalFunctionPublicationChangedException failure) when (ReferenceEquals(failure.Invocation, invocation))
+            {
+                await context.ReduceAsync();
+            }
+        }
+    }
+
+    internal LocalFunctionInvocation Capture(LocalFunctionIdentity identity, int arity, FunctionTerm original)
     {
         lock (gate)
-            return entries[Key(identity, arity)];
+        {
+            var cell = FindOrAdd(identity, arity);
+
+            return new(original, cell, cell.Current);
+        }
+    }
+
+    private LocalFunctionPublicationCell FindOrAdd(LocalFunctionIdentity identity, int arity)
+    {
+        var key = Key(identity, arity);
+        if (!entries.TryGetValue(key, out var cell))
+        {
+            cell = new(new(
+                identity,
+                null,
+                null,
+                false
+            ));
+            entries.Add(key, cell);
+        }
+
+        return cell;
     }
 
     private static (string Module, int Index, int Arity, string Unique) Key(LocalFunctionIdentity identity, int arity) => (identity.Module.Name, identity.Index, arity, Convert.ToHexString(identity.Unique.ToArray()));
-
-    private sealed record Entry(LocalFunctionIdentity Identity, int? EnvironmentCount, Func<IReadOnlyList<Term>, FunctionTerm>? Factory);
 }

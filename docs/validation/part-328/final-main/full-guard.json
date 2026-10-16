@@ -1,0 +1,74 @@
+{
+  "Status": "PASS_ACTUAL_MAIN328_6738_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6738,
+  "Failed": 0,
+  "IntegrationResults": 11,
+  "All6729PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_restored_local_fun_publication_and_lambda_dispatch",
+    "oracle/compiled-module/undefined-lambda-active-old-direct-and-restored-funs-after-delete",
+    "oracle/compiled-module/undefined-lambda-arguments-evaluate-before-local-fun-callback",
+    "oracle/compiled-module/undefined-lambda-badarity-precedes-missing-code-and-handler",
+    "oracle/compiled-module/undefined-lambda-callback-error-throw-exit-explicit-trace-and-live-body-undef",
+    "oracle/compiled-module/undefined-lambda-child-handler-is-process-local-with-default-first",
+    "oracle/compiled-module/undefined-lambda-current-code-unresolved-identity-is-badfun",
+    "oracle/compiled-module/undefined-lambda-missing-handler-module-and-export-retain-undef",
+    "oracle/compiled-module/undefined-lambda-no-current-original-fun-environment-arguments-self"
+  ],
+  "SourceFreezeSha256": "BA9F82F848896139AC2D4BC81FCA724C7E0A9F145A1622B838A126B3D2228542",
+  "SourceClosureSha256": "B86A971D4922D1F20C97BACDF08A7A99534932CC8EA29FB2DACFEDC444084302",
+  "SourcePaths": 29,
+  "CSharpPaths": 24,
+  "SourceResourceClosureFiles": 2393,
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ThirtyPriorCustomLimitsRestoredBeforeAppend": true,
+  "OnlyProcessFlag2ScopeAppended": true,
+  "TwentyNineOtherCustomLimitsExact": true,
+  "UnrelatedMfaRowsExactParent": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1120,
+      "Sha256": "97C12C85FF98EC3D98C33DD692F2F2474A14FA4150B4F39D0408434773FAD649",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedSixAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+        "src/Erlang.Runtime/LocalFunctionPublication.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationChangedException.cs",
+        "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+        "src/Erlang.Runtime/SourceFunctionAdmissionKind.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1145,
+      "Sha256": "F835320BE11A28B4C1BDA71C962CFA5A8789FE49C1404FA54CA1E326EE9D9229",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedSixAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+        "src/Erlang.Runtime/LocalFunctionPublication.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationChangedException.cs",
+        "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+        "src/Erlang.Runtime/SourceFunctionAdmissionKind.cs"
+      ]
+    }
+  ],
+  "FullExecutionContext": "Outside sandbox",
+  "OriginalExecutedByFullPipeline": false,
+  "NativeExecutedByFullPipeline": false,
+  "ReadinessStillRequiredSeparately": true,
+  "FailedMain1PreservedNotRelabeled": true,
+  "GuardSourceSha256": "74FD969C60FC690C233DEBC249C4CBEBABCEF39DFA1E8584E32F5F249E2F2CC4"
+}

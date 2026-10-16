@@ -1,0 +1,11 @@
+# Root-only Main328 repair promotion and fresh full
+
+Source-only, unexecuted. Replaces failed Main1 only after exact2393-source/C125102-private-file capture/raw supported registry/empty index/exact15 existing Main1 source changes plus independently derived canonical registry dirty membership checks. No reset or blind overwrite. Final author freeze, closure, independent composition peer and actual corrected case ledger are mandatory CLI inputs; no guessed future hashes. Exact29/24/2393 final source must be independently reviewed.
+
+Run main328.py promote with --freeze <final-author-freeze> --freeze-sha256 <SHA> --closure-sha256 <SHA> --source-peer <peer> --source-peer-sha256 <SHA> --case-ledger <actual-ledger> --case-ledger-sha256 <SHA>. It saves failed raw registry/capture references and restores ONLY captured original Main1 registry after all preflight checks and final source installation. Old source/full/native/failed captures remain immutable.
+
+Root runs run328-main-full.ps1 -MainFreezeSha256 <actualMain2SHA> -ClosureSha256 <finalSHA> OUTSIDE sandbox, CPU2, fresh root-part328-main2 outputs. The child is joined and exit envelope emitted before after-source checks. Then main328.py full-guard with actual Main2 source freeze and same reviewed peer/ledger arguments.6729 ordered previous tests+eight actual ordinary+one HOST row derive6738; no added public MFA. Preserve30 old custom Limits then narrow process_flag/2 append;29 unrelatedcustom rows exact. Readiness CLI remains separate. No Main1 pass inference, no integration proof from stale files.
+
+This script only checks expected known dirty state, never cleans Git or unrelated user files. License/cache exclusions are not staged. Native proposal2 uses fresh post-full Main2/DLL inputs separately.
+
+Revision2 preserves proposal1 source-only expected16 refusal. The current raw supported JSON remains required byte-exact C125, but Git normalization may make it canonical-equal HEAD. git hash-object --path --stdin (without -w) derives its clean-filtered object without writing Git; only if it differs from HEAD is supported-mfas added to expected tracked dirty set. Fifteen Main1 existing source rows are still exact, cached index empty and no unexpected tracked change accepted.

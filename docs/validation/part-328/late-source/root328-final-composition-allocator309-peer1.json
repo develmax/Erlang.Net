@@ -1,0 +1,67 @@
+{
+  "Status": "PASS_FINAL328_COMPOSITION_AND_ACTUAL_GREEN_HISTORICAL_RED_PASSIVE_SOURCE_REVIEW",
+  "Passed": true,
+  "SourceFreezeSha256": "EBEA146AFBF7B07CD86BD18234C6BC4BD6929E14CCA8E89437A6E88F6A0954B7",
+  "FinalSourceFreezeSha256": "EBEA146AFBF7B07CD86BD18234C6BC4BD6929E14CCA8E89437A6E88F6A0954B7",
+  "FinalSourceClosureSha256": "A7859120DBD894D6AAD45FC17A133D83DC88FA3E2993B1C8ED07926CFB912424",
+  "SourceClosureSha256": "A7859120DBD894D6AAD45FC17A133D83DC88FA3E2993B1C8ED07926CFB912424",
+  "ParentHead": "4bc4c00b713c1cc0bbf32a1c74add45174bbd10a",
+  "SourcePaths": 29,
+  "CSharpPaths": 24,
+  "SourceClosurePaths": 2393,
+  "All2393FinalRowsRehashed": true,
+  "All24CompiledGreenCSharpRawExact": true,
+  "OutsideOwnedRowsExact": 2364,
+  "All29ParentBindingsExact": true,
+  "PublishedParentCanonicalRowsVerified": 72,
+  "Historical2387RowsAndTenHelpersExact": true,
+  "HistoricalHostSinglePublicUndefExitOneSettled": true,
+  "HistoricalOrdinaryUndefDiscriminatorExitZeroSettled": true,
+  "ActualGreenGuardSha256": "5970C134437272326D615A02CA431C2CF1DC2AFD362560DEE5C86B620B593E66",
+  "ActualRedGuardSha256": "D716307C74AE5008241DCFFD1EA327CC8C58BB24EA8DDFD78D339B4BF92E76C7",
+  "CaseLedgerSha256": "F5031780F31B872AB3041F0F27EEF174F351B2BB4AAE9C70CE2A8E8261C45ADC",
+  "ExpectedFullPassedDerivedFromEightCasesAndOneProgramRow": 6738,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1120,
+      "Sha256": "75276D7ADFF6312BC6A7511CC117BBFF7078CDF1088D08D612AA0E1974FBA441",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedSixAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+        "src/Erlang.Runtime/LocalFunctionPublication.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationChangedException.cs",
+        "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+        "src/Erlang.Runtime/SourceFunctionAdmissionKind.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1145,
+      "Sha256": "F80AF5E6CE9AB477F97FAAD32F6EF03197C0CEDD899749E643D671DA96D0F678",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedSixAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+        "src/Erlang.Runtime/LocalFunctionPublication.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+        "src/Erlang.Runtime/LocalFunctionPublicationChangedException.cs",
+        "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+        "src/Erlang.Runtime/SourceFunctionAdmissionKind.cs"
+      ]
+    }
+  ],
+  "NativeNonFilesImportAbiPoliciesExactParent": true,
+  "OnlySixApprovedRuntimeInputsAdded": true,
+  "BothBinaryResourcesUnchanged": true,
+  "RootComposerJoinedBeforeReview": true,
+  "ReviewerAuthoredPublicationHostHelpersExcludedFromIndependentSemanticSourceClaim": true,
+  "ReviewerSdkVmBuildNativeNetworkMainGitMutation": false,
+  "MainFullNativeOriginal328NotClaimed": true
+}

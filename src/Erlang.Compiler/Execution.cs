@@ -882,7 +882,7 @@ public static partial class Execution
                     var image = module is null ? null : ctx.ExecutingSourceImage(module) ?? ctx.Runtime.Modules.SourceImage(module.Name, module);
                     string[] names = capture.Keys.ToArray();
 
-                    FunctionTerm Create(IReadOnlyList<Term> environment)
+                    FunctionTerm Create(IReadOnlyList<Term> environment, LocalFunctionInvocation? invocation = null)
                     {
                         if (environment.Count != names.Length)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -901,13 +901,14 @@ public static partial class Execution
                                 (ProcessContext)context,
                                 image,
                                 args,
-                                result!
+                                invocation?.OriginalFunction ?? result!,
+                                invocation
                             )
                         );
 
                         return result;
                     }
-                    identity = ctx.Runtime.Functions.Register(
+                    identity = ctx.Runtime.Functions.RegisterSourceFactory(
                         identity,
                         f.Clauses[0].Patterns.Count,
                         names.Length,

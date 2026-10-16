@@ -1,0 +1,42 @@
+--- candidate1/src/Erlang.Runtime/ModuleRegistry.cs
++++ candidate2/src/Erlang.Runtime/ModuleRegistry.cs
+@@ -31,22 +31,29 @@
+     public ValueTask<SourceCodeLease> AcquireSourceCode(ProcessContext context, ModuleCodeImage image)
+         => AcquireSourceEntry(context, image, SourceCodeAdmissionKind.Continuation);
+ 
+-    public ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
++    public async ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
+         ProcessContext context,
+         string module,
+         BitString fingerprint,
+         object owner,
+         ModuleCodeImage? capturedImage,
+         FunctionTerm function
+-    ) => AdmitSourceFunction(
+-        context,
+-        module,
+-        fingerprint,
+-        owner,
+-        capturedImage,
+-        function,
+-        null
+-    );
++    )
++    {
++        var admission = await AdmitSourceFunction(
++            context,
++            module,
++            fingerprint,
++            owner,
++            capturedImage,
++            function,
++            null
++        );
++        if (admission.Kind == SourceFunctionAdmissionKind.MissingCurrentLocalFunction)
++            throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
++
++        return admission;
++    }
+ 
+     internal async ValueTask<SourceFunctionAdmission> AdmitSourceFunction(
+         ProcessContext context,
