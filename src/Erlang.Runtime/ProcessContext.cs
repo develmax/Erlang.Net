@@ -331,6 +331,14 @@ public sealed partial class ProcessContext : ITermExecutionContext
     public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class
         => ReceiveWithCancellation(select, timeout, Cancellation);
 
+    internal ValueTask<T?> ReceiveErlangAsync<T>(Func<Term, T?> select, Term timeout) where T : class
+        => ReceiveWithCancellation(
+            select,
+            null,
+            Cancellation,
+            timeout
+        );
+
     internal async ValueTask<T?> ReceiveForOperationAsync<T>(
         Func<Term, T?> select,
         CancellationToken operationCancellation
@@ -347,13 +355,16 @@ public sealed partial class ProcessContext : ITermExecutionContext
     private async ValueTask<T?> ReceiveWithCancellation<T>(
         Func<Term, T?> select,
         TimeSpan? timeout,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        Term? erlangTimeout = null
     ) where T : class
     {
         Runtime.ThrowIfHalted();
         try
         {
-            T? result = await Mailbox.ReceiveAsync(select, timeout, cancellation);
+            T? result = erlangTimeout is null
+                ? await Mailbox.ReceiveAsync(select, timeout, cancellation)
+                : await Mailbox.ReceiveErlangAsync(select, erlangTimeout, cancellation);
             Runtime.ThrowIfHalted();
 
             return result;

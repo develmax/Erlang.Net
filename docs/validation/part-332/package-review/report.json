@@ -1,0 +1,69 @@
+{
+  "Status": "PASS_SOURCE_ONLY_EXACT_PACKAGE_SUFFIX_WITH_PRESERVED_INITIAL_FAILURE",
+  "Passed": true,
+  "SuffixFreezeSha256": "53D30B2C2A7FBFB8E44A0079642852D3244CD48C6F53CED6864D8A79942DC2AB",
+  "SuffixScriptSha256": "5A8FAA2F5C65737BA3FD61B89CE2F3BB57B0874AC22AD8B1DA986E1F876A2994",
+  "PackagingResourceSupplementSha256": "4850F2A3DB3E99D488B0A05BB89A317FF073CBF16C9C6ABC8090741F1D3B485C",
+  "InitialFullExitSha256": "3F16856E253C146C3F8CC6C1068A1BCD5E13D67EB70753D6B65E61CD4DB37EA4",
+  "InitialValidationLogSha256": "749D4CE5779F198ADCE7EF01E9A71676D4925CC3927E2C6A8D4C1963AB7F9C65",
+  "InitialExitCode": 1,
+  "InitialFailure": "First pack NU5019 missing isolated README after tests6822/6822 passed.",
+  "InitialTestReportSha256": "5C4958FC5F0493CEAA93B70104CB8816E433F7EAB5ECD8F97EBC0BB2527A2CD1",
+  "TestPassed": 6822,
+  "TestFailed": 0,
+  "ExactPackageBlockAndIntegrationDictionaryTextMatchesValidate": true,
+  "InvokeDotNetHelperExact": true,
+  "ChangedRootBindingAndSuccessMessageOnlyOutsideExactBlock": true,
+  "RequireExecutionWithoutSkipPackage": true,
+  "SourceClosureRowsRehashed": 2431,
+  "SourceClosureSha256": "56908A656DEA730DE49C960EB82B4C5656A46E5B94B0E77E75F98BAA07A12F95",
+  "Resources": [
+    {
+      "Path": "README.md",
+      "Bytes": 8709,
+      "Sha256": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78",
+      "PublishedRawExact": true,
+      "PublishedCanonicalLfExact": true
+    },
+    {
+      "Path": "docs/ROSLYN-LICENSE.txt",
+      "Bytes": 1113,
+      "Sha256": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35",
+      "PublishedRawExact": true,
+      "PublishedCanonicalLfExact": true
+    },
+    {
+      "Path": "docs/DOTNET-LICENSE.txt",
+      "Bytes": 9513,
+      "Sha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7",
+      "PublishedRawExact": false,
+      "PublishedCanonicalLfExact": true
+    },
+    {
+      "Path": "docs/DOTNET-ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F",
+      "PublishedRawExact": false,
+      "PublishedCanonicalLfExact": true
+    },
+    {
+      "Path": "docs/OTP-LICENSE.txt",
+      "Bytes": 11904,
+      "Sha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F",
+      "PublishedRawExact": false,
+      "PublishedCanonicalLfExact": true
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Bytes": 233171,
+      "Sha256": "59352E3F3C1502BF074220B06A368F19A6D9FEEFF2B48601EA3952DCB430F631",
+      "PublishedRawExact": false,
+      "PublishedCanonicalLfExact": true
+    }
+  ],
+  "ResourceClaim": "All six exact current tracked Main raw copies; published331 canonicalLF equal. Four retain existing worktree line-ending differences from published raw.",
+  "SourceOrMainChangesByReviewer": false,
+  "SuffixExecutedByReviewer": false,
+  "UninterruptedFullZeroExitClaimed": false,
+  "NextGate": "Actual bounded suffix-exit0/Settled, all11 dictionary outcomes, unchanged first test/source hashes; composite guard preserving initialexit1."
+}

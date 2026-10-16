@@ -1,5 +1,7 @@
 # Erlang API and compatibility scope
 
+Part332 changes no erlang registrations (351 present). It repairs shared source receive timeout ordering needed by proc_lib synchronous startup. Bounded source/host tests pass; original332 comparison remains pending. All erlang exports being registered does not establish whole-module, scheduler, resource-layout or performance compatibility.
+
 Part331 adds six proc_lib MFAs; erlang remains351/351 and total registry becomes515. Main6775/11 passes. Bounded329 original recursion comparisons5941/fd8 and separate original2/SDK2 recursive-kill cleanup gates are closed; this does not establish whole erlang, all stack/interleaving or native physical-resource parity.
 
 Part330 is test tooling only: registered erlang remains351/351 and total registry509. Both new bounded recursive-kill/after SDK cases pass, while pinned original observations are pending. They complement329 host lease/unwind checks without equating CLR ownership objects with native OTP resources.

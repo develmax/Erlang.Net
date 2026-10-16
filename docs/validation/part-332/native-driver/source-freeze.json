@@ -1,0 +1,30 @@
+{
+  "Status": "SOURCE_ONLY_NATIVE332_REVISION3_STATIC_REFERENCE_PATH_SPELLING_FIXED",
+  "PredecessorFreezeSha256": "5FB7AF0A358B63363D8A5AF0D8F42631256311A60C19DF97997CC79C415485CB",
+  "Change": "Configuration-only two local Reference.Path spellings changed to posix to match binding(). Driver bytes, native commands, proof authority and output interpretation unchanged. Revision2 was never executed.",
+  "PathChanges": [
+    {
+      "Before": "artifacts\\native-payload-provider315-manual-reader1\\source-freeze.json",
+      "After": "artifacts/native-payload-provider315-manual-reader1/source-freeze.json"
+    },
+    {
+      "Before": "artifacts\\proc-lib332-full-source\\resume-package.ps1",
+      "After": "artifacts/proc-lib332-full-source/resume-package.ps1"
+    }
+  ],
+  "PassivePreflight": "Own local source/authority/pin prefix executed successfully; no process branch, .NET, native or output folder invoked.",
+  "PreflightClosureRows": 2431,
+  "PreflightPins": 65,
+  "Files": [
+    {
+      "Path": "native.py",
+      "Bytes": 12124,
+      "Sha256": "B6192D10A4C904E07D639E816C49E834BAF3375D73E10071ADC1BC5D051DA6AA"
+    },
+    {
+      "Path": "configuration.json",
+      "Bytes": 8393,
+      "Sha256": "CD24372514CF4CC75B45D6255DAF6CB74DDE28C5830446887A1B386C7A063B73"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+namespace Erlang.Differential;
+
+public static class ProcLibStartupCaseNames
+{
+    public const string Module = "proc_lib";
+    public const string Start = "start";
+    public const string StartLink = "start_link";
+    public const string InitFail = "init_fail";
+    public const string Ok = "ok";
+    public const string Ready = "ready";
+    public const string True = "true";
+    public const string False = "false";
+    public const string Error = "error";
+    public const string Payload = "payload";
+    public const string Timeout = "timeout";
+    public const string Caught = "caught";
+    public const string Prefix = "proc-lib-startup-";
+    public const string StartThree = Prefix + "start-three-arbitrary-atom";
+    public const string StartFour = Prefix + "start-four-infinity";
+    public const string LinkThree = Prefix + "start-link-three";
+    public const string LinkFour = Prefix + "start-link-four-live-link";
+    public const string FailTwo = Prefix + "init-fail-two-nack-and-throw";
+    public const string FailThree = Prefix + "init-fail-three-nack-and-exit";
+    public const string RejectError = Prefix + "reject-error-await-real-death";
+    public const string RejectExit = Prefix + "reject-exit-await-real-death";
+    public const string RejectThrow = Prefix + "reject-throw-await-real-death";
+    public const string ZeroTimeout = Prefix + "zero-timeout-monitor-cleanup";
+    public const string LinkTimeout = Prefix + "linked-timeout-unlinks-before-kill";
+    public const string FiniteTimeout = Prefix + "finite-timeout";
+    public const string Mailbox = Prefix + "unrelated-ack-down-and-mail-preserved";
+    public const string Registered = Prefix + "registered-parent-ack";
+    public const string AtomTimeout = Prefix + "invalid-atom-timeout-after-spawn";
+    public const string NegativeTimeout = Prefix + "negative-timeout-after-spawn";
+    public const string LargeTimeout = Prefix + "oversized-timeout-after-spawn";
+    public const string FloatTimeout = Prefix + "float-timeout-after-spawn";
+    public const string InvalidMfa = Prefix + "invalid-mfa-function-clause";
+    public const string ImproperArgs = Prefix + "improper-args-child-badarg";
+    public const string MissingMfa = Prefix + "missing-mfa-child-undef";
+    public const string NormalBeforeAck = Prefix + "normal-exit-before-ack";
+    public const string ErrorReturn = Prefix + "ack-error-tuple-with-live-child";
+    public const string FlushMonitor = Prefix + "ack-demonitors-live-child";
+    public const string FailStack = Prefix + "init-fail-explicit-stack";
+    public const string FailBadClass = Prefix + "init-fail-bad-raise-class";
+    public const string FailMalformed = Prefix + "init-fail-malformed-exception";
+    public const string FailMissingParent = Prefix + "init-fail-missing-parent-before-nack";
+    public const string LinkedReject = Prefix + "linked-rejection-no-stale-exit-down";
+    public const string MaximumTimeout = Prefix + "maximum-unsigned32-timeout";
+    public const string TimeoutMailbox = Prefix + "timeout-preserves-unrelated-exit";
+    public const string MissingContract = "Missing synchronous proc_lib contract";
+    public const string Mismatch = "Synchronous proc_lib contract mismatch";
+}

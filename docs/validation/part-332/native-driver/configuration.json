@@ -1,0 +1,220 @@
+{
+  "Candidate": "artifacts/proc-lib332-candidate",
+  "Proof": "artifacts/proc-lib332-full-source",
+  "Tool": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+  "SourceFreezeSha256": "8CA193FB17ED3418F6FD79127FE3CBB64AAFCC423AE32EB564A1B8E82D417E71",
+  "SourceClosureSha256": "56908A656DEA730DE49C960EB82B4C5656A46E5B94B0E77E75F98BAA07A12F95",
+  "CompositionPeer": {
+    "Path": "artifacts/proc-lib332-full-source-independent/report.json",
+    "Sha256": "F15BBC387E485564FFEED8CAE6F0B37E2472510E7868C0505E6B3778B05FE2A6"
+  },
+  "OwnedPaths": 25,
+  "OwnedCSharpFiles": 21,
+  "ClosureRows": 2431,
+  "ExpectedFull": {
+    "Status": "PASS_ACTUAL_ISOLATED332_COMPOSITE_VALIDATION",
+    "Passed": 6822,
+    "Failed": 0,
+    "PreviousOrderedNames": 6775,
+    "PreviousOrderedNamesUnchanged": true,
+    "Registry": 521,
+    "PreviousRegistry": 515,
+    "All515PreviousRegistryRowsRestoredExact": true,
+    "ErlangMfas": 351,
+    "ProcLibMfas": 12,
+    "OriginalExecuted": false,
+    "IntegrationResults": {
+      "Readiness": "Passed",
+      "PackagedReadiness": "Passed",
+      "Build": "Passed",
+      "Tests": "Passed",
+      "OracleUnavailableReport": "Expected failure recorded",
+      "HybridOutput": "Hello World",
+      "Incremental": "Passed",
+      "DisabledPreprocessing": "Expected failure",
+      "CleanRebuild": "Passed",
+      "PackageConsumer": "Passed",
+      "LocalTool": "Passed"
+    },
+    "InitialPipelineCompleted": false,
+    "PackagingResumed": true,
+    "CompletedTestsRerun": false
+  },
+  "TimeoutSeconds": 120,
+  "Roles": [
+    {
+      "Name": "legacy",
+      "Arguments": [
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        }
+      ]
+    },
+    {
+      "Name": "provider-query",
+      "Arguments": [
+        {
+          "Literal": "--native-payload-provider-query"
+        },
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        }
+      ]
+    },
+    {
+      "Name": "reallocation",
+      "Arguments": [
+        {
+          "Literal": "--reallocation-probe"
+        },
+        {
+          "Path": "artifacts/root-part313-native-windows-build1/reallocation_fixture.dll"
+        },
+        {
+          "Literal": "EAFD8CECED541CCFC0C02CE04EC19428448BD64630F343D28C360E19DE848E21"
+        },
+        {
+          "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll"
+        },
+        {
+          "Literal": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+        },
+        {
+          "Path": "artifacts/root-part313-native-windows-layout1/layout.json"
+        },
+        {
+          "Literal": "35231D9DA206E7A3E3BB07F9CA59BA67FE91AE3AF34B64C920D0FE841CE30D45"
+        }
+      ]
+    }
+  ],
+  "References": [
+    {
+      "Path": "artifacts/spawn-protocol-nif-290-38688662194-terminal/artifact-11951535100/nif-fixture-build/fixture.dll",
+      "Bytes": 9728,
+      "Sha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-build1/reallocation_fixture.dll",
+      "Bytes": 10240,
+      "Sha256": "EAFD8CECED541CCFC0C02CE04EC19428448BD64630F343D28C360E19DE848E21"
+    },
+    {
+      "Path": "artifacts/root-part313-native-windows-layout1/layout.json",
+      "Bytes": 143,
+      "Sha256": "35231D9DA206E7A3E3BB07F9CA59BA67FE91AE3AF34B64C920D0FE841CE30D45"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+      "Bytes": 8076,
+      "Sha256": "A8205F7577A9FB991EB8FDFF860571B375E5B57A944BF70F4AFBEC5B4A837FAA"
+    },
+    {
+      "Path": "artifacts/native-payload-provider315-manual-reader1/source-freeze.json",
+      "Bytes": 2019,
+      "Sha256": "5920861E12EC8964EB3CB0F8BF3C02A902130C0E0A289772C2D01D92E3EB103D"
+    },
+    {
+      "Path": "artifacts/root-part315-isolated-windows1/manual-typed-review.json",
+      "Bytes": 7204,
+      "Sha256": "EA16210AA0B2F38F69803AAD5E59AE3686E0972635A0C7FA81704A64D5B643FC"
+    },
+    {
+      "Path": "artifacts/root-part317-main-windows-native1/legacy.stdout",
+      "Bytes": 1839,
+      "Sha256": "605319B46478B00DFC8434CD384FDFA7031A19B614EFA50ADA3D55758D600F78"
+    },
+    {
+      "Path": "artifacts/root-part317-main-windows-native1/reallocation.stdout",
+      "Bytes": 2875,
+      "Sha256": "31E98784E2550952C18B66B4A04BF0B77C85D17B9FD36D770FCDEBFFB94531DB"
+    },
+    {
+      "Path": "artifacts/proc-lib332-package-suffix-independent/report.json",
+      "Bytes": 3132,
+      "Sha256": "8C6F1DA76E5D7E4A43F256E0550100C9EA5262CF981AB08ABBEB823B4339AA79"
+    },
+    {
+      "Path": "artifacts/proc-lib332-package-suffix-independent/composite-review.json",
+      "Bytes": 2315,
+      "Sha256": "780DCC59EED329ACE040685B5FF78998ED3FE3BAB1E9234ADA1465E90BE4B0EF"
+    },
+    {
+      "Path": "artifacts/proc-lib332-full-source/resume-package.ps1",
+      "Bytes": 4263,
+      "Sha256": "5A8FAA2F5C65737BA3FD61B89CE2F3BB57B0874AC22AD8B1DA986E1F876A2994"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/README.md",
+      "Bytes": 8709,
+      "Sha256": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/docs/ROSLYN-LICENSE.txt",
+      "Bytes": 1113,
+      "Sha256": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/docs/DOTNET-LICENSE.txt",
+      "Bytes": 9513,
+      "Sha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/docs/DOTNET-ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/docs/OTP-LICENSE.txt",
+      "Bytes": 11904,
+      "Sha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F"
+    },
+    {
+      "Path": "artifacts/proc-lib332-candidate/docs/OTP-PORTS.md",
+      "Bytes": 233171,
+      "Sha256": "59352E3F3C1502BF074220B06A368F19A6D9FEEFF2B48601EA3952DCB430F631"
+    }
+  ],
+  "PassiveReader": "artifacts/native-payload-provider315-manual-reader1/read_manual_capture.py",
+  "LegacyReader": "tools/Erlang.NifPendingVarargsObservations/reviewed_sdk_stdout.py",
+  "FixtureSource": "tools/Erlang.NifFixtureHost/native/fixture.c",
+  "FixtureSha256": "235D9E8997B7760E120ECD5CFACA29F01D0936A8FD89EF8B23DDF7D0DB43883F",
+  "TypedBaseline": "artifacts/root-part315-isolated-windows1/manual-typed-review.json",
+  "RawBaseline": "artifacts/root-part317-main-windows-native1",
+  "CompositeGuardSha256": "FBB9A95750DD49DA34C8FF76B4CE10D2D1EC640C98A32555D9D4667BFDC899E7",
+  "InitialTestReportSha256": "5C4958FC5F0493CEAA93B70104CB8816E433F7EAB5ECD8F97EBC0BB2527A2CD1",
+  "SupplementalResources": 6,
+  "CompositeProofs": [
+    {
+      "Field": "PackageSuffixExitSha256",
+      "File": "package-suffix-exit.json",
+      "Sha256": "35EF011FCF8376B5C95F6CF55A348F1C0555BBE820B2F992983B731F91D6EE77"
+    },
+    {
+      "Field": "PackageSuffixSourceFreezeSha256",
+      "File": "package-suffix-source-freeze.json",
+      "Sha256": "53D30B2C2A7FBFB8E44A0079642852D3244CD48C6F53CED6864D8A79942DC2AB"
+    },
+    {
+      "Field": "PackageResourceSupplementSha256",
+      "File": "packaging-resource-supplement.json",
+      "Sha256": "4850F2A3DB3E99D488B0A05BB89A317FF073CBF16C9C6ABC8090741F1D3B485C"
+    },
+    {
+      "Field": "InitialPipelineLogSha256",
+      "File": "full-validation.log",
+      "Sha256": "749D4CE5779F198ADCE7EF01E9A71676D4925CC3927E2C6A8D4C1963AB7F9C65"
+    },
+    {
+      "Field": "PackageSuffixLogSha256",
+      "File": "package-suffix-validation.log",
+      "Sha256": "74526AD27509F187535785E09195CC8A0D79EC40339A6915DDB89DFB0DBADB37"
+    }
+  ]
+}

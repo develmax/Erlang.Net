@@ -864,28 +864,22 @@ public static partial class Execution
                 ) ?? throw new ErlangException(ErlangErrorReasons.IfClause));
             case Expr.Receive x:
                 {
-                    TimeSpan? timeout = null;
-                    if (x.Timeout is not null)
-                    {
-                        var time = await Evaluate(
-                            x.Timeout,
-                            ctx,
-                            b,
-                            module
-                        );
-                        timeout = time switch
-                        {
-                            Atom { Name: ReceiveTimeoutAtoms.Infinity } => null,
-                            Integer i when i.Value >= 0 && i.Value <= uint.MaxValue => TimeSpan.FromMilliseconds((double)i.Value),
-                            _ => throw new ErlangException(ErlangErrorReasons.TimeoutValue)
-                        };
-                    }
-                    var selection = await ctx.ReceiveAsync(message => Select(
+                    Term? timeout = x.Timeout is null ? null : await Evaluate(
+                        x.Timeout,
+                        ctx,
+                        b,
+                        module
+                    );
+
+                    Selection? SelectMessage(Term message) => Select(
                         x.Clauses,
                         [message],
                         b,
                         ctx
-                    ), timeout);
+                    );
+                    var selection = timeout is null
+                        ? await ctx.ReceiveAsync(SelectMessage)
+                        : await ctx.ReceiveErlangAsync(SelectMessage, timeout);
                     if (selection is not null)
                         return await Branch(selection);
 

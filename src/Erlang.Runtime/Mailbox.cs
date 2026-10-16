@@ -432,11 +432,40 @@ public sealed partial class Mailbox
         }
     }
 
-    private async ValueTask<T?> ReceiveCore<T>(Func<Term, T?> select, TimeSpan? timeout, CancellationToken cancellation) where T : class
+    internal async ValueTask<T?> ReceiveErlangAsync<T>(
+        Func<Term, T?> select,
+        Term timeout,
+        CancellationToken cancellation = default
+    ) where T : class
+    {
+        try
+        {
+            TimeSpan? initialTimeout = timeout is Integer integer && integer.Value.IsZero ? TimeSpan.Zero : null;
+
+            return await ReceiveCore(
+                select,
+                initialTimeout,
+                cancellation,
+                () => ReceiveTimeoutValue.Parse(timeout)
+            );
+        }
+        finally
+        {
+            WaitingStateChanged?.Invoke(false);
+        }
+    }
+
+    private async ValueTask<T?> ReceiveCore<T>(
+        Func<Term, T?> select,
+        TimeSpan? timeout,
+        CancellationToken cancellation,
+        Func<TimeSpan?>? resolveTimeout = null
+    ) where T : class
     {
         if (timeout < TimeSpan.Zero)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         long start = Stopwatch.GetTimestamp();
+        bool timeoutResolved = resolveTimeout is null;
         bool firstBatch = true;
         bool previousConflict = false;
         LinkedListNode<Entry>? resumeAfter = null;
@@ -560,6 +589,12 @@ public sealed partial class Mailbox
             }
             if (retry || ExecutionBlocked?.Invoke() == true)
                 continue;
+            if (!timeoutResolved)
+            {
+                timeout = resolveTimeout!();
+                timeoutResolved = true;
+                start = Stopwatch.GetTimestamp();
+            }
             TimeSpan? remaining = timeout - Stopwatch.GetElapsedTime(start);
             if (remaining <= TimeSpan.Zero)
             {

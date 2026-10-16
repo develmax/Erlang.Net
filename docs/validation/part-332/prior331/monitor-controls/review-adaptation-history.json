@@ -1,0 +1,19 @@
+{
+  "Status": "REVIEW_PLUMBING_FAILURES_RETAINED_SEPARATELY_FROM_GREEN_RUNTIME_RUNS",
+  "Events": [
+    {
+      "Revision": "native reader 1",
+      "Failure": "Literal source-count replacement altered substring of actual artifact identifier 12048112006 into 12048112306",
+      "Correction": "Numeric-token bounded count replacement in reader 2; all source and API bindings then passed"
+    },
+    {
+      "Revision": "native and reallocation reader 2",
+      "Failure": "Reader output root still referenced revision 1; reallocation comparison output could not be created because that directory did not exist",
+      "Correction": "Fresh explicit revision 3 output directory, source freeze, and replay; both authoritative guards passed"
+    }
+  ],
+  "AuthoritativeNativeGuard": "artifacts/part331-native-new-independent3/guard.json",
+  "AuthoritativeReallocationGuard": "artifacts/part331-reallocation-new-independent3/guard.json",
+  "NoRuntimeOrProductionRegressionObserved": true,
+  "NoSdkVmNativeOrDownloadedCodeExecutedByReviewer": true
+}

@@ -1,5 +1,7 @@
 # Known semantic boundaries
 
+Part332: matching queued messages precede invalid timeout VALUE rejection; the timeout EXPRESSION still executes once before selection, including its side effects/errors. Startup uses actual ack/nack/DOWN and removes a link before timeout kill. Existing zero-timeout snapshot policy is retained without claiming exact VM concurrent-arrival scheduling. Crash logging, complete stack parity and gen/sys integration remain incomplete; original332 is pending.
+
 Part331 proc_lib preserves is_list Cons/Nil guards including improper lists: invalid nonlist inputs fail in the caller, while improper MFA arguments fail in the child. Only ancestry is inherited, arbitrary init_ack terms are accepted, and registered parent/native wrapper initial-call identities are retained. Crash logging, full stack shape, remote/start/options APIs and new proc_lib-specific original tracing remain incomplete. Original331 is pending; corrected330 guest cleanup original2/SDK2 matches exact329 within the recorded depth256/100ms scope.
 
 Part330 closes a test-catalog gap with separate named/anonymous recursive try-after external-kill observations. Both local SDK cases pass; source-built original comparison is pending. The100ms no-cleanup observation is bounded evidence, not a universal interleaving proof. Managed source-image leases and actual Unwound have no direct native object-equivalence claim.

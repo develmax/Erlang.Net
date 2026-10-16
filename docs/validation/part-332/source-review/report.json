@@ -1,0 +1,132 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_INTEGRATED332_PENDING_BUILD_AND_ORIGINAL_EXECUTION",
+  "Passed": true,
+  "SourceFreezeSha256": "94637DDB943A3B364C2AB302462E1B96541A3800020204A0E81168AD73106024",
+  "ParentSourceFreezeSha256": "559184A858FEDF503164F7D303B9E17DEFAD80292533EE4AB7D9B7C221EBCA5E",
+  "ParentClosureSha256": "9E6119DDB243964E57FB9AC2A35B550B03B4B4495DE54AD6505BE6CB5A76FF34",
+  "OwnedSourceRowsRehashed": 21,
+  "NewCSharpRows": 14,
+  "OutsideOwnedParentFilesRawExactRehashed": 2410,
+  "CurrentCandidateMatchesFrozen21Sources": true,
+  "SharedFiveSourceTokensMatchChosenRevision2": true,
+  "SharedProposalManifestSha256": "00D82808F4517FC505F1B0913A2BB4CD77AA483F1AB6731D3249F0D9F27B92B4",
+  "Reviewed": {
+    "MfaGuardBeforeSpawn": true,
+    "ImproperListEnumerationInChild": true,
+    "AckArbitraryReturnAndDemonitorFlush": true,
+    "NackUnlinkExitFlushThenRealDown": true,
+    "TimeoutUnlinkBeforeKillThenExitFlushAndDown": true,
+    "InitFailSendsNackBeforeExceptionDispatch": true,
+    "TimeoutExpressionEvaluatedOnceBeforeSelection": true,
+    "InvalidValueValidationDeferredUntilStableNoMatchWait": true,
+    "ExactIntegerZeroRecognizedWithoutThrowing": true,
+    "TypedTimeSpanRouteNoResolverUnchanged": true,
+    "ExistingMessageRemovalTraceReductionLoopReused": true,
+    "NoDummyReceive": true,
+    "QueuedAckNackDownHostControlsUseRealChildrenAndMonitors": true,
+    "NackWaitRequiredUntilRealChildRelease": true,
+    "UnrelatedMailboxRetainedAndMonitorsEmpty": true,
+    "OrdinaryCompiledReceiveCases": 8,
+    "InterpretedControls": 10,
+    "StartupCompiledCases": 31,
+    "DirectMfaContracts": 6,
+    "ParentTestEntriesPreservedByAdditiveDiff": true
+  },
+  "Scope": {
+    "SdkOrOriginalExecutionByThisReview": false,
+    "PinnedOriginalSourceInspectionOnly": true,
+    "ExactVmConcurrentArrivalSchedulingClaimed": false,
+    "ConcurrentArrivalPolicy": "Existing SDK zero-timeout snapshot fast path retained; exact native VM scheduling is not established.",
+    "ReviewerAuthoredSharedFiveFileProposal": true,
+    "IndependentApiFixtureFilesReviewed": 16,
+    "AdditionalParentReviewOfSharedFiveRequiredForIndependentAuthorship": true,
+    "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "BlockingSourceFindings": [],
+  "Files": [
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Sha256": "8F41F4CE0D5308C192AE159369ABF1F87E78A2AE74E290B9F1F478B0A623F9FE"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibStartup.cs",
+      "Sha256": "3AA520E5E091D2A39545800008212948D3B278C39147A1E347DA1C4EBD613953"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibStartupAtoms.cs",
+      "Sha256": "7CE9ACFFD21334E0EC5E435BD7451F2DC20E6491CF8CD7E0F4AA08541813D0D7"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibStartupNames.cs",
+      "Sha256": "86B3C7C63469AD9A5885C9DA99C560297C98FD6E7C5A47E28D00AE9B44905996"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Sha256": "91EEBB5B580C5DA24E8023EF3625A844F3BF6767CA3890F747CC7F005E4E2306"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibStartupCases.cs",
+      "Sha256": "95BB55EF340EAF749A1F3A962DD5C83930745AB6267268219B9F411AE0BE0BE4"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibStartupCaseNames.cs",
+      "Sha256": "E2FD6D97F0052E11DD1621F8ABF50E5259CE9DE66AD6020FE30F124A7F3738AB"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibStartupCaseSources.cs",
+      "Sha256": "872BCB0AD2D3ADC84E2CC2E3DCB7D0E40D236D61577181753CD3545EBB97DC84"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "BE0646B8DD1B82B52FBA96EB713E94AB07D589F69497A8AE4359C4552AAF5807"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibStartupMfaContracts.cs",
+      "Sha256": "581AF8B7D1BCBB24548C100C6125DB65040ED95C58E7CF8B6570A64DB4CCD049"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltSubprocessRegistrationCounts.cs",
+      "Sha256": "AAB7998D2BBBC44B261D896EA2C0A6B47729ED9E5CC21FE687297B9B32750337"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Sha256": "99F044036CAF918F297EEDDD7617E30E7D204CC499AA9CB367D19981FCE20F26"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReceiveTimeoutValue.cs",
+      "Sha256": "DD59CA2D7160E4C30B1B201B73F038807832CB7C073F8E99400EEFD109E068A6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReceiveTimeoutValueNames.cs",
+      "Sha256": "BD4840ABD686E5680847F220F85A8A6E1BA13CC37B9F8C680CDD44459F98BCB9"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "7F7260E686200587DCD884433047DADD99312A486CF1F97A47478CAC1D8718DA"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ReceiveWaitCases.cs",
+      "Sha256": "1B06D0576E562D58ECCAC9948696782B18017A916B0502B360F7D5DD91145268"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ReceiveWaitCaseNames.cs",
+      "Sha256": "1C1C2B7D155ACACB9B8F37C242655985E9FCFA83E13333E29E1858FE35DA01C8"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ReceiveWaitCaseSources.cs",
+      "Sha256": "237B0EF020DBA2EC1694648007FC020946ECE04B2181C9BDA81A67018FA2618D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibStartupWaitHostChecks.cs",
+      "Sha256": "0AA1422613BB335BD05FA206A2CDBC4F852405BA8AFCDE0671AE23B8F0279FB9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcLibStartupWaitHostNames.cs",
+      "Sha256": "1B37F9D3DA51D47A399F3E56445B418CD70F813A4290FFF40D7FCBB0EDB8B604"
+    }
+  ]
+}

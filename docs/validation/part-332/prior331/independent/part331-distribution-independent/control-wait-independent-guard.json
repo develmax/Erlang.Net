@@ -1,0 +1,52 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED331_ACTUAL_THREE_NODE_BUSY_QUERY_REMOTE_KILL_TWO_SCENARIOS",
+  "Head": "6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d",
+  "Run": 38905295916,
+  "Job": 116987227039,
+  "Artifact": 12048795650,
+  "Attempt": 1,
+  "SourcePlanSha256": "146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705",
+  "CollectorPublishedSourceSha256": "78CFB8DC6F6CCA9D88AC3A5AF97D75A278D8468EA00E776C56464B5C1A586C44",
+  "PinnedSourcesVerified": 14,
+  "CollectorFilesRehashed": 135,
+  "Cases": [
+    {
+      "Mode": "send",
+      "Nodes": {
+        "a": "cw323_send_a_e338cd48c5c3@127.0.0.1",
+        "b": "cw323_send_b_e338cd48c5c3@127.0.0.1",
+        "c": "cw323_send_c_e338cd48c5c3@127.0.0.1"
+      },
+      "MetadataRoles": 3,
+      "ImagesPerRole": 2,
+      "TargetBusyAndFullOwnerQuery": true,
+      "FreshRemoteCExitAndDownKilledBeforeOwnedCont": true,
+      "StoppedSeconds": 0.447948133,
+      "PrimaryAndAllWorkerCleanupVerified": true
+    },
+    {
+      "Mode": "link",
+      "Nodes": {
+        "a": "cw323_link_a_bd2b6a8e073f@127.0.0.1",
+        "b": "cw323_link_b_bd2b6a8e073f@127.0.0.1",
+        "c": "cw323_link_c_bd2b6a8e073f@127.0.0.1"
+      },
+      "MetadataRoles": 3,
+      "ImagesPerRole": 2,
+      "TargetBusyAndFullOwnerQuery": true,
+      "FreshRemoteCExitAndDownKilledBeforeOwnedCont": true,
+      "StoppedSeconds": 0.452031959,
+      "PrimaryAndAllWorkerCleanupVerified": true
+    }
+  ],
+  "RawZipSha256": "796756451433E80CA6D5FED3EDBEBC5805A93FCA4347D081985EA8D5105CCEC1",
+  "RawJobSha256": "0CD46EF41E22F72E9702F47B756B7C2D877599A5E07726948BD5BCBA9817710D",
+  "NativeActualVmCountPerScenario": 3,
+  "ActualCompiledImageCountPerVm": 2,
+  "OriginalTargetBusyIsNotSdkPreEnqueueCapacityPhase": true,
+  "NativeTicketTurnEquivalenceClaimed": false,
+  "NativeWireCaptured": false,
+  "SdkLivePeerOrWireEqualityClaimed": false,
+  "LinkRetention325ObservedByThisProbe": false,
+  "NoReviewerVmNativeSdkBuildNetworkMainGitMutation": true
+}

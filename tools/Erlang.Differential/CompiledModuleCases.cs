@@ -630,6 +630,8 @@ public static class CompiledModuleCases
         .. ProcessErrorHandlerCases.Modules,
         .. UndefinedLambdaCases.Modules,
         .. NonTailRecursionCases.Modules,
-        .. ProcLibCases.Modules
+        .. ProcLibCases.Modules,
+        .. ProcLibStartupCases.Modules,
+        .. ReceiveWaitCases.Modules
     ];
 }

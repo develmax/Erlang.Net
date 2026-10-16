@@ -1,0 +1,96 @@
+{
+  "Status": "ROOT_REVIEWED_PART331_POST_PUBLICATION_DISPATCH_AUTHORITY",
+  "Part": 331,
+  "RootExecutionApproved": true,
+  "PublishedHead": "6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d",
+  "RemoteHeadReportedVerifiedByRoot": "6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d",
+  "DispatcherSourceSha256": "4CE0F29B2B74A5C2B31E8D1015FEE9B617C0D058493F2D5AEE10D0B93C69D916",
+  "RootBinderSha256": "5B1C5EE2AFE61F75C1E960067B5C8BF49D5B59279BF8F2EE2A766DD348C36D5B",
+  "BindingManifestSha256": "ED46C7576F3F53CB9AB08CF6B7DF5B017F8DDB7E705B52E768802B7EEE91F8FB",
+  "ReviewedPlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1123,
+      "Sha256": "D5959E69FADBEC0FB6D48DF356965F2212050454EA1B3B35927CBF73BEA09A5E"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1148,
+      "Sha256": "E3221E2A0B12DA57598BF67B00285538AD964396EB0747F254F1FE2FAAB6C6A1"
+    }
+  ],
+  "PublishedCommitBlobsRehashed": 979,
+  "ActualChangedMetadataPaths": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "docs/COMPATIBILITY.md",
+    "docs/DEPENDENCY_PRIORITIES.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/MODULE_READINESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/PROC_LIB_COMPATIBILITY.md",
+    "docs/PROGRESS.md",
+    "docs/changelog/0051.md",
+    "docs/dependency-decisions.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/semantic-differences.md",
+    "docs/supported-mfas.json",
+    "docs/validation/part-331/.gitattributes"
+  ],
+  "ActualProofPaths": 944,
+  "RequiredBindings": [
+    {
+      "Role": "SourceFreeze",
+      "Path": "artifacts/root-part331-main/source-freeze.json",
+      "Sha256": "559184A858FEDF503164F7D303B9E17DEFAD80292533EE4AB7D9B7C221EBCA5E"
+    },
+    {
+      "Role": "FullGuard",
+      "Path": "artifacts/root-part331-main/full-guard.json",
+      "Sha256": "8914E21E6485FB04504DE9B654E818524FD3C44CD009EC730B1F98E6E2E6C05A"
+    },
+    {
+      "Role": "NativeGuard",
+      "Path": "artifacts/root-part331-main-windows-native1/guard.json",
+      "Sha256": "23E80C50CFCB217975D5B87F1D431F8B008C7503E336EADC43513D2C1F8DDC1D"
+    },
+    {
+      "Role": "IndependentActualPeer",
+      "Path": "artifacts/part331-cached-stage-independent/report.json",
+      "Sha256": "EF946CE5ADCAD0776625B9F334029350317A8F16D8436AE2E8418B996816B7E3"
+    },
+    {
+      "Role": "StageGuard",
+      "Path": "artifacts/root-part331-stage-index-guard.json",
+      "Sha256": "F9A7C4CCBA9543F73BDE7750CDD3E949F12DD912AEE89E0D6F225C7EF51429BA"
+    },
+    {
+      "Role": "IndependentStagePeer",
+      "Path": "artifacts/part331-cached-stage-independent/report.json",
+      "Sha256": "EF946CE5ADCAD0776625B9F334029350317A8F16D8436AE2E8418B996816B7E3"
+    },
+    {
+      "Role": "EvidenceReceipt",
+      "Path": "docs/validation/part-331/evidence-receipt.json",
+      "Sha256": "6F7C73C525F3F7E25ABD2090D31BFD5528500B99CA87DDE12975B0DC6368E465"
+    },
+    {
+      "Role": "Readiness",
+      "Path": "docs/module-readiness.json",
+      "Sha256": "F2B889A6DEB7B9BEA5C8A677873EC8E4BD80F2A413870BF2DC1965595FD17BFD"
+    },
+    {
+      "Role": "DispatcherSourcePeer",
+      "Path": "artifacts/part331-publication-source-independent/report.json",
+      "Sha256": "44EC1215F184935DC86BB3F545AFA1EF95A3365E387F77099085D35804C78236"
+    }
+  ],
+  "FreshFullPassed": true,
+  "IntegrationAndPackagesPassed": true,
+  "FreshPostFullWindowsLegacyPassed": true,
+  "FreshPostFullWindowsReallocationPassed": true,
+  "FreshPostFullWindowsProviderFivePhasesPassed": true,
+  "ActualStagedCanonicalSourcePlansPassed": true,
+  "DefaultGitWhitespaceCheckPassed": true
+}

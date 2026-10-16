@@ -1,0 +1,73 @@
+{
+  "Status": "PASS_SOURCE_ONLY_FULL332_PLAN_WORKFLOW_COMPOSITION_REVIEW",
+  "Passed": true,
+  "Role": "FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW",
+  "SourceFreezeSha256": "8CA193FB17ED3418F6FD79127FE3CBB64AAFCC423AE32EB564A1B8E82D417E71",
+  "SourceClosureSha256": "56908A656DEA730DE49C960EB82B4C5656A46E5B94B0E77E75F98BAA07A12F95",
+  "PublishedParent": "6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d",
+  "ReviewedSourcePeerSha256": "FE5BA16528597E3708450AAF4B5382CEF3DE33212475B0E60D6EBEE516AC20DF",
+  "FormattedFreezeSha256": "7130BBB95AF35D7C42AC96FB23EEC7B2C3F8F8B38C3985BF100571AFDDFAF152",
+  "OwnedPathsRehashed": 25,
+  "OwnedCSharpTokenStreamsPreserved": 21,
+  "ClosureRowsRehashed": 2431,
+  "CandidateAllMatchesFrozenBytes": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "ParentPublishedSha256": "D5959E69FADBEC0FB6D48DF356965F2212050454EA1B3B35927CBF73BEA09A5E",
+      "Sha256": "1DED3D93FDFD0FE001D017B9E340C0D0D9619C0FFEE1E5CFE255F5735DAFF182",
+      "InputsRehashed": 1128,
+      "AddedPaths": [
+        "src/Erlang.Otp.Behaviours/ProcLibStartup.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibStartupAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibStartupNames.cs",
+        "src/Erlang.Runtime/ReceiveTimeoutValue.cs",
+        "src/Erlang.Runtime/ReceiveTimeoutValueNames.cs"
+      ],
+      "ChangedOldRows": [
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Runtime/Mailbox.cs",
+        "src/Erlang.Runtime/ProcessContext.cs"
+      ],
+      "NonFilesExact": true,
+      "HashModesRetained": true,
+      "SortedUnique": true,
+      "OwnPlanExcluded": true,
+      "WorkflowPath": ".github/workflows/nif-pending-native.yml",
+      "WorkflowOnlyPinChangedRawLF": true,
+      "WorkflowSha256": "A55C0B84797ED9B508234079194A8748FFEEEE2C48F4E67492EB66B03650689A"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "ParentPublishedSha256": "E3221E2A0B12DA57598BF67B00285538AD964396EB0747F254F1FE2FAAB6C6A1",
+      "Sha256": "8E72D62549B86793F9819B6C1D432C38F91B36D204007BEC9BD27CFE1C1EC155",
+      "InputsRehashed": 1153,
+      "AddedPaths": [
+        "src/Erlang.Otp.Behaviours/ProcLibStartup.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibStartupAtoms.cs",
+        "src/Erlang.Otp.Behaviours/ProcLibStartupNames.cs",
+        "src/Erlang.Runtime/ReceiveTimeoutValue.cs",
+        "src/Erlang.Runtime/ReceiveTimeoutValueNames.cs"
+      ],
+      "ChangedOldRows": [
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Otp.Behaviours/ProcLib.cs",
+        "src/Erlang.Runtime/Mailbox.cs",
+        "src/Erlang.Runtime/ProcessContext.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "NonFilesExact": true,
+      "HashModesRetained": true,
+      "SortedUnique": true,
+      "OwnPlanExcluded": true,
+      "WorkflowPath": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowOnlyPinChangedRawLF": true,
+      "WorkflowSha256": "6ECD4EF3ACDF5EDCB5413B0C5FF935055508F8F7397D297B0111B287FD4F832E"
+    }
+  ],
+  "NoBuildSdkNativeOriginalNetworkOrMainMutation": true,
+  "ExecutionClaims": "Source-only composition review. Focused execution is reported separately by source agent; full/native/original execution remains separate.",
+  "ConcurrentArrivalScheduling": "Existing SDK zero snapshot policy retained; exact VM scheduling is not claimed."
+}

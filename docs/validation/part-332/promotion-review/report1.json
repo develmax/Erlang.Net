@@ -1,0 +1,18 @@
+{
+  "Status": "CHANGES_REQUESTED_SOURCE_ONLY_PROMOTION_DRIVER",
+  "DriverSha256": "E9C008F1A08AD1415D45792CED43D6A132B182D361482B0889374328F9C09EC7",
+  "MainMutationByReviewer": false,
+  "Findings": [
+    "full-guard.json is loaded but not validated before copy; require exact actual full status/counts/registry/integration dictionary and source bindings.",
+    "full-exit must require Settled true, not only exit0/no timeout.",
+    "tests must be6822 nonempty unique all-pass rows and hash-bound to actual full guard; current check also permits empty all-pass list.",
+    "Pin frozen candidate8CA193, closure56908 and parent closure9E6119 hashes before consuming their rows."
+  ],
+  "ExistingCorrectChecks": [
+    "OldMain2417 rawrows all rehashed before writes.",
+    "All25 frozen overlays rehashed before writes.",
+    "Prospective2431 composedrows checked before copying exactly25 paths.",
+    "All2431 final Mainrows checked after copying."
+  ],
+  "SdkBuildNativeOriginalExecutionByReviewer": false
+}

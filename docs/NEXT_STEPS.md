@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part332 next execution: publish the exact tested startup/receive slice, audit current-head CI and original332 observations, then implement proc_lib start_monitor and option-bearing startup before gen/sys system messages, state inspection and suspend/resume. Preserve arbitrary acknowledgement returns, real monitor ownership, failure ordering and selective mailbox contents. Follow DEPENDENCY_PRIORITIES.md; no whole-module or performance completion claim.
+
 Part331: publish the locally verified six-API proc_lib slice, run its21 new scenarios against pinned original OTP, and audit same-head CI/native/regression reports. Then implement start/3,4,start_link/3,4,init_fail/2,3 with real ack/nack/DOWN/timeout semantics before gen/sys integration. Part329 and corrected330 combined cleanup comparisons are completed; retain historical precondition failure and strict distribution representation refusal.
 
 Part330: dispatch the standalone recursive-cleanup workflow once with subject_ref=d83ed875d0c77939e20049afcb46fa297fee82dd, then audit actual two-case original/SDK outputs and preserve provenance. Finish remaining329 ordinary/native/reallocation typed audits. Next API implementation follows docs/DEPENDENCY_PRIORITIES.md: proc_lib local spawn/1,3,spawn_link/1,3,init_ack/1,2, followed by synchronous startup; isolated proc_lib candidate is not a registered Main implementation.

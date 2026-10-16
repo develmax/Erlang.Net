@@ -1,0 +1,56 @@
+{
+  "Status": "SOURCE_REVIEW_PASS_NOT_EXECUTION",
+  "Reviewer": "Root, separate from shared source author",
+  "SourceFreezeSha256": "94637DDB943A3B364C2AB302462E1B96541A3800020204A0E81168AD73106024",
+  "Findings": [],
+  "Checks": [
+    "Timeout expression evaluated once before mailbox selection",
+    "Timeout value conversion only at stable no-match wait boundary",
+    "Exact integer zero preserves existing SDK snapshot scheduling",
+    "Typed TimeSpan route and cancellation/halt flow retained",
+    "No synthetic receive, extra removal, or early timeout event",
+    "proc_lib order compared with pinned sync_start and init_fail"
+  ],
+  "LayoutDelta": "Execution.cs adds one blank line before local SelectMessage; exact replacement asserted",
+  "Limitations": [
+    "Source review only",
+    "No exact VM concurrent-arrival scheduling claim"
+  ],
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Bytes": 21057,
+      "Sha256": "99F044036CAF918F297EEDDD7617E30E7D204CC499AA9CB367D19981FCE20F26",
+      "ParentSha256": "A58F4A53DB0147B4DA15957264BC08F034FD4CC3C9C5EC21509443332E71CE09",
+      "CurrentSha256": "99F044036CAF918F297EEDDD7617E30E7D204CC499AA9CB367D19981FCE20F26"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 13238,
+      "Sha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D",
+      "ParentSha256": "2BF142203C7C9C1839F189A4EC751953E478746952B751D8DFDADB7B9EF7506E",
+      "CurrentSha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReceiveTimeoutValue.cs",
+      "Bytes": 419,
+      "Sha256": "DD59CA2D7160E4C30B1B201B73F038807832CB7C073F8E99400EEFD109E068A6",
+      "ParentSha256": null,
+      "CurrentSha256": "DD59CA2D7160E4C30B1B201B73F038807832CB7C073F8E99400EEFD109E068A6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReceiveTimeoutValueNames.cs",
+      "Bytes": 119,
+      "Sha256": "BD4840ABD686E5680847F220F85A8A6E1BA13CC37B9F8C680CDD44459F98BCB9",
+      "ParentSha256": null,
+      "CurrentSha256": "BD4840ABD686E5680847F220F85A8A6E1BA13CC37B9F8C680CDD44459F98BCB9"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 38214,
+      "Sha256": "7F7260E686200587DCD884433047DADD99312A486CF1F97A47478CAC1D8718DA",
+      "ParentSha256": "B22876C7A44F0364C2289339084CD90E95F5356A666781839EBDFA0B8126ECAB",
+      "CurrentSha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5"
+    }
+  ]
+}

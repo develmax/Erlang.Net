@@ -1,0 +1,106 @@
+{
+  "Status": "PASS_ALL_FIVE_ACTUAL_PUBLISHED331_TYPED_TERMINAL_SCOPES_WITH_DISTRIBUTION_STRICT_REPR_REFUSAL_RETAINED",
+  "Passed": true,
+  "Head": "6e4019aacb479ee407a91c92b6b7d1b1fcd9bf6d",
+  "TerminalStatusSnapshot": {
+    "Path": "artifacts/part331-remote-new-review/monitor/status-20261016T1337413140156Z.json",
+    "Bytes": 3731,
+    "Sha256": "F83E11429C0B4CF9516100908F2C71C8DC39FFF8FA1053F31176C8BB525A24BE"
+  },
+  "InitialMapping": {
+    "Path": "artifacts/part331-remote-new-review/monitor/mapped-runs.json",
+    "Bytes": 3716,
+    "Sha256": "7E98763BAAF4714AEE8DE39E99D9D1FEA4AC5CD9C1A8F98D17A927594F432616"
+  },
+  "Guards": [
+    {
+      "Role": "ci",
+      "Path": "artifacts/part331-remote-new-review/ci/independent-ci-guard.json",
+      "Bytes": 2699,
+      "Sha256": "135CB1AC77DEB1359ACCDBF5C88DAE7D754A1367B530DB5C4C541397701A3194"
+    },
+    {
+      "Role": "ordinary",
+      "Path": "artifacts/part331-remote-new-review/ordinary-semantic-independent-guard.json",
+      "Bytes": 1197,
+      "Sha256": "D8DF639FC1E889605EF0735136F296050CBF21E4F94A2FF25BD0F1EDA170D366"
+    },
+    {
+      "Role": "native",
+      "Path": "artifacts/part331-native-new-independent3/guard.json",
+      "Bytes": 9860,
+      "Sha256": "87A378DF10CFF71241F2BEED1354929D202C65C893B8BE5DA34F7E40068EACCD"
+    },
+    {
+      "Role": "reallocation",
+      "Path": "artifacts/part331-reallocation-new-independent3/guard.json",
+      "Bytes": 16863,
+      "Sha256": "B4CEA9FF82FCCB4E9529DD89EAB151DDB6F6CC2336CC8852CEBCBACF1F7E1C83"
+    },
+    {
+      "Role": "distribution",
+      "Path": "artifacts/part331-distribution-independent/summary.json",
+      "Bytes": 2516,
+      "Sha256": "BEE92902091BC475E4FE2D90A64D4199485FF767495C0F99364ABA2E1AFE4E3F"
+    }
+  ],
+  "CiPassed": 6775,
+  "CiFailed": 0,
+  "IntegrationResults": 11,
+  "PublishedStageBlobsRehashed": 979,
+  "OriginalOrdinaryPassed": 5962,
+  "OriginalOrdinaryFailed": 0,
+  "FdPassed": 8,
+  "AllPrevious5941OrderedContractsPreserved": true,
+  "NewOrdinaryOriginalAndManagedCases": 21,
+  "StrictOrdinaryGuard": {
+    "Path": "artifacts/part331-remote-new-review/ordinary-strict-independent-guard.json",
+    "Bytes": 1197,
+    "Sha256": "D8DF639FC1E889605EF0735136F296050CBF21E4F94A2FF25BD0F1EDA170D366"
+  },
+  "StrictOrdinaryRawEqualityPassed": true,
+  "OrdinaryMapStdoutVarianceRows": 0,
+  "SeparateBackendProfileGuards": [
+    {
+      "Path": "artifacts/part331-remote-new-review/allocator-profile-independent-guard.json",
+      "Bytes": 1312,
+      "Sha256": "0D19D29931C41E1E6613C978A6B7D0260015F8F0E98C600E6390A53F309BF0D4"
+    },
+    {
+      "Path": "artifacts/part331-remote-new-review/memory-profile-independent-guard.json",
+      "Bytes": 1653,
+      "Sha256": "C6B0E8C49E82A3079D4DF94CDE047D9496ACE8ADF516B814D234AC0F6D5B9E8F"
+    }
+  ],
+  "SeparateLibcDotnetBackendProfiles": true,
+  "EachMemorySnapshotNineKeyRelationsValidated": true,
+  "MemoryEqualityOrPhysicalWholeGcClaimed": false,
+  "NativeSdkOrderedLines": 8,
+  "NativeDomainRoles": 3,
+  "SeparateOriginal13": true,
+  "Original13SdkCompared": false,
+  "ReallocationActualOriginal3Sdk3Compared": true,
+  "ReallocationWholePinnedInstalledPrefixVerified": true,
+  "DistributionOriginalGroups": {
+    "group-leader": 4,
+    "guest-send": 7,
+    "guest-links": 7,
+    "guest-exit": 8,
+    "control-wait": 2,
+    "retention": 2
+  },
+  "DistributionStrictExitReprEqualityPassed": false,
+  "DistributionFreshStrictReprRefusalRetained": true,
+  "DistributionStrictRefusalSha256": "99161D99078078406765538267B1C5F85ABC62C0B5E6CF7314A4C4CCAC6045C0",
+  "DistributionRawNormalization": false,
+  "SdkLivePeerWirePhaseEqualityClaimed": false,
+  "All5TerminalCapturedAndPassivelyAudited": true,
+  "NoFurtherGetRequiredFor331": true,
+  "NoPostRetrySdkNativeVmOrDownloadedArtifactCodeExecutionByMonitor": true,
+  "NoMainOrGitMutation": true,
+  "ReviewAdaptationHistory": {
+    "Path": "artifacts/part331-remote-new-review/review-adaptation-history.json",
+    "Bytes": 1044,
+    "Sha256": "35BADC3477A1F731C661937D011367AF1BC67B4917C394E7612451E651074382"
+  }
+}
