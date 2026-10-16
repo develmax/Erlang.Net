@@ -1,0 +1,43 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "C1CA8C43AF4E08C2615BEE1117896F28966C992A327C8D88916E7403EF228E1A"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "ADEC8ED28BBD1AE06041AD01440C57CFC345533DC7402F20D070AD5D7506231D"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-focus2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "F36473F2AF15CA11300DF94236D94961BC0BC33E8F31755D03B098A85A5352C7"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestExitPublicRouteHostChecks:ExitTwoPublishes",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 440
+    },
+    {
+      "Name": "DistributionGuestExitPublicRouteHostChecks:ExitThreePublishes",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 2
+    },
+    {
+      "Name": "DistributionGuestExitHostChecks",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 1252
+    },
+    {
+      "Name": "DistributionGuestLinkPublicRouteHostChecks",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 0,
+      "Exception": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CMain\u003E$\u003Eb__3() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 21\r\n   at System.Threading.Tasks.Task\u00601.InnerInvoke()\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n--- End of stack trace from previous location ---\r\n   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task\u0026 currentTaskSlot, Thread threadPoolThread)\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 21"
+    }
+  ]
+}

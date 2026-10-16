@@ -1,0 +1,348 @@
+{
+  "Status": "SOURCE_ONLY_MAIN322_FINALIZATION_PENDING_ACTUAL_GATES_NOT_APPLIED",
+  "ReadyToFinalize": false,
+  "ActualFullGuardSha256": "3E86D05EE9B215615DAB3C09EF0E7C342CFDDEC1B6A29F1FC82031EE2CB80980",
+  "ActualNativeGuardSha256": "4F2979F12538B17DDBB835353E82CB0515606463A4856250D025EFCF1C0E5CAB",
+  "ActualMainSourceFreezeSha256": "5193716ADE7ACC40D42806BBAADFF28FE384804AFB6FC7B62BCA0E2023C83EA9",
+  "RequiredCallerSha256Arguments": [
+    "full-guard-sha256",
+    "native-guard-sha256",
+    "main-source-freeze-sha256"
+  ],
+  "RequiredFull": {
+    "Passed": 6681,
+    "Failed": 0,
+    "IntegrationResults": 11,
+    "Registry": 509,
+    "ErlangMfas": 351,
+    "Context": "Outside sandbox",
+    "SourceClosureSha256": "4D4469862CACFE37DF2B0AFBF4A91BFB3A99BC7B04285192296E459E3FBF1042"
+  },
+  "IsolatedCompiledSourceFreezeSha256": "4370C19D8D454424956D3EFEA314269624B976C557352554C1AFAFA2E332629C",
+  "SourcePaths": 25,
+  "CSharpPaths": 10,
+  "SourceClosurePaths": 2332,
+  "RequiredNative": {
+    "FullPassed": 6681,
+    "SourceFilesRehashed": 2332,
+    "OriginalExecuted": false,
+    "Roles": [
+      "legacy",
+      "provider-query",
+      "reallocation"
+    ]
+  },
+  "RequiredReadiness": {
+    "LocalPassedTests": 6681,
+    "RegisteredMfas": 509,
+    "PreviousRegisteredMfas": 509,
+    "RegisteredMfaDelta": 0,
+    "ComparisonTestReport": "validation/part-321/final-main/tests.json"
+  },
+  "ScopePhase": {
+    "ComparisonTestReportBefore": "validation/part-320/final-main/tests.json",
+    "ComparisonTestReportAfter": "validation/part-321/final-main/tests.json"
+  },
+  "RequiredPendingCopyRows": [
+    {
+      "SourcePath": "artifacts/root-part322-main1/full-guard.json",
+      "Destination": "docs/validation/part-322/final-main/full-guard.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/full-exit.json",
+      "Destination": "docs/validation/part-322/final-main/full-exit.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/full-validation.log",
+      "Destination": "docs/validation/part-322/final-main/full-validation.log",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/raw-supported-mfas.json",
+      "Destination": "docs/validation/part-322/final-main/raw-supported-mfas.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/readiness-exit.json",
+      "Destination": "docs/validation/part-322/final-main/readiness-exit.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/readiness-cli.log",
+      "Destination": "docs/validation/part-322/final-main/readiness-cli.log",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/tests.json",
+      "Destination": "docs/validation/part-322/final-main/tests.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/integration-results.json",
+      "Destination": "docs/validation/part-322/final-main/integration-results.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "docs/module-readiness.json",
+      "Destination": "docs/validation/part-322/module-readiness.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/legacy.attempt.json",
+      "Destination": "docs/validation/part-322/final-native/legacy.attempt.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/legacy.process.json",
+      "Destination": "docs/validation/part-322/final-native/legacy.process.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/legacy.stdout",
+      "Destination": "docs/validation/part-322/final-native/legacy.stdout",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/legacy.stderr",
+      "Destination": "docs/validation/part-322/final-native/legacy.stderr",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/provider-query.attempt.json",
+      "Destination": "docs/validation/part-322/final-native/provider-query.attempt.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/provider-query.process.json",
+      "Destination": "docs/validation/part-322/final-native/provider-query.process.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/provider-query.stdout",
+      "Destination": "docs/validation/part-322/final-native/provider-query.stdout",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/provider-query.stderr",
+      "Destination": "docs/validation/part-322/final-native/provider-query.stderr",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/reallocation.attempt.json",
+      "Destination": "docs/validation/part-322/final-native/reallocation.attempt.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/reallocation.process.json",
+      "Destination": "docs/validation/part-322/final-native/reallocation.process.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/reallocation.stdout",
+      "Destination": "docs/validation/part-322/final-native/reallocation.stdout",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/reallocation.stderr",
+      "Destination": "docs/validation/part-322/final-native/reallocation.stderr",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main-windows-native1/guard.json",
+      "Destination": "docs/validation/part-322/final-native/guard.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/source-freeze.json",
+      "Destination": "docs/validation/part-322/final-main/source-freeze.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    },
+    {
+      "SourcePath": "artifacts/root-part322-main1/source-resource-closure.json",
+      "Destination": "docs/validation/part-322/final-main/source-resource-closure.json",
+      "Required": true,
+      "Bytes": null,
+      "Sha256": null
+    }
+  ],
+  "MetadataFiles": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md"
+  ],
+  "ActiveVolume": "docs/changelog/0049.md",
+  "AppendToTrackedExistingVolumeOnly": true,
+  "EnglishDraftMustBeReplacedByRootAfterActualGates": true,
+  "RequiredProofTargets": [
+    "final-main/tests.json",
+    "final-main/full-guard.json",
+    "final-native/guard.json",
+    "module-readiness.json",
+    "evidence-receipt.json"
+  ],
+  "ExplicitStageFilesRequired": [
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "docs/NEXT_STEPS.md",
+    "docs/COMPATIBILITY.md",
+    "docs/ERLANG_COMPATIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/OTP-PORTS.md",
+    "CHANGELOG.md",
+    "docs/changelog/0049.md",
+    "docs/module-readiness-scope.json",
+    "docs/module-readiness.json",
+    "docs/supported-mfas.json",
+    "docs/MODULE_READINESS.md"
+  ],
+  "NoMainWritesOrFinalizerExecution": true,
+  "Closed0048MustRemainExact": "8C8769EF8A90A49AB431C7EFAA7A40150BFFAA4F4B31B45EA3496555DBC38BF7",
+  "Closed0048Bytes": 27051,
+  "Closed0047MustRemainExact": "E4DDE5A0BA2BB6F8CDF6807391307E3AB708D9B8917D1A368108D91A3B27FF74",
+  "NewActiveVolumeRequired": false,
+  "StaticRows": 199,
+  "FutureActualRows": 24,
+  "MetadataParentBindings": [
+    {
+      "Path": "AGENTS.md",
+      "Bytes": 244184,
+      "Sha256": "E4C195BB2AA845A77E3077BACAA1B1984F92F7670D906DD71B9AEC079107B3A9"
+    },
+    {
+      "Path": "docs/PROGRESS.md",
+      "Bytes": 340198,
+      "Sha256": "E11864135E685A2B24FAC0D86AFAB8E33B8321ECFA71D6164CCE93F6426AFAE8"
+    },
+    {
+      "Path": "docs/NEXT_STEPS.md",
+      "Bytes": 229064,
+      "Sha256": "19B4CDE785395C69C3FEFA99F51F6507DD18D6F86C7165F4C6A7A6862DFAF70B"
+    },
+    {
+      "Path": "docs/COMPATIBILITY.md",
+      "Bytes": 310694,
+      "Sha256": "C6FAFBDF337F480B3047FAEC673937AC28DF283DC8005A4B8C9D75BB8713FC58"
+    },
+    {
+      "Path": "docs/ERLANG_COMPATIBILITY.md",
+      "Bytes": 136370,
+      "Sha256": "A07596DDD3DEA3536BEBFA412211835E6FF1D4F351653D4408224F778E43423F"
+    },
+    {
+      "Path": "docs/DECISIONS.md",
+      "Bytes": 235245,
+      "Sha256": "141500F5C3B18E243F1B834179CF873063AF3C396891292B8D2297970067E5A4"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "Bytes": 220314,
+      "Sha256": "CCA09DBCB64981292FCBC8C45700BA4FAFFD8F73E17E308E2867AAEC57A77BF6"
+    },
+    {
+      "Path": "CHANGELOG.md",
+      "Bytes": 4124,
+      "Sha256": "1D794C412F3244F0E1EAA3799291F0ABACF9E5DFA122F577FDADB79838D37CFF"
+    },
+    {
+      "Path": "docs/changelog/0049.md",
+      "Bytes": 11637,
+      "Sha256": "37BDBA0F51C5696BD94406C80E78678E7CAD4C5D1F6343A025B0FD646639D270"
+    },
+    {
+      "Path": "docs/changelog/0048.md",
+      "Bytes": 27051,
+      "Sha256": "8C8769EF8A90A49AB431C7EFAA7A40150BFFAA4F4B31B45EA3496555DBC38BF7"
+    },
+    {
+      "Path": "docs/changelog/0047.md",
+      "Bytes": 28619,
+      "Sha256": "E4DDE5A0BA2BB6F8CDF6807391307E3AB708D9B8917D1A368108D91A3B27FF74"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "Bytes": 127964,
+      "Sha256": "7E8CC10AE5224F30A9059647950341AC00A08E8139D6C15534324DA1CF3B3170"
+    }
+  ],
+  "ChangelogLabelBefore": "\u2014 parts321 (active)",
+  "ChangelogLabelAfter": "\u2014 parts321\u2013322 (active)",
+  "ExistingRowReplacements": [
+    {
+      "Before": "| `exit/2` | Registered; bounded functional evidence, see supported-mfas.json |",
+      "After": "| `exit/2` | Partial: already-connected guest remote PID explicit EXIT2/ALTACT output, complete option validation and preserved token state; pending/autoconnect and blocked-wait control processing remain incomplete |"
+    },
+    {
+      "Before": "| `exit/3` | Registered; bounded functional evidence, see supported-mfas.json |",
+      "After": "| `exit/3` | Partial: already-connected guest remote PID explicit EXIT2/ALTACT output, complete option validation and preserved token state; pending/autoconnect and blocked-wait control processing remain incomplete |"
+    },
+    {
+      "Before": "| `exit_signal/2` | Registered; bounded functional evidence, see supported-mfas.json |",
+      "After": "| `exit_signal/2` | Partial: already-connected guest remote PID explicit EXIT2/ALTACT output, complete option validation and preserved token state; pending/autoconnect and blocked-wait control processing remain incomplete |"
+    },
+    {
+      "Before": "| `exit_signal/3` | Registered; bounded functional evidence, see supported-mfas.json |",
+      "After": "| `exit_signal/3` | Partial: already-connected guest remote PID explicit EXIT2/ALTACT output, complete option validation and preserved token state; pending/autoconnect and blocked-wait control processing remain incomplete |"
+    }
+  ],
+  "BlockedWaitSignalProcessingRemainsIncomplete": true,
+  "Current322RemotePending": true,
+  "Original322EightContractsExecuted": false,
+  "Previous321CiPassed": true,
+  "Previous321FourTerminalWorkflowsPassed": true,
+  "Previous321OrdinaryPending": true,
+  "Previous321LeanRows": 136,
+  "Previous321FourWorkflowSummarySha256": "D97DA4C053B772DE07753FB523A6BA4DDB3B1336182B49733BCBBB717778C818",
+  "Previous321LeanCopyManifestSha256": "4624826BFDD6AFECC5FABD6EC9BF6FA1EDCA5B361AD307C9E1EE31614ED44C02"
+}

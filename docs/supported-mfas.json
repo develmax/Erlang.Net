@@ -253,7 +253,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Blocked normal output waits still do not fully admit control signals or system queries (follow-up 323); idle HOST snapshots are a separate test observation."
   },
   {
     "Module": "erlang",
@@ -2909,7 +2909,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Blocked normal output waits still do not fully admit control signals or system queries (follow-up 323); idle HOST snapshots are a separate test observation."
   },
   {
     "Module": "erlang",
@@ -2917,7 +2917,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit_signal/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Blocked normal output waits still do not fully admit control signals or system queries (follow-up 323); idle HOST snapshots are a separate test observation."
   },
   {
     "Module": "erlang",
@@ -2925,7 +2925,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:exit_signal/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Blocked normal output waits still do not fully admit control signals or system queries (follow-up 323); idle HOST snapshots are a separate test observation."
   },
   {
     "Module": "erlang",

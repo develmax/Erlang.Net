@@ -1,0 +1,40 @@
+{
+  "Status": "SOURCE_ONLY_EXACT_ACTUAL_REPAIRED321_CORE_WITH_TWO_FORMATTED322_HOSTS_EXPECT_MISSING_PACKET_RED",
+  "ParentActual321FreezeSha256": "47C76299A42E01356C7BADD65E845ED93AF53AAE931F054EB581ECA1866A21F5",
+  "ParentActual321ClosureSha256": "DAFC935D62C41457400553BE6AD2608F47952E5BB265A2BB2577531C82091450",
+  "FormattedGreen322FreezeSha256": "4370C19D8D454424956D3EFEA314269624B976C557352554C1AFAFA2E332629C",
+  "SourcePaths": 2,
+  "CSharpPaths": 2,
+  "SourceClosurePaths": 2309,
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestExitHostNames.cs",
+      "Bytes": 2046,
+      "Sha256": "F15D9DF635EF0434B50E7390F5035270DEEF8EA5F17D8EAE128658D5021698AA",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestExitPublicRouteHostChecks.cs",
+      "Bytes": 2308,
+      "Sha256": "F7946D8CC985623D3479CBBC29B01E7F8D2BDC19ABEE9B8EAF266885526B1081",
+      "Added": true,
+      "ParentSha256": null
+    }
+  ],
+  "FinalSourceClosureSha256": "ECA8E10BA55B66FB93BC0E6FB67BCA9A952F08A19921FAFDD9D14060F063EDB5",
+  "All2307ParentRowsRawExact": true,
+  "ParentRuntimeAndProgramRawExact": true,
+  "No322ProductionOrLifecycleHostAdded": true,
+  "NoNewMemberReflectionOrUnregisteredMfaRequired": true,
+  "ExpectedPublicMethods": [
+    "ExitTwoPublishes",
+    "ExitThreePublishes"
+  ],
+  "ExpectedExceptionType": "System.InvalidOperationException",
+  "ExpectedExceptionMessage": "Connected public guest exit assertion failed",
+  "ExpectedMissingPacketAssertionLine": 26,
+  "ExpectedSuccessfulReturnBeforeMissingPacket": true,
+  "ExpectedRedIsNotTimeoutTypeLoadOrMissingMember": true,
+  "BuildOrRedExecuted": false
+}

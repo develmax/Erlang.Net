@@ -25,18 +25,18 @@ internal static class ProcessExitRegistrations
                     ErlangModuleNames.Module,
                     name,
                     arity,
-                    (context, arguments) =>
+                    async (context, arguments) =>
                 {
                     bool priority = arity == 3 && Priority(arguments[2], ProcessExitOptionNames.Priority);
-                    context.Runtime.SendExitSignal(
+                    await context.Runtime.SendGuestExitSignalAsync(
                         context,
                         arguments[0],
                         arguments[1],
                         name == ErlangModuleNames.Exit,
                         priority
-                    );
+                    ).ConfigureAwait(false);
 
-                    return ValueTask.FromResult<Term>(Term.A(ErlangBooleanAtoms.True));
+                    return Term.A(ErlangBooleanAtoms.True);
                 }
                 );
     }

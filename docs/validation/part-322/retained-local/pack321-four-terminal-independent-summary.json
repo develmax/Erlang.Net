@@ -1,0 +1,144 @@
+{
+  "Status": "ACTUAL_PUBLISHED321_FOUR_TERMINAL_WORKFLOWS_INDEPENDENTLY_PASS_ORDINARY_PENDING",
+  "Head": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+  "Workflows": [
+    {
+      "Kind": "ci",
+      "Run": 38836004972,
+      "Job": 116765170452,
+      "Artifact": 12019910455,
+      "Attempt": 1,
+      "Head": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "0985824C46B7CE649879AB605E722CEABEC81B0F543FB764E495511119A43F89",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "native",
+      "Run": 38836243570,
+      "Job": 116765932971,
+      "Artifact": 12018983113,
+      "Attempt": 1,
+      "Head": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "D673AA490126187E29FE297A1BF33372B4014834EB49A94FC12E491EB1AF39CD",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "reallocation",
+      "Run": 38836248516,
+      "Job": 116765948170,
+      "Artifact": 12019896450,
+      "Attempt": 1,
+      "Head": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "615759FD3FE74C000F5D24D4A48F8D48FC45227786A55E80C7DE9F8E87BF97C4",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "distribution",
+      "Run": 38836253990,
+      "Job": 116765966074,
+      "Artifact": 12019627139,
+      "Attempt": 1,
+      "Head": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "5972B062BEE5A7F5A09AC4FB5D09CD83EE0C56968319F7856375980FA5C45816",
+      "RawArchiveIncludedInLeanRows": false
+    }
+  ],
+  "IndependentGuards": [
+    {
+      "Path": "artifacts/pack321-ci-independent-guard.json",
+      "Sha256": "125A07834434ADF07ECB3AE576E726C3477B2BC7B4DD9E94A3E378B46559432C"
+    },
+    {
+      "Path": "artifacts/pack321-native-combined-independent-guard.json",
+      "Sha256": "569572E986EB3252A57E6C974D814DBD4F1768A0DE6D81FE7095FD945DCE7101"
+    },
+    {
+      "Path": "artifacts/pack321-native-38836243570-independent-envelope-and-sdk-guard.json",
+      "Sha256": "1CE861927EA8AE35D0560E7DD560356EFA3EAAF8255F7071D5DFC285C6F2DC84"
+    },
+    {
+      "Path": "artifacts/pack321-original13-independent-local-report.json",
+      "Sha256": "04DF9617D3213DB3BA9897D2E736DE3DDE98F7A7A33D60FD006611D3F7F5CEA0"
+    },
+    {
+      "Path": "artifacts/pack321-original13-independent-local-capture.json",
+      "Sha256": "81CE5BE52E19FA0A10B7ED77B747142D5E8B923BF81DC17AE82393BC88811302"
+    },
+    {
+      "Path": "artifacts/pack321-reallocation-independent-guard.json",
+      "Sha256": "B97103E696368B88EECB3E845B115E89827370CC58955FC66EAEAEBF9B0D986C"
+    },
+    {
+      "Path": "artifacts/pack321-reallocation-independent-published-comparison.json",
+      "Sha256": "F9582AA64DA62EDF1EBDAB1B334FF4FB0791152DFF35871896A78F14BB024C1E"
+    },
+    {
+      "Path": "artifacts/pack321-reallocation-independent-published-comparison-process.json",
+      "Sha256": "8E0F9487AE51E6C3D5236D526BF1E4EB495D7D142AB82B0A7593EE91A39FB124"
+    },
+    {
+      "Path": "artifacts/pack321-group-leader-independent-guard.json",
+      "Sha256": "5FC5D084C7AAD12DAD5FC2BD6370FC382B54F78B95F67E8480BBC2FB93FE78D3"
+    },
+    {
+      "Path": "artifacts/pack321-guest-send-independent-guard.json",
+      "Sha256": "06A2B324E513E8A5D5768480B44250C76E418409B6B321A64726A83063B4E963"
+    },
+    {
+      "Path": "artifacts/pack321-guest-links-independent-guard.json",
+      "Sha256": "A1EA53A7D602F54BBA273636CFCC5FD0FFBEC4CA78FD91BF498A4D829BAF334D"
+    }
+  ],
+  "Ci": {
+    "Passed": 6678,
+    "Integrations": 11,
+    "Mfas": 509,
+    "Erlang": 351,
+    "PublishedStageBlobs": 262
+  },
+  "Native": {
+    "SourcePlanInputs": 1103,
+    "SourcePlanSha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE",
+    "StrictLinuxLines": 8,
+    "DomainRoles": 3,
+    "Original13SeparateTypedPass": true,
+    "Original13SdkCompared": false
+  },
+  "Reallocation": {
+    "SourcePlanInputs": 1128,
+    "SourcePlanSha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8",
+    "InstalledPrefixFiles": 2646,
+    "NativeBuilds": 4,
+    "OriginalCases": 3,
+    "SdkCases": 3,
+    "PureComparisonPassed": true
+  },
+  "Distribution": {
+    "GroupLeaderOriginalContracts": 4,
+    "GuestSendOriginalContracts": 7,
+    "NewLinkOriginalContracts": 7,
+    "NewLinkRelationPhases": 9,
+    "ActualOriginalNodes": 2,
+    "ActualCompiledImageCount": 3,
+    "BothNodeMetadataFields": 10,
+    "MinimalBang322BeamSha256": "AAADAC2F0BE0422FC84C4B79F398DD6EDD5B0D35778D925A0A4BC2D0BF2FE7E5",
+    "MinimalBang322SdkPreparedOrInvoked": false
+  },
+  "Ordinary321": {
+    "Status": "PENDING_NOT_AUDITED",
+    "Passed": null,
+    "DifferentialResultClaimed": false
+  },
+  "Current322OriginalEightContractsExecuted": false,
+  "LeanRowsAreSelectedRawProofsNotSelfContainedRuntimeOrWholeApiArchives": true,
+  "RawArchivesRetainedExternallyByExactApiArtifactIdentityAndDigest": true,
+  "NoNewGetPostVmNativeSdkBuildMainGitMutation": true
+}

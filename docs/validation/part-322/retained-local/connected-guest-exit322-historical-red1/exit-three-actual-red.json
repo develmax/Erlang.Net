@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "6CEBFDDEAE72C5502782E1460BE401A520C79C60825B9B28B0624CD0ADFB7E58"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "898B6A625266CE4D730DE4E154E06BA749F00ED3BF660A267718F311752A2D7C"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestExitPublicRouteHostChecks:ExitThreePublishes",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 180,
+      "Exception": "System.InvalidOperationException: Connected public guest exit assertion failed\r\n   at Erlang.Tests.DistributionGuestExitPublicRouteHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestExitPublicRouteHostChecks.cs:line 63\r\n   at Erlang.Tests.DistributionGuestExitPublicRouteHostChecks.Run(Boolean options) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestExitPublicRouteHostChecks.cs:line 26\r\n   at Erlang.Tests.DistributionGuestExitPublicRouteHostChecks.Run(Boolean options) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-historical-red1\\candidate\\tests\\Erlang.Tests\\DistributionGuestExitPublicRouteHostChecks.cs:line 28\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

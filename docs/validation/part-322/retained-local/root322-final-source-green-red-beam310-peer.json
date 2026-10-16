@@ -1,0 +1,46 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL322_SOURCE_COMPOSITION_ACTUAL_GREEN13_HISTORICAL_RED2",
+  "SourceFreezeSha256": "2B0DF41D3561FEAB1E86B63EB6953410BBF4A5166F6EE21F429685B28ED93EA5",
+  "SourceClosureSha256": "4D4469862CACFE37DF2B0AFBF4A91BFB3A99BC7B04285192296E459E3FBF1042",
+  "ParentHead": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+  "ParentSourceClosureSha256": "FC9F58B6E32711ED8A1D7157D288F4CD1CBB04AC3B3EAD4556F46584A8DE220C",
+  "SourceRowsRehashed": 2332,
+  "OwnedPaths": 25,
+  "CSharpPaths": 10,
+  "AllTenActualCompiledSourcesRawExactAndTokenStreamsEqual": true,
+  "ActualGreenGroups": 13,
+  "HistoricalRedCases": 2,
+  "HistoricalRedRowsRehashed": 2309,
+  "SameTwoPublicHelpersExactGreenRed": true,
+  "ActualRedMissingOutputAssertionsNotTimeoutOrHarnessFailure": true,
+  "ActualGreenAndRedDllIdentitiesRehashed": true,
+  "CombinedGuardSha256": "BC48AAE0DBEA9C6565E9F5C47DA1A59604C6C0ECCBE00D8E634E717F0FED267A",
+  "Published321OutsideOwnedRowsRawExact": true,
+  "Published321RepairedLinkAndAllCollectorFilesPreserved": true,
+  "Source323Excluded": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1107,
+      "Sha256": "A2350C9F402106AC1D834CE56FBCB651F6FF6BA80AFC7904B821659189AE2D1B",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1132,
+      "Sha256": "80449E1C3996B459777A84FA62DE84226DCBB6EC36CACC0293CE713FE83A8CD7",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "AllNativeNonFilesPoliciesUnchanged": true,
+  "Original322AuthorFreezeSha256": "1F7CD50EAC19C3CD5AB066D36B67151F763573D38240BE5A7E8E100B3246B628",
+  "Original322PlanSha256": "F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B",
+  "Original322IndependentSourcePeerSha256": "DCE3705DC8FE8E28101C2FDA99186E495F6E2E5274CC27A0327B19930F5BC0BE",
+  "NoMainFullNativeOrOriginalExecutionClaimed": true,
+  "NoBlockingFindings": true,
+  "ReviewerExecutedSdkNativeVmBuildMainGitMutation": false
+}

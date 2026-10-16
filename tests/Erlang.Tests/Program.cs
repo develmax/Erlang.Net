@@ -68,6 +68,17 @@ Test(
 );
 
 Test(Erlang.Tests.DistributionGuestLinkHostNames.LifecycleTest, Erlang.Tests.DistributionGuestLinkHostChecks.Run);
+Test(
+    Erlang.Tests.DistributionGuestExitHostNames.PublicTwoTest,
+    Erlang.Tests.DistributionGuestExitPublicRouteHostChecks.ExitTwoPublishes
+);
+
+Test(
+    Erlang.Tests.DistributionGuestExitHostNames.PublicThreeTest,
+    Erlang.Tests.DistributionGuestExitPublicRouteHostChecks.ExitThreePublishes
+);
+
+Test(Erlang.Tests.DistributionGuestExitHostNames.LifecycleTest, Erlang.Tests.DistributionGuestExitHostChecks.Run);
 Test(Erlang.Tests.AsyncDistributionHostNames.Test, Erlang.Tests.AsyncDistributionHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);

@@ -267,19 +267,19 @@ public static class CoreModules
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Exit)
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.Exit,
             2,
-            (c, a) =>
+            async (c, a) =>
  {
-     c.Runtime.SendExitSignal(
+     await c.Runtime.SendGuestExitSignalAsync(
          c,
          a[0],
          a[1],
          true,
          false
-     );
+     ).ConfigureAwait(false);
 
      return Term.A(ErlangBooleanAtoms.True);
  }

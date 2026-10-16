@@ -1,0 +1,234 @@
+{
+  "Status": "ROOT_PROMOTED_PUBLIC_CONNECTED_EXIT322_PENDING_ACTUAL_FULL",
+  "ParentHead": "a1a7fe4b8ef81e3cefdd39bc9717ab6855376b4a",
+  "ParentSourceFreezeSha256": "2B1A7264ECF3A7C891C30B95555E18D5C07ED85F1CF8131882AD807BB4CC2DE3",
+  "ParentSourceClosureSha256": "FC9F58B6E32711ED8A1D7157D288F4CD1CBB04AC3B3EAD4556F46584A8DE220C",
+  "SourcePaths": 25,
+  "CSharpPaths": 10,
+  "SourceClosurePaths": 2332,
+  "CandidateDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net",
+  "FinalSourceClosureSha256": "4D4469862CACFE37DF2B0AFBF4A91BFB3A99BC7B04285192296E459E3FBF1042",
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 7617,
+      "Sha256": "B252806170C626E1D5A78FF2B79472AE38EFA68A8197E6205A59019572919F05",
+      "Added": false,
+      "ParentSha256": "AEB377FDF44E638F8430C299666577C10D09D14597B4543920A661700B3D49CB"
+    },
+    {
+      "Path": ".github/workflows/distribution-signal-observations.yml",
+      "Bytes": 8612,
+      "Sha256": "7DD7F7921D7AF9FEB52D51A61BCB4B67E35F764FD683A65D4B4E8A5B359BE2BC",
+      "Added": false,
+      "ParentSha256": "C8E5A2D08C81C45C87930169422FA253C805ED657AB44C64FAC550E9542DE6CA"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "63DFE711EB114EF78DF57D6DDC527C7C0C7CB210A36774A0765955F06938ECC3",
+      "Added": false,
+      "ParentSha256": "AB88A71AF64904F13AF7878B4BF9E69F4A9E4B01A2F40E5EC54C3122F26DC451"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5790,
+      "Sha256": "D2ECA778287EAC853B16CBA639C3F9DB41B35882B82E1984608609F709BE1F54",
+      "Added": false,
+      "ParentSha256": "E687E5B85EB997F70358E57B55FC6D5B84F3175A3439C87DF91FBCAB1D7E3F26"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 30087,
+      "Sha256": "DB601293748545604F393E6EAB911D6F07EF0C7840EC3C25BA6A1B36834F29CF",
+      "Added": false,
+      "ParentSha256": "7F3A12D130AA66FC90D4899348FF934B7E2E91EABB3C1F5E9D109A2C56A52880"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExitRegistrations.cs",
+      "Bytes": 2029,
+      "Sha256": "79EA44CB9E2EF7A9F379782DB2BE1456842E58D5A0B5F00118BE3CCE07D5FAA9",
+      "Added": false,
+      "ParentSha256": "5F1EDDD804870310FA4B990973245E5B217EE2C6764A140E7556AA243B88F664"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GuestExitSignals.cs",
+      "Bytes": 812,
+      "Sha256": "D2E199D3194D9E50FC55DE4A1551F2207F31AADECE721144E0C537E87DAFB09E",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.GuestExitSignals.cs",
+      "Bytes": 5142,
+      "Sha256": "9436BB94AF3815A05C32DCCBC59362F80C3C660520F8497CC0A5B667EA93303C",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionExplicitPidExitLayout.cs",
+      "Bytes": 360,
+      "Sha256": "25274D529F68334F15E4B755849432422D0025BDFC296EBE1ABA77D7F7F795AC",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Serialization/DistributionPassThroughCodec.ExplicitPidExit.cs",
+      "Bytes": 6291,
+      "Sha256": "17F1FCC8AC44CF0CE65D1C5E1746D3FBE2F90AB7B69AE4E8BD7A560621446FEA",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestExitHostChecks.cs",
+      "Bytes": 25460,
+      "Sha256": "4BA3A3768F5193623E7B577A2D835F1F3ACA7741F5A2847BEC202D254FF829C4",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestExitHostNames.cs",
+      "Bytes": 2046,
+      "Sha256": "F15D9DF635EF0434B50E7390F5035270DEEF8EA5F17D8EAE128658D5021698AA",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionGuestExitPublicRouteHostChecks.cs",
+      "Bytes": 2308,
+      "Sha256": "F7946D8CC985623D3479CBBC29B01E7F8D2BDC19ABEE9B8EAF266885526B1081",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 167817,
+      "Sha256": "B779EEA49877EDEEF30ED531298268D77D1EDB30BCD2E83C88832F985365497C",
+      "Added": false,
+      "ParentSha256": "DE37E048CDE445CEC43A2A5940D6461E4F9B995E4D1DBD5ABEE1AA5EC9684392"
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/README.md",
+      "Bytes": 1914,
+      "Sha256": "5D0219EA94519A24DF8BD3F965D7E6FA67FC093C767EF1B7347862DBB342E217",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/collect.py",
+      "Bytes": 16878,
+      "Sha256": "A2DA84794301236BC3205A003DF0A90DA565045BD698C568BE12E10EB6091EE7",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/guest_connected_bang322.erl",
+      "Bytes": 91,
+      "Sha256": "CEEB8FC07A31051DCB74F0BB6A592A2AF57FF602201BED00FEA73A1AC7692577",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/guest_connected_exit322.erl",
+      "Bytes": 6473,
+      "Sha256": "9F52B6976213D8C69FDAB86C3CF80446BDDD93FBC5CFC12158CBBC56F10D54AC",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/guest_connected_exit322_driver.erl",
+      "Bytes": 2647,
+      "Sha256": "743325A00B78869B679B9D945B8227D3372BD383BE213983C2D7FF47E2D940E1",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedExitObservations/source-plan.json",
+      "Bytes": 2755,
+      "Sha256": "F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 229301,
+      "Sha256": "A2350C9F402106AC1D834CE56FBCB651F6FF6BA80AFC7904B821659189AE2D1B",
+      "Added": false,
+      "ParentSha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 239345,
+      "Sha256": "80449E1C3996B459777A84FA62DE84226DCBB6EC36CACC0293CE713FE83A8CD7",
+      "Added": false,
+      "ParentSha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8"
+    }
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1107,
+      "Sha256": "A2350C9F402106AC1D834CE56FBCB651F6FF6BA80AFC7904B821659189AE2D1B",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1132,
+      "Sha256": "80449E1C3996B459777A84FA62DE84226DCBB6EC36CACC0293CE713FE83A8CD7",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "ActualCompiledGreenFreeze": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-guest-exit322-focus2\\formatted-source-freeze.json",
+    "Sha256": "4370C19D8D454424956D3EFEA314269624B976C557352554C1AFAFA2E332629C"
+  },
+  "ActualCompiledGreenClosureSha256": "0AAC713323A387F424034A35CE78665161F13BCA5DC2B5C9BF9009EA6412C566",
+  "ActualGreenGuardSha256": "BC48AAE0DBEA9C6565E9F5C47DA1A59604C6C0ECCBE00D8E634E717F0FED267A",
+  "ActualControlledRedGuardSha256": "BC48AAE0DBEA9C6565E9F5C47DA1A59604C6C0ECCBE00D8E634E717F0FED267A",
+  "CollectorAuthorFreezeSha256": "1F7CD50EAC19C3CD5AB066D36B67151F763573D38240BE5A7E8E100B3246B628",
+  "CollectorPlanSha256": "F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B",
+  "CollectorSourcePeerSha256": "DCE3705DC8FE8E28101C2FDA99186E495F6E2E5274CC27A0327B19930F5BC0BE",
+  "AllTenActualCompiledSourceFilesRawExact": true,
+  "AllNonOwnedPublishedParentRowsRawExact": true,
+  "All321CollectorAndFixedLinkHostBytesPreserved": true,
+  "Source323Excluded": true,
+  "OriginalExecutionClaimed": false,
+  "ComposerExecutedSdkVmNativeBuildOrMainGitMutation": false,
+  "ComposerSha256": "85EE2A18C6C1DDB44F062F41136B4798DFC362FD75BAD58B8AE01A063CFCCF5D",
+  "ExpectedFullPassed": 6681,
+  "AuthorFinalFreeze": {
+    "Path": "artifacts/root-part322-composed1/source-freeze.json",
+    "Sha256": "2B0DF41D3561FEAB1E86B63EB6953410BBF4A5166F6EE21F429685B28ED93EA5"
+  },
+  "IndependentPeer": {
+    "Path": "artifacts/root322-final-source-green-red-beam310-peer.json",
+    "Sha256": "C721D9D4A95F96C854CE5AC3453E1FF8FE36040AD4D82AE866BE6FD292F1F5DF"
+  },
+  "IndependentPeerRole": "FINAL_SOURCE_COMPOSITION_PASSIVE_REVIEW",
+  "RootPromotionScriptSha256": "B1E32EC1B0D186025CFF3E0D4F71A0B7054AA8CF5D495841F4BA562C0AC0A048"
+}
